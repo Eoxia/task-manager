@@ -1,0 +1,68 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: wpeotimeline-i18n\n"
+"POT-Creation-Date: 2016-02-05 11:53+0100\n"
+"PO-Revision-Date: 2016-02-05 11:54+0100\n"
+"Last-Translator: \n"
+"Language-Team: Eoxia\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8\n"
+"X-Poedit-Basepath: ..\\\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: controller/timeline.controller.01.php:28 template/backend/timeline.php:4
+msgid "Timeline"
+msgstr "Chronologie"
+
+#: template/backend/day-comment.php:6
+msgid "Add the comment #"
+msgstr "Ajout du commentaire #"
+
+#: template/backend/day-completed-point.php:6
+msgid "Completed the point #"
+msgstr "Point complété #"
+
+#: template/backend/day-created-point.php:5
+msgid "Create the point #"
+msgstr "Création du point #"
+
+#: template/backend/day-created-task.php:5
+msgid "Create the task #"
+msgstr "Création de la tâche #"
+
+#: template/backend/summary-month.php:17
+msgid "Worked time"
+msgstr "Temps travaillé"
+
+#: template/backend/summary-month.php:21
+msgid "Task(s) created"
+msgstr "Tâche(s) crée(s)"
+
+#: template/backend/summary-month.php:25
+msgid "Completed point(s)"
+msgstr "Point(s) complété(s)"
+
+#: template/backend/summary-month.php:29 template/backend/user-profile.php:7
+msgid "Working time"
+msgstr "Temps de présence"
+
+#: template/backend/summary-month.php:33
+msgid "Setup working time"
+msgstr "Configurer le temps de présence"
+
+#: template/backend/summary-month.php:38
+msgid "Point(s) created"
+msgstr "Point(s) crée(s)"
+
+#: template/backend/user-profile.php:3
+msgid "Task Management"
+msgstr "Gestion tâche"
+
+#: template/backend/user-profile.php:11
+msgid "Please enter your time per week in hour."
+msgstr "Veuillez entrer votre temps par semaine en heure."
