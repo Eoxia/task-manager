@@ -9,7 +9,7 @@ if( !class_exists( 'taskmanager_controller_01' ) ) {
 			add_action( 'wp_head', array( $this, 'callback_wp_head' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'callback_admin_enqueue_scripts' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'callback_enqueue_scripts' ) );
-				add_action( 'admin_print_scripts', array( $this, 'callback_admin_print_scripts' ) );
+			add_action( 'admin_print_scripts', array( $this, 'callback_admin_print_scripts' ) );
 	 		add_action( 'wp_print_scripts', array( $this, 'callback_admin_print_scripts' ) );
 
 			wpeo_util::install_in( 'module' );

@@ -2,6 +2,7 @@
 
 var list_tag_id = undefined;
 var list_user_id = undefined;
+var load_all_task = false;
 
 jQuery( document ).ready( function() {
 	wpeo_global.init();
@@ -40,6 +41,7 @@ var wpeo_global = {
 		jQuery( '.wpeo-point-textarea.active' ).removeClass( 'active' );
 
 		if ( jQuery( '.wpeo-button-all-task' ).hasClass( 'wpeo-button-active' ) ) {
+			jQuery( '.wpeo-project-task[data-owner-id="' + jQuery( '#wpeo_user_id' ).val() + '"]' ).hide();
 			jQuery( '.wpeo-project-task.archive' ).hide();
 		}
 
@@ -437,7 +439,24 @@ var wpeo_task = {
 	display_all_task: function( element ) {
 		jQuery( '.wpeo-button-active' ).removeClass( 'wpeo-button-active' );
 		jQuery( element ).addClass( 'wpeo-button-active' );
-		wpeo_global.filter();
+
+
+		var data = {
+			'action': 'load_all_task'
+		};
+
+		if( !load_all_task ) {
+			load_all_task = true;
+			jQuery( '.wpeo-project-wrap' ).bgLoad();
+			jQuery.eoajax( ajaxurl, data, function() {
+				jQuery( '.wpeo-project-wrap' ).append( this.template );
+				wpeo_global.filter();
+				jQuery( '.wpeo-project-wrap' ).bgLoad('stop');
+			});
+		}
+		else {
+			wpeo_global.filter();
+		}
 	},
 
 	display_my_task: function( element ) {

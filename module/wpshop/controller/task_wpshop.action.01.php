@@ -17,13 +17,13 @@ if( !class_exists( 'task_wpshop_action_01' ) ) {
 
       $query = 'SELECT U.ID as UID,P.ID,P.post_title FROM ' . $wpdb->posts . ' as P
         JOIN ' . $wpdb->users . ' as U ON P.post_author=U.ID
-          WHERE (P.post_title LIKE \'' . $search . '%\' OR
-          U.user_login LIKE \'' . $search . '%\' OR
-          U.user_email LIKE \'' . $search . '%\' OR
-          U.display_name LIKE \'' . $search . '%\' OR
-          U.user_url LIKE \'' . $search . '%\' )
+          WHERE (P.post_title LIKE \'%' . $search . '%\' OR
+          U.user_login LIKE \'%' . $search . '%\' OR
+          U.user_email LIKE \'%' . $search . '%\' OR
+          U.display_name LIKE \'%' . $search . '%\' OR
+          U.user_url LIKE \'%' . $search . '%\' )
           AND P.post_type = \'wpshop_customers\'
-          ORDER BY P.post_title ASC';
+          ORDER BY P.post_title ASC LIMIT 0,5';
 
       $return = array();
 
