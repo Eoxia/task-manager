@@ -46,9 +46,6 @@ class tag_controller_01 extends term_ctr_01 {
 		// add_filter( 'wpeo-project-dashboard', array( $this, 'display_filter' ), 1 );
 		add_filter( 'task_footer', array( $this, 'callback_task_footer' ), 5, 2 );
 		add_filter( 'task_window_footer_task_controller', array( $this, 'callback_task_footer' ), 11, 2 );
-
-		/** Give me my JS ! */
-		add_action( 'admin_enqueue_scripts', array( &$this, 'callback_admin_enqueue_scripts' ), 1 );
 	}
 
 	public function callback_admin_init( ) {
@@ -92,11 +89,6 @@ class tag_controller_01 extends term_ctr_01 {
 		}
 
 		$this->list_tag = $this->index( array( 'empty_hidden' => false ) );
-	}
-
-	public function callback_admin_enqueue_scripts() {
-		/** My js */
-		wp_enqueue_script( 'wpeo-tags-js', WPEOMTM_TAG_URL . '/asset/js/backend.js', array( "jquery", "jquery-ui-sortable" ), WPEOMTM_TAG_VERSION );
 	}
 
 	public function callback_dashboard_filter( $string ) {

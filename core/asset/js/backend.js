@@ -6,8 +6,8 @@ var load_all_task = false;
 
 jQuery( document ).ready( function() {
 	wpeo_global.init();
-	wpeo_task.init();
-	wpeo_point.init();
+	wpeo_task.event();
+	wpeo_point.event();
 	wpeo_wpshop.init();
 
 	/** Système pour gérer les loaders */

@@ -18,9 +18,6 @@ class user_controller_01 extends user_ctr_01 {
 		add_action( 'admin_init', array( &$this, 'callback_admin_init' ) );
 
 		// add_shortcode( 'wpeo_user', array( $this, 'callback_shortcode' ) );
-
-		add_action( 'admin_enqueue_scripts', array( &$this, 'callback_admin_enqueue_scripts' ), 1 );
-
 		add_filter( 'task_avatar', array( $this, 'callback_task_avatar' ), 10, 2 );
 
 		add_filter( 'task_manager_dashboard_filter', array( $this, 'callback_task_manager_dashboard_filter' ), 11, 2 );
@@ -55,10 +52,6 @@ class user_controller_01 extends user_ctr_01 {
 		require( wpeo_template_01::get_template_part( WPEO_USER_DIR, WPEO_USER_TEMPLATES_MAIN_DIR, 'backend', 'choosen' ) );
 		$string .= ob_get_clean();
 		return $string;
-	}
-
-	public function callback_admin_enqueue_scripts() {
-		wp_enqueue_script( 'wpeo-user-js', WPEO_USER_URL . '/asset/js/backend.js', array( "jquery" ), WPEO_USER_VERSION );
 	}
 
 	public function callback_task_footer( $string, $element ) {
