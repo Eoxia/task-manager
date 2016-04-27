@@ -43,7 +43,7 @@
 }
 .entry-content .list-task .wpeo-project-task .wpeo-task-point ul .wpeo-point-input textarea:disabled {
   opacity: 1!important;
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0);
 }
 .entry-content .list-task .wpeo-project-task .wpeo-task-point ul .wpeo-point-input textarea:hover {
   cursor: pointer;
@@ -85,7 +85,7 @@
 }
 .entry-content .list-task .wpeo-project-task .wpeo-project-task-container .wpeo-task-header .wpeo-task-title input:disabled {
   opacity: 1;
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0);
 }
 .entry-content .list-task .wpeo-project-task .wpeo-project-task-container .wpeo-task-header .wpeo-task-time {
   display: -webkit-box;
@@ -102,7 +102,7 @@
   color: black;
 }
 .entry-content .list-task .wpeo-project-task .wpeo-project-task-container .wpeo-task-header .wpeo-task-time input:disabled {
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0);
   opacity: 1;
 }
 .entry-content .wpeo-window-dashboard {
