@@ -96,10 +96,7 @@ class tag_controller_01 extends term_ctr_01 {
 
 	public function callback_admin_enqueue_scripts() {
 		/** My js */
-		wp_enqueue_script( 'wpeo-chosen-js', WPEOMTM_TAG_URL . '/asset/js/chosen.jquery.js', array( "jquery", "jquery-ui-sortable" ), WPEOMTM_TAG_VERSION );
 		wp_enqueue_script( 'wpeo-tags-js', WPEOMTM_TAG_URL . '/asset/js/backend.js', array( "jquery", "jquery-ui-sortable" ), WPEOMTM_TAG_VERSION );
-		wp_register_style( 'wpeo-chosen-css', WPEOMTM_TAG_URL . '/asset/css/chosen.min.css', '', WPEOMTM_TAG_VERSION );
-		wp_enqueue_style( 'wpeo-chosen-css' );
 	}
 
 	public function callback_dashboard_filter( $string ) {
