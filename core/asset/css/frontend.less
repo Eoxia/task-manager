@@ -2,6 +2,16 @@
 @main-color-light: #55b6ed;
 @second-color: rgba(0,0,0,0.6);
 
+@-moz-document url-prefix() {
+.entry-content {
+	.list-task {
+		.wpeo-project-task {
+			overflow: hidden!important;
+			}
+		}
+	}
+}
+
 .entry-content {
 	.list-task {
 		column-count: 2;
