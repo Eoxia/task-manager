@@ -1,7 +1,5 @@
 .entry-content .list-task {
-  -webkit-column-count: 2;
-     -moz-column-count: 2;
-          column-count: 2;
+  column-count: 2;
 }
 .entry-content .list-task .wpeo-project-task {
   background: #fff;
@@ -18,9 +16,6 @@
   box-shadow: none;
 }
 .entry-content .list-task .wpeo-project-task .wpeo-task-point ul {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
 }
 .entry-content .list-task .wpeo-project-task .wpeo-task-point ul .wpeo-point-input {
@@ -52,13 +47,8 @@
   padding: 10px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   background: rgba(0, 0, 0, 0.05);
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: wrap;
-      -ms-flex-wrap: wrap;
-          flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 .entry-content .list-task .wpeo-project-task .wpeo-project-task-container .wpeo-task-header .wpeo-task-id {
   width: 20%;
@@ -81,9 +71,6 @@
   opacity: 1;
 }
 .entry-content .list-task .wpeo-project-task .wpeo-project-task-container .wpeo-task-header .wpeo-task-time {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   line-height: 1;
 }
@@ -114,13 +101,8 @@
   width: 86%;
 }
 .entry-content .wpeo-window-dashboard .wpeo-task-account-window-content #wpeo-task-point-history ul {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: wrap;
-      -ms-flex-wrap: wrap;
-          flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 .entry-content .wpeo-window-dashboard .wpeo-task-account-window-content #wpeo-task-point-history ul li {
   list-style: none;
@@ -196,15 +178,8 @@
   margin-bottom: 20px;
 }
 .entry-content .wpeo-window-ask-task-container form {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  flex-direction: row;
 }
 .entry-content .wpeo-window-ask-task-container form > * {
   margin: 0 4px;
