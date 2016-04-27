@@ -58,7 +58,7 @@ class user_controller_01 extends user_ctr_01 {
 		/** On récupère le responsable de la tâche */
 		$owner_id = ( !empty( $element ) && !empty( $element->option) && !empty( $element->option['user_info'] ) && !empty( $element->option['user_info']['owner_id'] ) ) ? $element->option['user_info']['owner_id']: 0;
 		$owner_user = $this->get_user_by_id( $owner_id );
-		$size = 32;
+		$size = 50;
 
 		ob_start();
 		require( wpeo_template_01::get_template_part( WPEO_USER_DIR, WPEO_USER_TEMPLATES_MAIN_DIR, 'backend', 'display', 'user' ) );

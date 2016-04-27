@@ -431,7 +431,7 @@ class task_action_01 {
 	}
 
 	public function ajax_edit_task_owner_user() {
-		wpeo_check_01::check( 'wpeo_nonce_edit_task_owner_user_' . $_POST['owner_id'] );
+		// wpeo_check_01::check( 'wpeo_nonce_edit_task_owner_user_' . $_POST['owner_id'] );
 
 		global $task_controller;
 
