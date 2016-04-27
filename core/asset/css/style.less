@@ -516,63 +516,63 @@
 /* ----------------------------------
 		Footer affichage utilisateurs
 -----------------------------------*/
+.wpeo-ul-user {
+	display: flex;
+
+	&.wpeo-edit-select-user li {
+		background: #adadad;
+		color: #fff;
+		&.active {
+			background: @main-color;
+		}
+		&:not(.active) {
+			-webkit-filter: grayscale(100%);
+			-moz-filter: grayscale(100%);
+			-ms-filter: grayscale(100%);
+			-o-filter: grayscale(100%);
+			filter: grayscale(100%);
+		}
+	}
+}
+
+.user {
+	width: 50px;
+	height: 50px;
+	background: @main-color;
+	color: #fff;
+	position: relative;
+	transition: all 0.2s ease-out;
+
+	img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+	.wpeo-avatar-initial {
+		display: block;
+	}
+	span {
+		font-size: 16px;
+		text-align: center;
+		padding-top: 14px;
+		display: inline-block;
+		width: 100%;
+	}
+	&:hover {
+		cursor: pointer;
+	}
+}
 
 .wpeo-main-user {
 	background: #404a53;
 	display: flex;
 	justify-content: flex-end;
 	height: 50px;
-
-	.wpeo-ul-user {
-		display: flex;
-
-		&.wpeo-edit-select-user li {
-			background: #adadad;
-			color: #fff;
-			&.active {
-				background: @main-color;
-			}
-			&:not(.active) {
-				-webkit-filter: grayscale(100%);
-				-moz-filter: grayscale(100%);
-				-ms-filter: grayscale(100%);
-				-o-filter: grayscale(100%);
-				filter: grayscale(100%);
-			}
-		}
-	}
 	.wpeo-user-owner {
 		li {
 			float: left;
-		}
-	}
-	li li {
-		width: 50px;
-		height: 50px;
-		background: @main-color;
-		color: #fff;
-		position: relative;
-		transition: all 0.2s ease-out;
-
-		img {
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-		}
-		.wpeo-avatar-initial {
-			display: block;
-		}
-		span {
-			font-size: 16px;
-			text-align: center;
-			padding-top: 14px;
-			display: inline-block;
-			width: 100%;
-		}
-		&:hover {
-			cursor: pointer;
 		}
 	}
 	li:first-child {

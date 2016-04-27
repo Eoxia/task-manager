@@ -1117,6 +1117,54 @@
 /* ----------------------------------
 		Footer affichage utilisateurs
 -----------------------------------*/
+.wpeo-ul-user {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.wpeo-ul-user.wpeo-edit-select-user li {
+  background: #adadad;
+  color: #fff;
+}
+.wpeo-ul-user.wpeo-edit-select-user li.active {
+  background: #389af6;
+}
+.wpeo-ul-user.wpeo-edit-select-user li:not(.active) {
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+.user {
+  width: 50px;
+  height: 50px;
+  background: #389af6;
+  color: #fff;
+  position: relative;
+  -webkit-transition: all 0.2s ease-out;
+          transition: all 0.2s ease-out;
+}
+.user img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.user .wpeo-avatar-initial {
+  display: block;
+}
+.user span {
+  font-size: 16px;
+  text-align: center;
+  padding-top: 14px;
+  display: inline-block;
+  width: 100%;
+}
+.user:hover {
+  cursor: pointer;
+}
 .wpeo-main-user {
   background: #404a53;
   display: -webkit-box;
@@ -1129,56 +1177,8 @@
           justify-content: flex-end;
   height: 50px;
 }
-.wpeo-main-user .wpeo-ul-user {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-.wpeo-main-user .wpeo-ul-user.wpeo-edit-select-user li {
-  background: #adadad;
-  color: #fff;
-}
-.wpeo-main-user .wpeo-ul-user.wpeo-edit-select-user li.active {
-  background: #389af6;
-}
-.wpeo-main-user .wpeo-ul-user.wpeo-edit-select-user li:not(.active) {
-  -webkit-filter: grayscale(100%);
-  -moz-filter: grayscale(100%);
-  -ms-filter: grayscale(100%);
-  filter: grayscale(100%);
-}
 .wpeo-main-user .wpeo-user-owner li {
   float: left;
-}
-.wpeo-main-user li li {
-  width: 50px;
-  height: 50px;
-  background: #389af6;
-  color: #fff;
-  position: relative;
-  -webkit-transition: all 0.2s ease-out;
-          transition: all 0.2s ease-out;
-}
-.wpeo-main-user li li img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-.wpeo-main-user li li .wpeo-avatar-initial {
-  display: block;
-}
-.wpeo-main-user li li span {
-  font-size: 16px;
-  text-align: center;
-  padding-top: 14px;
-  display: inline-block;
-  width: 100%;
-}
-.wpeo-main-user li li:hover {
-  cursor: pointer;
 }
 .wpeo-main-user li:first-child {
   margin-right: auto;

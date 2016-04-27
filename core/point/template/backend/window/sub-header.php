@@ -1,6 +1,9 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; ?>
 
-<?php echo apply_filters( 'window_point_owner', '' ); ?>
+<ul>
+  <?php echo apply_filters( 'task_avatar', '', $element->author_id ); ?>
+  <li class="wpeo-task-owner-role"><?php _e( 'Owner of the point', 'task-manager' ); ?></span>
+</ul>
 
 <ul id="wpeo-task-action">
   <li><input type="checkbox" disabled <?php echo !empty( $element->option['point_info']['completed'] ) ? 'checked="checked"': ''; ?> /></li>

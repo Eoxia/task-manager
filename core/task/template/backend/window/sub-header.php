@@ -1,4 +1,7 @@
-<?php echo apply_filters( 'task_avatar', '', $element->option['user_info']['owner_id'] ); ?>
+<ul>
+  <?php echo apply_filters( 'task_avatar', '', $element->option['user_info']['owner_id'] ); ?>
+  <li class="wpeo-task-owner-role"><?php _e( 'Owner of the task', 'task-manager' ); ?></span>
+</ul>
 
 <ul id="wpeo-task-action">
   <li><span data-nonce="<?php echo wp_create_nonce( 'wpeo_nonce_archive_task_' . $element->id ); ?>" class="wpeo-task-action-list wpeo-send-task-to-archive dashicons dashicons-archive"></span></li>

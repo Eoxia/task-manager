@@ -9,10 +9,10 @@
 			if ( !empty( $owner_id ) ):
 				$user = $owner_user;
 				$nonce 			= 'wpeo_nonce_edit_task_owner_user';
-				require( wpeo_template_01::get_template_part( WPEO_USER_DIR, WPEO_USER_TEMPLATES_MAIN_DIR, 'backend', 'user' ) );
+				require( wpeo_template_01::get_template_part( WPEO_USER_DIR, WPEO_USER_TEMPLATES_MAIN_DIR, 'backend', 'user-gravatar' ) );
 			else:
 				$nonce = 'wpeo_nonce_edit_task_owner_user';
-				require( wpeo_template_01::get_template_part( WPEO_USER_DIR, WPEO_USER_TEMPLATES_MAIN_DIR, 'backend', 'user' ) );
+				require( wpeo_template_01::get_template_part( WPEO_USER_DIR, WPEO_USER_TEMPLATES_MAIN_DIR, 'backend', 'user-gravatar' ) );
 			endif;
 			?>
 			</ul>
@@ -27,7 +27,7 @@
 				if ( !empty( $this->list_user ) ) :
 					foreach ( $this->list_user as $user ) :
 						if ( in_array( $user->id, !empty( $element->option['user_info']['affected_id'] ) ? $element->option['user_info']['affected_id'] : array( ) ) ):
-							require( wpeo_template_01::get_template_part( WPEO_USER_DIR, WPEO_USER_TEMPLATES_MAIN_DIR, 'backend', 'user' ) );
+							require( wpeo_template_01::get_template_part( WPEO_USER_DIR, WPEO_USER_TEMPLATES_MAIN_DIR, 'backend', 'user-gravatar' ) );
 						endif;
 					endforeach;
 
