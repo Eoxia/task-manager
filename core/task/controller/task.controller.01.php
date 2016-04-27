@@ -58,7 +58,7 @@ if( !class_exists( 'task_controller_01' ) ) {
 
 		public function callback_dashboard_content( $string, $post_parent ) {
 			global $task_controller;
-			if($post_parent != 0) {
+			if($post_parent == 0) {
 				$list_task = $task_controller->index( array( 'post_parent' => 0,
 				 	'meta_query' => array(
 							array(

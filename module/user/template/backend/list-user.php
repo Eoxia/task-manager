@@ -9,7 +9,7 @@ if ( !empty( $list_user ) ) :
 			endif;
 
 			$nonce = 'wpeo_nonce_update_user_' . $user->id;
-			require( wpeo_template_01::get_template_part( WPEO_USER_DIR, WPEO_USER_TEMPLATES_MAIN_DIR, 'backend', 'user' ) );
+			require( wpeo_template_01::get_template_part( WPEO_USER_DIR, WPEO_USER_TEMPLATES_MAIN_DIR, 'backend', 'user-gravatar' ) );
 		endif;
 	endforeach;
 endif;
