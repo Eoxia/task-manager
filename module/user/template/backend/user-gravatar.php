@@ -7,6 +7,6 @@
 	</li>
 <?php else: ?>
 	<li>
-		<img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?s=26" />
+		<img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?s=<?php echo !empty( $size ) ? $size : 50; ?>" />
 	</li>
 <?php endif; ?>

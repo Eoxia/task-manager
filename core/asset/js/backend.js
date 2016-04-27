@@ -693,17 +693,18 @@ var wpeo_point = {
 		var bloc_task = jQuery( element ).closest( '.wpeo-project-task' );
 		var bloc = jQuery( element ).closest( 'form' );
 		var count_completed = bloc_task.find( '.wpeo-task-count-completed' ).text();
+		var count_completed = count_completed.split( '/' );
 
 		if( jQuery( element ).is( ':checked' ) ) {
 			bloc_task.find( '.wpeo-task-point-completed:first' ).append( bloc );
-			count_completed++;
+			count_completed[0]++;
 		}
 		else {
 			bloc_task.find( '.wpeo-task-point:first' ).append( bloc );
-			count_completed--;
+			count_completed[0]--;
 		}
 
-		bloc_task.find( '.wpeo-task-count-completed' ).text(count_completed);
+		bloc_task.find( '.wpeo-task-count-completed' ).text(count_completed[0] + '/' + count_completed[1]);
 		// wpeo_task.grid.masonry();
 		wpeo_point.refresh_sortable();
 	},
