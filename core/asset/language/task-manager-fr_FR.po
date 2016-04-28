@@ -1,0 +1,613 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WPProject\n"
+"POT-Creation-Date: 2016-03-04 10:02+0100\n"
+"PO-Revision-Date: 2016-03-04 10:03+0100\n"
+"Last-Translator: \n"
+"Language-Team: Eoxia\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8\n"
+"X-Poedit-Basepath: ..\\\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: core\n"
+"X-Poedit-SearchPathExcluded-1: module\n"
+
+#: asset/js/language.js.php:2
+msgid "Delete this comment ?"
+msgstr "Voulez vous supprimer ce commentaire ?"
+
+#: asset/js/language.js.php:3
+msgid "Delete this point ?"
+msgstr "Voulez vous supprimer ce point ?"
+
+#: asset/js/language.js.php:4
+msgid "Delete this task ?"
+msgstr "Voulez vous supprimer cette tâche ?"
+
+#: asset/js/language.js.php:5
+msgid "Create the tag"
+msgstr "Créer la catégorie"
+
+#: controller/task.action.01.php:58 template/custom/main.php:7
+msgid "New task"
+msgstr "Nouvelle tâche"
+
+#: controller/task.action.01.php:67
+#, php-format
+msgid "The task #%d has been created by the user #%d"
+msgstr "La tâche #%d à été créer par l'utilisateur #%d"
+
+#: controller/task.action.01.php:95
+msgid "Ask"
+msgstr "Demande"
+
+#: controller/task.action.01.php:184
+#, php-format
+msgid ""
+"The task #%d has been edited by the user #%d with the title : %s and the "
+"estimated time %d"
+msgstr ""
+"La tâche #%d à été éditée par l'utilisateur #%d avec le titre : %s et le "
+"temps estimé %d"
+
+#: controller/task.action.01.php:191
+#, php-format
+msgid ""
+"The task #%d has been edited by the user #%d with the frontend info "
+"display_user : %s and the display_time : %s "
+msgstr ""
+"La tâche #%d à été éditée par l'utilisateur #%d avec le option frontend "
+"display_user : %s et le display_time : %s"
+
+#: controller/task.action.01.php:228
+#, php-format
+msgid "The task #%d has been deleted by the user #%d"
+msgstr "La tâche #%d à été supprimée par l'utilisateur #%d"
+
+#: controller/task.action.01.php:271
+#, php-format
+msgid "The task #%d has been send to archive by the user #%d"
+msgstr "La tâche #%d à été envoyée en archive par l'utilisateur #%d"
+
+#: controller/task.action.01.php:297 controller/task.action.01.php:375
+msgid "Completed"
+msgstr "Complété(s)"
+
+#: controller/task.action.01.php:319 controller/task.action.01.php:387
+msgid "In Progress"
+msgstr "En cours"
+
+#: controller/task.action.01.php:346
+#, php-format
+msgid "The task #%d has been exported by the user #%d"
+msgstr "La tâche #%d à été exportées par l'utilisateur #%d"
+
+#: controller/task.action.01.php:414
+#, php-format
+msgid "The tasks %s has been exported by the user #%d"
+msgstr "Les tâches %s à été exportées par l'utilisateur #%d"
+
+#: controller/task.action.01.php:461
+#, php-format
+msgid "The tag %d has selected for the task #%d by the user #%d"
+msgstr ""
+"La catégorie %d à été sélectionné pour la tâche #%d par l'utilisateur #%d"
+
+#: controller/task.action.01.php:465
+#, php-format
+msgid "The tag %d has deselected for the task #%d by the user #%d"
+msgstr ""
+"La catégorie %d à été désélectionné pour la tâche #%d par l'utilisateur #%d"
+
+#: controller/task.action.01.php:496
+#, php-format
+msgid "The owner for the task #%d has been changed to %d by the user #%d"
+msgstr ""
+"Le responsable pour la tâche #%d à été changé vers %d par l'utilisateur #%d"
+
+#: controller/task.controller.01.php:68 controller/task.controller.01.php:70
+#: controller/task.controller.01.php:72 controller/task.controller.01.php:83
+msgid "Tasks"
+msgstr "Tâches"
+
+#: controller/task.controller.01.php:69 controller/task.controller.01.php:175
+msgid "Task"
+msgstr "Tâche"
+
+#: controller/task.controller.01.php:71
+msgid "Parent Task:"
+msgstr "Tâche parent:"
+
+#: controller/task.controller.01.php:73
+msgid "View Task"
+msgstr "Voir la tâche"
+
+#: controller/task.controller.01.php:74
+msgid "Add New Task"
+msgstr "Ajouter une nouvelle tâche"
+
+#: controller/task.controller.01.php:75
+msgid "New Task"
+msgstr "Créer une tâche"
+
+#: controller/task.controller.01.php:76
+msgid "Edit Task"
+msgstr "Editer la tâche"
+
+#: controller/task.controller.01.php:77
+msgid "Update Task"
+msgstr "Mettre à jour la tâche"
+
+#: controller/task.controller.01.php:78
+msgid "Search Tasks"
+msgstr "Rechercher une tâche"
+
+#: controller/task.controller.01.php:79
+msgid "No tasks found"
+msgstr "Aucune tâche trouvé"
+
+#: controller/task.controller.01.php:80
+msgid "No tasks found in Trash"
+msgstr "Aucune tâche trouvé dans la corbeille"
+
+#: controller/task.controller.01.php:84
+msgid "Tasks management"
+msgstr "Projet"
+
+#: controller/task.controller.01.php:110 controller/task.controller.01.php:111
+msgid "Task management dashboard"
+msgstr "Tableau de bord de la gestion des tâches"
+
+#: controller/task.controller.01.php:110 controller/task.controller.01.php:111
+#: template/backend/dashboard-main.php:18 template/custom/main.php:7
+msgid "Tasks manager"
+msgstr "Tâches"
+
+#: controller/task.controller.01.php:509 controller/task.controller.01.php:515
+msgid "Task not found"
+msgstr "Tâche non trouvée"
+
+#: template/backend/dashboard-main.php:15
+msgid "Recompile time"
+msgstr "Recompiler le temps"
+
+#: template/backend/dashboard-main.php:28
+msgid "All tasks"
+msgstr "Toutes les tâches"
+
+#: template/backend/dashboard-main.php:29
+msgid "My tasks"
+msgstr "Mes tâches"
+
+#: template/backend/dashboard-main.php:30
+msgid "Affected tasks"
+msgstr "Tâches afféctées"
+
+#: template/backend/last-comment.php:14
+msgid "On"
+msgstr "Le"
+
+#: template/backend/last-comment.php:16
+msgid "at"
+msgstr "à"
+
+#: template/backend/last-comment.php:18
+msgid "to the point"
+msgstr "pour le point"
+
+#: template/backend/last-comment.php:20
+msgid "to the task"
+msgstr "pour la tâche"
+
+#: template/backend/list-task.php:13 template/custom/main.php:16
+msgid "No tasks, press the \"New task\" button for create a task"
+msgstr ""
+"Pas de tâche, appuyez sur le bouton \"Nouvelle tâche\" pour créer une tâche"
+
+#: template/backend/task-header.php:18
+msgid "More informations"
+msgstr "Plus d'infos"
+
+#: template/backend/window-dashboard-task.php:18
+msgid "No owner for this task"
+msgstr "Pas de responsable pour cette tâche."
+
+#: template/backend/window-dashboard-task.php:22
+msgid "Owner of the task"
+msgstr "Responsable de la tâche"
+
+#: template/backend/window-dashboard-task.php:27
+msgid "View the task"
+msgstr "Voir la tâche"
+
+#: template/backend/window-dashboard-task.php:30
+msgid "Move to trash"
+msgstr "Déplacer à la corbeille"
+
+#: template/backend/window-dashboard-task.php:35
+msgid "Task informations"
+msgstr "Informations de la tâche"
+
+#: template/backend/window-dashboard-task.php:39
+msgid "Create"
+msgstr "Créer"
+
+#: template/backend/window-dashboard-task.php:44
+msgid "Estimated time"
+msgstr "Temps prévu"
+
+#: template/backend/window-dashboard-task.php:45
+msgid "Elapsed time"
+msgstr "Temps passé"
+
+#: template/backend/window-dashboard-task.php:52
+msgid "Number of comments on the task"
+msgstr "Nombre de commentaires sur la tâche"
+
+#: template/backend/window-dashboard-task.php:58
+msgid "Number users associate to the task"
+msgstr "Nombre de personnes associés à la tâche"
+
+#: template/backend/window-dashboard-task.php:65
+msgid "Ref"
+msgstr "Ref"
+
+#: template/backend/window-dashboard-task.php:73
+msgid "Send the task to element <strong>#</strong>"
+msgstr "Envoyer la tâche vers l'élément <strong>#</strong>"
+
+#: template/backend/window-dashboard-task.php:81
+msgid "Send"
+msgstr "Envoyer"
+
+#: template/backend/window-dashboard-task.php:88
+msgid "Due date"
+msgstr "Date de fin"
+
+#: template/backend/window-dashboard-task.php:96
+msgid "Update"
+msgstr "Enregistrer les modifications"
+
+#: template/backend/wpshop-filter.php:3
+msgid "Search by Customer..."
+msgstr "Chercher par Client..."
+
+#: template/frontend/account/ask-task.php:5
+msgid "Write your ticket"
+msgstr "Écrivez votre ticket"
+
+#: template/frontend/account/ask-task.php:6
+#: template/frontend/account/ask-task.php:9
+msgid "Ask a ticket"
+msgstr "Demandez un ticket"
+
+#: template/frontend/account/menu.php:6
+msgid "My task"
+msgstr "Mes tâches"
+
+#: template/frontend/task.php:40
+msgid "Completed point"
+msgstr "Les points terminés"
+
+#: template/frontend/tasks.php:11
+msgid "Start by creating a task"
+msgstr "Commencez par crée une tâche"
+
+#~ msgid "Options"
+#~ msgstr "Options"
+
+#~ msgid "What information would show in your theme ?"
+#~ msgstr "Quelles informations souhaitez vous afficher dans le thème ?"
+
+#~ msgid "Users associated to the task"
+#~ msgstr "Utilisateurs assignés à la tâche"
+
+#~ msgid "Associated time"
+#~ msgstr "Temps affecté"
+
+#~ msgid "Choose a customer"
+#~ msgstr "Choisir un client"
+
+#~ msgid "Uncompleted point"
+#~ msgstr "Les points incomplets"
+
+#~ msgid "Task name"
+#~ msgstr "Nom de la tâche"
+
+#~ msgid "Task content"
+#~ msgstr "Contenu de la tâche"
+
+#~ msgid "Ask a task"
+#~ msgstr "Demander une tâche"
+
+#~ msgid "Archive"
+#~ msgstr "Archive"
+
+#~ msgid "Assigned tasks"
+#~ msgstr "Tâches assignées"
+
+#~ msgid "minute(s)"
+#~ msgstr "minute(s)"
+
+#~ msgid "Delete this point"
+#~ msgstr "Supprimer ce point"
+
+#~ msgid "The point moved to trash"
+#~ msgstr "Le point à été déplacer à la corbeille"
+
+#~ msgid "Time : "
+#~ msgstr "Temps :"
+
+#~ msgid "Users : "
+#~ msgstr "Utilisateurs :"
+
+#~ msgid "Ok"
+#~ msgstr "Ok"
+
+#~ msgid "Settings"
+#~ msgstr "Réglages"
+
+#~ msgid "Export"
+#~ msgstr "Exporter"
+
+#~ msgid "Move to archive"
+#~ msgstr "Déplacer vers Archive"
+
+#~ msgid "Trash"
+#~ msgstr "Corbeille"
+
+#~ msgid "An error occured while dissociating file"
+#~ msgstr "Une erreur est survenue lors de la dissociation du fichier"
+
+#~ msgid "File have been dissociate succesfully"
+#~ msgstr "Le fichier à été déssocier avec succés"
+
+#~ msgid "A required parameter is missing, please check your request."
+#~ msgstr ""
+#~ "Un paramètre requis est manquant, s'il vous plaît vérifier votre demande."
+
+#~ msgid "Nothing to display"
+#~ msgstr "Rien à afficher"
+
+#~ msgid "Download the file"
+#~ msgstr "Télécharger le fichier"
+
+#~ msgid "Delete file"
+#~ msgstr "Supprimer le fichier"
+
+#~ msgid "No files affected"
+#~ msgstr "Aucun fichier affectés"
+
+#~ msgid "Add a media"
+#~ msgstr "Ajouter un média"
+
+#~ msgid "Are you sure you want to dissociate this file?"
+#~ msgstr "Êtes vous sur de vouloir dissocier ce fichier ?"
+
+#~ msgid "Creation of point #%d with the content : %s for the task #%d"
+#~ msgstr "Création du point #%d avec le contenu : %s pour la tâche #%d"
+
+#~ msgid ""
+#~ "The point #%d was deleted for the task #%d. The elapsed time for this "
+#~ "point was %d minute(s). The elapsed time for this task is now %d minute(s)"
+#~ msgstr ""
+#~ "Le point #%d à été supprimé pour la tâche #%d. Le temps passé pour le "
+#~ "point était de %d minute(s). Le temps passé pour la tâche est maintenant "
+#~ "de %d minute(s)"
+
+#~ msgid ""
+#~ "The point #%d was updated with the content : %s and set to completed : %s"
+#~ msgstr ""
+#~ "Le point #%d à été mis à jour avec le contenu : %s et mis sur complété : "
+#~ "%s"
+
+#~ msgid "The point order for the task #%d was reassigned : %s"
+#~ msgstr "L'ordre des points pour la tâche #%d à été réassignée : %s"
+
+#~ msgid "There is no comment on this point. Click above to add one."
+#~ msgstr ""
+#~ "Il n'y a pas de comment sur ce point. Cliquez ci-dessous pour en ajouter "
+#~ "un."
+
+#~ msgid "Write your point here..."
+#~ msgstr "Écrivez votre point ici..."
+
+#~ msgid "Add this point"
+#~ msgstr "Ajouter ce point"
+
+#~ msgid "Toggle completed point"
+#~ msgstr "Afficher les points complétés"
+
+#~ msgid "Drag and drop for set the order"
+#~ msgstr "Drag and drop pour ajuster l'ordre"
+
+#~ msgid "Enter your comment here..."
+#~ msgstr "Écrivez votre commentaire ici..."
+
+#~ msgid "Add comment"
+#~ msgstr "Ajouter un commentaire"
+
+#~ msgid "Click here to add a comment"
+#~ msgstr "Cliquez ici pour ajouter un commentaire"
+
+#~ msgid "Data transfert"
+#~ msgstr "Transfert de donnée"
+
+#~ msgid "Search Tags"
+#~ msgstr "Rechercher Catégorie"
+
+#~ msgid "Popular Tags"
+#~ msgstr "Les catégories populaires"
+
+#~ msgid "All Tags"
+#~ msgstr "Toutes les catégories"
+
+#~ msgid "Edit Tag"
+#~ msgstr "Éditer une Catégorie"
+
+#~ msgid "Update Tag"
+#~ msgstr "Mis à jour d'une catégorie"
+
+#~ msgid "Add New Tag"
+#~ msgstr "Ajouter une nouvelle catégorie"
+
+#~ msgid "New Tag Name"
+#~ msgstr "Ajoutez un nouveau nom de catégorie"
+
+#~ msgid "Separate Tags with commas"
+#~ msgstr "Séparer les Catégories avec des commas"
+
+#~ msgid "Add or remove Tags"
+#~ msgstr "Ajouter ou supprimer une Catégorie"
+
+#~ msgid "Tags"
+#~ msgstr "Mots clés"
+
+#~ msgid "Add a tag"
+#~ msgstr "Ajouter une catégorie"
+
+#~ msgid "Search by Tag..."
+#~ msgstr "Rechercher par Catégorie..."
+
+#~ msgid "Timeline"
+#~ msgstr "Historique"
+
+#~ msgid "Date"
+#~ msgstr "Date"
+
+#~ msgid "We can't use this task"
+#~ msgstr "Impossible d'utiliser cette tâche"
+
+#~ msgid "Tasks per line"
+#~ msgstr "Tâche par ligne"
+
+#~ msgid "You are not allowed to edit this task : Incorrect nonce"
+#~ msgstr "Vous n'êtes pas autorisé à modifier cette tâche : Nonce non valide"
+
+#~ msgid "You have created a new task"
+#~ msgstr "Vous avez créé une nouvelle tâche"
+
+#~ msgid "You are not allowed to edit this task : You need to be in write mode"
+#~ msgstr ""
+#~ "Vous n'êtes pas autorisé à modifier cette tâche : Vous avez besoin d'être "
+#~ "en mode écriture"
+
+#~ msgid "Problem to delete the task : The ID is not found"
+#~ msgstr "Problème pour supprimer cette tâche : ID manquant"
+
+#~ msgid "The task was moved to the Trash"
+#~ msgstr "La tâche à été déplacée vers la corbeille."
+
+#~ msgid "You are not allowed to export this task : Incorrect nonce"
+#~ msgstr "Vous n'êtes pas autorisé à exporter cette tâche : Nonce invalide"
+
+#~ msgid "No data to export"
+#~ msgstr "Pas de donnée à exporter"
+
+#~ msgid "Export task %s to %s"
+#~ msgstr "Export des tâches %s vers %s"
+
+#~ msgid "You tried to add an empty point"
+#~ msgstr "Vous essayez de rajouter un point vide"
+
+#~ msgid "\"No tags\""
+#~ msgstr "\"Pas de mots clés\""
+
+#~ msgid "No user"
+#~ msgstr "Pas d'utilisateur"
+
+#~ msgid "get_title_of_task : You need to use a integer value"
+#~ msgstr "Valeur entière"
+
+#~ msgid "get_time_in_task : You need to use a integer value"
+#~ msgstr "Valeur entière"
+
+#~ msgid "update_tag_in : You need to use an integer"
+#~ msgstr "Vous devez utiliser un entier"
+
+#~ msgid "You need to use an integer"
+#~ msgstr "Vous devez utiliser un entier"
+
+#~ msgid "Time history"
+#~ msgstr "Historique du temps"
+
+#~ msgid "Export selected tasks"
+#~ msgstr "Exporter les tâches séléctionnées"
+
+#~ msgid "Sort : "
+#~ msgstr "Trier"
+
+#~ msgid "All"
+#~ msgstr "Toutes"
+
+#~ msgid "YYYY-MM-DD"
+#~ msgstr "YYYY-MM-DD"
+
+#~ msgid "Get the current date"
+#~ msgstr "Obtenir la date actuelle"
+
+#~ msgid "Minute"
+#~ msgstr "Minute(s)"
+
+#~ msgid "MM"
+#~ msgstr "MM"
+
+#~ msgid "Comment"
+#~ msgstr "Commentaire"
+
+#~ msgid "Write your comment here..."
+#~ msgstr "Écrivez votre commentaire ici..."
+
+#~ msgid "Cancel"
+#~ msgstr "Annuler"
+
+#~ msgid "Add time"
+#~ msgstr "Ajouter du temps"
+
+#~ msgid "Users"
+#~ msgstr "Utilisateurs"
+
+#~ msgid "Display the data in your theme"
+#~ msgstr "Les données à afficher dans votre thème"
+
+#~ msgid "Display users : "
+#~ msgstr "Afficher les utilisateurs :"
+
+#~ msgid "Display time : "
+#~ msgstr "Afficher le temps :"
+
+#~ msgid "The tag name"
+#~ msgstr "Le nom du mot clé"
+
+#~ msgid "Create tag"
+#~ msgstr "Créer un mot clé"
+
+#~ msgid "Switch to write mode"
+#~ msgstr "Passez en mode écriture"
+
+#~ msgid "The username"
+#~ msgstr "Le nom d'utilisateur"
+
+#~ msgid "Minute(s)"
+#~ msgstr "Minute(s)"
+
+#~ msgid "Now"
+#~ msgstr "Maintenant"
+
+#~ msgid "N"
+#~ msgstr "N"
+
+#~ msgid "Tasks tracker"
+#~ msgstr "Suivi de tâche"
+
+#~ msgid "Export all"
+#~ msgstr "Exporter"
+
+#~ msgid "Delete the point"
+#~ msgstr "Supprimer ce point"
