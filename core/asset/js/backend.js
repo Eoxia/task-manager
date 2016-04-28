@@ -51,7 +51,6 @@ var wpeo_global = {
 		jQuery( '.wpeo-point-textarea.active' ).removeClass( 'active' );
 
 		if ( jQuery( '.wpeo-button-all-task' ).hasClass( 'wpeo-button-active' ) ) {
-			jQuery( '.wpeo-project-task[data-owner-id="' + jQuery( '#wpeo_user_id' ).val() + '"]' ).hide();
 			jQuery( '.wpeo-project-task.archive' ).hide();
 		}
 
@@ -75,6 +74,7 @@ var wpeo_global = {
 			jQuery( '.wpeo-project-task:visible:not(.wpeo-project-task:visible[data-affected-id*="' + list_user_id.join() + '"])' ).hide();
 		}
 
+		wpeo_global.init();
 	}
 };
 
