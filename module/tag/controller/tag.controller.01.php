@@ -39,6 +39,7 @@ class tag_controller_01 extends term_ctr_01 {
 		parent::__construct();
 
 		add_action( 'init', array( &$this, 'callback_admin_init' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'callback_admin_enqueue_scripts' ) );
 
 		add_filter( 'task_manager_dashboard_filter', array( $this, 'callback_dashboard_filter' ), 13, 1 );
 		add_filter( 'task_manager_dashboard_search', array( $this, 'callback_task_manager_dashboard_search' ), 11, 2 );
@@ -89,6 +90,12 @@ class tag_controller_01 extends term_ctr_01 {
 		}
 
 		$this->list_tag = $this->index( array( 'empty_hidden' => false ) );
+	}
+
+	public function callback_admin_enqueue_scripts() {
+		if( WPEO_TASKMANAGER_DEBUG ) {
+			wp_enqueue_script( 'wpeo-task-tag-backend-js', WPEOMTM_TAG_ASSETS_URL . '/js/backend.js', array( "jquery", "jquery-form", "jquery-ui-datepicker", "jquery-ui-sortable", 'jquery-ui-autocomplete', 'suggest' ), WPEO_TASKMANAGER_VERSION );
+		}
 	}
 
 	public function callback_dashboard_filter( $string ) {

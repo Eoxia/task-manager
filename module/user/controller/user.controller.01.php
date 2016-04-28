@@ -16,6 +16,7 @@ class user_controller_01 extends user_ctr_01 {
 		require_once( WPEO_USER_PATH . '/model/user.model.01.php' );
 
 		add_action( 'admin_init', array( &$this, 'callback_admin_init' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'callback_admin_enqueue_scripts' ) );
 
 		// add_shortcode( 'wpeo_user', array( $this, 'callback_shortcode' ) );
 		add_filter( 'task_avatar', array( $this, 'callback_task_avatar' ), 10, 2 );
@@ -29,6 +30,12 @@ class user_controller_01 extends user_ctr_01 {
 	public function callback_admin_init() {
 		/** On récupère toutes la liste des utilisateurs qui seront accessible grâce à cette global */
 		$this->list_user = $this->index( array( 'role' => 'administrator' ) );
+	}
+
+	public function callback_admin_enqueue_scripts() {
+		if( WPEO_TASKMANAGER_DEBUG ) {
+			wp_enqueue_script( 'wpeo-task-user-backend-js', WPEO_USER_ASSETS_URL . '/js/backend.js', array( "jquery", "jquery-form", "jquery-ui-datepicker", "jquery-ui-sortable", 'jquery-ui-autocomplete', 'suggest' ), WPEO_TASKMANAGER_VERSION );
+		}
 	}
 
 	public function callback_task_avatar( $string, $id ) {

@@ -25,6 +25,7 @@ DEFINE( 'WPEOMTM_TAG_PATH', str_replace( "\\", "/", plugin_dir_path( __FILE__ ) 
 DEFINE( 'WPEOMTM_TAG_URL', str_replace( str_replace( "\\", "/", ABSPATH), site_url() . '/', WPEOMTM_TAG_PATH ) );
 
 DEFINE( 'WPEOMTM_TAG_ASSETS_DIR',  WPEOMTM_TAG_PATH . '/asset/' );
+DEFINE( 'WPEOMTM_TAG_ASSETS_URL',  WPEOMTM_TAG_URL . '/asset/' );
 DEFINE( 'WPEOMTM_TAG_TEMPLATES_MAIN_DIR', WPEOMTM_TAG_PATH . '/template/');
 
 /**	Load plugin translation	*/
