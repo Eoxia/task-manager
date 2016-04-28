@@ -3,35 +3,37 @@
 
 Quick and easy to use, manage all your tasks and your time with the Wordpress Task Manager plugin. 
 
-Finis les problèmes de communication, d'organisation en équipe et les posts-it!
-Avec Task manager organisez vos projets avec votre équipe et gardez le contrôle sur votre temps.
+No more communication problems, team organization and posts -it!
+With Task Manager organize your projects with your team and keep control over your time.
 
-Description du plugin:
-Task manager est une extension de gestion de tâche intuitive et rapide à utiliser.
+Plugin Description:
+Task Manager is a fast and intuitive task management extension.
 
-Tâches
-Task manager vous permet de créer vos tâches, affecter les utilisateurs et ensuite gérer leurs temps.
+Tasks
+Task Manager allows you to create tasks, assign users and then manage their time.
 
-Catégoriser
-Avec Task manager catégorisez vos tâches et retrouvez-les. Vous pouvez personnaliser vos catégories comme bon vous semble. Une fois qu'elles sont fini, elles sont archivées.
+Categorize
+With Task Manager categorize your tasks and find them . You can customize your categories as you like . Once they are finished , they are archived .
 
-Commentaires
-Chaque utilisateur peut ajouter des commentaires à l'intérieur de ses tâches, ainsi que la date et le temps qui lui a été consacré.
+Comments
+Each user can add comments inside his duties, he can then enter the date and time spent.
 
-Rapidité
-Task manager c'est rapide ! En 1 clic, retrouvez vos tâches liées à un utilisateur et à une catégorie.
+Speed
+Task manager is fast ! In one click, find your tasks a user and a category.
 
-Chronologie
-La chronologie de Task manager permet d'historiser les actions des utilisateurs.
+Chronology
+The chronology of Task Manager keeps user actions history.
 
 Export
-Exportez vos taches en format texte, pour la transmettre ou l'intégrer dans un rapport.
+Export your tasks in text format, to transmit or integrate in a report.
 
-Suivis clients
-Grâce au shortcode [task], vous pourrez afficher n'importe qu'elle tâche dans n'importe qu'elle article ou page.
+Customers followed
+With shortcode [ task ] , you can display any task, anywhere in article or page.
 
-Contribuer
-Nous encourageons la communauté à contribuer : peu importe que ce soit pour un compliment, un rapport de bug ou une idée, nous vous en remercions d'avance!
+To contribute
+We encourage the community to contribute : no matter whether for a compliment , a bug report or idea...
+
+
 
 
 tags:
