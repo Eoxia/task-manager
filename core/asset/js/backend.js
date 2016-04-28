@@ -24,6 +24,7 @@ jQuery( document ).ready( function() {
 
 var wpeo_global = {
 	init: function() {
+		jQuery( '.isDate' ).datepicker( { dateFormat: 'yy-mm-dd' } );
 		jQuery( '.wpeo-project-wrap .wpeo-point-input > textarea' ).flexText();
 
 		jQuery( '.wpeo-project-wrap .wpeo-task-point-sortable' ).sortable( {
@@ -215,14 +216,13 @@ var wpeo_task = {
 
 		jQuery.eoajax( ajaxurl, data, function() {
 			jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard' ).replaceWith( this.template );
-			// jQuery( '.wpeo-window-dashboard .isDate' ).datepicker( { dateFormat: 'yy-mm-dd' } );
 
 			jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard *:not(.wpeo-window-background-avatar)' ).css('opacity', 0).animate({
 				opacity: 1,
 			}, 400);
 
 			jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard' ).css( 'display', 'flex' );
-
+			wpeo_global.init();
 			// jQuery( '.wpeo-window-dashboard' ).bgLoad( 'stop' );
 			// var height = parseInt( jQuery( '.wpeo-window-dashboard' ).height() + 200 );
 			// jQuery( '#wpeo-tasks-metabox' ).css( 'height', height );
@@ -563,10 +563,8 @@ var wpeo_point = {
 			}, 300 );
 
 			/** On met à jour l'interface */
-			wpeo_point.refresh_flextext();
-			wpeo_point.refresh_sortable();
+			wpeo_global.init();
 			form.clearForm();
-			// wpeo_task.grid.masonry();
 		} );
 	},
 
@@ -663,6 +661,7 @@ var wpeo_point = {
 			}, 400);
 			jQuery( '.wpeo-window-dashboard' ).attr( 'data-id', point_id );
 			jQuery( '.wpeo-window-dashboard' ).css( 'display', 'flex' );
+			wpeo_global.init();
 		} );
 	},
 
