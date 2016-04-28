@@ -71,7 +71,7 @@ var wpeo_global = {
 		}
 
 		if( list_user_id != undefined ) {
-			jQuery( '.wpeo-project-task:visible:not(.wpeo-project-task:visible[data-affected-id*="' + list_user_id.join() + '"])' ).hide();
+			jQuery( '.wpeo-project-task:visible:not(.wpeo-project-task:visible[data-affected-id*="' + list_user_id.join() + '"]):not(.wpeo-project-task:visible[data-owner-id*="' + list_user_id.join() + '"])' ).hide();
 		}
 
 		wpeo_global.init();
