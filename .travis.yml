@@ -9,7 +9,6 @@ php:
   - hhvm
   - nightly
 
-before_script: phpenv config-add myconfig.ini
 script: php script/unit.script.php
 matrix:
   allow_failures:
