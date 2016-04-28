@@ -1,15 +1,5 @@
 <?php
 /**
- * Plugin Name: Task
- * Description: Gestion des tâches, ajouter, editer, supprimer.
- * Version: 1.0
- * Author: Eoxia <dev@eoxia.com>
- * Author URI: http://www.eoxia.com/
- * License: GPL2 or later
- * License URI: http://www.gnu.org/licenses/gpl-2.0.html
- */
-
-/**
  * Gestion des tâches, ajouter, editer, supprimer.
  *
  * @author Eoxia <dev@eoxia.com>

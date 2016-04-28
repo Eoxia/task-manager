@@ -239,7 +239,8 @@
 
 	function get_option( $name, $int = 0 )
 	{
-		echo "[+] Getting option -> " . $name . " int:" . $int . PHP_EOL;
+		echo "[+] Getting option -> " . $name;
+    var_dump($int);
 		return "";
 	}
 
@@ -307,4 +308,4 @@
 	}
 
 	global $wpdb;
-	$wpdb = new WPDB(); 
+	$wpdb = new WPDB();
