@@ -7,8 +7,11 @@
 			<form action="<?php echo admin_url('admin-ajax.php'); ?>" method="POST">
 				 <!-- For admin-ajax -->
 			 	<?php wp_nonce_field( 'wpeo_nonce_send_to_task_' . $element->id ); ?>
-				<input type="text" name="element_id" placeholder="162" />
-				<input type="hidden" name="task_id" value="<?php echo $element->id; ?>" />
+				<div>
+					<input type="text" class="wpeo-task-auto-complete" />
+					<input type="hidden" name="element_id" value="" />
+					<input type="hidden" name="task_id" value="<?php echo $element->id; ?>" />
+				</div>
 				<input type="button" class="wpeo-send-task-to-element" value="<?php _e( 'Send', 'task-manager' ); ?>" />
 			</form>
 		</li>

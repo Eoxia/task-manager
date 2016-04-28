@@ -306,12 +306,12 @@ class point_action_01 {
 	}
 
 	public function ajax_send_point_to_task() {
-		if( empty( $_POST['task_id'] ) )
+		if( empty( $_POST['element_id'] ) )
 			wp_send_json_error();
 
 		global $task_controller;
 		$current_task = $task_controller->show( $_POST['current_task_id'] );
-		$task = $task_controller->show( $_POST['task_id'] );
+		$task = $task_controller->show( $_POST['element_id'] );
 
 		if( $current_task->id == 0 || $task->id == 0 || $current_task->status == 'trash' || $task->status == 'trash' )
 			wp_send_json_error();

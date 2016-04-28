@@ -34,6 +34,15 @@ var wpeo_global = {
 				wpeo_point.edit_order( jQuery( this ) );
 			}
 		} );
+
+		jQuery.each( jQuery( '.wpeo-task-auto-complete' ), function( key, element ) {
+			jQuery( element ).autocomplete( {
+				'source': 'admin-ajax.php?action=search&type=' + jQuery( element ).data( 'type' ),
+				'select': function( event, ui ) {
+					jQuery( element ).closest( 'div' ).find( 'input[name="element_id"]' ).val( ui.item.id );
+				}
+			} );
+		} );
 	},
 
 	filter: function() {
