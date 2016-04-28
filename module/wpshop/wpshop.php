@@ -17,10 +17,8 @@ DEFINE( 'WPEO_TASK_WPSHOP_URL', str_replace( str_replace( "\\", "/", ABSPATH), s
 DEFINE( 'WPEO_TASK_WPSHOP_ASSETS_DIR',  WPEO_TASK_WPSHOP_PATH . '/asset/' );
 DEFINE( 'WPEO_TASK_WPSHOP_TEMPLATES_MAIN_DIR', WPEO_TASK_WPSHOP_PATH . '/template/');
 
-include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-
 /**	Load plugin translation	*/
-if ( !class_exists( 'task_wpshop_controller_01' ) && is_plugin_active( 'wpshop/wpshop.php' ) ) {
+if ( !class_exists( 'task_wpshop_controller_01' ) && wpeo_util::is_plugin_active( 'wpshop/wpshop.php' ) ) {
 	require_once( WPEO_TASK_WPSHOP_PATH . '/controller/task_wpshop.controller.01.php' );
 	require_once( WPEO_TASK_WPSHOP_PATH . '/controller/task_wpshop.action.01.php' );
 }

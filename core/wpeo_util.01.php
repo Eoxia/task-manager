@@ -37,6 +37,23 @@ if ( !class_exists( 'wpeo_util' ) ) {
 			}
 		}
 
+		/**
+		 * Check whether a plugin is active.
+		 *
+		 * Only plugins installed in the plugins/ folder can be active.
+		 *
+		 * Plugins in the mu-plugins/ folder can't be "activated," so this function will
+		 * return false for those plugins.
+		 *
+		 * @since 2.5.0
+		 *
+		 * @param string $plugin Base plugin path from plugins directory.
+		 * @return bool True, if in the active plugins list. False, not in the list.
+		 */
+		public static function is_plugin_active( $plugin ) {
+			return in_array( $plugin, (array) get_option( 'active_plugins', array() ) );
+		}
+
 		public static function convert_to_hours_minut( $time, $format = '%02d:%02d' ) {
 			if ( $time < 1 ) {
 				return '00:00';
