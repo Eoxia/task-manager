@@ -39,6 +39,7 @@ if( !class_exists( 'task_wpshop_action_01' ) ) {
 
     public function ajax_load_task_wpshop() {
       global $task_wpshop_controller;
+			$_POST['backend'] = true;
       $template = $task_wpshop_controller->callback_my_account_content( '', 'my-task' );
 
       wp_send_json_success( array( 'template' => $template ) );

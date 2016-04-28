@@ -17,6 +17,9 @@ if( !class_exists( 'task_wpshop_controller_01' ) ) {
 
     public function callback_my_account_content( $output, $dashboard_part ) {
 			global $task_controller;
+
+			$backend = !empty( $_POST['backend'] ) ? true : false;
+
       if( 'my-task' === $dashboard_part ) {
 				ob_start();
 				$list_task = $this->get_all_task_customer( !empty( $_POST['user_id'] ) ? $_POST['user_id'] : get_current_user_id() );
@@ -30,7 +33,11 @@ if( !class_exists( 'task_wpshop_controller_01' ) ) {
 					add_filter( 'point_disabled', function( $string ) { return 'disabled'; } );
 				}
 				$class = ' task-wpshop ';
-				require( wpeo_template_01::get_template_part( WPEO_TASK_WPSHOP_DIR, WPEO_TASK_WPSHOP_TEMPLATES_MAIN_DIR, 'frontend', 'content' ) );
+
+				if( !$backend ) {
+					require( wpeo_template_01::get_template_part( WPEO_TASK_WPSHOP_DIR, WPEO_TASK_WPSHOP_TEMPLATES_MAIN_DIR, 'frontend', 'content' ) );
+				}
+
 				require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'list-task' ) );
         $output = ob_get_clean();
 
