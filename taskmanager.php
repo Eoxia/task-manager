@@ -33,7 +33,7 @@ DEFINE( 'WPEO_TASKMANAGER_ASSETS_DIR',  WPEO_TASKMANAGER_PATH . '/core/asset/' )
 
 DEFINE( 'WPEO_TASKMANAGER_TEMPLATES_MAIN_DIR', WPEO_TASKMANAGER_PATH . '/template/' );
 
-DEFINE( 'WPEO_TASKMANAGER_DEBUG', true );
+DEFINE( 'WPEO_TASKMANAGER_DEBUG', false );
 
 /** Ajout des langues */
 add_action( 'plugins_loaded', function() {
