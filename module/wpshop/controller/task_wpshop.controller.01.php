@@ -18,8 +18,8 @@ if( !class_exists( 'task_wpshop_controller_01' ) ) {
     public function callback_my_account_content( $output, $dashboard_part ) {
 			global $task_controller;
       if( 'my-task' === $dashboard_part ) {
+				ob_start();
 				$list_task = $this->get_all_task_customer( !empty( $_POST['user_id'] ) ? $_POST['user_id'] : get_current_user_id() );
-        ob_start();
 				if ( empty( $_POST['user_id'] ) ) {
 					add_filter( 'task_footer', function( $string, $task ) { return ''; }, 12, 2 );
 		      add_filter( 'task_header_button', function( $string, $task ) { return ''; }, 12, 2 );
@@ -51,8 +51,8 @@ if( !class_exists( 'task_wpshop_controller_01' ) ) {
 
 			$list_post_type = get_post_types();
 			global $task_controller;
-			$list_task = get_posts( array( 'post_type' => $list_post_type, 'post_status' => 'publish', 'posts_per_page' => -1, 'post_parent' => $customer_id ) );
-			$list_task = array_merge( $list_task, get_posts( array( 'post_type' => $list_post_type, 'post_status' => 'publish', 'posts_per_page' => -1, 'post_parent' => $user_id ) ) );
+			$list_task = get_posts( array( 'post_type' => $list_post_type, 'post_status' => 'publish', 'posts_per_page' => -1, 'author' => $user_id ) );
+			$list_task = array_merge( $list_task, get_posts( array( 'post_type' => $list_post_type, 'post_status' => 'publish', 'posts_per_page' => -1, 'post_parent' => $customer_id ) ) );
 
 			if ( !empty( $list_task ) ) {
 				foreach( $list_task as $key => $task ) {
@@ -60,7 +60,7 @@ if( !class_exists( 'task_wpshop_controller_01' ) ) {
 						$list_task[$key] = $task_controller->show( $task->ID );
 					}
 					else {
-						$list_task['#' . $task->ID . ' ' . $task->post_title] = $task_controller->index( array( 'post_parent' => $task->ID, 'posts_status' => 'publish' ) );
+						$list_task['#' . $task->ID . ' ' . $task->post_title] = $task_controller->index( array( 'post_parent' => $task->ID, 'post_status' => 'publish' ) );
 						unset( $list_task[$key] );
 					}
 				}
