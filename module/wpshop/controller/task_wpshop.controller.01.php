@@ -52,6 +52,7 @@ if( !class_exists( 'task_wpshop_controller_01' ) ) {
 			$list_post_type = get_post_types();
 			global $task_controller;
 			$list_task = get_posts( array( 'post_type' => $list_post_type, 'post_status' => 'publish', 'posts_per_page' => -1, 'post_parent' => $customer_id ) );
+			$list_task = array_merge( $list_task, get_posts( array( 'post_type' => $list_post_type, 'post_status' => 'publish', 'posts_per_page' => -1, 'post_parent' => $user_id ) ) );
 
 			if ( !empty( $list_task ) ) {
 				foreach( $list_task as $key => $task ) {
