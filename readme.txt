@@ -63,6 +63,32 @@ No questions asked yet.
 == Changelog ==
 
 = 1.3.1.0 =
+= Improvement =
+ * 3729 - General : The readme file has beed updated.
+ * 3917 - General : The architecture of the plugin files and folder its compliance with the standard of eoxia
+ * 3928 - General : Screenshots is now in the repository of Wordpress.
+ * 3929 - General : Add multiple filters to enable developpers customized the dashboard. (See the docs below).
+ * 3945 - General : Prints the total number of points.
+ * 3946 - General : Display slashes.
+ * 4101 - General : The css was touched on users and the frontend.
+ * 4102 - General : Auto complete on the field for send task or point in an other element.
+ * 4105 - General : Transfer the status of the tasks in the category archive to archive status.
+ * 4108 - General : Add the shortcode [task id=x]. (See the docs below).
+ * 4115 - General : Add unit test.
+
+ * 3530 - Dashboard : Reload task.
+ * 3733 - Dashboard : Publishers can now access to the dashboard.
+ * 4096 - Dashboard : The filter "My task" is now the default selected filter.
+ * 4107 - Dashboard : Add "Archive" button.
+
+ * 3730 - WPShop : The tasks in a customer's orders are now displayed on the customer record.
+
+ * 3732 - Timeline : This module is temporarily disabled.
+
+ = Fix =
+ * 3731 - Timeline : The user change affected over the arrows pointing to the left
+ * 3727 - Backend : All form is reset after sended.
+ * 3725 - Frontend : Javascrit is now enabled.
 
 = 1.3.0.1 =
 = Amélioration / Improvment =
