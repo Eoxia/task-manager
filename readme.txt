@@ -66,12 +66,12 @@ No questions asked yet.
 = Improvement =
  * 3729 - General : The readme file has beed updated.
  * 3917 - General : The architecture of the plugin files and folder its compliance with the standard of eoxia
- * 3928 - General : Screenshots is now in the repository of Wordpress.
+ * 3928 - General : Screenshots are now in the repository of Wordpress.
  * 3929 - General : Add multiple filters to enable developpers customized the dashboard. (See the docs below).
  * 3945 - General : Prints the total number of points.
  * 3946 - General : Display slashes.
  * 4101 - General : The css was touched on users and the frontend.
- * 4102 - General : Auto complete on the field for send task or point in an other element.
+ * 4102 - General : Auto complete on the field for sendind task or point in an other element.
  * 4105 - General : Transfer the status of the tasks in the category archive to archive status.
  * 4108 - General : Add the shortcode [task id=x]. (See the docs below).
  * 4115 - General : Add unit test.
