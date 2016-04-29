@@ -10,8 +10,7 @@ install:
   - ls
   - cd ../
   - ls
-  - 7z a -tzip php-5.3.29-Win32-VC9-x86.zip .\PHP\5.3.29\
-  - cd PHP\5.3.29\
+  - 7z x php-5.3.29-Win32-VC9-x86.zip -oc:\PHP\5.3.29\
   - ls
   - del /Q *.zip
   - ls
