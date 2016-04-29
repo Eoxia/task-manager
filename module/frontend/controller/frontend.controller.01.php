@@ -26,11 +26,11 @@ if( !class_exists( 'frontend_controller_01' ) ) {
       ob_start();
       add_filter( 'task_footer', function( $string, $task ) { return ''; }, 12, 2 );
       add_filter( 'task_header_button', function( $string, $task ) { return ''; }, 12, 2 );
-      add_filter( 'task_header_disabled', function( $string ) { return 'disabled'; }, 12, 2 );
+      add_filter( 'task_header_disabled', function( $string ) { return 'readonly'; }, 12, 2 );
 			add_filter( 'point_action_before', function( $string, $point ) { return ''; }, 10, 2 );
 			add_filter( 'point_action_after', function( $string, $point ) { return ''; }, 10, 2 );
 			add_filter( 'point_list_add', function( $string, $object_id ) { return ''; }, 10, 2 );
-			add_filter( 'point_disabled', function( $string ) { return 'disabled'; } );
+			add_filter( 'point_disabled', function( $string ) { return 'readonly'; } );
 			$list_task = $task_controller->index( array( 'post__in' => array( $task_id ) ) );
 			require_once( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'list-task' ) );
       return ob_get_clean();

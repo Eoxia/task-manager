@@ -11,7 +11,7 @@
 		<div class="wpeo-task-form-input">
 			<div>
 				<?php echo apply_filters( 'task_window_time_date', '' ); ?>
-				<textarea name="point_time[content]" class="wpeo-point-comment" placeholder="<?php _e( 'Enter your comment here...', 'task-manager' ); ?>" cols="1" rows="1"></textarea>
+				<input type="text" name="point_time[content]" class="wpeo-point-comment" placeholder="<?php _e( 'Enter your comment here...', 'task-manager' ); ?>" />
 				<?php echo apply_filters( 'task_window_time', '' ); ?>
 				<input type="button" class="button-primary wpeo-submit" value="+" />
 			</div>
