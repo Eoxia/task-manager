@@ -15,4 +15,4 @@ install:
   - ls
 
 test_script:
-  - .\PHP\5.3.29\php.exe .\task-manager\script\unit.script.php
+  - .\PHP\5.3.29\php .\script\unit.script.php
