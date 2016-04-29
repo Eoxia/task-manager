@@ -3,8 +3,8 @@ Contributors: Eoxia
 Donate link:
 Tags: project, task, time, manage, client, easy, french, wordpress task, wordpress time
 Requires at least: 3.4.0
-Tested up to: 4.4.2
-Stable tag: 1.3.0.1
+Tested up to: 4.5.1
+Stable tag: 1.3.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,31 +12,45 @@ Quick and easy to use, manage all your tasks and your time with the Task Manager
 
 == Description ==
 
-= Task Manager est une extension de gestion de tâche francophone simple et rapide d'utilisation =
-En retard pour un projet ? Task Manager vous permet de gérer avec facilité et en équipe vos tâches et votre temps.
-Trop de tâche ? Catégorisez vos tâches et retrouvez-les en 1 clic !
+= No more communication problems, team organization and posts-it! =
+With Task Manager organize your projects with your team and keep control over your time.
+Task Manager is a **fast** and **intuitive** task management extension.
 
-= Besoin d'aide ? =
-Rendez vous sur notre [forum d'entraide](http://forums.eoxia.com/forum/).
-Commandez du temps d'[assistance pour votre site WordPress](http://shop.eoxia.com/ecommerce/assistance/assistance-wordpress/ "assistance wordpress"), du dépannage ou de la formation.
+= Tasks =
+Task Manager allows you to create tasks, assign users and then manage their time.
 
+= Categorize =
+With Task Manager **categorize** your tasks and find them. You can customize your categories as you like. Once they are finished, they are archived.
+
+= Comments =
+Each user can add comments inside his duties, he can then enter the date and **time spent**.
+
+= Speed =
+Task manager is **fast** ! In **one click**, find your tasks by user or category.
+
+= Chronology =
+The chronology of Task Manager keeps user actions history.
+
+= Export =
+Export your tasks in text format, to transmit or integrate in a report.
+
+= Customers followed =
+With shortcode [task], you can display any task, anywhere in article or page.
+
+= To contribute =
+We **encourage** the community to contribute: no matter whether for a compliment, a bug report or idea...
 
 == Installation ==
 
 L'installation de l'extension peut se faire de 2 façons :
 
-* Méthode 1
+Install Task Manager in the wordpress plugin directory, or upload the unzipped files manually to your server.
 
-1. Téléchargez le fichier zip depuis le site de WordPress.
-2. Envoyez le dossier 'taskmanager' dans le répertoire '/wp-content/plugins/'.
-3. Activer l'extension dans le menu "Extensions" de WordPress.
-
-* Méthode 2
-
-1. Rechercher l'extension "Task Manager" à partir du menu "Extensions" de WordPress.
-2. Lancer l'installation de l'extension.
+Some helps for install ? [We are here !](http://forums.eoxia.com/forum/)
 
 == Frequently Asked Questions ==
+
+No questions asked yet.
 
 == Screenshots ==
 
@@ -47,6 +61,8 @@ L'installation de l'extension peut se faire de 2 façons :
 5. See the history / Chronologie
 
 == Changelog ==
+
+= 1.3.1.0 =
 
 = 1.3.0.1 =
 = Amélioration / Improvment =
