@@ -5,6 +5,11 @@ platform: 'x86'
 install:
   - mkdir PHP
   - cd PHP
+  - mkdir 5.2.17
+  - cd 5.2.17
+  - appveyor DownloadFile http://windows.php.net/downloads/releases/archives/php-5.2.17-Win32-VC6-x86.zip
+  - 7z x php-5.2.17-Win32-VC6-x86.zip
+  - del /Q *.zip
   - mkdir 5.3.29
   - cd 5.3.29
   - appveyor DownloadFile http://windows.php.net/downloads/releases/archives/php-5.3.29-Win32-VC9-x86.zip
@@ -13,4 +18,5 @@ install:
   - cd ../../
 
 test_script:
+  - .\PHP\5.2.17\php.exe .\script\unit.script.php
   - .\PHP\5.3.29\php.exe .\script\unit.script.php
