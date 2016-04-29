@@ -3,7 +3,7 @@ shallow_clone: false
 platform: 'x86'
 
 install:
-  - cinst -y php
+  - cinst php -version 5.3.28
   - cd c:\tools\php
   - copy php.ini-production php.ini
   - echo date.timezone="UTC" >> php.ini
@@ -13,4 +13,10 @@ install:
 
 test_script:
   - cd C:\projects\task-manager
+  - php script/unit.script.php
+  - cupgrade php -version 5.5.16
+  - php script/unit.script.php
+  - cupgrade php -version 5.6.5
+  - php script/unit.script.php
+  - cupgrade php -version 7.0.5
   - php script/unit.script.php
