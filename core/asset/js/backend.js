@@ -741,10 +741,10 @@ var wpeo_point = {
 			jQuery( '.wpeo-window-dashboard' ).bgLoad( 'stop' );
 			jQuery( '.wpeo-point-no-comment' ).hide();
 			if( this.edit ) {
-				jQuery(element).closest( '#wpeo-window-dashboard').find( '.wpeo-point-comment-' + this.point_time_id ).replaceWith( this.template );
+				jQuery(element).closest( '.wpeo-window-dashboard').find( '.wpeo-point-comment-' + this.point_time_id ).replaceWith( this.template );
 			}
 			else {
-				jQuery(element).closest( '#wpeo-window-dashboard').find( '#wpeo-task-point-history' ).prepend( this.template );
+				jQuery(element).closest( '.wpeo-window-dashboard').find( '#wpeo-task-point-history' ).prepend( this.template );
 			}
 			jQuery('.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-project-task-time').text( this.task.option.time_info.elapsed );
 			jQuery('.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-task-li-point[data-id="' + this.point.id + '"] .wpeo-time-in-point').text( this['point']['option']['time_info']['elapsed'] );
@@ -753,10 +753,10 @@ var wpeo_point = {
 			jQuery(element).closest('form').find('.wpeo-point-comment').val( '' );
 			jQuery(element).closest('form').find( 'input.wpeo-point-time-elapsed').val( 15 );
 
-			jQuery(element).closest( '#wpeo-window-dashboard').find( '.wpeo-point-elapsed-time' ).text( this['point']['option']['time_info']['elapsed'] );
-			var current_number_point_time = jQuery(element).closest( '#wpeo-window-dashboard').find( '.wpeo-point-list-point-time' ).text();
+			jQuery(element).closest( '.wpeo-window-dashboard').find( '.wpeo-point-elapsed-time' ).text( this['point']['option']['time_info']['elapsed'] );
+			var current_number_point_time = jQuery(element).closest( '.wpeo-window-dashboard').find( '.wpeo-point-list-point-time' ).text();
 			current_number_point_time++;
-			jQuery(element).closest( '#wpeo-window-dashboard').find( '.wpeo-point-list-point-time' ).text( current_number_point_time );
+			jQuery(element).closest( '.wpeo-window-dashboard').find( '.wpeo-point-list-point-time' ).text( current_number_point_time );
 
 			wpeo_point.update_form( jQuery( this ), false );
 		});
@@ -774,7 +774,7 @@ var wpeo_point = {
 			jQuery('.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-project-task-time').text( this.task.option.time_info.elapsed );
 			jQuery('.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-task-li-point[data-id="' + this.point.id + '"] .wpeo-time-in-point').text( this['point']['option']['time_info']['elapsed'] );
 
-			jQuery(element).closest( '#wpeo-window-dashboard').find( '.wpeo-point-elapsed-time' ).text( this['point']['option']['time_info']['elapsed'] );
+			jQuery(element).closest( '.wpeo-window-dashboard').find( '.wpeo-point-elapsed-time' ).text( this['point']['option']['time_info']['elapsed'] );
 		});
 	},
 
@@ -793,7 +793,7 @@ var wpeo_point = {
 		jQuery.eoajax( ajaxurl, data, function() {
 			jQuery( '.wpeo-window-dashboard' ).bgLoad( 'stop' );
 
-			jQuery(element).closest( '#wpeo-window-dashboard').find( 'wpeo-point-comment-' + this.point_time_id ).replaceWith( this.template );
+			jQuery(element).closest( '.wpeo-window-dashboard').find( '.wpeo-point-comment-' + this.point_time_id ).replaceWith( this.template );
 		});
 	},
 
@@ -816,11 +816,11 @@ var wpeo_point = {
 			jQuery.eoajax( ajaxurl, data, function() {
 				jQuery('.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-project-task-time').text( this.task.option.time_info.elapsed );
 				jQuery('.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-task-li-point[data-id="' + this.point.id + '"] .wpeo-time-in-point').text( this['point']['option']['time_info']['elapsed'] );
-				jQuery(element).closest( '#wpeo-window-dashboard').find( '.wpeo-point-elapsed-time' ).text( this['point']['option']['time_info']['elapsed'] );
+				jQuery(element).closest( '.wpeo-window-dashboard').find( '.wpeo-point-elapsed-time' ).text( this['point']['option']['time_info']['elapsed'] );
 
-				var current_number_point_time = jQuery(element).closest( '#wpeo-window-dashboard').find( '.wpeo-point-list-point-time' ).text();
+				var current_number_point_time = jQuery(element).closest( '.wpeo-window-dashboard').find( '.wpeo-point-list-point-time' ).text();
 				current_number_point_time--;
-				jQuery(element).closest( '#wpeo-window-dashboard').find( '.wpeo-point-list-point-time' ).text( current_number_point_time );
+				jQuery(element).closest( '.wpeo-window-dashboard').find( '.wpeo-point-list-point-time' ).text( current_number_point_time );
 			});
 		}
 	},
