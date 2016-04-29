@@ -51,6 +51,7 @@ var wpeo_global = {
 		jQuery( '.wpeo-point-textarea.active' ).removeClass( 'active' );
 
 		if ( jQuery( '.wpeo-button-all-task' ).hasClass( 'wpeo-button-active' ) ) {
+			jQuery( '.list-task:first' ).hide();
 			jQuery( '.wpeo-project-task.archive' ).hide();
 		}
 
@@ -116,21 +117,8 @@ var wpeo_task = {
 		/** Reload task */
 		jQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-reload-task', function() { wpeo_task.reload_task( jQuery( this ) ); } );
 
-		/** Edit title event */
-
-
-		/** Task to trash event */
-
-
-
-
 		/** Marker */
 		jQuery(document).on('click', '.task-marker', function() { wpeo_task.add_marker(jQuery(this)); } );
-
-		/** Send to Archive, view archive event */
-
-
-
 
 		/** Filter buttons */
 		jQuery( document ).on( 'click', '.wpeo-button-all-task', function() { wpeo_task.display_all_task( jQuery( this ) ); } );
@@ -455,6 +443,7 @@ var wpeo_task = {
 		};
 
 		if( !load_all_task ) {
+			jQuery( '.wpeo-project-task[data-owner-id="' + jQuery( '#wpeo_user_id' ).val() + '"]' ).hide();
 			load_all_task = true;
 			jQuery( '.wpeo-project-wrap' ).bgLoad();
 			jQuery.eoajax( ajaxurl, data, function() {

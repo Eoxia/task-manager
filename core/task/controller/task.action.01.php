@@ -133,16 +133,15 @@ class task_action_01 {
 
 	public function ajax_load_all_task() {
 		global $task_controller;
-		$list_task = $task_controller->index( array( 'post_parent' => 0,
-			'meta_query' => array(
-					array(
-						'key' => 'wpeo_task',
-						'value' => '{"user_info":{"owner_id":' . get_current_user_id(),
-						'compare' => 'not like',
-					)
-				)
-			)
-		);
+		$list_task = $task_controller->index( array( 'post_parent' => 0 ) );
+		// 	'meta_query' => array(
+		// 			array(
+		// 				'key' => 'wpeo_task',
+		// 				'value' => '{"user_info":{"owner_id":' . get_current_user_id(),
+		// 				'compare' => 'not like',
+		// 			)
+		// 		)
+		// 	)
 		ob_start();
 		require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'list-task' ) );
 		wp_send_json_success( array( 'template' => ob_get_clean() ) );
