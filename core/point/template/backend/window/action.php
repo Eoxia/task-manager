@@ -1,7 +1,7 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; ?>
 
-<div id="wpeo-point-option">
-  <ul>
+<div id="wpeo-point-option" class="wpeo-display-option">
+  <ul class="wpeo-send-element">
     <li>
       <i class="dashicons dashicons-migrate"></i><?php _e( 'Send the point to task <strong>#</strong>', 'task-manager' ); ?>
     </li>
