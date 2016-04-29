@@ -12,5 +12,5 @@ install:
   - SET PATH=C:\tools\php;%PATH%
 
 test_script:
-  - cd C:\
+  - cd C:\projects\task-manager
   - php script/unit.script.php
