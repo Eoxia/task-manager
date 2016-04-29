@@ -10,6 +10,7 @@ install:
   - appveyor DownloadFile http://windows.php.net/downloads/releases/archives/php-5.2.17-Win32-VC6-x86.zip
   - 7z x php-5.2.17-Win32-VC6-x86.zip
   - del /Q *.zip
+  - cd ../
   - mkdir 5.3.29
   - cd 5.3.29
   - appveyor DownloadFile http://windows.php.net/downloads/releases/archives/php-5.3.29-Win32-VC9-x86.zip
