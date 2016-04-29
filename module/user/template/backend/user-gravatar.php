@@ -5,7 +5,7 @@
 		<img src="<?php echo $user->option['user_info']['avatar']; ?>?s=<?php echo !empty( $size ) ? $size : 50; ?>&d=blank" />
 		<div class="wpeo-avatar-initial"><span><?php echo strtoupper( $user->option['user_info']['initial'] ); ?></span></div>
 	</li>
-	<?php if (!empty( $display_name ) ): ?><li><span><?php echo $user->displayname; ?></span></li><?php endif; ?>
+	<?php if (!empty( $display_name ) ): ?><li class="name"><span><?php echo $user->displayname; ?></span></li><?php endif; ?>
 <?php else: ?>
 	<li>
 		<img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?s=<?php echo !empty( $size ) ? $size : 50; ?>" />

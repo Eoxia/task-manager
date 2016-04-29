@@ -9,7 +9,6 @@
 		_e( 'at', 'wpeopoint-i18n' );
 		echo ' '; comment_date( get_option( 'time_format' ), $time->id );
 		?>
-
 	</li>
 	<li class="action">
 		<?php echo $time->option['time_info']['elapsed']; ?>
@@ -19,5 +18,5 @@
 			<span data-nonce="<?php echo wp_create_nonce( 'wpeo_nonce_delete_point_time_' . $time->id ); ?>" class="dashicons dashicons-no wpeo-send-point-time-to-trash"></span>
 		<?php endif; ?>
 	</li>
-	<li><?php echo stripslashes( $time->content ); ?></li>
+	<li class="comment"><?php echo stripslashes( $time->content ); ?></li>
 </ul>

@@ -1,5 +1,5 @@
-<div id="wpeo-task-option">
-	<ul>
+<div id="wpeo-task-option" class="wpeo-display-option">
+	<ul class="wpeo-send-element">
 		<li>
 			<i class="dashicons dashicons-migrate"></i><?php _e( 'Send the task to element <strong>#</strong>', 'task-manager' ); ?>
 		</li>
@@ -17,9 +17,9 @@
 		</li>
 	</ul>
 
-	<ul>
+	<ul class="wpeo-end-time">
 		<li>
-			<?php _e( 'Due date', 'task-manager' ); ?>
+			<i class="dashicons dashicons-calendar-alt"></i><?php _e( 'Due date', 'task-manager' ); ?>
 		</li>
 		<li>
 			<form action="<?php echo admin_url('admin-ajax.php'); ?>" method="POST">
