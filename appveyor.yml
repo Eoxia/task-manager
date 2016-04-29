@@ -16,4 +16,4 @@ install:
   - ls
 
 test_script:
-  - phpexe ..\..\script\unit.script.php
+  - .\PHP\5.3.29\php.exe .\script\unit.script.php
