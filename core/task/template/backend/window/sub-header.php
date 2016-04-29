@@ -1,5 +1,5 @@
 <ul>
-  <?php echo apply_filters( 'task_avatar', '', $element->option['user_info']['owner_id'] ); ?>
+  <?php echo apply_filters( 'task_avatar', '', $element->option['user_info']['owner_id'], 26, true ); ?>
   <li class="wpeo-task-owner-role"><?php _e( 'Owner of the task', 'task-manager' ); ?></span>
 </ul>
 

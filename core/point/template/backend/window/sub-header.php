@@ -1,7 +1,7 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; ?>
 
 <ul>
-  <?php echo apply_filters( 'task_avatar', '', $element->author_id ); ?>
+  <?php echo apply_filters( 'task_avatar', '', $element->author_id, 26, true ); ?>
   <li class="wpeo-task-owner-role"><?php _e( 'Owner of the point', 'task-manager' ); ?></span>
 </ul>
 

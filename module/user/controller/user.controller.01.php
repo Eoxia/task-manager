@@ -19,7 +19,7 @@ class user_controller_01 extends user_ctr_01 {
 		add_action( 'admin_enqueue_scripts', array( $this, 'callback_admin_enqueue_scripts' ) );
 
 		// add_shortcode( 'wpeo_user', array( $this, 'callback_shortcode' ) );
-		add_filter( 'task_avatar', array( $this, 'callback_task_avatar' ), 10, 2 );
+		add_filter( 'task_avatar', array( $this, 'callback_task_avatar' ), 10, 4 );
 
 		add_filter( 'task_manager_dashboard_filter', array( $this, 'callback_task_manager_dashboard_filter' ), 11, 2 );
 		add_filter( 'task_manager_dashboard_search', array( $this, 'callback_task_manager_dashboard_search' ), 10, 2 );
@@ -38,7 +38,7 @@ class user_controller_01 extends user_ctr_01 {
 		}
 	}
 
-	public function callback_task_avatar( $string, $id ) {
+	public function callback_task_avatar( $string, $id, $size, $display_name ) {
 		$user = $this->get_user_by_id( $id );
 		ob_start();
 		require( wpeo_template_01::get_template_part( WPEO_USER_DIR, WPEO_USER_TEMPLATES_MAIN_DIR, 'backend', 'user-gravatar' ) );
