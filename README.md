@@ -5,6 +5,7 @@ With Task Manager organize your projects with your team and keep control over yo
 Task Manager is a fast and intuitive task management extension.
 
 [![Build Status](https://img.shields.io/travis/Eoxia/task-manager/master.svg?label=Linux)](https://travis-ci.org/Eoxia/task-manager)
+[![Build status](https://ci.appveyor.com/api/projects/status/6r0poqodskk8tdv2?svg=true)](https://ci.appveyor.com/project/jimmyeoxia/task-manager)
 
 # Tasks
 Task Manager allows you to create tasks, assign users and then manage their time.
