@@ -14,19 +14,19 @@ Quick and easy to use, manage all your tasks and your time with the Task Manager
 
 = No more communication problems, team organization and posts-it! =
 With Task Manager organize your projects with your team and keep control over your time.
-Task Manager is a fast and intuitive task management extension.
+Task Manager is a **fast** and **intuitive** task management extension.
 
 = Tasks =
 Task Manager allows you to create tasks, assign users and then manage their time.
 
 = Categorize =
-With Task Manager categorize your tasks and find them. You can customize your categories as you like. Once they are finished, they are archived.
+With Task Manager **categorize** your tasks and find them. You can customize your categories as you like. Once they are finished, they are archived.
 
 = Comments =
-Each user can add comments inside his duties, he can then enter the date and time spent.
+Each user can add comments inside his duties, he can then enter the date and **time spent**.
 
 = Speed =
-Task manager is fast ! In one click, find your tasks by user or category.
+Task manager is **fast** ! In **one click**, find your tasks by user or category.
 
 = Chronology =
 The chronology of Task Manager keeps user actions history.
@@ -38,7 +38,7 @@ Export your tasks in text format, to transmit or integrate in a report.
 With shortcode [task], you can display any task, anywhere in article or page.
 
 = To contribute =
-We encourage the community to contribute: no matter whether for a compliment, a bug report or idea...
+We **encourage** the community to contribute: no matter whether for a compliment, a bug report or idea...
 
 == Installation ==
 
