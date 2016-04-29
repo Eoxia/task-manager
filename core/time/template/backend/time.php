@@ -1,6 +1,6 @@
 <ul class="wpeo-point-comment wpeo-point-comment-<?php echo $time->id; ?>" data-id="<?php echo $time->id; ?>">
 	<li class="avatar">
-		<?php echo apply_filters( 'task_avatar', '', $time->author_id ); ?>
+		<?php echo apply_filters( 'task_avatar', '', $time->author_id, 26, true ); ?>
 	</li>
 	<li class="date">
 		<?php
