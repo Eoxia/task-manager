@@ -1,7 +1,7 @@
 ﻿=== Task Manager ===
 Contributors: Eoxia
 Donate link:
-Tags: project, task, time, manage, client, easy, french, wordpress task, wordpress time
+Tags: task, tasks, management, manager, collaboration, dashboard, organizer, project management, project manager, projects, task lists, task management, task manager, Time Tracking, to do, to do list, todo, todo list
 Requires at least: 3.4.0
 Tested up to: 4.5.1
 Stable tag: 1.3.1.0
