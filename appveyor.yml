@@ -1,7 +1,19 @@
 build: false
-# install:
-#   -
+shallow_clone: false
+platform: 'x86'
+
+install:
+  - appveyor DownloadFile http://windows.php.net/downloads/releases/archives/php-5.3.29-Win32-VC9-x86.zip
+  - mkdir PHP
+  - cd PHP
+  - mkdir 5.3.29
+  - ls
+  - cd ../
+  - ls
+  - 7z x php-5.3.29-Win32-VC9-x86.zip -oc:\PHP\5.3.29\
+  - ls
+  - del /Q *.zip
+  - ls
 
 test_script:
-  - cd C:\projects\task-manager
-  - php script/unit.script.php
+  - .\PHP\5.3.29\php.exe .\script\unit.script.php
