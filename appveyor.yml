@@ -11,8 +11,10 @@ install:
   - cd ../
   - ls
   - 7z a -tzip php-5.3.29-Win32-VC9-x86.zip .\PHP\5.3.29\
+  - cd PHP\5.3.29\
+  - ls
   - del /Q *.zip
   - ls
 
 test_script:
-  - .\PHP\5.3.29\php .\script\unit.script.php
+  - phpexe ..\..\script\unit.script.php
