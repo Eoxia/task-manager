@@ -1,7 +1,9 @@
 build: false
-# install:
-#   -
+shallow_clone: false
+platform: 'x86'
+
+install:
+  - git clone -q --branch=PHP-5.3.29 https://github.com/php/php-src.git
 
 test_script:
-  - cd C:\projects\task-manager
   - php script/unit.script.php
