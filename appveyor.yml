@@ -4,6 +4,7 @@ platform: 'x86'
 
 install:
   - appveyor DownloadFile http://windows.php.net/downloads/releases/archives/php-5.3.29-Win32-VC9-x86.zip
+  - ls
   - cd projects
   - mkdir PHP
   - cd PHP
