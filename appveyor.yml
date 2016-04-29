@@ -4,7 +4,10 @@ platform: 'x86'
 
 install:
   - appveyor DownloadFile http://windows.php.net/downloads/releases/archives/php-5.3.29-Win32-VC9-x86.zip
-  - mkdir C:/projects/PHP/5.3.29
+  - mkdir PHP
+  - cd PHP
+  - mkdir 5.3.29
+  - cd ../
   - 7z a -tzip php-5.3.29-Win32-VC9-x86.zip C:/projects/PHP/5.3.29/
   - del /Q *.zip
   - ls
