@@ -1,0 +1,4 @@
+configuration: Release
+
+install:
+  - cinst php
