@@ -3,7 +3,8 @@ shallow_clone: false
 platform: 'x86'
 
 install:
-  - git clone -q --branch=PHP-5.3.29 https://github.com/php/php-src.git
+  - wget "http://windows.php.net/downloads/releases/archives/php-5.3.29-Win32-VC9-x86.zip"
+  - unzip php-5.3.29-Win32-VC9-x86.zip C:\projects\PHP\5.3.29\
 
 test_script:
-  - php script/unit.script.php
+  - C:\projects\PHP\5.3.29\php.exe script/unit.script.php
