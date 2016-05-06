@@ -62,6 +62,10 @@ No questions asked yet.
 
 == Changelog ==
 
+= 1.3.1.1 =
+= Fix =
+ * 4160 - Fix log fatal error
+
 = 1.3.1.0 =
 = Improvement =
  * 3729 - General : The readme file has beed updated.
