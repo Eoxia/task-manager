@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Task Manager
  * Description: Quick and easy to use, manage all your tasks and your time with the Task Manager plugin.
- * Version: 1.3.1.1
+ * Version: 1.3.1.2
  * Author: Eoxia <dev@eoxia.com>
  * Author URI: http://www.eoxia.com/
  * License: GPL2 or later
@@ -15,13 +15,13 @@
  * Bootstrap file for plugin. Do main includes and create new instance for plugin components
  *
  * @author Eoxia <dev@eoxia.com>
- * @version 1.3.1.1
+ * @version 1.3.1.2
  */
 
 if ( !defined( 'ABSPATH' ) ) exit;
 
 /** Define */
-DEFINE( 'WPEO_TASKMANAGER_VERSION', '1.3.1.1' );
+DEFINE( 'WPEO_TASKMANAGER_VERSION', '1.3.1.2' );
 DEFINE( 'WPEO_TASKMANAGER_DIR', basename( dirname( __FILE__ ) ) );
 DEFINE( 'WPEO_TASKMANAGER_PATH', str_replace( "\\", "/", plugin_dir_path( __FILE__ ) ) );
 DEFINE( 'WPEO_TASKMANAGER_URL', str_replace( str_replace( "\\", "/", ABSPATH), site_url() . '/', WPEO_TASKMANAGER_PATH ) );

@@ -4,7 +4,7 @@ Donate link:
 Tags: task, tasks, management, manager, collaboration, dashboard, organizer, project management, project manager, projects, task lists, task management, task manager, Time Tracking, to do, to do list, todo, todo list
 Requires at least: 4.4.0
 Tested up to: 4.5.1
-Stable tag: 1.3.1.1
+Stable tag: 1.3.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,14 @@ No questions asked yet.
 5. See the history / Chronologie
 
 == Changelog ==
+
+= 1.3.1.2 =
+= Fix =
+ * 4188 - Backend : Fix filter problem
+
+= 1.3.1.1 =
+= Fix =
+ * 4160 - Fix log fatal error
 
 = 1.3.1.0 =
 = Improvement =

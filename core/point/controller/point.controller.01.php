@@ -34,7 +34,7 @@ if ( !class_exists( 'point_controller_01' ) ) {
 			add_filter( 'task_window_sub_header_point_controller', array( $this, 'callback_task_window_sub_header' ), 10, 2 );
 			add_filter( 'task_window_information_point_controller', array( $this, 'callback_task_window_information' ), 10, 2 );
 			add_filter( 'task_window_action_point_controller', array( $this, 'callback_task_window_action' ), 10, 2 );
-			add_filter( 'task_window_footer_point_controller', array( $this,' callback_task_window_footer' ), 10, 2 );
+			add_filter( 'task_window_footer_point_controller', array( $this, 'callback_task_window_footer' ), 10, 2 );
 		}
 
 		public function callback_task_content( $string, $task ) {
