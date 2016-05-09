@@ -30,7 +30,7 @@ if( !class_exists( 'task_controller_01' ) ) {
 			add_filter( 'task_window_sub_header_task_controller', array( $this, 'callback_task_window_sub_header' ), 10, 2 );
 			add_filter( 'task_window_information_task_controller', array( $this, 'callback_task_window_information' ), 10, 2 );
 			add_filter( 'task_window_action_task_controller', array( $this, 'callback_task_window_action' ), 10, 2 );
-			add_filter( 'task_window_footer_task_controller', array( $this,' callback_task_window_footer' ), 10, 2 );
+			add_filter( 'task_window_footer_task_controller', array( $this, 'callback_task_window_footer' ), 10, 2 );
 		}
 
 		public function callback_init() {
