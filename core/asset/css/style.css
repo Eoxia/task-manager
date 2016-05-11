@@ -605,6 +605,11 @@
     overflow: hidden!important;
   }
 }
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .wpeo-project-wrap .list-task .wpeo-project-task {
+    overflow: hidden!important;
+  }
+}
 /* ----------------------------------
 		Global
 -----------------------------------*/
