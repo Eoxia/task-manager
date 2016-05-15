@@ -44,12 +44,12 @@ if ( !empty( $string_post_unsecured ) ) {
       echo "[+] File : " . $name_file . ' => Unsecured $_POST|$_GET|$_REQUEST ' . count( $file ) . PHP_EOL;
       foreach ( $file as $line => $content ) {
         echo "[+] Line : " . $line . " => " . $content . PHP_EOL;
-        trigger_error( "[+] Line : " . $line . " => " . $content );
       }
     }
   }
 }
 
+trigger_error( "[+] Total unsecured line : " . $total_unsecured_line, E_USER_ERROR );
 echo "[+] Request Tests Finished" . PHP_EOL;
 
 function search_files($folder, $pattern)
