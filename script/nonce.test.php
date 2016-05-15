@@ -13,19 +13,19 @@ $total_unsecured_line = 0;
 // Loop on unitList
 foreach($unitList as $test)
 {
-	echo "[+] Testing -> " . $test . PHP_EOL;
+	// echo "[+] Testing -> " . $test . PHP_EOL;
   if ( $test != '../script/request.test.php' || $test != '../script/nonce.test.php' ) {
     $string_post_unsecured[$test] = array();
     $file = file_get_contents( $test );
     preg_match_all( '#function ajax_.+\{.+\}#isU', htmlentities($file), $matches );
 
     if ( !empty( $matches ) ) {
-      foreach( $matches as $matched_string ) {
-        if ( !empty( $matched_string ) && !empty( $matched_string[0] ) ) {
-          if ( !preg_match( '#wp_verify_nonce#', $matched_string[0] ) ) {
-            preg_match( '#function(.+)\(#', $matched_string[0], $fonction_name );
+      foreach( $matches[0] as $matched_string ) {
+        if ( !empty( $matched_string ) && !empty( $matched_string ) ) {
+          if ( !preg_match( '#wp_verify_nonce#', $matched_string ) ) {
+            preg_match( '#function(.+)\(#', $matched_string, $fonction_name );
             if ( !empty( $fonction_name ) && !empty( $fonction_name[1] ) ) {
-              $string_post_unsecured[$test] = array( $fonction_name[1] => "wp_security_nonce() not found" );
+              $string_post_unsecured[$test][$fonction_name[1]] = "wp_security_nonce() not found";
               $total_unsecured_line++;
             }
           }
@@ -43,7 +43,7 @@ if ( !empty( $string_post_unsecured ) ) {
     if ( !empty( $file ) ) {
       echo "[+] File : " . $name_file . ' => Unsecured nonce ' . count( $file ) . PHP_EOL . '<br />';
       foreach ( $file as $fonction_name => $content ) {
-        echo "[+] Not found wp_verify_nonce on : " . $fonction_name . PHP_EOL;
+        echo "[+] Not found wp_verify_nonce on : " . $fonction_name . PHP_EOL . '<br />';
       }
     }
   }
