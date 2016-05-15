@@ -1,14 +1,11 @@
 <?php
 /**
 * @author: Jimmy Latour jimmy.eoxia@gmail.com
-* Vérifie si tous les $_POST sont sécurisés.
-* S'il n'est pas sécurisé il sera affiché
-* Et une erreur sera exécuter sur travis-ci
 */
 
 define('END_TEST', "/^.*\.php$/");
 
-echo "[+] Starting Ajax Tests" . PHP_EOL . PHP_EOL;
+echo "[+] Starting Request Tests" . PHP_EOL . PHP_EOL;
 
 // Search for test files
 $unitList = searchFiles('../', END_TEST);
@@ -41,27 +38,8 @@ foreach($unitList as $test)
   }
 }
 
-/* Recursively search files
-	folder = string => where to search
-	patter = string => regexp for what to search
-*/
-function searchFiles($folder, $pattern)
-{
-	$dir = new RecursiveDirectoryIterator($folder);
-	$ite = new RecursiveIteratorIterator($dir);
-	$files = new RegexIterator($ite, $pattern, RegexIterator::GET_MATCH);
-	$fileList = array();
-	foreach($files as $file)
-	{
-		$fileList[] = $file[0];
-	}
-	return $fileList;
-}
+echo "[+] Total unsecured line : " . $total_unsecured_line . PHP_EOL;
 
-?>
-<?php echo "[+] Total unsecured line : " . $total_unsecured_line . PHP_EOL; ?>
-
-<?php
 if ( !empty( $string_post_unsecured ) ) {
   foreach( $string_post_unsecured as $name_file => $file ) {
     if ( !empty( $file ) ) {
@@ -74,4 +52,4 @@ if ( !empty( $string_post_unsecured ) ) {
   }
 }
 
-echo "[+] Ajax Tests Finished" . PHP_EOL; ?>
+echo "[+] Request Tests Finished" . PHP_EOL; ?>
