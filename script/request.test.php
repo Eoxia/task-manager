@@ -26,7 +26,8 @@ foreach($unitList as $test)
           $lines[$key] = preg_replace( '#!empty\(.+?\$_POST|\$_GET|$_REQUEST\[\'.+\'\].+?\) \?#isU', '', $lines[$key] );
           if ( !preg_match( '#sanitize_.+#', $lines[$key] ) &&
             !preg_match( '#\*#', $lines[$key] ) &&
-            !preg_match( '#\\/\/#', $lines[$key] ) ) {
+            !preg_match( '#\\/\/#', $lines[$key] ) &&
+            !preg_match( '#(.+?int.+?)#', $lines[$key] ) ) {
               $string_post_unsecured[$test][$key + 1] = htmlentities($lines[$key]);
               $total_unsecured_line++;
           }
@@ -43,7 +44,7 @@ if ( !empty( $string_post_unsecured ) ) {
     if ( !empty( $file ) ) {
       echo "[+] File : " . $name_file . ' => Unsecured $_POST|$_GET|$_REQUEST ' . count( $file ) . PHP_EOL;
       foreach ( $file as $line => $content ) {
-        echo "[+] Line : " . $line . " => " . $content . PHP_EOL;
+        echo "[+] Line : " . $line . " => " . trim($content) . PHP_EOL;
       }
     }
   }
