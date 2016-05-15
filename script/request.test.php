@@ -3,12 +3,10 @@
 * @author: Jimmy Latour jimmy.eoxia@gmail.com
 */
 
-define('END_TEST', "/^.*\.php$/");
-
 echo "[+] Starting Request Tests" . PHP_EOL . PHP_EOL;
 
 // Search for test files
-$unitList = searchFiles('../', END_TEST);
+$unitList = search_files('../', "/^.*\.php$/");
 $string_post_unsecured = array();
 $total_unsecured_line = 0;
 $pattern = '#\$_POST|\$_GET|\$_REQUEST#';
@@ -52,4 +50,17 @@ if ( !empty( $string_post_unsecured ) ) {
   }
 }
 
-echo "[+] Request Tests Finished" . PHP_EOL; ?>
+echo "[+] Request Tests Finished" . PHP_EOL;
+
+function search_files($folder, $pattern)
+{
+	$dir = new RecursiveDirectoryIterator($folder);
+	$ite = new RecursiveIteratorIterator($dir);
+	$files = new RegexIterator($ite, $pattern, RegexIterator::GET_MATCH);
+	$fileList = array();
+	foreach($files as $file)
+	{
+		$fileList[] = $file[0];
+	}
+	return $fileList;
+}
