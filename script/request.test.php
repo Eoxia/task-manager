@@ -27,8 +27,8 @@ foreach($unitList as $test)
           if ( !preg_match( '#sanitize_.+#', $lines[$key] ) &&
             !preg_match( '#\*#', $lines[$key] ) &&
             !preg_match( '#\\/\/#', $lines[$key] ) &&
-            !preg_match( '#(.+?int.+?)#', $lines[$key] ) ) {
-              $string_post_unsecured['haha'][$key + 1] = htmlentities( $lines[$key] );
+            !preg_match( '#( +?int +?)#', $lines[$key] ) ) {
+              $string_post_unsecured[$test][$key + 1] = htmlentities( $lines[$key] );
               $total_unsecured_line++;
           }
 
@@ -36,7 +36,7 @@ foreach($unitList as $test)
             $string_post_unsecured[$test][$key + 1] = htmlentities( $lines[$key] );
             $total_unsecured_line++;
           }
-        };
+        }
       }
     }
   }
