@@ -151,7 +151,9 @@ class point_action_01 {
 		global $task_controller;
 		global $point_controller;
 
-		$task = $task_controller->show( $_POST['object_id'] );
+		$object_id = (int) $_POST['object_id'];
+
+		$task = $task_controller->show( $object_id );
 		$list_point = $point_controller->index( $task->id, array( 'comment__in' => $task->option['task_info']['order_point_id'], 'status' => -34070 ) );
 
 		/** Get all completed point in the task for don't forget it in the order point id */
