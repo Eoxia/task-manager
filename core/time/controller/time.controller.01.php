@@ -90,6 +90,62 @@ class time_controller_01 extends comment_ctr_01 {
 
     return $task;
   }
+
+	public function get_list_comment_by_user_id_and_date( $user_id, $start_date, $end_date ) {
+		if ( empty( $user_id ) || empty( $start_date ) || empty( $end_date ) )
+			return null;
+
+		global $wpdb;
+
+		$query =
+			"SELECT DISTINCT comment_ID
+			FROM {$wpdb->comments}
+			WHERE	comment_parent != 0 AND
+					user_id = %d AND
+					comment_date BETWEEN %s AND %s";
+
+		$list_comment = $wpdb->get_results( $wpdb->prepare( $query, array( $user_id, $start_date, $end_date ) ) );
+
+		$list_point_time = array();
+
+		if ( !empty( $list_comment ) ) {
+			foreach ( $list_comment as $comment ) {
+			$list_point_time[] = $this->show( $comment->comment_ID );
+			}
+		}
+
+		return $list_point_time;
+	}
+
+	public function get_count_comment() {
+		global $wpdb;
+
+		$count_comment = 0;
+
+		$query =
+		"SELECT COUNT(*)
+		FROM (
+		    SELECT distinct comment.comment_ID
+		    FROM {$wpdb->comments} AS comment
+		    JOIN {$wpdb->usermeta} AS user ON comment.user_id = user.user_id
+		    WHERE comment.comment_parent != 0 AND
+		    comment.comment_approved = '-34070' AND
+		    comment.comment_type = '' AND
+		    user.meta_key= 'wp_user_level' AND
+		    user.meta_value= 0
+
+		    UNION ALL
+		    SELECT distinct c.comment_ID FROM {$wpdb->comments} as c
+		    JOIN {$wpdb->users} as u ON c.user_id=u.ID
+		    JOIN {$wpdb->usermeta} as um ON ( c.user_id=um.user_id AND um.meta_key='wp_user_level' AND um.meta_value=0 )
+		    WHERE c.comment_parent = 0 AND
+		    c.comment_approved= '-34070'
+		) as x";
+
+		$count_comment = $wpdb->get_var( $query );
+
+		return $count_comment;
+	}
 }
 
 global $time_controller;

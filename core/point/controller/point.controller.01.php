@@ -83,6 +83,141 @@ if ( !class_exists( 'point_controller_01' ) ) {
 			return $string;
 		}
 
+		public function get_created_point_by_user_id_and_date( $user_id, $start_date, $end_date ) {
+			if ( empty( $user_id ) || empty( $start_date ) || empty( $end_date ) )
+				return null;
+
+			global $wpdb;
+
+			$query =
+			"SELECT DISTINCT point.comment_ID
+			FROM {$wpdb->comments} as point
+			WHERE	point.comment_parent = 0 AND
+					point.user_id = %d AND
+					point.comment_date BETWEEN %s AND %s";
+
+			$list_comment = $wpdb->get_results( $wpdb->prepare( $query, array( $user_id, $start_date, $end_date ) ) );
+
+			$list_point = array();
+
+			if ( !empty( $list_comment ) ) {
+				foreach ( $list_comment as $comment ) {
+					$list_point[] = $this->show( $comment->comment_ID );
+				}
+			}
+
+			return $list_point;
+		}
+
+		/**
+		 * RÃ©cupÃ¨res tous les points ou l'utilisateur $user_id Ã  commentÃ©.
+		 *
+		 * @param int $user_id L'id de l'utilisateur
+		 * @return NULL|Array point_model
+		 */
+		public function get_list_point_by_comment_user_id( $user_id ) {
+			if ( empty( $user_id ) )
+				return null;
+
+			global $wpdb;
+
+			$query =
+			"SELECT DISTINCT point.comment_ID
+			FROM {$wpdb->comments} as point
+			JOIN {$wpdb->comments} as comment
+			ON point.comment_ID=comment.comment_parent
+			WHERE	comment.comment_parent != 0 AND
+					comment.user_id = %d";
+
+			$list_comment = $wpdb->get_results( $wpdb->prepare( $query, array( $user_id ) ) );
+
+			$list_point = array();
+
+			if ( !empty( $list_comment ) ) {
+				foreach ( $list_comment as $comment ) {
+					$list_point[] = $this->show( $comment->comment_ID );
+				}
+			}
+
+			return $list_point;
+		}
+
+		/**
+		 * RÃ©cupÃ¨res tous les point ou l'utilisateur $user_id Ã  commentÃ© et ou les
+		 * $start_date et $end_date corresponde.
+		 *
+		 * @param int $user_id L'id de l'utilisateur
+		 * @param string $start_date La date minimum
+		 * @param string $end_date La date maximum
+		 * @return NULL|Array point_model
+		 */
+		public function get_list_point_by_comment_user_id_and_date( $user_id, $start_date, $end_date ) {
+			if ( empty( $user_id ) || empty( $start_date ) || empty( $end_date ) )
+				return null;
+
+			global $wpdb;
+
+			$query =
+			"SELECT DISTINCT point.comment_ID
+			FROM {$wpdb->comments} as point
+			JOIN {$wpdb->comments} as comment
+			ON point.comment_ID=comment.comment_parent
+			WHERE	comment.comment_parent != 0 AND
+					comment.user_id = %d AND
+					comment.comment_date BETWEEN %s AND %s";
+
+			$list_comment = $wpdb->get_results( $wpdb->prepare( $query, array( $user_id, $start_date, $end_date ) ) );
+
+			$list_point = array();
+
+			if ( !empty( $list_comment ) ) {
+				foreach ( $list_comment as $comment ) {
+					$list_point[] = $this->show( $comment->comment_ID );
+				}
+			}
+
+			return $list_point;
+		}
+
+		public function get_completed_point_by_user_id_and_date( $user_id, $start_date, $end_date ) {
+			if ( empty( $user_id ) || empty( $start_date ) || empty( $end_date ) )
+				return null;
+
+			$list_point = $this->index( 0, array( 'post_type' => 'wpeo-task', 'status' => '-34070' ) );
+			$list_point_completed = array();
+
+			if ( !empty( $list_point ) ) {
+				foreach ( $list_point as $point ) {
+					if ( !empty( $point->option['time_info']['completed_point'][$user_id] ) ) {
+						foreach( $point->option['time_info']['completed_point'][$user_id] as $date_completed ) {
+
+							if( ( $date_completed > $start_date ) && ( $date_completed < $end_date ) ) {
+								$point->completed_date = $date_completed;
+								$list_point_completed[] = $point;
+							}
+
+							break;
+						}
+					}
+				}
+			}
+
+			return $list_point_completed;
+		}
+
+		public static function get_point_name_by_id( $point_id ) {
+			if( empty( $point_id ) )
+				return __( 'Point not found', 'wpeopoint-i18n' );
+
+			global $point_controller;
+			$point = $point_controller->show( $point_id );
+
+			if( empty( $point ) )
+				return __( 'Point not found', 'wpeopoint-i18n' );
+
+			return $point->content;
+		}
+
 		public function callback_point_list_add( $string, $object_id ) {
 			ob_start();
 			require( wpeo_template_01::get_template_part( WPEO_POINT_DIR, WPEO_POINT_TEMPLATES_MAIN_DIR, 'backend', 'point-add' ) );

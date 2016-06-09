@@ -163,7 +163,7 @@ var wpeo_task = {
 		};
 
 		jQuery.eoajax( url, data, function() {
-			jQuery( '.list-task:first' ).prepend( this.template );
+			jQuery( '.list-task:visible:first' ).prepend( this.template );
 
 			/** Si jamais le message no-task est affiché on le cache */
 			jQuery( '.wpeo-project-message-no-task' ).remove();

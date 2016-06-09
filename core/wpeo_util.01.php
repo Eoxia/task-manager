@@ -2,7 +2,7 @@
 
 if ( !class_exists( 'wpeo_util' ) ) {
 	class wpeo_util {
-		public static $array_exclude_module = array( 'timeline' );
+		public static $array_exclude_module = array();
 
 		/**
 		 * CORE - Install all extra-modules in "Core/Module" folder

@@ -100,6 +100,59 @@ if( !class_exists( 'task_controller_01' ) ) {
 			require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'list-task' ) );
 		}
 
+		public function get_task_by_comment_user_id_and_date( $user_id, $start_date, $end_date ) {
+			global $point_controller;
+
+			$list_point = $point_controller->get_list_point_by_comment_user_id_and_date( $user_id, $start_date, $end_date );
+			$list_task = array();
+
+			if ( !empty( $list_point ) ) {
+				foreach( $list_point as $point ) {
+					$list_task[$point->post_id] = $this->show( $point->post_id );
+				}
+			}
+
+			return $list_task;
+		}
+
+		public function get_task_created_by_user_id_and_date( $user_id, $start_date, $end_date ) {
+			if ( empty( $user_id ) || empty( $start_date ) || empty( $end_date ) )
+				return 0;
+
+			global $wpdb;
+
+			$query =
+				"SELECT ID
+				FROM {$wpdb->posts}
+				WHERE	post_author = %d AND
+						post_date BETWEEN %s AND %s AND
+						post_type = %s";
+
+			$list_task = $wpdb->get_results( $wpdb->prepare( $query, array( $user_id, $start_date, $end_date, 'wpeo-task' ) ) );
+			$list_task_model = array();
+
+			if ( !empty( $list_task ) ) {
+				foreach( $list_task as $task ) {
+					$list_task_model[] = $this->show( $task->ID );
+				}
+			}
+
+			return $list_task_model;
+		}
+
+		public static function get_task_title_by_id( $task_id ) {
+			if( empty( $task_id ) )
+				return __( 'Task not found', 'wpeotask-i18n' );
+
+			global $task_controller;
+			$task = $task_controller->show( $task_id );
+
+			if( empty( $task ) )
+				return __( 'Task not found', 'wpeotask-i18n' );
+
+			return $task->title;
+		}
+
 		public function update_time( $id ) {
 			$task = $this->show( $id );
 
