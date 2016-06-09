@@ -12,7 +12,7 @@ Task Manager is a fast and intuitive task management extension.
 Task Manager allows you to create tasks, assign users and then manage their time.
 
 # Categorize
-With Task Manager categorize your tasks and find them . You can customize your categories as you like . Once they are finished , they are archived .
+With Task Manager categorize your tasks and find them .You can customize your categories as you like .Once they are finished, they are archived .
 
 # Comments
 Each user can add comments inside his duties, he can then enter the date and time spent.
