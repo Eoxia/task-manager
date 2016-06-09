@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * Point model
@@ -36,12 +36,12 @@ class point_model_01 extends comment_mdl_01 {
 				'function'	=> '',
 				'default' 	=> false,
 				'required'	=> false,
-			),	
+			),
 		),
 	);
-	
-	public function __construct( $object, $meta_key, $cropped = false ) {		
+
+	public function __construct( $object, $meta_key, $cropped = false ) {
 		parent::__construct( $object, $meta_key, $cropped );
 	}
-	
+
 }

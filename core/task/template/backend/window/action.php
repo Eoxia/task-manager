@@ -1,3 +1,5 @@
+<?php if ( ! defined( 'ABSPATH' ) ) exit; ?>
+
 <div id="wpeo-task-option" class="wpeo-display-option">
 	<ul class="wpeo-send-element">
 		<li>

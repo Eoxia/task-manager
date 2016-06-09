@@ -4,7 +4,7 @@ Donate link:
 Tags: task, tasks, management, manager, collaboration, dashboard, organizer, project management, project manager, projects, task lists, task management, task manager, Time Tracking, to do, to do list, todo, todo list
 Requires at least: 4.4.0
 Tested up to: 4.5.1
-Stable tag: 1.3.1.3
+Stable tag: 1.3.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,8 +42,6 @@ We **encourage** the community to contribute: no matter whether for a compliment
 
 == Installation ==
 
-L'installation de l'extension peut se faire de 2 façons :
-
 Install Task Manager in the wordpress plugin directory, or upload the unzipped files manually to your server.
 
 Some helps for install ? [We are here !](http://forums.eoxia.com/forum/)
@@ -61,6 +59,12 @@ No questions asked yet.
 5. See the history / Chronologie
 
 == Changelog ==
+
+= 1.3.1.4 =
+= Fix =
+ * 4323 - General : The plugin no longer in conflict with other plugins
+ * 4322 - Timeline : The module is now enabled.
+ * 4321 - Dashboard : The "new task" button display now a new task even if a filter is active.
 
 = 1.3.1.3 =
 = Fix =

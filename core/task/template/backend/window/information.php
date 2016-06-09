@@ -1,4 +1,4 @@
-
+<?php if ( ! defined( 'ABSPATH' ) ) exit; ?>
 <div id="wpeo-task-info">
 	<h3><?php _e( 'Task informations', 'task-manager' ); ?></h3>
 	<ul>

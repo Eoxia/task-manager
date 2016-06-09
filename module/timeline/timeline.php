@@ -1,13 +1,4 @@
 <?php
-/**
- * Plugin Name: Timeline
- * Description: 
- * Version: 1.0
- * Author: Eoxia <dev@eoxia.com>
- * Author URI: http://www.eoxia.com/
- * License: GPL2 or later
- * License URI: http://www.gnu.org/licenses/gpl-2.0.html
- */
 
 /**
  * Bootstrap file for plugin. Do main includes and create new instance for plugin components

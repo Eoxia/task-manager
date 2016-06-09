@@ -1,3 +1,5 @@
+<?php if ( ! defined( 'ABSPATH' ) ) exit; ?>
+
 <ul class="wpeo-user-display-name">
   <?php echo apply_filters( 'task_avatar', '', $element->option['user_info']['owner_id'], 30, true ); ?>
 </ul>

@@ -1,3 +1,5 @@
+<?php if ( ! defined( 'ABSPATH' ) ) exit; ?>
+
 <div id="wpeo-task-form-point-time">
 	<form action="<?php echo admin_url('admin-ajax.php'); ?>" method="POST">
 		 <!-- For admin-ajax -->

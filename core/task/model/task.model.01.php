@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * Task model
@@ -8,7 +8,7 @@
  *
  */
 
-class task_model_01 extends post_mdl_01 {	
+class task_model_01 extends post_mdl_01 {
 	protected $array_option = array(
 		'user_info' => array(
 			'owner_id' => array(
@@ -58,13 +58,13 @@ class task_model_01 extends post_mdl_01 {
 				'function'	=> '',
 				'default' 	=> false,
 				'required'	=> false,
-			),	
+			),
 			'display_user' => array(
 				'type'		=> 'boolean',
 				'function'	=> '',
 				'default' 	=> false,
 				'required'	=> false,
-			),	
+			),
 		),
 		'task_info' => array(
 			'completed' => array(
@@ -72,21 +72,21 @@ class task_model_01 extends post_mdl_01 {
 				'function'	=> '',
 				'default' 	=> false,
 				'required'	=> false,
-			),	
+			),
 			'order_point_id' => array(
 				'type'		=> 'array',
 				'function' 	=> '',
 				'default'	=> array(),
 				'required'	=> false,
 			),
-				
+
 		),
 	);
-	
+
 	public function __construct( $object, $meta_key, $cropped = false ) {
 		$model = $this->get_model();
 		$type = $model['type']['field'];
-		
+
 		if ( !empty( $object->$type ) ) {
 			$taxonomy_objects = get_object_taxonomies( $object->$type, 'objects' );
 			foreach ( $taxonomy_objects as $taxonomy => $taxonomy_def ) {
@@ -99,7 +99,7 @@ class task_model_01 extends post_mdl_01 {
 				);
 			}
 		}
-				
+
 		parent::__construct( $object, $meta_key, $cropped );
 	}
 }

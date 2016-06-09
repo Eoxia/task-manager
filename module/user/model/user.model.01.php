@@ -16,6 +16,9 @@
  * @package Model manager
  * @subpackage Custom post type
  */
+
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 class wpeo_user_mdl_01 extends user_mdl_01 {
 	function __construct($object, $meta_key, $cropped) {
 		parent::__construct($object, $meta_key, $cropped);

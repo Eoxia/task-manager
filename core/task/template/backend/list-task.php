@@ -1,4 +1,5 @@
-<?php echo apply_filters( 'task_list_title', '', !empty( $name ) ? $name : '' ); ?>
+<?php if ( ! defined( 'ABSPATH' ) ) exit;
+ echo apply_filters( 'task_list_title', '', !empty( $name ) ? $name : '' ); ?>
 
 <div class="list-task">
 	<?php

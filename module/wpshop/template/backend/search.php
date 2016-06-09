@@ -1,3 +1,5 @@
+<?php if ( ! defined( 'ABSPATH' ) ) exit; ?>
+
 <li>
 	<div>
 		<i class="dashicons dashicons-search"></i>
