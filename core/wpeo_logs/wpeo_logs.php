@@ -24,7 +24,7 @@ if( !isset( $wpeologs ) ) {
 	require_once( WPEO_LOGS_PATH . '/core/wpeo_template.01.php' );
 	require_once( WPEO_LOGS_PATH . '/controller/log.controller.01.php' );
 
-	$wpeologs = new wpeologs_ctr();
+	$wpeologs = new taskmanager\log\wpeologs_ctr();
 }
 
 ?>

@@ -8,7 +8,6 @@ jQuery( document ).ready( function() {
 var wpeo_timeline = {
 	init: function() {
 		wpeo_timeline.event();
-		wpeo_timeline.init_masonry();
 		wpeo_timeline.add_class_blocks();
 		wpeo_timeline.add_animation_blocks();
 	},
@@ -26,17 +25,10 @@ var wpeo_timeline = {
 
 			jQuery.eoajax( ajaxurl, data, function() {
 				jQuery( '.wpeo-project-timeline .wpeo-timeline-content' ).replaceWith( this.template );
-				wpeo_timeline.init_masonry();
 				wpeo_timeline.add_class_blocks();
 				wpeo_timeline.add_animation_blocks();
 			} );
 		}
-	},
-
-	init_masonry: function() {
-		jQuery( '.content-day' ).masonry({
-			itemSelector 		: '.timeline-block.day'
-		});
 	},
 
 	add_class_blocks: function() {

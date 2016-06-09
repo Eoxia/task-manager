@@ -68,7 +68,7 @@ class task_action_01 {
 			'option' => array( 'user_info' => array( 'owner_id' => get_current_user_id() ) ) ) );
 
 		/** On log la création de la tâche */
-		eo_log( 'wpeo_project',
+		taskmanager\log\eo_log( 'wpeo_project',
 		array(
 			'object_id' => $task->id,
 			'message' => sprintf( __( 'The task #%d has been created by the user #%d', 'task-manager'), $task->id, get_current_user_id() ),
@@ -122,7 +122,7 @@ class task_action_01 {
 		$task = $task_controller->update( $_CLEAN['task'] );
 
 		/** On log la modification de la tâche */
-		eo_log( 'wpeo_project',
+		taskmanager\log\eo_log( 'wpeo_project',
 			array(
 			'object_id' => $_CLEAN['task']['id'],
 			'message' => $log_message,
@@ -234,7 +234,7 @@ class task_action_01 {
 		$task_controller->update( $task );
 
 		/** On log l'achivage de la tâche */
-		eo_log( 'wpeo_project',
+		taskmanager\log\eo_log( 'wpeo_project',
 		array(
 			'object_id' => $task_id,
 			'message' => sprintf( __( 'The task #%d has been send to archive by the user #%d', 'task-manager'), $task_id, get_current_user_id() ),
@@ -282,7 +282,7 @@ class task_action_01 {
 		$task_controller->delete( $task_id );
 
 		/** On log la supression tâche */
-		eo_log( 'wpeo_project',
+		taskmanager\log\eo_log( 'wpeo_project',
 		array(
 			'object_id' => $task_id,
 			'message' => sprintf( __( 'The task #%d has been deleted by the user #%d', 'task-manager'), $task_id, get_current_user_id() ),
@@ -350,7 +350,7 @@ class task_action_01 {
 		fputs( $fp, $content_file );
 		fclose( $fp );
 
-		eo_log( 'wpeo_project',
+		taskmanager\log\eo_log( 'wpeo_project',
 		array(
 			'object_id' => 0,
 			'message' => sprintf( __( 'The tasks %s has been exported by the user #%d', 'task-manager'), $list_task_id, get_current_user_id() ),
@@ -419,7 +419,7 @@ class task_action_01 {
 
 			$task_controller->update( $task );
 
-			eo_log( 'wpeo_project',
+			taskmanager\log\eo_log( 'wpeo_project',
 			array(
 				'object_id' => $_POST['object_id'],
 				'message' => $log_message,
@@ -438,7 +438,7 @@ class task_action_01 {
 		$task = array( 'id' => $_POST['task_id'], 'option' => array( 'user_info' => array( 'owner_id' => $_POST['owner_id'] ) ) );
 		$task_controller->update( $task );
 
-		eo_log( 'wpeo_project',
+		taskmanager\log\eo_log( 'wpeo_project',
 		array(
 			'object_id' => $_POST['object_id'],
 			'message' => sprintf( __( 'The owner for the task #%d has been changed to %d by the user #%d', 'task-manager'), $_POST['task_id'], $_POST['owner_id'], get_current_user_id() )

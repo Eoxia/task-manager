@@ -1,4 +1,8 @@
-<?php if ( !defined( 'ABSPATH' ) ) exit;
+<?php
+
+namespace taskmanager\log;
+
+if ( !defined( 'ABSPATH' ) ) exit;
 
 /**
  * Main controller file for WP logs module

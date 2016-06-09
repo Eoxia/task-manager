@@ -50,7 +50,7 @@ class point_action_01 {
 		$task_controller->update( $task );
 
 		/** Log la création du point / Log the creation of point */
-		eo_log( 'wpeo_project',
+		taskmanager\log\eo_log( 'wpeo_project',
 			array(
 				'object_id' => $object_id,
 				'message' => sprintf( __( 'Create the point #%d with the content : %s for the task #%d', 'task-manager'), $point->id, $point->content, $object_id ),
@@ -91,7 +91,7 @@ class point_action_01 {
 		$task_controller->update( $task );
 
 		/** Log la suppression du point / Log the deletion of point */
-		eo_log( 'wpeo_project',
+		taskmanager\log\eo_log( 'wpeo_project',
 		array(
 			'object_id' => $_POST['point_id'],
 			'message' => sprintf( __( 'The point #%d was deleted for the task #%d. The elapsed time for this point was %d minute(s). The elapsed time for this task is now %d minute(s)', 'task-manager'), $point->id, $task->id, $point->option['time_info']['elapsed'], $task->option['time_info']['elapsed'] ),
@@ -128,7 +128,7 @@ class point_action_01 {
 
 			$point_controller->update( $_POST['point'] );
 
-			eo_log( 'wpeo_project',
+			taskmanager\log\eo_log( 'wpeo_project',
 			array(
 				'object_id' => $_POST['point']['id'],
 				'message' => sprintf( __( 'The point #%d was updated with the content : %s and set to completed : %s', 'task-manager'), $_POST['point']['id'], $_POST['point']['content'], $_POST['point']['option']['point_info']['completed'] ),
@@ -253,11 +253,11 @@ class point_action_01 {
 
 			$point_time_controller->update( $point_time );
 			$edit = true;
-// 			eo_log( 'wpeo_project',
-// 			array(
-// 			'object_id' => $_POST['point']['id'],
-// 			'message' => sprintf( __( 'The point #%d was updated with the content : %s and set to completed : %s', 'task-manager'), $_POST['point']['id'], $_POST['point']['content'], $_POST['point']['option']['point_info']['completed'] ),
-// 			), 0 );
+			taskmanager\log\eo_log( 'wpeo_project',
+			array(
+			'object_id' => $_POST['point']['id'],
+			'message' => sprintf( __( 'The point #%d was updated with the content : %s and set to completed : %s', 'task-manager'), $_POST['point']['id'], $_POST['point']['content'], $_POST['point']['option']['point_info']['completed'] ),
+			), 0 );
 		}
 		else {
 			$_POST['point_time']['status'] = '-34070';
