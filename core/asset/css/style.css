@@ -732,8 +732,6 @@
   background: #fff;
   font-family: sans-serif;
   color: rgba(0, 0, 0, 0.6);
-  overflow: hidden;
-  position: relative;
 }
 .wpeo-project-wrap .wpeo-header-search > ul > li:last-child div input {
   width: 100%;
@@ -767,6 +765,9 @@
 }
 .wpeo-project-wrap .wpeo-header-search > ul > li .chosen-drop li {
   width: 100%;
+}
+.chosen-result {
+  color :red;
 }
 .wpeo-project-wrap .wpeo-header-search > ul > li .chosen-drop .no-results {
   background: #389af6;
