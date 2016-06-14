@@ -1,4 +1,7 @@
-<?php if ( !defined( 'ABSPATH' ) ) exit;
+<?php
+namespace taskmanager\util;
+
+if ( !defined( 'ABSPATH' ) ) exit;
 
 if ( !class_exists( 'wpeo_util' ) ) {
 	class wpeo_util {

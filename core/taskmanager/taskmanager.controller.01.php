@@ -12,7 +12,7 @@ if( !class_exists( 'taskmanager_controller_01' ) ) {
 			add_action( 'admin_print_scripts', array( $this, 'callback_admin_print_scripts' ) );
 	 		add_action( 'wp_print_scripts', array( $this, 'callback_admin_print_scripts' ) );
 
-			wpeo_util::install_in( 'module' );
+			taskmanager\util\wpeo_util::install_in( 'module' );
 		}
 
 		public function callback_wp_head() {
@@ -36,7 +36,7 @@ if( !class_exists( 'taskmanager_controller_01' ) ) {
 			else {
 				wp_enqueue_script( 'wpeo-task-backend-js', WPEO_TASKMANAGER_ASSET_URL . '/js/backend.min.js', array( "jquery", "jquery-form", "jquery-ui-datepicker", "jquery-ui-sortable", 'jquery-ui-autocomplete', 'suggest' ), WPEO_TASKMANAGER_VERSION );
 			}
-			
+
 			wp_register_style( 'wpeo-task-css', WPEO_TASKMANAGER_ASSET_URL . '/css/style.css', '', WPEO_TASKMANAGER_VERSION );
 			wp_register_style( 'jquery-ui', '//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css', '', WPEO_TASKMANAGER_VERSION );
 

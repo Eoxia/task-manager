@@ -44,11 +44,11 @@ require_once( WPEO_TASKMANAGER_PATH . 'core/wpeo_util.01.php' );
 require_once( WPEO_TASKMANAGER_PATH . 'core/wpeo_template.01.php' );
 require_once( WPEO_TASKMANAGER_PATH . 'core/wpeo_check.01.php' );
 
-wpeo_util::install_module( 'wpeo_logs' );
-wpeo_util::install_module( 'wpeo_model' );
+taskmanager\util\wpeo_util::install_module( 'wpeo_logs' );
+taskmanager\util\wpeo_util::install_module( 'wpeo_model' );
 
 require_once( WPEO_TASKMANAGER_PATH . '/core/taskmanager/taskmanager.controller.01.php' );
 require_once( WPEO_TASKMANAGER_PATH . '/core/taskmanager/taskmanager.action.01.php' );
 
-wpeo_util::install_in( 'core' );
+taskmanager\util\wpeo_util::install_in( 'core' );
 ?>
