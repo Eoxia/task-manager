@@ -4,7 +4,7 @@ Donate link:
 Tags: task, tasks, management, manager, collaboration, dashboard, organizer, project management, project manager, projects, task lists, task management, task manager, Time Tracking, to do, to do list, todo, todo list
 Requires at least: 4.4.0
 Tested up to: 4.5.1
-Stable tag: 1.3.1.4
+Stable tag: 1.3.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,13 @@ No questions asked yet.
 
 == Changelog ==
 
+= 1.3.1.5 =
+= Improvment =
+ * 4326 - General : The module wpeo_util is no longer in conflict.
+ * 4339 - Design : Frontend task.
+ * 4340 - Menu : Add help menu.
+ * 4345 - Wysiwyg : Add task button.
+
 = 1.3.1.4 =
 = Fix =
  * 4323 - General : The plugin no longer in conflict with other plugins
@@ -80,7 +87,7 @@ No questions asked yet.
  * 4160 - Fix log fatal error
 
 = 1.3.1.0 =
-= Improvement =
+= Improvment =
  * 3729 - General : The readme file has beed updated.
  * 3917 - General : The architecture of the plugin files and folder its compliance with the standard of eoxia
  * 3928 - General : Screenshots are now in the repository of Wordpress.
