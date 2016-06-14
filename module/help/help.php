@@ -19,5 +19,6 @@ DEFINE( 'WPEO_TASK_HELP_URL', str_replace( str_replace( "\\", "/", ABSPATH), sit
 DEFINE( 'WPEO_TASK_HELP_TEMPLATES_MAIN_DIR', WPEO_TASK_HELP_PATH . '/template/');
 
 require_once( WPEO_TASK_HELP_PATH . '/controller/help.controller.01.php' );
+require_once( WPEO_TASK_HELP_PATH . '/controller/help.action.01.php' );
 
 ?>

@@ -35,6 +35,7 @@ DEFINE( 'WPEO_TASKMANAGER_TEMPLATES_MAIN_DIR', WPEO_TASKMANAGER_PATH . '/templat
 
 DEFINE( 'WPEO_TASKMANAGER_DEBUG', true );
 
+DEFINE( 'WPEO_TASKMANAGER_DIR_ASSET', plugins_url( '', __FILE__ ) . '/core/asset' );
 /** Ajout des langues */
 add_action( 'plugins_loaded', function() {
 	load_plugin_textdomain( 'task-manager', false, dirname( plugin_basename( __FILE__ ) ) . '/core/asset/language/' );
