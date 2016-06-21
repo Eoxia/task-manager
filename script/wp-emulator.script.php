@@ -1,5 +1,4 @@
 <?php
-	if(!defined("UNIT_TESTING")) die();
 	define('ABSPATH', dirname(dirname(dirname(dirname(dirname(__FILE__))))) . DIRECTORY_SEPARATOR);
 	define('WP_PLUGIN_DIR', dirname(dirname(dirname(__FILE__))) );
 	define('WP_LANG_DIR', 'FR');

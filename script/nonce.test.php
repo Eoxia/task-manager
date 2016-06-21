@@ -3,8 +3,7 @@
 * @author: Jimmy Latour jimmy.eoxia@gmail.com
 */
 
-define( 'UNIT_TESTING', 'test' );
-require_once( './wp-emulator.script.php' );
+require_once( '../script/wp-emulator.script.php' );
 
 DEFINE( 'WPEO_TASKMANAGER_PATH', str_replace( "\\", "/", plugin_dir_path( __FILE__ ) ) . '../' );
 

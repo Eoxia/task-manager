@@ -51,4 +51,5 @@ require_once( WPEO_TASKMANAGER_PATH . '/core/taskmanager/taskmanager.controller.
 require_once( WPEO_TASKMANAGER_PATH . '/core/taskmanager/taskmanager.action.01.php' );
 
 taskmanager\util\wpeo_util::install_in( 'core' );
+taskmanager\util\wpeo_util::install_in( 'module' );
 ?>
