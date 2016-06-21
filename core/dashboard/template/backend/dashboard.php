@@ -1,6 +1,10 @@
 <?php if ( !defined( 'ABSPATH' ) ) exit; ?>
 
 <div class="wrap wpeo-project-wrap">
+	<div class="wpeo-container-notification">
+	</div>
+
+
 	<input type="hidden" id="wpeo_user_id" value="<?php echo get_current_user_id(); ?>" />
 	<!-- Le titre de la page, et également un filtre pour ajouter autant d'actions souhaitées. -->
 	<div class="wpeo-project-dashboard">

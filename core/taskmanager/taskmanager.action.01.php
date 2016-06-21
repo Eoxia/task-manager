@@ -7,6 +7,7 @@ if( !class_exists( 'taskmanager_action_01' ) ) {
 
 		public function __construct() {
       add_action( 'wp_ajax_search', array( $this, 'ajax_search' ) );
+			add_action( 'wp_ajax_wpeo-load-notification', array( &$this, 'ajax_load_notification' ) );
 		}
 
     public function ajax_search() {
@@ -32,6 +33,13 @@ if( !class_exists( 'taskmanager_action_01' ) ) {
       }
       wp_die( wp_json_encode( $return ) );
     }
+
+		public function ajax_load_notification() {
+			$message = sanitize_text_field( $_POST['message'] );
+			$method = !empty($_POST['method']) ? $_POST['method'] : '';
+			require( wpeo_template_01::get_template_part( WPEO_TASKMANAGER_DIR, WPEO_TASKMANAGER_TEMPLATES_MAIN_DIR, "backend", "notification") );
+			wp_die();
+		}
   }
 
 	global $taskmanager_action;

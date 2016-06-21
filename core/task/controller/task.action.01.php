@@ -183,18 +183,21 @@ class task_action_01 {
 	// 	wp_send_json_success( array( 'template' => ob_get_clean() ) );
 	// }
 	//
-	// public function ajax_reload_task() {
-	// 	if ( true !== is_int( ( int )$_POST['task_id'] ) )
-	// 		wp_send_json_error();
-	// 	else
-	// 		$task_id = $_POST['task_id'];
-	//
-	// 	wpeo_check_01::check( 'wpeo_nonce_reload_task_' . $task_id );
-	//
-	// 	global $task_controller;
-	// 	$task = $task_controller->show( $task_id );
-	//
 
+
+	}
+
+	public function ajax_reload_task() {
+		// if ( true !== is_int( ( int )$_POST['task_id'] ) )
+		// 	wp_send_json_error();
+		// else
+		// 	$task_id = $_POST['task_id'];
+		//
+		// wpeo_check_01::check( 'wpeo_nonce_reload_task_' . $task_id );
+		//
+		// global $task_controller;
+		// $task = $task_controller->show( $task_id );
+		wp_send_json_success();
 	}
 
 	/**

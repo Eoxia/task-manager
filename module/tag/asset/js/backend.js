@@ -72,6 +72,7 @@ var wpeo_tag = {
 		};
 
 		jQuery.eoajax( ajaxurl, data, function() {
+			create_notification( 'yes', 'info', wpeo_project_notification.tag_edited );
 			bloc_tag.bgLoad( 'stop' );
 			bloc_tag.replaceWith( this.template );
 			bloc_tag.removeClass( 'wpeo-tag-wrap-edit' );
@@ -148,6 +149,7 @@ var wpeo_tag = {
 		};
 
 		jQuery.eoajax( ajaxurl, data, function() {
+			create_notification( 'yes', 'info', wpeo_project_notification.tag_created );
 			jQuery( '.wpeo-tag-filter' ).append( '<option value="' + this.slug + '">' + this.name + '</option>' );
 			jQuery( '.wpeo-tag-filter' ).trigger( "chosen:updated" );
 		} );

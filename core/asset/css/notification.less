@@ -1,0 +1,63 @@
+.wpeo-container-notification {
+	position: fixed;
+	bottom: 35px;
+	z-index: 2000;
+}
+
+.wpeo-notification {
+	margin-top: 6px;
+	color: #fff;
+	-moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.6);
+	-webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.6);
+	-o-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.6);
+	box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.6);
+	filter:progid:DXImageTransform.Microsoft.Shadow(color=rgba(0,0,0,0.6), Direction=134, Strength=5);
+
+	display: flex;
+	display: -webkit-flex;
+	flex-direction: row;
+	-webkit-flex-direction: row;
+}
+.wpeo-notification > * {
+	padding: 10px;
+	border-right: 1px solid rgba(255,255,255,0.7);
+}
+.wpeo-notification > *:last-child {
+	border-right: 0;
+}
+.wpeo-notification .icon-notification {
+	color: #2B619E;
+}
+.wpeo-notification .icon-notification i:hover {
+	cursor: default;
+}
+.wpeo-notification-info > p, .wpeo-notification-info > span {
+	background: #328DCF;
+}
+.wpeo-notification-error > p, .wpeo-notification-error > span {
+	background: #f75a5a;
+}
+.wpeo-notification-warning > p, .wpeo-notification-warning > span {
+	background: #f8b05a;
+}
+.wpeo-notification > p {
+	flex: 1;
+	-webkit-flex: 1;
+	align-self: stretch;
+	-webkit-align-self: stretch;
+}
+.wpeo-notification-info a {
+	background: #2B619E;
+	color: rgba(255,255,255,0.8);
+}
+.wpeo-notification-error a {
+	background: #f75a5a;
+	color: rgba(255,255,255,0.8);
+}
+.wpeo-notification-warning a {
+	background: #f8b05a;
+	color: rgba(255,255,255,0.8);
+}
+.wpeo-notification a:hover {
+	background: #154D8C;
+}
