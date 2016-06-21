@@ -33,7 +33,7 @@ $total_unsecured_line = 0;
 foreach($unitList as $test)
 {
 	// echo "[+] Testing -> " . $test . PHP_EOL;
-  if ( $test != '../script/request.test.php' || $test != '../script/nonce.test.php' ) {
+  if ( $test != '../task-manager/script/request.test.php' || $test != '../task-manager/script/nonce.test.php' ) {
     $content = file_get_contents( $test );
 
     $pattern = '/class ([a-z0-9_]+) (extends .* {|{)/';
