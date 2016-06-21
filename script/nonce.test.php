@@ -45,7 +45,6 @@ foreach($unitList as $test)
     if ( !empty( $matches ) && !empty( $matches[1] ) ) {
       $class_name = !empty( $matches_namespace ) && !empty( $matches_namespace[1] ) ? $matches_namespace[1] . '\\' : '';
       $class_name .= $matches[1];
-      echo $class_name;
       $class = new ReflectionClass( $class_name );
       $methods = $class->getMethods();
 

@@ -88,16 +88,27 @@ class point_action_01 {
 	 * @return json task_mdl_01 Object
 	 */
 	public function ajax_delete_point() {
-		wpeo_check_01::check( 'wpeo_nonce_delete_point_' . $_POST['point_id'] );
-
 		global $task_controller;
 		global $point_controller;
 
-		$point 	= $point_controller->show( $_POST['point_id'] );
-		$task 	= $point_controller->decrease_time( $_POST['point_id'] );
+		$point_id = !empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
 
-		if( ( $key = array_search( $_POST['point_id'], $task->option['task_info']['order_point_id'] ) ) !== false ) {
+		if ( $point_id === 0 ) {
+			wp_send_json_error( array( 'message' => __( 'Error for delete a point', 'task-manager' ) ) );
+		}
+
+		if ( !check_ajax_referer( 'ajax_delete_point_' . $point_id, array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for delete a point: invalid nonce', 'task-manager' ) ) );
+		}
+
+		$point 	= $point_controller->show( $point_id );
+		$task 	= $point_controller->decrease_time( $point_id );
+
+		if( ( $key = array_search( $point_id, $task->option['task_info']['order_point_id'] ) ) !== false ) {
 			unset( $task->option['task_info']['order_point_id'][$key] );
+		}
+		else {
+			wp_send_json_error( array( 'message' => __( 'Error for delete a point: the point does not exist', 'task-manager' ) ) );
 		}
 
 		$task_controller->update( $task );
@@ -109,7 +120,7 @@ class point_action_01 {
 			'message' => sprintf( __( 'The point #%d was deleted for the task #%d. The elapsed time for this point was %d minute(s). The elapsed time for this task is now %d minute(s)', 'task-manager'), $point->id, $task->id, $point->option['time_info']['elapsed'], $task->option['time_info']['elapsed'] ),
 		), 0 );
 
-		wp_send_json_success( array( 'task' => $task ) );
+		wp_send_json_success( array( 'task' => $task, 'message' => __( 'Point deleted', 'task-manage' ) ) );
 	}
 
 	/**
@@ -123,30 +134,40 @@ class point_action_01 {
 	 * @return void
 	 */
 	public function ajax_edit_point() {
-		check_ajax_referer( 'wpeo_nonce_edit_point_' . $_POST['point']['id'] );
 		global $point_controller;
 
-		$point = $point_controller->show( $_POST['point']['id'] );
+		$point_edit_data = !empty( $_POST['point'] ) ? (array) $_POST['point'] : array();
 
-		if( $_POST['point']['option']['point_info']['completed'] ) {
+		if ( empty( $point_edit_data ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for edit a point', 'task-manager' ) ) );
+		}
+
+		if ( !check_ajax_referer( 'ajax_edit_point_' . $point_edit_data['id'], array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for edit a point: invalid nonce', 'task-manager' ) ) );
+		}
+
+		$point = $point_controller->show( $point_edit_data['id'] );
+		$point->id = (int) $point_edit_data['id'];
+		$point->content = sanitize_text_field( $point_edit_data['content'] );
+
+		$point->option['point_info']['completed'] = (int) $point_edit_data['option']['point_info']['completed'];
+
+		if ( $point->option['point_info']['completed'] ) {
 			$point->option['time_info']['completed_point'][get_current_user_id()][] = current_time( 'mysql' );
 		}
 		else {
 			$point->option['time_info']['uncompleted_point'][get_current_user_id()][] = current_time( 'mysql' );
 		}
 
-		$_POST['point']['option']['time_info']['completed_point'] = $point->option['time_info']['completed_point'];
-		$_POST['point']['option']['time_info']['uncompleted_point'] = $point->option['time_info']['uncompleted_point'];
-
-		$point_controller->update( $_POST['point'] );
+		$point_controller->update( $point );
 
 		taskmanager\log\eo_log( 'wpeo_project',
 		array(
-			'object_id' => $_POST['point']['id'],
-			'message' => sprintf( __( 'The point #%d was updated with the content : %s and set to completed : %s', 'task-manager'), $_POST['point']['id'], $_POST['point']['content'], $_POST['point']['option']['point_info']['completed'] ),
+			'object_id' => $point_id,
+			'message' => sprintf( __( 'The point #%d was updated with the content : %s and set to completed : %s', 'task-manager'), $point_id, $point->content, $point->option['point_info']['completed'] ),
 		), 0 );
 
-		wp_send_json_success( );
+		wp_send_json_success( array( 'message' => __( 'Point edited', 'task-manager' ) ) );
 	}
 
 	/**

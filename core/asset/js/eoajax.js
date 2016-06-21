@@ -2,6 +2,7 @@ jQuery( document ).ready( function() {
 	jQuery.eoajax = function( url, data, callback ) {
 		if ( typeof callback == 'function' ) {
 			jQuery.post( url, data, function( response ) {
+				create_notification( response );
 				if( response && !response.success ) {
 					//alert( 'Success: ' + response.success );
 				}
@@ -43,6 +44,7 @@ jQuery( document ).ready( function() {
 						return false;
 					},
 					'success': function( response ) {
+						create_notification( response );
 						if( response && !response.success ) {
 							//alert( 'Success: ' + response.success );
 						}
