@@ -10,7 +10,6 @@ class point_action_01 {
 
 		/** Dashboard */
 		add_action( 'wp_ajax_load_dashboard_point', array( &$this, 'ajax_load_dashboard_point' ) );
-		add_action( 'wp_ajax_load_frontend_dashboard_point', array( &$this, 'ajax_load_frontend_dashboard_point' ) );
 
 		add_action( 'wp_ajax_send_point_to_task', array( &$this, 'ajax_send_point_to_task' ) );
 		add_action( 'wp_ajax_load_last_comment', array( &$this, 'ajax_load_last_comment') );

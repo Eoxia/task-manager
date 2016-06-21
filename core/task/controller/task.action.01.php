@@ -12,19 +12,6 @@ class task_action_01 {
 		add_action( 'wp_ajax_load_all_task', array( $this, 'ajax_load_all_task' ) );
 		add_action( 'wp_ajax_load_archived_task', array( $this, 'ajax_load_archived_task' ) );
 
-
-
-		// add_action( 'wp_ajax_ask_task', array( $this, 'ask_task' ) );
-
-
-
-		// add_action('wp_ajax_view_task_setting', array(&$this, 'ajax_view_task_setting'));
-
-		// add_action('wp_ajax_load_archive_task', array(&$this, 'ajax_load_archive_task'));
-
-		//
-		// add_action('wp_ajax_export_all_task', array($this, 'ajax_export_all_task'));
-
 		/** Additional informations */
 
 		/** Recharge le contenu de la tâche */

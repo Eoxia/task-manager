@@ -12,7 +12,7 @@ if( !class_exists( 'taskmanager_controller_01' ) ) {
 			add_action( 'admin_print_scripts', array( $this, 'callback_admin_print_scripts' ) );
 	 		add_action( 'wp_print_scripts', array( $this, 'callback_admin_print_scripts' ) );
 
-			taskmanager\util\wpeo_util::install_in( 'module' );
+			// taskmanager\util\wpeo_util::install_in( 'module' );
 		}
 
 		public function callback_wp_head() {
