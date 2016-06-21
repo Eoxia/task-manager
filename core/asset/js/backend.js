@@ -714,16 +714,12 @@ var wpeo_point = {
 
 		var data = {
 			action: 'edit_order_point',
+			_wpnonce: jQuery( element ).closest( '.wpeo-task-point-uncompleted' ).data( 'nonce' ),
 			object_id: object_id,
 			order_point_id: order_point_id,
 		};
 
-		jQuery.post( ajaxurl, data, function() {
-			create_notification( 'yes', 'info', wpeo_project_notification.point_order );
-			// wpeo_task.grid.masonry();
-		});
-
-
+		jQuery.eoajax( ajaxurl, data, function() {});
 	},
 
 	switch_completed: function( e, element ) {
@@ -782,7 +778,6 @@ var wpeo_point = {
 		jQuery( '.wpeo-window-dashboard' ).bgLoad();
 
 		jQuery.eoAjaxSubmit( jQuery(element).closest('form'), { action: 'create_point_time' }, function() {
-			create_notification( 'yes', 'info', wpeo_project_notification.point_time_created );
 			jQuery( '.wpeo-window-dashboard' ).bgLoad( 'stop' );
 			jQuery( '.wpeo-point-no-comment' ).hide();
 			if( this.edit ) {
@@ -874,7 +869,6 @@ var wpeo_point = {
 
 	send_point_to_task: function( event, element ) {
 		jQuery.eoAjaxSubmit( jQuery( element ).closest( 'form' ), { action: 'send_point_to_task' }, function() {
-			create_notification( 'yes', 'info', wpeo_project_notification.point_sended );
 			jQuery( '.wpeo-project-task[data-id="' + this.to_task_id + '"] .wpeo-task-point:first').append( this.template );
 			jQuery( '.wpeo-project-task[data-id="' + this.current_task_id + '"] .wpeo-task-li-point[data-id="' + this.point_id + '"]' ).remove();
 

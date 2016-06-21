@@ -1,7 +1,7 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; ?>
 
 <!-- Uncompleted points -->
-<ul class="wpeo-task-point wpeo-task-point-sortable">
+<ul class="wpeo-task-point wpeo-task-point-uncompleted wpeo-task-point-sortable" data-nonce="<?php echo wp_create_nonce( 'ajax_edit_order_point_' . $object_id ); ?>">
 	<input type="hidden" class="wpeo-object-id" value="<?php echo $object_id; ?>" />
 
 	<?php if( !empty( $list_point_uncompleted ) ):?>

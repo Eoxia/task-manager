@@ -2,17 +2,12 @@
 
 class point_action_01 {
 	public function __construct() {
-		/** Point */
-		add_action( 'wp_ajax_create_point', array( &$this, 'ajax_create_point' ) );
-		add_action( 'wp_ajax_delete_point', array( &$this, 'ajax_delete_point' ) );
-		add_action( 'wp_ajax_edit_point', array( &$this, 'ajax_edit_point' ) );
-		add_action( 'wp_ajax_edit_order_point', array( &$this, 'ajax_edit_order_point' ) );
-
-		/** Dashboard */
-		add_action( 'wp_ajax_load_dashboard_point', array( &$this, 'ajax_load_dashboard_point' ) );
-
-		add_action( 'wp_ajax_send_point_to_task', array( &$this, 'ajax_send_point_to_task' ) );
-		add_action( 'wp_ajax_load_last_comment', array( &$this, 'ajax_load_last_comment') );
+		add_action( 'wp_ajax_create_point', 				array( $this, 'ajax_create_point' ) );
+		add_action( 'wp_ajax_delete_point', 				array( $this, 'ajax_delete_point' ) );
+		add_action( 'wp_ajax_edit_point', 					array( $this, 'ajax_edit_point' ) );
+		add_action( 'wp_ajax_edit_order_point', 		array( $this, 'ajax_edit_order_point' ) );
+		add_action( 'wp_ajax_load_dashboard_point', array( $this, 'ajax_load_dashboard_point' ) );
+		add_action( 'wp_ajax_send_point_to_task', 	array( $this, 'ajax_send_point_to_task' ) );
 	}
 
 	/**
@@ -186,6 +181,10 @@ class point_action_01 {
 
 		$object_id = (int) $_POST['object_id'];
 
+    if ( !check_ajax_referer( 'ajax_edit_order_point_' . $object_id, array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for edit order point: invalid nonce', 'task-manager' ) ) );
+		}
+
 		$task = $task_controller->show( $object_id );
 		$list_point = $point_controller->index( $task->id, array( 'comment__in' => $task->option['task_info']['order_point_id'], 'status' => -34070 ) );
 
@@ -206,21 +205,30 @@ class point_action_01 {
 		$task->option['task_info']['order_point_id'] = $_POST['order_point_id'];
 		$task_controller->update( $task );
 
-		wp_die();
+		wp_send_json_success( array( 'message' => __( 'Point order edited', 'task-manager' ) ) );
 	}
 
 	/**
 	 * Charge le tableau de bord du point
 	 */
 	public function ajax_load_dashboard_point() {
-		wpeo_check_01::check( 'wpeo_nonce_load_dashboard_point_' . $_POST['point_id'] );
-
 		global $task_controller;
 		global $point_controller;
 		global $time_controller;
 
-		$task 				= $task_controller->show( $_POST['task_id'] );
-		$point 				= $point_controller->show( $_POST['point_id'] );
+		$point_id = !empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
+		$task_id = !empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+
+		if ( $point_id === 0 || $task_id === 0 ) {
+			wp_send_json_error( array( 'message' => __( 'Error for load dashboard point', 'task-manager' ) ) );
+		}
+
+		if ( !check_ajax_referer( 'ajax_load_dashboard_point_' . $point_id, array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for load dashboard point: invalid nonce', 'task-manager' ) ) );
+		}
+
+		$task 				= $task_controller->show( $task_id );
+		$point 				= $point_controller->show( $point_id );
 		$list_time 		=	$time_controller->index( $taks->id, array( 'parent' => $point->id, 'status' => -34070 ) );
 
 		ob_start();
@@ -228,144 +236,172 @@ class point_action_01 {
 		wp_send_json_success( array( 'template' => ob_get_clean() ) );
 	}
 
-	public function ajax_create_point_time() {
-		wpeo_check_01::check( 'wpeo_nonce_create_point_time_' . $_POST['point_time']['parent_id'] );
+	// public function ajax_create_point_time() {
+	// 	global $point_time_controller;
+	//
+	// 	if ( !check_ajax_referer( 'ajax_create_point_time', array(), false ) ) {
+	// 		wp_send_json_error( array( 'message' => __( 'Error for create point time: invalid nonce', 'task-manager' ) ) );
+	// 	}
+	//
+	// 	$point_time_data = !empty( $_POST['point_time'] ) ? (array) $_POST['point_time'] : array();
+	// 	$point_time_data['post_id'] = !empty( $_POST['point_time']['post_id'] ) ? (int) $_POST['point_time']['post_id'] : 0;
+	// 	$point_time_data['parent_id'] = !empty( $_POST['point_time']['parent_id'] ) ? (int) $_POST['point_time']['parent_id'] : 0;
+	// 	$point_time_data['author_id'] = !empty( $_POST['point_time']['author_id'] ) ? (int) $_POST['point_time']['author_id'] : 0;
+	// 	$point_time_data['content'] = !empty( $_POST['point_time']['content'] ) ? sanitize_text_field( $_POST['point_time']['content'] ) : '';
+	// 	$point_time_data['time'] = !empty( $_POST['point_time']['time'] ) ? sanitize_text_field( $_POST['point_time']['time'] ) : '';
+	// 	$point_time_data['date'] = !empty( $_POST['point_time']['date'] ) ? sanitize_text_field( $_POST['point_time']['date'] ) : '';
+	// 	$point_time_data['option']['time_info']['elapsed'] = !empty( $_POST['point_time']['option']['time_info']['elapsed'] ) ? (int) $_POST['point_time']['option']['time_info']['elapsed'] : 0;
+	// 	$point_time_id = !empty( $_POST['point_time_id'] ) ? (int) $_POST['point_time_id'] : 0;
+	//
+	//
+	// 	if ( $point_time_data['post_id'] === 0 || $point_time_data['parent_id'] === 0 ||
+	// 		empty( $point_time_data ) || $point_time_data['author_id'] === 0 || $point_time_data['time'] == '' ||
+	// 		$point_time_data['date'] == '' || $point_time_data['option']['time_info']['elapsed'] === 0 ) {
+	// 		wp_send_json_error( array( 'message' => __( 'Error for create point time', 'task-manager' ) ) );
+	// 	}
+	//
+	//  	$point_time_data['date'] .= ' ' . current_time( 'h:i:s' );
+	//
+	// 	if ( $point_time_id !== 0 ) {
+	// 		/** Edit the point */
+	// 		$point_time 																	= $point_time_controller->show( $point_time_id );
+	// 		$point_time->option['time_info']['old_elapsed'] = $point_time_data->option['time_info']['elapsed'];
+	// 		$point_time->date 								= $point_time_data['date'];
+	// 		$point_time->option['time_info']['elapsed'] 	= $point_time_data['option']['time_info']['elapsed'];
+	// 		$point_time->content 							= $point_time['content'];
+	//
+	// 		$response = $point_time_controller->update($point_time);
+	// 	}
+	// 	else {
+	// 		/** Add the point */
+	// 		$point_time_data['status'] = '-34070';
+	//
+	// 		$response 	= $point_time_controller->create( $point_time_data );
+	// 		$point_time = $point_time_controller->show( $response['point_time_id'] );
+	// 	}
+	//
+	// 	$list_user_in = array();
+	//
+	// 	if ( !empty( $point_time ) ) {
+	// 		$list_user_in[$point_time->author_id] = get_userdata( $point_time->author_id );
+	// 	}
+	//
+	// 	ob_start();
+	// 	require_once( wpeo_template_01::get_template_part( WPEO_POINT_DIR, WPEO_POINT_TEMPLATES_MAIN_DIR, 'backend', 'point', 'time' ) );
+	// 	$response['template'] = ob_get_clean();
+	// 	$response['message'] = __( 'Comment created', 'task-manager' );
+	//
+	// 	wp_send_json_success( $response );
+	// }
 
-		global $point_time_controller;
+	// /**
+	//  * Create point time for WPShop client
+	//  */
+	// public function ajax_create_point_time_client() {
+	// 	if ( !wp_verify_nonce( $_POST['_wpnonce'], 'wpeo_nonce_create_point_time_frontend_' . $_POST['point_time']['parent_id'] ) ) {
+	// 		wp_send_json_error();
+	// 	}
+	//
+	// 	$edit = false;
+	//
+	// 	global $point_time_controller;
+	//
+	// 	if ( !empty( $_POST['point_time']['id'] ) ) {
+	// 		$point_time 			= $point_time_controller->show( $_POST['point_time']['id'] );
+	// 		$point_time->content 	= $_POST['point_time']['content'];
+	//
+	// 		$point_time_controller->update( $point_time );
+	// 		$edit = true;
+	// 		taskmanager\log\eo_log( 'wpeo_project',
+	// 		array(
+	// 		'object_id' => $_POST['point']['id'],
+	// 		'message' => sprintf( __( 'The point #%d was updated with the content : %s and set to completed : %s', 'task-manager'), $_POST['point']['id'], $_POST['point']['content'], $_POST['point']['option']['point_info']['completed'] ),
+	// 		), 0 );
+	// 	}
+	// 	else {
+	// 		$_POST['point_time']['status'] = '-34070';
+	// 		$_POST['point_time']['date'] = current_time( 'mysql' );
+	//
+	// 		$response 	= $point_time_controller->create( $_POST['point_time'] );
+	// 		$point_time = $point_time_controller->show( $response['point_time_id'] );
+	// 	}
+	//
+	// 	$list_user_in 		= array();
+	//
+	// 	if ( empty( $list_user_in[$point_time->author_id] ) ) {
+	// 		$list_user_in[$point_time->author_id] = get_userdata( $point_time->author_id );
+	// 	}
+	//
+	// 	ob_start();
+	// 	require_once( wpeo_template_01::get_template_part( WPEO_POINT_DIR, WPEO_POINT_TEMPLATES_MAIN_DIR, 'frontend', 'point', 'time' ) );
+	// 	wp_send_json_success( array( 'template' => ob_get_clean(), 'edit' => $edit, ) );
+	// }
 
-		$response = array();
-
-		$_POST['point_time']['date'] .= ' ' . current_time( 'h:i:s' );
-
-		if ( !empty( $_POST['point_time_id'] ) ) {
-			/** Edit the point */
-			$point_time 									= $point_time_controller->show( $_POST['point_time_id'] );
-			$point_time->option['time_info']['old_elapsed'] = $point_time->option['time_info']['elapsed'];
-			$point_time->date 								= $_POST['point_time']['date'];
-			$point_time->option['time_info']['elapsed'] 	= $_POST['point_time']['option']['time_info']['elapsed'];
-			$point_time->content 							= $_POST['point_time']['content'];
-
-			$response = $point_time_controller->update($point_time);
-		}
-		else {
-			/** Add the point */
-			$_POST['point_time']['status'] = '-34070';
-
-			$response 	= $point_time_controller->create( $_POST['point_time'] );
-			$point_time = $point_time_controller->show( $response['point_time_id'] );
-		}
-
-		$list_user_in = array();
-
-		if ( !empty( $point_time ) ) {
-			$list_user_in[$point_time->author_id] = get_userdata( $point_time->author_id );
-		}
-
-		ob_start();
-		require_once( wpeo_template_01::get_template_part( WPEO_POINT_DIR, WPEO_POINT_TEMPLATES_MAIN_DIR, 'backend', 'point', 'time' ) );
-		$response['template'] = ob_get_clean();
-
-		wp_send_json_success( $response );
-	}
-
-	/**
-	 * Create point time for WPShop client
-	 */
-	public function ajax_create_point_time_client() {
-		if ( !wp_verify_nonce( $_POST['_wpnonce'], 'wpeo_nonce_create_point_time_frontend_' . $_POST['point_time']['parent_id'] ) ) {
-			wp_send_json_error();
-		}
-
-		$edit = false;
-
-		global $point_time_controller;
-
-		if ( !empty( $_POST['point_time']['id'] ) ) {
-			$point_time 			= $point_time_controller->show( $_POST['point_time']['id'] );
-			$point_time->content 	= $_POST['point_time']['content'];
-
-			$point_time_controller->update( $point_time );
-			$edit = true;
-			taskmanager\log\eo_log( 'wpeo_project',
-			array(
-			'object_id' => $_POST['point']['id'],
-			'message' => sprintf( __( 'The point #%d was updated with the content : %s and set to completed : %s', 'task-manager'), $_POST['point']['id'], $_POST['point']['content'], $_POST['point']['option']['point_info']['completed'] ),
-			), 0 );
-		}
-		else {
-			$_POST['point_time']['status'] = '-34070';
-			$_POST['point_time']['date'] = current_time( 'mysql' );
-
-			$response 	= $point_time_controller->create( $_POST['point_time'] );
-			$point_time = $point_time_controller->show( $response['point_time_id'] );
-		}
-
-		$list_user_in 		= array();
-
-		if ( empty( $list_user_in[$point_time->author_id] ) ) {
-			$list_user_in[$point_time->author_id] = get_userdata( $point_time->author_id );
-		}
-
-		ob_start();
-		require_once( wpeo_template_01::get_template_part( WPEO_POINT_DIR, WPEO_POINT_TEMPLATES_MAIN_DIR, 'frontend', 'point', 'time' ) );
-		wp_send_json_success( array( 'template' => ob_get_clean(), 'edit' => $edit, ) );
-	}
-
-	public function ajax_get_point_time() {
-		wpeo_check_01::check( 'wpeo_nonce_get_point_time_' . $_POST['point_time_id'] );
-
-		if (  0 === is_int( ( int )$_POST['point_time_id'] ) )
-			wp_send_json_error();
-		else
-			$point_time_id = $_POST['point_time_id'];
-
-		global $point_time_controller;
-		$point_time = $point_time_controller->show( $point_time_id );
-
-		$date = explode( ' ', $point_time->date );
-
-		ob_start();
-		require_once( wpeo_template_01::get_template_part( WPEO_POINT_DIR, WPEO_POINT_TEMPLATES_MAIN_DIR, 'backend', 'edit', 'point-time' ) );
-		wp_send_json_success( array( 'point_time_id' => $point_time_id, 'template' => ob_get_clean() ) );
-	}
-
-	public function ajax_delete_point_time() {
-		wpeo_check_01::check( 'wpeo_nonce_delete_point_time_' . $_POST['point_time_id'] );
-
-		global $point_time_controller;
-
-		$response = array();
-		$task = $point_time_controller->delete( $_POST['point_time_id'] );
-
-		wp_send_json_success( array( 'task' => $task ) );
-	}
+	// public function ajax_get_point_time() {
+	// 	wpeo_check_01::check( 'wpeo_nonce_get_point_time_' . $_POST['point_time_id'] );
+	//
+	// 	if (  0 === is_int( ( int )$_POST['point_time_id'] ) )
+	// 		wp_send_json_error();
+	// 	else
+	// 		$point_time_id = $_POST['point_time_id'];
+	//
+	// 	global $point_time_controller;
+	// 	$point_time = $point_time_controller->show( $point_time_id );
+	//
+	// 	$date = explode( ' ', $point_time->date );
+	//
+	// 	ob_start();
+	// 	require_once( wpeo_template_01::get_template_part( WPEO_POINT_DIR, WPEO_POINT_TEMPLATES_MAIN_DIR, 'backend', 'edit', 'point-time' ) );
+	// 	wp_send_json_success( array( 'point_time_id' => $point_time_id, 'template' => ob_get_clean() ) );
+	// }
+	//
+	// public function ajax_delete_point_time() {
+	// 	wpeo_check_01::check( 'wpeo_nonce_delete_point_time_' . $_POST['point_time_id'] );
+	//
+	// 	global $point_time_controller;
+	//
+	// 	$response = array();
+	// 	$task = $point_time_controller->delete( $_POST['point_time_id'] );
+	//
+	// 	wp_send_json_success( array( 'task' => $task ) );
+	// }
 
 	public function ajax_send_point_to_task() {
-		if( empty( $_POST['element_id'] ) )
-			wp_send_json_error();
-
 		global $task_controller;
-		$current_task = $task_controller->show( $_POST['current_task_id'] );
-		$task = $task_controller->show( $_POST['element_id'] );
+
+		$element_id = !empty( $_POST['element_id'] ) ? (int) $_POST['element_id'] : 0;
+		$current_task_id = !empty( $_POST['current_task_id'] ) ? (int) $_POST['current_task_id'] : 0;
+		$point_id = !empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
+
+		if ( $element_id === 0 || $current_task_id === 0 || $point_id === 0 ) {
+			wp_send_json_error( array( 'message' => __( 'Error for send point to task', 'task-manager' ) ) );
+		}
+
+		if ( !check_ajax_referer( 'ajax_send_point_to_task_' . $point_id, array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for load dashboard point: invalid nonce', 'task-manager' ) ) );
+		}
+
+		$current_task = $task_controller->show( $current_task_id );
+		$task = $task_controller->show( $element_id );
 
 		if( $current_task->id == 0 || $task->id == 0 || $current_task->status == 'trash' || $task->status == 'trash' )
 			wp_send_json_error();
 
-		if( ( $key = array_search( $_POST['point_id'], $current_task->option['task_info']['order_point_id'] ) ) !== false ) {
+		if( ( $key = array_search( $point_id, $current_task->option['task_info']['order_point_id'] ) ) !== false ) {
 			unset( $current_task->option['task_info']['order_point_id'][$key] );
 		}
 
-		$task->option['task_info']['order_point_id'][] = $_POST['point_id'];
+		$task->option['task_info']['order_point_id'][] = $point_id;
 
 		$task_controller->update( $current_task );
 		$task_controller->update( $task );
 
 		global $point_controller;
-		$point = $point_controller->show( $_POST['point_id'] );
+		$point = $point_controller->show( $point_id );
 		$point->post_id = $task->id;
 		$point_controller->update( $point );
 
-		$point_controller->send_comment_to( $current_task->id, $task->id, $_POST['point_id'] );
+		$point_controller->send_comment_to( $current_task->id, $task->id, $point_id );
 
 		$object_id = $task->id;
 
@@ -373,8 +409,6 @@ class point_action_01 {
 		$task = $task_controller->update_time( $task->id );
 
 		$custom_class = ' wpeo-task-point-sortable ';
-
-
 
 		ob_start();
 		require( wpeo_template_01::get_template_part( WPEO_POINT_DIR, WPEO_POINT_TEMPLATES_MAIN_DIR, 'backend', 'point' ) );
@@ -385,46 +419,10 @@ class point_action_01 {
 				'to_task_id' => $task->id,
 				'point_id' => $_POST['point_id'],
 				'current_task_time' => $current_task->option['time_info']['elapsed'],
-				'task_time' => $task->option['time_info']['elapsed']
+				'task_time' => $task->option['time_info']['elapsed'],
+				'message' => __( 'Point sended', 'task-manager' ),
 			)
 		);
-	}
-
-	public function ajax_load_last_comment( $page ) {
-		$_POST['page'] = !( empty( $page ) ) ? $page : $_POST['page'];
-
-		if ( empty( $_POST['page'] ) )
-			wp_send_json_error();
-
-		global $point_time_controller;
-		global $point_controller;
-
-		$list_comment = $point_time_controller->get_all_comment( 'comment.comment_date', 'DESC', 5, $_POST['page'] - 1 );
-		$count_comment = $point_time_controller->get_count_comment();
-
-		$list_user_in = array();
-
-		if ( !empty( $list_comment ) ) {
-			foreach ( $list_comment as $comment ) {
-				if ( empty( $list_user_in[$comment->author_id] ) ) {
-					$list_user_in[$comment->author_id] = get_userdata( $comment->author_id );
-				}
-			}
-		}
-
-		$current_page = $_POST['page'];
-		$number_paginate = ceil( $count_comment / 5 );
-
-		ob_start();
-		if ( !empty( $count_comment ) ) {
-			require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'last', 'comment' ) );
-		}
-		if( !empty( $page ) ) {
-			return ob_get_clean();
-		}
-		else {
-			wp_send_json_success( array( 'template' => ob_get_clean() ) );
-		}
 	}
 }
 
