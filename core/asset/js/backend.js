@@ -4,12 +4,19 @@ var list_tag_id = undefined;
 var list_user_id = undefined;
 var load_all_task = false;
 
-function create_notification( dashicons, type, message, method, args ) {
+function create_notification( notification ) {
+	var dashicons = 'yes';
+	var message = notification.data.message;
+	var type = 'info';
+
+	if ( notification.success == false ) {
+		dashicons = 'no';
+		type = 'warning';
+	}
 	var data = {
 		action: "wpeo-load-notification",
 		type: type,
 		message: message,
-		method: method,
 		dashicons: dashicons,
 	}
 
@@ -19,7 +26,7 @@ function create_notification( dashicons, type, message, method, args ) {
 	my_div.load(ajaxurl, data, function() {
 		setTimeout(function() {
 			my_div.fadeOut(200);
-		}, 5000);
+		}, 3000);
 	});
 }
 
@@ -577,7 +584,7 @@ var wpeo_point = {
 
 		bloc_task.bgLoad();
 
-		jQuery.eoAjaxSubmit( form, { 'action': 'create_point' }, function() {
+		jQuery.eoAjaxSubmit( form, { 'action': 'create_point' }, function( response ) {
 			bloc_task.bgLoad( 'stop' );
 
 			/** Réactive les events */
@@ -593,8 +600,6 @@ var wpeo_point = {
 			/** On met à jour l'interface */
 			wpeo_global.init();
 			form.clearForm();
-
-			create_notification( 'yes', 'info', wpeo_project_notification.point_created );
 		} );
 	},
 

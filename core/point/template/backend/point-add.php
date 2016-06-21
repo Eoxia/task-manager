@@ -2,7 +2,7 @@
 
 <!-- Ajouter un point / Add a point -->
 <form action="<?php echo admin_url( 'admin-ajax.php' ); ?>" method="POST">
-  <?php wp_nonce_field( 'wpeo_nonce_create_point_' . $object_id ); ?>
+  <?php wp_nonce_field( 'ajax_create_point_' . $object_id ); ?>
   <input type="hidden" name="point[post_id]" value="<?php echo $object_id; ?>" />
   <ul class="wpeo-task-point">
     <li class="wpeo-add-point wpeo-point-no-sortable">
