@@ -2,7 +2,7 @@
 
 <!-- Task header : Pour modifier le titre, le temps estimé et ouvrir le dashboard à droite -->
 <form action="<?php echo admin_url( 'admin-ajax.php' ); ?>" method="POST">
-	<?php wp_nonce_field( 'wpeo_nonce_edit_task_' . $task->id ); ?>
+	<?php wp_nonce_field( 'ajax_edit_task_' . $task->id ); ?>
 	<ul class="wpeo-task-header">
 		<li class="wpeo-task-id">#<?php echo $task->id; ?></li>
 

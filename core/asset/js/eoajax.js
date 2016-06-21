@@ -3,8 +3,8 @@ jQuery( document ).ready( function() {
 		if ( typeof callback == 'function' ) {
 			jQuery.post( url, data, function( response ) {
 				create_notification( response );
+				
 				if( response && !response.success ) {
-					//alert( 'Success: ' + response.success );
 				}
 				else {
 					callback.call( response.data );
@@ -46,7 +46,6 @@ jQuery( document ).ready( function() {
 					'success': function( response ) {
 						create_notification( response );
 						if( response && !response.success ) {
-							//alert( 'Success: ' + response.success );
 						}
 						else {
 							callback.call( response.data );

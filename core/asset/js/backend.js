@@ -187,6 +187,7 @@ var wpeo_task = {
 		var url = jQuery( element ).attr( 'href' ).replace( 'admin-post.php', 'admin-ajax.php' );
 
 		var data = {
+			_wpnonce: jQuery( element ).data( 'nonce' ),
 			parent_id: jQuery( '.wpeo-task-post-parent' ).val(),
 		};
 
@@ -205,7 +206,6 @@ var wpeo_task = {
 			/** On enlève le loader */
 			jQuery( '.list-task' ).bgLoad( 'stop' );
 
-			create_notification( 'yes', 'info', wpeo_project_notification.task_created )
 
 			wpeo_global.init();
 		} );
@@ -268,7 +268,6 @@ var wpeo_task = {
 
 		jQuery.eoajax( ajaxurl, data, function() {
 			jQuery( '.wpeo-project-task[data-id="' + task_id + '"]' ).replaceWith( this.template );
-			create_notification( 'yes', 'info', wpeo_project_notification.task_reloaded )
 			wpeo_global.init();
 		} );
 	},
@@ -292,7 +291,6 @@ var wpeo_task = {
 		};
 
 		jQuery.eoAjaxSubmit( form, data, function() {
-			create_notification( 'yes', 'info', wpeo_project_notification.task_edited );
 		} );
 	},
 
@@ -323,7 +321,6 @@ var wpeo_task = {
 			jQuery( '.wpeo-button-all-task' ).click();
 
 			jQuery.eoajax( ajaxurl, data, function() {
-				create_notification( 'yes', 'info', wpeo_project_notification.task_deleted );
 			} );
 		}
 	},
@@ -338,7 +335,6 @@ var wpeo_task = {
 		};
 
 		jQuery.eoAjaxSubmit( jQuery( '#wpeo-task-option form' ), data, function() {
-			create_notification( 'yes', 'info', wpeo_project_notification.task_edited );
 		} );
 	},
 
@@ -357,7 +353,6 @@ var wpeo_task = {
 		jQuery.eoajax( ajaxurl, data, function() {
 			jQuery( '.wpeo-project-task[data-id="' + task_id + '"]' ).remove();
 			jQuery( '.wpeo-button-all-task' ).click();
-			create_notification( 'yes', 'info', wpeo_project_notification.task_archived );
 		});
 	},
 
@@ -421,7 +416,6 @@ var wpeo_task = {
 
 		jQuery.eoajax( ajaxurl, data, function( ) {
 			wpeo_task.download_export( this.url_to_file, false );
-			create_notification( 'yes', 'info', wpeo_project_notification.task_exported );
 		});
 	},
 
@@ -452,7 +446,6 @@ var wpeo_task = {
 
 			jQuery.eoajax( ajaxurl, data, function() {
 				wpeo_task.download_export( this.url_to_file, true );
-				create_notification( 'yes', 'info', wpeo_project_notification.task_exported );
 			});
 		}
 	},
@@ -476,7 +469,8 @@ var wpeo_task = {
 
 
 		var data = {
-			'action': 'load_all_task'
+			'action': 'load_all_task',
+			'_wpnonce': jQuery( element ).data( 'nonce' ),
 		};
 
 		if( !load_all_task ) {
@@ -510,14 +504,12 @@ var wpeo_task = {
 		jQuery.eoAjaxSubmit( jQuery( element ).closest( 'form' ), { action: 'send_task_to_element' }, function() {
 			jQuery( '.wpeo-project-task-' + this.task_id ).remove();
 			jQuery( '.wpeo-window-dashboard' ).hide();
-			create_notification( 'yes', 'info', wpeo_project_notification.task_edited );
 		} );
 		return false;
 	},
 
 	update_due_date: function( event, element ) {
 		jQuery.eoAjaxSubmit( jQuery( element ).closest( 'form' ), { action: 'update_due_date' }, function() {
-			create_notification( 'yes', 'info', wpeo_project_notification.task_edited );
 		} );
 		return false;
 	}
@@ -640,7 +632,6 @@ var wpeo_point = {
 					var count_completed = task_bloc.find( '.wpeo-task-count-completed' ).text();
 					count_completed--;
 					task_bloc.find( '.wpeo-task-count-completed' ).text( count_completed );
-					create_notification( 'yes', 'info', wpeo_project_notification.point_deleted );
 				}
 
 				// wpeo_task.grid.masonry();
@@ -653,7 +644,6 @@ var wpeo_point = {
 		var form = jQuery( element ).closest( '.form' );
 
 		jQuery.eoAjaxSubmit( form, { 'action': 'edit_point' }, function() {
-			create_notification( 'yes', 'info', wpeo_project_notification.point_edited );
 		} );
 	},
 
@@ -733,11 +723,9 @@ var wpeo_point = {
 		if( jQuery( element ).is( ':checked' ) ) {
 			bloc_task.find( '.wpeo-task-point-completed:first' ).append( bloc );
 			count_completed[0]++;
-			create_notification( 'yes', 'info', wpeo_project_notification.point_completed );
 		}
 		else {
 			bloc_task.find( '.wpeo-task-point:first' ).append( bloc );
-			create_notification( 'yes', 'info', wpeo_project_notification.point_uncompleted );
 			count_completed[0]--;
 		}
 
@@ -831,7 +819,6 @@ var wpeo_point = {
 		};
 
 		jQuery.eoajax( ajaxurl, data, function() {
-			create_notification( 'yes', 'info', wpeo_project_notification.point_time_edited );
 			jQuery( '.wpeo-window-dashboard' ).bgLoad( 'stop' );
 
 			jQuery(element).closest( '.wpeo-window-dashboard').find( '.wpeo-point-comment-' + this.point_time_id ).replaceWith( this.template );
@@ -855,7 +842,6 @@ var wpeo_point = {
 			};
 
 			jQuery.eoajax( ajaxurl, data, function() {
-				create_notification( 'yes', 'info', wpeo_project_notification.point_time_deleted );
 				jQuery('.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-project-task-time').text( this.task.option.time_info.elapsed );
 				jQuery('.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-task-li-point[data-id="' + this.point.id + '"] .wpeo-time-in-point').text( this['point']['option']['time_info']['elapsed'] );
 				jQuery(element).closest( '.wpeo-window-dashboard').find( '.wpeo-point-elapsed-time' ).text( this['point']['option']['time_info']['elapsed'] );

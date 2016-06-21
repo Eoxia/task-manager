@@ -69,10 +69,10 @@ var wpeo_tag = {
 		var data = {
 			action: 'view_task_tag',
 			object_id: object_id,
+			_wpnonce: jQuery( '.wpeo-project-task[data-id="' + wpeo_tag.current_task_id + '"] .wpeo-tag-edit-tag-btn' ).data( 'nonce' ),
 		};
 
 		jQuery.eoajax( ajaxurl, data, function() {
-			create_notification( 'yes', 'info', wpeo_project_notification.tag_edited );
 			bloc_tag.bgLoad( 'stop' );
 			bloc_tag.replaceWith( this.template );
 			bloc_tag.removeClass( 'wpeo-tag-wrap-edit' );
@@ -125,7 +125,8 @@ var wpeo_tag = {
 		jQuery( element ).addClass( 'wpeo-button-active' );
 
 		var data = {
-			'action': 'load_archived_task'
+			'action': 'load_archived_task',
+			'_wpnonce': jQuery( element ).data( 'nonce' ),
 		};
 
 		if( !wpeo_tag.archived_task ) {
@@ -149,7 +150,6 @@ var wpeo_tag = {
 		};
 
 		jQuery.eoajax( ajaxurl, data, function() {
-			create_notification( 'yes', 'info', wpeo_project_notification.tag_created );
 			jQuery( '.wpeo-tag-filter' ).append( '<option value="' + this.slug + '">' + this.name + '</option>' );
 			jQuery( '.wpeo-tag-filter' ).trigger( "chosen:updated" );
 		} );

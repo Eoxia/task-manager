@@ -3,7 +3,7 @@
 class task_action_01 {
 	public function __construct() {
 		/** Créer une tâche */
-		add_action( 'wp_ajax_create_task', array( $this, 'create_task' ) );
+		add_action( 'wp_ajax_create_task', array( $this, 'ajax_create_task' ) );
 		add_action( 'wp_ajax_edit_task', array( $this, 'ajax_edit_task' ) );
 		add_action( 'wp_ajax_archive_task', array( $this, 'ajax_archive_task' ) );
 		add_action( 'wp_ajax_export_task', array( $this, 'ajax_export_task') );
@@ -12,23 +12,11 @@ class task_action_01 {
 		add_action( 'wp_ajax_load_all_task', array( $this, 'ajax_load_all_task' ) );
 		add_action( 'wp_ajax_load_archived_task', array( $this, 'ajax_load_archived_task' ) );
 
-		/** Additional informations */
-
-		/** Recharge le contenu de la tâche */
-		add_action( 'wp_ajax_reload_task', array( &$this, 'ajax_reload_task' ) );
-
 		/** Tags */
 		add_action( 'wp_ajax_view_task_tag', array( &$this, 'ajax_view_task_tag' ) );
 		add_action( 'wp_ajax_edit_task_tag', array( &$this, 'ajax_edit_task_tag' ) );
 
-		/** Users */
 		add_action( 'wp_ajax_wpeo-edit-task-owner-user', array( &$this, 'ajax_edit_task_owner_user' ) );
-
-		/** WpShop customer */
-
-		/** Compile time */
-
-		/** Summary */
 
 		add_action( 'wp_ajax_send_task_to_element', array( &$this, 'ajax_send_task_to_element' ) );
 
@@ -44,13 +32,18 @@ class task_action_01 {
 	 * @param int $_POST['parent_id'] L'id du post type actuel. Peut être non défini.
 	 * @return JSON Object { 'success': true|false, 'data': { 'template': '' } }
 	 */
-	public function create_task() {
-		wpeo_check_01::check( 'wpeo_nonce_create_task' );
-
+	public function ajax_create_task() {
 		global $task_controller;
+
+		$parent_id = !empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
+
+		if ( !check_ajax_referer( 'ajax_create_task', array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for create a task: invalid nonce', 'task-manager' ) ) );
+		}
+
 		$task = $task_controller->create( array(
 			'title' => __( 'New task', 'task-manager' ),
-			'parent_id' => !empty( $_POST['parent_id'] ) ? $_POST['parent_id'] : 0,
+			'parent_id' => $parent_id,
 			'author_id' => get_current_user_id(),
 			'option' => array( 'user_info' => array( 'owner_id' => get_current_user_id() ) ) ) );
 
@@ -65,7 +58,7 @@ class task_action_01 {
 
 		ob_start();
 		$task_controller->render_task( $task );
-		wp_send_json_success( array( 'template' => ob_get_clean() ) );
+		wp_send_json_success( array( 'template' => ob_get_clean(), 'message' => __( 'Task created', 'task-manager' ) ) );
 	}
 
 	/**
@@ -81,110 +74,25 @@ class task_action_01 {
 	 * @return JSON Object { 'success': true|false, 'data' => { } }
 	 */
 	public function ajax_edit_task() {
-		// Vérification si $_POST['task_id'] est bien un entier
-		$_CLEAN['task']['id'] = $_POST['task']['id'];
-		if ( !is_int( $_CLEAN['task']['id'] ) )
-			$_CLEAN['task']['id'] = intval( $_CLEAN['task']['id'] );
-
-		wpeo_check_01::check( 'wpeo_nonce_edit_task_' . $_CLEAN['task']['id'] );
-
 		global $task_controller;
-		$task = $task_controller->show( $_CLEAN['task']['id'] );
+		$task_data = !empty( $_POST['task'] ) ? (array) $_POST['task'] : array();
+		$task_data['id'] = !empty( $task_data['id'] ) ? (int) $task_data['id'] : 0;
+		$task_data['title'] = !empty( $task_data['title'] ) ? sanitize_text_field( $task_data['title'] ) : '';
+		$task = $task_controller->show( $task_data['id'] );
+		$task_data['slug'] = ( strchr( $task->slug, 'ask-task-' ) === FALSE ) ? sanitize_title( $task_data['tiel'] ) : $task->slug;
+		$task_data['option']['time_info']['estimated'] = !empty( $task_data['option']['time_info']['estimated'] ) ? (int) $task_data['option']['time_info']['estimated'] : 0;
 
-		// Transfert des valeurs dans $_CLEAN
-		if ( !empty( $_POST['task']['title'] ) ) {
-			$_CLEAN['task']['title'] 	= $_POST['task']['title'];
-			$_CLEAN['task']['slug'] 	= ( strchr( $task->slug, 'ask-task-' ) === FALSE ) ? sanitize_title( $_POST['task']['title'] ) : $task->slug;
-			$_CLEAN['task']['option']['time_info']['estimated'] = $_POST['task']['option']['time_info']['estimated'];
-			$log_message = sprintf( __( 'The task #%d has been edited by the user #%d with the title : %s and the estimated time %d', 'task-manager'), $_CLEAN['task']['id'], get_current_user_id(), $_CLEAN['task']['title'], $_CLEAN['task']['option']['time_info']['estimated'] );
+		if ( empty( $task_data ) || $task_data['id'] === 0 ) {
+			wp_send_json_error( array( 'message' => __( 'Error for edit a task', 'task-manager' ) ) );
 		}
 
-		if ( !empty( $_POST['task']['option']['front_info']['display_user'] ) ) {
-			$_CLEAN['task']['option']['front_info']['display_user']	= $_POST['task']['option']['front_info']['display_user'];
-			$_CLEAN['task']['option']['front_info']['display_time']	= $_POST['task']['option']['front_info']['display_time'];
-
-			$log_message = sprintf( __( 'The task #%d has been edited by the user #%d with the frontend info display_user : %s and the display_time : %s ', 'task-manager'), $_CLEAN['task']['id'], get_current_user_id(), $_CLEAN['task']['option']['front_info']['display_user'], $_CLEAN['task']['option']['front_info']['display_time'] );
+		if ( !check_ajax_referer( 'ajax_edit_task_' . $task_data['id'], array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for edit a task: invalid nonce', 'task-manager' ) ) );
 		}
 
-		$task = $task_controller->update( $_CLEAN['task'] );
+		$task_controller->update( $task_data );
 
-		/** On log la modification de la tâche */
-		taskmanager\log\eo_log( 'wpeo_project',
-			array(
-			'object_id' => $_CLEAN['task']['id'],
-			'message' => $log_message,
-		), 0 );
-
-		wp_send_json_success();
-	}
-
-	public function ajax_load_all_task() {
-		global $task_controller;
-		$list_task = $task_controller->index( array( 'post_parent' => 0 ) );
-		// 	'meta_query' => array(
-		// 			array(
-		// 				'key' => 'wpeo_task',
-		// 				'value' => '{"user_info":{"owner_id":' . get_current_user_id(),
-		// 				'compare' => 'not like',
-		// 			)
-		// 		)
-		// 	)
-		ob_start();
-		require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'list-task' ) );
-		wp_send_json_success( array( 'template' => ob_get_clean() ) );
-	}
-
-	public function ajax_load_archived_task() {
-		global $task_controller;
-		$list_task = $task_controller->index( array( 'post_parent' => 0, 'post_status' => 'archive' ) );
-		$status = 'archive';
-
-		ob_start();
-		require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'list-task' ) );
-		wp_send_json_success( array( 'template' => ob_get_clean() ) );
-	}
-
-	/**
-	 * Récupères les informations (titre, point, responsable) de la tâche par $_POST['task_id']
-	 * et renvoie le template du dashboard pour les tâches
-	 *
-	 * @param string $_GET['_wpnonce'] Le code de sécurité crée par la fonction wp_create_nonce de
-	 * WordPress
-	 * @param int $_POST['task_id'] L'id de la tâche
-	 * @return JSON Object { 'success': true|false, 'data': { 'template': '' } }
-	 */
-	public function ajax_load_dashboard_task() {
-	// 	if (  0 === is_int( ( int )$_POST['task_id'] ) )
-	// 	  wp_send_json_error();
-	// 	else
-	// 		$task_id = $_POST['task_id'];
-	//
-	// 	wpeo_check_01::check( 'wpeo_nonce_load_dashboard_task_' . $task_id );
-	//
-	// 	// On récupère les informations de la tâche
-	// 	global $task_controller;
-	// 	$task = $task_controller->show( $task_id );
-	//
-	// 	ob_start();
-	// 	require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'window-task' ) );
-	// 	wp_send_json_success( array( 'template' => ob_get_clean() ) );
-	// }
-	//
-
-
-	}
-
-	public function ajax_reload_task() {
-		// if ( true !== is_int( ( int )$_POST['task_id'] ) )
-		// 	wp_send_json_error();
-		// else
-		// 	$task_id = $_POST['task_id'];
-		//
-		// wpeo_check_01::check( 'wpeo_nonce_reload_task_' . $task_id );
-		//
-		// global $task_controller;
-		// $task = $task_controller->show( $task_id );
-		wp_send_json_success();
+		wp_send_json_success( array( 'message' => __( 'Task edited' ) ) );
 	}
 
 	/**
@@ -196,15 +104,18 @@ class task_action_01 {
 	 * @return JSON Object { 'success': true|false, 'data': { } }
 	 */
 	public function ajax_archive_task() {
-		$task_id = $_POST['task_id'];
-
-		if ( !is_int( $task_id ) )
-			$task_id = intval( $_POST['task_id'] );
-
-		wpeo_check_01::check( 'wpeo_nonce_archive_task_' . $task_id );
-
 		global $tag_controller;
 		global $task_controller;
+
+		$task_id = !empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : $task_id;
+
+		if ( $task_id === 0 ) {
+			wp_send_json_error( array( 'message' => __( 'Error for archive task', 'task-manager' ) ) );
+		}
+
+		if ( !check_ajax_referer( 'ajax_archive_task_' . $task_id, array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for archive task: invalid nonce', 'task-manager' ) ) );
+		}
 
 		// On vérifie que le term archive existe
 		$term = get_term_by( 'slug', 'archive', $tag_controller->get_taxonomy() );
@@ -230,15 +141,25 @@ class task_action_01 {
 			'message' => sprintf( __( 'The task #%d has been send to archive by the user #%d', 'task-manager'), $task_id, get_current_user_id() ),
 		), 0 );
 
-		wp_send_json_success();
+		wp_send_json_success( array( 'message' => __( 'Task archived', 'task-manager' ) ) );
 	}
 
+
 	public function ajax_export_task() {
-		wpeo_check_01::check( 'wpeo_nonce_export_task_' . $_POST['id'] );
 		global $task_controller;
 		global $point_controller;
 
-		$task = $task_controller->show( $_POST['id'] );
+		$task_id = !empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+
+		if ( $task_id === 0 ) {
+			wp_send_json_error( array( 'message' => __( 'Error for export task', 'task-manager' ) ) );
+		}
+
+		if ( !check_ajax_referer( 'ajax_export_task_' . $task_id, array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for archive task: invalid nonce', 'task-manager' ) ) );
+		}
+
+		$task = $task_controller->show( $task_id );
 
 		$name_file		= $task->slug . current_time( 'timestamp' ) . '.txt';
 		$path_file		= WPEO_TASKMANAGER_EXPORT_DIR . $name_file;
@@ -250,7 +171,7 @@ class task_action_01 {
 		fputs( $fp, $content_file );
 		fclose( $fp );
 
-		wp_send_json_success( array( 'url_to_file' => $url_to_file ) );
+		wp_send_json_success( array( 'url_to_file' => $url_to_file, 'message' => __( 'Task exported', 'task-manager' ) ) );
 	}
 
 	/**
@@ -262,13 +183,17 @@ class task_action_01 {
 	 * @return JSON Object { 'success': true|false, 'data': { } }
 	 */
 	public function ajax_delete_task() {
-		$task_id = $_POST['task_id'];
-		if ( !is_int( $task_id ) )
-			$task_id = intval( $_POST['task_id'] );
-
-		wpeo_check_01::check( 'wpeo_nonce_delete_task_' . $task_id );
-
 		global $task_controller;
+		$task_id = !empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+
+		if ( $task_id === 0 ) {
+			wp_send_json_error( array( 'message' => __( 'Error for delete task', 'task-manager' ) ) );
+		}
+
+		if ( !check_ajax_referer( 'ajax_delete_task_' . $task_id, array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for delete task: invalid nonce', 'task-manager' ) ) );
+		}
+
 		$task_controller->delete( $task_id );
 
 		/** On log la supression tâche */
@@ -278,75 +203,36 @@ class task_action_01 {
 			'message' => sprintf( __( 'The task #%d has been deleted by the user #%d', 'task-manager'), $task_id, get_current_user_id() ),
 		), 0 );
 
-		wp_send_json_success();
+		wp_send_json_success( array( 'message' => __( 'Task deleted', 'task-manager' ) ) );
 	}
 
-	public function ajax_export_all_task() {
-		wpeo_check_01::check( 'wpeo_nonce_export_all_task' );
+	public function ajax_load_all_task() {
 		global $task_controller;
 
-		$name_file		= '';
-		$content_file	= '';
-		$list_task_id 	= '';
-
-		if ( !empty( $_POST['array_task_id'] ) ) {
-			foreach ( $_POST['array_task_id'] as $task_id ) {
-				$task 			= $task_controller->show( $task_id );
-				$task->point 	= $task_controller->get_point( $task->option['task_info']['order_point_id'] );
-				$point_in_work = false;
-				$point_completed = false;
-				$list_task_id .= $task_id . ' ';
-				$name_file .= $task_id . '_';
-				$content_file .= $task_id . ' - ' . $task->title . "
-
-";
-				if ( !empty( $task->point ) ) {
-					foreach ( $task->point as $point ) {
-						if ( $point->option['point_info']['completed'] ) {
-							if ( !$point_completed ) {
-								$content_file .= __( 'Completed', 'task-manager' ) . '
-';
-								$point_completed = true;
-							}
-							$content_file .= '    ' . $point->id . ' - ' . $point->content . "
-";
-						}
-					}
-
-					foreach($task->point as $point) {
-						if(!$point->option['point_info']['completed']) {
-							if(!$point_in_work) {
-								$content_file .= __('In Progress', 'task-manager') . '
-';
-								$point_in_work = true;
-							}
-							$content_file .= '    ' . $point->id . ' - ' . $point->content . "
-";
-						}
-					}
-				}
-
-				$content_file .= "
-
-";
-			}
-			$name_file .= current_time('timestamp') . '.txt';
+		if ( !check_ajax_referer( 'ajax_load_all_task', array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for load all task: invalid nonce', 'task-manager' ) ) );
 		}
 
-		$path_file		= WPEO_TASK_EXPORT_DIR . $name_file;
-		$url_to_file	= WPEO_TASK_EXPORT_URL . $name_file;
+		$list_task = $task_controller->index( array( 'post_parent' => 0 ) );
 
-		$fp = fopen( $path_file, 'w' );
-		fputs( $fp, $content_file );
-		fclose( $fp );
+		ob_start();
+		require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'list-task' ) );
+		wp_send_json_success( array( 'template' => ob_get_clean() ) );
+	}
 
-		taskmanager\log\eo_log( 'wpeo_project',
-		array(
-			'object_id' => 0,
-			'message' => sprintf( __( 'The tasks %s has been exported by the user #%d', 'task-manager'), $list_task_id, get_current_user_id() ),
-		), 0 );
+	public function ajax_load_archived_task() {
+		global $task_controller;
 
-		wp_send_json_success( array( 'url_to_file' => $url_to_file ) );
+		if ( !check_ajax_referer( 'ajax_load_archived_task', array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for load all task: invalid nonce', 'task-manager' ) ) );
+		}
+
+		$list_task = $task_controller->index( array( 'post_parent' => 0, 'post_status' => 'archive' ) );
+		$status = 'archive';
+
+		ob_start();
+		require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'list-task' ) );
+		wp_send_json_success( array( 'template' => ob_get_clean() ) );
 	}
 
 	/**
@@ -359,12 +245,23 @@ class task_action_01 {
 		global $task_controller;
 		global $tag_controller;
 
-		$object = $task_controller->show( ( int ) $_POST['object_id'] );
+		$object_id = !empty( $_POST['object_id'] ) ? (int) $_POST['object_id'] : 0;
+
+		if ( $task_id === 0 ) {
+			wp_send_json_error( array( 'message' => __( 'Error for view tag on task', 'task-manager' ) ) );
+		}
+
+		if ( !check_ajax_referer( 'ajax_view_task_tag', array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for view tag on task: invalid nonce', 'task-manager' ) ) );
+		}
+
+
+		$object = $task_controller->show( $object_id );
 
 		ob_start();
 		$tag_controller->render_list_tag( $object, '' );
 
-		wp_send_json_success( array( 'template' => ob_get_clean() ) );
+		wp_send_json_success( array( 'template' => ob_get_clean(), 'message' => __( 'Tag edited', 'task-manager' ) ) );
 	}
 
 	/**
@@ -377,11 +274,20 @@ class task_action_01 {
 	 * @return JSON Object { 'success': true|false, 'data': { } }
 	 */
 	public function ajax_edit_task_tag() {
-		wpeo_check_01::check( 'wp_nonce_edit_task_tag_' . $_POST['tag_id'] );
-
 		global $task_controller;
 
-		$task = $task_controller->show( $_POST['object_id'] );
+		$tag_id = !empty( $_POST['tag_id'] ) ? (int) $_POST['tag_id'] : 0;
+		$object_id = !empty( $_POST['object_id'] ) ? (int) $_POST['object_id'] : 0;
+
+		if ( $tag_id === 0 || $object_id === 0 ) {
+			wp_send_json_error( array( 'message' => __( 'Error for edit tag on task', 'task-manager' ) ) );
+		}
+
+		if ( !check_ajax_referer( 'ajax_edit_task_tag_' . $tag_id, array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for edit tag on task: invalid nonce', 'task-manager' ) ) );
+		}
+
+		$task = $task_controller->show( $object_id );
 
 		$selected = ( $_POST['selected'] == 'true' ) ? true : false;
 
@@ -391,16 +297,16 @@ class task_action_01 {
 
 		if( $task != null ) {
 			if( $selected ) {
-				$task->taxonomy['wpeo_tag'][] = ( int ) $_POST['tag_id'];
-				$log_message = sprintf( __( 'The tag %d has selected for the task #%d by the user #%d', 'task-manager'), $tag_name, $_POST['object_id'], get_current_user_id() );
+				$task->taxonomy['wpeo_tag'][] = $tag_id;
+				$log_message = sprintf( __( 'The tag %d has selected for the task #%d by the user #%d', 'task-manager'), $tag_name, $object_id, get_current_user_id() );
 
 				if( $_POST['tag_id'] == $archive_tag->term_id ) {
 					$task->status = 'archive';
 				}
 			}
 			else {
-				$key = array_search( ( int ) $_POST['tag_id'], $task->taxonomy['wpeo_tag'] );
-				$log_message = sprintf( __( 'The tag %d has deselected for the task #%d by the user #%d', 'task-manager'), $_POST['tag_id'], $_POST['object_id'], get_current_user_id() );
+				$key = array_search( ( int ) $tag_id, $task->taxonomy['wpeo_tag'] );
+				$log_message = sprintf( __( 'The tag %d has deselected for the task #%d by the user #%d', 'task-manager'), $tag_id, $object_id, get_current_user_id() );
 
 				if( $key > -1 )
 					unset( $task->taxonomy['wpeo_tag'][$key] );
@@ -411,30 +317,39 @@ class task_action_01 {
 
 			taskmanager\log\eo_log( 'wpeo_project',
 			array(
-				'object_id' => $_POST['object_id'],
+				'object_id' => $object_id,
 				'message' => $log_message,
 			), 0 );
 		}
 
-		wp_send_json_success();
+		wp_send_json_success( array ( 'message' => __( 'Tag edited', 'task-manager' ) ) );
 	}
 
 	public function ajax_edit_task_owner_user() {
-		// wpeo_check_01::check( 'wpeo_nonce_edit_task_owner_user_' . $_POST['owner_id'] );
-
 		global $task_controller;
 
+		$owner_id = !empty( $_POST['owner_id'] ) ? (int) $_POST['owner_id'] : 0;
+		$task_id = !empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+
+		if ( $owner_id === 0 || $task_id === 0 ) {
+			wp_send_json_error( array( 'message' => __( 'Error for edit owner on task', 'task-manager' ) ) );
+		}
+
+		if ( !check_ajax_referer( 'ajax_edit_task_owner_user_' . $owner_id, array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for edit owner on task: invalid nonce', 'task-manager' ) ) );
+		}
+
 		/** On modifie l'utilisateur et on met à jour la tâche */
-		$task = array( 'id' => $_POST['task_id'], 'option' => array( 'user_info' => array( 'owner_id' => $_POST['owner_id'] ) ) );
+		$task = array( 'id' => $task_id, 'option' => array( 'user_info' => array( 'owner_id' => $owner_id ) ) );
 		$task_controller->update( $task );
 
 		taskmanager\log\eo_log( 'wpeo_project',
 		array(
-			'object_id' => $_POST['object_id'],
-			'message' => sprintf( __( 'The owner for the task #%d has been changed to %d by the user #%d', 'task-manager'), $_POST['task_id'], $_POST['owner_id'], get_current_user_id() )
+			'object_id' => $owner_id,
+			'message' => sprintf( __( 'The owner for the task #%d has been changed to %d by the user #%d', 'task-manager'), $task_id, $owner_id, get_current_user_id() )
 		), 0 );
 
-		wp_send_json_success( array( 'owner_id' => $_POST['owner_id'] ) );
+		wp_send_json_success( array( 'owner_id' => $owner_id, 'message' => __( 'Owner changed', 'task-manager' ) ) );
 	}
 
 	/**
@@ -625,47 +540,40 @@ class task_action_01 {
 	}
 
 	public function ajax_send_task_to_element() {
-		if (  0 === is_int( ( int )$_POST['task_id'] ) ) {
-			wp_send_json_error();
-		}
-		else {
-			$task_id = $_POST['task_id'];
-		}
-
-		if (  0 === is_int( ( int )$_POST['element_id'] ) ) {
-			wp_send_json_error();
-		}
-		else {
-			$element_id = $_POST['element_id'];
-		}
-
 		global $task_controller;
 
-		wpeo_check_01::check( 'wpeo_nonce_send_to_task_' . $task_id );
+		$task_id = !empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+		$element_id = !empty( $_POST['element_id'] ) ? (int) $_POST['element_id'] : 0;
 
-		if ( get_post( $element_id ) === null )
-			wp_send_json_error();
+		if ( $task_id === 0 || $element_id === 0 ) {
+			wp_send_json_error( array( 'message' => __( 'Error for send task to element', 'task-manager' ) ) );
+		}
+
+		if ( !check_ajax_referer( 'ajax_send_task_to_element_' . $task_id, array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for send task to element: invalid nonce', 'task-manager' ) ) );
+		}
 
 		$task_controller->update( array( 'id' => $task_id, 'parent_id' => $element_id ) );
 
-		wp_send_json_success( array( 'task_id' => $task_id ) );
+		wp_send_json_success( array( 'task_id' => $task_id, 'message' => __( 'Element sended', 'task-manager' ) ) );
 	}
 
 	public function ajax_update_due_date() {
-		if (  0 === is_int( ( int )$_POST['task_id'] ) ) {
-			wp_send_json_error();
-		}
-		else {
-			$task_id = $_POST['task_id'];
-		}
-
 		global $task_controller;
 
-		wpeo_check_01::check( 'wpeo_nonce_due_date_' . $task_id );
+		$task_id = !empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+
+		if ( $task_id === 0 ) {
+			wp_send_json_error( array( 'message' => __( 'Error for update due date', 'task-manager' ) ) );
+		}
+
+		if ( !check_ajax_referer( 'ajax_update_due_date_' . $task_id, array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for update due date: invalid nonce', 'task-manager' ) ) );
+		}
 
 		$task_controller->update( array( 'id' => $task_id, 'option' => array( 'date_info' => array( 'due' => $_POST['due_date'] ) ) ) );
 
-		wp_send_json_success();
+		wp_send_json_success( array( 'message' => __( 'Due date updated', 'task-manager' ) ) );
 	}
 }
 

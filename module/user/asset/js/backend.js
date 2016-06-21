@@ -93,11 +93,9 @@ var wpeo_user = {
 
 		jQuery.eoajax( ajaxurl, data, function() {
 			if ( this.affected_to_task ) {
-				create_notification( 'yes', 'info', wpeo_project_notification.user_deselect );
 				bloc_user.closest( '.wpeo-project-task' ).addClass( 'wpeo-affected-task' );
 			}
 			else {
-				create_notification( 'yes', 'info', wpeo_project_notification.user_select );
 				bloc_user.closest( '.wpeo-project-task' ).removeClass( 'wpeo-affected-task' );
 			}
 		} );
@@ -166,7 +164,6 @@ var wpeo_user = {
 		};
 
 		jQuery.eoajax( ajaxurl, data, function() {
-			create_notification( 'yes', 'info', wpeo_project_notification.owner_select );
 			 bloc_user.find( '.wpeo-user-owner' ).html( bloc_user.find( '.wpeo-user-owner li.wpeo-user-' + this.owner_id ) );
 			 bloc_user.find( '.wpeo-user-owner' ).removeClass( 'wpeo-confirm-user' );
 			 wpeo_user.current_task_id = 0;

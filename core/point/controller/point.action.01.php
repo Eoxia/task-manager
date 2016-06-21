@@ -417,7 +417,7 @@ class point_action_01 {
 				'template' => ob_get_clean(),
 				'current_task_id' => $current_task->id,
 				'to_task_id' => $task->id,
-				'point_id' => $_POST['point_id'],
+				'point_id' => $point_id,
 				'current_task_time' => $current_task->option['time_info']['elapsed'],
 				'task_time' => $task->option['time_info']['elapsed'],
 				'message' => __( 'Point sended', 'task-manager' ),
