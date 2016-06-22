@@ -134,7 +134,7 @@ var wpeo_point = {
 
       jQuery.eoajax( ajaxurl, data, function() {
         jQuery('.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-project-task-time').text( this.task.option.time_info.elapsed );
-        jQuery('.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-task-li-point[data-id="' + this.point.id + '"] .wpeo-time-in-point').text( this['point']['option']['time_info']['elapsed'] );
+        jQuery('.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-task-li-point[data-id="' + this.point.id + '"] .wpeo-time-in-point').text( this.point.option.time_info.elapsed );
         jQuery( '.wpeo-window-dashboard .wpeo-point-elapsed-time' ).text( this['point']['option']['time_info']['elapsed'] );
 
         var current_number_point_time = jQuery( '.wpeo-window-dashboard .wpeo-point-list-point-time' ).text();
@@ -149,6 +149,5 @@ var wpeo_point = {
 
      jQuery( element ).find('.wpeo-point-toggle-arrow').toggleClass('dashicons-plus dashicons-minus');
          jQuery( element ).closest('.wpeo-task-point-use-toggle').find('ul:first').toggle(200);
-  },
-
-}
+  }
+};
