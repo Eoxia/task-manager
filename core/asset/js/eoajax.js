@@ -11,7 +11,7 @@ function create_notification( notification ) {
 		var message = notification.data.message;
 		var type = 'info';
 
-		if ( notification.success == false ) {
+		if ( notification.success === false ) {
 			dashicons = 'no';
 			type = 'error';
 		}
@@ -21,7 +21,7 @@ function create_notification( notification ) {
 			message: message,
 			dashicons: dashicons,
 			_wpnonce: jQuery( '.wpeo-container-notification' ).data( 'nonce' ),
-		}
+		};
 
 		jQuery('.wpeo-container-notification').append('<div></div>');
 
@@ -38,16 +38,10 @@ jQuery( document ).ready( function() {
 	jQuery.eoajax = function( url, data, callback ) {
 		if ( typeof callback == 'function' ) {
 			jQuery.post( url, data, function( response ) {
-				create_notification( response );
-
-				if( response && !response.success ) {
-				}
-				else {
-					callback.call( response.data );
-				}
+				notify_and_send_to_callback( response, callback );
 			} );
 	  }
-	}
+	};
 
 
 	/** Si ajaxForm est activé */
@@ -61,13 +55,7 @@ jQuery( document ).ready( function() {
 				var form_data = form.ajaxSubmit( {
 					'data': data,
 					'success': function( response ) {
-						create_notification( response );
-
-						if( response && !response.success ) {
-						}
-						else {
-							callback.call( response.data );
-						}
+						notify_and_send_to_callback( response, callback );
 					}
 				} );
 				xhr = form_data.data( 'jqxhr' );
@@ -75,7 +63,7 @@ jQuery( document ).ready( function() {
 			}
 
 			return this;
-		}
+		};
 	}
 
 	if( jQuery.fn.ajaxForm ) {
@@ -90,12 +78,7 @@ jQuery( document ).ready( function() {
 						return false;
 					},
 					'success': function( response ) {
-						create_notification( response );
-						if( response && !response.success ) {
-						}
-						else {
-							callback.call( response.data );
-						}
+						notify_and_send_to_callback( response, callback );
 					}
 				} );
 
@@ -103,6 +86,11 @@ jQuery( document ).ready( function() {
 	    }
 
 			return this;
-		}
+		};
 	}
 } );
+
+function notify_and_send_to_callback( response, callback ) {
+	create_notification( response );
+	callback.call( response.data );
+}
