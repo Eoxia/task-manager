@@ -395,8 +395,9 @@ class task_action_01 {
 		global $task_controller;
 
 		$task_id = !empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+		$due_date = !empty( $_POST['due_date'] ) ? sanitize_text_field( $_POST['due_date'] ) : '';
 
-		if ( $task_id === 0 ) {
+		if ( $task_id === 0 || $due_date === '' ) {
 			wp_send_json_error( array( 'message' => __( 'Error for update due date', 'task-manager' ) ) );
 		}
 
@@ -404,7 +405,7 @@ class task_action_01 {
 			wp_send_json_error( array( 'message' => __( 'Error for update due date: invalid nonce', 'task-manager' ) ) );
 		}
 
-		$task_controller->update( array( 'id' => $task_id, 'option' => array( 'date_info' => array( 'due' => $_POST['due_date'] ) ) ) );
+		$task_controller->update( array( 'id' => $task_id, 'option' => array( 'date_info' => array( 'due' => $due_date ) ) ) );
 
 		wp_send_json_success( array( 'message' => __( 'Due date updated', 'task-manager' ) ) );
 	}
