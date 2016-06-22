@@ -51,7 +51,7 @@ class user_action_01  {
 
 		$object_id = !empty( $_POST['object_id'] ) ? (int) $_POST['object_id'] : 0;
 		$user_id_selected = !empty( $_POST['user_id'] ) ? (int) $_POST['user_id'] : 0;
-		$selected = !empty( $_POST['selected'] && $_POST['selected'] == 'true' ) ? (bool) $_POST['selected'] : false;
+		$selected = ( !empty( $_POST['selected'] ) && $_POST['selected'] == 'true' ) ? (bool) $_POST['selected'] : false;
 
 		if ( $object_id == 0 || $user_id_selected == 0 ) {
 			wp_send_json_error( array( 'message' => __( 'Error for update user', 'task-manager' ) ) );
