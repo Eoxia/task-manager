@@ -12,6 +12,8 @@ if( !class_exists( 'task_wpshop_controller_01' ) ) {
 		}
 
     public function callback_my_account_menu() {
+			$account_dashboard_part = !empty( $_GET['account_dashboard_part'] ) ? sanitize_text_field( $_GET['account_dashboard_part'] ) : '';
+
       require_once( wpeo_template_01::get_template_part( WPEO_TASK_WPSHOP_DIR, WPEO_TASK_WPSHOP_TEMPLATES_MAIN_DIR, 'frontend', 'menu' ) );
     }
 

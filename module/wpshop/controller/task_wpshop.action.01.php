@@ -60,6 +60,12 @@ class task_wpshop_action_01 {
 			wp_send_json_error( array( 'message' => __( 'Error for ask task: invalid nonce', 'task-manager' ) ) );
 		}
 
+		$point = !empty( $_POST['point'] ) ? (array) $_POST['point'] : array();
+
+		if ( empty( $point ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for ask task', 'task-manager' ) ) );
+		}
+
 		$edit = false;
 
 		/** On vérifie si la tâche ask-task-[client_id] existe */
@@ -87,12 +93,12 @@ class task_wpshop_action_01 {
 
 		$task = $task_controller->show( $task_id );
 
-		$_POST['point']['author_id'] = get_current_user_id();
-		$_POST['point']['status'] = '-34070';
-		$_POST['point']['date'] = current_time( 'mysql' );
-		$_POST['point']['post_id'] = $task_id;
+		$point['author_id'] = get_current_user_id();
+		$point['status'] = '-34070';
+		$point['date'] = current_time( 'mysql' );
+		$point['post_id'] = $task_id;
 
-		$point = $point_controller->create( $_POST['point'] );
+		$point = $point_controller->create( $point );
 
 		$task->option['task_info']['order_point_id'][] = (int) $point->id;
 		$task_controller->update( $task );
