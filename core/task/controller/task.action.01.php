@@ -289,7 +289,7 @@ class task_action_01 {
 
 		$task = $task_controller->show( $object_id );
 
-		$selected = ( $_POST['selected'] == 'true' ) ? true : false;
+		$selected = ( $_POST['selected'] == 'true' ) ? (bool) $_POST['selected'] : false;
 
 		$archive_tag = get_term_by( 'slug', 'archive', 'wpeo_tag' );
 
@@ -300,7 +300,7 @@ class task_action_01 {
 				$task->taxonomy['wpeo_tag'][] = $tag_id;
 				$log_message = sprintf( __( 'The tag %d has selected for the task #%d by the user #%d', 'task-manager'), $tag_name, $object_id, get_current_user_id() );
 
-				if( $_POST['tag_id'] == $archive_tag->term_id ) {
+				if( $tag_id == $archive_tag->term_id ) {
 					$task->status = 'archive';
 				}
 			}
@@ -353,74 +353,6 @@ class task_action_01 {
 	}
 
 	/**
-	 * Charges toutes les tâches liée à l'utilisateur et renvoie les template en JSON
-	 * Renvoie également le temps total passé/estimé de toutes ses tâches
-	 *
-	 * @param string $_GET['_wpnonce'] Le code de sécurité crée par la fonction wp_create_nonce de
-	 * WordPress
-	 * @param int $_POST['customer_id'] L'id du client
-	 * @return JSON Object { 'success': true|false, 'data': { template: '' } }
-	 */
-	public function ajax_load_task_customer() {
-		global $task_controller;
-
-		if ( !empty( $_POST['_wpnonce'] ) )
-			wpeo_check_01::check( 'wpeo_nonce_customer_task_' . $_POST['customer_id'] );
-
-		$template = '';
-		$list_id = array();
-		$total_time = array( 'elapsed' => 0, 'estimated' => 0 );
-
-		$wps_orders_mdl = new wps_orders_mdl();
-		$list_order 	= $wps_orders_mdl->get_customer_orders( $_POST['customer_id'] );
-
-		if( !empty( $list_order ) ) {
-			foreach( $list_order as $order_index => $order ) {
-				$list_task = $task_controller->index( array( 'post_parent' => $order->ID ) );
-
-				if( !empty( $list_task ) ) {
-					foreach( $list_task as $task_index => $task ) {
-						$list_id[] = $task->id;
-						$list_task[$task_index] = $task_controller->get_task_information( $list_task[$task_index] );
-						$list_task[$task_index]->class .= ' wpeo-project-task-customer wpeo-project-task-customer-' . $_POST['customer_id'] . ' ';
-						ob_start();
-						$task_controller->render_task( $list_task[$task_index], '', false );
-						$template .= ob_get_clean();
-					}
-				}
-
-				$list_order[$order_index]->task = $list_task;
-			}
-		}
-
-		$list_task = $task_controller->index( array( 'post_parent' => $_POST['customer_id'] ) );
-
-		if( !empty( $list_task ) ) {
-			foreach( $list_task as $index => $task ) {
-				$list_id[] = $task->id;
-				$list_task[$index] = $task_controller->get_task_information( $list_task[$index] );
-
-				// Temps total
-				$total_time['elapsed'] += (int) $list_task[$index]->option['time_info']['elapsed'];
-				$total_time['estimated'] += (int) $list_task[$index]->option['time_info']['estimated'];
-
-				// C'est une tâche d'un client
-				$list_task[$index]->class .= ' wpeo-project-task-customer wpeo-project-task-customer-' . $_POST['customer_id'] . ' ';
-
-				// Le template
-				ob_start();
-				$task_controller->render_task( $list_task[$index], '', false );
-				$template .= ob_get_clean();
-			}
-		}
-
-		if ( !empty( $_POST['_wpnonce'] ) )
-			wp_send_json_success( array( 'list_id' => $list_id, 'template' => $template, 'total_time' => $total_time ) );
-
-		return $list_task;
-	}
-
-	/**
 	 * Appelle la méthode compile_time de l'objet $task_controller pour compilé le temps de toutes
 	 * les tâches récupérées par cette méthode.
 	 */
@@ -460,7 +392,6 @@ class task_action_01 {
 				$list_task = $this->get_summary_for_user();
 				break;
 			case 'customer':
-				$list_task_model = $this->get_summary_for_wpshop_customer();
 				break;
 			default:
 				break;
@@ -528,16 +459,16 @@ class task_action_01 {
 
 		return $list_task;
 	}
-
-	/**
-	 * Utilises la méthode ajax_load_task_customer pour récupérer toutes les tâches
-	 * du client WPShop
-	 * @return Array object task
-	 */
-	public function get_summary_for_wpshop_customer() {
-		$list_task = $this->ajax_load_task_customer();
-		return $list_task;
-	}
+	//
+	// /**
+	//  * Utilises la méthode ajax_load_task_customer pour récupérer toutes les tâches
+	//  * du client WPShop
+	//  * @return Array object task
+	//  */
+	// public function get_summary_for_wpshop_customer() {
+	// 	// $list_task = $this->ajax_load_task_customer();
+	// 	// return $list_task;
+	// }
 
 	public function ajax_send_task_to_element() {
 		global $task_controller;
