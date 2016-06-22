@@ -21,7 +21,10 @@ var wpeo_timeline = {
 			var data = {
 				action: 'load_timeline_user',
 				user_id: jQuery( element ).val(),
+				_wpnonce: jQuery( element ).find( 'option:selected' ).data( 'nonce' ),
 			};
+
+			jQuery( '.wpeo-project-timeline .wpeo-timeline-content' ).bgLoad();
 
 			jQuery.eoajax( ajaxurl, data, function() {
 				jQuery( '.wpeo-project-timeline .wpeo-timeline-content' ).replaceWith( this.template );

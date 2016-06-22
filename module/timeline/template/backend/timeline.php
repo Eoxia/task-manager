@@ -1,15 +1,18 @@
 <?php if ( !defined( 'ABSPATH' ) ) exit; ?>
 
 <div class="wrap wpeo-project-timeline">
+	<div class="wpeo-container-notification" data-nonce="<?php echo wp_create_nonce( 'ajax_load_notification' ); ?>">
+	</div>
+
 	<h2><?php _e( 'Timeline', 'wpeotimeline-i18n' ); ?></h2>
-	
+
 	<header class="wpeo-header-bar">
 		<ul>
 			<li>
 				<select>
 					<?php if ( !empty( $list_user ) ): ?>
 						<?php foreach ( $list_user as $user ): ?>
-							<option <?php selected( $user->id, get_current_user_id(), true ); ?> value="<?php echo $user->id; ?>"><?php echo $user->email; ?></option>
+							<option data-nonce="<?php echo wp_create_nonce( 'ajax_load_timeline_user_' . $user->id ); ?>" <?php selected( $user->id, get_current_user_id(), true ); ?> value="<?php echo $user->id; ?>"><?php echo $user->email; ?></option>
 						<?php endforeach; ?>
 					<?php endif; ?>
 				</select>
