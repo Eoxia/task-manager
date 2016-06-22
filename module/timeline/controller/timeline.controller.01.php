@@ -37,7 +37,9 @@ if ( !class_exists( 'timeline_controller_01' ) ) {
 			if ( !current_user_can( 'edit_user', $user_id ) )
 				return false;
 
-			update_usermeta( $user_id, 'working_time', taskmanager\util\wpeo_util::convert_to_minut( $_POST['working_time'] ) );
+			$working_time = !empty( $_POST['working_time'] ) ? (int) $_POST['working_time'] : 0;
+
+			update_usermeta( $user_id, 'working_time', taskmanager\util\wpeo_util::convert_to_minut( $working_time ) );
 		}
 
 		public function callback_submenu_page() {

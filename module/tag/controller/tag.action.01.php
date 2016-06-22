@@ -21,6 +21,7 @@ class tag_action_01 {
 		global $tag_controller;
 
 		$object_id = !empty( $_POST['object_id'] ) ? (int) $_POST['object_id'] : 0;
+		$list_tag_id = !empty( $_POST['list_tag_id'] ) ? (array) $_POST['list_tag_id'] : array();
 
 		if ( $object_id == 0 ) {
 			wp_send_json_error( array( 'message' => __( 'Error for view all tag', 'task-manager' ) ) );
@@ -28,6 +29,12 @@ class tag_action_01 {
 
 		if ( !check_ajax_referer( 'ajax_view_all_tag_' . $object_id, array(), false ) ) {
 			wp_send_json_error( array( 'message' => __( 'Error for view all tag: invalid nonce', 'task-manager' ) ) );
+		}
+
+		if ( !empty( $list_tag_id ) ) {
+		  foreach ( $list_tag_id as $key => $element ) {
+				$list_tag_id[$key] = (int) $element;
+			}
 		}
 
 		ob_start();
