@@ -7,7 +7,7 @@
 		<li class="wpeo-task-id">#<?php echo $task->id; ?></li>
 
 		<li class="wpeo-task-title">
-			<input <?php echo $disabled_filter; ?> data-nonce="<?php echo wp_create_nonce( 'wpeo_nonce_load_dashboard_task_' . $task->id ); ?>" type="text" name="task[title]" class="wpeo-project-task-title" value="<?php echo htmlspecialchars( !empty( $task->title ) ? $task->title : 'New task' ); ?>" />
+			<input <?php echo $disabled_filter; ?> type="text" name="task[title]" class="wpeo-project-task-title" data-nonce="<?php echo wp_create_nonce( 'ajax_load_dashboard_' . $task->id ); ?>" value="<?php echo htmlspecialchars( !empty( $task->title ) ? $task->title : 'New task' ); ?>" />
 		</li>
 
 		<li class="wpeo-task-time">

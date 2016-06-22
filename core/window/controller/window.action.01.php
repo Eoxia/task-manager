@@ -10,9 +10,20 @@ if( !class_exists( 'window_action_01' ) ) {
 		}
 
     public function ajax_load_dashboard() {
-			$global = $_POST['global'];
+			$global = !empty( $_POST['global'] ) ? sanitize_text_field( $_POST['global'] ) : '';
+			$element_id = !empty( $_POST['element_id'] ) ? (int) $_POST['element_id'] : 0;
+
 			global ${$global};
-			$element = ${$global}->show( $_POST['element_id'] );
+
+			if ( $global === '' || $element_id === 0 ) {
+				wp_send_json_error( array( 'message' => __( 'Error for load dashboard', 'task-manager' ) ) );
+			}
+
+			if ( !check_ajax_referer( 'ajax_load_dashboard_' . $element_id, array(), false ) ) {
+				wp_send_json_error( array( 'message' => __( 'Error for load dashboard: invalid nonce', 'task-manager' ) ) );
+			}
+
+			$element = ${$global}->show( $element_id );
 
       ob_start();
       require_once( wpeo_template_01::get_template_part( WPEO_WINDOW_DIR, WPEO_WINDOW_TEMPLATES_MAIN_DIR, 'backend', 'main' ) );
