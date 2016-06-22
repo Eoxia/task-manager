@@ -800,7 +800,7 @@ var wpeo_point = {
 
 			jQuery.eoajax( ajaxurl, data, function() {
 				jQuery('.wpeo-project-task[data-id="' + this.task.task.id + '"] .wpeo-project-task-time').text( this.task.task.option.time_info.elapsed );
-				jQuery('.wpeo-project-task[data-id="' + this.task.task.id + '"] .wpeo-task-li-point[data-id="' + this.point.id + '"] .wpeo-time-in-point').text( this['point']['option']['time_info']['elapsed'] );
+				jQuery('.wpeo-project-task[data-id="' + this.task.task.id + '"] .wpeo-task-li-point[data-id="' + this.point.id + '"] .wpeo-time-in-point').text( this.point.option.time_info.elapsed );
 				jQuery(element).closest( '.wpeo-window-dashboard').find( '.wpeo-point-elapsed-time' ).text( this.point.option.time_info.elapsed );
 
 				var current_number_point_time = jQuery(element).closest( '.wpeo-window-dashboard').find( '.wpeo-point-list-point-time' ).text();
