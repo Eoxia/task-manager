@@ -17,7 +17,7 @@ var wpeo_timeline = {
 	},
 
 	change_user_filter: function( event, element ) {
-		if ( jQuery( element ).val() != undefined && jQuery( element ).val() != '' ) {
+		if ( jQuery( element ).val() !== undefined && jQuery( element ).val() !== '' ) {
 			var data = {
 				action: 'load_timeline_user',
 				user_id: jQuery( element ).val(),
@@ -54,7 +54,7 @@ var wpeo_timeline = {
 			}
 		});
 
-		var blocks = jQuery('.timeline-block.is-hidden');
+		blocks = jQuery('.timeline-block.is-hidden');
 		/* Anime l'élément lorsque il est dans la viewport */
 		jQuery(window).on('scroll', function(){
 			blocks.each(function() {
