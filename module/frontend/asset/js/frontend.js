@@ -16,7 +16,7 @@ var wpeo_custom = {
 			action: 'load_dashboard_point_custom',
 			task_id: task_id,
 			point_id: point_id,
-			_wpnonce: jQuery( element ).data( 'nonce' ),
+			// _wpnonce: jQuery( element ).closest( '.wpeo-task-li-point' ).data( 'nonce' ),
 		};
 
 		jQuery.eoajax( ajaxurl, data, function() {

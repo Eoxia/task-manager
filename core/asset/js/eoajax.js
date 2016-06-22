@@ -1,3 +1,33 @@
+
+function create_notification( notification ) {
+	if ( notification.data.message ) {
+		var dashicons = 'yes';
+		var message = notification.data.message;
+		var type = 'info';
+
+		if ( notification.success == false ) {
+			dashicons = 'no';
+			type = 'error';
+		}
+		var data = {
+			action: "wpeo-load-notification",
+			type: type,
+			message: message,
+			dashicons: dashicons,
+			_wpnonce: jQuery( '.wpeo-container-notification' ).data( 'nonce' ),
+		}
+
+		jQuery('.wpeo-container-notification').append('<div></div>');
+
+		var my_div = jQuery('.wpeo-container-notification div:last');
+		my_div.load(ajaxurl, data, function( response ) {
+			setTimeout(function() {
+				my_div.fadeOut(200);
+			}, 3000);
+		});
+	}
+}
+
 jQuery( document ).ready( function() {
 	jQuery.eoajax = function( url, data, callback ) {
 		if ( typeof callback == 'function' ) {
