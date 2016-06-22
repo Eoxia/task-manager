@@ -289,7 +289,7 @@ class task_action_01 {
 
 		$task = $task_controller->show( $object_id );
 
-		$selected = ( $_POST['selected'] == 'true' ) ? (bool) $_POST['selected'] : false;
+		$selected = !empty( $_POST['selected'] ) ? (bool) $_POST['selected'] : false;
 
 		$archive_tag = get_term_by( 'slug', 'archive', 'wpeo_tag' );
 
@@ -371,104 +371,6 @@ class task_action_01 {
 
 		wp_send_json_success();
 	}
-
-	public function ajax_get_summary() {
-		ob_start();
-
-		if ( empty( $_POST['type'] ) )
-			wp_send_json_error();
-
-		global $task_controller;
-
-		$total_time = array( 'elapsed' => 0, 'estimated' => 0 );
-		$list_task = array();
-		$list_task_model = array();
-
-		switch( $_POST['type'] ) {
-			case 'tag':
-				$list_task = $this->get_summary_for_tag();
-				break;
-			case 'user':
-				$list_task = $this->get_summary_for_user();
-				break;
-			case 'customer':
-				break;
-			default:
-				break;
-		}
-
-		if ( !empty( $list_task ) ) {
-			foreach ( $list_task as $task ) {
-				$list_task_model[] = $task_controller->show( $task->ID );
-			}
-		}
-
-		if ( !empty( $list_task_model ) ) {
-			foreach ( $list_task_model as $task ) {
-				$total_time['elapsed'] += (int) $task->option['time_info']['elapsed'];
-				$total_time['estimated'] += (int) $task->option['time_info']['estimated'];
-			}
-		}
-
-		// Le template
-		require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'time' ) );
-		wp_send_json_success( array( 'template' => ob_get_clean() ) );
-	}
-
-	public function get_summary_for_tag() {
-		global $tag_controller;
-		global $task_controller;
-
-		if ( empty( $_POST['filter'] ) )
-			return null;
-
-		$list_tag = $tag_controller->list_tag;
-		$list_term_id = array();
-
-		// Récupères tous les term_id des catégories présentes dans $_POST['filter']
-		foreach ( $_POST['filter'] as &$filter ) {
-			$filter = str_replace( '.', '', $filter );
-		}
-
-		foreach ( $list_tag as $tag ) {
-			if ( in_array( 'wpeo-' . $tag->slug, $_POST['filter'] ) ) {
-				$list_term_id[] = $tag->id;
-			}
-		}
-
-		// On recherche les tâches par rapport aux term_id des tags
-		$list_task = $task_controller->get_task_by_term_id( $list_term_id );
-
-		return $list_task;
-	}
-
-	/**
-	 * Récupères toutes les tâches où l'id des utilisateurs envoyées
-	 * dans $_POST['list_user_id'] sont présentes
-	 *
-	 * @param $_POST['list_user_id'] Le tableau des ID des utilisateurs envoyées
-	 * @return array La liste des tâches trouvées
-	 */
-	public function get_summary_for_user() {
-		global $task_controller;
-
-		if ( empty( $_POST['list_user_id'] ) )
-			return null;
-
-		$list_task = $task_controller->get_task_by_user_id( $_POST['list_user_id'] );
-
-		return $list_task;
-	}
-	//
-	// /**
-	//  * Utilises la méthode ajax_load_task_customer pour récupérer toutes les tâches
-	//  * du client WPShop
-	//  * @return Array object task
-	//  */
-	// public function get_summary_for_wpshop_customer() {
-	// 	// $list_task = $this->ajax_load_task_customer();
-	// 	// return $list_task;
-	// }
 
 	public function ajax_send_task_to_element() {
 		global $task_controller;
