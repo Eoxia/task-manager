@@ -8,19 +8,14 @@ class task_action_01 {
 		add_action( 'wp_ajax_archive_task', array( $this, 'ajax_archive_task' ) );
 		add_action( 'wp_ajax_export_task', array( $this, 'ajax_export_task') );
 		add_action( 'wp_ajax_delete_task', array( $this, 'ajax_delete_task' ) );
-
 		add_action( 'wp_ajax_load_all_task', array( $this, 'ajax_load_all_task' ) );
 		add_action( 'wp_ajax_load_archived_task', array( $this, 'ajax_load_archived_task' ) );
-
-		/** Tags */
 		add_action( 'wp_ajax_view_task_tag', array( &$this, 'ajax_view_task_tag' ) );
 		add_action( 'wp_ajax_edit_task_tag', array( &$this, 'ajax_edit_task_tag' ) );
-
 		add_action( 'wp_ajax_wpeo-edit-task-owner-user', array( &$this, 'ajax_edit_task_owner_user' ) );
-
 		add_action( 'wp_ajax_send_task_to_element', array( &$this, 'ajax_send_task_to_element' ) );
-
 		add_action( 'wp_ajax_update_due_date', array( &$this, 'ajax_update_due_date' ) );
+		add_action( 'wp_ajax_reload_task', array( $this, 'callback_reload_task' ) );
 	}
 
 	/**
@@ -388,6 +383,24 @@ class task_action_01 {
 		$task_controller->update( array( 'id' => $task_id, 'option' => array( 'date_info' => array( 'due' => $due_date ) ) ) );
 
 		wp_send_json_success( array( 'message' => __( 'Due date updated', 'task-manager' ) ) );
+	}
+
+	public function callback_reload_task() {
+		global $task_controller;
+		$task_id = !empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+
+		if ( $task_id === 0 || $due_date === '' ) {
+			wp_send_json_error( array( 'message' => __( 'Error for reload task', 'task-manager' ) ) );
+		}
+
+		if ( !check_ajax_referer( 'callback_reload_task_' . $task_id, array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for reload task: invalid nonce', 'task-manager' ) ) );
+		}
+
+		$task = $task_controller->show( $task_id );
+		ob_start();
+		$task_controller->render_task( $task );
+		wp_send_json_success( array( 'template' => ob_get_clean(), 'message' => __( 'Task reloaded', 'task-manager' ) ) );
 	}
 }
 
