@@ -19,12 +19,13 @@ function create_notification( notification ) {
 			type: type,
 			message: message,
 			dashicons: dashicons,
+			_wpnonce: jQuery( '.wpeo-container-notification' ).data( 'nonce' ),
 		}
 
 		jQuery('.wpeo-container-notification').append('<div></div>');
 
 		var my_div = jQuery('.wpeo-container-notification div:last');
-		my_div.load(ajaxurl, data, function() {
+		my_div.load(ajaxurl, data, function( response ) {
 			setTimeout(function() {
 				my_div.fadeOut(200);
 			}, 3000);
@@ -65,7 +66,7 @@ var wpeo_global = {
 
 		jQuery.each( jQuery( '.wpeo-task-auto-complete' ), function( key, element ) {
 			jQuery( element ).autocomplete( {
-				'source': 'admin-ajax.php?action=search&type=' + jQuery( element ).data( 'type' ),
+				'source': 'admin-ajax.php?action=search&type=' + jQuery( element ).data( 'type' ) + '&_wpnonce=' + jQuery( element ).data( 'nonce' ),
 				'select': function( event, ui ) {
 					jQuery( element ).closest( 'div' ).find( 'input[name="element_id"]' ).val( ui.item.id );
 				}

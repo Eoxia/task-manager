@@ -1,7 +1,7 @@
 <?php if ( !defined( 'ABSPATH' ) ) exit; ?>
 
 <div class="wrap wpeo-project-wrap">
-	<div class="wpeo-container-notification">
+	<div class="wpeo-container-notification" data-nonce="<?php echo wp_create_nonce( 'ajax_load_notification' ); ?>">
 	</div>
 
 

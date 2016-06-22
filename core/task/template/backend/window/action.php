@@ -10,7 +10,7 @@
 				 <!-- For admin-ajax -->
 			 	<?php wp_nonce_field( 'wpeo_nonce_send_to_task_' . $element->id ); ?>
 				<div>
-					<input type="text" class="wpeo-task-auto-complete" />
+					<input type="text" class="wpeo-task-auto-complete" data-nonce="<?php echo wp_create_nonce( 'ajax_search' ); ?>" />
 					<?php wp_nonce_field( 'ajax_send_task_to_element_' . $element->id ); ?>
 					<input type="hidden" name="element_id" value="" />
 					<input type="hidden" name="task_id" value="<?php echo $element->id; ?>" />

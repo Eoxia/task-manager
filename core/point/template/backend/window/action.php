@@ -10,7 +10,7 @@
          <!-- For admin-ajax -->
         <?php wp_nonce_field( 'wpeo_nonce_send_to_task_' . $element->id ); ?>
         <div>
-          <input type="text" placeholder="<?php _e( 'Task name', 'task-manager' ); ?>" class="wpeo-task-auto-complete" data-type="wpeo-task" />
+          <input type="text" placeholder="<?php _e( 'Task name', 'task-manager' ); ?>" data-nonce="<?php echo wp_create_nonce( 'ajax_search' ); ?>" class="wpeo-task-auto-complete" data-type="wpeo-task" />
           <input type="hidden" name="element_id" value="" />
           <?php echo wp_nonce_field( 'ajax_send_point_to_task_' . $element->id ); ?>
         </div>
