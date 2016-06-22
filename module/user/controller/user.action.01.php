@@ -97,11 +97,12 @@ class user_action_01  {
 	 */
 	public function ajax_render_edit_owner_user() {
 		$task_id = !empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+		$owner_id = !empty( $_POST['owner_id'] ) ? (int) $_POST['owner_id'] : 0;
 
 		global $task_controller;
 		global $wp_project_user_controller;
 
-		if ( $task_id == 0 ) {
+		if ( $task_id == 0 || $owner_id == 0 ) {
 			wp_send_json_error( array( 'message' => __( 'Error for edit owner user', 'task-manager' ) ) );
 		}
 

@@ -47,8 +47,7 @@ class task_wpshop_action_01 {
 			wp_send_json_error( array( 'message' => __( 'Error for load task wpshop: invalid nonce', 'task-manager' ) ) );
 		}
 
-		$_POST['backend'] = true;
-    $template = $task_wpshop_controller->callback_my_account_content( '', 'my-task' );
+    $template = $task_wpshop_controller->callback_my_account_content( '', 'my-task', true );
 
     wp_send_json_success( array( 'template' => $template ) );
   }
