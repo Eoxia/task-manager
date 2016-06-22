@@ -247,7 +247,7 @@ if ( !class_exists( 'point_controller_01' ) ) {
 			global $task_controller;
 			$task = $task_controller->update_time( $point->post_id );
 
-			return $task;
+			return array( 'point' => $point, 'task' => $task );
 		}
 
 		public function decrease_time( $point_id, $elapsed_time = 0 ) {
@@ -263,7 +263,7 @@ if ( !class_exists( 'point_controller_01' ) ) {
 			global $task_controller;
 			$task = $task_controller->update_time( $point->post_id );
 
-			return $task;
+			return array( 'point' => $point, 'task' => $task );
 		}
 
 		public function send_comment_to( $old_task_id, $task_id, $point_id ) {

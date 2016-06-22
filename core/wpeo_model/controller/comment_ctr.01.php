@@ -43,6 +43,7 @@ class comment_ctr_01 {
 			$object->type = $this->comment_type;
 		}
 
+
 		$object->id = wp_insert_comment( $object->do_wp_object() );
 
 		/** On insert ou on met à jour les meta */

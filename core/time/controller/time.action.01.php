@@ -9,49 +9,75 @@ class time_action_01 {
 	}
 
 	public function ajax_create_point_time() {
-		// wpeo_check_01::check( 'wpeo_nonce_create_point_time_' . $_POST['point_time']['parent_id'] );
-
 		global $time_controller;
-		global $point_controller;
 
-		$response = array();
+		if ( !check_ajax_referer( 'ajax_create_point_time', array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for create point time: invalid nonce', 'task-manager' ) ) );
+		}
 
-		$_POST['point_time']['date'] .= ' ' . current_time( 'h:i:s' );
+		$point_time_data = !empty( $_POST['point_time'] ) ? (array) $_POST['point_time'] : array();
+		$point_time_data['post_id'] = !empty( $_POST['point_time']['post_id'] ) ? (int) $_POST['point_time']['post_id'] : 0;
+		$point_time_data['parent_id'] = !empty( $_POST['point_time']['parent_id'] ) ? (int) $_POST['point_time']['parent_id'] : 0;
+		$point_time_data['author_id'] = !empty( $_POST['point_time']['author_id'] ) ? (int) $_POST['point_time']['author_id'] : 0;
+		$point_time_data['content'] = !empty( $_POST['point_time']['content'] ) ? sanitize_text_field( $_POST['point_time']['content'] ) : '';
+		$point_time_data['time'] = !empty( $_POST['point_time']['time'] ) ? sanitize_text_field( $_POST['point_time']['time'] ) : '';
+		$point_time_data['date'] = !empty( $_POST['point_time']['date'] ) ? sanitize_text_field( $_POST['point_time']['date'] ) : '';
+		$point_time_data['option']['time_info']['elapsed'] = !empty( $_POST['point_time']['option']['time_info']['elapsed'] ) ? (int) $_POST['point_time']['option']['time_info']['elapsed'] : 0;
+		$point_time_id = !empty( $_POST['point_time_id'] ) ? (int) $_POST['point_time_id'] : 0;
 
-		if ( !empty( $_POST['point_time_id'] ) ) {
+
+		if ( $point_time_data['post_id'] === 0 || $point_time_data['parent_id'] === 0 ||
+			empty( $point_time_data ) || $point_time_data['author_id'] === 0 || $point_time_data['time'] == '' ||
+			$point_time_data['date'] == '' || $point_time_data['option']['time_info']['elapsed'] === 0 ) {
+			wp_send_json_error( array( 'message' => __( 'Error for create point time', 'task-manager' ) ) );
+		}
+
+	 	$point_time_data['date'] .= ' ' . current_time( 'h:i:s' );
+
+		if ( $point_time_id !== 0 ) {
 			/** Edit the point */
-			$point_time = $time_controller->show( $_POST['point_time_id'] );
-			$point_time->option['time_info']['old_elapsed'] = $point_time->option['time_info']['elapsed'];
-			$point_time->date = $_POST['point_time']['date'];
-			$point_time->option['time_info']['elapsed'] = $_POST['point_time']['option']['time_info']['elapsed'];
-			$point_time->content = $_POST['point_time']['content'];
+			$time 																	= $time_controller->show( $point_time_id );
+			$time->option['time_info']['old_elapsed'] = $point_time_data->option['time_info']['elapsed'];
+			$time->date 								= $point_time_data['date'];
+			$time->option['time_info']['elapsed'] 	= $point_time_data['option']['time_info']['elapsed'];
+			$time->content 							= $point_time['content'];
 
-			$list_object = $time_controller->update($point_time);
+			$response = $time_controller->update( $time );
 		}
 		else {
 			/** Add the point */
-			$_POST['point_time']['status'] = '-34070';
-			$list_object = $time_controller->create( $_POST['point_time'] );
+			$point_time_data['status'] = '-34070';
+			$response = $time_controller->create( $point_time_data );
+			$time = $time_controller->show( $response['time']->id );
 		}
 
-		$point = $point_controller->show( $_POST['point_time']['parent_id'] );
-		$time = $list_object['time'];
-		$task = $list_object['task'];
+		$list_user_in = array();
+
+		if ( !empty( $point_time ) ) {
+			$list_user_in[$point_time->author_id] = get_userdata( $time->author_id );
+		}
 
 		ob_start();
-		require_once( wpeo_template_01::get_template_part( WPEO_TIME_DIR, WPEO_TIME_TEMPLATES_MAIN_DIR, 'backend', 'time' ) );
-		wp_send_json_success( array( 'template' => ob_get_clean(), 'task' => $task, 'point' => $point, 'time' => $time ) );
+		require( wpeo_template_01::get_template_part( WPEO_TIME_DIR, WPEO_TIME_TEMPLATES_MAIN_DIR, 'backend', 'time' ) );
+		$response['template'] = ob_get_clean();
+		$response['message'] = __( 'Comment created', 'task-manager' );
+
+		wp_send_json_success( $response );
 	}
 
 	public function ajax_get_point_time() {
-		// wpeo_check_01::check( 'wpeo_nonce_get_point_time_' . $_POST['point_time_id'] );
-
-		if (  0 === is_int( ( int )$_POST['point_time_id'] ) )
-			wp_send_json_error();
-		else
-			$point_time_id = $_POST['point_time_id'];
-
 		global $time_controller;
+
+		$point_time_id = !empty( $_POST['point_time_id'] ) ? (int) $_POST['point_time_id'] : 0;
+
+		if ( $point_time_id == 0 ) {
+			wp_send_json_error( array( 'message' => __( 'Error for get point time', 'task-manager' ) ) );
+		}
+
+		if ( !check_ajax_referer( 'ajax_get_point_time_' . $point_time_id, array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for get point time: invalid nonce', 'task-manager' ) ) );
+		}
+
 		$point_time = $time_controller->show( $point_time_id );
 
 		$date = explode( ' ', $point_time->date );

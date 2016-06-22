@@ -775,8 +775,9 @@ var wpeo_point = {
 			else {
 				jQuery(element).closest( '.wpeo-window-dashboard').find( '#wpeo-task-point-history' ).prepend( this.template );
 			}
+
 			jQuery('.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-project-task-time').text( this.task.option.time_info.elapsed );
-			jQuery('.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-task-li-point[data-id="' + this.point.id + '"] .wpeo-time-in-point').text( this['point']['option']['time_info']['elapsed'] );
+			jQuery('.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-task-li-point[data-id="' + this.time.parent_id + '"] .wpeo-time-in-point').text( this['point']['option']['time_info']['elapsed'] );
 
 			jQuery(element).closest('form').find('.wpeo-point-time-id').val( 0 );
 			jQuery(element).closest('form').find('.wpeo-point-comment').val( '' );
