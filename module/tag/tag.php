@@ -19,9 +19,6 @@ DEFINE( 'WPEOMTM_TAG_ASSETS_DIR',  WPEOMTM_TAG_PATH . '/asset/' );
 DEFINE( 'WPEOMTM_TAG_ASSETS_URL',  WPEOMTM_TAG_URL . '/asset/' );
 DEFINE( 'WPEOMTM_TAG_TEMPLATES_MAIN_DIR', WPEOMTM_TAG_PATH . '/template/');
 
-/**	Load plugin translation	*/
-load_plugin_textdomain( 'wpeotag-i18n', false, dirname( plugin_basename( __FILE__ ) ) . '/language/' );
-
 require_once( WPEOMTM_TAG_PATH . '/model/tag.model.01.php' );
 require_once( WPEOMTM_TAG_PATH . '/controller/tag.controller.01.php' );
 require_once( WPEOMTM_TAG_PATH . '/controller/tag.action.01.php' );

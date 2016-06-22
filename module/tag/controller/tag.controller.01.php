@@ -85,7 +85,7 @@ class tag_controller_01 extends term_ctr_01 {
 		$option = get_option( 'wpeo_wp_project_tag_declared' );
 
 		if ( empty( $option ) ) {
-			wp_insert_term( __( 'Project', 'wpeotag-i18n'), $this->taxonomy );
+			wp_insert_term( __( 'Project', 'task-manager'), $this->taxonomy );
 			update_option( 'wpeo_wp_project_tag_declared', true );
 		}
 

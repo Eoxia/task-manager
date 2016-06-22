@@ -20,7 +20,6 @@ DEFINE( 'WPEO_USER_ASSETS_URL',  WPEO_USER_URL . '/asset/' );
 DEFINE( 'WPEO_USER_TEMPLATES_MAIN_DIR', WPEO_USER_PATH . '/template/');
 
 /**	Load plugin translation	*/
-load_plugin_textdomain( 'wpeouser-i18n', false, dirname( plugin_basename( __FILE__ ) ) . '/language/' );
 if ( !class_exists( 'user_controller_01' ) ) {
 	require_once( WPEO_USER_PATH . '/controller/user.controller.01.php' );
 	require_once( WPEO_USER_PATH . '/controller/user.action.01.php' );

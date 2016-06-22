@@ -207,13 +207,13 @@ if ( !class_exists( 'point_controller_01' ) ) {
 
 		public static function get_point_name_by_id( $point_id ) {
 			if( empty( $point_id ) )
-				return __( 'Point not found', 'wpeopoint-i18n' );
+				return __( 'Point not found', 'task-manager' );
 
 			global $point_controller;
 			$point = $point_controller->show( $point_id );
 
 			if( empty( $point ) )
-				return __( 'Point not found', 'wpeopoint-i18n' );
+				return __( 'Point not found', 'task-manager' );
 
 			return $point->content;
 		}

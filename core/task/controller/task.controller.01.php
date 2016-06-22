@@ -142,13 +142,13 @@ if( !class_exists( 'task_controller_01' ) ) {
 
 		public static function get_task_title_by_id( $task_id ) {
 			if( empty( $task_id ) )
-				return __( 'Task not found', 'wpeotask-i18n' );
+				return __( 'Task not found', 'task-manager' );
 
 			global $task_controller;
 			$task = $task_controller->show( $task_id );
 
 			if( empty( $task ) )
-				return __( 'Task not found', 'wpeotask-i18n' );
+				return __( 'Task not found', 'task-manager' );
 
 			return $task->title;
 		}

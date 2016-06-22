@@ -6,9 +6,9 @@
 	</li>
 	<li class="date">
 		<?php
-		_e( 'On', 'wpeopoint-i18n' );
+		_e( 'On', 'task-manager' );
 		echo ' '; comment_date( get_option( 'date_format' ), $time->id ); echo ' ';
-		_e( 'at', 'wpeopoint-i18n' );
+		_e( 'at', 'task-manager' );
 		echo ' '; comment_date( get_option( 'time_format' ), $time->id );
 		?>
 	</li>

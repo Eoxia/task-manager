@@ -9,7 +9,7 @@
 			endif;
 		endforeach;
 	else:
-		?><li class="wpeo-tag-add-tag"><?php _e( 'Click here to add a tag', 'wpeotag-i18n' ); ?></li><?php
+		?><li class="wpeo-tag-add-tag"><?php _e( 'Click here to add a tag', 'task-manager' ); ?></li><?php
 	endif;
 	?>
 

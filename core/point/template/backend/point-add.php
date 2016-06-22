@@ -9,10 +9,10 @@
       <ul>
         <li></li>
         <li class="wpeo-point-input">
-          <textarea name="point[content]" placeholder="<?php _e( 'Write your point here...', 'wpeopoint-i18n' ); ?>"></textarea>
+          <textarea name="point[content]" placeholder="<?php _e( 'Write your point here...', 'task-manager' ); ?>"></textarea>
         </li>
         <li>
-          <div class="wpeo-task-add-new-point" title="<?php _e( 'Add this point', 'wpeopoint-i18n' ); ?>">
+          <div class="wpeo-task-add-new-point" title="<?php _e( 'Add this point', 'task-manager' ); ?>">
             <i class="dashicons dashicons-plus-alt"></i>
           </div>
         </li>
