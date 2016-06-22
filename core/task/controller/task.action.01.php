@@ -289,7 +289,7 @@ class task_action_01 {
 
 		$task = $task_controller->show( $object_id );
 
-		$selected = !empty( $_POST['selected'] ) ? (bool) $_POST['selected'] : false;
+		$selected = (!empty( $_POST['selected'] ) && $_POST['selected'] == 'true' ) ? (bool) $_POST['selected'] : false;
 
 		$archive_tag = get_term_by( 'slug', 'archive', 'wpeo_tag' );
 

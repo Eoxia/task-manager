@@ -4,7 +4,7 @@
 	<ul class="wpeo-main-user">
 		<!-- Responsable de la tâche -->
 		<li>
-			<ul data-nonce='<?php echo wp_create_nonce( 'wp_nonce_render_edit_owner_user_' . $element->id ); ?>' class="wpeo-user-owner wpeo-current-user">
+			<ul data-nonce='<?php echo wp_create_nonce( 'ajax_render_edit_owner_user_' . $element->id ); ?>' class="wpeo-user-owner wpeo-current-user">
 			<?php
 			if ( !empty( $owner_id ) ):
 				$user = $owner_user;
@@ -39,7 +39,7 @@
 		</li>
 
 		<li>
-			<a href="#" data-nonce="<?php echo wp_create_nonce( 'wpeo_nonce_view_user_' . $element->id ); ?>" class="wpeo-user-add dashicons dashicons-plus"></a>
+			<a href="#" data-nonce="<?php echo wp_create_nonce( 'ajax_view_user_' . $element->id ); ?>" class="wpeo-user-add dashicons dashicons-plus"></a>
 		</li>
 	</ul>
 </div>

@@ -12,16 +12,23 @@ class user_action_01  {
 	/**
 	 * AJAX - Get all users in this task, get all users in wordpress and display the users views backend/users.php
 	 * @param int $_GET['id'] - The task id
-	 * @param string $_GET['type'] - The type can be "task" or "point"
 	 * @return JSON response
 	 */
 	public function ajax_view_user() {
-		wpeo_check_01::check( 'wpeo_nonce_view_user_' . $_POST['object_id'] );
-
 		global $task_controller;
 		global $wp_project_user_controller;
 
-		$task = $task_controller->show( $_POST['object_id'] );
+		$object_id = !empty( $_POST['object_id'] ) ? (int) $_POST['object_id'] : 0;
+
+		if ( $object_id == 0 ) {
+			wp_send_json_error( array( 'message' => __( 'Error for view user', 'task-manager' ) ) );
+		}
+
+		if ( !check_ajax_referer( 'ajax_view_user_' . $object_id, array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for view user: invalid nonce', 'task-manager' ) ) );
+		}
+
+		$task = $task_controller->show( $object_id );
 		$list_user = $wp_project_user_controller->list_user;
 
 		ob_start();
@@ -38,22 +45,31 @@ class user_action_01  {
 	 * @return JSON Response
 	 */
 	public function ajax_update_user() {
-		wpeo_check_01::check( 'wpeo_nonce_update_user_' . $_POST['user_id'] );
-
 		/** Permet de savoir si l'utilisateur est affecté à la tâche ou pas */
 		$affected_to_task = false;
-
 		global $task_controller;
-		$task = $task_controller->show( $_POST['object_id'] );
+
+		$object_id = !empty( $_POST['object_id'] ) ? (int) $_POST['object_id'] : 0;
+		$user_id_selected = !empty( $_POST['user_id'] ) ? (int) $_POST['user_id'] : 0;
+		$selected = !empty( $_POST['selected'] && $_POST['selected'] == 'true' ) ? (bool) $_POST['selected'] : false;
+
+		if ( $object_id == 0 || $user_id_selected == 0 ) {
+			wp_send_json_error( array( 'message' => __( 'Error for update user', 'task-manager' ) ) );
+		}
+
+		if ( !check_ajax_referer( 'ajax_update_user_' . $user_id_selected, array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for update user: invalid nonce', 'task-manager' ) ) );
+		}
+
+		$task = $task_controller->show( $object_id );
 		$user_id = get_current_user_id();
-		$user_selected_id = ( int ) $_POST['user_id'];
 
 		/** Convert all value to integer */
-		if ( !empty( $_POST['user_id'] ) ) {
-			if ( $_POST['selected'] == 'true' ) {
-				$task->option['user_info']['affected_id'][] = $user_selected_id;
+		if ( !empty( $user_id_selected ) ) {
+			if ( $selected ) {
+				$task->option['user_info']['affected_id'][] = $user_id_selected;
 
-				if ( $user_id == $user_selected_id )
+				if ( $user_id == $user_id_selected )
 					$affected_to_task = true;
 			}
 			else {
@@ -66,7 +82,7 @@ class user_action_01  {
 
 		$task_controller->update( $task );
 
-		wp_send_json_success( array( 'affected_to_task' => $affected_to_task ) );
+		wp_send_json_success( array( 'affected_to_task' => $affected_to_task, 'message' => __( 'User changed', 'task-manager' ) ) );
 	}
 
 	/**
@@ -80,11 +96,20 @@ class user_action_01  {
 	 * @return JSON Object { 'success': true|false, 'data': { 'template': '' } }
 	 */
 	public function ajax_render_edit_owner_user() {
-		wpeo_check_01::check( 'wp_nonce_render_edit_owner_user_' . $_POST['task_id'] );
+		$task_id = !empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+
 		global $task_controller;
 		global $wp_project_user_controller;
 
-		$task = $task_controller->show( $_POST['task_id'] );
+		if ( $task_id == 0 ) {
+			wp_send_json_error( array( 'message' => __( 'Error for edit owner user', 'task-manager' ) ) );
+		}
+
+		if ( !check_ajax_referer( 'ajax_render_edit_owner_user_' . $task_id, array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for edit owner user: invalid nonce', 'task-manager' ) ) );
+		}
+
+		$task = $task_controller->show( $task_id );
 
 		$list_user = $wp_project_user_controller->list_user;
 
