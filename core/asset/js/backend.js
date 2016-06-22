@@ -3,6 +3,8 @@
 var list_tag_id = undefined;
 var list_user_id = undefined;
 var load_all_task = false;
+var xhr = undefined;
+
 
 function create_notification( notification ) {
 	if ( notification.data.message ) {
@@ -283,6 +285,7 @@ var wpeo_task = {
 		var bloc_task 	= jQuery( element ).closest( '.wpeo-project-task' );
 		var task_id 	= bloc_task.data( 'id' );
 		var form 		= jQuery( element ).closest( 'form' );
+
 		var data = {
 			action: 'edit_task',
 			task: {
@@ -291,8 +294,7 @@ var wpeo_task = {
 			}
 		};
 
-		jQuery.eoAjaxSubmit( form, data, function() {
-		} );
+		jQuery.eoAjaxSubmit( form, data, function() { } );
 	},
 
 	/**
