@@ -147,6 +147,7 @@ var wpeo_tag = {
 		var data = {
 			action: 'create-tag',
 			tag_name: tag_name,
+			_wpnonce: jQuery( element ).closest( '.li-choose-tag' ).data( 'nonce' ),
 		};
 
 		jQuery.eoajax( ajaxurl, data, function() {

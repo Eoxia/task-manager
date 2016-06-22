@@ -9,6 +9,9 @@ class help_action_01 {
 
   public function callback_ed_get_list_task() {
     global $task_controller;
+
+		check_ajax_referer( 'callback_ed_get_list_task' );
+
     $list_task = $task_controller->index( array( 'post_parent' => 0 ) );
 
     $list_task_json = array(

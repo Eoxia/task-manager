@@ -18,13 +18,17 @@ class tag_action_01 {
 	 * @return JSON Object { 'success': true|false, 'data': { template: '' } }
 	 */
 	public function ajax_view_all_tag() {
-		$object_id = $_POST['object_id'];
-		if ( !is_int( $object_id ) )
-			$object_id = intval( $object_id );
-
-		wpeo_check_01::check( 'wpeo_nonce_load_tag_' . $object_id );
-
 		global $tag_controller;
+
+		$object_id = !empty( $_POST['object_id'] ) ? (int) $_POST['object_id'] : 0;
+
+		if ( $object_id == 0 ) {
+			wp_send_json_error( array( 'message' => __( 'Error for view all tag', 'task-manager' ) ) );
+		}
+
+		if ( !check_ajax_referer( 'ajax_view_all_tag_' . $object_id, array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for view all tag: invalid nonce', 'task-manager' ) ) );
+		}
 
 		ob_start();
 		require( wpeo_template_01::get_template_part( WPEOMTM_TAG_DIR, WPEOMTM_TAG_TEMPLATES_MAIN_DIR, 'backend', 'display', 'tag' ) );
@@ -33,9 +37,18 @@ class tag_action_01 {
 
 	public function ajax_create_tag() {
 		global $tag_controller;
+		$tag_name = !empty( $_POST['tag_name'] ) ? sanitize_text_field( $_POST['tag_name'] ) : '';
 		$response = array();
 
-		$term = wp_create_term( $_POST['tag_name'], $tag_controller->get_taxonomy() );
+		if ( empty( $tag_name ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for create tag', 'task-manager' ) ) );
+		}
+
+		if ( !check_ajax_referer( 'ajax_create_tag', array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for create tag: invalid nonce', 'task-manager' ) ) );
+		}
+
+		$term = wp_create_term( $tag_name, $tag_controller->get_taxonomy() );
 		$response = $tag_controller->show( $term['term_id'] );
 
 		wp_send_json_success( $response );
