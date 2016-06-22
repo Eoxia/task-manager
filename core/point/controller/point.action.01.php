@@ -180,6 +180,7 @@ class point_action_01 {
 		global $point_controller;
 
 		$object_id = (int) $_POST['object_id'];
+		$order_point_id = !empty( $_POST['order_point_id'] ) ? (array) $_POST['order_point_id'] : array();
 
     if ( !check_ajax_referer( 'ajax_edit_order_point_' . $object_id, array(), false ) ) {
 			wp_send_json_error( array( 'message' => __( 'Error for edit order point: invalid nonce', 'task-manager' ) ) );
@@ -192,17 +193,17 @@ class point_action_01 {
 		if( !empty( $list_point ) ) {
 			foreach( $list_point as $point ) {
 				if( $point->option['point_info']['completed'] )
-					$_POST['order_point_id'][] = (int)$point->id;
+					$order_point_id[] = (int) $point->id;
 			}
 		}
 
-		if( !empty( $_POST['order_point_id'] ) ){
-			foreach( $_POST['order_point_id'] as $key => $id ) {
-				$_POST['order_point_id'][$key] = (int) $id;
+		if( !empty( $order_point_id ) ){
+			foreach( $order_point_id as $key => $id ) {
+				$order_point_id[$key] = (int) $id;
 			}
 		}
 
-		$task->option['task_info']['order_point_id'] = $_POST['order_point_id'];
+		$task->option['task_info']['order_point_id'] = $order_point_id;
 		$task_controller->update( $task );
 
 		wp_send_json_success( array( 'message' => __( 'Point order edited', 'task-manager' ) ) );
