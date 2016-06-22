@@ -12,7 +12,11 @@ class task_wpshop_action_01 {
   public function ajax_search_customer() {
     global $wpdb;
 
-    $search = like_escape($_REQUEST['term']);
+    $search = !empty( $_REQUEST['term'] ) ? sanitize_text_field( $_REQUEST['term'] ) : '';
+
+		if ( !check_ajax_referer( 'ajax_search_customer', array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for search customer: invalid nonce', 'task-manager' ) ) );
+		}
 
     $query = 'SELECT U.ID as UID,P.ID,P.post_title FROM ' . $wpdb->posts . ' as P
       JOIN ' . $wpdb->users . ' as U ON P.post_author=U.ID
@@ -38,6 +42,11 @@ class task_wpshop_action_01 {
 
   public function ajax_load_task_wpshop() {
     global $task_wpshop_controller;
+
+		if ( !check_ajax_referer( 'ajax_search_customer', array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for load task wpshop: invalid nonce', 'task-manager' ) ) );
+		}
+
 		$_POST['backend'] = true;
     $template = $task_wpshop_controller->callback_my_account_content( '', 'my-task' );
 
@@ -47,6 +56,10 @@ class task_wpshop_action_01 {
 	public function ajax_ask_task() {
 		global $task_controller;
 		global $point_controller;
+
+		if ( !check_ajax_referer( 'ask_task', array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for ask task: invalid nonce', 'task-manager' ) ) );
+		}
 
 		$edit = false;
 

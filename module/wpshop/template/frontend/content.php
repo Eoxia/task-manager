@@ -4,6 +4,7 @@
 	<div id="wpeo-window-ask-task" >
 		<form action="<?php echo admin_url( 'admin-ajax.php' ); ?>" method="POST">
 			<input type="hidden" name="action" value="ask_task">
+			<?php wp_nonce_field( 'ask_task' ); ?>
 			<input type="text" name="point[content]" placeholder="<?php _e( 'Write your ticket', 'task-manager' ); ?>">
 			<input type="button" value="<?php _e( 'Ask a ticket', 'task-manager' ); ?>">
 		</form>

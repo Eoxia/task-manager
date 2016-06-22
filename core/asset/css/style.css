@@ -793,19 +793,31 @@
   width: 33.333%;
   padding: 6px;
 }
-.wpeo-project-wrap .wpeo-header-search > ul > li:last-child div input {
+.wpeo-project-wrap .wpeo-header-search > ul > .wpshop-search-customer div {
+  border-radius: 12px;
+  border: 0;
+  height: 25px;
+  max-width: 350px;
+  width: 100%;
+  background: #fff;
+  font-family: sans-serif;
+  color: rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  position: relative;
+}
+.wpeo-project-wrap .wpeo-header-search > ul > .wpshop-search-customer div input {
   width: 100%;
   padding-left: 30px;
   font-size: 12px;
   line-height: 1.6;
 }
-.wpeo-project-wrap .wpeo-header-search > ul > li:last-child div > i {
+.wpeo-project-wrap .wpeo-header-search > ul > .wpshop-search-customer div > i {
   position: absolute;
   left: 6px;
   top: 4px;
   color: rgba(0, 0, 0, 0.2);
 }
-.wpeo-project-wrap .wpeo-header-search > ul > li:last-child div a {
+.wpeo-project-wrap .wpeo-header-search > ul > .wpshop-search-customer div a {
   color: rgba(0, 0, 0, 0.2);
   position: absolute;
   right: 6px;

@@ -875,22 +875,27 @@ var wpeo_wpshop = {
 				wpeo_global.filter();
 		});
 
-		jQuery('.auto-complete-user').autocomplete( {
-			source: ajaxurl + '?action=search_customer',
-			minLength: 0,
-			'select': function( event, ui ) {
-				jQuery( '.wpeo-window-dashboard' ).hide();
-				jQuery( '.wpeo-project-task' ).hide();
+		jQuery('.auto-complete-user').each( function() {
+			var _this = this;
+			jQuery( this ).autocomplete( {
+				source: ajaxurl + '?action=search_customer&_wpnonce=' + jQuery( _this ).data( 'nonce' ),
+				minLength: 0,
+				'select': function( event, ui ) {
+					jQuery( '.wpeo-window-dashboard' ).hide();
+					jQuery( '.wpeo-project-task' ).hide();
 
-				var data = {
-					'action': 'load_task_wpshop',
-					'user_id': ui.item.id,
-				};
+					var data = {
+						'action': 'load_task_wpshop',
+						'user_id': ui.item.id,
+						'_wpnonce': jQuery( _this ).data( 'nonce' ),
+					};
 
-				jQuery.eoajax( ajaxurl, data, function() {
-					jQuery( '.wpeo-project-wrap' ).append( this.template );
-				} );
-			}
+					jQuery.eoajax( ajaxurl, data, function() {
+						jQuery( '.wpeo-project-wrap' ).append( this.template );
+					} );
+				}
+			} );
 		} );
+
 	}
 };
