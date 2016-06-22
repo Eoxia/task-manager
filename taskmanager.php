@@ -43,7 +43,6 @@ add_action( 'plugins_loaded', function() {
 
 require_once( WPEO_TASKMANAGER_PATH . 'core/wpeo_util.01.php' );
 require_once( WPEO_TASKMANAGER_PATH . 'core/wpeo_template.01.php' );
-require_once( WPEO_TASKMANAGER_PATH . 'core/wpeo_check.01.php' );
 
 taskmanager\util\wpeo_util::install_module( 'wpeo_model' );
 

@@ -9,7 +9,6 @@ DEFINE( 'WPEO_TASKMANAGER_PATH', str_replace( "\\", "/", plugin_dir_path( __FILE
 
 require_once( WPEO_TASKMANAGER_PATH . 'core/wpeo_util.01.php' );
 require_once( WPEO_TASKMANAGER_PATH . 'core/wpeo_template.01.php' );
-require_once( WPEO_TASKMANAGER_PATH . 'core/wpeo_check.01.php' );
 
 require_once( WPEO_TASKMANAGER_PATH . '/core/taskmanager/taskmanager.controller.01.php' );
 require_once( WPEO_TASKMANAGER_PATH . '/core/taskmanager/taskmanager.action.01.php' );

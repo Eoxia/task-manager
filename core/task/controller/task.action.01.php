@@ -352,26 +352,6 @@ class task_action_01 {
 		wp_send_json_success( array( 'owner_id' => $owner_id, 'message' => __( 'Owner changed', 'task-manager' ) ) );
 	}
 
-	/**
-	 * Appelle la méthode compile_time de l'objet $task_controller pour compilé le temps de toutes
-	 * les tâches récupérées par cette méthode.
-	 */
-	public function ajax_compile_time() {
-		wpeo_check_01::check( 'wpeo_nonce_compile_time' );
-
-		global $task_controller;
-
-		$list_task = $task_controller->index();
-
-		if ( !empty( $list_task ) ) {
-			foreach ( $list_task as $task ) {
-				$task_controller->compile_time( $task->id );
-			}
-		}
-
-		wp_send_json_success();
-	}
-
 	public function ajax_send_task_to_element() {
 		global $task_controller;
 
