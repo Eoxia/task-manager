@@ -87,7 +87,7 @@ if ( !empty( $string_post_unsecured ) ) {
           $color = "#f1c40f";
         }
 
-        echo "[+] <span style='color: " . $color . "'>Line : " . $line . " => " . trim($content) . PHP_EOL . '</span><br />';
+        echo "[+]Line : " . $line . " => " . trim($content) . PHP_EOL;
       }
     }
   }

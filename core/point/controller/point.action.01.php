@@ -111,7 +111,7 @@ class point_action_01 {
 		/** Log la suppression du point / Log the deletion of point */
 		taskmanager\log\eo_log( 'wpeo_project',
 		array(
-			'object_id' => $_POST['point_id'],
+			'object_id' => $point_id,
 			'message' => sprintf( __( 'The point #%d was deleted for the task #%d. The elapsed time for this point was %d minute(s). The elapsed time for this task is now %d minute(s)', 'task-manager'), $point->id, $task->id, $point->option['time_info']['elapsed'], $task->option['time_info']['elapsed'] ),
 		), 0 );
 
