@@ -29,10 +29,9 @@ $pattern = '#\$_POST|\$_GET|\$_REQUEST#';
 foreach ( $unitList as $file_url )
 {
 	// echo "[+] Testing -> " . $file_url . PHP_EOL;
-  $file = file_get_contents( $file_url );
-  $string_post_unsecured[$file_url] = array();
-  $lines = explode( '\r\n', $file );
-  $lines = explode( PHP_EOL, $file );
+	$lines = file( $file_url );
+	$string_post_unsecured[$file_url] = array();
+
 
 	if ( !empty( $lines ) ) {
 		foreach ( $lines as $key => $line ) {
