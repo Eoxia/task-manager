@@ -27,8 +27,7 @@ class time_action_01 {
 
 
 		if ( $point_time_data['post_id'] === 0 || $point_time_data['parent_id'] === 0 ||
-			empty( $point_time_data ) || $point_time_data['author_id'] === 0 || $point_time_data['time'] == '' ||
-			$point_time_data['date'] == '' || $point_time_data['option']['time_info']['elapsed'] === 0 ) {
+			empty( $point_time_data ) || $point_time_data['date'] == '' || $point_time_data['option']['time_info']['elapsed'] === 0 ) {
 			wp_send_json_error( array( 'message' => __( 'Error for create point time', 'task-manager' ) ) );
 		}
 
@@ -37,10 +36,10 @@ class time_action_01 {
 		if ( $point_time_id !== 0 ) {
 			/** Edit the point */
 			$time 																	= $time_controller->show( $point_time_id );
-			$time->option['time_info']['old_elapsed'] = $point_time_data->option['time_info']['elapsed'];
+			$time->option['time_info']['old_elapsed'] = $time->option['time_info']['elapsed'];
 			$time->date 								= $point_time_data['date'];
 			$time->option['time_info']['elapsed'] 	= $point_time_data['option']['time_info']['elapsed'];
-			$time->content 							= $point_time['content'];
+			$time->content 							= $point_time_data['content'];
 
 			$response = $time_controller->update( $time );
 		}
@@ -88,16 +87,26 @@ class time_action_01 {
 	}
 
 	public function ajax_delete_point_time() {
-		// wpeo_check_01::check( 'wpeo_nonce_delete_point_time_' . $_POST['point_time_id'] );
-
 		global $time_controller;
 		global $point_controller;
 
-		$response = array();
-		$task = $time_controller->delete( $_POST['point_time_id'] );
-		$point = $point_controller->show( $_POST['point_id'] );
+		$time_id = !empty( $_POST['point_time_id'] ) ? (int) $_POST['point_time_id'] : 0;
+		$point_id = !empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
 
-		wp_send_json_success( array( 'task' => $task, 'point' => $point ) );
+		if ( $time_id == 0 || $point_id == 0 ) {
+			wp_send_json_error( array( 'message' => __( 'Error for delete a point time', 'task-manager' ) ) );
+		}
+
+		if ( !check_ajax_referer( 'ajax_delete_point_time_' . $time_id, array(), false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for delete point time: invalid nonce', 'task-manager' ) ) );
+		}
+
+		$response = array();
+
+		$task = $time_controller->delete( $time_id );
+		$point = $point_controller->show( $point_id );
+
+		wp_send_json_success( array( 'task' => $task, 'point' => $point, 'message' => __( 'Comment deleted', 'task-manager' ) ) );
 	}
 }
 

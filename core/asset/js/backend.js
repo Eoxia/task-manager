@@ -834,7 +834,6 @@ var wpeo_point = {
 
 			var point_id = jQuery( element ).closest( '.wpeo-window-dashboard' ).data( 'id' );
 			var point_time_id = jQuery( element ).closest( '.wpeo-point-comment' ).data( 'id' );
-			jQuery( element ).closest( 'ul' ).remove();
 
 			var data = {
 				action: 'delete_point_time',
@@ -844,13 +843,14 @@ var wpeo_point = {
 			};
 
 			jQuery.eoajax( ajaxurl, data, function() {
-				jQuery('.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-project-task-time').text( this.task.option.time_info.elapsed );
-				jQuery('.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-task-li-point[data-id="' + this.point.id + '"] .wpeo-time-in-point').text( this['point']['option']['time_info']['elapsed'] );
+				jQuery('.wpeo-project-task[data-id="' + this.task.task.id + '"] .wpeo-project-task-time').text( this.task.task.option.time_info.elapsed );
+				jQuery('.wpeo-project-task[data-id="' + this.task.task.id + '"] .wpeo-task-li-point[data-id="' + this.point.id + '"] .wpeo-time-in-point').text( this['point']['option']['time_info']['elapsed'] );
 				jQuery(element).closest( '.wpeo-window-dashboard').find( '.wpeo-point-elapsed-time' ).text( this['point']['option']['time_info']['elapsed'] );
 
 				var current_number_point_time = jQuery(element).closest( '.wpeo-window-dashboard').find( '.wpeo-point-list-point-time' ).text();
 				current_number_point_time--;
 				jQuery(element).closest( '.wpeo-window-dashboard').find( '.wpeo-point-list-point-time' ).text( current_number_point_time );
+				jQuery( element ).closest( 'ul' ).remove();
 			});
 		}
 	},

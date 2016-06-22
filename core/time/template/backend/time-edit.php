@@ -2,7 +2,8 @@
 
 <ul class="wpeo-point-comment-edit wpeo-point-comment wpeo-point-comment-<?php echo $point_time->id; ?>" data-id="<?php echo $point_time->id; ?>">
 	<form action="<?php echo admin_url('admin-ajax.php'); ?>" method="POST">
-		<?php wp_nonce_field( 'wpeo_nonce_create_point_time_' . $point_time->parent_id ); ?>
+		<?php wp_nonce_field( 'ajax_create_point_time' ); ?>
+		<input type="hidden" name="point_time[post_id]" value="<?php echo $point_time->post_id; ?>" />
 		<input type="hidden" class="wpeo-point-time-id" name="point_time_id" value="<?php echo $point_time_id; ?>" />
 		<input type="hidden" class="wpeo-point-time-id" name="point_time[parent_id]" value="<?php echo $point_time->parent_id; ?>" />
 
