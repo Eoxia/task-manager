@@ -124,7 +124,7 @@ var wpeo_task = {
 		/** Filter buttons */
 		jQuery( document ).on( 'click', '.wpeo-button-all-task', function() { wpeo_task.display_all_task( jQuery( this ) ); } );
 		jQuery( document ).on( 'click', '.wpeo-button-my-task', function() { wpeo_task.display_my_task( jQuery( this ) ); } );
-		jQuery( document ).on( 'click', '.wpeo-button-assigned-task', function() { wpeo_task.display_assigned_task( jQuery( this ) ); } );
+		jQuery( document ).on( 'click', '.wpeo-button-assigned-task', function() { wpeo_task.display_my_task( jQuery( this ) ); } );
 
 		/** Close window */
 		jQuery( document ).on( 'click', '.wpeo-window-dashboard .dashicons-no-alt', function() { wpeo_global.filter(); } );
@@ -467,12 +467,6 @@ var wpeo_task = {
 		wpeo_global.filter();
 	},
 
-	display_assigned_task: function( element ) {
-		jQuery( '.wpeo-button-active' ).removeClass( 'wpeo-button-active' );
-		jQuery( element ).addClass( 'wpeo-button-active' );
-		wpeo_global.filter();
-	},
-
 	send_to_element: function( event, element ) {
 		jQuery.eoAjaxSubmit( jQuery( element ).closest( 'form' ), { action: 'send_task_to_element' }, function() {
 			jQuery( '.wpeo-project-task-' + this.task_id ).remove();
@@ -711,9 +705,7 @@ var wpeo_point = {
 		event.preventDefault();
 
 		 jQuery( element ).find('.wpeo-point-toggle-arrow').toggleClass('dashicons-plus dashicons-minus');
-         jQuery( element ).closest('.wpeo-task-point-use-toggle').find('ul:first').toggle(200, function() {
-        	//  wpeo_task.grid.masonry();
-         });
+         jQuery( element ).closest('.wpeo-task-point-use-toggle').find('ul:first').toggle(200);
 	},
 
 	refresh_flextext: function() {

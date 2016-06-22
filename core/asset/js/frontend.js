@@ -148,9 +148,7 @@ var wpeo_point = {
     event.preventDefault();
 
      jQuery( element ).find('.wpeo-point-toggle-arrow').toggleClass('dashicons-plus dashicons-minus');
-         jQuery( element ).closest('.wpeo-task-point-use-toggle').find('ul:first').toggle(200, function() {
-          //  wpeo_task.grid.masonry();
-         });
+         jQuery( element ).closest('.wpeo-task-point-use-toggle').find('ul:first').toggle(200);
   },
 
 }
