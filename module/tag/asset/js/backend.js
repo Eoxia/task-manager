@@ -15,7 +15,7 @@ var wpeo_tag = {
 	event: function() {
 		jQuery( document ).on( 'click', '.wpeo-tag-wrap:not(.wpeo-tag-wrap-edit)', function(e) { wpeo_tag.load_tag( e, jQuery( this ) ); } );
 		jQuery( document ).on( 'click', '.wpeo-tag-wrap-edit', function( e ) { e.stopPropagation(); } );
-		jQuery( document ).on( 'click', 'body', function( e ) { if( wpeo_tag.current_task_id != 0 ) wpeo_tag.edit_tag( e ); } );
+		jQuery( document ).on( 'click', 'body', function( e ) { if( wpeo_tag.current_task_id !== 0 ) wpeo_tag.edit_tag( e ); } );
 
 		jQuery( document ).on( 'click', '.wpeo-tag-edit-tag-btn', function( e ) { wpeo_tag.edit_tag( e ); } );
 		jQuery( document ).on( 'click', '.wpeo-tag-wrap-edit li:not(.wpeo-tag-edit-tag-btn)', function( e ) { wpeo_tag.select_tag(e, jQuery( this ) ); } );
