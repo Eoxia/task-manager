@@ -523,7 +523,7 @@ var wpeo_point = {
 //			return false;
 		}
 		else {
-			if(jQuery( element ).val().length == 0) {
+			if(jQuery( element ).val().length === 0) {
 				task_bloc.find('.wpeo-task-add-new-point').css('opacity', 0.4);
 			}
 			else {
@@ -758,7 +758,7 @@ var wpeo_point = {
 			jQuery('.wpeo-point-comment-' + this.time.id ).replaceWith( this.template );
 
 			jQuery('.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-project-task-time').text( this.task.option.time_info.elapsed );
-			jQuery('.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-task-li-point[data-id="' + this.point.id + '"] .wpeo-time-in-point').text( this['point']['option']['time_info']['elapsed'] );
+			jQuery('.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-task-li-point[data-id="' + this.point.id + '"] .wpeo-time-in-point').text( this.point.option.time_info.elapsed );
 
 			jQuery(element).closest( '.wpeo-window-dashboard').find( '.wpeo-point-elapsed-time' ).text( this.point.option.time_info.elapsed );
 		});
