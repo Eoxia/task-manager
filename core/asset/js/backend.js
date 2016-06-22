@@ -138,7 +138,6 @@ var wpeo_task = {
 		/** Pour recompiler le temps */
 		jQuery( document ).on( 'click', '.wpeo-project-compile-time', function( event ) { wpeo_task.recompile_time( event, jQuery( this ) ); } );
 
-		/** Liens rapide vers une tâche @TODO */
 		// jQuery( document ).on( 'click', '.wpeo-project-last-comment .wpeo-last-point', function( event ) { wpeo_task.go_to( event, jQuery( this ) ); } );
 
 		/** La date de fin d'une tâche */
@@ -500,7 +499,7 @@ var wpeo_point = {
 		jQuery( '.wpeo-project-wrap' ).on( 'keyup', '.wpeo-point-input .wpeo-point-textarea', function() { wpeo_point.preview( jQuery( this ) ); } );
 		jQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-point-input .wpeo-point-textarea', function() { wpeo_point.open_window( jQuery( this ) ); } );
 
-		jQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-task-point-use-toggle p', function( event ) { wpeo_point.toggle_completed( event, jQuery( this ) ); } );
+		jQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-task-point-use-toggle p', function( event ) { point_toggle_completed( event, jQuery( this ) ); } );
 
 		jQuery( document ).on( 'click', '#wpeo-task-form-point-time .wpeo-open-point-time-form', function() { wpeo_point.update_form( jQuery( this ), true ); } );
 		jQuery( document ).on( 'click', '#wpeo-task-form-point-time .wpeo-submit', function() { wpeo_point.create_point_time( jQuery( this ) ); } );
@@ -699,13 +698,6 @@ var wpeo_point = {
 		bloc_task.find( '.wpeo-task-count-completed' ).text(count_completed[0] + '/' + count_completed[1]);
 		// wpeo_task.grid.masonry();
 		wpeo_point.refresh_sortable();
-	},
-
-	toggle_completed: function( event, element ) {
-		event.preventDefault();
-
-		 jQuery( element ).find('.wpeo-point-toggle-arrow').toggleClass('dashicons-plus dashicons-minus');
-         jQuery( element ).closest('.wpeo-task-point-use-toggle').find('ul:first').toggle(200);
 	},
 
 	refresh_flextext: function() {

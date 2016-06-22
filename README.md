@@ -4,13 +4,13 @@ No more communication problems, team organization and posts-it!
 With Task Manager organize your projects with your team and keep control over your time.
 Task Manager is a fast and intuitive task management extension.
 
-[![license](https://img.shields.io/:license-gplv2-blue.svg)]()
+[![license](https://img.shields.io/:license-gplv2-blue.svg)](https://github.com/Eoxia/task-manager/blob/master/LICENSE.md)
 [![Build Status](https://img.shields.io/travis/Eoxia/task-manager/master.svg?label=Linux)](https://travis-ci.org/Eoxia/task-manager)
 [![Build status](https://ci.appveyor.com/api/projects/status/6r0poqodskk8tdv2?svg=true)](https://ci.appveyor.com/project/jimmyeoxia/task-manager)
 [![bitHound Overall Score](https://www.bithound.io/github/Eoxia/task-manager/badges/score.svg)](https://www.bithound.io/github/Eoxia/task-manager)
-[![WordPress](https://img.shields.io/wordpress/plugin/v/task-manager.svg?maxAge=2592000)]()
-[![WordPress](https://img.shields.io/wordpress/v/task-manager.svg?maxAge=2592000)]()
-[![WordPress rating](https://img.shields.io/wordpress/plugin/r/task-manager.svg?maxAge=2592000)]()
+[![WordPress](https://img.shields.io/wordpress/plugin/v/task-manager.svg?maxAge=2592000)](https://wordpress.org/plugins/task-manager/)
+[![WordPress](https://img.shields.io/wordpress/v/task-manager.svg?maxAge=2592000)](https://wordpress.org/plugins/task-manager/)
+[![WordPress rating](https://img.shields.io/wordpress/plugin/r/task-manager.svg?maxAge=2592000)](https://wordpress.org/plugins/task-manager/)
 
 # Tasks
 Task Manager allows you to create tasks, assign users and then manage their time.

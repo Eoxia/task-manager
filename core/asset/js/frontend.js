@@ -31,7 +31,7 @@ var wpeo_task = {
 
 var wpeo_point = {
   event: function() {
-    jQuery( document ).on( 'click', '.wpeo-task-point-use-toggle p', function( event ) { wpeo_point.toggle_completed( event, jQuery( this ) ); } );
+    jQuery( document ).on( 'click', '.wpeo-task-point-use-toggle p', function( event ) { point_toggle_completed( event, jQuery( this ) ); } );
     jQuery( document ).on( 'click', '.wpeo-point-input', function() { wpeo_point.open_window( jQuery( this ) ); } );
     jQuery( document ).on( 'click', '#wpeo-task-form-point-time .wpeo-submit', function() { wpeo_point.create_point_time( jQuery( this ) ); } );
     jQuery( document ).on( 'click', '.wpeo-point-comment .wpeo-submit', function() { wpeo_point.edit_point_time_form( jQuery( this ) ); } );

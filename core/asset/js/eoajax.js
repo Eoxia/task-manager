@@ -1,3 +1,9 @@
+function point_toggle_completed( event, element ) {
+	event.preventDefault();
+
+	jQuery( element ).find('.wpeo-point-toggle-arrow').toggleClass('dashicons-plus dashicons-minus');
+  jQuery( element ).closest('.wpeo-task-point-use-toggle').find('ul:first').toggle(200);
+}
 
 function create_notification( notification ) {
 	if ( notification.data.message ) {
