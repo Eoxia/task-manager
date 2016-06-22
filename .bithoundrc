@@ -1,6 +1,7 @@
 {
   "ignore": [
     "**/core/wpeo_logs/**",
-    "**/core/asset/js/chosen.jquery.min.js"
+    "**/core/asset/js/chosen.jquery.min.js",
+    "**/core/asset/js/flextext.min.js"
   ]
 }
