@@ -9,7 +9,6 @@ if ( !empty( $list_user ) ) :
 			endif;
 
 			$nonce = 'ajax_update_user_' . $user->id;
-			echo $nonce;
 			require( wpeo_template_01::get_template_part( WPEO_USER_DIR, WPEO_USER_TEMPLATES_MAIN_DIR, 'backend', 'user-gravatar' ) );
 		endif;
 	endforeach;
