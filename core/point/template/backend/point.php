@@ -18,7 +18,10 @@
 
 			<li class="wpeo-point-input" data-nonce="<?php echo wp_create_nonce( 'ajax_load_dashboard_frontend_' . $point->id ); ?>">
 				<!-- Le contenu du point -->
-				<textarea <?php echo $disabled_filter; ?> data-nonce="<?php echo wp_create_nonce( 'ajax_load_dashboard_' . $point->id ); ?>" class="wpeo-point-textarea" name="point[content]"><?php echo stripslashes($point->content); ?></textarea>
+				<textarea <?php echo $disabled_filter; ?>
+					data-nonce="<?php echo wp_create_nonce( 'ajax_load_dashboard_' . $point->id ); ?>"
+					class="wpeo-point-textarea"
+					name="point[content]"><?php echo stripslashes( $point->content ); ?></textarea>
 			</li>
 
 			<li>
