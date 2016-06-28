@@ -143,7 +143,7 @@ class point_action_01 {
 
 		$point = $point_controller->show( $point_edit_data['id'] );
 		$point->id = (int) $point_edit_data['id'];
-		$point->content = sanitize_text_field( $point_edit_data['content'] );
+		$point->content = $point_edit_data['content'];
 
 		$point->option['point_info']['completed'] = (int) $point_edit_data['option']['point_info']['completed'];
 
