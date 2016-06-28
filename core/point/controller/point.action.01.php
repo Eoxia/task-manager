@@ -99,23 +99,23 @@ class point_action_01 {
 		$point 	= $point_controller->show( $point_id );
 		$task 	= $point_controller->decrease_time( $point_id );
 
-		if( ( $key = array_search( $point_id, $task->option['task_info']['order_point_id'] ) ) !== false ) {
-			unset( $task->option['task_info']['order_point_id'][$key] );
+		if( ( $key = array_search( $point_id, $task['task']->option['task_info']['order_point_id'] ) ) !== false ) {
+			unset( $task['task']->option['task_info']['order_point_id'][$key] );
 		}
 		else {
 			wp_send_json_error( array( 'message' => __( 'Error for delete a point: the point does not exist', 'task-manager' ) ) );
 		}
 
-		$task_controller->update( $task );
+		$task_controller->update( $task['task'] );
 
 		/** Log la suppression du point / Log the deletion of point */
 		taskmanager\log\eo_log( 'wpeo_project',
 		array(
 			'object_id' => $point_id,
-			'message' => sprintf( __( 'The point #%d was deleted for the task #%d. The elapsed time for this point was %d minute(s). The elapsed time for this task is now %d minute(s)', 'task-manager'), $point->id, $task->id, $point->option['time_info']['elapsed'], $task->option['time_info']['elapsed'] ),
+			'message' => sprintf( __( 'The point #%d was deleted for the task #%d. The elapsed time for this point was %d minute(s). The elapsed time for this task is now %d minute(s)', 'task-manager'), $point->id, $task['task']->id, $point->option['time_info']['elapsed'], $task['task']->option['time_info']['elapsed'] ),
 		), 0 );
 
-		wp_send_json_success( array( 'task' => $task, 'message' => __( 'Point deleted', 'task-manage' ) ) );
+		wp_send_json_success( array( 'task' => $task['task'], 'message' => __( 'Point deleted', 'task-manage' ) ) );
 	}
 
 	/**
