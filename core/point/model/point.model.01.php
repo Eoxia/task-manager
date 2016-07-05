@@ -10,6 +10,14 @@
 
 class point_model_01 extends comment_mdl_01 {
 	protected $array_option = array(
+		'date_info' => array(
+			'due' => array(
+				'type'		=> 'string',
+				'function'	=> '',
+				'default'	=> '',
+				'required'	=> false,
+			),
+		),
 		'time_info' => array(
 			'elapsed' => array(
 				'type'		=> 'integer',
