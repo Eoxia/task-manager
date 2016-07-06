@@ -20,10 +20,8 @@ class point_model_01 extends comment_mdl_01 {
 		),
 		'date_info' => array(
 			'due' => array(
-				'type'		=> 'string',
-				'function'	=> '',
-				'default'	=> '',
-				'required'	=> false,
+				'type' => 'array',
+				'default' => array(),
 			),
 		),
 		'time_info' => array(
