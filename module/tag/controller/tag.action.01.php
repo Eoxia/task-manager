@@ -44,20 +44,13 @@ class tag_action_01 {
 
 	public function ajax_create_tag() {
 		global $tag_controller;
-		$tag_name = !empty( $_POST['tag_name'] ) ? sanitize_text_field( $_POST['tag_name'] ) : '';
-		$response = array();
-
-		if ( empty( $tag_name ) ) {
-			wp_send_json_error( array( 'message' => __( 'Error for create tag', 'task-manager' ) ) );
-		}
 
 		if ( !check_ajax_referer( 'ajax_create_tag', array(), false ) ) {
 			wp_send_json_error( array( 'message' => __( 'Error for create tag: invalid nonce', 'task-manager' ) ) );
 		}
 
-		$term = wp_create_term( $tag_name, $tag_controller->get_taxonomy() );
-		$response = $tag_controller->show( $term['term_id'] );
-
+		$data = $tag_controller->save_tag( $_POST['tag_name'] );
+		$response = $tag_controller->show( $data['term_id'] );
 		wp_send_json_success( $response );
 	}
 
