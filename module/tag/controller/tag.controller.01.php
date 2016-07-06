@@ -158,7 +158,7 @@ class tag_controller_01 extends term_ctr_01 {
 
 		$data['id'] = (int) $data['id'];
 		$data['tag_id'] = (int) $data['tag_id'];
-		$data['selected]'] = filter_var( $data['selected'], FILTER_VALIDATE_BOOLEAN );
+		$data['selected'] = filter_var( $data['selected'], FILTER_VALIDATE_BOOLEAN );
 		$task = $task_controller->show( $data['id'] );
 		$archive_tag = get_term_by( 'slug', 'archive', 'wpeo_tag' );
 
