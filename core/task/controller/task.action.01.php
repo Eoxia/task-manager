@@ -258,53 +258,18 @@ class task_action_01 {
 	 * @return JSON Object { 'success': true|false, 'data': { } }
 	 */
 	public function ajax_edit_task_tag() {
-		global $task_controller;
+		global $tag_controller;
 
 		$tag_id = !empty( $_POST['tag_id'] ) ? (int) $_POST['tag_id'] : 0;
-		$object_id = !empty( $_POST['object_id'] ) ? (int) $_POST['object_id'] : 0;
-
-		if ( $tag_id === 0 || $object_id === 0 ) {
-			wp_send_json_error( array( 'message' => __( 'Error for edit tag on task', 'task-manager' ) ) );
-		}
-
 		if ( !check_ajax_referer( 'ajax_edit_task_tag_' . $tag_id, array(), false ) ) {
 			wp_send_json_error( array( 'message' => __( 'Error for edit tag on task: invalid nonce', 'task-manager' ) ) );
 		}
 
-		$task = $task_controller->show( $object_id );
-
-		$selected = (!empty( $_POST['selected'] ) && $_POST['selected'] == 'true' ) ? (bool) $_POST['selected'] : false;
-
-		$archive_tag = get_term_by( 'slug', 'archive', 'wpeo_tag' );
-
-		$log_message = '';
-
-		if( $task != null ) {
-			if( $selected ) {
-				$task->taxonomy['wpeo_tag'][] = $tag_id;
-				$log_message = sprintf( __( 'The tag %d has selected for the task #%d by the user #%d', 'task-manager'), $tag_name, $object_id, get_current_user_id() );
-
-				if( $tag_id == $archive_tag->term_id ) {
-					$task->status = 'archive';
-				}
-			}
-			else {
-				$key = array_search( ( int ) $tag_id, $task->taxonomy['wpeo_tag'] );
-				$log_message = sprintf( __( 'The tag %d has deselected for the task #%d by the user #%d', 'task-manager'), $tag_id, $object_id, get_current_user_id() );
-
-				if( $key > -1 )
-					unset( $task->taxonomy['wpeo_tag'][$key] );
-			}
-
-
-			$task_controller->update( $task );
-
-			taskmanager\log\eo_log( 'wpeo_project',
-			array(
-				'object_id' => $object_id,
-				'message' => $log_message,
-			), 0 );
-		}
+		$tag_controller->save_tag_on_element( array(
+			'id' => $_POST['object_id'],
+			'tag_id' => $_POST['tag_id'],
+			'selected' => $_POST['selected'],
+		) );
 
 		wp_send_json_success( array ( 'message' => __( 'Tag edited', 'task-manager' ) ) );
 	}
