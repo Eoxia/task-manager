@@ -163,7 +163,7 @@ class tag_controller_01 extends term_ctr_01 {
 		$archive_tag = get_term_by( 'slug', 'archive', 'wpeo_tag' );
 
 		if ( empty( $archive_tag ) ) {
-			$artchive_tag = $this->save_tag( 'Archive' );
+			$archive_tag = $this->save_tag( 'Archive' );
 		}
 
 		$log_message = '';
