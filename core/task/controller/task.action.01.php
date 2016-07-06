@@ -30,29 +30,18 @@ class task_action_01 {
 	public function ajax_create_task() {
 		global $task_controller;
 
-		$parent_id = !empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
-
 		if ( !check_ajax_referer( 'ajax_create_task', array(), false ) ) {
 			wp_send_json_error( array( 'message' => __( 'Error for create a task: invalid nonce', 'task-manager' ) ) );
 		}
 
-		$task = $task_controller->create( array(
-			'title' => __( 'New task', 'task-manager' ),
-			'parent_id' => $parent_id,
-			'author_id' => get_current_user_id(),
-			'option' => array( 'user_info' => array( 'owner_id' => get_current_user_id() ) ) ) );
+		$data = $task_controller->create_task( $_POST );
 
-		/** On log la création de la tâche */
-		taskmanager\log\eo_log( 'wpeo_project',
-		array(
-			'object_id' => $task->id,
-			'message' => sprintf( __( 'The task #%d has been created by the user #%d', 'task-manager'), $task->id, get_current_user_id() ),
-		), 0 );
-
-		$task = $task_controller->show( $task->id );
+		if ( is_string( $data ) ) {
+			wp_send_json_error( array( 'message' => __( 'Error for create a task: duplicate slug', 'task-manager' ) ) );
+		}
 
 		ob_start();
-		$task_controller->render_task( $task );
+		$task_controller->render_task( $data );
 		wp_send_json_success( array( 'template' => ob_get_clean(), 'message' => __( 'Task created', 'task-manager' ) ) );
 	}
 
