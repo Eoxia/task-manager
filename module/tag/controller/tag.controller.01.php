@@ -198,6 +198,22 @@ class tag_controller_01 extends term_ctr_01 {
 		return $task;
 	}
 
+	public function get_tag_name_on_element( $element_id ) {
+		global $task_controller;
+		$task = $task_controller->show( $element_id );
+
+		$list_tag_name = array();
+
+		if ( !empty( $task->taxonomy['wpeo_tag'] ) ) {
+		  foreach ( $task->taxonomy['wpeo_tag'] as $element_id ) {
+				$term = get_term( $element_id, 'wpeo_tag' );
+				$list_tag_name[] = $term->name;
+		  }
+		}
+
+		return $list_tag_name;
+	}
+
 }
 
 global $tag_controller;
