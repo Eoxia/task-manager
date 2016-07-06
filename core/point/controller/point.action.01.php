@@ -23,7 +23,6 @@ class point_action_01 {
 	 * @return string Le template d'un point / The template of point
 	 */
 	public function ajax_create_point() {
-		global $task_controller;
 		global $point_controller;
 
 		$point = !empty( $_POST['point'] ) ? (array) $_POST['point'] : array();
@@ -33,35 +32,11 @@ class point_action_01 {
 			wp_send_json_error( array( 'message' => __( 'Error for create a point: invalid nonce', 'task-manager' ) ) );
 		}
 
-		if ( empty( $point ) ) {
-			wp_send_json_error( array( 'message' => __( 'Error for create a point', 'task-manager' ) ) );
-		}
+		$data = $point_controller->create_point( $point );
 
-		if ( empty( $point['post_id'] ) ) {
-			wp_send_json_error( array( 'message' => __( 'Error for create a point', 'task-manager' ) ) );
-		}
-
-		if ( empty( $point['content'] ) ) {
-			wp_send_json_error( array( 'message' => __( 'Error for create a point', 'task-manager' ) ) );
-		}
-
-		$point['content'] = sanitize_text_field( $point['content'] );
-		$point['author_id'] = get_current_user_id();
-		$point['status'] = '-34070';
-		$point['date'] = current_time( 'mysql' );
-
-		$point = $point_controller->create( $point );
-
-		$task = $task_controller->show( $point->post_id );
-		$task->option['task_info']['order_point_id'][] = (int) $point->id;
-		$task_controller->update( $task );
-
-		/** Log la création du point / Log the creation of point */
-		taskmanager\log\eo_log( 'wpeo_project',
-			array(
-				'object_id' => $point->post_id,
-				'message' => sprintf( __( 'Create the point #%d with the content : %s for the task #%d', 'task-manager'), $point->id, $point->content, $point->post_id ),
-			), 0 );
+		$object_id = $data['task']->id;
+		$point = $data['point'];
+		$disabled_filter = '';
 
 		$custom_class = 'wpeo-task-point-sortable';
 		ob_start();
