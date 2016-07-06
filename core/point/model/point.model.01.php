@@ -10,6 +10,14 @@
 
 class point_model_01 extends comment_mdl_01 {
 	protected $array_option = array(
+		'user_info' => array(
+			'owner_id' => array(
+				'type' 		=> 'integer',
+				'function'	=> '',
+				'default'	=> 0,
+				'required'	=> false,
+			),
+		),
 		'date_info' => array(
 			'due' => array(
 				'type'		=> 'string',
