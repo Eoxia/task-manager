@@ -63,7 +63,7 @@ class task_action_01 {
 		$task_data['id'] = !empty( $task_data['id'] ) ? (int) $task_data['id'] : 0;
 		$task_data['title'] = !empty( $task_data['title'] ) ? sanitize_text_field( $task_data['title'] ) : '';
 		$task = $task_controller->show( $task_data['id'] );
-		$task_data['slug'] = ( strchr( $task->slug, 'ask-task-' ) === FALSE ) ? sanitize_title( $task_data['tiel'] ) : $task->slug;
+		$task_data['slug'] = ( strchr( $task->slug, 'ask-task-' ) === FALSE ) ? sanitize_title( $task_data['title'] ) : $task->slug;
 		$task_data['option']['time_info']['estimated'] = !empty( $task_data['option']['time_info']['estimated'] ) ? (int) $task_data['option']['time_info']['estimated'] : 0;
 
 		if ( empty( $task_data ) || $task_data['id'] === 0 ) {
@@ -334,7 +334,13 @@ class task_action_01 {
 			wp_send_json_error( array( 'message' => __( 'Error for update due date: invalid nonce', 'task-manager' ) ) );
 		}
 
-		$task_controller->update( array( 'id' => $task_id, 'option' => array( 'date_info' => array( 'due' => $due_date ) ) ) );
+		$task = $task_controller->show( $task_id );
+		$task->option['date_info']['due'][] = array(
+			'date' => $due_date,
+			'on' => current_time( 'Y-m-d')
+		);
+
+		$task_controller->update( $task );
 
 		wp_send_json_success( array( 'message' => __( 'Due date updated', 'task-manager' ) ) );
 	}
