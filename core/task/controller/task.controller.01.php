@@ -89,6 +89,68 @@ if( !class_exists( 'task_controller_01' ) ) {
 			return $string;
 		}
 
+		/**
+		* Create a task, nothing more.
+		*
+		* array['title'] string (optional) Set the title
+		* array['slug'] string (optional) Set the slug. If this parameter exists, check in the database, if this slug exists. If that is the case, the task will not created.
+		* array['parent_id'] int (optional) Set the parent id
+		*
+		* @param array $data (See above)
+		* @return string the error|task_model_01 the object task
+		*/
+		public function create_task( $data ) {
+			if ( !empty( $data['title'] ) ) {
+					$data['title'] = sanitize_text_field( $data['title'] );
+			}
+
+			if ( !empty( $data['slug'] ) ) {
+				$data['slug'] = sanitize_text_field( $data['slug'] );
+
+				// Check in the database, if the slug exist.
+				if ( $this->task_exist( $data['slug'] ) ) {
+					return __( 'Error for create the task', 'taskmanager' );
+				}
+			}
+
+			if ( !empty( $data['parent_id'] ) ) {
+				$data['parent_id'] = (int) $data['parent_id'];
+			}
+
+			$data['author_id'] = get_current_user_id();
+			$data['option']['user_info']['owner_id'] = $data['author_id'];
+
+			$task = $this->create( $data );
+
+			taskmanager\log\eo_log( 'wpeo_project',
+				array(
+					'object_id' => $task->id,
+						'message' => sprintf( __( 'The task #%d has been created by the user #%d', 'task-manager'), $task->id, get_current_user_id() ),
+				), 0 );
+
+			$task = $this->show( $task->id );
+			return $task;
+		}
+
+		public function task_exist( $name ) {
+			global $wpdb;
+
+			$name = wp_unslash( sanitize_post_field( 'post_name', $name, 0, 'db' ) );
+
+			$query  = "SELECT ID FROM $wpdb->posts WHERE 1=1";
+			$args = array();
+
+			if ( !empty ( $name ) ) {
+				$query .= ' AND post_name = %s';
+				$args[] = $name;
+			}
+
+			if ( !empty ( $args ) )
+				return (int) $wpdb->get_var( $wpdb->prepare( $query, $args ) );
+
+			return 0;
+		}
+
 		public function render_task( $task, $class = '', $need_information = true ) {
 			$disabled_filter = apply_filters( 'task_header_disabled', '' );
 			require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'task' ) );
