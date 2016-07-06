@@ -108,8 +108,10 @@ if( !class_exists( 'task_controller_01' ) ) {
 				$data['slug'] = sanitize_text_field( $data['slug'] );
 
 				// Check in the database, if the slug exist.
-				if ( $this->task_exist( $data['slug'] ) ) {
-					return __( 'Error for create the task', 'taskmanager' );
+				$task_exist_id = $this->task_exist( $data['slug'] );
+				
+				if ( $task_exist_id !== 0 ) {
+					return array( 'id' => $task_exist_id );
 				}
 			}
 
