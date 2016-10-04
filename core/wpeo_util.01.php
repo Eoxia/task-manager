@@ -34,6 +34,7 @@ class wpeo_util {
 		$module_name = $path_to_module . '.php';
 		$path_to_module = WPEO_TASKMANAGER_PATH . 'core/' . $path_to_module;
 
+
 		if( file_exists( $path_to_module . '/' . $module_name ) ) {
 			include(  $path_to_module . '/' . $module_name );
 		}
