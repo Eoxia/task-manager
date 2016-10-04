@@ -6,25 +6,24 @@ if( !class_exists( 'task_wpshop_controller_01' ) ) {
 	class task_wpshop_controller_01 {
 		public function __construct() {
       add_filter( 'wps_my_account_extra_part_menu', array( $this, 'callback_my_account_menu' ) );
-      add_filter( 'wps_my_account_extra_panel_content', array( $this, 'callback_my_account_content' ), 10, 3 );
+      add_filter( 'wps_my_account_extra_panel_content', array( $this, 'callback_my_account_content' ), 10, 2 );
 
 			add_filter( 'task_manager_dashboard_search', array( $this, 'callback_task_manager_dashboard_search' ), 12, 2 );
 		}
 
     public function callback_my_account_menu() {
-			$account_dashboard_part = !empty( $_GET['account_dashboard_part'] ) ? sanitize_text_field( $_GET['account_dashboard_part'] ) : '';
-
       require_once( wpeo_template_01::get_template_part( WPEO_TASK_WPSHOP_DIR, WPEO_TASK_WPSHOP_TEMPLATES_MAIN_DIR, 'frontend', 'menu' ) );
     }
 
-    public function callback_my_account_content( $output, $dashboard_part, $backend = false ) {
+    public function callback_my_account_content( $output, $dashboard_part ) {
 			global $task_controller;
 
+			$backend = !empty( $_POST['backend'] ) ? true : false;
+
       if( 'my-task' === $dashboard_part ) {
-				$user_id = !empty( $_POST['user_id'] ) ? (int) $_POST['user_id'] : get_current_user_id();
 				ob_start();
-				$list_task = $this->get_all_task_customer( $user_id );
-				if ( empty( $user_id ) ) {
+				$list_task = $this->get_all_task_customer( !empty( $_POST['user_id'] ) ? $_POST['user_id'] : get_current_user_id() );
+				if ( empty( $_POST['user_id'] ) ) {
 					add_filter( 'task_footer', function( $string, $task ) { return ''; }, 12, 2 );
 		      add_filter( 'task_header_button', function( $string, $task ) { return ''; }, 12, 2 );
 		      add_filter( 'task_header_disabled', function( $string ) { return 'disabled'; }, 12, 2 );

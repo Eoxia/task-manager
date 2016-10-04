@@ -31,7 +31,7 @@ DEFINE( 'WPEO_TASKMANAGER_ASSET_URL', WPEO_TASKMANAGER_URL . '/core/asset/');
 DEFINE( 'WPEO_TASKMANAGER_EXPORT_DIR',  WPEO_TASKMANAGER_PATH . '/core/asset/export/' );
 DEFINE( 'WPEO_TASKMANAGER_ASSETS_DIR',  WPEO_TASKMANAGER_PATH . '/core/asset/' );
 
-DEFINE( 'WPEO_TASKMANAGER_TEMPLATES_MAIN_DIR', WPEO_TASKMANAGER_PATH . '/core/template/' );
+DEFINE( 'WPEO_TASKMANAGER_TEMPLATES_MAIN_DIR', WPEO_TASKMANAGER_PATH . '/template/' );
 
 DEFINE( 'WPEO_TASKMANAGER_DEBUG', true );
 
@@ -43,6 +43,7 @@ add_action( 'plugins_loaded', function() {
 
 require_once( WPEO_TASKMANAGER_PATH . 'core/wpeo_util.01.php' );
 require_once( WPEO_TASKMANAGER_PATH . 'core/wpeo_template.01.php' );
+require_once( WPEO_TASKMANAGER_PATH . 'core/wpeo_check.01.php' );
 
 taskmanager\util\wpeo_util::install_module( 'wpeo_model' );
 
@@ -50,5 +51,4 @@ require_once( WPEO_TASKMANAGER_PATH . '/core/taskmanager/taskmanager.controller.
 require_once( WPEO_TASKMANAGER_PATH . '/core/taskmanager/taskmanager.action.01.php' );
 
 taskmanager\util\wpeo_util::install_in( 'core' );
-taskmanager\util\wpeo_util::install_in( 'module' );
 ?>

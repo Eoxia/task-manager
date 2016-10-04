@@ -2,113 +2,97 @@
 
 if( ! defined( 'ABSPATH' ) ) exit;
 
-class task_wpshop_action_01 {
-	public function __construct() {
-    add_action( 'wp_ajax_search_customer', array( $this, 'ajax_search_customer' ) );
-    add_action( 'wp_ajax_load_task_wpshop', array( $this, 'ajax_load_task_wpshop' ) );
-		add_action( 'wp_ajax_ask_task', array( $this, 'ajax_ask_task' ) );
-	}
-
-  public function ajax_search_customer() {
-    global $wpdb;
-
-    $search = !empty( $_REQUEST['term'] ) ? sanitize_text_field( $_REQUEST['term'] ) : '';
-
-		if ( !check_ajax_referer( 'ajax_search_customer', array(), false ) ) {
-			wp_send_json_error( array( 'message' => __( 'Error for search customer: invalid nonce', 'task-manager' ) ) );
+if( !class_exists( 'task_wpshop_action_01' ) ) {
+	class task_wpshop_action_01 {
+		public function __construct() {
+      add_action( 'wp_ajax_search_customer', array( $this, 'ajax_search_customer' ) );
+      add_action( 'wp_ajax_load_task_wpshop', array( $this, 'ajax_load_task_wpshop' ) );
+			add_action( 'wp_ajax_ask_task', array( $this, 'ajax_ask_task' ) );
 		}
 
-    $query = 'SELECT U.ID as UID,P.ID,P.post_title FROM ' . $wpdb->posts . ' as P
-      JOIN ' . $wpdb->users . ' as U ON P.post_author=U.ID
-        WHERE (P.post_title LIKE \'%' . $search . '%\' OR
-        U.user_login LIKE \'%' . $search . '%\' OR
-        U.user_email LIKE \'%' . $search . '%\' OR
-        U.display_name LIKE \'%' . $search . '%\' OR
-        U.user_url LIKE \'%' . $search . '%\' )
-        AND P.post_type = \'wpshop_customers\'
-        ORDER BY P.post_title ASC LIMIT 0,5';
+    public function ajax_search_customer() {
+      global $wpdb;
 
-    $return = array();
+      $search = like_escape($_REQUEST['term']);
 
-    foreach ($wpdb->get_results($query) as $row) {
-      $return[] = array(
-        'label' => $row->post_title,
-        'value' => $row->post_title,
-        'id'    => $row->UID,
-      );
+      $query = 'SELECT U.ID as UID,P.ID,P.post_title FROM ' . $wpdb->posts . ' as P
+        JOIN ' . $wpdb->users . ' as U ON P.post_author=U.ID
+          WHERE (P.post_title LIKE \'%' . $search . '%\' OR
+          U.user_login LIKE \'%' . $search . '%\' OR
+          U.user_email LIKE \'%' . $search . '%\' OR
+          U.display_name LIKE \'%' . $search . '%\' OR
+          U.user_url LIKE \'%' . $search . '%\' )
+          AND P.post_type = \'wpshop_customers\'
+          ORDER BY P.post_title ASC LIMIT 0,5';
+
+      $return = array();
+
+      foreach ($wpdb->get_results($query) as $row) {
+        $return[] = array(
+          'label' => $row->post_title,
+          'value' => $row->post_title,
+          'id'    => $row->UID,
+        );
+      }
+      wp_die( wp_json_encode( $return ) );
     }
-    wp_die( wp_json_encode( $return ) );
-  }
 
-  public function ajax_load_task_wpshop() {
-    global $task_wpshop_controller;
+    public function ajax_load_task_wpshop() {
+      global $task_wpshop_controller;
+			$_POST['backend'] = true;
+      $template = $task_wpshop_controller->callback_my_account_content( '', 'my-task' );
 
-		if ( !check_ajax_referer( 'ajax_search_customer', array(), false ) ) {
-			wp_send_json_error( array( 'message' => __( 'Error for load task wpshop: invalid nonce', 'task-manager' ) ) );
+      wp_send_json_success( array( 'template' => $template ) );
+    }
+
+		public function ajax_ask_task() {
+			global $task_controller;
+			global $point_controller;
+
+			$edit = false;
+
+			/** On vérifie si la tâche ask-task-[client_id] existe */
+			global $wpdb;
+
+			$query = "SELECT ID FROM {$wpdb->posts} WHERE post_name=%s";
+			$list_task = $wpdb->get_results( $wpdb->prepare( $query, array( 'ask-task-' . get_current_user_id() ) ) );
+
+			/** On crée la tâche */
+			if ( count( $list_task ) == 0 ) {
+				$task = $task_controller->create(
+					array(
+						'title' => __( 'Ask', 'task-manager' ),
+						'slug' => 'ask-task-' . get_current_user_id(),
+						'parent_id' => wps_customer_ctr::get_customer_id_by_author_id( get_current_user_id() ),
+					)
+				);
+
+				$task_id = $task->id;
+			}
+			else {
+				$edit = true;
+				$task_id = $list_task[0]->ID;
+			}
+
+			$task = $task_controller->show( $task_id );
+
+			$_POST['point']['author_id'] = get_current_user_id();
+			$_POST['point']['status'] = '-34070';
+			$_POST['point']['date'] = current_time( 'mysql' );
+			$_POST['point']['post_id'] = $task_id;
+
+			$point = $point_controller->create( $_POST['point'] );
+
+			$task->option['task_info']['order_point_id'][] = (int) $point->id;
+			$task_controller->update( $task );
+
+			ob_start();
+			$task_controller->render_task( $task );
+			wp_send_json_success( array( 'task_id' => $task_id, 'edit' => $edit, 'template' => ob_get_clean() ) );
 		}
-
-    $template = $task_wpshop_controller->callback_my_account_content( '', 'my-task', true );
-
-    wp_send_json_success( array( 'template' => $template ) );
-  }
-
-	public function ajax_ask_task() {
-		global $task_controller;
-		global $point_controller;
-
-		if ( !check_ajax_referer( 'ask_task', array(), false ) ) {
-			wp_send_json_error( array( 'message' => __( 'Error for ask task: invalid nonce', 'task-manager' ) ) );
-		}
-
-		$point = !empty( $_POST['point'] ) ? (array) $_POST['point'] : array();
-
-		if ( empty( $point ) ) {
-			wp_send_json_error( array( 'message' => __( 'Error for ask task', 'task-manager' ) ) );
-		}
-
-		$edit = false;
-
-		/** On vérifie si la tâche ask-task-[client_id] existe */
-		global $wpdb;
-
-		$query = "SELECT ID FROM {$wpdb->posts} WHERE post_name=%s";
-		$list_task = $wpdb->get_results( $wpdb->prepare( $query, array( 'ask-task-' . get_current_user_id() ) ) );
-
-		/** On crée la tâche */
-		if ( count( $list_task ) == 0 ) {
-			$task = $task_controller->create(
-				array(
-					'title' => __( 'Ask', 'task-manager' ),
-					'slug' => 'ask-task-' . get_current_user_id(),
-					'parent_id' => wps_customer_ctr::get_customer_id_by_author_id( get_current_user_id() ),
-				)
-			);
-
-			$task_id = $task->id;
-		}
-		else {
-			$edit = true;
-			$task_id = $list_task[0]->ID;
-		}
-
-		$task = $task_controller->show( $task_id );
-
-		$point['author_id'] = get_current_user_id();
-		$point['status'] = '-34070';
-		$point['date'] = current_time( 'mysql' );
-		$point['post_id'] = $task_id;
-
-		$point = $point_controller->create( $point );
-
-		$task->option['task_info']['order_point_id'][] = (int) $point->id;
-		$task_controller->update( $task );
-
-		ob_start();
-		$task_controller->render_task( $task );
-		wp_send_json_success( array( 'task_id' => $task_id, 'edit' => $edit, 'template' => ob_get_clean() ) );
 	}
-}
 
-global $task_wpshop_action;
-$task_wpshop_action = new task_wpshop_action_01();
+	global $task_wpshop_action;
+	$task_wpshop_action = new task_wpshop_action_01();
+}
 ?>

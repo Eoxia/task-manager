@@ -8,7 +8,7 @@ if ( !empty( $list_user ) ) :
 				$active = 'active';
 			endif;
 
-			$nonce = 'ajax_update_user_' . $user->id;
+			$nonce = 'wpeo_nonce_update_user_' . $user->id;
 			require( wpeo_template_01::get_template_part( WPEO_USER_DIR, WPEO_USER_TEMPLATES_MAIN_DIR, 'backend', 'user-gravatar' ) );
 		endif;
 	endforeach;

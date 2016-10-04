@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Task manager 1.3.1.6\n"
-"POT-Creation-Date: 2016-06-22 17:06+0100\n"
-"PO-Revision-Date: 2016-06-22 17:13+0100\n"
+"Project-Id-Version: WPProject\n"
+"POT-Creation-Date: 2016-03-04 10:02+0100\n"
+"PO-Revision-Date: 2016-03-04 10:03+0100\n"
 "Last-Translator: \n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -10,911 +10,294 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8\n"
-"X-Poedit-Basepath: ..\\..\\..\\\n"
+"X-Poedit-Basepath: ..\\\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: core\\dashboard\n"
-"X-Poedit-SearchPath-1: core\\point\n"
-"X-Poedit-SearchPath-2: core\\task\n"
-"X-Poedit-SearchPath-3: core\\taskmanager\n"
-"X-Poedit-SearchPath-4: core\\template\n"
-"X-Poedit-SearchPath-5: core\\time\n"
-"X-Poedit-SearchPath-6: core\\window\n"
-"X-Poedit-SearchPath-7: module\\_transfert_1301_1310\n"
-"X-Poedit-SearchPath-8: module\\custom\n"
-"X-Poedit-SearchPath-9: module\\frontend\n"
-"X-Poedit-SearchPath-10: module\\help\n"
-"X-Poedit-SearchPath-11: module\\tag\n"
-"X-Poedit-SearchPath-12: module\\user\n"
-"X-Poedit-SearchPath-13: module\\wpshop\n"
-"X-Poedit-SearchPath-14: module\\timeline\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: core\n"
+"X-Poedit-SearchPathExcluded-1: module\n"
 
-#: core\dashboard/controller/dashboard.controller.01.php:12
-#: core\dashboard/controller/dashboard.controller.01.php:13
-msgid "Task management dashboard"
-msgstr "Tableau de bord de la gestion des tâches"
+#: asset/js/language.js.php:2
+msgid "Delete this comment ?"
+msgstr "Voulez vous supprimer ce commentaire ?"
 
-#: core\dashboard/controller/dashboard.controller.01.php:12
-#: core\dashboard/controller/dashboard.controller.01.php:13
-#: core\task/template/custom/main.php:7
-msgid "Tasks manager"
-msgstr "Tâches"
+#: asset/js/language.js.php:3
+msgid "Delete this point ?"
+msgstr "Voulez vous supprimer ce point ?"
 
-#: core\dashboard/template/backend/dashboard.php:12
-#: module\custom/template/backend/main.php:10
-msgid "Tasks Manager"
-msgstr "Tâches"
+#: asset/js/language.js.php:4
+msgid "Delete this task ?"
+msgstr "Voulez vous supprimer cette tâche ?"
 
-#: core\point/controller/point.action.01.php:33
-msgid "Error for create a point: invalid nonce"
-msgstr "Erreur pour créer un point: token invalide"
+#: asset/js/language.js.php:5
+msgid "Create the tag"
+msgstr "Créer la catégorie"
 
-#: core\point/controller/point.action.01.php:37
-#: core\point/controller/point.action.01.php:41
-#: core\point/controller/point.action.01.php:45
-msgid "Error for create a point"
-msgstr "Erreur pour créer un point"
-
-#: core\point/controller/point.action.01.php:63
-#, php-format
-msgid "Create the point #%d with the content : %s for the task #%d"
-msgstr "Créer le point #%d avec le contenu: %s pour la tâche #%d"
-
-#: core\point/controller/point.action.01.php:70
-msgid "Point created"
-msgstr "Point créé"
-
-#: core\point/controller/point.action.01.php:92
-msgid "Error for delete a point"
-msgstr "Erreur pour supprimer un point"
-
-#: core\point/controller/point.action.01.php:96
-msgid "Error for delete a point: invalid nonce"
-msgstr "Erreur pour supprimer un point: token invalide"
-
-#: core\point/controller/point.action.01.php:106
-msgid "Error for delete a point: the point does not exist"
-msgstr "Erreur pour supprimer un point: le point n'existe pas"
-
-#: core\point/controller/point.action.01.php:115
-#, php-format
-msgid ""
-"The point #%d was deleted for the task #%d. The elapsed time for this point "
-"was %d minute(s). The elapsed time for this task is now %d minute(s)"
-msgstr ""
-"Le point #%d à été supprimé pour la tâche #%d. Le temps passé pour le point "
-"était de %d minute(s). Le temps passé pour la tâche est maintenant de %d "
-"minute(s)"
-
-#: core\point/controller/point.action.01.php:118
-msgid "Point deleted"
-msgstr "Point supprimé"
-
-#: core\point/controller/point.action.01.php:137
-msgid "Error for edit a point"
-msgstr "Erreur pour éditer un point"
-
-#: core\point/controller/point.action.01.php:141
-msgid "Error for edit a point: invalid nonce"
-msgstr "Erreur pour éditer un point: token invalide"
-
-#: core\point/controller/point.action.01.php:162
-#, php-format
-msgid ""
-"The point #%d was updated with the content : %s and set to completed : %s"
-msgstr ""
-"Le point #%d à été mis à jour avec le contenu : %s et mis sur complété : %s"
-
-#: core\point/controller/point.action.01.php:165
-msgid "Point edited"
-msgstr "Point édité"
-
-#: core\point/controller/point.action.01.php:186
-msgid "Error for edit order point: invalid nonce"
-msgstr "Erreur pour éditer l'ordre des points: token invalide"
-
-#: core\point/controller/point.action.01.php:209
-msgid "Point order edited"
-msgstr "L'ordre des points est édités"
-
-#: core\point/controller/point.action.01.php:224
-msgid "Error for load dashboard point"
-msgstr "Erreur pour charger la fenêtre de ce point"
-
-#: core\point/controller/point.action.01.php:228
-#: core\point/controller/point.action.01.php:252
-msgid "Error for load dashboard point: invalid nonce"
-msgstr "Erreur pour charger la fenêtre de ce point: token invalide"
-
-#: core\point/controller/point.action.01.php:248
-msgid "Error for send point to task"
-msgstr "Erreur pour envoyer le point à la tâche"
-
-#: core\point/controller/point.action.01.php:294
-msgid "Point sended"
-msgstr "Point envoyé"
-
-#: core\point/controller/point.controller.01.php:67
-msgid "Uncompleted"
-msgstr "Incomplet"
-
-#: core\point/controller/point.controller.01.php:75
-msgid "Completed"
-msgstr "Complété(s)"
-
-#: core\point/controller/point.controller.01.php:210
-#: core\point/controller/point.controller.01.php:216
-msgid "Point not found"
-msgstr "Point introuvable"
-
-#: core\point/template/backend/action-after.php:3
-#: core\task/template/backend/window-task.php:18
-#: core\task/template/backend/window/sub-header.php:13
-msgid "Move to trash"
-msgstr "Déplacer à la corbeille"
-
-#: core\point/template/backend/action-before.php:3
-msgid "Drag and drop for set the order"
-msgstr "Drag and drop pour ajuster l'ordre"
-
-#: core\point/template/backend/list-point.php:23
-msgid "Toggle completed point"
-msgstr "Afficher les points complétés"
-
-#: core\point/template/backend/list-point.php:23
-#: core\task/template/frontend/task.php:40
-msgid "Completed point"
-msgstr "Les points terminés"
-
-#: core\point/template/backend/point-add.php:12
-msgid "Write your point here..."
-msgstr "Écrivez votre point ici..."
-
-#: core\point/template/backend/point-add.php:15
-msgid "Add this point"
-msgstr "Ajouter ce point"
-
-#: core\point/template/backend/window/action.php:6
-msgid "Send the point to task <strong>#</strong>"
-msgstr "Envoyer le point à la tâche <strong#</strong>"
-
-#: core\point/template/backend/window/action.php:13
-msgid "Task name"
-msgstr "Nom de la tâche"
-
-#: core\point/template/backend/window/action.php:19
-#: core\task/template/backend/window-task.php:69
-#: core\task/template/backend/window/action.php:18
-msgid "Send"
-msgstr "Envoyer"
-
-#: core\point/template/backend/window/information.php:4
-msgid "Point informations"
-msgstr "Information du point"
-
-#: core\point/template/backend/window/information.php:8
-#: core\task/template/backend/window-task.php:27
-#: core\task/template/backend/window/information.php:7
-msgid "Create"
-msgstr "Créer"
-
-#: core\point/template/backend/window/information.php:13
-#: core\task/template/backend/window-task.php:33
-#: core\task/template/backend/window/information.php:13
-msgid "Elapsed time"
-msgstr "Temps passé"
-
-#: core\point/template/backend/window/information.php:19
-msgid "Number of comments on the point"
-msgstr "Nombre de commentaire sur le point"
-
-#: core\point/template/backend/window/information.php:25
-#: core\task/template/backend/window-task.php:53
-#: core\task/template/backend/window/information.php:33
-msgid "Ref"
-msgstr "Ref"
-
-#: core\point/template/backend/window/sub-header.php:6
-msgid "Owner of the point"
-msgstr "Responsable du point"
-
-#: core\point/template/backend/window/sub-header.php:12
-msgid "Point completed"
-msgstr "Point complété"
-
-#: core\point/template/backend/window/sub-header.php:14
-msgid "Point uncompleted"
-msgstr "Point décompleté"
-
-#: core\point/template/frontend/list-point-time.php:10
-#: core\time/template/backend/list-time.php:10
-msgid "There is no comment on this point. Click above to add one."
-msgstr ""
-"Il n'y a pas de comment sur ce point. Cliquez ci-dessous pour en ajouter un."
-
-#: core\point/template/frontend/point-time.php:9
-#: core\task/template/backend/last-comment.php:14
-#: core\time/template/backend/time.php:9
-msgid "On"
-msgstr "Le"
-
-#: core\point/template/frontend/point-time.php:11
-#: core\task/template/backend/last-comment.php:16
-#: core\time/template/backend/time.php:11
-msgid "at"
-msgstr "à"
-
-#: core\task/controller/task.action.01.php:36
-msgid "Error for create a task: invalid nonce"
-msgstr ""
-"Erreur pour créer la tâche: token invalide. Veuillez recharger la page."
-
-#: core\task/controller/task.action.01.php:40
-#: core\task/template/custom/main.php:7
+#: controller/task.action.01.php:58 template/custom/main.php:7
 msgid "New task"
 msgstr "Nouvelle tâche"
 
-#: core\task/controller/task.action.01.php:49
+#: controller/task.action.01.php:67
 #, php-format
 msgid "The task #%d has been created by the user #%d"
 msgstr "La tâche #%d à été créer par l'utilisateur #%d"
 
-#: core\task/controller/task.action.01.php:56
-msgid "Task created"
-msgstr "Tâche créée"
+#: controller/task.action.01.php:95
+msgid "Ask"
+msgstr "Demande"
 
-#: core\task/controller/task.action.01.php:81
-msgid "Error for edit a task"
-msgstr "Erreur pour éditer la tâche"
-
-#: core\task/controller/task.action.01.php:85
-msgid "Error for edit a task: invalid nonce"
-msgstr "Erreur pour éditer la tâche: token invalide"
-
-#: core\task/controller/task.action.01.php:90
-msgid "Task edited"
-msgstr "Tâche éditée"
-
-#: core\task/controller/task.action.01.php:108
-msgid "Error for archive task"
-msgstr "Erreur pour archiver la tâche"
-
-#: core\task/controller/task.action.01.php:112
-#: core\task/controller/task.action.01.php:154
-msgid "Error for archive task: invalid nonce"
-msgstr ""
-"Erreur pour archiver la tâche: token invalide. Veuillez recharger la page."
-
-#: core\task/controller/task.action.01.php:136
+#: controller/task.action.01.php:184
 #, php-format
-msgid "The task #%d has been send to archive by the user #%d"
-msgstr "La tâche #%d à été envoyée en archive par l'utilisateur #%d"
+msgid ""
+"The task #%d has been edited by the user #%d with the title : %s and the "
+"estimated time %d"
+msgstr ""
+"La tâche #%d à été éditée par l'utilisateur #%d avec le titre : %s et le "
+"temps estimé %d"
 
-#: core\task/controller/task.action.01.php:139
-msgid "Task archived"
-msgstr "Tâche archivée"
+#: controller/task.action.01.php:191
+#, php-format
+msgid ""
+"The task #%d has been edited by the user #%d with the frontend info "
+"display_user : %s and the display_time : %s "
+msgstr ""
+"La tâche #%d à été éditée par l'utilisateur #%d avec le option frontend "
+"display_user : %s et le display_time : %s"
 
-#: core\task/controller/task.action.01.php:150
-msgid "Error for export task"
-msgstr "Erreur pour exporter la tâche."
-
-#: core\task/controller/task.action.01.php:169
-msgid "Task exported"
-msgstr "Tâche exportée"
-
-#: core\task/controller/task.action.01.php:185
-msgid "Error for delete task"
-msgstr "Erreur pour supprimer la tâche."
-
-#: core\task/controller/task.action.01.php:189
-msgid "Error for delete task: invalid nonce"
-msgstr "Erreur pour supprimer la tâche: token invalide."
-
-#: core\task/controller/task.action.01.php:198
+#: controller/task.action.01.php:228
 #, php-format
 msgid "The task #%d has been deleted by the user #%d"
 msgstr "La tâche #%d à été supprimée par l'utilisateur #%d"
 
-#: core\task/controller/task.action.01.php:201
-msgid "Task deleted"
-msgstr "Tâche supprimée"
+#: controller/task.action.01.php:271
+#, php-format
+msgid "The task #%d has been send to archive by the user #%d"
+msgstr "La tâche #%d à été envoyée en archive par l'utilisateur #%d"
 
-#: core\task/controller/task.action.01.php:208
-#: core\task/controller/task.action.01.php:222
-msgid "Error for load all task: invalid nonce"
-msgstr "Erreur pour charger toutes les tâches: token invalide."
+#: controller/task.action.01.php:297 controller/task.action.01.php:375
+msgid "Completed"
+msgstr "Complété(s)"
 
-#: core\task/controller/task.action.01.php:246
-msgid "Error for view tag on task"
-msgstr "Erreur pour voir les catégories de la tâche."
+#: controller/task.action.01.php:319 controller/task.action.01.php:387
+msgid "In Progress"
+msgstr "En cours"
 
-#: core\task/controller/task.action.01.php:250
-msgid "Error for view tag on task: invalid nonce"
-msgstr "Erreur pour voir les catégories de la tâche: token invalide."
+#: controller/task.action.01.php:346
+#, php-format
+msgid "The task #%d has been exported by the user #%d"
+msgstr "La tâche #%d à été exportées par l'utilisateur #%d"
 
-#: core\task/controller/task.action.01.php:259
-#: core\task/controller/task.action.01.php:320
-msgid "Tag edited"
-msgstr "Catégorie éditée."
+#: controller/task.action.01.php:414
+#, php-format
+msgid "The tasks %s has been exported by the user #%d"
+msgstr "Les tâches %s à été exportées par l'utilisateur #%d"
 
-#: core\task/controller/task.action.01.php:278
-msgid "Error for edit tag on task"
-msgstr "Erreur pour éditer les catégories sur la tâche."
-
-#: core\task/controller/task.action.01.php:282
-msgid "Error for edit tag on task: invalid nonce"
-msgstr "Erreur pour éditer les catégories sur la tâche: token invalide."
-
-#: core\task/controller/task.action.01.php:296
+#: controller/task.action.01.php:461
 #, php-format
 msgid "The tag %d has selected for the task #%d by the user #%d"
 msgstr ""
 "La catégorie %d à été sélectionné pour la tâche #%d par l'utilisateur #%d"
 
-#: core\task/controller/task.action.01.php:304
+#: controller/task.action.01.php:465
 #, php-format
 msgid "The tag %d has deselected for the task #%d by the user #%d"
 msgstr ""
 "La catégorie %d à été désélectionné pour la tâche #%d par l'utilisateur #%d"
 
-#: core\task/controller/task.action.01.php:330
-msgid "Error for edit owner on task"
-msgstr "Erreur pour éditer le responsable de la tâche."
-
-#: core\task/controller/task.action.01.php:334
-msgid "Error for edit owner on task: invalid nonce"
-msgstr "Erreur pour éditer le responsable de la tâche: token invalide."
-
-#: core\task/controller/task.action.01.php:344
+#: controller/task.action.01.php:496
 #, php-format
 msgid "The owner for the task #%d has been changed to %d by the user #%d"
 msgstr ""
 "Le responsable pour la tâche #%d à été changé vers %d par l'utilisateur #%d"
 
-#: core\task/controller/task.action.01.php:347
-msgid "Owner changed"
-msgstr "Responsable modifié"
+#: controller/task.controller.01.php:68 controller/task.controller.01.php:70
+#: controller/task.controller.01.php:72 controller/task.controller.01.php:83
+msgid "Tasks"
+msgstr "Tâches"
 
-#: core\task/controller/task.action.01.php:357
-msgid "Error for send task to element"
-msgstr "Erreur pour envoyer la tâche vers un autre élément."
+#: controller/task.controller.01.php:69 controller/task.controller.01.php:175
+msgid "Task"
+msgstr "Tâche"
 
-#: core\task/controller/task.action.01.php:361
-msgid "Error for send task to element: invalid nonce"
-msgstr "Erreur pour envoyer la tâche vers un autre élément: token invalide."
+#: controller/task.controller.01.php:71
+msgid "Parent Task:"
+msgstr "Tâche parent:"
 
-#: core\task/controller/task.action.01.php:366
-msgid "Element sended"
-msgstr "Tâche envoyée"
+#: controller/task.controller.01.php:73
+msgid "View Task"
+msgstr "Voir la tâche"
 
-#: core\task/controller/task.action.01.php:376
-msgid "Error for update due date"
-msgstr "Erreur pour éditer la date limite"
+#: controller/task.controller.01.php:74
+msgid "Add New Task"
+msgstr "Ajouter une nouvelle tâche"
 
-#: core\task/controller/task.action.01.php:380
-msgid "Error for update due date: invalid nonce"
-msgstr "Erreur pour éditer la date limite: token invalide."
+#: controller/task.controller.01.php:75
+msgid "New Task"
+msgstr "Créer une tâche"
 
-#: core\task/controller/task.action.01.php:385
-msgid "Due date updated"
-msgstr "Date limite editée"
+#: controller/task.controller.01.php:76
+msgid "Edit Task"
+msgstr "Editer la tâche"
 
-#: core\task/controller/task.action.01.php:393
-msgid "Error for reload task"
-msgstr "Erreur pour recharger la tâche"
+#: controller/task.controller.01.php:77
+msgid "Update Task"
+msgstr "Mettre à jour la tâche"
 
-#: core\task/controller/task.action.01.php:397
-msgid "Error for reload task: invalid nonce"
-msgstr "Erreur pour recharger la tâche: token invalide."
+#: controller/task.controller.01.php:78
+msgid "Search Tasks"
+msgstr "Rechercher une tâche"
 
-#: core\task/controller/task.action.01.php:403
-msgid "Task reloaded"
-msgstr "Tâche rechargée"
+#: controller/task.controller.01.php:79
+msgid "No tasks found"
+msgstr "Aucune tâche trouvé"
 
-#: core\task/controller/task.controller.01.php:145
-#: core\task/controller/task.controller.01.php:151
+#: controller/task.controller.01.php:80
+msgid "No tasks found in Trash"
+msgstr "Aucune tâche trouvé dans la corbeille"
+
+#: controller/task.controller.01.php:84
+msgid "Tasks management"
+msgstr "Projet"
+
+#: controller/task.controller.01.php:110 controller/task.controller.01.php:111
+msgid "Task management dashboard"
+msgstr "Tableau de bord de la gestion des tâches"
+
+#: controller/task.controller.01.php:110 controller/task.controller.01.php:111
+#: template/backend/dashboard-main.php:18 template/custom/main.php:7
+msgid "Tasks manager"
+msgstr "Tâches"
+
+#: controller/task.controller.01.php:509 controller/task.controller.01.php:515
 msgid "Task not found"
 msgstr "Tâche non trouvée"
 
-#: core\task/template/backend/filter.php:3
+#: template/backend/dashboard-main.php:15
+msgid "Recompile time"
+msgstr "Recompiler le temps"
+
+#: template/backend/dashboard-main.php:28
 msgid "All tasks"
 msgstr "Toutes les tâches"
 
-#: core\task/template/backend/last-comment.php:18
+#: template/backend/dashboard-main.php:29
+msgid "My tasks"
+msgstr "Mes tâches"
+
+#: template/backend/dashboard-main.php:30
+msgid "Affected tasks"
+msgstr "Tâches afféctées"
+
+#: template/backend/last-comment.php:14
+msgid "On"
+msgstr "Le"
+
+#: template/backend/last-comment.php:16
+msgid "at"
+msgstr "à"
+
+#: template/backend/last-comment.php:18
 msgid "to the point"
 msgstr "pour le point"
 
-#: core\task/template/backend/last-comment.php:20
+#: template/backend/last-comment.php:20
 msgid "to the task"
 msgstr "pour la tâche"
 
-#: core\task/template/backend/task-header-button.php:3
-msgid "More informations"
-msgstr "Plus d'infos"
-
-#: core\task/template/backend/task-header-button.php:4
-msgid "Reload task"
-msgstr "Tâche rechargée"
-
-#: core\task/template/backend/window-task.php:15
-#: core\task/template/backend/window/sub-header.php:9
-msgid "Archive task"
-msgstr "Tâche archivée"
-
-#: core\task/template/backend/window-task.php:16
-#: core\task/template/backend/window/sub-header.php:10
-msgid "View the task"
-msgstr "Voir la tâche"
-
-#: core\task/template/backend/window-task.php:23
-#: core\task/template/backend/window/information.php:3
-msgid "Task informations"
-msgstr "Informations de la tâche"
-
-#: core\task/template/backend/window-task.php:32
-#: core\task/template/backend/window/information.php:12
-msgid "Estimated time"
-msgstr "Temps prévu"
-
-#: core\task/template/backend/window-task.php:40
-#: core\task/template/backend/window/information.php:20
-msgid "Number of comments on the task"
-msgstr "Nombre de commentaires sur la tâche"
-
-#: core\task/template/backend/window-task.php:46
-#: core\task/template/backend/window/information.php:26
-msgid "Number users associate to the task"
-msgstr "Nombre de personnes associés à la tâche"
-
-#: core\task/template/backend/window-task.php:61
-#: core\task/template/backend/window/action.php:6
-msgid "Send the task to element <strong>#</strong>"
-msgstr "Envoyer la tâche vers l'élément <strong>#</strong>"
-
-#: core\task/template/backend/window-task.php:76
-#: core\task/template/backend/window/action.php:25
-msgid "Due date"
-msgstr "Date de fin"
-
-#: core\task/template/backend/window-task.php:84
-#: core\task/template/backend/window/action.php:33
-msgid "Update"
-msgstr "Enregistrer les modifications"
-
-#: core\task/template/backend/window/sub-header.php:6
-msgid "Owner of the task"
-msgstr "Responsable de la tâche"
-
-#: core\task/template/backend/window/sub-header.php:11
-msgid "Export task"
-msgstr "Tâche exportée"
-
-#: core\task/template/backend/wpshop-filter.php:3
-msgid "Search by Customer..."
-msgstr "Chercher par Client..."
-
-#: core\task/template/custom/main.php:16
+#: template/backend/list-task.php:13 template/custom/main.php:16
 msgid "No tasks, press the \"New task\" button for create a task"
 msgstr ""
 "Pas de tâche, appuyez sur le bouton \"Nouvelle tâche\" pour créer une tâche"
 
-#: core\task/template/frontend/account/ask-task.php:8
-#: module\wpshop/template/frontend/content.php:8
+#: template/backend/task-header.php:18
+msgid "More informations"
+msgstr "Plus d'infos"
+
+#: template/backend/window-dashboard-task.php:18
+msgid "No owner for this task"
+msgstr "Pas de responsable pour cette tâche."
+
+#: template/backend/window-dashboard-task.php:22
+msgid "Owner of the task"
+msgstr "Responsable de la tâche"
+
+#: template/backend/window-dashboard-task.php:27
+msgid "View the task"
+msgstr "Voir la tâche"
+
+#: template/backend/window-dashboard-task.php:30
+msgid "Move to trash"
+msgstr "Déplacer à la corbeille"
+
+#: template/backend/window-dashboard-task.php:35
+msgid "Task informations"
+msgstr "Informations de la tâche"
+
+#: template/backend/window-dashboard-task.php:39
+msgid "Create"
+msgstr "Créer"
+
+#: template/backend/window-dashboard-task.php:44
+msgid "Estimated time"
+msgstr "Temps prévu"
+
+#: template/backend/window-dashboard-task.php:45
+msgid "Elapsed time"
+msgstr "Temps passé"
+
+#: template/backend/window-dashboard-task.php:52
+msgid "Number of comments on the task"
+msgstr "Nombre de commentaires sur la tâche"
+
+#: template/backend/window-dashboard-task.php:58
+msgid "Number users associate to the task"
+msgstr "Nombre de personnes associés à la tâche"
+
+#: template/backend/window-dashboard-task.php:65
+msgid "Ref"
+msgstr "Ref"
+
+#: template/backend/window-dashboard-task.php:73
+msgid "Send the task to element <strong>#</strong>"
+msgstr "Envoyer la tâche vers l'élément <strong>#</strong>"
+
+#: template/backend/window-dashboard-task.php:81
+msgid "Send"
+msgstr "Envoyer"
+
+#: template/backend/window-dashboard-task.php:88
+msgid "Due date"
+msgstr "Date de fin"
+
+#: template/backend/window-dashboard-task.php:96
+msgid "Update"
+msgstr "Enregistrer les modifications"
+
+#: template/backend/wpshop-filter.php:3
+msgid "Search by Customer..."
+msgstr "Chercher par Client..."
+
+#: template/frontend/account/ask-task.php:5
 msgid "Write your ticket"
 msgstr "Écrivez votre ticket"
 
-#: core\task/template/frontend/account/ask-task.php:9
-#: core\task/template/frontend/account/ask-task.php:12
-#: module\wpshop/template/frontend/content.php:9
-#: module\wpshop/template/frontend/content.php:12
+#: template/frontend/account/ask-task.php:6
+#: template/frontend/account/ask-task.php:9
 msgid "Ask a ticket"
 msgstr "Demandez un ticket"
 
-#: core\task/template/frontend/tasks.php:11
-msgid "Start by creating a task"
-msgstr "Commencez par crée une tâche"
-
-#: core\taskmanager/taskmanager.action.01.php:44
-msgid "Failed to load notification: invalid nonce"
-msgstr "Problème pour charger la notifcation: token invalide."
-
-#: core\time/controller/time.action.01.php:15
-msgid "Error for create point time: invalid nonce"
-msgstr "Erreur pour créer un commentaire: token invalide."
-
-#: core\time/controller/time.action.01.php:31
-msgid "Error for create point time"
-msgstr "Erreur pour créer un commentaire"
-
-#: core\time/controller/time.action.01.php:62
-msgid "Comment created"
-msgstr "Commentaire créé"
-
-#: core\time/controller/time.action.01.php:73
-msgid "Error for get point time"
-msgstr "Erreur pour récupérer un commentaire"
-
-#: core\time/controller/time.action.01.php:77
-msgid "Error for get point time: invalid nonce"
-msgstr "Erreur pour récupérer un commentaire: token invalide."
-
-#: core\time/controller/time.action.01.php:97
-msgid "Error for delete a point time"
-msgstr "Erreur pour supprimer un commentaire"
-
-#: core\time/controller/time.action.01.php:101
-msgid "Error for delete point time: invalid nonce"
-msgstr "Erreur pour supprimer un commentaire: token invalide."
-
-#: core\time/controller/time.action.01.php:109
-msgid "Comment deleted"
-msgstr "Commentaire supprimé"
-
-#: core\time/template/backend/time-add.php:16
-#: core\time/template/backend/time-edit.php:19
-msgid "Enter your comment here..."
-msgstr "Écrivez votre commentaire ici..."
-
-#: core\time/template/backend/time-add.php:20
-msgid "Click here to add a comment"
-msgstr "Cliquez ici pour ajouter un commentaire"
-
-#: core\window/controller/window.action.01.php:19
-msgid "Error for load dashboard"
-msgstr "Erreur pour charger la fenêtre"
-
-#: core\window/controller/window.action.01.php:23
-msgid "Error for load dashboard: invalid nonce"
-msgstr "Erreur pour charger la fenêtre: token invalide"
-
-#: module\custom/controller/custom.controller.01.php:11
-#: module\help/controller/help.action.01.php:20
-#: module\help/template/backend/list-task.php:7
-msgid "Task"
-msgstr "Tâche"
-
-#: module\frontend/controller/frontend.action.01.php:18
-msgid "Error for load dashboard frontend"
-msgstr "Erreur pour charger la fenêtre"
-
-#: module\frontend/controller/frontend.action.01.php:22
-msgid "Error for load dashboard frontend: invalid nonce"
-msgstr "Erreur pour charger la fenêtre: token invalide"
-
-#: module\help/controller/help.controller.01.php:41
-#: module\help/template/backend/main.php:4
-msgid "Help"
-msgstr "Aide"
-
-#: module\help/template/backend/main.php:6
-msgid "Shortcode"
-msgstr "Shortcode"
-
-#: module\help/template/backend/main.php:8
-msgid "task"
-msgstr "task"
-
-#: module\help/template/backend/main.php:10
-msgid "Paramaters"
-msgstr "Paramètre"
-
-#: module\tag/controller/tag.action.01.php:27
-msgid "Error for view all tag"
-msgstr "Erreur pour voir les catégories"
-
-#: module\tag/controller/tag.action.01.php:31
-msgid "Error for view all tag: invalid nonce"
-msgstr "Erreur pour voir les catégories: token invalide"
-
-#: module\tag/controller/tag.action.01.php:51
-msgid "Error for create tag"
-msgstr "Erreur pour créer les catégories"
-
-#: module\tag/controller/tag.action.01.php:55
-msgid "Error for create tag: invalid nonce"
-msgstr "Erreur pour créer les catégories: token invalide"
-
-#: module\tag/controller/tag.controller.01.php:56
-msgid "Search Tags"
-msgstr "Rechercher Catégorie"
-
-#: module\tag/controller/tag.controller.01.php:57
-msgid "Popular Tags"
-msgstr "Les catégories populaires"
-
-#: module\tag/controller/tag.controller.01.php:58
-msgid "All Tags"
-msgstr "Toutes les catégories"
-
-#: module\tag/controller/tag.controller.01.php:61
-msgid "Edit Tag"
-msgstr "Éditer une Catégorie"
-
-#: module\tag/controller/tag.controller.01.php:62
-msgid "Update Tag"
-msgstr "Mis à jour d'une catégorie"
-
-#: module\tag/controller/tag.controller.01.php:63
-msgid "Add New Tag"
-msgstr "Ajouter une nouvelle catégorie"
-
-#: module\tag/controller/tag.controller.01.php:64
-msgid "New Tag Name"
-msgstr "Ajoutez un nouveau nom de catégorie"
-
-#: module\tag/controller/tag.controller.01.php:65
-msgid "Separate Tags with commas"
-msgstr "Séparer les Catégories avec des commas"
-
-#: module\tag/controller/tag.controller.01.php:66
-msgid "Add or remove Tags"
-msgstr "Ajouter ou supprimer une Catégorie"
-
-#: module\tag/controller/tag.controller.01.php:67
-msgid "Choose from the most used Tags"
-msgstr ""
-
-#: module\tag/controller/tag.controller.01.php:68
-msgid "No Tags found."
-msgstr "Pas de catégorie trouvé."
-
-#: module\tag/controller/tag.controller.01.php:69
-msgid "Tags"
-msgstr "Mots clés"
-
-#: module\tag/controller/tag.controller.01.php:88
-msgid "Project"
-msgstr "Projet"
-
-#: module\tag/template/backend/choosen.php:4
-msgid "Search by Tag..."
-msgstr "Rechercher par Catégorie..."
-
-#: module\tag/template/backend/display-tag-selected.php:12
-msgid "Click here to add a tag"
-msgstr "Cliquez ici pour ajouter une catégorie"
-
-#: module\tag/template/backend/filter.php:3
-msgid "Archived task"
-msgstr "Tâche archivée"
-
-#: module\timeline/controller/timeline.action.01.php:14
-msgid "Error for load timeline user"
-msgstr "Erreur pour charger la chronologie de cet utilisateur"
-
-#: module\timeline/controller/timeline.action.01.php:18
-msgid "Error for load timeline user: invalid nonce"
-msgstr "Erreur pour charger la chronologie de cet utilisateur: token invalide."
-
-#: module\timeline/controller/timeline.controller.01.php:29
-#: module\timeline/template/backend/timeline.php:7
-msgid "Timeline"
-msgstr "Historique"
-
-#: module\timeline/template/backend/day-comment.php:5
-msgid "Add the comment #"
-msgstr "Ajouter le commentaire #"
-
-#: module\timeline/template/backend/day-completed-point.php:5
-msgid "Completed the point #"
-msgstr "Point completé #"
-
-#: module\timeline/template/backend/day-created-point.php:5
-msgid "Create the point #"
-msgstr "Point créé #"
-
-#: module\timeline/template/backend/day-created-task.php:5
-msgid "Create the task #"
-msgstr "Tâche créée"
-
-#: module\timeline/template/backend/summary-month.php:25
-#: module\timeline/template/backend/user-profile.php:7
-msgid "Working time"
-msgstr "Temps de travail"
-
-#: module\timeline/template/backend/summary-month.php:29
-msgid "Setup working time"
-msgstr "Configurer le temps de travail"
-
-#: module\timeline/template/backend/summary-month.php:34
-msgid "Worked time"
-msgstr "Temps travaillé"
-
-#: module\timeline/template/backend/summary-month.php:38
-msgid "Task(s) created"
-msgstr "Tâche(s) créée(s)"
-
-#: module\timeline/template/backend/summary-month.php:42
-msgid "Point(s) created"
-msgstr "Point(s) créé(s)"
-
-#: module\timeline/template/backend/summary-month.php:46
-msgid "Completed point(s)"
-msgstr "Point(s) complété(s)"
-
-#: module\timeline/template/backend/user-profile.php:3
-msgid "Task Management"
-msgstr "Tâches"
-
-#: module\timeline/template/backend/user-profile.php:11
-msgid "Please enter your time per week in hour."
-msgstr "Entez votre temps par semaine en heure."
-
-#: module\user/controller/user.action.01.php:24
-msgid "Error for view user"
-msgstr "Erreur pour voir l'utilisateur"
-
-#: module\user/controller/user.action.01.php:28
-msgid "Error for view user: invalid nonce"
-msgstr "Erreur pour voir l'utilisateur: token invalide."
-
-#: module\user/controller/user.action.01.php:57
-msgid "Error for update user"
-msgstr "Erreur pour modifié l'utilisateur"
-
-#: module\user/controller/user.action.01.php:61
-msgid "Error for update user: invalid nonce"
-msgstr "Erreur pour modifié l'utilisateur: token invalide."
-
-#: module\user/controller/user.action.01.php:85
-msgid "User changed"
-msgstr "Utilisateur modifié"
-
-#: module\user/controller/user.action.01.php:106
-msgid "Error for edit owner user"
-msgstr "Erreur pour modifié le responsable"
-
-#: module\user/controller/user.action.01.php:110
-msgid "Error for edit owner user: invalid nonce"
-msgstr "Erreur pour modifié le responsable: token invalide."
-
-#: module\user/template/backend/choosen.php:4
-msgid "Search by User..."
-msgstr "Recherchez par utilisateur..."
-
-#: module\user/template/backend/filter.php:3
-msgid "My tasks"
-msgstr "Mes tâches"
-
-#: module\user/template/backend/filter.php:4
-msgid "Affected tasks"
-msgstr "Tâches afféctées"
-
-#: module\wpshop/controller/task_wpshop.action.01.php:18
-msgid "Error for search customer: invalid nonce"
-msgstr "Erreur pour recherche un client: token invalide"
-
-#: module\wpshop/controller/task_wpshop.action.01.php:47
-msgid "Error for load task wpshop: invalid nonce"
-msgstr "Erreur pour chargé une tâche: token invalide."
-
-#: module\wpshop/controller/task_wpshop.action.01.php:60
-msgid "Error for ask task: invalid nonce"
-msgstr "Erreur pour demander une tâche: token invalide."
-
-#: module\wpshop/controller/task_wpshop.action.01.php:66
-msgid "Error for ask task"
-msgstr "Erreur pour demandé une tâche"
-
-#: module\wpshop/controller/task_wpshop.action.01.php:81
-msgid "Ask"
-msgstr "Demande"
-
-#: module\wpshop/template/backend/search.php:6
-msgid "Search WPshop customer"
-msgstr "Recherchez des clients WPShop"
-
-#: module\wpshop/template/frontend/menu.php:6
+#: template/frontend/account/menu.php:6
 msgid "My task"
 msgstr "Mes tâches"
 
-#~ msgid "Delete this comment ?"
-#~ msgstr "Voulez vous supprimer ce commentaire ?"
+#: template/frontend/task.php:40
+msgid "Completed point"
+msgstr "Les points terminés"
 
-#~ msgid "Delete this point ?"
-#~ msgstr "Voulez vous supprimer ce point ?"
-
-#~ msgid "Delete this task ?"
-#~ msgstr "Voulez vous supprimer cette tâche ?"
-
-#~ msgid "Create the tag"
-#~ msgstr "Créer la catégorie"
-
-#~ msgid "Point time created"
-#~ msgstr "Commentaire ajouté"
-
-#~ msgid "Point time edited"
-#~ msgstr "Commentaire édité"
-
-#~ msgid "Point time deleted"
-#~ msgstr "Commentaire supprimé"
-
-#~ msgid "Tags created"
-#~ msgstr "Catégorie ajoutée"
-
-#~ msgid "Tags edited"
-#~ msgstr "Catégorie editée"
-
-#~ msgid "User added to the task"
-#~ msgstr "Utilisateur affecté à la tâche"
-
-#~ msgid "User removed to the task"
-#~ msgstr "Utilisateur désaffecté de la tâche"
-
-#~ msgid "Owner saved"
-#~ msgstr "Responsable modifié"
-
-#~ msgid "Trash"
-#~ msgstr "Corbeille"
-
-#~ msgid "Date"
-#~ msgstr "Date"
-
-#~ msgid "Archive"
-#~ msgstr "Archive"
-
-#~ msgid ""
-#~ "The task #%d has been edited by the user #%d with the title : %s and the "
-#~ "estimated time %d"
-#~ msgstr ""
-#~ "La tâche #%d à été éditée par l'utilisateur #%d avec le titre : %s et le "
-#~ "temps estimé %d"
-
-#~ msgid ""
-#~ "The task #%d has been edited by the user #%d with the frontend info "
-#~ "display_user : %s and the display_time : %s "
-#~ msgstr ""
-#~ "La tâche #%d à été éditée par l'utilisateur #%d avec le option frontend "
-#~ "display_user : %s et le display_time : %s"
-
-#~ msgid "In Progress"
-#~ msgstr "En cours"
-
-#~ msgid "The task #%d has been exported by the user #%d"
-#~ msgstr "La tâche #%d à été exportées par l'utilisateur #%d"
-
-#~ msgid "The tasks %s has been exported by the user #%d"
-#~ msgstr "Les tâches %s à été exportées par l'utilisateur #%d"
-
-#~ msgid "Tasks"
-#~ msgstr "Tâches"
-
-#~ msgid "Parent Task:"
-#~ msgstr "Tâche parent:"
-
-#~ msgid "View Task"
-#~ msgstr "Voir la tâche"
-
-#~ msgid "Add New Task"
-#~ msgstr "Ajouter une nouvelle tâche"
-
-#~ msgid "New Task"
-#~ msgstr "Créer une tâche"
-
-#~ msgid "Edit Task"
-#~ msgstr "Editer la tâche"
-
-#~ msgid "Update Task"
-#~ msgstr "Mettre à jour la tâche"
-
-#~ msgid "Search Tasks"
-#~ msgstr "Rechercher une tâche"
-
-#~ msgid "No tasks found"
-#~ msgstr "Aucune tâche trouvé"
-
-#~ msgid "No tasks found in Trash"
-#~ msgstr "Aucune tâche trouvé dans la corbeille"
-
-#~ msgid "Tasks management"
-#~ msgstr "Projet"
-
-#~ msgid "Recompile time"
-#~ msgstr "Recompiler le temps"
-
-#~ msgid "No owner for this task"
-#~ msgstr "Pas de responsable pour cette tâche."
+#: template/frontend/tasks.php:11
+msgid "Start by creating a task"
+msgstr "Commencez par crée une tâche"
 
 #~ msgid "Options"
 #~ msgstr "Options"
@@ -934,11 +317,17 @@ msgstr "Mes tâches"
 #~ msgid "Uncompleted point"
 #~ msgstr "Les points incomplets"
 
+#~ msgid "Task name"
+#~ msgstr "Nom de la tâche"
+
 #~ msgid "Task content"
 #~ msgstr "Contenu de la tâche"
 
 #~ msgid "Ask a task"
 #~ msgstr "Demander une tâche"
+
+#~ msgid "Archive"
+#~ msgstr "Archive"
 
 #~ msgid "Assigned tasks"
 #~ msgstr "Tâches assignées"
@@ -969,6 +358,9 @@ msgstr "Mes tâches"
 
 #~ msgid "Move to archive"
 #~ msgstr "Déplacer vers Archive"
+
+#~ msgid "Trash"
+#~ msgstr "Corbeille"
 
 #~ msgid "An error occured while dissociating file"
 #~ msgstr "Une erreur est survenue lors de la dissociation du fichier"
@@ -1001,17 +393,93 @@ msgstr "Mes tâches"
 #~ msgid "Creation of point #%d with the content : %s for the task #%d"
 #~ msgstr "Création du point #%d avec le contenu : %s pour la tâche #%d"
 
+#~ msgid ""
+#~ "The point #%d was deleted for the task #%d. The elapsed time for this "
+#~ "point was %d minute(s). The elapsed time for this task is now %d minute(s)"
+#~ msgstr ""
+#~ "Le point #%d à été supprimé pour la tâche #%d. Le temps passé pour le "
+#~ "point était de %d minute(s). Le temps passé pour la tâche est maintenant "
+#~ "de %d minute(s)"
+
+#~ msgid ""
+#~ "The point #%d was updated with the content : %s and set to completed : %s"
+#~ msgstr ""
+#~ "Le point #%d à été mis à jour avec le contenu : %s et mis sur complété : "
+#~ "%s"
+
 #~ msgid "The point order for the task #%d was reassigned : %s"
 #~ msgstr "L'ordre des points pour la tâche #%d à été réassignée : %s"
+
+#~ msgid "There is no comment on this point. Click above to add one."
+#~ msgstr ""
+#~ "Il n'y a pas de comment sur ce point. Cliquez ci-dessous pour en ajouter "
+#~ "un."
+
+#~ msgid "Write your point here..."
+#~ msgstr "Écrivez votre point ici..."
+
+#~ msgid "Add this point"
+#~ msgstr "Ajouter ce point"
+
+#~ msgid "Toggle completed point"
+#~ msgstr "Afficher les points complétés"
+
+#~ msgid "Drag and drop for set the order"
+#~ msgstr "Drag and drop pour ajuster l'ordre"
+
+#~ msgid "Enter your comment here..."
+#~ msgstr "Écrivez votre commentaire ici..."
 
 #~ msgid "Add comment"
 #~ msgstr "Ajouter un commentaire"
 
+#~ msgid "Click here to add a comment"
+#~ msgstr "Cliquez ici pour ajouter un commentaire"
+
 #~ msgid "Data transfert"
 #~ msgstr "Transfert de donnée"
 
+#~ msgid "Search Tags"
+#~ msgstr "Rechercher Catégorie"
+
+#~ msgid "Popular Tags"
+#~ msgstr "Les catégories populaires"
+
+#~ msgid "All Tags"
+#~ msgstr "Toutes les catégories"
+
+#~ msgid "Edit Tag"
+#~ msgstr "Éditer une Catégorie"
+
+#~ msgid "Update Tag"
+#~ msgstr "Mis à jour d'une catégorie"
+
+#~ msgid "Add New Tag"
+#~ msgstr "Ajouter une nouvelle catégorie"
+
+#~ msgid "New Tag Name"
+#~ msgstr "Ajoutez un nouveau nom de catégorie"
+
+#~ msgid "Separate Tags with commas"
+#~ msgstr "Séparer les Catégories avec des commas"
+
+#~ msgid "Add or remove Tags"
+#~ msgstr "Ajouter ou supprimer une Catégorie"
+
+#~ msgid "Tags"
+#~ msgstr "Mots clés"
+
 #~ msgid "Add a tag"
 #~ msgstr "Ajouter une catégorie"
+
+#~ msgid "Search by Tag..."
+#~ msgstr "Rechercher par Catégorie..."
+
+#~ msgid "Timeline"
+#~ msgstr "Historique"
+
+#~ msgid "Date"
+#~ msgstr "Date"
 
 #~ msgid "We can't use this task"
 #~ msgstr "Impossible d'utiliser cette tâche"

@@ -31,7 +31,7 @@ var wpeo_task = {
 
 var wpeo_point = {
   event: function() {
-    jQuery( document ).on( 'click', '.wpeo-task-point-use-toggle p', function( event ) { point_toggle_completed( event, jQuery( this ) ); } );
+    jQuery( document ).on( 'click', '.wpeo-task-point-use-toggle p', function( event ) { wpeo_point.toggle_completed( event, jQuery( this ) ); } );
     jQuery( document ).on( 'click', '.wpeo-point-input', function() { wpeo_point.open_window( jQuery( this ) ); } );
     jQuery( document ).on( 'click', '#wpeo-task-form-point-time .wpeo-submit', function() { wpeo_point.create_point_time( jQuery( this ) ); } );
     jQuery( document ).on( 'click', '.wpeo-point-comment .wpeo-submit', function() { wpeo_point.edit_point_time_form( jQuery( this ) ); } );
@@ -134,8 +134,8 @@ var wpeo_point = {
 
       jQuery.eoajax( ajaxurl, data, function() {
         jQuery('.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-project-task-time').text( this.task.option.time_info.elapsed );
-        jQuery('.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-task-li-point[data-id="' + this.point.id + '"] .wpeo-time-in-point').text( this.point.option.time_info.elapsed );
-        jQuery( '.wpeo-window-dashboard .wpeo-point-elapsed-time' ).text( this.point.option.time_info.elapsed );
+        jQuery('.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-task-li-point[data-id="' + this.point.id + '"] .wpeo-time-in-point').text( this['point']['option']['time_info']['elapsed'] );
+        jQuery( '.wpeo-window-dashboard .wpeo-point-elapsed-time' ).text( this['point']['option']['time_info']['elapsed'] );
 
         var current_number_point_time = jQuery( '.wpeo-window-dashboard .wpeo-point-list-point-time' ).text();
         current_number_point_time--;
@@ -148,6 +148,9 @@ var wpeo_point = {
     event.preventDefault();
 
      jQuery( element ).find('.wpeo-point-toggle-arrow').toggleClass('dashicons-plus dashicons-minus');
-         jQuery( element ).closest('.wpeo-task-point-use-toggle').find('ul:first').toggle(200);
-  }
-};
+         jQuery( element ).closest('.wpeo-task-point-use-toggle').find('ul:first').toggle(200, function() {
+          //  wpeo_task.grid.masonry();
+         });
+  },
+
+}

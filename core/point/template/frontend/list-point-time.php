@@ -7,7 +7,7 @@ if ( !empty( $list_point_time ) ):
 	endforeach;
 else:
 	?>
-	<p class="wpeo-point-no-comment"><?php _e( 'There is no comment on this point. Click above to add one.', 'task-manager' );?></p>
+	<p class="wpeo-point-no-comment"><?php _e( 'There is no comment on this point. Click above to add one.', 'wpeopoint-i18n' );?></p>
 	<?php 
 endif;
 ?>

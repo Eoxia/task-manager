@@ -12,8 +12,9 @@
 	<?php echo apply_filters( 'window_task_owner', '' ); ?>
 
 	<ul id="wpeo-task-action">
-		<li title="<?php _e( 'Archive task', 'task-manager'); ?>"><span data-nonce="<?php echo wp_create_nonce( 'ajax_archive_task_' . $task->id ); ?>" class="wpeo-task-action-list wpeo-send-task-to-archive dashicons dashicons-archive"></span></li>
+		<li><span data-nonce="<?php echo wp_create_nonce( 'wpeo_nonce_archive_task_' . $task->id ); ?>" class="wpeo-task-action-list wpeo-send-task-to-archive dashicons dashicons-archive"></span></li>
 		<!--  <li><a href="<?php echo get_post_permalink( $task->id ); ?>" title="<?php _e( 'View the task', 'task-manager' ); ?>" target="_blank" class="wpeo-task-action-list"><span class="dashicons dashicons-visibility"></span></a></li> -->
+		<li><span data-nonce="<?php echo wp_create_nonce( 'wpeo_nonce_export_task_' . $task->id ); ?>" class="wpeo-task-action-list wpeo-export dashicons dashicons-download"></span></li>
 		<!-- <li><span style="color: red;" data-nonce="<?php echo wp_create_nonce( 'wpeo_nonce_export_task_' . $task->id ); ?>" class="wpeo-task-action-list wpeo-export-comment dashicons dashicons-download"></span></li> -->
 		<li><span data-nonce="<?php echo wp_create_nonce( 'wpeo_nonce_delete_task_' . $task->id ); ?>" class="wpeo-task-action-list wpeo-send-task-to-trash dashicons dashicons-trash" title="<?php _e( 'Move to trash', 'task-manager'); ?>" ></span></li>
 	</ul>

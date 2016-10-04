@@ -17,14 +17,11 @@ var wpeo_timeline = {
 	},
 
 	change_user_filter: function( event, element ) {
-		if ( jQuery( element ).val() !== undefined && jQuery( element ).val() !== '' ) {
+		if ( jQuery( element ).val() != undefined && jQuery( element ).val() != '' ) {
 			var data = {
 				action: 'load_timeline_user',
 				user_id: jQuery( element ).val(),
-				_wpnonce: jQuery( element ).find( 'option:selected' ).data( 'nonce' ),
 			};
-
-			jQuery( '.wpeo-project-timeline .wpeo-timeline-content' ).bgLoad();
 
 			jQuery.eoajax( ajaxurl, data, function() {
 				jQuery( '.wpeo-project-timeline .wpeo-timeline-content' ).replaceWith( this.template );
@@ -54,7 +51,7 @@ var wpeo_timeline = {
 			}
 		});
 
-		blocks = jQuery('.timeline-block.is-hidden');
+		var blocks = jQuery('.timeline-block.is-hidden');
 		/* Anime l'élément lorsque il est dans la viewport */
 		jQuery(window).on('scroll', function(){
 			blocks.each(function() {

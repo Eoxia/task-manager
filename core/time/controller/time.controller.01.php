@@ -62,10 +62,9 @@ class time_controller_01 extends comment_ctr_01 {
     global $point_controller;
 
     /** Update time in point */
-    $return_data = $point_controller->increase_time( $object->parent_id, $object->option['time_info']['elapsed'] );
-		$return_data['time'] = $object;
+    $task = $point_controller->increase_time( $object->parent_id, $object->option['time_info']['elapsed'] );
 
-    return $return_data;
+    return array( 'task' => $task, 'time' => $object );
 	}
 
 	public function update( $data, $update_time = true ) {
@@ -74,14 +73,11 @@ class time_controller_01 extends comment_ctr_01 {
 
 	  if( $update_time ) {
 	    global $point_controller;
-	    $return_data = $point_controller->decrease_time( $data->parent_id, $data->option['time_info']['old_elapsed'] );
-	    $return_data = $point_controller->increase_time( $data->parent_id, $data->option['time_info']['elapsed'] );
+	    $task = $point_controller->decrease_time( $data->parent_id, $data->option['time_info']['old_elapsed'] );
+	    $task = $point_controller->increase_time( $data->parent_id, $data->option['time_info']['elapsed'] );
 	  }
 
-		$return_data['edit'] = true;
-		$return_data['time'] = $object;
-
-		return $return_data;
+	  return array('task' => $task, 'time' => $object, 'edit' => 'true' );
   }
 
   public function delete( $id ) {

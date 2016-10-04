@@ -21,10 +21,10 @@ var wpeo_user = {
 		jQuery( document ).on( 'click', '.wpeo-main-user .wpeo-confirm-user', function( event ) { wpeo_user.hide_no_active( event ); } );
 
 		jQuery( document ).on( 'click', 'body', function( event ) {
-			if( wpeo_user.current_task_id !== 0 && wpeo_user.list_user_open ) {
+			if( wpeo_user.current_task_id != 0 && wpeo_user.list_user_open ) {
 				wpeo_user.hide_no_active( event );
 			}
-			else if( wpeo_user.current_task_id !== 0 && wpeo_user.list_user_owner_open ) {
+			else if( wpeo_user.current_task_id != 0 && wpeo_user.list_user_owner_open ) {
 				wpeo_user.close_list_owner( event );
 			}
 		} );

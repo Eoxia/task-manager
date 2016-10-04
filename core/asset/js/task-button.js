@@ -17,8 +17,7 @@
 
           ed.addCommand('task', function() {
             var data = {
-              action: 'ed_get_list_task',
-              _wpnonce: task_tinymce_shortcode_nonce,
+              action: 'ed_get_list_task'
             };
 
             jQuery.get(ajaxurl, data, function(response) {

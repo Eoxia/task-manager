@@ -76,5 +76,4 @@ class wpeo_util {
 
 		return $final_time;
 	}
-
 }

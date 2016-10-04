@@ -207,13 +207,13 @@ if ( !class_exists( 'point_controller_01' ) ) {
 
 		public static function get_point_name_by_id( $point_id ) {
 			if( empty( $point_id ) )
-				return __( 'Point not found', 'task-manager' );
+				return __( 'Point not found', 'wpeopoint-i18n' );
 
 			global $point_controller;
 			$point = $point_controller->show( $point_id );
 
 			if( empty( $point ) )
-				return __( 'Point not found', 'task-manager' );
+				return __( 'Point not found', 'wpeopoint-i18n' );
 
 			return $point->content;
 		}
@@ -247,7 +247,7 @@ if ( !class_exists( 'point_controller_01' ) ) {
 			global $task_controller;
 			$task = $task_controller->update_time( $point->post_id );
 
-			return array( 'point' => $point, 'task' => $task );
+			return $task;
 		}
 
 		public function decrease_time( $point_id, $elapsed_time = 0 ) {
@@ -263,7 +263,7 @@ if ( !class_exists( 'point_controller_01' ) ) {
 			global $task_controller;
 			$task = $task_controller->update_time( $point->post_id );
 
-			return array( 'point' => $point, 'task' => $task );
+			return $task;
 		}
 
 		public function send_comment_to( $old_task_id, $task_id, $point_id ) {
@@ -276,39 +276,6 @@ if ( !class_exists( 'point_controller_01' ) ) {
 					$time_controller->update( $time, false );
 				}
 			}
-		}
-
-		public function create_point( $data ) {
-			global $task_controller;
-
-			$data['post_id'] = (int) $data['post_id'];
-
-			if ( empty( $data ) || empty( $data['post_id'] ) || empty( $data['content'] ) ) {
-				return __( 'Error for create a point', 'task-manager' );
-			}
-
-			$data['content'] = sanitize_text_field( $data['content'] );
-			$data['author_id'] = get_current_user_id();
-			$data['status'] = '-34070';
-			$data['date'] = current_time( 'mysql' );
-
-			$data = $this->create( $data );
-
-			$task = $task_controller->show( $data->post_id );
-			$task->option['task_info']['order_point_id'][] = (int) $data->id;
-			$task = $task_controller->update( $task );
-
-			/** Log la création du point / Log the creation of point */
-			taskmanager\log\eo_log( 'wpeo_project',
-				array(
-					'object_id' => $data->post_id,
-					'message' => sprintf( __( 'Create the point #%d with the content : %s for the task #%d', 'task-manager'), $data->id, $data->content, $data->post_id ),
-				), 0 );
-
-			return array(
-				'point' => $data,
-				'task' => $task,
-			);
 		}
 
 		public static function render_point( $object_id, $list_point_completed, $list_point_uncompleted ) {

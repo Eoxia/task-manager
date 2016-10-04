@@ -9,18 +9,9 @@ if( !class_exists( 'frontend_action_01' ) ) {
 		}
 
 		public function ajax_load_dashboard_frontend() {
-			$global = !empty( $_POST['global'] ) ? sanitize_text_field( $_POST['global'] ) : '';
-			$element_id = !empty( $_POST['element_id'] ) ? (int) $_POST['element_id'] : 0;
-
+			$global = $_POST['global'];
 			global ${$global};
-
-			if ( $global === '' || $element_id === 0 ) {
-				wp_send_json_error( array( 'message' => __( 'Error for load dashboard frontend', 'task-manager' ) ) );
-			}
-
-			if ( !check_ajax_referer( 'ajax_load_dashboard_frontend_' . $element_id, array(), false ) ) {
-				wp_send_json_error( array( 'message' => __( 'Error for load dashboard frontend: invalid nonce', 'task-manager' ) ) );
-			}
+			$element = ${$global}->show( $_POST['element_id'] );
 
 			add_filter( 'task_window_time_date', function( $string ) { return ''; }, 11, 1 );
 			add_filter( 'task_window_time',  function( $string ) { return ''; }, 11, 1 );

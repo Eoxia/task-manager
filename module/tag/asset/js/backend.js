@@ -15,7 +15,7 @@ var wpeo_tag = {
 	event: function() {
 		jQuery( document ).on( 'click', '.wpeo-tag-wrap:not(.wpeo-tag-wrap-edit)', function(e) { wpeo_tag.load_tag( e, jQuery( this ) ); } );
 		jQuery( document ).on( 'click', '.wpeo-tag-wrap-edit', function( e ) { e.stopPropagation(); } );
-		jQuery( document ).on( 'click', 'body', function( e ) { if( wpeo_tag.current_task_id !== 0 ) wpeo_tag.edit_tag( e ); } );
+		jQuery( document ).on( 'click', 'body', function( e ) { if( wpeo_tag.current_task_id != 0 ) wpeo_tag.edit_tag( e ); } );
 
 		jQuery( document ).on( 'click', '.wpeo-tag-edit-tag-btn', function( e ) { wpeo_tag.edit_tag( e ); } );
 		jQuery( document ).on( 'click', '.wpeo-tag-wrap-edit li:not(.wpeo-tag-edit-tag-btn)', function( e ) { wpeo_tag.select_tag(e, jQuery( this ) ); } );
@@ -69,7 +69,6 @@ var wpeo_tag = {
 		var data = {
 			action: 'view_task_tag',
 			object_id: object_id,
-			_wpnonce: jQuery( '.wpeo-project-task[data-id="' + wpeo_tag.current_task_id + '"] .wpeo-tag-edit-tag-btn' ).data( 'nonce' ),
 		};
 
 		jQuery.eoajax( ajaxurl, data, function() {
@@ -125,8 +124,7 @@ var wpeo_tag = {
 		jQuery( element ).addClass( 'wpeo-button-active' );
 
 		var data = {
-			'action': 'load_archived_task',
-			'_wpnonce': jQuery( element ).data( 'nonce' ),
+			'action': 'load_archived_task'
 		};
 
 		if( !wpeo_tag.archived_task ) {
@@ -147,7 +145,6 @@ var wpeo_tag = {
 		var data = {
 			action: 'create-tag',
 			tag_name: tag_name,
-			_wpnonce: jQuery( element ).closest( '.li-choose-tag' ).data( 'nonce' ),
 		};
 
 		jQuery.eoajax( ajaxurl, data, function() {

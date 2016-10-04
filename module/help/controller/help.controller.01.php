@@ -6,7 +6,6 @@ class help_controller_01 {
 	public function __construct() {
 		add_action( 'init', array( $this, 'callback_init' ) );
     add_action( 'admin_menu', array( $this, 'callback_admin_menu' ) );
-		add_action( 'admin_print_scripts', array( $this, 'callback_admin_print_script' ) );
 	}
 
 	public function callback_init() {
@@ -27,14 +26,6 @@ class help_controller_01 {
 
 		$plugin_array['task'] = WPEO_TASKMANAGER_DIR_ASSET . '/js/task-button.js';
 		return $plugin_array;
-	}
-
-	public function callback_admin_print_script() {
-		?>
-		<script>
-		var task_tinymce_shortcode_nonce = '<?php echo wp_create_nonce( "callback_ed_get_list_task" ); ?>';
-		</script>
-		<?php
 	}
 
   public function callback_admin_menu() {

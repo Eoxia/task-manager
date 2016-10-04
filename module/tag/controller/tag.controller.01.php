@@ -85,7 +85,7 @@ class tag_controller_01 extends term_ctr_01 {
 		$option = get_option( 'wpeo_wp_project_tag_declared' );
 
 		if ( empty( $option ) ) {
-			wp_insert_term( __( 'Project', 'task-manager'), $this->taxonomy );
+			wp_insert_term( __( 'Project', 'wpeotag-i18n'), $this->taxonomy );
 			update_option( 'wpeo_wp_project_tag_declared', true );
 		}
 
@@ -139,79 +139,6 @@ class tag_controller_01 extends term_ctr_01 {
  		global $tag_controller;
 
 		require( wpeo_template_01::get_template_part( WPEOMTM_TAG_DIR, WPEOMTM_TAG_TEMPLATES_MAIN_DIR, 'backend', 'choosen' ) );
-	}
-
-	public function save_tag( $tag_name ) {
-		$tag_name = !empty( $tag_name ) ? sanitize_text_field( $tag_name ) : '';
-
-		if ( empty( $tag_name ) ) {
-			return __( 'Error for create tag', 'task-manager' );
-		}
-
-		$term = wp_create_term( $tag_name, $this->get_taxonomy() );
-
-		return $term;
-	}
-
-	public function save_tag_on_element( $data ) {
-		global $task_controller;
-
-		$data['id'] = (int) $data['id'];
-		$data['tag_id'] = (int) $data['tag_id'];
-		$data['selected'] = filter_var( $data['selected'], FILTER_VALIDATE_BOOLEAN );
-		$task = $task_controller->show( $data['id'] );
-		$archive_tag = get_term_by( 'slug', 'archive', 'wpeo_tag' );
-
-		if ( empty( $archive_tag ) ) {
-			$archive_tag = $this->save_tag( 'Archive' );
-		}
-
-		$log_message = '';
-
-		if( $task != null ) {
-			if( $data['selected'] ) {
-				$task->taxonomy['wpeo_tag'][] = $data['tag_id'];
-				$log_message = sprintf( __( 'The tag %d has selected for the task #%d by the user #%d', 'task-manager'), $data['tag_id'], $data['id'], get_current_user_id() );
-
-				if( $data['tag_id'] == $archive_tag->term_id ) {
-					$task->status = 'archive';
-				}
-			}
-			else {
-				$key = array_search( ( int ) $data['tag_id'], $task->taxonomy['wpeo_tag'] );
-				$log_message = sprintf( __( 'The tag %d has deselected for the task #%d by the user #%d', 'task-manager'), $data['tag_id'], $data['id'], get_current_user_id() );
-
-				if( $key > -1 )
-					unset( $task->taxonomy['wpeo_tag'][$key] );
-			}
-
-
-			$task_controller->update( $task );
-
-			taskmanager\log\eo_log( 'wpeo_project',
-			array(
-				'object_id' => $data['id'],
-				'message' => $log_message,
-			), 0 );
-		}
-
-		return $task;
-	}
-
-	public function get_tag_name_on_element( $element_id ) {
-		global $task_controller;
-		$task = $task_controller->show( $element_id );
-
-		$list_tag_name = array();
-
-		if ( !empty( $task->taxonomy['wpeo_tag'] ) ) {
-		  foreach ( $task->taxonomy['wpeo_tag'] as $element_id ) {
-				$term = get_term( $element_id, 'wpeo_tag' );
-				$list_tag_name[] = $term->name;
-		  }
-		}
-
-		return $list_tag_name;
 	}
 
 }
