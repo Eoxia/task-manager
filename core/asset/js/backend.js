@@ -551,8 +551,8 @@ var wpeo_point = {
 			bloc_task.bgLoad( 'stop' );
 
 			/** Réactive les events */
-			jQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-task-add-new-point', function() { wpeo_point.create( jQuery( this ) ); } );
-			jQuery( '.wpeo-project-wrap' ).on( 'keypress', '.wpeo-add-point textarea', function( event ) { wpeo_point.key_up( event, jQuery( this ) ); } );
+			// jQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-task-add-new-point', function() { wpeo_point.create( jQuery( this ) ); } );
+			// jQuery( '.wpeo-project-wrap' ).on( 'keypress', '.wpeo-add-point textarea', function( event ) { wpeo_point.key_up( event, jQuery( this ) ); } );
 
 			jQuery( element ).closest( '.wpeo-project-task' ).find( '.wpeo-task-point:first' ).append( this.template );
 			bloc_task.find( '.wpeo-task-li-point:last' ).css( { 'opacity': 0, 'left': -20 } ).animate( {
