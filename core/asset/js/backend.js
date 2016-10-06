@@ -621,46 +621,49 @@ var wpeo_point = {
 	},
 
 	open_window: function( element ) {
-		jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard *' ).css('opacity', 0);
+		/** Spécial digirisk condition **/
+		if ( jQuery( element ).closest( '#TB_ajaxContent' ).length === 0 ) {
+			jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard *' ).css('opacity', 0);
 
-		jQuery( '.wpeo-point-textarea.active' ).removeClass( 'active' );
+			jQuery( '.wpeo-point-textarea.active' ).removeClass( 'active' );
 
-		jQuery( element ).addClass( 'active' );
-		//
-		//wpeo_task.all_task = false;
-		/** Remove wpeo-button-active class / Supprimes la class wpeo-button-active */
-		//jQuery( '.wpeo-button-active' ).removeClass( 'wpeo-button-active' );
+			jQuery( element ).addClass( 'active' );
+			//
+			//wpeo_task.all_task = false;
+			/** Remove wpeo-button-active class / Supprimes la class wpeo-button-active */
+			//jQuery( '.wpeo-button-active' ).removeClass( 'wpeo-button-active' );
 
-		var bloc_task 	= jQuery( element ).closest( '.wpeo-project-task' );
-		var task_id 	= bloc_task.data( 'id' );
-		var point_id 	= jQuery(element).closest( '.wpeo-task-li-point' ).data( 'id' );
+			var bloc_task 	= jQuery( element ).closest( '.wpeo-project-task' );
+			var task_id 	= bloc_task.data( 'id' );
+			var point_id 	= jQuery(element).closest( '.wpeo-task-li-point' ).data( 'id' );
 
-		jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard' ).css( { 'display': 'flex', 'left': '-80px', 'opacity': 0.10 } ).bgLoad();
-		jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard' ).animate({
-			'opacity': 1,
-			'left': 0,
-		}, 200);
+			jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard' ).css( { 'display': 'flex', 'left': '-80px', 'opacity': 0.10 } ).bgLoad();
+			jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard' ).animate({
+				'opacity': 1,
+				'left': 0,
+			}, 200);
 
-		jQuery( '.wpeo-project-task:not(.wpeo-project-task[data-id="' + task_id + '"])' ).hide();
-		// wpeo_task.grid.masonry();
+			jQuery( '.wpeo-project-task:not(.wpeo-project-task[data-id="' + task_id + '"])' ).hide();
+			// wpeo_task.grid.masonry();
 
-		var data = {
-			action: 'load_dashboard',
-			element_id: point_id,
-			global: 'point_controller',
-			_wpnonce: jQuery( element ).data( 'nonce' ),
-		};
+			var data = {
+				action: 'load_dashboard',
+				element_id: point_id,
+				global: 'point_controller',
+				_wpnonce: jQuery( element ).data( 'nonce' ),
+			};
 
-		jQuery.eoajax( ajaxurl, data, function() {
-			jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard' ).replaceWith( this.template );
-			//jQuery( '.wpeo-window-dashboard' ).bgLoad( 'stop' );
-			jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard *' ).css('opacity', 0).animate({
-				opacity: 1,
-			}, 400);
-			jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard' ).attr( 'data-id', point_id );
-			jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard' ).css( 'display', 'flex' );
-			wpeo_global.init();
-		} );
+			jQuery.eoajax( ajaxurl, data, function() {
+				jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard' ).replaceWith( this.template );
+				//jQuery( '.wpeo-window-dashboard' ).bgLoad( 'stop' );
+				jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard *' ).css('opacity', 0).animate({
+					opacity: 1,
+				}, 400);
+				jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard' ).attr( 'data-id', point_id );
+				jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard' ).css( 'display', 'flex' );
+				wpeo_global.init();
+			} );
+		}
 	},
 
 	edit_order: function( element ) {
