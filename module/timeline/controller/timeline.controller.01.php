@@ -78,24 +78,21 @@ if ( !class_exists( 'timeline_controller_01' ) ) {
 
 			$ms_start = microtime( true );
 
-			if( $month == date( 'm' ) ) {
-				$current_day = date( 'd' );
+			$start_date_time = new DateTime( $year . '-' . $month );
+			$end_date_time = clone( $start_date_time );
+			$start_date_time->modify( 'this week' );
+			if( $month == date( 'm' ) && $year == date( 'Y' ) ) {
+				$end_date_time->setISODate( $year, date( 'W' ) );
+				$end_date_time->modify( 'next week' );
+			} else {
+				$end_date_time->modify( 'next month' );
 			}
-			else {
-				$date = new DateTime( $year . '-' . ($month - 1) . '-01 00:00:00' );
-				$date->modify( 'last day of this month' );
-				$current_day = $date->format( 'd' );
-			}
+			$end_date_time->modify( 'this week, -1 seconds' );
 
-			// On met le mois en bon format
-			if ( strlen( $month ) == 1 )
-				$month = '0' . $month;
+			$week_date_period = array_reverse( iterator_to_array( new DatePeriod( $start_date_time, DateInterval::createFromDateString( '+1 week' ), $end_date_time ) ) );
 
-			$start_date = $year . '-' . $month . '-' . '01' . ' 00:00:00';
-			$date = new DateTime( $start_date );
-			$date->modify( 'last day of this month' );
-			$last_day_in_the_month = $date->format( 'd' );
-			$end_date = $year . '-' . $month . '-' . $last_day_in_the_month . ' 23:59:59';
+			$start_date = $start_date_time->format( 'Y-m-d H:i:s' );
+			$end_date = $end_date_time->format( 'Y-m-d H:i:s' );
 
 			global $task_controller;
 			$list_task = $task_controller->get_task_by_comment_user_id_and_date( $user_id, $start_date, $end_date );
@@ -103,7 +100,9 @@ if ( !class_exists( 'timeline_controller_01' ) ) {
 			$number_task_created = count( $list_task_created );
 			global $point_controller;
 			$list_point_completed = $point_controller->get_completed_point_by_user_id_and_date( $user_id, $start_date, $end_date );
+			$number_point_completed = count( $list_point_completed );
 			$list_point_created = $point_controller->get_created_point_by_user_id_and_date( $user_id, $start_date, $end_date );
+			$number_point_created = count( $list_point_created );
 
 			// Calcul du temps travaillé
 			$worked_time = 0;
@@ -113,19 +112,87 @@ if ( !class_exists( 'timeline_controller_01' ) ) {
 			$list_task_worked_time = array();
 			if ( !empty( $list_comment ) ) {
 				foreach( $list_comment as $comment ) {
-					if( empty( $list_task_worked_time[$comment->post_id] ) )
-						$list_task_worked_time[$comment->post_id] = 0;
-					$list_task_worked_time[$comment->post_id] += $comment->option['time_info']['elapsed'];
+					$point = $point_controller->show( $comment->parent_id );
+					if( empty( $list_task_worked_time[$point->post_id] ) )
+						$list_task_worked_time[$point->post_id] = 0;
+					$list_task_worked_time[$point->post_id] += $comment->option['time_info']['elapsed'];
 					$worked_time += $comment->option['time_info']['elapsed'];
 				}
 			}
 
-			$working_time = get_user_meta( $user_id, 'working_time', true );
+			$working_time = (int) get_user_meta( $user_id, 'working_time', true );
+			$working_time = $working_time * 4;
+
+			$waste_time = $working_time - $worked_time;
 
 			$ms_end = microtime( true );
 			$ms = $ms_end - $ms_start;
 
 			require( wpeo_template_01::get_template_part( WPEOMTM_TIMELINE_DIR, WPEOMTM_TIMELINE_TEMPLATES_MAIN_DIR, 'backend', 'summary', 'month' ) );
+		}
+
+		public function render_week( $user_id, $year, $month, $week, $list_task_created, $list_point_created, $list_point_completed, $list_comment ) {
+			global $task_timeline;
+
+			$start_date_time = new DateTime( $year . '-' . $month );
+			$start_date_time->setISODate( $year, $week );
+			if( $week == date( 'W' ) && $month == date( 'm' ) && $year == date( 'Y' ) ) {
+				$end_date_time = new DateTime( date( 'Y' ) . '-' . date( 'm' ) . '-' . date( 'd' ) );
+				$end_date_time->modify('+1 day, -1 seconds');
+			} else {
+				$end_date_time = clone( $start_date_time );
+				$end_date_time->modify('+1 week, -1 seconds');
+			}
+			$day_date_period = new DatePeriod( $start_date_time, new DateInterval('P1D'), $end_date_time );
+
+			if ( !empty( $list_task_created ) ) {
+				foreach ( $list_task_created as $key_task => $task ) {
+					if( ( new DateTime( $task->date ) < $start_date_time ) || ( new DateTime( $task->date ) > $end_date_time ) ) {
+						unset( $list_task_created[$key_task] );
+					}
+				}
+			}
+
+			$number_task_created = count( $list_task_created );
+
+			if ( !empty( $list_point_created ) ) {
+				foreach ( $list_point_created as $key_point => $point ) {
+					if( ( new DateTime( $point->date ) < $start_date_time ) || ( new DateTime( $point->date ) > $end_date_time ) ) {
+						unset( $list_point_created[$key_point] );
+					}
+				}
+			}
+
+			$number_point_created = count( $list_point_created );
+
+			if ( !empty( $list_point_completed ) ) {
+				foreach ( $list_point_completed as $key_point => $point ) {
+					if( ( new DateTime( $point->completed_date ) < $start_date_time ) || ( new DateTime( $point->completed_date ) > $end_date_time ) ) {
+						unset( $list_point_completed[$key_point] );
+					}
+				}
+			}
+
+			$number_point_completed = count( $list_point_completed );
+
+			// Calcul du temps travaillé
+			$worked_time = 0;
+
+			if ( !empty( $list_comment ) ) {
+				foreach ( $list_comment as $key_comment => $comment ) {
+					if( ( new DateTime( $comment->date ) < $start_date_time ) || ( new DateTime( $comment->date ) > $end_date_time ) ) {
+						unset( $list_comment[$key_comment] );
+					} else {
+						$worked_time += $comment->option['time_info']['elapsed'];
+					}
+				}
+			}
+
+			$working_time = (int) get_user_meta( $user_id, 'working_time', true );
+
+			$waste_time = $working_time - $worked_time;
+
+			require( wpeo_template_01::get_template_part( WPEOMTM_TIMELINE_DIR, WPEOMTM_TIMELINE_TEMPLATES_MAIN_DIR, 'backend', 'summary', 'week' ) );
 		}
 
 		public function render_day( $user_id, $year, $month, $day, $list_task_created, $list_point_created, $list_point_completed, $list_comment ) {

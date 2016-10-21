@@ -12,7 +12,10 @@
 
 		<!-- Barre blanche des filtres -->
 		<header class="wpeo-header-bar <?php echo is_page() ? 'wpeo-no-display' : ''; ?>">
-			<ul><?php echo apply_filters( 'task_manager_dashboard_filter', '' ); ?></ul>
+			<ul>
+				<?php echo apply_filters( 'task_manager_dashboard_filter', '' ); ?>
+				<li><input type="text" name="general-search" /><span class="open-search-filter dashicons dashicons-arrow-down"></span></li>
+			</ul>
 		</header>
 
 		<!-- Barre noire recherche -->

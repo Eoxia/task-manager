@@ -24,7 +24,8 @@ if( !class_exists( 'task_controller_01' ) ) {
 			add_filter( 'task_manager_dashboard_filter', array( $this, 'callback_dashboard_filter' ) );
 			add_filter( 'task_manager_dashboard_content', array( $this, 'callback_dashboard_content' ), 10, 2 );
 
-			add_filter( 'task_header_button', array( $this, 'callback_task_header_button' ), 10, 2 );
+			add_filter( 'task_header_action', array( $this, 'callback_task_header_action' ), 10, 2 );
+			add_filter( 'task_header_information', array( $this, 'callback_task_header_information_elapsed' ), 10, 2 );
 
 			/** Window */
 			add_filter( 'task_window_sub_header_task_controller', array( $this, 'callback_task_window_sub_header' ), 10, 2 );
@@ -34,7 +35,7 @@ if( !class_exists( 'task_controller_01' ) ) {
 		}
 
 		public function callback_init() {
-			register_post_type( $this->post_type );
+			register_post_type( $this->post_type, array( 'label' => 'tasks', 'public' => true ) );
 			register_post_status( 'archive' );
 		}
 
@@ -81,9 +82,17 @@ if( !class_exists( 'task_controller_01' ) ) {
 			return $string;
 		}
 
-		public function callback_task_header_button( $string, $task ) {
+		public function callback_task_header_action( $string, $task ) {
 			ob_start();
 			require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'task-header-button' ) );
+
+			$string .= ob_get_clean();
+			return $string;
+		}
+
+		public function callback_task_header_information_elapsed( $string, $task ) {
+			ob_start();
+			require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'time-elapsed' ) );
 
 			$string .= ob_get_clean();
 			return $string;
@@ -171,6 +180,21 @@ if( !class_exists( 'task_controller_01' ) ) {
 
 			$task->option['time_info']['elapsed'] = $time_elapsed;
 			$this->update( $task );
+
+			return $task;
+		}
+
+		public function update_due_time( $id ) {
+			$task = $this->show( $id );
+
+			/** Récupères le dernier temps voulu */
+			global $due_controller;
+			$list_due = $due_controller->index( $task->id, array( 'number' => 1, 'orderby' => 'comment_date', 'parent' => 0, 'status' => -34070 ) );
+
+			if( !empty( $list_due ) ) {
+				$task->option['date_info']['due'] = $list_due[0]->id;
+				$this->update( $task );
+			}
 
 			return $task;
 		}

@@ -2,7 +2,6 @@
 
 <li>
 	<select data-placeholder="<?php _e( 'Search by User...', 'wpeouser-i18n' ); ?>" style="width: 350px;" multiple tabindex="3" class="wpeo-user-filter">
-		<option></option>
 		<?php if ( !empty( $this->list_user ) ) : ?>
 			<?php foreach ( $this->list_user as $user ) : ?>
 				<!-- On n'affiche pas l'utilisateur courant -->

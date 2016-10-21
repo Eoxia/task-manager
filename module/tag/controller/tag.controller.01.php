@@ -107,7 +107,8 @@ class tag_controller_01 extends term_ctr_01 {
 
 	public function callback_task_manager_dashboard_search( $string ) {
 		ob_start();
-		require( wpeo_template_01::get_template_part( WPEOMTM_TAG_DIR, WPEOMTM_TAG_TEMPLATES_MAIN_DIR, 'backend', 'choosen' ) );
+		//require( wpeo_template_01::get_template_part( WPEOMTM_TAG_DIR, WPEOMTM_TAG_TEMPLATES_MAIN_DIR, 'backend', 'choosen' ) );
+		require( wpeo_template_01::get_template_part( WPEOMTM_TAG_DIR, WPEOMTM_TAG_TEMPLATES_MAIN_DIR, 'backend', 'tag-search' ) );
 		$string .= ob_get_clean();
 
 		return $string;
@@ -133,12 +134,6 @@ class tag_controller_01 extends term_ctr_01 {
 		}
 
 		require( wpeo_template_01::get_template_part( WPEOMTM_TAG_DIR, WPEOMTM_TAG_TEMPLATES_MAIN_DIR, 'backend', 'display', 'tag-selected' ) );
-	}
-
-	public static function display_choosen() {
- 		global $tag_controller;
-
-		require( wpeo_template_01::get_template_part( WPEOMTM_TAG_DIR, WPEOMTM_TAG_TEMPLATES_MAIN_DIR, 'backend', 'choosen' ) );
 	}
 
 }

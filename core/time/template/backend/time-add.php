@@ -4,7 +4,7 @@
 	<form action="<?php echo admin_url('admin-ajax.php'); ?>" method="POST">
 		 <!-- For admin-ajax -->
 		 <?php wp_nonce_field( 'wpeo_nonce_create_point_time_' . $element->id ); ?>
-	    <input type="hidden" name="point_time[post_id]" value="<?php echo $element->parent_id; ?>" />
+	    <input type="hidden" name="point_time[post_id]" value="<?php echo $element->post_id; ?>" />
 	    <input type="hidden" class="wpeo-point-id" name="point_time[parent_id]" value="<?php echo $element->id; ?>" />
 	    <input type="hidden" class="wpeo-point-time-id" name="point_time_id" value="0" />
 	    <input type="hidden" name="point_time[author_id]" value="<?php echo get_current_user_id(); ?>" />

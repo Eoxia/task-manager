@@ -1,25 +1,20 @@
 <?php if ( !defined( 'ABSPATH' ) ) exit; ?>
 
-<div class="timeline-block month is-hidden">
+<div class="timeline-block week is-hidden">
 	<section>
 		<header>
 			<ul>
 				<li class="avatar"><?php echo get_avatar( $user_id, 32 ); ?></li>
 				<li class="user-mail"><?php echo get_userdata( $user_id )->user_email; ?></li>
 				<li class="date">
-					<?php
-					if ( strlen( $month ) == 1 )
-						$month = '0' . $month;
-
-					echo mysql2date( 'F', $year . '-' . $month . '-01' ) . ' ' . $year;
-					?>
+					<?php echo __( 'Week', 'wpeotimeline-i18n' ) . ' : ' . $week; ?>
 				</li>
 			</ul>
 		</header>
 
 		<div class="timeline-block-content">
 
-			<ul class="dashboard-month">
+			<ul class="dashboard-week">
 				<li>
 					<span class="dashicons dashicons-calendar-alt"></span>
 					<?php _e( 'Working time', 'wpeotimeline-i18n' ); ?> :
@@ -55,7 +50,7 @@
 
 
 			<?php if ( !empty( $list_task ) ): ?>
-				<ul class="task-month">
+				<ul class="task-week">
 				<?php foreach( $list_task as $task ): ?>
 					<li>
 						<strong>#<?php echo $task->id?></strong> <?php echo $task->title; ?> : <span class="dashicons dashicons-clock"></span> <strong><?php echo taskmanager\util\wpeo_util::convert_to_hours_minut( $list_task_worked_time[$task->id] ); ?></strong>
@@ -68,11 +63,10 @@
 	</section>
 </div> <!-- timeline-block -->
 
-<?php
-foreach( $week_date_period as $week ) {
-	$task_timeline->render_week( $user_id, $week->format( 'Y' ), $week->format( 'm' ), $week->format( 'W' ), $list_task_created, $list_point_created, $list_point_completed, $list_comment );
-}
-?>
-
-
-<?php
+<div class="content-day">
+	<?php
+	foreach ( $day_date_period as $day ) {
+		$task_timeline->render_day( $user_id, $day->format( 'Y' ), $day->format( 'm' ), $day->format( 'd' ), $list_task_created, $list_point_created, $list_point_completed, $list_comment );
+	}
+	?>
+</div>

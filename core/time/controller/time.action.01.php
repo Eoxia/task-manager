@@ -16,7 +16,7 @@ class time_action_01 {
 
 		$response = array();
 
-		$_POST['point_time']['date'] .= ' ' . current_time( 'h:i:s' );
+		$_POST['point_time']['date'] .= ' ' . current_time( 'H:i:s' ); //$_POST['point_time']['time']
 
 		if ( !empty( $_POST['point_time_id'] ) ) {
 			/** Edit the point */

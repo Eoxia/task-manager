@@ -98,6 +98,8 @@ class post_ctr_01 {
 		return $post;
 	}
 
+	public static $iterator = 0;
+
 	public function index( $args_where = array( 'post_parent' => 0 ), $cropped = false ) {
 		$array_model = array();
 

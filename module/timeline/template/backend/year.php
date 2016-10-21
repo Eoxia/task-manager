@@ -8,14 +8,14 @@
 			?>
 			<div>
 				<div class="year"><?php echo $year; ?></div>
-				<?php 
+				<?php
 				for ( $month = $current_month; $month > 0; $month-- ):
-					$task_timeline->render_month( $user_id, $year, $month );					
+					$task_timeline->render_month( $user_id, $year, $month );
 				endfor;
 				$current_month = 12;
-				
-			?></div><?php 
+
+			?></div><?php
 		endforeach;
-	endif; 
-	?>	
+	endif;
+	?>
 </div>

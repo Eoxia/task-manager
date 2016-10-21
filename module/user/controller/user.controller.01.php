@@ -88,14 +88,6 @@ class user_controller_01 extends user_ctr_01 {
 	}
 
 	/**
-	 * Récupères tous les utilisateurs excepté l'utilisateur courant puis appelle un template pour
-	 * les afficher dans un select qui vas être convertis en choosen depuis le JS.
-	 */
-	public function display_choosen() {
-		require( wpeo_template_01::get_template_part( WPEO_USER_DIR, WPEO_USER_TEMPLATES_MAIN_DIR, 'backend', 'choosen' ) );
-	}
-
-	/**
 	 * Display the list of user in post
 	 *
 	 * @param array $args

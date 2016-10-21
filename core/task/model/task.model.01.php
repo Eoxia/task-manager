@@ -46,9 +46,9 @@ class task_model_01 extends post_mdl_01 {
 		),
 		'date_info' => array(
 			'due' => array(
-				'type'		=> 'string',
+				'type'		=> 'integer',
 				'function'	=> '',
-				'default'	=> '',
+				'default'	=> 0,
 				'required'	=> false,
 			),
 		),

@@ -46,6 +46,9 @@ class task_action_01 {
 		add_action( 'wp_ajax_send_task_to_element', array( &$this, 'ajax_send_task_to_element' ) );
 
 		add_action( 'wp_ajax_update_due_date', array( &$this, 'ajax_update_due_date' ) );
+
+		/** Time History */
+		add_action( 'admin_post_task_manager_time_history', array( $this, 'admin_post_task_time_history' ) );
 	}
 
 	/**
@@ -673,9 +676,31 @@ class task_action_01 {
 
 		wpeo_check_01::check( 'wpeo_nonce_due_date_' . $task_id );
 
-		$task_controller->update( array( 'id' => $task_id, 'option' => array( 'date_info' => array( 'due' => $_POST['due_date'] ) ) ) );
+		$date_info = array( 'due' => $_POST['due_date'] );
+
+		$task = $task_controller->show( $task_id );
+
+		if( false === DateTime::createFromFormat('Y-m-d', $date_info['due'] ) ) {
+			$date_info['due_archive'][] = $date_info['due'];
+		}
+
+		$task_controller->update( array( 'id' => $task_id, 'option' => array( 'date_info' => $date_info ) ) );
 
 		wp_send_json_success();
+	}
+
+	public function admin_post_task_time_history() {
+		if (  0 === is_int( ( int )$_GET['task_id'] ) ) {
+			die();
+		} else {
+			$task_id = $_GET['task_id'];
+		}
+
+		global $task_controller;
+
+		$task = $task_controller->show( $task_id );
+
+		require_once( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'task', 'time-history' ) );
 	}
 }
 

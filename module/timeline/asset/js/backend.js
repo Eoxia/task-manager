@@ -34,7 +34,7 @@ var wpeo_timeline = {
 	add_class_blocks: function() {
 		var blocks = jQuery('.timeline-block.day');
 		jQuery.each( blocks, function() {
-			if(jQuery(this).css('left') == '0px') {
+			if(jQuery(this).position().left == '0') {
 				jQuery(this).addClass('left-block');
 			} else {
 				jQuery(this).addClass('right-block');

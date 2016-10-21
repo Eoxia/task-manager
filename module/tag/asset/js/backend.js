@@ -23,10 +23,12 @@ var wpeo_tag = {
 		jQuery( document ).on( 'click', '.wpeo-button-archived-task', function() { wpeo_tag.display_archived_task( jQuery( this ) ); } );
 
 		/** Chosen */
-		jQuery( document ).on( 'click', '.chosen-results .no-results', function( e ) { wpeo_tag.create_tag( e, jQuery( this ) ); } );
+		/*jQuery( document ).on( 'click', '.chosen-results .no-results', function( e ) { wpeo_tag.create_tag( e, jQuery( this ) ); } );
 		jQuery( '.wpeo-tag-filter' ).chosen( { no_results_text: wpeo_project_create_tag + " : ", } );
 		jQuery( '.wpeo-tag-filter' ).chosen().change( function( evt, params ) { wpeo_tag.change_filter( evt, params ); } );
-		jQuery( '.chosen-choices' ).prepend( '<span class="dashicons dashicons-search"></span>' );
+		jQuery( '.chosen-choices' ).prepend( '<span class="dashicons dashicons-search"></span>' );*/
+		jQuery( document ).on( 'click', '.wpeo-tag-search', function() { wpeo_tag.change_filter( jQuery( this ).data( 'tag-id' ) ); } );
+		jQuery( document ).on( 'click', '.wpeo-new-tag-search-btn', function() { wpeo_tag.create_tag( jQuery( 'input[name="new_tag"]' ).val() ); } );
 	},
 
 	load_tag: function( e, element ) {
@@ -139,22 +141,26 @@ var wpeo_tag = {
 		}
 	},
 
-	create_tag: function( e, element ) {
-		var tag_name = jQuery( element ).find( 'span' ).text();
-
+	create_tag: function( tag_name ) {
 		var data = {
 			action: 'create-tag',
 			tag_name: tag_name,
 		};
 
 		jQuery.eoajax( ajaxurl, data, function() {
-			jQuery( '.wpeo-tag-filter' ).append( '<option value="' + this.slug + '">' + this.name + '</option>' );
-			jQuery( '.wpeo-tag-filter' ).trigger( "chosen:updated" );
+			/*jQuery( '.wpeo-tag-filter' ).append( '<option value="' + this.slug + '">' + this.name + '</option>' );
+			jQuery( '.wpeo-tag-filter' ).trigger( "chosen:updated" );*/
+			jQuery( '.wpeo-new-tag-search' ).before( '<li class="wpeo-tag-search" data-tag-id="' + this.slug + '">' + this.name + '</li>' );
+			wpeo_tag.change_filter( this.slug );
 		} );
 	},
 
-	change_filter: function( evt, params ) {
-		list_tag_id = jQuery( '.wpeo-tag-filter' ).val();
+	change_filter: function( tag_id ) {
+		if( list_tag_id.indexOf( tag_id ) == -1 ) {
+			list_tag_id.push( tag_id );
+		} else {
+			list_tag_id.splice( list_tag_id.indexOf( tag_id ), 1);
+		}
 		wpeo_global.filter();
 	}
 };

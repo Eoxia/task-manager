@@ -59,12 +59,12 @@ class time_controller_01 extends comment_ctr_01 {
 
 	public function create( $data ) {
 		$object = parent::create( $data ) ;
-    global $point_controller;
+		global $point_controller;
 
-    /** Update time in point */
-    $task = $point_controller->increase_time( $object->parent_id, $object->option['time_info']['elapsed'] );
+		/** Update time in point */
+		$task = $point_controller->increase_time( $object->parent_id, $object->option['time_info']['elapsed'] );
 
-    return array( 'task' => $task, 'time' => $object );
+		return array( 'task' => $task, 'time' => $object );
 	}
 
 	public function update( $data, $update_time = true ) {
@@ -110,7 +110,7 @@ class time_controller_01 extends comment_ctr_01 {
 
 		if ( !empty( $list_comment ) ) {
 			foreach ( $list_comment as $comment ) {
-			$list_point_time[] = $this->show( $comment->comment_ID );
+				$list_point_time[] = $this->show( $comment->comment_ID );
 			}
 		}
 
