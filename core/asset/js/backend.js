@@ -919,6 +919,9 @@ var wpeo_due_time = {
 
 	event: function() {
 		/** Créer un temps voulu */
+		jQuery( document ).on( 'click', 'input[name="due_time"]', function() {
+			jQuery( this ).datepicker( { dateFormat: 'yy-mm-dd' } );
+		} );
 		jQuery( document ).on('click', '.add-due-time', function() { wpeo_due_time.create( jQuery( this ).parent(), jQuery( this ).data( 'task-id' ), jQuery( 'input[name="due_time"]' ).val() ); } );
 		jQuery( document ).on('click', '.delete-due-time', function() { wpeo_due_time.delete( jQuery( this ).parent().parent(), jQuery( this ).parent().data( 'id' ) ); } );
 	},

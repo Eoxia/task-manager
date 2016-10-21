@@ -9,6 +9,7 @@ class estimated_action_01 {
 	public function ajax_create_estimated_time() {
 		global $estimated_controller;
 		global $task_controller;
+		global $wp_project_user_controller;
 
 		if( empty( $_POST['task_id'] ) || !ctype_digit( $_POST['task_id'] ) || empty( $_POST['estimated_time'] ) || !ctype_digit( $_POST['estimated_time'] ) ) {
 			wp_send_json_error();

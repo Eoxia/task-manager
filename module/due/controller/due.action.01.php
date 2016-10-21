@@ -9,6 +9,7 @@ class due_action_01 {
 	public function ajax_create_due_time() {
 		global $due_controller;
 		global $task_controller;
+		global $wp_project_user_controller;
 
 		if( empty( $_POST['task_id'] ) || !ctype_digit( $_POST['task_id'] ) || empty( $_POST['due_time'] ) || !( $due_date = $due_controller->formatDate( $_POST['due_time'] ) ) ) {
 			wp_send_json_error();
