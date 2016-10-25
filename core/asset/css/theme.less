@@ -27,6 +27,12 @@
 		.green { background: @green-background; border: 1px solid @green; }
 		.blue { background: @blue-background; border: 1px solid @main-color; }
 		.purple { background: @purple-background; border: 1px solid @purple; }
+		> * {
+			transition: all 0.2s ease-out;
+			&:hover {
+				border: 1px solid rgba(0,0,0,0.6);
+			}
+		}
 	}
 
 	// Original
