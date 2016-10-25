@@ -12,10 +12,12 @@ var wpeo_history_time = {
 		jQuery( document ).on('click', '.add-history-time', function() { wpeo_history_time.create( jQuery( this ).data( 'nonce' ),
 			jQuery( this ).closest('.history-time-container').find( '.history-time-list' ),
 			jQuery( this ).data( 'task-id' ),
-			jQuery( 'input[name="due_date"]' ).val(), 
+			jQuery( 'input[name="due_date"]' ).val(),
 			jQuery( 'input[name="estimated_time"]' ).val() ); }
 		);
-		jQuery( document ).on('click', '.delete-history-time', function() { wpeo_history_time.delete( jQuery( this ).data( 'nonce' ), jQuery( this ).parent().parent(), jQuery( this ).parent().data( 'id' ) ); } );
+		jQuery( document ).on('click', '.delete-history-time', function() { wpeo_history_time.delete( jQuery( this ).data( 'nonce' ),
+		jQuery( this ).closest('.history-time-list'),
+		jQuery( this ).closest('.list-element').data( 'id' ) ); } );
 	},
 
 	create: function( nonce, list_history_time, task_id, due_date, estimated_time ) {

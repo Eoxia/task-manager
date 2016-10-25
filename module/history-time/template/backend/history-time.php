@@ -6,7 +6,7 @@
  */
 
 ?>
-<li data-id="<?php echo esc_attr( $history_time->id ); ?>">
+<li class="list-element" data-id="<?php echo esc_attr( $history_time->id ); ?>">
 	<ul>
 		<li class="avatar"><?php echo get_avatar( $history_time->author_id, 20, 'blank' ); ?></li>
 		<li class="author">
