@@ -14,7 +14,13 @@
 		<header class="wpeo-header-bar <?php echo is_page() ? 'wpeo-no-display' : ''; ?>">
 			<ul>
 				<?php echo apply_filters( 'task_manager_dashboard_filter', '' ); ?>
-				<li><input type="text" name="general-search" /><span class="open-search-filter dashicons dashicons-arrow-down"></span></li>
+				<li class="wpeo-general-search">
+					<label for="general-search">
+						<i class="dashicons dashicons-search"></i>
+						<input id="general-search" type="text" name="general-search" placeholder="<?php _e( 'Enter a keyword', 'task-manager' ); ?>" />
+						<span class="open-search-filter dashicons dashicons-arrow-down"></span>
+					</label>
+				</li>
 			</ul>
 		</header>
 
