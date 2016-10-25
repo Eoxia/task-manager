@@ -34,10 +34,11 @@ var wpeo_timeline = {
 	add_class_blocks: function() {
 		var blocks = jQuery('.timeline-block.day');
 		jQuery.each( blocks, function() {
-			if(jQuery(this).position().left == '0') {
-				jQuery(this).addClass('left-block');
+			/* Solution  temporaire pour classer les blocks */
+			if( jQuery( this )[0].offsetLeft == 60 ) {
+				jQuery( this ).addClass( 'left-block' );
 			} else {
-				jQuery(this).addClass('right-block');
+				jQuery( this ).addClass( 'right-block' );
 			}
 		});
 	},

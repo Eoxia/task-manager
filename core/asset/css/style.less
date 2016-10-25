@@ -380,6 +380,7 @@
 					position: relative;
 					text-align: right;
 					.wpeo-task-open-action {
+						padding: 0 6px;
 						color: rgba(0,0,0,0.2);
 						transition: all 0.2s ease-out;
 						&:hover {
@@ -409,7 +410,14 @@
 								height: 26px;
 								display: inline-block;
 								border-radius: 50%;
-								margin-right: 4px; 
+								margin-right: 4px;
+								&:hover {
+									cursor: pointer;
+								}
+							}
+							&:hover {
+								background: none;
+								cursor: default;
 							}
 						}
 						li {
@@ -1160,6 +1168,7 @@
 	/* Content */
 	.wpeo-timeline-content {
 		position: relative;
+		padding: 0 6%;
 
 		.chrono-line {
 			position: absolute;
@@ -1193,9 +1202,13 @@
 			header {
 				padding: 10px 16px;
 				ul {
+					display: flex;
+					flex-direction: row;
 					li {
-						float: left;
 						display: block;
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
 					}
 					li.avatar img {
 						border-radius: 50%;
@@ -1205,13 +1218,16 @@
 						padding-left: 8px;
 						line-height: 2.6;
 						font-size: 14px;
+						width: 50%;
 					}
 					li.date {
+						width: 50%;
 						text-transform: uppercase;
 						font-weight: bold;
 						float: right;
 						font-size: 18px;
 						line-height: 2;
+						text-align: right;
 					}
 					li.user-mail, li.date {
 						color: #fff;
@@ -1226,7 +1242,7 @@
 			}
 		}
 		/* Mois */
-		.month {
+		.month, .week {
 			width: 100%;
 
 			header {
@@ -1247,7 +1263,7 @@
 					margin-left: -12px;
 				}
 			}
-			.dashboard-month {
+			.dashboard-month, .dashboard-week {
 				border-bottom: 1px solid rgba(0,0,0,0.1);
 				li {
 					.dashicons {
@@ -1255,7 +1271,7 @@
 					}
 				}
 			}
-			.dashboard-month, .task-month {
+			.dashboard-month, .task-month, .dashboard-week, .task-week {
 				padding: 20px 20px 10px 20px;
 				li {
 					float: left;
@@ -1290,10 +1306,6 @@
 			header {
 				position: relative;
 				.timeline-pointer {
-					/*display: block;
-					width: 0;
-					height: 0;
-					border-style: solid;*/
 					position: absolute;
 					top: 50%;
 					transform: translateY(-50%);
@@ -1348,6 +1360,65 @@
 		}
 	}
 
+
+}
+
+/* ----------------------------------
+		Thickbox time history
+-----------------------------------*/
+.history-time-container {
+	.history-time-new {
+		padding: 12px 0;
+		border-bottom: 1px solid rgba(0,0,0,0.1);
+		input[type="text"] {
+			border: 0;
+			box-shadow: none;
+			background: rgba(0,0,0,0.1);
+			padding: 6px;
+		}
+		.add-history-time {
+			margin-left: 14px;
+			color: @main-color;
+			transition: all 0.2s ease-out;
+			&:hover {
+				color: darken(@main-color, 10%);
+				cursor: pointer;
+			}
+		}
+	}
+	.history-time-list {
+		> li {
+			transition: all 0.2s ease-out;
+			ul {
+				clear: both;
+				li {
+				display: inline-block;
+				}
+			}
+		}
+		.avatar {
+			border-radius: 50%;
+		}
+		.author {
+			color: rgba(0,0,0,0.6);
+		}
+		.delete {
+			float: right;
+			margin-top: 4px;
+			background: rgba(0,0,0,0.1);
+			color: rgba(0,0,0,0.3);
+			border-radius: 50%;
+			transition: all .2s ease-out;
+
+			span {
+				font-size: 16px;
+				line-height: 1.4;
+			}
+			&:hover {
+				cursor: pointer;
+			}
+		}
+	}
 }
 
 

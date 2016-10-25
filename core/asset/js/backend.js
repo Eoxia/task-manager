@@ -121,7 +121,7 @@ var wpeo_task = {
 		jQuery( '.wpeo-project-wrap' ).on( 'keydown', '.wpeo-project-task-title', function( e ) { if( e.which == 13 ) { jQuery( this ).blur(); }  } );
 		jQuery( '.wpeo-project-wrap' ).on( 'keyup', '.wpeo-project-task-title', function( e ) { wpeo_task.preview( jQuery( this ) ); } );
 		/** Open action panel **/
-		jQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-task-open-action', function() { wpeo_task.open_action( jQuery( this ) ); } );
+		jQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-task-open-action', function() { jQuery( this ).next('.task-header-action').toggleClass('active'); } );
 		/** Open dashboard event */
 		//jQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-project-task-title', function() { wpeo_task.open_window( jQuery( this ) ); } );
 		jQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-task-open-dashboard', function() { wpeo_task.open_window( jQuery( this ) ); } );
@@ -206,13 +206,6 @@ var wpeo_task = {
 		} );
 	},
 
-	open_action: function( element ) {
-		if( jQuery( element ).closest( '.wpeo-project-task' ).find( '.task-header-action' ).css( 'display' ) == 'none' ) {
-			jQuery( element ).closest( '.wpeo-project-task' ).find( '.task-header-action' ).show();
-		} else {
-			jQuery( element ).closest( '.wpeo-project-task' ).find( '.task-header-action' ).hide();
-		}
-	},
 
 	/**
 	 * Quand on focus le titre de la tâche ou qu'on clique sur l'engrenage à droite d'une tâche,
