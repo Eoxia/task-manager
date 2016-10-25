@@ -27,7 +27,7 @@ var wpeo_tag = {
 		jQuery( '.wpeo-tag-filter' ).chosen( { no_results_text: wpeo_project_create_tag + " : ", } );
 		jQuery( '.wpeo-tag-filter' ).chosen().change( function( evt, params ) { wpeo_tag.change_filter( evt, params ); } );
 		jQuery( '.chosen-choices' ).prepend( '<span class="dashicons dashicons-search"></span>' );*/
-		jQuery( document ).on( 'click', '.wpeo-tag-search', function() { wpeo_tag.change_filter( jQuery( this ).data( 'tag-id' ) ); } );
+		jQuery( document ).on( 'click', '.wpeo-tag-search', function() { wpeo_tag.change_filter( jQuery( this ) ); } );
 		jQuery( document ).on( 'click', '.wpeo-new-tag-search-btn', function() { wpeo_tag.create_tag( jQuery( 'input[name="new_tag"]' ).val() ); } );
 	},
 
@@ -155,7 +155,11 @@ var wpeo_tag = {
 		} );
 	},
 
-	change_filter: function( tag_id ) {
+	change_filter: function( element ) {
+		var tag_id = element.data( 'tag-id' );
+
+		element.toggleClass('active');
+
 		if( list_tag_id.indexOf( tag_id ) == -1 ) {
 			list_tag_id.push( tag_id );
 		} else {

@@ -42,7 +42,7 @@ class tag_controller_01 extends term_ctr_01 {
 		add_action( 'admin_enqueue_scripts', array( $this, 'callback_admin_enqueue_scripts' ) );
 
 		add_filter( 'task_manager_dashboard_filter', array( $this, 'callback_dashboard_filter' ), 13, 1 );
-		add_filter( 'task_manager_dashboard_search', array( $this, 'callback_task_manager_dashboard_search' ), 11, 2 );
+		add_filter( 'task_manager_dashboard_search', array( $this, 'callback_task_manager_dashboard_search' ), 12, 2 );
 
 		// add_filter( 'wpeo-project-dashboard', array( $this, 'display_filter' ), 1 );
 		add_filter( 'task_footer', array( $this, 'callback_task_footer' ), 5, 2 );

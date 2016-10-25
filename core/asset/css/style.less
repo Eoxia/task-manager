@@ -4,8 +4,9 @@
 
 @import "reset.less";
 @import "functions.less";
-@import "loader.css";
-
+@import "font-awesome/less/font-awesome.less";
+@import "loader.less";
+@import "theme.less";
 
 
 @-moz-document url-prefix() {
@@ -28,6 +29,11 @@
 	}
 }
 
+.wpeo-project-wrap .wpeo-project-task-container {
+	input, textarea {
+		background: none !important;
+	}
+}
 
 /* ----------------------------------
 		Global
@@ -63,7 +69,7 @@
 		opacity: 0.4;
 	}
 	input[type="button"] {
-		background: @main-color;
+		// background: @main-color;
 		font-family: 'Open Sans';
 		border: 0;
 		border-radius: 0;
@@ -73,7 +79,8 @@
 		height: auto;
 		transition: all 0.2s ease-out;
 		&:hover {
-			background: #2e7dd5;
+			// background: #2e7dd5;
+			cursor: pointer;
 		}
 	}
 }
@@ -113,86 +120,130 @@
 		> li.wpeo-button-active {
 			border-bottom: 2px solid @main-color;
 		}
-		> li:nth-of-type(5) {
+		> li.wpeo-general-search {
 			float: right;
-			border-bottom: 0;
-		}
-		> li:nth-of-type(5) {
-			padding: 12px;
-			background: @main-color;
-			color: #fff;
-			&:hover:not(.disabled) {
-				background: @main-color-light;
+			padding: 6px 20px;
+			label {
+				background: #fff;
+				border: 1px solid rgba(0,0,0,0.1);
+				border-radius: 10px;
+				padding: 6px 8px;
+			}
+			input {
+				border: 0;
+				color: rgba(0,0,0,0.6);
+				padding: 4px 0;
+			}
+			.dashicons-search {
+				color: rgba(0,0,0,0.2);
+				line-height: 24px;
+				font-size: 18px;
+			}
+			.open-search-filter {
+				transition: 0.2s ease-out;
+				&:hover {
+					color: rgba(0,0,0,0.8);
+				}
 			}
 		}
+		// > li:nth-of-type(5) {
+		// 	float: right;
+		// 	border-bottom: 0;
+		// }
+		// > li:nth-of-type(5) {
+		// 	padding: 12px;
+		// 	background: @main-color;
+		// 	color: #fff;
+		// 	&:hover:not(.disabled) {
+		// 		background: @main-color-light;
+		// 	}
+		// }
 	}
 	.wpeo-header-search {
-		min-height: 40px;
 		background: #404A53;
-		> ul {
-			display: flex;
-			flex-direction: row;
-			> li {
-				width: 33.333%;
-				padding: 6px;
-			}
-			> li:last-child div {
-				border-radius: 12px;
+		padding: 10px;
+		transition: all 0.2s ease-in-out;
+		opacity: 0;
+		height: 0px;
+		pointer-events: none;
+		&.active {
+			opacity: 1;
+			z-index: 999;
+			height: auto;
+			pointer-events: all;
+		}
+		.user-search, .wpshop-search {
+			float: left;
+		}
+		.user-search {
+			.chosen-choices {
 				border: 0;
-				height: 25px;
-				max-width: 350px;
-				width: 100%;
-				background: #fff;
-				font-family: sans-serif;
-				color: rgba(0,0,0,0.6);
-				overflow: hidden;
-				position: relative;
-				input {
-					width: 100%;
-					padding-left: 30px;
-					font-size: 12px;
-					line-height: 1.6;
-				}
-				> i {
-					position: absolute;
-					left: 6px;
-					top: 4px;
-					color: rgba(0,0,0,0.2);
-				}
-				a {
-					color: rgba(0,0,0,0.2);
-					position: absolute;
-					right: 6px;
-					top: 4px;
-					text-decoration: none;
-				}
+				box-shadow: none;
 			}
-			> li {
-				.chosen-choices {
-					border-radius: 12px;
-					border: 0;
-					color: rgba(0,0,0,0.2);
-					padding: 0 10px;
-					.dashicons-search {
-						padding: 4px 0 0 0;
-						margin: 0 8px 0 0;
-						float: left;
+		}
+		.wpshop-search {
+			margin-left: 10px;
+			background: #fff;
+			input[type="text"] {
+				width: 300px;
+				border: 0;
+			}
+			.dashicons {
+				color: rgba(0,0,0,0.4);
+				text-decoration: none;
+			}
+		}
+		.tag-search {
+			clear: both;
+			padding-top: 10px;
+			.wpeo-tag-title {
+				color: #fff;
+				text-transform: uppercase;
+				font-size: 14px;
+			}
+			ul {
+				display: flex;
+				flex-wrap: wrap;
+				> * {
+					margin: 5px 0;
+				}
+				.wpeo-tag-search {
+					background: #adadad;
+					color: #fff;
+					padding: 8px 16px;
+					margin-left: 10px;
+					transition: all 0.2s ease-out;
+					&:hover {
+						background: #939393;
+						cursor: pointer;
+					}
+					&.active {
+						background: @main-color;
+						&:hover {
+							background: #2e7dd5;
+						}
 					}
 				}
-				.chosen-drop {
-					li {
-						width: 100%;
-					}
-					.no-results {
-						background: @main-color;
-						color: #fff;
+				.wpeo-new-tag-search {
+					margin-left: 10px;
+					.wpeo-new-tag-search-btn {
+						color: @main-color;
+						margin-left: 10px;
 						&:hover {
 							cursor: pointer;
+							color: @main-color-light;
+						}
+						&:active {
+							margin-bottom: -1px;
 						}
 					}
 				}
 			}
 		}
+		&:after {
+			.clear();
+		}
+
 	}
 
 }
@@ -236,7 +287,7 @@
 				line-height: 1.3;
 			}
 			.wpeo-point-time-edit-btn {
-				color: @main-color;
+				// color: @main-color;
 			}
 			.wpeo-send-point-time-to-trash {
 				color: rgba(0,0,0,0.4);
@@ -264,6 +315,7 @@
 		display: none
 	}
 	.list-task {
+		clear: both;
 		column-count: 2;
 		.wpeo-project-task {
 			page-break-inside: avoid;
@@ -297,7 +349,6 @@
 			}
 
 			.wpeo-project-task-container {
-				background: #fff;
 				box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.2);
 	    		position: relative;
 	   		}
@@ -317,33 +368,86 @@
 					width: 12%;
 				}
 				.wpeo-task-title {
-					width: 62%;
+					width: 78%;
 					padding: 0 0 0 8px;
 					input {
 						font-weight: bold;
 						width: 100%;
 					}
 				}
-				.wpeo-task-time {
-					width: 26%;
-					display: flex;
-					flex-direction: row;
-					> * {
-						padding: 0 4px;
-						&:nth-of-type(1), &:nth-of-type(2) {
-							margin: auto;
+				.wpeo-task-setting {
+					width: 10%;
+					position: relative;
+					text-align: right;
+					.wpeo-task-open-action {
+						color: rgba(0,0,0,0.2);
+						transition: all 0.2s ease-out;
+						&:hover {
+							cursor: pointer;
+							color: rgba(0,0,0,0.4);
 						}
 					}
-					input[type="text"] {
-						max-width: 40px;
+					.task-header-action {
+						text-align: left;
+						position: absolute;
+						right: 0;
+						width: 140px;
+						background: #fff;
+						box-shadow: 1px 1px 5px 0 rgba(0,0,0,.2);
+						top: 20px;
+						z-index: 500;
+						display: none;
+						animation: taskOptionAnimation 0.2s ease-out;
+						&.active {
+							display: block;
+							transition: all 0.2s east-out;
+							top: 30px;
+						}
+						li {
+							padding: 10px;
+							transition: all 0.2s ease-out;
+							&:hover {
+								background: rgba(0,0,0,0.05);
+								cursor: pointer;
+							}
+						}
+					}
+					@keyframes taskOptionAnimation {
+						from { opacity: 0; top: 26px; }
+						to { opacity: 1; top: 30px; }
 					}
 				}
-				.wpeo-task-open-dashboard {
-					color: rgba(0,0,0,0.3);
+			}
+			.wpeo-task-time-manage {
+				background: rgba(0,0,0,0.05);
+				padding: 10px 14px;
+				display: flex;
+				flex-direction: row;
+				li {
+					padding: 0 8px 0 0;
+				}
+				.wpeo-task-time {
+					.elapsed {
+						padding-right: 6px;
+						span {
+							font-weight: 600;
+						}
+					}
+					.estimated {
+						span {
+							font-weight: 600;
+						}
+					}
+				}
+				li.wpeo-task-time-history {
+					margin-left: auto;
+					padding: 0;
+					font-size: 16px;
+					color: rgba(0,0,0,0.4);
 					transition: all 0.2s ease-out;
 					&:hover {
-						color: @second-color;
 						cursor: pointer;
+						color: rgba(0,0,0,0.6);
 					}
 				}
 			}
@@ -355,6 +459,8 @@
 			opacity: 1;
 		}
 	}
+
+
 }
 
 
@@ -433,9 +539,12 @@
 				opacity: 0.4;
 			}
 			.wpeo-task-add-new-point {
-				color: @main-color;
+				// color: @main-color;
 				opacity: 0.2;
 				margin-left: 0 !important;
+				&:hover {
+					cursor: pointer;
+				}
 			}
 		}
 		textarea {
@@ -448,7 +557,7 @@
 				border-bottom: 1px solid rgba(0,0,0,0.6);
 			}
 			&:focus, &.active {
-				color: @main-color;
+				// color: @main-color;
 			}
 		}
 	}
@@ -457,6 +566,9 @@
 			opacity: 0;
 			cursor: auto;
 			pointer-events: none;
+		}
+		.flex-text-wrap textarea {
+			text-decoration: line-through;
 		}
 	}
 	.wpeo-task-point-use-toggle {
@@ -467,7 +579,6 @@
 			position: relative;
 			top: -10px;
 			display: inline-block;
-			background: #fff;
 			padding: 0 20px;
 		}
 		a {
@@ -511,19 +622,19 @@
 			transition: all 0.2s ease-out;
 		}
 		li.wpeo-tag-tag-selected {
-			background: @main-color;
+			// background: @main-color;
 		}
 		li.wpeo-tag-edit-tag-btn {
 			margin-left: auto;
 			margin-right: 0;
 			padding: 8px;
-			background: @main-color;
+			// background: @main-color;
 		}
 		li.wpeo-tag-add-tag {
 			background: none;
 			width: 100%;
 			font-family: 'kalamregular';
-			color: #389af6;
+			// color: #389af6;
 			text-align: center;
 		}
 	}
@@ -611,11 +722,12 @@
 		width: 50px !important;
 		height: 50px !important;
 		padding: 16px;
-		background: @main-color;
+		// background: @main-color;
 		color: #fff;
 		box-shadow: none;
+		transition: all 0.2s ease-out;
 		&:hover {
-			background: @main-color-light;
+			// background: @main-color-light;
 		}
 	}
 }
@@ -792,6 +904,9 @@
 				width: 26px;
 				height: 26px;
 			}
+			input[type="text"] {
+				background: none;
+			}
 			.wpeo-point-comment {
 				.date {
 					color: rgba(0, 0, 0, 0.6);
@@ -839,7 +954,7 @@
 					line-height: 1.3;
 				}
 				.wpeo-point-time-edit-btn {
-					color: @main-color;
+					// color: @main-color;
 				}
 				.wpeo-send-point-time-to-trash {
 					color: rgba(0,0,0,0.4);
@@ -874,6 +989,9 @@
 				div {
 					display: flex;
 					flex-direction: row;
+				}
+				input[type="text"] {
+					background: none;
 				}
 				.wpeo-input-date, .wpeo-input-date-time {
 					span {

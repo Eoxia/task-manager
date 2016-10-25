@@ -21,7 +21,7 @@
 			<span class="dashicons dashicons-clock"></span>
 			<input type="text" class="wpeo-point-time-elapsed" name="point_time[option][time_info][elapsed]" value="<?php echo $point_time->option['time_info']['elapsed']; ?>" />
 
-			<input type="button" class="button-primary wpeo-submit" value="Save"/>
+			<input type="button" class="wpeo-submit" value="Save"/>
 		</li>
 
 

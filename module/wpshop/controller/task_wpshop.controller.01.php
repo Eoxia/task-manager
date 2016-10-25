@@ -8,7 +8,7 @@ if( !class_exists( 'task_wpshop_controller_01' ) ) {
       add_filter( 'wps_my_account_extra_part_menu', array( $this, 'callback_my_account_menu' ) );
       add_filter( 'wps_my_account_extra_panel_content', array( $this, 'callback_my_account_content' ), 10, 2 );
 
-			add_filter( 'task_manager_dashboard_search', array( $this, 'callback_task_manager_dashboard_search' ), 12, 2 );
+			add_filter( 'task_manager_dashboard_search', array( $this, 'callback_task_manager_dashboard_search' ), 11, 2 );
 		}
 
     public function callback_my_account_menu() {
