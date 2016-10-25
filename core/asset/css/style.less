@@ -1168,6 +1168,7 @@
 	/* Content */
 	.wpeo-timeline-content {
 		position: relative;
+		padding: 0 6%;
 
 		.chrono-line {
 			position: absolute;
@@ -1201,9 +1202,13 @@
 			header {
 				padding: 10px 16px;
 				ul {
+					display: flex;
+					flex-direction: row;
 					li {
-						float: left;
 						display: block;
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
 					}
 					li.avatar img {
 						border-radius: 50%;
@@ -1213,13 +1218,16 @@
 						padding-left: 8px;
 						line-height: 2.6;
 						font-size: 14px;
+						width: 50%;
 					}
 					li.date {
+						width: 50%;
 						text-transform: uppercase;
 						font-weight: bold;
 						float: right;
 						font-size: 18px;
 						line-height: 2;
+						text-align: right;
 					}
 					li.user-mail, li.date {
 						color: #fff;
@@ -1234,7 +1242,7 @@
 			}
 		}
 		/* Mois */
-		.month {
+		.month, .week {
 			width: 100%;
 
 			header {
@@ -1255,7 +1263,7 @@
 					margin-left: -12px;
 				}
 			}
-			.dashboard-month {
+			.dashboard-month, .dashboard-week {
 				border-bottom: 1px solid rgba(0,0,0,0.1);
 				li {
 					.dashicons {
@@ -1263,7 +1271,7 @@
 					}
 				}
 			}
-			.dashboard-month, .task-month {
+			.dashboard-month, .task-month, .dashboard-week, .task-week {
 				padding: 20px 20px 10px 20px;
 				li {
 					float: left;
@@ -1298,10 +1306,6 @@
 			header {
 				position: relative;
 				.timeline-pointer {
-					/*display: block;
-					width: 0;
-					height: 0;
-					border-style: solid;*/
 					position: absolute;
 					top: 50%;
 					transform: translateY(-50%);
