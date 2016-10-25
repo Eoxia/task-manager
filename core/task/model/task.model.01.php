@@ -31,7 +31,7 @@ class task_model_01 extends post_mdl_01 {
 			),
 		),
 		'time_info' => array(
-			'estimated' => array(
+			'history_time' => array(
 				'type'		=> 'integer',
 				'function'	=> '',
 				'default'	=> 0,
@@ -41,14 +41,6 @@ class task_model_01 extends post_mdl_01 {
 				'type'		=> 'integer',
 				'function'	=> '',
 				'default' 	=> 0,
-				'required'	=> false,
-			),
-		),
-		'date_info' => array(
-			'due' => array(
-				'type'		=> 'integer',
-				'function'	=> '',
-				'default'	=> 0,
 				'required'	=> false,
 			),
 		),

@@ -8,8 +8,6 @@ jQuery( document ).ready( function() {
 	wpeo_global.init();
 	wpeo_task.event();
 	wpeo_point.event();
-	wpeo_due_time.init();
-	wpeo_estimated_time.init();
 	wpeo_wpshop.init();
 
 	/** Système pour gérer les loaders */
@@ -27,7 +25,11 @@ jQuery( document ).ready( function() {
 var wpeo_global = {
 	init: function() {
 		jQuery( 'input[name="general-search"]' ).on( 'change', function() { wpeo_global.filter( jQuery( this ).val() ); } );
-		jQuery( '.open-search-filter' ).click( function() { wpeo_global.open_filter( jQuery( '.wpeo-header-search' ) ); } );
+		jQuery( '.open-search-filter' ).on( 'click', function() { jQuery( '.wpeo-header-search' ).toggleClass( 'active' ); } );
+		this.load();
+	},
+
+	load: function() {
 		jQuery( '.isDate' ).datepicker( { dateFormat: 'yy-mm-dd' } );
 		jQuery( '.wpeo-project-wrap .wpeo-point-input > textarea' ).flexText();
 
@@ -47,14 +49,6 @@ var wpeo_global = {
 				}
 			} );
 		} );
-	},
-
-	open_filter: function( element ) {
-		if( jQuery( element ).css( 'display' ) == 'none' ) {
-			jQuery( element ).show();
-		} else {
-			jQuery( element ).hide();
-		}
 	},
 
 	filter: function( search = undefined ) {
@@ -101,7 +95,7 @@ var wpeo_global = {
 			} );
 		}
 
-		wpeo_global.init();
+		wpeo_global.load();
 	}
 };
 
@@ -208,7 +202,7 @@ var wpeo_task = {
 			/** On enlève le loader */
 			jQuery( '.list-task' ).bgLoad( 'stop' );
 
-			wpeo_global.init();
+			wpeo_global.load();
 		} );
 	},
 
@@ -258,7 +252,7 @@ var wpeo_task = {
 			}, 400);
 
 			jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard' ).css( 'display', 'flex' );
-			wpeo_global.init();
+			wpeo_global.load();
 			// jQuery( '.wpeo-window-dashboard' ).bgLoad( 'stop' );
 			// var height = parseInt( jQuery( '.wpeo-window-dashboard' ).height() + 200 );
 			// jQuery( '#wpeo-tasks-metabox' ).css( 'height', height );
@@ -277,7 +271,7 @@ var wpeo_task = {
 
 		jQuery.eoajax( ajaxurl, data, function() {
 			jQuery( '.wpeo-project-task[data-id="' + task_id + '"]' ).replaceWith( this.template );
-			wpeo_global.init();
+			wpeo_global.load();
 		} );
 	},
 
@@ -288,6 +282,7 @@ var wpeo_task = {
 			jQuery( element ).data( 'url' ),
 			false
 		);
+		jQuery( '#TB_window' ).trigger( "time_history_task", [ task_id ] );
 	},
 
 	/**
@@ -608,7 +603,7 @@ var wpeo_point = {
 			}, 300 );
 
 			/** On met à jour l'interface */
-			wpeo_global.init();
+			wpeo_global.load();
 			form.clearForm();
 		} );
 	},
@@ -708,7 +703,7 @@ var wpeo_point = {
 				}, 400);
 				jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard' ).attr( 'data-id', point_id );
 				jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard' ).css( 'display', 'flex' );
-				wpeo_global.init();
+				wpeo_global.load();
 			} );
 		}
 	},
@@ -909,85 +904,6 @@ var wpeo_point = {
 		jQuery.eoajax( ajaxurl, data, function() {
 			jQuery( '.wpeo-project-last-comment' ).replaceWith( this.template );
 		} );
-	}
-};
-
-var wpeo_due_time = {
-	init: function() {
-		this.event();
-	},
-
-	event: function() {
-		/** Créer un temps voulu */
-		jQuery( document ).on( 'click', 'input[name="due_time"]', function() {
-			jQuery( this ).datepicker( { dateFormat: 'yy-mm-dd' } );
-		} );
-		jQuery( document ).on('click', '.add-due-time', function() { wpeo_due_time.create( jQuery( this ).parent(), jQuery( this ).data( 'task-id' ), jQuery( 'input[name="due_time"]' ).val() ); } );
-		jQuery( document ).on('click', '.delete-due-time', function() { wpeo_due_time.delete( jQuery( this ).parent().parent(), jQuery( this ).parent().data( 'id' ) ); } );
-	},
-
-	create: function( list_due_time, task_id, due_time ) {
-		var data = {
-			'action': 'create_due_time',
-			'due_time': due_time,
-			'task_id': task_id
-		};
-
-		jQuery.eoajax( ajaxurl, data, function() {
-			jQuery( list_due_time ).find( '.due-time-list' ).prepend( this.template );
-			jQuery( '.wpeo-project-task[data-id="' + task_id + '"] .task-due-time' ).replaceWith( this.task_due_time );
-		} );
-	},
-
-	delete: function( list_due_time, due_time ) {
-		var data = {
-			'action': 'delete_due_time',
-			'due_time': due_time
-		};
-
-		jQuery.eoajax( ajaxurl, data, function() {
-			jQuery( '.wpeo-project-task[data-id="' + this.to_task_id + '"] .task-due-time' ).replaceWith( this.task_due_time );
-		} );
-
-		jQuery( list_due_time ).find( '*[data-id="' + due_time + '"]' ).remove();
-	}
-};
-
-var wpeo_estimated_time = {
-	init: function() {
-		this.event();
-	},
-
-	event: function() {
-		/** Créer un temps estimé */
-		jQuery( document ).on('click', '.add-estimated-time', function() { wpeo_estimated_time.create( jQuery( this ).parent(), jQuery( this ).data( 'task-id' ), jQuery( 'input[name="estimated_time"]' ).val() ); } );
-		jQuery( document ).on('click', '.delete-estimated-time', function() { wpeo_estimated_time.delete( jQuery( this ).parent().parent(), jQuery( this ).parent().data( 'id' ) ); } );
-	},
-
-	create: function( list_estimated_time, task_id, estimated_time ) {
-		var data = {
-			'action': 'create_estimated_time',
-			'estimated_time': estimated_time,
-			'task_id': task_id
-		};
-
-		jQuery.eoajax( ajaxurl, data, function() {
-			jQuery( list_estimated_time ).find( '.estimated-time-list' ).prepend( this.template );
-			jQuery( '.wpeo-project-task[data-id="' + task_id + '"] .task-estimated-time' ).replaceWith( this.task_estimated_time );
-		} );
-	},
-
-	delete: function( list_estimated_time, estimated_time ) {
-		var data = {
-			'action': 'delete_estimated_time',
-			'estimated_time': estimated_time
-		};
-
-		jQuery.eoajax( ajaxurl, data, function() {
-			jQuery( '.wpeo-project-task[data-id="' + this.to_task_id + '"] .task-estimated-time' ).replaceWith( this.task_estimated_time );
-		} );
-
-		jQuery( list_estimated_time ).find( '*[data-id="' + estimated_time + '"]' ).remove();
 	}
 };
 
