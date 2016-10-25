@@ -282,7 +282,9 @@ var wpeo_task = {
 			jQuery( element ).data( 'url' ),
 			false
 		);
-		jQuery( '#TB_window' ).trigger( "time_history_task", [ task_id ] );
+		jQuery( '#TB_load' ).on( 'remove', function () {
+			jQuery( document ).trigger( "time_history_task", [ task_id ] );
+		} );
 	},
 
 	/**

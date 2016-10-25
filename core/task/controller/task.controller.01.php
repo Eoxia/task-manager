@@ -1,8 +1,9 @@
 <?php
 
-if( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) { exit;
+}
 
-if( !class_exists( 'task_controller_01' ) ) {
+if ( ! class_exists( 'task_controller_01' ) ) {
 	class task_controller_01 extends post_ctr_01 {
 		protected $model_name 	= 'task_model_01';
 		protected $post_type	= 'wpeo-task';
@@ -25,7 +26,7 @@ if( !class_exists( 'task_controller_01' ) ) {
 			add_filter( 'task_manager_dashboard_content', array( $this, 'callback_dashboard_content' ), 10, 2 );
 
 			add_filter( 'task_header_action', array( $this, 'callback_task_header_action' ), 10, 2 );
-			add_filter( 'task_header_information', array( $this, 'callback_task_header_information_elapsed' ), 10, 2 );
+			add_filter( 'task_header_information', array( $this, 'callback_task_header_information_elapsed' ), 11, 2 );
 
 			/** Window */
 			add_filter( 'task_window_sub_header_task_controller', array( $this, 'callback_task_window_sub_header' ), 10, 2 );
@@ -60,21 +61,20 @@ if( !class_exists( 'task_controller_01' ) ) {
 		public function callback_dashboard_content( $string, $post_parent ) {
 			global $task_controller;
 			// if($post_parent == 0) {
-			// 	$list_task = $task_controller->index( array( 'post_parent' => 0,
-			// 	 	'meta_query' => array(
-			// 				array(
-			// 					'key' => 'wpeo_task',
-			// 					'value' => '{"user_info":{"owner_id":' . get_current_user_id(),
-			// 					'compare' => 'like',
-			// 				)
-			// 			)
-			// 		)
-			// 	);
+			// $list_task = $task_controller->index( array( 'post_parent' => 0,
+			// 'meta_query' => array(
+			// array(
+			// 'key' => 'wpeo_task',
+			// 'value' => '{"user_info":{"owner_id":' . get_current_user_id(),
+			// 'compare' => 'like',
+			// )
+			// )
+			// )
+			// );
 			// }
 			// else {
 				$list_task = $task_controller->index( array() );
 			// }
-
 			ob_start();
 			require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'main' ) );
 			$string .= ob_get_clean();
@@ -115,9 +115,9 @@ if( !class_exists( 'task_controller_01' ) ) {
 			$list_point = $point_controller->get_list_point_by_comment_user_id_and_date( $user_id, $start_date, $end_date );
 			$list_task = array();
 
-			if ( !empty( $list_point ) ) {
-				foreach( $list_point as $point ) {
-					$list_task[$point->post_id] = $this->show( $point->post_id );
+			if ( ! empty( $list_point ) ) {
+				foreach ( $list_point as $point ) {
+					$list_task[ $point->post_id ] = $this->show( $point->post_id );
 				}
 			}
 
@@ -125,8 +125,9 @@ if( !class_exists( 'task_controller_01' ) ) {
 		}
 
 		public function get_task_created_by_user_id_and_date( $user_id, $start_date, $end_date ) {
-			if ( empty( $user_id ) || empty( $start_date ) || empty( $end_date ) )
+			if ( empty( $user_id ) || empty( $start_date ) || empty( $end_date ) ) {
 				return 0;
+			}
 
 			global $wpdb;
 
@@ -140,8 +141,8 @@ if( !class_exists( 'task_controller_01' ) ) {
 			$list_task = $wpdb->get_results( $wpdb->prepare( $query, array( $user_id, $start_date, $end_date, 'wpeo-task' ) ) );
 			$list_task_model = array();
 
-			if ( !empty( $list_task ) ) {
-				foreach( $list_task as $task ) {
+			if ( ! empty( $list_task ) ) {
+				foreach ( $list_task as $task ) {
 					$list_task_model[] = $this->show( $task->ID );
 				}
 			}
@@ -150,14 +151,16 @@ if( !class_exists( 'task_controller_01' ) ) {
 		}
 
 		public static function get_task_title_by_id( $task_id ) {
-			if( empty( $task_id ) )
+			if ( empty( $task_id ) ) {
 				return __( 'Task not found', 'wpeotask-i18n' );
+			}
 
 			global $task_controller;
 			$task = $task_controller->show( $task_id );
 
-			if( empty( $task ) )
+			if ( empty( $task ) ) {
 				return __( 'Task not found', 'wpeotask-i18n' );
+			}
 
 			return $task->title;
 		}
@@ -172,8 +175,8 @@ if( !class_exists( 'task_controller_01' ) ) {
 
 			$list_point = $point_controller->index( $task->id, array( 'comment__in' => $task->option['task_info']['order_point_id'], 'status' => -34070 ) );
 
-			if( !empty( $list_point ) ) {
-				foreach( $list_point as $point ) {
+			if ( ! empty( $list_point ) ) {
+				foreach ( $list_point as $point ) {
 					$time_elapsed += $point->option['time_info']['elapsed'];
 				}
 			}
@@ -191,7 +194,7 @@ if( !class_exists( 'task_controller_01' ) ) {
 			global $due_controller;
 			$list_due = $due_controller->index( $task->id, array( 'number' => 1, 'orderby' => 'comment_date', 'parent' => 0, 'status' => -34070 ) );
 
-			if( !empty( $list_due ) ) {
+			if ( ! empty( $list_due ) ) {
 				$task->option['date_info']['due'] = $list_due[0]->id;
 				$this->update( $task );
 			}
@@ -232,4 +235,3 @@ if( !class_exists( 'task_controller_01' ) ) {
 	global $task_controller;
 	$task_controller = new task_controller_01();
 }
-?>

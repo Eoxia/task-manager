@@ -50,7 +50,8 @@ if ( ! class_exists( 'History_time_controller_01' ) ) {
 		public function __construct() {
 			include_once( WPEO_HISTORY_TIME_PATH . '/model/history-time.model.01.php' );
 			add_filter( 'task_time_history', array( $this, 'callback_task_time_history' ), 10, 2 );
-			add_filter( 'task_header_information', array( $this, 'callback_task_header_information' ), 10, 2 );
+			add_filter( 'task_header_information', array( $this, 'callback_task_header_information_due' ), 10, 2 );
+			add_filter( 'task_header_information', array( $this, 'callback_task_header_information_estimated' ), 12, 2 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'callback_admin_enqueue_scripts' ) );
 		}
 
@@ -133,19 +134,38 @@ if ( ! class_exists( 'History_time_controller_01' ) ) {
 
 		/**
 		 * Callback for head task (under title).
+		 * Due date part.
 		 *
 		 * @param  string        $string Test before call.
 		 * @param  task_model_01 $task   Model of actual task.
 		 * @return string
 		 */
-		public function callback_task_header_information( $string, $task ) {
+		public function callback_task_header_information_due( $string, $task ) {
 			if ( ! empty( $task->option['time_info']['history_time'] ) ) {
 				$history_time = $this->show( $task->option['time_info']['history_time'] );
 				$interval = date_diff( new DateTime( current_time( 'Y-m-d' ) ), new DateTime( $history_time->option['due_date'] ) );
 				$interval = (int) $interval->format( '%R%a' );
 			}
 			ob_start();
-			require( wpeo_template_01::get_template_part( WPEO_HISTORY_TIME_DIR, WPEO_HISTORY_TIME_TEMPLATES_MAIN_DIR, 'backend', 'history-time', 'task-header' ) );
+			require( wpeo_template_01::get_template_part( WPEO_HISTORY_TIME_DIR, WPEO_HISTORY_TIME_TEMPLATES_MAIN_DIR, 'backend', 'history-time', 'task-header-due' ) );
+			$string .= ob_get_clean();
+			return $string;
+		}
+
+		/**
+		 * Callback for head task (under title).
+		 * Estimated time part.
+		 *
+		 * @param  string        $string Test before call.
+		 * @param  task_model_01 $task   Model of actual task.
+		 * @return string
+		 */
+		public function callback_task_header_information_estimated( $string, $task ) {
+			if ( ! empty( $task->option['time_info']['history_time'] ) ) {
+				$history_time = $this->show( $task->option['time_info']['history_time'] );
+			}
+			ob_start();
+			require( wpeo_template_01::get_template_part( WPEO_HISTORY_TIME_DIR, WPEO_HISTORY_TIME_TEMPLATES_MAIN_DIR, 'backend', 'history-time', 'task-header-estimated' ) );
 			$string .= ob_get_clean();
 			return $string;
 		}
