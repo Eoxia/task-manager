@@ -97,7 +97,7 @@ class point_action_01 {
 			'message' => sprintf( __( 'The point #%d was deleted for the task #%d. The elapsed time for this point was %d minute(s). The elapsed time for this task is now %d minute(s)', 'task-manager'), $point->id, $task->id, $point->option['time_info']['elapsed'], $task->option['time_info']['elapsed'] ),
 		), 0 );
 
-		wp_send_json_success( array( 'task' => $task ) );
+		wp_send_json_success( array( 'task' => $task, 'task_header_information' => apply_filters( 'task_header_information', '', $task ) ) );
 	}
 
 	/**

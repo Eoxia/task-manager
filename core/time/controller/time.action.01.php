@@ -40,7 +40,7 @@ class time_action_01 {
 
 		ob_start();
 		require_once( wpeo_template_01::get_template_part( WPEO_TIME_DIR, WPEO_TIME_TEMPLATES_MAIN_DIR, 'backend', 'time' ) );
-		wp_send_json_success( array( 'template' => ob_get_clean(), 'task' => $task, 'point' => $point, 'time' => $time ) );
+		wp_send_json_success( array( 'template' => ob_get_clean(), 'task' => $task, 'point' => $point, 'time' => $time, 'task_header_information' => apply_filters( 'task_header_information', '', $task ) ) );
 	}
 
 	public function ajax_get_point_time() {
@@ -71,7 +71,7 @@ class time_action_01 {
 		$task = $time_controller->delete( $_POST['point_time_id'] );
 		$point = $point_controller->show( $_POST['point_id'] );
 
-		wp_send_json_success( array( 'task' => $task, 'point' => $point ) );
+		wp_send_json_success( array( 'task' => $task, 'point' => $point, 'task_header_information' => apply_filters( 'task_header_information', '', $task ) ) );
 	}
 }
 

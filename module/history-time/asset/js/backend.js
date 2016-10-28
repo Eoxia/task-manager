@@ -22,6 +22,11 @@ var wpeo_history_time = {
 		jQuery( document ).on('click', '.delete-history-time', function() { wpeo_history_time.delete( jQuery( this ).data( 'nonce' ),
 		jQuery( this ).closest('.history-time-list'),
 		jQuery( this ).closest('.list-element').data( 'id' ) ); } );
+		jQuery( document ).on( 'keypress', '.history-time-new', function( event ) {
+			if( event.which == 13 ) {
+				jQuery( '.add-history-time' ).click();
+			}
+		} );
 	},
 
 	create: function( nonce, list_history_time, task_id, due_date, estimated_time ) {

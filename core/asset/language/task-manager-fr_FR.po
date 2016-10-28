@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
 "POT-Creation-Date: 2016-10-28 10:57+0200\n"
-"PO-Revision-Date: 2016-10-28 11:06+0200\n"
+"PO-Revision-Date: 2016-10-28 16:06+0200\n"
 "Last-Translator: \n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -79,7 +79,7 @@ msgstr ""
 
 #: core/point/controller/point.controller.01.php:67
 msgid "Uncompleted"
-msgstr "Inachevé"
+msgstr "Terminé"
 
 #: core/point/controller/point.controller.01.php:75
 #: core/task/controller/task.action.01.php:324
@@ -163,7 +163,7 @@ msgstr "Point complété"
 
 #: core/point/template/backend/window/sub-header.php:14
 msgid "Point uncompleted"
-msgstr "Point inachevé"
+msgstr "Point terminé"
 
 #: core/point/template/frontend/list-point-time.php:10
 #: core/time/template/backend/list-time.php:10

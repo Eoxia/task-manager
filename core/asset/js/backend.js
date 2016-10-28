@@ -583,6 +583,7 @@ var wpeo_point = {
 		jQuery( document ).on( 'click', '#wpeo-task-form-point-time .wpeo-open-point-time-form', function() { wpeo_point.update_form( jQuery( this ), true ); } );
 		jQuery( document ).on( 'click', '#wpeo-task-form-point-time .wpeo-submit', function() { wpeo_point.create_point_time( jQuery( this ) ); } );
 		jQuery( document ).on( 'click', '.wpeo-point-comment .wpeo-submit', function() { wpeo_point.edit_point_time_form( jQuery( this ) ); } );
+		jQuery( document ).on( 'keypress', '.wpeo-point-comment, .wpeo-point-time-elapsed', function( event ) { if( event.which == 13 ) { jQuery( this ).parent().find( '.wpeo-submit' ).click(); } } );
 		jQuery( document ).on( 'click', '.wpeo-send-point-time-to-trash', function( event ) { wpeo_point.delete_point_time( event, jQuery( this ) ); } );
 		jQuery( document ).on( 'click', '.wpeo-point-time-edit-btn', function( event ) { wpeo_point.edit_point_time( event, jQuery( this ) ); });
 
@@ -671,6 +672,8 @@ var wpeo_point = {
 			};
 
 			jQuery.eoajax( ajaxurl, data, function() {
+				jQuery( '.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-task-time-manage' ).html( this.task_header_information );
+				
 				jQuery( '.wpeo-project-task-' + object_id + ' .wpeo-project-task-time' ).text( this.task.option.time_info.elapsed );
 
 				if( completed ) {
@@ -818,6 +821,7 @@ var wpeo_point = {
 		jQuery( '.wpeo-window-dashboard' ).bgLoad();
 
 		jQuery.eoAjaxSubmit( jQuery(element).closest('form'), { action: 'create_point_time' }, function() {
+			jQuery( '.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-task-time-manage' ).html( this.task_header_information );
 			jQuery( '.wpeo-window-dashboard' ).bgLoad( 'stop' );
 			jQuery( '.wpeo-point-no-comment' ).hide();
 			if( this.edit ) {
@@ -846,6 +850,7 @@ var wpeo_point = {
 		jQuery( '.wpeo-window-dashboard' ).bgLoad();
 
 		jQuery.eoAjaxSubmit( jQuery(element).closest('form'), { action: 'create_point_time' }, function() {
+			jQuery( '.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-task-time-manage' ).html( this.task_header_information );
 			jQuery( '.wpeo-window-dashboard' ).bgLoad( 'stop' );
 			jQuery( '.wpeo-point-no-comment' ).hide();
 
@@ -894,6 +899,7 @@ var wpeo_point = {
 			};
 
 			jQuery.eoajax( ajaxurl, data, function() {
+				jQuery( '.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-task-time-manage' ).html( this.task_header_information );
 				jQuery('.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-project-task-time').text( this.task.option.time_info.elapsed );
 				jQuery('.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-task-li-point[data-id="' + this.point.id + '"] .wpeo-time-in-point').text( this['point']['option']['time_info']['elapsed'] );
 				jQuery(element).closest( '.wpeo-window-dashboard').find( '.wpeo-point-elapsed-time' ).text( this['point']['option']['time_info']['elapsed'] );
