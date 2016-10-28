@@ -6,9 +6,9 @@
 		<div>
 			<?php
 			echo $list_user_in[$point_time->author_id]->user_nicename . ', ';
-			_e( 'On', 'wpeopoint-i18n' );
+			_e( 'On', 'task-manager' );
 			echo ' '; comment_date( get_option( 'date_format' ), $point_time->id ); echo ' ';
-			_e( 'at', 'wpeopoint-i18n' );
+			_e( 'at', 'task-manager' );
 			echo ' '; comment_date( get_option( 'time_format' ), $point_time->id );
 			?>
 		</div>

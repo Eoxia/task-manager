@@ -20,7 +20,7 @@
 <div class="wpeo-task-point-use-toggle">
 	<p>
 	<span class="dashicons dashicons-plus wpeo-point-toggle-arrow"></span>
-	<a class="wpeo-point-toggle-a" href="#" title="<?php __( 'Toggle completed point', 'task-manager' ); ?>"><?php _e( 'Completed point', 'wpeopoint-i18n' ); ?> (<span class='wpeo-task-count-completed'><?php echo count( $list_point_completed ); ?>/<?php echo (count( $list_point_completed ) + count( $list_point_uncompleted )); ?></span>)</a>
+	<a class="wpeo-point-toggle-a" href="#" title="<?php __( 'Toggle completed point', 'task-manager' ); ?>"><?php _e( 'Completed point', 'task-manager' ); ?> (<span class='wpeo-task-count-completed'><?php echo count( $list_point_completed ); ?>/<?php echo (count( $list_point_completed ) + count( $list_point_uncompleted )); ?></span>)</a>
 	</p>
 
 	<ul class="wpeo-task-point wpeo-task-point-completed wpeo-point-no-sortable wpeo-no-display">

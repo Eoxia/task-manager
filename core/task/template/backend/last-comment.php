@@ -11,9 +11,9 @@
 						<li>
 							<?php 
 							echo $list_user_in[$comment->author_id]->user_nicename . ', ';
-							_e( 'On', 'wpeopoint-i18n' );
+							_e( 'On', 'task-manager' );
 							echo ' '; comment_date( get_option( 'date_format' ), $comment->id ); echo ' ';
-							_e( 'at', 'wpeopoint-i18n' ); 
+							_e( 'at', 'task-manager' ); 
 							echo ' '; comment_date( get_option( 'time_format' ), $comment->id ); echo ' ';
 							_e( 'to the point', 'task-manager' );
 							echo ' <a class="wpeo-last-point" href="#" data-user="' . wps_customer_ctr::get_customer_id_by_author_id( $comment->author_id ) . '" data-id="' . $comment->parent_id . '"#' . $comment->parent_id . ' : <strong>' . substr( point_controller_01::get_point_name_by_id( $comment->parent_id ), 0, 30 ) . '...</a></strong> ';

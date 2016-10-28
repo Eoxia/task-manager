@@ -115,6 +115,10 @@ class task_action_01 {
 			$log_message = sprintf( __( 'The task #%d has been edited by the user #%d with the title : %s and the estimated time %d', 'task-manager'), $_CLEAN['task']['id'], get_current_user_id(), $_CLEAN['task']['title'], $_CLEAN['task']['option']['time_info']['estimated'] );
 		}
 
+		if ( !empty( $_POST['task']['option']['front_info']['display_color'] ) ) {
+			$_CLEAN['task']['option']['front_info']['display_color']	= sanitize_text_field( $_POST['task']['option']['front_info']['display_color'] );
+		}
+
 		if ( !empty( $_POST['task']['option']['front_info']['display_user'] ) ) {
 			$_CLEAN['task']['option']['front_info']['display_user']	= $_POST['task']['option']['front_info']['display_user'];
 			$_CLEAN['task']['option']['front_info']['display_time']	= $_POST['task']['option']['front_info']['display_time'];

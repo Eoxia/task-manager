@@ -14,7 +14,7 @@
 		    <input type="hidden" name="point_time[author_id]" value="<?php echo get_current_user_id(); ?>" />
 		    <input type="hidden" class="point_time_id" name="point_time[id]" value="" />
 			<textarea name="point_time[content]"></textarea>
-			<input class="button-primary" type="button" value="<?php _e( 'Add comment', 'wpeopoint-i18n' ); ?>" >
+			<input class="button-primary" type="button" value="<?php _e( 'Add comment', 'task-manager' ); ?>" >
 		</form>
 	</div>
 </div>

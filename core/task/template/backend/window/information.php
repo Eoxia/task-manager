@@ -4,7 +4,7 @@
 	<ul>
 		<li>
 			<?php $date_output_format = get_option( 'date_format' ) . ' à ' . get_option( 'time_format' ); ?>
-			<div><?php _e( 'Créé le ', 'task-manager' ); ?> <?php echo mysql2date( $date_output_format, $element->date, true ); ?></div>
+			<div><?php _e( 'Created ', 'task-manager' ); ?> <?php echo mysql2date( $date_output_format, $element->date, true ); ?></div>
 		</li>
 		<!-- Temps de la tâche / Time of the task -->
 		<li>

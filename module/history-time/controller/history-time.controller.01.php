@@ -62,7 +62,7 @@ if ( ! class_exists( 'History_time_controller_01' ) ) {
 		 */
 		public function callback_admin_enqueue_scripts() {
 			if ( WPEO_TASKMANAGER_DEBUG ) {
-				wp_enqueue_script( 'wpeo-task-tag-backend-js', WPEOMTM_HISTORY_TIME_ASSETS_URL . '/js/backend.js', array( 'jquery', 'jquery-form', 'jquery-ui-datepicker', 'jquery-ui-sortable', 'jquery-ui-autocomplete', 'suggest' ), WPEO_TASKMANAGER_VERSION );
+				wp_enqueue_script( 'wpeo-task-history-time-backend-js', WPEOMTM_HISTORY_TIME_ASSETS_URL . '/js/backend.js', array( 'jquery', 'jquery-form', 'jquery-ui-datepicker', 'jquery-ui-sortable', 'jquery-ui-autocomplete', 'suggest' ), WPEO_TASKMANAGER_VERSION );
 			}
 		}
 

@@ -57,7 +57,7 @@ class History_time_action_01 {
 
 		$task = $task_controller->show( $history_time->post_id );
 		if ( ! empty( $task ) ) {
-			$return['task_history_time'] = $history_time_controller->callback_task_header_information( '', $task );
+			$return['task_header_information'] = apply_filters( 'task_header_information', '', $task );
 		}
 
 		wp_send_json_success( $return );
@@ -85,7 +85,7 @@ class History_time_action_01 {
 		$task = $task_controller->show( $history_time->post_id );
 		if ( ! empty( $task ) ) {
 			$return['to_task_id'] = $task->id;
-			$return['task_history_time'] = $history_time_controller->callback_task_header_information( '', $task );
+			$return['task_header_information'] = apply_filters( 'task_header_information', '', $task );
 		}
 
 		wp_send_json_success( $return );

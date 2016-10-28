@@ -35,7 +35,7 @@ var wpeo_history_time = {
 
 		jQuery.eoajax( ajaxurl, data, function() {
 			jQuery( list_history_time ).prepend( this.template );
-			jQuery( '.wpeo-project-task[data-id="' + task_id + '"] .task-history-time' ).replaceWith( this.task_history_time );
+			jQuery( '.wpeo-project-task[data-id="' + task_id + '"] .wpeo-task-time-manage' ).html( this.task_header_information );
 		} );
 	},
 
@@ -47,7 +47,7 @@ var wpeo_history_time = {
 		};
 
 		jQuery.eoajax( ajaxurl, data, function() {
-			jQuery( '.wpeo-project-task[data-id="' + this.to_task_id + '"] .task-history-time' ).replaceWith( this.task_history_time );
+			jQuery( '.wpeo-project-task[data-id="' + this.to_task_id + '"] .wpeo-task-time-manage' ).html( this.task_header_information );
 		} );
 
 		jQuery( list_history_time ).find( '*[data-id="' + history_time + '"]' ).remove();

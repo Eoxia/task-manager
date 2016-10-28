@@ -27,6 +27,7 @@ if ( ! class_exists( 'task_controller_01' ) ) {
 
 			add_filter( 'task_header_action', array( $this, 'callback_task_header_action' ), 10, 2 );
 			add_filter( 'task_header_information', array( $this, 'callback_task_header_information_elapsed' ), 11, 2 );
+			add_filter( 'task_header_information', array( $this, 'callback_task_header_information_button' ), 20, 2 );
 
 			/** Window */
 			add_filter( 'task_window_sub_header_task_controller', array( $this, 'callback_task_window_sub_header' ), 10, 2 );
@@ -36,7 +37,7 @@ if ( ! class_exists( 'task_controller_01' ) ) {
 		}
 
 		public function callback_init() {
-			register_post_type( $this->post_type, array( 'label' => 'tasks', 'public' => true ) );
+			register_post_type( $this->post_type, array( 'label' => 'tasks', 'public' => false ) );
 			register_post_status( 'archive' );
 		}
 
@@ -93,6 +94,14 @@ if ( ! class_exists( 'task_controller_01' ) ) {
 		public function callback_task_header_information_elapsed( $string, $task ) {
 			ob_start();
 			require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'time-elapsed' ) );
+
+			$string .= ob_get_clean();
+			return $string;
+		}
+
+		public function callback_task_header_information_button( $string, $task ) {
+			ob_start();
+			require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'information-button' ) );
 
 			$string .= ob_get_clean();
 			return $string;

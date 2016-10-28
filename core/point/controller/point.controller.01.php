@@ -32,7 +32,7 @@ if ( !class_exists( 'point_controller_01' ) ) {
 
 			/** Window */
 			add_filter( 'task_window_sub_header_point_controller', array( $this, 'callback_task_window_sub_header' ), 10, 2 );
-			add_filter( 'task_window_information_point_controller', array( $this, 'callback_task_window_information' ), 10, 2 );
+			//add_filter( 'task_window_information_point_controller', array( $this, 'callback_task_window_information' ), 10, 2 );
 			add_filter( 'task_window_action_point_controller', array( $this, 'callback_task_window_action' ), 10, 2 );
 			add_filter( 'task_window_footer_point_controller', array( $this, 'callback_task_window_footer' ), 10, 2 );
 		}
@@ -207,13 +207,13 @@ if ( !class_exists( 'point_controller_01' ) ) {
 
 		public static function get_point_name_by_id( $point_id ) {
 			if( empty( $point_id ) )
-				return __( 'Point not found', 'wpeopoint-i18n' );
+				return __( 'Point not found', 'task-manager' );
 
 			global $point_controller;
 			$point = $point_controller->show( $point_id );
 
 			if( empty( $point ) )
-				return __( 'Point not found', 'wpeopoint-i18n' );
+				return __( 'Point not found', 'task-manager' );
 
 			return $point->content;
 		}

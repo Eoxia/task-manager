@@ -57,6 +57,12 @@ class task_model_01 extends post_mdl_01 {
 				'default' 	=> false,
 				'required'	=> false,
 			),
+			'display_color' => array(
+				'type'		=> 'string',
+				'function'	=> '',
+				'default' 	=> 'white',
+				'required'	=> false,
+			),
 		),
 		'task_info' => array(
 			'completed' => array(
