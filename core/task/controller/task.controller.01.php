@@ -58,24 +58,24 @@ if ( ! class_exists( 'task_controller_01' ) ) {
 
 			return $string;
 		}
-
+		
 		public function callback_dashboard_content( $string, $post_parent ) {
 			global $task_controller;
-			// if($post_parent == 0) {
-			// $list_task = $task_controller->index( array( 'post_parent' => 0,
-			// 'meta_query' => array(
-			// array(
-			// 'key' => 'wpeo_task',
-			// 'value' => '{"user_info":{"owner_id":' . get_current_user_id(),
-			// 'compare' => 'like',
-			// )
-			// )
-			// )
-			// );
-			// }
-			// else {
+			if($post_parent == 0) {
+				$list_task = $task_controller->index( array( 'post_parent' => 0,
+				'meta_query' => array(
+					array(
+						'key' => 'wpeo_task',
+						'value' => '{"user_info":{"owner_id":' . get_current_user_id(),
+							'compare' => 'like',
+						)
+					)
+					)
+				);
+			}
+			else {
 				$list_task = $task_controller->index( array() );
-			// }
+			}
 			ob_start();
 			require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'main' ) );
 			$string .= ob_get_clean();
@@ -141,11 +141,11 @@ if ( ! class_exists( 'task_controller_01' ) ) {
 			global $wpdb;
 
 			$query =
-				"SELECT ID
-				FROM {$wpdb->posts}
-				WHERE	post_author = %d AND
-						post_date BETWEEN %s AND %s AND
-						post_type = %s";
+			"SELECT ID
+			FROM {$wpdb->posts}
+			WHERE	post_author = %d AND
+			post_date BETWEEN %s AND %s AND
+			post_type = %s";
 
 			$list_task = $wpdb->get_results( $wpdb->prepare( $query, array( $user_id, $start_date, $end_date, 'wpeo-task' ) ) );
 			$list_task_model = array();
