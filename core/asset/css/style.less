@@ -350,8 +350,9 @@
 
 			.wpeo-project-task-container {
 				box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.2);
-	    		position: relative;
-	   		}
+    		position: relative;
+				transition: all 0.2s ease-out;
+   		}
 			.wpeo-task-header {
 				border-bottom: 1px solid rgba(0,0,0,0.2);
 				padding: 10px 14px;
@@ -363,6 +364,12 @@
 				}
 				li {
 					margin: auto;
+				}
+				.wpeo-task-author {
+					padding-right: 8px;
+					img {
+						border-radius: 50%;
+					}
 				}
 				.wpeo-task-id {
 					width: 12%;
@@ -597,6 +604,7 @@
 			top: -10px;
 			display: inline-block;
 			padding: 0 20px;
+			transition: all 0.2s ease-out;
 		}
 		a {
 			color: #000;
