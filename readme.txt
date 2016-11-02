@@ -3,8 +3,8 @@ Contributors: Eoxia
 Donate link:
 Tags: task, tasks, management, manager, collaboration, dashboard, organizer, project management, project manager, projects, task lists, task management, task manager, Time Tracking, to do, to do list, todo, todo list
 Requires at least: 4.4.0
-Tested up to: 4.5.1
-Stable tag: 1.3.1.5
+Tested up to: 4.6.1
+Stable tag: 1.3.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,13 +52,24 @@ No questions asked yet.
 
 == Screenshots ==
 
-1. Dashboard / Tableau de bord
-2. Add user in a task / Ajouter un utilisateur dans une tâche
-3. Add tag in a task / Ajouter un tag dans une tâche
-4. Manage time / Gestion du temps
-5. See the history / Chronologie
+1. Dashboard
+2. Add user in a task
+3. Add tag in a task
+4. Manage time
+5. See the history
 
 == Changelog ==
+
+= 1.3.2.0 =
+= Improvment =
+ * 4348 - Timeline : Week summary added
+ * 4349 - Dashboard : New search system with advanced method.
+ * 4354 - General : Shortcut added. Type : "CTRL + Enter" to quickly add a point
+ * 4350 - Task : Manage your due time with the new interface : Time history
+ * 4352 - Task : Custom your tasks with so many colors !
+ * 4353 - Task : You can see the task creator next to the task title
+ * 4351 - Pointing time window : The pointing time window has been simplified
+ * 4352 - Increased compatibility with the plugin Digirisk
 
 = 1.3.1.5 =
 = Improvment =
