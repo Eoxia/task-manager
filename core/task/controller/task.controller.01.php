@@ -58,7 +58,7 @@ if ( ! class_exists( 'task_controller_01' ) ) {
 
 			return $string;
 		}
-		
+
 		public function callback_dashboard_content( $string, $post_parent ) {
 			global $task_controller;
 			if($post_parent == 0) {
@@ -74,7 +74,7 @@ if ( ! class_exists( 'task_controller_01' ) ) {
 				);
 			}
 			else {
-				$list_task = $task_controller->index( array() );
+				$list_task = $task_controller->index( array( 'post_parent' => $post_parent ) );
 			}
 			ob_start();
 			require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'main' ) );
