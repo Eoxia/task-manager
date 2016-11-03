@@ -36,7 +36,6 @@ var wpeo_global = {
 				wpeo_point.create( jQuery( event.currentTarget ) );
 			}
 		} );
-		jQuery( '.wpeo-project-wrap .wpeo-point-input > textarea' ).flexText();
 
 		jQuery( '.wpeo-project-wrap .wpeo-task-point-sortable' ).sortable( {
 			handle: '.dashicons-screenoptions',
@@ -45,15 +44,15 @@ var wpeo_global = {
 				wpeo_point.edit_order( jQuery( this ) );
 			}
 		} );
-
-		jQuery.each( jQuery( '.wpeo-task-auto-complete' ), function( key, element ) {
-			jQuery( element ).autocomplete( {
-				'source': 'admin-ajax.php?action=search&type=' + jQuery( element ).data( 'type' ),
-				'select': function( event, ui ) {
-					jQuery( element ).closest( 'div' ).find( 'input[name="element_id"]' ).val( ui.item.id );
-				}
-			} );
-		} );
+		//
+		// jQuery.each( jQuery( '.wpeo-task-auto-complete' ), function( key, element ) {
+		// 	jQuery( element ).autocomplete( {
+		// 		'source': 'admin-ajax.php?action=search&type=' + jQuery( element ).data( 'type' ),
+		// 		'select': function( event, ui ) {
+		// 			jQuery( element ).closest( 'div' ).find( 'input[name="element_id"]' ).val( ui.item.id );
+		// 		}
+		// 	} );
+		// } );
 
 		jQuery.each( jQuery( '.wpeo-task-setting .task-color' ), function( index, element ) {
 			var actualColor = '';
@@ -87,11 +86,11 @@ var wpeo_global = {
 			jQuery( '.wpeo-project-task:not(.wpeo-project-task[data-owner-id="' + jQuery( '#wpeo_user_id' ).val() + '"])' ).hide();
 			jQuery( '.wpeo-project-task.archive' ).hide();
 		}
-		if ( jQuery( '.wpeo-button-assigned-task' ).hasClass( 'wpeo-button-active' ) ) {
+		else if ( jQuery( '.wpeo-button-assigned-task' ).hasClass( 'wpeo-button-active' ) ) {
 			jQuery( '.wpeo-project-task:not(.wpeo-project-task[data-affected-id*="' + jQuery( '#wpeo_user_id' ).val() + '"])' ).hide();
 			jQuery( '.wpeo-project-task.archive' ).hide();
 		}
-		if ( jQuery( '.wpeo-button-archived-task' ).hasClass( 'wpeo-button-active' ) ) {
+		else if ( jQuery( '.wpeo-button-archived-task' ).hasClass( 'wpeo-button-active' ) ) {
 			jQuery( '.wpeo-project-task:not(.wpeo-project-task.archive)' ).hide();
 		}
 
@@ -569,6 +568,7 @@ var wpeo_point = {
 	event: function() {
 		/** Créer un point */
 		jQuery( document ).on( 'keyup', '.wpeo-add-point textarea', function(event) { wpeo_point.key_up(event, jQuery(this)); } );
+		jQuery( document ).on( 'keydown', '.wpeo-point-input textarea', function(event) { wpeo_point.keydown(event, jQuery(this)); } );
 		jQuery( document ).on( 'click', '.wpeo-task-add-new-point', function() { wpeo_point.create( jQuery( this ) ); } );
 
 		jQuery( document ).on( 'click', '.wpeo-send-point-to-trash', function() { wpeo_point.delete( jQuery( this ) ); } );
@@ -597,10 +597,9 @@ var wpeo_point = {
 	key_up: function(event, element ) {
 		var task_bloc = jQuery( element ).closest( '.wpeo-project-task' );
 
+
+
 		if( event.which == 13 ) {
-//			jQuery(document).off('keypress', '.wpeo-add-point textarea');
-//			task_bloc.find('.wpeo-task-add-new-point').click();
-//			return false;
 		}
 		else {
 			if(jQuery( element ).val().length == 0) {
@@ -610,6 +609,13 @@ var wpeo_point = {
 				task_bloc.find('.wpeo-task-add-new-point').css('opacity', 1);
 			}
 		}
+	},
+
+	keydown: function( event, element ) {
+		window.setTimeout(function() {
+			element[0].style.height = "auto";
+			element[0].style.height = element[0].scrollHeight + 'px';
+		}, 0);
 	},
 
 	/**
@@ -673,7 +679,7 @@ var wpeo_point = {
 
 			jQuery.eoajax( ajaxurl, data, function() {
 				jQuery( '.wpeo-project-task[data-id="' + this.task.id + '"] .wpeo-task-time-manage' ).html( this.task_header_information );
-				
+
 				jQuery( '.wpeo-project-task-' + object_id + ' .wpeo-project-task-time' ).text( this.task.option.time_info.elapsed );
 
 				if( completed ) {
@@ -796,10 +802,6 @@ var wpeo_point = {
          jQuery( element ).closest('.wpeo-task-point-use-toggle').find('ul:first').toggle(200, function() {
         	//  wpeo_task.grid.masonry();
          });
-	},
-
-	refresh_flextext: function() {
-		jQuery( '.wpeo-project-wrap .wpeo-point-input > textarea' ).flexText();
 	},
 
 	refresh_sortable: function() {
