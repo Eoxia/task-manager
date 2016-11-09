@@ -20,6 +20,7 @@
 		<div class="timeline-block-content">
 
 			<ul class="dashboard-month">
+				<?php echo apply_filters( 'tm_filter_timeline_summary_month_start', '', $user_id, $year, $month ); ?>
 				<li>
 					<span class="dashicons dashicons-calendar-alt"></span>
 					<?php _e( 'Working time', 'wpeotimeline-i18n' ); ?> :
@@ -51,6 +52,7 @@
 					<?php _e( 'Waste time', 'wpeotimeline-i18n' ); ?> : <strong><?php echo taskmanager\util\wpeo_util::convert_to_hours_minut( $waste_time ); ?></strong>
 				</li>
 				<?php endif; ?>
+				<?php echo apply_filters( 'tm_filter_timeline_summary_month_end', '', $user_id, $year, $month ); ?>
 			</ul>
 
 
