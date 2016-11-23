@@ -22,7 +22,7 @@ if ( ! class_exists( 'task_controller_01' ) ) {
 			add_action( 'init', array( &$this, 'callback_init' ), 1, 0 );
 
 			add_filter( 'task_manager_dashboard_title', array( $this, 'callback_dashboard_title' ) );
-			add_filter( 'task_manager_dashboard_filter', array( $this, 'callback_dashboard_filter' ) );
+			add_filter( 'task_manager_dashboard_filter', array( $this, 'callback_dashboard_filter' ), 12 );
 			add_filter( 'task_manager_dashboard_content', array( $this, 'callback_dashboard_content' ), 10, 2 );
 
 			add_filter( 'task_header_action', array( $this, 'callback_task_header_action' ), 10, 2 );

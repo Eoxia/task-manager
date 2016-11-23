@@ -421,6 +421,10 @@ class task_action_01 {
 
 				if( $key > -1 )
 					unset( $task->taxonomy['wpeo_tag'][$key] );
+
+					if( $_POST['tag_id'] == $archive_tag->term_id ) {
+						$task->status = 'publish';
+					}
 			}
 
 

@@ -21,7 +21,7 @@ class user_controller_01 extends user_ctr_01 {
 		// add_shortcode( 'wpeo_user', array( $this, 'callback_shortcode' ) );
 		add_filter( 'task_avatar', array( $this, 'callback_task_avatar' ), 10, 4 );
 
-		add_filter( 'task_manager_dashboard_filter', array( $this, 'callback_task_manager_dashboard_filter' ), 11, 2 );
+		add_filter( 'task_manager_dashboard_filter', array( $this, 'callback_task_manager_dashboard_filter' ), 10, 2 );
 		add_filter( 'task_manager_dashboard_search', array( $this, 'callback_task_manager_dashboard_search' ), 10, 2 );
 		add_filter( 'task_footer', array( $this, 'callback_task_footer' ), 10, 2 );
 		add_filter( 'task_window_footer_task_controller', array( $this, 'callback_task_footer' ), 12, 2 );
