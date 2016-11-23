@@ -4,6 +4,9 @@
 	<li class="task-color">
 		<span class="white"></span><span class="red"></span><span class="yellow"></span><span class="green"></span><span class="blue"></span><span class="purple"></span>
 	</li>
+	<li class="wpeo-send-mail" data-nonce="<?php echo wp_create_nonce( 'wpeo_send_mail_task_' . $task->id ); ?>">
+		<span><?php _e( 'Notify affected users', 'task-manager' ); ?></span>
+	</li>
 	<li class="wpeo-export" data-nonce="<?php echo wp_create_nonce( 'wpeo_nonce_export_task_' . $task->id ); ?>">
 		<span><?php _e( 'Export task', 'task-manager' ); ?></span>
 	</li>

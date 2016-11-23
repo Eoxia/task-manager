@@ -24,7 +24,7 @@ jQuery( document ).ready( function() {
 
 var wpeo_global = {
 	init: function() {
-		jQuery( 'input[name="general-search"]' ).on( 'change', function() { wpeo_global.filter( jQuery( this ).val() ); } );
+		jQuery( 'input[name="general-search"]' ).on( 'keypress', function(e) { if( e.which == 13 ) { wpeo_global.filter( jQuery( this ).val() ); } } );
 		jQuery( '.open-search-filter' ).on( 'click', function() { jQuery( '.wpeo-header-search' ).toggleClass( 'active' ); } );
 		this.load();
 	},
@@ -149,6 +149,7 @@ var wpeo_task = {
 		jQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-task-open-dashboard', function() { wpeo_task.open_window( jQuery( this ) ); } );
 		/** Archive */
 		jQuery( document ).on( 'click', '.wpeo-send-task-to-archive', function() { wpeo_task.to_archive( jQuery( this ) ); } );
+		jQuery( document ).on( 'click', '.wpeo-send-mail', function() { wpeo_task.send_mail( jQuery( this ) ); } );
 		/** Export */
 		jQuery(document).on('click', '.wpeo-export', function() { wpeo_task.export( jQuery( this ) ) } );
 		jQuery(document).on('click', '.wpeo-export-comment', function() { wpeo_task.export_comment( jQuery( this ) ) } );
@@ -462,6 +463,20 @@ var wpeo_task = {
 		jQuery.eoajax( ajaxurl, data, function( ) {
 			wpeo_task.download_export( this.url_to_file, false );
 		});
+	},
+
+	send_mail: function( element ) {
+		var task_id = jQuery( element ).closest( '.wpeo-project-task' ).data( 'id' );
+
+		var data = {
+			action: 'send_mail',
+			id: task_id,
+			_wpnonce: jQuery( element ).data( 'nonce' ),
+		};
+
+		jQuery.eoajax( ajaxurl, data, function( ) {
+
+		} );
 	},
 
 	export_comment: function( element ) {

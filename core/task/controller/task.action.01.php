@@ -7,6 +7,7 @@ class task_action_01 {
 		add_action( 'wp_ajax_edit_task', array( $this, 'ajax_edit_task' ) );
 		add_action( 'wp_ajax_archive_task', array( $this, 'ajax_archive_task' ) );
 		add_action( 'wp_ajax_export_task', array( $this, 'ajax_export_task') );
+		add_action( 'wp_ajax_send_mail', array( $this, 'ajax_send_mail' ) );
 		add_action( 'wp_ajax_delete_task', array( $this, 'ajax_delete_task' ) );
 
 		add_action( 'wp_ajax_load_all_task', array( $this, 'ajax_load_all_task' ) );
@@ -268,6 +269,38 @@ class task_action_01 {
 		fclose( $fp );
 
 		wp_send_json_success( array( 'url_to_file' => $url_to_file ) );
+	}
+
+	public function ajax_send_mail() {
+		wpeo_check_01::check( 'wpeo_send_mail_task_' . $_POST['id'] );
+
+		global $task_controller;
+		$task = $task_controller->show( $_POST['id'] );
+
+		$owner_data = get_userdata( $task->option['user_info']['owner_id'] );
+		$multiple_recipients = array();
+
+		if ( !empty( $task->option['user_info']['affected_id'] ) ) {
+		  foreach ( $task->option['user_info']['affected_id'] as $user_id ) {
+				$user_info = get_userdata( $user_id );
+				$multiple_recipients[] = $user_info->user_email;
+		  }
+		}
+
+		$subject = 'Task Manager: ';
+		$subject .= __( 'The task #' . $task->id . ' ' . $task->title, 'task-manager' );
+		$body = '<p>Cet email a été envoyé automatiquement par le bouton "Notifier utilisateur affectés"</p>';
+		$body .= '<h2>#' . $task->id . ' ' . $task->title . ' par ' . $owner_data->user_login . ' (' . $owner_data->user_email . ')</h2>';
+		$body .= '<h3>Point complété</h3>';
+		$body .= '<ul><li>test</li></ul>';
+		$body .= '<h3>Point incomplet</h3>';
+		$body .= '<ul><li>test</li></ul>';
+		$headers = array('Content-Type: text/html; charset=UTF-8');
+		$headers[] = 'From: Jimmy Latour <latour.jimmy@gmail.com>';
+
+		wp_mail( $multiple_recipients, $subject, $body, $headers );
+
+		wp_send_json_success();
 	}
 
 	/**
