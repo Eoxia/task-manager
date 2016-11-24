@@ -271,6 +271,11 @@ class task_action_01 {
 		wp_send_json_success( array( 'url_to_file' => $url_to_file ) );
 	}
 
+	/**
+	 * Send mail to users affected on the task.
+	 *
+	 * @return void
+	 */
 	public function ajax_send_mail() {
 		wpeo_check_01::check( 'wpeo_send_mail_task_' . $_POST['id'] );
 
@@ -291,12 +296,13 @@ class task_action_01 {
 		$subject .= __( 'The task #' . $task->id . ' ' . $task->title, 'task-manager' );
 		$body = '<p>Cet email a été envoyé automatiquement par le bouton "Notifier utilisateur affectés"</p>';
 		$body .= '<h2>#' . $task->id . ' ' . $task->title . ' par ' . $owner_data->user_login . ' (' . $owner_data->user_email . ')</h2>';
-		$body .= '<h3>Point complété</h3>';
-		$body .= '<ul><li>test</li></ul>';
-		$body .= '<h3>Point incomplet</h3>';
-		$body .= '<ul><li>test</li></ul>';
+		$body .= apply_filters( 'task_points_mail', $body, $task );
 		$headers = array('Content-Type: text/html; charset=UTF-8');
-		$headers[] = 'From: Jimmy Latour <latour.jimmy@gmail.com>';
+
+		$admin_email = get_bloginfo( 'admin_email' );
+		$blog_name = get_bloginfo( 'name' );
+
+		$headers[] = 'From: ' . $blog_name . ' <' . $admin_email . '>';
 
 		wp_mail( $multiple_recipients, $subject, $body, $headers );
 

@@ -24,6 +24,7 @@ if ( !class_exists( 'point_controller_01' ) ) {
 
 			add_filter( 'task_content', array( $this, 'callback_task_content' ), 10, 2 );
 			add_filter( 'task_export', array( $this, 'callback_task_export' ), 10, 2 );
+			add_filter( 'task_points_mail', array( $this, 'callback_task_points_mail' ), 10, 2 );
 
 			add_filter( 'point_action_before', array( $this, 'callback_point_action_before' ), 10, 2 );
 			add_filter( 'point_action_after', array( $this, 'callback_point_action_after' ), 10, 2 );
@@ -79,6 +80,33 @@ if ( !class_exists( 'point_controller_01' ) ) {
 					$string .= '     ' . $point->id . ' - ' . $point->content . "\r\n";
 				}
 			}
+
+			return $string;
+		}
+
+		public function callback_task_points_mail( $string, $task ) {
+			if ( !empty( $task->option['task_info']['order_point_id'] ) ) {
+				$list_point = $this->index( $task->id, array( 'comment__in' => $task->option['task_info']['order_point_id'], 'status' => -34070 ) );
+				$list_point_completed = array_filter( $list_point, function( $point ) { return $point->option['point_info']['completed'] === true; } );
+				$list_point_uncompleted = array_filter( $list_point, function( $point ) { return $point->option['point_info']['completed'] === false; } );
+			}
+
+			$string .= '<h3>Uncompleted</h3>';
+			if ( ! empty( $list_point_uncompleted ) ) :
+				$string .= '<ul>';
+			  foreach ( $list_point_uncompleted as $element ) :
+					$string .= '<li>#' . $element->id . ' - ' . $element->content . '</li>';
+			  endforeach;
+				$string .= '</ul>';
+			endif;
+			$string .= '<h3>Completed</h3>';
+			if ( ! empty( $list_point_completed ) ) :
+				$string .= '<ul>';
+			  foreach ( $list_point_completed as $element ) :
+					$string .= '<li>#' . $element->id . ' - ' . $element->content . '</li>';
+			  endforeach;
+				$string .= '</ul>';
+			endif;
 
 			return $string;
 		}
