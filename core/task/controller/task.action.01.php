@@ -490,7 +490,7 @@ class task_action_01 {
 
 		taskmanager\log\eo_log( 'wpeo_project',
 		array(
-			'object_id' => $_POST['object_id'],
+			'object_id' => $_POST['task_id'],
 			'message' => sprintf( __( 'The owner for the task #%d has been changed to %d by the user #%d', 'task-manager'), $_POST['task_id'], $_POST['owner_id'], get_current_user_id() )
 		), 0 );
 
