@@ -296,7 +296,7 @@ class task_action_01 {
 		$subject .= __( 'The task #' . $task->id . ' ' . $task->title, 'task-manager' );
 		$body = __( '<p>This mail has been send automatically</p>', 'task-manager' );
 		$body .= '<h2>#' . $task->id . ' ' . $task->title . ' send by ' . $sender_data->user_login . ' (' . $sender_data->user_email . ')</h2>';
-		$body .= apply_filters( 'task_points_mail', $body, $task );
+		$body = apply_filters( 'task_points_mail', $body, $task );
 		$headers = array( 'Content-Type: text/html; charset=UTF-8' );
 
 		$admin_email = get_bloginfo( 'admin_email' );
