@@ -14,6 +14,9 @@ Task Manager allows you to create tasks, assign users and then manage their time
 # Categorize
 With Task Manager categorize your tasks and find them .You can customize your categories as you like .Once they are finished, they are archived .
 
+# Notify
+Send task to your team with an email notification.
+
 # Comments
 Each user can add comments inside his duties, he can then enter the date and time spent.
 

@@ -4,7 +4,7 @@ Donate link:
 Tags: task, tasks, management, manager, collaboration, dashboard, organizer, project management, project manager, projects, task lists, task management, task manager, Time Tracking, to do, to do list, todo, todo list
 Requires at least: 4.4.0
 Tested up to: 4.6.1
-Stable tag: 1.3.2.0
+Stable tag: 1.3.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,6 +21,9 @@ Task Manager allows you to create tasks, assign users and then manage their time
 
 = Categorize =
 With Task Manager **categorize** your tasks and find them. You can customize your categories as you like. Once they are finished, they are archived.
+
+= Notify =
+Send task to your team with an email notification.
 
 = Comments =
 Each user can add comments inside his duties, he can then enter the date and **time spent**.
@@ -60,16 +63,26 @@ No questions asked yet.
 
 == Changelog ==
 
+= 1.3.3.0 =
+
+= Improvment =
+ * 5464 - Timeline : Add filters, see https://github.com/Eoxia/task-manager/wiki/Hook-Reference.
+ * 5555 - General : Added "Notify affected users" button on the context menu in task to send email notification with the task content to affected users.
+ * 5600 - General : Translation updated.
+
+= Fix =
+ * 5557 - Dashboard : The search system now works when the term is the same as the previously searched term.
+
 = 1.3.2.0 =
 = Improvment =
- * 4348 - Timeline : Week summary added
+ * 4348 - Timeline : Week summary added.
  * 4349 - Dashboard : New search system with advanced method.
- * 4354 - General : Shortcut added. Type : "CTRL + Enter" to quickly add a point
- * 4350 - Task : Manage your due time with the new interface : Time history
+ * 4354 - General : Shortcut added. Type : "CTRL + Enter" to quickly add a point.
+ * 4350 - Task : Manage your due time with the new interface : Time history.
  * 4352 - Task : Custom your tasks with so many colors !
- * 4353 - Task : You can see the task creator next to the task title
- * 4351 - Pointing time window : The pointing time window has been simplified
- * 4352 - Increased compatibility with the plugin Digirisk
+ * 4353 - Task : You can see the task creator next to the task title.
+ * 4351 - Pointing time window : The pointing time window has been simplified.
+ * 4352 - Increased compatibility with the plugin Digirisk.
 
 = 1.3.1.5 =
 = Improvment =
@@ -80,27 +93,27 @@ No questions asked yet.
 
 = 1.3.1.4 =
 = Fix =
- * 4323 - General : The plugin no longer in conflict with other plugins
+ * 4323 - General : The plugin no longer in conflict with other plugins.
  * 4322 - Timeline : The module is now enabled.
  * 4321 - Dashboard : The "new task" button display now a new task even if a filter is active.
 
 = 1.3.1.3 =
 = Fix =
- * 4208 - Backend : Fix filter problem
- * 4209 - Backend : Fix IE11 List task overflow
+ * 4208 - Backend : Fix filter problem.
+ * 4209 - Backend : Fix IE11 List task overflow.
 
 = 1.3.1.2 =
 = Fix =
- * 4188 - Backend : Fix filter problem
+ * 4188 - Backend : Fix filter problem.
 
 = 1.3.1.1 =
 = Fix =
- * 4160 - Fix log fatal error
+ * 4160 - Fix log fatal error.
 
 = 1.3.1.0 =
 = Improvment =
  * 3729 - General : The readme file has beed updated.
- * 3917 - General : The architecture of the plugin files and folder its compliance with the standard of eoxia
+ * 3917 - General : The architecture of the plugin files and folder its compliance with the standard of eoxia.
  * 3928 - General : Screenshots are now in the repository of Wordpress.
  * 3929 - General : Add multiple filters to enable developpers customized the dashboard. (See the docs below).
  * 3945 - General : Prints the total number of points.
@@ -121,19 +134,19 @@ No questions asked yet.
  * 3732 - Timeline : This module is temporarily disabled.
 
  = Fix =
- * 3731 - Timeline : The user change affected over the arrows pointing to the left
+ * 3731 - Timeline : The user change affected over the arrows pointing to the left.
  * 3727 - Backend : All form is reset after sended.
  * 3725 - Frontend : Javascrit is now enabled.
 
 = 1.3.0.1 =
 = Amélioration / Improvment =
- * 3435 - Backend : Ajout de la date de fin prévue
- * 3436 - Backend : Ajout d'un champ permettant d'associer une tâche vers un élément
- * 3454 - Ajout de traduction supplémentaire
+ * 3435 - Backend : Ajout de la date de fin prévue.
+ * 3436 - Backend : Ajout d'un champ permettant d'associer une tâche vers un élément.
+ * 3454 - Ajout de traduction supplémentaire.
 
  = Correction / Fix =
- * 3433 - Backend : initiales des avatars sont maintenant en majuscules
- * 3452 - Le plugin est maintenant prêt pour la traduction : https://translate.wordpress.org/projects/wp-plugins/task-manager
+ * 3433 - Backend : initiales des avatars sont maintenant en majuscules.
+ * 3452 - Le plugin est maintenant prêt pour la traduction : https://translate.wordpress.org/projects/wp-plugins/task-manager.
 
 = 1.3.0.0 =
 = Amélioration / Improvment =
@@ -175,96 +188,96 @@ No questions asked yet.
 
 = 1.2.1.6 =
 = Correction / Fix =
- * 2957 - Correction du frontend pour faire une demande de tâche
+ * 2957 - Correction du frontend pour faire une demande de tâche.
 
 = 1.2.1.5 =
 = Correction / Fix =
- * Fix du log
+ * Fix du log.
 
 = 1.2.1.4 =
 = Correction / Fix =
- * Fix commit
+ * Fix commit.
 
 = 1.2.1.3 =
 = Correction / Fix =
- * Remove wpeo_users folder in module folder
+ * Remove wpeo_users folder in module folder.
 
 = 1.2.1.2 =
 = Correction / Fix =
- * wpeo_util file already declared
+ * wpeo_util file already declared.
 
 = 1.2.1.1 =
 = Correction / Fix =
- * Change log
+ * Change log.
 
 = 1.2.1.0 =
 = Amélioration / Improvment =
  * 2557 - La fenêtre de droite n'est plus afficher à l'ouverture la page / The right window isn't displayed on the opening page.
- * 2558 - Le slug de la tâche s'adapte au titre / The task slug adapt from the title
- * 2559 - Affiches toutes les tâches associées au client ou à leurs commandes dans le compte client
- * 2561 - Ajout des nonces de WordPress pour la sécurité
- * 2562 - Ne génère plus 2 caractères d'affichage inatendu lors de l'activation
- * 2569 - Ajout du shortcode [wpeo_task id='n'] pour afficher une tâche dans le front
- * 2572 - Affiches les gravatars sur les utilisateurs / Display gravatar on users
- * 2579 - Le bouton "voir la tâche" n'est plus disponible
+ * 2558 - Le slug de la tâche s'adapte au titre / The task slug adapt from the title.
+ * 2559 - Affiches toutes les tâches associées au client ou à leurs commandes dans le compte client.
+ * 2561 - Ajout des nonces de WordPress pour la sécurité.
+ * 2562 - Ne génère plus 2 caractères d'affichage inatendu lors de l'activation.
+ * 2569 - Ajout du shortcode [wpeo_task id='n'] pour afficher une tâche dans le front.
+ * 2572 - Affiches les gravatars sur les utilisateurs / Display gravatar on users.
+ * 2579 - Le bouton "voir la tâche" n'est plus disponible.
  * 2581 - Traduction du texte : Write your point here... en Écrivez votre point ici...
- * 2590 - Animation quand on ajoutes et supprimes un point
- * 2591 - Animation quand on modifie un utilisateur
- * 2592 - Animation à la fenêtre de droite
- * 2604 - On peut maintenant changer le responsable
- * 2606 - Toutes les réponses des requêtes AJAX sont maintenant en JSON
+ * 2590 - Animation quand on ajoutes et supprimes un point.
+ * 2591 - Animation quand on modifie un utilisateur.
+ * 2592 - Animation à la fenêtre de droite.
+ * 2604 - On peut maintenant changer le responsable.
+ * 2606 - Toutes les réponses des requêtes AJAX sont maintenant en JSON.
  * 2641 - On peut maintenant filtrer les tâches des autres utilisateurs pour les voir.
  * 2643 - Quand l'extension WPShop est activée, on peut maintenant filtrer les tâches par clients/commandes.
- * 2649 - Ajout d'un préfixe devant les catégories dans le code HTML
- * 2654 - Le formulaire pour ajouter un commentaire à un point à été déplacé en haut de la liste des commentaires
- * 2657 - Ajout des couleurs sur les utilisateurs
- * 2658 - Toutes les méthodes AJAX laisses maintenant une trace dans le log
- * 2665 - Ajout des droits
- * 2689 - Relancer le calcul du temps des tâches manuellement, ajout du bouton "recompiler le temps"
- * 2707 - On peut maintenant transférer les points sur une tâche vers une autre
- * 2741 - Le bouton "Recompile time" est caché
- * 2742 - Le client WPShop peut ajouter un commentaire sur un point
- * 2743 - Le client WPShop peut faire une demande de tâche
- * 2770 - Manque la date de création de la tache
- * 2790 - Ajout de CSS pour les nouvelles fonctionnalitées
- * 2860 - Nouvelle traduction
- * 2704 - On peut déplacer les points dans une tâche
- * 2870 - Infobulle sur les utilisateurs
+ * 2649 - Ajout d'un préfixe devant les catégories dans le code HTML.
+ * 2654 - Le formulaire pour ajouter un commentaire à un point à été déplacé en haut de la liste des commentaires.
+ * 2657 - Ajout des couleurs sur les utilisateurs.
+ * 2658 - Toutes les méthodes AJAX laisses maintenant une trace dans le log.
+ * 2665 - Ajout des droits.
+ * 2689 - Relancer le calcul du temps des tâches manuellement, ajout du bouton "recompiler le temps".
+ * 2707 - On peut maintenant transférer les points sur une tâche vers une autre.
+ * 2741 - Le bouton "Recompile time" est caché.
+ * 2742 - Le client WPShop peut ajouter un commentaire sur un point.
+ * 2743 - Le client WPShop peut faire une demande de tâche.
+ * 2770 - Manque la date de création de la tache.
+ * 2790 - Ajout de CSS pour les nouvelles fonctionnalitées.
+ * 2860 - Nouvelle traduction.
+ * 2704 - On peut déplacer les points dans une tâche.
+ * 2870 - Infobulle sur les utilisateurs.
 
 = Correction / Fix =
- * 2676 - Augmenter la taille des gravatar dans les USER (32x32 actuellement) en 50x50 pour éviter la pixellisation
- * 2722 - Clear filter quand la tâche est fermé
- * 2724 - Avatar vide responsable
+ * 2676 - Augmenter la taille des gravatar dans les USER (32x32 actuellement) en 50x50 pour éviter la pixellisation.
+ * 2722 - Clear filter quand la tâche est fermé.
+ * 2724 - Avatar vide responsable.
  * 2831 - Lorsque qu'on appuie entrée pour envoyer un point vers une autre tâche, la page admin-ajax.php ne s'affiche plus.
  * 2832 - On ne peut plus envoyer un point vers une tâche inexistante.
  * 2833 - La croix pour fermer la fenêtre de droite est maintenant actif coté post type.
  * 2834 - Résolution du problème de Masonry qui faisait apparaître la fenêtre de droite en dessous des autres fenêtres coté post type.
- * 2854 - Quand on supprime une tâche, toutes les tâches sont affichées selon les filtres sélectionné
+ * 2854 - Quand on supprime une tâche, toutes les tâches sont affichées selon les filtres sélectionné.
 
 = 1.2 =
- * 2021 - Affiches les taches actives pour la personne en premier / Display actives tasks for the user in the first display
- * 2160 - Traduction / Translate
+ * 2021 - Affiches les taches actives pour la personne en premier / Display actives tasks for the user in the first display.
+ * 2160 - Traduction / Translate.
  * 2219 - On peut maintenant éditer un commentaire / Now you can edit a comment.
- * 2233 - Ajout des initiales pour l'utilisateur qui est responsable de la tâche / Add initial for the user who is in charge of the task
+ * 2233 - Ajout des initiales pour l'utilisateur qui est responsable de la tâche / Add initial for the user who is in charge of the task.
  * 2235 - Supprimes le bouton "Archive" et utilises une catégorie pour gérer les archives / Delete the "Archive" button and manage archives with a category.
- * 2437 - Ajoutes la class "active" pour le point ciblé / Add class "active" for the target point
- * 2438 - Ajoutes une dashicons "close" pour fermer la fenêtre à droite / Add dashicons "close" for exit the right window
- * 2440 - Gravatar dans le header de la fenêtre de droite / Gravatar in the header on the right window
- * 2441 - Lors de l'édition d'un commentaire ajoutes un loader / When edit comment add a loader
- * 2443 - Ajoutes l'utilisateur qui à crée le point / Add the creator of the point
- * 2491 - Nouveau template pour la fenêtre de droite des points / New template for the right window points
- * 2528 - Voir si le point est completé ou pas dans la fenêtre à droite / View if the point is completed or not in the right window
- * 2529 - Voir le nombre de commentaire sur un point dans la fenêtre à droite / View the number of comment on the point in the right window
- * 2534 - Bouton mes tâches affectées / Button affected task
+ * 2437 - Ajoutes la class "active" pour le point ciblé / Add class "active" for the target point.
+ * 2438 - Ajoutes une dashicons "close" pour fermer la fenêtre à droite / Add dashicons "close" for exit the right window.
+ * 2440 - Gravatar dans le header de la fenêtre de droite / Gravatar in the header on the right window.
+ * 2441 - Lors de l'édition d'un commentaire ajoutes un loader / When edit comment add a loader.
+ * 2443 - Ajoutes l'utilisateur qui à crée le point / Add the creator of the point.
+ * 2491 - Nouveau template pour la fenêtre de droite des points / New template for the right window points.
+ * 2528 - Voir si le point est completé ou pas dans la fenêtre à droite / View if the point is completed or not in the right window.
+ * 2529 - Voir le nombre de commentaire sur un point dans la fenêtre à droite / View the number of comment on the point in the right window.
+ * 2534 - Bouton mes tâches affectées / Button affected task.
 
 = 1.1 =
- * Archive / Archiver
- * Add the button "View task" / Ajout du bouton "Voir la tâche"
- * Use the Heart WordPress to refresh the content of the task / Utilises le cœur de WordPress pour actualiser le contenu d'une tâche
- * Added block "Screen Options" to manage the user's viewing preferences / Ajout du bloc "Options de l'écran" pour gérer les préférences d'affichage de l'utilisateur
- * Manage display for tasks associated to another element / Gestion de l'affichage des tâches affectées à un élément
- * Create a controller module with the user / Créer un module avec le controller user
- * Update some class CSS / Met à jour quelques élements CSS
+ * Archive / Archiver.
+ * Add the button "View task" / Ajout du bouton "Voir la tâche".
+ * Use the Heart WordPress to refresh the content of the task / Utilises le cœur de WordPress pour actualiser le contenu d'une tâche.
+ * Added block "Screen Options" to manage the user's viewing preferences / Ajout du bloc "Options de l'écran" pour gérer les préférences d'affichage de l'utilisateur.
+ * Manage display for tasks associated to another element / Gestion de l'affichage des tâches affectées à un élément.
+ * Create a controller module with the user / Créer un module avec le controller user.
+ * Update some class CSS / Met à jour quelques élements CSS.
 
 
 = 1.0 =
@@ -272,4 +285,4 @@ No questions asked yet.
  * Créer un point / Create a point.
  * Organiser vos tâches / Organizing your tasks.
  * Affecter des utilisateurs / Assign users.
- * Exporter une tâche ou plusieurs tâches / Export a task or multiple tasks ( txt )
+ * Exporter une tâche ou plusieurs tâches / Export a task or multiple tasks ( txt ).

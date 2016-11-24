@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2016-10-28 10:57+0200\n"
-"PO-Revision-Date: 2016-10-28 16:06+0200\n"
+"POT-Creation-Date: 2016-11-24 16:24+0100\n"
+"PO-Revision-Date: 2016-11-24 16:25+0100\n"
 "Last-Translator: \n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Poedit 1.8\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html__\n"
@@ -77,17 +77,17 @@ msgid ""
 msgstr ""
 "Le point #%d à été mis à jour avec le contenu : %s et mis sur complété : %s"
 
-#: core/point/controller/point.controller.01.php:67
+#: core/point/controller/point.controller.01.php:68
 msgid "Uncompleted"
 msgstr "Terminé"
 
-#: core/point/controller/point.controller.01.php:75
-#: core/task/controller/task.action.01.php:324
+#: core/point/controller/point.controller.01.php:76
+#: core/task/controller/task.action.01.php:363
 msgid "Completed"
 msgstr "Complété(s)"
 
-#: core/point/controller/point.controller.01.php:210
-#: core/point/controller/point.controller.01.php:216
+#: core/point/controller/point.controller.01.php:230
+#: core/point/controller/point.controller.01.php:236
 msgid "Point not found"
 msgstr "Point non trouvé"
 
@@ -187,18 +187,18 @@ msgstr "à"
 msgid "Add comment"
 msgstr "Ajouter un commentaire"
 
-#: core/task/controller/task.action.01.php:68
+#: core/task/controller/task.action.01.php:69
 #: core/task/template/backend/button-add.php:3
 #: core/task/template/custom/main.php:7
 msgid "New task"
 msgstr "Nouvelle tâche"
 
-#: core/task/controller/task.action.01.php:77
+#: core/task/controller/task.action.01.php:78
 #, php-format
 msgid "The task #%d has been created by the user #%d"
 msgstr "La tâche #%d à été créer par l'utilisateur #%d"
 
-#: core/task/controller/task.action.01.php:115
+#: core/task/controller/task.action.01.php:116
 #, php-format
 msgid ""
 "The task #%d has been edited by the user #%d with the title : %s and the "
@@ -207,7 +207,7 @@ msgstr ""
 "La tâche #%d à été éditée par l'utilisateur #%d avec le titre : %s et le "
 "temps estimé %d"
 
-#: core/task/controller/task.action.01.php:126
+#: core/task/controller/task.action.01.php:127
 #, php-format
 msgid ""
 "The task #%d has been edited by the user #%d with the frontend info "
@@ -216,38 +216,46 @@ msgstr ""
 "La tâche #%d à été éditée par l'utilisateur #%d avec le option frontend "
 "display_user : %s et le display_time : %s"
 
-#: core/task/controller/task.action.01.php:247
+#: core/task/controller/task.action.01.php:248
 #, php-format
 msgid "The task #%d has been send to archive by the user #%d"
 msgstr "La tâche #%d à été envoyée en archive par l'utilisateur #%d"
 
-#: core/task/controller/task.action.01.php:295
+#: core/task/controller/task.action.01.php:296
+msgid "The task #"
+msgstr "La tâche #"
+
+#: core/task/controller/task.action.01.php:297
+msgid "<p>This mail has been send automatically</p>"
+msgstr "<p>Ce courrier a été envoyé automatiquement</p>"
+
+#: core/task/controller/task.action.01.php:334
 #, php-format
 msgid "The task #%d has been deleted by the user #%d"
 msgstr "La tâche #%d à été supprimée par l'utilisateur #%d"
 
-#: core/task/controller/task.action.01.php:336
+#: core/task/controller/task.action.01.php:375
 msgid "In Progress"
 msgstr "En cours"
 
-#: core/task/controller/task.action.01.php:363
+#: core/task/controller/task.action.01.php:402
 #, php-format
 msgid "The tasks %s has been exported by the user #%d"
 msgstr "Les tâches %s à été exportées par l'utilisateur #%d"
 
-#: core/task/controller/task.action.01.php:412
+#: core/task/controller/task.action.01.php:451
 #, php-format
 msgid "The tag %d has selected for the task #%d by the user #%d"
 msgstr ""
 "La catégorie %d à été sélectionné pour la tâche #%d par l'utilisateur #%d"
 
-#: core/task/controller/task.action.01.php:420
+#: core/task/controller/task.action.01.php:459
 #, php-format
 msgid "The tag %d has deselected for the task #%d by the user #%d"
 msgstr ""
 "La catégorie %d à été désélectionné pour la tâche #%d par l'utilisateur #%d"
 
-#: core/task/controller/task.action.01.php:451
+#: core/task/controller/task.action.01.php:494
 #, php-format
 msgid "The owner for the task #%d has been changed to %d by the user #%d"
 msgstr ""
@@ -275,24 +283,24 @@ msgid "to the task"
 msgstr "pour la tâche"
 
 #: core/task/template/backend/task-header-button.php:8
+msgid "Notify affected users"
+msgstr "Notifier les utilisateurs affectés"
+
+#: core/task/template/backend/task-header-button.php:11
 msgid "Export task"
 msgstr "Exporter la tâche"
 
-#: core/task/template/backend/task-header-button.php:11
+#: core/task/template/backend/task-header-button.php:14
 msgid "Archive task"
 msgstr "Archiver la tâche"
 
-#: core/task/template/backend/task-header-button.php:14
+#: core/task/template/backend/task-header-button.php:17
 msgid "Delete task"
 msgstr "Supprimer la tâche"
 
 #: core/task/template/backend/task-header.php:18
 msgid "Options of task"
 msgstr "Option de la tâche"
-
-#: core/task/template/backend/time-elapsed.php:3
-msgid "Elapsed time : "
-msgstr "Temps passé : "
 
 #: core/task/template/backend/window-task.php:16
 #: core/task/template/backend/window/sub-header.php:10
@@ -403,10 +411,6 @@ msgstr "tâche"
 msgid "Paramaters"
 msgstr "Paramètres"
 
-#: module/history-time/template/backend/history-time-task-header-estimated.php:12
-msgid "Time estimated : "
-msgstr "Temps estimé : "
-
 #: module/history-time/template/backend/history-time-task-list.php:12
 msgid "Enter a new due time"
 msgstr "Nouvelle date voulu"
@@ -505,38 +509,38 @@ msgstr "Créer le point #"
 msgid "Create the task #"
 msgstr "Créer la tâche #"
 
-#: module/timeline/template/backend/summary-month.php:25
+#: module/timeline/template/backend/summary-month.php:26
 #: module/timeline/template/backend/summary-week.php:20
 #: module/timeline/template/backend/user-profile.php:7
 msgid "Working time"
 msgstr "Temps de travail"
 
-#: module/timeline/template/backend/summary-month.php:29
+#: module/timeline/template/backend/summary-month.php:30
 #: module/timeline/template/backend/summary-week.php:24
 msgid "Setup working time"
 msgstr "Configurer le temps de travail"
 
-#: module/timeline/template/backend/summary-month.php:34
+#: module/timeline/template/backend/summary-month.php:35
 #: module/timeline/template/backend/summary-week.php:29
 msgid "Worked time"
 msgstr "Temps travaillé"
 
-#: module/timeline/template/backend/summary-month.php:38
+#: module/timeline/template/backend/summary-month.php:39
 #: module/timeline/template/backend/summary-week.php:33
 msgid "Task(s) created"
 msgstr "Tâche(s) créé(s)"
 
-#: module/timeline/template/backend/summary-month.php:42
+#: module/timeline/template/backend/summary-month.php:43
 #: module/timeline/template/backend/summary-week.php:37
 msgid "Point(s) created"
 msgstr "Point(s) créé(s)"
 
-#: module/timeline/template/backend/summary-month.php:46
+#: module/timeline/template/backend/summary-month.php:47
 #: module/timeline/template/backend/summary-week.php:41
 msgid "Completed point(s)"
 msgstr "Point(s) complété(s)"
 
-#: module/timeline/template/backend/summary-month.php:51
+#: module/timeline/template/backend/summary-month.php:52
 #: module/timeline/template/backend/summary-week.php:46
 msgid "Waste time"
 msgstr "Temps gaspillé"
@@ -576,6 +580,12 @@ msgstr "Rechercher un client WPShop"
 #: module/wpshop/template/frontend/menu.php:6
 msgid "My task"
 msgstr "Mes tâches"
+
+#~ msgid "Elapsed time : "
+#~ msgstr "Temps passé : "
+
+#~ msgid "Time estimated : "
+#~ msgstr "Temps estimé : "
 
 #~ msgid "Logs"
 #~ msgstr "Journaux"
