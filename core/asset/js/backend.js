@@ -26,16 +26,18 @@ var wpeo_global = {
 	init: function() {
 		jQuery( 'input[name="general-search"]' ).on( 'keypress', function(e) { if( e.which == 13 ) { wpeo_global.filter( jQuery( this ).val() ); } } );
 		jQuery( '.open-search-filter' ).on( 'click', function() { jQuery( '.wpeo-header-search' ).toggleClass( 'active' ); } );
-		this.load();
-	},
 
-	load: function() {
-		jQuery( '.isDate' ).datepicker( { dateFormat: 'yy-mm-dd' } );
 		jQuery( '.wpeo-project-wrap .wpeo-add-point .wpeo-point-input > textarea' ).keypress( function( event ) {
 			if ( event.which == 10 ) {
 				wpeo_point.create( jQuery( event.currentTarget ) );
 			}
 		} );
+		this.load();
+	},
+
+	load: function() {
+		jQuery( '.isDate' ).datepicker( { dateFormat: 'yy-mm-dd' } );
+
 
 		jQuery( '.wpeo-project-wrap .wpeo-task-point-sortable' ).sortable( {
 			handle: '.dashicons-screenoptions',
