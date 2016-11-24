@@ -282,22 +282,22 @@ class task_action_01 {
 		global $task_controller;
 		$task = $task_controller->show( $_POST['id'] );
 
-		$owner_data = get_userdata( $task->option['user_info']['owner_id'] );
+		$sender_data = wp_get_current_user();
 		$multiple_recipients = array();
 
-		if ( !empty( $task->option['user_info']['affected_id'] ) ) {
-		  foreach ( $task->option['user_info']['affected_id'] as $user_id ) {
+		if ( ! empty( $task->option['user_info']['affected_id'] ) ) {
+			foreach ( $task->option['user_info']['affected_id'] as $user_id ) {
 				$user_info = get_userdata( $user_id );
 				$multiple_recipients[] = $user_info->user_email;
-		  }
+			}
 		}
 
 		$subject = 'Task Manager: ';
 		$subject .= __( 'The task #' . $task->id . ' ' . $task->title, 'task-manager' );
-		$body = '<p>Cet email a été envoyé automatiquement par le bouton "Notifier utilisateur affectés"</p>';
-		$body .= '<h2>#' . $task->id . ' ' . $task->title . ' par ' . $owner_data->user_login . ' (' . $owner_data->user_email . ')</h2>';
+		$body = __( '<p>This mail has been send automatically</p>', 'task-manager' );
+		$body .= '<h2>#' . $task->id . ' ' . $task->title . ' send by ' . $sender_data->user_login . ' (' . $sender_data->user_email . ')</h2>';
 		$body .= apply_filters( 'task_points_mail', $body, $task );
-		$headers = array('Content-Type: text/html; charset=UTF-8');
+		$headers = array( 'Content-Type: text/html; charset=UTF-8' );
 
 		$admin_email = get_bloginfo( 'admin_email' );
 		$blog_name = get_bloginfo( 'name' );

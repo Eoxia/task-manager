@@ -99,14 +99,6 @@ if ( !class_exists( 'point_controller_01' ) ) {
 			  endforeach;
 				$string .= '</ul>';
 			endif;
-			$string .= '<h3>Completed</h3>';
-			if ( ! empty( $list_point_completed ) ) :
-				$string .= '<ul>';
-			  foreach ( $list_point_completed as $element ) :
-					$string .= '<li>#' . $element->id . ' - ' . $element->content . '</li>';
-			  endforeach;
-				$string .= '</ul>';
-			endif;
 
 			return $string;
 		}
