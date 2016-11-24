@@ -32,6 +32,14 @@ var wpeo_global = {
 				wpeo_point.create( jQuery( event.currentTarget ) );
 			}
 		} );
+		jQuery( '.wpeo-point-input textarea' ).each( function() {
+			var element = jQuery( this )[0];
+			window.setTimeout(function() {
+				element.style.height = "auto";
+				element.style.height = element.scrollHeight + 'px';
+			}, 0);
+		} );
+
 		this.load();
 	},
 
