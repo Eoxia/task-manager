@@ -21,7 +21,7 @@ class wpeo_util {
 					if( is_dir ( $module_folder . $folder ) )
 						$child_folder_content = scandir( $module_folder . $folder );
 
-					if ( file_exists( $module_folder . $folder . '/' . $folder . '.php') ) {
+					if ( !is_dir( $module_folder . $folder . '/' . $folder . '.php' ) && file_exists( $module_folder . $folder . '/' . $folder . '.php') ) {
 						$f =  $module_folder . $folder . '/' . $folder . '.php';
 						include( $f );
 					}
