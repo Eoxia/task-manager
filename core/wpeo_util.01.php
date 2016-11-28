@@ -14,15 +14,16 @@ class wpeo_util {
 		$module_folder = WPEO_TASKMANAGER_PATH . $folder . '/';
 
 		/**  Check if the defined directory exists for reading and including the different modules   */
-		if( is_dir( $module_folder ) ) {
+		if ( is_dir( $module_folder ) ) {
 			$parent_folder_content = scandir( $module_folder );
 			foreach ( $parent_folder_content as $folder ) {
-				if ( $folder && substr( $folder, 0, 1) != '.' && !in_array( $folder, self::$array_exclude_module ) ) {
-					if( is_dir ( $module_folder . $folder ) )
-						$child_folder_content = scandir( $module_folder . $folder );
+				if ( $folder && substr( $folder, 0, 1) != '.' && $folder != 'index.php' && !in_array( $folder, self::$array_exclude_module ) ) {
+					// if ( is_dir( $module_folder . $folder ) ) {
+					// 	$child_folder_content = scandir( $module_folder . $folder );
+					// }
 
-					if ( !is_dir( $module_folder . $folder . '/' . $folder . '.php' ) && file_exists( $module_folder . $folder . '/' . $folder . '.php') ) {
-						$f =  $module_folder . $folder . '/' . $folder . '.php';
+					if ( file_exists( $module_folder . $folder . '/' . $folder . '.php' ) ) {
+						$f = $module_folder . $folder . '/' . $folder . '.php';
 						include( $f );
 					}
 				}
