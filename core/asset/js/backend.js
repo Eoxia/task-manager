@@ -111,11 +111,11 @@ var wpeo_global = {
 			jQuery( '.wpeo-project-task:visible:not(.wpeo-project-task:visible[data-affected-tag-id*="' + list_tag_id.join() + '"])' ).hide();
 		}
 
-		if( list_user_id != undefined ) {
+		if ( list_user_id != undefined ) {
 			jQuery( '.wpeo-project-task:visible:not(.wpeo-project-task:visible[data-affected-id*="' + list_user_id.join() + '"]):not(.wpeo-project-task:visible[data-owner-id*="' + list_user_id.join() + '"])' ).hide();
 		}
 
-		if( search != undefined ) {
+		if ( search != undefined ) {
 			jQuery( '.wpeo-project-task:visible' ).each( function() {
 				var synthesis_task = '';
 				synthesis_task += jQuery( this ).text();
@@ -123,7 +123,7 @@ var wpeo_global = {
 					synthesis_task += jQuery( this ).val() + ' ';
 				} );
 				synthesis_task = synthesis_task.replace( /\s+\s/g, ' ' ).trim();
-				if( synthesis_task.search( new RegExp( search, 'i' ) ) == -1 ) {
+				if ( synthesis_task.search( new RegExp( search, 'i' ) ) == -1 ) {
 					jQuery( this ).hide();
 				}
 			} );
@@ -149,20 +149,39 @@ var wpeo_task = {
 
 	event: function() {
 		/** Create task event */
-		jQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-project-new-task', function( event ) { wpeo_task.create( event, jQuery( this ) ); } );
+		jQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-project-new-task', function( event ) {
+ wpeo_task.create( event, jQuery( this ) );
+ } );
 		/** Edit time estimated event */
-		jQuery( '.wpeo-project-wrap' ).on( 'blur', '.wpeo-project-task-time-estimated', function() { wpeo_task.edit( jQuery( this ) ); } );
-		jQuery( '.wpeo-project-wrap' ).on( 'blur', '.wpeo-project-task-title', function() { wpeo_task.edit( jQuery( this ) ); } );
-		jQuery( '.wpeo-project-wrap' ).on( 'keydown', '.wpeo-project-task-title', function( e ) { if( e.which == 13 ) { jQuery( this ).blur(); }  } );
-		jQuery( '.wpeo-project-wrap' ).on( 'keyup', '.wpeo-project-task-title', function( e ) { wpeo_task.preview( jQuery( this ) ); } );
+		jQuery( '.wpeo-project-wrap' ).on( 'blur', '.wpeo-project-task-time-estimated', function() {
+ wpeo_task.edit( jQuery( this ) );
+ } );
+		jQuery( '.wpeo-project-wrap' ).on( 'blur', '.wpeo-project-task-title', function() {
+ wpeo_task.edit( jQuery( this ) );
+ } );
+		jQuery( '.wpeo-project-wrap' ).on( 'keydown', '.wpeo-project-task-title', function( e ) {
+ if ( e.which == 13 ) {
+ jQuery( this ).blur();
+ }
+  } );
+		jQuery( '.wpeo-project-wrap' ).on( 'keyup', '.wpeo-project-task-title', function( e ) {
+ wpeo_task.preview( jQuery( this ) );
+ } );
 		/** Open action panel **/
-		jQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-task-open-action', function() { wpeo_task.open_action( jQuery( this ).next('.task-header-action') ); } );
+		jQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-task-open-action', function() {
+ wpeo_task.open_action( jQuery( this ).next( '.task-header-action' ) );
+ } );
 		/** Open dashboard event */
-		//jQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-project-task-title', function() { wpeo_task.open_window( jQuery( this ) ); } );
-		jQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-task-open-dashboard', function() { wpeo_task.open_window( jQuery( this ) ); } );
+		//JQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-project-task-title', function() { wpeo_task.open_window( jQuery( this ) ); } );
+		jQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-task-open-dashboard', function() {
+ wpeo_task.open_window( jQuery( this ) );
+ } );
 		/** Archive */
-		jQuery( document ).on( 'click', '.wpeo-send-task-to-archive', function() { wpeo_task.to_archive( jQuery( this ) ); } );
-		jQuery( document ).on( 'click', '.wpeo-send-mail', function() { wpeo_task.send_mail( jQuery( this ) ); } );
+		jQuery( document ).on( 'click', '.wpeo-send-task-to-archive', function() {
+ wpeo_task.to_archive( jQuery( this ) );
+ } );
+		jQuery( document ).on( 'click', '.wpeo-send-mail', function() {
+ wpeo_task.send_mail( jQuery( this ) ); } );
 		/** Export */
 		jQuery(document).on('click', '.wpeo-export', function() { wpeo_task.export( jQuery( this ) ) } );
 		jQuery(document).on('click', '.wpeo-export-comment', function() { wpeo_task.export_comment( jQuery( this ) ) } );
@@ -594,6 +613,16 @@ var wpeo_point = {
 	},
 
 	event: function() {
+		var reduce_query_var = false;
+		function reduce_query( time = 1000, callback = function(){} ) {
+			if( !reduce_query_var ) {
+				reduce_query_var = true;
+				setTimeout( function() {
+					reduce_query_var = false;
+					callback();
+				}, time );
+			}
+		}
 		/** Créer un point */
 		jQuery( document ).on( 'keyup', '.wpeo-add-point textarea', function(event) { wpeo_point.key_up(event, jQuery(this)); } );
 		jQuery( document ).on( 'keydown', '.wpeo-point-input textarea', function(event) { wpeo_point.keydown(event, jQuery(this)); } );
@@ -602,9 +631,10 @@ var wpeo_point = {
 		jQuery( document ).on( 'click', '.wpeo-send-point-to-trash', function() { wpeo_point.delete( jQuery( this ) ); } );
 
 		jQuery( document ).on( 'click', '.wpeo-done-point', function( e ) { wpeo_point.switch_completed( e, jQuery( this ) ); } );
-		jQuery( document ).on( 'blur', '.wpeo-point-input .wpeo-point-textarea', function() { wpeo_point.edit( jQuery( this ) ); } );
+		jQuery( document ).on( 'blur paste input', '.wpeo-point-input .wpeo-point-textarea', function() { var element = jQuery( this ); reduce_query( 5000, function() { wpeo_point.edit( element ); } ); } );
+		/*jQuery( document ).on( 'blur', '.wpeo-point-input .wpeo-point-textarea', function() { wpeo_point.edit( jQuery( this ) ); } );
 		jQuery( document ).on( 'keyup', '.wpeo-point-input .wpeo-point-textarea', function() { wpeo_point.preview( jQuery( this ) ); } );
-		jQuery( document ).on( 'click', '.wpeo-point-input .wpeo-point-textarea', function() { wpeo_point.open_window( jQuery( this ) ); } );
+		jQuery( document ).on( 'click', '.wpeo-point-input .wpeo-point-textarea', function() { wpeo_point.open_window( jQuery( this ) ); } );*/
 
 		jQuery( document ).on( 'click', '.wpeo-task-point-use-toggle p', function( event ) { wpeo_point.toggle_completed( event, jQuery( this ) ); } );
 
@@ -724,8 +754,17 @@ var wpeo_point = {
 	edit: function( element ) {
 		var form = jQuery( element ).closest( '.form' );
 
+		var input = document.createElement('input');
+	    input.type = 'hidden';
+		input.id = "temporary_input";
+	    input.name = 'point[content]';
+	    input.value = form.find('*[name="point[content]"]').html();
+    	form.append(input);
+
 		jQuery.eoAjaxSubmit( form, { 'action': 'edit_point' }, function() {
 		} );
+
+		jQuery( '#temporary_input' ).remove();
 	},
 
 	preview: function( element ) {
