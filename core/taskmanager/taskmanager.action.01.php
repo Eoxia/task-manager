@@ -17,7 +17,8 @@ if( !class_exists( 'taskmanager_action_01' ) ) {
       $post_type = !empty( $_REQUEST['post_type'] ) ? ' AND post_type="' . $_REQUEST['post_type'] . '" ' : '';
 
       $query = 'SELECT ID, post_title FROM ' . $wpdb->posts . ' as P
-          WHERE post_title LIKE \'%' . $search . '%\' OR
+          WHERE ID LIKE \'%' . $search . '%\' OR
+		  post_title LIKE \'%' . $search . '%\' OR
           post_name LIKE \'%' . $search . '%\' ' . $post_type . '
           ORDER BY post_title ASC LIMIT 0,5';
 
