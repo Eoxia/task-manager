@@ -27,10 +27,11 @@ if( !class_exists( 'task_wpshop_controller_01' ) ) {
 
 		public function callback_my_account_content( $output, $dashboard_part ) {
 			if ( class_exists( 'ticket_controller_01' ) && taskmanager\util\wpeo_util::is_plugin_active( 'ticket/ticket.php' ) ) {
-				$this->my_account_content_ticket( $output, $dashboard_part );
+				$output = $this->my_account_content_ticket( $output, $dashboard_part );
 			} else {
-				$this->my_account_content( $output, $dashboard_part );
+				$output = $this->my_account_content( $output, $dashboard_part );
 			}
+			return $output;
 		}
 
 		public function callback_ticket_query_shortcode( $query ) {
@@ -76,11 +77,11 @@ if( !class_exists( 'task_wpshop_controller_01' ) ) {
 	    }
 
 		public function my_account_content( $output, $dashboard_part ) {
-			global $task_controller;
+			if( $dashboard_part == 'my-task' ) {
+				global $task_controller;
 
-			$backend = !empty( $_POST['backend'] ) ? true : false;
+				$backend = !empty( $_POST['backend'] ) ? true : false;
 
-			if( 'my-task' === $dashboard_part ) {
 				ob_start();
 				$list_task = $this->get_all_task_customer( !empty( $_POST['user_id'] ) ? $_POST['user_id'] : get_current_user_id() );
 				if ( empty( $_POST['user_id'] ) ) {
