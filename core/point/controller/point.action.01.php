@@ -7,6 +7,7 @@ class point_action_01 {
 		add_action( 'wp_ajax_delete_point', array( &$this, 'ajax_delete_point' ) );
 		add_action( 'wp_ajax_edit_point', array( &$this, 'ajax_edit_point' ) );
 		add_action( 'wp_ajax_edit_order_point', array( &$this, 'ajax_edit_order_point' ) );
+		add_action( 'wp_ajax_load_completed_point', array( &$this, 'ajax_load_completed_point' ) );
 
 		/** Dashboard */
 		add_action( 'wp_ajax_load_dashboard_point', array( &$this, 'ajax_load_dashboard_point' ) );
@@ -174,6 +175,35 @@ class point_action_01 {
 		$task_controller->update( $task );
 
 		wp_die();
+	}
+
+	/**
+	 * Charges les points complétés d'une tâche et renvoie la vue.
+	 *
+	 * @return void
+	 */
+	public function ajax_load_completed_point() {
+		check_ajax_referer( 'load_completed_point' );
+		global $task_controller, $point_controller;
+
+		$object_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+		$task = $task_controller->show( $object_id );
+		$list_point_completed = array();
+
+		if ( ! empty( $task->option['task_info']['order_point_id'] ) ) {
+			$list_point = $point_controller->index( $task->id, array( 'orderby' => 'comment__in', 'comment__in' => $task->option['task_info']['order_point_id'], 'status' => -34070 ) );
+			$list_point_completed = array_filter( $list_point, function( $point ) {
+				return true === $point->option['point_info']['completed'];
+			} );
+		}
+
+		ob_start();
+		if ( ! empty( $list_point_completed ) ) {
+			foreach ( $list_point_completed as $point ) {
+				require( wpeo_template_01::get_template_part( WPEO_POINT_DIR, WPEO_POINT_TEMPLATES_MAIN_DIR, 'backend', 'point' ) );
+			}
+		}
+		wp_send_json_success( array( 'template' => ob_get_clean() ) );
 	}
 
 	/**

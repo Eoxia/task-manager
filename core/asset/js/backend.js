@@ -779,7 +779,7 @@ var wpeo_point = {
 
 	edit_order: function( element ) {
 		var order_point_id 	= [];
-		var object_id 		= jQuery(element).find('.wpeo-object-id').val();
+		var object_id 		= jQuery(element).closest( '.wpeo-project-task' ).data( 'id' );
 
 		jQuery(element).find('.wpeo-task-li-point').each(function() {
 			order_point_id.push( jQuery( this ).data('id' ) );
@@ -823,10 +823,22 @@ var wpeo_point = {
 	toggle_completed: function( event, element ) {
 		event.preventDefault();
 
-		 jQuery( element ).find('.wpeo-point-toggle-arrow').toggleClass('dashicons-plus dashicons-minus');
-         jQuery( element ).closest('.wpeo-task-point-use-toggle').find('ul:first').toggle(200, function() {
-        	//  wpeo_task.grid.masonry();
-         });
+		jQuery( element ).find( '.wpeo-point-toggle-arrow' ).toggleClass( 'dashicons-plus dashicons-minus' );
+		jQuery( element ).closest( '.wpeo-task-point-use-toggle' ).find( 'ul:first' ).toggle( 200, function() {
+
+		});
+
+		if ( jQuery( element ).closest( '.wpeo-project-task' ).find( '.wpeo-task-point-completed img' ).length > 0 ) {
+			var data = {
+				action: 'load_completed_point',
+				_wpnonce: jQuery( element ).data( 'nonce' ),
+				task_id: jQuery( element ).closest( '.wpeo-project-task' ).data( 'id' ),
+			};
+
+			jQuery.eoajax( ajaxurl, data, function() {
+				jQuery( element ).closest( '.wpeo-project-task' ).find( '.wpeo-task-point-completed' ).html( this.template );
+			} );
+		}
 	},
 
 	refresh_sortable: function() {

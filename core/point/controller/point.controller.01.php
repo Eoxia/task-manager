@@ -1,14 +1,47 @@
 <?php
+/**
+ * Gestion des points
+ *
+ * @since 1.3.4.0
+ * @version 1.3.4.0
+ * @package Task-Manager\point
+ */
 
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 if ( !class_exists( 'point_controller_01' ) ) {
-	class point_controller_01 extends comment_ctr_01 {
+
+	/**
+	 * Gestion des points
+	 */
+	class Point_Controller_01 extends comment_ctr_01 {
+
+		/**
+		 * Le nom du modèle
+		 *
+		 * @var string
+		 */
 		protected $model_name 	= 'point_model_01';
+
+		/**
+		 * La clé principale du modèle
+		 *
+		 * @var string
+		 */
 		protected $meta_key		= 'wpeo_point';
 
-		/** Défini la route par défaut permettant d'accèder aux temps pointés depuis WP Rest API  / Define the default route for accessing to point time from WP Rest API */
+		/**
+		 * La route pour la rest API
+		 *
+		 * @var string
+		 */
 		protected $base = 'point';
+
+		/**
+		 * La version pour la rest API
+		 *
+		 * @var string
+		 */
 		protected $version = '0.1';
 
 		/**
@@ -33,19 +66,33 @@ if ( !class_exists( 'point_controller_01' ) ) {
 
 			/** Window */
 			add_filter( 'task_window_sub_header_point_controller', array( $this, 'callback_task_window_sub_header' ), 10, 2 );
-			//add_filter( 'task_window_information_point_controller', array( $this, 'callback_task_window_information' ), 10, 2 );
 			add_filter( 'task_window_action_point_controller', array( $this, 'callback_task_window_action' ), 10, 2 );
 			add_filter( 'task_window_footer_point_controller', array( $this, 'callback_task_window_footer' ), 10, 2 );
 		}
 
+		/**
+		 * Récupères la liste de tous les points d'une tâche
+		 *
+		 * @param  string        $string Le contenu du filtre.
+		 * @param  Task_Model_01 $task   Les données de la tâche.
+		 * @return string         Le contenu du filtre modifié
+		 *
+		 * @since 1.3.4.0
+		 * @version 1.3.4.0
+		 */
 		public function callback_task_content( $string, $task ) {
 			$list_point_completed = array();
 			$list_point_uncompleted = array();
 
-			if ( !empty( $task->option['task_info']['order_point_id'] ) ) {
+			if ( ! empty( $task->option['task_info']['order_point_id'] ) ) {
 				$list_point = $this->index( $task->id, array( 'orderby' => 'comment__in', 'comment__in' => $task->option['task_info']['order_point_id'], 'status' => -34070 ) );
-				$list_point_completed = array_filter( $list_point, function( $point ) { return $point->option['point_info']['completed'] === true; } );
-				$list_point_uncompleted = array_filter( $list_point, function( $point ) { return $point->option['point_info']['completed'] === false; } );
+				$list_point_completed = array_filter( $list_point, function( $point ) {
+					return true === $point->option['point_info']['completed'];
+				} );
+
+				$list_point_uncompleted = array_filter( $list_point, function( $point ) {
+					return false === $point->option['point_info']['completed'];
+				} );
 			}
 
 			ob_start();
@@ -298,6 +345,14 @@ if ( !class_exists( 'point_controller_01' ) ) {
 			}
 		}
 
+		/**
+		 * Appelle la vue pour faire le rendu.
+		 *
+		 * @param  integer $object_id              L'ID de la tâche.
+		 * @param  array   $list_point_completed   Le tableau des points complétés.
+		 * @param  array   $list_point_uncompleted Le tableau des points incompléts.
+		 * @return void
+		 */
 		public static function render_point( $object_id, $list_point_completed, $list_point_uncompleted ) {
 			$disabled_filter = apply_filters( 'point_disabled', '' );
 			require( wpeo_template_01::get_template_part( WPEO_POINT_DIR, WPEO_POINT_TEMPLATES_MAIN_DIR, 'backend', 'list', 'point' ) );
