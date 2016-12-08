@@ -15,7 +15,7 @@
 			</div>
 		</li>
 		<li>
-			<input type="text" name="point_time[content]" class="wpeo-point-comment" value="<?php echo $point_time->content; ?>" placeholder="<?php _e( 'Enter your comment here...', 'task-manager' ); ?>" />
+			<textarea name="point_time[content]" class="wpeo-point-comment"><?php echo $point_time->content; ?></textarea>
 		</li>
 		<li>
 			<span class="dashicons dashicons-clock"></span>

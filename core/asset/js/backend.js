@@ -611,7 +611,7 @@ var wpeo_point = {
 		jQuery( document ).on( 'click', '#wpeo-task-form-point-time .wpeo-open-point-time-form', function() { wpeo_point.update_form( jQuery( this ), true ); } );
 		jQuery( document ).on( 'click', '#wpeo-task-form-point-time .wpeo-submit', function() { wpeo_point.create_point_time( jQuery( this ) ); } );
 		jQuery( document ).on( 'click', '.wpeo-point-comment .wpeo-submit', function() { wpeo_point.edit_point_time_form( jQuery( this ) ); } );
-		jQuery( document ).on( 'keypress', '.wpeo-point-comment, .wpeo-point-time-elapsed', function( event ) { if( event.which == 13 ) { jQuery( this ).parent().find( '.wpeo-submit' ).click(); } } );
+		jQuery( document ).on( 'keypress', '.wpeo-point-comment, .wpeo-point-time-elapsed', function( event ) { if( event.which == 10 ) { jQuery( this ).parent().find( '.wpeo-submit' ).click(); } } );
 		jQuery( document ).on( 'click', '.wpeo-send-point-time-to-trash', function( event ) { wpeo_point.delete_point_time( event, jQuery( this ) ); } );
 		jQuery( document ).on( 'click', '.wpeo-point-time-edit-btn', function( event ) { wpeo_point.edit_point_time( event, jQuery( this ) ); });
 

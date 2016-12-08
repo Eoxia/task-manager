@@ -20,5 +20,5 @@
 			<span data-nonce="<?php echo wp_create_nonce( 'wpeo_nonce_delete_point_time_' . $time->id ); ?>" class="dashicons dashicons-no wpeo-send-point-time-to-trash"></span>
 		<?php endif; ?>
 	</li>
-	<li class="comment"><?php echo stripslashes( $time->content ); ?></li>
+	<li class="comment"><?php echo nl2br( stripslashes( $time->content ) ); ?></li>
 </ul>
