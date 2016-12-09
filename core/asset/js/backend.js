@@ -614,8 +614,8 @@ var wpeo_point = {
 
 	event: function() {
 		/** Créer un point */
-		jQuery( document ).on( 'keyup', '.wpeo-add-point .wpeo-point-textarea', function(event) { wpeo_point.key_up(event, jQuery(this)); } );
-		//jQuery( document ).on( 'keydown', '.wpeo-point-input textarea', function(event) { wpeo_point.keydown(event, jQuery(this)); } );
+		jQuery( document ).on( 'keyup', '.wpeo-add-point textarea', function(event) { wpeo_point.key_up(event, jQuery(this)); } );
+		jQuery( document ).on( 'keydown', '.wpeo-point-input textarea', function(event) { wpeo_point.keydown(event, jQuery(this)); } );
 		jQuery( document ).on( 'click', '.wpeo-task-add-new-point', function() { wpeo_point.create( jQuery( this ) ); } );
 
 		jQuery( document ).on( 'click', '.wpeo-send-point-to-trash', function() { wpeo_point.delete( jQuery( this ) ); } );
@@ -645,8 +645,9 @@ var wpeo_point = {
 	key_up: function(event, element ) {
 		var task_bloc = jQuery( element ).closest( '.wpeo-project-task' );
 
+
+
 		if( event.which == 13 ) {
-			wpeo_point.create( jQuery( element ) );
 		}
 		else {
 			if(jQuery( element ).val().length == 0) {
@@ -671,14 +672,6 @@ var wpeo_point = {
 	 */
 	create: function( element ) {
 		var form = jQuery( element ).closest( 'form' );
-
-		var input = document.createElement('input');
-	    input.type = 'hidden';
-		input.id = "temporary_input";
-	    input.name = 'point[content]';
-	    input.value = form.find('*[name="point[content]"]').html();
-    	form.append(input);
-
 		var bloc_task = jQuery( element ).closest( '.wpeo-project-task' );
 
 		jQuery( '.wpeo-project-wrap' ).off( 'click', '.wpeo-task-add-new-point' );
@@ -699,11 +692,8 @@ var wpeo_point = {
 
 			/** On met à jour l'interface */
 			wpeo_global.load();
-			//form.clearForm();
+			form.clearForm();
 		} );
-
-		form.find('*[name="point[content]"]').html( form.find('*[name="point[content]"]').data( 'placeholder' ) );
-		jQuery( '#temporary_input' ).remove();
 	},
 
 	/**
