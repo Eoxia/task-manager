@@ -29,7 +29,6 @@ if( !class_exists( 'taskmanager_controller_01' ) ) {
 		public function callback_admin_enqueue_scripts() {
 			if( WPEO_TASKMANAGER_DEBUG ) {
 				wp_enqueue_script( 'wpeo-chosen-js', WPEO_TASKMANAGER_ASSET_URL . '/js/chosen.jquery.min.js', array( "jquery" ), WPEO_TASKMANAGER_VERSION );
-				wp_enqueue_script( 'wpeo-flextext-js', WPEO_TASKMANAGER_ASSET_URL . '/js/flextext.min.js', array( "jquery" ), WPEO_TASKMANAGER_VERSION );
 				wp_enqueue_script( 'eoajax', WPEO_TASKMANAGER_ASSET_URL . '/js/eoajax.js', array( "jquery" ), WPEO_TASKMANAGER_VERSION );
 				wp_enqueue_script( 'wpeo-task-backend-js', WPEO_TASKMANAGER_ASSET_URL . '/js/backend.js', array( "jquery", "jquery-form", "jquery-ui-datepicker", "jquery-ui-sortable", 'jquery-ui-autocomplete', 'suggest' ), WPEO_TASKMANAGER_VERSION );
 			}
@@ -40,10 +39,8 @@ if( !class_exists( 'taskmanager_controller_01' ) ) {
 			wp_register_style( 'wpeo-task-css', WPEO_TASKMANAGER_ASSET_URL . '/css/style.css', '', WPEO_TASKMANAGER_VERSION );
 			wp_register_style( 'jquery-ui', '//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css', '', WPEO_TASKMANAGER_VERSION );
 
-			wp_register_style( 'wpeo-task-flextext-css', WPEO_TASKMANAGER_ASSET_URL . '/css/flextext.css', '', WPEO_TASKMANAGER_VERSION );
 			wp_register_style( 'wpeo-chosen-css', WPEO_TASKMANAGER_ASSET_URL . '/css/chosen.min.css', '', WPEO_TASKMANAGER_VERSION );
 			wp_enqueue_style( 'wpeo-task-css' );
-			wp_enqueue_style( 'wpeo-task-flextext-css' );
 			wp_enqueue_style( 'wpeo-chosen-css' );
 			wp_enqueue_style( 'dashicons' );
 			wp_enqueue_style( 'jquery-ui' );
