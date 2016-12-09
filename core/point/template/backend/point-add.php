@@ -11,7 +11,8 @@
       <ul>
         <li></li>
         <li class="wpeo-point-input">
-          <textarea name="point[content]" placeholder="<?php _e( 'Write your point here...', 'task-manager' ); ?>"></textarea>
+          <!-- <textarea name="point[content]" placeholder="<?php _e( 'Write your point here...', 'task-manager' ); ?>"></textarea> -->
+		  <div class="wpeo-point-textarea" name="point[content]" contenteditable="true" data-placeholder="<?php _e( 'Write your point here...', 'task-manager' ); ?>"><?php _e( 'Write your point here...', 'task-manager' ); ?></div>
         </li>
         <li>
           <div class="wpeo-task-add-new-point" title="<?php _e( 'Add this point', 'task-manager' ); ?>">
