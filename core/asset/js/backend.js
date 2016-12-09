@@ -613,16 +613,6 @@ var wpeo_point = {
 	},
 
 	event: function() {
-		var reduce_query_var = false;
-		function reduce_query( time = 1000, callback = function(){} ) {
-			if( !reduce_query_var ) {
-				reduce_query_var = true;
-				setTimeout( function() {
-					reduce_query_var = false;
-					callback();
-				}, time );
-			}
-		}
 		/** Créer un point */
 		jQuery( document ).on( 'keyup', '.wpeo-add-point textarea', function(event) { wpeo_point.key_up(event, jQuery(this)); } );
 		jQuery( document ).on( 'keydown', '.wpeo-point-input textarea', function(event) { wpeo_point.keydown(event, jQuery(this)); } );
@@ -631,7 +621,7 @@ var wpeo_point = {
 		jQuery( document ).on( 'click', '.wpeo-send-point-to-trash', function() { wpeo_point.delete( jQuery( this ) ); } );
 
 		jQuery( document ).on( 'click', '.wpeo-done-point', function( e ) { wpeo_point.switch_completed( e, jQuery( this ) ); } );
-		jQuery( document ).on( 'blur paste input', '.wpeo-point-input .wpeo-point-textarea', function() { var element = jQuery( this ); reduce_query( 5000, function() { wpeo_point.edit( element ); } ); } );
+		jQuery( document ).on( 'blur paste', '.wpeo-point-input .wpeo-point-textarea', function() { wpeo_point.edit( jQuery( this ) ); } );
 		/*jQuery( document ).on( 'blur', '.wpeo-point-input .wpeo-point-textarea', function() { wpeo_point.edit( jQuery( this ) ); } );
 		jQuery( document ).on( 'keyup', '.wpeo-point-input .wpeo-point-textarea', function() { wpeo_point.preview( jQuery( this ) ); } );
 		jQuery( document ).on( 'click', '.wpeo-point-input .wpeo-point-textarea', function() { wpeo_point.open_window( jQuery( this ) ); } );*/
