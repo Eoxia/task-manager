@@ -3971,18 +3971,19 @@
 .wpeo-project-wrap .wpeo-task-point li .wpeo-task-add-new-point:hover {
   cursor: pointer;
 }
-.wpeo-project-wrap .wpeo-task-point textarea {
-  padding-top: 10px;
+.wpeo-project-wrap .wpeo-task-point .wpeo-point-textarea {
+  padding: 5px;
   font-family: 'kalamregular';
   font-size: 14px;
+  width: 100%;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
   -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
-.wpeo-project-wrap .wpeo-task-point textarea:hover,
-.wpeo-project-wrap .wpeo-task-point textarea:focus {
+.wpeo-project-wrap .wpeo-task-point .wpeo-point-textarea:hover,
+.wpeo-project-wrap .wpeo-task-point .wpeo-point-textarea:focus {
   border-bottom: 1px solid rgba(0, 0, 0, 0.6);
 }
 .wpeo-project-wrap .wpeo-task-point-completed li .dashicons-screenoptions {

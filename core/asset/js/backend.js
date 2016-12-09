@@ -38,13 +38,6 @@ var wpeo_global = {
 				wpeo_point.create( jQuery( event.currentTarget ) );
 			}
 		} );
-		jQuery( '.wpeo-point-input textarea' ).each( function() {
-			var element = jQuery( this )[0];
-			window.setTimeout(function() {
-				element.style.height = 'auto';
-				element.style.height = element.scrollHeight + 'px';
-			}, 0 );
-		} );
 
 		this.load();
 	},
@@ -615,7 +608,6 @@ var wpeo_point = {
 	event: function() {
 		/** Créer un point */
 		jQuery( document ).on( 'keyup', '.wpeo-add-point textarea', function(event) { wpeo_point.key_up(event, jQuery(this)); } );
-		jQuery( document ).on( 'keydown', '.wpeo-point-input textarea', function(event) { wpeo_point.keydown(event, jQuery(this)); } );
 		jQuery( document ).on( 'click', '.wpeo-task-add-new-point', function() { wpeo_point.create( jQuery( this ) ); } );
 
 		jQuery( document ).on( 'click', '.wpeo-send-point-to-trash', function() { wpeo_point.delete( jQuery( this ) ); } );
@@ -623,8 +615,8 @@ var wpeo_point = {
 		jQuery( document ).on( 'click', '.wpeo-done-point', function( e ) { wpeo_point.switch_completed( e, jQuery( this ) ); } );
 		jQuery( document ).on( 'blur paste', '.wpeo-point-input .wpeo-point-textarea', function() { wpeo_point.edit( jQuery( this ) ); } );
 		/*jQuery( document ).on( 'blur', '.wpeo-point-input .wpeo-point-textarea', function() { wpeo_point.edit( jQuery( this ) ); } );
-		jQuery( document ).on( 'keyup', '.wpeo-point-input .wpeo-point-textarea', function() { wpeo_point.preview( jQuery( this ) ); } );
-		jQuery( document ).on( 'click', '.wpeo-point-input .wpeo-point-textarea', function() { wpeo_point.open_window( jQuery( this ) ); } );*/
+		jQuery( document ).on( 'keyup', '.wpeo-point-input .wpeo-point-textarea', function() { wpeo_point.preview( jQuery( this ) ); } );*/
+		jQuery( document ).on( 'click', '.wpeo-point-input .wpeo-point-textarea', function() { wpeo_point.open_window( jQuery( this ) ); } );
 
 		jQuery( document ).on( 'click', '.wpeo-task-point-use-toggle p', function( event ) { wpeo_point.toggle_completed( event, jQuery( this ) ); } );
 
@@ -637,15 +629,10 @@ var wpeo_point = {
 
 		jQuery( document ).on( 'click', '.wpeo-send-point-to-task', function( event ) { wpeo_point.send_point_to_task( event, jQuery( this ) ); } );
 		jQuery( document ).on( 'keypress', '.wpeo-window-dashboard #wpeo-point-option input[type="text"]', function( event ) { wpeo_point.key_up_text_send_point( event, jQuery( this ) ); } );
-
-		/** Pagination dernier commentaire */
-		jQuery( document ).on( 'click', '.wpeo-project-last-comment .last-comment-page', function( event ) { wpeo_point.pagination( event, jQuery( this ) ); } );
 	},
 
 	key_up: function(event, element ) {
 		var task_bloc = jQuery( element ).closest( '.wpeo-project-task' );
-
-
 
 		if( event.which == 13 ) {
 		}
@@ -657,13 +644,6 @@ var wpeo_point = {
 				task_bloc.find('.wpeo-task-add-new-point').css('opacity', 1);
 			}
 		}
-	},
-
-	keydown: function( event, element ) {
-		window.setTimeout(function() {
-			element[0].style.height = "auto";
-			element[0].style.height = element[0].scrollHeight + 'px';
-		}, 0);
 	},
 
 	/**
