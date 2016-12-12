@@ -3981,6 +3981,7 @@
   -o-transition: all 0.2s ease-out;
   -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
+  text-align: left;
 }
 .wpeo-project-wrap .wpeo-task-point .wpeo-point-textarea:hover,
 .wpeo-project-wrap .wpeo-task-point .wpeo-point-textarea:focus {
@@ -4344,6 +4345,7 @@
      -moz-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
+  font-family: 'kalamregular';
   position: relative;
   padding: 0px 0 10px 0;
 }
@@ -4355,6 +4357,21 @@
 }
 .wpeo-project-wrap .wpeo-window-dashboard #wpeo-task-point-history input[type="text"] {
   background: none;
+}
+.wpeo-project-wrap .wpeo-window-dashboard #wpeo-task-point-history .wpeo-point-comment-edit li {
+  font-family: 'kalamregular';
+}
+.wpeo-project-wrap .wpeo-window-dashboard #wpeo-task-point-history .wpeo-point-comment-edit .isDate {
+  width: 80px;
+}
+.wpeo-project-wrap .wpeo-window-dashboard #wpeo-task-point-history .wpeo-point-comment-edit .textarea {
+  width: 60%;
+}
+.wpeo-project-wrap .wpeo-window-dashboard #wpeo-task-point-history .wpeo-point-comment-edit .wpeo-point-comment {
+  width: 100%;
+}
+.wpeo-project-wrap .wpeo-window-dashboard #wpeo-task-point-history .wpeo-point-comment-edit .wpeo-point-time-elapsed {
+  width: 30px;
 }
 .wpeo-project-wrap .wpeo-window-dashboard #wpeo-task-point-history .wpeo-point-comment .date {
   color: rgba(0, 0, 0, 0.6);

@@ -553,24 +553,15 @@ var wpeo_task = {
 		jQuery( '.wpeo-button-active' ).removeClass( 'wpeo-button-active' );
 		jQuery( element ).addClass( 'wpeo-button-active' );
 
-
 		var data = {
 			'action': 'load_all_task'
 		};
 
-		if( !load_all_task ) {
-			jQuery( '.wpeo-project-task[data-owner-id="' + jQuery( '#wpeo_user_id' ).val() + '"]' ).hide();
-			load_all_task = true;
-			jQuery( 'body' ).bgLoad();
-			jQuery.eoajax( ajaxurl, data, function() {
-				jQuery( '.wpeo-project-wrap' ).append( this.template );
-				wpeo_global.filter();
-				jQuery( 'body' ).bgLoad('stop');
-			});
-		}
-		else {
-			wpeo_global.filter();
-		}
+		jQuery( 'body' ).bgLoad();
+		jQuery.eoajax( ajaxurl, data, function() {
+			jQuery( '.wpeo-project-wrap .list-task' ).replaceWith( this.template );
+			jQuery( 'body' ).bgLoad('stop');
+		});
 	},
 
 	display_my_task: function( element ) {
@@ -679,6 +670,11 @@ var wpeo_point = {
 				left: 		0
 			}, 300 );
 
+			var taskPointCompletedTotal = jQuery( element ).closest( '.wpeo-project-task' ).find( '.wpeo-task-count-completed' ).text();
+			taskPointCompletedTotal = taskPointCompletedTotal.split('/');
+			taskPointCompletedTotal[1]++;
+			jQuery( element ).closest( '.wpeo-project-task' ).find( '.wpeo-task-count-completed' ).text( taskPointCompletedTotal[0] + '/' + taskPointCompletedTotal[1] );
+
 			/** On met à jour l'interface */
 			wpeo_global.load();
 			//form.clearForm();
@@ -720,11 +716,16 @@ var wpeo_point = {
 
 				jQuery( '.wpeo-project-task-' + object_id + ' .wpeo-project-task-time' ).text( this.task.option.time_info.elapsed );
 
+				var taskPointCompletedTotal = jQuery( element ).closest( '.wpeo-project-task' ).find( '.wpeo-task-count-completed' ).text();
+				taskPointCompletedTotal = taskPointCompletedTotal.split('/');
+				taskPointCompletedTotal[1]--;
+
 				if( completed ) {
-					var count_completed = task_bloc.find( '.wpeo-task-count-completed' ).text();
-					count_completed--;
-					task_bloc.find( '.wpeo-task-count-completed' ).text( count_completed );
+					taskPointCompletedTotal[0]--;
 				}
+
+				jQuery( element ).closest( '.wpeo-project-task' ).find( '.wpeo-task-count-completed' ).text( taskPointCompletedTotal[0] + '/' + taskPointCompletedTotal[1] );
+
 
 				// wpeo_task.grid.masonry();
 				jQuery( '.wpeo-window-dashboard' ).hide();

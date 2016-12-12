@@ -577,6 +577,7 @@
 			width: 100%;
 			border-bottom: 1px solid rgba(0,0,0,0.1);
 			transition: all 0.2s ease-out;
+			text-align: left;
 			&:hover, &:focus {
 				border-bottom: 1px solid rgba(0,0,0,0.6);
 			}
@@ -922,6 +923,7 @@
 		}
 		#wpeo-task-point-history {
 			flex: 1;
+			font-family: 'kalamregular';
 			position: relative;
 			padding: 0px 0 10px 0;
 			.user {
@@ -931,6 +933,23 @@
 			}
 			input[type="text"] {
 				background: none;
+			}
+			.wpeo-point-comment-edit {
+				li {
+					font-family: 'kalamregular';
+				}
+				.isDate {
+					width: 80px;
+				}
+				.textarea {
+					width: 60%;
+				}
+				.wpeo-point-comment {
+					width: 100%;
+				}
+				.wpeo-point-time-elapsed {
+					width: 30px;
+				}
 			}
 			.wpeo-point-comment {
 				.date {

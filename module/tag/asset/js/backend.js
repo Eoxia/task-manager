@@ -129,16 +129,12 @@ var wpeo_tag = {
 			'action': 'load_archived_task'
 		};
 
-		if( !wpeo_tag.archived_task ) {
-			wpeo_tag.archived_task = true;
-			jQuery.eoajax( ajaxurl, data, function() {
-				jQuery( '.wpeo-project-wrap' ).append( this.template );
-				wpeo_global.filter();
-			});
-		}
-		else {
-			wpeo_global.filter();
-		}
+		jQuery( 'body' ).bgLoad();
+
+		jQuery.eoajax( ajaxurl, data, function() {
+			jQuery( 'body' ).bgLoad( 'stop' );
+			jQuery( '.wpeo-project-wrap .list-task' ).replaceWith( this.template );
+		});
 	},
 
 	create_tag: function( tag_name ) {

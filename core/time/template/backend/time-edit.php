@@ -14,7 +14,7 @@
 				<span class="dashicons dashicons-calendar-alt"></span> <input class="isDate" type="text" name="point_time[date]" value="<?php echo $date[0]; ?>" />
 			</div>
 		</li>
-		<li>
+		<li class="textarea">
 			<textarea name="point_time[content]" class="wpeo-point-comment"><?php echo $point_time->content; ?></textarea>
 		</li>
 		<li>
