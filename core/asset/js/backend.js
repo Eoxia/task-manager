@@ -617,7 +617,7 @@ var wpeo_point = {
 		jQuery( document ).on( 'blur paste', '.wpeo-point-input .wpeo-point-textarea', function() { wpeo_point.edit( jQuery( this ) ); } );
 		/*jQuery( document ).on( 'blur', '.wpeo-point-input .wpeo-point-textarea', function() { wpeo_point.edit( jQuery( this ) ); } );
 		jQuery( document ).on( 'keyup', '.wpeo-point-input .wpeo-point-textarea', function() { wpeo_point.preview( jQuery( this ) ); } );*/
-		jQuery( document ).on( 'click', '.wpeo-point-input .wpeo-point-textarea', function() { wpeo_point.open_window( jQuery( this ) ); } );
+		jQuery( document ).on( 'click', '.wpeo-task-li-point .wpeo-point-input .wpeo-point-textarea', function() { wpeo_point.open_window( jQuery( this ) ); } );
 
 		jQuery( document ).on( 'click', '.wpeo-task-point-use-toggle p', function( event ) { wpeo_point.toggle_completed( event, jQuery( this ) ); } );
 
