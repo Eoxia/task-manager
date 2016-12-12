@@ -26,7 +26,7 @@ if( !class_exists( 'task_wpshop_controller_01' ) ) {
 	    }
 
 		public function callback_my_account_content( $output, $dashboard_part ) {
-			if ( class_exists( 'ticket_controller_01' ) && taskmanager\util\wpeo_util::is_plugin_active( 'ticket/ticket.php' ) ) {
+			if ( class_exists( 'ticket_controller_01' ) && taskmanager\util\wpeo_util::is_plugin_active( 'task-manager-ticket/task-manager-ticket.php' ) ) {
 				$output = $this->my_account_content_ticket( $output, $dashboard_part );
 			} else {
 				$output = $this->my_account_content( $output, $dashboard_part );
