@@ -5,6 +5,7 @@ jQuery( document ).ready( function() {
 });
 
 var wpeo_tag = {
+	tags_is_open: false,
 	current_task_id: 0,
 	archived_task: false,
 
@@ -35,6 +36,9 @@ var wpeo_tag = {
 		var tag_wrap 		= jQuery( element ).closest( '.wpeo-tag-wrap' );
 		var bloc_tag		= jQuery( element );
 		var object_id 		= jQuery( element ).data( 'id' );
+		if( wpeo_tag.tags_is_open && wpeo_tag.current_task_id != 0 ) {
+			wpeo_tag.edit_tag( 0 );
+		}
 		wpeo_tag.current_task_id = object_id;
 		var list_tag_id		= jQuery( element ).data( 'listtagid' );
 		bloc_tag.addClass( 'wpeo-tag-wrap-edit' );
@@ -52,6 +56,7 @@ var wpeo_tag = {
 		jQuery.eoajax( ajaxurl, data, function() {
 			bloc_tag.html( this.template );
 			tag_wrap.bgLoad( 'stop' );
+			wpeo_tag.tags_is_open = true;
 		} );
 
 		e.preventDefault();
@@ -77,12 +82,13 @@ var wpeo_tag = {
 			bloc_tag.bgLoad( 'stop' );
 			bloc_tag.replaceWith( this.template );
 			bloc_tag.removeClass( 'wpeo-tag-wrap-edit' );
-			wpeo_tag.current_task_id = 0;
 
 			jQuery( '.wpeo-window-dashboard .wpeo-tag-wrap' ).replaceWith(this.template);
 			jQuery( '.wpeo-window-dashboard .wpeo-tag-wrap' ).removeClass('wpeo-tag-wrap-edit');
 		} );
 
+		wpeo_tag.current_task_id = 0;
+		wpeo_tag.tags_is_open = false;
 	},
 
 	/**

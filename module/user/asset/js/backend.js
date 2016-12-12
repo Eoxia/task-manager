@@ -1,11 +1,11 @@
-/** Wpeo_users/asset/js/backend.js wpeo_user */
+/** wpeo_users/asset/js/backend.js wpeo_user */
 
 jQuery( document ).ready(function() {
 	wpeo_user.init();
 });
 
 var wpeo_user = {
-	List_user_open: false,
+	list_user_open: false,
 	list_user_owner_open: false,
 	list_user_id: [],
 
