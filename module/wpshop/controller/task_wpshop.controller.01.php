@@ -18,7 +18,7 @@ if( !class_exists( 'task_wpshop_controller_01' ) ) {
 		}
 
 	    public function callback_my_account_menu() {
-			if ( class_exists( 'ticket_controller_01' ) && taskmanager\util\wpeo_util::is_plugin_active( 'ticket/ticket.php' ) ) {
+			if ( class_exists( 'ticket_controller_01' ) && taskmanager\util\wpeo_util::is_plugin_active( 'task-manager-ticket/task-manager-ticket.php' ) ) {
 				require_once( wpeo_template_01::get_template_part( WPEO_TASK_WPSHOP_DIR, WPEO_TASK_WPSHOP_TEMPLATES_MAIN_DIR, 'frontend', 'menu', 'ticket' ) );
 			} else {
 				require_once( wpeo_template_01::get_template_part( WPEO_TASK_WPSHOP_DIR, WPEO_TASK_WPSHOP_TEMPLATES_MAIN_DIR, 'frontend', 'menu' ) );
