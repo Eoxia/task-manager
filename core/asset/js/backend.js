@@ -600,7 +600,7 @@ var wpeo_point = {
 
 	event: function() {
 		/** Créer un point */
-		jQuery( document ).on( 'blur click keyup change', '.wpeo-add-point .wpeo-point-textarea', function(event) { wpeo_point.add_point_display(event, jQuery(this)); } );
+		jQuery( document ).on( 'blur click keyup change keydown', '.wpeo-add-point .wpeo-point-textarea', function(event) { wpeo_point.add_point_display(event, jQuery(this)); } );
 		//jQuery( document ).on( 'keyup', '.wpeo-add-point .wpeo-point-textarea', function(event) { wpeo_point.key_up_add_point(event, jQuery(this)); } );
 		jQuery( document ).on( 'click', '.wpeo-task-add-new-point', function() { wpeo_point.create( jQuery( this ) ); } );
 
@@ -638,8 +638,13 @@ var wpeo_point = {
 			task_bloc.find('.wpeo-task-add-new-point').css('opacity', 0.4);
 		} else {
 			placeholder.hide();
-			if( event.which == 13 ) { add(); }
+			if( event.which == 13 && window.ctrlKeyHold ) { add(); }
 			task_bloc.find('.wpeo-task-add-new-point').css('opacity', 1);
+		}
+		if( event.which == 17 ) {
+			window.ctrlKeyHold = true;
+		} else {
+			window.ctrlKeyHold = false;
 		}
 	},
 
