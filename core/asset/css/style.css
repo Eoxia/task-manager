@@ -3989,6 +3989,9 @@
 .wpeo-project-wrap .wpeo-task-point .wpeo-point-textarea:focus {
   border-bottom: 1px solid rgba(0, 0, 0, 0.6);
 }
+.wpeo-project-wrap .wpeo-task-point .wpeo-add-point .wpeo-point-input div {
+  min-height: 30px;
+}
 .wpeo-project-wrap .wpeo-task-point .wpeo-add-point .wpeo-point-input span {
   position: absolute;
   top: 6px;
