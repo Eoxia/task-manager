@@ -3943,6 +3943,7 @@
 }
 .wpeo-project-wrap .wpeo-task-point li > ul > li:nth-of-type(2) {
   width: 64%;
+  z-index: 1;
 }
 .wpeo-project-wrap .wpeo-task-point li > ul > li:nth-of-type(3) {
   width: 20%;
@@ -3986,6 +3987,14 @@
 .wpeo-project-wrap .wpeo-task-point .wpeo-point-textarea:hover,
 .wpeo-project-wrap .wpeo-task-point .wpeo-point-textarea:focus {
   border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+}
+.wpeo-project-wrap .wpeo-task-point .wpeo-add-point .wpeo-point-input span {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  z-index: -100;
+  opacity: 0.4;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
 }
 .wpeo-project-wrap .wpeo-task-point-completed li .dashicons-screenoptions {
   opacity: 0;

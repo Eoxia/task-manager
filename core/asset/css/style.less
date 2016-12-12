@@ -492,6 +492,7 @@
 -----------------------------------*/
 .wpeo-project-wrap {
 	.wpeo-task-point {
+
 		padding: 0 10px;
 		li {
 			position: relative;
@@ -542,6 +543,7 @@
 				}
 				&:nth-of-type(2) {
 					width: 64%;
+					z-index: 1;
 				}
 				&:nth-of-type(3) {
 					width: 20%;
@@ -583,6 +585,17 @@
 			}
 			&:focus, &.active {
 				// color: @main-color;
+			}
+		}
+		.wpeo-add-point {
+			.wpeo-point-input {
+				span {
+					position: absolute;
+					top: 6px;
+					left: 6px;
+					z-index: -100;
+					opacity: 0.4;
+				}
 			}
 		}
 	}

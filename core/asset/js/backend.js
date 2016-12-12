@@ -86,7 +86,6 @@ var wpeo_global = {
 		jQuery( '.wpeo-point-textarea.active' ).removeClass( 'active' );
 
 		if ( jQuery( '.wpeo-button-all-task' ).hasClass( 'wpeo-button-active' ) ) {
-			jQuery( '.list-task:first' ).hide();
 			jQuery( '.wpeo-project-task.archive' ).hide();
 		}
 
