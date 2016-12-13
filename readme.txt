@@ -3,8 +3,8 @@ Contributors: Eoxia
 Donate link:
 Tags: task, tasks, management, manager, collaboration, dashboard, organizer, project management, project manager, projects, task lists, task management, task manager, Time Tracking, to do, to do list, todo, todo list
 Requires at least: 4.4.0
-Tested up to: 4.6.1
-Stable tag: 1.3.3.2
+Tested up to: 4.7
+Stable tag: 1.3.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -62,6 +62,36 @@ No questions asked yet.
 5. See the history
 
 == Changelog ==
+
+= 1.3.4.0 =
+
+= Improvment =
+ * 6252 - Search improve : old way list of tags were used, now search tag by tag
+ * 6257 - Implementation "contenteditable" attribute for add and modify points
+ * 6259 - Comment edit mode : textarea size
+
+= Fix =
+ * 5933 - Hide completed points (ajax load completed points)
+ * 5934 - Fix transfer points
+ * 5960 - Reimplementation comments nl2br
+ * 6034 - Fix textarea with contenteditable
+ * 6035 - Loaders corrections
+ * 6040 - Compatibility SSL for gravatar
+ * 6174 - Correction send task to archive loader
+ * 6175 - Fix button archive / unarchive
+ * 6176 - Enter key add a point (now CTRL+ENTER)
+ * 6179 - Completed point alignment
+ * 6180 - Points and completed points not corresponds
+ * 6182 - Fix comments textarea
+ * 6183 - All tasks and archived tasks add "list-task" block
+ * 6184 - The tag selection mode at the last task remains open when you click on another tag selector
+ * 6187 - Refresh task tags when modify them
+ * 6189 - Overflow selection user animation in a task
+ * 6192 - The user selection mode at the last task remains open when you click on another user selector
+ * 6193 - Refresh task users when modify them
+ * 6254 - Points and completed points not corresponds on deletion
+ * 6258 - Placeholder new points
+ * 6261 - Fix CSS for compatibity contenteditable
 
 = 1.3.3.2 =
 
