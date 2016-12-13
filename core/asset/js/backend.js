@@ -100,11 +100,21 @@ var wpeo_global = {
 		}
 
 		if ( list_tag_id.length !== 0 ) {
-			jQuery( '.wpeo-project-task:visible:not(.wpeo-project-task:visible[data-affected-tag-id*="' + list_tag_id.join() + '"])' ).hide();
+			var tag_searcher = '';
+			for( var i = 0; i < list_tag_id.length; i++ ) {
+				tag_searcher += '[data-affected-tag-id*="' + list_tag_id[i] + '"]';
+			}
+			jQuery( '.wpeo-project-task:visible:not(.wpeo-project-task:visible' + tag_searcher + ')' ).hide();
 		}
 
 		if ( list_user_id != undefined ) {
-			jQuery( '.wpeo-project-task:visible:not(.wpeo-project-task:visible[data-affected-id*="' + list_user_id.join() + '"]):not(.wpeo-project-task:visible[data-owner-id*="' + list_user_id.join() + '"])' ).hide();
+			var owner_searcher = '';
+			var affected_searcher = '';
+			for( var i = 0; i < list_user_id.length; i++ ) {
+				owner_searcher += '[data-owner-id*="' + list_user_id[i] + '"]';
+				affected_searcher += '[data-affected-id*="' + list_user_id[i] + '"]';
+			}
+			jQuery( '.wpeo-project-task:visible:not(.wpeo-project-task:visible' + owner_searcher + '):not(.wpeo-project-task:visible' + affected_searcher + ')' ).hide();
 		}
 
 		if ( search != undefined ) {
