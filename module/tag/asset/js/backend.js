@@ -68,7 +68,8 @@ var wpeo_tag = {
 	 * actualiser le bloc des tâche afin d'avoir que les catégories affectées.
 	 */
 	edit_tag: function( e ) {
-		var bloc_tag 	= jQuery( '.wpeo-project-task[data-id="' + wpeo_tag.current_task_id + '"] .wpeo-tag-wrap' );
+		var task = jQuery( '.wpeo-project-task[data-id="' + wpeo_tag.current_task_id + '"]' );
+		var bloc_tag 	= task.find( '.wpeo-tag-wrap' );
 		var object_id 	= wpeo_tag.current_task_id;
 
 		bloc_tag.bgLoad();
@@ -81,10 +82,12 @@ var wpeo_tag = {
 		jQuery.eoajax( ajaxurl, data, function() {
 			bloc_tag.bgLoad( 'stop' );
 			bloc_tag.replaceWith( this.template );
-			bloc_tag.removeClass( 'wpeo-tag-wrap-edit' );
+			//bloc_tag.removeClass( 'wpeo-tag-wrap-edit' );
 
-			jQuery( '.wpeo-window-dashboard .wpeo-tag-wrap' ).replaceWith(this.template);
-			jQuery( '.wpeo-window-dashboard .wpeo-tag-wrap' ).removeClass('wpeo-tag-wrap-edit');
+			//jQuery( '.wpeo-window-dashboard .wpeo-tag-wrap' ).replaceWith(this.template);
+			//jQuery( '.wpeo-window-dashboard .wpeo-tag-wrap' ).removeClass('wpeo-tag-wrap-edit');
+
+			task.attr( 'data-affected-tag-id', task.find( '.wpeo-tag-wrap' ).data( 'listtagid' ).join() );
 		} );
 
 		wpeo_tag.current_task_id = 0;

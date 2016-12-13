@@ -96,7 +96,12 @@ var wpeo_user = {
 		if ( wpeo_user.list_user_open ) {
 			jQuery( '.wpeo-edit-select-user' ).each( function( index, element ) {
 				var bloc_user = jQuery( element ).closest( '.wpeo-bloc-user' );
-				//Var bloc_user = jQuery( '.wpeo-project-task[data-id="' + wpeo_user.current_task_id + '"] .wpeo-bloc-user' );
+
+				var affected_id = [];
+				bloc_user.find( '.wpeo-current-user li.active' ).each( function( index, element ) {
+					affected_id.push( jQuery( element ).data( 'id' ) );
+				} );
+				bloc_user.closest( '.wpeo-project-task' ).attr( 'data-affected-id', affected_id.join() );
 
 				bloc_user.find( '.wpeo-ul-user li' ).removeClass( 'fadeInRightBig' ).addClass( 'bounceOutRight' );
 
@@ -156,6 +161,7 @@ var wpeo_user = {
 
 		jQuery.eoajax( ajaxurl, data, function() {
 			 bloc_user.find( '.wpeo-user-owner' ).html( bloc_user.find( '.wpeo-user-owner li.wpeo-user-' + this.owner_id ) );
+			 bloc_user.closest( '.wpeo-project-task' ).attr( 'data-owner-id', this.owner_id );
 			 wpeo_user.close_list_owner();
 		} );
 	},
