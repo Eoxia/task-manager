@@ -43,15 +43,15 @@ var wpeo_global = {
 	},
 
 	load: function() {
-		jQuery( '.isDate' ).datepicker( { dateFormat: 'yy-mm-dd' } );
+		// jQuery( '.isDate' ).datepicker( { dateFormat: 'yy-mm-dd' } );
 
-		jQuery( '.wpeo-project-wrap .wpeo-task-point-sortable' ).sortable( {
-			handle: '.dashicons-screenoptions',
-			items: '.wpeo-task-li-point',
-			update: function() {
-				wpeo_point.edit_order( jQuery( this ) );
-			}
-		} );
+		// jQuery( '.wpeo-project-wrap .wpeo-task-point-sortable' ).sortable( {
+		// 	handle: '.dashicons-screenoptions',
+		// 	items: '.wpeo-task-li-point',
+		// 	update: function() {
+		// 		wpeo_point.edit_order( jQuery( this ) );
+		// 	}
+		// } );
 
 		jQuery.each( jQuery( '.wpeo-task-auto-complete' ), function( key, element ) {
 			jQuery( element ).autocomplete( {
@@ -198,7 +198,7 @@ var wpeo_task = {
 
 		/** WPShop - Charger un les tâches d'un client */
 		/** Chosen WPShop */
-		jQuery( '.wpeo-project-wrap .wpshop-customer-filter' ).chosen().change( function( evt, params ) { wpeo_task.change_customer_filter( evt, params ); } );
+		// jQuery( '.wpeo-project-wrap .wpshop-customer-filter' ).chosen().change( function( evt, params ) { wpeo_task.change_customer_filter( evt, params ); } );
 
 		//jQuery( document ).on( 'change', '.wpshop-customer-filter', function( event ) { wpeo_task.change_customer_filter( event, jQuery( this ) ); } );
 
@@ -1046,22 +1046,22 @@ var wpeo_wpshop = {
 				wpeo_global.filter();
 		});
 
-		jQuery('.auto-complete-user').autocomplete( {
-			source: ajaxurl + '?action=search_customer',
-			minLength: 0,
-			'select': function( event, ui ) {
-				jQuery( '.wpeo-window-dashboard' ).hide();
-				jQuery( '.wpeo-project-task' ).hide();
-
-				var data = {
-					'action': 'load_task_wpshop',
-					'user_id': ui.item.id,
-				};
-
-				jQuery.eoajax( ajaxurl, data, function() {
-					jQuery( '.wpeo-project-wrap' ).append( this.template );
-				} );
-			}
-		} );
+		// jQuery('.auto-complete-user').autocomplete( {
+		// 	source: ajaxurl + '?action=search_customer',
+		// 	minLength: 0,
+		// 	'select': function( event, ui ) {
+		// 		jQuery( '.wpeo-window-dashboard' ).hide();
+		// 		jQuery( '.wpeo-project-task' ).hide();
+		//
+		// 		var data = {
+		// 			'action': 'load_task_wpshop',
+		// 			'user_id': ui.item.id,
+		// 		};
+		//
+		// 		jQuery.eoajax( ajaxurl, data, function() {
+		// 			jQuery( '.wpeo-project-wrap' ).append( this.template );
+		// 		} );
+		// 	}
+		// } );
 	}
 };

@@ -3619,7 +3619,6 @@
   -webkit-column-break-inside: avoid;
   width: 100%;
   padding: 10px;
-  overflow: hidden;
 }
 .wpeo-project-wrap .list-task .wpeo-project-task .task-marker {
   width: 18px;

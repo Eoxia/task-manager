@@ -1,0 +1,13 @@
+{
+	"name": "Les utilisateurs",
+	"slug": "user",
+	"version": "1.3.4.0",
+	"description": "Le module gérant les utilisateurs",
+	"path": "module/user/",
+	"dependencies": {
+		"action": {},
+		"filter": {},
+		"model": {},
+		"class": {}
+	}
+}
