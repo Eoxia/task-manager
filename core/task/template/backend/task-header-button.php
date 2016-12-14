@@ -10,7 +10,7 @@
 	<li class="wpeo-export" data-nonce="<?php echo wp_create_nonce( 'wpeo_nonce_export_task_' . $task->id ); ?>">
 		<span><?php _e( 'Export task', 'task-manager' ); ?></span>
 	</li>
-	<li class="wpeo-send-task-to-archive" data-nonce="<?php echo wp_create_nonce( 'wpeo_nonce_archive_task_' . $task->id ); ?>">
+	<li class="wpeo-send-task-to-<?php echo ( 'archive' !== $task->status ) ? '' : 'un'; ?>archive" data-nonce="<?php echo wp_create_nonce( 'wpeo_nonce_archive_task_' . $task->id ); ?>">
 		<span>
 			<?php
 			if ( 'archive' !== $task->status ) :

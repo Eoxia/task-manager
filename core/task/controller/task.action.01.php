@@ -6,6 +6,7 @@ class task_action_01 {
 		add_action( 'wp_ajax_create_task', array( $this, 'create_task' ) );
 		add_action( 'wp_ajax_edit_task', array( $this, 'ajax_edit_task' ) );
 		add_action( 'wp_ajax_archive_task', array( $this, 'ajax_archive_task' ) );
+		add_action( 'wp_ajax_unarchive_task', array( $this, 'ajax_unarchive_task' ) );
 		add_action( 'wp_ajax_export_task', array( $this, 'ajax_export_task') );
 		add_action( 'wp_ajax_send_mail', array( $this, 'ajax_send_mail' ) );
 		add_action( 'wp_ajax_delete_task', array( $this, 'ajax_delete_task' ) );
@@ -233,6 +234,41 @@ class task_action_01 {
 		}
 
 		$task->status = 'archive';
+		$task_controller->update( $task );
+
+		/** On log l'achivage de la tâche */
+		taskmanager\log\eo_log( 'wpeo_project',
+		array(
+			'object_id' => $task_id,
+			'message' => sprintf( __( 'The task #%d has been send to archive by the user #%d', 'task-manager'), $task_id, get_current_user_id() ),
+		), 0 );
+
+		wp_send_json_success();
+	}
+
+	public function ajax_unarchive_task() {
+		$task_id = $_POST['task_id'];
+
+		if ( !is_int( $task_id ) )
+			$task_id = intval( $_POST['task_id'] );
+
+		wpeo_check_01::check( 'wpeo_nonce_archive_task_' . $task_id );
+
+		global $tag_controller;
+		global $task_controller;
+
+		// On vérifie que le term archive existe
+		$task = $task_controller->show( $task_id );
+
+		$term = get_term_by( 'slug', 'archive', $tag_controller->get_taxonomy() );
+		$key = array_search( $term->term_id, $task->taxonomy[$tag_controller->get_taxonomy()] );
+		if ( false === $key ) {
+			wp_send_json_error();
+		} else {
+			unset( $task->taxonomy[$tag_controller->get_taxonomy()][$key] );
+		}
+
+		$task->status = 'publish';
 		$task_controller->update( $task );
 
 		/** On log l'achivage de la tâche */

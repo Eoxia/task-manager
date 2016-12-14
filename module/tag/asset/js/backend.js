@@ -143,6 +143,7 @@ var wpeo_tag = {
 		jQuery.eoajax( ajaxurl, data, function() {
 			jQuery( 'body' ).bgLoad( 'stop' );
 			jQuery( '.wpeo-project-wrap .list-task' ).replaceWith( this.template );
+			wpeo_global.load();
 		});
 	},
 
