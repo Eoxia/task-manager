@@ -231,7 +231,7 @@ class Task_Action {
 		// 	'message' => sprintf( __( 'The task #%d has been send to archive by the user #%d', 'task-manager'), $task_id, get_current_user_id() ),
 		// ), 0 );
 
-		wp_send_json_success();
+		wp_send_json_success( array( 'module' => 'task', 'callback_success' => 'archive_task_success' ) );
 	}
 
 	public function ajax_unarchive_task() {
