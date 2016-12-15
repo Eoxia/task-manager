@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; ?>
 
 	<?php if( !empty( $list_point_uncompleted ) ):?>
 		<?php foreach( $list_point_uncompleted as $point ):?>
-			<?php if( !$point->option['point_info']['completed'] ): ?>
+			<?php if( !$point->point_info['completed'] ): ?>
 				<?php $custom_class = 'wpeo-task-point-sortable'; ?>
 				<?php View_Util::exec( 'point', 'backend/point', array( 'point' => $point, 'custom_class' => $custom_class ) ); ?>
 			<?php endif; ?>

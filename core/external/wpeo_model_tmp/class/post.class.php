@@ -76,7 +76,7 @@ class Post_Class extends singleton_util {
 	 */
 	public function init_post_type() {
 		$args = array(
-			'public' => config_util::$init['digirisk']->debug ? true : false,
+			'public' => Config_util::$init['task-manager']->debug ? true : false,
 			'label'  => $this->post_type_name,
 		);
 

@@ -78,7 +78,7 @@ class Task_Manager_Action {
 	 * Initialise le fichier MO
 	 */
 	public function callback_plugins_loaded() {
-		load_plugin_textdomain( 'task-manager', false, PLUGIN_DIGIRISK_DIR . '/core/asset/language/' );
+		load_plugin_textdomain( 'task-manager', false, PLUGIN_TASK_MANAGER_DIR . '/core/asset/language/' );
 	}
 
 	/**
