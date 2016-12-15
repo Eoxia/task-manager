@@ -18,13 +18,13 @@
 
 			<li class="wpeo-point-input">
 				<!-- Le contenu du point -->
-				<!-- <textarea <?php echo $disabled_filter; ?> data-nonce="<?php echo wp_create_nonce( 'wpeo_nonce_load_dashboard_point_' . $point->id ); ?>" class="wpeo-point-textarea" name="point[content]"><?php echo stripslashes($point->content); ?></textarea> -->
-				<div <?php echo $disabled_filter; ?> data-nonce="<?php echo wp_create_nonce( 'wpeo_nonce_load_dashboard_point_' . $point->id ); ?>" class="wpeo-point-textarea" name="point[content]" contenteditable="true"><?php echo stripslashes($point->content); ?></div>
+				<!-- <textarea  data-nonce="<?php echo wp_create_nonce( 'wpeo_nonce_load_dashboard_point_' . $point->id ); ?>" class="wpeo-point-textarea" name="point[content]"><?php echo stripslashes($point->content); ?></textarea> -->
+				<div data-nonce="<?php echo wp_create_nonce( 'wpeo_nonce_load_dashboard_point_' . $point->id ); ?>" class="wpeo-point-textarea" name="point[content]" contenteditable="true"><?php echo stripslashes($point->content); ?></div>
 			</li>
 
 			<li>
 				<span class="dashicons dashicons-clock"></span>
-				<span class="wpeo-time-in-point"><?php echo $point->option['time_info']['elapsed']; ?></span>
+				<span class="wpeo-time-in-point"><?php echo ! empty( $point->time_info['elapsed'] ) ? $point->time_info['elapsed'] : 0; ?></span>
 				<?php echo apply_filters( 'point_action_after', '', $point ); ?>
 			</li>
 		</ul>

@@ -46,14 +46,14 @@ class Point_Filter {
 		$list_point_completed = array();
 		$list_point_uncompleted = array();
 
-		if ( ! empty( $task->option['task_info']['order_point_id'] ) ) {
-			$list_point = $this->index( $task->id, array( 'orderby' => 'comment__in', 'comment__in' => $task->option['task_info']['order_point_id'], 'status' => -34070 ) );
+		if ( ! empty( $task->task_info['order_point_id'] ) ) {
+			$list_point = Point_Class::g()->get( array( 'post_id' => $task->id, 'orderby' => 'comment__in', 'comment__in' => $task->task_info['order_point_id'], 'status' => -34070 ) );
 			$list_point_completed = array_filter( $list_point, function( $point ) {
-				return true === $point->option['point_info']['completed'];
+				return true === $point->point_info['completed'];
 			} );
 
 			$list_point_uncompleted = array_filter( $list_point, function( $point ) {
-				return false === $point->option['point_info']['completed'];
+				return false === $point->point_info['completed'];
 			} );
 		}
 
@@ -256,14 +256,14 @@ class Point_Filter {
 
 	public function callback_point_action_before( $string, $point ) {
 		ob_start();
-		require( wpeo_template_01::get_template_part( WPEO_POINT_DIR, WPEO_POINT_TEMPLATES_MAIN_DIR, 'backend', 'action-before' ) );
+		View_Util::exec( 'point', 'backend/action-before', array( 'point' => $point ) );
 		$string .= ob_get_clean();
 		return $string;
 	}
 
 	public function callback_point_action_after( $string, $point ) {
 		ob_start();
-		require( wpeo_template_01::get_template_part( WPEO_POINT_DIR, WPEO_POINT_TEMPLATES_MAIN_DIR, 'backend', 'action-after' ) );
+		View_Util::exec( 'point', 'backend/action-after', array( 'point' => $point ) );
 		$string .= ob_get_clean();
 		return $string;
 	}

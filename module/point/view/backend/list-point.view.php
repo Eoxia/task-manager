@@ -1,4 +1,8 @@
-<?php if ( ! defined( 'ABSPATH' ) ) exit; ?>
+<?php
+
+namespace task_manager;
+
+if ( ! defined( 'ABSPATH' ) ) exit; ?>
 
 <!-- Uncompleted points -->
 <ul class="wpeo-task-point wpeo-task-point-sortable">
@@ -8,7 +12,7 @@
 		<?php foreach( $list_point_uncompleted as $point ):?>
 			<?php if( !$point->option['point_info']['completed'] ): ?>
 				<?php $custom_class = 'wpeo-task-point-sortable'; ?>
-				<?php require( wpeo_template_01::get_template_part( WPEO_POINT_DIR, WPEO_POINT_TEMPLATES_MAIN_DIR, 'backend', 'point' ) ); ?>
+				<?php View_Util::exec( 'point', 'backend/point', array( 'point' => $point, 'custom_class' => $custom_class ) ); ?>
 			<?php endif; ?>
 		<?php endforeach; ?>
 	<?php endif; ?>

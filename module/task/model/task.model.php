@@ -74,6 +74,18 @@ class Task_Model extends Post_Model {
 			),
 		) );
 
+		$this->model['taxonomy'] = array(
+			'type'			=> 'array',
+			'meta_type' => 'multiple',
+			'child' 		=> array(
+				'wpeo_tag' => array(
+					'meta_type'		=> 'multiple',
+					'array_type'	=> 'integer',
+					'type'				=> 'array',
+				)
+			)
+		);
+
 		parent::__construct( $object );
 	}
 }

@@ -14,9 +14,9 @@ class comment_class extends singleton_util {
 	protected $base = 'comment';
 	protected $version = '0.1';
 	protected $identifier_helper = 'comment';
-	protected $after_model_get_function = array( '\digi\construct_current_date' );
-	protected $before_post_function = array( '\digi\convert_date' );
-	protected $before_put_function = array( '\digi\convert_date' );
+	protected $after_model_get_function = array();
+	protected $before_post_function = array();
+	protected $before_put_function = array();
 
 	protected function construct() {}
 

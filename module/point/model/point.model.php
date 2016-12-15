@@ -15,31 +15,29 @@ class Point_Model extends Comment_Model {
 	public function __construct( $object ) {
 		$this->model = array_merge( $this->model, array(
 			'time_info' => array(
+				'type'			=> 'array',
+				'meta_type' => 'multiple',
+				'bydefault' => array( 'elapsed' => 0, 'completed_point' => array(), 'uncompleted_point' => array() ),
 				'elapsed' => array(
-					'type'		=> 'integer',
-					'function'	=> '',
-					'default' 	=> 0,
-					'required'	=> false,
+					'type'			=> 'integer',
+					'meta_type'	=> 'multiple',
 				),
 				'completed_point' => array(
-					'type' 		=> 'array',
-					'function'	=> '',
-					'default'	=> null,
-					'required'	=> false,
+					'type'			=> 'array',
+					'meta_type'	=> 'multiple',
 				),
 				'uncompleted_point' => array(
-					'type' 		=> 'array',
-					'function'	=> '',
-					'default'	=> null,
-					'required'	=> false,
+					'type'			=> 'array',
+					'meta_type'	=> 'multiple',
 				),
 			),
 			'point_info' => array(
+				'type'			=> 'array',
+				'meta_type'	=> 'multiple',
+				'bydefault' => array( 'completed' => false ),
 				'completed' => array(
-					'type'		=> 'boolean',
-					'function'	=> '',
-					'default' 	=> false,
-					'required'	=> false,
+					'type'			=> 'boolean',
+					'meta_type'	=> 'multiple',
 				),
 			),
 		) );

@@ -83,38 +83,31 @@ class Task_Action {
 		if ( !is_int( $_CLEAN['task']['id'] ) )
 			$_CLEAN['task']['id'] = intval( $_CLEAN['task']['id'] );
 
-		wpeo_check_01::check( 'wpeo_nonce_edit_task_' . $_CLEAN['task']['id'] );
+		check_ajax_referer( 'wpeo_nonce_edit_task_' . $_CLEAN['task']['id'] );
 
-		global $task_controller;
-		$task = $task_controller->show( $_CLEAN['task']['id'] );
+		$task = Task_Class::g()->get( array( 'post__in' => array( $_CLEAN['task']['id'] ) ) );
+		$task = $task[0];
 
 		// Transfert des valeurs dans $_CLEAN
 		if ( !empty( $_POST['task']['title'] ) ) {
 			$_CLEAN['task']['title'] 	= $_POST['task']['title'];
 			$_CLEAN['task']['slug'] 	= ( strchr( $task->slug, 'ask-task-' ) === FALSE ) ? sanitize_title( $_POST['task']['title'] ) : $task->slug;
-			$_CLEAN['task']['option']['time_info']['estimated'] = $_POST['task']['option']['time_info']['estimated'];
-			$log_message = sprintf( __( 'The task #%d has been edited by the user #%d with the title : %s and the estimated time %d', 'task-manager'), $_CLEAN['task']['id'], get_current_user_id(), $_CLEAN['task']['title'], $_CLEAN['task']['option']['time_info']['estimated'] );
+			// $_CLEAN['task']['time_info']['estimated'] = $_POST['task']['time_info']['estimated'];
+			// $log_message = sprintf( __( 'The task #%d has been edited by the user #%d with the title : %s and the estimated time %d', 'task-manager'), $_CLEAN['task']['id'], get_current_user_id(), $_CLEAN['task']['title'], $_CLEAN['task']['option']['time_info']['estimated'] );
 		}
 
 		if ( !empty( $_POST['task']['option']['front_info']['display_color'] ) ) {
-			$_CLEAN['task']['option']['front_info']['display_color']	= sanitize_text_field( $_POST['task']['option']['front_info']['display_color'] );
+			$_CLEAN['task']['front_info']['display_color']	= sanitize_text_field( $_POST['task']['option']['front_info']['display_color'] );
 		}
 
-		if ( !empty( $_POST['task']['option']['front_info']['display_user'] ) ) {
-			$_CLEAN['task']['option']['front_info']['display_user']	= $_POST['task']['option']['front_info']['display_user'];
-			$_CLEAN['task']['option']['front_info']['display_time']	= $_POST['task']['option']['front_info']['display_time'];
+		$task = Task_Class::g()->update( $_CLEAN['task'] );
 
-			$log_message = sprintf( __( 'The task #%d has been edited by the user #%d with the frontend info display_user : %s and the display_time : %s ', 'task-manager'), $_CLEAN['task']['id'], get_current_user_id(), $_CLEAN['task']['option']['front_info']['display_user'], $_CLEAN['task']['option']['front_info']['display_time'] );
-		}
-
-		$task = $task_controller->update( $_CLEAN['task'] );
-
-		/** On log la modification de la tâche */
-		taskmanager\log\eo_log( 'wpeo_project',
-			array(
-			'object_id' => $_CLEAN['task']['id'],
-			'message' => $log_message,
-		), 0 );
+		// /** On log la modification de la tâche */
+		// taskmanager\log\eo_log( 'wpeo_project',
+		// 	array(
+		// 	'object_id' => $_CLEAN['task']['id'],
+		// 	'message' => $log_message,
+		// ), 0 );
 
 		wp_send_json_success();
 	}
@@ -193,34 +186,32 @@ class Task_Action {
 		if ( !is_int( $task_id ) )
 			$task_id = intval( $_POST['task_id'] );
 
-		wpeo_check_01::check( 'wpeo_nonce_archive_task_' . $task_id );
-
-		global $tag_controller;
-		global $task_controller;
+		check_ajax_referer( 'wpeo_nonce_archive_task_' . $task_id );
 
 		// On vérifie que le term archive existe
-		$term = get_term_by( 'slug', 'archive', $tag_controller->get_taxonomy() );
-		$task = $task_controller->show( $task_id );
+		$term = get_term_by( 'slug', 'archive', Tag_Class::g()->get_taxonomy() );
+		$task = Task_Class::g()->get( array( 'post__in' => array( $task_id ) ) );
+		$task = $task[0];
 
 		if( empty( $term ) ) {
 			// $term = wp_create_term( 'archive', $tag_controller->get_taxonomy() );
-			$term = wp_set_object_terms( $task_id, 'archive', $tag_controller->get_taxonomy() );
-			$task->taxonomy[$tag_controller->get_taxonomy()][] = $term[0];
+			$term = wp_set_object_terms( $task_id, 'archive', Tag_Class::g()->get_taxonomy() );
+			$task->taxonomy[Tag_Class::g()->get_taxonomy()][] = $term[0];
 
 		}
 		else {
-			$task->taxonomy[$tag_controller->get_taxonomy()][] = $term->term_id;
+			$task->taxonomy[Tag_Class::g()->get_taxonomy()][] = $term->term_id;
 		}
 
 		$task->status = 'archive';
-		$task_controller->update( $task );
+		Task_Class::g()->update( $task );
 
 		/** On log l'achivage de la tâche */
-		taskmanager\log\eo_log( 'wpeo_project',
-		array(
-			'object_id' => $task_id,
-			'message' => sprintf( __( 'The task #%d has been send to archive by the user #%d', 'task-manager'), $task_id, get_current_user_id() ),
-		), 0 );
+		// taskmanager\log\eo_log( 'wpeo_project',
+		// array(
+		// 	'object_id' => $task_id,
+		// 	'message' => sprintf( __( 'The task #%d has been send to archive by the user #%d', 'task-manager'), $task_id, get_current_user_id() ),
+		// ), 0 );
 
 		wp_send_json_success();
 	}
@@ -331,17 +322,19 @@ class Task_Action {
 		if ( !is_int( $task_id ) )
 			$task_id = intval( $_POST['task_id'] );
 
-		wpeo_check_01::check( 'wpeo_nonce_delete_task_' . $task_id );
+		check_ajax_referer( 'wpeo_nonce_delete_task_' . $task_id );
 
-		global $task_controller;
-		$task_controller->delete( $task_id );
+		$task = Task_Class::g()->get( array( 'post__in' => array( $task_id ) ) );
+		$task = $task[0];
+		$task->status = 'trash';
+		Task_Class::g()->update( $task );
 
 		/** On log la supression tâche */
-		taskmanager\log\eo_log( 'wpeo_project',
-		array(
-			'object_id' => $task_id,
-			'message' => sprintf( __( 'The task #%d has been deleted by the user #%d', 'task-manager'), $task_id, get_current_user_id() ),
-		), 0 );
+		// taskmanager\log\eo_log( 'wpeo_project',
+		// array(
+		// 	'object_id' => $task_id,
+		// 	'message' => sprintf( __( 'The task #%d has been deleted by the user #%d', 'task-manager'), $task_id, get_current_user_id() ),
+		// ), 0 );
 
 		wp_send_json_success();
 	}

@@ -5,13 +5,43 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 class Task_Class extends Post_Class {
+
+	/**
+	 * Le nom du modèle
+	 *
+	 * @var string
+	 */
 	protected $model_name 	= '\task_manager\Task_Model';
+
+	/**
+ * Le post type
+ *
+ * @var string
+ */
 	protected $post_type	= 'wpeo-task';
+
+	/**
+ * La clé principale du modèle
+ *
+ * @var string
+ */
 	protected $meta_key		= 'wpeo_task';
 
-	/** Défini la route par défaut permettant d'accèder aux tâches depuis WP Rest API  / Define the default route for accessing to task from WP Rest API */
-	protected $base = 'task';
+	/**
+ * La route pour accéder à l'objet dans la rest API
+ *
+ * @var string
+ */
+	protected $base = 'task-manager/task';
+
+	/**
+	 * La version de l'objet
+	 *
+	 * @var string
+	 */
 	protected $version = '0.1';
+
+	protected $attached_taxonomy_type = 'wpeo_tag';
 
 	protected function construct() {
 		parent::construct();

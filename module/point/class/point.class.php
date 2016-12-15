@@ -36,7 +36,7 @@ class Point_Class extends Comment_Class {
 	 *
 	 * @var string
 	 */
-	protected $base = 'point';
+	protected $base = 'task_manager/point';
 
 	/**
 	 * La version pour la rest API
@@ -44,6 +44,8 @@ class Point_Class extends Comment_Class {
 	 * @var string
 	 */
 	protected $version = '0.1';
+
+	public $status = '-34070';
 
 	/**
 	 * Constructeur qui inclus le modèle des points et également des les scripts
