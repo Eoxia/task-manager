@@ -24,7 +24,10 @@
 			?>
 		</span>
 	</li>
-	<li class="wpeo-send-task-to-trash" data-nonce="<?php echo wp_create_nonce( 'wpeo_nonce_delete_task_' . $task->id ); ?>">
+	<li class="action-attribute wpeo-send-task-to-trash"
+			data-task-id="<?php echo $task->id; ?>"
+			data-nonce="<?php echo wp_create_nonce( 'wpeo_nonce_delete_task_' . $task->id ); ?>"
+			data-action="delete_task">
 		<span><?php _e( 'Delete task', 'task-manager' ); ?></span>
 	</li>
 </ul>

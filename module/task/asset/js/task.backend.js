@@ -27,3 +27,7 @@ window.task_manager.task.create_task_success = function( element, response ) {
 window.task_manager.task.archive_task_success = function( element, response ) {
 	jQuery( element ).closest( '.wpeo-project-task' ).fadeOut();
 };
+
+window.task_manager.task.delete_task_success = function( element, response ) {
+	jQuery( element ).closest( '.wpeo-project-task' ).fadeOut();
+};
