@@ -6,7 +6,7 @@ window.task_manager.toggle.init = function() {
 
 window.task_manager.toggle.event = function() {
   jQuery( document ).on( 'click', 'toggle', window.task_manager.toggle.open );
-  // jQuery( document ).on( 'click', 'body', window.task_manager.toggle.close );
+  jQuery( document ).on( 'click', 'body', window.task_manager.toggle.close );
 };
 
 window.task_manager.toggle.open = function( event ) {
@@ -24,3 +24,7 @@ window.task_manager.toggle.open = function( event ) {
 	  event.stopPropagation();
 	}
 };
+
+window.task_manager.toggle.close = function ( event ) {
+	jQuery( '.toggle-content' ).hide();
+}
