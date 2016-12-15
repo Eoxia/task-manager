@@ -8,7 +8,8 @@ class Task_Action {
 	public function __construct() {
 		/** Créer une tâche */
 		add_action( 'wp_ajax_create_task', array( $this, 'create_task' ) );
-		add_action( 'wp_ajax_edit_task', array( $this, 'ajax_edit_task' ) );
+		add_action( 'wp_ajax_edit_title', array( $this, 'edit_title' ) );
+		add_action( 'wp_ajax_edit_task', array( $this, 'edit_task' ) );
 		add_action( 'wp_ajax_archive_task', array( $this, 'ajax_archive_task' ) );
 		add_action( 'wp_ajax_unarchive_task', array( $this, 'ajax_unarchive_task' ) );
 		add_action( 'wp_ajax_export_task', array( $this, 'ajax_export_task') );
@@ -49,7 +50,7 @@ class Task_Action {
 	 * @return JSON Object { 'success': true|false, 'data': { 'template': '' } }
 	 */
 	public function create_task() {
-		check_ajax_referer( 'wpeo_nonce_create_task' );
+		check_ajax_referer( 'create_task' );
 
 		$task = Task_Class::g()->create( array(
 			'title' 		=> __( 'New task', 'task-manager' ),
@@ -62,7 +63,24 @@ class Task_Action {
 
 		ob_start();
 		Task_Class::g()->render_task( $task );
-		wp_send_json_success( array( 'template' => ob_get_clean() ) );
+		wp_send_json_success( array( 'module' => 'task', 'callback_success' => 'create_task_success', 'template' => ob_get_clean() ) );
+	}
+
+	public function edit_title() {
+		check_ajax_referer( 'edit_title' );
+
+		$task_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+
+		if ( empty( $task_id ) ) {
+			wp_send_json_error();
+		}
+
+		$task = Task_Class::g()->get( array( 'post__in' => array( $task_id ) ) );
+		$task = $task[0];
+		$task->title = $_POST['title'];
+		Task_Class::g()->update( $task );
+
+		wp_send_json_success();
 	}
 
 	/**
