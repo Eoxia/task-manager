@@ -18,8 +18,9 @@ if ( ! defined( 'ABSPATH' ) ) { exit;
 		</li>
 
 		<li class="wpeo-task-setting">
-			<span class="wpeo-task-open-action" title="<?php _e( 'Options of task', 'task-manager' ); ?>"><i class="fa fa-ellipsis-v"></i></span>
-			<div class="task-header-action">
+			<toggle class="wpeo-task-open-action" title="<?php _e( 'Options of task', 'task-manager' ); ?>"
+							data-parent="wpeo-task-setting" data-target="task-header-action"><i class="fa fa-ellipsis-v"></i></toggle>
+			<div class="task-header-action toggle-content">
 				<?php echo apply_filters( 'task_header_action', '', $task ); ?>
 			</div>
 		</li>

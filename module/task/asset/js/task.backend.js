@@ -23,3 +23,11 @@ window.task_manager.task.edit_title = function( event ) {
 window.task_manager.task.create_task_success = function( element, response ) {
 	jQuery( '.list-task' ).prepend( response.data.template );
 };
+
+window.task_manager.task.archive_task_success = function( element, response ) {
+	jQuery( element ).closest( '.wpeo-project-task' ).fadeOut();
+};
+
+window.task_manager.task.delete_task_success = function( element, response ) {
+	jQuery( element ).closest( '.wpeo-project-task' ).fadeOut();
+};
