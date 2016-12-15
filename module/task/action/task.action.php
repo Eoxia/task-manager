@@ -1,6 +1,10 @@
-<?php if ( ! defined( 'ABSPATH' ) ) exit;
+<?php
 
-class task_action_01 {
+namespace task_manager;
+
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+class Task_Action {
 	public function __construct() {
 		/** Créer une tâche */
 		add_action( 'wp_ajax_create_task', array( $this, 'create_task' ) );
@@ -14,17 +18,6 @@ class task_action_01 {
 		add_action( 'wp_ajax_load_all_task', array( $this, 'ajax_load_all_task' ) );
 		add_action( 'wp_ajax_load_archived_task', array( $this, 'ajax_load_archived_task' ) );
 
-
-
-		// add_action( 'wp_ajax_ask_task', array( $this, 'ask_task' ) );
-
-
-
-		// add_action('wp_ajax_view_task_setting', array(&$this, 'ajax_view_task_setting'));
-
-		// add_action('wp_ajax_load_archive_task', array(&$this, 'ajax_load_archive_task'));
-
-		//
 		// add_action('wp_ajax_export_all_task', array($this, 'ajax_export_all_task'));
 
 		/** Additional informations */
@@ -38,13 +31,6 @@ class task_action_01 {
 
 		/** Users */
 		add_action( 'wp_ajax_wpeo-edit-task-owner-user', array( &$this, 'ajax_edit_task_owner_user' ) );
-
-		/** WpShop customer */
-
-		/** Compile time */
-
-		/** Summary */
-
 		add_action( 'wp_ajax_send_task_to_element', array( &$this, 'ajax_send_task_to_element' ) );
 
 		add_action( 'wp_ajax_update_due_date', array( &$this, 'ajax_update_due_date' ) );
@@ -63,26 +49,19 @@ class task_action_01 {
 	 * @return JSON Object { 'success': true|false, 'data': { 'template': '' } }
 	 */
 	public function create_task() {
-		wpeo_check_01::check( 'wpeo_nonce_create_task' );
+		check_ajax_referer( 'wpeo_nonce_create_task' );
 
-		global $task_controller;
-		$task = $task_controller->create( array(
-			'title' => __( 'New task', 'task-manager' ),
-			'parent_id' => !empty( $_POST['parent_id'] ) ? $_POST['parent_id'] : 0,
+		$task = Task_Class::g()->create( array(
+			'title' 		=> __( 'New task', 'task-manager' ),
+			'parent_id' => ! empty( $_POST['parent_id'] ) ? $_POST['parent_id'] : 0,
 			'author_id' => get_current_user_id(),
-			'option' => array( 'user_info' => array( 'owner_id' => get_current_user_id() ) ) ) );
-
-		/** On log la création de la tâche */
-		taskmanager\log\eo_log( 'wpeo_project',
-		array(
-			'object_id' => $task->id,
-			'message' => sprintf( __( 'The task #%d has been created by the user #%d', 'task-manager'), $task->id, get_current_user_id() ),
-		), 0 );
-
-		$task = $task_controller->show( $task->id );
+			'user_info' => array(
+				'owner_id' => get_current_user_id(),
+			),
+		) );
 
 		ob_start();
-		$task_controller->render_task( $task );
+		Task_Class::g()->render_task( $task );
 		wp_send_json_success( array( 'template' => ob_get_clean() ) );
 	}
 
@@ -781,4 +760,4 @@ class task_action_01 {
 	}
 }
 
-new task_action_01();
+new Task_Action();

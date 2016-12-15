@@ -56,6 +56,7 @@ class Task_Filter {
 		else {
 			$list_task = Task_Class::g()->get( array( 'post_parent' => $post_parent ) );
 		}
+
 		ob_start();
 		View_Util::exec( 'task', 'backend/list-task', array( 'list_task' => $list_task ) );
 		$string .= ob_get_clean();

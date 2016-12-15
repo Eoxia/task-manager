@@ -30,7 +30,6 @@ require_once 'core/wpeo_template.01.php';
 require_once 'core/wpeo_util.01.php';
 require_once 'core/external/wpeo_util/singleton.util.php';
 require_once 'core/external/wpeo_util/init.util.php';
-require_once 'core/external/wpeo_model/wpeo_model.php';
 require_once 'core/external/wpeo_logs/controller/log.controller.01.php';
 
 // log_class::g()->start_ms( 'task_manager_boot' );

@@ -24,5 +24,5 @@ if ( ! defined( 'ABSPATH' ) ) { exit;
 			</div>
 		</li>
 	</ul>
-	<?php View_Util::exec( 'task', 'backend/task-header-information' ); ?>
+	<?php View_Util::exec( 'task', 'backend/task-header-information', array( 'task' => $task ) ); ?>
 </form>

@@ -39,7 +39,7 @@ class User_Filter {
 
 	public function callback_task_footer( $string, $element ) {
 		/** On récupère le responsable de la tâche */
-		$owner_id = ( !empty( $element ) && !empty( $element->option) && !empty( $element->option['user_info'] ) && !empty( $element->option['user_info']['owner_id'] ) ) ? $element->option['user_info']['owner_id']: 0;
+		$owner_id = ( !empty( $element ) && !empty( $element->user_info ) && !empty( $element->user_info['owner_id'] ) ) ? $element->user_info['owner_id']: 0;
 		$owner_user = Task_Manager_User_Class::g()->get_user_by_id( $owner_id );
 		$size = 50;
 

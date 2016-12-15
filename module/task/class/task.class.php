@@ -14,19 +14,13 @@ class Task_Class extends Post_Class {
 	protected $version = '0.1';
 
 	protected function construct() {
-		add_action( 'init', array( &$this, 'callback_init' ), 1, 0 );
-	}
-
-	public function callback_init() {
-		register_post_type( $this->post_type, array( 'label' => 'tasks', 'public' => false ) );
-		register_post_status( 'archive' );
+		parent::construct();
 	}
 
 	public function render_task( $task, $class = '', $need_information = true ) {
 		$disabled_filter = apply_filters( 'task_header_disabled', '' );
-		View_Util::exec( 'task', 'backend/task', array( 'task' => $task, 'class' => $class, 'need_information' => $need_information ) );
+		View_Util::exec( 'task', 'backend/task', array( 'disabled_filter' => $disabled_filter, 'task' => $task, 'class' => $class, 'need_information' => $need_information ) );
 	}
 }
-
 
 Task_Class::g();
