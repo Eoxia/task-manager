@@ -31,6 +31,8 @@ class Tag_Filter {
 
 	public function callback_task_footer( $string, $element ) {
 		ob_start();
+		$list_tag = Tag_Class::g()->get( array( 'post_id' => $element->id ) );
+		View_Util::exec( 'tag', 'backend/display-tag-selected', array( 'object' => $element, 'list_tag' => $list_tag ) );
 		$string .= ob_get_clean();
 
 		return $string;
