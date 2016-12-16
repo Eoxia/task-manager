@@ -11,7 +11,7 @@ class Tag_Class extends Term_Class {
 	* Nom du modèle a utiliser / Name of model to use
 	* @var string
 	*/
-	protected $model_name = 'tag_model_01';
+	protected $model_name = '\task_manager\Tag_Model';
 
 	/**
 	 * Nom de la meta stockant les données / Meta name for data storage
@@ -38,20 +38,6 @@ class Tag_Class extends Term_Class {
 	protected $version = '0.1';
 
 	protected function construct() {}
-
-	public function render_list_tag( $object ) {
-		$list_tag_in_object = array();
-		$list_tag_id		= array();
-
-		if ( !empty( $object->taxonomy ) && !empty( $object->taxonomy[$this->taxonomy] ) ) {
-			foreach( $object->taxonomy[$this->taxonomy] as $tag_id ) {
-				$list_tag_in_object[] 	= $this->show( $tag_id );
-				$list_tag_id[] 			= $tag_id;
-			}
-		}
-
-		require( wpeo_template_01::get_template_part( WPEOMTM_TAG_DIR, WPEOMTM_TAG_TEMPLATES_MAIN_DIR, 'backend', 'display', 'tag-selected' ) );
-	}
 
 }
 

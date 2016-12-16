@@ -31,24 +31,9 @@ class Tag_Filter {
 
 	public function callback_task_footer( $string, $element ) {
 		ob_start();
-		$this->render_list_tag( $element );
 		$string .= ob_get_clean();
 
 		return $string;
-	}
-
-	public function render_list_tag( $object ) {
-		$list_tag_in_object = array();
-		$list_tag_id		= array();
-
-		if ( !empty( $object->taxonomy ) && !empty( $object->taxonomy[$this->taxonomy] ) ) {
-			foreach( $object->taxonomy[$this->taxonomy] as $tag_id ) {
-				$list_tag_in_object[] 	= $this->show( $tag_id );
-				$list_tag_id[] 			= $tag_id;
-			}
-		}
-
-		View_Util::exec( 'tag', 'backend/display-tag-selected', array( 'object' => $object, 'list_tag_in_object' => $list_tag_in_object, 'list_tag_id' => $list_tag_id ) );
 	}
 
 }
