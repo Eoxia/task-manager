@@ -18,7 +18,8 @@
 					<label for="general-search">
 						<i class="dashicons dashicons-search"></i>
 						<input id="general-search" type="text" name="general-search" placeholder="<?php _e( 'Enter a keyword', 'task-manager' ); ?>" />
-						<span class="open-search-filter dashicons dashicons-arrow-down"></span>
+						<toggle class="dashicons dashicons-arrow-down"
+										data-target="wpeo-header-search"></toggle>
 					</label>
 				</li>
 			</ul>
@@ -27,7 +28,7 @@
 		<!-- Barre noire recherche -->
 		<?php
 		$string_search_filter = apply_filters( 'task_manager_dashboard_search', '' );
-		echo !empty( $string_search_filter ) ? '<div class="wpeo-header-search"><ul>' . $string_search_filter . '</ul></div>' : '';
+		echo !empty( $string_search_filter ) ? '<div class="wpeo-header-search hidden"><ul>' . $string_search_filter . '</ul></div>' : '';
 		?>
 	</div>
 
