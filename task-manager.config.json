@@ -4,7 +4,8 @@
 	"version": "1.3.4.0",
 	"description": "L'application Task Manager",
 	"insert_scripts_pages": [
-		"wpeomtm-dashboard"
+		"toplevel_page_wpeomtm-dashboard",
+		"wpshop_customers"
 	],
 	"modules": [
 		"core/core.config.json",
@@ -13,7 +14,8 @@
 		"module/task/task.config.json",
 		"module/point/point.config.json",
 		"module/tag/tag.config.json",
-		"module/user/user.config.json"
+		"module/user/user.config.json",
+		"module/liaison-post-type/liaison-post-type.config.json"
 	],
 	"debug": false
 }

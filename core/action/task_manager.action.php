@@ -24,14 +24,9 @@ class Task_Manager_Action {
 	 * plugins_loaded (Pour appeler le domaine de traduction)
 	 */
 	public function __construct() {
-		// Initialises ses actions que si nous sommes sur une des pages réglés dans le fichier task-manager.config.json dans la clé "insert_scripts_pages".
-		$page = ( ! empty( $_REQUEST['page'] ) ) ? sanitize_text_field( $_REQUEST['page'] ) : '';
-
-		if ( in_array( $page, config_util::$init['task-manager']->insert_scripts_pages, true ) ) {
-			add_action( 'admin_enqueue_scripts', array( $this, 'callback_before_admin_enqueue_scripts' ), 10 );
-			add_action( 'admin_enqueue_scripts', array( $this, 'callback_admin_enqueue_scripts' ), 11 );
-			add_action( 'admin_print_scripts', array( $this, 'callback_admin_print_scripts' ) );
-		}
+		add_action( 'admin_enqueue_scripts', array( $this, 'callback_before_admin_enqueue_scripts' ), 10 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'callback_admin_enqueue_scripts' ), 11 );
+		add_action( 'admin_print_scripts', array( $this, 'callback_admin_print_scripts' ) );
 
 		add_action( 'init', array( $this, 'callback_plugins_loaded' ) );
 		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 12 );
@@ -43,14 +38,18 @@ class Task_Manager_Action {
 	 * @return void nothing
 	 */
 	public function callback_before_admin_enqueue_scripts() {
-		wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'jquery-form' );
-		wp_enqueue_script( 'jquery-ui-datepicker' );
-		wp_enqueue_script( 'jquery-ui-sortable' );
-		wp_enqueue_script( 'jquery-ui-accordion' );
-		wp_enqueue_script( 'jquery-ui-autocomplete' );
-		wp_enqueue_media();
-		add_thickbox();
+		$screen = \get_current_screen();
+
+		if ( in_array( $screen->id, config_util::$init['task-manager']->insert_scripts_pages, true ) ) {
+			wp_enqueue_script( 'jquery' );
+			wp_enqueue_script( 'jquery-form' );
+			wp_enqueue_script( 'jquery-ui-datepicker' );
+			wp_enqueue_script( 'jquery-ui-sortable' );
+			wp_enqueue_script( 'jquery-ui-accordion' );
+			wp_enqueue_script( 'jquery-ui-autocomplete' );
+			wp_enqueue_media();
+			add_thickbox();
+		}
 	}
 
 	/**
@@ -59,10 +58,14 @@ class Task_Manager_Action {
 	 * @return void nothing
 	 */
 	public function callback_admin_enqueue_scripts() {
-		wp_register_style( 'task-manager-style', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/style.min.css', array(), config_util::$init['task-manager']->version );
-		wp_enqueue_style( 'task-manager-style' );
+		$screen = \get_current_screen();
 
-		wp_enqueue_script( 'task-manager-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/backend.min.js', array(), config_util::$init['task-manager']->version, false );
+		if ( in_array( $screen->id, config_util::$init['task-manager']->insert_scripts_pages, true ) ) {
+			wp_register_style( 'task-manager-style', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/style.min.css', array(), config_util::$init['task-manager']->version );
+			wp_enqueue_style( 'task-manager-style' );
+
+			wp_enqueue_script( 'task-manager-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/backend.min.js', array(), config_util::$init['task-manager']->version, false );
+		}
 	}
 
 	/**
@@ -71,7 +74,11 @@ class Task_Manager_Action {
 	 * @return void nothing
 	 */
 	public function callback_admin_print_scripts() {
-		require( PLUGIN_TASK_MANAGER_PATH . '/core/asset/js/language.js.php' );
+		$screen = \get_current_screen();
+
+		if ( in_array( $screen->id, config_util::$init['task-manager']->insert_scripts_pages, true ) ) {
+			require( PLUGIN_TASK_MANAGER_PATH . '/core/asset/js/language.js.php' );
+		}
 	}
 
 	/**
