@@ -1,11 +1,12 @@
 <?php
 
+namespace task_manager;
 if ( !defined( 'ABSPATH' ) ) exit;
 
-class help_controller_01 {
+class Task_Help_Class {
 	public function __construct() {
 		add_action( 'init', array( $this, 'callback_init' ) );
-    add_action( 'admin_menu', array( $this, 'callback_admin_menu' ) );
+    // add_action( 'admin_menu', array( $this, 'callback_admin_menu' ) );
 	}
 
 	public function callback_init() {
@@ -37,4 +38,4 @@ class help_controller_01 {
   }
 }
 
-new help_controller_01();
+new Task_Help_Class();
