@@ -1,36 +1,61 @@
 <?php
+/**
+ * Fichier permettant de gérer l'affichage de l'aide pour les shortcodes d'affichage des tâches
+ *
+ * @package Task Manager
+ * @subpackage Module/Shortcode-Help
+ */
 
 namespace task_manager;
-if ( !defined( 'ABSPATH' ) ) exit;
 
-class Task_Help_Filter {
-	public function __construct() {
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Classe permettant de gère les filtres WordPress d'affichage des boutons d'insertion de shortcode dans les pages/articles/etc
+ */
+class Task_Help_Filter extends Singleton_util {
+
+	/**
+	 * Overwrite parent constructor
+	 */
+	public function construct() { }
+
+	/**
+	 * Fonction de callback pour l'initialisation des différents outils dans le wysiwyg
+	 */
+	public function callback_wysiwyg_init() {
 		add_filter( 'mce_buttons', array( $this, 'callback_mce_buttons' ) );
 		add_filter( 'mce_external_plugins', array( $this, 'callback_mce_external_plugins' ) );
 	}
 
+	/**
+	 * Fonction de callback permettant d'ajouter les boutons dans le WYSIWYG
+	 *
+	 * @param  array $buttons La liste des boutons actuellement présent dans le WYSIWYG.
+	 *
+	 * @return array La nouvelle liste de boutons a afficher dans le WYSIWYG
+	 */
 	public function callback_mce_buttons( $buttons ) {
 		array_push( $buttons, 'task' );
+
 		return $buttons;
 	}
 
+	/**
+	 * Fonction de callback pour
+	 *
+	 * @param  array $plugin_array La liste des plugins actuellement présent dans le WYSIWYG.
+	 *
+	 * @return array               La nouvelle liste de plugins dans le WYSIWYG
+	 */
 	public function callback_mce_external_plugins( $plugin_array ) {
-		global $task_controller;
-		$list_task = $task_controller->index( array( 'post_parent' => 0 ) );
+		$plugin_array['task'] = PLUGIN_TASK_MANAGER_URL . '/core/asset/js/task-button.js';
 
-		require_once( wpeo_template_01::get_template_part( WPEO_TASK_HELP_DIR, WPEO_TASK_HELP_TEMPLATES_MAIN_DIR, 'backend', 'list-task' ) );
-
-		$plugin_array['task'] = WPEO_TASKMANAGER_DIR_ASSET . '/js/task-button.js';
 		return $plugin_array;
 	}
 
-  public function callback_admin_menu() {
-    add_submenu_page( 'wpeomtm-dashboard', __( 'Help', 'task-manager' ), __( 'Help', 'task-manager' ), 'manage_options', 'wpeo-project-help', array( &$this, 'callback_submenu_page' ) );
-  }
-
-  public function callback_submenu_page() {
-    require_once( wpeo_template_01::get_template_part( WPEO_TASK_HELP_DIR, WPEO_TASK_HELP_TEMPLATES_MAIN_DIR, 'backend', 'main' ) );
-  }
 }
 
 new Task_Help_Filter();

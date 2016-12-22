@@ -5,9 +5,8 @@
 	"description": "Aide pour l'utilisation des shortcodes pour la gestion des tâches",
 	"path": "module/shortcode-help/",
 	"dependencies": {
-		"action": {},
-		"class": {},
-		"filter": {}
+		"filter": {},
+		"action": {}
 	},
 	"state": true
 }
