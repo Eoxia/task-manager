@@ -6,6 +6,7 @@
 	"path": "module/point/",
 	"dependencies": {
 		"action": {},
+		"helper": {},
 		"filter": {},
 		"model": {},
 		"class": {}

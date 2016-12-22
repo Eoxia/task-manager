@@ -34,6 +34,9 @@ class comment_class extends singleton_util {
 			$args['status'] = '-34070';
 		}
 
+		if ( empty( $args['status'] ) && !empty( $this->status ) ) {
+			$args['status'] = $this->status;
+		}
 
 		if ( !empty( $args['id'] ) ) {
 			$array_comment[] = get_comment( $args['id'], ARRAY_A );

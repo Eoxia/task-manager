@@ -6,6 +6,7 @@
 	"path": "module/task/",
 	"dependencies": {
 		"action": {},
+		"helper": {},
 		"filter": {},
 		"model": {},
 		"class": {}

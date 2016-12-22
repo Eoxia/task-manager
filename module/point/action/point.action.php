@@ -34,10 +34,10 @@ class Point_Action {
 	 * @return string Le template d'un point / The template of point
 	 */
 	public function ajax_create_point() {
-		if (  0 === is_int( ( int )$_POST['point']['post_id'] ) )
+		if (  0 === is_int( (int) $_POST['point']['post_id'] ) )
 		  wp_send_json_error();
 		else
-			$object_id = $_POST['point']['post_id'];
+			$object_id = (int) $_POST['point']['post_id'];
 
 		check_ajax_referer( 'wpeo_nonce_create_point_' . $object_id );
 
@@ -49,8 +49,8 @@ class Point_Action {
 		/** Add to the order point */
 		$task = Task_Class::g()->get( array( 'post__in' => array( $object_id ) ) );
 		$task = $task[0];
-		$task->task_info['order_point_id'][] = (int) $point->id;
-		Task_Class::g()->update( $task );
+		/*$task->task_info['order_point_id'][] = (int) $point->id;
+		Task_Class::g()->update( $task );*/
 
 		/** Log la création du point / Log the creation of point */
 		// taskmanager\log\eo_log( 'wpeo_project',
@@ -62,7 +62,7 @@ class Point_Action {
 		$custom_class = 'wpeo-task-point-sortable';
 		ob_start();
 		View_Util::exec( 'point', 'backend/point', array( 'object_id' => $object_id, 'task' => $task, 'point' => $point, 'custom_class' => $custom_class ) );
-		wp_send_json_success( array( 'template' => ob_get_clean() ) );
+		wp_send_json_success( array( 'module' => 'point', 'callback_success' => 'add_point_callback_success',  'template' => ob_get_clean() ) );
 	}
 
 	/**
@@ -72,32 +72,24 @@ class Point_Action {
 	 * the elapsed time in the task in connection with this point. Take off the point
 	 * in order_point_id in the task and update this.
 	 *
-	 * @param int $_POST['post_id'] ID de la tâche / The task ID
-	 * @param int $_POST['point_id'] ID du point / The point ID
+	 * @param int $_POST['point']['id'] ID du point / The point ID
 	 *
 	 * @return json task_mdl_01 Object
 	 */
 	public function ajax_delete_point() {
-		wpeo_check_01::check( 'wpeo_nonce_delete_point_' . $_POST['point_id'] );
-
-		global $task_controller;
-		global $point_controller;
-
-		$point 	= $point_controller->show( $_POST['point_id'] );
-		$task 	= $point_controller->decrease_time( $_POST['point_id'] );
-
-		if( ( $key = array_search( $_POST['point_id'], $task->option['task_info']['order_point_id'] ) ) !== false ) {
-			unset( $task->option['task_info']['order_point_id'][$key] );
+		if( isset( $_POST['point']['id'] ) ) {
+			$point_id = (int) $_POST['point']['id'];
+		} else {
+			wp_send_json_error();
 		}
+		check_ajax_referer( 'wpeo_nonce_delete_point_' . $point_id );
+		$point = Point_Class::g()->get( array( 'id' => $point_id ) );
+		$point = $point[0];
+		$point->status = 'trash';
+		Point_Class::g()->update( $point );
 
-		$task_controller->update( $task );
-
-		/** Log la suppression du point / Log the deletion of point */
-		taskmanager\log\eo_log( 'wpeo_project',
-		array(
-			'object_id' => $_POST['point_id'],
-			'message' => sprintf( __( 'The point #%d was deleted for the task #%d. The elapsed time for this point was %d minute(s). The elapsed time for this task is now %d minute(s)', 'task-manager'), $point->id, $task->id, $point->option['time_info']['elapsed'], $task->option['time_info']['elapsed'] ),
-		), 0 );
+		$task = Task_Class::g()->get( array( 'id' => $point->post_id ) );
+		$task = $task[0];
 
 		wp_send_json_success( array( 'task' => $task, 'task_header_information' => apply_filters( 'task_header_information', '', $task ) ) );
 	}
@@ -117,27 +109,29 @@ class Point_Action {
 
 		$point = Point_Class::g()->get( array( 'status' => Point_Class::g()->status, 'comment__in' => array( $_POST['point']['id'] ) ) );
 		$point = $point[0];
-		//
-		// if( $_POST['point']['option']['point_info']['completed'] ) {
-		// 	$point->time_info['completed_point'][get_current_user_id()][] = current_time( 'mysql' );
-		// }
-		// else {
-		// 	$point->time_info['uncompleted_point'][get_current_user_id()][] = current_time( 'mysql' );
-		// }
-		//
-		// $_POST['point']['option']['time_info']['completed_point'] = $point->time_info['completed_point'];
-		// $_POST['point']['option']['time_info']['uncompleted_point'] = $point->time_info['uncompleted_point'];
 
 		$point->content = $_POST['point']['content'];
 		Point_Class::g()->update( $point );
-		//
-		// taskmanager\log\eo_log( 'wpeo_project',
-		// array(
-		// 	'object_id' => $_POST['point']['id'],
-		// 	'message' => sprintf( __( 'The point #%d was updated with the content : %s and set to completed : %s', 'task-manager'), $_POST['point']['id'], $_POST['point']['content'], $_POST['point']['option']['point_info']['completed'] ),
-		// ), 0 );
 
-		wp_send_json_success( );
+		if ( isset( $_POST['point']['order'] ) ) {
+			$new_key = (int) $_POST['point']['order'];
+			$task = Task_Class::g()->get( array( 'id' => $point->post_id ) );
+			$task = $task[0];
+			unset( $task->task_info['order_point_id'][ array_search( $point->id, $task->task_info['order_point_id'], true ) ] );
+			if ( isset( $task->task_info['order_point_id'][ $new_key ] ) ) {
+				$end_order_point_id = array_slice( $task->task_info['order_point_id'], $new_key );
+				$end_order_point_id[ $new_key - 1 ] = $point->id;
+				foreach ( $end_order_point_id as $key_point_id => $point_id ) {
+					$task->task_info['order_point_id'][ $key_point_id + 1 ] = $point_id;
+				}
+			} else {
+				$task->task_info['order_point_id'][ $new_key ] = $point->id;
+			}
+			$task->task_info['order_point_id'] = array_values( $task->task_info['order_point_id'] );
+			Task_Class::g()->update( $task );
+		}
+
+		wp_send_json_success( array( 'module' => 'point' ) );
 	}
 
 	/**
