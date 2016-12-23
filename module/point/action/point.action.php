@@ -49,15 +49,6 @@ class Point_Action {
 		/** Add to the order point */
 		$task = Task_Class::g()->get( array( 'post__in' => array( $object_id ) ) );
 		$task = $task[0];
-		/*$task->task_info['order_point_id'][] = (int) $point->id;
-		Task_Class::g()->update( $task );*/
-
-		/** Log la création du point / Log the creation of point */
-		// taskmanager\log\eo_log( 'wpeo_project',
-		// 	array(
-		// 		'object_id' => $object_id,
-		// 		'message' => sprintf( __( 'Create the point #%d with the content : %s for the task #%d', 'task-manager'), $point->id, $point->content, $object_id ),
-		// 	), 0 );
 
 		$custom_class = 'wpeo-task-point-sortable';
 		ob_start();
@@ -119,7 +110,8 @@ class Point_Action {
 			$task = $task[0];
 			unset( $task->task_info['order_point_id'][ array_search( $point->id, $task->task_info['order_point_id'], true ) ] );
 			if ( isset( $task->task_info['order_point_id'][ $new_key ] ) ) {
-				$end_order_point_id = array_slice( $task->task_info['order_point_id'], $new_key );
+				$end_order_point_id = array_slice( $task->task_info['order_point_id'], $new_key, -1, true );
+				array_splice( $task->task_info['order_point_id'], $new_key );
 				$end_order_point_id[ $new_key - 1 ] = $point->id;
 				foreach ( $end_order_point_id as $key_point_id => $point_id ) {
 					$task->task_info['order_point_id'][ $key_point_id + 1 ] = $point_id;
@@ -127,6 +119,7 @@ class Point_Action {
 			} else {
 				$task->task_info['order_point_id'][ $new_key ] = $point->id;
 			}
+			ksort( $task->task_info['order_point_id'] );
 			$task->task_info['order_point_id'] = array_values( $task->task_info['order_point_id'] );
 			Task_Class::g()->update( $task );
 		}
