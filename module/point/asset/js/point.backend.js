@@ -8,6 +8,7 @@ window.task_manager.point.event = function() {
 	jQuery( document ).on( 'blur click keyup paste keydown', '.wpeo-add-point .wpeo-point-new-contenteditable', window.task_manager.point.add_point );
 	jQuery( document ).on( 'blur paste', '.wpeo-edit-point .wpeo-point-contenteditable', window.task_manager.point.edit_point );
 	jQuery( document ).on( 'click', '.wpeo-send-point-to-trash', window.task_manager.point.delete_point );
+	jQuery( document ).on( 'click', '.wpeo-task-point-use-toggle p', window.task_manager.point.toggle_completed );
 	jQuery( '.wpeo-project-wrap .wpeo-task-point-sortable' ).sortable( {
 		handle: '.dashicons-screenoptions',
 		items: '.wpeo-edit-point',
@@ -87,8 +88,7 @@ window.task_manager.point.edit_point_order = function( element, index ) {
 window.task_manager.point.delete_point = function( event ) {
 	var element = jQuery( this );
 	var pointBloc = element.closest( '.wpeo-task-li-point' );
-	// TODO Add translated text
-	if ( confirm( 'Delete point' ) ) {
+	if ( confirm( 'Delete point' ) ) { // TODO Add translated text
 		window.task_manager.request.send( this, element.data() );
 		pointBloc.animate( {
 			opacity: 0,
@@ -97,4 +97,18 @@ window.task_manager.point.delete_point = function( event ) {
 			pointBloc.remove();
 		} );
 	}
+};
+
+window.task_manager.point.toggle_completed = function( event ) {
+	var element = jQuery( this );
+	element.find( '.wpeo-point-toggle-arrow' ).toggleClass( 'dashicons-plus dashicons-minus' );
+	element.closest( '.wpeo-task-point-use-toggle' ).find( 'ul:first' ).toggle( 200 );
+};
+
+window.task_manager.point.toggle_completed_callback_success = function( element, response ) {
+	element.closest( '.wpeo-project-task' ).find( '.wpeo-task-point-completed' ).html( response.data.template );
+};
+
+window.task_manager.point.toggle_completed_callback_error = function( element, response ) {
+	element.closest( '.wpeo-project-task' ).find( '.wpeo-task-point-completed' ).html( response.data.template );
 };

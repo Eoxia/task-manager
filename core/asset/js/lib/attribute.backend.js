@@ -1,15 +1,16 @@
 jQuery.fn.get_data = function( cb ) {
   this.each( function() {
     var data = {};
+	var i, localName;
 
-    for ( var i = 0; i <  jQuery( this )[0].attributes.length; i++ ) {
-      var localName = jQuery( this )[0].attributes[i].localName;
-      if (  localName.substr(0, 4) == 'data' ||
-            localName == 'action') {
+    for ( i = 0; i <  jQuery( this )[0].attributes.length; i++ ) {
+      localName = jQuery( this )[0].attributes[i].localName;
+      if (  'data' == localName.substr( 0, 4 ) ||
+            'action' == localName ) {
 
-        localName = localName.substr(5);
+        localName = localName.substr( 5 );
 
-        if ( localName == 'nonce' ) localName = '_wpnonce';
+        localName = ( 'nonce' == localName ) ? '_wpnonce' : localName;
         localName = localName.replace( '-', '_' );
         data[localName] =  jQuery( this )[0].attributes[i].value;
       }

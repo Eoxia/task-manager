@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; ?>
 
 	<!-- Completed point -->
 <div class="wpeo-task-point-use-toggle">
-	<p data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_completed_point' ) ); ?>">
+	<p class="action-attribute" data-action="load_completed_point" data-task[id]="<?php echo $object_id; ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_completed_point_' . $object_id ) ); ?>">
 	<span class="dashicons dashicons-plus wpeo-point-toggle-arrow"></span>
 	<a class="wpeo-point-toggle-a" href="#" title="<?php __( 'Toggle completed point', 'task-manager' ); ?>"><?php _e( 'Completed point', 'task-manager' ); ?> (<span class='wpeo-task-count-completed'><?php echo count( $list_point_completed ); ?>/<?php echo (count( $list_point_completed ) + count( $list_point_uncompleted )); ?></span>)</a>
 	</p>

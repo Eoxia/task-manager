@@ -9,7 +9,7 @@ window.task_manager.form.event = function() {
 
 window.task_manager.form.sumbit_form = function( event ) {
 	var element = jQuery( this );
-	var callback = element.attr( 'class' ).match( /submit-form-.*?[^ ]+/g );
+	var callback = element.attr( 'class' ).match( /submit-form-.*?[^ ]+/g ); // Use submit-form-module-callback class to add more actions
     event.preventDefault();
 	if ( callback ) {
 		callback = callback[0].split( '-' );

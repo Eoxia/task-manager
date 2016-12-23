@@ -53,7 +53,7 @@ class Point_Action {
 		$custom_class = 'wpeo-task-point-sortable';
 		ob_start();
 		View_Util::exec( 'point', 'backend/point', array( 'object_id' => $object_id, 'task' => $task, 'point' => $point, 'custom_class' => $custom_class ) );
-		wp_send_json_success( array( 'module' => 'point', 'callback_success' => 'add_point_callback_success',  'template' => ob_get_clean() ) );
+		wp_send_json_success( array( 'module' => 'point', 'callback_success' => 'add_point_callback_success', 'template' => ob_get_clean() ) );
 	}
 
 	/**
@@ -128,71 +128,31 @@ class Point_Action {
 	}
 
 	/**
-	 * Met à jour la meta order_point_id d'une tâche / Update the meta order_point_id
-	 * on a task.
-	 *
-	 * @param int $_POST['object_id'] L'ID de la tâche / The task ID
-	 * @param array $_POST['order_point_id'] Le tableau avec les id des points / The array of
-	 * id points
-	 *
-	 * @return void
-	 */
-	public function ajax_edit_order_point() {
-		global $task_controller;
-		global $point_controller;
-
-		$object_id = (int) $_POST['object_id'];
-
-		$task = $task_controller->show( $object_id );
-		$list_point = $point_controller->index( $task->id, array( 'comment__in' => $task->option['task_info']['order_point_id'], 'status' => -34070 ) );
-
-		/** Get all completed point in the task for don't forget it in the order point id */
-		if( !empty( $list_point ) ) {
-			foreach( $list_point as $point ) {
-				if( $point->option['point_info']['completed'] )
-					$_POST['order_point_id'][] = (int)$point->id;
-			}
-		}
-
-		if( !empty( $_POST['order_point_id'] ) ){
-			foreach( $_POST['order_point_id'] as $key => $id ) {
-				$_POST['order_point_id'][$key] = (int) $id;
-			}
-		}
-
-		$task->option['task_info']['order_point_id'] = $_POST['order_point_id'];
-		$task_controller->update( $task );
-
-		wp_die();
-	}
-
-	/**
 	 * Charges les points complétés d'une tâche et renvoie la vue.
 	 *
 	 * @return void
 	 */
 	public function ajax_load_completed_point() {
-		check_ajax_referer( 'load_completed_point' );
-		global $task_controller, $point_controller;
+		check_ajax_referer( 'load_completed_point_' . $_POST['task']['id'] );
 
-		$object_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
-		$task = $task_controller->show( $object_id );
+		$task = Task_Class::g()->get( array( 'id' => (int) $_POST['task']['id'] ) )[0];
 		$list_point_completed = array();
 
-		if ( ! empty( $task->option['task_info']['order_point_id'] ) ) {
-			$list_point = $point_controller->index( $task->id, array( 'orderby' => 'comment__in', 'comment__in' => $task->option['task_info']['order_point_id'], 'status' => -34070 ) );
+		if ( ! empty( $task->task_info['order_point_id'] ) ) {
+			$list_point = Point_Class::g()->get( array( 'orderby' => 'comment__in', 'comment__in' => $task->task_info['order_point_id'], 'status' => -34070 ) );
 			$list_point_completed = array_filter( $list_point, function( $point ) {
-				return true === $point->option['point_info']['completed'];
+				return true === $point->point_info['completed'];
 			} );
 		}
 
+		$custom_class = 'wpeo-task-point-sortable';
 		ob_start();
 		if ( ! empty( $list_point_completed ) ) {
 			foreach ( $list_point_completed as $point ) {
-				require( wpeo_template_01::get_template_part( WPEO_POINT_DIR, WPEO_POINT_TEMPLATES_MAIN_DIR, 'backend', 'point' ) );
+				View_Util::exec( 'point', 'backend/point', array( 'object_id' => $task->id, 'task' => $task, 'point' => $point, 'custom_class' => $custom_class ) );
 			}
 		}
-		wp_send_json_success( array( 'template' => ob_get_clean() ) );
+		wp_send_json_success( array( 'module' => 'point', 'callback_success' => 'toggle_completed_callback_success', 'callback_error' => 'toggle_completed_callback_error', 'template' => ob_get_clean() ) );
 	}
 
 	/**
