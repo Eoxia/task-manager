@@ -1,41 +1,82 @@
 <?php
+/**
+ * Fichier de gestion des filtres permettant l'utilisation de "Tag" dans les tâches
+ *
+ * @package Task Manager
+ * @subpackage Module/Tag
+ */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
+/**
+ * Classe de gestion des filtres permettant l'utilisation de "Tag" dans les tâches
+ */
 class Tag_Filter {
 
+	/**
+	 * Instanciation du module
+	 */
 	public function __construct() {
-		add_filter( 'task_manager_dashboard_filter', array( $this, 'callback_dashboard_filter' ), 13, 1 );
+		/** Ajout d'onglets dans le tableau de bord des tâches */
+		add_filter( 'task_manager_dashboard_filter', array( $this, 'callback_filter_dashboard_tabs' ), 13, 1 );
 		add_filter( 'task_manager_dashboard_search', array( $this, 'callback_task_manager_dashboard_search' ), 12, 2 );
 
 		add_filter( 'task_footer', array( $this, 'callback_task_footer' ), 5, 2 );
 		add_filter( 'task_window_footer_task_controller', array( $this, 'callback_task_footer' ), 11, 2 );
 	}
 
-	public function callback_dashboard_filter( $string ) {
+	/**
+	 * Fonction de callback permettant l'affichage d'onglet supplémentaire pour les tags dans le tableau de bord des tâches
+	 *
+	 * @param  string $current_tab_html Les onglets actuellement présent.
+	 *
+	 * @return string         Les onglets modifié pour le module des tags
+	 */
+	public function callback_filter_dashboard_tabs( $current_tab_html ) {
 		ob_start();
-		View_Util::exec( 'tag', 'backend/filter' );
-		$string .= ob_get_clean();
-		return $string;
+		View_Util::exec( 'tag', 'backend/filter-tab' );
+		$current_tab_html .= ob_get_clean();
+
+		return $current_tab_html;
 	}
 
-	public function callback_task_manager_dashboard_search( $string ) {
-		ob_start();
-		View_Util::exec( 'tag', 'backend/tag-search' );
-		$string .= ob_get_clean();
+	/**
+	 * Fonction de rappel permettant l'affichage du champs de recherche/ajout d'un tag dans le tableau de bord des tâches
+	 *
+	 * @param  string $current_search_html La sortie html courante pour la recherche dans le tableau de bord des tâches.
+	 *
+	 * @return string         La nouvelle sortie html pour la recherche dans le tableau de bord des tâches
+	 */
+	public function callback_task_manager_dashboard_search( $current_search_html ) {
+		$list_tag = Tag_Class::g()->get();
 
-		return $string;
+		ob_start();
+		View_Util::exec( 'tag', 'backend/filter-search', array( 'list_tag' => $list_tag ) );
+		$current_search_html .= ob_get_clean();
+
+		return $current_search_html;
 	}
 
-	public function callback_task_footer( $string, $element ) {
-		ob_start();
-		$list_tag = Tag_Class::g()->get( array( 'post_id' => $element->id ) );
-		View_Util::exec( 'tag', 'backend/display-tag-selected', array( 'object' => $element, 'list_tag' => $list_tag ) );
-		$string .= ob_get_clean();
+	/**
+	 * Affichage des tags dans chaque tâches pour affectation à la tâche
+	 *
+	 * @param  string    $current_task_footer_html  Le contenu html de la tâche que l'on souhaite modifier.
+	 * @param  WP_Object $task                      La tâche pour laquelle il faut récupèrer les tags déjà associés.
+	 *
+	 * @return string                              Le footer de la tâche auquel les tags ont été ajoutés
+	 */
+	public function callback_task_footer( $current_task_footer_html, $task ) {
+		$list_tag = Tag_Class::g()->get( array( 'post_id' => $task->id ) );
 
-		return $string;
+		ob_start();
+		View_Util::exec( 'tag', 'backend/display-tag-selected', array( 'object' => $task, 'list_tag' => $list_tag ) );
+		$current_task_footer_html .= ob_get_clean();
+
+		return $current_task_footer_html;
 	}
 
 }

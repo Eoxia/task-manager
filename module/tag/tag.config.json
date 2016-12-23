@@ -5,9 +5,9 @@
 	"description": "Le module gérant les catégories",
 	"path": "module/tag/",
 	"dependencies": {
-		"action": {},
-		"filter": {},
 		"model": {},
-		"class": {}
+		"class": {},
+		"action": {},
+		"filter": {}
 	}
 }

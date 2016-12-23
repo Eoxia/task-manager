@@ -21,24 +21,23 @@ class Tag_Action {
 	 */
 	public function ajax_view_all_tag() {
 		$object_id = $_POST['object_id'];
-		if ( !is_int( $object_id ) )
+		if ( ! is_int( $object_id ) ) {
 			$object_id = intval( $object_id );
+		}
+		check_ajax_referer( 'wpeo_nonce_load_tag_' . $object_id );
 
-		wpeo_check_01::check( 'wpeo_nonce_load_tag_' . $object_id );
-
-		global $tag_controller;
+		$list_tag = Tag_Class::g()->get();
 
 		ob_start();
-		require( wpeo_template_01::get_template_part( WPEOMTM_TAG_DIR, WPEOMTM_TAG_TEMPLATES_MAIN_DIR, 'backend', 'display', 'tag' ) );
+		View_Util::exec( 'tag', 'backend/display-tag', array( 'list_tag' => $list_tag ) );
 		wp_send_json_success( array( 'template' => ob_get_clean() ) );
 	}
 
 	public function ajax_create_tag() {
-		global $tag_controller;
 		$response = array();
 
 		$term = wp_create_term( $_POST['tag_name'], $tag_controller->get_taxonomy() );
-		$response = $tag_controller->show( $term['term_id'] );
+		$response = Tag_Class::g()->show( $term['term_id'] );
 
 		wp_send_json_success( $response );
 	}
