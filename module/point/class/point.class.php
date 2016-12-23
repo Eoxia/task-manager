@@ -47,6 +47,9 @@ class Point_Class extends Comment_Class {
 
 	public $status = '-34070';
 
+	// Voir d'ajouter un type
+	//protected $comment_type = 'point';
+
 	/**
 	 * Constructeur qui inclus le modèle des points et également des les scripts
 	 * JS et CSS nécessaire pour le fonctionnement des points
@@ -54,6 +57,10 @@ class Point_Class extends Comment_Class {
 	 * @return void
 	 */
 	protected function construct() {}
+
+	public function update( $data ) {
+		return Point_Helper::update_task( parent::update( $data ) );
+	}
 }
 
 Point_Class::g();
