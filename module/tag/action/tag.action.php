@@ -7,30 +7,34 @@ if ( !defined( 'ABSPATH' ) ) exit;
 class Tag_Action {
 
 	public function __construct() {
-		add_action( 'wp_ajax_wpeo-view-all-tag', array( &$this, 'ajax_view_all_tag' ) );
+		ini_set("display_errors", true);
+		error_reporting(E_ALL);
+		add_action( 'wp_ajax_load_tags', array( $this, 'load_tags' ) );
+		add_action( 'wp_ajax_load_archived_task', array( $this, 'load_archived_task' ) );
+
 		add_action( 'wp_ajax_create-tag', array( &$this, 'ajax_create_tag' ) );
 	}
 
-	/**
-	 * Charge tous les tags et les affiches
-	 *
-	 * @param string $_GET['_wpnonce'] Le code de sécurité crée par la fonction wp_create_nonce de
-	 * WordPress
-	 * @param int $_POST['object_id'] L'id de la tâche
-	 * @return JSON Object { 'success': true|false, 'data': { template: '' } }
-	 */
-	public function ajax_view_all_tag() {
-		$object_id = $_POST['object_id'];
-		if ( ! is_int( $object_id ) ) {
-			$object_id = intval( $object_id );
-		}
-		check_ajax_referer( 'wpeo_nonce_load_tag_' . $object_id );
+	public function load_tags() {
+		check_ajax_referer( 'load_tags' );
 
 		$list_tag = Tag_Class::g()->get();
 
 		ob_start();
 		View_Util::exec( 'tag', 'backend/display-tag', array( 'list_tag' => $list_tag ) );
-		wp_send_json_success( array( 'template' => ob_get_clean() ) );
+
+		wp_send_json_success( array( 'module' => 'tag', 'callback_success' => 'load_tag_success', 'view' => ob_get_clean() ) );
+	}
+
+	public function load_archived_task() {
+		check_ajax_referer( 'load_archived_task' );
+
+		$list_tag = Tag_Class::g()->get();
+
+		ob_start();
+		View_Util::exec( 'tag', 'backend/display-tag', array( 'list_tag' => $list_tag ) );
+
+		wp_send_json_success( array( 'module' => 'tag', 'callback_success' => 'load_archived_task', 'view' => ob_get_clean() ) );
 	}
 
 	public function ajax_create_tag() {
