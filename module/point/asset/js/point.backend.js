@@ -7,8 +7,7 @@ window.task_manager.point.init = function() {
 window.task_manager.point.event = function() {
 	jQuery( document ).on( 'blur click keyup paste keydown', '.wpeo-add-point .wpeo-point-new-contenteditable', window.task_manager.point.add_point );
 	jQuery( document ).on( 'blur paste', '.wpeo-edit-point .wpeo-point-contenteditable', window.task_manager.point.edit_point );
-	jQuery( document ).on( 'click', '.wpeo-send-point-to-trash', window.task_manager.point.delete_point );
-	jQuery( document ).on( 'click', '.wpeo-task-point-use-toggle p', window.task_manager.point.toggle_completed );
+	jQuery( document ).on( 'click', '.wpeo-done-point', window.task_manager.point.done_point );
 	jQuery( '.wpeo-project-wrap .wpeo-task-point-sortable' ).sortable( {
 		handle: '.dashicons-screenoptions',
 		items: '.wpeo-edit-point',
@@ -16,6 +15,8 @@ window.task_manager.point.event = function() {
 			window.task_manager.point.edit_point_order( ui.item, jQuery( this ).find( '.wpeo-edit-point' ).index( ui.item ) );
 		}
 	} );
+	jQuery( document ).on( 'click', '.wpeo-send-point-to-trash', window.task_manager.point.delete_point );
+	jQuery( document ).on( 'click', '.wpeo-task-point-use-toggle p', window.task_manager.point.toggle_completed );
 };
 
 window.task_manager.point.add_point = function( event ) {
@@ -59,7 +60,7 @@ window.task_manager.point.add_point_callback = function( element ) {
 window.task_manager.point.add_point_callback_success = function( element, response ) {
 	var blocTask = element.closest( '.wpeo-project-task' );
 	blocTask.find( '.wpeo-task-point:first' ).append( response.data.template );
-	blocTask.find( '.wpeo-task-li-point:last' ).css( { 'opacity': 0, 'left': -20 } ).animate( {
+	blocTask.find( '.wpeo-task-point-sortable .wpeo-task-li-point:last' ).css( { opacity: 0, left: -20 } ).animate( {
 		opacity: 1,
 		left: 0
 	}, 300 );
@@ -70,8 +71,32 @@ window.task_manager.point.edit_point = function( event ) {
 	var parentBloc = element.closest( '.wpeo-edit-point' );
 	var editPointInput = parentBloc.find( 'input[name="point[content]"]' );
 	var editPointBtn = parentBloc.find( '*[class*="submit-form"]' );
-	editPointInput.val( element.html() );
+	var contentEditable = parentBloc.find( '.wpeo-point-contenteditable' );
+	editPointInput.val( contentEditable.html() );
 	editPointBtn.trigger( 'submit_form' );
+};
+
+window.task_manager.point.done_point = function( event ) {
+	var element = jQuery( this );
+	var pointBloc = element.closest( '.wpeo-edit-point' );
+	var blocName = '';
+	pointBloc.find( '.wpeo-point-contenteditable' ).each( window.task_manager.point.edit_point );
+	if ( element.is( ':checked' ) ) {
+		blocName = '.wpeo-task-point-completed';
+	} else {
+		blocName = '.wpeo-task-point-sortable';
+	}
+	pointBloc.find( '.wpeo-task-li-point' ).animate( {
+		opacity: 0,
+		left: '20'
+	}, 300, function() {
+		pointBloc.appendTo( blocName );
+		pointBloc.find( '.wpeo-task-li-point' ).css( { left: '20' } ).animate( {
+			opacity: 1,
+			left: '0'
+		}, 300 );
+	} );
+	// TODO L'ordre des points n'est pas respecté en JS mais reste sauvegardé en PHP (tant que l'ordre du point n'est pas changé)
 };
 
 window.task_manager.point.edit_point_order = function( element, index ) {

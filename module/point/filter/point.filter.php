@@ -49,11 +49,11 @@ class Point_Filter {
 		if ( ! empty( $task->task_info['order_point_id'] ) ) {
 			$list_point = Point_Class::g()->get( array( 'post_id' => $task->id, 'orderby' => 'comment__in', 'comment__in' => $task->task_info['order_point_id'], 'status' => -34070 ) );
 			$list_point_completed = array_filter( $list_point, function( $point ) {
-				return true === $point->point_info['completed'];
+				return true === (bool) $point->point_info['completed']; // Vaut "1"... Donc (bool) "1" === true.
 			} );
 
 			$list_point_uncompleted = array_filter( $list_point, function( $point ) {
-				return false === $point->point_info['completed'];
+				return false === (bool) $point->point_info['completed'];
 			} );
 		}
 

@@ -10,11 +10,13 @@ class Task_Helper {
 		$points = Point_Class::g()->get( array( 'post_id' => $data->id, 'parent' => 0, 'order' => 'ASC' ) );
 		$points_ids = $new_points_ids = array();
 		foreach ( $points as $point ) {
-			$compiled_time += (int) $point->time_info['elapsed'];
-			if ( ( $key = array_search( $point->id, $data->task_info['order_point_id'], true ) ) !== false ) {
-				$points_ids[ $key ] = $point->id;
-			} else {
-				$new_points_ids[] = $point->id;
+			if ( 0 !== $point->id ) {
+				$compiled_time += (int) $point->time_info['elapsed'];
+				if ( ! empty( $data->task_info ) && ( $key = array_search( $point->id, $data->task_info['order_point_id'], true ) ) !== false ) {
+					$points_ids[ $key ] = $point->id;
+				} else {
+					$new_points_ids[] = $point->id;
+				}
 			}
 		}
 		ksort( $points_ids );

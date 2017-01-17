@@ -102,6 +102,9 @@ class Point_Action {
 		$point = $point[0];
 
 		$point->content = $_POST['point']['content'];
+		foreach ( $_POST['point']['option'] as $option_key => $option ) {
+			$point->$option_key = $option;
+		}
 		Point_Class::g()->update( $point );
 
 		if ( isset( $_POST['point']['order'] ) ) {
@@ -141,7 +144,7 @@ class Point_Action {
 		if ( ! empty( $task->task_info['order_point_id'] ) ) {
 			$list_point = Point_Class::g()->get( array( 'orderby' => 'comment__in', 'comment__in' => $task->task_info['order_point_id'], 'status' => -34070 ) );
 			$list_point_completed = array_filter( $list_point, function( $point ) {
-				return true === $point->point_info['completed'];
+				return true === (bool) $point->point_info['completed'];
 			} );
 		}
 
