@@ -12,11 +12,11 @@ if ( !defined( 'ABSPATH' ) ) exit; ?>
 			<?php
 			if ( !empty( $owner_id ) ):
 				$user = $owner_user;
-				$nonce 			= 'wpeo_nonce_edit_task_owner_user';
-				View_Util::exec( 'user', 'backend/user-gravatar', array( 'nonce' => $nonce, 'user' => $user ) );
-			else:
 				$nonce = 'wpeo_nonce_edit_task_owner_user';
 				View_Util::exec( 'user', 'backend/user-gravatar', array( 'nonce' => $nonce, 'user' => $user ) );
+			else:
+				// TODO Aucun utilisateur ne peut être afficher...
+				//View_Util::exec( 'user', 'backend/user-gravatar', array( 'nonce' => $nonce, 'user' => $user ) );
 			endif;
 			?>
 			</ul>

@@ -19,6 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 </div>
 
 <?php
+// TODO Revoir l'utilité d'afficher les tâches sans ID...
 if ( !empty ( $list_task ) ):
 	foreach ( $list_task as $key => $task ) :
 		if( !is_int($key) ):

@@ -34,7 +34,7 @@ class Task_Filter {
 
 	public function callback_dashboard_filter( $string ) {
 		ob_start();
-		View_Util::exec( 'task', 'backend/filter' );
+		View_Util::exec( 'task', 'backend/filter-tab' );
 		$string .= ob_get_clean();
 
 		return $string;

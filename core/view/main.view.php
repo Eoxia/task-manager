@@ -11,7 +11,7 @@
 
 
 		<!-- Barre blanche des filtres -->
-		<header class="wpeo-header-bar <?php echo is_page() ? 'wpeo-no-display' : ''; ?>">
+		<header class="wpeo-header-bar<?php echo is_page() ? ' wpeo-no-display' : ''; ?>">
 			<ul>
 				<?php echo apply_filters( 'task_manager_dashboard_filter', '' ); ?>
 				<li class="wpeo-general-search">

@@ -131,22 +131,14 @@ class Task_Action {
 	}
 
 	public function ajax_load_all_task() {
-		global $task_controller;
-		$list_task = $task_controller->index( array( 'post_parent' => 0 ) );
-
 		ob_start();
-		require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'list-task' ) );
+		View_Util::exec( 'task', 'backend/list-task', array( 'list_task' => Task_Class::g()->get( array( 'post_parent' => 0 ) ) ) );
 		wp_send_json_success( array( 'template' => ob_get_clean() ) );
-
 	}
 
 	public function ajax_load_archived_task() {
-		global $task_controller;
-		$list_task = $task_controller->index( array( 'post_parent' => 0, 'post_status' => 'archive' ) );
-		$status = 'archive';
-
 		ob_start();
-		require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'list-task' ) );
+		View_Util::exec( 'task', 'backend/list-task', array( 'list_task' => Task_Class::g()->get( array( 'post_parent' => 0, 'post_status' => 'archive' ) ) ) );
 		wp_send_json_success( array( 'template' => ob_get_clean() ) );
 	}
 

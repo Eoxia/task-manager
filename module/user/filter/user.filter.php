@@ -24,7 +24,7 @@ class User_Filter {
 
 	public function callback_task_manager_dashboard_filter( $string ) {
 		ob_start();
-		View_Util::exec( 'user', 'backend/filter' );
+		View_Util::exec( 'user', 'backend/filter-tab' );
 		$string .= ob_get_clean();
 
 		return $string;

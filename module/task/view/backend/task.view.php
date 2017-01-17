@@ -7,7 +7,7 @@ if ( !defined( 'ABSPATH' ) ) exit; ?>
 
 <div 	data-id="<?php echo $task->id; ?>"
 			data-affected-id="<?php echo implode( ',', ! empty( $task->user_info['affected_id'] ) ? $task->user_info['affected_id'] : array() ); ?>"
-			data-owner-id="<?php echo $task->user_info['owner_id']; ?>"
+			data-owner-id="<?php echo ! empty( $task->user_info['owner_id'] ) ? $task->user_info['owner_id'] : 0 ?>"
 			data-affected-tag-id="<?php echo implode( ',', !empty( $task->taxonomy['wpeo_tag'] ) ? $task->taxonomy['wpeo_tag'] : array() ); ?>"
 			class="<?php echo !empty( $class ) ? $class : ''; ?> wpeo-project-task <?php echo !empty( $task->front_info['display_color'] ) ? $task->front_info['display_color'] : ''; ?>">
 	<div class="wpeo-project-task-container">
