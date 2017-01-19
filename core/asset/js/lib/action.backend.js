@@ -19,9 +19,6 @@ window.task_manager.action.exec_input = function( event ) {
 	}
 
 	if ( ! element[0].getAttribute( ' disabled' ) ) {
-		element[0].setAttribute( 'disabled', true );
-		element.closest( '.wp-digi-bloc-loader' ).addClass( 'wp-digi-bloc-loading' );
-
 		var list_input = window.eoxia_lib.array_form.get_input( parent_element );
 		var data = {};
 		for ( var i = 0; i < list_input.length; i++ ) {
@@ -39,8 +36,6 @@ window.task_manager.action.exec_attribute = function( event ) {
   var callback = element.attr( 'class' ).match( /action-attribute-.*?[^ ]+/g ); // Use action-attribute-module-callback class to add more actions
 
 	if ( ! element[0].getAttribute( 'disabled' ) ) {
-		element[0].setAttribute( 'disabled', true );
-
 		if ( jQuery( this ).data( 'confirm' ) ) {
 			if ( window.confirm( jQuery( this ).data( 'confirm' ) ) ) {
 				element.get_data( function( data ) {
@@ -72,7 +67,6 @@ window.task_manager.action.delete = function( event ) {
 
 	if ( ! element[0].getAttribute( 'disabled' ) ) {
   	if ( window.confirm( window.digi_confirm_delete ) ) {
-			element[0].setAttribute( 'disabled', true );
 	    element.get_data( function( data ) {
 				element.closest( '.wp-digi-bloc-loader' ).addClass( 'wp-digi-bloc-loading' );
 	      window.task_manager.request.send( element, data );
