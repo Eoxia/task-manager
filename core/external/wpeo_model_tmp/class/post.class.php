@@ -94,7 +94,7 @@ class Post_Class extends singleton_util {
 		return $model->get_model();
 	}
 
-	public function get( $args = array( 'posts_per_page' => -1 ) ) {
+	public function get( $args = array( 'posts_per_page' => -1 ), $single = false ) {
 		$array_posts = array();
 		$args['post_type'] = $this->post_type;
 
@@ -154,6 +154,10 @@ class Post_Class extends singleton_util {
 					$array_posts[ $key ] = call_user_func( $get_function, $array_posts[ $key ] );
 				}
 			}
+		}
+
+		if ( true === $single && 1 === count( $array_posts ) ) {
+			$array_posts = $array_posts[0];
 		}
 
 		return $array_posts;

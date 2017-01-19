@@ -72,7 +72,7 @@ class user_class extends singleton_util {
 		wp_delete_user( $id );
 	}
 
-	public function get( $args = array() ) {
+	public function get( $args = array(), $single = false ) {
 		$list_user = array();
 		$list_model_user = array();
 
@@ -120,6 +120,11 @@ class user_class extends singleton_util {
 				$list_model_user[] = $data;
 		  }
 		}
+
+		if ( true === $single && 1 === count( $list_model_user ) ) {
+			$list_model_user = $list_model_user[0];
+		}
+
 		return $list_model_user;
 	}
 

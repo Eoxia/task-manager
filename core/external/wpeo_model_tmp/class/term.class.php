@@ -54,7 +54,7 @@ class term_class extends singleton_util {
 		wp_delete_term( $id );
 	}
 
-	public function get( $args = array() ) {
+	public function get( $args = array(), $single = false ) {
 		$list_term = array();
 		$array_term = array();
 
@@ -105,6 +105,10 @@ class term_class extends singleton_util {
 				  }
 				}
 			}
+		}
+
+		if ( true === $single && 1 === count( $list_term ) ) {
+			$list_term = $list_term[0];
 		}
 
 		return $list_term;

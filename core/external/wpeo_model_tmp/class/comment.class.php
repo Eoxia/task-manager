@@ -25,7 +25,7 @@ class comment_class extends singleton_util {
 		return $model->get_model();
 	}
 
-	public function get( $args = array( 'post_id' => 0, 'parent' => 0 ) ) {
+	public function get( $args = array( 'post_id' => 0, 'parent' => 0 ), $single = false ) {
 		$array_model = array();
 		$array_comment = array();
 
@@ -85,6 +85,10 @@ class comment_class extends singleton_util {
 					$list_comment[0] = call_user_func( $model_function, $list_comment[0] );
 				}
 			}
+		}
+
+		if ( true === $single && 1 === count( $list_comment ) ) {
+			$list_comment = $list_comment[0];
 		}
 
 		return $list_comment;
