@@ -5,72 +5,106 @@ window.task_manager.action.init = function() {
 };
 
 window.task_manager.action.event = function() {
-  jQuery( document ).on( 'click', '.action-input', window.task_manager.action.exec_input );
-  jQuery( document ).on( 'click', '.action-attribute, *[class*="action-attribute-"]', window.task_manager.action.exec_attribute );
-  jQuery( document ).on( 'click', '.wp-digi-action-delete', window.task_manager.action.delete );
+	jQuery( document ).on( 'click', '.action-input:not(.no-action)', window.task_manager.action.execInput );
+	jQuery( document ).on( 'click', '.action-attribute:not(.no-action)', window.task_manager.action.execAttribute );
+	jQuery( document ).on( 'click', '.action-delete:not(.no-action)', window.task_manager.action.execDelete );
 };
 
-window.task_manager.action.exec_input = function( event ) {
-  var element = jQuery( this );
-	var parent_element = element;
+window.task_manager.action.execInput = function( event ) {
+	var element = jQuery( this );
+	var parentElement = element;
+	var loaderElement = element;
+	var listInput = undefined;
+	var data = {};
+	var i = 0;
+	var doAction = true;
 
-	if ( element.data( 'parent' ) ) {
-			parent_element = element.closest( '.' + element.data( 'parent' ) );
+	if ( element.data( 'loader' ) ) {
+		loaderElement = element.closest( '.' + element.data( 'loader' ) );
 	}
 
-	if ( ! element[0].getAttribute( ' disabled' ) ) {
-		var list_input = window.eoxia_lib.array_form.get_input( parent_element );
-		var data = {};
-		for ( var i = 0; i < list_input.length; i++ ) {
-			if ( list_input[i].name ) {
-				data[list_input[i].name] = list_input[i].value;
+	if ( element.data( 'parent' ) ) {
+		parentElement = element.closest( '.' + element.data( 'parent' ) );
+	}
+
+	/** Méthode appelée avant l'action */
+	if ( element.data( 'module' ) && element.data( 'before-method' ) ) {
+		doAction = false;
+		doAction = window.task_manager[element.data( 'module' )][element.data( 'before-method' )]( element );
+	}
+
+	if ( doAction ) {
+		loaderElement.addClass( 'loading' );
+
+		listInput = window.eoxiaJS.arrayForm.get_input( parentElement );
+		for ( i = 0; i < listInput.length; i++ ) {
+			if ( listInput[i].name ) {
+				data[listInput[i].name] = listInput[i].value;
 			}
 		}
 
-    window.task_manager.request.send( element, data );
+		element.get_data( function( attrData ) {
+			for ( key in attrData ) {
+				data[key] = attrData[key];
+			}
+
+			window.task_manager.request.send( element, data );
+		} );
 	}
 };
 
-window.task_manager.action.exec_attribute = function( event ) {
+window.task_manager.action.execAttribute = function( event ) {
   var element = jQuery( this );
-  var callback = element.attr( 'class' ).match( /action-attribute-.*?[^ ]+/g ); // Use action-attribute-module-callback class to add more actions
+	var doAction = true;
+	var loaderElement = element;
 
-	if ( ! element[0].getAttribute( 'disabled' ) ) {
+	if ( element.data( 'loader' ) ) {
+		loaderElement = element.closest( '.' + element.data( 'loader' ) );
+	}
+
+	/** Méthode appelée avant l'action */
+	if ( element.data( 'module' ) && element.data( 'before-method' ) ) {
+		doAction = false;
+		doAction = window.task_manager[element.data( 'module' )][element.data( 'before-method' )]( element );
+	}
+
+	if ( doAction ) {
 		if ( jQuery( this ).data( 'confirm' ) ) {
 			if ( window.confirm( jQuery( this ).data( 'confirm' ) ) ) {
 				element.get_data( function( data ) {
-					if ( callback ) {
-						callback = callback[0].split( '-' );
-						if ( callback[2] && callback[3] && window.task_manager[callback[2]][callback[3]] ) {
-							window.task_manager[callback[2]][callback[3]]( element );
-						}
-					}
+					loaderElement.addClass( 'loading' );
 					window.task_manager.request.send( element, data );
 				} );
 			}
 		} else {
 			element.get_data( function( data ) {
-				if ( callback ) {
-					callback = callback[0].split( '-' );
-					if ( callback[2] && callback[3] && window.task_manager[callback[2]][callback[3]] ) {
-						window.task_manager[callback[2]][callback[3]]( element );
-					}
-				}
+				loaderElement.addClass( 'loading' );
 				window.task_manager.request.send( element, data );
 			} );
 		}
 	}
 };
 
-window.task_manager.action.delete = function( event ) {
+window.task_manager.action.execDelete = function( event ) {
   var element = jQuery( this );
+	var doAction = true;
+	var loaderElement = element;
 
-	if ( ! element[0].getAttribute( 'disabled' ) ) {
-  	if ( window.confirm( window.digi_confirm_delete ) ) {
-	    element.get_data( function( data ) {
-				element.closest( '.wp-digi-bloc-loader' ).addClass( 'wp-digi-bloc-loading' );
-	      window.task_manager.request.send( element, data );
-	    } );
-	  }
+	if ( element.data( 'loader' ) ) {
+		loaderElement = element.closest( '.' + element.data( 'loader' ) );
+	}
+
+	/** Méthode appelée avant l'action */
+	if ( element.data( 'module' ) && element.data( 'before-method' ) ) {
+		doAction = false;
+		doAction = window.task_manager[element.data( 'module' )][element.data( 'before-method' )]( element );
+	}
+
+	if ( doAction ) {
+		if ( window.confirm( 'Confirm delete ?' ) ) {
+			element.get_data( function( data ) {
+				window.task_manager.request.send( element, data );
+			} );
+		}
 	}
 };
