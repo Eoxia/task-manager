@@ -47,7 +47,7 @@ var wpeo_global = {
 
 		jQuery( '.wpeo-project-wrap .wpeo-task-point-sortable' ).sortable( {
 			handle: '.dashicons-screenoptions',
-			items: '.wpeo-task-li-point',
+			items: 'form',
 			update: function() {
 				wpeo_point.edit_order( jQuery( this ) );
 			}
