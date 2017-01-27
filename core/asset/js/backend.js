@@ -842,8 +842,6 @@ var wpeo_point = {
 		jQuery.post( ajaxurl, data, function() {
 			// wpeo_task.grid.masonry();
 		});
-
-
 	},
 
 	switch_completed: function( e, element ) {
