@@ -15,13 +15,13 @@
  * Bootstrap file for plugin. Do main includes and create new instance for plugin components
  *
  * @author Eoxia <dev@eoxia.com>
- * @version 1.3.4.0
+ * @version 1.3.4.1
  */
 
 if ( !defined( 'ABSPATH' ) ) exit;
 
 /** Define */
-DEFINE( 'WPEO_TASKMANAGER_VERSION', '1.3.4.0' );
+DEFINE( 'WPEO_TASKMANAGER_VERSION', '1.3.4.1' );
 DEFINE( 'WPEO_TASKMANAGER_DIR', basename( dirname( __FILE__ ) ) );
 DEFINE( 'WPEO_TASKMANAGER_PATH', str_replace( "\\", "/", plugin_dir_path( __FILE__ ) ) );
 DEFINE( 'WPEO_TASKMANAGER_URL', str_replace( str_replace( "\\", "/", ABSPATH), site_url() . '/', WPEO_TASKMANAGER_PATH ) );
