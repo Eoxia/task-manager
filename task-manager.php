@@ -1,13 +1,5 @@
 <?php
 /**
- * Fichier boot du plugin
- *
- * @package TaskManager\Plugin
- */
-
-namespace task_manager;
-
-/**
  * Plugin Name: Task Manager
  * Description: Quick and easy to use, manage all your tasks and your time with the Task Manager plugin.
  * Version: 1.3.4.0
@@ -19,19 +11,44 @@ namespace task_manager;
  * Domain Path: /language
  */
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+/**
+ * Bootstrap file for plugin. Do main includes and create new instance for plugin components
+ *
+ * @author Eoxia <dev@eoxia.com>
+ * @version 1.3.4.0
+ */
 
-DEFINE( 'PLUGIN_TASK_MANAGER_PATH', realpath( plugin_dir_path( __FILE__ ) ) . '/' );
-DEFINE( 'PLUGIN_TASK_MANAGER_URL', plugins_url( basename( __DIR__ ) ) . '/' );
-DEFINE( 'PLUGIN_TASK_MANAGER_DIR', basename( __DIR__ ) );
+if ( !defined( 'ABSPATH' ) ) exit;
 
-require_once 'core/wpeo_check.01.php';
-require_once 'core/wpeo_template.01.php';
-require_once 'core/wpeo_util.01.php';
-require_once 'core/external/wpeo_util/singleton.util.php';
-require_once 'core/external/wpeo_util/init.util.php';
-require_once 'core/external/wpeo_logs/controller/log.controller.01.php';
+/** Define */
+DEFINE( 'WPEO_TASKMANAGER_VERSION', '1.3.4.0' );
+DEFINE( 'WPEO_TASKMANAGER_DIR', basename( dirname( __FILE__ ) ) );
+DEFINE( 'WPEO_TASKMANAGER_PATH', str_replace( "\\", "/", plugin_dir_path( __FILE__ ) ) );
+DEFINE( 'WPEO_TASKMANAGER_URL', str_replace( str_replace( "\\", "/", ABSPATH), site_url() . '/', WPEO_TASKMANAGER_PATH ) );
 
-// log_class::g()->start_ms( 'task_manager_boot' );
-Init_util::g()->exec();
-// log_class::g()->exec( 'task_manager_boot', 'task_manager_boot', 'Boot l\'application Task Manager' );
+DEFINE( 'WPEO_TASKMANAGER_EXPORT_URL', WPEO_TASKMANAGER_URL . '/core/asset/export/' );
+DEFINE( 'WPEO_TASKMANAGER_ASSET_URL', WPEO_TASKMANAGER_URL . '/core/asset/');
+DEFINE( 'WPEO_TASKMANAGER_EXPORT_DIR',  WPEO_TASKMANAGER_PATH . '/core/asset/export/' );
+DEFINE( 'WPEO_TASKMANAGER_ASSETS_DIR',  WPEO_TASKMANAGER_PATH . '/core/asset/' );
+
+DEFINE( 'WPEO_TASKMANAGER_TEMPLATES_MAIN_DIR', WPEO_TASKMANAGER_PATH . '/template/' );
+
+DEFINE( 'WPEO_TASKMANAGER_DEBUG', true );
+
+DEFINE( 'WPEO_TASKMANAGER_DIR_ASSET', plugins_url( '', __FILE__ ) . '/core/asset' );
+/** Ajout des langues */
+add_action( 'plugins_loaded', function() {
+	load_plugin_textdomain( 'task-manager', false, dirname( plugin_basename( __FILE__ ) ) . '/core/asset/language/' );
+} );
+
+require_once( WPEO_TASKMANAGER_PATH . 'core/wpeo_util.01.php' );
+require_once( WPEO_TASKMANAGER_PATH . 'core/wpeo_template.01.php' );
+require_once( WPEO_TASKMANAGER_PATH . 'core/wpeo_check.01.php' );
+
+taskmanager\util\wpeo_util::install_module( 'wpeo_model' );
+
+require_once( WPEO_TASKMANAGER_PATH . '/core/taskmanager/taskmanager.controller.01.php' );
+require_once( WPEO_TASKMANAGER_PATH . '/core/taskmanager/taskmanager.action.01.php' );
+
+taskmanager\util\wpeo_util::install_in( 'core' );
+?>

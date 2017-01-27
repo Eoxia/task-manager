@@ -163,6 +163,8 @@
 		background: #404A53;
 		padding: 10px;
 		transition: all 0.2s ease-in-out;
+		opacity: 0;
+		height: 0px;
 		pointer-events: none;
 		&.active {
 			opacity: 1;
@@ -561,7 +563,7 @@
 			&:hover .dashicons-screenoptions, &:hover .wpeo-send-point-to-trash {
 				opacity: 0.4;
 			}
-			.wpeo-point-new-btn {
+			.wpeo-task-add-new-point {
 				// color: @main-color;
 				opacity: 0.2;
 				margin-left: 0 !important;
@@ -570,7 +572,7 @@
 				}
 			}
 		}
-		.wpeo-point-new-contenteditable {
+		.wpeo-point-textarea {
 			padding: 5px;
 			font-family: 'kalamregular';
 			font-size: 14px;
