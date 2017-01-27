@@ -1,0 +1,33 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: wpeotag 1.0\n"
+"POT-Creation-Date: 2016-01-20 11:19+0100\n"
+"PO-Revision-Date: 2016-01-20 11:20+0100\n"
+"Last-Translator: \n"
+"Language-Team: Eoxia <contact@eoxia.com>\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8\n"
+"X-Poedit-Basepath: ..\\\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: asset\\js\n"
+
+#: template/backend/choosen.php:3
+msgid "Search by User..."
+msgstr "Chercher par Utilisateur..."
+
+#~ msgid "The value post_id is required."
+#~ msgstr "La valeur de post id est requis."
+
+#~ msgid "You are not allowed to edit this task : Incorrect nonce"
+#~ msgstr "Vous n'êtes pas autorisé à editer cette tâche : Nonce invalide"
+
+#~ msgid "You need to use an integer"
+#~ msgstr "Vous devez utiliser un entier"
+
+#~ msgid "Nothing to display"
+#~ msgstr "Rien à afficher"

@@ -1,0 +1,95 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: wpeo_tag 1.0\n"
+"POT-Creation-Date: 2015-11-18 16:07+0100\n"
+"PO-Revision-Date: 2015-11-18 16:07+0100\n"
+"Last-Translator: \n"
+"Language-Team: Eoxia <contact@eoxia.com>\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8\n"
+"X-Poedit-Basepath: ..\\\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: asset\n"
+
+#: controller/tag.controller.01.php:57
+msgid "Search Tags"
+msgstr ""
+
+#: controller/tag.controller.01.php:58
+msgid "Popular Tags"
+msgstr ""
+
+#: controller/tag.controller.01.php:59
+msgid "All Tags"
+msgstr ""
+
+#: controller/tag.controller.01.php:62
+msgid "Edit Tag"
+msgstr ""
+
+#: controller/tag.controller.01.php:63
+msgid "Update Tag"
+msgstr ""
+
+#: controller/tag.controller.01.php:64
+msgid "Add New Tag"
+msgstr ""
+
+#: controller/tag.controller.01.php:65
+msgid "New Tag Name"
+msgstr ""
+
+#: controller/tag.controller.01.php:66
+msgid "Separate Tags with commas"
+msgstr ""
+
+#: controller/tag.controller.01.php:67
+msgid "Add or remove Tags"
+msgstr ""
+
+#: controller/tag.controller.01.php:68
+msgid "Choose from the most used Tags"
+msgstr ""
+
+#: controller/tag.controller.01.php:69
+msgid "No Tags found."
+msgstr "Aucune catégorie trouvées."
+
+#: controller/tag.controller.01.php:70
+msgid "Tags"
+msgstr "Étiquettes"
+
+#: controller/tag.controller.01.php:89
+msgid "Project"
+msgstr "Projet"
+
+#: template/backend/display-tag-selected.php:12
+msgid "Click here to add a tag"
+msgstr "Cliquez ici pour ajouter une catégorie"
+
+#: template/backend/menu.php:1
+msgid "Search by Tag..."
+msgstr "Rechercher par Catégorie..."
+
+#~ msgid "The value post_id is required."
+#~ msgstr "La valeur post id est requis."
+
+#~ msgid "Nothing to display"
+#~ msgstr "Rien à afficher"
+
+#~ msgid "Choose a Tag..."
+#~ msgstr "Choisir une Catégorie..."
+
+#~ msgid "Configure tag"
+#~ msgstr "Configurer les catégories"
+
+#~ msgid "You are not allowed to edit this task : Incorrect nonce"
+#~ msgstr "Vous n'êtes pas autorisé à éditer cette tâche : Nonce invalide"
+
+#~ msgid "Tag name"
+#~ msgstr "Nom du mot clé"
