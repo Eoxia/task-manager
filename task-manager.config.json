@@ -11,6 +11,7 @@
 		"core/core.config.json",
 		"core/external/wpeo_model_tmp/wpeo_model.config.json",
 
+		"module/update-manager/update-manager.config.json",
 		"module/task/task.config.json",
 		"module/point/point.config.json",
 		"module/tag/tag.config.json",
@@ -18,5 +19,6 @@
 		"module/liaison-post-type/liaison-post-type.config.json",
 		"module/shortcode-help/shortcode-help.config.json"
 	],
-	"debug": false
+	"debug": false,
+	"key_last_update_version" : "_tm_last_update_version"
 }

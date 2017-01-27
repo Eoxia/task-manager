@@ -73,7 +73,7 @@ class Tag_Filter {
 		$list_tag = Tag_Class::g()->get( array( 'post_id' => $task->id ) );
 
 		ob_start();
-		View_Util::exec( 'tag', 'backend/display-tag-selected', array( 'object' => $task, 'list_tag' => $list_tag ) );
+		View_Util::exec( 'tag', 'backend/tags-wrapper', array( 'object' => $task, 'list_tag' => $list_tag ) );
 		$current_task_footer_html .= ob_get_clean();
 
 		return $current_task_footer_html;
