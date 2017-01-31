@@ -6,10 +6,7 @@
   <input type="hidden" class="wpeo-task-post-parent" value="<?php echo $post->ID; ?>" />
 	<!-- Le titre de la page, et également un filtre pour ajouter autant d'actions souhaitées. -->
 	<div class="wpeo-project-dashboard">
-		<h2><?php
-			_e( 'Tasks Manager', 'task-manager' );
-			echo apply_filters( 'task_manager_dashboard_title', '' );
-		?></h2>
+		<h2><?php	echo apply_filters( 'task_manager_dashboard_title', '' );	?></h2>
 	</div>
 
 	<!-- Le contenu du dashboard -->
