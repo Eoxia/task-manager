@@ -65,7 +65,7 @@ if( !class_exists( 'task_wpshop_controller_01' ) ) {
 			return $task_controller->index( $this->get_query_all_task_customer( $user_id ) );
 		}
 
-	    public function my_account_content_ticket( $output, $dashboard_part ) {
+	  public function my_account_content_ticket( $output, $dashboard_part ) {
 			if( 'my-task' === $dashboard_part ) {
 				$output = do_shortcode( '[ticket]' );
 			} elseif( 'my-task-comments' === $dashboard_part ) {
@@ -73,8 +73,9 @@ if( !class_exists( 'task_wpshop_controller_01' ) ) {
 				$point_id = (int) $_GET['point_id'];
 				$output = do_shortcode( '[ticket_comment task_id="' . $task_id . '" point_id="' . $point_id . '" ]' );
 			}
+
 			return $output;
-	    }
+	  }
 
 		public function my_account_content( $output, $dashboard_part ) {
 			if( $dashboard_part == 'my-task' ) {
