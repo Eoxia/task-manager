@@ -5465,3 +5465,13 @@
        -o-animation-duration: 0.5s;
           animation-duration: 0.5s;
 }
+
+
+.wpeo-project-dashboard:after {
+ clear: both;
+ content: "";
+ display: table;
+}
+.wpeo-project-dashboard {
+	padding: 10px 0;
+}

@@ -27,13 +27,14 @@ if( !class_exists( 'taskmanager_controller_01' ) ) {
 		 * @return void
 		 */
 		public function callback_admin_enqueue_scripts() {
-			if( WPEO_TASKMANAGER_DEBUG ) {
-				wp_enqueue_script( 'wpeo-chosen-js', WPEO_TASKMANAGER_ASSET_URL . '/js/chosen.jquery.min.js', array( "jquery" ), WPEO_TASKMANAGER_VERSION );
-				wp_enqueue_script( 'eoajax', WPEO_TASKMANAGER_ASSET_URL . '/js/eoajax.js', array( "jquery" ), WPEO_TASKMANAGER_VERSION );
-				wp_enqueue_script( 'wpeo-task-backend-js', WPEO_TASKMANAGER_ASSET_URL . '/js/backend.js', array( "jquery", "jquery-form", "jquery-ui-datepicker", "jquery-ui-sortable", 'jquery-ui-autocomplete', 'suggest' ), WPEO_TASKMANAGER_VERSION );
-			}
-			else {
-				wp_enqueue_script( 'wpeo-task-backend-js', WPEO_TASKMANAGER_ASSET_URL . '/js/backend.min.js', array( "jquery", "jquery-form", "jquery-ui-datepicker", "jquery-ui-sortable", 'jquery-ui-autocomplete', 'suggest' ), WPEO_TASKMANAGER_VERSION );
+			add_thickbox();
+
+			if ( WPEO_TASKMANAGER_DEBUG ) {
+				wp_enqueue_script( 'wpeo-chosen-js', WPEO_TASKMANAGER_ASSET_URL . '/js/chosen.jquery.min.js', array( 'jquery' ), WPEO_TASKMANAGER_VERSION );
+				wp_enqueue_script( 'eoajax', WPEO_TASKMANAGER_ASSET_URL . '/js/eoajax.js', array( 'jquery' ), WPEO_TASKMANAGER_VERSION );
+				wp_enqueue_script( 'wpeo-task-backend-js', WPEO_TASKMANAGER_ASSET_URL . '/js/backend.js', array( 'jquery', 'jquery-form', 'jquery-ui-datepicker', 'jquery-ui-sortable', 'jquery-ui-autocomplete', 'suggest' ), WPEO_TASKMANAGER_VERSION );
+			} else {
+				wp_enqueue_script( 'wpeo-task-backend-js', WPEO_TASKMANAGER_ASSET_URL . '/js/backend.min.js', array( 'jquery', 'jquery-form', 'jquery-ui-datepicker', 'jquery-ui-sortable', 'jquery-ui-autocomplete', 'suggest' ), WPEO_TASKMANAGER_VERSION );
 			}
 
 			wp_register_style( 'wpeo-task-css', WPEO_TASKMANAGER_ASSET_URL . '/css/style.css', '', WPEO_TASKMANAGER_VERSION );
@@ -52,8 +53,8 @@ if( !class_exists( 'taskmanager_controller_01' ) ) {
 		 * @return void
 		 */
 		public function callback_enqueue_scripts() {
-			wp_enqueue_script( 'eoajax', WPEO_TASKMANAGER_ASSET_URL . '/js/eoajax.js', array( "jquery" ), WPEO_TASKMANAGER_VERSION );
-			wp_enqueue_script( 'wpeo-task-frontend-js', WPEO_TASKMANAGER_ASSET_URL . '/js/frontend.js', array( "jquery", "jquery-form", "jquery-ui-datepicker" ), WPEO_TASKMANAGER_VERSION );
+			wp_enqueue_script( 'eoajax', WPEO_TASKMANAGER_ASSET_URL . '/js/eoajax.js', array( 'jquery' ), WPEO_TASKMANAGER_VERSION );
+			wp_enqueue_script( 'wpeo-task-frontend-js', WPEO_TASKMANAGER_ASSET_URL . '/js/frontend.js', array( 'jquery', 'jquery-form', 'jquery-ui-datepicker' ), WPEO_TASKMANAGER_VERSION );
 
 			wp_register_style( 'wpeo-task-frontend-css', WPEO_TASKMANAGER_ASSET_URL . '/css/frontend.css', '', WPEO_TASKMANAGER_VERSION );
 			wp_enqueue_style( 'wpeo-task-frontend-css' );
@@ -65,9 +66,9 @@ if( !class_exists( 'taskmanager_controller_01' ) ) {
 		 * @return void
 		 */
 		public function callback_admin_print_scripts() {
-			require( wpeo_template_01::get_template_part( WPEO_TASKMANAGER_DIR, WPEO_TASKMANAGER_ASSETS_DIR, "js", "language.js") );
+			require( wpeo_template_01::get_template_part( WPEO_TASKMANAGER_DIR, WPEO_TASKMANAGER_ASSETS_DIR, 'js', 'language.js' ) );
 		}
-  }
+	}
 
 	global $taskmanager_controller;
 	$taskmanager_controller = new taskmanager_controller_01();

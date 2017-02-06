@@ -78,4 +78,12 @@ class wpeo_util {
 
 		return $final_time;
 	}
+
+
+	public static function minutes_to_time( $minutes, $format = '%hh %imin' ) {
+		$dtF = new \DateTime( '@0' );
+		$dtT = new \DateTime( '@' . ( $minutes * 60 ) );
+		return $dtF->diff($dtT)->format( $format );
+	}
+
 }

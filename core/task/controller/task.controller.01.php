@@ -61,19 +61,41 @@ if ( ! class_exists( 'task_controller_01' ) ) {
 
 		public function callback_dashboard_content( $string, $post_parent ) {
 			global $task_controller;
-			if($post_parent == 0) {
-				$list_task = $task_controller->index( array( 'post_parent' => 0,
-				'meta_query' => array(
+			if ( 0 === $post_parent ) {
+				$list_task = $task_controller->index(
 					array(
-						'key' => 'wpeo_task',
-						'value' => '{"user_info":{"owner_id":' . get_current_user_id(),
-							'compare' => 'like',
-						)
-					)
+						'post_parent' => 0,
+						'meta_query' => array(
+							'relation'	=> 'OR',
+							array(
+								'key' => 'wpeo_task',
+								'value' => '{"user_info":{"owner_id":' . get_current_user_id() . ',',
+								'compare' => 'like',
+							),
+							array(
+								'key'			=> 'wpeo_task',
+								'value'		=> '"affected_id":[' . get_current_user_id() . ']',
+								'compare'	=> 'like',
+							),
+							array(
+								'key'			=> 'wpeo_task',
+								'value'		=> '"affected_id":[' . get_current_user_id() . ',',
+								'compare'	=> 'like',
+							),
+							array(
+								'key'			=> 'wpeo_task',
+								'value'		=> '"affected_id":\\[[0-9,]+,' . get_current_user_id() . '\\]',
+								'compare'	=> 'REGEXP',
+							),
+							array(
+								'key'			=> 'wpeo_task',
+								'value'		=> '"affected_id":\\[[0-9,]+,' . get_current_user_id() . '[0-9,]+\\]',
+								'compare'	=> 'REGEXP',
+							),
+						),
 					)
 				);
-			}
-			else {
+			} else {
 				$list_task = $task_controller->index( array( 'post_parent' => $post_parent ) );
 			}
 			ob_start();
