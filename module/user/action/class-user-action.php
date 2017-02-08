@@ -21,14 +21,15 @@ class User_Action {
 	 * Constructor
 	 */
 	public function __construct() {
-		add_action( 'wp_ajax_load_edit_mode_user', array( &$this, 'ajax_load_edit_mode_user' ) );
-
-		add_action( 'wp_ajax_wpeo-update-user', array( &$this, 'ajax_update_user' ) );
-		add_action( 'wp_ajax_wpeo-render-edit-owner-user', array( &$this, 'ajax_render_edit_owner_user' ) );
+		add_action( 'wp_ajax_load_edit_mode_user', array( $this, 'ajax_load_edit_mode_user' ) );
+		add_action( 'wp_ajax_save_user', array( $this, 'ajax_save_user' ) );
 	}
 
 	/**
 	 * Switching the view "user" as edit mode.
+	 *
+	 * @since 0.1
+	 * @version 1.3.6.0
 	 */
 	public function ajax_load_edit_mode_user() {
 		check_ajax_referer( 'load_edit_mode_user' );
@@ -43,12 +44,18 @@ class User_Action {
 			'include' => array( $task_id ),
 		), true );
 
-		$users = get_users( array(
+		$users = Task_Manager_User_Class::g()->get( array(
 			'role' => 'administrator',
 		) );
 
+		if ( ! empty( $users ) ) {
+			foreach ( $users as $user ) {
+				$user->custom['class'] = in_array( $user->id, $task->user_info['affected_id'], true ) ? 'active': '';
+			}
+		}
+
 		ob_start();
-		View_Util::exec( 'user', 'list-user', array(
+		View_Util::exec( 'user', 'footer/list', array(
 			'users' => $users,
 			'task' => $task,
 		) );
@@ -56,71 +63,36 @@ class User_Action {
 
 		wp_send_json_success( array(
 			'module' => 'user',
-			'callback_success' => 'loadedEditModeUser',
+			'callback_success' => 'loadedEditModeUserSuccess',
 			'template' => $template,
 		) );
 	}
 
 	/**
-	 * AJAX - Insert the user in the $_POST['user_id'] checked by the form for this task
-	 * @param int $_POST['object_id'] The post id
-	 * @param int $_POST['user_id'] The user id
-	 * @return JSON Response
+	 * Remplaces le contenu du tableau affected_id de la tâche par celui envoyé.
+	 *
+	 * @return void
+	 *
+	 * @since 1.3.6.0
+	 * @version 1.3.6.0
 	 */
-	public function ajax_update_user() {
-		wpeo_check_01::check( 'wpeo_nonce_update_user_' . $_POST['user_id'] );
+	public function ajax_save_user() {
+		check_ajax_referer( 'save_user' );
 
-		/** Permet de savoir si l'utilisateur est affecté à la tâche ou pas */
-		$affected_to_task = false;
+		$task_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+		$affected_id = ! empty( $_POST['affected_id'] ) ? (array) $_POST['affected_id'] : 0;
 
-		global $task_controller;
-		$task = $task_controller->show( $_POST['object_id'] );
-		$user_id = get_current_user_id();
-		$user_selected_id = ( int ) $_POST['user_id'];
-
-		/** Convert all value to integer */
-		if ( !empty( $_POST['user_id'] ) ) {
-			if ( $_POST['selected'] == 'true' ) {
-				$task->option['user_info']['affected_id'][] = $user_selected_id;
-
-				if ( $user_id == $user_selected_id )
-					$affected_to_task = true;
-			}
-			else {
-				$key = array_search( $user_selected_id, $task->option['user_info']['affected_id'] );
-				if( $key >= 0 ) {
-					array_splice( $task->option['user_info']['affected_id'], $key, 1 );
-				}
-			}
+		if ( empty( $task_id ) ) {
+			wp_send_json_error();
 		}
 
-		$task_controller->update( $task );
+		$task = Task_Class::g()->get( array(
+			'include' => array( $task_id ),
+		), true );
 
-		wp_send_json_success( array( 'affected_to_task' => $affected_to_task ) );
-	}
+		$task->user_info['affected_id'] = $affected_id;
 
-	/**
-	 * AJAX - Si le nonce est correcte, charges la liste de tous les utilisateurs dont le role est
-	 * administrateur expecté l'utilisateur dont l'ID correspond à l'ID de $_POST['owner_id'].
-	 * Renvoie le template avec la liste des utilisateurs.
-	 *
-	 * @param int $_POST['task_id'] ID de la tâche
-	 * @param int $_POST['owner_id'] ID du responsable
-	 * @param string $_POST['_wpnonce'] Sécurité par WordPress
-	 * @return JSON Object { 'success': true|false, 'data': { 'template': '' } }
-	 */
-	public function ajax_render_edit_owner_user() {
-		wpeo_check_01::check( 'wp_nonce_render_edit_owner_user_' . $_POST['task_id'] );
-		global $task_controller;
-		global $wp_project_user_controller;
-
-		$task = $task_controller->show( $_POST['task_id'] );
-
-		$list_user = $wp_project_user_controller->list_user;
-
-		ob_start();
-		require( wpeo_template_01::get_template_part( WPEO_USER_DIR, WPEO_USER_TEMPLATES_MAIN_DIR, 'backend', 'list', 'user-owner' ) );
-		wp_send_json_success( array( 'template' => ob_get_clean() ) );
+		wp_send_json_success();
 	}
 }
 

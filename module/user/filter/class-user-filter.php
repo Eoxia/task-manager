@@ -64,10 +64,14 @@ class User_Filter {
 	 * @version 1.3.6.0
 	 */
 	public function callback_task_footer( $string, $element ) {
+		$users = get_users( array(
+			'include' => $element->user_info['affected_id'],
+		) );
 
 		ob_start();
-		View_Util::exec( 'user', 'display-user', array(
+		View_Util::exec( 'user', 'footer/main', array(
 			'element' => $element,
+			'users' => $users,
 		) );
 		$string .= ob_get_clean();
 

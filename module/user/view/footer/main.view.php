@@ -14,10 +14,15 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 <div 	class="wpeo-bloc-user action-attribute"
 			data-action="load_edit_mode_user"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_edit_mode_user' ) ); ?>"
-			data-id="<?php echo esc_attr( $element->id ); ?>">
+			data-id="<?php echo esc_attr( $element->id ); ?>"
+			data-module="user"
+			data-before-method="beforeLoadEditModeUser">
 
 			<ul>
-				<li>a</li>
-				<li>b</li>
+				<?php if ( ! empty( $users ) ) :
+					foreach ( $users as $user ) : ?>
+						<li><?php echo esc_html( $user->display_name ); ?>
+					<?php endforeach;
+				endif; ?>
 			</ul>
 </div>
