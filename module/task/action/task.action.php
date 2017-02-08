@@ -58,6 +58,7 @@ class Task_Action {
 			'author_id' => get_current_user_id(),
 			'user_info' => array(
 				'owner_id' => get_current_user_id(),
+				'affected_id' => array(),
 			),
 		) );
 

@@ -18,6 +18,10 @@ class Task_Model extends Post_Model {
 			'user_info' => array(
 				'type' => 'array',
 				'meta_type' => 'multiple',
+				'bydefault' => array(
+					'owner_id' => 0,
+					'affected_id' => array()
+				),
 				'owner_id' => array(
 					'type' 			=> 'integer',
 					'meta_type'	=> 'multiple',
@@ -25,7 +29,6 @@ class Task_Model extends Post_Model {
 				'affected_id' => array(
 					'type' 			=> 'array',
 					'meta_type'	=> 'multiple',
-					'by_default'	=> array(),
 				),
 				'writer_id' => array(
 					'type' 			=> 'integer',

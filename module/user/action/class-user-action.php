@@ -1,36 +1,64 @@
 <?php
+/**
+ * Users actions
+ *
+ * @since 0.1
+ * @version 1.3.6.0
+ *
+ * @package module/user
+ */
 
 namespace task_manager;
 
-if ( !defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-class User_Action  {
+/**
+ * Users actions
+ */
+class User_Action {
+
+	/**
+	 * Constructor
+	 */
 	public function __construct() {
-		add_action( 'wp_ajax_wpeo-view-user', array( &$this, 'ajax_view_user' ) );
+		add_action( 'wp_ajax_load_edit_mode_user', array( &$this, 'ajax_load_edit_mode_user' ) );
+
 		add_action( 'wp_ajax_wpeo-update-user', array( &$this, 'ajax_update_user' ) );
 		add_action( 'wp_ajax_wpeo-render-edit-owner-user', array( &$this, 'ajax_render_edit_owner_user' ) );
 	}
 
 	/**
-	 * AJAX - Get all users in this task, get all users in wordpress and display the users views backend/users.php
-	 * @param int $_GET['id'] - The task id
-	 * @param string $_GET['type'] - The type can be "task" or "point"
-	 * @return JSON response
+	 * Switching the view "user" as edit mode.
 	 */
-	public function ajax_view_user() {
-		wpeo_check_01::check( 'wpeo_nonce_view_user_' . $_POST['object_id'] );
+	public function ajax_load_edit_mode_user() {
+		check_ajax_referer( 'load_edit_mode_user' );
 
-		global $task_controller;
-		global $wp_project_user_controller;
+		$task_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 
-		$task = $task_controller->show( $_POST['object_id'] );
-		$list_user = $wp_project_user_controller->list_user;
+		if ( empty( $task_id ) ) {
+			wp_send_json_error();
+		}
+
+		$task = Task_Class::g()->get( array(
+			'include' => array( $task_id ),
+		), true );
+
+		$users = get_users( array(
+			'role' => 'administrator',
+		) );
 
 		ob_start();
-		require( wpeo_template_01::get_template_part( WPEO_USER_DIR, WPEO_USER_TEMPLATES_MAIN_DIR, 'backend', 'list', 'user' ) );
+		View_Util::exec( 'user', 'list-user', array(
+			'users' => $users,
+			'task' => $task,
+		) );
 		$template = ob_get_clean();
 
-		wp_send_json_success( array( 'template' => $template ) );
+		wp_send_json_success( array(
+			'module' => 'user',
+			'callback_success' => 'loadedEditModeUser',
+			'template' => $template,
+		) );
 	}
 
 	/**
