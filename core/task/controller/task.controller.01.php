@@ -61,42 +61,78 @@ if ( ! class_exists( 'task_controller_01' ) ) {
 
 		public function callback_dashboard_content( $string, $post_parent ) {
 			global $task_controller;
-			if ( 0 === $post_parent ) {
-				$list_task = $task_controller->index(
-					array(
-						'post_parent' => 0,
-						'meta_query' => array(
-							'relation'	=> 'OR',
-							array(
-								'key' => 'wpeo_task',
-								'value' => '{"user_info":{"owner_id":' . get_current_user_id() . ',',
-								'compare' => 'like',
-							),
-							array(
-								'key'			=> 'wpeo_task',
-								'value'		=> '"affected_id":[' . get_current_user_id() . ']',
-								'compare'	=> 'like',
-							),
-							array(
-								'key'			=> 'wpeo_task',
-								'value'		=> '"affected_id":[' . get_current_user_id() . ',',
-								'compare'	=> 'like',
-							),
-							array(
-								'key'			=> 'wpeo_task',
-								'value'		=> '"affected_id":\\[[0-9,]+,' . get_current_user_id() . '\\]',
-								'compare'	=> 'REGEXP',
-							),
-							array(
-								'key'			=> 'wpeo_task',
-								'value'		=> '"affected_id":\\[[0-9,]+,' . get_current_user_id() . '[0-9,]+\\]',
-								'compare'	=> 'REGEXP',
-							),
-						),
-					)
+
+			if ( ! empty( $_GET['s'] ) ) {
+				global $wpdb;
+
+				$list_task_id = $wpdb->get_col(
+					"SELECT DISTINCT TASK.ID FROM {$wpdb->posts} AS TASK
+					WHERE TASK.post_type='wpeo-task'
+					AND (TASK.ID LIKE '%" . $_GET['s'] . "%'
+					OR TASK.post_title LIKE '%" . $_GET['s'] . "%')"
 				);
+
+				$list_task_id = array_merge( $list_task_id, $wpdb->get_col(
+					"SELECT DISTINCT TASK.ID FROM {$wpdb->posts} AS TASK
+					JOIN {$wpdb->comments} AS POINT
+					ON POINT.comment_post_ID=TASK.ID
+					WHERE TASK.post_type='wpeo-task'
+					AND (POINT.comment_id LIKE '%" . $_GET['s'] . "%'
+					OR POINT.comment_content LIKE '%" . $_GET['s'] . "%')"
+				) );
+
+				$list_task_id = array_merge( $list_task_id, $wpdb->get_col(
+					"SELECT DISTINCT TASK.ID FROM {$wpdb->posts} AS TASK
+					JOIN {$wpdb->comments} AS POINT
+					ON POINT.comment_post_ID=TASK.ID
+					JOIN {$wpdb->comments} AS COMMENT
+					ON COMMENT.comment_post_ID=TASK.ID
+					WHERE TASK.post_type='wpeo-task'
+					AND COMMENT.comment_parent != 0
+					AND (COMMENT.comment_id LIKE '%" . $_GET['s'] . "%'
+					OR COMMENT.comment_content LIKE '%" . $_GET['s'] . "%')"
+				) );
+
+				$list_task = $task_controller->index( array( 'include' => $list_task_id ) );
+
 			} else {
-				$list_task = $task_controller->index( array( 'post_parent' => $post_parent ) );
+				if ( 0 === $post_parent ) {
+					$list_task = $task_controller->index(
+						array(
+							'post_parent' => 0,
+							'meta_query' => array(
+								'relation'	=> 'OR',
+								array(
+									'key' => 'wpeo_task',
+									'value' => '{"user_info":{"owner_id":' . get_current_user_id() . ',',
+									'compare' => 'like',
+								),
+								array(
+									'key'			=> 'wpeo_task',
+									'value'		=> '"affected_id":[' . get_current_user_id() . ']',
+									'compare'	=> 'like',
+								),
+								array(
+									'key'			=> 'wpeo_task',
+									'value'		=> '"affected_id":[' . get_current_user_id() . ',',
+									'compare'	=> 'like',
+								),
+								array(
+									'key'			=> 'wpeo_task',
+									'value'		=> '"affected_id":\\[[0-9,]+,' . get_current_user_id() . '\\]',
+									'compare'	=> 'REGEXP',
+								),
+								array(
+									'key'			=> 'wpeo_task',
+									'value'		=> '"affected_id":\\[[0-9,]+,' . get_current_user_id() . '[0-9,]+\\]',
+									'compare'	=> 'REGEXP',
+								),
+							),
+						)
+					);
+				} else {
+					$list_task = $task_controller->index( array( 'post_parent' => $post_parent ) );
+				}
 			}
 			ob_start();
 			require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'main' ) );
