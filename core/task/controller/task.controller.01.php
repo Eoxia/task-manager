@@ -93,7 +93,11 @@ if ( ! class_exists( 'task_controller_01' ) ) {
 					OR COMMENT.comment_content LIKE '%" . $_GET['s'] . "%')"
 				) );
 
-				$list_task = $task_controller->index( array( 'include' => $list_task_id ) );
+				$list_task = array();
+
+				if ( ! empty( $list_task_id ) ) {
+					$list_task = $task_controller->index( array( 'include' => $list_task_id ) );
+				}
 
 			} else {
 				if ( 0 === $post_parent ) {
