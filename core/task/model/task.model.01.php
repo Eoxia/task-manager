@@ -43,6 +43,12 @@ class task_model_01 extends post_mdl_01 {
 				'default' 	=> 0,
 				'required'	=> false,
 			),
+			'estimated' => array(
+				'type'		=> 'integer',
+				'function'	=> '',
+				'default' 	=> 0,
+				'required'	=> false,
+			),
 		),
 		'front_info' => array(
 			'display_time' => array(
