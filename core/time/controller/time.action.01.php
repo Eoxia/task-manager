@@ -22,7 +22,7 @@ class time_action_01 {
 			/** Edit the point */
 			$point_time = $time_controller->show( $_POST['point_time_id'] );
 			$point_time->option['time_info']['old_elapsed'] = $point_time->option['time_info']['elapsed'];
-			$point_time->date = $_POST['point_time']['date'];
+			// $point_time->date = $_POST['point_time']['date'];
 			$point_time->option['time_info']['elapsed'] = $_POST['point_time']['option']['time_info']['elapsed'];
 			$point_time->content = $_POST['point_time']['content'];
 
