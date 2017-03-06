@@ -26,7 +26,7 @@ if ( !class_exists( 'timeline_controller_01' ) ) {
 		}
 
 		public function callback_admin_menu() {
-			add_submenu_page( 'wpeomtm-dashboard', __( 'Timeline', 'wpeotimeline-i18n' ), __( 'Timeline', 'wpeotimeline-i18n' ), 'manage_options', 'wpeo-project-timeline', array( &$this, 'callback_submenu_page' ) );
+			add_submenu_page( 'wpeomtm-dashboard', __( 'Timeline', 'task-manager' ), __( 'Timeline', 'task-manager' ), 'manage_options', 'wpeo-project-timeline', array( &$this, 'callback_submenu_page' ) );
 		}
 
 		public function callback_user_profile( $user ) {

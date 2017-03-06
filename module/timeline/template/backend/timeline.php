@@ -1,7 +1,7 @@
 <?php if ( !defined( 'ABSPATH' ) ) exit; ?>
 
 <div class="wrap wpeo-project-timeline">
-	<h2><?php _e( 'Timeline', 'wpeotimeline-i18n' ); ?></h2>
+	<h2><?php _e( 'Timeline', 'task-manager' ); ?></h2>
 	
 	<header class="wpeo-header-bar">
 		<ul>

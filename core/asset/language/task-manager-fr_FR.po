@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2016-12-14 11:28+0100\n"
-"PO-Revision-Date: 2016-12-14 11:29+0100\n"
+"POT-Creation-Date: 2017-03-06 16:06+0100\n"
+"PO-Revision-Date: 2017-03-06 16:06+0100\n"
 "Last-Translator: \n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 1.8\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html__\n"
@@ -46,7 +46,6 @@ msgid "Tasks manager"
 msgstr "Tâches"
 
 #: core/dashboard/template/backend/dashboard.php:8
-#: module/custom/template/backend/main.php:10
 msgid "Tasks Manager"
 msgstr "Tasks Manager"
 
@@ -86,8 +85,8 @@ msgstr "Terminé"
 msgid "Completed"
 msgstr "Complété(s)"
 
-#: core/point/controller/point.controller.01.php:277
-#: core/point/controller/point.controller.01.php:283
+#: core/point/controller/point.controller.01.php:286
+#: core/point/controller/point.controller.01.php:292
 msgid "Point not found"
 msgstr "Point non trouvé"
 
@@ -158,11 +157,11 @@ msgstr "Ref"
 msgid "Owner of the point"
 msgstr "Créateur du point"
 
-#: core/point/template/backend/window/sub-header.php:12
+#: core/point/template/backend/window/sub-header.php:13
 msgid "Point completed"
 msgstr "Point complété"
 
-#: core/point/template/backend/window/sub-header.php:14
+#: core/point/template/backend/window/sub-header.php:15
 msgid "Point uncompleted"
 msgstr "Point terminé"
 
@@ -263,8 +262,8 @@ msgid "The owner for the task #%d has been changed to %d by the user #%d"
 msgstr ""
 "Le responsable pour la tâche #%d à été changé vers %d par l'utilisateur #%d"
 
-#: core/task/controller/task.controller.01.php:164
-#: core/task/controller/task.controller.01.php:171
+#: core/task/controller/task.controller.01.php:234
+#: core/task/controller/task.controller.01.php:241
 msgid "Task not found"
 msgstr "Tâche non trouvée"
 
@@ -389,11 +388,28 @@ msgstr "Cliquez ici pour ajouter un commentaire"
 msgid "Try to get the model definition"
 msgstr "Essayer d'avoir le définition du modèle"
 
-#: module/custom/controller/custom.controller.01.php:12
+#: module/custom/controller/custom.controller.01.php:42
 #: module/help/controller/help.action.01.php:17
 #: module/help/template/backend/list-task.php:7
 msgid "Task"
 msgstr "Tâche"
+
+#: module/custom/template/backend/main.php:31
+#, php-format
+msgid "Temps total passé: %2$s ( %1$smin )"
+msgstr ""
+
+#: module/custom/template/backend/main.php:33
+msgid "Trier les tâches par"
+msgstr ""
+
+#: module/custom/template/backend/main.php:35
+msgid "Date de création"
+msgstr ""
+
+#: module/custom/template/backend/main.php:36
+msgid "Date de modification"
+msgstr ""
 
 #: module/help/controller/help.controller.01.php:32
 #: module/help/template/backend/main.php:4
@@ -489,26 +505,47 @@ msgstr "Tâches archivés"
 msgid "Or add a new tag..."
 msgstr "Ajoutez un nouveau tag..."
 
+#: module/time-exceeded/controller/time-exceeded.action.01.php:21
+msgid "Time exceeded"
+msgstr "Temps dépassé"
+
+#: module/time-exceeded/template/backend/main.php:2
+msgid "Task Manager: Time Exceeded"
+msgstr "Tâche: Temps dépassé"
+
 #: module/timeline/controller/timeline.controller.01.php:29
 #: module/timeline/template/backend/timeline.php:4
 msgid "Timeline"
 msgstr "Historique"
 
-#: module/timeline/template/backend/day-comment.php:5
+#: module/timeline/template/backend/day-comment.php:7
 msgid "Add the comment #"
 msgstr "Ajouter le commentaire #"
 
-#: module/timeline/template/backend/day-completed-point.php:5
+#: module/timeline/template/backend/day-comment.php:9
+msgid "on the point #"
+msgstr "sur le point #"
+
+#: module/timeline/template/backend/day-completed-point.php:7
 msgid "Completed the point #"
 msgstr "Compléter le point #"
 
-#: module/timeline/template/backend/day-created-point.php:5
+#: module/timeline/template/backend/day-completed-point.php:9
+#: module/timeline/template/backend/day-created-point.php:9
+msgid " on the task #"
+msgstr " sur la tâche #"
+
+#: module/timeline/template/backend/day-created-point.php:7
 msgid "Create the point #"
 msgstr "Créer le point #"
 
-#: module/timeline/template/backend/day-created-task.php:5
+#: module/timeline/template/backend/day-created-task.php:7
 msgid "Create the task #"
 msgstr "Créer la tâche #"
+
+#: module/timeline/template/backend/day-created-task.php:11
+msgid " on the task parent #"
+msgstr " sur la tâche parent #"
 
 #: module/timeline/template/backend/summary-month.php:26
 #: module/timeline/template/backend/summary-week.php:20
@@ -573,6 +610,10 @@ msgstr "Tâches afféctées"
 #: module/wpshop/controller/task_wpshop.action.01.php:64
 msgid "Ask"
 msgstr "Demande"
+
+#: module/wpshop/template/backend/children-tasks.php:12
+msgid "Tâches associées aux commandes du client"
+msgstr ""
 
 #: module/wpshop/template/backend/search.php:6
 msgid "Search WPshop customer"

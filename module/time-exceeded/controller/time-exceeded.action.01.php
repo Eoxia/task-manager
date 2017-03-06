@@ -18,7 +18,7 @@ class Time_Exceeded_Action_01 {
 	}
 
 	public function callback_admin_menu() {
-		add_submenu_page( 'wpeomtm-dashboard', __( 'Time exceeded', 'wpeotimeline-i18n' ), __( 'Time exceeded', 'wpeotimeline-i18n' ), 'manage_options', 'task-manager-time-exceeded', array( &$this, 'callback_submenu_page' ) );
+		add_submenu_page( 'wpeomtm-dashboard', __( 'Time exceeded', 'task-manager' ), __( 'Time exceeded', 'task-manager' ), 'manage_options', 'task-manager-time-exceeded', array( &$this, 'callback_submenu_page' ) );
 	}
 
 	public function callback_submenu_page() {

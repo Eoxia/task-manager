@@ -4,9 +4,9 @@
 	<div class="point-title">
 		<strong>
 			<?php
-			esc_html_e( 'Add the comment #', 'wpeotimeline-i18n' );
+			esc_html_e( 'Add the comment #', 'task-manager' );
 			echo esc_html( $the_object->id ) . ' ';
-			esc_html_e( 'on the point #', 'wpeotimeline-i18n' );
+			esc_html_e( 'on the point #', 'task-manager' );
 			echo esc_html( $the_object->parent->id . ' ' . $the_object->parent->content );
 			?>
 		</strong>
