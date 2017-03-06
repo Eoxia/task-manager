@@ -1,6 +1,9 @@
 <div class="wrap">
 	<h2><?php esc_html_e( 'Task Manager: Time Exceeded', 'task-manager' ); ?></h2>
 
+	De <input type="text" class="date" value="<?php echo esc_attr( $date_start ); ?>" />
+	a <input type="text" class="date" value="<?php echo esc_attr( $date_end ); ?>"  />
+
 	<table style="width: 100%;">
 		<tr>
 			<th>ID</th>

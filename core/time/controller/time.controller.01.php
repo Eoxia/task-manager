@@ -95,7 +95,7 @@ class time_controller_01 extends comment_ctr_01 {
 		if ( empty( $user_id ) || empty( $start_date ) || empty( $end_date ) )
 			return null;
 
-		global $wpdb;
+		global $wpdb, $point_controller, $task_controller;
 
 		$query =
 			"SELECT DISTINCT comment_ID
@@ -110,7 +110,9 @@ class time_controller_01 extends comment_ctr_01 {
 
 		if ( !empty( $list_comment ) ) {
 			foreach ( $list_comment as $comment ) {
-				$list_point_time[] = $this->show( $comment->comment_ID );
+				$point = $this->show( $comment->comment_ID );
+				$point->parent = $point_controller->show( $point->parent_id );
+				$list_point_time[] = $point;
 			}
 		}
 

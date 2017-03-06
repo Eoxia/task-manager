@@ -4,7 +4,7 @@
 	<header>
 		<div class="wpeo-window-background-avatar"></div>
 
-		<h2><?php echo !empty( $element ) ? (!empty( $element->title ) ? $element->title : substr($element->content, 0, 100)) : ''; ?></h2>
+		<h2><?php echo !empty( $element ) ? (!empty( $element->title ) ? '#' . $element->id . ' ' . $element->title : '#' . $element->id . ' ' . substr($element->content, 0, 100)) : ''; ?></h2>
 		<i class="dashicons dashicons-no-alt"></i>
 	</header>
 

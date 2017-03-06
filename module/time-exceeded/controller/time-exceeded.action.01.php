@@ -24,6 +24,30 @@ class Time_Exceeded_Action_01 {
 	public function callback_submenu_page() {
 		global $task_controller;
 		global $history_time_controller;
+		global $wpdb;
+
+		$date_start = new DateTime( 'first day of this month' );
+		$date_start = $date_start->format( 'Y-m-d' );
+
+		$date_end = new DateTime( 'last day of this month' );
+		$date_end = $date_end->format( 'Y-m-d' );
+
+		$comments = $wpdb->get_results(
+			"SELECT
+			FROM $wpdb->comments as TIME
+				JOIN $wpdb->comments AS POINT ON TIME.comment_parent=POINT.comment_ID
+				JOIN $wpdb->posts AS TASK 		ON POINT.comment_post_id=TASK.id
+				JOIN $wpdb->commentmeta AS POINTMETA ON POINT.comment_ID=POINTMETA.comment_id
+				JOIN $wpdb->users AS USER ON TIME.user_id=USER.ID
+				JOIN $wpdb->usermeta AS USERMETA ON USER.ID=USERMETA.user_id
+			WHERE TASK.post_type='wpeo-task'
+				AND	POINTMETA.meta_key='wpeo_point'
+				AND POINTMETA.meta_value LIKE '%completed\":false%'
+				AND TIME.comment_content != ''
+				AND USERMETA.meta_key='wp_user_level'
+				AND USERMETA.meta_value=0
+			ORDER BY TIME.comment_date DESC"
+		);
 
 		$tasks = $task_controller->index( array() );
 		$tasks_exceed_time = array();

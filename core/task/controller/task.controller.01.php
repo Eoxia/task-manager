@@ -200,7 +200,7 @@ if ( ! class_exists( 'task_controller_01' ) ) {
 				return 0;
 			}
 
-			global $wpdb;
+			global $wpdb, $task_controller;
 
 			$query =
 			"SELECT ID
@@ -214,7 +214,15 @@ if ( ! class_exists( 'task_controller_01' ) ) {
 
 			if ( ! empty( $list_task ) ) {
 				foreach ( $list_task as $task ) {
-					$list_task_model[] = $this->show( $task->ID );
+					$task = $this->show( $task->ID );
+
+					$task->parent = null;
+
+					if ( ! empty( $task->parent_id ) ) {
+						$task->parent = $task_controller->show( $task->parent_id );
+					}
+
+					$list_task_model[] = $task;
 				}
 			}
 

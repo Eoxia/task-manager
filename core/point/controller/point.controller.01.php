@@ -154,7 +154,7 @@ if ( !class_exists( 'point_controller_01' ) ) {
 			if ( empty( $user_id ) || empty( $start_date ) || empty( $end_date ) )
 				return null;
 
-			global $wpdb;
+			global $wpdb, $task_controller;
 
 			$query =
 			"SELECT DISTINCT point.comment_ID
@@ -167,9 +167,11 @@ if ( !class_exists( 'point_controller_01' ) ) {
 
 			$list_point = array();
 
-			if ( !empty( $list_comment ) ) {
+			if ( ! empty( $list_comment ) ) {
 				foreach ( $list_comment as $comment ) {
-					$list_point[] = $this->show( $comment->comment_ID );
+					$point = $this->show( $comment->comment_ID );
+					$point->parent = $task_controller->show( $point->post_id );
+					$list_point[] = $point;
 				}
 			}
 
@@ -186,7 +188,7 @@ if ( !class_exists( 'point_controller_01' ) ) {
 			if ( empty( $user_id ) )
 				return null;
 
-			global $wpdb;
+			global $wpdb, $task_controller;
 
 			$query =
 			"SELECT DISTINCT point.comment_ID
@@ -202,7 +204,9 @@ if ( !class_exists( 'point_controller_01' ) ) {
 
 			if ( !empty( $list_comment ) ) {
 				foreach ( $list_comment as $comment ) {
-					$list_point[] = $this->show( $comment->comment_ID );
+					$point = $this->show( $comment->comment_ID );
+					$point->parent = $task_controller->show( $point->post_id );
+					$list_point[] = $point;
 				}
 			}
 
@@ -222,7 +226,7 @@ if ( !class_exists( 'point_controller_01' ) ) {
 			if ( empty( $user_id ) || empty( $start_date ) || empty( $end_date ) )
 				return null;
 
-			global $wpdb;
+			global $wpdb, $task_controller;
 
 			$query =
 			"SELECT DISTINCT point.comment_ID
@@ -239,7 +243,9 @@ if ( !class_exists( 'point_controller_01' ) ) {
 
 			if ( !empty( $list_comment ) ) {
 				foreach ( $list_comment as $comment ) {
-					$list_point[] = $this->show( $comment->comment_ID );
+					$point = $this->show( $comment->comment_ID );
+					$point->parent = $task_controller->show( $point->post_id );
+					$list_point[] = $point;
 				}
 			}
 
@@ -249,6 +255,8 @@ if ( !class_exists( 'point_controller_01' ) ) {
 		public function get_completed_point_by_user_id_and_date( $user_id, $start_date, $end_date ) {
 			if ( empty( $user_id ) || empty( $start_date ) || empty( $end_date ) )
 				return null;
+
+			global $task_controller;
 
 			$list_point = $this->index( 0, array( 'post_type' => 'wpeo-task', 'status' => '-34070' ) );
 			$list_point_completed = array();
@@ -260,6 +268,7 @@ if ( !class_exists( 'point_controller_01' ) ) {
 
 							if( ( $date_completed > $start_date ) && ( $date_completed < $end_date ) ) {
 								$point->completed_date = $date_completed;
+								$point->parent = $task_controller->show( $point->post_id );
 								$list_point_completed[] = $point;
 							}
 
