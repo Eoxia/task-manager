@@ -160,6 +160,7 @@ if ( !class_exists( 'point_controller_01' ) ) {
 			"SELECT DISTINCT point.comment_ID
 			FROM {$wpdb->comments} as point
 			WHERE	point.comment_parent = 0 AND
+					point.comment_approved='-34070' AND
 					point.user_id = %d AND
 					point.comment_date BETWEEN %s AND %s";
 
@@ -196,6 +197,8 @@ if ( !class_exists( 'point_controller_01' ) ) {
 			JOIN {$wpdb->comments} as comment
 			ON point.comment_ID=comment.comment_parent
 			WHERE	comment.comment_parent != 0 AND
+					point.comment_approved='-34070' AND
+					commment.comment_approved='-34070' AND
 					comment.user_id = %d";
 
 			$list_comment = $wpdb->get_results( $wpdb->prepare( $query, array( $user_id ) ) );
@@ -235,6 +238,8 @@ if ( !class_exists( 'point_controller_01' ) ) {
 			ON point.comment_ID=comment.comment_parent
 			WHERE	comment.comment_parent != 0 AND
 					comment.user_id = %d AND
+					comment.comment_approved='-34070' AND
+					point.comment_approved='-34070' AND
 					comment.comment_date BETWEEN %s AND %s";
 
 			$list_comment = $wpdb->get_results( $wpdb->prepare( $query, array( $user_id, $start_date, $end_date ) ) );

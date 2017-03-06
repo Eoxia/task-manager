@@ -102,6 +102,7 @@ class time_controller_01 extends comment_ctr_01 {
 			FROM {$wpdb->comments}
 			WHERE	comment_parent != 0 AND
 					user_id = %d AND
+					comment_approved='-34070' AND
 					comment_date BETWEEN %s AND %s";
 
 		$list_comment = $wpdb->get_results( $wpdb->prepare( $query, array( $user_id, $start_date, $end_date ) ) );
