@@ -250,18 +250,12 @@ var wpeo_task = {
 	},
 
 	open_action: function( element ) {
-		if( !wpeo_task.open_action_var ) {
-			function open_action_func_click() {
-				if( element.hasClass( 'active' ) ) {
-					element.removeClass('active');
-					jQuery( document ).off( 'click', open_action_func_click );
-					wpeo_task.open_action_var = false;
-				} else {
-					element.addClass('active');
-					wpeo_task.open_action_var = true;
-				}
-			}
-			jQuery( document ).on( 'click', open_action_func_click );
+		if( element.hasClass( 'active' ) ) {
+			element.removeClass('active');
+			wpeo_task.open_action_var = false;
+		} else {
+			element.addClass('active');
+			wpeo_task.open_action_var = true;
 		}
 	},
 

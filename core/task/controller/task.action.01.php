@@ -322,6 +322,9 @@ class task_action_01 {
 			}
 		}
 
+		$owner_info = get_userdata( $task->option['user_info']['owner_id'] );
+		$multiple_recipients[] = $owner_info->user_email;
+
 		$subject = 'Task Manager: ';
 		$subject .= __( 'The task #' . $task->id . ' ' . $task->title, 'task-manager' );
 		$body = __( '<p>This mail has been send automatically</p>', 'task-manager' );
