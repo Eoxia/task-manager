@@ -212,11 +212,11 @@ var wpeo_task = {
 		/** La date de fin d'une tâche */
 		jQuery( document ).on( 'click', '.wpeo-update-due-date', function( event ) { wpeo_task.update_due_date( event, jQuery( this ) ); } );
 
-		jQuery( window ).scroll( function() {
-			if ( ( jQuery( window ).scrollTop() == jQuery( document).height() - jQuery( window ).height() ) ) {
-				wpeo_task.load_next();
-			}
-		})
+		// jQuery( window ).scroll( function() {
+		// 	if ( ( jQuery( window ).scrollTop() == jQuery( document).height() - jQuery( window ).height() ) ) {
+		// 		wpeo_task.load_next();
+		// 	}
+		// })
 	},
 
 	/**
