@@ -5,7 +5,7 @@
 		<form action="<?php echo admin_url( 'admin-ajax.php' ); ?>" method="POST">
 			<input type="hidden" name="action" value="ask_task">
 			<input type="text" name="point[content]" placeholder="<?php _e( 'Write your ticket', 'task-manager' ); ?>">
-			<input type="button" value="<?php _e( 'Ask a ticket', 'task-manager' ); ?>">
+			<input type="button" value="<?php _e( 'Confirm', 'task-manager' ); ?>">
 		</form>
 	</div>
 	<a href="#" class="wpeo-ask-task"><?php _e( 'Ask a ticket', 'task-manager' ); ?></a>

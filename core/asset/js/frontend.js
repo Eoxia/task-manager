@@ -41,14 +41,14 @@ var wpeo_point = {
   },
 
   open_window: function( element ) {
-    jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard *' ).css('opacity', 0);
+    jQuery( element ).closest( '.wps-section-content' ).find( '.wpeo-window-dashboard *' ).css('opacity', 0);
 
 		var bloc_task 	= jQuery( element ).closest( '.wpeo-project-task' );
 		var task_id 	= bloc_task.data( 'id' );
 		var point_id 	= jQuery(element).closest( '.wpeo-task-li-point' ).data( 'id' );
 
-		jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard' ).css( { 'display': 'flex', 'left': '-80px', 'opacity': 0.10 } );
-		jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard' ).animate({
+		jQuery( element ).closest( '.wps-section-content' ).find( '.wpeo-window-dashboard' ).css( { 'display': 'flex', 'left': '-80px', 'opacity': 0.10 } );
+		jQuery( element ).closest( '.wps-section-content' ).find( '.wpeo-window-dashboard' ).animate({
 			'opacity': 1,
 			'left': 0,
 		}, 200);
@@ -63,12 +63,12 @@ var wpeo_point = {
 		};
 
 		jQuery.eoajax( ajaxurl, data, function() {
-			jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard' ).replaceWith( this.template );
-			jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard *' ).css('opacity', 0).animate({
+			jQuery( element ).closest( '.wps-section-content' ).find( '.wpeo-window-dashboard' ).replaceWith( this.template );
+			jQuery( element ).closest( '.wps-section-content' ).find( '.wpeo-window-dashboard *' ).css('opacity', 0).animate({
 				opacity: 1,
 			}, 400);
-			jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard' ).attr( 'data-id', point_id );
-			jQuery( element ).closest( '.list-task' ).find( '.wpeo-window-dashboard' ).css( 'display', 'flex' );
+			jQuery( element ).closest( '.wps-section-content' ).find( '.wpeo-window-dashboard' ).attr( 'data-id', point_id );
+			jQuery( element ).closest( '.wps-section-content' ).find( '.wpeo-window-dashboard' ).css( 'display', 'flex' );
 		} );
   },
 

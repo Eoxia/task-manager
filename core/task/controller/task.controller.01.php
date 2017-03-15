@@ -13,6 +13,8 @@ if ( ! class_exists( 'task_controller_01' ) ) {
 		protected $base = 'task';
 		protected $version = '0.1';
 
+		public $limit_task = 8;
+
 		public function __construct() {
 			parent::__construct();
 
@@ -104,6 +106,7 @@ if ( ! class_exists( 'task_controller_01' ) ) {
 					$list_task = $task_controller->index(
 						array(
 							'post_parent' => 0,
+							'posts_per_page' => $this->limit_task,
 							'meta_query' => array(
 								'relation'	=> 'OR',
 								array(
@@ -135,9 +138,14 @@ if ( ! class_exists( 'task_controller_01' ) ) {
 						)
 					);
 				} else {
-					$list_task = $task_controller->index( array( 'post_parent' => $post_parent ) );
-				}
-			}
+					$list_task = $task_controller->index(
+						array(
+							'post_parent' => $post_parent,
+							'posts_per_page' => $this->limit_task,
+						)
+					);
+				} // End if().
+			} // End if().
 			ob_start();
 			require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'main' ) );
 			$string .= ob_get_clean();

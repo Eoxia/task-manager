@@ -15,7 +15,7 @@ class task_action_01 {
 		add_action( 'wp_ajax_load_archived_task', array( $this, 'ajax_load_archived_task' ) );
 
 
-
+		add_action( 'wp_ajax_load_next', array( $this, 'ajax_load_next' ) );
 		// add_action( 'wp_ajax_ask_task', array( $this, 'ask_task' ) );
 
 
@@ -158,6 +158,66 @@ class task_action_01 {
 		ob_start();
 		require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'list-task' ) );
 		wp_send_json_success( array( 'template' => ob_get_clean() ) );
+	}
+
+	public function ajax_load_next() {
+		global $task_controller;
+
+		$offset = ! empty( $_POST['offset'] ) ? (int) $_POST['offset'] : 0;
+		$post_parent = ! empty( $_POST['post_parent'] ) ? (int) $_POST['post_parent'] : 0;
+		$offset += $task_controller->limit_task;
+
+		if ( 0 === $post_parent ) {
+			$list_task = $task_controller->index(
+				array(
+					'post_parent' => 0,
+					'posts_per_page' => $task_controller->limit_task,
+					'meta_query' => array(
+						'relation'	=> 'OR',
+						array(
+							'key' => 'wpeo_task',
+							'value' => '{"user_info":{"owner_id":' . get_current_user_id() . ',',
+							'compare' => 'like',
+						),
+						array(
+							'key'			=> 'wpeo_task',
+							'value'		=> '"affected_id":[' . get_current_user_id() . ']',
+							'compare'	=> 'like',
+						),
+						array(
+							'key'			=> 'wpeo_task',
+							'value'		=> '"affected_id":[' . get_current_user_id() . ',',
+							'compare'	=> 'like',
+						),
+						array(
+							'key'			=> 'wpeo_task',
+							'value'		=> '"affected_id":\\[[0-9,]+,' . get_current_user_id() . '\\]',
+							'compare'	=> 'REGEXP',
+						),
+						array(
+							'key'			=> 'wpeo_task',
+							'value'		=> '"affected_id":\\[[0-9,]+,' . get_current_user_id() . '[0-9,]+\\]',
+							'compare'	=> 'REGEXP',
+						),
+					),
+				)
+			);
+		} else {
+			$list_task = $task_controller->index(
+				array(
+					'post_parent' => $post_parent,
+					'posts_per_page' => $task_controller->limit_task,
+				)
+			);
+		} // End if().
+
+		ob_start();
+		require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'list-task' ) );
+
+		wp_send_json_success( array(
+			'view' => ob_get_clean(),
+			'offset' => $offset,
+		) );
 	}
 
 	/**

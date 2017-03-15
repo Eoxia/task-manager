@@ -144,6 +144,7 @@ var wpeo_task = {
 	my_task: false,
 	assigned_task: false,
 	open_action_var: false,
+	offset: 0,
 
 	init: function() {
 		this.event();
@@ -210,6 +211,12 @@ var wpeo_task = {
 
 		/** La date de fin d'une tâche */
 		jQuery( document ).on( 'click', '.wpeo-update-due-date', function( event ) { wpeo_task.update_due_date( event, jQuery( this ) ); } );
+
+		jQuery( window ).scroll( function() {
+			if ( ( jQuery( window ).scrollTop() == jQuery( document).height() - jQuery( window ).height() ) ) {
+				wpeo_task.load_next();
+			}
+		})
 	},
 
 	/**
@@ -410,6 +417,8 @@ var wpeo_task = {
 			_wpnonce: jQuery( element ).data( 'nonce' ),
 		};
 
+		jQuery( element ).closest( '.task-header-action' ).removeClass( 'active' );
+
 		jQuery.eoajax( ajaxurl, data, function() {
 			jQuery( '.wpeo-project-task[data-id="' + task_id + '"]' ).remove();
 			//jQuery( '.wpeo-button-all-task' ).click();
@@ -424,6 +433,8 @@ var wpeo_task = {
 			task_id: task_id,
 			_wpnonce: jQuery( element ).data( 'nonce' ),
 		};
+
+		jQuery( element ).closest( '.task-header-action' ).removeClass( 'active' );
 
 		jQuery.eoajax( ajaxurl, data, function() {
 			jQuery( '.wpeo-project-task[data-id="' + task_id + '"]' ).remove();
@@ -489,6 +500,8 @@ var wpeo_task = {
 			_wpnonce: jQuery( element ).data( 'nonce' ),
 		};
 
+		jQuery( element ).closest( '.task-header-action' ).removeClass( 'active' );
+
 		jQuery.eoajax( ajaxurl, data, function( ) {
 			wpeo_task.download_export( this.url_to_file, false );
 		});
@@ -502,6 +515,8 @@ var wpeo_task = {
 			id: task_id,
 			_wpnonce: jQuery( element ).data( 'nonce' ),
 		};
+
+		jQuery( element ).closest( '.task-header-action' ).removeClass( 'active' );
 
 		jQuery.eoajax( ajaxurl, data, function( ) {
 
@@ -592,6 +607,20 @@ var wpeo_task = {
 		jQuery.eoAjaxSubmit( jQuery( element ).closest( 'form' ), { action: 'update_due_date' }, function() {
 		} );
 		return false;
+	},
+
+	load_next: function() {
+		var data = {
+			'action': 'load_next',
+			'offset': wpeo_task.offset,
+			'post_parent': 0,
+		};
+
+		jQuery.post( ajaxurl, data, function( response ) {
+			wpeo_task.offset = response.data.offset;
+
+			jQuery( '.list-task' ).append( response.data.view );
+		} );
 	}
 
 };

@@ -6,8 +6,8 @@ if( !class_exists( 'task_wpshop_controller_01' ) ) {
 	class task_wpshop_controller_01 {
 		public function __construct() {
 			add_filter( 'task_manager_dashboard_search', array( $this, 'callback_task_manager_dashboard_search' ), 11, 2 );
-    		add_filter( 'wps_my_account_extra_part_menu', array( $this, 'callback_my_account_menu' ) );
-    		add_filter( 'wps_my_account_extra_panel_content', array( $this, 'callback_my_account_content' ), 10, 2 );
+    	add_filter( 'wps_my_account_extra_part_menu', array( $this, 'callback_my_account_menu' ) );
+    	add_filter( 'wps_my_account_extra_panel_content', array( $this, 'callback_my_account_content' ), 10, 2 );
 			add_filter( 'ticket_query_shortcode', array( $this, 'callback_ticket_query_shortcode' ), 11, 1 );
 		}
 
@@ -88,6 +88,8 @@ if( !class_exists( 'task_wpshop_controller_01' ) ) {
 				if ( empty( $_POST['user_id'] ) ) {
 					add_filter( 'task_footer', function( $string, $task ) { return ''; }, 12, 2 );
 					add_filter( 'task_header_button', function( $string, $task ) { return ''; }, 12, 2 );
+					add_filter( 'task_time_history_button', function( $string, $task ) { return ''; }, 12, 2 );
+					add_filter( 'task_header_action', function( $string, $task ) { return ''; }, 12, 2 );
 					add_filter( 'task_header_disabled', function( $string ) { return 'disabled'; }, 12, 2 );
 					add_filter( 'point_action_before', function( $string, $point ) { return ''; }, 10, 2 );
 					add_filter( 'point_action_after', function( $string, $point ) { return ''; }, 10, 2 );
