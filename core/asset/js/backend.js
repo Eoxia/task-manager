@@ -235,6 +235,7 @@ var wpeo_task = {
 
 		var data = {
 			parent_id: jQuery( '.wpeo-task-post-parent' ).val(),
+			tag: jQuery( element ).attr( 'data-tag' ),
 		};
 
 		jQuery.eoajax( url, data, function() {

@@ -80,6 +80,13 @@ class task_action_01 {
 		), 0 );
 
 		$task = $task_controller->show( $task->id );
+		$tag_selected = ! empty( $_POST['tag'] ) ? (int) $_POST['tag'] : 0;
+
+		if ( ! empty( $tag_selected ) ) {
+			$tag_selected = get_term_by( 'slug', $tag_selected, 'wpeo_tag' );
+			$task->taxonomy['wpeo_tag'][] = (int) $tag_selected->term_id;
+			$task_controller->update( $task );
+		}
 
 		ob_start();
 		$task_controller->render_task( $task );
