@@ -80,7 +80,7 @@ class task_action_01 {
 		), 0 );
 
 		$task = $task_controller->show( $task->id );
-		$tag_selected = ! empty( $_POST['tag'] ) ? (int) $_POST['tag'] : 0;
+		$tag_selected = ! empty( $_POST['tag'] ) ? sanitize_text_field( $_POST['tag'] ) : 0;
 
 		if ( ! empty( $tag_selected ) ) {
 			$tag_selected = get_term_by( 'slug', $tag_selected, 'wpeo_tag' );
