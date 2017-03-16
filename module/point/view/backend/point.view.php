@@ -1,27 +1,57 @@
-<?php if ( ! defined( 'ABSPATH' ) ) exit; ?>
+<?php
+/**
+ * La vue d'un point dans le backend.
+ *
+ * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @since 1.0.0.0
+ * @version 1.3.6.0
+ * @copyright 2015-2017 Eoxia
+ * @package point
+ * @subpackage view
+ */
 
-<form class="form wpeo-edit-point" action="<?php echo admin_url( 'admin-ajax.php' ); ?>" method="POST">
-	<?php wp_nonce_field( 'wpeo_nonce_edit_point_' . $point->id ); ?>
+namespace task_manager;
+
+if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
+
+<form class="form wpeo-edit-point" action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>" method="POST">
+
+	<?php wp_nonce_field( 'edit_point' ); ?>
 	<input type="hidden" name="action" value="edit_point" />
-	<input type="hidden" name="point[id]" value="<?php echo $point->id; ?>" />
-	<input type="hidden" name="point[post_id]" value="<?php echo $point->post_id; ?>" />
-	<input type="hidden" name="point[author_id]" value="<?php echo !empty( $point->author_id ) ? $point->author_id : get_current_user_id(); ?>" />
-	<li class="wpeo-task-li-point">
-		<ul>
-			<li>
-				<?php echo apply_filters( 'point_action_before', '', $point ); ?>
-				<span class="wpeo-block-id">#<?php echo $point->id ?></span>
-			</li>
-			<li class="wpeo-point-input">
-				<input type="hidden" name="point[content]" value="" />
-				<div data-nonce="<?php echo wp_create_nonce( 'wpeo_nonce_load_dashboard_point_' . $point->id ); ?>" class="wpeo-point-contenteditable" contenteditable="true"><?php echo stripslashes($point->content); ?></div>
-			</li>
-			<li>
-				<span class="dashicons dashicons-clock"></span>
-				<span class="wpeo-time-in-point"><?php echo ! empty( $point->time_info['elapsed'] ) ? $point->time_info['elapsed'] : 0; ?></span>
-				<?php echo apply_filters( 'point_action_after', '', $point ); ?>
-			</li>
-		</ul>
-		<input type="hidden" class="submit-form-point-edit_point_callback" />
-	</li>
+	<input type="hidden" name="id" value="<?php echo esc_attr( $point->id ); ?>" />
+	<input type="hidden" name="parent_id" value="<?php echo esc_attr( $parent_id ); ?>" />
+
+	<ul class="wpeo-task-point">
+		<li class="wpeo-add-point wpeo-point-no-sortable">
+			<ul>
+				<li>
+					<span data-action="<?php echo esc_attr( 'load_comments' ); ?>"
+								data-point-id="<?php echo esc_attr( $point->id ); ?>"
+								class="action-attribute">O</span>
+					<span class="wpeo-block-id">#<?php echo esc_attr( $point->id ); ?></span>
+				</li>
+				<li class="wpeo-point-input">
+					<input type="hidden" name="content" value="<?php esc_attr( $point->content ); ?>" />
+					<div data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_dashboard_point' ) ); ?>" class="wpeo-point-new-contenteditable" contenteditable="true">
+						<?php echo esc_html( stripslashes( $point->content ) ); ?>
+					</div>
+					<?php if ( empty( $point->id ) ) : ?>
+						<span class="wpeo-point-new-placeholder"><?php esc_html_e( 'Write your point here...', 'task-manager' ); ?></span>
+					<?php endif; ?>
+				</li>
+				<li>
+					<?php	if ( empty( $point->id ) ) : ?>
+						<div class="wpeo-point-new-btn submit-form" data-parent="form" title="<?php esc_attr( 'Add this point', 'task-manager' ); ?>">
+							<i class="dashicons dashicons-plus-alt"></i>
+						</div>
+					<?php else : ?>
+						<span class="dashicons dashicons-clock"></span>
+						<span class="wpeo-time-in-point"><?php echo esc_attr( $point->time_info['elapsed'] ); ?></span>
+					<?php	endif; ?>
+				</li>
+			</ul>
+		</li>
+	</ul>
 </form>
+
+<ul class="comments"></ul>

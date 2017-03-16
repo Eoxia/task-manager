@@ -194,6 +194,12 @@ class Post_Class extends singleton_util {
 			} else {
 				$data = $post_save;
 			}
+
+			if ( ! empty( $this->after_post_function ) ) {
+				foreach ( $this->after_post_function as $post_function ) {
+					$data = call_user_func( $post_function, $data );
+				}
+			}
 		} else {
 			$current_data = $this->get( array( 'id' => $data['id'] ), array( false ) );
 			$current_data = $current_data[0];

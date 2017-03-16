@@ -1,7 +1,7 @@
 {
 	"name": "Les points",
 	"slug": "point",
-	"version": "1.3.4.0",
+	"version": "1.3.6.0",
 	"description": "Le module gérant les points",
 	"path": "module/point/",
 	"dependencies": {

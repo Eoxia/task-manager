@@ -1,37 +1,26 @@
-<?php if ( !defined( 'ABSPATH' ) ) exit; ?>
+<?php
+/**
+ * La vue principale de la page "wpeomtm-dashboard"
+ *
+ * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @since 1.0.0.0
+ * @version 1.3.6.0
+ * @copyright 2015-2017 Eoxia
+ * @package core
+ * @subpackage view
+ */
+
+namespace task_manager;
+
+if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 <div class="wrap wpeo-project-wrap">
-	<input type="hidden" id="wpeo_user_id" value="<?php echo get_current_user_id(); ?>" />
-	<!-- Le titre de la page, et également un filtre pour ajouter autant d'actions souhaitées. -->
+
 	<div class="wpeo-project-dashboard">
-		<h2><?php
-			_e( 'Tasks Manager', 'task-manager' );
-			echo apply_filters( 'task_manager_dashboard_title', '' );
-		?></h2>
-
-
-		<!-- Barre blanche des filtres -->
-		<header class="wpeo-header-bar<?php echo is_page() ? ' wpeo-no-display' : ''; ?>">
-			<ul>
-				<?php echo apply_filters( 'task_manager_dashboard_filter', '' ); ?>
-				<li class="wpeo-general-search">
-					<label for="general-search">
-						<i class="dashicons dashicons-search"></i>
-						<input id="general-search" type="text" name="general-search" placeholder="<?php _e( 'Enter a keyword', 'task-manager' ); ?>" />
-						<toggle class="dashicons dashicons-arrow-down"
-										data-target="wpeo-header-search"></toggle>
-					</label>
-				</li>
-			</ul>
-		</header>
-
-		<!-- Barre noire recherche -->
-		<?php
-		$string_search_filter = apply_filters( 'task_manager_dashboard_search', '' );
-		echo !empty( $string_search_filter ) ? '<div class="wpeo-header-search hidden"><ul>' . $string_search_filter . '</ul></div>' : '';
-		?>
+		<h2>
+			<?php	esc_html_e( 'Tasks Manager', 'task-manager' ); ?>
+		</h2>
 	</div>
 
-	<!-- Le contenu du dashboard -->
-	<?php echo apply_filters( 'task_manager_dashboard_content', '', 0 ); ?>
+	<?php do_shortcode( '[task_manager_dashboard_content]' ); ?>
 </div>

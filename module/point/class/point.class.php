@@ -45,10 +45,12 @@ class Point_Class extends Comment_Class {
 	 */
 	protected $version = '0.1';
 
-	public $status = '-34070';
-
-	// Voir d'ajouter un type
-	//protected $comment_type = 'point';
+	/**
+	 * La fonction appelée automatiquement après l'insertion de l'objet dans la base de donnée.
+	 *
+	 * @var array
+	 */
+	protected $after_post_function = array( '\task_manager\update_post_order' );
 
 	/**
 	 * Constructeur qui inclus le modèle des points et également des les scripts
@@ -58,8 +60,52 @@ class Point_Class extends Comment_Class {
 	 */
 	protected function construct() {}
 
-	public function update( $data ) {
-		return Point_Helper::update_task( parent::update( $data ) );
+	/**
+	 * Affiches les points d'une tâche.
+	 *
+	 * @param  integer $task_id L'ID de la tâche.
+	 *
+	 * @return void
+	 *
+	 * @since 1.3.6.0
+	 * @version 1.3.6.0
+	 */
+	public function display( $task_id ) {
+		$task = Task_Class::g()->get( array(
+			'post__in' => array(
+				$task_id
+			),
+		), true );
+
+		$points_completed = array();
+		$points_uncompleted = array();
+		if ( ! empty( $task->task_info['order_point_id'] ) ) {
+			$points = Point_Class::g()->get( array(
+				'post_id' => $task->id,
+				'orderby' => 'comment__in',
+				'comment__in' => $task->task_info['order_point_id'],
+				'status' => -34070,
+			) );
+
+			$points_completed = array_filter( $points, function( $point ) {
+				return true === $point->point_info['completed'];
+			} );
+
+			$points_uncompleted = array_filter( $points, function( $point ) {
+				return false === $point->point_info['completed'];
+			} );
+		}
+
+		$point_schema = Point_Class::g()->get( array(
+			'schema' => true,
+		), true );
+
+		View_Util::exec( 'point', 'backend/main', array(
+			'task_id' => $task_id,
+			'points_completed' => $points_completed,
+			'points_uncompleted' => $points_uncompleted,
+			'point_schema' => $point_schema,
+		) );
 	}
 }
 

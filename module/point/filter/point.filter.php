@@ -317,7 +317,17 @@ class Point_Filter {
 	 */
 	public static function render_point( $object_id, $list_point_completed, $list_point_uncompleted ) {
 		$disabled_filter = apply_filters( 'point_disabled', '' );
-		View_Util::exec( 'point', 'backend/list-point', array( 'object_id' => $object_id, 'list_point_completed' => $list_point_completed, 'list_point_uncompleted' => $list_point_uncompleted ) );
+
+		$point_schema = Point_Class::g()->get( array(
+			'schema' => true,
+		), true );
+
+		View_Util::exec( 'point', 'backend/list-point', array(
+			'object_id' => $object_id,
+			'list_point_completed' => $list_point_completed,
+			'list_point_uncompleted' => $list_point_uncompleted,
+			'point_schema' => $point_schema,
+		) );
 	}
 
 	public function callback_task_window_sub_header( $string, $element ) {

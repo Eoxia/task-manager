@@ -1,7 +1,7 @@
 {
 	"name": "Task Manager",
 	"slug": "task-manager",
-	"version": "1.3.4.0",
+	"version": "1.3.6.0",
 	"description": "L'application Task Manager",
 	"insert_scripts_pages": [
 		"wpshop_customers",
@@ -14,6 +14,7 @@
 		"module/update-manager/update-manager.config.json",
 		"module/task/task.config.json",
 		"module/point/point.config.json",
+		"module/comment/comment.config.json",
 		"module/tag/tag.config.json",
 		"module/user/user.config.json",
 		"module/liaison-post-type/liaison-post-type.config.json",

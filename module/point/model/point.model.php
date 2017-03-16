@@ -13,6 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Point_Model extends Comment_Model {
 	public function __construct( $object ) {
+		$this->model['status']['bydefault'] = '-34070';
+
 		$this->model = array_merge( $this->model, array(
 			'time_info' => array(
 				'type'			=> 'array',

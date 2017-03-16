@@ -128,6 +128,12 @@ class comment_class extends singleton_util {
 			}
 
 			$data->id = wp_insert_comment( $data->do_wp_object() );
+
+			if ( ! empty( $this->after_post_function ) ) {
+				foreach ( $this->after_post_function as $post_function ) {
+					$data = call_user_func( $post_function, $data );
+				}
+			}
 		}
 		else {
 			if ( !empty( $this->before_model_put_function ) ) {

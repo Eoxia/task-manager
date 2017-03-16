@@ -1,13 +1,12 @@
 {
-	"name": "Les tâches",
-	"slug": "task",
+	"name": "Les commentaires",
+	"slug": "comment",
 	"version": "1.3.6.0",
-	"description": "Le module gérant les tâches",
-	"path": "module/task/",
+	"description": "Le module gérant les commentaires",
+	"path": "module/comment/",
 	"dependencies": {
 		"action": {},
 		"helper": {},
-		"filter": {},
 		"model": {},
 		"class": {},
 		"shortcode": {}

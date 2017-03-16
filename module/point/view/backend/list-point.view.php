@@ -4,6 +4,12 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) exit; ?>
 
+<div class="hidden point-schema">
+	<?php View_Util::exec( 'point', 'backend/point', array(
+		'point' => $point_schema,
+	) ); ?>
+</div>
+
 <!-- Uncompleted points -->
 <ul class="wpeo-task-point wpeo-task-point-sortable">
 	<input type="hidden" class="wpeo-object-id" value="<?php echo $object_id; ?>" />

@@ -18,42 +18,36 @@ class Point_Action {
 		add_action( 'wp_ajax_load_frontend_dashboard_point', array( &$this, 'ajax_load_frontend_dashboard_point' ) );
 
 		add_action( 'wp_ajax_send_point_to_task', array( &$this, 'ajax_send_point_to_task' ) );
-		add_action( 'wp_ajax_load_last_comment', array( &$this, 'ajax_load_last_comment') );
+		add_action( 'wp_ajax_load_last_comment', array( &$this, 'ajax_load_last_comment' ) );
 	}
 
 	/**
-	 * Créer un point avec le status -34070 et assignes le à une tâche. Ensuite renvoie
-	 * le template backend-point. / Create an point with the status -34070 and assign it
-	 * to a task. Then send the template backend-point.
+	 * Créer un point et renvoi la vue HTML du point dans la réponse AJAX.
 	 *
-	 * @param string $_GET['_wpnonce'] Le code de sécurité crée par la fonction wp_create_nonce de
-	 * WordPress
-	 * @param int $_POST['point']['post_id'] ID de la tâche / The task ID
-	 * @param string $_POST['content'] Le contenu du point / The point content
+	 * @return void
 	 *
-	 * @return string Le template d'un point / The template of point
+	 * @since 1.0.0.0
+	 * @version 1.3.6.0
 	 */
 	public function ajax_create_point() {
-		if (  0 === is_int( (int) $_POST['point']['post_id'] ) )
-		  wp_send_json_error();
-		else
-			$object_id = (int) $_POST['point']['post_id'];
+		check_ajax_referer( 'create_point' );
 
-		check_ajax_referer( 'wpeo_nonce_create_point_' . $object_id );
+		$parent_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
+		$content = ! empty( $_POST['content'] ) ? sanitize_text_field( $_POST['content'] ) : '';
 
-		$_POST['point']['author_id'] = get_current_user_id();
-		$_POST['point']['status'] = '-34070';
-		$_POST['point']['date'] = current_time( 'mysql' );
-		$point = Point_Class::g()->update( $_POST['point'] );
+		if ( empty( $parent_id ) || empty( $content ) ) {
+			wp_send_json_error();
+		}
 
-		/** Add to the order point */
-		$task = Task_Class::g()->get( array( 'post__in' => array( $object_id ) ) );
-		$task = $task[0];
+		$point = Point_Class::g()->update( array(
+			'post_id' => $parent_id,
+			'comment_content' => $content,
+		) );
 
-		$custom_class = 'wpeo-task-point-sortable';
-		ob_start();
-		View_Util::exec( 'point', 'backend/point', array( 'object_id' => $object_id, 'task' => $task, 'point' => $point, 'custom_class' => $custom_class ) );
-		wp_send_json_success( array( 'module' => 'point', 'callback_success' => 'add_point_callback_success', 'template' => ob_get_clean() ) );
+		wp_send_json_success( array(
+			'module' => 'point',
+			'callback_success' => 'add_point_callback_success',
+		) );
 	}
 
 	/**
@@ -96,38 +90,26 @@ class Point_Action {
 	 * @return void
 	 */
 	public function ajax_edit_point() {
-		check_ajax_referer( 'wpeo_nonce_edit_point_' . $_POST['point']['id'] );
+		check_ajax_referer( 'edit_point' );
 
-		$point = Point_Class::g()->get( array( 'status' => Point_Class::g()->status, 'comment__in' => array( $_POST['point']['id'] ) ) );
-		$point = $point[0];
+		$point_id = ! empty( $_POST['id'] ) ? (int) $_POST['point_id'] : 0;
+		$parent_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
+		$content = ! empty( $_POST['content'] ) ? sanitize_text_field( $_POST['content'] ) : '';
 
-		$point->content = $_POST['point']['content'];
-		foreach ( $_POST['point']['option'] as $option_key => $option ) {
-			$point->$option_key = $option;
-		}
-		Point_Class::g()->update( $point );
-
-		if ( isset( $_POST['point']['order'] ) ) {
-			$new_key = (int) $_POST['point']['order'];
-			$task = Task_Class::g()->get( array( 'id' => $point->post_id ) );
-			$task = $task[0];
-			unset( $task->task_info['order_point_id'][ array_search( $point->id, $task->task_info['order_point_id'], true ) ] );
-			if ( isset( $task->task_info['order_point_id'][ $new_key ] ) ) {
-				$end_order_point_id = array_slice( $task->task_info['order_point_id'], $new_key, -1, true );
-				array_splice( $task->task_info['order_point_id'], $new_key );
-				$end_order_point_id[ $new_key - 1 ] = $point->id;
-				foreach ( $end_order_point_id as $key_point_id => $point_id ) {
-					$task->task_info['order_point_id'][ $key_point_id + 1 ] = $point_id;
-				}
-			} else {
-				$task->task_info['order_point_id'][ $new_key ] = $point->id;
-			}
-			ksort( $task->task_info['order_point_id'] );
-			$task->task_info['order_point_id'] = array_values( $task->task_info['order_point_id'] );
-			Task_Class::g()->update( $task );
+		if ( empty( $parent_id ) || empty( $content ) ) {
+			wp_send_json_error();
 		}
 
-		wp_send_json_success( array( 'module' => 'point' ) );
+		$point = Point_Class::g()->update( array(
+			'comment_id' => $point_id,
+			'post_id' => $parent_id,
+			'comment_content' => $content,
+		) );
+
+		wp_send_json_success( array(
+			'module' => 'point',
+			'callback_success' => 'add_point_callback_success',
+		) );
 	}
 
 	/**

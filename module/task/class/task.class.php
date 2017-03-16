@@ -43,8 +43,6 @@ class Task_Class extends Post_Class {
 
 	protected $attached_taxonomy_type = 'wpeo_tag';
 
-	protected $before_put_function = array( array( 'task_manager\Task_Helper', 'update_points' ) );
-
 	protected function construct() {
 		parent::construct();
 	}

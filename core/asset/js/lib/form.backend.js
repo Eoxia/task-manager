@@ -4,19 +4,21 @@ window.task_manager.form.init = function() {
     window.task_manager.form.event();
 };
 window.task_manager.form.event = function() {
-    jQuery( document ).on( 'click submit_form', '.submit-form, *[class*="submit-form-"]', window.task_manager.form.sumbit_form );
+    jQuery( document ).on( 'click', '.submit-form', window.task_manager.form.sumbit_form );
 };
 
 window.task_manager.form.sumbit_form = function( event ) {
 	var element = jQuery( this );
-	var callback = element.attr( 'class' ).match( /submit-form-.*?[^ ]+/g ); // Use submit-form-module-callback class to add more actions
-    event.preventDefault();
-	if ( callback ) {
-		callback = callback[0].split( '-' );
-		if ( callback[2] && callback[3] && window.task_manager[callback[2]][callback[3]] ) {
-			window.task_manager[callback[2]][callback[3]]( element );
-		}
+	var doAction = true;
+
+	event.preventDefault();
+	/** Méthode appelée avant l'action */
+	if ( element.data( 'module' ) && element.data( 'before-method' ) ) {
+		doAction = false;
+		doAction = window.task_manager[element.data( 'module' )][element.data( 'before-method' )]( element );
 	}
+
+	if ( doAction ) {
     element.closest( 'form' ).ajaxSubmit({
         success: function( response ) {
 			if ( response && response.data.module && response.data.callback ) {
@@ -34,4 +36,5 @@ window.task_manager.form.sumbit_form = function( event ) {
             }
         }
     });
+	}
 };

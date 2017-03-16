@@ -1,127 +1,57 @@
+/**
+ * Initialise l'objet "point" ainsi que la méthode "init" obligatoire pour la bibliothèque EoxiaJS.
+ *
+ * @since 1.0.0.0
+ * @version 1.0.0.0
+ */
 window.task_manager.point = {};
 
+/**
+ * La méthode obligatoire pour la biblotèque EoxiaJS.
+ *
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.0.0.0
+ */
 window.task_manager.point.init = function() {
 	window.task_manager.point.event();
 };
 
+/**
+ * Initialise tous les évènements liés au point de Task Manager.
+ *
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.0.0.0
+ */
 window.task_manager.point.event = function() {
-	jQuery( document ).on( 'blur click keyup paste keydown', '.wpeo-add-point .wpeo-point-new-contenteditable', window.task_manager.point.add_point );
-	jQuery( document ).on( 'blur paste', '.wpeo-edit-point .wpeo-point-contenteditable', window.task_manager.point.edit_point );
-	jQuery( document ).on( 'click', '.wpeo-done-point', window.task_manager.point.done_point );
-	jQuery( '.wpeo-project-wrap .wpeo-task-point-sortable' ).sortable( {
-		handle: '.dashicons-screenoptions',
-		items: '.wpeo-edit-point',
-		update: function( event, ui ) {
-			window.task_manager.point.edit_point_order( ui.item, jQuery( this ).find( '.wpeo-edit-point' ).index( ui.item ) );
-		}
-	} );
-	jQuery( document ).on( 'click', '.wpeo-send-point-to-trash', window.task_manager.point.delete_point );
-	jQuery( document ).on( 'click', '.wpeo-task-point-use-toggle p', window.task_manager.point.toggle_completed );
+	jQuery( document ).on( 'blur keyup paste keydown', '.wpeo-add-point .wpeo-point-new-contenteditable', window.task_manager.point.updateHiddenInput );
+	// jQuery( document ).on( 'blur paste', '.wpeo-edit-point .wpeo-point-contenteditable', window.task_manager.point.edit_point );
+	//
+	// jQuery( document ).on( 'click', '.wpeo-done-point', window.task_manager.point.done_point );
+	// jQuery( document ).on( 'click', '.wpeo-send-point-to-trash', window.task_manager.point.delete_point );
+	// jQuery( document ).on( 'click', '.wpeo-task-point-use-toggle p', window.task_manager.point.toggle_completed );
 };
 
-window.task_manager.point.add_point = function( event ) {
-	var element = jQuery( this );
-	var parentBloc = element.closest( '.wpeo-add-point' );
-	var taskBloc = element.closest( '.wpeo-project-task' );
-	var newPointInput = parentBloc.find( '*[name="point[content]"]' );
-	var btnNewPoint = parentBloc.find( '.wpeo-point-new-btn' );
-	var placeholderNewPoint = parentBloc.find( '.wpeo-point-new-placeholder' );
-	var point = window.task_manager.point;
-	newPointInput.val( element.html() );
-	if ( 0 == element.text().length ) {
-		placeholderNewPoint.show();
-		if ( 'undefined' == typeof point.add_point_opacity_btn ) {
-			point.add_point_opacity_btn = btnNewPoint.css( 'opacity' );
-		} else {
-			btnNewPoint.css( 'opacity', point.add_point_opacity_btn );
-		}
-		btnNewPoint.removeClass( 'submit-form-point-add_point_callback' );
+/**
+ * Met à jour le champ caché contenant le texte du point écris dans la div "contenteditable".
+ *
+ * @param  {MouseEvent} event L'évènement de la souris lors de l'action.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.3.6.0
+ */
+window.task_manager.point.updateHiddenInput = function( event ) {
+	if ( 0 < jQuery( this ).text().length ) {
+		jQuery( this ).closest( '.wpeo-point-input' ).find( '.wpeo-point-new-placeholder' ).addClass( 'hidden' );
 	} else {
-		placeholderNewPoint.hide();
-		btnNewPoint.css( 'opacity', 1 );
-		btnNewPoint.addClass( 'submit-form-point-add_point_callback' );
-		if ( 13 == event.which && point.add_point_ctrl_hold ) {
-			btnNewPoint.click();
-		}
+		jQuery( this ).closest( '.wpeo-point-input' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
 	}
-	if ( 17 == event.which ) {
-		point.add_point_ctrl_hold = true;
-	} else {
-		point.add_point_ctrl_hold = false;
-	}
-};
 
-window.task_manager.point.add_point_callback = function( element ) {
-	var parentBloc = element.closest( '.wpeo-add-point' );
-	var contentEditable = parentBloc.find( '.wpeo-point-new-contenteditable' );
-	contentEditable.html( '' );
-};
-
-window.task_manager.point.add_point_callback_success = function( element, response ) {
-	var blocTask = element.closest( '.wpeo-project-task' );
-	blocTask.find( '.wpeo-task-point:first' ).append( response.data.template );
-	blocTask.find( '.wpeo-task-point-sortable .wpeo-task-li-point:last' ).css( { opacity: 0, left: -20 } ).animate( {
-		opacity: 1,
-		left: 0
-	}, 300 );
-};
-
-window.task_manager.point.edit_point = function( event ) {
-	var element = jQuery( this );
-	var parentBloc = element.closest( '.wpeo-edit-point' );
-	var editPointInput = parentBloc.find( 'input[name="point[content]"]' );
-	var editPointBtn = parentBloc.find( '*[class*="submit-form"]' );
-	var contentEditable = parentBloc.find( '.wpeo-point-contenteditable' );
-	editPointInput.val( contentEditable.html() );
-	editPointBtn.trigger( 'submit_form' );
-};
-
-window.task_manager.point.done_point = function( event ) {
-	var element = jQuery( this );
-	var pointBloc = element.closest( '.wpeo-edit-point' );
-	var blocName = '';
-	pointBloc.find( '.wpeo-point-contenteditable' ).each( window.task_manager.point.edit_point );
-	if ( element.is( ':checked' ) ) {
-		blocName = '.wpeo-task-point-completed';
-	} else {
-		blocName = '.wpeo-task-point-sortable';
-	}
-	pointBloc.find( '.wpeo-task-li-point' ).animate( {
-		opacity: 0,
-		left: '20'
-	}, 300, function() {
-		pointBloc.appendTo( blocName );
-		pointBloc.find( '.wpeo-task-li-point' ).css( { left: '20' } ).animate( {
-			opacity: 1,
-			left: '0'
-		}, 300 );
-	} );
-	// TODO L'ordre des points n'est pas respecté en JS mais reste sauvegardé en PHP (tant que l'ordre du point n'est pas changé)
-};
-
-window.task_manager.point.edit_point_order = function( element, index ) {
-	var parentBloc = element.closest( '.wpeo-edit-point' );
-	var input = document.createElement( 'input' );
-	input.type = 'hidden';
-	input.name = 'point[order]';
-	input.value = index;
-	parentBloc.append( input );
-	parentBloc.find( '.wpeo-point-contenteditable' ).each( window.task_manager.point.edit_point );
-	jQuery( input ).remove();
-};
-
-window.task_manager.point.delete_point = function( event ) {
-	var element = jQuery( this );
-	var pointBloc = element.closest( '.wpeo-task-li-point' );
-	if ( confirm( 'Delete point' ) ) { // TODO Add translated text
-		window.task_manager.request.send( this, element.data() );
-		pointBloc.animate( {
-			opacity: 0,
-			left: '-20'
-		}, 300, function() {
-			pointBloc.remove();
-		} );
-	}
+	jQuery( this ).closest( '.wpeo-point-input' ).find( 'input[type="hidden"]' ).val( jQuery( this ).text() );
 };
 
 window.task_manager.point.toggle_completed = function( event ) {
