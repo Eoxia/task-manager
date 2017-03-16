@@ -98,12 +98,15 @@ if( !class_exists( 'task_wpshop_controller_01' ) ) {
 				}
 				$class = ' task-wpshop ';
 
+				$output = '<div class="list-task">';
+
 				if( !$backend ) {
 					require( wpeo_template_01::get_template_part( WPEO_TASK_WPSHOP_DIR, WPEO_TASK_WPSHOP_TEMPLATES_MAIN_DIR, 'frontend', 'content' ) );
 				}
 
 				require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'list-task' ) );
-				$output = ob_get_clean();
+				$output .= ob_get_clean();
+				$output .= '</div>';
 			}
 			return $output;
 		}
