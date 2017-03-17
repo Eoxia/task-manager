@@ -32,15 +32,32 @@ var wpeo_task = {
 var wpeo_point = {
   event: function() {
     jQuery( document ).on( 'click', '.wpeo-task-point-use-toggle', function( event ) { wpeo_point.toggle_completed( event, jQuery( this ) ); } );
-    jQuery( document ).on( 'click', '.wpeo-point-input', function() { wpeo_point.open_window( jQuery( this ) ); } );
+    jQuery( document ).on( 'click', '.wpeo-task-point > li:not(.wpeo-task-point-use-toggle)', function() { wpeo_point.open_window( jQuery( this ) ); } );
     jQuery( document ).on( 'click', '#wpeo-task-form-point-time .wpeo-submit', function() { wpeo_point.create_point_time( jQuery( this ) ); } );
+    jQuery( document ).on( 'click', '.point-content', function() { wpeo_point.point_class_active( jQuery( this ) ); } );
     jQuery( document ).on( 'click', '.wpeo-point-comment .wpeo-submit', function() { wpeo_point.edit_point_time_form( jQuery( this ) ); } );
     jQuery( document ).on( 'click', '.wpeo-point-time-edit-btn', function( event ) { wpeo_point.edit_point_time( event, jQuery( this ) ); });
     jQuery( document ).on( 'click', '.wpeo-send-point-time-to-trash', function( event ) { wpeo_point.delete_point_time( event, jQuery( this ) ); } );
-
+		jQuery( document ).on( 'scroll', '', function( event ) { wpeo_point.fixed_window( event, jQuery( this ) ); } );
   },
 
+	point_class_active: function( element ) {
+		jQuery( '.point-content.active' ).removeClass('active');
+		jQuery( element ).addClass('active');
+	},
+
+	fixed_window: function( element ) {
+		var element = jQuery( '.wpeo-task-account-window-content' );
+		if ( ! element && element == undefined ) return;
+		if ( jQuery( window ).scrollTop() <= jQuery( '.wpeo-project-wrap' ).offset().top ) {
+			element.removeClass('fixe');
+		} else {
+			element.addClass('fixe');
+		}
+	},
+
   open_window: function( element ) {
+		element = jQuery( element ).find( '.wpeo-point-input' );
     jQuery( element ).closest( '.wps-section-content' ).find( '.wpeo-window-dashboard *' ).css('opacity', 0);
 
 		var bloc_task 	= jQuery( element ).closest( '.wpeo-project-task' );
@@ -52,8 +69,6 @@ var wpeo_point = {
 			'opacity': 1,
 			'left': 0,
 		}, 200);
-
-		jQuery( '.wpeo-project-task:not(.wpeo-project-task[data-id="' + task_id + '"])' ).hide();
 
 		var data = {
 			action: 'load_dashboard_frontend',
@@ -68,7 +83,8 @@ var wpeo_point = {
 				opacity: 1,
 			}, 400);
 			jQuery( element ).closest( '.wps-section-content' ).find( '.wpeo-window-dashboard' ).attr( 'data-id', point_id );
-			jQuery( element ).closest( '.wps-section-content' ).find( '.wpeo-window-dashboard' ).css( 'display', 'flex' );
+			// jQuery( element ).closest( '.wps-section-content' ).find( '.wpeo-window-dashboard' ).css( 'display', 'flex' );
+			wpeo_point.fixed_window();
 		} );
   },
 
