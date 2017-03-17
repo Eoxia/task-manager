@@ -1,4 +1,7 @@
-<?php if ( ! defined( 'ABSPATH' ) ) exit; ?>
+<?php if ( ! defined( 'ABSPATH' ) ) exit;
+
+
+global $time_controller; ?>
 
 <?php if ( !empty( $task ) ): ?>
 	<div data-id="<?php echo $task->id; ?>" class="task">
@@ -29,6 +32,11 @@
 							<?php /*esc_html_e( 'Elapsed time', 'task-manager' );*/ ?> <span class="dashicons dashicons-clock"></span><strong><?php echo $point->option['time_info']['elapsed']; ?></strong>
 						</div>
 
+						<?php $list_time = $time_controller->index( $point->post_id, array( 'parent' => $point->id, 'status' => -34070 ) ); ?>
+						<div>
+							<?php echo count( $list_time ); ?> commentaires
+						</div>
+
 					</li><?php
 			endforeach;
 			?>
@@ -53,6 +61,11 @@
 					<!-- Temps passé / Elapsed time -->
 					<div>
 						<?php /*esc_html_e( 'Elapsed time', 'task-manager' );*/ ?> <span class="dashicons dashicons-clock"></span><strong><?php echo $point->option['time_info']['elapsed']; ?></strong>
+					</div>
+
+					<?php $list_time = $time_controller->index( $point->post_id, array( 'parent' => $point->id, 'status' => -34070 ) ); ?>
+					<div>
+						<?php echo count( $list_time ); ?> commentaires
 					</div>
 				</li><?php
 			endforeach;
