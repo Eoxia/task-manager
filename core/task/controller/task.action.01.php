@@ -152,7 +152,7 @@ class task_action_01 {
 		$list_task = $task_controller->index( array( 'post_parent' => 0 ) );
 
 		ob_start();
-		require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'list-task' ) );
+		require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'main' ) );
 		wp_send_json_success( array( 'template' => ob_get_clean() ) );
 
 	}
@@ -163,7 +163,7 @@ class task_action_01 {
 		$status = 'archive';
 
 		ob_start();
-		require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'list-task' ) );
+		require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'main' ) );
 		wp_send_json_success( array( 'template' => ob_get_clean() ) );
 	}
 
