@@ -79,34 +79,39 @@ if( !class_exists( 'task_wpshop_controller_01' ) ) {
 
 		public function my_account_content( $output, $dashboard_part ) {
 			if( $dashboard_part == 'my-task' ) {
-				global $task_controller;
+				global $task_controller, $point_controller;
 
 				$backend = !empty( $_POST['backend'] ) ? true : false;
 
 				ob_start();
-				$list_task = $this->get_all_task_customer( !empty( $_POST['user_id'] ) ? $_POST['user_id'] : get_current_user_id() );
-				if ( empty( $_POST['user_id'] ) ) {
-					add_filter( 'task_footer', function( $string, $task ) { return ''; }, 12, 2 );
-					add_filter( 'task_header_button', function( $string, $task ) { return ''; }, 12, 2 );
-					add_filter( 'task_time_history_button', function( $string, $task ) { return ''; }, 12, 2 );
-					add_filter( 'task_header_action', function( $string, $task ) { return ''; }, 12, 2 );
-					add_filter( 'task_header_disabled', function( $string ) { return 'disabled'; }, 12, 2 );
-					add_filter( 'point_action_before', function( $string, $point ) { return ''; }, 10, 2 );
-					add_filter( 'point_action_after', function( $string, $point ) { return ''; }, 10, 2 );
-					add_filter( 'point_list_add', function( $string, $object_id ) { return ''; }, 10, 2 );
-					add_filter( 'point_disabled', function( $string ) { return 'disabled'; } );
-				}
-				$class = ' task-wpshop ';
+				$tasks = $this->get_all_task_customer( !empty( $_POST['user_id'] ) ? $_POST['user_id'] : get_current_user_id() );
 
-				$output = '<div class="list-task">';
+				if ( ! empty( $tasks ) ) {
+					foreach ( $tasks as $task ) {
+						$task->point_completed = array();
+						$task->point_uncompleted = array();
+
+						if ( ! empty( $task->option['task_info']['order_point_id'] ) ) {
+							$list_point = $point_controller->index( $task->id, array( 'orderby' => 'comment__in', 'comment__in' => $task->option['task_info']['order_point_id'], 'status' => -34070 ) );
+							$task->point_completed = array_filter( $list_point, function( $point ) {
+								return true === $point->option['point_info']['completed'];
+							} );
+
+							$task->point_uncompleted = array_filter( $list_point, function( $point ) {
+								return false === $point->option['point_info']['completed'];
+							} );
+						}
+					}
+				}
+
+				$class = ' task-wpshop ';
 
 				if( !$backend ) {
 					require( wpeo_template_01::get_template_part( WPEO_TASK_WPSHOP_DIR, WPEO_TASK_WPSHOP_TEMPLATES_MAIN_DIR, 'frontend', 'content' ) );
 				}
 
-				require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'list-task' ) );
+				require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'frontend', 'main' ) );
 				$output .= ob_get_clean();
-				$output .= '</div>';
 			}
 			return $output;
 		}
