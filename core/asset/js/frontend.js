@@ -7,6 +7,8 @@ var wpeo_task = {
   event: function() {
     jQuery( document ).on( 'click', '.wpeo-ask-task', function( event ) { wpeo_task.ask_task( event, jQuery( this ) ); } );
     jQuery( document ).on( 'click', '#wpeo-window-ask-task form input[type="button"]', function() { wpeo_task.form_ask_task(); } );
+
+		jQuery( document ).on( 'keyup', '.task-search', function( event ) { wpeo_task.search_in( jQuery( this ), event ); } );
   },
 
   ask_task: function( event, element ) {
@@ -27,6 +29,27 @@ var wpeo_task = {
       }
     } );
   },
+
+	search_in: function( element, event ) {
+		if ( 13 === event.keyCode ) {
+			if ( 0 == jQuery( element ).val().length ) {
+				jQuery( '.grid-item .task' ).show();
+			} else {
+				jQuery( '.grid-item .task:visible' ).each( function() {
+					var synthesis_task = '';
+					synthesis_task += jQuery( this ).text();
+					jQuery( this ).find( 'input' ).each( function() {
+						synthesis_task += jQuery( this ).val() + ' ';
+					} );
+					synthesis_task = synthesis_task.replace( /\s+\s/g, ' ' ).trim();
+
+					if ( synthesis_task.search( new RegExp( jQuery( element ).val(), 'i' ) ) == -1 ) {
+						jQuery( this ).hide();
+					}
+				} );
+			}
+		}
+	}
 };
 
 var wpeo_point = {
