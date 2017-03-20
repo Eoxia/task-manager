@@ -87,7 +87,7 @@ if( !class_exists( 'task_wpshop_action_01' ) ) {
 			$task_controller->update( $task );
 
 			ob_start();
-			$task_controller->render_task( $task );
+			$task_controller->render_task_frontend( $task );
 			wp_send_json_success( array( 'task_id' => $task_id, 'edit' => $edit, 'template' => ob_get_clean() ) );
 		}
 	}

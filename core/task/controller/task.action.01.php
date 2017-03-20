@@ -397,6 +397,14 @@ class task_action_01 {
 		$body = __( '<p>This mail has been send automatically</p>', 'task-manager' );
 		$body .= '<h2>#' . $task->id . ' ' . $task->title . ' send by ' . $sender_data->user_login . ' (' . $sender_data->user_email . ')</h2>';
 		$body = apply_filters( 'task_points_mail', $body, $task );
+		$body .= '<ul>';
+
+		if ( ! empty( $task->parent_id ) ) {
+			$body .= '<li><a href="' . admin_url( 'post.php?action=edit&post=' . $task->parent_id ) . '">Lien vers le client</a></li>';
+		}
+
+		$body .= '<li><a href="' . admin_url( 'admin.php?page=wpeomtm-dashboard&s=' . $task->id ) . '">Lien vers la tâche</a></li>';
+		$body .= '</ul>';
 		$headers = array( 'Content-Type: text/html; charset=UTF-8' );
 
 		$admin_email = get_bloginfo( 'admin_email' );

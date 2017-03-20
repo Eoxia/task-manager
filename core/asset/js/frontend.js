@@ -12,7 +12,7 @@ var wpeo_task = {
   ask_task: function( event, element ) {
     event.preventDefault();
 
-    jQuery( '#wpeo-window-ask-task' ).show();
+    jQuery( '#wpeo-window-ask-task' ).toggle();
   },
 
   form_ask_task: function() {
@@ -20,10 +20,10 @@ var wpeo_task = {
       jQuery( '#wpeo-window-ask-task form' ).clearForm();
       jQuery( '#wpeo-window-ask-task' ).hide();
       if( this.edit ) {
-        jQuery( '.wpeo-task-account > div[data-id="' + this.task_id + '"]' ).replaceWith( this.template );
+        jQuery( '.wpeo-project-wrap .grid-item div[data-id="' + this.task_id + '"]' ).replaceWith( this.template );
       }
       else {
-        jQuery( '.wpeo-task-account' ).prepend( this.template );
+        jQuery( '.wpeo-project-wrap .grid-item' ).prepend( this.template );
       }
     } );
   },

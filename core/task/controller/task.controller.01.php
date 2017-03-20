@@ -182,6 +182,26 @@ if ( ! class_exists( 'task_controller_01' ) ) {
 			require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'backend', 'task' ) );
 		}
 
+		public function render_task_frontend( $task, $class = '', $need_information = true ) {
+			global $point_controller;
+			$disabled_filter = apply_filters( 'task_header_disabled', '' );
+			$task->point_completed = array();
+			$task->point_uncompleted = array();
+
+			if ( ! empty( $task->option['task_info']['order_point_id'] ) ) {
+				$list_point = $point_controller->index( $task->id, array( 'orderby' => 'comment__in', 'comment__in' => $task->option['task_info']['order_point_id'], 'status' => -34070 ) );
+				$task->point_completed = array_filter( $list_point, function( $point ) {
+					return true === $point->option['point_info']['completed'];
+				} );
+
+				$task->point_uncompleted = array_filter( $list_point, function( $point ) {
+					return false === $point->option['point_info']['completed'];
+				} );
+			}
+
+			require( wpeo_template_01::get_template_part( WPEO_TASK_DIR, WPEO_TASK_TEMPLATES_MAIN_DIR, 'frontend', 'task' ) );
+		}
+
 		public function render_list_task( $name, $list_task ) {
 			global $task_controller;
 			$disabled_filter = apply_filters( 'task_header_disabled', '' );
