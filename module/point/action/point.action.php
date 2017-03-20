@@ -46,7 +46,7 @@ class Point_Action {
 
 		wp_send_json_success( array(
 			'module' => 'point',
-			'callback_success' => 'add_point_callback_success',
+			'callback_success' => 'addedPointSuccess',
 		) );
 	}
 
@@ -106,9 +106,16 @@ class Point_Action {
 			'comment_content' => $content,
 		) );
 
+		ob_start();
+		View_Util::exec( 'point', 'backend/point', array(
+			'point' => $point,
+			'parent_id' => $parent_id,
+		) );
+
 		wp_send_json_success( array(
+			'view' => ob_get_clean(),
 			'module' => 'point',
-			'callback_success' => 'add_point_callback_success',
+			'callback_success' => 'addedPointSuccess',
 		) );
 	}
 

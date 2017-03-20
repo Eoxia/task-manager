@@ -28,7 +28,17 @@ window.task_manager.comment.init = function() {
  */
 window.task_manager.comment.event = function() {};
 
-
+/**
+ * Le callback en cas de réussite à la requête Ajax "load_comments".
+ * Met le contenu dans la div.comments.
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.0.0.0
+ */
 window.task_manager.comment.loadedCommentsSuccess = function( element, response ) {
-	jQuery( element ).closest( 'form' ).next( '.comments' ).html( response );
+	jQuery( element ).closest( 'form' ).next( '.comments' ).html( response.data.view );
 };

@@ -54,6 +54,21 @@ window.task_manager.point.updateHiddenInput = function( event ) {
 	jQuery( this ).closest( '.wpeo-point-input' ).find( 'input[type="hidden"]' ).val( jQuery( this ).text() );
 };
 
+/**
+ * Le callback en cas de réussite à la requête Ajax "create_point".
+ * Ajoutes le point avant le formulaire pour ajouter un point dans le ul.wpeo-task-point-sortable
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.0.0.0
+ */
+window.task_manager.point.addedPointSuccess = function( element, response ) {
+	jQuery( element ).closest( '.wpeo-project-task' ).find( 'ul.wpeo-task-point-sortable form:last' ).before( response.data.view );
+};
+
 window.task_manager.point.toggle_completed = function( event ) {
 	var element = jQuery( this );
 	element.find( '.wpeo-point-toggle-arrow' ).toggleClass( 'dashicons-plus dashicons-minus' );

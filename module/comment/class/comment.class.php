@@ -46,6 +46,13 @@ class Task_Comment_Class extends Comment_Class {
 	protected $version = '0.1';
 
 	/**
+	 * La fonction appelée automatiquement après la récupération de l'objet depuis la base de donnée.
+	 *
+	 * @var array
+	 */
+	protected $after_model_get_function = array( '\task_manager\convert_date_display' );
+
+	/**
 	 * Constructeur
 	 *
 	 * @return void

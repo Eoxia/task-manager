@@ -25,7 +25,10 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		<li class="wpeo-add-point wpeo-point-no-sortable">
 			<ul>
 				<li>
+					<input type="checkbox" />
+
 					<span data-action="<?php echo esc_attr( 'load_comments' ); ?>"
+								data-task-id="<?php echo esc_attr( $parent_id ); ?>"
 								data-point-id="<?php echo esc_attr( $point->id ); ?>"
 								class="action-attribute">O</span>
 					<span class="wpeo-block-id">#<?php echo esc_attr( $point->id ); ?></span>
@@ -47,6 +50,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					<?php else : ?>
 						<span class="dashicons dashicons-clock"></span>
 						<span class="wpeo-time-in-point"><?php echo esc_attr( $point->time_info['elapsed'] ); ?></span>
+
+						<span class="dashicons dashicons-no"></span>
 					<?php	endif; ?>
 				</li>
 			</ul>
