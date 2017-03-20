@@ -15,7 +15,7 @@
 	<li class="action">
 		<?php echo $time->option['time_info']['elapsed']; ?>
 		<span class="dashicons dashicons-clock"></span>
-		<?php if ( get_current_user_id() == $time->author_id || is_admin() ): ?>
+		<?php if ( is_admin() ): ?>
 			<span data-nonce="<?php echo wp_create_nonce( 'wpeo_nonce_get_point_time_' . $time->id ); ?>" class="dashicons dashicons-edit wpeo-point-time-edit-btn"></span>
 			<span data-nonce="<?php echo wp_create_nonce( 'wpeo_nonce_delete_point_time_' . $time->id ); ?>" class="dashicons dashicons-no wpeo-send-point-time-to-trash"></span>
 		<?php endif; ?>
