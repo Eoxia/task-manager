@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2017-03-20 10:16+0100\n"
-"PO-Revision-Date: 2017-03-20 10:16+0100\n"
+"POT-Creation-Date: 2017-03-20 11:04+0100\n"
+"PO-Revision-Date: 2017-03-20 11:04+0100\n"
 "Last-Translator: \n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -169,7 +169,8 @@ msgstr "Point terminé"
 #: core/time/template/backend/list-time.php:10
 msgid "There is no comment on this point. Click above to add one."
 msgstr ""
-"Il n'y a pas de comment sur ce point. Cliquez ci-dessous pour en ajouter un."
+"Il n'y a pas de commentaire sur ce point. Cliquez ci-dessus pour en ajouter "
+"un."
 
 #: core/point/template/frontend/point-time.php:9
 #: core/task/template/backend/last-comment.php:14
@@ -643,8 +644,11 @@ msgid "My tickets"
 msgstr "Mes tickets"
 
 #: module/wpshop/template/frontend/menu.php:6
-msgid "My task"
-msgstr "Mes tâches"
+msgid "Support"
+msgstr ""
+
+#~ msgid "My task"
+#~ msgstr "Mes tâches"
 
 #~ msgid "Search"
 #~ msgstr "Rechercher"
