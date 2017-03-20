@@ -66,7 +66,7 @@ if( !class_exists( 'task_wpshop_controller_01' ) ) {
 		}
 
 	  public function my_account_content_ticket( $output, $dashboard_part ) {
-			if( 'my-task' === $dashboard_part ) {
+			if( 'support' === $dashboard_part ) {
 				$output = do_shortcode( '[ticket]' );
 			} elseif( 'my-task-comments' === $dashboard_part ) {
 				$task_id = (int) $_GET['task_id'];
@@ -78,7 +78,7 @@ if( !class_exists( 'task_wpshop_controller_01' ) ) {
 	  }
 
 		public function my_account_content( $output, $dashboard_part ) {
-			if( $dashboard_part == 'my-task' ) {
+			if( $dashboard_part == 'support' ) {
 				$output = '';
 				global $task_controller, $point_controller;
 
