@@ -8,6 +8,7 @@ var wpeo_task = {
     jQuery( document ).on( 'click', '.wpeo-ask-task', function( event ) { wpeo_task.ask_task( event, jQuery( this ) ); } );
     jQuery( document ).on( 'click', '#wpeo-window-ask-task form input[type="button"]', function() { wpeo_task.form_ask_task( jQuery( this ) ); } );
 
+		jQuery( document ).on( 'keyup', '.wps-section-content .task-search', function( event ) { wpeo_task.search_key( jQuery( this ), event ); } );
 		jQuery( document ).on( 'click', '.wps-section-content .search-button', function( event ) { wpeo_task.search_in( jQuery( this ) ); } );
   },
 
@@ -29,6 +30,12 @@ var wpeo_task = {
       }
     } );
   },
+
+	search_key: function( element, event ) {
+		if ( event.keyCode === 13 ) {
+			jQuery( '.wps-section-content .search-button' ).click();
+		}
+	},
 
 	search_in: function( element ) {
 		if ( 0 == jQuery( element ).closest( '.wps-section-content' ).find( '.task-search' ).val().length ) {
