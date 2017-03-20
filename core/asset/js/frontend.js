@@ -114,6 +114,7 @@ var wpeo_point = {
 
     jQuery.eoAjaxSubmit( jQuery(element).closest('form'), { action: 'create_point_time' }, function() {
       jQuery( '.wpeo-point-no-comment' ).hide();
+			jQuery( element ).closest( 'form' ).find( '.wpeo-point-comment' ).val( '' );
       if( this.edit ) {
         jQuery( '.wpeo-point-comment-' + this.point_time_id ).replaceWith( this.template );
       }

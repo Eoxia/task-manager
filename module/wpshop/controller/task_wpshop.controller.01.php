@@ -79,6 +79,7 @@ if( !class_exists( 'task_wpshop_controller_01' ) ) {
 
 		public function my_account_content( $output, $dashboard_part ) {
 			if( $dashboard_part == 'my-task' ) {
+				$output = '';
 				global $task_controller, $point_controller;
 
 				$backend = !empty( $_POST['backend'] ) ? true : false;

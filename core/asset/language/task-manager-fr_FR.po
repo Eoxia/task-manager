@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2017-03-20 10:02+0100\n"
-"PO-Revision-Date: 2017-03-20 10:02+0100\n"
+"POT-Creation-Date: 2017-03-20 10:16+0100\n"
+"PO-Revision-Date: 2017-03-20 10:16+0100\n"
 "Last-Translator: \n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -377,19 +377,19 @@ msgstr ""
 "Pas de tâche, appuyez sur le bouton \"Nouvelle tâche\" pour créer une tâche"
 
 #: core/task/template/frontend/account/ask-task.php:7
-#: module/wpshop/template/frontend/content.php:7
+#: module/wpshop/template/frontend/content.php:10
 msgid "Write your ticket"
 msgstr "Écrivez votre ticket"
 
 #: core/task/template/frontend/account/ask-task.php:8
 #: core/task/template/frontend/account/ask-task.php:11
-#: module/wpshop/template/frontend/content.php:11
+#: module/wpshop/template/frontend/content.php:5
 msgid "Ask a ticket"
 msgstr "Demandez un ticket"
 
-#: core/task/template/frontend/main.php:1
-msgid "Search"
-msgstr "Rechercher"
+#: core/task/template/frontend/main.php:2
+msgid "Search.."
+msgstr "Recherche.."
 
 #: core/task/template/frontend/tasks.php:10
 msgid "Start by creating a task"
@@ -634,7 +634,7 @@ msgstr ""
 msgid "Search WPshop customer"
 msgstr "Rechercher un client WPShop"
 
-#: module/wpshop/template/frontend/content.php:8
+#: module/wpshop/template/frontend/content.php:11
 msgid "Confirm"
 msgstr "Confirmez"
 
@@ -645,6 +645,9 @@ msgstr "Mes tickets"
 #: module/wpshop/template/frontend/menu.php:6
 msgid "My task"
 msgstr "Mes tâches"
+
+#~ msgid "Search"
+#~ msgstr "Rechercher"
 
 #~ msgid "Enter your comment here..."
 #~ msgstr "Écrivez votre commentaire ici..."
