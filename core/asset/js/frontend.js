@@ -6,18 +6,18 @@ jQuery( document ).ready( function() {
 var wpeo_task = {
   event: function() {
     jQuery( document ).on( 'click', '.wpeo-ask-task', function( event ) { wpeo_task.ask_task( event, jQuery( this ) ); } );
-    jQuery( document ).on( 'click', '#wpeo-window-ask-task form input[type="button"]', function() { wpeo_task.form_ask_task(); } );
+    jQuery( document ).on( 'click', '#wpeo-window-ask-task form input[type="button"]', function() { wpeo_task.form_ask_task( jQuery( this ) ); } );
 
-		jQuery( document ).on( 'keyup', '.task-search', function( event ) { wpeo_task.search_in( jQuery( this ), event ); } );
+		jQuery( document ).on( 'click', '.wps-section-content .search-button', function( event ) { wpeo_task.search_in( jQuery( this ) ); } );
   },
 
   ask_task: function( event, element ) {
     event.preventDefault();
 
-    jQuery( '#wpeo-window-ask-task' ).toggle();
+    jQuery( '#wpeo-window-ask-task' ).slideToggle();
   },
 
-  form_ask_task: function() {
+  form_ask_task: function( element ) {
     jQuery.eoAjaxSubmit( jQuery( '#wpeo-window-ask-task form' ), {}, function() {
       jQuery( '#wpeo-window-ask-task form' ).clearForm();
       jQuery( '#wpeo-window-ask-task' ).hide();
@@ -30,24 +30,22 @@ var wpeo_task = {
     } );
   },
 
-	search_in: function( element, event ) {
-		if ( 13 === event.keyCode ) {
-			if ( 0 == jQuery( element ).val().length ) {
-				jQuery( '.grid-item .task' ).show();
-			} else {
-				jQuery( '.grid-item .task:visible' ).each( function() {
-					var synthesis_task = '';
-					synthesis_task += jQuery( this ).text();
-					jQuery( this ).find( 'input' ).each( function() {
-						synthesis_task += jQuery( this ).val() + ' ';
-					} );
-					synthesis_task = synthesis_task.replace( /\s+\s/g, ' ' ).trim();
-
-					if ( synthesis_task.search( new RegExp( jQuery( element ).val(), 'i' ) ) == -1 ) {
-						jQuery( this ).hide();
-					}
+	search_in: function( element ) {
+		if ( 0 == jQuery( element ).closest( '.wps-section-content' ).find( '.task-search' ).val().length ) {
+			jQuery( '.grid-item .task' ).show();
+		} else {
+			jQuery( '.grid-item .task:visible' ).each( function() {
+				var synthesis_task = '';
+				synthesis_task += jQuery( this ).text();
+				jQuery( this ).find( 'input' ).each( function() {
+					synthesis_task += jQuery( this ).val() + ' ';
 				} );
-			}
+				synthesis_task = synthesis_task.replace( /\s+\s/g, ' ' ).trim();
+
+				if ( synthesis_task.search( new RegExp( jQuery( element ).closest( '.wps-section-content' ).find( '.task-search' ).val(), 'i' ) ) == -1 ) {
+					jQuery( this ).hide();
+				}
+			} );
 		}
 	}
 };
