@@ -41,16 +41,21 @@ class Task_Class extends Post_Class {
 	 */
 	protected $version = '0.1';
 
+	/**
+	 * La taxonomy lié à ce post type.
+	 *
+	 * @var string
+	 */
 	protected $attached_taxonomy_type = 'wpeo_tag';
 
-	protected function construct() {
-		parent::construct();
-	}
+	/**
+	 * La fonction appelée automatiquement après la récupération de l'objet dans la base de donnée.
+	 *
+	 * @var array
+	 */
+	protected $after_get_function = array( '\task_manager\get_full_task' );
 
-	public function render_task( $task, $class = '', $need_information = true ) {
-		$disabled_filter = apply_filters( 'task_header_disabled', '' );
-		View_Util::exec( 'task', 'backend/task', array( 'disabled_filter' => $disabled_filter, 'task' => $task, 'class' => $class, 'need_information' => $need_information ) );
-	}
+	protected function construct() {}
 }
 
 Task_Class::g();

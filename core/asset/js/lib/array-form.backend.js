@@ -1,42 +1,42 @@
-window.eoxiaJS.array_form = {};
+window.eoxiaJS.arrayForm = {};
 
-window.eoxiaJS.array_form.init = function() {
-	window.eoxiaJS.array_form.event();
+window.eoxiaJS.arrayForm.init = function() {
+	window.eoxiaJS.arrayForm.event();
 };
 
-window.eoxiaJS.array_form.event = function() {
-	jQuery( document ).on( 'click', '.wp-digi-action-edit', window.eoxiaJS.array_form.send_form );
+window.eoxiaJS.arrayForm.event = function() {
+	jQuery( document ).on( 'click', '.submit-fake-form', window.eoxiaJS.arrayForm.sendForm );
 };
 
-window.eoxiaJS.array_form.get_input = function( parent ) {
-	return parent.find('input, textarea');
+window.eoxiaJS.arrayForm.getInput = function( parent ) {
+	return parent.find( 'input, textarea' );
 };
 
-window.eoxiaJS.array_form.get_input_value = function( input ) {
-	switch( input.getAttribute( 'type' ) ) {
-		case "checkbox":
+window.eoxiaJS.arrayForm.getInputValue = function( input ) {
+	switch ( input.getAttribute( 'type' ) ) {
+		case 'checkbox':
 			return input.checked;
 			break;
 		default:
 			return input.value;
 			break;
 	}
-}
+};
 
-window.eoxiaJS.array_form.send_form = function( event ) {
+window.eoxiaJS.arrayForm.sendForm = function( event ) {
+	var element = jQuery( this );
+	var parent = element.closest( '.form' );
+	var listInput = window.eoxiaJS.arrayForm.getInput( parent );
+	var data = {};
+	var i = 0;
+
 	event.preventDefault();
 
-	var element = jQuery( this );
-	element.closest( '.wp-digi-bloc-loader' ).addClass( 'wp-digi-bloc-loading' );
-	var parent = element.closest( '.wp-digi-list-item' );
-	var list_input = window.eoxiaJS.array_form.get_input( parent );
-
-	var data = {};
-	for (var i = 0; i < list_input.length; i++) {
-		if ( list_input[i].name ) {
-			data[list_input[i].name] = window.eoxiaJS.array_form.get_input_value( list_input[i] );
+	for ( i = 0; i < listInput.length; i++ ) {
+		if ( listInput[i].name ) {
+			data[listInput[i].name] = window.eoxiaJS.arrayForm.getInputValue( listInput[i] );
 		}
 	}
 
-	window.task_manager.request.send( element, data );
+	window.digirisk.request.send( element, data );
 };

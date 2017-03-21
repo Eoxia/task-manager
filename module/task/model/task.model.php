@@ -1,26 +1,37 @@
 <?php
+/**
+ * La définition du schéma des données d'une tâche.
+ *
+ * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @since 1.0.0.0
+ * @version 1.3.6.0
+ * @copyright 2015-2017 Eoxia
+ * @package task
+ * @subpackage model
+ */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 /**
- * Task model
- * Les options des tâches ( meta, comment )
- * @version 0.1
- * @author EOXIA
- *
+ * La définition du schéma des données d'une tâche.
  */
-
 class Task_Model extends Post_Model {
+
+	/**
+	 * Le constructeur défini le schéma.
+	 *
+	 * @param Task_Model $object L'objet.
+	 */
 	public function __construct( $object ) {
 		$this->model = array_merge( $this->model, array(
 			'user_info' => array(
 				'type' => 'array',
 				'meta_type' => 'multiple',
 				'bydefault' => array(
-					'owner_id' => 0,
-					'affected_id' => array()
+					'owner_id' => get_current_user_id(),
+					'affected_id' => array(),
 				),
 				'owner_id' => array(
 					'type' 			=> 'integer',
@@ -38,9 +49,14 @@ class Task_Model extends Post_Model {
 			'time_info' => array(
 				'type' => 'array',
 				'meta_type' => 'multiple',
+				'bydefault' => array(
+					'history_time' => array(),
+					'elapsed' => 0,
+				),
 				'history_time' => array(
-					'type' 			=> 'integer',
-					'meta_type'	=> 'multiple',
+					'type' => 'array',
+					'array_type' 	=> 'integer',
+					'meta_type'		=> 'multiple',
 				),
 				'elapsed' => array(
 					'type' 			=> 'integer',
@@ -85,8 +101,8 @@ class Task_Model extends Post_Model {
 					'meta_type'		=> 'multiple',
 					'array_type'	=> 'integer',
 					'type'				=> 'array',
-				)
-			)
+				),
+			),
 		);
 
 		parent::__construct( $object );

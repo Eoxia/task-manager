@@ -4,6 +4,9 @@
  *
  * @package Task Manager
  * @subpackage Module/Tag
+ *
+ * @since 1.0.0.0
+ * @version 1.3.6.0
  */
 
 namespace task_manager;
@@ -21,6 +24,7 @@ class Tag_Action {
 	 * Instanciation des crochets pour les "actions" utilisées par les tags
 	 */
 	public function __construct() {
+		add_action( 'wp_ajax_to_archive', array( $this, 'ajax_to_archive' ) );
 		/** Chargement des tags existants pour affectation */
 		add_action( 'wp_ajax_load_tags', array( $this, 'ajax_load_tags' ) );
 
@@ -33,6 +37,34 @@ class Tag_Action {
 
 		/** Création d'un tag */
 		add_action( 'wp_ajax_create-tag', array( &$this, 'ajax_create_tag' ) );
+	}
+
+	/**
+	 * Ajoutes la catégorie "archive" à le tâche ainsi que le status "archive".
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0.0
+	 * @version 1.3.6.0
+	 */
+	public function ajax_to_archive() {
+		check_ajax_referer( 'to_archive' );
+
+		$task_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+
+		if ( empty( $task_id ) ) {
+			wp_send_json_error();
+		}
+
+		$task = Task_Class::g()->get( array(
+			'post__in' => array( $task_id ),
+		), true );
+
+		$task->status = 'archive';
+
+		Task_Class::g()->update( $task );
+
+		wp_send_json_success();
 	}
 
 	/**
@@ -86,20 +118,6 @@ class Tag_Action {
 		$tags_display = 'yo toto';
 		wp_send_json_success( array( 'module' => 'tag', 'callback_success' => 'tag_affectation_success', 'view' => $tags_display ) );
 	}
-
-	/**
-	 * Récupère les tâches archivées
-	 */
-	// public function load_archived_task() {
-	// 	check_ajax_referer( 'load_archived_task' );
-	//
-	// 	$list_tag = Tag_Class::g()->get();
-	//
-	// 	ob_start();
-	// 	View_Util::exec( 'tag', 'backend/display-tag', array( 'list_tag' => $list_tag ) );
-	//
-	// 	wp_send_json_success( array( 'module' => 'tag', 'callback_success' => 'load_archived_task', 'view' => ob_get_clean() ) );
-	// }
 
 	/**
 	 * Création d'un tag dans la base de données

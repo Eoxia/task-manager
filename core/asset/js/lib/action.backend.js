@@ -18,6 +18,7 @@ window.task_manager.action.execInput = function( event ) {
 	var data = {};
 	var i = 0;
 	var doAction = true;
+	var key = undefined;
 
 	if ( element.data( 'loader' ) ) {
 		loaderElement = element.closest( '.' + element.data( 'loader' ) );
@@ -33,10 +34,14 @@ window.task_manager.action.execInput = function( event ) {
 		doAction = window.task_manager[element.data( 'module' )][element.data( 'before-method' )]( element );
 	}
 
+	if ( element.hasClass( '.grey' ) ) {
+		doAction = false;
+	}
+
 	if ( doAction ) {
 		loaderElement.addClass( 'loading' );
 
-		listInput = window.eoxiaJS.arrayForm.get_input( parentElement );
+		listInput = window.eoxiaJS.arrayForm.getInput( parentElement );
 		for ( i = 0; i < listInput.length; i++ ) {
 			if ( listInput[i].name ) {
 				data[listInput[i].name] = listInput[i].value;
@@ -66,6 +71,10 @@ window.task_manager.action.execAttribute = function( event ) {
 	if ( element.data( 'module' ) && element.data( 'before-method' ) ) {
 		doAction = false;
 		doAction = window.task_manager[element.data( 'module' )][element.data( 'before-method' )]( element );
+	}
+
+	if ( element.hasClass( '.grey' ) ) {
+		doAction = false;
 	}
 
 	if ( doAction ) {
@@ -100,9 +109,14 @@ window.task_manager.action.execDelete = function( event ) {
 		doAction = window.task_manager[element.data( 'module' )][element.data( 'before-method' )]( element );
 	}
 
+	if ( element.hasClass( '.grey' ) ) {
+		doAction = false;
+	}
+
 	if ( doAction ) {
-		if ( window.confirm( 'Confirm delete ?' ) ) {
+		if ( window.confirm( window.digi_confirm_delete ) ) {
 			element.get_data( function( data ) {
+				loaderElement.addClass( 'loading' );
 				window.task_manager.request.send( element, data );
 			} );
 		}

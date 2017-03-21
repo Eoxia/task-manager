@@ -15,6 +15,7 @@
 		"module/task/task.config.json",
 		"module/point/point.config.json",
 		"module/comment/comment.config.json",
+		"module/history-time/history-time.config.json",
 		"module/tag/tag.config.json",
 		"module/user/user.config.json",
 		"module/liaison-post-type/liaison-post-type.config.json",

@@ -51,32 +51,27 @@ class Point_Action {
 	}
 
 	/**
-	 * Supprimes un point grâce à son point ID. Supprimes également le temps passé dans
-	 * la tâche en rapport avec ce point. Enlèves le point de order_point_id dans
-	 * la tâche et met à jours la tâche. / Delete an point by its point ID. Also delete
-	 * the elapsed time in the task in connection with this point. Take off the point
-	 * in order_point_id in the task and update this.
+	 * Supprimes le point.
 	 *
-	 * @param int $_POST['point']['id'] ID du point / The point ID
-	 *
-	 * @return json task_mdl_01 Object
+	 * @return {[type] [description]
 	 */
 	public function ajax_delete_point() {
-		if( isset( $_POST['point']['id'] ) ) {
-			$point_id = (int) $_POST['point']['id'];
-		} else {
-			wp_send_json_error();
-		}
-		check_ajax_referer( 'wpeo_nonce_delete_point_' . $point_id );
-		$point = Point_Class::g()->get( array( 'id' => $point_id ) );
-		$point = $point[0];
+		check_ajax_referer( 'delete_point' );
+
+		$point_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+
+		$point = Point_Class::g()->get( array(
+			'id' => $point_id,
+		), true );
+
 		$point->status = 'trash';
+
 		Point_Class::g()->update( $point );
 
-		$task = Task_Class::g()->get( array( 'id' => $point->post_id ) );
-		$task = $task[0];
-
-		wp_send_json_success( array( 'task' => $task, 'task_header_information' => apply_filters( 'task_header_information', '', $task ) ) );
+		wp_send_json_success( array(
+			'module' => 'point',
+			'callback_success' => 'deletedPointSuccess',
+		) );
 	}
 
 	/**

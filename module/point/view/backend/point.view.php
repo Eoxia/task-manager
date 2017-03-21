@@ -51,7 +51,10 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 						<span class="dashicons dashicons-clock"></span>
 						<span class="wpeo-time-in-point"><?php echo esc_attr( $point->time_info['elapsed'] ); ?></span>
 
-						<span class="dashicons dashicons-no"></span>
+						<span data-action="delete_point"
+									data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_point' ) ); ?>"
+									data-id="<?php echo esc_attr( $point->id ); ?>"
+									class="dashicons dashicons-no action-delete"></span>
 					<?php	endif; ?>
 				</li>
 			</ul>

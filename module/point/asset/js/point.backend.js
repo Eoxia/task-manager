@@ -69,6 +69,10 @@ window.task_manager.point.addedPointSuccess = function( element, response ) {
 	jQuery( element ).closest( '.wpeo-project-task' ).find( 'ul.wpeo-task-point-sortable form:last' ).before( response.data.view );
 };
 
+window.task_manager.point.deletedPointSuccess = function( element, response ) {
+	jQuery( element ).closest( 'form' ).fadeOut();
+};
+
 window.task_manager.point.toggle_completed = function( event ) {
 	var element = jQuery( this );
 	element.find( '.wpeo-point-toggle-arrow' ).toggleClass( 'dashicons-plus dashicons-minus' );

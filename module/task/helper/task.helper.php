@@ -29,3 +29,31 @@ class Task_Helper {
 		return $data;
 	}
 }
+
+/**
+ * Récupères toutes les données essentielles d'une tâche
+ * -Tache
+ * -Dernier history time
+ *
+ * @param Task_Model $data Les données de la tâche.
+ *
+ * @return Task_Model     Les données de la tâche modifié.
+ *
+ * @since 1.3.6.0
+ * @version 1.3.6.0
+ */
+function get_full_task( $data ) {
+
+	$data->last_history_time = History_Time_Class::g()->get( array(
+		'post_id' => $data->id,
+		'number' => 1,
+	), true );
+
+	if ( empty( $data->last_history_time->id ) ) {
+		$data->last_history_time = History_Time_Class::g()->get( array(
+			'schema' => true,
+		), true );
+	}
+
+	return $data;
+}

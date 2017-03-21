@@ -62,6 +62,8 @@ class Task_Manager_Action {
 			wp_register_style( 'task-manager-style', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/style.min.css', array(), config_util::$init['task-manager']->version );
 			wp_enqueue_style( 'task-manager-style' );
 
+			wp_enqueue_style( 'task-manager-datepicker', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/datepicker.min.css', array(), Config_Util::$init['task-manager']->version );
+
 			wp_enqueue_script( 'task-manager-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/backend.min.js', array(), config_util::$init['task-manager']->version, false );
 		}
 	}
