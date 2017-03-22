@@ -14,7 +14,7 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
-<form class="form wpeo-edit-point" action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>" method="POST">
+<form class="form <?php echo ! empty( $point->id ) ? esc_attr( 'edit' ): ''; ?>" action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>" method="POST">
 
 	<?php wp_nonce_field( 'edit_point' ); ?>
 	<input type="hidden" name="action" value="edit_point" />
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		<li class="wpeo-add-point wpeo-point-no-sortable">
 			<ul>
 				<li>
-					<input type="checkbox" />
+					<input type="checkbox" <?php echo ! empty( $point->point_info['completed'] ) ? 'checked': ''; ?> class="completed-point" data-nonce="<?php echo esc_attr( wp_create_nonce( 'complete_point' ) ); ?>" />
 
 					<span data-action="<?php echo esc_attr( 'load_comments' ); ?>"
 								data-task-id="<?php echo esc_attr( $parent_id ); ?>"
@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 				</li>
 				<li class="wpeo-point-input">
 					<input type="hidden" name="content" value="<?php esc_attr( $point->content ); ?>" />
-					<div data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_dashboard_point' ) ); ?>" class="wpeo-point-new-contenteditable" contenteditable="true">
+					<div class="wpeo-point-new-contenteditable" contenteditable="true">
 						<?php echo esc_html( stripslashes( $point->content ) ); ?>
 					</div>
 					<?php if ( empty( $point->id ) ) : ?>
@@ -48,6 +48,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 							<i class="dashicons dashicons-plus-alt"></i>
 						</div>
 					<?php else : ?>
+						<div class="hidden submit-form" data-parent="form"></div>
+
 						<span class="dashicons dashicons-clock"></span>
 						<span class="wpeo-time-in-point"><?php echo esc_attr( $point->time_info['elapsed'] ); ?></span>
 

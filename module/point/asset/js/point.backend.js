@@ -28,11 +28,8 @@ window.task_manager.point.init = function() {
  */
 window.task_manager.point.event = function() {
 	jQuery( document ).on( 'blur keyup paste keydown', '.wpeo-add-point .wpeo-point-new-contenteditable', window.task_manager.point.updateHiddenInput );
-	// jQuery( document ).on( 'blur paste', '.wpeo-edit-point .wpeo-point-contenteditable', window.task_manager.point.edit_point );
-	//
-	// jQuery( document ).on( 'click', '.wpeo-done-point', window.task_manager.point.done_point );
-	// jQuery( document ).on( 'click', '.wpeo-send-point-to-trash', window.task_manager.point.delete_point );
-	// jQuery( document ).on( 'click', '.wpeo-task-point-use-toggle p', window.task_manager.point.toggle_completed );
+	jQuery( document ).on( 'blur paste', 'form.edit .wpeo-point-new-contenteditable', window.task_manager.point.editPoint );
+	jQuery( document ).on( 'click', 'form .completed-point', window.task_manager.point.completePoint );
 };
 
 /**
@@ -46,8 +43,10 @@ window.task_manager.point.event = function() {
  */
 window.task_manager.point.updateHiddenInput = function( event ) {
 	if ( 0 < jQuery( this ).text().length ) {
+		jQuery( this ).closest( '.wpeo-add-point' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 1 );
 		jQuery( this ).closest( '.wpeo-point-input' ).find( '.wpeo-point-new-placeholder' ).addClass( 'hidden' );
 	} else {
+		jQuery( this ).closest( '.wpeo-add-point' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 0.4 );
 		jQuery( this ).closest( '.wpeo-point-input' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
 	}
 
@@ -65,24 +64,71 @@ window.task_manager.point.updateHiddenInput = function( event ) {
  * @since 1.0.0.0
  * @version 1.0.0.0
  */
-window.task_manager.point.addedPointSuccess = function( element, response ) {
-	jQuery( element ).closest( '.wpeo-project-task' ).find( 'ul.wpeo-task-point-sortable form:last' ).before( response.data.view );
+window.task_manager.point.addedPointSuccess = function( triggeredElement, response ) {
+	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( 'ul.wpeo-task-point-sortable form:last' ).before( response.data.view );
 };
 
-window.task_manager.point.deletedPointSuccess = function( element, response ) {
-	jQuery( element ).closest( 'form' ).fadeOut();
+/**
+ * Met à jour un point en cliquant sur le bouton pour envoyer le formulaire.
+ *
+ * @return void
+ *
+ * @since 1.0.0.0
+ * @version 1.0.0.0
+ */
+window.task_manager.point.editPoint = function() {
+	jQuery( this ).closest( 'form' ).find( '.submit-form' ).click();
 };
 
-window.task_manager.point.toggle_completed = function( event ) {
-	var element = jQuery( this );
-	element.find( '.wpeo-point-toggle-arrow' ).toggleClass( 'dashicons-plus dashicons-minus' );
-	element.closest( '.wpeo-task-point-use-toggle' ).find( 'ul:first' ).toggle( 200 );
+/**
+ * Supprimes la ligne du point.
+ *
+ * @param  {HTMLSpanElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {object} response                   Les données renvoyées par la requête Ajax.
+ * @return void
+ * @since 1.0.0.0
+ * @version 1.0.0.0
+ */
+window.task_manager.point.deletedPointSuccess = function( triggeredElement, response ) {
+	jQuery( triggeredElement ).closest( 'form' ).fadeOut();
 };
 
-window.task_manager.point.toggle_completed_callback_success = function( element, response ) {
-	element.closest( '.wpeo-project-task' ).find( '.wpeo-task-point-completed' ).html( response.data.template );
+/**
+ * Envoie une requête pour passer le point en compléter ou décompléter.
+ * Déplace le point vers la liste à puce "compléter" ou "décompléter".
+ *
+ * @return void
+ *
+ * @since 1.0.0.0
+ * @version 1.0.0.0
+ */
+window.task_manager.point.completePoint = function() {
+	var data = {
+		action: 'complete_point',
+		_wpnonce: jQuery( this ).data( 'nonce' ),
+		point_id: jQuery( this ).closest( 'form' ).find( 'input[name="id"]' ).val(),
+		complete: jQuery( this ).is( ':checked' )
+	};
+
+	if ( jQuery( this ).is( ':checked' ) ) {
+		jQuery( this ).closest( '.wpeo-project-task' ).find( '.wpeo-task-point-completed' ).append( jQuery( this ).closest( 'form' ) );
+	} else {
+		jQuery( this ).closest( '.wpeo-project-task' ).find( 'ul.wpeo-task-point-sortable form:last' ).before( jQuery( this ).closest( 'form' ) );
+	}
+
+	window.task_manager.request.send( jQuery( this ), data );
 };
 
-window.task_manager.point.toggle_completed_callback_error = function( element, response ) {
-	element.closest( '.wpeo-project-task' ).find( '.wpeo-task-point-completed' ).html( response.data.template );
+/**
+ * Le callback en cas de réussite à la requête Ajax "load_completed_point".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.0.0.0
+ */
+window.task_manager.point.loadedCompletedPoint = function( triggeredElement, response ) {
+	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-point-completed' ).html( response.data.view );
 };

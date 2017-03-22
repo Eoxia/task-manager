@@ -1,0 +1,13 @@
+{
+	"name": "Les followers",
+	"slug": "follower",
+	"version": "1.3.6.0",
+	"description": "Le module gérant les followers",
+	"path": "module/follower/",
+	"dependencies": {
+		"model": {},
+		"class": {},
+		"action": {},
+		"shortcode": {}
+	}
+}

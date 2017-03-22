@@ -27,7 +27,6 @@ window.task_manager.historyTime.init = function() {
  * @version 1.0.0.0
  */
 window.task_manager.historyTime.event = function() {
-	jQuery( document ).on( 'blur keyup paste keydown', '.wpeo-add-historyTime .wpeo-historyTime-new-contenteditable', window.task_manager.historyTime.updateHiddenInput );
 };
 
 /**

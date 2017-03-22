@@ -69,18 +69,29 @@ class Tag_Action {
 
 	/**
 	 * Récupère les tags existants dans la base et les retournent pour affichage
+	 *
+	 * @since 1.0.0.0
+	 * @version 1.3.6.0
 	 */
 	public function ajax_load_tags() {
 		check_ajax_referer( 'load_tags' );
 
-		$list_tag = Tag_Class::g()->get();
-		$element_id = ! empty( $_POST ) && ! empty( $_POST['id'] ) && is_int( (int) $_POST['id'] ) && ( 0 !== (int) $_POST['id'] ) ? (int) $_POST['id'] : 0;
+		$tags = Tag_Class::g()->get();
+		$task_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 
 		ob_start();
-		View_Util::exec( 'tag', 'backend/tag', array( 'list_tag' => $list_tag, 'object' => Task_Class::g()->get( array( 'id' => $element_id ), true ) ) );
-		$tags_display = ob_get_clean();
+		View_Util::exec( 'tag', 'backend/list-tag-edit', array(
+			'tags' => $tags,
+			'task' => Task_Class::g()->get( array(
+				'id' => $task_id,
+			), true ),
+		) );
 
-		wp_send_json_success( array( 'module' => 'tag', 'callback_success' => 'load_tag_success', 'view' => $tags_display ) );
+		wp_send_json_success( array(
+			'module' => 'tag',
+			'callback_success' => 'loadedTagSuccess',
+			'view' => ob_get_clean(),
+		) );
 	}
 
 	/**
@@ -90,33 +101,24 @@ class Tag_Action {
 		check_ajax_referer( 'tag_affectation' );
 
 		/** Récupération de l'identifiant du tag a associer */
-		$tag_id = ! empty( $_POST ) && ! empty( $_POST['id'] ) && is_int( (int) $_POST['id'] ) && ( 0 !== (int) $_POST['id'] ) ? (int) $_POST['id'] : 0;
+		$tag_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+		$task_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
 
-		/** On récupère l'élément sur lequel on va devoir associer le tag */
-		$element_id = ! empty( $_POST ) && ! empty( $_POST['parent_id'] ) && is_int( (int) $_POST['parent_id'] ) && ( 0 !== (int) $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
-		$task = Task_Class::g()->get( array( 'id' => $element_id ), true );
+		$task = Task_Class::g()->get( array(
+			'post__in' => array( $task_id ),
+		), true );
 
-		/** On vérifie si le tag est déjà associé ou bien si il faut l'associer */
-		$selected = ! empty( $_POST['selected'] ) && ( 'yes' === $_POST['selected'] ) ? true : false;
-
-		/** Récupération de la définition du tag "archive" dans le cas ou c'est ce tag qu'il faut associer ou dissocier des actions supplémentaires sont a effectuer */
-		$archive_tag = get_term_by( 'slug', 'archive', Tag_Class::g()->get_taxonomy() );
-
-		if ( null !== $task ) {
-			$task->taxonomy[ Tag_Class::g()->get_taxonomy() ][] = $tag_id;
-			if ( $tag_id === $archive_tag->term_id ) {
-				$task->status = 'archive';
-			}
-
-			Task_Class::g()->update( $task );
-
-			log_class::g()->exec( 'task_manager_tag', 'task_manager_tag', sprintf( __( 'The tag #%1$d have been successfully added to task #%2$s by the user %3$d', 'task-manager' ), $tag_id, $element_id, get_current_user_id() ) );
-		} else {
-			log_class::g()->exec( 'task_manager_tag', 'task_manager_tag', sprintf( __( 'We are unable to get the task #%1$d where to affect the tag #%2$s', 'task-manager' ), $element_id, $tag_id ) );
+		if ( empty( $tag_id ) || empty( $task_id ) || empty( $task ) ) {
+			wp_send_json_error();
 		}
 
-		$tags_display = 'yo toto';
-		wp_send_json_success( array( 'module' => 'tag', 'callback_success' => 'tag_affectation_success', 'view' => $tags_display ) );
+		$task->taxonomy[ Tag_Class::g()->get_taxonomy() ][] = $tag_id;
+		Task_Class::g()->update( $task );
+
+		wp_send_json_success( array(
+			'module' => 'tag',
+			'callback_success' => 'tagAffectationSuccess',
+		) );
 	}
 
 	/**

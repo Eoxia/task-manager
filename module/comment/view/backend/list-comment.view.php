@@ -16,8 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 if ( ! empty( $comments ) ) :
 	foreach ( $comments as $comment ) :
-		View_Util::exec( 'comment', 'backend/comment', array(
-			'comment' => $comment,
-		) );
+		if ( 0 !== $comment->id ) :
+			View_Util::exec( 'comment', 'backend/comment', array(
+				'comment' => $comment,
+			) );
+		endif;
 	endforeach;
 endif;

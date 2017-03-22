@@ -15,7 +15,7 @@ window.eoxiaJS.load_list_script = function() {
 }
 
 window.eoxiaJS.init_array_form = function() {
-	 window.eoxiaJS.array_form.init();
+	 window.eoxiaJS.arrayForm.init();
 }
 
 jQuery(document).ready(window.eoxiaJS.init);

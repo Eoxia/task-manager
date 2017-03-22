@@ -85,9 +85,11 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		<!-- Fin corps de la tâche -->
 
 		<!-- Les tags -->
+		<?php echo do_shortcode( '[task_manager_task_tag task_id=' . $task->id . ']' ); ?>
 		<!-- Fin des tags -->
 
 		<!-- Les followers -->
+		<?php echo do_shortcode( '[task_manager_task_follower task_id=' . $task->id . ']' ); ?>
 		<!-- Fin des followers -->
 
 		<!-- Popup history time -->

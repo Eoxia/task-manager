@@ -31,3 +31,21 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	) );
 	?>
 </ul>
+
+<div class="wpeo-task-point-use-toggle">
+	<p 	class="action-attribute"
+			data-id="<?php echo esc_attr( $task_id ); ?>"
+			data-action="load_completed_point"
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_completed_point' ) ); ?>">
+
+		<span class="dashicons dashicons-plus wpeo-point-toggle-arrow"></span>
+		<span class="wpeo-point-toggle-a">
+			<?php esc_html_e( 'Completed point', 'task-manager' ); ?>
+			(<span class="wpeo-task-count-completed"><?php echo count( $points_completed ); ?>/<?php echo count( $points_uncompleted ) + count( $points_completed ); ?></span>)
+		</span>
+	</p>
+
+	<ul class="wpeo-task-point wpeo-task-point-completed wpeo-point-no-sortable">
+		<img src="https://shop.eoxia.com/wp-admin/images/loading.gif" alt="Loading...">
+	</ul>
+</div>

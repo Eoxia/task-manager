@@ -28,6 +28,7 @@ class Task_Comment_Action {
 	public function __construct() {
 		add_action( 'wp_ajax_load_comments', array( $this, 'callback_load_comments' ) );
 		add_action( 'wp_ajax_add_comment', array( $this, 'callback_add_comment' ) );
+		add_action( 'wp_ajax_delete_comment', array( $this, 'callback_delete_comment' ) );
 	}
 
 	/**
@@ -86,7 +87,7 @@ class Task_Comment_Action {
 		$content = ! empty( $_POST['content'] ) ? sanitize_text_field( $_POST['content'] ) : '';
 		$time = ! empty( $_POST['time'] ) ? (int) $_POST['time'] : 0;
 
-		Task_Comment_Class::g()->update( array(
+		$comment = Task_Comment_Class::g()->update( array(
 			'post_id' => $post_id,
 			'parent_id' => $parent_id,
 			'date' => $date,
@@ -96,10 +97,55 @@ class Task_Comment_Action {
 			),
 		) );
 
+		ob_start();
+		View_Util::exec( 'comment', 'backend/comment', array(
+			'comment' => $comment,
+		) );
+
 		wp_send_json_success( array(
-			'view' => $view,
+			'time' => array(
+				'point' => $comment->point->time_info['elapsed'],
+				'task' => $comment->task->time_info['elapsed'],
+			),
+			'view' => ob_get_clean(),
 			'module' => 'comment',
 			'callback_success' => 'addedCommentSuccess',
+		) );
+	}
+
+	/**
+	 * Met le commentaire en status "trash".
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0.0
+	 * @version 1.3.6.0
+	 */
+	public function callback_delete_comment() {
+		check_ajax_referer( 'delete_comment' );
+
+		$comment_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+
+		if ( empty( $comment_id ) ) {
+			wp_send_json_error();
+		}
+
+		$comment = Task_Comment_Class::g()->get( array(
+			'comment__in' => array( $comment_id ),
+			'status' => '-34070',
+		), true );
+
+		$comment->status = 'trash';
+
+		$comment = Task_Comment_Class::g()->update( $comment );
+
+		wp_send_json_success( array(
+			'time' => array(
+				'point' => $comment->point->time_info['elapsed'],
+				'task' => $comment->task->time_info['elapsed'],
+			),
+			'module' => 'comment',
+			'callback_success' => 'deletedCommentSuccess',
 		) );
 	}
 }

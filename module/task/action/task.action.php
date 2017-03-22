@@ -52,7 +52,10 @@ class Task_Action {
 		) );
 
 		ob_start();
-		Task_Class::g()->render_task( $task );
+		View_Util::exec( 'task', 'backend/task', array(
+			'task' => $task,
+		) );
+
 		wp_send_json_success( array(
 			'module' => 'task',
 			'callback_success' => 'createdTaskSuccess',

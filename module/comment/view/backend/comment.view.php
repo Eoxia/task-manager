@@ -14,11 +14,16 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
-<li>
+<li class="comment">
 	<ul>
 		<li><?php echo esc_html( $comment->date ); ?></li>
-		<li>Contetn</li>
-		<li>Temps</li>
-		<li>Actions</li>
+		<li><?php echo esc_html( $comment->content ); ?></li>
+		<li><?php echo esc_html( $comment->time_info['elapsed'] ); ?></li>
+		<li>
+			<span data-action="delete_comment"
+				data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_comment' ) ); ?>"
+				data-id="<?php echo esc_attr( $comment->id ); ?>"
+				class="dashicons dashicons-no action-delete"></span>
+		</li>
 	</ul>
 </li>

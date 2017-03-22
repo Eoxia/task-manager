@@ -18,6 +18,7 @@
 		"module/history-time/history-time.config.json",
 		"module/tag/tag.config.json",
 		"module/user/user.config.json",
+		"module/follower/follower.config.json",
 		"module/liaison-post-type/liaison-post-type.config.json",
 		"module/shortcode-help/shortcode-help.config.json"
 	],

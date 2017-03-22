@@ -38,6 +38,7 @@ class comment_class extends singleton_util {
 			$args['status'] = $this->status;
 		}
 
+
 		if ( !empty( $args['id'] ) ) {
 			$array_comment[] = get_comment( $args['id'], ARRAY_A );
 		}
@@ -158,6 +159,12 @@ class comment_class extends singleton_util {
 			}
 
 			wp_update_comment( $data->do_wp_object() );
+
+			if ( ! empty( $this->after_put_function ) ) {
+				foreach ( $this->after_put_function as $put_function ) {
+					$data = call_user_func( $put_function, $data );
+				}
+			}
 		}
 
 		save_meta_class::g()->save_meta_data( $data, 'update_comment_meta', $this->meta_key );
