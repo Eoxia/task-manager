@@ -46,6 +46,7 @@ class Tag_Shortcode {
 
 		$task = Task_Class::g()->get( array(
 			'post__in' => array( $task_id ),
+			'post_status' => array( 'publish', 'archive' ),
 		), true );
 
 		$tags = array();

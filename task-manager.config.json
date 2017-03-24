@@ -16,6 +16,7 @@
 		"module/point/point.config.json",
 		"module/comment/comment.config.json",
 		"module/history-time/history-time.config.json",
+		"module/search-bar/search-bar.config.json",
 		"module/tag/tag.config.json",
 		"module/user/user.config.json",
 		"module/follower/follower.config.json",

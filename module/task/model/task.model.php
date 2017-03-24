@@ -66,6 +66,7 @@ class Task_Model extends Post_Model {
 			'front_info' => array(
 				'type' => 'array',
 				'meta_type' => 'multiple',
+				'bydefault' => array( 'display_time' => false, 'display_user' => false, 'display_color' => 'white' ),
 				'display_time' => array(
 					'type' 			=> 'boolean',
 					'meta_type'	=> 'multiple',

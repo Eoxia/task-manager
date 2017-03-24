@@ -14,45 +14,68 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
-<div class="wpeo-project-task" data-id="<?php echo esc_attr( $task->id ); ?>">
+<div class="wpeo-project-task <?php echo $task->front_info['display_color']; ?>" data-id="<?php echo esc_attr( $task->id ); ?>">
 	<div class="wpeo-project-task-container">
+
 		<!-- En tête de la tâche -->
-		<form action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>" method="POST">
-			<ul class="wpeo-task-header">
-				<li class="wpeo-task-author"><?php do_shortcode( '[task_manager_owner_task task_id="' . $task->id . '" owner_id="' . $task->user_info['owner_id'] . '"]' ); ?></li>
+		<ul class="wpeo-task-header">
+			<li class="wpeo-task-author"><?php do_shortcode( '[task_manager_owner_task task_id="' . $task->id . '" owner_id="' . $task->user_info['owner_id'] . '"]' ); ?></li>
 
-				<li class="wpeo-task-id">#<?php echo esc_html( $task->id ); ?></li>
+			<li class="wpeo-task-id">#<?php echo esc_html( $task->id ); ?></li>
 
-				<li class="wpeo-task-title">
-					<input type="text" name="task[title]" data-nonce="<?php echo esc_attr( wp_create_nonce( 'edit_title' ) ); ?>" class="wpeo-project-task-title" value="<?php echo esc_html( ! empty( $task->title ) ? $task->title : 'New task' ); ?>" />
-				</li>
+			<li class="wpeo-task-title">
+				<input type="text" name="task[title]" data-nonce="<?php echo esc_attr( wp_create_nonce( 'edit_title' ) ); ?>" class="wpeo-project-task-title" value="<?php echo esc_html( ! empty( $task->title ) ? $task->title : 'New task' ); ?>" />
+			</li>
 
-				<li class="toggle"
-						data-parent="wpeo-project-task"
-						data-target="content">
+			<li class="toggle wpeo-task-setting"
+					data-parent="wpeo-project-task"
+					data-target="content">
 
-					<div class="action">
-						<span class="wpeo-task-open-action" title="<?php esc_html_e( 'Task options', 'task-manager' ); ?>"><i class="fa fa-ellipsis-v"></i></span>
-					</div>
+				<div class="action">
+					<span class="wpeo-task-open-action" title="<?php esc_html_e( 'Task options', 'task-manager' ); ?>"><i class="fa fa-ellipsis-v"></i></span>
+				</div>
 
-					<ul class="content">
-						<li class="action-delete"
-								data-action="delete_task"
-								data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_task' ) ); ?>"
-								data-id="<?php echo esc_attr( $task->id ); ?>">
-							<span><?php esc_html_e( 'Delete task', 'task-manager' ); ?></span>
-						</li>
+				<ul class="content task-header-action">
+					<li class="task-color">
+						<?php
+						if ( ! empty( Task_Class::g()->colors ) ) :
+							foreach ( Task_Class::g()->colors as $color ) :
+								?>
+								<span class="action-attribute <?php echo esc_attr( $color ); ?>" data-action="change_color"
+											data-nonce="<?php echo esc_attr( wp_create_nonce( 'change_color' ) ); ?>"
+											data-id="<?php echo esc_attr( $task->id ); ?>"
+											data-color="<?php echo esc_attr( $color ); ?>"
+											data-module="task"
+											data-before-method="beforeChangeColor"></span>
+								<?php
+							endforeach;
+						endif;
+						?>
+					</li>
 
-						<li class="action-attribute"
-								data-action="to_archive"
-								data-nonce="<?php echo esc_attr( wp_create_nonce( 'to_archive' ) ); ?>"
-								data-id="<?php echo esc_attr( $task->id ); ?>">
-							<span><?php esc_html_e( 'Archive', 'task-manager' ); ?></span>
-						</li>
-					</ul>
-				</li>
-			</ul>
-		</form>
+					<li class="action-attribute"
+							data-action="notify_by_mail"
+							data-nonce="<?php echo esc_attr( wp_create_nonce( 'notify_by_mail' ) ); ?>"
+							data-id="<?php echo esc_attr( $task->id ); ?>">
+						<span><?php esc_html_e( 'Notify owner and followers', 'task-manager' ); ?></span>
+					</li>
+
+					<li class="action-delete"
+							data-action="delete_task"
+							data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_task' ) ); ?>"
+							data-id="<?php echo esc_attr( $task->id ); ?>">
+						<span><?php esc_html_e( 'Delete task', 'task-manager' ); ?></span>
+					</li>
+
+					<li class="action-attribute"
+							data-action="<?php echo ( 'archive' !== $task->status ) ? 'to_archive' : 'to_unarchive'; ?>"
+							data-nonce="<?php echo esc_attr( wp_create_nonce( ( 'archive' === $task->status ) ? 'to_archive' : 'to_unarchive' ) ); ?>"
+							data-id="<?php echo esc_attr( $task->id ); ?>">
+						<span><?php esc_html_e( ( 'archive' !== $task->status ) ? 'Archive' : 'Unarchive', 'task-manager' ); ?></span>
+					</li>
+				</ul>
+			</li>
+		</ul>
 		<!-- Fin en tête de la tâche -->
 
 		<!-- Sous en tête pour gérer le temps -->

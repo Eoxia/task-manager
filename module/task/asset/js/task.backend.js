@@ -52,3 +52,34 @@ window.task_manager.task.createdTaskSuccess = function( element, response ) {
 window.task_manager.task.deletedTaskSuccess = function( element, response ) {
 	jQuery( element ).closest( '.wpeo-project-task' ).fadeOut();
 };
+
+/**
+ * Avant d'envoyer la requête pour changer la tâche de couleur.
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant l'action.
+ * @param  {Object}         data          		Les données du l'action.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.3.6.0
+ */
+window.task_manager.task.beforeChangeColor = function( triggeredElement, data ) {
+	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).removeClass( 'red yellow purple white blue green' );
+	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).addClass( jQuery( triggeredElement ).data( 'color' ) );
+
+	return true;
+};
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "load_all_task".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.3.6.0
+ */
+window.task_manager.task.loadedAllTask = function( triggeredElement, response ) {
+	jQuery( '.list-task' ).replaceWith( response.data.view );
+};

@@ -26,5 +26,6 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		</h2>
 	</div>
 
+	<?php do_shortcode( '[task_manager_search_bar]' ); ?>
 	<?php do_shortcode( '[task_manager_dashboard_content]' ); ?>
 </div>

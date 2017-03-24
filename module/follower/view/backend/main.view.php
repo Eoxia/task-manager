@@ -13,20 +13,22 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 
-<ul class="wpeo-tag-users action-attribute"
-	data-action="load_followers"
-	data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_followers' ) ); ?>"
-	data-id="<?php echo esc_attr( $task->id ); ?>"
-	data-module="followers"
-	data-before-method="before_load_followers">
-
+<ul class="wpeo-ul-users">
 	<?php
 	if ( ! empty( $followers ) ) :
 		foreach ( $followers as $follower ) :
-
+			View_Util::exec( 'follower', 'backend/follower', array(
+				'user' => $follower,
+			) );
 		endforeach;
-	else :
-		?>ok<?php
 	endif;
 	?>
+
+	<li class="action-attribute"
+			data-action="load_followers"
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_followers' ) ); ?>"
+			data-id="<?php echo esc_attr( $task->id ); ?>">
+		<span class="dashicons dashicons-plus-alt"></span>
+		<?php esc_html_e( 'Followers', 'task-manager' ); ?>
+	</li>
 </ul>

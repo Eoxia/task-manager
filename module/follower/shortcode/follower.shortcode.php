@@ -46,18 +46,20 @@ class Follower_Shortcode {
 
 		$task = Task_Class::g()->get( array(
 			'post__in' => array( $task_id ),
+			'post_status' => array( 'publish', 'archive' ),
 		), true );
 
-		// $tags = array();
-		// if ( ! empty( $task->taxonomy['wpeo_tag'] ) ) {
-		// 	$tags = Tag_Class::g()->get( array(
-		// 		'include' => $task->taxonomy['wpeo_tag'],
-		// 	) );
-		// }
+		$followers = array();
+
+		if ( ! empty( $task->user_info['affected_id'] ) ) {
+			$followers = User_Class::g()->get( array(
+				'include' => $task->user_info['affected_id'],
+			) );
+		}
 
 		View_Util::exec( 'follower', 'backend/main', array(
 			'task' => $task,
-			'followers' => array(),
+			'followers' => $followers,
 		) );
 	}
 }

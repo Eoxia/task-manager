@@ -19,6 +19,20 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 class Task_Class extends Post_Class {
 
 	/**
+	 * Toutes les couleurs disponibles pour une t$ache
+	 *
+	 * @var array
+	 */
+	public $colors = array(
+		'white',
+		'red',
+		'yellow',
+		'green',
+		'blue',
+		'purple',
+	);
+
+	/**
 	 * Le nom du modèle
 	 *
 	 * @var string

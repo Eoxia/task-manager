@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		</span>
 	</p>
 
-	<ul class="wpeo-task-point wpeo-task-point-completed wpeo-point-no-sortable">
-		<img src="https://shop.eoxia.com/wp-admin/images/loading.gif" alt="Loading...">
+	<ul class="wpeo-task-point wpeo-task-point-completed wpeo-point-no-sortable hidden">
+		<img src="<?php echo esc_attr( admin_url( '/images/loading.gif' ) ); ?>" alt="<?php echo esc_attr_e( 'Loading...', 'task-manager' ); ?>" />
 	</ul>
 </div>
