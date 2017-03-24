@@ -32,11 +32,10 @@ class Task_Action {
 		add_action( 'wp_ajax_delete_task', array( $this, 'callback_delete_task' ) );
 
 		add_action( 'wp_ajax_edit_title', array( $this, 'callback_edit_title' ) );
+
 		add_action( 'wp_ajax_change_color', array( $this, 'callback_change_color' ) );
-
-		add_action( 'wp_ajax_load_all_task', array( $this, 'callback_load_all_task' ) );
-
 		add_action( 'wp_ajax_notify_by_mail', array( $this, 'callback_notify_by_mail' ) );
+		add_action( 'wp_ajax_load_task_properties', array( $this, 'callback_load_task_properties' ) );
 	}
 
 	/**
@@ -166,26 +165,6 @@ class Task_Action {
 	}
 
 	/**
-	 * Charges toutes les tâches expecté celles qui sont archivées.
-	 *
-	 * @return void
-	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
-	 */
-	public function callback_load_all_task() {
-		check_ajax_referer( 'load_all_task' );
-
-		ob_start();
-		echo do_shortcode( '[task_manager_dashboard_content]' );
-		wp_send_json_success( array(
-			'view' => ob_get_clean(),
-			'module' => 'task',
-			'callback_success' => 'loadedAllTask',
-		) );
-	}
-
-	/**
 	 * Envoie une notification par email au responsable et followers de la tâche avec en contenant du mail:
 	 * Le nom de la tâche, les points, et des liens rapides pour y accéder.
 	 *
@@ -241,6 +220,36 @@ class Task_Action {
 		wp_mail( $recipients, $subject, $body, $headers );
 
 		wp_send_json_success();
+	}
+
+	/**
+	 * Charges les propriétés de la tâche et renvoie la vue à la réponse AJAX.
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0.0
+	 * @version 1.3.6.0
+	 */
+	public function callback_load_task_properties() {
+		check_ajax_referer( 'load_task_properties' );
+
+		$task_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+
+		$task = Task_Class::g()->get( array(
+			'post__in' => array( $task_id ),
+			'post_status' => array( 'publish', 'archive' ),
+		), true );
+
+		ob_start();
+		View_Util::exec( 'task', 'backend/properties', array(
+			'task' => $task,
+		) );
+
+		wp_send_json_success( array(
+			'view' => ob_get_clean(),
+			'module' => 'task',
+			'callback_success' => 'loadedTaskProperties',
+		) );
 	}
 }
 

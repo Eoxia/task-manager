@@ -120,6 +120,21 @@ window.task_manager.point.completePoint = function() {
 };
 
 /**
+ * Avant de charger les points complétés, toggle la classe de la dashicons.
+ *
+ * @param  {HTMLSpanElement} triggeredElement L'élément HTML déclenchant l'action.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.3.6.0
+ */
+window.task_manager.point.beforeLoadCompletedPoint = function( triggeredElement ) {
+	jQuery( triggeredElement ).closest( '.wpeo-task-point-use-toggle' ).find( '.dashicons' ).toggleClass( 'dashicons-minus dashicons-plus' );
+	jQuery( triggeredElement ).closest( '.wpeo-task-point-use-toggle' ).find( '.wpeo-task-point-completed' ).toggleClass( 'hidden' );
+	return true;
+};
+
+/**
  * Le callback en cas de réussite à la requête Ajax "load_completed_point".
  *
  * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.

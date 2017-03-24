@@ -83,3 +83,17 @@ window.task_manager.task.beforeChangeColor = function( triggeredElement, data ) 
 window.task_manager.task.loadedAllTask = function( triggeredElement, response ) {
 	jQuery( '.list-task' ).replaceWith( response.data.view );
 };
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "load_task_properties".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.3.6.0
+ */
+window.task_manager.task.loadedTaskProperties = function( triggeredElement, response ) {
+	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.popup .content' ).html( response.data.view );
+};

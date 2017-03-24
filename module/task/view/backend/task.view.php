@@ -53,6 +53,15 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 						?>
 					</li>
 
+					<li class="open-popup-ajax"
+							data-action="load_task_properties"
+							data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_task_properties' ) ); ?>"
+							data-id="<?php echo esc_attr( $task->id ); ?>"
+							data-parent="wpeo-project-task"
+							data-target="popup">
+						<span><?php esc_html_e( 'Task properties', 'task-manager' ); ?></span>
+					</li>
+
 					<li class="action-attribute"
 							data-action="notify_by_mail"
 							data-nonce="<?php echo esc_attr( wp_create_nonce( 'notify_by_mail' ) ); ?>"
@@ -115,7 +124,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		<?php echo do_shortcode( '[task_manager_task_follower task_id=' . $task->id . ']' ); ?>
 		<!-- Fin des followers -->
 
-		<!-- Popup history time -->
+		<!-- Popup -->
 		<div class="popup">
 			<div class="container">
 				<div class="header">

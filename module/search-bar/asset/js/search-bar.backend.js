@@ -34,3 +34,17 @@ window.task_manager.searchBar.search = function() {
 		}
 	} );
 };
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "load_my_task".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.3.6.0
+ */
+window.task_manager.searchBar.loadedMyTask = function( triggeredElement, response ) {
+	jQuery( '.list-task' ).replaceWith( response.data.view );
+};

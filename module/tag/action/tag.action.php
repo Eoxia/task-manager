@@ -33,9 +33,6 @@ class Tag_Action {
 		add_action( 'wp_ajax_tag_affectation', array( $this, 'ajax_tag_affectation' ) );
 		add_action( 'wp_ajax_tag_unaffectation', array( $this, 'ajax_tag_unaffectation' ) );
 
-		/** Chargement des tâches ayant le tag "archive" */
-		add_action( 'wp_ajax_load_archived_task', array( $this, 'ajax_load_archived_task' ) );
-
 		/** Création d'un tag */
 		add_action( 'wp_ajax_create-tag', array( &$this, 'ajax_create_tag' ) );
 	}
@@ -154,33 +151,6 @@ class Tag_Action {
 		wp_send_json_success( array(
 			'module' => 'tag',
 			'callback_success' => 'tagAffectationSuccess',
-		) );
-	}
-
-	/**
-	 * Charges toutes les tâches archivées
-	 *
-	 * @return void
-	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
-	 */
-	public function ajax_load_archived_task() {
-		check_ajax_referer( 'load_archived_task' );
-
-		$tasks = Task_Class::g()->get( array(
-			'post_status' => 'archive',
-		) );
-
-		ob_start();
-		View_Util::exec( 'task', 'backend/main', array(
-			'tasks' => $tasks,
-		) );
-
-		wp_send_json_success( array(
-			'module' => 'tag',
-			'callback_success' => 'loadedArchivedTask',
-			'view' => ob_get_clean(),
 		) );
 	}
 
