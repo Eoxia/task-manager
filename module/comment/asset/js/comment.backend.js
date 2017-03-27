@@ -44,7 +44,7 @@ window.task_manager.comment.loadedCommentsSuccess = function( triggeredElement, 
 };
 
 /**
- * Le callback en cas de réussite à la requête Ajax "load_comments".
+ * Le callback en cas de réussite à la requête Ajax "edit_comment".
  * Met le contenu dans la div.comments.
  *
  * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
@@ -56,6 +56,24 @@ window.task_manager.comment.loadedCommentsSuccess = function( triggeredElement, 
  */
 window.task_manager.comment.addedCommentSuccess = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.comments' ).append( response.data.view );
+
+	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.time.task );
+	jQuery( triggeredElement ).closest( '.comments' ).prev( 'form' ).find( '.wpeo-time-in-point' ).text( response.data.time.point );
+};
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "edit_comment".
+ * Remplace la ligne courante du commentaire.
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.0.0.0
+ */
+window.task_manager.comment.editedCommentSuccess = function( triggeredElement, response ) {
+	jQuery( triggeredElement ).closest( '.comment.edit' ).replaceWith( response.data.view );
 
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.time.task );
 	jQuery( triggeredElement ).closest( '.comments' ).prev( 'form' ).find( '.wpeo-time-in-point' ).text( response.data.time.point );
@@ -77,4 +95,18 @@ window.task_manager.comment.deletedCommentSuccess = function( triggeredElement, 
 
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.time.task );
 	jQuery( triggeredElement ).closest( '.comments' ).prev( 'form' ).find( '.wpeo-time-in-point' ).text( response.data.time.point );
+};
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "load_edit_view_comment".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.0.0.0
+ */
+window.task_manager.comment.loadedEditViewComment = function( triggeredElement, response ) {
+	jQuery( triggeredElement ).closest( '.comment' ).replaceWith( response.data.view );
 };

@@ -24,6 +24,18 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 				<input type="text" placeholder="<?php esc_attr_e( 'Search', 'task-manager' ); ?>" />
 			</label>
 			<button><?php esc_html_e( 'Search', 'task-manager' ); ?></button>
+
+			<span class="more-search-options">+</span>
 		</li>
 	</ul>
 </header>
+
+<div class="wpeo-header-search active">
+	<ul>
+		<li class="tag-search">
+			<?php View_Util::exec( 'search-bar', 'backend/tag', array(
+				'categories' => $categories,
+			) ); ?>
+		</li>
+	</ul>
+</div>

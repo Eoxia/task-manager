@@ -42,8 +42,10 @@ class Search_Bar_Shortcode {
 	 * @version 1.3.6.0
 	 */
 	public function callback_task_manager_search_bar( $param ) {
-		View_Util::exec( 'search-bar', 'backend/main', array(
+		$categories = Tag_Class::g()->get( array() );
 
+		View_Util::exec( 'search-bar', 'backend/main', array(
+			'categories' => $categories,
 		) );
 	}
 }

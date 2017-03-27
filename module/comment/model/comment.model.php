@@ -34,6 +34,9 @@ class Task_Comment_Model extends Comment_Model {
 		$this->model['time_info'] = array(
 			'type'			=> 'array',
 			'meta_type' => 'multiple',
+			'bydefault' => array(
+				'elapsed' => 15,
+			),
 			'elapsed' => array(
 				'type'			=> 'integer',
 				'meta_type'	=> 'multiple',

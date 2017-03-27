@@ -14,7 +14,7 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
-<form class="form <?php echo ! empty( $point->id ) ? esc_attr( 'edit' ): ''; ?>" action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>" method="POST">
+<form class="form point <?php echo ! empty( $point->id ) ? esc_attr( 'edit' ): ''; ?>" action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>" method="POST" data-id="<?php echo esc_attr( $point->id ); ?>">
 
 	<?php wp_nonce_field( 'edit_point' ); ?>
 	<input type="hidden" name="action" value="edit_point" />
@@ -25,6 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		<li class="wpeo-add-point wpeo-point-no-sortable">
 			<ul>
 				<li>
+					<span class="dashicons dashicons-screenoptions" title="<?php esc_attr_e( 'Drag and drop for set the order', 'task-manager' ); ?>"></span>
 					<input type="checkbox" <?php echo ! empty( $point->point_info['completed'] ) ? 'checked': ''; ?> class="completed-point" data-nonce="<?php echo esc_attr( wp_create_nonce( 'complete_point' ) ); ?>" />
 
 					<span data-action="<?php echo esc_attr( 'load_comments' ); ?>"
@@ -52,6 +53,26 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 						<span class="dashicons dashicons-clock"></span>
 						<span class="wpeo-time-in-point"><?php echo esc_attr( $point->time_info['elapsed'] ); ?></span>
+
+						<div class="toggle wpeo-task-setting"
+								data-parent="point"
+								data-target="content">
+
+							<div class="action">
+								<span class="wpeo-task-open-action" title="<?php esc_html_e( 'Task options', 'task-manager' ); ?>"><i class="fa fa-ellipsis-v"></i></span>
+							</div>
+
+							<ul class="content point-header-action">
+								<li class="open-popup-ajax"
+										data-action="load_point_properties"
+										data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_point_properties' ) ); ?>"
+										data-id="<?php echo esc_attr( $point->id ); ?>"
+										data-parent="wpeo-project-task"
+										data-target="popup">
+									<span><?php esc_html_e( 'Point properties', 'task-manager' ); ?></span>
+								</li>
+							</ul>
+						</div>
 
 						<span data-action="delete_point"
 									data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_point' ) ); ?>"

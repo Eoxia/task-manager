@@ -65,7 +65,22 @@ window.task_manager.tag.unarchivedTaskSuccess = function( triggeredElement, resp
  * @version 1.0.0.0
  */
 window.task_manager.tag.loadedTagSuccess = function( element, response ) {
-	element.html( response.data.view );
+	element.replaceWith( response.data.view );
+};
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "close_tag_edit_mode".
+ * Remplaces le contenu de ".wpeo-tag-wrap" par la vue reçu dans la réponse AJAX.
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.0.0.0
+ */
+window.task_manager.tag.closedTagEditMode = function( element, response ) {
+	element.closest( '.wpeo-tag-wrap' ).replaceWith( response.data.view );
 };
 
 /**

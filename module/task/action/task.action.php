@@ -36,6 +36,9 @@ class Task_Action {
 		add_action( 'wp_ajax_change_color', array( $this, 'callback_change_color' ) );
 		add_action( 'wp_ajax_notify_by_mail', array( $this, 'callback_notify_by_mail' ) );
 		add_action( 'wp_ajax_load_task_properties', array( $this, 'callback_load_task_properties' ) );
+
+		add_action( 'wp_ajax_search_parent', array( $this, 'callback_search_parent' ) );
+		add_action( 'wp_ajax_move_task_to', array( $this, 'callback_move_task_to' ) );
 	}
 
 	/**
@@ -249,6 +252,73 @@ class Task_Action {
 			'view' => ob_get_clean(),
 			'module' => 'task',
 			'callback_success' => 'loadedTaskProperties',
+		) );
+	}
+
+	/**
+	 * Recherche dans les posts types selon le term.
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0.0
+	 * @version 1.3.6.0
+	 */
+	public function callback_search_parent() {
+		$term = sanitize_text_field( $_GET['term'] );
+
+		$posts_type = get_post_types();
+
+		$query = new \WP_Query( array(
+			'post_type' => $posts_type,
+			's' => $term,
+			'post_status' => array( 'publish', 'draft' ),
+		) );
+
+		$posts_founded = array();
+
+		if ( ! empty( $query->posts ) ) {
+			foreach ( $query->posts as $post ) {
+				$posts_founded[] = array(
+					'label' => $post->post_title,
+					'value' => $post->post_title,
+					'id' => $post->ID,
+				);
+			}
+		}
+
+		wp_die( wp_json_encode( $posts_founded ) );
+	}
+
+	/**
+	 * Déplaces la tâche vers la parent_id "to_element_id".
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0.0
+	 * @version 1.3.6.0
+	 */
+	public function callback_move_task_to() {
+		check_ajax_referer( 'move_task_to' );
+
+		$task_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+		$to_element_id = ! empty( $_POST['to_element_id'] ) ? (int) $_POST['to_element_id'] : 0;
+
+		if ( empty( $task_id ) || empty( $to_element_id ) ) {
+			wp_send_json_error();
+		}
+
+		$task = Task_Class::g()->get( array(
+			'post__in' => array( $task_id ),
+			'post_status' => array( 'publish', 'archive' ),
+		), true );
+
+		$task->parent_id = $to_element_id;
+
+		Task_Class::g()->update( $task );
+
+		wp_send_json_success( array(
+			'module' => 'task',
+			'callback_success' => 'movedTaskTo',
 		) );
 	}
 }

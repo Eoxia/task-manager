@@ -28,13 +28,14 @@ class Tag_Action {
 		add_action( 'wp_ajax_to_unarchive', array( $this, 'ajax_to_unarchive' ) );
 		/** Chargement des tags existants pour affectation */
 		add_action( 'wp_ajax_load_tags', array( $this, 'ajax_load_tags' ) );
+		add_action( 'wp_ajax_close_tag_edit_mode', array( $this, 'ajax_close_tag_edit_mode' ) );
 
 		/** Affectation d'un ou plusieurs tag */
 		add_action( 'wp_ajax_tag_affectation', array( $this, 'ajax_tag_affectation' ) );
 		add_action( 'wp_ajax_tag_unaffectation', array( $this, 'ajax_tag_unaffectation' ) );
 
 		/** Création d'un tag */
-		add_action( 'wp_ajax_create-tag', array( &$this, 'ajax_create_tag' ) );
+		add_action( 'wp_ajax_create_tag', array( $this, 'ajax_create_tag' ) );
 	}
 
 	/**
@@ -128,6 +129,32 @@ class Tag_Action {
 	}
 
 	/**
+	 * Repasses la fenêtre des catégories en mode "vue".
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0.0
+	 * @version 1.3.6.0
+	 */
+	public function ajax_close_tag_edit_mode() {
+		check_ajax_referer( 'close_tag_edit_mode' );
+
+		$task_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+
+		if ( empty( $task_id ) ) {
+			wp_send_json_error();
+		}
+
+		ob_start();
+		echo do_shortcode( '[task_manager_task_tag task_id=' . $task_id . ']' );
+		wp_send_json_success( array(
+			'module' => 'tag',
+			'callback_success' => 'closedTagEditMode',
+			'view' => ob_get_clean(),
+		) );
+	}
+
+	/**
 	 * Affectation d'un tag a un élément
 	 */
 	function ajax_tag_affectation() {
@@ -156,14 +183,29 @@ class Tag_Action {
 
 	/**
 	 * Création d'un tag dans la base de données
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0.0
+	 * @version 1.3.6.0
 	 */
 	public function ajax_create_tag() {
-		$response = array();
+		check_ajax_referer( 'create_tag' );
 
-		$term = wp_create_term( $_POST['tag_name'], $tag_controller->get_taxonomy() );
-		$response = Tag_Class::g()->show( $term['term_id'] );
+		$tag_name = ! empty( $_POST['tag_name'] ) ? sanitize_text_field( $_POST['tag_name'] ) : '';
 
-		wp_send_json_success( $response );
+		if ( empty( $tag_name ) ) {
+			wp_send_json_error();
+		}
+
+		$term = wp_create_term( $tag_name, Tag_Class::g()->get_taxonomy() );
+
+		ob_start();
+		wp_send_json_success( array(
+			'module' => 'searchBar',
+			'callback_success' => 'createdTagSuccess',
+			'view' => ob_get_clean(),
+		) );
 	}
 
 }

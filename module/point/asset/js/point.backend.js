@@ -16,6 +16,7 @@ window.task_manager.point = {};
  */
 window.task_manager.point.init = function() {
 	window.task_manager.point.event();
+	window.task_manager.point.refresh();
 };
 
 /**
@@ -30,6 +31,22 @@ window.task_manager.point.event = function() {
 	jQuery( document ).on( 'blur keyup paste keydown', '.wpeo-add-point .wpeo-point-new-contenteditable', window.task_manager.point.updateHiddenInput );
 	jQuery( document ).on( 'blur paste', 'form.edit .wpeo-point-new-contenteditable', window.task_manager.point.editPoint );
 	jQuery( document ).on( 'click', 'form .completed-point', window.task_manager.point.completePoint );
+};
+
+/**
+ * Cette méthode est appelé automatiquement lors de l'appel à la méthode window.task_manager.refresh().
+ *
+ * @return void
+ *
+ * @since 1.0.0.0
+ * @version 1.3.6.0
+ */
+window.task_manager.point.refresh = function() {
+	jQuery( '.wpeo-project-wrap .wpeo-task-point-sortable' ).sortable( {
+		handle: '.dashicons-screenoptions',
+		items: 'form',
+		update: window.task_manager.point.editOrder
+	} );
 };
 
 /**
@@ -146,4 +163,54 @@ window.task_manager.point.beforeLoadCompletedPoint = function( triggeredElement 
  */
 window.task_manager.point.loadedCompletedPoint = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-point-completed' ).html( response.data.view );
+};
+
+/**
+ * Récupères les ID des points dans l'ordre de l'affichage et les envoies à l'action "edit_order_point".
+ *
+ * @return void
+ *
+ * @since 1.0.0.0
+ * @version 1.3.6.0
+ */
+window.task_manager.point.editOrder = function() {
+	var orderPointId = [];
+	var objectId = jQuery( this ).closest( '.wpeo-project-task' ).data( 'id' );
+	var data = {};
+
+	jQuery( this ).find( '.form.point.edit' ).each( function() {
+		orderPointId.push( jQuery( this ).data( 'id' ) );
+	} );
+
+	data.action = 'edit_order_point';
+	data.task_id = objectId;
+	data.order_point_id = orderPointId;
+
+	window.task_manager.request.send( jQuery( this ), data );
+};
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "load_point_properties".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.3.6.0
+ */
+window.task_manager.point.loadedPointProperties = function( triggeredElement, response ) {
+	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.popup .content' ).html( response.data.view );
+
+	jQuery( '.search-task' ).autocomplete( {
+		'source': 'admin-ajax.php?action=search_task',
+		'appendTo': '.list-tasks',
+		'select': function( event, ui ) {
+			jQuery( 'input[name="to_task_id"]' ).val( ui.item.id );
+		}
+	} );
+};
+
+window.task_manager.point.movedPointTo = function( triggeredElement, response ) {
+
 };

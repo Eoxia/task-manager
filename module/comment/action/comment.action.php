@@ -27,7 +27,8 @@ class Task_Comment_Action {
 	 */
 	public function __construct() {
 		add_action( 'wp_ajax_load_comments', array( $this, 'callback_load_comments' ) );
-		add_action( 'wp_ajax_add_comment', array( $this, 'callback_add_comment' ) );
+		add_action( 'wp_ajax_edit_comment', array( $this, 'callback_edit_comment' ) );
+		add_action( 'wp_ajax_load_edit_view_comment', array( $this, 'callback_load_edit_view_comment' ) );
 		add_action( 'wp_ajax_delete_comment', array( $this, 'callback_delete_comment' ) );
 	}
 
@@ -78,9 +79,10 @@ class Task_Comment_Action {
 	 * @since 1.3.6.0
 	 * @version 1.3.6.0
 	 */
-	public function callback_add_comment() {
-		check_ajax_referer( 'add_comment' );
+	public function callback_edit_comment() {
+		check_ajax_referer( 'edit_comment' );
 
+		$comment_id = ! empty( $_POST['comment_id'] ) ? (int) $_POST['comment_id'] : 0;
 		$post_id = ! empty( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;
 		$parent_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
 		$date = ! empty( $_POST['date'] ) ? sanitize_text_field( $_POST['date'] ) : '';
@@ -88,6 +90,7 @@ class Task_Comment_Action {
 		$time = ! empty( $_POST['time'] ) ? (int) $_POST['time'] : 0;
 
 		$comment = Task_Comment_Class::g()->update( array(
+			'id' => $comment_id,
 			'post_id' => $post_id,
 			'parent_id' => $parent_id,
 			'date' => $date,
@@ -109,7 +112,44 @@ class Task_Comment_Action {
 			),
 			'view' => ob_get_clean(),
 			'module' => 'comment',
-			'callback_success' => 'addedCommentSuccess',
+			'callback_success' => ! empty( $comment_id ) ? 'editedCommentSuccess' : 'addedCommentSuccess',
+			'comment' => $comment,
+		) );
+	}
+
+	/**
+	 * Passes le commentaire en mode édition au niveau de l'affichage.
+	 *
+	 * @return void
+	 *
+	 * @since 1.3.6.0
+	 * @version 1.3.6.0
+	 */
+	public function callback_load_edit_view_comment() {
+		check_ajax_referer( 'load_edit_view_comment' );
+
+		$comment_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+
+		if ( empty( $comment_id ) ) {
+			wp_send_json_error();
+		}
+
+		$comment = Task_Comment_Class::g()->get( array(
+			'comment__in' => array( $comment_id ),
+			'status' => -34070,
+		), true );
+
+		ob_start();
+		View_Util::exec( 'comment', 'backend/edit', array(
+			'task_id' => $comment->post_id,
+			'point_id' => $comment->parent_id,
+			'comment' => $comment,
+		) );
+
+		wp_send_json_success( array(
+			'module' => 'comment',
+			'callback_success' => 'loadedEditViewComment',
+			'view' => ob_get_clean(),
 		) );
 	}
 

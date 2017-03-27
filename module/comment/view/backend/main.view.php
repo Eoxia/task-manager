@@ -14,23 +14,14 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
-<li>
-	<form action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>" method="POST">
-		<ul>
-			<?php wp_nonce_field( 'add_comment' ); ?>
-			<input type="hidden" name="post_id" value="<?php echo esc_attr( $task_id ); ?>" />
-			<input type="hidden" name="parent_id" value="<?php echo esc_attr( $point_id ); ?>" />
-			<input type="hidden" name="action" value="add_comment" />
-
-			<li><input type="text" name="date" value="<?php echo esc_attr( current_time( 'mysql' ) ); ?>" /></li>
-			<li><input type="text" name="content" /></li>
-			<li><input type="text" name="time" /></li>
-			<li class="submit-form">add</li>
-		</ul>
-	</form>
-</li>
-
 <?php
+
+View_Util::exec( 'comment', 'backend/edit', array(
+	'task_id' => $task_id,
+	'point_id' => $point_id,
+	'comment' => $comment_schema,
+) );
+
 View_Util::exec( 'comment', 'backend/list-comment', array(
 	'comments' => $comments,
 ) );

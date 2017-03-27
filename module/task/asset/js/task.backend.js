@@ -96,4 +96,26 @@ window.task_manager.task.loadedAllTask = function( triggeredElement, response ) 
  */
 window.task_manager.task.loadedTaskProperties = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.popup .content' ).html( response.data.view );
+
+	jQuery( '.search-parent' ).autocomplete( {
+		'source': 'admin-ajax.php?action=search_parent',
+		'appendTo': '.list-posts',
+		'select': function( event, ui ) {
+			jQuery( 'input[name="to_element_id"]' ).val( ui.item.id );
+		}
+	} );
+};
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "move_task_to".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.3.6.0
+ */
+window.task_manager.task.movedTaskTo = function( triggeredElement, response ) {
+	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).hide();
 };

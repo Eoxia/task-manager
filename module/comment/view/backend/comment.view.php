@@ -20,6 +20,11 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		<li><?php echo esc_html( $comment->content ); ?></li>
 		<li><?php echo esc_html( $comment->time_info['elapsed'] ); ?></li>
 		<li>
+			<span data-action="load_edit_view_comment"
+				data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_edit_view_comment' ) ); ?>"
+				data-id="<?php echo esc_attr( $comment->id ); ?>"
+				class="dashicons dashicons-edit action-attribute"></span>
+
 			<span data-action="delete_comment"
 				data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_comment' ) ); ?>"
 				data-id="<?php echo esc_attr( $comment->id ); ?>"
