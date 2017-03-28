@@ -13,11 +13,14 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 
-<li class="action-attribute user" style="width: 50px; height: 50px;"
+<li class="action-attribute user <?php echo in_array( $user->id, $task->user_info['affected_id'], true ) ? 'active' : ''; ?>" style="width: 50px; height: 50px;"
 	data-id="<?php echo esc_attr( $user->id ); ?>"
-	data-parent-id="<?php echo esc_attr( $task_id ); ?>"
-	data-action="follower_affectation"
-	data-nonce="<?php echo esc_attr( wp_create_nonce( 'follower_affectation' ) ); ?>">
+	data-parent-id="<?php echo esc_attr( $task->id ); ?>"
+	data-action="<?php echo in_array( $user->id, $task->user_info['affected_id'], true ) ? 'follower_unaffectation' : 'follower_affectation'; ?>"
+	data-nonce="<?php echo esc_attr( wp_create_nonce( in_array( $user->id, $task->user_info['affected_id'], true ) ? 'follower_unaffectation' : 'follower_affectation' ) ); ?>">
 
-	<img class="avatar avatar-32" src="<?php echo esc_attr( get_avatar_url( $user->id, 32 ) ); ?>" />
+	<img class="avatar avatar-32" src="<?php echo esc_attr( get_avatar_url( $user->id, array(
+		'size' => 32,
+		'default' => 'blank',
+	) ) ); ?>" />
 </li>

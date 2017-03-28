@@ -14,5 +14,8 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 
 <li class="user" style="width: 50px; height: 50px;">
-	<img class="avatar avatar-32" src="<?php echo esc_attr( get_avatar_url( $user->id, 32 ) ); ?>" />
+	<img class="avatar avatar-32" src="<?php echo esc_attr( get_avatar_url( $user->id, array(
+		'size' => 32,
+		'default' => 'blank',
+	)	) ); ?>" />
 </li>

@@ -1,20 +1,20 @@
 /**
- * Initialise l'objet "point" ainsi que la méthode "searchBar" obligatoire pour la bibliothèque EoxiaJS.
+ * Initialise l'objet "point" ainsi que la méthode "navigation" obligatoire pour la bibliothèque EoxiaJS.
  *
  * @since 1.0.0.0
  * @version 1.0.0.0
  */
-window.task_manager.searchBar = {};
+window.task_manager.navigation = {};
 
-window.task_manager.searchBar.init = function() {
-	window.task_manager.searchBar.event();
+window.task_manager.navigation.init = function() {
+	window.task_manager.navigation.event();
 };
 
-window.task_manager.searchBar.event = function() {
-	jQuery( document ).on( 'click', '.wpeo-header-bar button', window.task_manager.searchBar.search );
+window.task_manager.navigation.event = function() {
+	jQuery( document ).on( 'click', '.wpeo-header-bar button', window.task_manager.navigation.search );
 };
 
-window.task_manager.searchBar.search = function() {
+window.task_manager.navigation.search = function() {
 	var synthesisTask = '';
 	var search = jQuery( this ).closest( 'li' ).find( 'input[type="text"]' ).val();
 
@@ -45,6 +45,6 @@ window.task_manager.searchBar.search = function() {
  * @since 1.0.0.0
  * @version 1.3.6.0
  */
-window.task_manager.searchBar.loadedMyTask = function( triggeredElement, response ) {
+window.task_manager.navigation.loadedMyTask = function( triggeredElement, response ) {
 	jQuery( '.list-task' ).replaceWith( response.data.view );
 };

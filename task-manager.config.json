@@ -16,9 +16,9 @@
 		"module/point/point.config.json",
 		"module/comment/comment.config.json",
 		"module/history-time/history-time.config.json",
-		"module/search-bar/search-bar.config.json",
+		"module/navigation/navigation.config.json",
 		"module/tag/tag.config.json",
-		"module/user/user.config.json",
+		"module/owner/owner.config.json",
 		"module/follower/follower.config.json",
 		"module/liaison-post-type/liaison-post-type.config.json",
 		"module/shortcode-help/shortcode-help.config.json"

@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 /**
  * Les actions relatives aux tâches.
  */
-class Search_Bar_Action {
+class Navigation_Action {
 
 	/**
 	 * Initialise les actions liées à la barre de recherche.
@@ -136,4 +136,4 @@ class Search_Bar_Action {
 	}
 }
 
-new Search_Bar_Action();
+new Navigation_Action();

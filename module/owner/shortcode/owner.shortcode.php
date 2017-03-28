@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 /**
  * Gestion des shortcodes en relation avec les utilisateurs.
  */
-class Task_User_Shortcode {
+class Owner_Shortcode {
 
 	/**
 	 * Ce constructeur ajoute le shortcode suivant:
@@ -43,7 +43,7 @@ class Task_User_Shortcode {
 	public function callback_task_manager_owner_task( $param ) {
 		$avatar_url = get_avatar_url( $param['owner_id'], 32 );
 
-		View_Util::exec( 'user', 'backend/owner/main', array(
+		View_Util::exec( 'owner', 'backend/main', array(
 			'owner_id' => $param['owner_id'],
 			'task_id' => $param['task_id'],
 			'avatar_url' => $avatar_url,
@@ -51,4 +51,4 @@ class Task_User_Shortcode {
 	}
 }
 
-new Task_User_Shortcode();
+new Owner_Shortcode();

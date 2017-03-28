@@ -13,10 +13,12 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 
-<li class="action-attribute"
+<li class="action-attribute <?php echo in_array( $tag->id, $task->taxonomy['wpeo_tag'], true ) ? 'wpeo-tag-tag-selected' : ''; ?>"
 	data-id="<?php echo esc_attr( $tag->id ); ?>"
-	data-parent-id="<?php echo esc_attr( $task_id ); ?>"
-	data-action="tag_affectation"
-	data-nonce="<?php echo esc_attr( wp_create_nonce( 'tag_affectation' ) ); ?>">
+	data-parent-id="<?php echo esc_attr( $task->id ); ?>"
+	data-action="<?php echo in_array( $tag->id, $task->taxonomy['wpeo_tag'], true ) ? 'tag_unaffectation' : 'tag_affectation'; ?>"
+	data-nonce="<?php echo esc_attr( wp_create_nonce( in_array( $tag->id, $task->taxonomy['wpeo_tag'], true ) ? 'tag_unaffectation' : 'tag_affectation' ) ); ?>"
+	data-module="tag"
+	data-before-method="<?php echo in_array( $tag->id, $task->taxonomy['wpeo_tag'], true ) ? 'beforeUnaffectTag' : 'beforeAffectTag'; ?>">
 	<?php echo esc_html( $tag->name ); ?>
 </li>

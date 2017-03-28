@@ -113,12 +113,15 @@ class Tag_Action {
 		$tags = Tag_Class::g()->get();
 		$task_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 
+		$task = Task_Class::g()->get( array(
+			'post__in' => array( $task_id ),
+			'post_status' => array( 'publish', 'archive' ),
+		), true );
+
 		ob_start();
-		View_Util::exec( 'tag', 'backend/list-tag-edit', array(
+		View_Util::exec( 'tag', 'backend/main-edit', array(
 			'tags' => $tags,
-			'task' => Task_Class::g()->get( array(
-				'id' => $task_id,
-			), true ),
+			'task' => $task,
 		) );
 
 		wp_send_json_success( array(
@@ -156,8 +159,11 @@ class Tag_Action {
 
 	/**
 	 * Affectation d'un tag a un élément
+	 *
+	 * @since 1.0.0.0
+	 * @version 1.3.6.0
 	 */
-	function ajax_tag_affectation() {
+	public function ajax_tag_affectation() {
 		check_ajax_referer( 'tag_affectation' );
 
 		/** Récupération de l'identifiant du tag a associer */
@@ -166,6 +172,7 @@ class Tag_Action {
 
 		$task = Task_Class::g()->get( array(
 			'post__in' => array( $task_id ),
+			'post_status' => array( 'publish', 'archive' ),
 		), true );
 
 		if ( empty( $tag_id ) || empty( $task_id ) || empty( $task ) ) {
@@ -175,10 +182,29 @@ class Tag_Action {
 		$task->taxonomy[ Tag_Class::g()->get_taxonomy() ][] = $tag_id;
 		Task_Class::g()->update( $task );
 
-		wp_send_json_success( array(
-			'module' => 'tag',
-			'callback_success' => 'tagAffectationSuccess',
-		) );
+		wp_send_json_success();
+	}
+
+	/**
+	 * Désaffecte un tag d'un élément
+	 *
+	 * @since 1.0.0.0
+	 * @version 1.3.6.0
+	 * @todo taxonomy en dur
+	 */
+	public function ajax_tag_unaffectation() {
+		check_ajax_referer( 'tag_unaffectation' );
+
+		$tag_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+		$task_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
+
+		if ( empty( $tag_id ) || empty( $task_id ) ) {
+			wp_send_json_error();
+		}
+
+		wp_remove_object_terms( $task_id, $tag_id, 'wpeo_tag' );
+
+		wp_send_json_success();
 	}
 
 	/**

@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 <div class="wpeo-header-search active">
 	<ul>
 		<li class="tag-search">
-			<?php View_Util::exec( 'search-bar', 'backend/tag', array(
+			<?php View_Util::exec( 'navigation', 'backend/tag', array(
 				'categories' => $categories,
 			) ); ?>
 		</li>
