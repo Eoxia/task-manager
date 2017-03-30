@@ -18,4 +18,5 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 		'size' => 32,
 		'default' => 'blank',
 	)	) ); ?>" />
+	<div class="wpeo-avatar-initial"><span><?php echo esc_html( $user->initial ); ?></span></div>
 </li>

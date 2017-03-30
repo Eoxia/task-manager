@@ -83,6 +83,10 @@ class Task_Model extends Post_Model {
 			'task_info' => array(
 				'type' => 'array',
 				'meta_type' => 'multiple',
+				'bydefault' => array(
+					'completed' => false,
+					'order_point_id' => array(),
+				),
 				'completed' => array(
 					'type' 			=> 'boolean',
 					'meta_type'	=> 'multiple',

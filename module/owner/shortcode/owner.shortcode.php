@@ -41,7 +41,10 @@ class Owner_Shortcode {
 	 * @version 1.3.6.0
 	 */
 	public function callback_task_manager_owner_task( $param ) {
-		$avatar_url = get_avatar_url( $param['owner_id'], 32 );
+		$avatar_url = get_avatar_url( $param['owner_id'], array(
+			'size' => 32,
+			'default' => 'blank',
+		) );
 
 		View_Util::exec( 'owner', 'backend/main', array(
 			'owner_id' => $param['owner_id'],

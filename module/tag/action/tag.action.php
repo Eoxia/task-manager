@@ -225,10 +225,16 @@ class Tag_Action {
 		}
 
 		$term = wp_create_term( $tag_name, Tag_Class::g()->get_taxonomy() );
+		$category = Tag_Class::g()->get( array(
+			'include' => array( $term['term_id'] ),
+		), true );
 
 		ob_start();
+		View_Util::exec( 'navigation', 'backend/tag', array(
+			'category' => $category,
+		) );
 		wp_send_json_success( array(
-			'module' => 'searchBar',
+			'module' => 'tag',
 			'callback_success' => 'createdTagSuccess',
 			'view' => ob_get_clean(),
 		) );

@@ -10,6 +10,8 @@ class user_class extends singleton_util {
 	protected $identifier_helper = 'user';
 	public $element_prefix = 'U';
 
+	protected $after_get_function = array( '\task_manager\build_user_initial' );
+
 	protected function construct() {}
 
 	public function get_schema() {

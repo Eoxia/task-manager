@@ -24,11 +24,16 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 			<input type="hidden" name="post_id" value="<?php echo esc_attr( $task_id ); ?>" />
 			<input type="hidden" name="parent_id" value="<?php echo esc_attr( $point_id ); ?>" />
 
-
 			<li><input type="text" name="date" value="<?php echo esc_attr( $comment->date ); ?>" /></li>
 			<li><input type="text" name="content" value="<?php echo esc_attr( $comment->content ); ?>"/></li>
 			<li><input type="text" name="time" value="<?php echo esc_attr( $comment->time_info['elapsed'] ); ?>" /></li>
-			<li class="submit-form">add</li>
+
+			<?php if ( ! empty( $comment->id ) ) : ?>
+				<i data-parent="edit" class="action-input fa fa-floppy-o" aria-hidden="true"></i>
+			<?php else : ?>
+				<span data-parent="edit" class="action-input dashicons dashicons-plus-alt"></span>
+			<?php endif; ?>
+
 		</ul>
 	</form>
 </li>

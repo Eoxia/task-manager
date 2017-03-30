@@ -39,7 +39,7 @@ class Point_Action {
 	}
 
 	/**
-	 * Update the content of a point.
+	 * Met à jour le contenu d'un point.
 	 *
 	 * @return void
 	 *
@@ -72,7 +72,7 @@ class Point_Action {
 		wp_send_json_success( array(
 			'view' => ob_get_clean(),
 			'module' => 'point',
-			'callback_success' => 'addedPointSuccess',
+			'callback_success' => ! empty( $point_id ) ? 'editedPointSuccess' : 'addedPointSuccess',
 		) );
 	}
 
@@ -338,31 +338,50 @@ class Point_Action {
 			'post_status' => array( 'publish', 'archive' ),
 		), true );
 
+		$point = Point_Class::g()->get( array(
+			'comment__in' => array( $point_id ),
+			'status' => -34070,
+		), true );
+
 		$key = array_search( $point_id, $current_task->task_info['order_point_id'], true );
 
 		if ( false !== $key ) {
 			unset( $current_task->task_info['order_point_id'][ $key ] );
+			$current_task->time_info['elapsed'] -= $point->time_info['elapsed'];
 		} else {
 			wp_send_json_error();
 		}
 
 		$to_task->task_info['order_point_id'][] = $point_id;
 
+		$to_task->time_info['elapsed'] += $point->time_info['elapsed'];
+
 		Task_Class::g()->update( $current_task );
 		Task_Class::g()->update( $to_task );
 
-		$point = Point_Class::g()->get( array(
-			'comment__in' => array( $point_id ),
-			'status' => -34070,
-		), true );
-
 		$point->post_id = $to_task_id;
+		$point = Point_Class::g()->update( $point );
 
-		Point_Class::g()->update( $point );
+		$comments = Task_Comment_Class::g()->get( array(
+			'post_id' => $task_id,
+			'parent_id' => $point_id,
+			'status' => -34070,
+		) );
+
+		if ( ! empty( $comments ) ) {
+			foreach ( $comments as $comment ) {
+				$comment->post_id = $to_task_id;
+
+				Task_Comment_Class::g()->update( $comment );
+			}
+		}
 
 		wp_send_json_success( array(
 			'module' => 'point',
 			'callback_success' => 'movedPointTo',
+			'point' => $point,
+			'current_task' => $current_task,
+			'to_task' => $to_task,
 		) );
 	}
 }

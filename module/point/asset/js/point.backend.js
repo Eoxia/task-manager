@@ -82,7 +82,29 @@ window.task_manager.point.updateHiddenInput = function( event ) {
  * @version 1.0.0.0
  */
 window.task_manager.point.addedPointSuccess = function( triggeredElement, response ) {
+	var totalPoint = jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.total-point' ).text();
+	totalPoint++;
+	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.total-point' ).text( totalPoint );
+
+	triggeredElement.closest( '.form' ).find( '.wpeo-point-new-contenteditable' ).text( '' );
+	triggeredElement.closest( '.form' ).find( 'input[name="content"]' ).val( '' );
+
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( 'ul.wpeo-task-point-sortable form:last' ).before( response.data.view );
+};
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "create_point".
+ * Ajoutes le point avant le formulaire pour ajouter un point dans le ul.wpeo-task-point-sortable
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.0.0.0
+ */
+window.task_manager.point.editedPointSuccess = function( triggeredElement, response ) {
+	jQuery( triggeredElement ).closest( 'form' ).replaceWith( response.data.view );
 };
 
 /**
@@ -107,6 +129,16 @@ window.task_manager.point.editPoint = function() {
  * @version 1.0.0.0
  */
 window.task_manager.point.deletedPointSuccess = function( triggeredElement, response ) {
+	var totalPoint = jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.total-point' ).text();
+	var totalCompletedPoint = jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text();
+	totalPoint--;
+	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.total-point' ).text( totalPoint );
+
+	if ( jQuery( triggeredElement ).closest( '.point' ).find( '.completed-point' ).is( ':checked' ) ) {
+		totalCompletedPoint--;
+		jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text( totalCompletedPoint );
+	}
+
 	jQuery( triggeredElement ).closest( 'form' ).fadeOut();
 };
 
@@ -120,6 +152,8 @@ window.task_manager.point.deletedPointSuccess = function( triggeredElement, resp
  * @version 1.0.0.0
  */
 window.task_manager.point.completePoint = function() {
+	var totalCompletedPoint = jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text();
+
 	var data = {
 		action: 'complete_point',
 		_wpnonce: jQuery( this ).data( 'nonce' ),
@@ -128,10 +162,14 @@ window.task_manager.point.completePoint = function() {
 	};
 
 	if ( jQuery( this ).is( ':checked' ) ) {
+		totalCompletedPoint++;
 		jQuery( this ).closest( '.wpeo-project-task' ).find( '.wpeo-task-point-completed' ).append( jQuery( this ).closest( 'form' ) );
 	} else {
+		totalCompletedPoint--;
 		jQuery( this ).closest( '.wpeo-project-task' ).find( 'ul.wpeo-task-point-sortable form:last' ).before( jQuery( this ).closest( 'form' ) );
 	}
+
+	jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text( totalCompletedPoint );
 
 	window.task_manager.request.send( jQuery( this ), data );
 };
@@ -211,6 +249,19 @@ window.task_manager.point.loadedPointProperties = function( triggeredElement, re
 	} );
 };
 
+/**
+ * Le callback en cas de réussite à la requête Ajax "move_point_to".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.3.6.0
+ */
 window.task_manager.point.movedPointTo = function( triggeredElement, response ) {
-
+	jQuery( '.wpeo-project-task[data-id=' + response.data.current_task.id + ']' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.current_task.time_info.elapsed );
+	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.to_task.time_info.elapsed );
+	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( 'ul.wpeo-task-point-sortable form:last' ).before( jQuery( '.point.edit[data-id=' + response.data.point.id + ']' ) );
+	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( '.point.edit[data-id=' + response.data.point.id + ']' ).after( jQuery( '.comments[data-id=' + response.data.point_id + ']' ) );
 };

@@ -127,3 +127,18 @@ window.task_manager.tag.beforeUnaffectTag = function( element ) {
 
 	return true;
 };
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "create_tag".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.3.6.0
+ */
+window.task_manager.tag.createdTagSuccess = function( triggeredElement, response ) {
+	jQuery( '.wpeo-tag-title' ).after( response.data.view );
+	jQuery( 'input[name="tag_name"]' ).val( '' );
+};

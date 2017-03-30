@@ -7,6 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 function update_post_order( $point ) {
 	$task = Task_Class::g()->get( array(
 		'post__in' => array( $point->post_id ),
+		'post_status' => array( 'publish', 'archive' ),
 	), true );
 
 	$task->task_info['order_point_id'][] = $point->id;

@@ -25,15 +25,15 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 			</label>
 			<button><?php esc_html_e( 'Search', 'task-manager' ); ?></button>
 
-			<span class="more-search-options">+</span>
+			<span class="more-search-options"><?php esc_html_e( 'More options', 'task-manager' ); ?></span>
 		</li>
 	</ul>
 </header>
 
-<div class="wpeo-header-search active">
+<div class="wpeo-header-search hidden active">
 	<ul>
 		<li class="tag-search">
-			<?php View_Util::exec( 'navigation', 'backend/tag', array(
+			<?php View_Util::exec( 'navigation', 'backend/tags', array(
 				'categories' => $categories,
 			) ); ?>
 		</li>

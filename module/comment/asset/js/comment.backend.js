@@ -29,6 +29,23 @@ window.task_manager.comment.init = function() {
 window.task_manager.comment.event = function() {};
 
 /**
+ * Avant de charger les commentaires, change la dashicons.
+ *
+ * @param  {HTMLSpanElement} triggeredElement L'élément HTML déclenchant l'action.
+ * @return void
+ *
+ * @since 1.3.6.0
+ * @version 1.3.6.0
+ */
+window.task_manager.comment.beforeLoadComments = function( triggeredElement ) {
+	triggeredElement.toggleClass( 'dashicons-arrow-right-alt2 dashicons-arrow-down-alt2' );
+
+	triggeredElement.closest( 'form' ).next( '.comments' ).toggle();
+
+	return true;
+};
+
+/**
  * Le callback en cas de réussite à la requête Ajax "load_comments".
  * Met le contenu dans la div.comments.
  *
@@ -73,10 +90,10 @@ window.task_manager.comment.addedCommentSuccess = function( triggeredElement, re
  * @version 1.0.0.0
  */
 window.task_manager.comment.editedCommentSuccess = function( triggeredElement, response ) {
-	jQuery( triggeredElement ).closest( '.comment.edit' ).replaceWith( response.data.view );
-
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.time.task );
 	jQuery( triggeredElement ).closest( '.comments' ).prev( 'form' ).find( '.wpeo-time-in-point' ).text( response.data.time.point );
+
+	jQuery( triggeredElement ).closest( '.comment.edit' ).replaceWith( response.data.view );
 };
 
 /**

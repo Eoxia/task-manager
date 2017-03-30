@@ -12,6 +12,7 @@ window.task_manager.navigation.init = function() {
 
 window.task_manager.navigation.event = function() {
 	jQuery( document ).on( 'click', '.wpeo-header-bar button', window.task_manager.navigation.search );
+	jQuery( document ).on( 'click', '.wpeo-header-bar .more-search-options', window.task_manager.navigation.toggleMoreOptions );
 };
 
 window.task_manager.navigation.search = function() {
@@ -33,6 +34,18 @@ window.task_manager.navigation.search = function() {
 			jQuery( this ).hide();
 		}
 	} );
+};
+
+/**
+ * Toggle le barre de recherche avancée.
+ *
+ * @return void
+ *
+ * @since 1.0.0.0
+ * @version 1.3.6.0
+ */
+window.task_manager.navigation.toggleMoreOptions = function() {
+	jQuery( '.wpeo-header-search' ).toggle();
 };
 
 /**

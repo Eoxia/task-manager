@@ -22,7 +22,9 @@ window.task_manager.task.editTitle = function( event ) {
 		title: jQuery( this ).val()
 	};
 
-	window.task_manager.request.send( this, data );
+	jQuery( this ).closest( '.wpeo-task-header' ).addClass( 'loading' );
+
+	window.task_manager.request.send( jQuery( this ), data );
 };
 
 /**
@@ -37,6 +39,7 @@ window.task_manager.task.editTitle = function( event ) {
  */
 window.task_manager.task.createdTaskSuccess = function( element, response ) {
 	jQuery( '.list-task' ).prepend( response.data.view );
+	window.eoxiaJS.refresh();
 };
 
 /**

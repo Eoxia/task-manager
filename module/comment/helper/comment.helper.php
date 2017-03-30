@@ -35,6 +35,16 @@ function compile_time( $data ) {
 		$point->time_info['elapsed'] -= $data->time_info['elapsed'];
 		$task->time_info['elapsed'] -= $data->time_info['elapsed'];
 	} else {
+		if ( 0 !== $data->id ) {
+			$comment = Task_Comment_Class::g()->get( array(
+				'status' => '-34070',
+				'comment__in' => array( $data->id ),
+			), true );
+
+			$point->time_info['elapsed'] -= $comment->time_info['elapsed'];
+			$task->time_info['elapsed'] -= $comment->time_info['elapsed'];
+		}
+
 		$point->time_info['elapsed'] += $data->time_info['elapsed'];
 		$task->time_info['elapsed'] += $data->time_info['elapsed'];
 	}

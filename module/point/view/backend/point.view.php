@@ -25,14 +25,19 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		<li class="wpeo-add-point wpeo-point-no-sortable">
 			<ul>
 				<li>
-					<span class="dashicons dashicons-screenoptions" title="<?php esc_attr_e( 'Drag and drop for set the order', 'task-manager' ); ?>"></span>
-					<input type="checkbox" <?php echo ! empty( $point->point_info['completed'] ) ? 'checked': ''; ?> class="completed-point" data-nonce="<?php echo esc_attr( wp_create_nonce( 'complete_point' ) ); ?>" />
+					<?php if ( ! empty( $point->id ) ) : ?>
+						<span class="dashicons dashicons-screenoptions" title="<?php esc_attr_e( 'Drag and drop for set the order', 'task-manager' ); ?>"></span>
+						<input type="checkbox" <?php echo ! empty( $point->point_info['completed'] ) ? 'checked': ''; ?> class="completed-point" data-nonce="<?php echo esc_attr( wp_create_nonce( 'complete_point' ) ); ?>" />
 
-					<span data-action="<?php echo esc_attr( 'load_comments' ); ?>"
-								data-task-id="<?php echo esc_attr( $parent_id ); ?>"
-								data-point-id="<?php echo esc_attr( $point->id ); ?>"
-								class="action-attribute">O</span>
-					<span class="wpeo-block-id">#<?php echo esc_attr( $point->id ); ?></span>
+						<span data-action="<?php echo esc_attr( 'load_comments' ); ?>"
+									data-task-id="<?php echo esc_attr( $parent_id ); ?>"
+									data-point-id="<?php echo esc_attr( $point->id ); ?>"
+									data-module="comment"
+									data-before-method="beforeLoadComments"
+									class="dashicons dashicons-arrow-right-alt2 action-attribute"></span>
+
+						<span class="wpeo-block-id">#<?php echo esc_attr( $point->id ); ?></span>
+					<?php endif; ?>
 				</li>
 				<li class="wpeo-point-input">
 					<input type="hidden" name="content" value="<?php esc_attr( $point->content ); ?>" />
@@ -45,7 +50,10 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 				</li>
 				<li>
 					<?php	if ( empty( $point->id ) ) : ?>
-						<div class="wpeo-point-new-btn submit-form" data-parent="form" title="<?php esc_attr( 'Add this point', 'task-manager' ); ?>">
+						<div 	class="wpeo-point-new-btn action-input"
+									data-parent="form"
+									data-loader="point"
+									title="<?php esc_attr( 'Add this point', 'task-manager' ); ?>">
 							<i class="dashicons dashicons-plus-alt"></i>
 						</div>
 					<?php else : ?>
@@ -85,4 +93,4 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	</ul>
 </form>
 
-<ul class="comments"></ul>
+<ul class="comments hidden" data-id="<?php echo esc_attr( $point->id ); ?>"></ul>
