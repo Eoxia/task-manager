@@ -16,6 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_edit_mode_owner' ) ); ?>"
 			data-task-id="<?php echo esc_attr( $task_id ); ?>"
 			src="<?php echo esc_attr( $avatar_url ); ?>" height="32" width="32" />
+			<div class="wpeo-avatar-initial"><span><?php echo $user->initial; ?></span></div>
 
 <ul class="users">
 </ul>

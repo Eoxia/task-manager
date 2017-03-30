@@ -46,10 +46,14 @@ class Owner_Shortcode {
 			'default' => 'blank',
 		) );
 
+		$user = User_Class::g()->get( array(
+			'include' => array( $param['owner_id'] ),
+		), true );
+
 		View_Util::exec( 'owner', 'backend/main', array(
-			'owner_id' => $param['owner_id'],
 			'task_id' => $param['task_id'],
 			'avatar_url' => $avatar_url,
+			'user' => $user,
 		) );
 	}
 }

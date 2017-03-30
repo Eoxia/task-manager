@@ -43,19 +43,19 @@ class Owner_Action {
 			wp_send_json_error();
 		}
 
-		$users = Task_Manager_User_Class::g()->get( array(
+		$users = User_Class::g()->get( array(
 			'role' => 'administrator',
 		) );
 
 		ob_start();
-		View_Util::exec( 'user', 'backend/list', array(
+		View_Util::exec( 'owner', 'backend/list', array(
 			'users' => $users,
 			'task_id' => $task_id,
 		) );
 		$view = ob_get_clean();
 
 		wp_send_json_success( array(
-			'module' => 'user',
+			'module' => 'owner',
 			'callback_success' => 'loadedEditModeOwnerSuccess',
 			'view' => $view,
 		) );
