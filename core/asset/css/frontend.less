@@ -36,7 +36,7 @@
 		width: 100%;
 	}
 	.wpeo-window-dashboard {
-		min-width: 260px;
+		min-width: 360px;
 	}
 	.wpeo-project-task {
 		padding: 10px 20px 10px 10px;
@@ -148,7 +148,7 @@
 /* Window */
 .wpeo-window-dashboard {
 	.wpeo-task-account-window-content {
-		width: 260px;
+		width: 360px;
 		background: #fff;
 		box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.2);
 		padding: 10px;
@@ -169,6 +169,7 @@
 				font-family: 'Open Sans', sans-serif;
 				line-height: 1;
 				background: #fff;
+				width: 100%;
 			}
 			.wpeo-submit {
 				border-radius: 50%;
@@ -226,12 +227,14 @@
 			.name, .date {
 				font-size: 12px;
 				color: rgba(0,0,0,0.6);
-				line-height: 1;
 			}
 			.name {
 				&:after {
 					content: ',';
 				}
+			}
+			.date {
+				line-height: 2;
 			}
 			.action {
 				float: right;
@@ -259,46 +262,46 @@
 }
 
 
-	.wpeo-window-ask-task-container {
-        a {
-                background: @main-color;
-                color: #fff;
-                padding: 10px;
-                margin: 10px 0;
-                font-size: 14px;
-                display: inline-block;
-                &:hover {
-                        color: #fff;
-                }
-        }
-        #wpeo-window-ask-task {
-                display: none;
-                border: 1px solid rgba(0,0,0,0.1);
-        background: rgba(0,0,0,0.05);
-        padding: 20px;
-        margin-bottom: 20px;
-        }
-        form {
-                display: flex;
-                flex-direction: row;
-                > * {
-                        margin: 0 4px;
-                }
-                textarea {
-                        width: 100%;
-                }
-                input {
-                        margin: 0 !important;
-                }
-                input[type="text"], textarea {
-                        height: 40px;
-                }
-                input[type="text"], textarea, :placeholder-shown, :placeholder-shown, ::-webkit-input-placeholder {
-                        font-family: 'Kalam', sans-serif;
-                        font-weight: normal;
-                }
-                :placeholder-shown, :placeholder-shown, ::-webkit-input-placeholder {
-                        color: rgba(0,0,0,0.4);
-                }
-        }
+.wpeo-window-ask-task-container {
+  a {
+          background: @main-color;
+          color: #fff;
+          padding: 10px;
+          margin: 10px 0;
+          font-size: 14px;
+          display: inline-block;
+          &:hover {
+                  color: #fff;
+          }
+  }
+  #wpeo-window-ask-task {
+    display: none;
+    border: 1px solid rgba(0,0,0,0.1);
+	  background: rgba(0,0,0,0.05);
+	  padding: 20px;
+	  margin-bottom: 20px;
+  }
+  form {
+    display: flex;
+    flex-direction: row;
+    > * {
+      margin: 0 4px;
+    }
+    textarea {
+      width: 100%;
+    }
+    input {
+      margin: 0 !important;
+    }
+    input[type="text"], textarea {
+      height: 40px;
+    }
+    input[type="text"], textarea, :placeholder-shown, :placeholder-shown, ::-webkit-input-placeholder {
+      font-family: 'Kalam', sans-serif;
+      font-weight: normal;
+    }
+    :placeholder-shown, :placeholder-shown, ::-webkit-input-placeholder {
+      color: rgba(0,0,0,0.4);
+    }
+  }
 }

@@ -40,7 +40,7 @@
   width: 100%;
 }
 .wpeo-project-wrap .wpeo-window-dashboard {
-  min-width: 260px;
+  min-width: 360px;
 }
 .wpeo-project-wrap .wpeo-project-task {
   padding: 10px 20px 10px 10px;
@@ -173,7 +173,7 @@
 }
 /* Window */
 .wpeo-window-dashboard .wpeo-task-account-window-content {
-  width: 260px;
+  width: 360px;
   background: #fff;
   -webkit-box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.2);
           box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.2);
@@ -207,6 +207,7 @@
   font-family: 'Open Sans', sans-serif;
   line-height: 1;
   background: #fff;
+  width: 100%;
 }
 .wpeo-window-dashboard #wpeo-task-form-point-time .wpeo-task-form-input > div .wpeo-submit {
   -webkit-border-radius: 50%;
@@ -272,10 +273,12 @@
 .wpeo-window-dashboard #wpeo-task-point-history .wpeo-point-comment .date {
   font-size: 12px;
   color: rgba(0, 0, 0, 0.6);
-  line-height: 1;
 }
 .wpeo-window-dashboard #wpeo-task-point-history .wpeo-point-comment .name:after {
   content: ',';
+}
+.wpeo-window-dashboard #wpeo-task-point-history .wpeo-point-comment .date {
+  line-height: 2;
 }
 .wpeo-window-dashboard #wpeo-task-point-history .wpeo-point-comment .action {
   float: right;
