@@ -11,29 +11,8 @@ window.task_manager.navigation.init = function() {
 };
 
 window.task_manager.navigation.event = function() {
-	jQuery( document ).on( 'click', '.wpeo-header-bar button', window.task_manager.navigation.search );
 	jQuery( document ).on( 'click', '.wpeo-header-bar .more-search-options', window.task_manager.navigation.toggleMoreOptions );
-};
-
-window.task_manager.navigation.search = function() {
-	var synthesisTask = '';
-	var search = jQuery( this ).closest( 'li' ).find( 'input[type="text"]' ).val();
-
-	jQuery( '.wpeo-project-task' ).show();
-
-	jQuery( '.wpeo-project-task:visible' ).each( function() {
-		synthesisTask = '';
-		synthesisTask += jQuery( this ).text();
-		jQuery( this ).find( 'input' ).each( function() {
-			synthesisTask += jQuery( this ).val() + ' ';
-		} );
-
-		synthesisTask = synthesisTask.replace( /\s+\s/g, ' ' ).trim();
-
-		if ( synthesisTask.search( new RegExp( search, 'i' ) ) == -1 ) {
-			jQuery( this ).hide();
-		}
-	} );
+	jQuery( document ).on( 'click', '.wpeo-tag-search', window.task_manager.navigation.selectTag );
 };
 
 /**
@@ -59,5 +38,21 @@ window.task_manager.navigation.toggleMoreOptions = function() {
  * @version 1.3.6.0
  */
 window.task_manager.navigation.loadedMyTask = function( triggeredElement, response ) {
+	jQuery( '.list-task' ).replaceWith( response.data.view );
+	window.task_manager.task.offset = 0;
+	window.task_manager.task.canLoadMore = true;
+};
+
+window.task_manager.navigation.selectTag = function() {
+	jQuery( this ).toggleClass( 'active' );
+
+	if ( jQuery( this ).hasClass( 'active' ) ) {
+		// window.task_manager.navigation.searchData.tags.push( jQuery( this ).text() );
+	} else {
+		// window.task_manager.navigation.searchData.tags.splice( window.task_manager.navigation.searchData.tags.indexOf( jQuery( this ).text() ), 1 );
+	}
+};
+
+window.task_manager.navigation.searchedSuccess = function( triggeredElement, response ) {
 	jQuery( '.list-task' ).replaceWith( response.data.view );
 };

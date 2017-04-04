@@ -11,5 +11,6 @@
 		"model": {},
 		"class": {},
 		"shortcode": {}
-	}
+	},
+	"posts_per_page": 8
 }

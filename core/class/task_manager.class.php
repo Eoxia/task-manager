@@ -27,6 +27,8 @@ class Task_Manager_Class extends Singleton_Util {
 	 * @return void
 	 */
 	public function display() {
+		$term = ! empty( $_GET['term'] ) ? sanitize_text_field( $_GET['term'] ) : '';
+
 		require( PLUGIN_TASK_MANAGER_PATH . '/core/view/main.view.php' );
 	}
 }

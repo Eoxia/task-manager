@@ -44,8 +44,13 @@ class Search_Bar_Shortcode {
 	public function callback_task_manager_search_bar( $param ) {
 		$categories = Tag_Class::g()->get( array() );
 
+		$param = shortcode_atts( array(
+			'term' => '',
+		), $param, 'task_manager_search_bar' );
+
 		View_Util::exec( 'navigation', 'backend/main', array(
 			'categories' => $categories,
+			'param' => $param,
 		) );
 	}
 }

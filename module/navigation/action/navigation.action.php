@@ -29,6 +29,8 @@ class Navigation_Action {
 		add_action( 'wp_ajax_load_all_task', array( $this, 'callback_load_all_task' ) );
 		add_action( 'wp_ajax_load_my_task', array( $this, 'callback_load_my_task' ) );
 		add_action( 'wp_ajax_load_archived_task', array( $this, 'ajax_load_archived_task' ) );
+
+		add_action( 'wp_ajax_search', array( $this, 'callback_search' ) );
 	}
 
 	/**
@@ -131,6 +133,18 @@ class Navigation_Action {
 		wp_send_json_success( array(
 			'module' => 'tag',
 			'callback_success' => 'loadedArchivedTask',
+			'view' => ob_get_clean(),
+		) );
+	}
+
+	public function callback_search() {
+		$term = ! empty( $_POST['term'] ) ? sanitize_text_field( $_POST['term'] ) : '';
+
+		ob_start();
+		echo do_shortcode( '[task_manager_dashboard_content term="' . $term . '" posts_per_page="' . Config_Util::$init['task']->posts_per_page . '"]' );
+		wp_send_json_success( array(
+			'module' => 'navigation',
+			'callback_success' => 'searchedSuccess',
 			'view' => ob_get_clean(),
 		) );
 	}

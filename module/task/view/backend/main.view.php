@@ -15,13 +15,7 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 <div class="list-task">
-	<?php
-	if ( ! empty( $tasks ) ) :
-		foreach ( $tasks as $task ) :
-			View_Util::exec( 'task', 'backend/task', array(
-				'task' => $task,
-			) );
-		endforeach;
-	endif;
-	?>
+	<?php Task_Class::g()->display_tasks( $param ); ?>
 </div>
+
+<div class="load-more"></div>

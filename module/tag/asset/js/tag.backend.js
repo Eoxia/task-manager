@@ -96,6 +96,8 @@ window.task_manager.tag.closedTagEditMode = function( element, response ) {
  */
 window.task_manager.tag.loadedArchivedTask = function( element, response ) {
 	jQuery( '.list-task' ).replaceWith( response.data.view );
+	window.task_manager.task.offset = 0;
+	window.task_manager.task.canLoadMore = true;
 };
 
 /**

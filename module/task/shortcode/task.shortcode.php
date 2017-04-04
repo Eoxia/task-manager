@@ -28,13 +28,26 @@ class Task_Shortcode {
 		add_shortcode( 'task_manager_dashboard_content', array( $this, 'callback_task_manager_dashboard_content' ) );
 	}
 
-	public function callback_task_manager_dashboard_content() {
-		$tasks = Task_Class::g()->get( array(
-			'post_parent' => 0,
-		) );
+	/**
+	 * Le shortcode pour afficher les tâches
+	 *
+	 * @param  array $param Les paramètres du shortcode.
+	 * @return void
+	 *
+	 * @since 1.0.0.0
+	 * @version 1.3.6.0
+	 */
+	public function callback_task_manager_dashboard_content( $param ) {
+		$param = shortcode_atts( array(
+			'categories_id' => array(),
+			'users_id' => array(),
+			'term' => '',
+			'offset' => 0,
+			'posts_per_page' => Config_Util::$init['task']->posts_per_page,
+		), $param, 'task_manager_dashboard_content' );
 
 		View_Util::exec( 'task', 'backend/main', array(
-			'tasks' => $tasks,
+			'param' => $param,
 		) );
 	}
 }

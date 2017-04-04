@@ -5,6 +5,8 @@
  * @version 1.3.6.0
  */
 window.task_manager.task = {};
+window.task_manager.task.offset = 0;
+window.task_manager.task.canLoadMore = true;
 
 window.task_manager.task.init = function() {
 	window.task_manager.task.event();
@@ -12,6 +14,39 @@ window.task_manager.task.init = function() {
 
 window.task_manager.task.event = function() {
 	jQuery( '.wpeo-project-wrap' ).on( 'blur', '.wpeo-project-task-title', window.task_manager.task.editTitle );
+	jQuery( window ).scroll( window.task_manager.task.onScrollLoadMore );
+};
+
+window.task_manager.task.onScrollLoadMore = function() {
+	var data = {};
+
+	if ( ( jQuery( window ).scrollTop() == jQuery( document ).height() - jQuery( window ).height() ) && window.task_manager.task.canLoadMore ) {
+		window.task_manager.task.offset += parseInt( window.task_manager_posts_per_page );
+		window.task_manager.task.canLoadMore = false;
+
+		data.action = 'load_more_task';
+		data.offset = window.task_manager.task.offset;
+		data.posts_per_page = window.task_manager_posts_per_page;
+		data.term = jQuery( '.wpeo-header-bar input[name="term"]' ).val();
+
+		jQuery( '.load-more' ).addClass( 'loading' );
+		window.task_manager.request.send( jQuery( '.load-more' ), data );
+	}
+};
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "load_more_task".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.3.6.0
+ */
+window.task_manager.task.loadedMoreTask = function( triggeredElement, response ) {
+	jQuery( '.list-task' ).append( response.data.view );
+	window.task_manager.task.canLoadMore = true;
 };
 
 window.task_manager.task.editTitle = function( event ) {
@@ -85,6 +120,8 @@ window.task_manager.task.beforeChangeColor = function( triggeredElement, data ) 
  */
 window.task_manager.task.loadedAllTask = function( triggeredElement, response ) {
 	jQuery( '.list-task' ).replaceWith( response.data.view );
+	window.task_manager.task.offset = 0;
+	window.task_manager.task.canLoadMore = true;
 };
 
 /**

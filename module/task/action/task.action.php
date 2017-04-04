@@ -27,6 +27,8 @@ class Task_Action {
 	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'callback_init' ) );
+		add_action( 'wp_print_script', array( $this, 'callback_wp_print_script' ) );
+		add_action( 'admin_print_scripts', array( $this, 'callback_wp_print_script' ) );
 
 		add_action( 'wp_ajax_create_task', array( $this, 'callback_create_task' ) );
 		add_action( 'wp_ajax_delete_task', array( $this, 'callback_delete_task' ) );
@@ -39,6 +41,8 @@ class Task_Action {
 
 		add_action( 'wp_ajax_search_parent', array( $this, 'callback_search_parent' ) );
 		add_action( 'wp_ajax_move_task_to', array( $this, 'callback_move_task_to' ) );
+
+		add_action( 'wp_ajax_load_more_task', array( $this, 'callback_load_more_task' ) );
 	}
 
 	/**
@@ -51,6 +55,22 @@ class Task_Action {
 	 */
 	public function callback_init() {
 		register_post_status( 'archive' );
+	}
+
+	/**
+	 * Ajoutes le nombre de posts_per_page dans une variable JS
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0.0
+	 * @version 1.3.6.0
+	 */
+	public function callback_wp_print_script() {
+		?>
+		<script>
+			window.task_manager_posts_per_page = "<?php echo esc_attr( Config_Util::$init['task']->posts_per_page ); ?>";
+		</script>
+		<?php
 	}
 
 	/**
@@ -319,6 +339,35 @@ class Task_Action {
 		wp_send_json_success( array(
 			'module' => 'task',
 			'callback_success' => 'movedTaskTo',
+		) );
+	}
+
+	/**
+	 * Charges plus de tâche en appelant le shortcode task_manager_dashboard_content
+	 *
+	 * @return void
+	 *
+	 * @since 1.3.6.0
+	 * @version 1.3.6.0
+	 *
+	 * @todo: nonce
+	 */
+	public function callback_load_more_task() {
+		$offset = ! empty( $_POST['offset'] ) ? (int) $_POST['offset'] : 0;
+		$posts_per_page = ! empty( $_POST['posts_per_page'] ) ? (int) $_POST['posts_per_page'] : 0;
+		$term = ! empty( $_POST['term'] ) ? sanitize_text_field( $_POST['term'] ) : '';
+
+		ob_start();
+		Task_Class::g()->display_tasks( array(
+			'offset' => $offset,
+			'posts_per_page' => $posts_per_page,
+			'term' => $term,
+		) );
+
+		wp_send_json_success( array(
+			'view' => ob_get_clean(),
+			'module' => 'task',
+			'callback_success' => 'loadedMoreTask',
 		) );
 	}
 }
