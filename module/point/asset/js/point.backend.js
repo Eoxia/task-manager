@@ -28,7 +28,7 @@ window.task_manager.point.init = function() {
  * @version 1.0.0.0
  */
 window.task_manager.point.event = function() {
-	jQuery( document ).on( 'blur keyup paste keydown', '.wpeo-add-point .wpeo-point-new-contenteditable', window.task_manager.point.updateHiddenInput );
+	jQuery( document ).on( 'blur keyup paste keydown', '.wpeo-task-point .wpeo-point-new-contenteditable', window.task_manager.point.updateHiddenInput );
 	jQuery( document ).on( 'blur paste', 'form.edit .wpeo-point-new-contenteditable', window.task_manager.point.editPoint );
 	jQuery( document ).on( 'click', 'form .completed-point', window.task_manager.point.completePoint );
 };
@@ -60,14 +60,14 @@ window.task_manager.point.refresh = function() {
  */
 window.task_manager.point.updateHiddenInput = function( event ) {
 	if ( 0 < jQuery( this ).text().length ) {
-		jQuery( this ).closest( '.wpeo-add-point' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 1 );
-		jQuery( this ).closest( '.wpeo-point-input' ).find( '.wpeo-point-new-placeholder' ).addClass( 'hidden' );
+		jQuery( this ).closest( '.wpeo-task-point' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 1 );
+		jQuery( this ).closest( '.wpeo-task-point' ).find( '.wpeo-point-new-placeholder' ).addClass( 'hidden' );
 	} else {
-		jQuery( this ).closest( '.wpeo-add-point' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 0.4 );
-		jQuery( this ).closest( '.wpeo-point-input' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
+		jQuery( this ).closest( '.wpeo-task-point' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 0.4 );
+		jQuery( this ).closest( '.wpeo-task-point' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
 	}
 
-	jQuery( this ).closest( '.wpeo-point-input' ).find( 'input[type="hidden"]' ).val( jQuery( this ).text() );
+	jQuery( this ).closest( '.wpeo-task-point' ).find( 'input[name="content"]' ).val( jQuery( this ).text() );
 };
 
 /**

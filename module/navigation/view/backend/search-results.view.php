@@ -34,6 +34,8 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 				?>"<?php echo esc_html( $follower_searched ); ?>"<?php
 			endif;
 			?>
+
+			<a href="<?php echo esc_attr( admin_url( 'admin.php' ) ); ?>?page=wpeomtm-dashboard"><span class="dashicons dashicons-no-alt"></span></a>
 		</h3>
 	<?php endif; ?>
 </div>

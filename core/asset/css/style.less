@@ -508,152 +508,17 @@
 		Content affichage tâche
 -----------------------------------*/
 .wpeo-project-wrap {
-	.wpeo-task-point {
+	.points {
+		display: flex;
+		flex-direction: column;
+		ul {
+			display: flex;
+			.content {
+				width: 60%;
+			}
+		}
+	}
 
-		padding: 0 10px;
-		li {
-			position: relative;
-			ul {
-				display: flex;
-				flex-direction: row;
-			}
-			> ul > li {
-				padding: 2px 2px;
-				margin: auto;
-				display: flex;
-				flex-direction: row;
-
-				.dashicons-screenoptions, .wpeo-send-point-to-trash {
-					opacity: 0;
-					transition: all 0.2s ease-out;
-				}
-				.wpeo-send-point-to-trash {
-					background: rgba(0,0,0,0.3);
-					color: rgba(0,0,0,0.6);
-					border-radius: 50%;
-					transition: all 0.2s ease-out;
-					i {
-						font-size: 16px;
-						line-height: 1.4;
-					}
-				}
-				.wpeo-done-point {
-					border-radius: 50%;
-				    border: 1px solid rgba(0,0,0,0.3);
-				    transition: all 0.2s ease-out;
-				    &:hover {
-				    	border: 1px solid @main-color;
-				    }
-				}
-				&:hover .dashicons-screenoptions {
-					cursor: move;
-				}
-				&:hover .wpeo-send-point-to-trash {
-					cursor: pointer;
-				}
-				&:nth-of-type(1) {
-					width: 16%;
-					& > span {
-						width: 100%;
-						text-align: center;
-					}
-				}
-				&:nth-of-type(2) {
-					width: 64%;
-					z-index: 1;
-				}
-				&:nth-of-type(3) {
-					width: 20%;
-					>*:nth-of-type(2) {
-						padding-left: 2px;
-					}
-					> *:last-child {
-						margin-left: auto;
-					}
-				}
-				.wpeo-block-id {
-					text-align: center;
-					width: 100%;
-					font-weight: bold;
-				}
-			}
-			&:hover .dashicons-screenoptions, &:hover .wpeo-send-point-to-trash {
-				opacity: 0.4;
-			}
-			.wpeo-point-new-btn {
-				// color: @main-color;
-				opacity: 0.2;
-				margin-left: 0 !important;
-				&:hover {
-					cursor: pointer;
-				}
-			}
-		}
-		.wpeo-point-new-contenteditable {
-			padding: 5px;
-			font-family: 'kalamregular';
-			font-size: 14px;
-			width: 100%;
-			border-bottom: 1px solid rgba(0,0,0,0.1);
-			transition: all 0.2s ease-out;
-			text-align: left;
-			&:hover, &:focus {
-				border-bottom: 1px solid rgba(0,0,0,0.6);
-			}
-			&:focus, &.active {
-				// color: @main-color;
-			}
-		}
-		.wpeo-add-point {
-			.wpeo-point-input {
-				div {
-					min-height: 30px;
-				}
-				span {
-					position: absolute;
-					top: 6px;
-					left: 6px;
-					z-index: -100;
-					opacity: 0.4;
-				}
-			}
-		}
-	}
-	.wpeo-task-point-completed li {
-		.dashicons-screenoptions {
-			opacity: 0;
-			cursor: auto;
-			pointer-events: none;
-		}
-		.flex-text-wrap textarea {
-			text-decoration: line-through;
-		}
-	}
-	.wpeo-task-point-use-toggle {
-		margin: 24px 0 16px 0;
-		text-align: center;
-		border-top: 1px solid rgba(0,0,0,0.2);
-		p {
-			position: relative;
-			top: -10px;
-			display: inline-block;
-			padding: 0 20px;
-			transition: all 0.2s ease-out;
-		}
-		a {
-			color: #000;
-			font-weight: bold;
-			text-decoration: none;
-		}
-		.wpeo-point-toggle-arrow {
-			background: rgba(0,0,0,0.3);
-			color: #fff;
-			border-radius: 50%;
-			font-size: 14px;
-			padding: 4px 0;
-			margin-right: 4px;
-		}
-	}
 }
 
 

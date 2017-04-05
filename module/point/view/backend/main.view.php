@@ -14,7 +14,7 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
-<ul class="wpeo-task-point wpeo-task-point-sortable">
+<div class="points sortable">
 	<?php
 	if ( ! empty( $points_uncompleted ) ) :
 		foreach ( $points_uncompleted as $point ) :
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		'parent_id' => $task_id,
 	) );
 	?>
-</ul>
+</div>
 
 <div class="wpeo-task-point-use-toggle">
 	<p 	class="action-attribute"

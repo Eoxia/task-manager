@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; ?>
 </div>
 
 <!-- Uncompleted points -->
-<ul class="wpeo-task-point wpeo-task-point-sortable">
+<ul class="points sortable">
 	<input type="hidden" class="wpeo-object-id" value="<?php echo $object_id; ?>" />
 
 	<?php if( !empty( $list_point_uncompleted ) ):?>

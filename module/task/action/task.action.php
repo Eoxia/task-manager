@@ -356,12 +356,25 @@ class Task_Action {
 		$offset = ! empty( $_POST['offset'] ) ? (int) $_POST['offset'] : 0;
 		$posts_per_page = ! empty( $_POST['posts_per_page'] ) ? (int) $_POST['posts_per_page'] : 0;
 		$term = ! empty( $_POST['term'] ) ? sanitize_text_field( $_POST['term'] ) : '';
+		$users_id = ! empty( $_POST['users_id'] ) ? sanitize_text_field( $_POST['users_id'] ) : array();
+
+		if ( ! empty( $users_id ) ) {
+			$users_id = explode( ',', $users_id );
+		}
+
+		$categories_id = ! empty( $_POST['categories_id'] ) ? sanitize_text_field( $_POST['categories_id'] ) : array();
+
+		if ( ! empty( $categories_id ) ) {
+			$categories_id = explode( ',', $categories_id );
+		}
 
 		ob_start();
 		Task_Class::g()->display_tasks( array(
 			'offset' => $offset,
 			'posts_per_page' => $posts_per_page,
 			'term' => $term,
+			'users_id' => $users_id,
+			'categories_id' => $categories_id,
 		) );
 
 		wp_send_json_success( array(

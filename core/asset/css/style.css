@@ -4604,185 +4604,29 @@
 /* ----------------------------------
 		Content affichage tâche
 -----------------------------------*/
-.wpeo-project-wrap .wpeo-task-point {
-  padding: 0 10px;
-}
-.wpeo-project-wrap .wpeo-task-point li {
-  position: relative;
-}
-.wpeo-project-wrap .wpeo-task-point li ul {
+.wpeo-project-wrap .points {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
+  -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-     -moz-box-orient: horizontal;
+  -webkit-flex-direction: column;
+     -moz-box-orient: vertical;
      -moz-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
-.wpeo-project-wrap .wpeo-task-point li > ul > li {
-  padding: 2px 2px;
-  margin: auto;
+.wpeo-project-wrap .points ul {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-     -moz-box-orient: horizontal;
-     -moz-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
 }
-.wpeo-project-wrap .wpeo-task-point li > ul > li .dashicons-screenoptions,
-.wpeo-project-wrap .wpeo-task-point li > ul > li .wpeo-send-point-to-trash {
-  opacity: 0;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-  -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out;
-}
-.wpeo-project-wrap .wpeo-task-point li > ul > li .wpeo-send-point-to-trash {
-  background: rgba(0, 0, 0, 0.3);
-  color: rgba(0, 0, 0, 0.6);
-  -webkit-border-radius: 50%;
-          border-radius: 50%;
-  -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out;
-}
-.wpeo-project-wrap .wpeo-task-point li > ul > li .wpeo-send-point-to-trash i {
-  font-size: 16px;
-  line-height: 1.4;
-}
-.wpeo-project-wrap .wpeo-task-point li > ul > li .wpeo-done-point {
-  -webkit-border-radius: 50%;
-          border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out;
-}
-.wpeo-project-wrap .wpeo-task-point li > ul > li .wpeo-done-point:hover {
-  border: 1px solid #389af6;
-}
-.wpeo-project-wrap .wpeo-task-point li > ul > li:hover .dashicons-screenoptions {
-  cursor: move;
-}
-.wpeo-project-wrap .wpeo-task-point li > ul > li:hover .wpeo-send-point-to-trash {
-  cursor: pointer;
-}
-.wpeo-project-wrap .wpeo-task-point li > ul > li:nth-of-type(1) {
-  width: 16%;
-}
-.wpeo-project-wrap .wpeo-task-point li > ul > li:nth-of-type(1) > span {
-  width: 100%;
-  text-align: center;
-}
-.wpeo-project-wrap .wpeo-task-point li > ul > li:nth-of-type(2) {
-  width: 64%;
-  z-index: 1;
-}
-.wpeo-project-wrap .wpeo-task-point li > ul > li:nth-of-type(3) {
-  width: 20%;
-}
-.wpeo-project-wrap .wpeo-task-point li > ul > li:nth-of-type(3) > *:nth-of-type(2) {
-  padding-left: 2px;
-}
-.wpeo-project-wrap .wpeo-task-point li > ul > li:nth-of-type(3) > *:last-child {
-  margin-left: auto;
-}
-.wpeo-project-wrap .wpeo-task-point li > ul > li .wpeo-block-id {
-  text-align: center;
-  width: 100%;
-  font-weight: bold;
-}
-.wpeo-project-wrap .wpeo-task-point li:hover .dashicons-screenoptions,
-.wpeo-project-wrap .wpeo-task-point li:hover .wpeo-send-point-to-trash {
-  opacity: 0.4;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
-}
-.wpeo-project-wrap .wpeo-task-point li .wpeo-point-new-btn {
-  opacity: 0.2;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
-  margin-left: 0 !important;
-}
-.wpeo-project-wrap .wpeo-task-point li .wpeo-point-new-btn:hover {
-  cursor: pointer;
-}
-.wpeo-project-wrap .wpeo-task-point .wpeo-point-new-contenteditable {
-  padding: 5px;
-  font-family: 'kalamregular';
-  font-size: 14px;
-  width: 100%;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out;
-  text-align: left;
-}
-.wpeo-project-wrap .wpeo-task-point .wpeo-point-new-contenteditable:hover,
-.wpeo-project-wrap .wpeo-task-point .wpeo-point-new-contenteditable:focus {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.6);
-}
-.wpeo-project-wrap .wpeo-task-point .wpeo-add-point .wpeo-point-input div {
-  min-height: 30px;
-}
-.wpeo-project-wrap .wpeo-task-point .wpeo-add-point .wpeo-point-input span {
-  position: absolute;
-  top: 6px;
-  left: 6px;
-  z-index: -100;
-  opacity: 0.4;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
-}
-.wpeo-project-wrap .wpeo-task-point-completed li .dashicons-screenoptions {
-  opacity: 0;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-  cursor: auto;
-  pointer-events: none;
-}
-.wpeo-project-wrap .wpeo-task-point-completed li .flex-text-wrap textarea {
-  text-decoration: line-through;
-}
-.wpeo-project-wrap .wpeo-task-point-use-toggle {
-  margin: 24px 0 16px 0;
-  text-align: center;
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
-}
-.wpeo-project-wrap .wpeo-task-point-use-toggle p {
-  position: relative;
-  top: -10px;
-  display: inline-block;
-  padding: 0 20px;
-  -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out;
-}
-.wpeo-project-wrap .wpeo-task-point-use-toggle a {
-  color: #000;
-  font-weight: bold;
-  text-decoration: none;
-}
-.wpeo-project-wrap .wpeo-task-point-use-toggle .wpeo-point-toggle-arrow {
-  background: rgba(0, 0, 0, 0.3);
-  color: #fff;
-  -webkit-border-radius: 50%;
-          border-radius: 50%;
-  font-size: 14px;
-  padding: 4px 0;
-  margin-right: 4px;
+.wpeo-project-wrap .points ul .content {
+  width: 60%;
 }
 /* ----------------------------------
 		Footer affichage tags
