@@ -13,6 +13,7 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 
+<input type="hidden" name="categories_id_selected" />
 <ul class="tags">
 	<li class="wpeo-tag-title"><?php esc_html_e( 'Keyword', 'task-manager' ); ?></li>
 	<?php

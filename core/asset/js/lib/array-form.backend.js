@@ -9,7 +9,7 @@ window.eoxiaJS.arrayForm.event = function() {
 };
 
 window.eoxiaJS.arrayForm.getInput = function( parent ) {
-	return parent.find( 'input, textarea' );
+	return parent.find( 'input, textarea, select' );
 };
 
 window.eoxiaJS.arrayForm.getInputValue = function( input ) {

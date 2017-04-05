@@ -27,7 +27,9 @@ class Task_Manager_Class extends Singleton_Util {
 	 * @return void
 	 */
 	public function display() {
-		$term = ! empty( $_GET['term'] ) ? sanitize_text_field( $_GET['term'] ) : '';
+		$term = ! empty( $_GET['term'] ) ? sanitize_text_field( $_GET['term'] ) : ''; // WPCS: CSRF ok.
+		$categories_id_selected = ! empty( $_GET['categories_id_selected'] ) ? sanitize_text_field( $_GET['categories_id_selected'] ) : ''; // WPCS: CSRF ok.
+		$follower_id_selected = ! empty( $_GET['follower_id_selected'] ) ? sanitize_text_field( $_GET['follower_id_selected'] ) : ''; // WPCS: CSRF ok.
 
 		require( PLUGIN_TASK_MANAGER_PATH . '/core/view/main.view.php' );
 	}

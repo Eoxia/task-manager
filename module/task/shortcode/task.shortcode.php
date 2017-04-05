@@ -46,6 +46,22 @@ class Task_Shortcode {
 			'posts_per_page' => Config_Util::$init['task']->posts_per_page,
 		), $param, 'task_manager_dashboard_content' );
 
+		if ( ! is_array( $param['categories_id'] ) && ! empty( $param['categories_id'] ) ) {
+			$param['categories_id'] = explode( ',', $param['categories_id'] );
+		}
+
+		if ( ! is_array( $param['categories_id'] ) ) {
+			$param['categories_id'] = array();
+		}
+
+		if ( ! is_array( $param['users_id'] ) && ! empty( $param['users_id'] ) ) {
+			$param['users_id'] = explode( ',', $param['users_id'] );
+		}
+
+		if ( ! is_array( $param['users_id'] ) ) {
+			$param['users_id'] = array();
+		}
+
 		View_Util::exec( 'task', 'backend/main', array(
 			'param' => $param,
 		) );

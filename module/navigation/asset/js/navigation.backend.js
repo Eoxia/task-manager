@@ -43,16 +43,51 @@ window.task_manager.navigation.loadedMyTask = function( triggeredElement, respon
 	window.task_manager.task.canLoadMore = true;
 };
 
+/**
+ * Toggle la classe "active" à l'élement cliqué.
+ *
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.3.6.0
+ */
 window.task_manager.navigation.selectTag = function() {
 	jQuery( this ).toggleClass( 'active' );
-
-	if ( jQuery( this ).hasClass( 'active' ) ) {
-		// window.task_manager.navigation.searchData.tags.push( jQuery( this ).text() );
-	} else {
-		// window.task_manager.navigation.searchData.tags.splice( window.task_manager.navigation.searchData.tags.indexOf( jQuery( this ).text() ), 1 );
-	}
 };
 
+/**
+ * Vérifies les données pour la recherche avant d'exécuter la requête.
+ *
+ * @param  {HTMLSpanElement} triggeredElement L'élement déclenchant l'action.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.3.6.0
+ */
+window.task_manager.navigation.checkDataBeforeSearch = function( triggeredElement ) {
+	var categoriesIdSelected = [];
+
+	jQuery( '.tag-search .tags li.active' ).each( function( key, item ) {
+		categoriesIdSelected.push( parseInt( jQuery( item ).attr( 'data-tag-id' ) ) );
+	} );
+
+	jQuery( 'input[name="categories_id_selected"] ' ).val( categoriesIdSelected.join( ',' ) );
+
+	return true;
+};
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "search".
+ * Remplaces le contenu des tâches du dashboard et affiches la div contenant le résultat de la recherche.
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.3.6.0
+ */
 window.task_manager.navigation.searchedSuccess = function( triggeredElement, response ) {
-	jQuery( '.list-task' ).replaceWith( response.data.view );
+	jQuery( '.list-task' ).replaceWith( response.data.view.tasks );
+	jQuery( '.search-results' ).replaceWith( response.data.view.search_result );
 };

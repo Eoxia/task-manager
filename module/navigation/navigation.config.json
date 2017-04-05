@@ -6,6 +6,7 @@
 	"path": "module/navigation/",
 	"dependencies": {
 		"action": {},
+		"class": {},
 		"shortcode": {}
 	}
 }

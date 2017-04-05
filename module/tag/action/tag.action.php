@@ -24,6 +24,8 @@ class Tag_Action {
 	 * Instanciation des crochets pour les "actions" utilisées par les tags
 	 */
 	public function __construct() {
+		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ) );
+
 		add_action( 'wp_ajax_to_archive', array( $this, 'ajax_to_archive' ) );
 		add_action( 'wp_ajax_to_unarchive', array( $this, 'ajax_to_unarchive' ) );
 		/** Chargement des tags existants pour affectation */
@@ -36,6 +38,18 @@ class Tag_Action {
 
 		/** Création d'un tag */
 		add_action( 'wp_ajax_create_tag', array( $this, 'ajax_create_tag' ) );
+	}
+
+	/**
+	 * Ajoutes un sous menu "Categories" qui renvoie vers la page pour créer les catégories de Task Manager.
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0.0
+	 * @version 1.3.6.0
+	 */
+	public function callback_admin_menu() {
+		add_submenu_page( 'wpeomtm-dashboard', __( 'Categories', 'task-manager' ), __( 'Categories', 'task-manager' ), 'manage_options', 'edit-tags.php?taxonomy=wpeo_tag' );
 	}
 
 	/**

@@ -31,6 +31,7 @@ class Navigation_Action {
 		add_action( 'wp_ajax_load_archived_task', array( $this, 'ajax_load_archived_task' ) );
 
 		add_action( 'wp_ajax_search', array( $this, 'callback_search' ) );
+
 	}
 
 	/**
@@ -137,15 +138,35 @@ class Navigation_Action {
 		) );
 	}
 
+	/**
+	 * Utilises le shorcode "tasks" pour récupérer les tâches correspondant au critères de la recherche.
+	 *
+	 * @return void
+	 *
+	 * @since 1.0.0.0
+	 * @version 1.3.6.0
+	 * @todo nonce
+	 */
 	public function callback_search() {
 		$term = ! empty( $_POST['term'] ) ? sanitize_text_field( $_POST['term'] ) : '';
+		$categories_id_selected = ! empty( $_POST['categories_id_selected'] ) ? sanitize_text_field( $_POST['categories_id_selected'] ) : '';
+		$follower_id_selected = ! empty( $_POST['follower_id_selected' ] ) ? (int) $_POST['follower_id_selected'] : '';
 
 		ob_start();
-		echo do_shortcode( '[task_manager_dashboard_content term="' . $term . '" posts_per_page="' . Config_Util::$init['task']->posts_per_page . '"]' );
+		Navigation_Class::g()->display_search_result( $term, $categories_id_selected, $follower_id_selected );
+		$search_result_view = ob_get_clean();
+
+		ob_start();
+		do_shortcode( '[task_manager_dashboard_content users_id="' . $follower_id_selected . '" categories_id="' . $categories_id_selected . '" term="' . $term . '" posts_per_page="' . Config_Util::$init['task']->posts_per_page . '"]' );
+		$tasks_view = ob_get_clean();
+
 		wp_send_json_success( array(
 			'module' => 'navigation',
 			'callback_success' => 'searchedSuccess',
-			'view' => ob_get_clean(),
+			'view' => array(
+				'tasks' => $tasks_view,
+				'search_result' => $search_result_view,
+			)
 		) );
 	}
 }

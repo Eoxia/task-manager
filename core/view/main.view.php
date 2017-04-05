@@ -26,6 +26,6 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		</h2>
 	</div>
 
-	<?php do_shortcode( '[task_manager_search_bar term="' . $term . '"]' ); ?>
-	<?php do_shortcode( '[task_manager_dashboard_content term="' . $term . '" posts_per_page="' . Config_Util::$init['task']->posts_per_page . '"]' ); ?>
+	<?php do_shortcode( '[task_manager_search_bar term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '"]' ); ?>
+	<?php do_shortcode( '[task_manager_dashboard_content term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '"]' ); ?>
 </div>

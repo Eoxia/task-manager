@@ -43,13 +43,22 @@ class Search_Bar_Shortcode {
 	 */
 	public function callback_task_manager_search_bar( $param ) {
 		$categories = Tag_Class::g()->get( array() );
+		$followers = User_Class::g()->get( array() );
+
+		$empty_user = new \StdClass();
+		$empty_user->id = '';
+		$empty_user->displayname = '';
+		array_unshift( $followers, $empty_user );
 
 		$param = shortcode_atts( array(
 			'term' => '',
+			'categories_id_selected' => array(),
+			'follower_id_selected' => array(),
 		), $param, 'task_manager_search_bar' );
 
 		View_Util::exec( 'navigation', 'backend/main', array(
 			'categories' => $categories,
+			'followers' => $followers,
 			'param' => $param,
 		) );
 	}
