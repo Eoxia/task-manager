@@ -5,6 +5,7 @@
 }
 /* Reset */
 .wpeo-project-wrap {
+  clear: both;
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
   font-weight: 400;
@@ -47,6 +48,9 @@
 }
 .wpeo-project-wrap .wpeo-window-dashboard {
   padding-top: 10px;
+}
+.wpeo-project-wrap .dashicons {
+  color: rgba(0, 0, 0, 0.8);
 }
 /* Liste des taches */
 .wpeo-project-task .task {
@@ -167,6 +171,7 @@
   -o-transition: all 0.2s ease-out;
   -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
+  min-width: 20px;
 }
 .wpeo-project-task .task .wpeo-task-point .completed-point.hidden {
   display: none;
@@ -178,6 +183,8 @@
   -webkit-box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.2);
           box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.2);
   padding: 10px;
+  max-height: 600px;
+  overflow-y: scroll;
 }
 .wpeo-window-dashboard .wpeo-task-account-window-content.fixe {
   position: fixed;
@@ -208,17 +215,43 @@
   line-height: 1;
   background: #fff;
   width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  padding: 4px;
+}
+.wpeo-window-dashboard #wpeo-task-form-point-time .wpeo-task-form-input > div textarea:focus {
+  outline: none;
+}
+.wpeo-window-dashboard #wpeo-task-form-point-time .wpeo-task-form-input > div textarea:hover,
+.wpeo-window-dashboard #wpeo-task-form-point-time .wpeo-task-form-input > div textarea:focus {
+  border: 1px solid rgba(0, 0, 0, 0.8);
 }
 .wpeo-window-dashboard #wpeo-task-form-point-time .wpeo-task-form-input > div .wpeo-submit {
   -webkit-border-radius: 50%;
           border-radius: 50%;
   background: #389af6;
   width: 22px;
+  min-width: 22px;
   height: 22px;
   text-align: center;
   line-height: 22px;
-  margin: auto;
+  margin: auto 0 auto 4px;
   padding: 0;
+  border: 0;
+  color: #fff;
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+.wpeo-window-dashboard #wpeo-task-form-point-time .wpeo-task-form-input > div .wpeo-submit:focus {
+  outline: none;
+}
+.wpeo-window-dashboard #wpeo-task-form-point-time .wpeo-task-form-input > div .wpeo-submit:hover {
+  background: #6fb9ff;
 }
 .wpeo-window-dashboard .wpeo-point-no-comment {
   font-size: 12px;
@@ -284,6 +317,16 @@
   float: right;
   font-weight: bold;
 }
+.wpeo-window-dashboard #wpeo-task-point-history .wpeo-point-comment .action .wpeo-point-time-edit-btn {
+  color: #389af6;
+}
+.wpeo-window-dashboard #wpeo-task-point-history .wpeo-point-comment .action .wpeo-send-point-time-to-trash {
+  color: #da5b5b;
+}
+.wpeo-window-dashboard #wpeo-task-point-history .wpeo-point-comment .action .wpeo-point-time-edit-btn:hover,
+.wpeo-window-dashboard #wpeo-task-point-history .wpeo-point-comment .action .wpeo-send-point-time-to-trash:hover {
+  cursor: pointer;
+}
 .wpeo-window-dashboard #wpeo-task-point-history .wpeo-point-comment .comment {
   clear: both;
   float: none;
@@ -300,23 +343,42 @@
   color: rgba(0, 0, 0, 0.6);
   font-size: 13px;
 }
+.wpeo-window-ask-task-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+}
 .wpeo-window-ask-task-container a {
   background: #389af6;
   color: #fff;
-  padding: 10px;
-  margin: 10px 0;
   font-size: 14px;
   display: inline-block;
+  min-width: 180px;
+  width: 180px;
+  line-height: 50px;
+  height: 50px;
+  text-align: center;
+  margin: auto 0;
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
 }
-.wpeo-window-ask-task-container a:hover {
+.wpeo-window-ask-task-container a:hover,
+.wpeo-window-ask-task-container a:focus,
+.wpeo-window-ask-task-container a:active {
   color: #fff;
+  background: #6fb9ff;
 }
 .wpeo-window-ask-task-container #wpeo-window-ask-task {
   display: none;
   border: 1px solid rgba(0, 0, 0, 0.1);
   background: rgba(0, 0, 0, 0.05);
   padding: 20px;
-  margin-bottom: 20px;
+  width: 100%;
+  margin-left: 20px;
 }
 .wpeo-window-ask-task-container form {
   display: -webkit-box;
@@ -344,6 +406,24 @@
 .wpeo-window-ask-task-container form input[type="text"],
 .wpeo-window-ask-task-container form textarea {
   height: 40px;
+  width: 100%;
+  padding: 0 10px;
+}
+.wpeo-window-ask-task-container form input[type="button"] {
+  background: #389af6;
+  color: #fff;
+  padding: 10px;
+  font-size: 14px;
+  display: inline-block;
+  border: 0;
+  margin-left: 10px !important;
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+.wpeo-window-ask-task-container form input[type="button"]:hover {
+  background: #6fb9ff;
 }
 .wpeo-window-ask-task-container form input[type="text"],
 .wpeo-window-ask-task-container form textarea,
@@ -357,4 +437,54 @@
 .wpeo-window-ask-task-container form :placeholder-shown,
 .wpeo-window-ask-task-container form ::-webkit-input-placeholder {
   color: rgba(0, 0, 0, 0.4);
+}
+.wpeo-project-search {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 12px;
+  margin: 12px 0;
+}
+.wpeo-project-search:after {
+  display: block;
+  content: '';
+  clear: both;
+}
+.wpeo-project-search input[type="text"] {
+  margin: auto 0 auto auto;
+  padding: 6px 12px;
+}
+.wpeo-project-search .search-button {
+  background: #389af6;
+  color: #fff;
+  display: inline-block;
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  border: 0;
+  min-width: 36px;
+  width: 36px;
+  height: 36px;
+  text-align: center;
+  margin-left: 10px;
+}
+.wpeo-project-search .search-button:hover,
+.wpeo-project-search .search-button:focus,
+.wpeo-project-search .search-button:active {
+  color: #fff;
+  background: #6fb9ff;
+}
+.wpeo-project-search .search-button:hover .dashicons,
+.wpeo-project-search .search-button:focus .dashicons,
+.wpeo-project-search .search-button:active .dashicons {
+  color: #fff;
+}
+.wpeo-project-search .search-button .dashicons {
+  color: #fff;
+  line-height: 20px;
 }

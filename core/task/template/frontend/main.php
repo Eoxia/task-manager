@@ -1,4 +1,4 @@
-<div>
+<div class="wpeo-project-search">
 	<input type="text" class="task-search" placeholder="<?php esc_html_e( 'Search..', 'task-manager' ); ?>" />
 	<button class="search-button"><span class="dashicons dashicons-search"></span></button>
 </div>
