@@ -330,6 +330,9 @@
 .wpeo-window-dashboard #wpeo-task-point-history .wpeo-point-comment .comment {
   clear: both;
   float: none;
+  font-size: 12px;
+  margin: 0;
+  padding-top: 10px;
 }
 .wpeo-window-dashboard #wpeo-task-point-history .wpeo-point-comment li {
   float: left;
