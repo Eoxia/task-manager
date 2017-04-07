@@ -13,7 +13,7 @@ if ( ! class_exists( 'task_controller_01' ) ) {
 		protected $base = 'task';
 		protected $version = '0.1';
 
-		public $limit_task = 8;
+		public $limit_task = -1;
 
 		public function __construct() {
 			parent::__construct();
