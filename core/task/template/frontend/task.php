@@ -50,7 +50,7 @@ global $time_controller; ?>
 			<p>
 				<span class="dashicons wpeo-point-toggle-arrow dashicons-plus"></span>
 				<strong><?php esc_html_e( 'Completed point', 'task-manager' ); ?></strong>
-				<?php echo '(' . count( $task->point_completed ) . '/' . count( $task->point_uncompleted ) . ')'; ?>
+				<?php echo '(' . count( $task->point_completed ) . '/' . ( count( $task->point_uncompleted ) + count( $task->point_completed ) ) . ')'; ?>
 			</p>
 		</li>
 

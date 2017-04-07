@@ -15,8 +15,7 @@
 	</li>
 	<li class="wpeo-point-comment-time">
 		<div>
-			<strong><?php echo $point_time->option['time_info']['elapsed']; ?></strong>
-			<span class="dashicons dashicons-clock"></span>
+
 		</div>
 		<div>
 			<?php if ( get_current_user_id() == $point_time->author_id ):

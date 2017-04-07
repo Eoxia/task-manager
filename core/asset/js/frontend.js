@@ -193,8 +193,7 @@ var wpeo_point = {
     event.preventDefault();
 
      jQuery( element ).find('.wpeo-point-toggle-arrow').toggleClass('dashicons-plus dashicons-minus');
-         jQuery( element ).closest('.wpeo-task-point-use-toggle').next('.completed-point').toggle(200, function() {
-         });
+     jQuery( element ).closest('.wpeo-task-point-use-toggle').next('.completed-point').toggleClass( 'hidden' );
   },
 
 };
