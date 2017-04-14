@@ -98,6 +98,16 @@ class Point_Action {
 
 		Point_Class::g()->update( $point );
 
+		$task = Task_Class::g()->get( array(
+			'include' => array( $point->post_id ),
+			'status' => array( 'publish', 'archive' ),
+		), true );
+
+		if( ( $key = array_search( $point_id, $task->task_info['order_point_id'] ) ) !== false ) {
+			unset( $task->task_info['order_point_id'][$key] );
+		}
+		Task_Class::g()->update( $task );
+
 		wp_send_json_success( array(
 			'module' => 'point',
 			'callback_success' => 'deletedPointSuccess',
@@ -364,15 +374,17 @@ class Point_Action {
 
 		$comments = Task_Comment_Class::g()->get( array(
 			'post_id' => $task_id,
-			'parent_id' => $point_id,
+			'parent' => $point_id,
 			'status' => -34070,
 		) );
 
 		if ( ! empty( $comments ) ) {
 			foreach ( $comments as $comment ) {
-				$comment->post_id = $to_task_id;
+				if ( 0 !== $comment->id ) {
+					$comment->post_id = $to_task_id;
 
-				Task_Comment_Class::g()->update( $comment );
+					Task_Comment_Class::g()->update( $comment );
+				}
 			}
 		}
 

@@ -28,8 +28,8 @@ window.task_manager.point.init = function() {
  * @version 1.0.0.0
  */
 window.task_manager.point.event = function() {
-	jQuery( document ).on( 'blur keyup paste keydown', '.wpeo-task-point .wpeo-point-new-contenteditable', window.task_manager.point.updateHiddenInput );
-	jQuery( document ).on( 'blur paste', 'form.edit .wpeo-point-new-contenteditable', window.task_manager.point.editPoint );
+	jQuery( document ).on( 'blur keyup paste keydown', '.point .wpeo-point-new-contenteditable', window.task_manager.point.updateHiddenInput );
+	jQuery( document ).on( 'blur paste', '.point.edit .wpeo-point-new-contenteditable', window.task_manager.point.editPoint );
 	jQuery( document ).on( 'click', 'form .completed-point', window.task_manager.point.completePoint );
 };
 
@@ -42,9 +42,9 @@ window.task_manager.point.event = function() {
  * @version 1.3.6.0
  */
 window.task_manager.point.refresh = function() {
-	jQuery( '.wpeo-project-wrap .wpeo-task-point-sortable' ).sortable( {
+	jQuery( '.wpeo-project-wrap .points.sortable' ).sortable( {
 		handle: '.dashicons-screenoptions',
-		items: 'form',
+		items: 'div.point.edit',
 		update: window.task_manager.point.editOrder
 	} );
 };
@@ -60,14 +60,14 @@ window.task_manager.point.refresh = function() {
  */
 window.task_manager.point.updateHiddenInput = function( event ) {
 	if ( 0 < jQuery( this ).text().length ) {
-		jQuery( this ).closest( '.wpeo-task-point' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 1 );
-		jQuery( this ).closest( '.wpeo-task-point' ).find( '.wpeo-point-new-placeholder' ).addClass( 'hidden' );
+		jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 1 );
+		jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-placeholder' ).addClass( 'hidden' );
 	} else {
-		jQuery( this ).closest( '.wpeo-task-point' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 0.4 );
-		jQuery( this ).closest( '.wpeo-task-point' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
+		jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 0.4 );
+		jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
 	}
 
-	jQuery( this ).closest( '.wpeo-task-point' ).find( 'input[name="content"]' ).val( jQuery( this ).text() );
+	jQuery( this ).closest( '.point' ).find( 'input[name="content"]' ).val( jQuery( this ).text() );
 };
 
 /**
@@ -89,7 +89,7 @@ window.task_manager.point.addedPointSuccess = function( triggeredElement, respon
 	triggeredElement.closest( '.form' ).find( '.wpeo-point-new-contenteditable' ).text( '' );
 	triggeredElement.closest( '.form' ).find( 'input[name="content"]' ).val( '' );
 
-	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( 'ul.wpeo-task-point-sortable form:last' ).before( response.data.view );
+	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.points.sortable form:last' ).before( response.data.view );
 };
 
 /**
@@ -104,7 +104,7 @@ window.task_manager.point.addedPointSuccess = function( triggeredElement, respon
  * @version 1.0.0.0
  */
 window.task_manager.point.editedPointSuccess = function( triggeredElement, response ) {
-	jQuery( triggeredElement ).closest( 'form' ).replaceWith( response.data.view );
+	jQuery( triggeredElement ).closest( 'div.point' ).replaceWith( response.data.view );
 };
 
 /**
@@ -139,7 +139,7 @@ window.task_manager.point.deletedPointSuccess = function( triggeredElement, resp
 		jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text( totalCompletedPoint );
 	}
 
-	jQuery( triggeredElement ).closest( 'form' ).fadeOut();
+	jQuery( triggeredElement ).closest( 'div.point.edit' ).fadeOut();
 };
 
 /**
@@ -163,10 +163,10 @@ window.task_manager.point.completePoint = function() {
 
 	if ( jQuery( this ).is( ':checked' ) ) {
 		totalCompletedPoint++;
-		jQuery( this ).closest( '.wpeo-project-task' ).find( '.wpeo-task-point-completed' ).append( jQuery( this ).closest( 'form' ) );
+		jQuery( this ).closest( '.wpeo-project-task' ).find( '.points.completed' ).append( jQuery( this ).closest( 'div.point' ) );
 	} else {
 		totalCompletedPoint--;
-		jQuery( this ).closest( '.wpeo-project-task' ).find( 'ul.wpeo-task-point-sortable form:last' ).before( jQuery( this ).closest( 'form' ) );
+		jQuery( this ).closest( '.wpeo-project-task' ).find( '.points.sortable div.point:last' ).before( jQuery( this ).closest( 'div.point' ) );
 	}
 
 	jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text( totalCompletedPoint );
@@ -200,7 +200,7 @@ window.task_manager.point.beforeLoadCompletedPoint = function( triggeredElement 
  * @version 1.0.0.0
  */
 window.task_manager.point.loadedCompletedPoint = function( triggeredElement, response ) {
-	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-point-completed' ).html( response.data.view );
+	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.points.completed' ).html( response.data.view );
 };
 
 /**
@@ -216,7 +216,7 @@ window.task_manager.point.editOrder = function() {
 	var objectId = jQuery( this ).closest( '.wpeo-project-task' ).data( 'id' );
 	var data = {};
 
-	jQuery( this ).find( '.form.point.edit' ).each( function() {
+	jQuery( this ).find( '.point.edit' ).each( function() {
 		orderPointId.push( jQuery( this ).data( 'id' ) );
 	} );
 
@@ -260,8 +260,11 @@ window.task_manager.point.loadedPointProperties = function( triggeredElement, re
  * @version 1.3.6.0
  */
 window.task_manager.point.movedPointTo = function( triggeredElement, response ) {
+
+	// Met à jour le temps.
 	jQuery( '.wpeo-project-task[data-id=' + response.data.current_task.id + ']' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.current_task.time_info.elapsed );
 	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.to_task.time_info.elapsed );
-	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( 'ul.wpeo-task-point-sortable form:last' ).before( jQuery( '.point.edit[data-id=' + response.data.point.id + ']' ) );
-	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( '.point.edit[data-id=' + response.data.point.id + ']' ).after( jQuery( '.comments[data-id=' + response.data.point_id + ']' ) );
+
+	// Met à jour le contenu.
+	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( '.points div.point:last' ).before( jQuery( '.point.edit[data-id=' + response.data.point.id + ']' ) );
 };

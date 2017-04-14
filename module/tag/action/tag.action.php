@@ -24,7 +24,7 @@ class Tag_Action {
 	 * Instanciation des crochets pour les "actions" utilisées par les tags
 	 */
 	public function __construct() {
-		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ) );
+		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 99 );
 
 		add_action( 'wp_ajax_to_archive', array( $this, 'ajax_to_archive' ) );
 		add_action( 'wp_ajax_to_unarchive', array( $this, 'ajax_to_unarchive' ) );

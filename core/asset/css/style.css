@@ -4618,14 +4618,14 @@
       -ms-flex-direction: column;
           flex-direction: column;
 }
-.wpeo-project-wrap .points ul {
+.wpeo-project-wrap .points ul:not(.comments) {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
   display: -ms-flexbox;
   display: flex;
 }
-.wpeo-project-wrap .points ul .content {
+.wpeo-project-wrap .points ul:not(.comments) .content {
   width: 60%;
 }
 /* ----------------------------------

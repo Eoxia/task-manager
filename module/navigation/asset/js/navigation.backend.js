@@ -41,6 +41,9 @@ window.task_manager.navigation.loadedMyTask = function( triggeredElement, respon
 	jQuery( '.list-task' ).replaceWith( response.data.view );
 	window.task_manager.task.offset = 0;
 	window.task_manager.task.canLoadMore = true;
+
+	jQuery( '.wpeo-header-bar li.active' ).removeClass( 'active' );
+	jQuery( triggeredElement ).addClass( 'active' );
 };
 
 /**

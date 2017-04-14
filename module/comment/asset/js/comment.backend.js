@@ -40,7 +40,7 @@ window.task_manager.comment.event = function() {};
 window.task_manager.comment.beforeLoadComments = function( triggeredElement ) {
 	triggeredElement.toggleClass( 'dashicons-arrow-right-alt2 dashicons-arrow-down-alt2' );
 
-	triggeredElement.closest( 'form' ).next( '.comments' ).toggle();
+	triggeredElement.closest( 'div.point' ).find( '.comments' ).toggleClass( 'hidden' );
 
 	return true;
 };
@@ -57,7 +57,7 @@ window.task_manager.comment.beforeLoadComments = function( triggeredElement ) {
  * @version 1.0.0.0
  */
 window.task_manager.comment.loadedCommentsSuccess = function( triggeredElement, response ) {
-	jQuery( triggeredElement ).closest( 'form' ).next( '.comments' ).html( response.data.view );
+	jQuery( triggeredElement ).closest( 'div.point' ).find( '.comments' ).html( response.data.view );
 };
 
 /**

@@ -42,7 +42,9 @@ class Task_Shortcode {
 			'categories_id' => array(),
 			'users_id' => array(),
 			'term' => '',
+			'status' => 'publish',
 			'offset' => 0,
+			'post_parent' => 0,
 			'posts_per_page' => Config_Util::$init['task']->posts_per_page,
 		), $param, 'task_manager_dashboard_content' );
 

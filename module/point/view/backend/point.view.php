@@ -14,8 +14,8 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
-<div class="wpeo-task-point">
-	<form class="form point <?php echo ! empty( $point->id ) ? esc_attr( 'edit' ): ''; ?>" action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>" method="POST" data-id="<?php echo esc_attr( $point->id ); ?>">
+<div class="point <?php echo ! empty( $point->id ) ? esc_attr( 'edit' ): ''; ?>" data-id="<?php echo esc_attr( $point->id ); ?>">
+	<form class="form" action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>" method="POST">
 
 		<?php wp_nonce_field( 'edit_point' ); ?>
 		<input type="hidden" name="action" value="edit_point" />

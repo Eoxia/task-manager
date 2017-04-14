@@ -66,47 +66,10 @@ class Navigation_Action {
 		check_ajax_referer( 'load_my_task' );
 
 		ob_start();
-
-		$tasks = Task_Class::g()->get( array(
-			'post_parent' => 0,
-			'posts_per_page' => -1,
-			'meta_query' => array(
-				'relation'	=> 'OR',
-				array(
-					'key' => 'wpeo_task',
-					'value' => '{"user_info":{"owner_id":' . get_current_user_id() . ',',
-					'compare' => 'like',
-				),
-				array(
-					'key'			=> 'wpeo_task',
-					'value'		=> '"affected_id":[' . get_current_user_id() . ']',
-					'compare'	=> 'like',
-				),
-				array(
-					'key'			=> 'wpeo_task',
-					'value'		=> '"affected_id":[' . get_current_user_id() . ',',
-					'compare'	=> 'like',
-				),
-				array(
-					'key'			=> 'wpeo_task',
-					'value'		=> '"affected_id":\\[[0-9,]+,' . get_current_user_id() . '\\]',
-					'compare'	=> 'REGEXP',
-				),
-				array(
-					'key'			=> 'wpeo_task',
-					'value'		=> '"affected_id":\\[[0-9,]+,' . get_current_user_id() . '[0-9,]+\\]',
-					'compare'	=> 'REGEXP',
-				),
-			),
-		) );
-
-		View_Util::exec( 'task', 'backend/main', array(
-			'tasks' => $tasks,
-		) );
-
+		echo do_shortcode( '[task_manager_dashboard_content users_id="' . get_current_user_id() . '"]' );
 		wp_send_json_success( array(
 			'view' => ob_get_clean(),
-			'module' => 'searchBar',
+			'module' => 'navigation',
 			'callback_success' => 'loadedMyTask',
 		) );
 	}
@@ -122,15 +85,8 @@ class Navigation_Action {
 	public function ajax_load_archived_task() {
 		check_ajax_referer( 'load_archived_task' );
 
-		$tasks = Task_Class::g()->get( array(
-			'post_status' => 'archive',
-		) );
-
 		ob_start();
-		View_Util::exec( 'task', 'backend/main', array(
-			'tasks' => $tasks,
-		) );
-
+		echo do_shortcode( '[task_manager_dashboard_content status="archive"]' );
 		wp_send_json_success( array(
 			'module' => 'tag',
 			'callback_success' => 'loadedArchivedTask',

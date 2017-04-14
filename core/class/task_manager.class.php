@@ -18,6 +18,9 @@ class Task_Manager_Class extends Singleton_Util {
 
 	/**
 	 * Le constructeur
+	 *
+	 * @since 1.0.0.0
+	 * @version 1.3.6.0
 	 */
 	protected function construct() {}
 
@@ -25,6 +28,9 @@ class Task_Manager_Class extends Singleton_Util {
 	 * La méthode qui permet d'afficher la page
 	 *
 	 * @return void
+	 *
+	 * @since 1.0.0.0
+	 * @version 1.3.6.0
 	 */
 	public function display() {
 		$term = ! empty( $_GET['term'] ) ? sanitize_text_field( $_GET['term'] ) : ''; // WPCS: CSRF ok.

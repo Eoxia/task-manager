@@ -117,6 +117,8 @@ class Task_Class extends Post_Class {
 		$param['posts_per_page'] = (int) $param['posts_per_page'];
 		$param['users_id'] = (array) $param['users_id'];
 		$param['categories_id'] = (array) $param['categories_id'];
+		$param['status'] = sanitize_text_field( $param['status'] );
+		$param['post_parent'] = (int) $param['post_parent'];
 
 		$tasks = array();
 		$tasks_id = array();
@@ -126,14 +128,19 @@ class Task_Class extends Post_Class {
 			LEFT JOIN {$wpdb->comments} AS COMMENT ON COMMENT.comment_post_id=TASK.ID
 			LEFT JOIN {$wpdb->postmeta} AS TASK_META ON TASK_META.post_id=TASK.ID AND TASK_META.meta_key='wpeo_task'
 			LEFT JOIN {$wpdb->term_relationships} AS CAT ON CAT.object_id=TASK.ID
-		WHERE TASK.post_type='wpeo-task' AND
-			( (
-				TASK.ID LIKE '%" . $param['term'] . "%' OR TASK.post_title LIKE '%" . $param['term'] . "%'
-			) OR (
-				POINT.comment_ID LIKE '%" . $param['term'] . "%' OR POINT.comment_content LIKE '%" . $param['term'] . "%'
-			) OR (
-				COMMENT.comment_parent != 0 AND (COMMENT.comment_id LIKE '%" . $param['term'] . "%' OR COMMENT.comment_content LIKE '%" . $param['term'] . "%')
-			) )";
+		WHERE TASK.post_type='wpeo-task'
+			AND TASK.post_status='" . $param['status'] . "' AND
+				( (
+					TASK.ID LIKE '%" . $param['term'] . "%' OR TASK.post_title LIKE '%" . $param['term'] . "%'
+				) OR (
+					POINT.comment_ID LIKE '%" . $param['term'] . "%' OR POINT.comment_content LIKE '%" . $param['term'] . "%'
+				) OR (
+					COMMENT.comment_parent != 0 AND (COMMENT.comment_id LIKE '%" . $param['term'] . "%' OR COMMENT.comment_content LIKE '%" . $param['term'] . "%')
+				) )";
+
+		if ( isset( $param['post_parent'] ) ) {
+			$query .= 'AND TASK.post_parent="' . $param['post_parent'] . '"';
+		}
 
 		if ( ! empty( $param['users_id'] ) ) {
 			$query .= "AND (
@@ -171,6 +178,7 @@ class Task_Class extends Post_Class {
 		if ( ! empty( $tasks_id ) ) {
 			$tasks = Task_Class::g()->get( array(
 				'include' => $tasks_id,
+				'post_status' => $param['status'],
 			) );
 		}
 

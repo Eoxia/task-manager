@@ -15,6 +15,7 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 <div class="wrap wpeo-project-wrap">
+	<input type="hidden" class="user-id" value="<?php echo esc_attr( get_current_user_id() ); ?>" />
 
 	<div class="wpeo-project-dashboard">
 		<h2>
@@ -27,5 +28,5 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	</div>
 
 	<?php do_shortcode( '[task_manager_search_bar term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '"]' ); ?>
-	<?php do_shortcode( '[task_manager_dashboard_content term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '"]' ); ?>
+	<?php do_shortcode( '[task_manager_dashboard_content term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '" post_parent="0"]' ); ?>
 </div>

@@ -355,8 +355,10 @@ class Task_Action {
 	public function callback_load_more_task() {
 		$offset = ! empty( $_POST['offset'] ) ? (int) $_POST['offset'] : 0;
 		$posts_per_page = ! empty( $_POST['posts_per_page'] ) ? (int) $_POST['posts_per_page'] : 0;
+		$post_parent = ! empty( $_POST['post_parent'] ) ? (int) $_POST['post_parent'] : 0;
 		$term = ! empty( $_POST['term'] ) ? sanitize_text_field( $_POST['term'] ) : '';
 		$users_id = ! empty( $_POST['users_id'] ) ? sanitize_text_field( $_POST['users_id'] ) : array();
+		$status = ! empty( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : array();
 
 		if ( ! empty( $users_id ) ) {
 			$users_id = explode( ',', $users_id );
@@ -375,6 +377,8 @@ class Task_Action {
 			'term' => $term,
 			'users_id' => $users_id,
 			'categories_id' => $categories_id,
+			'status' => $status,
+			'post_parent' => $post_parent,
 		) );
 
 		wp_send_json_success( array(

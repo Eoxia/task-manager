@@ -82,7 +82,7 @@ class Owner_Action {
 		ob_start();
 		echo do_shortcode( '[task_manager_owner_task task_id=' . $task->id . ' owner_id=' . $owner_id . ']' );
 		wp_send_json_success( array(
-			'module' => 'user',
+			'module' => 'owner',
 			'callback_success' => 'switchedOwnerSuccess',
 			'view' => ob_get_clean(),
 		) );

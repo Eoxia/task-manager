@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; ?>
 	<a class="wpeo-point-toggle-a" href="#" title="<?php __( 'Toggle completed point', 'task-manager' ); ?>"><?php _e( 'Completed point', 'task-manager' ); ?> (<span class='wpeo-task-count-completed'><?php echo count( $list_point_completed ); ?>/<?php echo (count( $list_point_completed ) + count( $list_point_uncompleted )); ?></span>)</a>
 	</p>
 
-	<ul class="wpeo-task-point wpeo-task-point-completed wpeo-point-no-sortable hidden">
+	<ul class="points completed hidden">
 		<img src="<?php echo esc_attr( admin_url( '/images/loading.gif' ) ); ?>" alt="<?php echo esc_attr( 'Loading...' ); ?>" />
 	</ul>
 
