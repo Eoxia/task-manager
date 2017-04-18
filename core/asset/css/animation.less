@@ -10,7 +10,7 @@
 
 ---*/
 
-.digirisk-wrap {
+.wpeo-project-wrap .list-task {
 
 	.animated {
 	  animation-duration: 1s;
@@ -166,5 +166,26 @@
 	.progress-error {
 		animation-name: progressError;
 	}
+
+
+
+	@keyframes bounceLeft {
+		from { transform: translateX(0); }
+		50% { transform: translateX(-4px); }
+		to { transform: translateX(0); }
+	}
+	.bounce-left {
+		animation-name: bounceLeft;
+	}
+
+	@keyframes bounceTop {
+		from { transform: translateX(0); }
+		50% { transform: translateY(-4px); }
+		to { transform: translateX(0); }
+	}
+	.bounce-top {
+		animation-name: bounceTop;
+	}
+
 
 }

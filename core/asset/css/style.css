@@ -4604,30 +4604,6 @@
 /* ----------------------------------
 		Content affichage tâche
 -----------------------------------*/
-.wpeo-project-wrap .points {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-     -moz-box-orient: vertical;
-     -moz-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-.wpeo-project-wrap .points ul:not(.comments) {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-.wpeo-project-wrap .points ul:not(.comments) .content {
-  width: 60%;
-}
 /* ----------------------------------
 		Footer affichage tags
 -----------------------------------*/
