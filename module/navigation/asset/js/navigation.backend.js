@@ -11,8 +11,16 @@ window.task_manager.navigation.init = function() {
 };
 
 window.task_manager.navigation.event = function() {
+	jQuery( document ).on( 'keyup', '.wpeo-header-bar input[name="term"]', window.task_manager.navigation.triggerSearch );
+
 	jQuery( document ).on( 'click', '.wpeo-header-bar .more-search-options', window.task_manager.navigation.toggleMoreOptions );
 	jQuery( document ).on( 'click', '.wpeo-tag-search', window.task_manager.navigation.selectTag );
+};
+
+window.task_manager.navigation.triggerSearch = function( event ) {
+	if ( 13 === event.keyCode ) {
+		jQuery( '.wpeo-header-search .action-input' ).click();
+	}
 };
 
 /**

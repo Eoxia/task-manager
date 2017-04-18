@@ -13,7 +13,7 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 
-<form class="form" action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>" method="POST">
+<div class="form" action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>" method="POST">
 	<header class="wpeo-header-bar">
 		<ul>
 
@@ -49,6 +49,6 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 
 		<a class="action-input" data-module="navigation" data-before-method="checkDataBeforeSearch" data-parent="form"><?php esc_html_e( 'Search', 'task-manager' ); ?></a>
 	</div>
-</form>
+</div>
 
 <?php Navigation_Class::g()->display_search_result( $param['term'], $param['categories_id_selected'], $param['follower_id_selected'] );

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 
 <li class="user" style="width: 50px; height: 50px;">
 	<img class="avatar avatar-32" src="<?php echo esc_attr( get_avatar_url( $user->id, array(
-		'size' => 32,
+		'size' => 50,
 		'default' => 'blank',
 	)	) ); ?>" />
 	<div class="wpeo-avatar-initial"><span><?php echo esc_html( $user->initial ); ?></span></div>

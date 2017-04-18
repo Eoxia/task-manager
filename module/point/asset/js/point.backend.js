@@ -28,9 +28,18 @@ window.task_manager.point.init = function() {
  * @version 1.0.0.0
  */
 window.task_manager.point.event = function() {
+	jQuery( document ).on( 'keyup', '.point:not(.edit) .wpeo-point-new-contenteditable', window.task_manager.point.triggerCreate );
+
 	jQuery( document ).on( 'blur keyup paste keydown', '.point .wpeo-point-new-contenteditable', window.task_manager.point.updateHiddenInput );
 	jQuery( document ).on( 'blur paste', '.point.edit .wpeo-point-new-contenteditable', window.task_manager.point.editPoint );
 	jQuery( document ).on( 'click', 'form .completed-point', window.task_manager.point.completePoint );
+
+};
+
+window.task_manager.point.triggerCreate = function( event ) {
+	if ( event.ctrlKey && 13 === event.keyCode ) {
+		jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).click();
+	}
 };
 
 /**

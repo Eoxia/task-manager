@@ -26,7 +26,15 @@ window.task_manager.comment.init = function() {
  * @since 1.0.0.0
  * @version 1.0.0.0
  */
-window.task_manager.comment.event = function() {};
+window.task_manager.comment.event = function() {
+	jQuery( document ).on( 'keyup', '.comment.edit input[name="content"]', window.task_manager.comment.triggerCreate );
+};
+
+window.task_manager.comment.triggerCreate = function( event ) {
+	if ( event.ctrlKey && 13 === event.keyCode ) {
+		jQuery( this ).closest( '.comment' ).find( '.action-input' ).click();
+	}
+};
 
 /**
  * Avant de charger les commentaires, change la dashicons.

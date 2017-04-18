@@ -55,5 +55,16 @@ function get_full_task( $data ) {
 		), true );
 	}
 
+	$format = '%hh %imin';
+
+	$dtf = new \DateTime( '@0' );
+	$dtt = new \DateTime( '@' . ( $data->time_info['elapsed'] * 60 ) );
+
+	if ( 1440 <= $data->time_info['elapsed'] ) {
+		$format = '%aj %hh %imin';
+	}
+
+	$data->time_info['time_display'] = $dtf->diff( $dtt )->format( $format );
+
 	return $data;
 }
