@@ -1,19 +1,25 @@
 /* Different colors define by classname for the tasks */
 
 @main-color:#389af6;
+@dark_main-color: #1360c8;
 
-@red-background: #ff989a;
+// @red-background: #ff989a;
+@red-background: #ffc9ca;
 @red: #ff4246;
 
-@yellow-background: #ffeca4;
+// @yellow-background: #ffeca4;
+@yellow-background: #fff1bd;
 @yellow: #ffbd41;
 
-@green-background: #b6ffa4;
+// @green-background: #b6ffa4;
+@green-background: #dfffd8;
 @green: #35c54e;
 
-@blue-background: #a4d0ff;
+// @blue-background: #a4d0ff;
+@blue-background: #d5eaff;
 
-@purple-background: #cca4ff;
+// @purple-background: #cca4ff;
+@purple-background: #e6d2ff;
 @purple: #7c41c7;
 
 .wpeo-project-wrap .list-task {
@@ -45,20 +51,11 @@
 		.wpeo-main-user li:last-child a:hover {
 			background: lighten(@main-color, 10%);
 		}
-		.wpeo-task-add-new-point, textarea:focus, textarea.active, .wpeo-task-point-completed input[type=checkbox]:checked:before, .wpeo-tag-add-tag {
+		.wpeo-point-new-btn, textarea:focus, textarea.active, .wpeo-task-point-completed input[type=checkbox]:checked:before, .wpeo-tag-add-tag {
 			color: @main-color;
 		}
-	}
-	.wpeo-project-task.active.white ~ .wpeo-window-dashboard {
-		background: #fff;
-		input[type="button"] {
-			background: @main-color;
-			&:hover {
-				background: darken(@main-color, 10%);
-			}
-		}
-		.wpeo-point-time-edit-btn {
-			color: @main-color;
+		.wpeo-point-new-btn:hover {
+			color: darken(@main-color, 20%);
 		}
 	}
 
@@ -73,20 +70,11 @@
 		.wpeo-main-user li:last-child a:hover {
 			background: lighten(@red, 10%);
 		}
-		.wpeo-task-add-new-point, textarea:focus, textarea.active, .wpeo-task-point-completed input[type=checkbox]:checked:before, .wpeo-tag-add-tag {
+		.wpeo-point-new-btn, textarea:focus, textarea.active, .wpeo-task-point-completed input[type=checkbox]:checked:before, .wpeo-tag-add-tag {
 			color: @red;
 		}
-	}
-	.wpeo-project-task.active.red ~ .wpeo-window-dashboard {
-		background: @red-background;
-		input[type="button"] {
-			background: @red;
-			&:hover {
-				background: darken(@red, 10%);
-			}
-		}
-		.wpeo-point-time-edit-btn {
-			color: @red;
+		.wpeo-point-new-btn:hover {
+			color: darken(@red, 20%);
 		}
 	}
 
@@ -101,20 +89,11 @@
 		.wpeo-main-user li:last-child a:hover {
 			background: lighten(@yellow, 10%);
 		}
-		.wpeo-task-add-new-point, textarea:focus, textarea.active, .wpeo-task-point-completed input[type=checkbox]:checked:before, .wpeo-tag-add-tag {
+		.wpeo-point-new-btn, textarea:focus, textarea.active, .wpeo-task-point-completed input[type=checkbox]:checked:before, .wpeo-tag-add-tag {
 			color: @yellow;
 		}
-	}
-	.wpeo-project-task.active.yellow ~ .wpeo-window-dashboard {
-		background: @yellow-background;
-		input[type="button"] {
-			background: @yellow;
-			&:hover {
-				background: darken(@yellow, 10%);
-			}
-		}
-		.wpeo-point-time-edit-btn {
-			color: @yellow;
+		.wpeo-point-new-btn:hover {
+			color: darken(@yellow, 20%);
 		}
 	}
 
@@ -129,20 +108,11 @@
 		.wpeo-main-user li:last-child a:hover {
 			background: lighten(@green, 10%);
 		}
-		.wpeo-task-add-new-point, textarea:focus, textarea.active, .wpeo-task-point-completed input[type=checkbox]:checked:before, .wpeo-tag-add-tag {
+		.wpeo-point-new-btn, textarea:focus, textarea.active, .wpeo-task-point-completed input[type=checkbox]:checked:before, .wpeo-tag-add-tag {
 			color: @green;
 		}
-	}
-	.wpeo-project-task.active.green ~ .wpeo-window-dashboard {
-		background: @green-background;
-		input[type="button"] {
-			background: @green;
-			&:hover {
-				background: darken(@green, 10%);
-			}
-		}
-		.wpeo-point-time-edit-btn {
-			color: @green;
+		.wpeo-point-new-btn:hover {
+			color: darken(@green, 20%);
 		}
 	}
 
@@ -157,20 +127,11 @@
 		.wpeo-main-user li:last-child a:hover {
 			background: lighten(@main-color, 10%);
 		}
-		.wpeo-task-add-new-point, textarea:focus, textarea.active, .wpeo-task-point-completed input[type=checkbox]:checked:before, .wpeo-tag-add-tag {
+		.wpeo-point-new-btn, textarea:focus, textarea.active, .wpeo-task-point-completed input[type=checkbox]:checked:before, .wpeo-tag-add-tag {
 			color: @main-color;
 		}
-	}
-	.wpeo-project-task.active.blue ~ .wpeo-window-dashboard {
-		background: @blue-background;
-		input[type="button"] {
-			background: @main-color;
-			&:hover {
-				background: darken(@main-color, 10%);
-			}
-		}
-		.wpeo-point-time-edit-btn {
-			color: @main-color;
+		.wpeo-point-new-btn:hover {
+			color: darken(@main-color, 20%);
 		}
 	}
 
@@ -185,20 +146,11 @@
 		.wpeo-main-user li:last-child a:hover {
 			background: lighten(@purple, 10%);
 		}
-		.wpeo-task-add-new-point, textarea:focus, textarea.active, .wpeo-task-point-completed input[type=checkbox]:checked:before, .wpeo-tag-add-tag {
+		.wpeo-point-new-btn, textarea:focus, textarea.active, .wpeo-task-point-completed input[type=checkbox]:checked:before, .wpeo-tag-add-tag {
 			color: @purple;
 		}
-	}
-	.wpeo-project-task.active.purple ~ .wpeo-window-dashboard {
-		background: @purple-background;
-		input[type="button"] {
-			background: @purple;
-			&:hover {
-				background: darken(@purple, 10%);
-			}
-		}
-		.wpeo-point-time-edit-btn {
-			color: @purple;
+		.wpeo-point-new-btn:hover {
+			color: darken(@purple, 20%);
 		}
 	}
 

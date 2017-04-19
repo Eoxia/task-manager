@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 				<?php endif; ?>
 			</li>
 
-			<li class="point-content content">
+			<li class="point-toggle">
 				<?php if ( ! empty( $point->id ) ) : ?>
 					<span data-action="<?php echo esc_attr( 'load_comments' ); ?>"
 								data-task-id="<?php echo esc_attr( $parent_id ); ?>"
@@ -40,18 +40,21 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 					<span class="wpeo-block-id">#<?php echo esc_attr( $point->id ); ?></span>
 				<?php endif; ?>
+			</li>
 
+			<li class="point-content content">
 				<input type="hidden" name="content" value="<?php esc_attr( $point->content ); ?>" />
 				<div class="wpeo-point-new-contenteditable" contenteditable="true">
 					<?php echo esc_html( stripslashes( $point->content ) ); ?>
+					<?php if ( empty( $point->id ) ) : ?>
+						<span class="wpeo-point-new-placeholder"><?php esc_html_e( 'Write your point here...', 'task-manager' ); ?></span>
+					<?php endif; ?>
 				</div>
-				<?php if ( empty( $point->id ) ) : ?>
-					<span class="wpeo-point-new-placeholder"><?php esc_html_e( 'Write your point here...', 'task-manager' ); ?></span>
-				<?php endif; ?>
 			</li>
+
 			<li class="point-action">
 				<?php	if ( empty( $point->id ) ) : ?>
-					<div 	class="wpeo-point-new-btn action-input"
+					<div 	class="wpeo-point-new-btn action-input animated"
 								data-parent="form"
 								data-loader="point"
 								title="<?php esc_attr( 'Add this point', 'task-manager' ); ?>">
@@ -85,10 +88,10 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 						</ul>
 					</div>
 
-					<span data-action="delete_point"
+					<!-- <span data-action="delete_point"
 								data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_point' ) ); ?>"
 								data-id="<?php echo esc_attr( $point->id ); ?>"
-								class="dashicons dashicons-no action-delete"></span>
+								class="dashicons dashicons-no action-delete"></span> -->
 				<?php	endif; ?>
 			</li>
 		</ul>

@@ -187,5 +187,20 @@
 		animation-name: bounceTop;
 	}
 
+	@keyframes scaleIn {
+		0%, 20%, 40%, 60%, 80%, to {
+			animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+		}
+		0% { transform: scale(1); }
+		20% { transform: scale(1.4); }
+		40% { transform: scale(0.9); }
+		60% { transform: scale(1.2); }
+		80% { transform: scale(0.95); }
+		to { transform: scale(1); }
+	}
+	.scale-in {
+		animation-name: scaleIn;
+	}
+
 
 }
