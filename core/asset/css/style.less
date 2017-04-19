@@ -669,16 +669,21 @@
 .wpeo-project-wrap {
 	.points .point .comments {
 		background: rgba(0,0,0,0.05);
-		padding: 4px 0;
+		padding: 4px 0 10px 0;
 		.comment {
-			&.edit ul {
+			ul {
 				display: flex;
 				flex-direction: row;
 				padding: 8px 14px 0;
 				margin-left: 15%;
 				width: 85%;
+			}
+			&.edit ul {
 				input {
 					width: 100%;
+					font-size: 13px;
+					margin: 0;
+					padding: 2px;
 				}
 				.wpeo-comment-date, .wpeo-comment-time {
 					display: flex;
@@ -689,21 +694,88 @@
 					}
 				}
 				.wpeo-comment-date {
-					width: 20%;
+					width: 100%;
+					max-width: 20%;
 				}
 				.wpeo-comment-content {
 					margin: 0 16px;
-					width: 60%;
+					width: 100%;
+					max-width: 63%;
 				}
 				.wpeo-comment-time {
-					width: 10%;
+					width: 100%;
+					max-width: 12%;
+					input {
+						padding: 2px;
+					}
 				}
 				.wpeo-point-new-btn {
 					text-align: right;
-					width: 10%;
+					width: 100%;
+					max-width: 5%;
 					transition: all 0.2s ease-out;
 					margin-left: auto;
 					&:hover {
+						cursor: pointer;
+					}
+				}
+				.wpeo-save-point {
+					width: 100%;
+					max-width: 5%;
+					text-align: right;
+					i {
+						background: @a;
+						border-radius: 50%;
+						font-size: 12px;
+						width: 20px;
+						line-height: 20px;
+						text-align: center;
+						color: #fff;
+						margin-left: auto;
+						transition: all 0.2s ease-out;
+						display: inline-block;
+						&:hover {
+							background: @dark_a;
+							cursor: pointer;
+						}
+					}
+				}
+			}
+			&:not(.edit) ul {
+				flex-wrap: wrap;
+				.wpeo-comment-date {
+					font-size: 12px;
+					color: rgba(0,0,0,0.4);
+					width: 80%;
+				}
+				.wpeo-comment-content {
+					width: 100%;
+				}
+				.wpeo-comment-time {
+					padding-left: 8px;
+				}
+				.wpeo-comment-action {
+					margin-left: auto;
+				}
+				.action-attribute {
+					color: @a;
+					transition: all 0.2s ease-out;
+					&:hover {
+						color: @dark_a;
+						cursor: pointer;
+					}
+				}
+				.action-delete {
+					background: rgba(0,0,0,.1);
+					border-radius: 50%;
+					font-size: 14px;
+					line-height: 20px;
+					color: rgba(0,0,0,.2);
+					margin-left: auto;
+					transition: all 0.2s ease-out;
+					display: inline-block;
+					&:hover {
+						background: rgba(0,0,0,0.2);
 						cursor: pointer;
 					}
 				}

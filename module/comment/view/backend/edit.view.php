@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 			<li class="wpeo-comment-time"><span class="fa fa-clock-o"></span> <input type="text" name="time" value="<?php echo esc_attr( $comment->time_info['elapsed'] ); ?>" /></li>
 
 			<?php if ( ! empty( $comment->id ) ) : ?>
-				<i data-parent="edit" class="action-input fa fa-floppy-o" aria-hidden="true"></i>
+				<li class="wpeo-save-point"><i data-parent="edit" class="action-input fa fa-floppy-o" aria-hidden="true"></i></li>
 			<?php else : ?>
 				<span data-parent="edit" class="wpeo-point-new-btn action-input dashicons dashicons-plus-alt"></span>
 			<?php endif; ?>
