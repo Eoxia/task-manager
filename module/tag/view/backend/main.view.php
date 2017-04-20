@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 		endforeach;
 	endif;
 	?>
-	<li class="action-attribute"
+	<li class="wpeo-tag add action-attribute"
 			data-action="load_tags"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_tags' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->id ); ?>">

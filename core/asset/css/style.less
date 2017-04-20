@@ -827,50 +827,49 @@
 
 .wpeo-project-wrap {
 	.wpeo-tag-wrap {
-		background: #1f2b3b;
 		display: flex;
 		flex-wrap: wrap;
-
+		background: rgba(0,0,0,0.05);
+		border-top: 1px solid rgba(0,0,0,0.2);
 		&::after {
 			.clear();
 		}
-		&:hover {
-			cursor: pointer;
-		}
-		li {
-			background: #adadad;
+		.wpeo-tag {
+			background: rgba(0,0,0,0.1);
 			padding: 8px 16px;
-			color: #fff;
+			color: rgba(0,0,0,0.6);
 			font-size: 12px;
 			transition: all 0.2s ease-out;
-		}
-		li.wpeo-tag-tag-selected {
-			// background: @main-color;
-		}
-		li.wpeo-tag-edit-tag-btn {
-			margin-left: auto;
-			margin-right: 0;
-			padding: 8px;
-			// background: @main-color;
-		}
-		li.wpeo-tag-add-tag {
-			background: none;
-			width: 100%;
-			font-family: 'kalamregular';
-			// color: #389af6;
-			text-align: center;
-		}
-	}
-	.wpeo-tag-wrap-edit {
-		.wpeo-tag-edit-tag-btn:hover {
-			background: @main-color-light;
-			cursor: pointer;
-		}
-		.wpeo-tag-tag-selected:hover {
-			background: #2e7dd5;
-		}
-		li:hover {
-			background: #939393;
+			&:hover {
+				cursor: pointer;
+				background: rgba(0,0,0,0.2);
+			}
+			&.wpeo-tag-tag-selected {
+				background: @a;
+				color: #fff;
+				&:hover {
+					background: @dark_a;
+				}
+			}
+			&.edit {
+				margin-left: auto;
+				margin-right: 0;
+				background: @a;
+				color: #fff;
+				height: auto;
+				width: auto;
+				padding: 8px;
+				text-align: center;
+				line-height: 1.5;
+				&:hover {
+					background: @dark_a;
+				}
+			}
+			&.add {
+				border-radius: 30px;
+				transform: scale(0.8);
+				font-size: 14px;
+			}
 		}
 	}
 }
@@ -879,7 +878,7 @@
 /* ----------------------------------
 		Footer affichage utilisateurs
 -----------------------------------*/
-.wpeo-ul-user {
+.wpeo-ul-users {
 	display: flex;
 
 	&.wpeo-edit-select-user li {
