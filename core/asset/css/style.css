@@ -613,7 +613,7 @@
 	.spin
 
 ---*/
-.digirisk-wrap .animated {
+.wpeo-project-wrap .list-task .animated {
   -webkit-animation-duration: 1s;
      -moz-animation-duration: 1s;
        -o-animation-duration: 1s;
@@ -765,7 +765,7 @@
             transform: scale3d(1, 1, 1);
   }
 }
-.digirisk-wrap .bounce-in {
+.wpeo-project-wrap .list-task .bounce-in {
   -webkit-animation-name: bounceIn;
      -moz-animation-name: bounceIn;
        -o-animation-name: bounceIn;
@@ -913,7 +913,7 @@
             transform: scale3d(1, 1, 1);
   }
 }
-.digirisk-wrap .bounce-in-light {
+.wpeo-project-wrap .list-task .bounce-in-light {
   -webkit-animation-name: bounceInLight;
      -moz-animation-name: bounceInLight;
        -o-animation-name: bounceInLight;
@@ -963,7 +963,7 @@
             transform: rotate(90deg);
   }
 }
-.digirisk-wrap .rotate {
+.wpeo-project-wrap .list-task .rotate {
   -webkit-animation-name: rotate;
      -moz-animation-name: rotate;
        -o-animation-name: rotate;
@@ -1031,7 +1031,7 @@
             transform: translateY(0px);
   }
 }
-.digirisk-wrap .down-and-up {
+.wpeo-project-wrap .list-task .down-and-up {
   -webkit-animation-name: downAndUp;
      -moz-animation-name: downAndUp;
        -o-animation-name: downAndUp;
@@ -1223,7 +1223,7 @@
             transform: translate(-50%, -50%) scale3d(1, 1, 1);
   }
 }
-.digirisk-wrap .progress-success {
+.wpeo-project-wrap .list-task .progress-success {
   -webkit-animation-name: progressSuccess;
      -moz-animation-name: progressSuccess;
        -o-animation-name: progressSuccess;
@@ -1353,11 +1353,307 @@
             transform: translate(-50%, -50%);
   }
 }
-.digirisk-wrap .progress-error {
+.wpeo-project-wrap .list-task .progress-error {
   -webkit-animation-name: progressError;
      -moz-animation-name: progressError;
        -o-animation-name: progressError;
           animation-name: progressError;
+}
+@-webkit-keyframes bounceLeft {
+  from {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  50% {
+    -webkit-transform: translateX(-4px);
+            transform: translateX(-4px);
+  }
+  to {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+@-moz-keyframes bounceLeft {
+  from {
+    -moz-transform: translateX(0);
+         transform: translateX(0);
+  }
+  50% {
+    -moz-transform: translateX(-4px);
+         transform: translateX(-4px);
+  }
+  to {
+    -moz-transform: translateX(0);
+         transform: translateX(0);
+  }
+}
+@-o-keyframes bounceLeft {
+  from {
+    -o-transform: translateX(0);
+       transform: translateX(0);
+  }
+  50% {
+    -o-transform: translateX(-4px);
+       transform: translateX(-4px);
+  }
+  to {
+    -o-transform: translateX(0);
+       transform: translateX(0);
+  }
+}
+@keyframes bounceLeft {
+  from {
+    -webkit-transform: translateX(0);
+       -moz-transform: translateX(0);
+         -o-transform: translateX(0);
+            transform: translateX(0);
+  }
+  50% {
+    -webkit-transform: translateX(-4px);
+       -moz-transform: translateX(-4px);
+         -o-transform: translateX(-4px);
+            transform: translateX(-4px);
+  }
+  to {
+    -webkit-transform: translateX(0);
+       -moz-transform: translateX(0);
+         -o-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+.wpeo-project-wrap .list-task .bounce-left {
+  -webkit-animation-name: bounceLeft;
+     -moz-animation-name: bounceLeft;
+       -o-animation-name: bounceLeft;
+          animation-name: bounceLeft;
+}
+@-webkit-keyframes bounceTop {
+  from {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  50% {
+    -webkit-transform: translateY(-4px);
+            transform: translateY(-4px);
+  }
+  to {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+@-moz-keyframes bounceTop {
+  from {
+    -moz-transform: translateX(0);
+         transform: translateX(0);
+  }
+  50% {
+    -moz-transform: translateY(-4px);
+         transform: translateY(-4px);
+  }
+  to {
+    -moz-transform: translateX(0);
+         transform: translateX(0);
+  }
+}
+@-o-keyframes bounceTop {
+  from {
+    -o-transform: translateX(0);
+       transform: translateX(0);
+  }
+  50% {
+    -o-transform: translateY(-4px);
+       transform: translateY(-4px);
+  }
+  to {
+    -o-transform: translateX(0);
+       transform: translateX(0);
+  }
+}
+@keyframes bounceTop {
+  from {
+    -webkit-transform: translateX(0);
+       -moz-transform: translateX(0);
+         -o-transform: translateX(0);
+            transform: translateX(0);
+  }
+  50% {
+    -webkit-transform: translateY(-4px);
+       -moz-transform: translateY(-4px);
+         -o-transform: translateY(-4px);
+            transform: translateY(-4px);
+  }
+  to {
+    -webkit-transform: translateX(0);
+       -moz-transform: translateX(0);
+         -o-transform: translateX(0);
+            transform: translateX(0);
+  }
+}
+.wpeo-project-wrap .list-task .bounce-top {
+  -webkit-animation-name: bounceTop;
+     -moz-animation-name: bounceTop;
+       -o-animation-name: bounceTop;
+          animation-name: bounceTop;
+}
+@-webkit-keyframes scaleIn {
+  0%,
+  20%,
+  40%,
+  60%,
+  80%,
+  to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+            animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  20% {
+    -webkit-transform: scale(1.4);
+            transform: scale(1.4);
+  }
+  40% {
+    -webkit-transform: scale(0.9);
+            transform: scale(0.9);
+  }
+  60% {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+  80% {
+    -webkit-transform: scale(0.95);
+            transform: scale(0.95);
+  }
+  to {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+@-moz-keyframes scaleIn {
+  0%,
+  20%,
+  40%,
+  60%,
+  80%,
+  to {
+    -moz-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+         animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  0% {
+    -moz-transform: scale(1);
+         transform: scale(1);
+  }
+  20% {
+    -moz-transform: scale(1.4);
+         transform: scale(1.4);
+  }
+  40% {
+    -moz-transform: scale(0.9);
+         transform: scale(0.9);
+  }
+  60% {
+    -moz-transform: scale(1.2);
+         transform: scale(1.2);
+  }
+  80% {
+    -moz-transform: scale(0.95);
+         transform: scale(0.95);
+  }
+  to {
+    -moz-transform: scale(1);
+         transform: scale(1);
+  }
+}
+@-o-keyframes scaleIn {
+  0%,
+  20%,
+  40%,
+  60%,
+  80%,
+  to {
+    -o-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+       animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  0% {
+    -o-transform: scale(1);
+       transform: scale(1);
+  }
+  20% {
+    -o-transform: scale(1.4);
+       transform: scale(1.4);
+  }
+  40% {
+    -o-transform: scale(0.9);
+       transform: scale(0.9);
+  }
+  60% {
+    -o-transform: scale(1.2);
+       transform: scale(1.2);
+  }
+  80% {
+    -o-transform: scale(0.95);
+       transform: scale(0.95);
+  }
+  to {
+    -o-transform: scale(1);
+       transform: scale(1);
+  }
+}
+@keyframes scaleIn {
+  0%,
+  20%,
+  40%,
+  60%,
+  80%,
+  to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+       -moz-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+         -o-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+            animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  0% {
+    -webkit-transform: scale(1);
+       -moz-transform: scale(1);
+         -o-transform: scale(1);
+            transform: scale(1);
+  }
+  20% {
+    -webkit-transform: scale(1.4);
+       -moz-transform: scale(1.4);
+         -o-transform: scale(1.4);
+            transform: scale(1.4);
+  }
+  40% {
+    -webkit-transform: scale(0.9);
+       -moz-transform: scale(0.9);
+         -o-transform: scale(0.9);
+            transform: scale(0.9);
+  }
+  60% {
+    -webkit-transform: scale(1.2);
+       -moz-transform: scale(1.2);
+         -o-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+  80% {
+    -webkit-transform: scale(0.95);
+       -moz-transform: scale(0.95);
+         -o-transform: scale(0.95);
+            transform: scale(0.95);
+  }
+  to {
+    -webkit-transform: scale(1);
+       -moz-transform: scale(1);
+         -o-transform: scale(1);
+            transform: scale(1);
+  }
+}
+.wpeo-project-wrap .list-task .scale-in {
+  -webkit-animation-name: scaleIn;
+     -moz-animation-name: scaleIn;
+       -o-animation-name: scaleIn;
+          animation-name: scaleIn;
 }
 /**
  * Popup
@@ -3853,23 +4149,23 @@
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
 .wpeo-project-wrap .list-task .task-header-action .task-color .red {
-  background: #ff989a;
+  background: #ffc9ca;
   border: 1px solid #ff4246;
 }
 .wpeo-project-wrap .list-task .task-header-action .task-color .yellow {
-  background: #ffeca4;
+  background: #fff1bd;
   border: 1px solid #ffbd41;
 }
 .wpeo-project-wrap .list-task .task-header-action .task-color .green {
-  background: #b6ffa4;
+  background: #dfffd8;
   border: 1px solid #35c54e;
 }
 .wpeo-project-wrap .list-task .task-header-action .task-color .blue {
-  background: #a4d0ff;
+  background: #d5eaff;
   border: 1px solid #389af6;
 }
 .wpeo-project-wrap .list-task .task-header-action .task-color .purple {
-  background: #cca4ff;
+  background: #e6d2ff;
   border: 1px solid #7c41c7;
 }
 .wpeo-project-wrap .list-task .task-header-action .task-color > * {
@@ -3882,7 +4178,8 @@
   border: 1px solid rgba(0, 0, 0, 0.6);
 }
 .wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-project-task-container,
-.wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-task-point-use-toggle p {
+.wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-task-point-use-toggle p,
+.wpeo-project-wrap .list-task .wpeo-project-task.white .points .point {
   background: #fff;
 }
 .wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-tag-wrap li.wpeo-tag-tag-selected,
@@ -3893,28 +4190,20 @@
 .wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-main-user li:last-child a:hover {
   background: #69b3f8;
 }
-.wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-task-add-new-point,
+.wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-point-new-btn,
 .wpeo-project-wrap .list-task .wpeo-project-task.white textarea:focus,
 .wpeo-project-wrap .list-task .wpeo-project-task.white textarea.active,
 .wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-task-point-completed input[type=checkbox]:checked:before,
 .wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-tag-add-tag {
   color: #389af6;
 }
-.wpeo-project-wrap .list-task .wpeo-project-task.active.white ~ .wpeo-window-dashboard {
-  background: #fff;
-}
-.wpeo-project-wrap .list-task .wpeo-project-task.active.white ~ .wpeo-window-dashboard input[type="button"] {
-  background: #389af6;
-}
-.wpeo-project-wrap .list-task .wpeo-project-task.active.white ~ .wpeo-window-dashboard input[type="button"]:hover {
-  background: #0b81f0;
-}
-.wpeo-project-wrap .list-task .wpeo-project-task.active.white ~ .wpeo-window-dashboard .wpeo-point-time-edit-btn {
-  color: #389af6;
+.wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-point-new-btn:hover {
+  color: #0967bf;
 }
 .wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-project-task-container,
-.wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-task-point-use-toggle p {
-  background: #ff989a;
+.wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-task-point-use-toggle p,
+.wpeo-project-wrap .list-task .wpeo-project-task.red .points .point {
+  background: #ffc9ca;
 }
 .wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-tag-wrap li.wpeo-tag-tag-selected,
 .wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn,
@@ -3924,28 +4213,20 @@
 .wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-main-user li:last-child a:hover {
   background: #ff7578;
 }
-.wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-task-add-new-point,
+.wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-point-new-btn,
 .wpeo-project-wrap .list-task .wpeo-project-task.red textarea:focus,
 .wpeo-project-wrap .list-task .wpeo-project-task.red textarea.active,
 .wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-task-point-completed input[type=checkbox]:checked:before,
 .wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-tag-add-tag {
   color: #ff4246;
 }
-.wpeo-project-wrap .list-task .wpeo-project-task.active.red ~ .wpeo-window-dashboard {
-  background: #ff989a;
-}
-.wpeo-project-wrap .list-task .wpeo-project-task.active.red ~ .wpeo-window-dashboard input[type="button"] {
-  background: #ff4246;
-}
-.wpeo-project-wrap .list-task .wpeo-project-task.active.red ~ .wpeo-window-dashboard input[type="button"]:hover {
-  background: #ff0f14;
-}
-.wpeo-project-wrap .list-task .wpeo-project-task.active.red ~ .wpeo-window-dashboard .wpeo-point-time-edit-btn {
-  color: #ff4246;
+.wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-point-new-btn:hover {
+  color: #db0005;
 }
 .wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-project-task-container,
-.wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-task-point-use-toggle p {
-  background: #ffeca4;
+.wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-task-point-use-toggle p,
+.wpeo-project-wrap .list-task .wpeo-project-task.yellow .points .point {
+  background: #fff1bd;
 }
 .wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-tag-wrap li.wpeo-tag-tag-selected,
 .wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn,
@@ -3955,28 +4236,20 @@
 .wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-main-user li:last-child a:hover {
   background: #ffcf74;
 }
-.wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-task-add-new-point,
+.wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-point-new-btn,
 .wpeo-project-wrap .list-task .wpeo-project-task.yellow textarea:focus,
 .wpeo-project-wrap .list-task .wpeo-project-task.yellow textarea.active,
 .wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-task-point-completed input[type=checkbox]:checked:before,
 .wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-tag-add-tag {
   color: #ffbd41;
 }
-.wpeo-project-wrap .list-task .wpeo-project-task.active.yellow ~ .wpeo-window-dashboard {
-  background: #ffeca4;
-}
-.wpeo-project-wrap .list-task .wpeo-project-task.active.yellow ~ .wpeo-window-dashboard input[type="button"] {
-  background: #ffbd41;
-}
-.wpeo-project-wrap .list-task .wpeo-project-task.active.yellow ~ .wpeo-window-dashboard input[type="button"]:hover {
-  background: #ffab0e;
-}
-.wpeo-project-wrap .list-task .wpeo-project-task.active.yellow ~ .wpeo-window-dashboard .wpeo-point-time-edit-btn {
-  color: #ffbd41;
+.wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-point-new-btn:hover {
+  color: #da8e00;
 }
 .wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-project-task-container,
-.wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-task-point-use-toggle p {
-  background: #b6ffa4;
+.wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-task-point-use-toggle p,
+.wpeo-project-wrap .list-task .wpeo-project-task.green .points .point {
+  background: #dfffd8;
 }
 .wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-tag-wrap li.wpeo-tag-tag-selected,
 .wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn,
@@ -3986,28 +4259,20 @@
 .wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-main-user li:last-child a:hover {
   background: #5ad36f;
 }
-.wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-task-add-new-point,
+.wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-point-new-btn,
 .wpeo-project-wrap .list-task .wpeo-project-task.green textarea:focus,
 .wpeo-project-wrap .list-task .wpeo-project-task.green textarea.active,
 .wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-task-point-completed input[type=checkbox]:checked:before,
 .wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-tag-add-tag {
   color: #35c54e;
 }
-.wpeo-project-wrap .list-task .wpeo-project-task.active.green ~ .wpeo-window-dashboard {
-  background: #b6ffa4;
-}
-.wpeo-project-wrap .list-task .wpeo-project-task.active.green ~ .wpeo-window-dashboard input[type="button"] {
-  background: #35c54e;
-}
-.wpeo-project-wrap .list-task .wpeo-project-task.active.green ~ .wpeo-window-dashboard input[type="button"]:hover {
-  background: #2a9d3e;
-}
-.wpeo-project-wrap .list-task .wpeo-project-task.active.green ~ .wpeo-window-dashboard .wpeo-point-time-edit-btn {
-  color: #35c54e;
+.wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-point-new-btn:hover {
+  color: #1f752e;
 }
 .wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-project-task-container,
-.wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-task-point-use-toggle p {
-  background: #a4d0ff;
+.wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-task-point-use-toggle p,
+.wpeo-project-wrap .list-task .wpeo-project-task.blue .points .point {
+  background: #d5eaff;
 }
 .wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-tag-wrap li.wpeo-tag-tag-selected,
 .wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn,
@@ -4017,28 +4282,20 @@
 .wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-main-user li:last-child a:hover {
   background: #69b3f8;
 }
-.wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-task-add-new-point,
+.wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-point-new-btn,
 .wpeo-project-wrap .list-task .wpeo-project-task.blue textarea:focus,
 .wpeo-project-wrap .list-task .wpeo-project-task.blue textarea.active,
 .wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-task-point-completed input[type=checkbox]:checked:before,
 .wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-tag-add-tag {
   color: #389af6;
 }
-.wpeo-project-wrap .list-task .wpeo-project-task.active.blue ~ .wpeo-window-dashboard {
-  background: #a4d0ff;
-}
-.wpeo-project-wrap .list-task .wpeo-project-task.active.blue ~ .wpeo-window-dashboard input[type="button"] {
-  background: #389af6;
-}
-.wpeo-project-wrap .list-task .wpeo-project-task.active.blue ~ .wpeo-window-dashboard input[type="button"]:hover {
-  background: #0b81f0;
-}
-.wpeo-project-wrap .list-task .wpeo-project-task.active.blue ~ .wpeo-window-dashboard .wpeo-point-time-edit-btn {
-  color: #389af6;
+.wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-point-new-btn:hover {
+  color: #0967bf;
 }
 .wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-project-task-container,
-.wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-task-point-use-toggle p {
-  background: #cca4ff;
+.wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-task-point-use-toggle p,
+.wpeo-project-wrap .list-task .wpeo-project-task.purple .points .point {
+  background: #e6d2ff;
 }
 .wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-tag-wrap li.wpeo-tag-tag-selected,
 .wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn,
@@ -4048,24 +4305,15 @@
 .wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-main-user li:last-child a:hover {
   background: #9768d3;
 }
-.wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-task-add-new-point,
+.wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-point-new-btn,
 .wpeo-project-wrap .list-task .wpeo-project-task.purple textarea:focus,
 .wpeo-project-wrap .list-task .wpeo-project-task.purple textarea.active,
 .wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-task-point-completed input[type=checkbox]:checked:before,
 .wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-tag-add-tag {
   color: #7c41c7;
 }
-.wpeo-project-wrap .list-task .wpeo-project-task.active.purple ~ .wpeo-window-dashboard {
-  background: #cca4ff;
-}
-.wpeo-project-wrap .list-task .wpeo-project-task.active.purple ~ .wpeo-window-dashboard input[type="button"] {
-  background: #7c41c7;
-}
-.wpeo-project-wrap .list-task .wpeo-project-task.active.purple ~ .wpeo-window-dashboard input[type="button"]:hover {
-  background: #6430a5;
-}
-.wpeo-project-wrap .list-task .wpeo-project-task.active.purple ~ .wpeo-window-dashboard .wpeo-point-time-edit-btn {
-  color: #7c41c7;
+.wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-point-new-btn:hover {
+  color: #4c257d;
 }
 .wpeo-project-wrap .wpeo-project-task-container input,
 .wpeo-project-wrap .wpeo-project-task-container textarea {
@@ -4400,7 +4648,6 @@
   transition: all 0.2s ease-out;
 }
 .wpeo-project-wrap .list-task .wpeo-project-task .wpeo-task-header {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   padding: 10px 14px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -4432,14 +4679,16 @@
 }
 .wpeo-project-wrap .list-task .wpeo-project-task .wpeo-task-header .wpeo-task-id {
   width: 12%;
+  font-weight: 700;
 }
 .wpeo-project-wrap .list-task .wpeo-project-task .wpeo-task-header .wpeo-task-title {
   width: 78%;
   padding: 0 0 0 8px;
 }
 .wpeo-project-wrap .list-task .wpeo-project-task .wpeo-task-header .wpeo-task-title input {
-  font-weight: bold;
+  font-weight: 300;
   width: 100%;
+  font-size: 20px;
 }
 .wpeo-project-wrap .list-task .wpeo-project-task .wpeo-task-header .wpeo-task-setting {
   width: 10%;
@@ -4571,6 +4820,7 @@
      -moz-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 .wpeo-project-wrap .list-task .wpeo-project-task .wpeo-task-time-manage li {
   padding: 0 8px 0 0;
@@ -4604,6 +4854,402 @@
 /* ----------------------------------
 		Content affichage tâche
 -----------------------------------*/
+.wpeo-project-wrap .points {
+  background: rgba(0, 0, 0, 0.05);
+}
+.wpeo-project-wrap .points .point-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+     -moz-box-orient: horizontal;
+     -moz-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  padding: 8px 14px 0 14px;
+}
+.wpeo-project-wrap .points .point-container .point-valid,
+.wpeo-project-wrap .points .point-container .point-action,
+.wpeo-project-wrap .points .point-container .point-toggle,
+.wpeo-project-wrap .points .point-container .point-content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+     -moz-box-orient: horizontal;
+     -moz-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+.wpeo-project-wrap .points .point-container .point-valid {
+  width: 7%;
+}
+.wpeo-project-wrap .points .point-container .point-valid .completed-point,
+.wpeo-project-wrap .points .point-container .point-valid .wpeo-sort-point {
+  margin: auto 0;
+}
+.wpeo-project-wrap .points .point-container .point-valid .wpeo-sort-point {
+  color: rgba(0, 0, 0, 0.1);
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+}
+.wpeo-project-wrap .points .point-container .point-valid .wpeo-sort-point:hover {
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.4);
+}
+.wpeo-project-wrap .points .point-container .point-valid .completed-point {
+  margin-left: 4px;
+  background: #fff !important;
+  -webkit-border-radius: 3px;
+          border-radius: 3px;
+}
+.wpeo-project-wrap .points .point-container .point-action {
+  width: 15%;
+  margin-right: auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+     -moz-box-orient: horizontal;
+     -moz-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+.wpeo-project-wrap .points .point-container .point-action .wpeo-point-time,
+.wpeo-project-wrap .points .point-container .point-action .wpeo-task-setting,
+.wpeo-project-wrap .points .point-container .point-action .action-delete {
+  margin: auto 0;
+}
+.wpeo-project-wrap .points .point-container .point-action .wpeo-point-time {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+     -moz-box-orient: horizontal;
+     -moz-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 50%;
+}
+.wpeo-project-wrap .points .point-container .point-action .wpeo-point-time .dashicons-clock {
+  margin-right: 4px;
+}
+.wpeo-project-wrap .points .point-container .point-action .wpeo-point-time span {
+  margin: auto 0;
+}
+.wpeo-project-wrap .points .point-container .point-action .wpeo-task-setting {
+  margin-left: auto;
+  text-align: center;
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+.wpeo-project-wrap .points .point-container .point-action .wpeo-task-setting i {
+  background: rgba(0, 0, 0, 0.1);
+  min-width: 20px;
+  color: rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  line-height: 20px;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+}
+.wpeo-project-wrap .points .point-container .point-action .wpeo-task-setting:hover {
+  cursor: pointer;
+}
+.wpeo-project-wrap .points .point-container .point-action .wpeo-task-setting:hover i {
+  background: rgba(0, 0, 0, 0.2);
+}
+.wpeo-project-wrap .points .point-container .point-action .wpeo-point-new-btn {
+  margin: auto 0 auto auto;
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  display: block;
+}
+.wpeo-project-wrap .points .point-container .point-action .wpeo-point-new-btn:hover {
+  cursor: pointer;
+}
+.wpeo-project-wrap .points .point-container .point-toggle {
+  width: 8%;
+}
+.wpeo-project-wrap .points .point-container .point-toggle .action-attribute,
+.wpeo-project-wrap .points .point-container .point-toggle .wpeo-block-id {
+  margin: auto 0;
+}
+.wpeo-project-wrap .points .point-container .point-toggle .action-attribute {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.6);
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  line-height: 1.2;
+}
+.wpeo-project-wrap .points .point-container .point-toggle .action-attribute:hover {
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.9);
+  -webkit-animation-duration: 0.6s;
+     -moz-animation-duration: 0.6s;
+       -o-animation-duration: 0.6s;
+          animation-duration: 0.6s;
+}
+.wpeo-project-wrap .points .point-container .point-toggle .action-attribute:hover.dashicons-arrow-right-alt2 {
+  -webkit-animation-name: bounceLeft;
+     -moz-animation-name: bounceLeft;
+       -o-animation-name: bounceLeft;
+          animation-name: bounceLeft;
+}
+.wpeo-project-wrap .points .point-container .point-toggle .action-attribute:hover.dashicons-arrow-down-alt2 {
+  -webkit-animation-name: bounceTop;
+     -moz-animation-name: bounceTop;
+       -o-animation-name: bounceTop;
+          animation-name: bounceTop;
+}
+.wpeo-project-wrap .points .point-container .point-toggle .wpeo-block-id {
+  font-weight: 700;
+}
+.wpeo-project-wrap .points .point-container .point-content {
+  width: 70%;
+  min-width: 70%;
+}
+.wpeo-project-wrap .points .point-container .point-content .wpeo-point-new-contenteditable {
+  margin: auto 6px;
+}
+.wpeo-project-wrap .points .point-container .point-content .wpeo-point-new-contenteditable {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  padding-bottom: 6px;
+  font-family: 'kalamregular', 'open sans', sans-serif;
+  width: 100%;
+}
+.wpeo-project-wrap .points .point-container .point-content .wpeo-point-new-contenteditable:hover {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+}
+.wpeo-project-wrap .points .point-container .point-content .wpeo-point-new-contenteditable .wpeo-point-new-placeholder {
+  color: rgba(0, 0, 0, 0.4);
+}
+.wpeo-project-wrap .points .point.edit:first-child {
+  padding-top: 10px;
+}
+.wpeo-project-wrap .points .point:hover .wpeo-sort-point,
+.wpeo-project-wrap .points .point:hover .wpeo-task-setting i,
+.wpeo-project-wrap .points .point:hover .action-delete {
+  opacity: 1;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+}
+/* ----------------------------------
+		Commentaires
+-----------------------------------*/
+.wpeo-project-wrap .points .point .comments {
+  background: rgba(0, 0, 0, 0.05);
+  padding: 4px 0 10px 0;
+}
+.wpeo-project-wrap .points .point .comments .comment ul {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+     -moz-box-orient: horizontal;
+     -moz-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  padding: 8px 14px 0;
+  margin-left: 15%;
+  width: 85%;
+}
+.wpeo-project-wrap .points .point .comments .comment.edit ul input {
+  width: 100%;
+  font-size: 13px;
+  margin: 0;
+  padding: 2px;
+}
+.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-date,
+.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-time {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-date span,
+.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-time span {
+  margin: auto;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.4);
+}
+.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-date {
+  width: 100%;
+  max-width: 20%;
+}
+.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-content {
+  margin: 0 16px;
+  width: 100%;
+  max-width: 63%;
+}
+.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-time {
+  width: 100%;
+  max-width: 12%;
+}
+.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-time input {
+  padding: 2px;
+}
+.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-point-new-btn {
+  text-align: right;
+  width: 100%;
+  max-width: 5%;
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  margin-left: auto;
+}
+.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-point-new-btn:hover {
+  cursor: pointer;
+}
+.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-save-point {
+  width: 100%;
+  max-width: 5%;
+  text-align: right;
+}
+.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-save-point i {
+  background: #3495f0;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+  font-size: 12px;
+  width: 20px;
+  line-height: 20px;
+  text-align: center;
+  color: #fff;
+  margin-left: auto;
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  display: inline-block;
+}
+.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-save-point i:hover {
+  background: #1360c8;
+  cursor: pointer;
+}
+.wpeo-project-wrap .points .point .comments .comment:not(.edit) ul {
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+.wpeo-project-wrap .points .point .comments .comment:not(.edit) ul .wpeo-comment-date {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.4);
+  width: 80%;
+}
+.wpeo-project-wrap .points .point .comments .comment:not(.edit) ul .wpeo-comment-content {
+  width: 100%;
+}
+.wpeo-project-wrap .points .point .comments .comment:not(.edit) ul .wpeo-comment-time {
+  padding-left: 8px;
+}
+.wpeo-project-wrap .points .point .comments .comment:not(.edit) ul .wpeo-comment-action {
+  margin-left: auto;
+}
+.wpeo-project-wrap .points .point .comments .comment:not(.edit) ul .action-attribute {
+  color: #3495f0;
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+.wpeo-project-wrap .points .point .comments .comment:not(.edit) ul .action-attribute:hover {
+  color: #1360c8;
+  cursor: pointer;
+}
+.wpeo-project-wrap .points .point .comments .comment:not(.edit) ul .action-delete {
+  background: rgba(0, 0, 0, 0.1);
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+  font-size: 14px;
+  line-height: 20px;
+  color: rgba(0, 0, 0, 0.2);
+  margin-left: auto;
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  display: inline-block;
+}
+.wpeo-project-wrap .points .point .comments .comment:not(.edit) ul .action-delete:hover {
+  background: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+/* ----------------------------------
+		Points terminés
+-----------------------------------*/
+.wpeo-project-wrap .wpeo-task-point-use-toggle {
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  margin: 24px 0 16px;
+  text-align: center;
+}
+.wpeo-project-wrap .wpeo-task-point-use-toggle p {
+  display: inline-block;
+  padding: 0 20px;
+  position: relative;
+  top: -13px;
+  -webkit-transition: all 0.2s ease-out 0s;
+  -o-transition: all 0.2s ease-out 0s;
+  -moz-transition: all 0.2s ease-out 0s;
+  transition: all 0.2s ease-out 0s;
+  background: #fff;
+}
+.wpeo-project-wrap .wpeo-task-point-use-toggle p:hover {
+  cursor: pointer;
+}
+.wpeo-project-wrap .wpeo-task-point-use-toggle .wpeo-point-toggle-arrow {
+  background: rgba(0, 0, 0, 0.3) none repeat scroll 0 0;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+  color: #fff;
+  font-size: 14px;
+  margin-right: 4px;
+  padding: 4px 0;
+}
+.wpeo-project-wrap .wpeo-task-point-use-toggle .wpeo-point-toggle-a {
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+}
 /* ----------------------------------
 		Footer affichage tags
 -----------------------------------*/

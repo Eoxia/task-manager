@@ -64,8 +64,10 @@ class Task_Shortcode {
 			$param['users_id'] = array();
 		}
 
+		$tasks = Task_Class::g()->get_tasks( $param );
+
 		View_Util::exec( 'task', 'backend/main', array(
-			'param' => $param,
+			'tasks' => $tasks,
 		) );
 	}
 }

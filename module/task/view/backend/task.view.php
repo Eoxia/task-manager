@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 			</li>
 
 			<li class="toggle wpeo-task-setting"
-					data-parent="wpeo-project-task"
+					data-parent="toggle"
 					data-target="content">
 
 				<div class="action">
@@ -105,7 +105,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 				<?php endif; ?>
 			</li>
 
-			<li class="open-popup-ajax"
+			<li class="wpeo-task-time-history open-popup-ajax"
 					data-parent="wpeo-project-task"
 					data-target="popup"
 					data-action="load_time_history"

@@ -100,25 +100,15 @@ class Task_Class extends Post_Class {
 		parent::construct();
 	}
 
-	/**
-	 * Charges les tâches, et fait le rendu.
-	 *
-	 * @param  array $param Les paramètres pour charger les tâches.
-	 *
-	 * @return void
-	 *
-	 * @since 1.3.6.0
-	 * @version 1.3.6.0
-	 */
-	public function display_tasks( $param ) {
+	public function get_tasks( $param ) {
 		global $wpdb;
 
-		$param['offset'] = (int) $param['offset'];
-		$param['posts_per_page'] = (int) $param['posts_per_page'];
-		$param['users_id'] = (array) $param['users_id'];
-		$param['categories_id'] = (array) $param['categories_id'];
-		$param['status'] = sanitize_text_field( $param['status'] );
-		$param['post_parent'] = (int) $param['post_parent'];
+		$param['offset'] = ! empty( $param['offset'] ) ? (int) $param['offset'] : 0;
+		$param['posts_per_page'] = ! empty( $param['posts_per_page'] ) ? (int) $param['posts_per_page'] : -1;
+		$param['users_id'] = ! empty( $param['users_id'] ) ? (array) $param['users_id'] : array();
+		$param['categories_id'] = ! empty( $param['categories_id'] ) ? (array) $param['categories_id'] : array();
+		$param['status'] = ! empty( $param['status'] ) ? sanitize_text_field( $param['status'] ) : 'publish';
+		$param['post_parent'] = ! empty( $param['post_parent'] ) ? (int) $param['post_parent'] : 0;
 
 		$tasks = array();
 		$tasks_id = array();
@@ -171,7 +161,11 @@ class Task_Class extends Post_Class {
 			$query .= ')';
 		}
 
-		$query .= "ORDER BY TASK.post_date DESC LIMIT " . $param['offset'] . "," . ( $param['posts_per_page'] + $param['offset'] );
+		$query .= " ORDER BY TASK.post_date DESC ";
+
+		if ( -1 !== $param['posts_per_page'] ) {
+			$query .= "LIMIT " . $param['offset'] . "," . ( $param['posts_per_page'] + $param['offset'] );
+		}
 
 		$tasks_id = $wpdb->get_col( $query );
 
@@ -182,6 +176,20 @@ class Task_Class extends Post_Class {
 			) );
 		}
 
+		return $tasks;
+	}
+
+	/**
+	 * Charges les tâches, et fait le rendu.
+	 *
+	 * @param  array $param Les paramètres pour charger les tâches.
+	 *
+	 * @return void
+	 *
+	 * @since 1.3.6.0
+	 * @version 1.3.6.0
+	 */
+	public function display_tasks( $tasks ) {
 		View_Util::exec( 'task', 'backend/tasks', array(
 			'tasks' => $tasks,
 		) );

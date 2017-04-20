@@ -73,7 +73,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 							data-target="content">
 
 						<div class="action">
-							<span class="wpeo-task-open-action" title="<?php esc_html_e( 'Task options', 'task-manager' ); ?>"><i class="fa fa-cog"></i></span>
+							<span class="wpeo-task-open-action" title="<?php esc_html_e( 'Point options', 'task-manager' ); ?>"><i class="fa fa-ellipsis-v"></i></span>
 						</div>
 
 						<ul class="content point-header-action">

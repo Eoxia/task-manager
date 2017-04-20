@@ -20,23 +20,25 @@ window.task_manager.task.event = function() {
 window.task_manager.task.onScrollLoadMore = function() {
 	var data = {};
 
-	if ( ( jQuery( window ).scrollTop() == jQuery( document ).height() - jQuery( window ).height() ) && window.task_manager.task.canLoadMore ) {
-		window.task_manager.task.offset += parseInt( window.task_manager_posts_per_page );
-		window.task_manager.task.canLoadMore = false;
+	if ( 1 !== jQuery( '#poststuff' ).length ) {
+		if ( ( jQuery( window ).scrollTop() == jQuery( document ).height() - jQuery( window ).height() ) && window.task_manager.task.canLoadMore ) {
+			window.task_manager.task.offset += parseInt( window.task_manager_posts_per_page );
+			window.task_manager.task.canLoadMore = false;
 
-		data.action = 'load_more_task';
-		data.offset = window.task_manager.task.offset;
-		data.posts_per_page = window.task_manager_posts_per_page;
-		data.term = jQuery( '.wpeo-header-bar input[name="term"]' ).val();
-		data.users_id = ( 'load_my_task' == jQuery( '.wpeo-header-bar li.active' ).data( 'action' ) ) ? jQuery( 'input.user-id' ).val() : jQuery( '.wpeo-header-search select[name="follower_id_selected"]' ).val();
-		data.status = ( 'load_archived_task' == jQuery( '.wpeo-header-bar li.active' ).data( 'action' ) ) ? 'archive' : 'publish';
+			data.action = 'load_more_task';
+			data.offset = window.task_manager.task.offset;
+			data.posts_per_page = window.task_manager_posts_per_page;
+			data.term = jQuery( '.wpeo-header-bar input[name="term"]' ).val();
+			data.users_id = ( 'load_my_task' == jQuery( '.wpeo-header-bar li.active' ).data( 'action' ) ) ? jQuery( 'input.user-id' ).val() : jQuery( '.wpeo-header-search select[name="follower_id_selected"]' ).val();
+			data.status = ( 'load_archived_task' == jQuery( '.wpeo-header-bar li.active' ).data( 'action' ) ) ? 'archive' : 'publish';
 
-		window.task_manager.navigation.checkDataBeforeSearch( undefined );
+			window.task_manager.navigation.checkDataBeforeSearch( undefined );
 
-		data.categories_id = jQuery( '.wpeo-header-search input[name="categories_id_selected"]' ).val();
+			data.categories_id = jQuery( '.wpeo-header-search input[name="categories_id_selected"]' ).val();
 
-		jQuery( '.load-more' ).addClass( 'loading' );
-		window.task_manager.request.send( jQuery( '.load-more' ), data );
+			jQuery( '.load-more' ).addClass( 'loading' );
+			window.task_manager.request.send( jQuery( '.load-more' ), data );
+		}
 	}
 };
 

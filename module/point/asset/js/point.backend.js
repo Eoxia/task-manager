@@ -30,7 +30,8 @@ window.task_manager.point.init = function() {
 window.task_manager.point.event = function() {
 	jQuery( document ).on( 'keyup', '.point:not(.edit) .wpeo-point-new-contenteditable', window.task_manager.point.triggerCreate );
 
-	jQuery( document ).on( 'blur keyup paste keydown', '.point .wpeo-point-new-contenteditable', window.task_manager.point.updateHiddenInput );
+	jQuery( document ).on( 'click', '.point.edit .wpeo-point-new-contenteditable', window.task_manager.point.activePoint );
+	jQuery( document ).on( 'blur keyup paste keydown click', '.point .wpeo-point-new-contenteditable', window.task_manager.point.updateHiddenInput );
 	jQuery( document ).on( 'blur paste', '.point.edit .wpeo-point-new-contenteditable', window.task_manager.point.editPoint );
 	jQuery( document ).on( 'click', 'form .completed-point', window.task_manager.point.completePoint );
 
@@ -40,6 +41,10 @@ window.task_manager.point.triggerCreate = function( event ) {
 	if ( event.ctrlKey && 13 === event.keyCode ) {
 		jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).click();
 	}
+};
+
+window.task_manager.point.activePoint = function( event ) {
+
 };
 
 /**
@@ -112,9 +117,7 @@ window.task_manager.point.addedPointSuccess = function( triggeredElement, respon
  * @since 1.0.0.0
  * @version 1.0.0.0
  */
-window.task_manager.point.editedPointSuccess = function( triggeredElement, response ) {
-	jQuery( triggeredElement ).closest( 'div.point' ).replaceWith( response.data.view );
-};
+window.task_manager.point.editedPointSuccess = function( triggeredElement, response ) {};
 
 /**
  * Met à jour un point en cliquant sur le bouton pour envoyer le formulaire.

@@ -15,7 +15,7 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 <div class="list-task">
-	<?php Task_Class::g()->display_tasks( $param ); ?>
+	<?php Task_Class::g()->display_tasks( $tasks ); ?>
 </div>
 
 <div class="load-more"></div>

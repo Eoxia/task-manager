@@ -86,11 +86,23 @@ class Task_Action {
 		check_ajax_referer( 'create_task' );
 
 		$parent_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
+		$tag_slug_selected = ! empty( $_POST['tag'] ) ? sanitize_text_field( $_POST['tag'] ) : 0;
 
 		$task = Task_Class::g()->create( array(
 			'title' 		=> __( 'New task', 'task-manager' ),
 			'parent_id' => $parent_id,
 		) );
+
+		if ( ! empty( $tag_slug_selected ) ) {
+			$tag = get_term_by( 'slug', $tag_slug_selected, 'wpeo_tag', 'ARRAY_A' );
+
+			if ( empty( $tag ) ) {
+				$tag = wp_create_term( $tag_slug_selected, 'wpeo_tag' );
+			}
+
+			$task->taxonomy['wpeo_tag'][] = (int) $tag['term_id'];
+			Task_Class::g()->update( $task );
+		}
 
 		ob_start();
 		View_Util::exec( 'task', 'backend/task', array(
