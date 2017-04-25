@@ -25,6 +25,8 @@ class History_Time_Model extends Comment_Model {
 	 * @param History_Time_Model $object L'objet.
 	 */
 	public function __construct( $object ) {
+		$this->model['author_id']['bydefault'] = get_current_user_id();
+
 		$this->model = array_merge( $this->model, array(
 			'due_date' => array(
 				'meta_type' => 'multiple',

@@ -16,8 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 <li class="comment">
 	<ul>
-		<li class="avatar">A</li>
-		<li class="wpeo-comment-date"><?php echo esc_html( 'Nom de la personne' ) . ', ' . esc_html( $comment->date ); ?></li>
+		<li class="avatar"><?php echo get_avatar( $comment->author_id, 16 ); ?></li>
+		<li class="wpeo-comment-date"><?php echo esc_html( $comment->author->display_name ) . ', ' . esc_html( $comment->date ); ?></li>
 		<li class="wpeo-comment-time"><span class="fa fa-clock-o"></span> <?php echo esc_html( $comment->time_info['elapsed'] ); ?></li>
 		<li class="wpeo-comment-action">
 			<div class="toggle wpeo-comment-setting"
@@ -29,13 +29,18 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 				</div>
 
 				<ul class="content point-header-action">
-					<li class="open-popup-ajax"
-							data-action="load_point_properties"
-							data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_point_properties' ) ); ?>"
+					<li class="action-attribute"
+							data-action="load_edit_view_comment"
+							data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_edit_view_comment' ) ); ?>"
 							data-id="<?php echo esc_attr( $comment->id ); ?>"
-							data-parent="wpeo-project-task"
-							data-target="popup">
-						<span><?php esc_html_e( 'Point properties', 'task-manager' ); ?></span>
+						<span><?php esc_html_e( 'Edit comment', 'task-manager' ); ?></span>
+					</li>
+
+					<li class="action-delete"
+							data-action="delete_comment"
+							data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_comment' ) ); ?>"
+							data-id="<?php echo esc_attr( $comment->id ); ?>"
+						<span><?php esc_html_e( 'Delete comment', 'task-manager' ); ?></span>
 					</li>
 				</ul>
 			</div>

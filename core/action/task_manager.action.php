@@ -64,7 +64,8 @@ class Task_Manager_Action {
 
 			wp_enqueue_style( 'task-manager-datepicker', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/datepicker.min.css', array(), Config_Util::$init['task-manager']->version );
 
-			wp_enqueue_script( 'task-manager-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/backend.min.js', array(), config_util::$init['task-manager']->version, false );
+			wp_enqueue_script( 'task-manager-masonry', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/masonry.min.js', array(), Config_Util::$init['task-manager']->version );
+			wp_enqueue_script( 'task-manager-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/backend.min.js', array(), Config_Util::$init['task-manager']->version );
 		}
 	}
 

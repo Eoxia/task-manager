@@ -54,4 +54,19 @@ window.task_manager.historyTime.loadedTimeHistorySuccess = function( element, re
  * @version 1.0.0.0
  */
 window.task_manager.historyTime.createdHistoryTime = function( element, response ) {
+	jQuery( element ).closest( '.wpeo-project-task' ).find( '.popup .content .history-time-container' ).replaceWith( response.data.view );
+};
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "delete_history_time".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.0.0.0
+ */
+window.task_manager.historyTime.deletedHistoryTime = function( element, response ) {
+	jQuery( element ).closest( '.list-element' ).fadeOut();
 };

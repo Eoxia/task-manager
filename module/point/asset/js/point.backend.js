@@ -44,7 +44,9 @@ window.task_manager.point.triggerCreate = function( event ) {
 };
 
 window.task_manager.point.activePoint = function( event ) {
+	jQuery( '.point.active' ).removeClass( 'active' );
 
+	jQuery( this ).closest( '.point' ).addClass( 'active' );
 };
 
 /**
@@ -81,7 +83,7 @@ window.task_manager.point.updateHiddenInput = function( event ) {
 		jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
 	}
 
-	jQuery( this ).closest( '.point' ).find( 'input[name="content"]' ).val( jQuery( this ).text() );
+	jQuery( this ).closest( '.point' ).find( 'input[name="content"]' ).val( jQuery( this ).html() );
 };
 
 /**
@@ -101,9 +103,11 @@ window.task_manager.point.addedPointSuccess = function( triggeredElement, respon
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.total-point' ).text( totalPoint );
 
 	triggeredElement.closest( '.form' ).find( '.wpeo-point-new-contenteditable' ).text( '' );
-	triggeredElement.closest( '.form' ).find( 'input[name="content"]' ).val( '' );
+	triggeredElement.closest( '.form' ).find( 'input[name="content"]' ).html( '' );
 
-	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.points.sortable form:last' ).before( response.data.view );
+	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.points.sortable .point:last' ).before( response.data.view );
+
+	window.eoxiaJS.refresh();
 };
 
 /**
@@ -151,7 +155,9 @@ window.task_manager.point.deletedPointSuccess = function( triggeredElement, resp
 		jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text( totalCompletedPoint );
 	}
 
-	jQuery( triggeredElement ).closest( 'div.point.edit' ).fadeOut();
+	jQuery( triggeredElement ).closest( 'div.point.edit' ).fadeOut( 400, function() {
+		window.eoxiaJS.refresh();
+	} );
 };
 
 /**
@@ -183,6 +189,7 @@ window.task_manager.point.completePoint = function() {
 
 	jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text( totalCompletedPoint );
 
+	window.eoxiaJS.refresh();
 	window.task_manager.request.send( jQuery( this ), data );
 };
 
@@ -197,7 +204,8 @@ window.task_manager.point.completePoint = function() {
  */
 window.task_manager.point.beforeLoadCompletedPoint = function( triggeredElement ) {
 	jQuery( triggeredElement ).closest( '.wpeo-task-point-use-toggle' ).find( '.dashicons' ).toggleClass( 'dashicons-minus dashicons-plus' );
-	jQuery( triggeredElement ).closest( '.wpeo-task-point-use-toggle' ).find( '.wpeo-task-point-completed' ).toggleClass( 'hidden' );
+	jQuery( triggeredElement ).closest( '.wpeo-task-point-use-toggle' ).find( '.points.completed' ).toggleClass( 'hidden' );
+	window.eoxiaJS.refresh();
 	return true;
 };
 
@@ -213,6 +221,7 @@ window.task_manager.point.beforeLoadCompletedPoint = function( triggeredElement 
  */
 window.task_manager.point.loadedCompletedPoint = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.points.completed' ).html( response.data.view );
+	window.eoxiaJS.refresh();
 };
 
 /**
@@ -279,4 +288,6 @@ window.task_manager.point.movedPointTo = function( triggeredElement, response ) 
 
 	// Met à jour le contenu.
 	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( '.points div.point:last' ).before( jQuery( '.point.edit[data-id=' + response.data.point.id + ']' ) );
+
+	window.eoxiaJS.refresh();
 };

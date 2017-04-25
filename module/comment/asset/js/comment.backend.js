@@ -66,6 +66,7 @@ window.task_manager.comment.beforeLoadComments = function( triggeredElement ) {
  */
 window.task_manager.comment.loadedCommentsSuccess = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( 'div.point' ).find( '.comments' ).html( response.data.view );
+	window.eoxiaJS.refresh();
 };
 
 /**
@@ -84,6 +85,7 @@ window.task_manager.comment.addedCommentSuccess = function( triggeredElement, re
 
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.time.task );
 	jQuery( triggeredElement ).closest( '.comments' ).prev( 'form' ).find( '.wpeo-time-in-point' ).text( response.data.time.point );
+	window.eoxiaJS.refresh();
 };
 
 /**
@@ -102,6 +104,7 @@ window.task_manager.comment.editedCommentSuccess = function( triggeredElement, r
 	jQuery( triggeredElement ).closest( '.comments' ).prev( 'form' ).find( '.wpeo-time-in-point' ).text( response.data.time.point );
 
 	jQuery( triggeredElement ).closest( '.comment.edit' ).replaceWith( response.data.view );
+	window.eoxiaJS.refresh();
 };
 
 /**
@@ -120,6 +123,8 @@ window.task_manager.comment.deletedCommentSuccess = function( triggeredElement, 
 
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.time.task );
 	jQuery( triggeredElement ).closest( '.comments' ).prev( 'form' ).find( '.wpeo-time-in-point' ).text( response.data.time.point );
+
+	window.eoxiaJS.refresh();
 };
 
 /**

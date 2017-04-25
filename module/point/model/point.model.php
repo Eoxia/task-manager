@@ -14,6 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Point_Model extends Comment_Model {
 	public function __construct( $object ) {
 		$this->model['status']['bydefault'] = '-34070';
+		$this->model['author_id']['bydefault'] = get_current_user_id();
+		$this->model['date']['bydefault'] = current_time( 'mysql' );
 
 		$this->model = array_merge( $this->model, array(
 			'time_info' => array(

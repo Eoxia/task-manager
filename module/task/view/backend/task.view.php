@@ -109,6 +109,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					data-parent="wpeo-project-task"
 					data-target="popup"
 					data-action="load_time_history"
+					data-title="<?php echo esc_attr( '#' . $task->id . ' Historique du temps' ); ?>"
 					data-task-id="<?php echo esc_attr( $task->id ); ?>">
 				<span class="fa fa-history dashicons-image-rotate"></span>
 			</li>

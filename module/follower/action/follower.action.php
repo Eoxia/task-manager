@@ -40,7 +40,11 @@ class Follower_Action {
 	public function ajax_load_followers() {
 		check_ajax_referer( 'load_followers' );
 
-		$followers = User_Class::g()->get();
+		$followers = User_Class::g()->get( array(
+			'role' => array(
+				'administrator'
+			),
+		) );
 		$task_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 
 		$task = Task_Class::g()->get( array(

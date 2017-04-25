@@ -275,6 +275,10 @@ class Task_Action {
 			'post_status' => array( 'publish', 'archive' ),
 		), true );
 
+		$task->author = User_Class::g()->get( array(
+			'include' => array( $task->author_id ),
+		), true );
+
 		ob_start();
 		View_Util::exec( 'task', 'backend/properties', array(
 			'task' => $task,
@@ -383,7 +387,7 @@ class Task_Action {
 		}
 
 		ob_start();
-		Task_Class::g()->display_tasks( array(
+		$tasks = Task_Class::g()->get_tasks( array(
 			'offset' => $offset,
 			'posts_per_page' => $posts_per_page,
 			'term' => $term,
@@ -392,6 +396,8 @@ class Task_Action {
 			'status' => $status,
 			'post_parent' => $post_parent,
 		) );
+
+		Task_Class::g()->display_tasks( $tasks );
 
 		wp_send_json_success( array(
 			'view' => ob_get_clean(),

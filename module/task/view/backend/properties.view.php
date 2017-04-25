@@ -14,6 +14,25 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
+<ul>
+	<li>
+		<?php esc_html_e( 'Créateur de la tâche', 'task-manager' ); ?>
+		<div class="user" style="width: 32px; height: 32px;">
+			<img class="avatar avatar-32" src="<?php echo esc_attr( get_avatar_url( $task->author->id, array(
+				'size' => 32,
+				'default' => 'blank',
+			)	) ); ?>" />
+			<div class="wpeo-avatar-initial"><span><?php echo esc_html( $task->author->initial ); ?></span></div>
+		</div>
+		<?php echo esc_html( $task->author->display_name ); ?>
+	</li>
+	<li>
+		<?php esc_html_e( 'Date de création', 'task-manager' ); ?>
+		<?php echo $task->date; ?>
+	</li>
+</ul>
+
+
 <form class="form" action="<?php esc_attr( admin_url( 'admin-ajax' ) ); ?>" method="POST">
 
 	<input type="hidden" name="task_id" value="<?php echo esc_attr( $task->id ); ?>" />

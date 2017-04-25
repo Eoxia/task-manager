@@ -43,7 +43,9 @@ class Search_Bar_Shortcode {
 	 */
 	public function callback_task_manager_search_bar( $param ) {
 		$categories = Tag_Class::g()->get( array() );
-		$followers = User_Class::g()->get( array() );
+		$followers = User_Class::g()->get( array(
+			'role' => 'administrator',
+		) );
 
 		$empty_user = new \StdClass();
 		$empty_user->id = '';

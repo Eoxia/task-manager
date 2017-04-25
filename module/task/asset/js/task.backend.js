@@ -10,6 +10,16 @@ window.task_manager.task.canLoadMore = true;
 
 window.task_manager.task.init = function() {
 	window.task_manager.task.event();
+	jQuery( '.list-task' ).masonry( {
+		itemSelector: '.wpeo-project-task'
+	} );
+};
+
+window.task_manager.task.refresh = function() {
+	jQuery( '.list-task' ).masonry( {
+		itemSelector: '.wpeo-project-task',
+		columnWidth: 50
+	} );
 };
 
 window.task_manager.task.event = function() {
@@ -53,8 +63,10 @@ window.task_manager.task.onScrollLoadMore = function() {
  * @version 1.3.6.0
  */
 window.task_manager.task.loadedMoreTask = function( triggeredElement, response ) {
-	jQuery( '.list-task' ).append( response.data.view );
+	var element = jQuery( response.data.view );
+	jQuery( '.list-task' ).append( element ).masonry( 'appended', element );
 	window.task_manager.task.canLoadMore = true;
+	window.eoxiaJS.refresh();
 };
 
 window.task_manager.task.editTitle = function( event ) {
@@ -81,7 +93,8 @@ window.task_manager.task.editTitle = function( event ) {
  * @version 1.3.6.0
  */
 window.task_manager.task.createdTaskSuccess = function( element, response ) {
-	jQuery( '.list-task' ).prepend( response.data.view );
+	var element = jQuery( response.data.view );
+	jQuery( '.list-task' ).prepend( element ).masonry( 'prepended', element );
 	window.eoxiaJS.refresh();
 };
 
@@ -96,7 +109,10 @@ window.task_manager.task.createdTaskSuccess = function( element, response ) {
  * @version 1.3.6.0
  */
 window.task_manager.task.deletedTaskSuccess = function( element, response ) {
-	jQuery( element ).closest( '.wpeo-project-task' ).fadeOut();
+	jQuery( element ).closest( '.wpeo-project-task' ).fadeOut( 400, function() {
+		jQuery( element ).closest( '.wpeo-project-task' ).remove();
+		window.eoxiaJS.refresh();
+	} );
 };
 
 /**
@@ -133,6 +149,7 @@ window.task_manager.task.loadedAllTask = function( triggeredElement, response ) 
 
 	jQuery( '.wpeo-header-bar li.active' ).removeClass( 'active' );
 	jQuery( triggeredElement ).addClass( 'active' );
+	window.eoxiaJS.refresh();
 };
 
 /**
@@ -169,4 +186,5 @@ window.task_manager.task.loadedTaskProperties = function( triggeredElement, resp
  */
 window.task_manager.task.movedTaskTo = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).hide();
+	window.eoxiaJS.refresh();
 };

@@ -52,6 +52,7 @@ window.task_manager.navigation.loadedMyTask = function( triggeredElement, respon
 
 	jQuery( '.wpeo-header-bar li.active' ).removeClass( 'active' );
 	jQuery( triggeredElement ).addClass( 'active' );
+	window.eoxiaJS.refresh();
 };
 
 /**
@@ -101,4 +102,5 @@ window.task_manager.navigation.checkDataBeforeSearch = function( triggeredElemen
 window.task_manager.navigation.searchedSuccess = function( triggeredElement, response ) {
 	jQuery( '.list-task' ).replaceWith( response.data.view.tasks );
 	jQuery( '.search-results' ).replaceWith( response.data.view.search_result );
+	window.eoxiaJS.refresh();
 };

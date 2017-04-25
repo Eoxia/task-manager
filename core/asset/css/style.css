@@ -4604,15 +4604,10 @@
 }
 .wpeo-project-wrap .list-task {
   clear: both;
-  -webkit-column-count: 2;
-     -moz-column-count: 2;
-          column-count: 2;
 }
 .wpeo-project-wrap .list-task .wpeo-project-task {
   position: relative;
-  page-break-inside: avoid;
-  -webkit-column-break-inside: avoid;
-  width: 100%;
+  width: 50%;
   padding: 10px;
 }
 .wpeo-project-wrap .list-task .wpeo-project-task .task-marker {

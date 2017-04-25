@@ -45,11 +45,11 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 			<li class="point-content content">
 				<input type="hidden" name="content" value="<?php esc_attr( $point->content ); ?>" />
 				<div class="wpeo-point-new-contenteditable" contenteditable="true">
-					<?php echo esc_html( stripslashes( $point->content ) ); ?>
-					<?php if ( empty( $point->id ) ) : ?>
-						<span class="wpeo-point-new-placeholder"><?php esc_html_e( 'Write your point here...', 'task-manager' ); ?></span>
-					<?php endif; ?>
+					<?php echo $point->content; ?>
 				</div>
+				<?php if ( empty( $point->id ) ) : ?>
+					<span class="wpeo-point-new-placeholder"><?php esc_html_e( 'Write your point here...', 'task-manager' ); ?></span>
+				<?php endif; ?>
 			</li>
 
 			<li class="point-action">
@@ -78,6 +78,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 						<ul class="content point-header-action">
 							<li class="open-popup-ajax"
+									data-title="<?php esc_attr_e( 'Point properties: #' . $point->id . ' ' . substr( $point->content, 0, 20 ), 'task-manager' ); ?>"
 									data-action="load_point_properties"
 									data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_point_properties' ) ); ?>"
 									data-id="<?php echo esc_attr( $point->id ); ?>"
@@ -85,13 +86,15 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 									data-target="popup">
 								<span><?php esc_html_e( 'Point properties', 'task-manager' ); ?></span>
 							</li>
+
+							<li class="action-delete"
+									data-action="delete_point"
+									data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_point' ) ); ?>"
+									data-id="<?php echo esc_attr( $point->id ); ?>"
+								<span><?php esc_html_e( 'Delete point', 'task-manager' ); ?></span>
+							</li>
 						</ul>
 					</div>
-
-					<!-- <span data-action="delete_point"
-								data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_point' ) ); ?>"
-								data-id="<?php echo esc_attr( $point->id ); ?>"
-								class="dashicons dashicons-no action-delete"></span> -->
 				<?php	endif; ?>
 			</li>
 		</ul>

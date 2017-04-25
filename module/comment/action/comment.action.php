@@ -51,6 +51,12 @@ class Task_Comment_Action {
 			'status' => '-34070',
 		) );
 
+		if ( ! empty( $comments ) ) {
+			foreach ( $comments as $comment ) {
+				$comment->author = get_userdata( $comment->author_id );
+			}
+		}
+
 		$comment_schema = Task_Comment_Class::g()->get( array(
 			'schema' => true,
 		), true );

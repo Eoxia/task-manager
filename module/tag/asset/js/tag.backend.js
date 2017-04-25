@@ -36,6 +36,7 @@ window.task_manager.tag.before_load_tags = function( element ) {
  */
 window.task_manager.tag.archivedTaskSuccess = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).remove();
+	window.eoxiaJS.refresh();
 };
 
 /**
@@ -51,6 +52,7 @@ window.task_manager.tag.archivedTaskSuccess = function( triggeredElement, respon
  */
 window.task_manager.tag.unarchivedTaskSuccess = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).remove();
+	window.eoxiaJS.refresh();
 };
 
 /**
@@ -66,6 +68,7 @@ window.task_manager.tag.unarchivedTaskSuccess = function( triggeredElement, resp
  */
 window.task_manager.tag.loadedTagSuccess = function( element, response ) {
 	element.closest( '.wpeo-tag-wrap' ).replaceWith( response.data.view );
+	window.eoxiaJS.refresh();
 };
 
 /**
@@ -81,6 +84,7 @@ window.task_manager.tag.loadedTagSuccess = function( element, response ) {
  */
 window.task_manager.tag.closedTagEditMode = function( element, response ) {
 	element.closest( '.wpeo-tag-wrap' ).replaceWith( response.data.view );
+	window.eoxiaJS.refresh();
 };
 
 /**
@@ -101,6 +105,7 @@ window.task_manager.tag.loadedArchivedTask = function( triggeredElement, respons
 
 	jQuery( '.wpeo-header-bar li.active' ).removeClass( 'active' );
 	jQuery( triggeredElement ).addClass( 'active' );
+	window.eoxiaJS.refresh();
 };
 
 /**

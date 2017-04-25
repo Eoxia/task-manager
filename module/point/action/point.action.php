@@ -51,7 +51,7 @@ class Point_Action {
 
 		$point_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 		$parent_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
-		$content = ! empty( $_POST['content'] ) ? sanitize_text_field( $_POST['content'] ) : '';
+		$content = ! empty( $_POST['content'] ) ? $_POST['content'] : '';
 
 		if ( empty( $parent_id ) || empty( $content ) ) {
 			wp_send_json_error();
@@ -273,6 +273,10 @@ class Point_Action {
 		$point = Point_Class::g()->get( array(
 			'comment__in' => array( $point_id ),
 			'status' => -34070,
+		), true );
+
+		$point->author = User_Class::g()->get( array(
+			'include' => array( $point->author_id ),
 		), true );
 
 		ob_start();

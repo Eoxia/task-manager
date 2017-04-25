@@ -25,6 +25,8 @@ class Task_Model extends Post_Model {
 	 * @param Task_Model $object L'objet.
 	 */
 	public function __construct( $object ) {
+		$this->model['author_id']['bydefault'] = get_current_user_id();
+
 		$this->model = array_merge( $this->model, array(
 			'user_info' => array(
 				'type' => 'array',
