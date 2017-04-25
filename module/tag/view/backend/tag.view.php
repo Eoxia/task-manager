@@ -13,4 +13,4 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 
-<li class="wpeo-tag-tag-selected"><?php echo esc_attr( $tag->name ); ?></li>
+<li class="wpeo-tag wpeo-tag-tag-selected"><?php echo esc_attr( $tag->name ); ?></li>
