@@ -93,7 +93,7 @@ class History_Time_Action {
 			wp_send_json_error();
 		}
 
-		$history_time = History_Time_Class::g()->create( array(
+		$history_time_created = History_Time_Class::g()->create( array(
 			'post_id' => $task_id,
 			'due_date' => $due_date,
 			'estimated_time' => $estimated_time,
@@ -111,7 +111,7 @@ class History_Time_Action {
 			}
 		}
 
-		do_action( 'tm_created_history_time', $history_time, $task_id, $due_date, $estimated_time );
+		do_action( 'tm_created_history_time', $history_time_created, $task_id, $due_date, $estimated_time );
 
 		ob_start();
 		View_Util::exec( 'history-time', 'backend/main', array(
