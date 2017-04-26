@@ -23,6 +23,7 @@ add_action( 'plugins_loaded', function() {
 	load_plugin_textdomain( 'wpeotimeline-i18n', false, dirname( plugin_basename( __FILE__ ) ) . '/language/' );
 } );
 
+require_once( WPEOMTM_TIMELINE_PATH . '/controller/timeline.filter.01.php' );
 require_once( WPEOMTM_TIMELINE_PATH . '/controller/timeline.controller.01.php' );
 require_once( WPEOMTM_TIMELINE_PATH . '/controller/timeline.action.01.php' );
 ?>
