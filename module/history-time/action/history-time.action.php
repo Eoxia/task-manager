@@ -150,6 +150,8 @@ class History_Time_Action {
 
 		History_Time_Class::g()->update( $history_time );
 
+		do_action( 'tm_deleted_history_time', $history_time );
+
 		wp_send_json_success( array(
 			'module' => 'historyTime',
 			'callback_success' => 'deletedHistoryTime',
