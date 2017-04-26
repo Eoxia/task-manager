@@ -6,7 +6,8 @@
 	"insert_scripts_pages": [
 		"wpshop_customers",
 		"wpshop_shop_order",
-		"toplevel_page_wpeomtm-dashboard"
+		"toplevel_page_wpeomtm-dashboard",
+		"myaccount"
 	],
 	"modules": [
 		"core/core.config.json",

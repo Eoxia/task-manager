@@ -41,8 +41,8 @@ class History_Time_Model extends Comment_Model {
 			),
 			'google_event_id' => array(
 				'meta_type' => 'multiple',
-				'type' => 'string',
-				'bydefault' => '',
+				'type' => 'array',
+				'bydefault' => array(),
 			),
 		) );
 

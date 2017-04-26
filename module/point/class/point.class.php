@@ -70,7 +70,7 @@ class Point_Class extends Comment_Class {
 	 * @since 1.3.6.0
 	 * @version 1.3.6.0
 	 */
-	public function display( $task_id ) {
+	public function display( $task_id, $frontend = false ) {
 		$task = Task_Class::g()->get( array(
 			'post__in' => array(
 				$task_id
@@ -100,12 +100,18 @@ class Point_Class extends Comment_Class {
 			'schema' => true,
 		), true );
 
-		View_Util::exec( 'point', 'backend/main', array(
+		$args = array(
 			'task_id' => $task_id,
 			'points_completed' => $points_completed,
 			'points_uncompleted' => $points_uncompleted,
 			'point_schema' => $point_schema,
-		) );
+		);
+
+		if ( $frontend ) {
+			View_Util::exec( 'point', 'frontend/main', $args );
+		} else {
+			View_Util::exec( 'point', 'backend/main', $args );
+		}
 	}
 }
 

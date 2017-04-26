@@ -359,7 +359,7 @@ class Task_Action {
 	}
 
 	/**
-	 * Charges plus de tâche en appelant le shortcode task_manager_dashboard_content
+	 * Charges plus de tâche en appelant le shortcode task
 	 *
 	 * @return void
 	 *

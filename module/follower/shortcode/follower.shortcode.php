@@ -22,7 +22,7 @@ class Follower_Shortcode {
 	/**
 	 * Ce constructeur ajoute le shortcode suivant:
 	 *
-	 * - task_manager_dashboard_content
+	 * - task
 	 *
 	 * @since 1.0.0.0
 	 * @version 1.3.6.0

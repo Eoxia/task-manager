@@ -46,7 +46,7 @@ class Navigation_Action {
 		check_ajax_referer( 'load_all_task' );
 
 		ob_start();
-		echo do_shortcode( '[task_manager_dashboard_content]' );
+		echo do_shortcode( '[task]' );
 		wp_send_json_success( array(
 			'view' => ob_get_clean(),
 			'module' => 'task',
@@ -66,7 +66,7 @@ class Navigation_Action {
 		check_ajax_referer( 'load_my_task' );
 
 		ob_start();
-		echo do_shortcode( '[task_manager_dashboard_content users_id="' . get_current_user_id() . '"]' );
+		echo do_shortcode( '[task users_id="' . get_current_user_id() . '"]' );
 		wp_send_json_success( array(
 			'view' => ob_get_clean(),
 			'module' => 'navigation',
@@ -86,7 +86,7 @@ class Navigation_Action {
 		check_ajax_referer( 'load_archived_task' );
 
 		ob_start();
-		echo do_shortcode( '[task_manager_dashboard_content status="archive"]' );
+		echo do_shortcode( '[task status="archive"]' );
 		wp_send_json_success( array(
 			'module' => 'tag',
 			'callback_success' => 'loadedArchivedTask',
@@ -113,7 +113,7 @@ class Navigation_Action {
 		$search_result_view = ob_get_clean();
 
 		ob_start();
-		do_shortcode( '[task_manager_dashboard_content users_id="' . $follower_id_selected . '" categories_id="' . $categories_id_selected . '" term="' . $term . '" posts_per_page="' . Config_Util::$init['task']->posts_per_page . '"]' );
+		do_shortcode( '[task users_id="' . $follower_id_selected . '" categories_id="' . $categories_id_selected . '" term="' . $term . '" posts_per_page="' . Config_Util::$init['task']->posts_per_page . '"]' );
 		$tasks_view = ob_get_clean();
 
 		wp_send_json_success( array(

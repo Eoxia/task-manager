@@ -9,7 +9,7 @@ class Task_Filter {
 	public function __construct() {
 		add_filter( 'task_manager_dashboard_title', array( $this, 'callback_dashboard_title' ) );
 		add_filter( 'task_manager_dashboard_filter', array( $this, 'callback_dashboard_filter' ), 12 );
-		add_filter( 'task_manager_dashboard_content', array( $this, 'callback_dashboard_content' ), 10, 2 );
+		add_filter( 'task', array( $this, 'callback_dashboard_content' ), 10, 2 );
 
 		add_filter( 'task_header_action', array( $this, 'callback_task_header_action' ), 10, 2 );
 		add_filter( 'task_header_information', array( $this, 'callback_task_header_information_elapsed' ), 11, 2 );

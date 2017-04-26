@@ -26,6 +26,7 @@ class Task_Manager_Action {
 	public function __construct() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'callback_before_admin_enqueue_scripts' ), 10 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'callback_admin_enqueue_scripts' ), 11 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'callback_enqueue_scripts' ), 11 );
 		add_action( 'admin_print_scripts', array( $this, 'callback_admin_print_scripts' ) );
 
 		add_action( 'init', array( $this, 'callback_plugins_loaded' ) );
@@ -66,6 +67,17 @@ class Task_Manager_Action {
 
 			wp_enqueue_script( 'task-manager-masonry', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/masonry.min.js', array(), Config_Util::$init['task-manager']->version );
 			wp_enqueue_script( 'task-manager-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/backend.min.js', array(), Config_Util::$init['task-manager']->version );
+		}
+	}
+
+	public function callback_enqueue_scripts() {
+		$pagename = get_query_var( 'pagename' );
+		if ( in_array( $pagename, config_util::$init['task-manager']->insert_scripts_pages, true ) ) {
+			wp_register_style( 'task-manager-frontend-style', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/frontend.css', array(), config_util::$init['task-manager']->version );
+			wp_enqueue_style( 'task-manager-frontend-style' );
+
+			wp_enqueue_script( 'task-manager-eoajax-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/eoajax.js', array(), Config_Util::$init['task-manager']->version );
+			wp_enqueue_script( 'task-manager-frontend-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/frontend.js', array(), Config_Util::$init['task-manager']->version );
 		}
 	}
 

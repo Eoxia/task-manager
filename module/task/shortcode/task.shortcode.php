@@ -22,10 +22,10 @@ class Task_Shortcode {
 	/**
 	 * Ce constructeur ajoute le shortcode suivant:
 	 *
-	 * - task_manager_dashboard_content
+	 * - task
 	 */
 	public function __construct() {
-		add_shortcode( 'task_manager_dashboard_content', array( $this, 'callback_task_manager_dashboard_content' ) );
+		add_shortcode( 'task', array( $this, 'callback_task' ) );
 	}
 
 	/**
@@ -37,7 +37,7 @@ class Task_Shortcode {
 	 * @since 1.0.0.0
 	 * @version 1.3.6.0
 	 */
-	public function callback_task_manager_dashboard_content( $param ) {
+	public function callback_task( $param ) {
 		$param = shortcode_atts( array(
 			'categories_id' => array(),
 			'users_id' => array(),
@@ -46,7 +46,8 @@ class Task_Shortcode {
 			'offset' => 0,
 			'post_parent' => 0,
 			'posts_per_page' => Config_Util::$init['task']->posts_per_page,
-		), $param, 'task_manager_dashboard_content' );
+			'frontend' => false,
+		), $param, 'task' );
 
 		if ( ! is_array( $param['categories_id'] ) && ! empty( $param['categories_id'] ) ) {
 			$param['categories_id'] = explode( ',', $param['categories_id'] );
@@ -66,9 +67,15 @@ class Task_Shortcode {
 
 		$tasks = Task_Class::g()->get_tasks( $param );
 
-		View_Util::exec( 'task', 'backend/main', array(
-			'tasks' => $tasks,
-		) );
+		if ( $param['frontend'] ) {
+			View_Util::exec( 'task', 'frontend/main', array(
+				'tasks' => $tasks,
+			) );
+		} else {
+			View_Util::exec( 'task', 'backend/main', array(
+				'tasks' => $tasks,
+			) );
+		}
 	}
 }
 
