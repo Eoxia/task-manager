@@ -685,7 +685,7 @@
 				margin-left: 15%;
 				width: 85%;
 			}
-			&.edit ul {
+			&.new ul {
 				input {
 					width: 100%;
 					font-size: 13px;
@@ -748,17 +748,40 @@
 					}
 				}
 			}
-			&:not(.edit) ul {
+			&.view ul, &.edit ul {
 				flex-wrap: wrap;
+				.avatar {
+					margin-right: 6px;
+					width: 100%;
+					max-width: 5%;
+					.user {
+						span {
+							font-size: 12px;
+						}
+						img, .wpeo-avatar-initial, .wpeo-avatar-initial span {
+							border-radius: 50%;
+						}
+					}
+				}
 				.wpeo-comment-date {
 					font-size: 12px;
 					color: rgba(0,0,0,0.4);
-					width: 80%;
+					width: 100%;
+					max-width: 77%;
 				}
 				.wpeo-comment-content {
 					width: 100%;
+					input {
+						width: 100%;
+					}
 				}
 				.wpeo-comment-time {
+					span {
+						padding: 4px 4px 0 0;
+					}
+					display: flex;
+					width: 100%;
+					max-width: 10%;
 				}
 				.wpeo-comment-action {
 					margin-left: auto;
@@ -776,15 +799,13 @@
 						}
 					}
 				}
+				.wpeo-save-point {
+					margin-left: auto;
+				}
 			}
-			.avatar {
-				.user {
-					span {
-						font-size: 12px;
-					}
-					img, .wpeo-avatar-initial, .wpeo-avatar-initial span {
-						border-radius: 50%;
-					}
+			&.edit ul {
+				.wpeo-comment-date input, .wpeo-comment-time input {
+					font-size: 12px;
 				}
 			}
 		}
