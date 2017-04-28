@@ -11,7 +11,6 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-
 /**
  * Gestion des avatars
  */
@@ -19,9 +18,13 @@ class Avatar_Class extends Singleton_Util {
 	protected function construct() {}
 
 	public function get_avatars( $param ) {
-		$users = User_Class::g()->get( array(
-			'include' => $param['ids'],
-		) );
+		$users = array();
+
+		if ( ! empty( $param['ids'] ) ) {
+			$users = User_Class::g()->get( array(
+				'include' => $param['ids'],
+			) );
+		}
 
 		if ( ! empty( $users ) ) {
 			foreach ( $users as $user ) {

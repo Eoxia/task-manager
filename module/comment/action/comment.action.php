@@ -106,6 +106,8 @@ class Task_Comment_Action {
 			),
 		) );
 
+		$comment->author = get_userdata( $comment->author_id );
+
 		ob_start();
 		View_Util::exec( 'comment', 'backend/comment', array(
 			'comment' => $comment,
