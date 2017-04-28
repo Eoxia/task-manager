@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 				<?php if ( ! empty( $point->id ) ) : ?>
 					<span data-action="<?php echo esc_attr( 'load_front_comments' ); ?>"
 								data-nonce="<?php echo wp_create_nonce( 'load_front_comments' ); ?>"
-								data-task-id="<?php echo esc_attr( $parent_id ); ?>"
+								data-task-id="<?php echo esc_attr( $point->post_id ); ?>"
 								data-point-id="<?php echo esc_attr( $point->id ); ?>"
 								data-module="frontendSupport"
 								data-before-method="beforeLoadComments"

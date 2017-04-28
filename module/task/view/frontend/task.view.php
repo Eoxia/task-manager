@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 			<div class="task-time">
 				<span class="dashicons dashicons-clock"></span>
 				<strong><?php echo esc_html( $task->time_info['elapsed'] ); ?></strong> /
-				<strong><?php echo esc_html( $task->time_info['estimated'] ); ?></strong> min
+				<strong><?php echo esc_html( $task->last_history_time->estimated_time ); ?></strong> min
 			</div>
 		</header>
 

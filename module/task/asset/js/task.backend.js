@@ -16,10 +16,7 @@ window.task_manager.task.init = function() {
 };
 
 window.task_manager.task.refresh = function() {
-	jQuery( '.list-task' ).masonry( {
-		itemSelector: '.wpeo-project-task',
-		columnWidth: 50
-	} );
+	jQuery( '.list-task' ).masonry();
 };
 
 window.task_manager.task.event = function() {
