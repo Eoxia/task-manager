@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 <?php
 
-View_Util::exec( 'comment', 'backend/edit', array(
+View_Util::exec( 'comment', 'backend/new', array(
 	'task_id' => $task_id,
 	'point_id' => $point_id,
 	'comment' => $comment_schema,
