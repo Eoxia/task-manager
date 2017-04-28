@@ -1774,13 +1774,19 @@
       -ms-transform: translateY(-6px);
        -o-transform: translateY(-6px);
           transform: translateY(-6px);
+  text-align: left;
+  position: absolute;
+  right: 0;
+  width: 140px;
+  background: #fff;
+  -webkit-box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.2);
+  top: 20px;
+  z-index: 500;
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
   -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
-  position: absolute;
-  z-index: 99;
-  background: #fff;
 }
 .wpeo-project-wrap .toggle .content.active {
   opacity: 1;
@@ -1791,6 +1797,23 @@
       -ms-transform: translateY(0);
        -o-transform: translateY(0);
           transform: translateY(0);
+}
+.wpeo-project-wrap .toggle .content.left {
+  right: 0;
+}
+.wpeo-project-wrap .toggle .content.right {
+  left: 0;
+}
+.wpeo-project-wrap .toggle .content li {
+  padding: 10px;
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+.wpeo-project-wrap .toggle .content li:hover {
+  background: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
 }
 .wpeo-project-wrap .toggle.grid .content {
   -webkit-box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2);
@@ -4961,9 +4984,7 @@
   transition: all 0.2s ease-out;
 }
 .wpeo-project-wrap .points .point-container .point-action .wpeo-task-setting i {
-  background: rgba(0, 0, 0, 0.1);
   min-width: 20px;
-  color: rgba(0, 0, 0, 0.2);
   font-size: 14px;
   line-height: 20px;
   -webkit-border-radius: 50%;
@@ -4974,12 +4995,13 @@
   transition: all 0.2s ease-out;
   opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  color: rgba(0, 0, 0, 0.2);
 }
 .wpeo-project-wrap .points .point-container .point-action .wpeo-task-setting:hover {
   cursor: pointer;
 }
 .wpeo-project-wrap .points .point-container .point-action .wpeo-task-setting:hover i {
-  background: rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.4);
 }
 .wpeo-project-wrap .points .point-container .point-action .wpeo-point-new-btn {
   margin: auto 0 auto auto;
@@ -5051,11 +5073,18 @@
 .wpeo-project-wrap .points .point-container .point-content .wpeo-point-new-contenteditable:hover {
   border-bottom: 1px solid rgba(0, 0, 0, 0.4);
 }
-.wpeo-project-wrap .points .point-container .point-content .wpeo-point-new-contenteditable .wpeo-point-new-placeholder {
+.wpeo-project-wrap .points .point-container .point-content .wpeo-point-new-placeholder {
   color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  left: 6px;
+  bottom: 6px;
+  pointer-events: none;
 }
 .wpeo-project-wrap .points .point.edit:first-child {
   padding-top: 10px;
+}
+.wpeo-project-wrap .points .point:not(.edit) .point-content {
+  position: relative;
 }
 .wpeo-project-wrap .points .point:hover .wpeo-sort-point,
 .wpeo-project-wrap .points .point:hover .wpeo-task-setting i,
@@ -5070,7 +5099,7 @@
   background: rgba(0, 0, 0, 0.05);
   padding: 4px 0 10px 0;
 }
-.wpeo-project-wrap .points .point .comments .comment ul {
+.wpeo-project-wrap .points .point .comments .comment .wpeo-comment-container {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -5174,40 +5203,33 @@
 .wpeo-project-wrap .points .point .comments .comment:not(.edit) ul .wpeo-comment-content {
   width: 100%;
 }
-.wpeo-project-wrap .points .point .comments .comment:not(.edit) ul .wpeo-comment-time {
-  padding-left: 8px;
-}
 .wpeo-project-wrap .points .point .comments .comment:not(.edit) ul .wpeo-comment-action {
   margin-left: auto;
 }
-.wpeo-project-wrap .points .point .comments .comment:not(.edit) ul .action-attribute {
-  color: #3495f0;
+.wpeo-project-wrap .points .point .comments .comment:not(.edit) ul .wpeo-comment-action .wpeo-comment-setting {
+  padding: 0 10px;
+}
+.wpeo-project-wrap .points .point .comments .comment:not(.edit) ul .wpeo-comment-action .wpeo-comment-setting i {
+  color: rgba(0, 0, 0, 0.2);
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
   -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
-.wpeo-project-wrap .points .point .comments .comment:not(.edit) ul .action-attribute:hover {
-  color: #1360c8;
+.wpeo-project-wrap .points .point .comments .comment:not(.edit) ul .wpeo-comment-action .wpeo-comment-setting:hover {
   cursor: pointer;
 }
-.wpeo-project-wrap .points .point .comments .comment:not(.edit) ul .action-delete {
-  background: rgba(0, 0, 0, 0.1);
+.wpeo-project-wrap .points .point .comments .comment:not(.edit) ul .wpeo-comment-action .wpeo-comment-setting:hover i {
+  color: rgba(0, 0, 0, 0.4);
+}
+.wpeo-project-wrap .points .point .comments .comment .avatar .user span {
+  font-size: 12px;
+}
+.wpeo-project-wrap .points .point .comments .comment .avatar .user img,
+.wpeo-project-wrap .points .point .comments .comment .avatar .user .wpeo-avatar-initial,
+.wpeo-project-wrap .points .point .comments .comment .avatar .user .wpeo-avatar-initial span {
   -webkit-border-radius: 50%;
           border-radius: 50%;
-  font-size: 14px;
-  line-height: 20px;
-  color: rgba(0, 0, 0, 0.2);
-  margin-left: auto;
-  -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out;
-  display: inline-block;
-}
-.wpeo-project-wrap .points .point .comments .comment:not(.edit) ul .action-delete:hover {
-  background: rgba(0, 0, 0, 0.2);
-  cursor: pointer;
 }
 /* ----------------------------------
 		Points terminés

@@ -14,7 +14,7 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
-<li class="comment edit">
+<li class="comment new">
 	<form action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>" method="POST">
 		<ul class="wpeo-comment-container">
 
