@@ -21,14 +21,19 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	foreach ( $points_uncompleted as $point ) :
 		?>
 			<li>
+				<?php if ( ! empty( $point->id ) ) : ?>
+					<span data-action="<?php echo esc_attr( 'load_front_comments' ); ?>"
+								data-nonce="<?php echo wp_create_nonce( 'load_front_comments' ); ?>"
+								data-task-id="<?php echo esc_attr( $parent_id ); ?>"
+								data-point-id="<?php echo esc_attr( $point->id ); ?>"
+								data-module="frontendSupport"
+								data-before-method="beforeLoadComments"
+								class="animated dashicons dashicons-arrow-right-alt2 action-attribute"></span>
+
+				<?php endif; ?>
+
 				<div class="point-content">
-					<span class="action-attribute"
-								data-action="load_front_comments"
-								data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_front_comments' ) ); ?>"
-								data-task-id="<?php echo $point->post_id; ?>"
-								data-point-id="<?php echo $point->id; ?>">
-						<?php echo '<strong>#' . $point->id . '</strong> ' . $point->content; ?>
-					</span>
+					<span><?php echo '<strong>#' . $point->id . '</strong> ' . $point->content; ?></span>
 				</div>
 
 				<!-- Temps passé / Elapsed time -->
