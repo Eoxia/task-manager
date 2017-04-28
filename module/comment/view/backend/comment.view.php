@@ -15,7 +15,7 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 <li class="comment">
-	<ul>
+	<ul class="wpeo-comment-container">
 		<li class="avatar"><?php echo do_shortcode( '[task_avatar ids="' . $comment->author_id . '" size="16"]' ); ?></li>
 		<li class="wpeo-comment-date"><?php echo esc_html( $comment->author->display_name ) . ', ' . esc_html( Date_Util::g()->mysqldate2wordpress( $comment->date ) ); ?></li>
 		<li class="wpeo-comment-time"><span class="fa fa-clock-o"></span> <?php echo esc_html( $comment->time_info['elapsed'] ); ?></li>

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 <li class="comment edit">
 	<form action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>" method="POST">
-		<ul>
+		<ul class="wpeo-comment-container">
 
 			<input type="hidden" name="action" value="edit_comment" />
 			<?php wp_nonce_field( 'edit_comment' ); ?>

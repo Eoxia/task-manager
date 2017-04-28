@@ -561,19 +561,18 @@
 					text-align: center;
 					transition: all 0.2s ease-out;
 					i {
-						background: rgba(0,0,0,.1);
 						min-width: 20px;
-						color: rgba(0,0,0,.2);
 						font-size: 14px;
 						line-height: 20px;
 						border-radius: 50%;
 						transition: all 0.2s ease-out;
 						opacity: 0;
+						color: rgba(0,0,0,.2);
 					}
 					&:hover {
 						cursor: pointer;
 						i {
-							background: rgba(0,0,0,0.2);
+							color: rgba(0,0,0,.4);
 						}
 					}
 				}
@@ -641,15 +640,26 @@
 					&:hover {
 						border-bottom: 1px solid rgba(0,0,0,0.4);
 					}
-					.wpeo-point-new-placeholder {
-						color: rgba(0,0,0,0.4);
-					}
+				}
+				.wpeo-point-new-placeholder {
+					color: rgba(0,0,0,0.4);
+					position: absolute;
+					left: 6px;
+					bottom: 6px;
+					pointer-events: none;
 				}
 			}
 		}
 		.point {
 			&.edit:first-child {
 				padding-top: 10px;
+			}
+			&:not(.edit) {
+				.point-content {
+					position: relative;
+					.wpeo-point-new-placeholder {
+					}
+				}
 			}
 			&:hover {
 				.wpeo-sort-point, .wpeo-task-setting i, .action-delete {
@@ -668,7 +678,7 @@
 		background: rgba(0,0,0,0.05);
 		padding: 4px 0 10px 0;
 		.comment {
-			ul {
+			.wpeo-comment-container {
 				display: flex;
 				flex-direction: row;
 				padding: 8px 14px 0;
@@ -749,31 +759,31 @@
 					width: 100%;
 				}
 				.wpeo-comment-time {
-					padding-left: 8px;
 				}
 				.wpeo-comment-action {
 					margin-left: auto;
-				}
-				.action-attribute {
-					color: @a;
-					transition: all 0.2s ease-out;
-					&:hover {
-						color: @dark_a;
-						cursor: pointer;
+					.wpeo-comment-setting {
+						padding: 0 10px;
+						i {
+							color: rgba(0,0,0,0.2);
+							transition: all 0.2s ease-out;
+						}
+						&:hover {
+							cursor: pointer;
+							i {
+								color: rgba(0,0,0,0.4);
+							}
+						}
 					}
 				}
-				.action-delete {
-					background: rgba(0,0,0,.1);
-					border-radius: 50%;
-					font-size: 14px;
-					line-height: 20px;
-					color: rgba(0,0,0,.2);
-					margin-left: auto;
-					transition: all 0.2s ease-out;
-					display: inline-block;
-					&:hover {
-						background: rgba(0,0,0,0.2);
-						cursor: pointer;
+			}
+			.avatar {
+				.user {
+					span {
+						font-size: 12px;
+					}
+					img, .wpeo-avatar-initial, .wpeo-avatar-initial span {
+						border-radius: 50%;
 					}
 				}
 			}

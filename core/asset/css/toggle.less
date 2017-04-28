@@ -25,14 +25,33 @@
 			opacity: 0;
 			pointer-events: none;
 			transform: translateY(-6px);
-			transition: all 0.2s ease-out;
+			text-align: left;
 			position: absolute;
-			z-index: 99;
+			right: 0;
+			width: 140px;
 			background: #fff;
+			box-shadow: 1px 1px 5px 0 rgba(0,0,0,.2);
+			top: 20px;
+			z-index: 500;
+			transition: all 0.2s ease-out;
 			&.active {
 					opacity: 1;
 					pointer-events: auto;
 					transform: translateY(0);
+			}
+			&.left {
+				right: 0;
+			}
+			&.right {
+				left: 0;
+			}
+			li {
+				padding: 10px;
+				transition: all 0.2s ease-out;
+				&:hover {
+					background: rgba(0,0,0,.05);
+					cursor: pointer;
+				}
 			}
 		}
 		&.grid {
