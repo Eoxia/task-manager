@@ -72,12 +72,9 @@ class Task_Manager_Action {
 
 	public function callback_enqueue_scripts() {
 		$pagename = get_query_var( 'pagename' );
-		if ( in_array( $pagename, config_util::$init['task-manager']->insert_scripts_pages, true ) ) {
-			wp_register_style( 'task-manager-frontend-style', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/frontend.css', array(), config_util::$init['task-manager']->version );
+		if ( in_array( $pagename, Config_Util::$init['task-manager']->insert_scripts_pages, true ) ) {
+			wp_register_style( 'task-manager-frontend-style', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/frontend.css', array(), Config_Util::$init['task-manager']->version );
 			wp_enqueue_style( 'task-manager-frontend-style' );
-
-			wp_enqueue_script( 'task-manager-eoajax-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/eoajax.js', array(), Config_Util::$init['task-manager']->version );
-			wp_enqueue_script( 'task-manager-frontend-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/frontend.js', array(), Config_Util::$init['task-manager']->version );
 		}
 	}
 

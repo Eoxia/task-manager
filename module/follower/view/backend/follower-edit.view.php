@@ -19,9 +19,5 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 	data-action="<?php echo in_array( $user->id, $task->user_info['affected_id'], true ) ? 'follower_unaffectation' : 'follower_affectation'; ?>"
 	data-nonce="<?php echo esc_attr( wp_create_nonce( in_array( $user->id, $task->user_info['affected_id'], true ) ? 'follower_unaffectation' : 'follower_affectation' ) ); ?>">
 
-	<img class="avatar avatar-32" src="<?php echo esc_attr( get_avatar_url( $user->id, array(
-		'size' => 50,
-		'default' => 'blank',
-	) ) ); ?>" />
-	<div class="wpeo-avatar-initial"><span><?php echo esc_html( $user->initial ); ?></span></div>
+	<?php echo do_shortcode( '[task_avatar ids="' . $user->id . '" "size="50"]' ); ?>
 </li>

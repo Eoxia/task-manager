@@ -1,11 +1,11 @@
 <?php
 /**
- * Users actions
+ * Owners actions
  *
  * @since 1.0.0.0
  * @version 1.3.6.0
  *
- * @package module/user
+ * @package module/owner
  */
 
 namespace task_manager;
@@ -23,9 +23,6 @@ class Owner_Action {
 	public function __construct() {
 		add_action( 'wp_ajax_load_edit_mode_owner', array( $this, 'ajax_load_edit_mode_owner' ) );
 		add_action( 'wp_ajax_switch_owner', array( $this, 'ajax_switch_owner' ) );
-
-		add_action( 'wp_ajax_load_edit_mode_user', array( $this, 'ajax_load_edit_mode_user' ) );
-		add_action( 'wp_ajax_save_user', array( $this, 'ajax_save_user' ) );
 	}
 
 	/**

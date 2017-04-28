@@ -11,6 +11,10 @@ window.task_manager.toggle.event = function() {
 
 window.task_manager.toggle.open = function( event ) {
 	var target = undefined;
+	var data = {};
+	var i = 0;
+	var listInput = undefined;
+	var key = undefined;
 	var elementToggle = jQuery( this );
 
 	if ( elementToggle.is( 'i' ) ) {
@@ -28,6 +32,25 @@ window.task_manager.toggle.open = function( event ) {
 	if ( target ) {
 	  target.toggleClass( 'active' );
 	  event.stopPropagation();
+	}
+
+	if ( elementToggle.data( 'action' ) ) {
+		elementToggle.addClass( 'loading' );
+
+		listInput = window.eoxiaJS.arrayForm.getInput( elementToggle );
+		for ( i = 0; i < listInput.length; i++ ) {
+			if ( listInput[i].name ) {
+				data[listInput[i].name] = listInput[i].value;
+			}
+		}
+
+		elementToggle.get_data( function( attrData ) {
+			for ( key in attrData ) {
+				data[key] = attrData[key];
+			}
+
+			window.task_manager.request.send( elementToggle, data );
+		} );
 	}
 };
 

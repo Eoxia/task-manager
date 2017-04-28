@@ -60,7 +60,6 @@ var wpeo_task = {
 var wpeo_point = {
   event: function() {
     jQuery( document ).on( 'click', '.wpeo-task-point-use-toggle', function( event ) { wpeo_point.toggle_completed( event, jQuery( this ) ); } );
-    jQuery( document ).on( 'click', '.wpeo-task-point > li:not(.wpeo-task-point-use-toggle)', function() { wpeo_point.open_window( jQuery( this ) ); } );
     jQuery( document ).on( 'click', '#wpeo-task-form-point-time .wpeo-submit', function() { wpeo_point.create_point_time( jQuery( this ) ); } );
     jQuery( document ).on( 'click', '.point-content', function() { wpeo_point.point_class_active( jQuery( this ) ); } );
     jQuery( document ).on( 'click', '.wpeo-point-comment .wpeo-submit', function() { wpeo_point.edit_point_time_form( jQuery( this ) ); } );

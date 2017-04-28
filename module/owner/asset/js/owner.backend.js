@@ -33,7 +33,8 @@ window.task_manager.owner.event = function() {};
  * @version 1.3.6.0
  */
 window.task_manager.owner.loadedEditModeOwnerSuccess = function( triggeredElement, response ) {
-	jQuery( triggeredElement ).closest( '.wpeo-task-author' ).find( '.users' ).html( response.data.view );
+	triggeredElement.removeClass( 'loading' );
+	jQuery( triggeredElement ).find( '.content' ).html( response.data.view );
 };
 
 /**
@@ -48,5 +49,5 @@ window.task_manager.owner.loadedEditModeOwnerSuccess = function( triggeredElemen
  * @version 1.3.6.0
  */
 window.task_manager.owner.switchedOwnerSuccess = function( triggeredElement, response ) {
-	jQuery( triggeredElement ).closest( '.wpeo-task-author' ).html( response.data.view );
+	jQuery( triggeredElement ).closest( '.toggle' ).replaceWith( response.data.view );
 };

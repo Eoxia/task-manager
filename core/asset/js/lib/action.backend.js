@@ -92,6 +92,8 @@ window.task_manager.action.execAttribute = function( event ) {
 			} );
 		}
 	}
+
+	event.stopPropagation();
 };
 
 window.task_manager.action.execDelete = function( event ) {

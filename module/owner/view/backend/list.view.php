@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 				data-nonce="<?php echo esc_attr( wp_create_nonce( 'switch_owner' ) ); ?>"
 				data-task-id="<?php echo esc_attr( $task_id ); ?>"
 				data-id="<?php echo esc_attr( $user->id ); ?>">
-			<?php echo esc_html( $user->displayname ); ?>
+			<?php do_shortcode( '[task_avatar ids="' . $user->id . '" size="32"]' ); ?>
 		</li>
 	<?php endforeach;
 endif; ?>

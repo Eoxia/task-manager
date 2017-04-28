@@ -92,7 +92,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		<ul class="wpeo-task-time-manage">
 			<li class="wpeo-task-date">
 				<i class="dashicons dashicons-calendar-alt"></i>
-				<span><?php echo esc_html( $task->last_history_time->due_date ); ?></span>
+				<span><?php echo esc_html( Date_Util::g()->mysqldate2wordpress( $task->last_history_time->due_date, false ) ); ?></span>
 			</li>
 
 			<li class="wpeo-task-elapsed">

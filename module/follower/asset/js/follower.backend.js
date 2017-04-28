@@ -25,6 +25,7 @@ window.task_manager.follower.event = function() { };
  */
 window.task_manager.follower.loadedFollowersSuccess = function( element, response ) {
 	element.closest( '.wpeo-ul-users' ).replaceWith( response.data.view );
+	window.eoxiaJS.refresh();
 };
 
 /**
@@ -40,4 +41,5 @@ window.task_manager.follower.loadedFollowersSuccess = function( element, respons
  */
 window.task_manager.follower.closedFollowersEditMode = function( element, response ) {
 	element.closest( '.wpeo-ul-users' ).replaceWith( response.data.view );
+	window.eoxiaJS.refresh();
 };

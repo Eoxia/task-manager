@@ -99,7 +99,7 @@ class Task_Comment_Action {
 			'id' => $comment_id,
 			'post_id' => $post_id,
 			'parent_id' => $parent_id,
-			'date' => $date,
+			'date' => Date_Util::g()->formatte_date( $date ),
 			'content' => $content,
 			'time_info' => array(
 				'elapsed' => $time,

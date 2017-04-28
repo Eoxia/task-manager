@@ -26,6 +26,7 @@ class History_Time_Model extends Comment_Model {
 	 */
 	public function __construct( $object ) {
 		$this->model['author_id']['bydefault'] = get_current_user_id();
+		$this->model['date']['bydefault'] = current_time( 'mysql' );
 
 		$this->model = array_merge( $this->model, array(
 			'due_date' => array(

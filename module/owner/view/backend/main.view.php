@@ -11,14 +11,17 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
-<div class="user">
-	<img 	class="avatar avatar-32 action-attribute"
-				data-action="load_edit_mode_owner"
-				data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_edit_mode_owner' ) ); ?>"
-				data-task-id="<?php echo esc_attr( $task_id ); ?>"
-				src="<?php echo esc_attr( $avatar_url ); ?>" height="32" width="32" />
-				<div class="wpeo-avatar-initial"><span><?php echo $user->initial; ?></span></div>
-</div>
+<li class="toggle"
+		data-parent="toggle"
+		data-target="content"
+		data-action="load_edit_mode_owner"
+		data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_edit_mode_owner' ) ); ?>"
+		data-task-id="<?php echo esc_attr( $task_id ); ?>">
 
-<ul class="users">
-</ul>
+	<div class="action">
+		<?php echo do_shortcode( '[task_avatar ids="' . $owner_id . '" size="32"]' ); ?>
+	</div>
+
+	<ul class="content">
+	</ul>
+</li>

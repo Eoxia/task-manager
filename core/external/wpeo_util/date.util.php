@@ -40,4 +40,13 @@ class Date_util extends Singleton_util {
 		$date = date( 'Y-m-d h:i:s', strtotime( $date ) );
 		return $date;
 	}
+
+	public function mysqldate2wordpress( $date, $with_time = true ) {
+		$format = get_option( 'date_format' );
+		if ( $with_time ) {
+			$format .= ' ' . get_option( 'time_format' );
+		}
+
+		return mysql2date( $format, $date );
+	}
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Follower en mode lecture..
+ * Follower en mode lecture.
  *
  * @package Task Manager
  * @subpackage Module/Follower
@@ -14,9 +14,5 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 
 <li class="user" style="width: 50px; height: 50px;">
-	<img class="avatar avatar-32" src="<?php echo esc_attr( get_avatar_url( $user->id, array(
-		'size' => 50,
-		'default' => 'blank',
-	)	) ); ?>" />
-	<div class="wpeo-avatar-initial"><span><?php echo esc_html( $user->initial ); ?></span></div>
+	<?php echo do_shortcode( '[task_avatar ids="' . $user->id . '" "size="50"]' ); ?>
 </li>

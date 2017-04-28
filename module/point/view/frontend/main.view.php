@@ -22,7 +22,11 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		?>
 			<li>
 				<div class="point-content">
-					<span class="wpeo-point-input" data-id="<?php echo $point->id; ?>" data-nonce="<?php echo wp_create_nonce( 'wpeo_nonce_load_dashboard_point_' . $point->id ); ?>">
+					<span class="action-attribute"
+								data-action="load_front_comments"
+								data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_front_comments' ) ); ?>"
+								data-task-id="<?php echo $point->post_id; ?>"
+								data-point-id="<?php echo $point->id; ?>">
 						<?php echo '<strong>#' . $point->id . '</strong> ' . $point->content; ?>
 					</span>
 				</div>
@@ -35,6 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					</span>
 				</div>
 
+				<ul class="comments hidden" data-id="<?php echo esc_attr( $point->id ); ?>"></ul>
 			</li>
 		<?php
 	endforeach;
@@ -54,7 +59,10 @@ foreach ( $points_completed as $point ) :
 	?>
 	<li>
 		<div class="point-content">
-			<span data-id="<?php echo $point->id; ?>" data-nonce="<?php echo wp_create_nonce( 'wpeo_nonce_load_dashboard_point_' . $point->id ); ?>">
+			<span class="action-attribute"
+						data-action="load_comments"
+						data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_front_comments' ) ); ?>"
+						data-id="<?php echo $point->id; ?>">
 				<?php echo '<strong>#' . $point->id . '</strong> ' . $point->content; ?>
 			</span>
 		</div>
@@ -67,6 +75,7 @@ foreach ( $points_completed as $point ) :
 			</span>
 		</div>
 
+		<ul class="comments hidden" data-id="<?php echo esc_attr( $point->id ); ?>"></ul>
 	</li>
 	<?php
 endforeach;
