@@ -76,7 +76,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 							<span class="wpeo-task-open-action" title="<?php esc_html_e( 'Point options', 'task-manager' ); ?>"><i class="fa fa-ellipsis-v"></i></span>
 						</div>
 
-						<ul class="content point-header-action">
+						<ul class="left content point-header-action">
 							<li class="open-popup-ajax"
 									data-title="<?php esc_attr_e( 'Point properties: #' . $point->id . ' ' . substr( $point->content, 0, 20 ), 'task-manager' ); ?>"
 									data-action="load_point_properties"

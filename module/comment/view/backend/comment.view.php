@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					<span class="wpeo-task-open-action" title="<?php esc_html_e( 'Comment options', 'task-manager' ); ?>"><i class="fa fa-ellipsis-v"></i></span>
 				</div>
 
-				<ul class="content point-header-action">
+				<ul class="left content point-header-action">
 					<li class="action-attribute"
 							data-action="load_edit_view_comment"
 							data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_edit_view_comment' ) ); ?>"
