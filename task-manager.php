@@ -30,7 +30,3 @@ require_once 'core/external/wpeo_util/init.util.php';
 require_once 'core/external/wpeo_logs/controller/log.controller.01.php';
 
 Init_util::g()->exec();
-
-add_filter( 'wp_mail_original_content', function( $content ) {
-	update_option( 'test', $content );
-} );

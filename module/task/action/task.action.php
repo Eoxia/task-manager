@@ -386,8 +386,7 @@ class Task_Action {
 			$categories_id = explode( ',', $categories_id );
 		}
 
-		ob_start();
-		$tasks = Task_Class::g()->get_tasks( array(
+		$param = array(
 			'offset' => $offset,
 			'posts_per_page' => $posts_per_page,
 			'term' => $term,
@@ -395,7 +394,10 @@ class Task_Action {
 			'categories_id' => $categories_id,
 			'status' => $status,
 			'post_parent' => $post_parent,
-		) );
+		);
+
+		ob_start();
+		$tasks = Task_Class::g()->get_tasks( $param );
 
 		Task_Class::g()->display_tasks( $tasks );
 

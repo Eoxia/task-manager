@@ -155,6 +155,8 @@ window.task_manager.point.deletedPointSuccess = function( triggeredElement, resp
 		jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text( totalCompletedPoint );
 	}
 
+	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.time );
+
 	jQuery( triggeredElement ).closest( 'div.point.edit' ).fadeOut( 400, function() {
 		window.eoxiaJS.refresh();
 	} );

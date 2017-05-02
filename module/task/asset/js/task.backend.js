@@ -91,6 +91,7 @@ window.task_manager.task.editTitle = function( event ) {
  */
 window.task_manager.task.createdTaskSuccess = function( element, response ) {
 	var element = jQuery( response.data.view );
+	window.task_manager.task.offset++;
 	jQuery( '.list-task' ).prepend( element ).masonry( 'prepended', element );
 	window.eoxiaJS.refresh();
 };

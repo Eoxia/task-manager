@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @version 1.1.0.0
  */
-class Date_util extends Singleton_util {
+class Date_Util extends Singleton_util {
 	/**
 	 * Le constructeur obligatoirement pour utiliser la classe Singleton_util
 	 *

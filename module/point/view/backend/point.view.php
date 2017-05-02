@@ -69,29 +69,30 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					</div>
 
 					<div class="toggle wpeo-task-setting"
-							data-parent="point"
+							data-parent="toggle"
 							data-target="content">
 
 						<div class="action">
-							<span class="wpeo-task-open-action" title="<?php esc_html_e( 'Point options', 'task-manager' ); ?>"><i class="fa fa-ellipsis-v"></i></span>
+							<span class="wpeo-task-open-action" title="<?php esc_html_e( 'Options du point', 'task-manager' ); ?>"><i class="fa fa-ellipsis-v"></i></span>
 						</div>
 
 						<ul class="left content point-header-action">
 							<li class="open-popup-ajax"
-									data-title="<?php esc_attr_e( 'Point properties: #' . $point->id . ' ' . substr( $point->content, 0, 20 ), 'task-manager' ); ?>"
+									data-title="<?php esc_attr_e( 'Propriété du point: #' . $point->id . ' ' . substr( $point->content, 0, 20 ), 'task-manager' ); ?>"
 									data-action="load_point_properties"
 									data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_point_properties' ) ); ?>"
 									data-id="<?php echo esc_attr( $point->id ); ?>"
 									data-parent="wpeo-project-task"
 									data-target="popup">
-								<span><?php esc_html_e( 'Point properties', 'task-manager' ); ?></span>
+								<span><?php esc_html_e( 'Propriété du point', 'task-manager' ); ?></span>
 							</li>
 
 							<li class="action-delete"
 									data-action="delete_point"
+									data-message-delete="<?php echo esc_attr_e( 'Supprimer ce point', 'task-manager' ); ?>"
 									data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_point' ) ); ?>"
 									data-id="<?php echo esc_attr( $point->id ); ?>"
-								<span><?php esc_html_e( 'Delete point', 'task-manager' ); ?></span>
+								<span><?php esc_html_e( 'Supprimer le point', 'task-manager' ); ?></span>
 							</li>
 						</ul>
 					</div>

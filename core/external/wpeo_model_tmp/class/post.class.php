@@ -221,6 +221,12 @@ class Post_Class extends singleton_util {
 			if ( is_wp_error( $post_save ) ) {
 				$data = $post_save;
 			}
+
+			if ( ! empty( $this->after_put_function ) ) {
+				foreach ( $this->after_put_function as $put_function ) {
+					$data = call_user_func( $put_function, $data );
+				}
+			}
 		}
 
 		if ( ! is_wp_error( $data ) ) {

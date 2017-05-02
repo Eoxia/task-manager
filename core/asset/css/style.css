@@ -5116,43 +5116,43 @@
   margin-left: 15%;
   width: 85%;
 }
-.wpeo-project-wrap .points .point .comments .comment.edit ul input {
+.wpeo-project-wrap .points .point .comments .comment.new ul input {
   width: 100%;
   font-size: 13px;
   margin: 0;
   padding: 2px;
 }
-.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-date,
-.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-time {
+.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-date,
+.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-time {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
   display: -ms-flexbox;
   display: flex;
 }
-.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-date span,
-.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-time span {
+.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-date span,
+.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-time span {
   margin: auto;
   font-size: 14px;
   color: rgba(0, 0, 0, 0.4);
 }
-.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-date {
+.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-date {
   width: 100%;
   max-width: 20%;
 }
-.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-content {
+.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-content {
   margin: 0 16px;
   width: 100%;
   max-width: 63%;
 }
-.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-time {
+.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-time {
   width: 100%;
   max-width: 12%;
 }
-.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-time input {
+.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-time input {
   padding: 2px;
 }
-.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-point-new-btn {
+.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-point-new-btn {
   text-align: right;
   width: 100%;
   max-width: 5%;
@@ -5162,15 +5162,15 @@
   transition: all 0.2s ease-out;
   margin-left: auto;
 }
-.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-point-new-btn:hover {
+.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-point-new-btn:hover {
   cursor: pointer;
 }
-.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-save-point {
+.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-save-point {
   width: 100%;
   max-width: 5%;
   text-align: right;
 }
-.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-save-point i {
+.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-save-point i {
   background: #3495f0;
   -webkit-border-radius: 50%;
           border-radius: 50%;
@@ -5186,50 +5186,95 @@
   transition: all 0.2s ease-out;
   display: inline-block;
 }
-.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-save-point i:hover {
+.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-save-point i:hover {
   background: #1360c8;
   cursor: pointer;
 }
-.wpeo-project-wrap .points .point .comments .comment:not(.edit) ul {
+.wpeo-project-wrap .points .point .comments .comment.view ul,
+.wpeo-project-wrap .points .point .comments .comment.edit ul {
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
 }
-.wpeo-project-wrap .points .point .comments .comment:not(.edit) ul .wpeo-comment-date {
+.wpeo-project-wrap .points .point .comments .comment.view ul .avatar,
+.wpeo-project-wrap .points .point .comments .comment.edit ul .avatar {
+  margin-right: 6px;
+  width: 100%;
+  max-width: 5%;
+}
+.wpeo-project-wrap .points .point .comments .comment.view ul .avatar .user span,
+.wpeo-project-wrap .points .point .comments .comment.edit ul .avatar .user span {
+  font-size: 12px;
+}
+.wpeo-project-wrap .points .point .comments .comment.view ul .avatar .user img,
+.wpeo-project-wrap .points .point .comments .comment.edit ul .avatar .user img,
+.wpeo-project-wrap .points .point .comments .comment.view ul .avatar .user .wpeo-avatar-initial,
+.wpeo-project-wrap .points .point .comments .comment.edit ul .avatar .user .wpeo-avatar-initial,
+.wpeo-project-wrap .points .point .comments .comment.view ul .avatar .user .wpeo-avatar-initial span,
+.wpeo-project-wrap .points .point .comments .comment.edit ul .avatar .user .wpeo-avatar-initial span {
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+}
+.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-date,
+.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-date {
   font-size: 12px;
   color: rgba(0, 0, 0, 0.4);
-  width: 80%;
+  width: 100%;
+  max-width: 77%;
 }
-.wpeo-project-wrap .points .point .comments .comment:not(.edit) ul .wpeo-comment-content {
+.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-content,
+.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-content {
   width: 100%;
 }
-.wpeo-project-wrap .points .point .comments .comment:not(.edit) ul .wpeo-comment-action {
+.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-content input,
+.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-content input {
+  width: 100%;
+}
+.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-time,
+.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-time {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  max-width: 10%;
+}
+.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-time span,
+.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-time span {
+  padding: 4px 4px 0 0;
+}
+.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-action,
+.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-action {
   margin-left: auto;
 }
-.wpeo-project-wrap .points .point .comments .comment:not(.edit) ul .wpeo-comment-action .wpeo-comment-setting {
+.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-action .wpeo-comment-setting,
+.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-action .wpeo-comment-setting {
   padding: 0 10px;
 }
-.wpeo-project-wrap .points .point .comments .comment:not(.edit) ul .wpeo-comment-action .wpeo-comment-setting i {
+.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-action .wpeo-comment-setting i,
+.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-action .wpeo-comment-setting i {
   color: rgba(0, 0, 0, 0.2);
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
   -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
-.wpeo-project-wrap .points .point .comments .comment:not(.edit) ul .wpeo-comment-action .wpeo-comment-setting:hover {
+.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-action .wpeo-comment-setting:hover,
+.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-action .wpeo-comment-setting:hover {
   cursor: pointer;
 }
-.wpeo-project-wrap .points .point .comments .comment:not(.edit) ul .wpeo-comment-action .wpeo-comment-setting:hover i {
+.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-action .wpeo-comment-setting:hover i,
+.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-action .wpeo-comment-setting:hover i {
   color: rgba(0, 0, 0, 0.4);
 }
-.wpeo-project-wrap .points .point .comments .comment .avatar .user span {
-  font-size: 12px;
+.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-save-point,
+.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-save-point {
+  margin-left: auto;
 }
-.wpeo-project-wrap .points .point .comments .comment .avatar .user img,
-.wpeo-project-wrap .points .point .comments .comment .avatar .user .wpeo-avatar-initial,
-.wpeo-project-wrap .points .point .comments .comment .avatar .user .wpeo-avatar-initial span {
-  -webkit-border-radius: 50%;
-          border-radius: 50%;
+.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-date input,
+.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-time input {
+  font-size: 12px;
 }
 /* ----------------------------------
 		Points terminés

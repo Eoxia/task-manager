@@ -72,6 +72,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 					<li class="action-delete"
 							data-action="delete_task"
+							data-message-delete="<?php echo esc_attr( 'Supprimer cette tâche', 'task-manager' ); ?>"
 							data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_task' ) ); ?>"
 							data-id="<?php echo esc_attr( $task->id ); ?>">
 						<span><?php esc_html_e( 'Delete task', 'task-manager' ); ?></span>

@@ -99,7 +99,7 @@ class Task_Comment_Action {
 			'id' => $comment_id,
 			'post_id' => $post_id,
 			'parent_id' => $parent_id,
-			'date' => Date_Util::g()->formatte_date( $date ),
+			'date' => $date,
 			'content' => $content,
 			'time_info' => array(
 				'elapsed' => $time,
@@ -113,10 +113,16 @@ class Task_Comment_Action {
 			'comment' => $comment,
 		) );
 
+		$task = Task_Class::g()->get( array(
+			'post__in' => array(
+				$comment->post_id,
+			),
+		), true );
+
 		wp_send_json_success( array(
 			'time' => array(
 				'point' => $comment->point->time_info['elapsed'],
-				'task' => $comment->task->time_info['elapsed'],
+				'task' => $task->time_info['time_display'] . ' (' . $task->time_info['elapsed'] . 'min)',
 			),
 			'view' => ob_get_clean(),
 			'module' => 'comment',
@@ -187,10 +193,16 @@ class Task_Comment_Action {
 
 		$comment = Task_Comment_Class::g()->update( $comment );
 
+		$task = Task_Class::g()->get( array(
+			'post__in' => array(
+				$comment->post_id,
+			),
+		), true );
+
 		wp_send_json_success( array(
 			'time' => array(
 				'point' => $comment->point->time_info['elapsed'],
-				'task' => $comment->task->time_info['elapsed'],
+				'task' => $task->time_info['time_display'] . ' (' . $task->time_info['elapsed'] . 'min)',
 			),
 			'module' => 'comment',
 			'callback_success' => 'deletedCommentSuccess',

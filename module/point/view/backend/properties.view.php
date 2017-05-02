@@ -17,18 +17,11 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 <ul>
 	<li>
 		<?php esc_html_e( 'Créateur du point', 'task-manager' ); ?>
-		<div class="user" style="width: 32px; height: 32px;">
-			<img class="avatar avatar-32" src="<?php echo esc_attr( get_avatar_url( $point->author->id, array(
-				'size' => 32,
-				'default' => 'blank',
-			)	) ); ?>" />
-			<div class="wpeo-avatar-initial"><span><?php echo esc_html( $point->author->initial ); ?></span></div>
-		</div>
-		<?php echo esc_html( $point->author->display_name ); ?>
+		<?php echo do_shortcode( '[task_avatar ids="' . $point->author_id . '" size="50"]' ); ?>
 	</li>
 	<li>
 		<?php esc_html_e( 'Date de création', 'task-manager' ); ?>
-		<?php echo $point->date; ?>
+		<?php echo esc_html( $point->date ); ?>
 	</li>
 </ul>
 

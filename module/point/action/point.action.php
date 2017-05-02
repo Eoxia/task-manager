@@ -106,9 +106,11 @@ class Point_Action {
 		if( ( $key = array_search( $point_id, $task->task_info['order_point_id'] ) ) !== false ) {
 			unset( $task->task_info['order_point_id'][$key] );
 		}
-		Task_Class::g()->update( $task );
+		$task->time_info['elapsed'] -= $point->time_info['elapsed'];
+		$task = Task_Class::g()->update( $task );
 
 		wp_send_json_success( array(
+			'time' => $task->time_info['time_display'] . ' (' . $task->time_info['elapsed'] . 'min)',
 			'module' => 'point',
 			'callback_success' => 'deletedPointSuccess',
 		) );

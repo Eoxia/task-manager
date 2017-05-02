@@ -20,6 +20,8 @@ window.task_manager.action.execInput = function( event ) {
 	var doAction = true;
 	var key = undefined;
 
+	event.preventDefault();
+
 	if ( element.data( 'loader' ) ) {
 		loaderElement = element.closest( '.' + element.data( 'loader' ) );
 	}
@@ -63,6 +65,8 @@ window.task_manager.action.execAttribute = function( event ) {
 	var doAction = true;
 	var loaderElement = element;
 
+	event.preventDefault();
+
 	if ( element.data( 'loader' ) ) {
 		loaderElement = element.closest( '.' + element.data( 'loader' ) );
 	}
@@ -101,6 +105,8 @@ window.task_manager.action.execDelete = function( event ) {
 	var doAction = true;
 	var loaderElement = element;
 
+	event.preventDefault();
+
 	if ( element.data( 'loader' ) ) {
 		loaderElement = element.closest( '.' + element.data( 'loader' ) );
 	}
@@ -116,7 +122,7 @@ window.task_manager.action.execDelete = function( event ) {
 	}
 
 	if ( doAction ) {
-		if ( window.confirm( window.digi_confirm_delete ) ) {
+		if ( window.confirm( element.data( 'message-delete' ) ) ) {
 			element.get_data( function( data ) {
 				loaderElement.addClass( 'loading' );
 				window.task_manager.request.send( element, data );

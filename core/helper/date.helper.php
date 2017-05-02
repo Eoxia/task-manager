@@ -24,9 +24,12 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
  * @version 1.3.6.0
  */
 function convert_date_to_sql( $data ) {
-	if ( ! empty( $data ) && ! empty( $data->date ) ) {
-		$data->date = date( 'Y-m-d', strtotime( str_replace( '/', '-', $data->date ) ) );
+	if ( strlen( $data->date ) === 10 ) {
+		$data->date .= ' 00:00:00';
 	}
+
+	$data->date = str_replace( '/', '-', $data->date );
+	$data->date = date( 'Y-m-d h:i:s', strtotime( $data->date ) );
 	return $data;
 }
 
@@ -40,7 +43,8 @@ function convert_date_to_sql( $data ) {
  * @version 1.3.6.0
  */
 function convert_date_display( $data ) {
-	$data->date = ! empty( $data->date ) ? date( 'd/m/Y h:i:s', strtotime( $data->date ) ) : current_time( 'd/m/Y h:i:s' );
+	$format = 'd/m/Y h:i:s';
 
+	$data->date = mysql2date( $format, $data->date );
 	return $data;
 }

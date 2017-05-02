@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 <li class="comment view">
 	<ul class="wpeo-comment-container">
 		<li class="avatar"><?php echo do_shortcode( '[task_avatar ids="' . $comment->author_id . '" size="16"]' ); ?></li>
-		<li class="wpeo-comment-date"><?php echo esc_html( Date_Util::g()->mysqldate2wordpress( $comment->date ) ); ?></li>
+		<li class="wpeo-comment-date"><?php echo esc_html( $comment->date ); ?></li>
 		<li class="wpeo-comment-time"><span class="fa fa-clock-o"></span> <?php echo esc_html( $comment->time_info['elapsed'] ); ?></li>
 		<li class="wpeo-comment-action">
 			<div class="toggle wpeo-comment-setting"
@@ -38,9 +38,10 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 					<li class="action-delete"
 							data-action="delete_comment"
+							data-message-delete="<?php echo esc_attr_e( 'Supprimer ce commentaire', 'task-manager' ); ?>"
 							data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_comment' ) ); ?>"
 							data-id="<?php echo esc_attr( $comment->id ); ?>"
-						<span><?php esc_html_e( 'Delete comment', 'task-manager' ); ?></span>
+						<span><?php esc_html_e( 'Supprimer le commentaire', 'task-manager' ); ?></span>
 					</li>
 				</ul>
 			</div>

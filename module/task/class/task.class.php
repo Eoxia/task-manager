@@ -89,6 +89,13 @@ class Task_Class extends Post_Class {
 	protected $after_post_function = array( '\task_manager\get_full_task' );
 
 	/**
+	 * La fonction appelée automatiquement après la mise à jour de l'objet dans la base de donnée.
+	 *
+	 * @var array
+	 */
+	protected $after_put_function = array( '\task_manager\get_full_task' );
+
+	/**
 	 * Le constructeur
 	 *
 	 * @return void
@@ -164,7 +171,7 @@ class Task_Class extends Post_Class {
 		$query .= " ORDER BY TASK.post_date DESC ";
 
 		if ( -1 !== $param['posts_per_page'] ) {
-			$query .= "LIMIT " . $param['offset'] . "," . ( $param['posts_per_page'] + $param['offset'] );
+			$query .= "LIMIT " . $param['offset'] . "," . $param['posts_per_page'];
 		}
 
 		$tasks_id = $wpdb->get_col( $query );

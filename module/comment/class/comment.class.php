@@ -57,7 +57,7 @@ class Task_Comment_Class extends Comment_Class {
 	 *
 	 * @var array
 	 */
-	protected $before_post_function = array( '\task_manager\compile_time' );
+	protected $before_post_function = array( '\task_manager\convert_date_to_sql', '\task_manager\compile_time' );
 
 	/**
 	 * La fonction appelée automatiquement après la modification de l'objet dans la base de donnée.
