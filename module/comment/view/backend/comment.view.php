@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 							data-action="load_edit_view_comment"
 							data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_edit_view_comment' ) ); ?>"
 							data-id="<?php echo esc_attr( $comment->id ); ?>"
-						<span><?php esc_html_e( 'Edit comment', 'task-manager' ); ?></span>
+						<span><?php esc_html_e( 'Editer le commentaire', 'task-manager' ); ?></span>
 					</li>
 
 					<li class="action-delete"
