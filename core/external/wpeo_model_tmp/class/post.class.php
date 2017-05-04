@@ -78,6 +78,7 @@ class Post_Class extends singleton_util {
 		$args = array(
 			'public' => Config_util::$init['task-manager']->debug ? true : false,
 			'label'  => $this->post_type_name,
+			'hierarchical' => true,
 		);
 
 		register_post_type( $this->post_type, $args );
