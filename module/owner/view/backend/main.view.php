@@ -11,7 +11,7 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
-<li class="toggle"
+<div class="toggle"
 		data-parent="toggle"
 		data-target="content"
 		data-action="load_edit_mode_owner"
@@ -22,6 +22,6 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		<?php echo do_shortcode( '[task_avatar ids="' . $owner_id . '" size="32"]' ); ?>
 	</div>
 
-	<ul class="content">
+	<ul class="content right">
 	</ul>
-</li>
+</div>
