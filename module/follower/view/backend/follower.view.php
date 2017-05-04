@@ -13,6 +13,6 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 
-<li class="user" style="width: 50px; height: 50px;">
+<li class="follower" style="width: 50px; height: 50px;">
 	<?php echo do_shortcode( '[task_avatar ids="' . $user->id . '" "size="50"]' ); ?>
 </li>
