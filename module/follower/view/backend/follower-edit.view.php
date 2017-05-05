@@ -13,7 +13,7 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 
-<li class="action-attribute user <?php echo in_array( $user->id, $task->user_info['affected_id'], true ) ? 'active' : ''; ?>" style="width: 50px; height: 50px;"
+<li class="action-attribute follower <?php echo in_array( $user->id, $task->user_info['affected_id'], true ) ? 'active' : ''; ?>" style="width: 50px; height: 50px;"
 	data-id="<?php echo esc_attr( $user->id ); ?>"
 	data-parent-id="<?php echo esc_attr( $task->id ); ?>"
 	data-action="<?php echo in_array( $user->id, $task->user_info['affected_id'], true ) ? 'follower_unaffectation' : 'follower_affectation'; ?>"

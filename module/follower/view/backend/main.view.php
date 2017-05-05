@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 	endif;
 	?>
 
-	<li class="action-attribute"
+	<li class="action-attribute follower add"
 			data-action="load_followers"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_followers' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->id ); ?>">

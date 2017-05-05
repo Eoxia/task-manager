@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 	endif;
 	?>
 
-	<li>
+	<li class="follower edit">
 		<span class="dashicons dashicons-edit action-attribute"
 					data-action="close_followers_edit_mode"
 					data-nonce="<?php echo esc_attr( wp_create_nonce( 'close_followers_edit_mode' ) ); ?>"
