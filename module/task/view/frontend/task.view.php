@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 			<li class="wpeo-task-elapsed">
 				<i class="dashicons dashicons-clock"></i>
-				<span class="elapsed"><?php echo esc_html( $task->time_info['time_display'] . ' (' . $task->time_info['elapsed'] . 'min)' ); ?></span>
+				<span class="elapsed"><?php echo esc_html( $task->time_info['time_display'] ); ?></span>
 			</li>
 		</ul>
 		<!-- Fin en tête de la tâche -->
