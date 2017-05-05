@@ -16,13 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 <div class="point <?php echo ! empty( $point->id ) ? esc_attr( 'edit' ): ''; ?>" data-id="<?php echo esc_attr( $point->id ); ?>">
 	<ul class="point-container">
-		<li class="point-valid">
-			<?php if ( ! empty( $point->id ) ) : ?>
-				<span class="wpeo-sort-point dashicons dashicons-screenoptions" title="<?php esc_attr_e( 'Drag and drop for set the order', 'task-manager' ); ?>"></span>
-				<input type="checkbox" <?php echo ! empty( $point->point_info['completed'] ) ? 'checked': ''; ?> class="completed-point" data-nonce="<?php echo esc_attr( wp_create_nonce( 'complete_point' ) ); ?>" />
-			<?php endif; ?>
-		</li>
-
 		<li class="point-toggle">
 			<?php if ( ! empty( $point->id ) ) : ?>
 				<span data-action="<?php echo esc_attr( 'load_front_comments' ); ?>"
