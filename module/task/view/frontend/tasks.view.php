@@ -15,7 +15,7 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 <?php if ( ! empty( $tasks ) && ! empty( $tasks[0] ) ) : ?>
-	<div class="grid-item wpeo-project-task">
+	<div class="list-task">
 		<?php
 		foreach ( $tasks as $task ) :
 			View_Util::exec( 'task', 'frontend/task', array(
