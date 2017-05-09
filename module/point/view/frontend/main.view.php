@@ -24,11 +24,6 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 			) );
 		endforeach;
 	endif;
-
-	View_Util::exec( 'point', 'frontend/point', array(
-		'point' => $point_schema,
-		'parent_id' => $task_id,
-	) );
 	?>
 </div>
 

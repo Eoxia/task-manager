@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		</li>
 
 		<li class="point-content content">
-			<span><?php echo '<strong>#' . $point->id . '</strong> ' . $point->content; ?></span>
+			<span><?php echo $point->content; ?></span>
 		</li>
 
 		<li class="point-action">
