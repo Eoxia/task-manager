@@ -22,6 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 	<?php if ( ! empty( $comments ) ) :
 		foreach ( $comments as $comment ) :
+			if ( strpos( $comment->meta_value, $comment->comment_ID ) ) :
 			?>
 			<tr>
 				<td><?php echo esc_html( $comment->comment_ID ); ?></td>
@@ -32,6 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					</a>
 				</td>
 				<td><?php echo nl2br( esc_html( $comment->comment_content ) ); ?></td>
+			<?php endif; ?>
 		<?php endforeach;
 	endif; ?>
 </ul>
