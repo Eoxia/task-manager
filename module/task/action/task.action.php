@@ -303,6 +303,7 @@ class Task_Action {
 		$term = sanitize_text_field( $_GET['term'] );
 
 		$posts_type = get_post_types();
+		unset( $posts_type[ Task_Class::g()->get_post_type() ] );
 
 		$query = new \WP_Query( array(
 			'post_type' => $posts_type,
