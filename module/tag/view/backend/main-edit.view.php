@@ -25,9 +25,10 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 	endif;
 	?>
 
-	<span class="wpeo-tag edit action-attribute dashicons dashicons-edit"
+	<li class="wpeo-tag edit action-attribute"
 		data-action="close_tag_edit_mode"
 		data-nonce="<?php echo esc_attr( wp_create_nonce( 'close_tag_edit_mode' ) ); ?>"
-		data-task-id="<?php echo esc_attr( $task->id ); ?>"></span>
-
+		data-task-id="<?php echo esc_attr( $task->id ); ?>">
+		<i class="fa fa-floppy-o" ></i>
+	</li>
 </ul>

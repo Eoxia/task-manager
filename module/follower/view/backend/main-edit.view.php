@@ -25,10 +25,10 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 	endif;
 	?>
 
-	<li class="follower edit">
-		<span class="dashicons dashicons-edit action-attribute"
-					data-action="close_followers_edit_mode"
-					data-nonce="<?php echo esc_attr( wp_create_nonce( 'close_followers_edit_mode' ) ); ?>"
-					data-id="<?php echo esc_attr( $task->id ); ?>"></span>
+	<li class="follower edit action-attribute"
+				data-action="close_followers_edit_mode"
+				data-nonce="<?php echo esc_attr( wp_create_nonce( 'close_followers_edit_mode' ) ); ?>"
+				data-id="<?php echo esc_attr( $task->id ); ?>">
+		<i class="fa fa-floppy-o" ></i>
 	</li>
 </ul>
