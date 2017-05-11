@@ -81,8 +81,8 @@ window.task_manager.comment.loadedCommentsSuccess = function( triggeredElement, 
  * @version 1.0.0.0
  */
 window.task_manager.comment.addedCommentSuccess = function( triggeredElement, response ) {
-	jQuery( triggeredElement ).closest( '.comments' ).append( response.data.view );
-
+	jQuery( triggeredElement ).closest( '.comments' ).children( '.comment.new' ).after( response.data.view );
+	jQuery( triggeredElement ).closest( 'form' )[0].reset();
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.time.task );
 	jQuery( triggeredElement ).closest( '.comments' ).prev( 'form' ).find( '.wpeo-time-in-point' ).text( response.data.time.point );
 	window.eoxiaJS.refresh();
