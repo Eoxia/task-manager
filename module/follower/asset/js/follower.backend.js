@@ -43,3 +43,33 @@ window.task_manager.follower.closedFollowersEditMode = function( element, respon
 	element.closest( '.wpeo-ul-users' ).replaceWith( response.data.view );
 	window.eoxiaJS.refresh();
 };
+
+/**
+ * Cette méthode est appelé automatiquement lors du clique sur une catégorie a affecter.
+ *
+ * @param  {HTMLUListElement} element L'élément déclenchant la méthode au clique.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.3.6.0
+ */
+window.task_manager.follower.beforeAffectFollower = function( element ) {
+	element.addClass( 'active' );
+
+	return true;
+};
+
+/**
+ * Cette méthode est appelé automatiquement lors du clique sur une catégorie a désaffecter.
+ *
+ * @param  {HTMLUListElement} element L'élément déclenchant la méthode au clique.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.3.6.0
+ */
+window.task_manager.follower.beforeUnaffectFollower = function( element ) {
+	element.removeClass( 'active' );
+
+	return true;
+};
