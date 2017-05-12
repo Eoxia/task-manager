@@ -31,15 +31,6 @@
 @import "theme.less";
 
 
-@-moz-document url-prefix() {
-.wpeo-project-wrap {
-	.list-task {
-		.wpeo-project-task {
-			}
-		}
-	}
-}
-
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
 .wpeo-project-wrap {
 	.list-task {
@@ -674,6 +665,9 @@
 				padding: 8px 14px 0;
 				margin-left: 15%;
 				width: 85%;
+				.user {
+					border-radius: 50%;
+				}
 			}
 			&.new ul {
 				input {
