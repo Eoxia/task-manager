@@ -22,7 +22,10 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		</li>
 		<li class="time">
 			<span class="dashicons dashicons-clock"></span>
-			<?php echo esc_html( $history_time->estimated_time ); ?>
+			<?php echo esc_html( $history_time->time_info['estimated_time_display'] ); ?>
+		</li>
+		<li class="time">
+			<?php echo esc_html( sprintf( __( '( %smin )', 'task-manager' ), $history_time->estimated_time ) ); ?>
 		</li>
 		<li class="delete action-delete"
 				data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_history_time' ) ); ?>"

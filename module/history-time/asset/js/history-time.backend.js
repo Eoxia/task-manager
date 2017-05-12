@@ -54,7 +54,8 @@ window.task_manager.historyTime.loadedTimeHistorySuccess = function( element, re
  * @version 1.0.0.0
  */
 window.task_manager.historyTime.createdHistoryTime = function( element, response ) {
-	jQuery( element ).closest( '.wpeo-project-task' ).find( '.popup .content .history-time-container' ).replaceWith( response.data.view );
+	jQuery( element ).closest( '.wpeo-project-task' ).find( '.popup .content .history-time-container' ).replaceWith( response.data.history_time_view );
+	jQuery( 'div[data-id="' + response.data.task_id + '"]' ).find( 'ul.wpeo-task-time-manage' ).replaceWith( response.data.task_header_view );
 };
 
 /**

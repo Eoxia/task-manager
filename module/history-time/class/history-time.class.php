@@ -55,6 +55,13 @@ class History_Time_Class extends Comment_Class {
 	protected $before_post_function = array( '\task_manager\convert_history_time_due_date_to_sql' );
 
 	/**
+	 * La fonction appelée automatiquement après la récupération de l'objet dans la base de donnée.
+	 *
+	 * @var array
+	 */
+	protected $after_model_get_function = array( '\task_manager\get_full_history_time' );
+
+	/**
 	 * Le constructeur
 	 *
 	 * @return void

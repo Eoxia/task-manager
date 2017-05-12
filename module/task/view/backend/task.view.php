@@ -90,31 +90,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		<!-- Fin en tête de la tâche -->
 
 		<!-- Sous en tête pour gérer le temps -->
-		<ul class="wpeo-task-time-manage">
-			<li class="wpeo-task-date">
-				<i class="dashicons dashicons-calendar-alt"></i>
-				<span><?php echo esc_html( Date_Util::g()->mysqldate2wordpress( $task->last_history_time->due_date, false ) ); ?></span>
-			</li>
-
-			<li class="wpeo-task-elapsed">
-				<i class="dashicons dashicons-clock"></i>
-				<span class="elapsed"><?php echo esc_html( $task->time_info['time_display'] . ' (' . $task->time_info['elapsed'] . 'min)' ); ?></span>
-			</li>
-			<li class="wpeo-task-estimated">
-				<?php if ( ! empty( $task->last_history_time->estimated_time ) ) : ?>
-					<span class="estimated">/ <?php echo esc_html( $task->last_history_time->estimated_time ); ?></span>
-				<?php endif; ?>
-			</li>
-
-			<li class="wpeo-task-time-history open-popup-ajax"
-					data-parent="wpeo-project-task"
-					data-target="popup"
-					data-action="load_time_history"
-					data-title="<?php echo esc_attr( '#' . $task->id . ' Historique du temps' ); ?>"
-					data-task-id="<?php echo esc_attr( $task->id ); ?>">
-				<span class="fa fa-history dashicons-image-rotate"></span>
-			</li>
-		</ul>
+		<?php View_Util::exec( 'task', 'backend/task-header', array( 'task' => $task ) ); ?>
 		<!-- Fin de sous en tête -->
 
 		<!-- Corps de la tâche -->

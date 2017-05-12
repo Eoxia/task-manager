@@ -56,15 +56,21 @@ function get_full_task( $data ) {
 	}
 
 	$format = '%hh %imin';
-
 	$dtf = new \DateTime( '@0' );
-	$dtt = new \DateTime( '@' . ( $data->time_info['elapsed'] * 60 ) );
 
+	/** Gestion de l'affichage du temps passé en jours/heures */
+	$dtt = new \DateTime( '@' . ( $data->time_info['elapsed'] * 60 ) );
 	if ( 1440 <= $data->time_info['elapsed'] ) {
 		$format = '%aj %hh %imin';
 	}
-
 	$data->time_info['time_display'] = $dtf->diff( $dtt )->format( $format );
+
+	/** Gestion de l'affichage du temps estimé en jours/heures */
+	$dtt = new \DateTime( '@' . ( $data->last_history_time->estimated_time * 60 ) );
+	if ( 1440 <= $data->last_history_time->estimated_time ) {
+		$format = '%aj %hh %imin';
+	}
+	$data->time_info['estimated_time_display'] = $dtf->diff( $dtt )->format( $format );
 
 	return $data;
 }
