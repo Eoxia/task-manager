@@ -316,7 +316,7 @@ class Task_Action {
 		if ( ! empty( $query->posts ) ) {
 			foreach ( $query->posts as $post ) {
 				$posts_founded[] = array(
-					'label' => $post->post_title,
+					'label' => '#' . $post->ID . ' - ' . $post->post_title,
 					'value' => $post->post_title,
 					'id' => $post->ID,
 				);

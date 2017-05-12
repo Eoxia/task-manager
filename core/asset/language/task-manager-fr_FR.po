@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
 "POT-Creation-Date: 2017-05-12 11:28+0200\n"
-"PO-Revision-Date: 2017-05-12 11:35+0200\n"
+"PO-Revision-Date: 2017-05-12 13:49+0200\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -454,7 +454,7 @@ msgstr "Options"
 
 #: module/task/view/backend/task.view.php:63
 msgid "Task properties"
-msgstr "Propriété"
+msgstr "Propriété de la tâche"
 
 #: module/task/view/backend/task.view.php:70
 msgid "Notify owner and followers"
