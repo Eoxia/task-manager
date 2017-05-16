@@ -118,7 +118,7 @@ window.task_manager.tag.loadedArchivedTask = function( triggeredElement, respons
  * @version 1.3.6.0
  */
 window.task_manager.tag.beforeAffectTag = function( element ) {
-	element.addClass( 'wpeo-tag-tag-selected' );
+	element.addClass( 'active' );
 
 	return true;
 };
@@ -133,7 +133,7 @@ window.task_manager.tag.beforeAffectTag = function( element ) {
  * @version 1.3.6.0
  */
 window.task_manager.tag.beforeUnaffectTag = function( element ) {
-	element.removeClass( 'wpeo-tag-tag-selected' );
+	element.removeClass( 'active' );
 
 	return true;
 };

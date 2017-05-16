@@ -83,7 +83,7 @@ window.task_manager.point.updateHiddenInput = function( event ) {
 		jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
 	}
 
-	jQuery( this ).closest( '.point' ).find( 'input[name="content"]' ).val( jQuery( this ).html() );
+	jQuery( this ).closest( '.point' ).find( '.point-content input[name="content"]' ).val( jQuery( this ).html() );
 };
 
 /**
