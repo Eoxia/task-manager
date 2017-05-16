@@ -28,5 +28,5 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	</div>
 
 	<?php do_shortcode( '[task_manager_search_bar term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '"]' ); ?>
-	<?php do_shortcode( '[task term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '" post_parent="0"]' ); ?>
+	<?php do_shortcode( '[task term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '" post_parent="0" with_wrapper="0"]' ); ?>
 </div>

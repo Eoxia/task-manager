@@ -5157,9 +5157,24 @@
   max-width: 20%;
 }
 .wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-content {
+  position: relative;
   margin: 0 16px;
   width: 100%;
   max-width: 63%;
+  margin: auto 6px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  padding-bottom: 2px;
+}
+.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-content .wpeo-point-new-placeholder {
+  color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  left: 6px;
+  bottom: 2px;
+  pointer-events: none;
 }
 .wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-time {
   width: 100%;
@@ -5176,7 +5191,7 @@
   -o-transition: all 0.2s ease-out;
   -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
-  margin-left: auto;
+  margin: auto 0 auto auto;
 }
 .wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-point-new-btn:hover {
   cursor: pointer;
@@ -5370,11 +5385,11 @@
   cursor: pointer;
   background: rgba(0, 0, 0, 0.2);
 }
-.wpeo-project-wrap .wpeo-tag-wrap .wpeo-tag.wpeo-tag-tag-selected {
+.wpeo-project-wrap .wpeo-tag-wrap .wpeo-tag.active {
   background: #3495f0;
   color: #fff;
 }
-.wpeo-project-wrap .wpeo-tag-wrap .wpeo-tag.wpeo-tag-tag-selected:hover {
+.wpeo-project-wrap .wpeo-tag-wrap .wpeo-tag.active:hover {
   background: #1360c8;
 }
 .wpeo-project-wrap .wpeo-tag-wrap .wpeo-tag.edit {

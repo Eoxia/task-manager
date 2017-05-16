@@ -47,6 +47,7 @@ class Task_Shortcode {
 			'post_parent' => 0,
 			'posts_per_page' => Config_Util::$init['task']->posts_per_page,
 			'frontend' => false,
+			'with_wrapper' => true,
 		), $param, 'task' );
 
 		if ( ! is_array( $param['categories_id'] ) && ! empty( $param['categories_id'] ) ) {
@@ -70,10 +71,12 @@ class Task_Shortcode {
 		if ( $param['frontend'] ) {
 			View_Util::exec( 'task', 'frontend/main', array(
 				'tasks' => $tasks,
+				'with_wrapper' => $param['with_wrapper'],
 			) );
 		} else {
 			View_Util::exec( 'task', 'backend/main', array(
 				'tasks' => $tasks,
+				'with_wrapper' => $param['with_wrapper'],
 			) );
 		}
 	}

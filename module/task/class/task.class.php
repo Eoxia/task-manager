@@ -197,9 +197,10 @@ class Task_Class extends Post_Class {
 	 * @since 1.3.6.0
 	 * @version 1.3.6.0
 	 */
-	public function display_tasks( $tasks ) {
+	public function display_tasks( $tasks, $with_wrapper = false ) {
 		View_Util::exec( 'task', 'backend/tasks', array(
 			'tasks' => $tasks,
+			'with_wrapper' => $with_wrapper,
 		) );
 	}
 }
