@@ -223,7 +223,7 @@
 }
 
 /* ----------------------------------
-		Task point comments
+		Commentaires
 -----------------------------------*/
 .wpeo-project-wrap {
 	.points .point .comments {
@@ -236,6 +236,9 @@
 				padding: 8px 14px 0;
 				margin-left: 15%;
 				width: 85%;
+				.user {
+					border-radius: 50%;
+				}
 			}
 			&.new ul {
 				input {
@@ -257,9 +260,27 @@
 					max-width: 20%;
 				}
 				.wpeo-comment-content {
+					position: relative;
 					margin: 0 16px;
 					width: 100%;
-					max-width: 63%;
+					max-width: 90%;
+					margin: auto 6px;
+					border-bottom: 1px solid rgba(0,0,0,.1);
+					transition: all .2s ease-out;
+					padding-bottom: 2px;
+					&:hover {
+						border-bottom: 1px solid rgba(0,0,0,.4);
+					}
+					&:focus, .content:focus {
+						outline: none;
+					}
+					.wpeo-point-new-placeholder {
+						color: rgba(0,0,0,.4);
+				    position: absolute;
+				    left: 6px;
+				    bottom: 2px;
+				    pointer-events: none;
+					}
 				}
 				.wpeo-comment-time {
 					width: 100%;
@@ -273,9 +294,11 @@
 					width: 100%;
 					max-width: 5%;
 					transition: all 0.2s ease-out;
-					margin-left: auto;
+					margin: auto 0 auto auto;
+					color: @main-color;
 					&:hover {
 						cursor: pointer;
+						color: lighten(@main-color, 10%);
 					}
 				}
 			}
@@ -362,6 +385,66 @@
 					font-size: 12px;
 				}
 			}
+		}
+	}
+}
+
+/* ----------------------------------
+		Avatar
+-----------------------------------*/
+
+.user {
+	background: @main-color;
+	color: #fff;
+	position: relative;
+	transition: all 0.2s ease-out;
+
+	img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+	.wpeo-avatar-initial {
+		display: flex;
+		height: 100%;
+	}
+	span {
+		font-size: 16px;
+		text-align: center;
+		margin: auto;
+		display: inline-block;
+		width: 100%;
+	}
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+.wpeo-main-user {
+	background: #404a53;
+	display: flex;
+	justify-content: flex-end;
+	height: 50px;
+	.wpeo-user-owner {
+		li {
+			float: left;
+		}
+	}
+	li:first-child {
+		margin-right: auto;
+	}
+	li:last-child a {
+		width: 50px !important;
+		height: 50px !important;
+		padding: 16px;
+		// background: @main-color;
+		color: #fff;
+		box-shadow: none;
+		transition: all 0.2s ease-out;
+		&:hover {
+			// background: @main-color-light;
 		}
 	}
 }

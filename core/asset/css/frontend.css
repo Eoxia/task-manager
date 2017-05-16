@@ -3328,6 +3328,11 @@
        -o-animation: spin 1s ease-out infinite;
           animation: spin 1s ease-out infinite;
 }
+.wpeo-project-wrap .load-more.loading:before {
+  position: static;
+  margin-top: 8px;
+  float: left;
+}
 @-moz-document url-prefix() {
   .entry-content .list-task .wpeo-project-task {
     overflow: hidden!important;
@@ -3573,7 +3578,7 @@
   text-align: left;
 }
 /* ----------------------------------
-		Task point comments
+		Commentaires
 -----------------------------------*/
 .wpeo-project-wrap .points .point .comments {
   background: rgba(0, 0, 0, 0.05);
@@ -3595,6 +3600,10 @@
   padding: 8px 14px 0;
   margin-left: 15%;
   width: 85%;
+}
+.wpeo-project-wrap .points .point .comments .comment .wpeo-comment-container .user {
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
 }
 .wpeo-project-wrap .points .point .comments .comment.new ul input {
   width: 100%;
@@ -3621,9 +3630,31 @@
   max-width: 20%;
 }
 .wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-content {
+  position: relative;
   margin: 0 16px;
   width: 100%;
-  max-width: 63%;
+  max-width: 90%;
+  margin: auto 6px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  padding-bottom: 2px;
+}
+.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-content:hover {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+}
+.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-content:focus,
+.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-content .content:focus {
+  outline: none;
+}
+.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-content .wpeo-point-new-placeholder {
+  color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  left: 6px;
+  bottom: 2px;
+  pointer-events: none;
 }
 .wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-time {
   width: 100%;
@@ -3640,10 +3671,12 @@
   -o-transition: all 0.2s ease-out;
   -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
-  margin-left: auto;
+  margin: auto 0 auto auto;
+  color: #389af6;
 }
 .wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-point-new-btn:hover {
   cursor: pointer;
+  color: #69b3f8;
 }
 .wpeo-project-wrap .points .point .comments .comment.view ul,
 .wpeo-project-wrap .points .point .comments .comment.edit ul {
@@ -3760,6 +3793,75 @@
 .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-date input,
 .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-time input {
   font-size: 12px;
+}
+/* ----------------------------------
+		Avatar
+-----------------------------------*/
+.user {
+  background: #389af6;
+  color: #fff;
+  position: relative;
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+.user img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.user .wpeo-avatar-initial {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+}
+.user span {
+  font-size: 16px;
+  text-align: center;
+  margin: auto;
+  display: inline-block;
+  width: 100%;
+}
+.user:hover {
+  cursor: pointer;
+}
+.wpeo-main-user {
+  background: #404a53;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+     -moz-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  height: 50px;
+}
+.wpeo-main-user .wpeo-user-owner li {
+  float: left;
+}
+.wpeo-main-user li:first-child {
+  margin-right: auto;
+}
+.wpeo-main-user li:last-child a {
+  width: 50px !important;
+  height: 50px !important;
+  padding: 16px;
+  color: #fff;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
 }
 .wpeo-window-ask-task-container {
   display: -webkit-box;
