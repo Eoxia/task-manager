@@ -689,9 +689,21 @@
 					max-width: 20%;
 				}
 				.wpeo-comment-content {
+					position: relative;
 					margin: 0 16px;
 					width: 100%;
 					max-width: 63%;
+					margin: auto 6px;
+					border-bottom: 1px solid rgba(0,0,0,.1);
+					transition: all .2s ease-out;
+					padding-bottom: 2px;
+					.wpeo-point-new-placeholder {
+						color: rgba(0,0,0,.4);
+				    position: absolute;
+				    left: 6px;
+				    bottom: 2px;
+				    pointer-events: none;
+					}
 				}
 				.wpeo-comment-time {
 					width: 100%;
@@ -705,7 +717,7 @@
 					width: 100%;
 					max-width: 5%;
 					transition: all 0.2s ease-out;
-					margin-left: auto;
+					margin: auto 0 auto auto;
 					&:hover {
 						cursor: pointer;
 					}
@@ -861,7 +873,7 @@
 				cursor: pointer;
 				background: rgba(0,0,0,0.2);
 			}
-			&.wpeo-tag-tag-selected {
+			&.active {
 				background: @a;
 				color: #fff;
 				&:hover {
