@@ -38,3 +38,23 @@ function update_post_order( $point ) {
 
 	return $point;
 }
+
+/**
+ * Récupères toutes les données du point
+ *
+ * @param  Point_Model $point Les données du point.
+ *
+ * @return Point_Model Les données du point modifié
+ *
+ * @since 1.0.0.0
+ * @version 1.3.6.0
+ */
+function get_full_point( $point ) {
+	$point->count_comments = count( \task_manager\Task_Comment_Class::g()->get( array(
+		'post_id' => $point->post_id,
+		'parent' => $point->id,
+		'status' => '-34070',
+	) ) );
+
+	return $point;
+}

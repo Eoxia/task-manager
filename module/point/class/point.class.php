@@ -53,6 +53,13 @@ class Point_Class extends Comment_Class {
 	protected $after_post_function = array( '\task_manager\update_post_order' );
 
 	/**
+	 * La fonction appelée automatiquement après la récupération de l'objet dans la base de donnée.
+	 *
+	 * @var array
+	 */
+	protected $after_model_get_function = array( '\task_manager\get_full_point' );
+
+	/**
 	 * Constructeur qui inclus le modèle des points et également des les scripts
 	 * JS et CSS nécessaire pour le fonctionnement des points
 	 *

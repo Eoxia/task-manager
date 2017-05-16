@@ -31,6 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 		<li class="point-content content">
 			<span><?php echo $point->content; ?></span>
+			(<?php echo esc_html( $point->count_comments ); ?>)
 		</li>
 
 		<li class="point-action">
