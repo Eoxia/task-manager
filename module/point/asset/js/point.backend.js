@@ -84,6 +84,8 @@ window.task_manager.point.updateHiddenInput = function( event ) {
 	}
 
 	jQuery( this ).closest( '.point' ).find( '.point-content input[name="content"]' ).val( jQuery( this ).html() );
+
+	window.eoxiaJS.refresh();
 };
 
 /**
