@@ -18,4 +18,4 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	<?php Task_Class::g()->display_tasks( $tasks ); ?>
 </div>
 
-<div class="load-more"></div>
+<div class="load-more"><?php esc_html_e( 'Load more tasks', 'task-manager' ); ?></div>
