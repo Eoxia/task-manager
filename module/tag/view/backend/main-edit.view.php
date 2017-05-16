@@ -13,7 +13,7 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 
-<ul class="wpeo-tag-wrap">
+<ul class="wpeo-tag-wrap edit">
 	<?php
 	if ( ! empty( $tags ) ) :
 		foreach ( $tags as $tag ) :

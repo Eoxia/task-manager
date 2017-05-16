@@ -13,7 +13,7 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 
-<li class="wpeo-tag action-attribute <?php echo in_array( $tag->id, $task->taxonomy['wpeo_tag'], true ) ? 'wpeo-tag-tag-selected' : ''; ?>"
+<li class="wpeo-tag action-attribute <?php echo in_array( $tag->id, $task->taxonomy['wpeo_tag'], true ) ? 'active' : ''; ?>"
 	data-id="<?php echo esc_attr( $tag->id ); ?>"
 	data-parent-id="<?php echo esc_attr( $task->id ); ?>"
 	data-action="<?php echo in_array( $tag->id, $task->taxonomy['wpeo_tag'], true ) ? 'tag_unaffectation' : 'tag_affectation'; ?>"

@@ -124,7 +124,7 @@
 			float: left;
 			height: 40px;
 
-			&.wpeo-button:hover {
+			&:hover, &.wpeo-button:hover {
 				cursor: pointer;
 			}
 		}
@@ -869,17 +869,11 @@
 			color: rgba(0,0,0,0.6);
 			font-size: 12px;
 			transition: all 0.2s ease-out;
-			&:hover {
-				cursor: pointer;
-				background: rgba(0,0,0,0.2);
-			}
 			&.active {
 				background: @a;
 				color: #fff;
-				&:hover {
-					background: @dark_a;
-				}
 			}
+			// Icon save edition of tag
 			&.edit {
 				margin-left: auto;
 				margin-right: 0;
@@ -890,14 +884,27 @@
 				padding: 8px;
 				text-align: center;
 				line-height: 1.5;
-				&:hover {
-					background: @dark_a;
-				}
 			}
+			// Icon add other tag
 			&.add {
 				border-radius: 30px;
 				transform: scale(0.8);
 				font-size: 14px;
+				&:hover {
+					cursor: pointer;
+					background: rgba(0,0,0,0.2);
+				}
+			}
+		}
+		&.edit {
+			.wpeo-tag {
+				&:hover {
+					cursor: pointer;
+					background: rgba(0,0,0,0.2);
+				}
+				&.active:hover, &.edit:hover {
+					background: @dark_a;
+				}
 			}
 		}
 	}
