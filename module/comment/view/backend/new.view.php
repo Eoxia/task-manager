@@ -28,7 +28,12 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 				<input type="text" class="date" name="date" value="<?php echo esc_attr( $comment->date ); ?>" />
 			</li>
 
-			<li class="wpeo-comment-content"><input type="text" name="content" value="<?php echo esc_attr( $comment->content ); ?>"/></li>
+			<li class="wpeo-comment-content">
+				<input type="hidden" name="content" value="<?php esc_attr( $comment->content ); ?>" />
+				<div class="content" contenteditable="true">
+					<?php echo $comment->content; ?>
+				</div>
+			</li>
 			<li class="wpeo-comment-time"><span class="fa fa-clock-o"></span> <input type="text" name="time" value="<?php echo esc_attr( $comment->time_info['elapsed'] ); ?>" /></li>
 
 			<?php if ( ! empty( $comment->id ) ) : ?>
