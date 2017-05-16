@@ -133,7 +133,10 @@ class Follower_Action {
 
 		Task_Class::g()->update( $task );
 
-		wp_send_json_success();
+		wp_send_json_success( array(
+			'module' => 'follower',
+			'callback_success' => '',
+		) );
 	}
 
 	/**
