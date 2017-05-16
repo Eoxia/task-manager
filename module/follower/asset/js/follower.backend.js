@@ -73,3 +73,33 @@ window.task_manager.follower.beforeUnaffectFollower = function( element ) {
 
 	return true;
 };
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "follower_affectation".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.0.0.0
+ */
+window.task_manager.follower.affectedFollowerSuccess = function( element, response ) {
+	element.attr( 'data-action', 'follower_unaffectation' );
+	element.attr( 'data-before-method', 'beforeUnaffectFollower' );
+};
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "follower_unaffectation".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.0.0.0
+ */
+window.task_manager.follower.unaffectedFollowerSuccess = function( element, response ) {
+	element.attr( 'data-action', 'follower_affectation' );
+	element.attr( 'data-before-method', 'beforeAffectFollower' );
+};

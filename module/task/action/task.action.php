@@ -406,6 +406,7 @@ class Task_Action {
 			'view' => ob_get_clean(),
 			'module' => 'task',
 			'callback_success' => 'loadedMoreTask',
+			'can_load_more' => ! empty( $tasks ) ? true : false,
 		) );
 	}
 }

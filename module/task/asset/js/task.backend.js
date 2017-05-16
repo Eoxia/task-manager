@@ -62,7 +62,7 @@ window.task_manager.task.onScrollLoadMore = function() {
 window.task_manager.task.loadedMoreTask = function( triggeredElement, response ) {
 	var element = jQuery( response.data.view );
 	jQuery( '.list-task' ).append( element ).masonry( 'appended', element );
-	window.task_manager.task.canLoadMore = true;
+	window.task_manager.task.canLoadMore = response.data.can_load_more;
 	window.eoxiaJS.refresh();
 };
 
