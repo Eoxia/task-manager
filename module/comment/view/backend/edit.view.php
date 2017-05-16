@@ -26,6 +26,14 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		<li class="wpeo-comment-date"><span class="fa fa-calendar-o"></span> <input type="text" class="date" name="date" value="<?php echo esc_attr( $comment->date ); ?>" /></li>
 		<li class="wpeo-comment-time"><span class="fa fa-clock-o"></span> <input type="text" name="time" value="<?php echo esc_attr( $comment->time_info['elapsed'] ); ?>" /></li>
 		<li class="wpeo-save-point"><i data-parent="comment" class="action-input fa fa-floppy-o" aria-hidden="true"></i></li>
-		<li class="wpeo-comment-content"><input type="text" name="content" value="<?php echo esc_attr( $comment->content ); ?>"/></li>
+		<li class="wpeo-comment-content">
+			<input type="hidden" name="content" value="<?php esc_attr( $comment->content ); ?>" />
+			<div class="content" contenteditable="true">
+				<?php echo $comment->content; ?>
+			</div>
+			<?php if ( empty( $comment->id ) ) : ?>
+				<span class="wpeo-point-new-placeholder"><?php esc_html_e( 'Votre commentaire ici...', 'task-manager' ); ?></span>
+			<?php endif; ?>
+		</li>
 	</ul>
 </li>
