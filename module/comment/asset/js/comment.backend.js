@@ -72,7 +72,10 @@ window.task_manager.comment.updateHiddenInput = function( event ) {
 window.task_manager.comment.beforeLoadComments = function( triggeredElement ) {
 	triggeredElement.toggleClass( 'dashicons-arrow-right-alt2 dashicons-arrow-down-alt2' );
 
-	triggeredElement.closest( 'div.point' ).find( '.comments' ).toggleClass( 'hidden' );
+	if ( triggeredElement.hasClass( 'dashicons-arrow-right-alt2' ) ) {
+		triggeredElement.closest( 'div.point' ).find( '.comments' ).toggleClass( 'hidden' );
+		return false;
+	}
 
 	return true;
 };
@@ -90,6 +93,8 @@ window.task_manager.comment.beforeLoadComments = function( triggeredElement ) {
  */
 window.task_manager.comment.loadedCommentsSuccess = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( 'div.point' ).find( '.comments' ).html( response.data.view );
+	triggeredElement.closest( 'div.point' ).find( '.comments' ).toggleClass( 'hidden' );
+
 	window.eoxiaJS.refresh();
 };
 
@@ -109,6 +114,11 @@ window.task_manager.comment.addedCommentSuccess = function( triggeredElement, re
 	jQuery( triggeredElement ).closest( 'form' )[0].reset();
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.time.task );
 	jQuery( triggeredElement ).closest( '.comments' ).prev( 'form' ).find( '.wpeo-time-in-point' ).text( response.data.time.point );
+
+	jQuery( triggeredElement ).closest( '.comment' ).find( 'input[name="content"]' ).val( '' );
+	jQuery( triggeredElement ).closest( '.comment' ).find( 'input[name="time"]' ).val( '15' );
+	jQuery( triggeredElement ).closest( '.comment' ).find( '.content' ).html( '' );
+	jQuery( triggeredElement ).closest( '.comment' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
 	window.eoxiaJS.refresh();
 };
 

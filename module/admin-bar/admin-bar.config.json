@@ -1,0 +1,10 @@
+{
+	"name": "La barre d'admin de WordPress",
+	"slug": "admin-bar",
+	"version": "1.3.6.0",
+	"description": "Le module gérant le champ de recherche dans l'admin bar de WordPress.",
+	"path": "module/admin-bar/",
+	"dependencies": {
+		"action": {}
+	}
+}

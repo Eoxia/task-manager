@@ -264,6 +264,7 @@ window.task_manager.point.editOrder = function() {
  */
 window.task_manager.point.loadedPointProperties = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.popup .content' ).html( response.data.view );
+	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.popup .container' ).removeClass( 'loading' );
 
 	jQuery( '.search-task' ).autocomplete( {
 		'source': 'admin-ajax.php?action=search_task',

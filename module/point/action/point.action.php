@@ -303,6 +303,7 @@ class Point_Action {
 	 */
 	public function ajax_search_task() {
 		$term = sanitize_text_field( $_GET['term'] );
+		$founded_by_id = false;
 
 		$query = new \WP_Query( array(
 			'post_type' => 'wpeo-task',
@@ -314,12 +315,27 @@ class Point_Action {
 
 		if ( ! empty( $query->posts ) ) {
 			foreach ( $query->posts as $post ) {
+				if ( $post->ID == $term ) {
+					$founded_by_id = true;
+				}
+
 				$tasks_founded[] = array(
 					'label' => $post->post_title,
 					'value' => $post->post_title,
 					'id' => $post->ID,
 				);
 			}
+		}
+
+		$term = (int) $term;
+		if ( !$founded_by_id && ! empty( $term ) && is_int( $term ) ) {
+			$post = get_post( $term );
+
+			$tasks_founded[] = array(
+				'label' => $post->post_title,
+				'value' => $post->post_title,
+				'id' => $post->ID,
+			);
 		}
 
 		wp_die( wp_json_encode( $tasks_founded ) );

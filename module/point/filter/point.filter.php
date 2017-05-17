@@ -52,7 +52,7 @@ class Point_Filter {
 			} );
 		}
 
-		$string .= '<h3>' . __( 'Uncompleted', 'task-manager' ) . '</h3>';
+		$string .= '<h3>' . __( 'Incomplets', 'task-manager' ) . '</h3>';
 		if ( ! empty( $list_point_uncompleted ) ) :
 			$string .= '<ul>';
 			foreach ( $list_point_uncompleted as $element ) :

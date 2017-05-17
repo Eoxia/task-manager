@@ -163,6 +163,8 @@ window.task_manager.task.loadedAllTask = function( triggeredElement, response ) 
 window.task_manager.task.loadedTaskProperties = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.popup .content' ).html( response.data.view );
 
+	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.popup .container' ).removeClass( 'loading' );
+
 	jQuery( '.search-parent' ).autocomplete( {
 		'source': 'admin-ajax.php?action=search_parent',
 		'appendTo': '.list-posts',

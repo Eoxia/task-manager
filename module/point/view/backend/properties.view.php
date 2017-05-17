@@ -32,10 +32,10 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	<input type="hidden" name="action" value="move_point_to" />
 	<?php wp_nonce_field( 'move_point_to' ); ?>
 
-	<label for="move_task"><?php esc_html_e( 'Move the point to', 'task-manager' ); ?></label>
+	<label for="move_task"><?php esc_html_e( 'Déplacer le point vers', 'task-manager' ); ?></label>
 	<input type="text" class="search-task" />
 	<input type="hidden" name="to_task_id" />
-	<input type="button" class="action-input" data-parent="form" value="<?php esc_html_e( 'Move', 'task-manager' ); ?>" />
+	<input type="button" class="action-input" data-parent="form" value="<?php esc_html_e( 'Déplacer', 'task-manager' ); ?>" />
 	<div class="list-tasks">
 	</div>
 </form>

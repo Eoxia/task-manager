@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		<ul class="point-container">
 			<li class="point-valid">
 				<?php if ( ! empty( $point->id ) ) : ?>
-					<span class="wpeo-sort-point dashicons dashicons-screenoptions" title="<?php esc_attr_e( 'Drag and drop for set the order', 'task-manager' ); ?>"></span>
+					<span class="wpeo-sort-point dashicons dashicons-screenoptions" title="<?php esc_attr_e( 'Glisser-déposer pour ajuster l\'ordre', 'task-manager' ); ?>"></span>
 					<input type="checkbox" <?php echo ! empty( $point->point_info['completed'] ) ? 'checked': ''; ?> class="completed-point" data-nonce="<?php echo esc_attr( wp_create_nonce( 'complete_point' ) ); ?>" />
 				<?php endif; ?>
 			</li>
@@ -48,7 +48,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					<?php echo $point->content; ?>
 				</div>
 				<?php if ( empty( $point->id ) ) : ?>
-					<span class="wpeo-point-new-placeholder"><?php esc_html_e( 'Write your point here...', 'task-manager' ); ?></span>
+					<span class="wpeo-point-new-placeholder"><?php esc_html_e( 'Écriver votre point ici...', 'task-manager' ); ?></span>
 				<?php endif; ?>
 			</li>
 
@@ -57,7 +57,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					<div 	class="wpeo-point-new-btn action-input animated"
 								data-parent="form"
 								data-loader="point"
-								title="<?php esc_attr( 'Add this point', 'task-manager' ); ?>">
+								title="<?php esc_attr( 'Ajouter ce point', 'task-manager' ); ?>">
 						<i class="dashicons dashicons-plus-alt"></i>
 					</div>
 				<?php else : ?>

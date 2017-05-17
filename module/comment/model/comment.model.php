@@ -30,7 +30,7 @@ class Task_Comment_Model extends Comment_Model {
 	public function __construct( $object ) {
 		$this->model['status']['bydefault'] = '-34070';
 		$this->model['author_id']['bydefault'] = get_current_user_id();
-		$this->model['date']['bydefault'] = current_time( 'mysql' );
+		$this->model['date']['bydefault'] = date( 'd/m/Y' );
 
 		$this->model['time_info'] = array(
 			'type'			=> 'array',

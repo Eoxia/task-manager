@@ -42,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 		<span class="dashicons dashicons-plus wpeo-point-toggle-arrow"></span>
 		<span class="wpeo-point-toggle-a">
-			<?php esc_html_e( 'Completed point', 'task-manager' ); ?>
+			<?php esc_html_e( 'Points complétés', 'task-manager' ); ?>
 			(<span class="wpeo-task-count-completed"><span class="point-completed"><?php echo count( $points_completed ); ?></span>/<span class="total-point"><?php echo count( $points_uncompleted ) + count( $points_completed ); ?></span></span>)
 		</span>
 	</p>

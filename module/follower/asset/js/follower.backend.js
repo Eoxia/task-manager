@@ -87,6 +87,7 @@ window.task_manager.follower.beforeUnaffectFollower = function( element ) {
 window.task_manager.follower.affectedFollowerSuccess = function( element, response ) {
 	element.attr( 'data-action', 'follower_unaffectation' );
 	element.attr( 'data-before-method', 'beforeUnaffectFollower' );
+	element.attr( 'data-nonce', response.data.nonce );
 };
 
 /**
@@ -102,4 +103,5 @@ window.task_manager.follower.affectedFollowerSuccess = function( element, respon
 window.task_manager.follower.unaffectedFollowerSuccess = function( element, response ) {
 	element.attr( 'data-action', 'follower_affectation' );
 	element.attr( 'data-before-method', 'beforeAffectFollower' );
+	element.attr( 'data-nonce', response.data.nonce );
 };

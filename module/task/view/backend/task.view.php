@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					data-target="content">
 
 				<div class="action">
-					<span class="wpeo-task-open-action" title="<?php esc_html_e( 'Task options', 'task-manager' ); ?>"><i class="fa fa-ellipsis-v"></i></span>
+					<span class="wpeo-task-open-action" title="<?php esc_html_e( 'Options de la tâche', 'task-manager' ); ?>"><i class="fa fa-ellipsis-v"></i></span>
 				</div>
 
 				<ul class="content task-header-action">
@@ -56,18 +56,18 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					<li class="open-popup-ajax"
 							data-action="load_task_properties"
 							data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_task_properties' ) ); ?>"
-							data-title="<?php esc_attr_e( 'Task properties: #' . $task->id . ' ' . $task->title, 'task-manager' ); ?>"
+							data-title="<?php esc_attr_e( 'Propriété des tâches: #' . $task->id . ' ' . $task->title, 'task-manager' ); ?>"
 							data-id="<?php echo esc_attr( $task->id ); ?>"
 							data-parent="wpeo-project-task"
 							data-target="popup">
-						<span><?php esc_html_e( 'Task properties', 'task-manager' ); ?></span>
+						<span><?php esc_html_e( 'Propriété des tâches', 'task-manager' ); ?></span>
 					</li>
 
 					<li class="action-attribute"
 							data-action="notify_by_mail"
 							data-nonce="<?php echo esc_attr( wp_create_nonce( 'notify_by_mail' ) ); ?>"
 							data-id="<?php echo esc_attr( $task->id ); ?>">
-						<span><?php esc_html_e( 'Notify owner and followers', 'task-manager' ); ?></span>
+						<span><?php esc_html_e( 'Notifier le responsable et les abonnés', 'task-manager' ); ?></span>
 					</li>
 
 					<li class="action-delete"
@@ -75,14 +75,14 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 							data-message-delete="<?php echo esc_attr( 'Supprimer cette tâche', 'task-manager' ); ?>"
 							data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_task' ) ); ?>"
 							data-id="<?php echo esc_attr( $task->id ); ?>">
-						<span><?php esc_html_e( 'Delete task', 'task-manager' ); ?></span>
+						<span><?php esc_html_e( 'Supprimer la tâche', 'task-manager' ); ?></span>
 					</li>
 
 					<li class="action-attribute"
 							data-action="<?php echo ( 'archive' !== $task->status ) ? 'to_archive' : 'to_unarchive'; ?>"
 							data-nonce="<?php echo esc_attr( wp_create_nonce( ( 'archive' === $task->status ) ? 'to_archive' : 'to_unarchive' ) ); ?>"
 							data-id="<?php echo esc_attr( $task->id ); ?>">
-						<span><?php esc_html_e( ( 'archive' !== $task->status ) ? 'Archive' : 'Unarchive', 'task-manager' ); ?></span>
+						<span><?php esc_html_e( ( 'archive' !== $task->status ) ? 'Archiver' : 'Désarchiver', 'task-manager' ); ?></span>
 					</li>
 				</ul>
 			</li>

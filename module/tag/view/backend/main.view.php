@@ -28,6 +28,6 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_tags' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->id ); ?>">
 		<span class="dashicons dashicons-plus-alt"></span>
-		<?php esc_html_e( 'Tags', 'task-manager' ); ?>
+		<?php esc_html_e( 'Catégories', 'task-manager' ); ?>
 	</li>
 </ul>

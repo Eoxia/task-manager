@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 			<input type="hidden" name="parent_id" value="<?php echo esc_attr( $point_id ); ?>" />
 
 			<li class="wpeo-comment-date"><span class="fa fa-calendar-o"></span>
-				<input type="text" class="date" name="date" value="<?php echo esc_attr( $comment->date ); ?>" />
+				<input type="text" class="date" name="date" value="<?php echo ! empty( $comment->id ) ? esc_attr( $comment->date ) : esc_attr( current_time( 'd/m/Y' ) ); ?>" />
 			</li>
 
 			<li class="wpeo-comment-content">

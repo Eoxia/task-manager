@@ -3,6 +3,9 @@
  * Appelle la vue principale de l'application
  *
  * @package TaskManager\Plugin
+ *
+ * @since 1.0.0.0
+ * @version 1.3.6.0
  */
 
 namespace task_manager;
@@ -34,6 +37,7 @@ class Task_Manager_Class extends Singleton_Util {
 	 */
 	public function display() {
 		$term = ! empty( $_GET['term'] ) ? sanitize_text_field( $_GET['term'] ) : ''; // WPCS: CSRF ok.
+		$id = (int) $term;
 		$categories_id_selected = ! empty( $_GET['categories_id_selected'] ) ? sanitize_text_field( $_GET['categories_id_selected'] ) : ''; // WPCS: CSRF ok.
 		$follower_id_selected = ! empty( $_GET['follower_id_selected'] ) ? sanitize_text_field( $_GET['follower_id_selected'] ) : ''; // WPCS: CSRF ok.
 

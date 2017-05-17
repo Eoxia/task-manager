@@ -4437,6 +4437,7 @@
   float: left;
   height: 40px;
 }
+.wpeo-project-wrap .wpeo-header-bar > ul > li:hover,
 .wpeo-project-wrap .wpeo-header-bar > ul > li.wpeo-button:hover {
   cursor: pointer;
 }
@@ -5381,16 +5382,9 @@
   -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
-.wpeo-project-wrap .wpeo-tag-wrap .wpeo-tag:hover {
-  cursor: pointer;
-  background: rgba(0, 0, 0, 0.2);
-}
 .wpeo-project-wrap .wpeo-tag-wrap .wpeo-tag.active {
   background: #3495f0;
   color: #fff;
-}
-.wpeo-project-wrap .wpeo-tag-wrap .wpeo-tag.active:hover {
-  background: #1360c8;
 }
 .wpeo-project-wrap .wpeo-tag-wrap .wpeo-tag.edit {
   margin-left: auto;
@@ -5403,9 +5397,6 @@
   text-align: center;
   line-height: 1.5;
 }
-.wpeo-project-wrap .wpeo-tag-wrap .wpeo-tag.edit:hover {
-  background: #1360c8;
-}
 .wpeo-project-wrap .wpeo-tag-wrap .wpeo-tag.add {
   -webkit-border-radius: 30px;
           border-radius: 30px;
@@ -5415,6 +5406,18 @@
        -o-transform: scale(0.8);
           transform: scale(0.8);
   font-size: 14px;
+}
+.wpeo-project-wrap .wpeo-tag-wrap .wpeo-tag.add:hover {
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.2);
+}
+.wpeo-project-wrap .wpeo-tag-wrap.edit .wpeo-tag:hover {
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.2);
+}
+.wpeo-project-wrap .wpeo-tag-wrap.edit .wpeo-tag.active:hover,
+.wpeo-project-wrap .wpeo-tag-wrap.edit .wpeo-tag.edit:hover {
+  background: #1360c8;
 }
 /* ----------------------------------
 		Footer affichage utilisateurs

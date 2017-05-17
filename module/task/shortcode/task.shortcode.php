@@ -39,6 +39,7 @@ class Task_Shortcode {
 	 */
 	public function callback_task( $param ) {
 		$param = shortcode_atts( array(
+			'id' => 0,
 			'categories_id' => array(),
 			'users_id' => array(),
 			'term' => '',

@@ -56,6 +56,7 @@ window.task_manager.popup.openAjax = function( event ) {
 	var element = jQuery( this );
 	var target = jQuery( this ).closest(  '.' + jQuery( this ).data( 'parent' ) ).find( '.' + jQuery( this ).data( 'target' ) );
 	target.addClass( 'active' );
+	target.find( '.container' ).addClass( 'loading' );
 
 	if ( jQuery( this ).data( 'title' ) ) {
 		target.find( '.title' ).text( jQuery( this ).data( 'title' ) );

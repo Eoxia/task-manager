@@ -72,9 +72,9 @@ window.task_manager.action.execAttribute = function( event ) {
 	}
 
 	/** Méthode appelée avant l'action */
-	if ( element.data( 'module' ) && element.data( 'before-method' ) ) {
+	if ( element.attr( 'data-module' ) && element.attr( 'data-before-method' ) ) {
 		doAction = false;
-		doAction = window.task_manager[element.data( 'module' )][element.data( 'before-method' )]( element );
+		doAction = window.task_manager[element.attr( 'data-module' )][element.attr( 'data-before-method' )]( element );
 	}
 
 	if ( element.hasClass( '.grey' ) ) {

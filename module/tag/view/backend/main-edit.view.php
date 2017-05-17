@@ -22,6 +22,14 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 				'task' => $task,
 			) );
 		endforeach;
+	else :
+		?>
+		<li>
+			<?php esc_html_e( 'Créer des categories ', 'task-manager' ); ?>
+			<a href="<?php echo esc_attr( admin_url( 'edit-tags.php?taxonomy=wpeo_tag' ) ); ?>" target="_blank"><?php esc_html_e( 'ici', 'task-manager' ); ?></a>
+			<?php esc_html_e( ' et rafraichissez cette fenêtre.', 'task-manager' ); ?>
+		</li>
+		<?php
 	endif;
 	?>
 

@@ -41,6 +41,7 @@ window.task_manager.historyTime.event = function() {
  */
 window.task_manager.historyTime.loadedTimeHistorySuccess = function( element, response ) {
 	jQuery( element ).closest( '.wpeo-project-task' ).find( '.popup .content' ).html( response.data.view );
+	jQuery( element ).closest( '.wpeo-project-task' ).find( '.popup .container' ).removeClass( 'loading' );
 };
 
 /**

@@ -16,21 +16,21 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 <div class="search-results">
 	<?php if ( ! empty( $have_search ) ) : ?>
 		<h3>
-			<?php esc_html_e( 'Results', 'task-manager' ); ?>
+			<?php esc_html_e( 'Résultats', 'task-manager' ); ?>
 
 			<?php
 			if ( ! empty( $term ) ) :
-				esc_html_e( ' with the term ', 'task-manager' );
+				esc_html_e( ' avec le terme ', 'task-manager' );
 				?>"<?php echo esc_html( $term ); ?>"<?php
 			endif;
 
 			if ( ! empty( $categories_searched ) ) :
-				esc_html_e( ' in the categories: ', 'task-manager' );
+				esc_html_e( ' dans les categories: ', 'task-manager' );
 				?>"<?php echo esc_html( $categories_searched ); ?>"<?php
 			endif;
 
 			if ( ! empty( $follower_searched ) ) :
-				esc_html_e( ' for the follower: ', 'task-manager' );
+				esc_html_e( ' pour les abonnés: ', 'task-manager' );
 				?>"<?php echo esc_html( $follower_searched ); ?>"<?php
 			endif;
 			?>

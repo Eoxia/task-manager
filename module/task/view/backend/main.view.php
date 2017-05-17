@@ -19,5 +19,5 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		<?php Task_Class::g()->display_tasks( $tasks ); ?>
 	</div>
 
-	<div class="load-more"><?php esc_html_e( 'Load more tasks', 'task-manager' ); ?></div>
+	<div class="load-more"><?php esc_html_e( 'Chargement de plus de tâche...', 'task-manager' ); ?></div>
 <?php if ( $with_wrapper ) : ?></div><?php endif; ?>

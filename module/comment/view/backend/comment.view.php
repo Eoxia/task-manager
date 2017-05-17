@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 <li class="comment view">
 	<ul class="wpeo-comment-container">
 		<li class="avatar"><?php echo do_shortcode( '[task_avatar ids="' . $comment->author_id . '" size="20"]' ); ?></li>
-		<li class="wpeo-comment-date"><?php echo esc_html( mysql2date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $comment->date, true ) ); ?></li>
+		<li class="wpeo-comment-date"><?php echo esc_html( $comment->date ); ?></li>
 		<li class="wpeo-comment-time"><span class="fa fa-clock-o"></span> <?php echo esc_html( $comment->time_info['elapsed'] ); ?></li>
 		<li class="wpeo-comment-action">
 			<div class="toggle wpeo-comment-setting"
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					data-target="content">
 
 				<div class="action">
-					<span class="wpeo-task-open-action" title="<?php esc_html_e( 'Comment options', 'task-manager' ); ?>"><i class="fa fa-ellipsis-v"></i></span>
+					<span class="wpeo-task-open-action" title="<?php esc_html_e( 'Options des commentaires', 'task-manager' ); ?>"><i class="fa fa-ellipsis-v"></i></span>
 				</div>
 
 				<ul class="left content point-header-action">
@@ -46,6 +46,6 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 				</ul>
 			</div>
 		</li>
-		<li class="wpeo-comment-content"><?php echo esc_html( $comment->content ); ?></li>
+		<li class="wpeo-comment-content"><?php echo $comment->content; ?></li>
 	</ul>
 </li>

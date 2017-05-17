@@ -1,8 +1,8 @@
 /**
- * Initialise l'objet "point" ainsi que la méthode "tag" obligatoire pour la bibliothèque EoxiaJS.
+ * Initialise l'objet "tag" ainsi que la méthode "init" obligatoire pour la bibliothèque EoxiaJS.
  *
  * @since 1.0.0.0
- * @version 1.0.0.0
+ * @version 1.3.6.0
  */
 window.task_manager.tag = {};
 
@@ -151,4 +151,36 @@ window.task_manager.tag.beforeUnaffectTag = function( element ) {
 window.task_manager.tag.createdTagSuccess = function( triggeredElement, response ) {
 	jQuery( '.wpeo-tag-title' ).after( response.data.view );
 	jQuery( 'input[name="tag_name"]' ).val( '' );
+};
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "tag_affectation".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.3.6.0
+ */
+window.task_manager.tag.affectedTagSuccess = function( element, response ) {
+	element.attr( 'data-action', 'tag_affectation' );
+	element.attr( 'data-before-method', 'beforeAffectTag' );
+	element.attr( 'data-nonce', response.data.nonce );
+};
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "tag_unaffectation".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.3.6.0
+ */
+window.task_manager.tag.unaffectedTagSuccess = function( element, response ) {
+	element.attr( 'data-action', 'tag_unaffectation' );
+	element.attr( 'data-before-method', 'beforeUnaffectTag' );
+	element.attr( 'data-nonce', response.data.nonce );
 };

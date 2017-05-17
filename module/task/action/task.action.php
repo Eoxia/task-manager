@@ -89,7 +89,7 @@ class Task_Action {
 		$tag_slug_selected = ! empty( $_POST['tag'] ) ? sanitize_text_field( $_POST['tag'] ) : 0;
 
 		$task = Task_Class::g()->create( array(
-			'title' 		=> __( 'New task', 'task-manager' ),
+			'title' 		=> __( 'Nouvelle tâche', 'task-manager' ),
 			'parent_id' => $parent_id,
 		) );
 
@@ -237,9 +237,9 @@ class Task_Action {
 		}
 
 		$subject = 'Task Manager: ';
-		$subject .= __( 'The task #' . $task->id . ' ' . $task->title, 'task-manager' );
+		$subject .= __( 'La tâche #' . $task->id . ' ' . $task->title, 'task-manager' );
 
-		$body = __( '<p>This mail has been send automatically</p>', 'task-manager' );
+		$body = __( '<p>Ce courrier a été envoyé automatiquement</p>', 'task-manager' );
 		$body .= '<h2>#' . $task->id . ' ' . $task->title . ' send by ' . $sender_data->user_login . ' (' . $sender_data->user_email . ')</h2>';
 		$body = apply_filters( 'task_points_mail', $body, $task );
 		$body .= '<ul>';

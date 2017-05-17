@@ -25,11 +25,12 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
  */
 function convert_date_to_sql( $data ) {
 	if ( strlen( $data->date ) === 10 ) {
-		$data->date .= ' 00:00:00';
+		$data->date .= ' ' . current_time( 'h:i:s' );
 	}
 
 	$data->date = str_replace( '/', '-', $data->date );
 	$data->date = date( 'Y-m-d h:i:s', strtotime( $data->date ) );
+
 	return $data;
 }
 

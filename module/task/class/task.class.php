@@ -110,6 +110,7 @@ class Task_Class extends Post_Class {
 	public function get_tasks( $param ) {
 		global $wpdb;
 
+		$param['id'] = isset( $param['id'] ) ? (int) $param['id'] : 0;
 		$param['offset'] = ! empty( $param['offset'] ) ? (int) $param['offset'] : 0;
 		$param['posts_per_page'] = ! empty( $param['posts_per_page'] ) ? (int) $param['posts_per_page'] : -1;
 		$param['users_id'] = ! empty( $param['users_id'] ) ? (array) $param['users_id'] : array();
@@ -121,67 +122,76 @@ class Task_Class extends Post_Class {
 		$tasks = array();
 		$tasks_id = array();
 
-		$query = "SELECT DISTINCT TASK.ID FROM {$wpdb->posts} AS TASK
-			LEFT JOIN {$wpdb->comments} AS POINT ON POINT.comment_post_ID=TASK.ID
-			LEFT JOIN {$wpdb->comments} AS COMMENT ON COMMENT.comment_post_id=TASK.ID
-			LEFT JOIN {$wpdb->postmeta} AS TASK_META ON TASK_META.post_id=TASK.ID AND TASK_META.meta_key='wpeo_task'
-			LEFT JOIN {$wpdb->term_relationships} AS CAT ON CAT.object_id=TASK.ID
-		WHERE TASK.post_type='wpeo-task'
-			AND TASK.post_status='" . $param['status'] . "' AND
-				( (
-					TASK.ID LIKE '%" . $param['term'] . "%' OR TASK.post_title LIKE '%" . $param['term'] . "%'
-				) OR (
-					POINT.comment_ID LIKE '%" . $param['term'] . "%' OR POINT.comment_content LIKE '%" . $param['term'] . "%'
-				) OR (
-					COMMENT.comment_parent != 0 AND (COMMENT.comment_id LIKE '%" . $param['term'] . "%' OR COMMENT.comment_content LIKE '%" . $param['term'] . "%')
-				) )";
+		if ( ! empty( $param['id'] ) ) {
+			$tasks = Task_Class::g()->get( array(
+				'include' => array( $param['id'] ),
+			) );
+		} else {
 
-		if ( isset( $param['post_parent'] ) ) {
-			$query .= 'AND TASK.post_parent="' . $param['post_parent'] . '"';
-		}
+			$query = "SELECT DISTINCT TASK.ID FROM {$wpdb->posts} AS TASK
+				LEFT JOIN {$wpdb->comments} AS POINT ON POINT.comment_post_ID=TASK.ID
+				LEFT JOIN {$wpdb->comments} AS COMMENT ON COMMENT.comment_post_id=TASK.ID
+				LEFT JOIN {$wpdb->postmeta} AS TASK_META ON TASK_META.post_id=TASK.ID AND TASK_META.meta_key='wpeo_task'
+				LEFT JOIN {$wpdb->term_relationships} AS CAT ON CAT.object_id=TASK.ID
+			WHERE TASK.post_type='wpeo-task'
+				AND TASK.post_status='" . $param['status'] . "' AND
+					( (
+						TASK.ID LIKE '%" . $param['term'] . "%' OR TASK.post_title LIKE '%" . $param['term'] . "%'
+					) OR (
+						POINT.comment_ID LIKE '%" . $param['term'] . "%' OR POINT.comment_content LIKE '%" . $param['term'] . "%'
+					) OR (
+						COMMENT.comment_parent != 0 AND (COMMENT.comment_id LIKE '%" . $param['term'] . "%' OR COMMENT.comment_content LIKE '%" . $param['term'] . "%')
+					) )";
 
-		if ( ! empty( $param['users_id'] ) ) {
-			$query .= "AND (
-				(
-					TASK_META.meta_value REGEXP '{\"user_info\":{\"owner_id\":" . implode( $param['users_id'], '|' ) . ",'
-				) OR (
-					TASK_META.meta_value LIKE '%affected_id\":[" . implode( $param['users_id'], '|' ) . "]%'
-				) OR (
-					TASK_META.meta_value LIKE '%affected_id\":[" . implode( $param['users_id'], '|' ) . ",%'
-				) OR (
-					TASK_META.meta_value REGEXP 'affected_id\":\\[[0-9,]+" . implode( $param['users_id'], '|' ) . "\\]'
-				) OR (
-					TASK_META.meta_value REGEXP 'affected_id\":\\[[0-9,]+" . implode( $param['users_id'], '|' ) . "[0-9,]+\\]'
-				)
-			)";
-		}
-
-		if ( ! empty( $param['categories_id'] ) ) {
-			$query .= "AND (";
-
-			if ( ! empty( $param['categories_id'] ) ) {
-				foreach ( $param['categories_id'] as $cat_id ) {
-					$query .= '(CAT.term_taxonomy_id=' . $cat_id . ') OR';
-				}
+			if ( isset( $param['post_parent'] ) ) {
+				$query .= 'AND TASK.post_parent="' . $param['post_parent'] . '"';
 			}
 
-			$query = substr( $query, 0, strlen( $query ) - 2 );
-			$query .= ')';
-		}
+			if ( ! empty( $param['users_id'] ) ) {
+				$query .= "AND (
+					(
+						TASK_META.meta_value REGEXP '{\"user_info\":{\"owner_id\":" . implode( $param['users_id'], '|' ) . ",'
+					) OR (
+						TASK_META.meta_value LIKE '%affected_id\":[" . implode( $param['users_id'], '|' ) . "]%'
+					) OR (
+						TASK_META.meta_value LIKE '%affected_id\":[" . implode( $param['users_id'], '|' ) . ",%'
+					) OR (
+						TASK_META.meta_value REGEXP 'affected_id\":\\[[0-9,]+" . implode( $param['users_id'], '|' ) . "\\]'
+					) OR (
+						TASK_META.meta_value REGEXP 'affected_id\":\\[[0-9,]+" . implode( $param['users_id'], '|' ) . "[0-9,]+\\]'
+					)
+				)";
+			}
 
-		$query .= " ORDER BY TASK.post_date DESC ";
+			if ( ! empty( $param['categories_id'] ) ) {
+				$query .= "AND (";
 
-		if ( -1 !== $param['posts_per_page'] ) {
-			$query .= "LIMIT " . $param['offset'] . "," . $param['posts_per_page'];
-		}
+				if ( ! empty( $param['categories_id'] ) ) {
+					foreach ( $param['categories_id'] as $cat_id ) {
+						$query .= '(CAT.term_taxonomy_id=' . $cat_id . ') OR';
+					}
+				}
 
-		$tasks_id = $wpdb->get_col( $query );
+				$query = substr( $query, 0, strlen( $query ) - 2 );
+				$query .= ')';
+			}
 
-		if ( ! empty( $tasks_id ) ) {
-			$tasks = Task_Class::g()->get( array(
-				'include' => $tasks_id,
-				'post_status' => $param['status'],
-			) );
+			$query .= " ORDER BY TASK.post_date DESC ";
+
+			if ( -1 !== $param['posts_per_page'] ) {
+				$query .= "LIMIT " . $param['offset'] . "," . $param['posts_per_page'];
+			}
+
+
+			$tasks_id = $wpdb->get_col( $query );
+
+			if ( ! empty( $tasks_id ) ) {
+				$tasks = Task_Class::g()->get( array(
+					'include' => $tasks_id,
+					'post_status' => $param['status'],
+				) );
+			}
+
 		}
 
 		return $tasks;

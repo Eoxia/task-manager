@@ -25,9 +25,9 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 				<input type="hidden" name="action" value="search" />
 				<label for="general-search">
 					<i class="dashicons dashicons-search"></i>
-					<input type="text" name="term" value="<?php echo esc_attr( $param['term'] ); ?>" placeholder="<?php esc_attr_e( 'Search', 'task-manager' ); ?>" />
+					<input type="text" name="term" value="<?php echo esc_attr( $param['term'] ); ?>" placeholder="<?php esc_attr_e( 'Rechercher...', 'task-manager' ); ?>" />
 				</label>
-				<span class="more-search-options"><?php esc_html_e( 'More options', 'task-manager' ); ?></span>
+				<span class="more-search-options"><?php esc_html_e( 'Plus d\'options', 'task-manager' ); ?></span>
 			</li>
 
 		</ul>
@@ -47,7 +47,7 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 			</li>
 		</ul>
 
-		<a class="action-input" data-module="navigation" data-before-method="checkDataBeforeSearch" data-parent="form"><?php esc_html_e( 'Search', 'task-manager' ); ?></a>
+		<a class="action-input" data-module="navigation" data-before-method="checkDataBeforeSearch" data-parent="form"><?php esc_html_e( 'Rechercher', 'task-manager' ); ?></a>
 	</div>
 </div>
 
