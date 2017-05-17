@@ -29,7 +29,7 @@ class Task_Manager_Action {
 		add_action( 'wp_enqueue_scripts', array( $this, 'callback_enqueue_scripts' ), 11 );
 		add_action( 'admin_print_scripts', array( $this, 'callback_admin_print_scripts' ) );
 
-		add_action( 'init', array( $this, 'callback_plugins_loaded' ) );
+		// add_action( 'init', array( $this, 'callback_plugins_loaded' ) );
 		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 12 );
 	}
 
