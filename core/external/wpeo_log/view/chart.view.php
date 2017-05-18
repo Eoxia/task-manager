@@ -1,9 +1,11 @@
-<?php if ( !defined( 'ABSPATH' ) ) exit; ?>
+<?php namespace task_manager;
 
-<br /><h3><?php _e( 'Chart', 'wpeolog-i18n' ); ?></h3>
+if ( !defined( 'ABSPATH' ) ) exit; ?>
+
+<br /><h3><?php _e( 'Chart', 'digirisk' ); ?></h3>
 
 <?php if( empty( $count_error ) && empty( $count_info ) && empty( $count_warning ) ): ?>
-	<?php _e( 'No data for chart', 'wpeolog-i18n'); ?>
+	<?php _e( 'No data for chart', 'digirisk'); ?>
 <?php else: ?>
 	<canvas class="alignleft" id="myChart" width="200" height="200"></canvas>
 <?php endif; ?>

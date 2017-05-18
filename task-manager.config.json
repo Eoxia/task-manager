@@ -12,6 +12,7 @@
 	],
 	"modules": [
 		"core/core.config.json",
+		"core/external/wpeo_log/wpeo_log.config.json",
 		"core/external/wpeo_model_tmp/wpeo_model.config.json",
 
 		"module/update-manager/update-manager.config.json",
@@ -28,6 +29,6 @@
 		"module/shortcode-help/shortcode-help.config.json",
 		"module/admin-bar/admin-bar.config.json"
 	],
-	"debug": false,
+	"debug": true,
 	"key_last_update_version" : "_tm_last_update_version"
 }

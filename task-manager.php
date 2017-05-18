@@ -27,6 +27,5 @@ DEFINE( 'PLUGIN_TASK_MANAGER_DIR', basename( __DIR__ ) );
 
 require_once 'core/external/wpeo_util/singleton.util.php';
 require_once 'core/external/wpeo_util/init.util.php';
-require_once 'core/external/wpeo_logs/controller/log.controller.01.php';
 
 Init_util::g()->exec();
