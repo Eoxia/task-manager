@@ -13,10 +13,14 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 
-<select name="follower_id_selected">
-	<?php if ( ! empty( $followers ) ) :
-		foreach ( $followers as $follower ) :
-			?><option value="<?php echo esc_attr( $follower->id ); ?>"><?php echo esc_html( $follower->displayname ); ?></option><?php
-		endforeach;
-	endif; ?>
-</select>
+<ul class="wpeo-follower-search">
+	<li>
+		<select name="follower_id_selected">
+			<?php if ( ! empty( $followers ) ) :
+				foreach ( $followers as $follower ) :
+					?><option value="<?php echo esc_attr( $follower->id ); ?>"><?php echo esc_html( $follower->displayname ); ?></option><?php
+				endforeach;
+			endif; ?>
+		</select>
+	</li>
+</ul>

@@ -47,7 +47,7 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 			</li>
 		</ul>
 
-		<a class="action-input" data-module="navigation" data-before-method="checkDataBeforeSearch" data-parent="form"><?php esc_html_e( 'Rechercher', 'task-manager' ); ?></a>
+		<a class="action-input search-button" data-module="navigation" data-before-method="checkDataBeforeSearch" data-parent="form"><?php esc_html_e( 'Rechercher', 'task-manager' ); ?></a>
 	</div>
 </div>
 

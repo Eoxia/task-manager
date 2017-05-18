@@ -203,6 +203,21 @@
 				text-decoration: none;
 			}
 		}
+		.wpeo-follower-search {
+			display: flex;
+			flex-wrap: wrap;
+			> * {
+				margin: 5px;
+			}
+			.wpeo-follower-title {
+				color: #fff;
+				text-transform: uppercase;
+				font-size: 14px;
+			}
+			select {
+				width: 180px;
+			}
+		}
 		.tag-search {
 			clear: both;
 			padding-top: 10px;
@@ -248,6 +263,17 @@
 						}
 					}
 				}
+			}
+		}
+		.search-button {
+			background: @main-color;
+			color: #fff;
+			display: inline-block;
+			padding: 10px 14px;
+			margin-top: 10px;
+			&:hover {
+				cursor: pointer;
+				background: @main-color-light;
 			}
 		}
 		&:after {
