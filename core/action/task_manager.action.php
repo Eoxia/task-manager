@@ -75,10 +75,11 @@ class Task_Manager_Action {
 	public function callback_enqueue_scripts() {
 		$pagename = get_query_var( 'pagename' );
 		if ( in_array( $pagename, Config_Util::$init['task-manager']->insert_scripts_pages, true ) ) {
-			wp_register_style( 'task-manager-frontend-style', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/frontend.css', array(), Config_Util::$init['task-manager']->version );
-			wp_enqueue_style( 'task-manager-frontend-style' );
 			wp_enqueue_style( 'task-manager-datepicker', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/datepicker.min.css', array(), Config_Util::$init['task-manager']->version );
 		}
+
+		wp_register_style( 'task-manager-frontend-style', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/frontend.css', array(), Config_Util::$init['task-manager']->version );
+		wp_enqueue_style( 'task-manager-frontend-style' );
 	}
 
 	/**
