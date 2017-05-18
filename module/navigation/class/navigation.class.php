@@ -37,9 +37,11 @@ class Navigation_Class extends Singleton_Util {
 			$have_search = true;
 		}
 
+		$categories_id_selected = get_term_by( 'term_taxonomy_id', $categories_id_selected, 'wpeo_tag' );
+
 		if ( ! empty( $categories_id_selected ) ) {
 			$categories_selected = Tag_Class::g()->get( array(
-				'include' => $categories_id_selected,
+				'include' => $categories_id_selected->term_id,
 			) );
 		}
 

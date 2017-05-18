@@ -107,6 +107,13 @@ class Task_Class extends Post_Class {
 		parent::construct();
 	}
 
+	/**
+	 * [get_tasks description]
+	 * @param  [type] $param [description]
+	 * @return [type]        [description]
+	 *
+	 * @todo: here
+	 */
 	public function get_tasks( $param ) {
 		global $wpdb;
 
@@ -181,7 +188,6 @@ class Task_Class extends Post_Class {
 			if ( -1 !== $param['posts_per_page'] ) {
 				$query .= "LIMIT " . $param['offset'] . "," . $param['posts_per_page'];
 			}
-
 
 			$tasks_id = $wpdb->get_col( $query );
 
