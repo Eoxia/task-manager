@@ -60,5 +60,28 @@ function get_full_point( $point ) {
 		) ) );
 	}
 
+	$point->content = parse_content_tooltip( $point->content );
+
 	return $point;
+}
+
+function parse_content_tooltip( $content ) {
+	preg_match_all( '/#(\d*)/', $content, $matches );
+
+	if ( ! empty( $matches[1] ) ) {
+		$comments = \task_manager\Task_Comment_Class::g()->get( array(
+			'comment__in' => $matches[1],
+			'status' => '-34070',
+		) );
+
+		if ( ! empty( $comments ) ) {
+			foreach ( $comments as $comment ) {
+				if ( ! empty( $comment->id ) ) {
+					$content = preg_replace( '/#' . $comment->id . '/', "<b contenteditable='false' class='tooltip hover' aria-label='" . htmlspecialchars( substr( $comment->content, 0, 100 ) ) . "'>#" . $comment->id . "</b>", $content );
+				}
+			}
+		}
+	}
+
+	return $content;
 }

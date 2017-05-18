@@ -20,7 +20,7 @@ class log_class extends singleton_util {
 	}
 
 	public static function exec( $service_name, $custom_name, $message = '', $data = array(), $criticality = 0 ) {
-		if ( config_util::$init['wpeo_log']->log ) {
+		if ( ! empty( config_util::$init['wpeo_log'] ) && config_util::$init['wpeo_log']->log ) {
 			$ms = 0;
 
 			if ( !empty( self::$timestart[$custom_name] ) ) {

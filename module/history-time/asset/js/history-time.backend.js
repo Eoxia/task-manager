@@ -71,4 +71,5 @@ window.task_manager.historyTime.createdHistoryTime = function( element, response
  */
 window.task_manager.historyTime.deletedHistoryTime = function( element, response ) {
 	jQuery( element ).closest( '.list-element' ).fadeOut();
+	jQuery( 'div[data-id="' + response.data.task_id + '"]' ).find( 'ul.wpeo-task-time-manage' ).replaceWith( response.data.task_header_view );
 };

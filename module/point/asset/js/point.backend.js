@@ -35,7 +35,14 @@ window.task_manager.point.event = function() {
 	jQuery( document ).on( 'blur paste', '.point.edit .wpeo-point-new-contenteditable', window.task_manager.point.editPoint );
 	jQuery( document ).on( 'click', 'form .completed-point', window.task_manager.point.completePoint );
 
+	jQuery( document ).on( 'blur', '.point .wpeo-point-new-contenteditable b', window.task_manager.point.forceStyle );
+
 };
+
+window.task_manager.point.forceStyle = function( event ) {
+alert('ok');
+};
+
 
 window.task_manager.point.triggerCreate = function( event ) {
 	if ( event.ctrlKey && 13 === event.keyCode ) {
@@ -85,7 +92,7 @@ window.task_manager.point.updateHiddenInput = function( event ) {
 		jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'pointerEvents', 'none' );
 	}
 
-	jQuery( this ).closest( '.point' ).find( '.point-content input[name="content"]' ).val( jQuery( this ).html() );
+	jQuery( this ).closest( '.point' ).find( '.point-content input[name="content"]' ).val( jQuery( this ).text() );
 
 	window.eoxiaJS.refresh();
 };

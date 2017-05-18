@@ -51,7 +51,7 @@ class Point_Action {
 
 		$point_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 		$parent_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
-		$content = ! empty( $_POST['content'] ) ? $_POST['content'] : '';
+		$content = ! empty( $_POST['content'] ) ? strip_tags( $_POST['content'] ) : '';
 
 		if ( empty( $parent_id ) || empty( $content ) ) {
 			wp_send_json_error();

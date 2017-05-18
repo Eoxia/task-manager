@@ -164,9 +164,21 @@ class History_Time_Action {
 
 		History_Time_Class::g()->update( $history_time );
 
+		$task = Task_Class::g()->get( array(
+			'post__in' => array( $history_time->post_id ),
+			'post_status' => array( 'publish', 'archive' ),
+		), true );
+		ob_start();
+		View_Util::exec( 'task', 'backend/task-header', array(
+			'task' => $task,
+		) );
+		$task_header_view = ob_get_clean();
+
 		do_action( 'tm_deleted_history_time', $history_time_id );
 
 		wp_send_json_success( array(
+			'task_id'						=> $history_time->post_id,
+			'task_header_view'	=> $task_header_view,
 			'module' => 'historyTime',
 			'callback_success' => 'deletedHistoryTime',
 		) );
