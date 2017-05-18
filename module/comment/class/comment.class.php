@@ -66,6 +66,9 @@ class Task_Comment_Class extends Comment_Class {
 	 */
 	protected $before_put_function = array( '\task_manager\compile_time' );
 
+	protected $after_post_function = array( '\task_manager\convert_date_display' );
+	protected $after_put_function = array( '\task_manager\convert_date_display' );
+
 	/**
 	 * Constructeur
 	 *
