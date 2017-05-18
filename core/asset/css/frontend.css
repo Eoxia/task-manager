@@ -3333,6 +3333,83 @@
   margin-top: 8px;
   float: left;
 }
+/**
+ * Tooltip
+ * .hover -> affiche la tooltip au hover
+ * .active -> affiche la tooltip
+ * .red -> la tooltip sera sur fond rouge
+ */
+.wpeo-project-wrap .tooltip {
+  position: relative;
+}
+.wpeo-project-wrap .tooltip:before,
+.wpeo-project-wrap .tooltip:after {
+  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  pointer-events: none;
+  -webkit-transform: translate(-50%, -6px);
+     -moz-transform: translate(-50%, -6px);
+      -ms-transform: translate(-50%, -6px);
+       -o-transform: translate(-50%, -6px);
+          transform: translate(-50%, -6px);
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+.wpeo-project-wrap .tooltip:hover {
+  cursor: default;
+}
+.wpeo-project-wrap .tooltip:after {
+  content: attr(aria-label);
+  position: absolute;
+  font-weight: normal;
+  left: 50%;
+  z-index: 99;
+  white-space: nowrap;
+  padding: 5px 14px;
+  background: #3f404c;
+  color: #fff;
+  -webkit-border-radius: 6px;
+          border-radius: 6px;
+  font-size: 12.8px;
+  font-size: 0.8rem;
+  top: -3em;
+}
+.wpeo-project-wrap .tooltip:before {
+  display: block;
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 6px 6px 0 6px;
+  border-color: #3f404c transparent transparent transparent;
+  position: absolute;
+  top: -0.8em;
+  left: 50%;
+}
+.wpeo-project-wrap .tooltip.red:after {
+  background: #c78a8a;
+}
+.wpeo-project-wrap .tooltip.red:before {
+  border-color: #c78a8a transparent transparent transparent;
+}
+.wpeo-project-wrap .tooltip:focus {
+  outline: none;
+}
+.wpeo-project-wrap .tooltip.hover:hover:after,
+.wpeo-project-wrap .tooltip.hover:hover:before,
+.wpeo-project-wrap .tooltip.active:after,
+.wpeo-project-wrap .tooltip.active:before {
+  opacity: 1;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  pointer-events: auto;
+  -webkit-transform: translate(-50%, 0);
+     -moz-transform: translate(-50%, 0);
+      -ms-transform: translate(-50%, 0);
+       -o-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+}
 @-moz-document url-prefix() {
   .entry-content .list-task .wpeo-project-task {
     overflow: hidden!important;

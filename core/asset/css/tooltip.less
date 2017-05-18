@@ -14,15 +14,19 @@
 			transform: translate(-50%, -6px);
 			transition: all 0.2s ease-out;
 		}
+		&:hover {
+			cursor: default;
+		}
 		// Cadre
 		&:after {
 			content: attr(aria-label);
 			position: absolute;
+			font-weight: normal;
 			left: 50%;
 			z-index: 99;
 			white-space: nowrap;
 			padding: 5px 14px;
-			background: @b;
+			background: #3f404c;
 			color: #fff;
 			border-radius: 6px;
 			font-size: 0.8rem;
@@ -36,17 +40,17 @@
 			height: 0;
 			border-style: solid;
 			border-width: 6px 6px 0 6px;
-			border-color: @b transparent transparent transparent;
+			border-color: #3f404c transparent transparent transparent;
 			position: absolute;
 			top: -0.8em;
 			left: 50%;
 		}
 		// Fond rouge
 		&.red:after {
-			background: @red;
+			background: #c78a8a;
 		}
 		&.red:before {
-			border-color: @red transparent transparent transparent;
+			border-color: #c78a8a transparent transparent transparent;
 		}
 		&:focus {
 			outline: none;
