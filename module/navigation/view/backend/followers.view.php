@@ -14,6 +14,7 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 
 <ul class="wpeo-follower-search">
+	<li><span class="wpeo-follower-title"><?php esc_html_e( 'Abonnés', 'task-manager' ); ?></span></li>
 	<li>
 		<select name="follower_id_selected">
 			<?php if ( ! empty( $followers ) ) :
