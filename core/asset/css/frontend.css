@@ -3526,6 +3526,9 @@
   width: 72%;
   min-width: 72%;
 }
+.wpeo-project-wrap .points .point-container .point-action .dashicons {
+  color: rgba(0, 0, 0, 0.8);
+}
 .wpeo-project-wrap .points .point.edit:first-child {
   padding-top: 10px;
 }

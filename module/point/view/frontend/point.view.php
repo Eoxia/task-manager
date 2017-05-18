@@ -31,13 +31,16 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 		<li class="point-content content">
 			<span><?php echo $point->content; ?></span>
-			(<?php echo esc_html( $point->count_comments ); ?>)
 		</li>
 
 		<li class="point-action">
 			<div class="wpeo-point-time">
 				<span class="dashicons dashicons-clock"></span>
 				<span class="wpeo-time-in-point"><?php echo esc_attr( $point->time_info['elapsed'] ); ?></span>
+			</div>
+			<div class="wpeo-point-comment">
+				<span class="dashicons dashicons-admin-comments"></span>
+				<span><?php echo esc_html( $point->count_comments ); ?></span>
 			</div>
 		</li>
 	</ul>
