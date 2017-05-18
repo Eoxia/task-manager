@@ -14,7 +14,7 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
-<div class="wpeo-project-task <?php echo $task->front_info['display_color']; ?>" data-id="<?php echo esc_attr( $task->id ); ?>">
+<div class="wpeo-project-task <?php echo ! empty( $task->front_info['display_color'] ) ? $task->front_info['display_color'] : 'white'; ?>" data-id="<?php echo esc_attr( $task->id ); ?>">
 	<div class="wpeo-project-task-container">
 
 		<!-- En tête de la tâche -->

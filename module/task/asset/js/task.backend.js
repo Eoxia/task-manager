@@ -186,6 +186,7 @@ window.task_manager.task.loadedTaskProperties = function( triggeredElement, resp
  * @version 1.3.6.0
  */
 window.task_manager.task.movedTaskTo = function( triggeredElement, response ) {
+	jQuery( '.list-task' ).masonry( 'remove', triggeredElement.closest( '.wpeo-project-task' ) );
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).remove();
 	window.eoxiaJS.refresh();
 };

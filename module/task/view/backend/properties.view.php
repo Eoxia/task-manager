@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	<label for="move_task"><?php esc_html_e( 'Déplacer la tâche vers', 'task-manager' ); ?></label>
 	<input type="text" class="search-parent" />
 	<input type="hidden" name="to_element_id" />
-	<input type="button" class="action-input" data-parent="form" value="<?php esc_html_e( 'Déplacer', 'task-manager' ); ?>" />
+	<input type="button" class="action-input" data-loader="form" data-parent="form" value="<?php esc_html_e( 'Déplacer', 'task-manager' ); ?>" />
 	<div class="list-posts">
 	</div>
 </form>
