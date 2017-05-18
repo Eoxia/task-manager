@@ -46,13 +46,14 @@ window.task_manager.navigation.toggleMoreOptions = function() {
  * @version 1.3.6.0
  */
 window.task_manager.navigation.loadedMyTask = function( triggeredElement, response ) {
+	jQuery( '.list-task' ).masonry( 'remove', jQuery( '.wpeo-project-task' ) );
 	jQuery( '.list-task' ).replaceWith( response.data.view );
+	jQuery( '.list-task' ).masonry();
 	window.task_manager.task.offset = 0;
 	window.task_manager.task.canLoadMore = true;
 
 	jQuery( '.wpeo-header-bar li.active' ).removeClass( 'active' );
 	jQuery( triggeredElement ).addClass( 'active' );
-	window.eoxiaJS.refresh();
 };
 
 /**
@@ -100,7 +101,8 @@ window.task_manager.navigation.checkDataBeforeSearch = function( triggeredElemen
  * @version 1.3.6.0
  */
 window.task_manager.navigation.searchedSuccess = function( triggeredElement, response ) {
+	jQuery( '.list-task' ).masonry( 'remove', jQuery( '.wpeo-project-task' ) );
 	jQuery( '.list-task' ).replaceWith( response.data.view.tasks );
+	jQuery( '.list-task' ).masonry();
 	jQuery( '.search-results' ).replaceWith( response.data.view.search_result );
-	window.eoxiaJS.refresh();
 };

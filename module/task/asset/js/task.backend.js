@@ -11,13 +11,12 @@ window.task_manager.task.canLoadMore = true;
 window.task_manager.task.init = function() {
 	window.task_manager.task.event();
 	jQuery( '.list-task' ).masonry( {
-		itemSelector: '.wpeo-project-task',
-		columnWidth: 50
+		itemSelector: '.wpeo-project-task'
 	} );
 };
 
 window.task_manager.task.refresh = function() {
-	jQuery( '.list-task' ).masonry();
+	jQuery( '.list-task' ).masonry( 'layout' );
 };
 
 window.task_manager.task.event = function() {
@@ -108,7 +107,9 @@ window.task_manager.task.createdTaskSuccess = function( element, response ) {
  * @version 1.3.6.0
  */
 window.task_manager.task.deletedTaskSuccess = function( element, response ) {
+	jQuery( '.list-task' ).masonry( 'remove', element.closest( '.wpeo-project-task' ) );
 	jQuery( element ).closest( '.wpeo-project-task' ).remove();
+
 	window.eoxiaJS.refresh();
 };
 
@@ -140,13 +141,14 @@ window.task_manager.task.beforeChangeColor = function( triggeredElement, data ) 
  * @version 1.3.6.0
  */
 window.task_manager.task.loadedAllTask = function( triggeredElement, response ) {
+	jQuery( '.list-task' ).masonry( 'remove', jQuery( '.wpeo-project-task' ) );
 	jQuery( '.list-task' ).replaceWith( response.data.view );
+	jQuery( '.list-task' ).masonry();
 	window.task_manager.task.offset = 0;
 	window.task_manager.task.canLoadMore = true;
 
 	jQuery( '.wpeo-header-bar li.active' ).removeClass( 'active' );
 	jQuery( triggeredElement ).addClass( 'active' );
-	window.eoxiaJS.refresh();
 };
 
 /**
