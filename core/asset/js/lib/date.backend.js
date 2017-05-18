@@ -12,7 +12,7 @@ window.task_manager.date.init = function() {
 	jQuery( document ).on( 'click', 'input.date-time', function( e ) {
 		jQuery( this ).datetimepicker( {
 			'lang': 'fr',
-			'format': 'd/m/Y h:i:s'
+			'format': 'd/m/Y h:i'
 		} );
 		jQuery( this ).datetimepicker( 'show' );
 	} );

@@ -46,6 +46,8 @@ function convert_date_to_sql( $data ) {
 function convert_date_display( $data ) {
 	$format = '\L\e d F Y à h\hi';
 
+	$data->date_input = mysql2date( 'd/m/Y h:i', $data->date );
+
 	$data->date = mysql2date( $format, $data->date );
 	return $data;
 }
