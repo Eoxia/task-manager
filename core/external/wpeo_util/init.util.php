@@ -30,10 +30,10 @@ class Init_util extends Singleton_util {
 	 *
 	 * @return void nothing
 	 */
-	public function exec() {
-		self::read_core_util_file_and_include();
-		self::init_main_config();
-		self::init_module();
+	public function exec( $path, $plugin_slug ) {
+		self::read_core_util_file_and_include( $path, $plugin_slug );
+		self::init_main_config( $path, $plugin_slug );
+		self::init_module( $path, $plugin_slug );
 	}
 
 	/**
@@ -41,20 +41,20 @@ class Init_util extends Singleton_util {
 	 *
 	 * @return mixed Si le dossier $path_to_core_folder_util n'existe pas ou si ce n'est pas un dossier, ça retourne un objet WP_Error
 	 */
-	private function read_core_util_file_and_include() {
-		$path_to_core_folder_util = PLUGIN_TASK_MANAGER_PATH . 'core/external/wpeo_util/';
+	private function read_core_util_file_and_include( $path, $plugin_slug ) {
+		$path_to_core_folder_util = $path . 'core/external/wpeo_util/';
 		if ( ! file_exists( $path_to_core_folder_util ) ) {
-			return new \WP_Error( 'broke', __( 'Impossible de charger les fichiers .utils', 'digirisk' ) );
+			return new \WP_Error( 'broke', __( 'Impossible de charger les fichiers .utils', $plugin_slug ) );
 		}
 
 		if ( ! is_dir( $path_to_core_folder_util ) ) {
-			return new \WP_Error( 'broke', __( '$path_to_core_folder_util n\'est pas un dossier', 'digirisk' ) );
+			return new \WP_Error( 'broke', __( '$path_to_core_folder_util n\'est pas un dossier', $plugin_slug ) );
 		}
 
 		$list_file_name = scandir( $path_to_core_folder_util );
 
 		if ( ! $list_file_name || ! is_array( $list_file_name ) ) {
-			return new \WP_Error( 'broke', __( 'Impossible de charger les fichiers .utils', 'digirisk' ) );
+			return new \WP_Error( 'broke', __( 'Impossible de charger les fichiers .utils', $plugin_slug ) );
 		}
 
 		if ( ! empty( $list_file_name ) ) {
@@ -72,9 +72,9 @@ class Init_util extends Singleton_util {
 	 *
 	 * @return void nothing
 	 */
-	private function init_main_config() {
-		$main_config_path = 'task-manager.config.json';
-		Config_util::g()->init_config( $main_config_path );
+	private function init_main_config( $path, $plugin_slug ) {
+		$main_config_path = $plugin_slug . '.config.json';
+		Config_util::g()->init_config( $path . $main_config_path );
 	}
 
 	/**
@@ -82,7 +82,7 @@ class Init_util extends Singleton_util {
 	 *
 	 * @return void nothing
 	 */
-	private function init_module() {
-		module_util::g()->exec_module();
+	private function init_module( $path, $plugin_slug ) {
+		module_util::g()->exec_module( $path, $plugin_slug );
 	}
 }

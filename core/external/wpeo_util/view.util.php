@@ -54,15 +54,15 @@ class View_util extends Singleton_util {
 	public static function exec( $module_name, $view_path_without_ext, $args = array() ) {
 		$path_to_view = self::$path . $module_name . '/view/' . $view_path_without_ext . '.view.php';
 
-		log_class::g()->start_ms( __NAMESPACE__ . '_view_util_exec' );
+		// log_class::g()->start_ms( __NAMESPACE__ . 'view_util_exec' );
 
 		if ( ! file_exists( $path_to_view ) ) {
-			log_class::g()->exec( __NAMESPACE__ . '_view', 'view_util_exec', 'Impossible de charger la vue : ' . $path_to_view, $args, 2 );
+			// log_class::g()->exec( __NAMESPACE__ . '_view', 'view_util_exec', 'Impossible de charger la vue : ' . $path_to_view, $args, 2 );
 		}
 
 		$args = apply_filters( $module_name . '_' . $view_path_without_ext, $args, $module_name, $view_path_without_ext );
 		extract( $args );
 		require( $path_to_view );
-		log_class::g()->exec( __NAMESPACE__ . '_view_util_exec', 'view_util_exec', 'Chargement de la vue : ' . $path_to_view, $args );
+		// log_class::g()->exec( __NAMESPACE__ . '_view_util_exec', 'view_util_exec', 'Chargement de la vue : ' . $path_to_view, $args );
 	}
 }

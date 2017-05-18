@@ -40,7 +40,6 @@ class Config_util extends Singleton_util {
 	 * @return mixed                       WP_Error si il ne trouve pas le fichier config du module
 	 */
 	public function init_config( $path_to_config_file ) {
-		$path_to_config_file = PLUGIN_TASK_MANAGER_PATH . $path_to_config_file;
 		if ( empty( $path_to_config_file ) ) {
 			return new \WP_Error( 'broke', __( 'Impossible de charger le fichier', 'digirisk' ) );
 		}

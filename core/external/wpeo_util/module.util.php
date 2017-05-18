@@ -31,22 +31,21 @@ class Module_util extends Singleton_util {
 	 *
 	 * @return mixed WP_Error si les configs de DigiRisk ne sont pas initialisés, ou si aucun module n'est présent.
 	 */
-	public function exec_module() {
-		if ( empty( config_util::$init['task-manager'] ) ) {
-			return new \WP_Error( 'broke', __( 'Les configurations de base de DigiRisk ne sont pas initialisées', 'digirisk' ) );
+	public function exec_module( $path, $plugin_slug ) {
+		if ( empty( config_util::$init[ $plugin_slug ] ) ) {
+			return new \WP_Error( 'broke', __( 'Les configurations de base de DigiRisk ne sont pas initialisées', $plugin_slug ) );
 		}
 
-
-		if ( empty( config_util::$init['task-manager']->modules ) ) {
-			return new \WP_Error( 'broke', __( 'Aucun module a charger', 'digirisk' ) );
+		if ( empty( config_util::$init[ $plugin_slug ]->modules ) ) {
+			return new \WP_Error( 'broke', __( 'Aucun module a charger', $plugin_slug ) );
 		}
 
-		if ( ! empty( config_util::$init['task-manager']->modules ) ) {
-			foreach ( config_util::$init['task-manager']->modules as $module_json_path ) {
-				// \digi\log_class::g()->start_ms( 'digi_boot_module' );
-				self::inc_config_module( $module_json_path );
-				self::inc_module( $module_json_path );
-				// \digi\log_class::g()->exec( 'digi_boot', 'digi_boot_module', 'Boot le module', array( 'module_path' => $module_json_path ) );
+		if ( ! empty( config_util::$init[ $plugin_slug ]->modules ) ) {
+			foreach ( config_util::$init[ $plugin_slug ]->modules as $module_json_path ) {
+				log_class::g()->start_ms( __NAMESPACE__ . '_boot_module' );
+				self::inc_config_module( $path . $module_json_path );
+				self::inc_module( $path . $module_json_path );
+				log_class::g()->exec( __NAMESPACE__ . '_boot', __NAMESPACE__ . '_boot_module', 'Boot le module', array( 'module_path' => $path . $module_json_path ) );
 			}
 		}
 	}
@@ -97,7 +96,7 @@ class Module_util extends Singleton_util {
 	public function inc_priority_file( $path_to_module_and_dependence_folder, $dependence_folder, $list_priority_file ) {
 		if ( ! empty( $list_priority_file ) ) {
 			foreach ( $list_priority_file as $file_name ) {
-				$path_file = realpath( PLUGIN_TASK_MANAGER_PATH . $path_to_module_and_dependence_folder . $file_name . '.' . $dependence_folder . '.php' );
+				$path_file = realpath( $path_to_module_and_dependence_folder . $file_name . '.' . $dependence_folder . '.php' );
 
 				require_once( $path_file );
 			}
