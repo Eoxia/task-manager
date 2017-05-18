@@ -13,7 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 <?php if ( ! empty( $users ) ) :
 	foreach ( $users as $user ) : ?>
-		<li class="action-attribute"
+		<li class="action-attribute tooltip hover"
+				aria-label="<?php echo esc_attr( $user->displayname ); ?>"
 				data-action="switch_owner"
 				data-nonce="<?php echo esc_attr( wp_create_nonce( 'switch_owner' ) ); ?>"
 				data-task-id="<?php echo esc_attr( $task_id ); ?>"
