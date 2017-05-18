@@ -29,3 +29,4 @@ require_once 'core/external/wpeo_util/singleton.util.php';
 require_once 'core/external/wpeo_util/init.util.php';
 
 Init_util::g()->exec();
+View_Util::g()->set_path( PLUGIN_TASK_MANAGER_PATH . 'module/' );
