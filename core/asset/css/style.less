@@ -405,6 +405,9 @@
 						img {
 							border-radius: 50%;
 						}
+						&:hover {
+							cursor: pointer;
+						}
 					}
 					.toggle .content {
 						max-width: 50px;
@@ -643,6 +646,7 @@
 					margin: auto 6px;
 				}
 				.wpeo-point-new-contenteditable {
+					min-height: 24px;
 					border-bottom: 1px solid rgba(0,0,0,0.1);
 					transition: all 0.2s ease-out;
 					padding-bottom: 6px;
@@ -727,6 +731,9 @@
 					border-bottom: 1px solid rgba(0,0,0,.1);
 					transition: all .2s ease-out;
 					padding-bottom: 2px;
+					.content {
+						min-height: 22px;
+					}
 					.wpeo-point-new-placeholder {
 						color: rgba(0,0,0,.4);
 				    position: absolute;
@@ -1910,7 +1917,7 @@
 	.load-more {
 		text-align: center;
 		display: none;
-		max-width: 120px;
+		max-width: 200px;
 		width: 100%;
 		margin: 10px auto 0 auto;
 		&.loading {
