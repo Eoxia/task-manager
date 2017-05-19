@@ -1,29 +1,49 @@
 'use strict';
 
-window.eoxiaJS = {};
-window.task_manager = {};
+if ( ! window.eoxiaJS ) {
+	window.eoxiaJS = {};
+	window.eoxiaJS.scriptsLoaded = false;
+}
 
-window.eoxiaJS.init = function() {
-	window.eoxiaJS.load_list_script();
-	window.eoxiaJS.init_array_form();
-};
+window.eoxiaJS.taskManager = {};
 
-window.eoxiaJS.load_list_script = function() {
-	for ( var key in window.task_manager ) {
-		window.task_manager[key].init();
-	}
-};
+if ( ! window.eoxiaJS.scriptsLoaded ) {
+	window.eoxiaJS.init = function() {
+		window.eoxiaJS.load_list_script();
+		window.eoxiaJS.init_array_form();
+		window.eoxiaJS.scriptsLoaded = true;
+	};
 
-window.eoxiaJS.init_array_form = function() {
-	 window.eoxiaJS.arrayForm.init();
-};
+	window.eoxiaJS.load_list_script = function() {
+		var key = undefined, slug = undefined;
+		for ( key in window.eoxiaJS ) {
 
-window.eoxiaJS.refresh = function() {
-	for ( var key in window.task_manager ) {
-		if ( window.task_manager[key].refresh ) {
-			window.task_manager[key].refresh();
+			if ( window.eoxiaJS[key].init ) {
+				window.eoxiaJS[key].init();
+			}
+
+			for ( slug in window.eoxiaJS[key] ) {
+
+				if ( window.eoxiaJS[key][slug].init ) {
+					window.eoxiaJS[key][slug].init();
+				}
+
+			}
 		}
-	}
-};
+	};
 
-jQuery(document).ready(window.eoxiaJS.init);
+	window.eoxiaJS.init_array_form = function() {
+		 window.eoxiaJS.arrayForm.init();
+	};
+
+	window.eoxiaJS.refresh = function() {
+		var key = undefined;
+		for ( key in window.eoxiaJS ) {
+			if ( window.eoxiaJS[key].refresh ) {
+				window.eoxiaJS[key].refresh();
+			}
+		}
+	};
+
+	jQuery( document ).ready( window.eoxiaJS.init );
+}

@@ -52,12 +52,16 @@ class Owner_Action {
 		$view = ob_get_clean();
 
 		wp_send_json_success( array(
+			'namespace' => 'taskManager',
 			'module' => 'owner',
 			'callback_success' => 'loadedEditModeOwnerSuccess',
 			'view' => $view,
 		) );
 	}
 
+	/**
+	 * @todo: comment
+	 */
 	public function ajax_switch_owner() {
 		check_ajax_referer( 'switch_owner' );
 
@@ -79,6 +83,7 @@ class Owner_Action {
 		ob_start();
 		echo do_shortcode( '[task_manager_owner_task task_id=' . $task->id . ' owner_id=' . $owner_id . ']' );
 		wp_send_json_success( array(
+			'namespace' => 'taskManager',
 			'module' => 'owner',
 			'callback_success' => 'switchedOwnerSuccess',
 			'view' => ob_get_clean(),

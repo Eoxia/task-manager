@@ -4,20 +4,20 @@
  * @since 1.0.0.0
  * @version 1.0.0.0
  */
-window.task_manager.navigation = {};
+window.eoxiaJS.taskManager.navigation = {};
 
-window.task_manager.navigation.init = function() {
-	window.task_manager.navigation.event();
+window.eoxiaJS.taskManager.navigation.init = function() {
+	window.eoxiaJS.taskManager.navigation.event();
 };
 
-window.task_manager.navigation.event = function() {
-	jQuery( document ).on( 'keyup', '.wpeo-header-bar input[name="term"]', window.task_manager.navigation.triggerSearch );
+window.eoxiaJS.taskManager.navigation.event = function() {
+	jQuery( document ).on( 'keyup', '.wpeo-header-bar input[name="term"]', window.eoxiaJS.taskManager.navigation.triggerSearch );
 
-	jQuery( document ).on( 'click', '.wpeo-header-bar .more-search-options', window.task_manager.navigation.toggleMoreOptions );
-	jQuery( document ).on( 'click', '.wpeo-tag-search', window.task_manager.navigation.selectTag );
+	jQuery( document ).on( 'click', '.wpeo-header-bar .more-search-options', window.eoxiaJS.taskManager.navigation.toggleMoreOptions );
+	jQuery( document ).on( 'click', '.wpeo-tag-search', window.eoxiaJS.taskManager.navigation.selectTag );
 };
 
-window.task_manager.navigation.triggerSearch = function( event ) {
+window.eoxiaJS.taskManager.navigation.triggerSearch = function( event ) {
 	if ( 13 === event.keyCode ) {
 		jQuery( '.wpeo-header-search .action-input' ).click();
 	}
@@ -31,7 +31,7 @@ window.task_manager.navigation.triggerSearch = function( event ) {
  * @since 1.0.0.0
  * @version 1.3.6.0
  */
-window.task_manager.navigation.toggleMoreOptions = function() {
+window.eoxiaJS.taskManager.navigation.toggleMoreOptions = function() {
 	jQuery( '.wpeo-header-search' ).toggle();
 };
 
@@ -45,12 +45,12 @@ window.task_manager.navigation.toggleMoreOptions = function() {
  * @since 1.0.0.0
  * @version 1.3.6.0
  */
-window.task_manager.navigation.loadedMyTask = function( triggeredElement, response ) {
+window.eoxiaJS.taskManager.navigation.loadedMyTask = function( triggeredElement, response ) {
 	jQuery( '.list-task' ).masonry( 'remove', jQuery( '.wpeo-project-task' ) );
 	jQuery( '.list-task' ).replaceWith( response.data.view );
 	jQuery( '.list-task' ).masonry();
-	window.task_manager.task.offset = 0;
-	window.task_manager.task.canLoadMore = true;
+	window.eoxiaJS.taskManager.task.offset = 0;
+	window.eoxiaJS.taskManager.task.canLoadMore = true;
 
 	jQuery( '.wpeo-header-bar li.active' ).removeClass( 'active' );
 	jQuery( triggeredElement ).addClass( 'active' );
@@ -64,7 +64,7 @@ window.task_manager.navigation.loadedMyTask = function( triggeredElement, respon
  * @since 1.0.0.0
  * @version 1.3.6.0
  */
-window.task_manager.navigation.selectTag = function() {
+window.eoxiaJS.taskManager.navigation.selectTag = function() {
 	jQuery( this ).toggleClass( 'active' );
 };
 
@@ -77,7 +77,7 @@ window.task_manager.navigation.selectTag = function() {
  * @since 1.0.0.0
  * @version 1.3.6.0
  */
-window.task_manager.navigation.checkDataBeforeSearch = function( triggeredElement ) {
+window.eoxiaJS.taskManager.navigation.checkDataBeforeSearch = function( triggeredElement ) {
 	var categoriesIdSelected = [];
 
 	jQuery( '.tag-search .tags li.active' ).each( function( key, item ) {
@@ -100,7 +100,7 @@ window.task_manager.navigation.checkDataBeforeSearch = function( triggeredElemen
  * @since 1.0.0.0
  * @version 1.3.6.0
  */
-window.task_manager.navigation.searchedSuccess = function( triggeredElement, response ) {
+window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredElement, response ) {
 	jQuery( '.list-task' ).masonry( 'remove', jQuery( '.wpeo-project-task' ) );
 	jQuery( '.list-task' ).replaceWith( response.data.view.tasks );
 	jQuery( '.list-task' ).masonry();

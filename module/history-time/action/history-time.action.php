@@ -69,6 +69,7 @@ class History_Time_Action {
 
 		wp_send_json_success( array(
 			'view' => ob_get_clean(),
+			'namespace' => 'taskManager',
 			'module' => 'historyTime',
 			'callback_success' => 'loadedTimeHistorySuccess',
 		) );
@@ -134,6 +135,7 @@ class History_Time_Action {
 			'task_id'						=> $task_id,
 			'history_time_view'	=> $history_time_view,
 			'task_header_view'	=> $task_header_view,
+			'namespace' => 'taskManager',
 			'module'						=> 'historyTime',
 			'callback_success'	=> 'createdHistoryTime',
 		) );
@@ -179,6 +181,7 @@ class History_Time_Action {
 		wp_send_json_success( array(
 			'task_id'						=> $history_time->post_id,
 			'task_header_view'	=> $task_header_view,
+			'namespace' => 'taskManager',
 			'module' => 'historyTime',
 			'callback_success' => 'deletedHistoryTime',
 		) );

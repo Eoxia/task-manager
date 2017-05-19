@@ -1,12 +1,12 @@
-window.task_manager.date = {};
+window.eoxiaJS.date = {};
 
-window.task_manager.date.init = function() {
+window.eoxiaJS.date.init = function() {
 	jQuery( document ).on( 'click', 'input.date', function( e ) {
-		jQuery( this ).datepicker( {
-			dateFormat: 'dd/mm/yy'
+		jQuery( this ).datetimepicker( {
+			'lang': 'fr',
+			'format': 'd/m/y'
 		} );
-
-		jQuery( this ).datepicker( 'show' );
+		jQuery( this ).datetimepicker( 'show' );
 	} );
 
 	jQuery( document ).on( 'click', 'input.date-time', function( e ) {

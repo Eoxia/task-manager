@@ -4,47 +4,47 @@
  * @since 1.0.0.0
  * @version 1.3.6.0
  */
-window.task_manager.task = {};
-window.task_manager.task.offset = 0;
-window.task_manager.task.canLoadMore = true;
+window.eoxiaJS.taskManager.task = {};
+window.eoxiaJS.taskManager.task.offset = 0;
+window.eoxiaJS.taskManager.task.canLoadMore = true;
 
-window.task_manager.task.init = function() {
-	window.task_manager.task.event();
+window.eoxiaJS.taskManager.task.init = function() {
+	window.eoxiaJS.taskManager.task.event();
 	jQuery( '.list-task' ).masonry( {
 		itemSelector: '.wpeo-project-task'
 	} );
 };
 
-window.task_manager.task.refresh = function() {
+window.eoxiaJS.taskManager.task.refresh = function() {
 	jQuery( '.list-task' ).masonry( 'layout' );
 };
 
-window.task_manager.task.event = function() {
-	jQuery( '.wpeo-project-wrap' ).on( 'blur', '.wpeo-project-task-title', window.task_manager.task.editTitle );
-	jQuery( window ).scroll( window.task_manager.task.onScrollLoadMore );
+window.eoxiaJS.taskManager.task.event = function() {
+	jQuery( '.wpeo-project-wrap' ).on( 'blur', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.editTitle );
+	jQuery( window ).scroll( window.eoxiaJS.taskManager.task.onScrollLoadMore );
 };
 
-window.task_manager.task.onScrollLoadMore = function() {
+window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
 	var data = {};
 
 	if ( 1 !== jQuery( '#poststuff' ).length ) {
-		if ( ( jQuery( window ).scrollTop() == jQuery( document ).height() - jQuery( window ).height() ) && window.task_manager.task.canLoadMore ) {
-			window.task_manager.task.offset += parseInt( window.task_manager_posts_per_page );
-			window.task_manager.task.canLoadMore = false;
+		if ( ( jQuery( window ).scrollTop() == jQuery( document ).height() - jQuery( window ).height() ) && window.eoxiaJS.taskManager.task.canLoadMore ) {
+			window.eoxiaJS.taskManager.task.offset += parseInt( window.task_manager_posts_per_page );
+			window.eoxiaJS.taskManager.task.canLoadMore = false;
 
 			data.action = 'load_more_task';
-			data.offset = window.task_manager.task.offset;
+			data.offset = window.eoxiaJS.taskManager.task.offset;
 			data.posts_per_page = window.task_manager_posts_per_page;
 			data.term = jQuery( '.wpeo-header-bar input[name="term"]' ).val();
 			data.users_id = ( 'load_my_task' == jQuery( '.wpeo-header-bar li.active' ).data( 'action' ) ) ? jQuery( 'input.user-id' ).val() : jQuery( '.wpeo-header-search select[name="follower_id_selected"]' ).val();
 			data.status = ( 'load_archived_task' == jQuery( '.wpeo-header-bar li.active' ).data( 'action' ) ) ? 'archive' : 'publish';
 
-			window.task_manager.navigation.checkDataBeforeSearch( undefined );
+			window.eoxiaJS.taskManager.navigation.checkDataBeforeSearch( undefined );
 
 			data.categories_id = jQuery( '.wpeo-header-search input[name="categories_id_selected"]' ).val();
 
 			jQuery( '.load-more' ).addClass( 'loading' );
-			window.task_manager.request.send( jQuery( '.load-more' ), data );
+			window.eoxiaJS.taskManager.request.send( jQuery( '.load-more' ), data );
 		}
 	}
 };
@@ -59,14 +59,14 @@ window.task_manager.task.onScrollLoadMore = function() {
  * @since 1.0.0.0
  * @version 1.3.6.0
  */
-window.task_manager.task.loadedMoreTask = function( triggeredElement, response ) {
+window.eoxiaJS.taskManager.task.loadedMoreTask = function( triggeredElement, response ) {
 	var element = jQuery( response.data.view );
 	jQuery( '.list-task' ).append( element ).masonry( 'appended', element );
-	window.task_manager.task.canLoadMore = response.data.can_load_more;
+	window.eoxiaJS.taskManager.task.canLoadMore = response.data.can_load_more;
 	window.eoxiaJS.refresh();
 };
 
-window.task_manager.task.editTitle = function( event ) {
+window.eoxiaJS.taskManager.task.editTitle = function( event ) {
 	var data = {
 		action: 'edit_title',
 		_wpnonce: jQuery( this ).data( 'nonce' ),
@@ -76,7 +76,7 @@ window.task_manager.task.editTitle = function( event ) {
 
 	jQuery( this ).closest( '.wpeo-task-header' ).addClass( 'loading' );
 
-	window.task_manager.request.send( jQuery( this ), data );
+	window.eoxiaJS.taskManager.request.send( jQuery( this ), data );
 };
 
 /**
@@ -89,9 +89,9 @@ window.task_manager.task.editTitle = function( event ) {
  * @since 1.0.0.0
  * @version 1.3.6.0
  */
-window.task_manager.task.createdTaskSuccess = function( element, response ) {
+window.eoxiaJS.taskManager.task.createdTaskSuccess = function( element, response ) {
 	var element = jQuery( response.data.view );
-	window.task_manager.task.offset++;
+	window.eoxiaJS.taskManager.task.offset++;
 	jQuery( '.list-task' ).prepend( element ).masonry( 'prepended', element );
 	window.eoxiaJS.refresh();
 };
@@ -106,7 +106,7 @@ window.task_manager.task.createdTaskSuccess = function( element, response ) {
  * @since 1.0.0.0
  * @version 1.3.6.0
  */
-window.task_manager.task.deletedTaskSuccess = function( element, response ) {
+window.eoxiaJS.taskManager.task.deletedTaskSuccess = function( element, response ) {
 	jQuery( '.list-task' ).masonry( 'remove', element.closest( '.wpeo-project-task' ) );
 	jQuery( element ).closest( '.wpeo-project-task' ).remove();
 
@@ -123,7 +123,7 @@ window.task_manager.task.deletedTaskSuccess = function( element, response ) {
  * @since 1.0.0.0
  * @version 1.3.6.0
  */
-window.task_manager.task.beforeChangeColor = function( triggeredElement, data ) {
+window.eoxiaJS.taskManager.task.beforeChangeColor = function( triggeredElement, data ) {
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).removeClass( 'red yellow purple white blue green' );
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).addClass( jQuery( triggeredElement ).data( 'color' ) );
 
@@ -140,12 +140,12 @@ window.task_manager.task.beforeChangeColor = function( triggeredElement, data ) 
  * @since 1.0.0.0
  * @version 1.3.6.0
  */
-window.task_manager.task.loadedAllTask = function( triggeredElement, response ) {
+window.eoxiaJS.taskManager.task.loadedAllTask = function( triggeredElement, response ) {
 	jQuery( '.list-task' ).masonry( 'remove', jQuery( '.wpeo-project-task' ) );
 	jQuery( '.list-task' ).replaceWith( response.data.view );
 	jQuery( '.list-task' ).masonry();
-	window.task_manager.task.offset = 0;
-	window.task_manager.task.canLoadMore = true;
+	window.eoxiaJS.taskManager.task.offset = 0;
+	window.eoxiaJS.taskManager.task.canLoadMore = true;
 
 	jQuery( '.wpeo-header-bar li.active' ).removeClass( 'active' );
 	jQuery( triggeredElement ).addClass( 'active' );
@@ -161,7 +161,7 @@ window.task_manager.task.loadedAllTask = function( triggeredElement, response ) 
  * @since 1.0.0.0
  * @version 1.3.6.0
  */
-window.task_manager.task.loadedTaskProperties = function( triggeredElement, response ) {
+window.eoxiaJS.taskManager.task.loadedTaskProperties = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.popup .content' ).html( response.data.view );
 
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.popup .container' ).removeClass( 'loading' );
@@ -185,7 +185,7 @@ window.task_manager.task.loadedTaskProperties = function( triggeredElement, resp
  * @since 1.0.0.0
  * @version 1.3.6.0
  */
-window.task_manager.task.movedTaskTo = function( triggeredElement, response ) {
+window.eoxiaJS.taskManager.task.movedTaskTo = function( triggeredElement, response ) {
 	jQuery( '.list-task' ).masonry( 'remove', triggeredElement.closest( '.wpeo-project-task' ) );
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).remove();
 	window.eoxiaJS.refresh();

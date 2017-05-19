@@ -1,40 +1,51 @@
-window.task_manager.tab = {};
+window.eoxiaJS.tab = {};
 
-window.task_manager.tab.init = function() {
-	window.task_manager.tab.event();
+window.eoxiaJS.tab.init = function() {
+	window.eoxiaJS.tab.event();
 };
 
-window.task_manager.tab.event = function() {
-  jQuery( document ).on( 'click', '.wp-digi-global-sheet-tab li, .tab', window.task_manager.tab.load );
+window.eoxiaJS.tab.event = function() {
+  jQuery( document ).on( 'click', '.tab-element', window.eoxiaJS.tab.load );
 };
 
-window.task_manager.tab.load = function( event ) {
+window.eoxiaJS.tab.load = function( event ) {
+	var tabTriggered = jQuery( this );
+	var data = {};
+
   event.preventDefault();
-  var a = jQuery( this );
+	event.stopPropagation();
 
-  jQuery( ".wp-digi-global-sheet-tab li.active" ).removeClass( "active" );
-  a.addClass( "active" );
+	tabTriggered.closest( '.content' ).removeClass( 'active' );
 
-  jQuery( ".wp-digi-content" ).addClass( "wp-digi-bloc-loading" );
+	if ( ! tabTriggered.hasClass( 'no-tab' ) && tabTriggered.data( 'action' ) ) {
+		jQuery( '.tab .tab-element.active' ).removeClass( 'active' );
+		tabTriggered.addClass( 'active' );
 
-  var data = {
-    action:           "load_tab_content",
-    _wpnonce:         a.data( 'nonce' ),
-    tab_to_display:   a.data( "action" ),
-    element_id :      a.closest( '.wp-digi-sheet' ).data( 'id' ),
-  };
+		data = {
+			action: 'load_tab_content',
+			_wpnonce: tabTriggered.data( 'nonce' ),
+			tab_to_display: tabTriggered.data( 'action' ),
+			title: tabTriggered.data( 'title' ),
+			element_id: tabTriggered.data( 'id' )
+	  };
 
-  jQuery.post( window.ajaxurl, data, function( response ) {
-    jQuery( ".wp-digi-content" ).replaceWith( response.data.template );
+		jQuery( '.' + tabTriggered.data( 'target' ) ).addClass( 'loading' );
 
-		window.task_manager.tab.call_tab_changed();
-  } );
+		jQuery.post( window.ajaxurl, data, function( response ) {
+			jQuery( '.' + tabTriggered.data( 'target' ) ).replaceWith( response.data.template );
+
+			window.eoxiaJS.tab.callTabChanged();
+		} );
+
+	}
+
 };
 
-window.task_manager.tab.call_tab_changed = function() {
-	for ( var key in window.task_manager ) {
-		if (window.task_manager[key].tab_changed) {
-			window.task_manager[key].tab_changed();
+window.eoxiaJS.tab.callTabChanged = function() {
+	var key = undefined;
+	for ( key in window.eoxiaJS ) {
+		if ( window.eoxiaJS[key].tabChanged ) {
+			window.eoxiaJS[key].tabChanged();
 		}
 	}
-}
+};

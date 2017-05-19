@@ -4,7 +4,7 @@
  * @since 1.0.0.0
  * @version 1.0.0.0
  */
-window.task_manager.historyTime = {};
+window.eoxiaJS.taskManager.historyTime = {};
 
 /**
  * La méthode obligatoire pour la biblotèque EoxiaJS.
@@ -14,8 +14,8 @@ window.task_manager.historyTime = {};
  * @since 1.0.0.0
  * @version 1.0.0.0
  */
-window.task_manager.historyTime.init = function() {
-	window.task_manager.historyTime.event();
+window.eoxiaJS.taskManager.historyTime.init = function() {
+	window.eoxiaJS.taskManager.historyTime.event();
 };
 
 /**
@@ -26,7 +26,7 @@ window.task_manager.historyTime.init = function() {
  * @since 1.0.0.0
  * @version 1.0.0.0
  */
-window.task_manager.historyTime.event = function() {
+window.eoxiaJS.taskManager.historyTime.event = function() {
 };
 
 /**
@@ -39,7 +39,7 @@ window.task_manager.historyTime.event = function() {
  * @since 1.0.0.0
  * @version 1.0.0.0
  */
-window.task_manager.historyTime.loadedTimeHistorySuccess = function( element, response ) {
+window.eoxiaJS.taskManager.historyTime.loadedTimeHistorySuccess = function( element, response ) {
 	jQuery( element ).closest( '.wpeo-project-task' ).find( '.popup .content' ).html( response.data.view );
 	jQuery( element ).closest( '.wpeo-project-task' ).find( '.popup .container' ).removeClass( 'loading' );
 };
@@ -54,7 +54,7 @@ window.task_manager.historyTime.loadedTimeHistorySuccess = function( element, re
  * @since 1.0.0.0
  * @version 1.0.0.0
  */
-window.task_manager.historyTime.createdHistoryTime = function( element, response ) {
+window.eoxiaJS.taskManager.historyTime.createdHistoryTime = function( element, response ) {
 	jQuery( element ).closest( '.wpeo-project-task' ).find( '.popup .content .history-time-container' ).replaceWith( response.data.history_time_view );
 	jQuery( 'div[data-id="' + response.data.task_id + '"]' ).find( 'ul.wpeo-task-time-manage' ).replaceWith( response.data.task_header_view );
 };
@@ -69,7 +69,7 @@ window.task_manager.historyTime.createdHistoryTime = function( element, response
  * @since 1.0.0.0
  * @version 1.0.0.0
  */
-window.task_manager.historyTime.deletedHistoryTime = function( element, response ) {
+window.eoxiaJS.taskManager.historyTime.deletedHistoryTime = function( element, response ) {
 	jQuery( element ).closest( '.list-element' ).fadeOut();
 	jQuery( 'div[data-id="' + response.data.task_id + '"]' ).find( 'ul.wpeo-task-time-manage' ).replaceWith( response.data.task_header_view );
 };

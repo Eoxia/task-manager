@@ -18,6 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 	data-parent-id="<?php echo esc_attr( $task->id ); ?>"
 	data-action="<?php echo in_array( $tag->id, $task->taxonomy['wpeo_tag'], true ) ? 'tag_unaffectation' : 'tag_affectation'; ?>"
 	data-nonce="<?php echo esc_attr( wp_create_nonce( in_array( $tag->id, $task->taxonomy['wpeo_tag'], true ) ? 'tag_unaffectation' : 'tag_affectation' ) ); ?>"
+	data-namespace="taskManager"
 	data-module="tag"
 	data-before-method="<?php echo in_array( $tag->id, $task->taxonomy['wpeo_tag'], true ) ? 'beforeUnaffectTag' : 'beforeAffectTag'; ?>">
 	<?php echo esc_html( $tag->name ); ?>

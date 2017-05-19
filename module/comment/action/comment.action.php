@@ -72,6 +72,7 @@ class Task_Comment_Action {
 
 		wp_send_json_success( array(
 			'view' => $view,
+			'namespace' => 'taskManager',
 			'module' => 'comment',
 			'callback_success' => 'loadedCommentsSuccess',
 		) );

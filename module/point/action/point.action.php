@@ -71,6 +71,7 @@ class Point_Action {
 
 		wp_send_json_success( array(
 			'view' => ob_get_clean(),
+			'namespace' => 'taskManager',
 			'module' => 'point',
 			'callback_success' => ! empty( $point_id ) ? 'editedPointSuccess' : 'addedPointSuccess',
 		) );
@@ -111,6 +112,7 @@ class Point_Action {
 
 		wp_send_json_success( array(
 			'time' => $task->time_info['time_display'] . ' (' . $task->time_info['elapsed'] . 'min)',
+			'namespace' => 'taskManager',
 			'module' => 'point',
 			'callback_success' => 'deletedPointSuccess',
 		) );
@@ -253,6 +255,7 @@ class Point_Action {
 			}
 		}
 		wp_send_json_success( array(
+			'namespace' => 'taskManager',
 			'module' => 'point',
 			'callback_success' => 'loadedCompletedPoint',
 			'view' => ob_get_clean(),
@@ -287,6 +290,7 @@ class Point_Action {
 		) );
 
 		wp_send_json_success( array(
+			'namespace' => 'taskManager',
 			'view' => ob_get_clean(),
 			'module' => 'point',
 			'callback_success' => 'loadedPointProperties',
@@ -411,6 +415,7 @@ class Point_Action {
 		}
 
 		wp_send_json_success( array(
+			'namespace' => 'taskManager',
 			'module' => 'point',
 			'callback_success' => 'movedPointTo',
 			'point' => $point,

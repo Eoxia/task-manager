@@ -78,6 +78,7 @@ class Tag_Action {
 		Task_Class::g()->update( $task );
 
 		wp_send_json_success( array(
+			'namespace' => 'taskManager',
 			'module' => 'tag',
 			'callback_success' => 'archivedTaskSuccess',
 		) );
@@ -110,6 +111,7 @@ class Tag_Action {
 		Task_Class::g()->update( $task );
 
 		wp_send_json_success( array(
+			'namespace' => 'taskManager',
 			'module' => 'tag',
 			'callback_success' => 'unarchivedTaskSuccess',
 		) );
@@ -139,6 +141,7 @@ class Tag_Action {
 		) );
 
 		wp_send_json_success( array(
+			'namespace' => 'taskManager',
 			'module' => 'tag',
 			'callback_success' => 'loadedTagSuccess',
 			'view' => ob_get_clean(),
@@ -165,6 +168,7 @@ class Tag_Action {
 		ob_start();
 		echo do_shortcode( '[task_manager_task_tag task_id=' . $task_id . ']' );
 		wp_send_json_success( array(
+			'namespace' => 'taskManager',
 			'module' => 'tag',
 			'callback_success' => 'closedTagEditMode',
 			'view' => ob_get_clean(),
@@ -197,6 +201,7 @@ class Tag_Action {
 		Task_Class::g()->update( $task );
 
 		wp_send_json_success( array(
+			'namespace' => 'taskManager',
 			'module' => 'tag',
 			'callback_success' => 'unaffectedTagSuccess',
 			'nonce' => wp_create_nonce( 'tag_unaffectation' ),
@@ -223,6 +228,7 @@ class Tag_Action {
 		wp_remove_object_terms( $task_id, $tag_id, 'wpeo_tag' );
 
 		wp_send_json_success( array(
+			'namespace' => 'taskManager',
 			'module' => 'tag',
 			'callback_success' => 'affectedTagSuccess',
 			'nonce' => wp_create_nonce( 'tag_affectation' ),
@@ -256,6 +262,7 @@ class Tag_Action {
 			'category' => $category,
 		) );
 		wp_send_json_success( array(
+			'namespace' => 'taskManager',
 			'module' => 'tag',
 			'callback_success' => 'createdTagSuccess',
 			'view' => ob_get_clean(),

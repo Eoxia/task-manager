@@ -1,40 +1,41 @@
-window.task_manager.form = {};
+window.eoxiaJS.form = {};
 
-window.task_manager.form.init = function() {
-    window.task_manager.form.event();
+window.eoxiaJS.form.init = function() {
+    window.eoxiaJS.form.event();
 };
-window.task_manager.form.event = function() {
-    jQuery( document ).on( 'click', '.submit-form', window.task_manager.form.sumbit_form );
+window.eoxiaJS.form.event = function() {
+    jQuery( document ).on( 'click', '.submit-form', window.eoxiaJS.form.submitForm );
 };
 
-window.task_manager.form.sumbit_form = function( event ) {
+window.eoxiaJS.form.submitForm = function( event ) {
 	var element = jQuery( this );
 	var doAction = true;
 
 	event.preventDefault();
-	/** Méthode appelée avant l'action */
-	if ( element.data( 'module' ) && element.data( 'before-method' ) ) {
+
+/** Méthode appelée avant l'action */
+	if ( element.attr( 'data-module' ) && element.attr( 'data-before-method' ) ) {
 		doAction = false;
-		doAction = window.task_manager[element.data( 'module' )][element.data( 'before-method' )]( element );
+		doAction = window.eoxiaJS[element.attr( 'data-module' )][element.attr( 'data-before-method' )]( element );
 	}
 
 	if ( doAction ) {
-    element.closest( 'form' ).ajaxSubmit({
-        success: function( response ) {
-			if ( response && response.data.module && response.data.callback ) {
-				window.task_manager[response.data.module][response.data.callback]( element, response );
+		element.closest( 'form' ).ajaxSubmit( {
+			success: function( response ) {
+				if ( response && response.data.module && response.data.callback ) {
+					window.eoxiaJS[response.data.module][response.data.callback]( element, response );
+				}
+
+				if ( response && response.success ) {
+					if ( response.data.module && response.data.callback_success ) {
+						window.eoxiaJS[response.data.module][response.data.callback_success]( element, response );
+					}
+				} else {
+					if ( response.data.module && response.data.callback_error ) {
+						window.eoxiaJS[response.data.module][response.data.callback_error]( element, response );
+					}
+				}
 			}
-            if ( response && response.success ) {
-                if ( response.data.module && response.data.callback_success ) {
-                    window.task_manager[response.data.module][response.data.callback_success]( element, response );
-                }
-            } else {
-                alert( 'error' );
-                if ( response.data.module && response.data.callback_error ) {
-                    window.task_manager[response.data.module][response.data.callback_error]( element, response );
-                }
-            }
-        }
-    });
+		} );
 	}
 };

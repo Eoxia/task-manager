@@ -1,5 +1,5 @@
-window.task_manager.core = {};
+window.eoxiaJS.taskManager.core = {};
 
-window.task_manager.core.init = function() {
-	//Window.task_manager.core.event();
+window.eoxiaJS.taskManager.core.init = function() {
+	//window.eoxiaJS.taskManager.core.event();
 };

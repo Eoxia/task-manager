@@ -35,6 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 <div class="wpeo-task-point-use-toggle">
 	<p 	class="action-attribute"
 			data-id="<?php echo esc_attr( $task_id ); ?>"
+			data-namespace="taskManager"
 			data-module="point"
 			data-before-method="beforeLoadCompletedPoint"
 			data-action="load_completed_point"

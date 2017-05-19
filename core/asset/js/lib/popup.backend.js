@@ -1,26 +1,26 @@
-window.task_manager.popup = {};
+window.eoxiaJS.popup = {};
 
-window.task_manager.popup.init = function() {
-	window.task_manager.popup.event();
+window.eoxiaJS.popup.init = function() {
+	window.eoxiaJS.popup.event();
 };
 
-window.task_manager.popup.event = function() {
-	jQuery( document ).on( 'keyup', window.task_manager.popup.keyup );
-  jQuery( document ).on( 'click', '.open-popup, .open-popup i', window.task_manager.popup.open );
-  jQuery( document ).on( 'click', '.open-popup-ajax', window.task_manager.popup.openAjax );
-  jQuery( document ).on( 'click', '.popup .container, .digi-popup-propagation', window.task_manager.popup.stop );
-  jQuery( document ).on( 'click', '.popup .container .button.green', window.task_manager.popup.confirm );
-  jQuery( document ).on( 'click', '.popup .close', window.task_manager.popup.close );
-  jQuery( document ).on( 'click', 'body', window.task_manager.popup.close );
+window.eoxiaJS.popup.event = function() {
+	jQuery( document ).on( 'keyup', window.eoxiaJS.popup.keyup );
+  jQuery( document ).on( 'click', '.open-popup, .open-popup i', window.eoxiaJS.popup.open );
+  jQuery( document ).on( 'click', '.open-popup-ajax', window.eoxiaJS.popup.openAjax );
+  jQuery( document ).on( 'click', '.popup .container, .digi-popup-propagation', window.eoxiaJS.popup.stop );
+  jQuery( document ).on( 'click', '.popup .container .button.green', window.eoxiaJS.popup.confirm );
+  jQuery( document ).on( 'click', '.popup .close', window.eoxiaJS.popup.close );
+  jQuery( document ).on( 'click', 'body', window.eoxiaJS.popup.close );
 };
 
-window.task_manager.popup.keyup = function( event ) {
+window.eoxiaJS.popup.keyup = function( event ) {
 	if ( 27 === event.keyCode ) {
 		jQuery( '.popup .close' ).click();
 	}
 };
 
-window.task_manager.popup.open = function( event ) {
+window.eoxiaJS.popup.open = function( event ) {
 	var triggeredElement = jQuery( this );
 
 	if ( triggeredElement.is( 'i' ) ) {
@@ -37,7 +37,7 @@ window.task_manager.popup.open = function( event ) {
 
 		// On récupères les "data" sur l'élement en tant qu'args.
 		triggeredElement.get_data( function( data ) {
-			window.task_manager[cbObject][cbFunc]( triggeredElement, target, event, data );
+			window.eoxiaJS[cbObject][cbFunc]( triggeredElement, target, event, data );
 		} );
 	}
 
@@ -52,7 +52,7 @@ window.task_manager.popup.open = function( event ) {
  * @param  {[type]} event [description]
  * @return {[type]}       [description]
  */
-window.task_manager.popup.openAjax = function( event ) {
+window.eoxiaJS.popup.openAjax = function( event ) {
 	var element = jQuery( this );
 	var target = jQuery( this ).closest(  '.' + jQuery( this ).data( 'parent' ) ).find( '.' + jQuery( this ).data( 'target' ) );
 	target.addClass( 'active' );
@@ -65,13 +65,13 @@ window.task_manager.popup.openAjax = function( event ) {
 	jQuery( this ).get_data( function( data ) {
 		delete data.parent;
 		delete data.target;
-		window.task_manager.request.send( element, data );
+		window.eoxiaJS.request.send( element, data );
 	});
 
 	event.stopPropagation();
 };
 
-window.task_manager.popup.confirm = function( event ) {
+window.eoxiaJS.popup.confirm = function( event ) {
 	var triggeredElement = jQuery( this );
 	var cbObject, cbFunc = undefined;
 
@@ -84,17 +84,17 @@ window.task_manager.popup.confirm = function( event ) {
 
 			// On récupères les "data" sur l'élement en tant qu'args.
 			triggeredElement.get_data( function( data ) {
-				window.task_manager[cbObject][cbFunc]( triggeredElement, event, data );
+				window.eoxiaJS[cbObject][cbFunc]( triggeredElement, event, data );
 			} );
 		}
 	}
 };
 
-window.task_manager.popup.stop = function( event ) {
+window.eoxiaJS.popup.stop = function( event ) {
 	event.stopPropagation();
 };
 
-window.task_manager.popup.close = function( event ) {
+window.eoxiaJS.popup.close = function( event ) {
 	jQuery( '.popup:not(.no-close)' ).removeClass( 'active' );
 	jQuery( '.digi-popup:not(.no-close)' ).removeClass( 'active' );
 };

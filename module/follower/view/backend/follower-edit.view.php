@@ -18,6 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 	data-parent-id="<?php echo esc_attr( $task->id ); ?>"
 	data-action="<?php echo in_array( $user->id, $task->user_info['affected_id'], true ) ? 'follower_unaffectation' : 'follower_affectation'; ?>"
 	data-nonce="<?php echo esc_attr( wp_create_nonce( in_array( $user->id, $task->user_info['affected_id'], true ) ? 'follower_unaffectation' : 'follower_affectation' ) ); ?>"
+	data-namespace="taskManager"
 	data-module="follower"
 	data-before-method="<?php echo in_array( $user->id, $task->user_info['affected_id'], true ) ? 'beforeUnaffectFollower' : 'beforeAffectFollower'; ?>">
 

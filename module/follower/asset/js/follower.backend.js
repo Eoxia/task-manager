@@ -4,13 +4,13 @@
  * @since 1.0.0.0
  * @version 1.0.0.0
  */
-window.task_manager.follower = {};
+window.eoxiaJS.taskManager.follower = {};
 
-window.task_manager.follower.init = function() {
-	window.task_manager.follower.event();
+window.eoxiaJS.taskManager.follower.init = function() {
+	window.eoxiaJS.taskManager.follower.event();
 };
 
-window.task_manager.follower.event = function() { };
+window.eoxiaJS.taskManager.follower.event = function() { };
 
 /**
  * Le callback en cas de réussite à la requête Ajax "load_followers".
@@ -23,7 +23,7 @@ window.task_manager.follower.event = function() { };
  * @since 1.0.0.0
  * @version 1.0.0.0
  */
-window.task_manager.follower.loadedFollowersSuccess = function( element, response ) {
+window.eoxiaJS.taskManager.follower.loadedFollowersSuccess = function( element, response ) {
 	element.closest( '.wpeo-ul-users' ).replaceWith( response.data.view );
 	window.eoxiaJS.refresh();
 };
@@ -39,7 +39,7 @@ window.task_manager.follower.loadedFollowersSuccess = function( element, respons
  * @since 1.0.0.0
  * @version 1.0.0.0
  */
-window.task_manager.follower.closedFollowersEditMode = function( element, response ) {
+window.eoxiaJS.taskManager.follower.closedFollowersEditMode = function( element, response ) {
 	element.closest( '.wpeo-ul-users' ).replaceWith( response.data.view );
 	window.eoxiaJS.refresh();
 };
@@ -53,7 +53,7 @@ window.task_manager.follower.closedFollowersEditMode = function( element, respon
  * @since 1.0.0.0
  * @version 1.3.6.0
  */
-window.task_manager.follower.beforeAffectFollower = function( element ) {
+window.eoxiaJS.taskManager.follower.beforeAffectFollower = function( element ) {
 	element.addClass( 'active' );
 
 	return true;
@@ -68,7 +68,7 @@ window.task_manager.follower.beforeAffectFollower = function( element ) {
  * @since 1.0.0.0
  * @version 1.3.6.0
  */
-window.task_manager.follower.beforeUnaffectFollower = function( element ) {
+window.eoxiaJS.taskManager.follower.beforeUnaffectFollower = function( element ) {
 	element.removeClass( 'active' );
 
 	return true;
@@ -84,7 +84,7 @@ window.task_manager.follower.beforeUnaffectFollower = function( element ) {
  * @since 1.0.0.0
  * @version 1.0.0.0
  */
-window.task_manager.follower.affectedFollowerSuccess = function( element, response ) {
+window.eoxiaJS.taskManager.follower.affectedFollowerSuccess = function( element, response ) {
 	element.attr( 'data-action', 'follower_unaffectation' );
 	element.attr( 'data-before-method', 'beforeUnaffectFollower' );
 	element.attr( 'data-nonce', response.data.nonce );
@@ -100,7 +100,7 @@ window.task_manager.follower.affectedFollowerSuccess = function( element, respon
  * @since 1.0.0.0
  * @version 1.0.0.0
  */
-window.task_manager.follower.unaffectedFollowerSuccess = function( element, response ) {
+window.eoxiaJS.taskManager.follower.unaffectedFollowerSuccess = function( element, response ) {
 	element.attr( 'data-action', 'follower_affectation' );
 	element.attr( 'data-before-method', 'beforeAffectFollower' );
 	element.attr( 'data-nonce', response.data.nonce );

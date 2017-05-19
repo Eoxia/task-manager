@@ -59,6 +59,7 @@ class Follower_Action {
 		) );
 
 		wp_send_json_success( array(
+			'namespace' => 'taskManager',
 			'module' => 'follower',
 			'callback_success' => 'loadedFollowersSuccess',
 			'view' => ob_get_clean(),
@@ -101,6 +102,7 @@ class Follower_Action {
 			'task' => $task,
 		) );
 		wp_send_json_success( array(
+			'namespace' => 'taskManager',
 			'module' => 'follower',
 			'callback_success' => 'closedFollowersEditMode',
 			'view' => ob_get_clean(),

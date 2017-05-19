@@ -4,10 +4,10 @@
  * @since 1.0.0.0
  * @version 1.3.6.0
  */
-window.task_manager.owner = {};
+window.eoxiaJS.taskManager.owner = {};
 
-window.task_manager.owner.init = function() {
-	window.task_manager.owner.event();
+window.eoxiaJS.taskManager.owner.init = function() {
+	window.eoxiaJS.taskManager.owner.event();
 };
 
 /**
@@ -18,7 +18,7 @@ window.task_manager.owner.init = function() {
  * @since 1.3.6.0
  * @version 1.3.6.0
  */
-window.task_manager.owner.event = function() {};
+window.eoxiaJS.taskManager.owner.event = function() {};
 
 
 /**
@@ -32,7 +32,7 @@ window.task_manager.owner.event = function() {};
  * @since 0.1
  * @version 1.3.6.0
  */
-window.task_manager.owner.loadedEditModeOwnerSuccess = function( triggeredElement, response ) {
+window.eoxiaJS.taskManager.owner.loadedEditModeOwnerSuccess = function( triggeredElement, response ) {
 	triggeredElement.removeClass( 'loading' );
 	jQuery( triggeredElement ).find( '.content' ).html( response.data.view );
 };
@@ -48,6 +48,6 @@ window.task_manager.owner.loadedEditModeOwnerSuccess = function( triggeredElemen
  * @since 0.1
  * @version 1.3.6.0
  */
-window.task_manager.owner.switchedOwnerSuccess = function( triggeredElement, response ) {
+window.eoxiaJS.taskManager.owner.switchedOwnerSuccess = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.toggle' ).replaceWith( response.data.view );
 };

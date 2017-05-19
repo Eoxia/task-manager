@@ -1,15 +1,15 @@
-window.task_manager.toggle = {};
+window.eoxiaJS.toggle = {};
 
-window.task_manager.toggle.init = function() {
-	window.task_manager.toggle.event();
+window.eoxiaJS.toggle.init = function() {
+	window.eoxiaJS.toggle.event();
 };
 
-window.task_manager.toggle.event = function() {
-  jQuery( document ).on( 'click', '.toggle:not(.disabled), .toggle:not(.disabled) i', window.task_manager.toggle.open );
-  jQuery( document ).on( 'click', 'body', window.task_manager.toggle.close );
+window.eoxiaJS.toggle.event = function() {
+  jQuery( document ).on( 'click', '.toggle:not(.disabled), .toggle:not(.disabled) i', window.eoxiaJS.toggle.open );
+  jQuery( document ).on( 'click', 'body', window.eoxiaJS.toggle.close );
 };
 
-window.task_manager.toggle.open = function( event ) {
+window.eoxiaJS.toggle.open = function( event ) {
 	var target = undefined;
 	var data = {};
 	var i = 0;
@@ -23,10 +23,10 @@ window.task_manager.toggle.open = function( event ) {
 
 	jQuery( '.toggle .content.active' ).removeClass( 'active' );
 
-	if ( elementToggle.data( 'parent' ) ) {
-		target = elementToggle.closest( '.' + elementToggle.data( 'parent' ) ).find( '.' + elementToggle.data( 'target' ) );
+	if ( elementToggle.attr( 'data-parent' ) ) {
+		target = elementToggle.closest( '.' + elementToggle.attr( 'data-parent' ) ).find( '.' + elementToggle.attr( 'data-target' ) );
 	} else {
-		target = jQuery( '.' + elementToggle.data( 'target' ) );
+		target = jQuery( '.' + elementToggle.attr( 'data-target' ) );
 	}
 
 	if ( target ) {
@@ -34,7 +34,7 @@ window.task_manager.toggle.open = function( event ) {
 	  event.stopPropagation();
 	}
 
-	if ( elementToggle.data( 'action' ) ) {
+	if ( elementToggle.attr( 'data-action' ) ) {
 		elementToggle.addClass( 'loading' );
 
 		listInput = window.eoxiaJS.arrayForm.getInput( elementToggle );
@@ -49,12 +49,12 @@ window.task_manager.toggle.open = function( event ) {
 				data[key] = attrData[key];
 			}
 
-			window.task_manager.request.send( elementToggle, data );
+			window.eoxiaJS.request.send( elementToggle, data );
 		} );
 	}
 };
 
-window.task_manager.toggle.close = function( event ) {
+window.eoxiaJS.toggle.close = function( event ) {
 	jQuery( '.toggle .content' ).removeClass( 'active' );
 	event.stopPropagation();
 };

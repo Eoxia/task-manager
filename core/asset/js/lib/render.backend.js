@@ -1,16 +1,17 @@
-window.task_manager.render = {};
+window.eoxiaJS.render = {};
 
-window.task_manager.render.init = function() {
-	window.task_manager.render.event();
+window.eoxiaJS.render.init = function() {
+	window.eoxiaJS.render.event();
 };
 
-window.task_manager.render.event = function() {
-};
+window.eoxiaJS.render.event = function() {};
 
-window.task_manager.render.call_render_changed = function() {
-	for ( var key in window.task_manager ) {
-		if (window.task_manager[key].render_changed) {
-			window.task_manager[key].render_changed();
+window.eoxiaJS.render.callRenderChanged = function() {
+	var key = undefined;
+
+	for ( key in window.eoxiaJS ) {
+		if ( window.eoxiaJS[key].renderChanged ) {
+			window.eoxiaJS[key].renderChanged();
 		}
 	}
-}
+};

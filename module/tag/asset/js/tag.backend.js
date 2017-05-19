@@ -4,20 +4,20 @@
  * @since 1.0.0.0
  * @version 1.3.6.0
  */
-window.task_manager.tag = {};
+window.eoxiaJS.taskManager.tag = {};
 
-window.task_manager.tag.init = function() {
-	window.task_manager.tag.event();
+window.eoxiaJS.taskManager.tag.init = function() {
+	window.eoxiaJS.taskManager.tag.event();
 };
 
-window.task_manager.tag.event = function() { };
+window.eoxiaJS.taskManager.tag.event = function() { };
 
 /**
  * Lorsqu'on clique sur la barre des tags, avant de lancer l'action on ajoute une classe permettant de bloquer les actions futures tant que cette action n'est pas terminée
  *
  * @param  {HTMLUListElement} element  The element clicked where to display tags.
  */
-window.task_manager.tag.before_load_tags = function( element ) {
+window.eoxiaJS.taskManager.tag.before_load_tags = function( element ) {
 	element.addClass( 'no-action' );
 
 	return true;
@@ -34,7 +34,7 @@ window.task_manager.tag.before_load_tags = function( element ) {
  * @since 1.0.0.0
  * @version 1.0.0.0
  */
-window.task_manager.tag.archivedTaskSuccess = function( triggeredElement, response ) {
+window.eoxiaJS.taskManager.tag.archivedTaskSuccess = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).remove();
 	jQuery( '.list-task' ).masonry( 'remove', triggeredElement.closest( '.wpeo-project-task' ) );
 	window.eoxiaJS.refresh();
@@ -51,7 +51,7 @@ window.task_manager.tag.archivedTaskSuccess = function( triggeredElement, respon
  * @since 1.0.0.0
  * @version 1.0.0.0
  */
-window.task_manager.tag.unarchivedTaskSuccess = function( triggeredElement, response ) {
+window.eoxiaJS.taskManager.tag.unarchivedTaskSuccess = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).remove();
 	jQuery( '.list-task' ).masonry( 'remove', triggeredElement.closest( '.wpeo-project-task' ) );
 	window.eoxiaJS.refresh();
@@ -68,7 +68,7 @@ window.task_manager.tag.unarchivedTaskSuccess = function( triggeredElement, resp
  * @since 1.0.0.0
  * @version 1.0.0.0
  */
-window.task_manager.tag.loadedTagSuccess = function( element, response ) {
+window.eoxiaJS.taskManager.tag.loadedTagSuccess = function( element, response ) {
 	element.closest( '.wpeo-tag-wrap' ).replaceWith( response.data.view );
 	window.eoxiaJS.refresh();
 };
@@ -84,7 +84,7 @@ window.task_manager.tag.loadedTagSuccess = function( element, response ) {
  * @since 1.0.0.0
  * @version 1.0.0.0
  */
-window.task_manager.tag.closedTagEditMode = function( element, response ) {
+window.eoxiaJS.taskManager.tag.closedTagEditMode = function( element, response ) {
 	element.closest( '.wpeo-tag-wrap' ).replaceWith( response.data.view );
 	window.eoxiaJS.refresh();
 };
@@ -100,12 +100,12 @@ window.task_manager.tag.closedTagEditMode = function( element, response ) {
  * @since 1.0.0.0
  * @version 1.0.0.0
  */
-window.task_manager.tag.loadedArchivedTask = function( triggeredElement, response ) {
+window.eoxiaJS.taskManager.tag.loadedArchivedTask = function( triggeredElement, response ) {
 	jQuery( '.list-task' ).masonry( 'remove', jQuery( '.wpeo-project-task' ) );
 	jQuery( '.list-task' ).replaceWith( response.data.view );
 	jQuery( '.list-task' ).masonry();
-	window.task_manager.task.offset = 0;
-	window.task_manager.task.canLoadMore = true;
+	window.eoxiaJS.taskManager.task.offset = 0;
+	window.eoxiaJS.taskManager.task.canLoadMore = true;
 
 	jQuery( '.wpeo-header-bar li.active' ).removeClass( 'active' );
 	jQuery( triggeredElement ).addClass( 'active' );
@@ -120,7 +120,7 @@ window.task_manager.tag.loadedArchivedTask = function( triggeredElement, respons
  * @since 1.0.0.0
  * @version 1.3.6.0
  */
-window.task_manager.tag.beforeAffectTag = function( element ) {
+window.eoxiaJS.taskManager.tag.beforeAffectTag = function( element ) {
 	element.addClass( 'active' );
 
 	return true;
@@ -135,7 +135,7 @@ window.task_manager.tag.beforeAffectTag = function( element ) {
  * @since 1.0.0.0
  * @version 1.3.6.0
  */
-window.task_manager.tag.beforeUnaffectTag = function( element ) {
+window.eoxiaJS.taskManager.tag.beforeUnaffectTag = function( element ) {
 	element.removeClass( 'active' );
 
 	return true;
@@ -151,7 +151,7 @@ window.task_manager.tag.beforeUnaffectTag = function( element ) {
  * @since 1.0.0.0
  * @version 1.3.6.0
  */
-window.task_manager.tag.createdTagSuccess = function( triggeredElement, response ) {
+window.eoxiaJS.taskManager.tag.createdTagSuccess = function( triggeredElement, response ) {
 	jQuery( '.wpeo-tag-title' ).after( response.data.view );
 	jQuery( 'input[name="tag_name"]' ).val( '' );
 };
@@ -166,7 +166,7 @@ window.task_manager.tag.createdTagSuccess = function( triggeredElement, response
  * @since 1.0.0.0
  * @version 1.3.6.0
  */
-window.task_manager.tag.affectedTagSuccess = function( element, response ) {
+window.eoxiaJS.taskManager.tag.affectedTagSuccess = function( element, response ) {
 	element.attr( 'data-action', 'tag_affectation' );
 	element.attr( 'data-before-method', 'beforeAffectTag' );
 	element.attr( 'data-nonce', response.data.nonce );
@@ -182,7 +182,7 @@ window.task_manager.tag.affectedTagSuccess = function( element, response ) {
  * @since 1.0.0.0
  * @version 1.3.6.0
  */
-window.task_manager.tag.unaffectedTagSuccess = function( element, response ) {
+window.eoxiaJS.taskManager.tag.unaffectedTagSuccess = function( element, response ) {
 	element.attr( 'data-action', 'tag_unaffectation' );
 	element.attr( 'data-before-method', 'beforeUnaffectTag' );
 	element.attr( 'data-nonce', response.data.nonce );

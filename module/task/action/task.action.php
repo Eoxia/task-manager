@@ -110,6 +110,7 @@ class Task_Action {
 		) );
 
 		wp_send_json_success( array(
+			'namespace' => 'taskManager',
 			'module' => 'task',
 			'callback_success' => 'createdTaskSuccess',
 			'view' => ob_get_clean(),
@@ -143,6 +144,7 @@ class Task_Action {
 
 		Task_Class::g()->update( $task );
 		wp_send_json_success( array(
+			'namespace' => 'taskManager',
 			'module' => 'task',
 			'callback_success' => 'deletedTaskSuccess',
 			'view' => ob_get_clean(),
@@ -286,6 +288,7 @@ class Task_Action {
 
 		wp_send_json_success( array(
 			'view' => ob_get_clean(),
+			'namespace' => 'taskManager',
 			'module' => 'task',
 			'callback_success' => 'loadedTaskProperties',
 		) );
@@ -354,6 +357,7 @@ class Task_Action {
 		Task_Class::g()->update( $task );
 
 		wp_send_json_success( array(
+			'namespace' => 'taskManager',
 			'module' => 'task',
 			'callback_success' => 'movedTaskTo',
 		) );
@@ -404,6 +408,7 @@ class Task_Action {
 
 		wp_send_json_success( array(
 			'view' => ob_get_clean(),
+			'namespace' => 'taskManager',
 			'module' => 'task',
 			'callback_success' => 'loadedMoreTask',
 			'can_load_more' => ! empty( $tasks ) ? true : false,

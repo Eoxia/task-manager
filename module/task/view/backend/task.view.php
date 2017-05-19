@@ -45,6 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 											data-nonce="<?php echo esc_attr( wp_create_nonce( 'change_color' ) ); ?>"
 											data-id="<?php echo esc_attr( $task->id ); ?>"
 											data-color="<?php echo esc_attr( $color ); ?>"
+											data-namespace="taskManager"
 											data-module="task"
 											data-before-method="beforeChangeColor"></span>
 								<?php

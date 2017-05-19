@@ -34,6 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					<span data-action="<?php echo esc_attr( 'load_comments' ); ?>"
 								data-task-id="<?php echo esc_attr( $parent_id ); ?>"
 								data-point-id="<?php echo esc_attr( $point->id ); ?>"
+								data-namespace="taskManager"
 								data-module="comment"
 								data-before-method="beforeLoadComments"
 								class="animated dashicons dashicons-arrow-right-alt2 action-attribute"></span>

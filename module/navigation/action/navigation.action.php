@@ -49,6 +49,7 @@ class Navigation_Action {
 		echo do_shortcode( '[task]' );
 		wp_send_json_success( array(
 			'view' => ob_get_clean(),
+			'namespace' => 'taskManager',
 			'module' => 'task',
 			'callback_success' => 'loadedAllTask',
 		) );
@@ -69,6 +70,7 @@ class Navigation_Action {
 		echo do_shortcode( '[task users_id="' . get_current_user_id() . '"]' );
 		wp_send_json_success( array(
 			'view' => ob_get_clean(),
+			'namespace' => 'taskManager',
 			'module' => 'navigation',
 			'callback_success' => 'loadedMyTask',
 		) );
@@ -88,6 +90,7 @@ class Navigation_Action {
 		ob_start();
 		echo do_shortcode( '[task status="archive"]' );
 		wp_send_json_success( array(
+			'namespace' => 'taskManager',
 			'module' => 'tag',
 			'callback_success' => 'loadedArchivedTask',
 			'view' => ob_get_clean(),
@@ -117,12 +120,13 @@ class Navigation_Action {
 		$tasks_view = ob_get_clean();
 
 		wp_send_json_success( array(
+			'namespace' => 'taskManager',
 			'module' => 'navigation',
 			'callback_success' => 'searchedSuccess',
 			'view' => array(
 				'tasks' => $tasks_view,
 				'search_result' => $search_result_view,
-			)
+			),
 		) );
 	}
 }
