@@ -8,7 +8,8 @@
 		"wpshop_shop_order",
 		"toplevel_page_wpeomtm-dashboard",
 		"myaccount",
-		"mon-compte"
+		"mon-compte",
+		"toplevel_page_digirisk-simple-risk-evaluation"
 	],
 	"modules": [
 		"core/core.config.json",
