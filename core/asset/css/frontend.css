@@ -3730,6 +3730,9 @@
 .wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-content .content:focus {
   outline: none;
 }
+.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-content .content {
+  min-height: 22px;
+}
 .wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-content .wpeo-point-new-placeholder {
   color: rgba(0, 0, 0, 0.4);
   position: absolute;
