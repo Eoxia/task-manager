@@ -46,6 +46,8 @@ window.eoxiaJS.taskManager.navigation.toggleMoreOptions = function() {
  * @version 1.3.6.0
  */
 window.eoxiaJS.taskManager.navigation.loadedMyTask = function( triggeredElement, response ) {
+	jQuery( '.wpeo-project-wrap .load-more' ).remove();
+
 	jQuery( '.list-task' ).masonry( 'remove', jQuery( '.wpeo-project-task' ) );
 	jQuery( '.list-task' ).replaceWith( response.data.view );
 	jQuery( '.list-task' ).masonry();

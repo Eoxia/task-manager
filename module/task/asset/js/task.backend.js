@@ -44,7 +44,7 @@ window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
 			data.categories_id = jQuery( '.wpeo-header-search input[name="categories_id_selected"]' ).val();
 
 			jQuery( '.load-more' ).addClass( 'loading' );
-			window.eoxiaJS.taskManager.request.send( jQuery( '.load-more' ), data );
+			window.eoxiaJS.request.send( jQuery( '.load-more' ), data );
 		}
 	}
 };
@@ -76,7 +76,7 @@ window.eoxiaJS.taskManager.task.editTitle = function( event ) {
 
 	jQuery( this ).closest( '.wpeo-task-header' ).addClass( 'loading' );
 
-	window.eoxiaJS.taskManager.request.send( jQuery( this ), data );
+	window.eoxiaJS.request.send( jQuery( this ), data );
 };
 
 /**
@@ -141,6 +141,8 @@ window.eoxiaJS.taskManager.task.beforeChangeColor = function( triggeredElement, 
  * @version 1.3.6.0
  */
 window.eoxiaJS.taskManager.task.loadedAllTask = function( triggeredElement, response ) {
+	jQuery( '.wpeo-project-wrap .load-more' ).remove();
+
 	jQuery( '.list-task' ).masonry( 'remove', jQuery( '.wpeo-project-task' ) );
 	jQuery( '.list-task' ).replaceWith( response.data.view );
 	jQuery( '.list-task' ).masonry();
@@ -189,4 +191,18 @@ window.eoxiaJS.taskManager.task.movedTaskTo = function( triggeredElement, respon
 	jQuery( '.list-task' ).masonry( 'remove', triggeredElement.closest( '.wpeo-project-task' ) );
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).remove();
 	window.eoxiaJS.refresh();
+};
+
+window.eoxiaJS.taskManager.task.loadedCorretiveTaskSuccess = function( triggeredElement, response ) {
+
+	jQuery( '.list-task' ).masonry( 'remove', jQuery( '.wpeo-project-task' ) );
+	jQuery( '.list-task' ).replaceWith( response.data.view );
+	jQuery( '.list-task' ).masonry();
+	window.eoxiaJS.taskManager.task.offset = 0;
+	window.eoxiaJS.taskManager.task.canLoadMore = true;
+	jQuery( '.wpeo-project-wrap .load-more' ).remove();
+
+
+	jQuery( '.wpeo-header-bar li.active' ).removeClass( 'active' );
+	jQuery( triggeredElement ).addClass( 'active' );
 };

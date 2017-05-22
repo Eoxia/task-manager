@@ -101,6 +101,8 @@ window.eoxiaJS.taskManager.tag.closedTagEditMode = function( element, response )
  * @version 1.0.0.0
  */
 window.eoxiaJS.taskManager.tag.loadedArchivedTask = function( triggeredElement, response ) {
+	jQuery( '.wpeo-project-wrap .load-more' ).remove();
+
 	jQuery( '.list-task' ).masonry( 'remove', jQuery( '.wpeo-project-task' ) );
 	jQuery( '.list-task' ).replaceWith( response.data.view );
 	jQuery( '.list-task' ).masonry();

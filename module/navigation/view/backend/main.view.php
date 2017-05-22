@@ -21,6 +21,8 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 			<li class="action-attribute" data-action="load_my_task" data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_my_task' ) ); ?>">Mes tâches</li>
 			<li class="action-attribute" data-action="load_archived_task" data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_archived_task' ) ); ?>">Tâches archivées</li>
 
+			<?php echo apply_filters( 'task_manager_navigation_after', '' ); ?>
+
 			<li class="wpeo-general-search">
 				<input type="hidden" name="action" value="search" />
 				<label for="general-search">

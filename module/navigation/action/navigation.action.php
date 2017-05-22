@@ -46,7 +46,7 @@ class Navigation_Action {
 		check_ajax_referer( 'load_all_task' );
 
 		ob_start();
-		echo do_shortcode( '[task]' );
+		echo do_shortcode( '[task with_wrapper="0"]' );
 		wp_send_json_success( array(
 			'view' => ob_get_clean(),
 			'namespace' => 'taskManager',
@@ -67,7 +67,7 @@ class Navigation_Action {
 		check_ajax_referer( 'load_my_task' );
 
 		ob_start();
-		echo do_shortcode( '[task users_id="' . get_current_user_id() . '"]' );
+		echo do_shortcode( '[task users_id="' . get_current_user_id() . '" with_wrapper="0"]' );
 		wp_send_json_success( array(
 			'view' => ob_get_clean(),
 			'namespace' => 'taskManager',
@@ -88,7 +88,7 @@ class Navigation_Action {
 		check_ajax_referer( 'load_archived_task' );
 
 		ob_start();
-		echo do_shortcode( '[task status="archive"]' );
+		echo do_shortcode( '[task status="archive" with_wrapper="0"]' );
 		wp_send_json_success( array(
 			'namespace' => 'taskManager',
 			'module' => 'tag',
