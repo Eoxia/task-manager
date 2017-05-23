@@ -29,7 +29,7 @@ class Task_Comment_Action {
 		add_action( 'wp_ajax_load_comments', array( $this, 'callback_load_comments' ) );
 		add_action( 'wp_ajax_edit_comment', array( $this, 'callback_edit_comment' ) );
 		add_action( 'wp_ajax_load_edit_view_comment', array( $this, 'callback_load_edit_view_comment' ) );
-		add_action( 'wp_ajax_delete_comment', array( $this, 'callback_delete_comment' ) );
+		add_action( 'wp_ajax_delete_task_comment', array( $this, 'callback_delete_task_comment' ) );
 	}
 
 	/**
@@ -128,6 +128,7 @@ class Task_Comment_Action {
 				'task' => $task->time_info['time_display'] . ' (' . $task->time_info['elapsed'] . 'min)',
 			),
 			'view' => ob_get_clean(),
+			'namespace' => 'taskManager',
 			'module' => 'comment',
 			'callback_success' => ! empty( $comment_id ) ? 'editedCommentSuccess' : 'addedCommentSuccess',
 			'comment' => $comment,
@@ -164,6 +165,7 @@ class Task_Comment_Action {
 		) );
 
 		wp_send_json_success( array(
+			'namespace' => 'taskManager',
 			'module' => 'comment',
 			'callback_success' => 'loadedEditViewComment',
 			'view' => ob_get_clean(),
@@ -178,8 +180,8 @@ class Task_Comment_Action {
 	 * @since 1.0.0.0
 	 * @version 1.3.6.0
 	 */
-	public function callback_delete_comment() {
-		check_ajax_referer( 'delete_comment' );
+	public function callback_delete_task_comment() {
+		check_ajax_referer( 'delete_task_comment' );
 
 		$comment_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 
@@ -207,6 +209,7 @@ class Task_Comment_Action {
 				'point' => $comment->point->time_info['elapsed'],
 				'task' => $task->time_info['time_display'] . ' (' . $task->time_info['elapsed'] . 'min)',
 			),
+			'namespace' => 'taskManager',
 			'module' => 'comment',
 			'callback_success' => 'deletedCommentSuccess',
 		) );

@@ -14,14 +14,14 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
-<?php if ( ! empty( $tasks ) && ! empty( $tasks[0] ) ) : ?>
-	<div class="list-task">
-		<?php
-		foreach ( $tasks as $task ) :
-			View_Util::exec( 'task', 'frontend/task', array(
-				'task' => $task,
-			) );
-		endforeach;
-		?>
-	</div>
-<?php endif; ?>
+<div class="list-task">
+	<?php if ( ! empty( $tasks ) && ! empty( $tasks[0] ) ) : ?>
+			<?php
+			foreach ( $tasks as $task ) :
+				View_Util::exec( 'task', 'frontend/task', array(
+					'task' => $task,
+				) );
+			endforeach;
+			?>
+	<?php endif; ?>
+</div>

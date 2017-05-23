@@ -202,7 +202,6 @@ window.eoxiaJS.taskManager.task.loadedCorretiveTaskSuccess = function( triggered
 	window.eoxiaJS.taskManager.task.canLoadMore = true;
 	jQuery( '.wpeo-project-wrap .load-more' ).remove();
 
-
 	jQuery( '.wpeo-header-bar li.active' ).removeClass( 'active' );
 	jQuery( triggeredElement ).addClass( 'active' );
 };

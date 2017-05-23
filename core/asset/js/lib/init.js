@@ -41,9 +41,17 @@ if ( ! window.eoxiaJS.scriptsLoaded ) {
 
 	window.eoxiaJS.refresh = function() {
 		var key = undefined;
+		var slug = undefined;
 		for ( key in window.eoxiaJS ) {
 			if ( window.eoxiaJS[key].refresh ) {
 				window.eoxiaJS[key].refresh();
+			}
+
+			for ( slug in window.eoxiaJS[key] ) {
+
+				if ( window.eoxiaJS[key][slug].refresh ) {
+					window.eoxiaJS[key][slug].refresh();
+				}
 			}
 		}
 	};

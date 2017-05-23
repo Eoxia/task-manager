@@ -68,7 +68,7 @@ function get_full_point( $point ) {
 		}
 	}
 
-	$point->content = parse_content_tooltip( $point->content );
+	// $point->content = parse_content_tooltip( $point->content );
 
 	return $point;
 }

@@ -123,7 +123,7 @@ if ( ! window.eoxiaJS.action ) {
 		}
 
 		if ( doAction ) {
-			if ( window.confirm( window.digi_confirm_delete ) ) {
+			if ( window.confirm( element.attr( 'data-message-delete' ) ) ) {
 				element.get_data( function( data ) {
 					loaderElement.addClass( 'loading' );
 					window.eoxiaJS.request.send( element, data );

@@ -37,9 +37,9 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					</li>
 
 					<li class="action-delete"
-							data-action="delete_comment"
+							data-action="delete_task_comment"
 							data-message-delete="<?php echo esc_attr_e( 'Supprimer ce commentaire', 'task-manager' ); ?>"
-							data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_comment' ) ); ?>"
+							data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_task_comment' ) ); ?>"
 							data-id="<?php echo esc_attr( $comment->id ); ?>"
 						<span><?php esc_html_e( 'Supprimer le commentaire', 'task-manager' ); ?></span>
 					</li>

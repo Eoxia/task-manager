@@ -57,11 +57,11 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					<li class="open-popup-ajax"
 							data-action="load_task_properties"
 							data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_task_properties' ) ); ?>"
-							data-title="<?php esc_attr_e( 'Propriété des tâches: #' . $task->id . ' ' . $task->title, 'task-manager' ); ?>"
+							data-title="<?php esc_attr_e( 'Propriété de la tâche: #' . $task->id . ' ' . $task->title, 'task-manager' ); ?>"
 							data-id="<?php echo esc_attr( $task->id ); ?>"
 							data-parent="wpeo-project-task"
 							data-target="popup">
-						<span><?php esc_html_e( 'Propriété des tâches', 'task-manager' ); ?></span>
+						<span><?php esc_html_e( 'Propriété de la tâche', 'task-manager' ); ?></span>
 					</li>
 
 					<li class="action-attribute"
