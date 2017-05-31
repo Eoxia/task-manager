@@ -28,6 +28,7 @@ class Task_Manager_Action {
 		add_action( 'admin_enqueue_scripts', array( $this, 'callback_admin_enqueue_scripts' ), 11 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'callback_enqueue_scripts' ), 11 );
 		add_action( 'admin_print_scripts', array( $this, 'callback_admin_print_scripts' ) );
+		add_action( 'wp_print_scripts', array( $this, 'callback_wp_print_scripts' ) );
 
 		// add_action( 'init', array( $this, 'callback_plugins_loaded' ) );
 		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 12 );
@@ -80,6 +81,8 @@ class Task_Manager_Action {
 
 		wp_register_style( 'task-manager-frontend-style', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/frontend.css', array(), Config_Util::$init['task-manager']->version );
 		wp_enqueue_style( 'task-manager-frontend-style' );
+
+		wp_enqueue_script( 'task-manager-frontend-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/frontend.min.js', array(), Config_Util::$init['task-manager']->version, false );
 	}
 
 	/**
@@ -99,6 +102,12 @@ class Task_Manager_Action {
 	 */
 	public function callback_plugins_loaded() {
 		$i18n_loaded = load_plugin_textdomain( 'task-manager', false, PLUGIN_TASK_MANAGER_DIR . '/core/asset/language/' );
+	}
+
+	public function callback_wp_print_scripts() {
+		?>
+		<script>var ajaxurl = "<?php echo admin_url( 'admin-ajax.php' ); ?>";</script>
+		<?php
 	}
 
 	/**

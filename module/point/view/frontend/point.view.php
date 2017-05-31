@@ -18,19 +18,17 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	<ul class="point-container">
 		<li class="point-toggle">
 			<?php if ( ! empty( $point->id ) ) : ?>
-				<span data-action="<?php echo esc_attr( 'load_front_comments' ); ?>"
-							data-task-id="<?php echo esc_attr( $parent_id ); ?>"
-							data-point-id="<?php echo esc_attr( $point->id ); ?>"
-							data-namespace="taskManager"
-							data-module="frontendSupport"
-							data-before-method="beforeLoadComments"
-							class="animated dashicons dashicons-arrow-right-alt2 action-attribute"></span>
-
 				<span class="wpeo-block-id">#<?php echo esc_attr( $point->id ); ?></span>
 			<?php endif; ?>
 		</li>
 
-		<li class="point-content content">
+		<li class="point-content content action-attribute"
+				data-namespace="taskManagerFrontend"
+				data-module="comment"
+				data-before-method="beforeLoadComment"
+				data-action="load_front_comments"
+				data-task-id="<?php echo esc_attr( $point->post_id ); ?>"
+				data-point-id="<?php echo esc_attr( $point->id ); ?>">
 			<span><?php echo $point->content; ?></span>
 		</li>
 

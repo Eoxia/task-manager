@@ -6,6 +6,7 @@ if ( ! window.eoxiaJS ) {
 }
 
 window.eoxiaJS.taskManager = {};
+window.eoxiaJS.taskManagerFrontend = {};
 
 if ( ! window.eoxiaJS.scriptsLoaded ) {
 	window.eoxiaJS.init = function() {
