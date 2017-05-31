@@ -46,7 +46,6 @@ class Task_Comment_Action {
 		$point_id = ! empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
 
 		$comments = Task_Comment_Class::g()->get( array(
-			'post_id' => $task_id,
 			'parent' => $point_id,
 			'status' => '-34070',
 		) );
