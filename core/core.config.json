@@ -1,0 +1,12 @@
+{
+	"name": "Task Manager Core",
+	"slug": "core",
+	"version": "1.3.4.0",
+	"description": "Les fichiers core du plugin",
+	"path": "core/",
+	"dependencies": {
+		"action": {},
+		"class": {},
+		"helper": {}
+	}
+}

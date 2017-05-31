@@ -1,7 +1,7 @@
 jQuery( document ).ready( function() {
 	jQuery.eoajax = function( url, data, callback ) {
 		if ( typeof callback == 'function' ) {
-			jQuery.post( url, data, function( response ) { 
+			jQuery.post( url, data, function( response ) {
 				if( response && !response.success ) {
 					//alert( 'Success: ' + response.success );
 				}
@@ -11,14 +11,14 @@ jQuery( document ).ready( function() {
 			} );
 	    }
 	}
-	
+
 	/** Si ajaxForm est activé */
 	if( jQuery.fn.ajaxSubmit ) {
 		jQuery.eoAjaxSubmit = function( form, data, callback ) {
 			if ( typeof callback == 'function' ) {
 				form.ajaxSubmit( {
 					'data': data,
-					'success': function( response ) { 
+					'success': function( response ) {
 						if( response && !response.success ) {
 							//alert( 'Success: ' + response.success );
 						}
@@ -28,11 +28,11 @@ jQuery( document ).ready( function() {
 					}
 				} );
 		    }
-			
+
 			return this;
 		}
 	}
-	
+
 	if( jQuery.fn.ajaxForm ) {
 		jQuery.eoAjaxForm = function( form, data, callback ) {
 			if ( typeof callback == 'function' ) {
@@ -41,7 +41,7 @@ jQuery( document ).ready( function() {
 					'beforeSubmit': function( arra, $form, options ) {
 						return false;
 					},
-					'success': function( response ) { 
+					'success': function( response ) {
 						if( response && !response.success ) {
 							//alert( 'Success: ' + response.success );
 						}
@@ -51,7 +51,7 @@ jQuery( document ).ready( function() {
 					}
 				} );
 		    }
-			
+
 			return this;
 		}
 	}

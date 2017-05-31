@@ -1,0 +1,12 @@
+{
+	"name": "Update manager",
+	"slug": "update-manager",
+	"since": "1.3.4.0",
+	"version": "1.3.4.0",
+	"description": "Le module gérant les mise à jour des données dans les différentes versions de Task Manager",
+	"path": "module/update-manager/",
+	"state": false,
+	"dependencies": {
+		"action": {}
+	}
+}

@@ -1,5 +1,5 @@
 (function() {
-    tinymce.create('tinymce.plugins.task', {
+    tinymce.create( 'tinymce.plugins.task', {
         /**
          * Initializes the plugin, this will be executed after the plugin has been created.
          * This call is done before the editor instance has finished it's initialization so use the onInit event
@@ -8,24 +8,24 @@
          * @param {tinymce.Editor} ed Editor instance that the plugin is initialized in.
          * @param {string} url Absolute URL to where the plugin is located.
          */
-        init : function(ed, url) {
-          ed.addButton('task', {
-            title : 'Task shortcode',
-            cmd : 'task',
+        init: function( ed, url ) {
+          ed.addButton( 'task', {
+            title: taskManagerWysiwygButton.button_title,
+            cmd: 'task',
             icon: 'wp_code'
           });
 
-          ed.addCommand('task', function() {
+          ed.addCommand( 'task', function() {
             var data = {
-              action: 'ed_get_list_task'
+              action: 'wysiwyg_get_list_task'
             };
 
-            jQuery.get(ajaxurl, data, function(response) {
+            jQuery.get( ajaxurl, data, function( response ) {
               ed.windowManager.open({
-                title: "Select task",
+                title: taskManagerWysiwygButton.window_title,
                 body: response.data.list_task,
-                onsubmit: function(e) {
-                  ed.insertContent('[task id="' + e.data.task_id + '"]');
+                onsubmit: function( e ) {
+                  ed.insertContent( '[task id="' + e.data.task_id + '"]' );
                 }
               });
             });
@@ -42,7 +42,7 @@
          * @param {tinymce.ControlManager} cm Control manager to use inorder to create new control.
          * @return {tinymce.ui.Control} New control instance or null if no control was created.
          */
-        createControl : function(n, cm) {
+        createControl: function( n, cm ) {
             return null;
         },
 
@@ -52,11 +52,11 @@
          *
          * @return {Object} Name/value array containing information about the plugin.
          */
-        getInfo : function() {
+        getInfo: function() {
             return {
-                longname : 'Task button',
-                author : 'Jimmy Latour',
-                version : "0.1"
+                longname: 'Task button',
+                author: 'Jimmy Latour',
+                version: '0.1'
             };
         }
     });
