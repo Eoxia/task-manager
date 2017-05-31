@@ -78,7 +78,9 @@ window.eoxiaJS.taskManager.comment.loadComments = function( event ) {
 	data.point_id = jQuery( this ).closest( '.point' ).data( 'id' );
 
 	if ( ! jQuery( this ).closest( 'div.point' ).find( '.comments' ).is( ':visible' ) ) {
-		jQuery( 'div.point .comments:visible' ).slideUp();
+		jQuery( 'div.point .comments:visible' ).slideUp( 400, function() {
+			window.eoxiaJS.refresh();
+		} );
 
 		jQuery( this ).addClass( 'loading' );
 		window.eoxiaJS.request.send( jQuery( this ), data );
@@ -100,9 +102,9 @@ window.eoxiaJS.taskManager.comment.loadedCommentsSuccess = function( triggeredEl
 	jQuery( triggeredElement ).closest( 'div.point' ).find( '.comments' ).html( response.data.view );
 
 	triggeredElement.removeClass( 'loading' );
-	triggeredElement.closest( 'div.point' ).find( '.comments' ).slideDown();
-
-	window.eoxiaJS.refresh();
+	triggeredElement.closest( 'div.point' ).find( '.comments' ).slideDown( 400, function() {
+		window.eoxiaJS.refresh();
+	} );
 };
 
 /**
