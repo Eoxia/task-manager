@@ -29,6 +29,7 @@ window.eoxiaJS.taskManager.comment.init = function() {
 window.eoxiaJS.taskManager.comment.event = function() {
 	jQuery( document ).on( 'keyup', '.comment.edit input[name="content"]', window.eoxiaJS.taskManager.comment.triggerCreate );
 	jQuery( document ).on( 'blur keyup paste keydown click', '.comment .content', window.eoxiaJS.taskManager.comment.updateHiddenInput );
+	jQuery( document ).on( 'click', '.point.edit div[contenteditable="true"].wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.comment.loadComments );
 };
 
 window.eoxiaJS.taskManager.comment.triggerCreate = function( event ) {
@@ -61,23 +62,24 @@ window.eoxiaJS.taskManager.comment.updateHiddenInput = function( event ) {
 };
 
 /**
- * Avant de charger les commentaires, change la dashicons.
+ * Charges les commentaires au clic sur le content editable.
  *
- * @param  {HTMLSpanElement} triggeredElement L'élément HTML déclenchant l'action.
- * @return void
+ * @param  {MouseEvent} event L'évènement du clic
+ * @return {void}
  *
  * @since 1.3.6.0
  * @version 1.3.6.0
  */
-window.eoxiaJS.taskManager.comment.beforeLoadComments = function( triggeredElement ) {
-	triggeredElement.toggleClass( 'dashicons-arrow-right-alt2 dashicons-arrow-down-alt2' );
+window.eoxiaJS.taskManager.comment.loadComments = function( event ) {
+	var data = {};
 
-	if ( triggeredElement.hasClass( 'dashicons-arrow-right-alt2' ) ) {
-		triggeredElement.closest( 'div.point' ).find( '.comments' ).toggleClass( 'hidden' );
-		return false;
+	data.action = 'load_comments';
+	data.task_id = jQuery( this ).closest( '.wpeo-project-task' ).data( 'id' );
+	data.point_id = jQuery( this ).closest( '.point' ).data( 'id' );
+
+	if ( ! jQuery( this ).closest( 'div.point' ).find( '.comments' ).is( ':visible' ) ) {
+		window.eoxiaJS.request.send( jQuery( this ), data );
 	}
-
-	return true;
 };
 
 /**
@@ -93,7 +95,9 @@ window.eoxiaJS.taskManager.comment.beforeLoadComments = function( triggeredEleme
  */
 window.eoxiaJS.taskManager.comment.loadedCommentsSuccess = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( 'div.point' ).find( '.comments' ).html( response.data.view );
-	triggeredElement.closest( 'div.point' ).find( '.comments' ).toggleClass( 'hidden' );
+
+	jQuery( 'div.point .comments:visible' ).fadeOut();
+	triggeredElement.closest( 'div.point' ).find( '.comments' ).fadeIn();
 
 	window.eoxiaJS.refresh();
 };
