@@ -25,8 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	</li>
 </ul>
 
-<form class="form" action="<?php esc_attr( admin_url( 'admin-ajax' ) ); ?>" method="POST">
-
+<div class="form">
 	<input type="hidden" name="task_id" value="<?php echo esc_attr( $point->post_id ); ?>" />
 	<input type="hidden" name="point_id" value="<?php echo esc_attr( $point->id ); ?>" />
 	<input type="hidden" name="action" value="move_point_to" />
@@ -36,6 +35,5 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	<input type="text" class="search-task" />
 	<input type="hidden" name="to_task_id" />
 	<input type="button" class="action-input" data-parent="form" value="<?php esc_html_e( 'Déplacer', 'task-manager' ); ?>" />
-	<div class="list-tasks">
-	</div>
-</form>
+	<div class="list-tasks"></div>
+</div>

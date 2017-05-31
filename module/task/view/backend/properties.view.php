@@ -26,8 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 </ul>
 
 
-<form class="form" action="<?php esc_attr( admin_url( 'admin-ajax' ) ); ?>" method="POST">
-
+<div class="form">
 	<input type="hidden" name="task_id" value="<?php echo esc_attr( $task->id ); ?>" />
 	<input type="hidden" name="action" value="move_task_to" />
 	<?php wp_nonce_field( 'move_task_to' ); ?>
@@ -38,4 +37,4 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	<input type="button" class="action-input" data-loader="form" data-parent="form" value="<?php esc_html_e( 'Déplacer', 'task-manager' ); ?>" />
 	<div class="list-posts">
 	</div>
-</form>
+</div>
