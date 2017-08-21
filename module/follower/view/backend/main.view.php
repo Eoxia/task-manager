@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 	<?php
 	if ( ! empty( $followers ) ) :
 		foreach ( $followers as $follower ) :
-			View_Util::exec( 'follower', 'backend/follower', array(
+			\eoxia\View_Util::exec( 'follower', 'backend/follower', array(
 				'user' => $follower,
 			) );
 		endforeach;

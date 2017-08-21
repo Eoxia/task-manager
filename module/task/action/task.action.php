@@ -105,7 +105,7 @@ class Task_Action {
 		}
 
 		ob_start();
-		View_Util::exec( 'task', 'backend/task', array(
+		\eoxia\View_Util::exec( 'task', 'backend/task', array(
 			'task' => $task,
 		) );
 
@@ -282,7 +282,7 @@ class Task_Action {
 		), true );
 
 		ob_start();
-		View_Util::exec( 'task', 'backend/properties', array(
+		\eoxia\View_Util::exec( 'task', 'backend/properties', array(
 			'task' => $task,
 		) );
 

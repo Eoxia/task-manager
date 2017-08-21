@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 /**
  * La définition du modèle des commentaires
  */
-class Task_Comment_Model extends Comment_Model {
+class Task_Comment_Model extends \eoxia\Comment_Model {
 
 	/**
 	 * Le constructeur qui permet de faire la définition du modèle.

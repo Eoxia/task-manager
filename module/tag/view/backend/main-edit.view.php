@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 	<?php
 	if ( ! empty( $tags ) ) :
 		foreach ( $tags as $tag ) :
-			View_Util::exec( 'tag', 'backend/tag-edit', array(
+			\eoxia\View_Util::exec( 'tag', 'backend/tag-edit', array(
 				'tag' => $tag,
 				'task' => $task,
 			) );

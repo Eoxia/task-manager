@@ -11,10 +11,12 @@
 		"mon-compte",
 		"toplevel_page_digirisk-simple-risk-evaluation"
 	],
+	"externals": [
+		"core/external/wpeo_log/wpeo_log.config.json",
+		"core/external/wpeo_model/wpeo_model.config.json"
+	],
 	"modules": [
 		"core/core.config.json",
-		"core/external/wpeo_log/wpeo_log.config.json",
-		"core/external/wpeo_model_tmp/wpeo_model.config.json",
 
 		"module/update-manager/update-manager.config.json",
 		"module/avatar/avatar.config.json",

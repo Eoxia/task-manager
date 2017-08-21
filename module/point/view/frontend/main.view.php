@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	<?php
 	if ( ! empty( $points_uncompleted ) ) :
 		foreach ( $points_uncompleted as $point ) :
-			View_Util::exec( 'point', 'frontend/point', array(
+			\eoxia\View_Util::exec( 'point', 'frontend/point', array(
 				'point' => $point,
 				'parent_id' => $point->post_id,
 			) );
@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		<?php
 		if ( ! empty( $points_completed ) ) :
 			foreach ( $points_completed as $point ) :
-				View_Util::exec( 'point', 'frontend/point', array(
+				\eoxia\View_Util::exec( 'point', 'frontend/point', array(
 					'point' => $point,
 					'parent_id' => $point->post_id,
 				) );

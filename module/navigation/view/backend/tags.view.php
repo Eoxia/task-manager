@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 	<?php
 	if ( ! empty( $categories ) ) :
 		foreach ( $categories as $category ) :
-			View_Util::exec( 'navigation', 'backend/tag', array(
+			\eoxia\View_Util::exec( 'navigation', 'backend/tag', array(
 				'category' => $category,
 			) );
 		endforeach;

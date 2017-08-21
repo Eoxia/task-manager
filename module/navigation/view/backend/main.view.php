@@ -37,13 +37,13 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 
 	<div class="wpeo-header-search hidden active">
 
-		<?php View_Util::exec( 'navigation', 'backend/followers', array(
+		<?php \eoxia\View_Util::exec( 'navigation', 'backend/followers', array(
 			'followers' => $followers,
 		) ); ?>
 
 		<ul>
 			<li class="tag-search">
-				<?php View_Util::exec( 'navigation', 'backend/tags', array(
+				<?php \eoxia\View_Util::exec( 'navigation', 'backend/tags', array(
 					'categories' => $categories,
 				) ); ?>
 			</li>

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 /**
  * Gestion des tâches.
  */
-class Task_Class extends Post_Class {
+class Task_Class extends \eoxia\Post_Class {
 
 	/**
 	 * Toutes les couleurs disponibles pour une t$ache
@@ -214,7 +214,7 @@ class Task_Class extends Post_Class {
 	 * @version 1.3.6.0
 	 */
 	public function display_tasks( $tasks, $with_wrapper = false ) {
-		View_Util::exec( 'task', 'backend/tasks', array(
+		\eoxia\View_Util::exec( 'task', 'backend/tasks', array(
 			'tasks' => $tasks,
 			'with_wrapper' => $with_wrapper,
 		) );

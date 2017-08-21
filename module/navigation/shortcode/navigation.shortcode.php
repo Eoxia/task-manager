@@ -58,7 +58,7 @@ class Search_Bar_Shortcode {
 			'follower_id_selected' => array(),
 		), $param, 'task_manager_search_bar' );
 
-		View_Util::exec( 'navigation', 'backend/main', array(
+		\eoxia\View_Util::exec( 'navigation', 'backend/main', array(
 			'categories' => $categories,
 			'followers' => $followers,
 			'param' => $param,

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 /**
  * Gestion de la navigation.
  */
-class Navigation_Class extends Singleton_Util {
+class Navigation_Class extends \eoxia\Singleton_Util {
 
 	/**
 	 * Le constructeur
@@ -64,7 +64,7 @@ class Navigation_Class extends Singleton_Util {
 			$follower_searched = $follower->displayname;
 		}
 
-		View_Util::exec( 'navigation', 'backend/search-results', array(
+		\eoxia\View_Util::exec( 'navigation', 'backend/search-results', array(
 			'term' => $term,
 			'categories_searched' => $categories_searched,
 			'follower_searched' => $follower_searched,

@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 <?php
 if ( ! empty( $tasks ) ) :
 	foreach ( $tasks as $task ) :
-		View_Util::exec( 'task', 'backend/task', array(
+		\eoxia\View_Util::exec( 'task', 'backend/task', array(
 			'task' => $task,
 			'with_wrapper' => $with_wrapper,
 		) );

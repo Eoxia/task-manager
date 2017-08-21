@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 /**
  * Gestion des points
  */
-class Point_Class extends Comment_Class {
+class Point_Class extends \eoxia\Comment_Class {
 
 	/**
 	 * Le nom du modèle
@@ -78,9 +78,9 @@ class Point_Class extends Comment_Class {
 	 * @version 1.3.6.0
 	 */
 	public function display( $task_id, $frontend = false ) {
-		log_class::g()->start_ms( 'task_points' );
+		\eoxia\log_class::g()->start_ms( 'task_points' );
 
-		$task = Task_Class::g()->get( array(
+		$task = \eoxia\Task_Class::g()->get( array(
 			'post__in' => array(
 				$task_id
 			),
@@ -117,12 +117,12 @@ class Point_Class extends Comment_Class {
 		);
 
 		if ( $frontend ) {
-			View_Util::exec( 'point', 'frontend/main', $args );
+			\eoxia\View_Util::exec( 'point', 'frontend/main', $args );
 		} else {
-			View_Util::exec( 'point', 'backend/main', $args );
+			\eoxia\View_Util::exec( 'point', 'backend/main', $args );
 		}
 
-		log_class::g()->exec( 'task_points', 'task_points', 'Chargement des points', $args );
+		\eoxia\log_class::g()->exec( 'task_points', 'task_points', 'Chargement des points', $args );
 	}
 }
 

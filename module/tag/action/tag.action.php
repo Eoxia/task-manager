@@ -135,7 +135,7 @@ class Tag_Action {
 		), true );
 
 		ob_start();
-		View_Util::exec( 'tag', 'backend/main-edit', array(
+		\eoxia\View_Util::exec( 'tag', 'backend/main-edit', array(
 			'tags' => $tags,
 			'task' => $task,
 		) );
@@ -258,7 +258,7 @@ class Tag_Action {
 		), true );
 
 		ob_start();
-		View_Util::exec( 'navigation', 'backend/tag', array(
+		\eoxia\View_Util::exec( 'navigation', 'backend/tag', array(
 			'category' => $category,
 		) );
 		wp_send_json_success( array(

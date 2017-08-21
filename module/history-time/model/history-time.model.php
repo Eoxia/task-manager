@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 /**
  * La définition du schéma des données de l'hitorique du temps.
  */
-class History_Time_Model extends Comment_Model {
+class History_Time_Model extends \eoxia\Comment_Model {
 
 	/**
 	 * Le constructeur défini le schéma.

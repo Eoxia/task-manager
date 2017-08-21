@@ -70,12 +70,12 @@ class Task_Shortcode {
 		$tasks = Task_Class::g()->get_tasks( $param );
 
 		if ( $param['frontend'] ) {
-			View_Util::exec( 'task', 'frontend/main', array(
+			\eoxia\View_Util::exec( 'task', 'frontend/main', array(
 				'tasks' => $tasks,
 				'with_wrapper' => $param['with_wrapper'],
 			) );
 		} else {
-			View_Util::exec( 'task', 'backend/main', array(
+			\eoxia\View_Util::exec( 'task', 'backend/main', array(
 				'tasks' => $tasks,
 				'with_wrapper' => $param['with_wrapper'],
 			) );

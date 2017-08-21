@@ -41,7 +41,7 @@ class Task_Manager_Action {
 	 */
 	public function callback_before_admin_enqueue_scripts() {
 		$screen = get_current_screen();
-		if ( in_array( $screen->id, config_util::$init['task-manager']->insert_scripts_pages, true ) ) {
+		if ( in_array( $screen->id, \eoxia\Config_Util::$init['task-manager']->insert_scripts_pages, true ) ) {
 			wp_enqueue_script( 'jquery' );
 			wp_enqueue_script( 'jquery-form' );
 			wp_enqueue_script( 'jquery-ui-datepicker' );
@@ -60,29 +60,29 @@ class Task_Manager_Action {
 	 */
 	public function callback_admin_enqueue_scripts() {
 		$screen = get_current_screen();
-		if ( in_array( $screen->id, config_util::$init['task-manager']->insert_scripts_pages, true ) ) {
-			wp_register_style( 'task-manager-style', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/style.min.css', array(), config_util::$init['task-manager']->version );
+		if ( in_array( $screen->id, \eoxia\config_util::$init['task-manager']->insert_scripts_pages, true ) ) {
+			wp_register_style( 'task-manager-style', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/style.min.css', array(), \eoxia\config_util::$init['task-manager']->version );
 			wp_enqueue_style( 'task-manager-style' );
 
-			wp_enqueue_style( 'task-manager-datepicker', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/datepicker.min.css', array(), Config_Util::$init['task-manager']->version );
-			wp_enqueue_style( 'task-manager-datetimepicker', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/jquery.datetimepicker.css', array(), Config_Util::$init['task-manager']->version );
+			wp_enqueue_style( 'task-manager-datepicker', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/datepicker.min.css', array(), \eoxia\Config_Util::$init['task-manager']->version );
+			wp_enqueue_style( 'task-manager-datetimepicker', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/jquery.datetimepicker.css', array(), \eoxia\Config_Util::$init['task-manager']->version );
 
-			wp_enqueue_script( 'task-manager-masonry', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/masonry.min.js', array(), Config_Util::$init['task-manager']->version );
-			wp_enqueue_script( 'task-manager-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/backend.min.js', array(), Config_Util::$init['task-manager']->version );
-			wp_enqueue_script( 'task-manager-datetimepicker-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/jquery.datetimepicker.full.js', array(), Config_Util::$init['task-manager']->version );
+			wp_enqueue_script( 'task-manager-masonry', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/masonry.min.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
+			wp_enqueue_script( 'task-manager-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/backend.min.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
+			wp_enqueue_script( 'task-manager-datetimepicker-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/jquery.datetimepicker.full.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
 		}
 	}
 
 	public function callback_enqueue_scripts() {
 		$pagename = get_query_var( 'pagename' );
-		if ( in_array( $pagename, Config_Util::$init['task-manager']->insert_scripts_pages, true ) ) {
-			wp_enqueue_style( 'task-manager-datepicker', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/datepicker.min.css', array(), Config_Util::$init['task-manager']->version );
+		if ( in_array( $pagename, \eoxia\Config_Util::$init['task-manager']->insert_scripts_pages, true ) ) {
+			wp_enqueue_style( 'task-manager-datepicker', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/datepicker.min.css', array(), \eoxia\Config_Util::$init['task-manager']->version );
 		}
 
-		wp_register_style( 'task-manager-frontend-style', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/frontend.css', array(), Config_Util::$init['task-manager']->version );
+		wp_register_style( 'task-manager-frontend-style', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/frontend.css', array(), \eoxia\Config_Util::$init['task-manager']->version );
 		wp_enqueue_style( 'task-manager-frontend-style' );
 
-		wp_enqueue_script( 'task-manager-frontend-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/frontend.min.js', array(), Config_Util::$init['task-manager']->version, false );
+		wp_enqueue_script( 'task-manager-frontend-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/frontend.min.js', array(), \eoxia\Config_Util::$init['task-manager']->version, false );
 	}
 
 	/**
@@ -92,7 +92,7 @@ class Task_Manager_Action {
 	 */
 	public function callback_admin_print_scripts() {
 		$screen = get_current_screen();
-		if ( in_array( $screen->id, config_util::$init['task-manager']->insert_scripts_pages, true ) ) {
+		if ( in_array( $screen->id, \eoxia\config_util::$init['task-manager']->insert_scripts_pages, true ) ) {
 			require( PLUGIN_TASK_MANAGER_PATH . '/core/asset/js/language.js.php' );
 		}
 	}

@@ -45,7 +45,7 @@ class Owner_Action {
 		) );
 
 		ob_start();
-		View_Util::exec( 'owner', 'backend/list', array(
+		\eoxia\View_Util::exec( 'owner', 'backend/list', array(
 			'users' => $users,
 			'task_id' => $task_id,
 		) );

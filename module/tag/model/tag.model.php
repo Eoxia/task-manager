@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 * @package Digirisk model manager
 * @subpackage Taxonomies
 */
-class Tag_Model extends Term_Model {
+class Tag_Model extends \eoxia\Term_Model {
 
 	public function __construct( $object ) {
 		/**	Instanciation du constructeur de modèle principal / Instanciate the main model constructor	*/

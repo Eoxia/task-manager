@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 /**
  * Gestion des avatars
  */
-class Avatar_Class extends Singleton_Util {
+class Avatar_Class extends \eoxia\Singleton_Util {
 	protected function construct() {}
 
 	public function get_avatars( $param ) {

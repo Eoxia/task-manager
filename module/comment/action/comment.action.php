@@ -67,7 +67,7 @@ class Task_Comment_Action {
 		), true );
 
 		ob_start();
-		View_Util::exec( 'comment', 'backend/main', array(
+		\eoxia\View_Util::exec( 'comment', 'backend/main', array(
 			'task_id' => $task_id,
 			'point_id' => $point_id,
 			'comments' => $comments,
@@ -117,7 +117,7 @@ class Task_Comment_Action {
 		$comment->author = get_userdata( $comment->author_id );
 
 		ob_start();
-		View_Util::exec( 'comment', 'backend/comment', array(
+		\eoxia\View_Util::exec( 'comment', 'backend/comment', array(
 			'comment' => $comment,
 		) );
 
@@ -163,7 +163,7 @@ class Task_Comment_Action {
 		), true );
 
 		ob_start();
-		View_Util::exec( 'comment', 'backend/edit', array(
+		\eoxia\View_Util::exec( 'comment', 'backend/edit', array(
 			'task_id' => $comment->post_id,
 			'point_id' => $comment->parent_id,
 			'comment' => $comment,
@@ -242,7 +242,7 @@ class Task_Comment_Action {
 		), true );
 
 		ob_start();
-		View_Util::exec( 'comment', 'frontend/main', array(
+		\eoxia\View_Util::exec( 'comment', 'frontend/main', array(
 			'task_id' => $task_id,
 			'point_id' => $point_id,
 			'comments' => $comments,
@@ -281,7 +281,7 @@ class Task_Comment_Action {
 		$comment->author = get_userdata( $comment->author_id );
 
 		ob_start();
-		View_Util::exec( 'comment', 'frontend/comment', array(
+		\eoxia\View_Util::exec( 'comment', 'frontend/comment', array(
 			'comment' => $comment,
 		) );
 

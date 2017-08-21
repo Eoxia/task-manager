@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 /**
  * La définition du schéma des données d'une tâche.
  */
-class Task_Model extends Post_Model {
+class Task_Model extends \eoxia\Post_Model {
 
 	/**
 	 * Le constructeur défini le schéma.

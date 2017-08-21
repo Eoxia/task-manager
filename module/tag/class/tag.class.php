@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Classe d'instanciation de la gestion des tags dans la gestion des tâches
  */
-class Tag_Class extends Term_Class {
+class Tag_Class extends \eoxia\Term_Class {
 
 	/**
 	 * Nom du modèle a utiliser / Name of model to use

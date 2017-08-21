@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 /**
  * Gestion des commentaires
  */
-class Task_Comment_Class extends Comment_Class {
+class Task_Comment_Class extends \eoxia\Comment_Class {
 
 	/**
 	 * Le nom du modèle

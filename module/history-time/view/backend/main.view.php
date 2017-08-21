@@ -32,7 +32,7 @@ namespace task_manager;
 		if ( ! empty( $history_times ) ) :
 			foreach ( $history_times as $history_time ) :
 				if ( ! empty( $history_time->id ) ) :
-					View_Util::exec( 'history-time', 'backend/history-time', array(
+					\eoxia\View_Util::exec( 'history-time', 'backend/history-time', array(
 						'history_time' => $history_time,
 					) );
 				endif;

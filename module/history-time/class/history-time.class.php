@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
  * Manage all history_time.
  * History time define due time and estimated time on task.
  */
-class History_Time_Class extends Comment_Class {
+class History_Time_Class extends \eoxia\Comment_Class {
 	/**
 	 * Class name of model.
 	 *
