@@ -116,7 +116,7 @@ window.eoxiaJS.taskManager.comment.loadedCommentsSuccess = function( triggeredEl
  * @return {void}
  *
  * @since 1.0.0.0
- * @version 1.0.0.0
+ * @version 1.3.6.0
  */
 window.eoxiaJS.taskManager.comment.addedCommentSuccess = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.comments' ).children( '.comment.new' ).after( response.data.view );
@@ -128,6 +128,8 @@ window.eoxiaJS.taskManager.comment.addedCommentSuccess = function( triggeredElem
 	jQuery( triggeredElement ).closest( '.comment' ).find( 'input[name="time"]' ).val( '15' );
 	jQuery( triggeredElement ).closest( '.comment' ).find( '.content' ).html( '' );
 	jQuery( triggeredElement ).closest( '.comment' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
+
+	jQuery( triggeredElement ).closest( '.comment' ).find( '.date-time' ).datetimepicker( 'reset' );
 	window.eoxiaJS.refresh();
 };
 
