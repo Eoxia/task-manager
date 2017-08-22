@@ -50,7 +50,7 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 	 *
 	 * @var array
 	 */
-	protected $after_model_get_function = array( '\task_manager\convert_date_display' );
+	protected $after_get_function = array( '\task_manager\convert_date_display' );
 
 	/**
 	 * La fonction appelée automatiquement après l'insertion de l'objet dans la base de donnée.

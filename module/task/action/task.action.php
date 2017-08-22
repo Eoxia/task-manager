@@ -277,7 +277,7 @@ class Task_Action {
 			'post_status' => array( 'publish', 'archive' ),
 		), true );
 
-		$task->author = User_Class::g()->get( array(
+		$task->author = Follower_Class::g()->get( array(
 			'include' => array( $task->author_id ),
 		), true );
 

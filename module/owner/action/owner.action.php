@@ -40,7 +40,7 @@ class Owner_Action {
 			wp_send_json_error();
 		}
 
-		$users = User_Class::g()->get( array(
+		$users = Follower_Class::g()->get( array(
 			'role' => 'administrator',
 		) );
 

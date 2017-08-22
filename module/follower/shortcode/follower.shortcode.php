@@ -52,7 +52,7 @@ class Follower_Shortcode {
 		$followers = array();
 
 		if ( ! empty( $task->user_info['affected_id'] ) ) {
-			$followers = User_Class::g()->get( array(
+			$followers = Follower_Class::g()->get( array(
 				'include' => $task->user_info['affected_id'],
 			) );
 		}

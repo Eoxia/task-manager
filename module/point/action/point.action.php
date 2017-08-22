@@ -280,7 +280,7 @@ class Point_Action {
 			'status' => -34070,
 		), true );
 
-		$point->author = User_Class::g()->get( array(
+		$point->author = Follower_Class::g()->get( array(
 			'include' => array( $point->author_id ),
 		), true );
 

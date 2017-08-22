@@ -57,7 +57,7 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 		$categories_searched = substr( $categories_searched, 0, -2 );
 
 		if ( ! empty( $follower_id_selected ) ) {
-			$follower = User_Class::g()->get( array(
+			$follower = Follower_Class::g()->get( array(
 				'include' => $follower_id_selected,
 			), true );
 

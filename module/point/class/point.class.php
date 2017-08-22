@@ -57,7 +57,7 @@ class Point_Class extends \eoxia\Comment_Class {
 	 *
 	 * @var array
 	 */
-	protected $after_model_get_function = array( '\task_manager\get_full_point' );
+	protected $after_get_function = array( '\task_manager\get_full_point' );
 
 	/**
 	 * Constructeur qui inclus le modèle des points et également des les scripts
