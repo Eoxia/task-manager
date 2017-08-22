@@ -85,6 +85,13 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 							data-id="<?php echo esc_attr( $task->id ); ?>">
 						<span><?php esc_html_e( ( 'archive' !== $task->status ) ? 'Archiver' : 'Désarchiver', 'task-manager' ); ?></span>
 					</li>
+
+					<li class="action-attribute"
+							data-action="export_task"
+							data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_task' ) ); ?>"
+							data-id="<?php echo esc_attr( $task->id ); ?>">
+						<span><?php esc_html_e( 'Exporter', 'task-manager' ); ?></span>
+					</li>
 				</ul>
 			</li>
 		</ul>
