@@ -18,14 +18,14 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	<?php
 	if ( ! empty( $points_uncompleted ) ) :
 		foreach ( $points_uncompleted as $point ) :
-			\eoxia\View_Util::exec( 'point', 'backend/point', array(
+			\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
 				'point' => $point,
 				'parent_id' => $point->post_id,
 			) );
 		endforeach;
 	endif;
 
-	\eoxia\View_Util::exec( 'point', 'backend/point', array(
+	\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
 		'point' => $point_schema,
 		'parent_id' => $task_id,
 	) );

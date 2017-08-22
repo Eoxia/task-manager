@@ -53,7 +53,7 @@ class Follower_Action {
 		), true );
 
 		ob_start();
-		\eoxia\View_Util::exec( 'follower', 'backend/main-edit', array(
+		\eoxia\View_Util::exec( 'task-manager', 'follower', 'backend/main-edit', array(
 			'followers' => $followers,
 			'task' => $task,
 		) );
@@ -97,7 +97,7 @@ class Follower_Action {
 		}
 
 		ob_start();
-		\eoxia\View_Util::exec( 'follower', 'backend/main', array(
+		\eoxia\View_Util::exec( 'task-manager', 'follower', 'backend/main', array(
 			'followers' => $followers,
 			'task' => $task,
 		) );

@@ -57,7 +57,7 @@ class Follower_Shortcode {
 			) );
 		}
 
-		\eoxia\View_Util::exec( 'follower', 'backend/main', array(
+		\eoxia\View_Util::exec( 'task-manager', 'follower', 'backend/main', array(
 			'task' => $task,
 			'followers' => $followers,
 		) );

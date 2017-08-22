@@ -21,7 +21,7 @@ class Avatar_Class extends \eoxia\Singleton_Util {
 		$users = array();
 
 		if ( ! empty( $param['ids'] ) ) {
-			$users = User_Class::g()->get( array(
+			$users = Follower_Class::g()->get( array(
 				'include' => $param['ids'],
 			) );
 		}

@@ -64,7 +64,7 @@ class Point_Action {
 		) );
 
 		ob_start();
-		\eoxia\View_Util::exec( 'point', 'backend/point', array(
+		\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
 			'point' => $point,
 			'parent_id' => $parent_id,
 		) );
@@ -248,7 +248,7 @@ class Point_Action {
 		ob_start();
 		if ( ! empty( $completed_points ) ) {
 			foreach ( $completed_points as $point ) {
-				\eoxia\View_Util::exec( 'point', 'backend/point', array(
+				\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
 					'parent_id' => $task->id,
 					'point' => $point,
 				) );
@@ -285,7 +285,7 @@ class Point_Action {
 		), true );
 
 		ob_start();
-		\eoxia\View_Util::exec( 'point', 'backend/properties', array(
+		\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/properties', array(
 			'point' => $point,
 		) );
 

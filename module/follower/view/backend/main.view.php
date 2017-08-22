@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 	<?php
 	if ( ! empty( $followers ) ) :
 		foreach ( $followers as $follower ) :
-			\eoxia\View_Util::exec( 'follower', 'backend/follower', array(
+			\eoxia\View_Util::exec( 'task-manager', 'follower', 'backend/follower', array(
 				'user' => $follower,
 			) );
 		endforeach;
@@ -29,6 +29,6 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_followers' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->id ); ?>">
 		<span class="dashicons dashicons-plus-alt"></span>
-		<?php esc_html_e( 'Abonnements', 'task-manager' ); ?>
+		<?php esc_html_e( 'Followers', 'task-manager' ); ?>
 	</li>
 </ul>

@@ -26,7 +26,9 @@ class Task_Filter {
 		$url = wp_nonce_url( add_query_arg( array( 'action' => 'create_task' ), admin_url( 'admin-post.php' ) ), 'wpeo_nonce_create_task' );
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task', 'backend/button-add', array( 'url' => $url ) );
+		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/button-add', array(
+			'url' => $url,
+		) );
 		$string .= ob_get_clean();
 
 		return $string;
@@ -34,7 +36,7 @@ class Task_Filter {
 
 	public function callback_dashboard_filter( $string ) {
 		ob_start();
-		\eoxia\View_Util::exec( 'task', 'backend/filter-tab' );
+		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/filter-tab' );
 		$string .= ob_get_clean();
 
 		return $string;
@@ -58,7 +60,9 @@ class Task_Filter {
 		}
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task', 'backend/list-task', array( 'list_task' => $list_task ) );
+		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/list-task', array(
+			'list_task' => $list_task,
+		) );
 		$string .= ob_get_clean();
 
 		return $string;
@@ -66,21 +70,27 @@ class Task_Filter {
 
 	public function callback_task_header_action( $string, $task ) {
 		ob_start();
-		\eoxia\View_Util::exec( 'task', 'backend/task-header-button', array( 'task' => $task ) );
+		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task-header-button', array(
+			'task' => $task,
+		) );
 		$string .= ob_get_clean();
 		return $string;
 	}
 
 	public function callback_task_header_information_elapsed( $string, $task ) {
 		ob_start();
-		\eoxia\View_Util::exec( 'task', 'backend/time-elapsed', array( 'task' => $task ) );
+		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/time-elapsed', array(
+			'task' => $task,
+		) );
 		$string .= ob_get_clean();
 		return $string;
 	}
 
 	public function callback_task_header_information_button( $string, $task ) {
 		ob_start();
-		\eoxia\View_Util::exec( 'task', 'backend/information-button', array( 'task' => $task ) );
+		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/information-button', array(
+			'task' => $task,
+		) );
 		$string .= ob_get_clean();
 		return $string;
 	}

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; }
 
 if ( ! empty( $users ) ) :
 	foreach ( $users as $user ) :
-		\eoxia\View_Util::exec( 'follower', 'backend/follower-edit', array(
+		\eoxia\View_Util::exec( 'task-manager', 'follower', 'backend/follower-edit', array(
 			'user' => $user,
 			'task_id' => $task->id,
 		) );

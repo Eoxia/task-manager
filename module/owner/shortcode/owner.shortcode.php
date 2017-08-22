@@ -41,7 +41,7 @@ class Owner_Shortcode {
 	 * @version 1.3.6.0
 	 */
 	public function callback_task_manager_owner_task( $param ) {
-		\eoxia\View_Util::exec( 'owner', 'backend/main', array(
+		\eoxia\View_Util::exec( 'task-manager', 'owner', 'backend/main', array(
 			'task_id' => $param['task_id'],
 			'owner_id' => $param['owner_id'],
 		) );

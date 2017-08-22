@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	<?php if ( ! empty( $tasks ) && ! empty( $tasks[0] ) ) : ?>
 			<?php
 			foreach ( $tasks as $task ) :
-				\eoxia\View_Util::exec( 'task', 'frontend/task', array(
+				\eoxia\View_Util::exec( 'task-manager', 'task', 'frontend/task', array(
 					'task' => $task,
 				) );
 			endforeach;

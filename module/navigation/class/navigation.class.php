@@ -64,7 +64,7 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 			$follower_searched = $follower->displayname;
 		}
 
-		\eoxia\View_Util::exec( 'navigation', 'backend/search-results', array(
+		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/search-results', array(
 			'term' => $term,
 			'categories_searched' => $categories_searched,
 			'follower_searched' => $follower_searched,

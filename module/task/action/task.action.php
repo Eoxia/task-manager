@@ -68,7 +68,7 @@ class Task_Action {
 	public function callback_wp_print_script() {
 		?>
 		<script>
-			window.task_manager_posts_per_page = "<?php echo esc_attr( Config_Util::$init['task']->posts_per_page ); ?>";
+			window.task_manager_posts_per_page = "<?php echo esc_attr( \eoxia\Config_Util::$init['task-manager']->task->posts_per_page ); ?>";
 		</script>
 		<?php
 	}
@@ -105,7 +105,7 @@ class Task_Action {
 		}
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task', 'backend/task', array(
+		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task', array(
 			'task' => $task,
 		) );
 
@@ -282,7 +282,7 @@ class Task_Action {
 		), true );
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task', 'backend/properties', array(
+		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/properties', array(
 			'task' => $task,
 		) );
 

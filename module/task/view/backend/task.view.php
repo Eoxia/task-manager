@@ -91,7 +91,9 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		<!-- Fin en tête de la tâche -->
 
 		<!-- Sous en tête pour gérer le temps -->
-		<?php \eoxia\View_Util::exec( 'task', 'backend/task-header', array( 'task' => $task ) ); ?>
+		<?php \eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task-header', array(
+			'task' => $task,
+		) ); ?>
 		<!-- Fin de sous en tête -->
 
 		<!-- Corps de la tâche -->
