@@ -15,24 +15,26 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 <div class="gridwrapper w2">
-	<div class="task-color">
+	<ul class="task-color">
 		<?php
 		if ( ! empty( Task_Class::g()->colors ) ) :
 			foreach ( Task_Class::g()->colors as $color ) :
 				?>
-				<span class="action-attribute <?php echo esc_attr( $color ); ?>" data-action="change_color"
-							data-nonce="<?php echo esc_attr( wp_create_nonce( 'change_color' ) ); ?>"
-							data-id="<?php echo esc_attr( $task->id ); ?>"
-							data-color="<?php echo esc_attr( $color ); ?>"
-							data-namespace="taskManager"
-							data-module="task"
-							data-before-method="beforeChangeColor"></span>
+				<li class="color-element">
+					<span class="action-attribute <?php echo esc_attr( $color ); ?>" data-action="change_color"
+								data-nonce="<?php echo esc_attr( wp_create_nonce( 'change_color' ) ); ?>"
+								data-id="<?php echo esc_attr( $task->id ); ?>"
+								data-color="<?php echo esc_attr( $color ); ?>"
+								data-namespace="taskManager"
+								data-module="task"
+								data-before-method="beforeChangeColor"></span>
+				</li>
 				<?php
 			endforeach;
 		endif;
 		?>
-	</div>
-	<div>
+	</ul>
+	<div class="task-informations">
 		<?php echo do_shortcode( '[task_avatar ids="' . $task->author_id . '" size="50"]' ); ?>
 		<?php echo esc_html( $task->date ); ?>
 	</div>

@@ -443,19 +443,42 @@
 						text-align: left;
 						position: absolute;
 						right: 0;
-						width: 140px;
+						width: 320px;
 						background: #fff;
 						box-shadow: 1px 1px 5px 0 rgba(0,0,0,.2);
 						top: 20px;
 						z-index: 500;
-						display: none;
 						animation: taskOptionAnimation 0.2s ease-out;
+						transition: all 0.2s east-out;
+						opacity: 0;
+						pointer-events: none;
+
 						&.active {
-							display: block;
-							transition: all 0.2s east-out;
 							top: 30px;
+							opacity: 1;
+							pointer-events: all;
+						}
+						.task-color, .task-informations, .actions, .move-to {
+							padding: 1em;
+						}
+						.gridwrapper {
+							display: flex;
+							flex-direction: row;
+							flex-wrap: nowrap;
+							border-bottom: 1px solid rgba(0,0,0,0.1);
+							> * {
+								width: 50%;
+							}
 						}
 						.task-color {
+							display: flex;
+							flex-direction: row;
+							flex-wrap: wrap;
+							border-right: 1px solid rgba(0,0,0,0.1);
+							.color-element {
+								width: 33.333333%;
+								padding: 0;
+							}
 							span {
 								width: 26px;
 								height: 26px;
@@ -469,16 +492,17 @@
 							&:hover {
 								background: none;
 								cursor: default;
+								border: 0;
 							}
 						}
-						li {
-							padding: 10px;
-							transition: all 0.2s ease-out;
-							&:hover {
-								background: rgba(0,0,0,0.05);
-								cursor: pointer;
-							}
-						}
+						// li {
+						// 	padding: 10px;
+						// 	transition: all 0.2s ease-out;
+						// 	&:hover {
+						// 		background: rgba(0,0,0,0.05);
+						// 		cursor: pointer;
+						// 	}
+						// }
 					}
 					@keyframes taskOptionAnimation {
 						from { opacity: 0; top: 26px; }
