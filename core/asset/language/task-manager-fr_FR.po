@@ -1,37 +1,34 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2017-05-12 11:28+0200\n"
-"PO-Revision-Date: 2017-05-12 13:49+0200\n"
+"POT-Creation-Date: 2017-08-23 11:39+0100\n"
+"PO-Revision-Date: 2017-08-23 11:39+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.1\n"
+"X-Generator: Poedit 1.8\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html__\n"
+"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html__;esc_attr_e\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: core/asset\n"
 "X-Poedit-SearchPath-1: .\n"
 "X-Poedit-SearchPathExcluded-0: core/wpeo_logs\n"
 
-#: core/action/task_manager.action.php:104
-msgid "Task Manager"
-msgstr "Tâches"
-
-#: core/action/task_manager.action.php:104
-#: core/action/task_manager.action.php:105 core/view/main.view.php:22
-msgid "Tasks Manager"
-msgstr "Tasks Manager"
+#: core/action/task_manager.action.php:117
+#: core/action/task_manager.action.php:118 core/view/main.view.php:22
+msgid "Task"
+msgstr "Tâche"
 
 #: core/asset/js/language.js.php:2
+#: module/comment/view/backend/comment.view.php:41
 msgid "Delete this comment ?"
 msgstr "Voulez vous supprimer ce commentaire ?"
 
-#: core/asset/js/language.js.php:3
+#: core/asset/js/language.js.php:3 module/point/view/backend/point.view.php:85
 msgid "Delete this point ?"
 msgstr "Voulez vous supprimer ce point ?"
 
@@ -43,196 +40,198 @@ msgstr "Voulez vous supprimer cette tâche ?"
 msgid "Create the tag"
 msgstr "Créer la catégorie"
 
-#: core/external/wpeo_logs/controller/log.controller.01.php:72
-#: core/external/wpeo_logs/template/backend/main.php:4
+#: core/external/wpeo_log/action/log.action.php:32
+#: core/external/wpeo_log/view/main.view.php:7
 msgid "Logs"
 msgstr "Journaux"
 
-#: core/external/wpeo_logs/controller/log.controller.01.php:84
+#: core/external/wpeo_log/action/log.action.php:42
 msgid "On"
 msgstr "Le"
 
-#: core/external/wpeo_logs/controller/log.controller.01.php:84
+#: core/external/wpeo_log/action/log.action.php:42
 msgid "Off"
 msgstr "Désactivé"
 
-#: core/external/wpeo_logs/controller/log.controller.01.php:447
+#: core/external/wpeo_log/class/log_service.class.php:51
 msgid "A new service has been created!"
 msgstr "Un nouveau service à été créé!"
 
-#: core/external/wpeo_logs/controller/log.controller.01.php:461
-msgid "Invalid data to update service"
-msgstr "Données invalides, mise à jour impossible"
-
-#: core/external/wpeo_logs/controller/log.controller.01.php:488
-msgid "The services has been updated!"
-msgstr "Les services ont été mis à jour!"
-
-#: core/external/wpeo_logs/controller/log.controller.01.php:548
-msgid "The file has been deleted!"
-msgstr "Le fichier à été supprimé!"
-
-#: core/external/wpeo_logs/template/backend/chart.php:3
+#: core/external/wpeo_log/view/chart.view.php:5
 msgid "Chart"
 msgstr "Graphique"
 
-#: core/external/wpeo_logs/template/backend/chart.php:6
+#: core/external/wpeo_log/view/chart.view.php:8
 msgid "No data for chart"
 msgstr "Aucune donnée pour le graphique"
 
-#: core/external/wpeo_logs/template/backend/list-service-edit.php:5
-#: core/external/wpeo_logs/template/backend/list-service.php:5
+#: core/external/wpeo_log/view/list-service-edit.view.php:7
+#: core/external/wpeo_log/view/list-service.view.php:7
 msgid " item(s)"
 msgstr " éléments"
 
-#: core/external/wpeo_logs/template/backend/list-service-edit.php:16
-#: core/external/wpeo_logs/template/backend/list-service-edit.php:73
+#: core/external/wpeo_log/view/list-service-edit.view.php:18
+#: core/external/wpeo_log/view/list-service-edit.view.php:75
 msgid "ID"
 msgstr "ID"
 
-#: core/external/wpeo_logs/template/backend/list-service-edit.php:17
-#: core/external/wpeo_logs/template/backend/list-service-edit.php:74
-#: core/external/wpeo_logs/template/backend/list-service.php:12
-#: core/external/wpeo_logs/template/backend/list-service.php:51
+#: core/external/wpeo_log/view/list-service-edit.view.php:19
+#: core/external/wpeo_log/view/list-service-edit.view.php:76
+#: core/external/wpeo_log/view/list-service.view.php:14
+#: core/external/wpeo_log/view/list-service.view.php:53
 msgid "Active"
 msgstr "Actif"
 
-#: core/external/wpeo_logs/template/backend/list-service-edit.php:19
-#: core/external/wpeo_logs/template/backend/list-service-edit.php:75
+#: core/external/wpeo_log/view/list-service-edit.view.php:21
+#: core/external/wpeo_log/view/list-service-edit.view.php:77
 msgid "Name"
 msgstr "Nom"
 
-#: core/external/wpeo_logs/template/backend/list-service-edit.php:20
-#: core/external/wpeo_logs/template/backend/list-service-edit.php:76
-#: core/external/wpeo_logs/template/backend/list-service.php:16
-#: core/external/wpeo_logs/template/backend/list-service.php:55
-#: core/external/wpeo_logs/template/backend/view-service.php:19
-#: core/external/wpeo_logs/template/backend/view-service.php:46
+#: core/external/wpeo_log/view/list-service-edit.view.php:22
+#: core/external/wpeo_log/view/list-service-edit.view.php:78
+#: core/external/wpeo_log/view/list-service.view.php:18
+#: core/external/wpeo_log/view/list-service.view.php:57
+#: core/external/wpeo_log/view/view-service.view.php:24
+#: core/external/wpeo_log/view/view-service.view.php:51
 msgid "Size"
 msgstr "Taille"
 
-#: core/external/wpeo_logs/template/backend/list-service-edit.php:21
-#: core/external/wpeo_logs/template/backend/list-service-edit.php:77
+#: core/external/wpeo_log/view/list-service-edit.view.php:23
+#: core/external/wpeo_log/view/list-service-edit.view.php:79
 msgid "File size"
 msgstr "Taille du fichier"
 
-#: core/external/wpeo_logs/template/backend/list-service-edit.php:22
-#: core/external/wpeo_logs/template/backend/list-service-edit.php:78
+#: core/external/wpeo_log/view/list-service-edit.view.php:24
+#: core/external/wpeo_log/view/list-service-edit.view.php:80
 msgid "File rotate"
 msgstr "Rotation du fichier"
 
-#: core/external/wpeo_logs/template/backend/list-service-edit.php:23
-#: core/external/wpeo_logs/template/backend/list-service-edit.php:79
+#: core/external/wpeo_log/view/list-service-edit.view.php:25
+#: core/external/wpeo_log/view/list-service-edit.view.php:81
 msgid "Number file"
 msgstr "Numéro fichier"
 
-#: core/external/wpeo_logs/template/backend/list-service-edit.php:39
-#: core/external/wpeo_logs/template/backend/view-service.php:33
+#: core/external/wpeo_log/view/list-service-edit.view.php:41
+#: core/external/wpeo_log/view/view-service.view.php:38
 msgid "Move this item to the Trash"
 msgstr "Déplacer cet élément à la corbeille"
 
-#: core/external/wpeo_logs/template/backend/list-service-edit.php:39
-#: core/external/wpeo_logs/template/backend/list-service.php:29
-#: core/external/wpeo_logs/template/backend/view-service.php:33
+#: core/external/wpeo_log/view/list-service-edit.view.php:41
+#: core/external/wpeo_log/view/list-service.view.php:31
+#: core/external/wpeo_log/view/view-service.view.php:38
 msgid "Trash"
 msgstr "Corbeille"
 
-#: core/external/wpeo_logs/template/backend/list-service-edit.php:66
-#: core/external/wpeo_logs/template/backend/list-service.php:45
+#: core/external/wpeo_log/view/list-service-edit.view.php:68
+#: core/external/wpeo_log/view/list-service.view.php:47
 msgid "No services found."
 msgstr "Aucun service trouvé."
 
-#: core/external/wpeo_logs/template/backend/list-service-edit.php:86
+#: core/external/wpeo_log/view/list-service-edit.view.php:88
 msgid "Save Changes"
 msgstr "Enregistrer les modifications"
 
-#: core/external/wpeo_logs/template/backend/list-service-edit.php:87
-#: core/external/wpeo_logs/template/backend/view-service.php:10
+#: core/external/wpeo_log/view/list-service-edit.view.php:89
+#: core/external/wpeo_log/view/view-service.view.php:15
 msgid "Back"
 msgstr "Retour"
 
-#: core/external/wpeo_logs/template/backend/list-service.php:13
-#: core/external/wpeo_logs/template/backend/list-service.php:52
-#: core/external/wpeo_logs/template/backend/view-service.php:18
-#: core/external/wpeo_logs/template/backend/view-service.php:45
+#: core/external/wpeo_log/view/list-service.view.php:15
+#: core/external/wpeo_log/view/list-service.view.php:54
+#: core/external/wpeo_log/view/view-service.view.php:23
+#: core/external/wpeo_log/view/view-service.view.php:50
 msgid "Title"
 msgstr "Titre"
 
-#: core/external/wpeo_logs/template/backend/list-service.php:14
-#: core/external/wpeo_logs/template/backend/list-service.php:53
+#: core/external/wpeo_log/view/list-service.view.php:16
+#: core/external/wpeo_log/view/list-service.view.php:55
 msgid "Errors"
 msgstr "Erreurs"
 
-#: core/external/wpeo_logs/template/backend/list-service.php:15
-#: core/external/wpeo_logs/template/backend/list-service.php:54
+#: core/external/wpeo_log/view/list-service.view.php:17
+#: core/external/wpeo_log/view/list-service.view.php:56
 msgid "Warnings"
 msgstr "Notices"
 
-#: core/external/wpeo_logs/template/backend/list-service.php:17
-#: core/external/wpeo_logs/template/backend/list-service.php:56
+#: core/external/wpeo_log/view/list-service.view.php:19
+#: core/external/wpeo_log/view/list-service.view.php:58
+#: core/external/wpeo_log/view/view-service.view.php:63
 msgid "Date"
 msgstr "Date"
 
-#: core/external/wpeo_logs/template/backend/list-service.php:26
-#: core/external/wpeo_logs/template/backend/list-service.php:28
+#: core/external/wpeo_log/view/list-service.view.php:28
+#: core/external/wpeo_log/view/list-service.view.php:30
 msgid "View this service"
 msgstr "Voir ce service"
 
-#: core/external/wpeo_logs/template/backend/list-service.php:28
+#: core/external/wpeo_log/view/list-service.view.php:30
 msgid "View"
 msgstr "Voir"
 
-#: core/external/wpeo_logs/template/backend/list-service.php:29
+#: core/external/wpeo_log/view/list-service.view.php:31
 msgid "Move this service to the Trash"
 msgstr "Déplacer ce service vers la corbeille"
 
-#: core/external/wpeo_logs/template/backend/list-service.php:63
+#: core/external/wpeo_log/view/list-service.view.php:65
 msgid "Quick edit"
 msgstr "Edition rapide"
 
-#: core/external/wpeo_logs/template/backend/main.php:4
+#: core/external/wpeo_log/view/main.view.php:8
 msgid "Add New"
 msgstr "Ajouter nouveau"
 
-#: core/external/wpeo_logs/template/backend/view-service.php:14
-#: module/task/view/backend/task.view.php:85
+#: core/external/wpeo_log/view/main.view.php:9
+msgid "Reset"
+msgstr ""
+
+#: core/external/wpeo_log/view/view-service.view.php:19
+#: module/task/view/backend/task.view.php:86
 msgid "Archive"
 msgstr "Archive"
 
-#: core/external/wpeo_logs/template/backend/view-service.php:40
+#: core/external/wpeo_log/view/view-service.view.php:45
 msgid "No archive file"
 msgstr "Aucune archive"
 
-#: core/external/wpeo_logs/template/backend/view-service.php:53
+#: core/external/wpeo_log/view/view-service.view.php:58
 msgid "Data"
 msgstr "Données"
 
-#: core/external/wpeo_logs/template/backend/view-service.php:57
-msgid "Author"
-msgstr "Auteur"
+#: core/external/wpeo_log/view/view-service.view.php:62
+msgid "Critique"
+msgstr ""
 
-#: core/external/wpeo_logs/template/backend/view-service.php:58
-msgid "Severity"
-msgstr "Criticité"
+#: core/external/wpeo_log/view/view-service.view.php:64
+msgid "MS"
+msgstr ""
 
-#: core/external/wpeo_logs/template/backend/view-service.php:59
-msgid "Object ID"
-msgstr "ID de l'objet"
+#: core/external/wpeo_log/view/view-service.view.php:65
+msgid "Auteur"
+msgstr ""
 
-#: core/external/wpeo_logs/template/backend/view-service.php:60
+#: core/external/wpeo_log/view/view-service.view.php:66
 msgid "Message"
 msgstr "Message"
 
-#: core/external/wpeo_logs/template/backend/view-service.php:70
-#: core/external/wpeo_logs/template/backend/view-service.php:79
-#: core/external/wpeo_logs/template/backend/view-service.php:80
-#: core/external/wpeo_logs/template/backend/view-service.php:81
+#: core/external/wpeo_log/view/view-service.view.php:67
+msgid "Données"
+msgstr ""
+
+#: core/external/wpeo_log/view/view-service.view.php:76
+msgid "No user"
+msgstr "Pas d'utilisateur"
+
+#: core/external/wpeo_log/view/view-service.view.php:87
 msgid "Empty"
 msgstr "Vide"
 
-#: core/external/wpeo_logs/template/backend/view-service.php:86
+#: core/external/wpeo_log/view/view-service.view.php:93
 msgid "Nothing to display, select your log of file"
 msgstr "Aucune sélection à afficher, Merci de sélectionner un fichier"
+
+#: core/external/wpeo_model/class/constructor_data.class.php:33
+msgid "Unable to transfer risk to wordpress system."
+msgstr ""
 
 #: core/external/wpeo_util/config.util.php:45
 msgid "Impossible de charger le fichier"
@@ -242,80 +241,34 @@ msgstr "Impossible de charger le fichier"
 msgid "Le module nécessite un slug"
 msgstr "Le module nécessite un slug"
 
-#: core/external/wpeo_util/custom-post-type.util.php:40
-msgid "Parent Item:"
-msgstr "Parent:"
-
-#: core/external/wpeo_util/custom-post-type.util.php:42
-#: core/external/wpeo_util/custom-post-type.util.php:43
-#, php-format
-msgid "Add %s"
-msgstr "Ajouter %s"
-
-#: core/external/wpeo_util/custom-post-type.util.php:44
-#, php-format
-msgid "New %s"
-msgstr "Nouveau %s"
-
-#: core/external/wpeo_util/custom-post-type.util.php:45
-#, php-format
-msgid "Edit %s"
-msgstr "Editer %s"
-
-#: core/external/wpeo_util/custom-post-type.util.php:46
-#, php-format
-msgid "Update %s"
-msgstr "Mettre à jour %s"
-
-#: core/external/wpeo_util/custom-post-type.util.php:47
-#, php-format
-msgid "View %s"
-msgstr "Voir %s"
-
-#: core/external/wpeo_util/custom-post-type.util.php:48
-#, php-format
-msgid "Search %s"
-msgstr "Rechercher %s"
-
-#: core/external/wpeo_util/custom-post-type.util.php:49
-msgid "Not found"
-msgstr "Aucun résultat"
-
-#: core/external/wpeo_util/custom-post-type.util.php:50
-msgid "Not found in Trash"
-msgstr "La corbeille est vide"
-
-#: core/external/wpeo_util/custom-post-type.util.php:61
-#, php-format
-msgid "Manage %s into digirisk"
-msgstr ""
-
-#: core/external/wpeo_util/init.util.php:47
-#: core/external/wpeo_util/init.util.php:57
-msgid "Impossible de charger les fichiers .utils"
-msgstr "Impossible de charger les fichiers .utils"
-
-#: core/external/wpeo_util/init.util.php:51
-msgid "$path_to_core_folder_util n'est pas un dossier"
-msgstr "$path_to_core_folder_util n'est pas un dossier"
-
-#: core/external/wpeo_util/json.util.php:41
-msgid "Impossible d'ouvrir le fichier JSON"
-msgstr "Impossible d'ouvrir le fichier JSON"
-
-#: core/external/wpeo_util/json.util.php:55
-msgid "Les données du fichier JSON semble erronnés"
-msgstr "Les données du fichier JSON semble erronnés"
-
-#: core/external/wpeo_util/module.util.php:36
-msgid "Les configurations de base de DigiRisk ne sont pas initialisées"
-msgstr "Les configurations de base de DigiRisk ne sont pas initialisées"
-
+#: core/external/wpeo_util/external.util.php:37
 #: core/external/wpeo_util/module.util.php:41
 msgid "Aucun module a charger"
 msgstr "Aucun module a charger"
 
-#: core/view/main.view.php:26 module/task/action/task.action.php:92
+#: core/external/wpeo_util/init.util.php:51
+#: core/external/wpeo_util/init.util.php:61
+msgid "Impossible de charger les fichiers .utils"
+msgstr "Impossible de charger les fichiers .utils"
+
+#: core/external/wpeo_util/init.util.php:55
+msgid "$path_to_core_folder_util n'est pas un dossier"
+msgstr "$path_to_core_folder_util n'est pas un dossier"
+
+#: core/external/wpeo_util/json.util.php:42
+msgid "Impossible d'ouvrir le fichier JSON"
+msgstr "Impossible d'ouvrir le fichier JSON"
+
+#: core/external/wpeo_util/json.util.php:60
+msgid "Les données du fichier JSON semble erronnés"
+msgstr "Les données du fichier JSON semble erronnés"
+
+#: core/external/wpeo_util/module.util.php:37
+#, php-format
+msgid "Les configurations de base de %s ne sont pas initialisées"
+msgstr ""
+
+#: core/view/main.view.php:26 module/task/action/task.action.php:94
 msgid "New task"
 msgstr "Nouvelle tâche"
 
@@ -324,14 +277,24 @@ msgid "Comment options"
 msgstr "Options"
 
 #: module/comment/view/backend/comment.view.php:36
-msgid "Editer le commentaire"
-msgstr "Editer le commentaire"
+msgid "Edit this comment"
+msgstr "Editer ce commentaire"
 
 #: module/comment/view/backend/comment.view.php:44
-msgid "Supprimer le commentaire"
-msgstr "Supprimer le commentaire"
+msgid "Delete this comment"
+msgstr "Supprimer ce commentaire"
+
+#: module/comment/view/backend/edit.view.php:38
+#: module/comment/view/frontend/edit.view.php:33
+msgid "Your comment here..."
+msgstr "Écrire ce commentaire ici..."
+
+#: module/comment/view/backend/new.view.php:39
+msgid "Write your comment here..."
+msgstr "Écrivez votre commentaire ici..."
 
 #: module/follower/view/backend/main.view.php:32
+#: module/navigation/view/backend/followers.view.php:17
 msgid "Followers"
 msgstr "Utilisateurs"
 
@@ -340,19 +303,35 @@ msgstr "Utilisateurs"
 msgid "( %smin )"
 msgstr "( %smin )"
 
-#: module/history-time/view/backend/main.view.php:20
-msgid "Enter a new due time"
-msgstr "Nouvelle date voulu"
-
 #: module/history-time/view/backend/main.view.php:22
-msgid "Enter a new estimated time"
-msgstr "Temps estimé"
+msgid "New due time"
+msgstr "Nouvelle date de fin"
+
+#: module/history-time/view/backend/main.view.php:25
+msgid "Estimated time (min)"
+msgstr "Temps estimé (min)"
+
+#: module/navigation/view/backend/main.view.php:20
+msgid "All tasks"
+msgstr "Toutes les tâches"
+
+#: module/navigation/view/backend/main.view.php:21
+msgid "My task"
+msgstr "Mes tâches"
+
+#: module/navigation/view/backend/main.view.php:22
+msgid "Archived task"
+msgstr "Tâches archivés"
 
 #: module/navigation/view/backend/main.view.php:30
+msgid "Search..."
+msgstr "Rechercher..."
+
+#: module/navigation/view/backend/main.view.php:32
 msgid "More options"
 msgstr "Plus d'options"
 
-#: module/navigation/view/backend/main.view.php:50
+#: module/navigation/view/backend/main.view.php:52
 msgid "Search"
 msgstr "Rechercher"
 
@@ -362,89 +341,115 @@ msgstr "Résultats"
 
 #: module/navigation/view/backend/search-results.view.php:23
 msgid " with the term "
-msgstr ""
+msgstr "avec le terme"
 
 #: module/navigation/view/backend/search-results.view.php:28
 msgid " in the categories: "
 msgstr "dans les catégories:"
 
 #: module/navigation/view/backend/search-results.view.php:33
-msgid " for the follower: "
-msgstr "pour le(les) utilisateur(s):"
+msgid " for the followers: "
+msgstr "pour les abonnés:"
 
 #: module/navigation/view/backend/tags.view.php:18
-msgid "Keyword"
-msgstr "Mot clé"
+#: module/tag/action/tag.action.php:52
+#: module/tag/view/backend/main.view.php:31
+msgid "Categories"
+msgstr "Catégories"
 
 #: module/point/filter/point.filter.php:55
-msgid "Uncompleted"
-msgstr "Terminé"
+msgid "Incompleted"
+msgstr "Incomplet"
 
-#: module/point/view/backend/main.view.php:45
+#: module/point/view/backend/main.view.php:46
 #: module/point/view/frontend/main.view.php:34
-msgid "Completed point"
-msgstr "Les points terminés"
+msgid "Completed points"
+msgstr "Points completés"
 
-#: module/point/view/backend/point.view.php:51
+#: module/point/view/backend/point.view.php:27
+msgid "Drag and drop"
+msgstr "Glisser et déposer"
+
+#: module/point/view/backend/point.view.php:44
 msgid "Write your point here..."
 msgstr "Écrivez votre point ici..."
 
-#: module/point/view/backend/point.view.php:76
-msgid "Options du point"
-msgstr "Options"
+#: module/point/view/backend/point.view.php:69
+msgid "Point options"
+msgstr "Options du point"
 
-#: module/point/view/backend/point.view.php:87
-msgid "Propriété du point"
+#: module/point/view/backend/point.view.php:74
+msgid "Point properties: #"
+msgstr "Propriété du point: #"
+
+#: module/point/view/backend/point.view.php:80
+msgid "Point properties"
 msgstr "Propriété du point"
 
-#: module/point/view/backend/point.view.php:95
-msgid "Supprimer le point"
-msgstr "Supprimer le point"
+#: module/point/view/backend/point.view.php:88
+msgid "Delete this point"
+msgstr "Supprimer ce point"
 
 #: module/point/view/backend/properties.view.php:19
-msgid "Créateur du point"
+msgid "Creator of the point"
 msgstr "Créateur du point"
 
 #: module/point/view/backend/properties.view.php:23
 #: module/task/view/backend/properties.view.php:23
-msgid "Date de création"
+msgid "Creation date"
 msgstr "Date de création"
 
-#: module/point/view/backend/properties.view.php:35
+#: module/point/view/backend/properties.view.php:34
 msgid "Move the point to"
 msgstr "Déplacer le point vers"
 
-#: module/point/view/backend/properties.view.php:38
-#: module/task/view/backend/properties.view.php:38
+#: module/point/view/backend/properties.view.php:37
+#: module/task/view/backend/properties.view.php:37
 msgid "Move"
 msgstr "Déplacer"
 
-#: module/tag/action/tag.action.php:52
-msgid "Categories"
-msgstr "Catégories"
+#: module/tag/view/backend/main-edit.view.php:28
+msgid "Create categories "
+msgstr "Créer des catégories"
 
-#: module/tag/view/backend/main.view.php:31
-msgid "Tags"
-msgstr "Mots clés"
+#: module/tag/view/backend/main-edit.view.php:29
+msgid "here"
+msgstr "ici"
 
-#: module/task/action/task.action.php:240
+#: module/tag/view/backend/main-edit.view.php:30
+msgid "and refresh this section."
+msgstr "et recharger cette section."
+
+#: module/task/action/task.action.php:244
 msgid "The task #"
 msgstr "La tâche #"
 
-#: module/task/action/task.action.php:242
-msgid "<p>This mail has been send automatically</p>"
-msgstr "<p>Ce courrier a été envoyé automatiquement</p>"
+#: module/task/action/task.action.php:246
+msgid "<p>This mail has been send automaticly</p>"
+msgstr "<p>Cet email a été envoyé automatiquement</p>"
 
-#: module/task/filter/task.filter.php:139
-#: module/task/filter/task.filter.php:146
+#: module/task/action/task.action.php:471
+msgid "Uncompleted"
+msgstr "Terminé"
+
+#: module/task/action/task.action.php:479
+msgid "Completed"
+msgstr "Complété(s)"
+
+#: module/task/filter/task.filter.php:149
+#: module/task/filter/task.filter.php:156
 msgid "Task not found"
 msgstr "Tâche non trouvée"
 
+#: module/task/view/backend/main.view.php:22
+msgid "Load more task..."
+msgstr "Chargement de tâche supplémentaire"
+
 #: module/task/view/backend/properties.view.php:19
-msgid "Créateur de la tâche"
+msgid "Creator of the task"
 msgstr "Créateur de la tâche"
 
-#: module/task/view/backend/properties.view.php:35
+#: module/task/view/backend/properties.view.php:34
 msgid "Move the task to"
 msgstr "Déplacer la tâche vers"
 
@@ -452,17 +457,130 @@ msgstr "Déplacer la tâche vers"
 msgid "Task options"
 msgstr "Options"
 
-#: module/task/view/backend/task.view.php:63
+#: module/task/view/backend/task.view.php:60
+msgid "Task properties: #"
+msgstr "Propriété de la tâche: #"
+
+#: module/task/view/backend/task.view.php:64
 msgid "Task properties"
 msgstr "Propriété de la tâche"
 
-#: module/task/view/backend/task.view.php:70
-msgid "Notify owner and followers"
-msgstr "Notifier "
+#: module/task/view/backend/task.view.php:71
+msgid "Notify team"
+msgstr "Notifier l'équipe"
 
-#: module/task/view/backend/task.view.php:78
-msgid "Delete task"
-msgstr "Supprimer la tâche"
+#: module/task/view/backend/task.view.php:79
+msgid "Delete"
+msgstr "Supprimer"
+
+#: module/task/view/backend/task.view.php:93
+msgid "Export"
+msgstr "Exporter"
+
+#~ msgid "Task Manager"
+#~ msgstr "Tâches"
+
+#~ msgid "Tasks Manager"
+#~ msgstr "Tasks Manager"
+
+#~ msgid "Invalid data to update service"
+#~ msgstr "Données invalides, mise à jour impossible"
+
+#~ msgid "The services has been updated!"
+#~ msgstr "Les services ont été mis à jour!"
+
+#~ msgid "The file has been deleted!"
+#~ msgstr "Le fichier à été supprimé!"
+
+#~ msgid "Author"
+#~ msgstr "Auteur"
+
+#~ msgid "Severity"
+#~ msgstr "Criticité"
+
+#~ msgid "Object ID"
+#~ msgstr "ID de l'objet"
+
+#~ msgid "Parent Item:"
+#~ msgstr "Parent:"
+
+#~ msgid "Add %s"
+#~ msgstr "Ajouter %s"
+
+#~ msgid "New %s"
+#~ msgstr "Nouveau %s"
+
+#~ msgid "Edit %s"
+#~ msgstr "Editer %s"
+
+#~ msgid "Update %s"
+#~ msgstr "Mettre à jour %s"
+
+#~ msgid "View %s"
+#~ msgstr "Voir %s"
+
+#~ msgid "Search %s"
+#~ msgstr "Rechercher %s"
+
+#~ msgid "Not found"
+#~ msgstr "Aucun résultat"
+
+#~ msgid "Not found in Trash"
+#~ msgstr "La corbeille est vide"
+
+#~ msgid "Les configurations de base de DigiRisk ne sont pas initialisées"
+#~ msgstr "Les configurations de base de DigiRisk ne sont pas initialisées"
+
+#~ msgid "Editer le commentaire"
+#~ msgstr "Editer le commentaire"
+
+#~ msgid "Supprimer le commentaire"
+#~ msgstr "Supprimer le commentaire"
+
+#~ msgid "Enter a new due time"
+#~ msgstr "Nouvelle date voulu"
+
+#~ msgid "Enter a new estimated time"
+#~ msgstr "Temps estimé"
+
+#~ msgid " for the follower: "
+#~ msgstr "pour le(les) utilisateur(s):"
+
+#~ msgid "Keyword"
+#~ msgstr "Mot clé"
+
+#~ msgid "Completed point"
+#~ msgstr "Les points terminés"
+
+#~ msgid "Options du point"
+#~ msgstr "Options"
+
+#~ msgid "Propriété du point"
+#~ msgstr "Propriété du point"
+
+#~ msgid "Supprimer le point"
+#~ msgstr "Supprimer le point"
+
+#~ msgid "Créateur du point"
+#~ msgstr "Créateur du point"
+
+#~ msgid "Date de création"
+#~ msgstr "Date de création"
+
+#~ msgid "Tags"
+#~ msgstr "Mots clés"
+
+#~ msgid "<p>This mail has been send automatically</p>"
+#~ msgstr "<p>Ce courrier a été envoyé automatiquement</p>"
+
+#~ msgid "Créateur de la tâche"
+#~ msgstr "Créateur de la tâche"
+
+#~ msgid "Notify owner and followers"
+#~ msgstr "Notifier "
+
+#~ msgid "Delete task"
+#~ msgstr "Supprimer la tâche"
 
 #~ msgid "Task management dashboard"
 #~ msgstr "Tableau de bord de la gestion des tâches"
@@ -481,9 +599,6 @@ msgstr "Supprimer la tâche"
 
 #~ msgid "The point #%d was updated with the content : %s and set to completed : %s"
 #~ msgstr "Le point #%d à été mis à jour avec le contenu : %s et mis sur complété : %s"
-
-#~ msgid "Completed"
-#~ msgstr "Complété(s)"
 
 #~ msgid "Point not found"
 #~ msgstr "Point non trouvé"
@@ -569,9 +684,6 @@ msgstr "Supprimer la tâche"
 #~ msgid "The owner for the task #%d has been changed to %d by the user #%d"
 #~ msgstr "Le responsable pour la tâche #%d à été changé vers %d par l'utilisateur #%d"
 
-#~ msgid "All tasks"
-#~ msgstr "Toutes les tâches"
-
 #~ msgid "Time history"
 #~ msgstr "Historique du temps"
 
@@ -647,9 +759,6 @@ msgstr "Supprimer la tâche"
 #~ msgid "Try to get the model definition"
 #~ msgstr "Essayer d'avoir le définition du modèle"
 
-#~ msgid "Task"
-#~ msgstr "Tâche"
-
 #~ msgid "Help"
 #~ msgstr "Aide"
 
@@ -703,9 +812,6 @@ msgstr "Supprimer la tâche"
 
 #~ msgid "Click here to add a tag"
 #~ msgstr "Cliquez ici pour ajouter un tag"
-
-#~ msgid "Archived task"
-#~ msgstr "Tâches archivés"
 
 #~ msgid "Or add a new tag..."
 #~ msgstr "Ajoutez un nouveau tag..."
@@ -772,9 +878,6 @@ msgstr "Supprimer la tâche"
 
 #~ msgid "My tickets"
 #~ msgstr "Mes tickets"
-
-#~ msgid "My task"
-#~ msgstr "Mes tâches"
 
 #~ msgid "Enter your comment here..."
 #~ msgstr "Écrivez votre commentaire ici..."
@@ -863,9 +966,6 @@ msgstr "Supprimer la tâche"
 #~ msgid "minute(s)"
 #~ msgstr "minute(s)"
 
-#~ msgid "Delete this point"
-#~ msgstr "Supprimer ce point"
-
 #~ msgid "The point moved to trash"
 #~ msgstr "Le point à été déplacer à la corbeille"
 
@@ -880,9 +980,6 @@ msgstr "Supprimer la tâche"
 
 #~ msgid "Settings"
 #~ msgstr "Réglages"
-
-#~ msgid "Export"
-#~ msgstr "Exporter"
 
 #~ msgid "Move to archive"
 #~ msgstr "Déplacer vers Archive"
@@ -962,9 +1059,6 @@ msgstr "Supprimer la tâche"
 #~ msgid "\"No tags\""
 #~ msgstr "\"Pas de mots clés\""
 
-#~ msgid "No user"
-#~ msgstr "Pas d'utilisateur"
-
 #~ msgid "get_title_of_task : You need to use a integer value"
 #~ msgstr "Valeur entière"
 
@@ -1000,9 +1094,6 @@ msgstr "Supprimer la tâche"
 
 #~ msgid "Comment"
 #~ msgstr "Commentaire"
-
-#~ msgid "Write your comment here..."
-#~ msgstr "Écrivez votre commentaire ici..."
 
 #~ msgid "Cancel"
 #~ msgstr "Annuler"

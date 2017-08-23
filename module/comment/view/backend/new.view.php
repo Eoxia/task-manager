@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					<?php echo $comment->content; ?>
 				</div>
 				<?php if ( empty( $comment->id ) ) : ?>
-					<span class="wpeo-point-new-placeholder"><?php esc_html_e( 'Votre commentaire ici...', 'task-manager' ); ?></span>
+					<span class="wpeo-point-new-placeholder"><?php esc_html_e( 'Write your comment here...', 'task-manager' ); ?></span>
 				<?php endif; ?>
 			</li>
 			<li class="wpeo-comment-time"><span class="fa fa-clock-o"></span> <input type="text" name="time" value="<?php echo esc_attr( $comment->time_info['elapsed'] ); ?>" /></li>
