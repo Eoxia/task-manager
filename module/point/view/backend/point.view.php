@@ -15,7 +15,7 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 <div class="point <?php echo ! empty( $point->id ) ? esc_attr( 'edit' ): ''; ?>" data-id="<?php echo esc_attr( $point->id ); ?>">
-	<form class="form" action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>" method="POST">
+	<div class="form">
 
 		<?php wp_nonce_field( 'edit_point' ); ?>
 		<input type="hidden" name="action" value="edit_point" />
@@ -54,7 +54,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 						<i class="dashicons dashicons-plus-alt"></i>
 					</div>
 				<?php else : ?>
-					<div class="hidden submit-form" data-parent="form"></div>
+					<div class="hidden action-input" data-parent="form"></div>
 
 					<div class="wpeo-point-time">
 						<span class="dashicons dashicons-clock"></span>
@@ -92,7 +92,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 				<?php	endif; ?>
 			</li>
 		</ul>
-	</form>
+	</div>
 
 	<ul class="comments hidden" data-id="<?php echo esc_attr( $point->id ); ?>"></ul>
 </div>

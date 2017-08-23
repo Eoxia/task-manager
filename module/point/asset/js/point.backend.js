@@ -33,7 +33,7 @@ window.eoxiaJS.taskManager.point.event = function() {
 	jQuery( document ).on( 'click', '.point.edit .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.activePoint );
 	jQuery( document ).on( 'blur keyup paste keydown click', '.point .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.updateHiddenInput );
 	jQuery( document ).on( 'blur paste', '.point.edit .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.editPoint );
-	jQuery( document ).on( 'click', 'form .completed-point', window.eoxiaJS.taskManager.point.completePoint );
+	jQuery( document ).on( 'click', '.form .completed-point', window.eoxiaJS.taskManager.point.completePoint );
 };
 
 
@@ -136,7 +136,7 @@ window.eoxiaJS.taskManager.point.editedPointSuccess = function( triggeredElement
  * @version 1.0.0.0
  */
 window.eoxiaJS.taskManager.point.editPoint = function() {
-	jQuery( this ).closest( 'form' ).find( '.submit-form' ).click();
+	jQuery( this ).closest( 'form' ).find( '.action-input' ).click();
 };
 
 /**

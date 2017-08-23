@@ -27,7 +27,7 @@ window.eoxiaJS.taskManager.comment.init = function() {
  * @version 1.0.0.0
  */
 window.eoxiaJS.taskManager.comment.event = function() {
-	jQuery( document ).on( 'keyup', '.comment.edit input[name="content"]', window.eoxiaJS.taskManager.comment.triggerCreate );
+	jQuery( document ).on( 'keyup', '.wpeo-comment-container div.content[contenteditable="true"]', window.eoxiaJS.taskManager.comment.triggerCreate );
 	jQuery( document ).on( 'blur keyup paste keydown click', '.comment .content', window.eoxiaJS.taskManager.comment.updateHiddenInput );
 	jQuery( document ).on( 'click', '.point.edit div[contenteditable="true"].wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.comment.loadComments );
 };
@@ -122,7 +122,7 @@ window.eoxiaJS.taskManager.comment.addedCommentSuccess = function( triggeredElem
 	jQuery( triggeredElement ).closest( '.comments' ).children( '.comment.new' ).after( response.data.view );
 	jQuery( triggeredElement ).closest( 'form' )[0].reset();
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.time.task );
-	jQuery( triggeredElement ).closest( '.comments' ).prev( 'form' ).find( '.wpeo-time-in-point' ).text( response.data.time.point );
+	jQuery( triggeredElement ).closest( '.comments' ).prev( '.form' ).find( '.wpeo-time-in-point' ).text( response.data.time.point );
 
 	jQuery( triggeredElement ).closest( '.comment' ).find( 'input[name="content"]' ).val( '' );
 	jQuery( triggeredElement ).closest( '.comment' ).find( 'input[name="time"]' ).val( '15' );
@@ -149,7 +149,7 @@ window.eoxiaJS.taskManager.comment.addedCommentSuccess = function( triggeredElem
  */
 window.eoxiaJS.taskManager.comment.editedCommentSuccess = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.time.task );
-	jQuery( triggeredElement ).closest( '.comments' ).prev( 'form' ).find( '.wpeo-time-in-point' ).text( response.data.time.point );
+	jQuery( triggeredElement ).closest( '.comments' ).prev( '.form' ).find( '.wpeo-time-in-point' ).text( response.data.time.point );
 
 	jQuery( triggeredElement ).closest( '.comment.edit' ).replaceWith( response.data.view );
 	window.eoxiaJS.refresh();
