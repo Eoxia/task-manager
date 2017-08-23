@@ -4,7 +4,7 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.0.0.0
- * @version 1.3.6.0
+ * @version 1.4.4-ford
  * @copyright 2015-2017 Eoxia
  * @package task
  * @subpackage view
@@ -35,64 +35,11 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					<span class="wpeo-task-open-action" title="<?php esc_html_e( 'Task options', 'task-manager' ); ?>"><i class="fa fa-ellipsis-v"></i></span>
 				</div>
 
-				<ul class="content task-header-action">
-					<li class="task-color">
-						<?php
-						if ( ! empty( Task_Class::g()->colors ) ) :
-							foreach ( Task_Class::g()->colors as $color ) :
-								?>
-								<span class="action-attribute <?php echo esc_attr( $color ); ?>" data-action="change_color"
-											data-nonce="<?php echo esc_attr( wp_create_nonce( 'change_color' ) ); ?>"
-											data-id="<?php echo esc_attr( $task->id ); ?>"
-											data-color="<?php echo esc_attr( $color ); ?>"
-											data-namespace="taskManager"
-											data-module="task"
-											data-before-method="beforeChangeColor"></span>
-								<?php
-							endforeach;
-						endif;
-						?>
-					</li>
-
-					<li class="open-popup-ajax"
-							data-action="load_task_properties"
-							data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_task_properties' ) ); ?>"
-							data-title="<?php esc_attr_e( 'Task properties: #' . $task->id . ' ' . $task->title, 'task-manager' ); ?>"
-							data-id="<?php echo esc_attr( $task->id ); ?>"
-							data-parent="wpeo-project-task"
-							data-target="popup">
-						<span><?php esc_html_e( 'Task properties', 'task-manager' ); ?></span>
-					</li>
-
-					<li class="action-attribute"
-							data-action="notify_by_mail"
-							data-nonce="<?php echo esc_attr( wp_create_nonce( 'notify_by_mail' ) ); ?>"
-							data-id="<?php echo esc_attr( $task->id ); ?>">
-						<span><?php esc_html_e( 'Notify team', 'task-manager' ); ?></span>
-					</li>
-
-					<li class="action-delete"
-							data-action="delete_task"
-							data-message-delete="<?php echo esc_attr( 'Delete this task ?', 'task-manager' ); ?>"
-							data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_task' ) ); ?>"
-							data-id="<?php echo esc_attr( $task->id ); ?>">
-						<span><?php esc_html_e( 'Delete', 'task-manager' ); ?></span>
-					</li>
-
-					<li class="action-attribute"
-							data-action="<?php echo ( 'archive' !== $task->status ) ? 'to_archive' : 'to_unarchive'; ?>"
-							data-nonce="<?php echo esc_attr( wp_create_nonce( ( 'archive' === $task->status ) ? 'to_archive' : 'to_unarchive' ) ); ?>"
-							data-id="<?php echo esc_attr( $task->id ); ?>">
-						<span><?php esc_html_e( ( 'archive' !== $task->status ) ? 'Archive' : 'Unarchive', 'task-manager' ); ?></span>
-					</li>
-
-					<li class="action-attribute"
-							data-action="export_task"
-							data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_task' ) ); ?>"
-							data-id="<?php echo esc_attr( $task->id ); ?>">
-						<span><?php esc_html_e( 'Export', 'task-manager' ); ?></span>
-					</li>
-				</ul>
+				<div class="content task-header-action">
+					<?php \eoxia\View_Util::exec( 'task-manager', 'task', 'backend/toggle-content', array(
+						'task' => $task,
+					) ); ?>
+				</div>
 			</li>
 		</ul>
 		<!-- Fin en tête de la tâche -->
