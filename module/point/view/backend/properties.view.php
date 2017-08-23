@@ -16,11 +16,11 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 <ul>
 	<li>
-		<?php esc_html_e( 'Créateur du point', 'task-manager' ); ?>
+		<?php esc_html_e( 'Creator of the point', 'task-manager' ); ?>
 		<?php echo do_shortcode( '[task_avatar ids="' . $point->author_id . '" size="50"]' ); ?>
 	</li>
 	<li>
-		<?php esc_html_e( 'Date de création', 'task-manager' ); ?>
+		<?php esc_html_e( 'Creation date', 'task-manager' ); ?>
 		<?php echo esc_html( $point->date ); ?>
 	</li>
 </ul>
@@ -31,9 +31,9 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	<input type="hidden" name="action" value="move_point_to" />
 	<?php wp_nonce_field( 'move_point_to' ); ?>
 
-	<label for="move_task"><?php esc_html_e( 'Déplacer le point vers', 'task-manager' ); ?></label>
+	<label for="move_task"><?php esc_html_e( 'Move the point to', 'task-manager' ); ?></label>
 	<input type="text" class="search-task" />
 	<input type="hidden" name="to_task_id" />
-	<input type="button" class="action-input" data-parent="form" value="<?php esc_html_e( 'Déplacer', 'task-manager' ); ?>" />
+	<input type="button" class="action-input" data-parent="form" value="<?php esc_html_e( 'Move', 'task-manager' ); ?>" />
 	<div class="list-tasks"></div>
 </div>

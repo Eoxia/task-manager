@@ -91,7 +91,7 @@ class Task_Action {
 		$tag_slug_selected = ! empty( $_POST['tag'] ) ? sanitize_text_field( $_POST['tag'] ) : 0;
 
 		$task = Task_Class::g()->create( array(
-			'title' 		=> __( 'Nouvelle tâche', 'task-manager' ),
+			'title' 		=> __( 'New task', 'task-manager' ),
 			'parent_id' => $parent_id,
 		) );
 
@@ -241,16 +241,16 @@ class Task_Action {
 		}
 
 		$subject = 'Task Manager: ';
-		$subject .= __( 'La tâche #' . $task->id . ' ' . $task->title, 'task-manager' );
+		$subject .= __( 'The task #' . $task->id . ' ' . $task->title, 'task-manager' );
 
-		$body = __( '<p>Ce courrier a été envoyé automatiquement</p>', 'task-manager' );
+		$body = __( '<p>This mail has been send automaticly</p>', 'task-manager' );
 		$body .= '<h2>#' . $task->id . ' ' . $task->title . ' send by ' . $sender_data->user_login . ' (' . $sender_data->user_email . ')</h2>';
 		$body = apply_filters( 'task_points_mail', $body, $task );
 		$body .= '<ul>';
 		if ( ! empty( $task->parent_id ) ) {
-			$body .= '<li><a href="' . admin_url( 'post.php?action=edit&post=' . $task->parent_id ) . '">Lien vers le client</a></li>';
+			$body .= '<li><a href="' . admin_url( 'post.php?action=edit&post=' . $task->parent_id ) . '">Customer link</a></li>';
 		}
-		$body .= '<li><a href="' . admin_url( 'admin.php?page=wpeomtm-dashboard&s=' . $task->id ) . '">Lien vers la tâche</a></li>';
+		$body .= '<li><a href="' . admin_url( 'admin.php?page=wpeomtm-dashboard&term=' . $task->id ) . '">Task link</a></li>';
 		$body .= '</ul>';
 
 		$headers = array( 'Content-Type: text/html; charset=UTF-8' );
@@ -468,7 +468,7 @@ class Task_Action {
 			'content' => $task->id . ' - ' . $task->title . "\r\n\r\n",
 		);
 
-		$file_info['content'] .= __( 'Incomplet', 'task-manager' ) . "\r\n";
+		$file_info['content'] .= __( 'Uncompleted', 'task-manager' ) . "\r\n";
 
 		if ( ! empty( $points_uncompleted ) ) {
 			foreach ( $points_uncompleted as $point ) {
@@ -476,7 +476,7 @@ class Task_Action {
 			}
 		}
 
-		$file_info['content'] .= __( 'Complet', 'task-manager' ) . "\r\n";
+		$file_info['content'] .= __( 'Completed', 'task-manager' ) . "\r\n";
 
 		if ( ! empty( $points_completed ) ) {
 			foreach ( $points_completed as $point ) {

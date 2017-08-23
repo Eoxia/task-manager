@@ -19,11 +19,11 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 	<div class="wpeo-project-dashboard">
 		<h2>
-			<?php	esc_html_e( 'Tâches', 'task-manager' ); ?>
+			<?php	esc_html_e( 'Task', 'task-manager' ); ?>
 			<a 	href="#"
 					class="action-attribute add-new-h2"
 					data-action="create_task"
-					data-nonce="<?php echo esc_attr( wp_create_nonce( 'create_task' ) ); ?>"><?php esc_html_e( 'Nouvelle tâche', 'task-manager' ); ?></a>
+					data-nonce="<?php echo esc_attr( wp_create_nonce( 'create_task' ) ); ?>"><?php esc_html_e( 'New task', 'task-manager' ); ?></a>
 		</h2>
 	</div>
 

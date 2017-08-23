@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					data-target="content">
 
 				<div class="action">
-					<span class="wpeo-task-open-action" title="<?php esc_html_e( 'Options des commentaires', 'task-manager' ); ?>"><i class="fa fa-ellipsis-v"></i></span>
+					<span class="wpeo-task-open-action" title="<?php esc_html_e( 'Comment options', 'task-manager' ); ?>"><i class="fa fa-ellipsis-v"></i></span>
 				</div>
 
 				<ul class="left content point-header-action">
@@ -33,15 +33,15 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 							data-action="load_edit_view_comment"
 							data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_edit_view_comment' ) ); ?>"
 							data-id="<?php echo esc_attr( $comment->id ); ?>"
-						<span><?php esc_html_e( 'Editer le commentaire', 'task-manager' ); ?></span>
+						<span><?php esc_html_e( 'Edit this comment', 'task-manager' ); ?></span>
 					</li>
 
 					<li class="action-delete"
 							data-action="delete_task_comment"
-							data-message-delete="<?php echo esc_attr_e( 'Supprimer ce commentaire', 'task-manager' ); ?>"
+							data-message-delete="<?php echo esc_attr_e( 'Delete this comment ?', 'task-manager' ); ?>"
 							data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_task_comment' ) ); ?>"
 							data-id="<?php echo esc_attr( $comment->id ); ?>"
-						<span><?php esc_html_e( 'Supprimer le commentaire', 'task-manager' ); ?></span>
+						<span><?php esc_html_e( 'Delete this comment', 'task-manager' ); ?></span>
 					</li>
 				</ul>
 			</div>

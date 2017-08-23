@@ -16,11 +16,11 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 <ul>
 	<li>
-		<?php esc_html_e( 'Créateur de la tâche', 'task-manager' ); ?>
+		<?php esc_html_e( 'Creator of the task', 'task-manager' ); ?>
 		<?php echo do_shortcode( '[task_avatar ids="' . $task->author_id . '" size="50"]' ); ?>
 	</li>
 	<li>
-		<?php esc_html_e( 'Date de création', 'task-manager' ); ?>
+		<?php esc_html_e( 'Creation date', 'task-manager' ); ?>
 		<?php echo esc_html( $task->date ); ?>
 	</li>
 </ul>
@@ -31,10 +31,10 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	<input type="hidden" name="action" value="move_task_to" />
 	<?php wp_nonce_field( 'move_task_to' ); ?>
 
-	<label for="move_task"><?php esc_html_e( 'Déplacer la tâche vers', 'task-manager' ); ?></label>
+	<label for="move_task"><?php esc_html_e( 'Move the task to', 'task-manager' ); ?></label>
 	<input type="text" class="search-parent" />
 	<input type="hidden" name="to_element_id" />
-	<input type="button" class="action-input" data-loader="form" data-parent="form" value="<?php esc_html_e( 'Déplacer', 'task-manager' ); ?>" />
+	<input type="button" class="action-input" data-loader="form" data-parent="form" value="<?php esc_html_e( 'Move', 'task-manager' ); ?>" />
 	<div class="list-posts">
 	</div>
 </div>

@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 				<?php echo $comment->content; ?>
 			</div>
 			<?php if ( empty( $comment->id ) ) : ?>
-				<span class="wpeo-point-new-placeholder"><?php esc_html_e( 'Votre commentaire ici...', 'task-manager' ); ?></span>
+				<span class="wpeo-point-new-placeholder"><?php esc_html_e( 'Your comment here...', 'task-manager' ); ?></span>
 			<?php endif; ?>
 		</li>
 	</ul>

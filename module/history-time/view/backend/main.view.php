@@ -19,10 +19,10 @@ namespace task_manager;
 		<?php wp_nonce_field( 'create_history_time' ); ?>
 
 		<i class="dashicons dashicons-calendar-alt"></i>
-		<input name="due_date" class="date" type="text" placeholder="<?php esc_html_e( 'Nouvelle date de fin', 'task-manager' ); ?>"/>
+		<input name="due_date" class="date" type="text" placeholder="<?php esc_html_e( 'New due time', 'task-manager' ); ?>"/>
 
 		<i class="dashicons dashicons-clock"></i>
-		<input name="estimated_time" type="text" placeholder="<?php esc_html_e( 'Temps estimé (min)', 'task-manager' ); ?>"/>
+		<input name="estimated_time" type="text" placeholder="<?php esc_html_e( 'Estimated time (min)', 'task-manager' ); ?>"/>
 
 		<span data-parent="history-time-new" class="action-input dashicons dashicons-plus-alt"></span>
 	</div>

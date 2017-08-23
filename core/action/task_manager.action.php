@@ -114,8 +114,8 @@ class Task_Manager_Action {
 	 * Définition du menu dans l'administration de wordpress pour Digirisk / Define the menu for wordpress administration
 	 */
 	public function callback_admin_menu() {
-		add_menu_page( __( 'Tâches', 'task-manager' ), __( 'Tâches', 'task-manager' ), 'publish_pages', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ), 'dashicons-layout' );
-		add_submenu_page( 'wpeomtm-dashboard', __( 'Tâches', 'task-manager' ), __( 'Tâches', 'task-manager' ), 'publish_pages', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ) );
+		add_menu_page( __( 'Task', 'task-manager' ), __( 'Task', 'task-manager' ), 'publish_pages', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ), 'dashicons-layout' );
+		add_submenu_page( 'wpeomtm-dashboard', __( 'Task', 'task-manager' ), __( 'Task', 'task-manager' ), 'publish_pages', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ) );
 	}
 
 }
