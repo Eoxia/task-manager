@@ -53,6 +53,13 @@ class Point_Action {
 		$parent_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
 		$content = ! empty( $_POST['content'] ) ? $_POST['content'] : '';
 
+		$content = wp_kses( $content, array(
+			'br' => array(),
+			'tooltip' => array(
+				'class' => array(),
+			)
+		) );
+
 		if ( empty( $parent_id ) || empty( $content ) ) {
 			wp_send_json_error();
 		}

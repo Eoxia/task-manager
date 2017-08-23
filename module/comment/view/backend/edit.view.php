@@ -23,7 +23,10 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 	<ul class="wpeo-comment-container">
 		<li class="avatar"><?php echo do_shortcode( '[task_avatar ids="' . $comment->author_id . '" size="16"]' ); ?></li>
-		<li class="wpeo-comment-date"><span class="fa fa-calendar-o"></span> <input type="text" class="date-time" name="date" value="<?php echo esc_attr( $comment->date_input ); ?>" /></li>
+		<li class="wpeo-comment-date group-date">
+			<input type="text" style="width: 0px;" name="date" value="<?php echo esc_attr( $comment->date_input ); ?>" />
+			<div class="tooltip hover" aria-label="<?php echo esc_attr( $comment->date_input ); ?>"><span class="date-time fa fa-calendar-o"></span></div>
+		</li>
 		<li class="wpeo-comment-time"><span class="fa fa-clock-o"></span> <input type="text" name="time" value="<?php echo esc_attr( $comment->time_info['elapsed'] ); ?>" /></li>
 		<li class="wpeo-save-point"><i data-parent="comment" class="action-input fa fa-floppy-o" aria-hidden="true"></i></li>
 		<li class="wpeo-comment-content">

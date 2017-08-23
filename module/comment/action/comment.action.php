@@ -103,6 +103,13 @@ class Task_Comment_Action {
 		$content = ! empty( $_POST['content'] ) ? $_POST['content'] : '';
 		$time = ! empty( $_POST['time'] ) ? (int) $_POST['time'] : 0;
 
+		$content = wp_kses( $content, array(
+			'br' => array(),
+			'tooltip' => array(
+				'class' => array(),
+			)
+		) );
+
 		$comment = Task_Comment_Class::g()->update( array(
 			'id' => $comment_id,
 			'post_id' => $post_id,

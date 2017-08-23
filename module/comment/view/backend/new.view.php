@@ -24,8 +24,10 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 			<input type="hidden" name="post_id" value="<?php echo esc_attr( $task_id ); ?>" />
 			<input type="hidden" name="parent_id" value="<?php echo esc_attr( $point_id ); ?>" />
 
-			<li class="wpeo-comment-date"><span class="fa fa-calendar-o"></span>
-				<input type="text" class="date-time" name="date" value="<?php echo esc_attr( current_time( 'd/m/Y h:i' ) ); ?>" />
+
+			<li class="wpeo-comment-date group-date">
+				<input type="text" style="width: 0px;" name="date" value="<?php echo esc_attr( current_time( 'd/m/Y h:i' ) ); ?>" />
+				<div class="tooltip hover" aria-label="<?php echo esc_attr( current_time( 'd/m/Y h:i' ) ); ?>"><span class="date-time fa fa-calendar-o"></span></div>
 			</li>
 
 			<li class="wpeo-comment-content">
