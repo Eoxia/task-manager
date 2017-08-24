@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 			<li class="wpeo-comment-date group-date">
 				<input type="text" style="width: 0px;" name="date" value="<?php echo esc_attr( current_time( 'd/m/Y h:i' ) ); ?>" />
-				<div class="tooltip hover" aria-label="<?php echo esc_attr( current_time( 'd/m/Y h:i' ) ); ?>"><span class="date-time fa fa-calendar-o"></span></div>
+				<div class="tooltip hover" aria-label="<?php echo esc_attr( current_time( 'd/m/Y h:i' ) ); ?>"><span class="date-time dashicons dashicons-calendar-alt"></span></div>
 			</li>
 
 			<li class="wpeo-comment-content">

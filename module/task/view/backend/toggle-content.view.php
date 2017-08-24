@@ -36,40 +36,44 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	</ul>
 	<div class="task-informations">
 		<?php echo do_shortcode( '[task_avatar ids="' . $task->author_id . '" size="50"]' ); ?>
-		<?php echo esc_html( $task->date ); ?>
+		<span class="time"><i class="dashicons dashicons-calendar-alt"></i> <?php echo esc_html( $task->date ); ?></span>
 	</div>
 </div>
 
 <ul class="actions">
-	<li class="action-attribute"
+	<li class="action-attribute tooltip hover"
+			aria-label="<?php esc_html_e( ( 'archive' !== $task->status ) ? 'Archive' : 'Unarchive', 'task-manager' ); ?>"
 			data-action="<?php echo ( 'archive' !== $task->status ) ? 'to_archive' : 'to_unarchive'; ?>"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( ( 'archive' === $task->status ) ? 'to_archive' : 'to_unarchive' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->id ); ?>">
-		<span><?php esc_html_e( ( 'archive' !== $task->status ) ? 'Archive' : 'Unarchive', 'task-manager' ); ?></span>
+		<span><i class="fa fa-archive"></i></span>
 	</li>
 
-	<li class="action-delete"
+	<li class="action-delete tooltip hover"
+			aria-label="<?php esc_html_e( 'Delete', 'task-manager' ); ?>"
 			data-action="delete_task"
 			data-message-delete="<?php echo esc_attr( 'Delete this task ?', 'task-manager' ); ?>"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_task' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->id ); ?>">
-		<span><?php esc_html_e( 'Delete', 'task-manager' ); ?></span>
+		<span><i class="fa fa-trash"></i></span>
 	</li>
 
 
-	<li class="action-attribute"
+	<li class="action-attribute tooltip hover"
+			aria-label="<?php esc_html_e( 'Notify team', 'task-manager' ); ?>"
 			data-action="notify_by_mail"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'notify_by_mail' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->id ); ?>">
-		<span><?php esc_html_e( 'Notify team', 'task-manager' ); ?></span>
+		<span><i class="fa fa-bell"></i></span>
 	</li>
 
 
-	<li class="action-attribute"
+	<li class="action-attribute tooltip hover"
+			aria-label="<?php esc_html_e( 'Export', 'task-manager' ); ?>"
 			data-action="export_task"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_task' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->id ); ?>">
-		<span><?php esc_html_e( 'Export', 'task-manager' ); ?></span>
+		<span><i class="fa fa-download"></i></span>
 	</li>
 </ul>
 
@@ -80,9 +84,11 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		<?php wp_nonce_field( 'move_task_to' ); ?>
 
 		<label for="move_task"><?php esc_html_e( 'Move the task to', 'task-manager' ); ?></label>
-		<input type="text" class="search-parent" />
-		<input type="hidden" name="to_element_id" />
-		<input type="button" class="action-input" data-loader="form" data-parent="form" value="<?php esc_html_e( 'Move', 'task-manager' ); ?>" />
+		<div class="form-fields">
+			<input type="text" class="search-parent" />
+			<input type="hidden" name="to_element_id" />
+			<input type="button" class="action-input" data-loader="form" data-parent="form" value="<?php esc_html_e( 'Move', 'task-manager' ); ?>" />
+		</div>
 		<div class="list-posts">
 		</div>
 	</div>

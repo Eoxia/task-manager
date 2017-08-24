@@ -19,7 +19,7 @@ if ( ! window.eoxiaJS.date ) {
 			} ).datetimepicker( 'show' );
 		} );
 
-		jQuery( document ).on( 'click', '.fa-calendar-o.date-time', function( e ) {
+		jQuery( document ).on( 'click', '.group-date .date-time', function( e ) {
 			jQuery( this ).closest( '.group-date' ).find( 'input[name="date"]' ).datetimepicker( {
 				'lang': 'en',
 				'format': 'd/m/Y H:i',
