@@ -69,25 +69,11 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 							<span class="wpeo-task-open-action" title="<?php esc_html_e( 'Point options', 'task-manager' ); ?>"><i class="fa fa-ellipsis-v"></i></span>
 						</div>
 
-						<ul class="left content point-header-action">
-							<li class="open-popup-ajax"
-									data-title="<?php esc_attr_e( 'Point properties: #' . $point->id . ' ' . substr( $point->content, 0, 50 ), 'task-manager' ); ?>"
-									data-action="load_point_properties"
-									data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_point_properties' ) ); ?>"
-									data-id="<?php echo esc_attr( $point->id ); ?>"
-									data-parent="wpeo-project-task"
-									data-target="popup">
-								<span><?php esc_html_e( 'Point properties', 'task-manager' ); ?></span>
-							</li>
-
-							<li class="action-delete"
-									data-action="delete_point"
-									data-message-delete="<?php echo esc_attr_e( 'Delete this point ?', 'task-manager' ); ?>"
-									data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_point' ) ); ?>"
-									data-id="<?php echo esc_attr( $point->id ); ?>"
-								<span><?php esc_html_e( 'Delete this point', 'task-manager' ); ?></span>
-							</li>
-						</ul>
+						<div class="left content point-header-action">
+							<?php \eoxia\View_Util::exec( 'task-manager', 'point', 'backend/toggle-content', array(
+								'point' => $point,
+							) ); ?>
+						</div>
 					</div>
 				<?php	endif; ?>
 			</li>
