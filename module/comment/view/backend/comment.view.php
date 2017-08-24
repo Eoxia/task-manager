@@ -17,12 +17,13 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 <li class="comment view">
 	<ul class="wpeo-comment-container">
 		<li class="avatar"><?php echo do_shortcode( '[task_avatar ids="' . $comment->author_id . '" size="20"]' ); ?></li>
-		<li class="wpeo-comment-date"><?php echo esc_html( $comment->date ); ?></li>
+		<li class="wpeo-comment-date"><?php echo esc_html( $comment->date_human_readable ); ?></li>
 		<li class="wpeo-comment-time"><span class="fa fa-clock-o"></span> <?php echo esc_html( $comment->time_info['elapsed'] ); ?></li>
 		<li class="wpeo-comment-action">
 			<div class="toggle wpeo-comment-setting"
 					data-parent="toggle"
-					data-target="content">
+					data-target="content"
+					data-mask="wpeo-project-task">
 
 				<div class="action">
 					<span class="wpeo-task-open-action" title="<?php esc_html_e( 'Comment options', 'task-manager' ); ?>"><i class="fa fa-ellipsis-v"></i></span>

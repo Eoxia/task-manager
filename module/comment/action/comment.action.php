@@ -100,7 +100,7 @@ class Task_Comment_Action {
 		$post_id = ! empty( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;
 		$parent_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
 		$date = ! empty( $_POST['date'] ) ? sanitize_text_field( $_POST['date'] ) : '';
-		$content = ! empty( $_POST['content'] ) ? $_POST['content'] : '';
+		$content = ! empty( $_POST['content'] ) ? trim( $_POST['content'] ) : '';
 		$time = ! empty( $_POST['time'] ) ? (int) $_POST['time'] : 0;
 
 		$content = wp_kses( $content, array(

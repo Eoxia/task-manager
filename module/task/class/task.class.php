@@ -6,7 +6,7 @@
  * @subpackage Module/task
  *
  * @since 1.0.0.0
- * @version 1.3.6.0
+ * @version 1.4.0-ford
  */
 
 namespace task_manager;
@@ -79,14 +79,14 @@ class Task_Class extends \eoxia\Post_Class {
 	 *
 	 * @var array
 	 */
-	protected $after_get_function = array( '\task_manager\get_full_task' );
+	protected $after_get_function = array( '\task_manager\get_full_task', '\task_manager\convert_date_display' );
 
 	/**
 	 * La fonction appelée automatiquement après la création de l'objet dans la base de donnée.
 	 *
 	 * @var array
 	 */
-	protected $after_post_function = array( '\task_manager\get_full_task' );
+	protected $after_post_function = array( '\task_manager\get_full_task', '\task_manager\convert_date_display' );
 
 	/**
 	 * La fonction appelée automatiquement après la mise à jour de l'objet dans la base de donnée.

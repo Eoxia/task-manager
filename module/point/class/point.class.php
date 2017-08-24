@@ -50,14 +50,14 @@ class Point_Class extends \eoxia\Comment_Class {
 	 *
 	 * @var array
 	 */
-	protected $after_post_function = array( '\task_manager\update_post_order' );
+	protected $after_post_function = array( '\task_manager\update_post_order', '\task_manager\convert_date_display' );
 
 	/**
 	 * La fonction appelée automatiquement après la récupération de l'objet dans la base de donnée.
 	 *
 	 * @var array
 	 */
-	protected $after_get_function = array( '\task_manager\get_full_point' );
+	protected $after_get_function = array( '\task_manager\get_full_point', '\task_manager\convert_date_display' );
 
 	/**
 	 * Constructeur qui inclus le modèle des points et également des les scripts

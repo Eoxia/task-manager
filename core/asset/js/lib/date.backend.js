@@ -14,15 +14,13 @@ if ( ! window.eoxiaJS.date ) {
 
 		jQuery( document ).on( 'click', 'input.date-time', function( e ) {
 			jQuery( this ).datetimepicker( {
-				'lang': 'en',
-				'format': 'd/m/Y H:i'
+				'lang': 'en'
 			} ).datetimepicker( 'show' );
 		} );
 
 		jQuery( document ).on( 'click', '.group-date .date-time', function( e ) {
 			jQuery( this ).closest( '.group-date' ).find( 'input[name="date"]' ).datetimepicker( {
 				'lang': 'en',
-				'format': 'd/m/Y H:i',
 				onChangeDateTime: function( dp, $input ) {
 					$input.closest( '.group-date' ).find( 'div' ).attr( 'aria-label', $input.val() );
 					$input.closest( '.group-date' ).find( 'span' ).css( 'background', '#389af6' );

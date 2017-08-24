@@ -26,8 +26,10 @@ window.eoxiaJS.taskManager.task.event = function() {
 	jQuery( '.search-parent' ).autocomplete( {
 		'source': 'admin-ajax.php?action=search_parent',
 		'appendTo': '.list-posts',
+		'delay': 0,
 		'select': function( event, ui ) {
 			jQuery( 'input[name="to_element_id"]' ).val( ui.item.id );
+			jQuery( this ).closest( '.form-fields' ).find( '.action-input' ).addClass( 'active' );
 		}
 	} );
 };

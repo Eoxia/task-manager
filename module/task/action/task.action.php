@@ -4,7 +4,7 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.0.0.0
- * @version 1.3.6.0
+ * @version 1.4.0-ford
  * @copyright 2015-2017 Eoxia
  * @package task
  * @subpackage action
@@ -258,7 +258,11 @@ class Task_Action {
 
 		wp_mail( $recipients, $subject, $body, $headers );
 
-		wp_send_json_success();
+		wp_send_json_success( array(
+			'namespace' => 'taskManager',
+			'module' => 'task',
+			'callback_success' => 'notifiedByMail',
+		) );
 	}
 
 	/**

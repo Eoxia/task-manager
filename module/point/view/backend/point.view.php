@@ -63,7 +63,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 					<div class="toggle wpeo-task-setting"
 							data-parent="toggle"
-							data-target="content">
+							data-target="content"
+							data-mask="wpeo-project-task">
 
 						<div class="action">
 							<span class="wpeo-task-open-action" title="<?php esc_html_e( 'Point options', 'task-manager' ); ?>"><i class="fa fa-ellipsis-v"></i></span>

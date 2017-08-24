@@ -48,6 +48,6 @@ function convert_date_display( $data ) {
 
 	$data->date_input = mysql2date( 'd/m/Y H:i', $data->date );
 
-	$data->date = mysql2date( $format, $data->date );
+	$data->date_human_readable = mysql2date( $format, $data->date );
 	return $data;
 }
