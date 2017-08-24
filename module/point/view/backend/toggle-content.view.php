@@ -22,12 +22,13 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 </div>
 
 <ul class="actions">
-	<li class="action-delete"
+	<li class="action-delete tooltip hover"
+			aria-label="<?php esc_html_e( 'Delete', 'task-manager' ); ?>"
 			data-action="delete_point"
 			data-message-delete="<?php echo esc_attr( 'Delete this point ?', 'task-manager' ); ?>"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_point' ) ); ?>"
 			data-id="<?php echo esc_attr( $point->id ); ?>">
-		<span><?php esc_html_e( 'Delete', 'task-manager' ); ?></span>
+		<span><i class="fa fa-trash"></i></span>
 	</li>
 </ul>
 
@@ -38,9 +39,11 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		<?php wp_nonce_field( 'move_task_to' ); ?>
 
 		<label for="move_task"><?php esc_html_e( 'Move the task to', 'task-manager' ); ?></label>
-		<input type="text" class="search-parent" />
-		<input type="hidden" name="to_element_id" />
-		<input type="button" class="action-input" data-loader="form" data-parent="form" value="<?php esc_html_e( 'Move', 'task-manager' ); ?>" />
+		<div class="form-fields">
+			<input type="text" class="search-parent" />
+			<input type="hidden" name="to_element_id" />
+			<input type="button" class="action-input" data-loader="form" data-parent="form" value="<?php esc_html_e( 'OK', 'task-manager' ); ?>" />
+		</div>
 		<div class="list-posts">
 		</div>
 	</div>

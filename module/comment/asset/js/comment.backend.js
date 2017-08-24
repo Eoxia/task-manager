@@ -132,7 +132,6 @@ window.eoxiaJS.taskManager.comment.addedCommentSuccess = function( triggeredElem
 	jQuery( triggeredElement ).closest( '.comment' ).find( 'input[name="date"]' ).datetimepicker( 'reset' );
 
 	jQuery( triggeredElement ).closest( '.comment' ).find( '.group-date div' ).attr( 'aria-label', jQuery( triggeredElement ).closest( '.comment' ).find( 'input[name="date"]' ).val() );
-	jQuery( triggeredElement ).closest( '.comment' ).find( '.group-date span' ).css( 'color', 'rgba(0,0,0,.4)' );
 	window.eoxiaJS.refresh();
 };
 

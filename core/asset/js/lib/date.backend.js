@@ -25,7 +25,7 @@ if ( ! window.eoxiaJS.date ) {
 				'format': 'd/m/Y H:i',
 				onChangeDateTime: function( dp, $input ) {
 					$input.closest( '.group-date' ).find( 'div' ).attr( 'aria-label', $input.val() );
-					$input.closest( '.group-date' ).find( 'span' ).css( 'color', '#389af6' );
+					$input.closest( '.group-date' ).find( 'span' ).css( 'background', '#389af6' );
 				}
 			} ).datetimepicker( 'show' );
 		} );

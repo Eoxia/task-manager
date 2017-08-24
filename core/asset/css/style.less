@@ -460,114 +460,6 @@
 							color: rgba(0,0,0,0.4);
 						}
 					}
-					.task-header-action {
-						text-align: left;
-						position: absolute;
-						right: 0;
-						width: 320px;
-						background: #fff;
-						box-shadow: 1px 1px 5px 0 rgba(0,0,0,.2);
-						top: 20px;
-						z-index: 500;
-						animation: taskOptionAnimation 0.2s ease-out;
-						transition: all 0.2s east-out;
-						opacity: 0;
-						pointer-events: none;
-
-						&.active {
-							top: 30px;
-							opacity: 1;
-							pointer-events: all;
-						}
-						.task-color, .task-informations, .actions, .move-to {
-							padding: 1em;
-						}
-						.gridwrapper {
-							display: flex;
-							flex-direction: row;
-							flex-wrap: nowrap;
-							border-bottom: 1px solid rgba(0,0,0,0.1);
-							> * {
-								width: 50%;
-							}
-						}
-						.task-color {
-							display: flex;
-							flex-direction: row;
-							flex-wrap: wrap;
-							border-right: 1px solid rgba(0,0,0,0.1);
-							.color-element {
-								width: 33.333333%;
-								padding: 0;
-								&:hover {
-									background: none;
-								}
-							}
-							span {
-								width: 26px;
-								height: 26px;
-								display: inline-block;
-								border-radius: 50%;
-								margin-right: 4px;
-								&:hover {
-									cursor: pointer;
-								}
-							}
-							&:hover {
-								background: none;
-								cursor: default;
-							}
-						}
-						.task-informations {
-							text-align: center;
-							.user {
-								margin: auto;
-							}
-							.time {
-								font-size: 12px;
-								line-height: 2;
-							}
-						}
-						.actions {
-							text-align: center;
-							border-bottom: 1px solid rgba(0,0,0,0.1);
-							li {
-								display: inline-block;
-								padding: 4px;
-								font-size: 24px;
-								color: rgba(0,0,0,0.5);
-								&:hover {
-									color: @main-color;
-									background: none;
-								}
-							}
-						}
-						.move-to {
-							label {
-								display: block;
-								font-weight: 700;
-								margin-bottom: 10px;
-							}
-							.form-fields {
-								display: flex;
-								.search-parent {
-									width: 70%;
-									background-color: rgba(0,0,0,0.05) !important;
-									border-bottom: 0;
-								}
-								.action-input {
-									width: 30%;
-									pointer-events: none;
-									background: rgba(0,0,0,0.4);
-									margin-left: 8px;
-									&.active {
-										pointer-events: all;
-										background: @main-color;
-									}
-								}
-							}
-						}
-					}
 					@keyframes taskOptionAnimation {
 						from { opacity: 0; top: 26px; }
 						to { opacity: 1; top: 30px; }
@@ -616,6 +508,130 @@
 	}
 
 
+}
+
+
+.wpeo-project-wrap {
+/* -------------
+Popup
+------------- */
+	.task-header-action, .point-header-action {
+		text-align: left;
+		position: absolute;
+		right: 0;
+		background: #fff;
+		box-shadow: 1px 1px 5px 0 rgba(0,0,0,.2);
+		top: 20px;
+		z-index: 500;
+		animation: taskOptionAnimation 0.2s ease-out;
+		transition: all 0.2s east-out;
+		opacity: 0;
+		pointer-events: none;
+
+		&.active {
+			top: 30px;
+			opacity: 1;
+			pointer-events: all;
+		}
+		.task-color, .task-informations, .actions, .move-to {
+			padding: 1em;
+		}
+		.gridwrapper {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: nowrap;
+			border-bottom: 1px solid rgba(0,0,0,0.1);
+			> * {
+				width: 50%;
+			}
+		}
+		.task-color {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			border-right: 1px solid rgba(0,0,0,0.1);
+			.color-element {
+				width: 33.333333%;
+				padding: 0;
+				&:hover {
+					background: none;
+				}
+			}
+			span {
+				width: 26px;
+				height: 26px;
+				display: inline-block;
+				border-radius: 50%;
+				margin-right: 4px;
+				&:hover {
+					cursor: pointer;
+				}
+			}
+			&:hover {
+				background: none;
+				cursor: default;
+			}
+		}
+		.task-informations {
+			text-align: center;
+			.user {
+				margin: auto;
+			}
+			.time {
+				font-size: 12px;
+				line-height: 2;
+			}
+		}
+		.actions {
+			text-align: center;
+			border-bottom: 1px solid rgba(0,0,0,0.1);
+			li {
+				display: inline-block;
+				padding: 4px;
+				font-size: 24px;
+				color: rgba(0,0,0,0.5);
+				&:hover {
+					color: @main-color;
+					background: none;
+				}
+			}
+		}
+		.move-to {
+			label {
+				display: block;
+				font-weight: 700;
+				margin-bottom: 10px;
+			}
+			.form-fields {
+				display: flex;
+				.search-parent {
+					width: 70%;
+					background-color: rgba(0,0,0,0.05) !important;
+					border-bottom: 0;
+				}
+				.action-input {
+					width: 30%;
+					pointer-events: none;
+					background: rgba(0,0,0,0.4);
+					margin-left: 8px;
+					&.active {
+						pointer-events: all;
+						background: @main-color;
+					}
+				}
+			}
+		}
+	}
+
+	.task-header-action {
+		width: 320px !important;
+	}
+	.point-header-action {
+		width: 160px !important;
+		.task-informations {
+			border-bottom: 1px solid rgba(0,0,0,0.1);
+		}
+	}
 }
 
 
@@ -676,7 +692,7 @@
 					margin-left: auto;
 					text-align: center;
 					transition: all 0.2s ease-out;
-					i {
+					.wpeo-task-open-action > i {
 						min-width: 20px;
 						font-size: 14px;
 						line-height: 20px;
@@ -687,7 +703,7 @@
 					}
 					&:hover {
 						cursor: pointer;
-						i {
+						.wpeo-task-open-action > i {
 							color: rgba(0,0,0,.4);
 						}
 					}
@@ -765,7 +781,7 @@
 				}
 			}
 			&:hover {
-				.wpeo-sort-point, .wpeo-task-setting i, .action-delete {
+				.wpeo-sort-point, .wpeo-task-setting .wpeo-task-open-action > i, .action-delete {
 					opacity: 1;
 				}
 			}
@@ -791,6 +807,32 @@
 					border-radius: 50%;
 				}
 			}
+			.wpeo-comment-date {
+				span {
+					margin: auto;
+				}
+				input[type="text"] {
+					height: 0;
+					position: absolute;
+					opacity: 0;
+				}
+				> div {
+					display: inline-block;
+				}
+				.date-time {
+					background: rgba(0,0,0,0.2);
+					color: #fff;
+					display: inline;
+					padding: 4px;
+					border-radius: 50%;
+					font-size: 20px;
+					transition: all 0.2s ease-out;
+					&:hover {
+						cursor: pointer;
+						background: rgba(0,0,0,0.4);
+					}
+				}
+			}
 			&.new ul {
 				input {
 					width: 100%;
@@ -800,21 +842,16 @@
 				}
 				.wpeo-comment-date, .wpeo-comment-time {
 					display: flex;
-					span {
-						margin: auto;
-						font-size: 14px;
-						color: rgba(0,0,0,0.4);
-					}
 				}
 				.wpeo-comment-date {
 					width: 100%;
-					max-width: 20%;
+					max-width: 10%;
 				}
 				.wpeo-comment-content {
 					position: relative;
 					margin: 0 16px;
 					width: 100%;
-					max-width: 63%;
+					max-width: 73%;
 					margin: auto 6px;
 					border-bottom: 1px solid rgba(0,0,0,.1);
 					transition: all .2s ease-out;
@@ -853,6 +890,7 @@
 				> .avatar {
 					width: 100%;
 					max-width: 5%;
+					margin-right: 6px;
 					.user {
 						span {
 							font-size: 12px;
@@ -884,8 +922,8 @@
 					}
 				}
 				.wpeo-comment-date {
-					font-size: 12px;
-					color: rgba(0,0,0,0.4);
+					// font-size: 12px;
+					// color: rgba(0,0,0,0.4);
 					width: 100%;
 					max-width: 78%;
 				}

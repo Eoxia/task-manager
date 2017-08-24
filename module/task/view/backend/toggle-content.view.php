@@ -87,7 +87,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		<div class="form-fields">
 			<input type="text" class="search-parent" />
 			<input type="hidden" name="to_element_id" />
-			<input type="button" class="action-input" data-loader="form" data-parent="form" value="<?php esc_html_e( 'Move', 'task-manager' ); ?>" />
+			<input type="button" class="action-input" data-loader="form" data-parent="form" value="<?php esc_html_e( 'OK', 'task-manager' ); ?>" />
 		</div>
 		<div class="list-posts">
 		</div>
