@@ -22,6 +22,14 @@ window.eoxiaJS.taskManager.task.refresh = function() {
 window.eoxiaJS.taskManager.task.event = function() {
 	jQuery( '.wpeo-project-wrap' ).on( 'blur', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.editTitle );
 	jQuery( window ).scroll( window.eoxiaJS.taskManager.task.onScrollLoadMore );
+
+	jQuery( '.search-parent' ).autocomplete( {
+		'source': 'admin-ajax.php?action=search_parent',
+		'appendTo': '.list-posts',
+		'select': function( event, ui ) {
+			jQuery( 'input[name="to_element_id"]' ).val( ui.item.id );
+		}
+	} );
 };
 
 window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
@@ -151,30 +159,6 @@ window.eoxiaJS.taskManager.task.loadedAllTask = function( triggeredElement, resp
 
 	jQuery( '.wpeo-header-bar li.active' ).removeClass( 'active' );
 	jQuery( triggeredElement ).addClass( 'active' );
-};
-
-/**
- * Le callback en cas de réussite à la requête Ajax "load_task_properties".
- *
- * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
- * @param  {Object}         response          Les données renvoyées par la requête Ajax.
- * @return {void}
- *
- * @since 1.0.0.0
- * @version 1.3.6.0
- */
-window.eoxiaJS.taskManager.task.loadedTaskProperties = function( triggeredElement, response ) {
-	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.popup .content' ).html( response.data.view );
-
-	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.popup .container' ).removeClass( 'loading' );
-
-	jQuery( '.search-parent' ).autocomplete( {
-		'source': 'admin-ajax.php?action=search_parent',
-		'appendTo': '.list-posts',
-		'select': function( event, ui ) {
-			jQuery( 'input[name="to_element_id"]' ).val( ui.item.id );
-		}
-	} );
 };
 
 /**

@@ -302,13 +302,32 @@ class Task_Action {
 	 * @return void
 	 *
 	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @version 1.4.0-ford
 	 */
 	public function callback_search_parent() {
+		global $wpdb;
 		$term = sanitize_text_field( $_GET['term'] );
 
 		$posts_type = get_post_types();
 		unset( $posts_type[ Task_Class::g()->get_post_type() ] );
+
+		$posts_founded = array();
+		$ids_founded = array();
+
+		$query = "SELECT ID, post_title FROM {$wpdb->posts} WHERE ID LIKE '%" . $term . "%' AND post_type IN('" . implode( $posts_type, '\',\'' ) . "')";
+		$results = $wpdb->get_results( $query );
+
+		if ( ! empty( $results ) ) {
+			foreach ( $results as $post ) {
+				$posts_founded[] = array(
+					'label' => '#' . $post->ID . ' - ' . $post->post_title,
+					'value' => '#' . $post->ID . ' - ' . $post->post_title,
+					'id' => $post->ID,
+				);
+
+				$ids_founded[] = $post->ID;
+			}
+		}
 
 		$query = new \WP_Query( array(
 			'post_type' => $posts_type,
@@ -316,15 +335,15 @@ class Task_Action {
 			'post_status' => array( 'publish', 'draft' ),
 		) );
 
-		$posts_founded = array();
-
 		if ( ! empty( $query->posts ) ) {
 			foreach ( $query->posts as $post ) {
-				$posts_founded[] = array(
-					'label' => '#' . $post->ID . ' - ' . $post->post_title,
-					'value' => $post->post_title,
-					'id' => $post->ID,
-				);
+				if ( ! in_array( $post->ID, $ids_founded, true ) ) {
+					$posts_founded[] = array(
+						'label' => '#' . $post->ID . ' - ' . $post->post_title,
+						'value' => '#' . $post->ID . ' - ' . $post->post_title,
+						'id' => $post->ID,
+					);
+				}
 			}
 		}
 
