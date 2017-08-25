@@ -20,6 +20,7 @@ if ( ! window.eoxiaJS.action ) {
 		var i = 0;
 		var doAction = true;
 		var key = undefined;
+		var inputAlreadyIn = [];
 
 		event.preventDefault();
 
@@ -46,7 +47,8 @@ if ( ! window.eoxiaJS.action ) {
 
 			listInput = window.eoxiaJS.arrayForm.getInput( parentElement );
 			for ( i = 0; i < listInput.length; i++ ) {
-				if ( listInput[i].name ) {
+				if ( listInput[i].name && -1 === inputAlreadyIn.indexOf( listInput[i].name ) ) {
+					inputAlreadyIn.push( listInput[i].name );
 					data[listInput[i].name] = listInput[i].value;
 				}
 			}

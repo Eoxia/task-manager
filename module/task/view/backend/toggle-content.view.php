@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 <ul class="actions">
 	<li class="action-attribute tooltip hover"
-			aria-label="<?php esc_html_e( ( 'archive' !== $task->status ) ? 'Archive' : 'Unarchive', 'task-manager' ); ?>"
+			aria-label="<?php ( 'archive' !== $task->status ) ? esc_html_e( 'Archive', 'task-manager' ) : esc_html_e( 'Unarchive', 'task-manager' ); ?>"
 			data-action="<?php echo ( 'archive' !== $task->status ) ? 'to_archive' : 'to_unarchive'; ?>"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( ( 'archive' === $task->status ) ? 'to_archive' : 'to_unarchive' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->id ); ?>"
@@ -56,7 +56,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	<li class="action-delete tooltip hover"
 			aria-label="<?php esc_html_e( 'Delete', 'task-manager' ); ?>"
 			data-action="delete_task"
-			data-message-delete="<?php echo esc_attr( 'Delete this task ?', 'task-manager' ); ?>"
+			data-message-delete="<?php echo esc_attr_e( 'Delete this task ?', 'task-manager' ); ?>"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_task' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->id ); ?>"
 			data-loader="actions">
@@ -85,7 +85,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 </ul>
 
 <div class="move-to">
-	<div class="form">
+	<div>
 		<input type="hidden" name="task_id" value="<?php echo esc_attr( $task->id ); ?>" />
 		<input type="hidden" name="action" value="move_task_to" />
 		<?php wp_nonce_field( 'move_task_to' ); ?>
@@ -94,7 +94,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		<div class="form-fields">
 			<input type="text" class="search-parent" />
 			<input type="hidden" name="to_element_id" />
-			<input type="button" class="action-input" data-loader="form" data-parent="form" value="<?php esc_html_e( 'OK', 'task-manager' ); ?>" />
+			<input type="button" class="action-input" data-loader="move-to" data-parent="move-to" value="<?php esc_html_e( 'OK', 'task-manager' ); ?>" />
 		</div>
 		<div class="list-posts">
 		</div>

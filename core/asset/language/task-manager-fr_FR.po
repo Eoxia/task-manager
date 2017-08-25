@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2017-08-25 11:25+0100\n"
-"PO-Revision-Date: 2017-08-25 11:28+0100\n"
+"POT-Creation-Date: 2017-08-25 11:37+0100\n"
+"PO-Revision-Date: 2017-08-25 11:37+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -451,6 +451,10 @@ msgstr "Temps prévu"
 #: module/task/view/backend/task.view.php:36
 msgid "Task options"
 msgstr "Options"
+
+#: module/task/view/backend/toggle-content.view.php:48
+msgid "Unarchive"
+msgstr "Désarchiver"
 
 #: module/task/view/backend/toggle-content.view.php:68
 msgid "Notify team"

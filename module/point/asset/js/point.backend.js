@@ -158,7 +158,7 @@ window.eoxiaJS.taskManager.point.editedPointSuccess = function( triggeredElement
  * @version 1.0.0.0
  */
 window.eoxiaJS.taskManager.point.editPoint = function() {
-	jQuery( this ).closest( 'form' ).find( '.action-input' ).click();
+	jQuery( this ).closest( '.form' ).find( '.action-input.update' ).click();
 };
 
 /**
@@ -203,7 +203,7 @@ window.eoxiaJS.taskManager.point.completePoint = function() {
 	var data = {
 		action: 'complete_point',
 		_wpnonce: jQuery( this ).data( 'nonce' ),
-		point_id: jQuery( this ).closest( 'form' ).find( 'input[name="id"]' ).val(),
+		point_id: jQuery( this ).closest( '.form' ).find( 'input[name="id"]' ).val(),
 		complete: jQuery( this ).is( ':checked' )
 	};
 

@@ -55,7 +55,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 						<i class="dashicons dashicons-plus-alt"></i>
 					</div>
 				<?php else : ?>
-					<div class="hidden action-input" data-parent="form"></div>
+					<div class="hidden action-input update" data-parent="form"></div>
 
 					<div class="wpeo-point-time">
 						<span class="dashicons dashicons-clock"></span>

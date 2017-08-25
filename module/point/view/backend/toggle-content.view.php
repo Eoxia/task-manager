@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	<li class="action-delete tooltip hover"
 			aria-label="<?php esc_html_e( 'Delete', 'task-manager' ); ?>"
 			data-action="delete_point"
-			data-message-delete="<?php echo esc_attr( 'Delete this point ?', 'task-manager' ); ?>"
+			data-message-delete="<?php echo esc_attr_e( 'Delete this point ?', 'task-manager' ); ?>"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_point' ) ); ?>"
 			data-id="<?php echo esc_attr( $point->id ); ?>"
 			data-loader="actions">
