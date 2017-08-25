@@ -4986,10 +4986,6 @@ Popup
           box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.2);
   top: 20px;
   z-index: 500;
-  -webkit-animation: taskOptionAnimation 0.2s ease-out;
-     -moz-animation: taskOptionAnimation 0.2s ease-out;
-       -o-animation: taskOptionAnimation 0.2s ease-out;
-          animation: taskOptionAnimation 0.2s ease-out;
   -webkit-transition: all 0.2s east-out;
   -o-transition: all 0.2s east-out;
   -moz-transition: all 0.2s east-out;
@@ -5129,7 +5125,9 @@ Popup
   display: flex;
 }
 .wpeo-project-wrap .task-header-action .move-to .form-fields .search-parent,
-.wpeo-project-wrap .point-header-action .move-to .form-fields .search-parent {
+.wpeo-project-wrap .point-header-action .move-to .form-fields .search-parent,
+.wpeo-project-wrap .task-header-action .move-to .form-fields .search-task,
+.wpeo-project-wrap .point-header-action .move-to .form-fields .search-task {
   width: 70%;
   background-color: rgba(0, 0, 0, 0.05) !important;
   border-bottom: 0;
@@ -5452,7 +5450,7 @@ Popup
 }
 .wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-date {
   width: 100%;
-  max-width: 10%;
+  max-width: 11%;
 }
 .wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-content {
   position: relative;
@@ -5497,6 +5495,31 @@ Popup
 .wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-point-new-btn:hover {
   cursor: pointer;
 }
+.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-save-point {
+  width: 100%;
+  max-width: 5%;
+  text-align: right;
+}
+.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-save-point i {
+  background: #3495f0;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+  font-size: 12px;
+  width: 20px;
+  line-height: 20px;
+  text-align: center;
+  color: #fff;
+  margin-left: auto;
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  display: inline-block;
+}
+.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-save-point i:hover {
+  background: #1360c8;
+  cursor: pointer;
+}
 .wpeo-project-wrap .points .point .comments .comment.view ul,
 .wpeo-project-wrap .points .point .comments .comment.edit ul {
   -webkit-flex-wrap: wrap;
@@ -5522,38 +5545,10 @@ Popup
   -webkit-border-radius: 50%;
           border-radius: 50%;
 }
-.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-save-point,
-.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-save-point {
-  width: 100%;
-  max-width: 5%;
-  text-align: right;
-}
-.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-save-point i,
-.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-save-point i {
-  background: #3495f0;
-  -webkit-border-radius: 50%;
-          border-radius: 50%;
-  font-size: 12px;
-  width: 20px;
-  line-height: 20px;
-  text-align: center;
-  color: #fff;
-  margin-left: auto;
-  -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out;
-  display: inline-block;
-}
-.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-save-point i:hover,
-.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-save-point i:hover {
-  background: #1360c8;
-  cursor: pointer;
-}
 .wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-date,
 .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-date {
   width: 100%;
-  max-width: 78%;
+  max-width: 77%;
 }
 .wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-content,
 .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-content {
