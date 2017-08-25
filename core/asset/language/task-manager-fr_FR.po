@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2017-08-23 11:39+0100\n"
-"PO-Revision-Date: 2017-08-23 11:39+0100\n"
+"POT-Creation-Date: 2017-08-25 11:25+0100\n"
+"PO-Revision-Date: 2017-08-25 11:28+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -24,11 +24,11 @@ msgid "Task"
 msgstr "Tâche"
 
 #: core/asset/js/language.js.php:2
-#: module/comment/view/backend/comment.view.php:41
+#: module/comment/view/backend/comment.view.php:42
 msgid "Delete this comment ?"
 msgstr "Voulez vous supprimer ce commentaire ?"
 
-#: core/asset/js/language.js.php:3 module/point/view/backend/point.view.php:85
+#: core/asset/js/language.js.php:3
 msgid "Delete this point ?"
 msgstr "Voulez vous supprimer ce point ?"
 
@@ -185,7 +185,7 @@ msgid "Reset"
 msgstr ""
 
 #: core/external/wpeo_log/view/view-service.view.php:19
-#: module/task/view/backend/task.view.php:86
+#: module/task/view/backend/toggle-content.view.php:48
 msgid "Archive"
 msgstr "Archive"
 
@@ -272,26 +272,22 @@ msgstr ""
 msgid "New task"
 msgstr "Nouvelle tâche"
 
-#: module/comment/view/backend/comment.view.php:28
+#: module/comment/view/backend/comment.view.php:29
 msgid "Comment options"
 msgstr "Options"
 
-#: module/comment/view/backend/comment.view.php:36
+#: module/comment/view/backend/comment.view.php:37
 msgid "Edit this comment"
 msgstr "Editer ce commentaire"
 
-#: module/comment/view/backend/comment.view.php:44
+#: module/comment/view/backend/comment.view.php:45
 msgid "Delete this comment"
 msgstr "Supprimer ce commentaire"
 
-#: module/comment/view/backend/edit.view.php:38
+#: module/comment/view/backend/edit.view.php:37
 #: module/comment/view/frontend/edit.view.php:33
 msgid "Your comment here..."
 msgstr "Écrire ce commentaire ici..."
-
-#: module/comment/view/backend/new.view.php:39
-msgid "Write your comment here..."
-msgstr "Écrivez votre commentaire ici..."
 
 #: module/follower/view/backend/main.view.php:32
 #: module/navigation/view/backend/followers.view.php:17
@@ -357,6 +353,11 @@ msgstr "pour les abonnés:"
 msgid "Categories"
 msgstr "Catégories"
 
+#: module/point/action/point.action.php:358
+#: module/point/action/point.action.php:359
+msgid "No task found"
+msgstr "Aucune tâche trouvé"
+
 #: module/point/filter/point.filter.php:55
 msgid "Incompleted"
 msgstr "Incomplet"
@@ -366,47 +367,36 @@ msgstr "Incomplet"
 msgid "Completed points"
 msgstr "Points completés"
 
-#: module/point/view/backend/point.view.php:27
+#: module/point/view/backend/point.view.php:28
 msgid "Drag and drop"
 msgstr "Glisser et déposer"
 
-#: module/point/view/backend/point.view.php:44
+#: module/point/view/backend/point.view.php:45
 msgid "Write your point here..."
 msgstr "Écrivez votre point ici..."
 
-#: module/point/view/backend/point.view.php:69
+#: module/point/view/backend/point.view.php:71
 msgid "Point options"
 msgstr "Options du point"
 
-#: module/point/view/backend/point.view.php:74
-msgid "Point properties: #"
-msgstr "Propriété du point: #"
+#: module/point/view/backend/toggle-content.view.php:20
+#: module/task/view/backend/toggle-content.view.php:40
+msgid "Create "
+msgstr "Créé"
 
-#: module/point/view/backend/point.view.php:80
-msgid "Point properties"
-msgstr "Propriété du point"
+#: module/point/view/backend/toggle-content.view.php:27
+#: module/task/view/backend/toggle-content.view.php:57
+msgid "Delete"
+msgstr "Supprimer"
 
-#: module/point/view/backend/point.view.php:88
-msgid "Delete this point"
-msgstr "Supprimer ce point"
-
-#: module/point/view/backend/properties.view.php:19
-msgid "Creator of the point"
-msgstr "Créateur du point"
-
-#: module/point/view/backend/properties.view.php:23
-#: module/task/view/backend/properties.view.php:23
-msgid "Creation date"
-msgstr "Date de création"
-
-#: module/point/view/backend/properties.view.php:34
+#: module/point/view/backend/toggle-content.view.php:44
 msgid "Move the point to"
 msgstr "Déplacer le point vers"
 
-#: module/point/view/backend/properties.view.php:37
-#: module/task/view/backend/properties.view.php:37
-msgid "Move"
-msgstr "Déplacer"
+#: module/point/view/backend/toggle-content.view.php:48
+#: module/task/view/backend/toggle-content.view.php:97
+msgid "OK"
+msgstr "OK"
 
 #: module/tag/view/backend/main-edit.view.php:28
 msgid "Create categories "
@@ -428,11 +418,16 @@ msgstr "La tâche #"
 msgid "<p>This mail has been send automaticly</p>"
 msgstr "<p>Cet email a été envoyé automatiquement</p>"
 
-#: module/task/action/task.action.php:471
+#: module/task/action/task.action.php:356
+#: module/task/action/task.action.php:357
+msgid "No post found"
+msgstr "Aucun post trouvé"
+
+#: module/task/action/task.action.php:502
 msgid "Uncompleted"
 msgstr "Terminé"
 
-#: module/task/action/task.action.php:479
+#: module/task/action/task.action.php:510
 msgid "Completed"
 msgstr "Complété(s)"
 
@@ -445,37 +440,115 @@ msgstr "Tâche non trouvée"
 msgid "Load more task..."
 msgstr "Chargement de tâche supplémentaire"
 
-#: module/task/view/backend/properties.view.php:19
-msgid "Creator of the task"
-msgstr "Créateur de la tâche"
+#: module/task/view/backend/task-header.view.php:24
+msgid "Elapsed time"
+msgstr "Temps passé"
 
-#: module/task/view/backend/properties.view.php:34
-msgid "Move the task to"
-msgstr "Déplacer la tâche vers"
+#: module/task/view/backend/task-header.view.php:28
+msgid "Estimated time"
+msgstr "Temps prévu"
 
-#: module/task/view/backend/task.view.php:35
+#: module/task/view/backend/task.view.php:36
 msgid "Task options"
 msgstr "Options"
 
-#: module/task/view/backend/task.view.php:60
-msgid "Task properties: #"
-msgstr "Propriété de la tâche: #"
-
-#: module/task/view/backend/task.view.php:64
-msgid "Task properties"
-msgstr "Propriété de la tâche"
-
-#: module/task/view/backend/task.view.php:71
+#: module/task/view/backend/toggle-content.view.php:68
 msgid "Notify team"
 msgstr "Notifier l'équipe"
 
-#: module/task/view/backend/task.view.php:79
-msgid "Delete"
-msgstr "Supprimer"
-
-#: module/task/view/backend/task.view.php:93
+#: module/task/view/backend/toggle-content.view.php:78
 msgid "Export"
 msgstr "Exporter"
+
+#: module/task/view/backend/toggle-content.view.php:93
+msgid "Move the task to"
+msgstr "Déplacer la tâche vers"
+
+#: module/timeline/action/timeline.action.php:73
+#: module/timeline/view/backend/main.view.php:4
+msgid "Timeline"
+msgstr "Historique"
+
+#: module/timeline/class/timeline.class.php:128
+msgid "Create the task #"
+msgstr "Créer la tâche #"
+
+#: module/timeline/class/timeline.class.php:132
+msgid "Create the point #"
+msgstr "Créer le point #"
+
+#: module/timeline/class/timeline.class.php:136
+msgid "Create the comment #"
+msgstr "Crée le commentaire #"
+
+#: module/timeline/view/backend/month.view.php:29
+#: module/timeline/view/backend/week.view.php:22
+msgid "Working time"
+msgstr "Temps de travail"
+
+#: module/timeline/view/backend/month.view.php:33
+#: module/timeline/view/backend/week.view.php:26
+msgid "Setup working time"
+msgstr "Configurer le temps de travail"
+
+#: module/timeline/view/backend/month.view.php:38
+#: module/timeline/view/backend/week.view.php:31
+msgid "Worked time"
+msgstr "Temps travaillé"
+
+#: module/timeline/view/backend/month.view.php:42
+#: module/timeline/view/backend/week.view.php:35
+msgid "Task(s) created"
+msgstr "Tâche(s) créé(s)"
+
+#: module/timeline/view/backend/month.view.php:46
+#: module/timeline/view/backend/week.view.php:39
+msgid "Point(s) created"
+msgstr "Point(s) créé(s)"
+
+#: module/timeline/view/backend/month.view.php:50
+#: module/timeline/view/backend/week.view.php:43
+msgid "Completed point(s)"
+msgstr "Point(s) complété(s)"
+
+#: module/timeline/view/backend/month.view.php:55
+#: module/timeline/view/backend/week.view.php:48
+msgid "Waste time"
+msgstr "Temps gaspillé"
+
+#: module/timeline/view/backend/week.view.php:12
+msgid "Week"
+msgstr "Semaine"
+
+#~ msgid "Write your comment here..."
+#~ msgstr "Écrivez votre commentaire ici..."
+
+#~ msgid "Point properties: #"
+#~ msgstr "Propriété du point: #"
+
+#~ msgid "Point properties"
+#~ msgstr "Propriété du point"
+
+#~ msgid "Delete this point"
+#~ msgstr "Supprimer ce point"
+
+#~ msgid "Creator of the point"
+#~ msgstr "Créateur du point"
+
+#~ msgid "Creation date"
+#~ msgstr "Date de création"
+
+#~ msgid "Move"
+#~ msgstr "Déplacer"
+
+#~ msgid "Creator of the task"
+#~ msgstr "Créateur de la tâche"
+
+#~ msgid "Task properties: #"
+#~ msgstr "Propriété de la tâche: #"
+
+#~ msgid "Task properties"
+#~ msgstr "Propriété de la tâche"
 
 #~ msgid "Task Manager"
 #~ msgstr "Tâches"
@@ -627,9 +700,6 @@ msgstr "Exporter"
 #~ msgid "Create"
 #~ msgstr "Créer"
 
-#~ msgid "Elapsed time"
-#~ msgstr "Temps passé"
-
 #~ msgid "Number of comments on the point"
 #~ msgstr "Monbre de commentiares du point"
 
@@ -713,9 +783,6 @@ msgstr "Exporter"
 
 #~ msgid "Task informations"
 #~ msgstr "Informations de la tâche"
-
-#~ msgid "Estimated time"
-#~ msgstr "Temps prévu"
 
 #~ msgid "Number of comments on the task"
 #~ msgstr "Nombre de commentaires sur la tâche"
@@ -816,44 +883,11 @@ msgstr "Exporter"
 #~ msgid "Or add a new tag..."
 #~ msgstr "Ajoutez un nouveau tag..."
 
-#~ msgid "Timeline"
-#~ msgstr "Historique"
-
 #~ msgid "Add the comment #"
 #~ msgstr "Ajouter le commentaire #"
 
 #~ msgid "Completed the point #"
 #~ msgstr "Compléter le point #"
-
-#~ msgid "Create the point #"
-#~ msgstr "Créer le point #"
-
-#~ msgid "Create the task #"
-#~ msgstr "Créer la tâche #"
-
-#~ msgid "Working time"
-#~ msgstr "Temps de travail"
-
-#~ msgid "Setup working time"
-#~ msgstr "Configurer le temps de travail"
-
-#~ msgid "Worked time"
-#~ msgstr "Temps travaillé"
-
-#~ msgid "Task(s) created"
-#~ msgstr "Tâche(s) créé(s)"
-
-#~ msgid "Point(s) created"
-#~ msgstr "Point(s) créé(s)"
-
-#~ msgid "Completed point(s)"
-#~ msgstr "Point(s) complété(s)"
-
-#~ msgid "Waste time"
-#~ msgstr "Temps gaspillé"
-
-#~ msgid "Week"
-#~ msgstr "Semaine"
 
 #~ msgid "Task Management"
 #~ msgstr "Gestion de la tâche"
