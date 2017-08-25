@@ -120,7 +120,7 @@ window.eoxiaJS.taskManager.comment.loadedCommentsSuccess = function( triggeredEl
  */
 window.eoxiaJS.taskManager.comment.addedCommentSuccess = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.comments' ).children( '.comment.new' ).after( response.data.view );
-	jQuery( triggeredElement ).closest( 'form' )[0].reset();
+	jQuery( triggeredElement ).closest( '.comment' ).find( 'div.content').html( '' );
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.time.task );
 	jQuery( triggeredElement ).closest( '.comments' ).prev( '.form' ).find( '.wpeo-time-in-point' ).text( response.data.time.point );
 
@@ -152,6 +152,16 @@ window.eoxiaJS.taskManager.comment.editedCommentSuccess = function( triggeredEle
 	jQuery( triggeredElement ).closest( '.comments' ).prev( '.form' ).find( '.wpeo-time-in-point' ).text( response.data.time.point );
 
 	jQuery( triggeredElement ).closest( '.comment' ).replaceWith( response.data.view );
+
+	jQuery( triggeredElement ).closest( '.comment' ).find( 'input[name="content"]' ).val( '' );
+	jQuery( triggeredElement ).closest( '.comment' ).find( 'input[name="time"]' ).val( '15' );
+	jQuery( triggeredElement ).closest( '.comment' ).find( '.content' ).html( '' );
+	jQuery( triggeredElement ).closest( '.comment' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
+
+	jQuery( triggeredElement ).closest( '.comment' ).find( 'input[name="date"]' ).datetimepicker( 'reset' );
+
+	jQuery( triggeredElement ).closest( '.comment' ).find( '.group-date div' ).attr( 'aria-label', jQuery( triggeredElement ).closest( '.comment' ).find( 'input[name="date"]' ).val() );
+	jQuery( triggeredElement ).closest( '.comment' ).find( '.group-date span' ).css( 'background', 'rgba( 0,0,0,0.2 )' );
 	window.eoxiaJS.refresh();
 };
 
@@ -187,4 +197,5 @@ window.eoxiaJS.taskManager.comment.deletedCommentSuccess = function( triggeredEl
  */
 window.eoxiaJS.taskManager.comment.loadedEditViewComment = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.comment' ).replaceWith( response.data.view );
+	jQuery( '.wpeo-project-task.mask' ).removeClass( 'mask' );
 };

@@ -15,6 +15,7 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 <div class="point <?php echo ! empty( $point->id ) ? esc_attr( 'edit' ): ''; ?>" data-id="<?php echo esc_attr( $point->id ); ?>">
+
 	<div class="form">
 
 		<?php wp_nonce_field( 'edit_point' ); ?>

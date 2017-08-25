@@ -351,6 +351,14 @@ class Task_Action {
 			}
 		}
 
+		if ( empty( $posts_founded ) ) {
+			$posts_founded[] = array(
+				'label' => __( 'No post found', 'task-manager' ),
+				'value' => __( 'No post found', 'task-manager' ),
+				'id' => 0,
+			);
+		}
+
 		wp_die( wp_json_encode( $posts_founded ) );
 	}
 

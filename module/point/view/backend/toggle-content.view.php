@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 </ul>
 
 <div class="move-to">
-	<div class="form">
+	<div class="">
 		<input type="hidden" name="task_id" value="<?php echo esc_attr( $point->post_id ); ?>" />
 		<input type="hidden" name="point_id" value="<?php echo esc_attr( $point->id ); ?>" />
 		<input type="hidden" name="action" value="move_point_to" />
@@ -45,9 +45,9 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		<div class="form-fields">
 			<input type="text" class="search-task" />
 			<input type="hidden" name="to_task_id" />
-			<input type="button" class="action-input" data-loader="form" data-parent="form" value="<?php esc_html_e( 'OK', 'task-manager' ); ?>" />
+			<input type="button" class="action-input" data-loader="move-to" data-parent="move-to" value="<?php esc_html_e( 'OK', 'task-manager' ); ?>" />
 		</div>
-		<div class="list-tasks">
+		<div class="list-tasks-to-move">
 		</div>
 	</div>
 </div>

@@ -331,7 +331,7 @@ class Point_Action {
 				}
 
 				$tasks_founded[] = array(
-					'label' => $post->post_title,
+					'label' => '#' . $post->ID . ' - ' . $post->post_title,
 					'value' => $post->post_title,
 					'id' => $post->ID,
 				);
@@ -342,10 +342,22 @@ class Point_Action {
 		if ( !$founded_by_id && ! empty( $term ) && is_int( $term ) ) {
 			$post = get_post( $term );
 
+			if ( ! empty( $post ) ) {
+				if ( 'wpeo-task' === $post->post_type ) {
+					$tasks_founded[] = array(
+						'label' => '#' . $post->ID . ' - ' . $post->post_title,
+						'value' => $post->post_title,
+						'id' => $post->ID,
+					);
+				}
+			}
+		}
+
+		if ( empty( $tasks_founded ) ) {
 			$tasks_founded[] = array(
-				'label' => $post->post_title,
-				'value' => $post->post_title,
-				'id' => $post->ID,
+				'label' => __( 'No task found', 'task-manager' ),
+				'value' => __( 'No task found', 'task-manager' ),
+				'id' => 0,
 			);
 		}
 

@@ -2,7 +2,7 @@
  * Initialise l'objet "task" ainsi que la méthode "init" obligatoire pour la bibliothèque EoxiaJS.
  *
  * @since 1.0.0.0
- * @version 1.3.6.0
+ * @version 1.4.0-ford
  */
 window.eoxiaJS.taskManager.task = {};
 window.eoxiaJS.taskManager.task.offset = 0;
@@ -13,23 +13,36 @@ window.eoxiaJS.taskManager.task.init = function() {
 	jQuery( '.list-task' ).masonry( {
 		itemSelector: '.wpeo-project-task'
 	} );
+
+	window.eoxiaJS.taskManager.task.initAutoComplete();
 };
 
 window.eoxiaJS.taskManager.task.refresh = function() {
 	jQuery( '.list-task' ).masonry( 'layout' );
+	window.eoxiaJS.taskManager.task.initAutoComplete();
 };
 
 window.eoxiaJS.taskManager.task.event = function() {
 	jQuery( '.wpeo-project-wrap' ).on( 'blur', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.editTitle );
 	jQuery( window ).scroll( window.eoxiaJS.taskManager.task.onScrollLoadMore );
+};
 
+/**
+ * Initialise l'autocomplete pour déplacer la tâche.
+ *
+ * @return {void}
+ *
+ * @since 1.4.0-ford
+ * @version 1.4.0-ford
+ */
+window.eoxiaJS.taskManager.task.initAutoComplete = function() {
 	jQuery( '.search-parent' ).autocomplete( {
 		'source': 'admin-ajax.php?action=search_parent',
-		'appendTo': '.list-posts',
 		'delay': 0,
 		'select': function( event, ui ) {
 			jQuery( 'input[name="to_element_id"]' ).val( ui.item.id );
 			jQuery( this ).closest( '.form-fields' ).find( '.action-input' ).addClass( 'active' );
+			event.stopPropagation();
 		}
 	} );
 };
