@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	<div class="task-informations">
 		<?php echo do_shortcode( '[task_avatar ids="' . $point->author_id . '" size="50"]' ); ?>
 		<?php echo esc_html_e( 'Create ', 'task-manager' ); ?>
-		<?php echo esc_html( $point->date_human_readable ); ?>
+		<?php echo esc_html( mb_strtolower( $point->date_human_readable ) ); ?>
 	</div>
 </div>
 
