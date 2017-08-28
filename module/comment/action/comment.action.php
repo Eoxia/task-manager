@@ -103,6 +103,7 @@ class Task_Comment_Action {
 		$content = ! empty( $_POST['content'] ) ? trim( $_POST['content'] ) : '';
 		$time = ! empty( $_POST['time'] ) ? (int) $_POST['time'] : 0;
 
+		$content = str_replace( '<div>', '<br>', $content );
 		$content = wp_kses( $content, array(
 			'br' => array(),
 			'tooltip' => array(
