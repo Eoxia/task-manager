@@ -36,7 +36,7 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 	 *
 	 * @var string
 	 */
-	protected $base = 'task_manager/time';
+	protected $base = 'comment';
 
 	/**
 	 * La version pour la rest API
@@ -77,7 +77,9 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 	 * @since 1.0.0.0
 	 * @version 1.3.6.0
 	 */
-	protected function construct() {}
+	protected function construct() {
+		parent::construct();
+	}
 }
 
 Task_Comment_Class::g();

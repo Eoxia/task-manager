@@ -58,7 +58,7 @@ class Task_Class extends \eoxia\Post_Class {
 	 *
 	 * @var string
 	 */
-	protected $base = 'task-manager/task';
+	protected $base = 'task';
 
 	/**
 	 * La version de l'objet

@@ -70,7 +70,7 @@ class History_Time_Class extends \eoxia\Comment_Class {
 	 * @version 1.0.0.0
 	 */
 	protected function construct() {
-
+		parent::construct();
 	}
 }
 

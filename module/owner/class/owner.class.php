@@ -17,21 +17,21 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 /**
  * Classe gérant les utilisateurs
  */
-class Follower_Class extends \eoxia\User_Class {
+class Owner_Class extends \eoxia\User_Class {
 
 	/**
 	 * Le nom du modèle
 	 *
 	 * @var string
 	 */
-	protected $model_name 	= '\task_manager\Follower_Model';
+	protected $model_name 	= '\task_manager\Owner_Model';
 
 	/**
 	 * La route pour accéder à l'objet dans la rest API
 	 *
 	 * @var string
 	 */
-	protected $base = 'follower';
+	protected $base = 'owner';
 
 	/**
 	 * Le constructeur
@@ -47,4 +47,4 @@ class Follower_Class extends \eoxia\User_Class {
 
 }
 
-Follower_Class::g();
+Owner_Class::g();

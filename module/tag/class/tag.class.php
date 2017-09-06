@@ -55,7 +55,9 @@ class Tag_Class extends \eoxia\Term_Class {
 	/**
 	 * Ecrase la fonction du parent
 	 */
-	protected function construct() { }
+	protected function construct() {
+		parent::construct();
+	}
 
 }
 

@@ -32,11 +32,11 @@ class Point_Class extends \eoxia\Comment_Class {
 	protected $meta_key		= 'wpeo_point';
 
 	/**
-	 * La route pour la rest API
+	 * La route pour accéder à l'objet dans la rest API
 	 *
 	 * @var string
 	 */
-	protected $base = 'task_manager/point';
+	protected $base = 'point';
 
 	/**
 	 * La version pour la rest API
@@ -65,7 +65,9 @@ class Point_Class extends \eoxia\Comment_Class {
 	 *
 	 * @return void
 	 */
-	protected function construct() {}
+	protected function construct() {
+		parent::construct();
+	}
 
 	/**
 	 * Affiches les points d'une tâche.
