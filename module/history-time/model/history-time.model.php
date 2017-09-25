@@ -1,18 +1,19 @@
 <?php
 /**
- * La définition du schéma des données de l'hitorique du temps.
+ * La définition du schéma des données de l'historique du temps.
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.4.0
  * @copyright 2015-2017 Eoxia
- * @package history-time
- * @subpackage model
+ * @package Task_Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * La définition du schéma des données de l'hitorique du temps.
@@ -22,23 +23,21 @@ class History_Time_Model extends \eoxia\Comment_Model {
 	/**
 	 * Le constructeur défini le schéma.
 	 *
+	 * @since 1.0.0
+	 * @version 1.4.0
+	 *
 	 * @param History_Time_Model $object L'objet.
 	 */
 	public function __construct( $object ) {
-		$this->model['author_id']['bydefault'] = get_current_user_id();
-		$this->model['date']['bydefault'] = current_time( 'mysql' );
-
 		$this->model = array_merge( $this->model, array(
 			'due_date' => array(
 				'meta_type' => 'multiple',
-				'type'		=> 'string',
-				'bydefault' 	=> '',
+				'type' => 'wpeo_date',
 			),
 			'estimated_time' => array(
 				'meta_type' => 'multiple',
-				'type'		=> 'integer',
-				'bydefault' 	=> '',
-				'required'	=> false,
+				'type' => 'integer',
+				'bydefault' => '',
 			),
 			'google_event_id' => array(
 				'meta_type' => 'multiple',

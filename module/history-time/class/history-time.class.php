@@ -52,7 +52,7 @@ class History_Time_Class extends \eoxia\Comment_Class {
 	 *
 	 * @var array
 	 */
-	protected $before_post_function = array( '\task_manager\convert_history_time_due_date_to_sql' );
+	protected $before_post_function = array();
 
 	/**
 	 * La fonction appelée automatiquement après la récupération de l'objet dans la base de donnée.

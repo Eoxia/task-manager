@@ -1,11 +1,13 @@
 <?php
 /**
- * Display line history time.
+ * Affiches l'historique des 'dates estimées'.
+ * Affiches le formulaire pour ajouter une date estimé.
  *
- * @package HistoryTime
- *
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @author Jimmy Latour <dev@eoxia.com>
+ * @since 1.0.0
+ * @version 1.4.0
+ * @copyright 2015-2017
+ * @package Task_Manager
  */
 
 namespace task_manager;
@@ -18,8 +20,11 @@ namespace task_manager;
 		<input type="hidden" name="task_id" value="<?php echo esc_attr( $task_id ); ?>" />
 		<?php wp_nonce_field( 'create_history_time' ); ?>
 
-		<i class="dashicons dashicons-calendar-alt"></i>
-		<input name="due_date" class="date" type="text" placeholder="<?php esc_html_e( 'New due time', 'task-manager' ); ?>"/>
+		<div class="group-date">
+			<i class="dashicons dashicons-calendar-alt"></i>
+			<input type="text" class="mysql-date" style="width: 0px; padding: 0px; border: none;" name="due_date" value="<?php echo esc_attr( current_time( 'mysql' ) ); ?>" />
+			<input class="date" type="text" placeholder="<?php esc_html_e( 'New due time', 'task-manager' ); ?>"/>
+		</div>
 
 		<i class="dashicons dashicons-clock"></i>
 		<input name="estimated_time" type="text" placeholder="<?php esc_html_e( 'Estimated time (min)', 'task-manager' ); ?>"/>
