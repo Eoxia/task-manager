@@ -3,16 +3,17 @@
  * Fonctions "helper" des points
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.4.0-ford
  * @copyright 2015-2017 Eoxia
- * @package point
- * @subpackage helper
+ * @package Task_Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Met à jour l'ordre des points
@@ -21,8 +22,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
  *
  * @return Point_Model Les données du point modifié
  *
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.4.0-ford
  */
 function update_post_order( $point ) {
 	if ( ! empty( $point->post_id ) ) {
@@ -31,7 +32,7 @@ function update_post_order( $point ) {
 			'post_status' => array( 'publish', 'archive' ),
 		), true );
 
-		$task->task_info['order_point_id'][] = $point->id;
+		$task->task_info['order_point_id'][] = (int) $point->id;
 
 		Task_Class::g()->update( $task );
 	}

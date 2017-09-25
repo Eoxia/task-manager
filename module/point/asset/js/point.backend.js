@@ -131,7 +131,6 @@ window.eoxiaJS.taskManager.point.addedPointSuccess = function( triggeredElement,
 
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.points.sortable .point:last' ).before( response.data.view );
 
-
 	window.eoxiaJS.taskManager.point.initAutoComplete();
 	window.eoxiaJS.refresh();
 };
@@ -147,7 +146,9 @@ window.eoxiaJS.taskManager.point.addedPointSuccess = function( triggeredElement,
  * @since 1.0.0.0
  * @version 1.0.0.0
  */
-window.eoxiaJS.taskManager.point.editedPointSuccess = function( triggeredElement, response ) {};
+window.eoxiaJS.taskManager.point.editedPointSuccess = function( triggeredElement, response ) {
+	triggeredElement.closest( '.form' ).removeClass( 'loading' );
+};
 
 /**
  * Met à jour un point en cliquant sur le bouton pour envoyer le formulaire.
@@ -158,6 +159,7 @@ window.eoxiaJS.taskManager.point.editedPointSuccess = function( triggeredElement
  * @version 1.0.0.0
  */
 window.eoxiaJS.taskManager.point.editPoint = function() {
+	jQuery( this ).closest( '.form' ).addClass( 'loading' );
 	jQuery( this ).closest( '.form' ).find( '.action-input.update' ).click();
 };
 
@@ -182,6 +184,8 @@ window.eoxiaJS.taskManager.point.deletedPointSuccess = function( triggeredElemen
 	}
 
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.time );
+
+	jQuery( triggeredElement ).closest( '.wpeo-project-task.mask' ).removeClass( 'mask' );
 
 	jQuery( triggeredElement ).closest( 'div.point.edit' ).fadeOut( 400, function() {
 		window.eoxiaJS.refresh();
@@ -304,8 +308,8 @@ window.eoxiaJS.taskManager.point.loadedPointProperties = function( triggeredElem
 window.eoxiaJS.taskManager.point.movedPointTo = function( triggeredElement, response ) {
 
 	// Met à jour le temps.
-	jQuery( '.wpeo-project-task[data-id=' + response.data.current_task.id + ']' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.current_task.time_info.elapsed );
-	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.to_task.time_info.elapsed );
+	jQuery( '.wpeo-project-task[data-id=' + response.data.current_task.id + ']' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.current_task.time_info.time_display + ' (' + response.data.current_task.time_info.elapsed + 'min)' );
+	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.to_task.time_info.time_display + ' (' + response.data.to_task.time_info.elapsed + 'min)' );
 
 	// Met à jour le contenu.
 	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( '.points div.point:last' ).before( jQuery( '.point.edit[data-id=' + response.data.point.id + ']' ) );

@@ -107,12 +107,12 @@ class Point_Action {
 		Point_Class::g()->update( $point );
 
 		$task = Task_Class::g()->get( array(
-			'include' => array( $point->post_id ),
+			'id' => $point->post_id,
 			'status' => array( 'publish', 'archive' ),
 		), true );
 
 		if( ( $key = array_search( $point_id, $task->task_info['order_point_id'] ) ) !== false ) {
-			unset( $task->task_info['order_point_id'][$key] );
+			array_splice( $task->task_info['order_point_id'], $key, 1 );
 		}
 		$task->time_info['elapsed'] -= $point->time_info['elapsed'];
 		$task = Task_Class::g()->update( $task );
@@ -144,7 +144,7 @@ class Point_Action {
 
 		if ( ! empty( $order_point_id ) ) {
 			foreach ( $order_point_id as $key => $point_id ) {
-				$order_point_id[ $key ] = (int) $point_id;
+				$order_point_id[ (int) $key ] = (int) $point_id;
 			}
 		}
 
@@ -168,13 +168,20 @@ class Point_Action {
 
 		if ( ! empty( $order_point_id ) ) {
 			foreach ( $order_point_id as $key => $point_id ) {
-				$new_order_point_id[ $key ] = $point_id;
+				$point = Point_Class::g()->get( array(
+					'id' => $point_id,
+				), true );
+				if ( 'trash' !== $point->status ) {
+					$new_order_point_id[ (int) $key ] = (int) $point->id;
+				}
 			}
 		}
 
 		if ( ! empty( $points_completed ) ) {
 			foreach ( $points_completed as $point_completed ) {
-				$new_order_point_id[] = $point_completed->id;
+				if ( 'trash' !== $point_completed->status ) {
+					$new_order_point_id[] = (int) $point_completed->id;
+				}
 			}
 		}
 
@@ -401,18 +408,18 @@ class Point_Action {
 		$key = array_search( $point_id, $current_task->task_info['order_point_id'], true );
 
 		if ( false !== $key ) {
-			unset( $current_task->task_info['order_point_id'][ $key ] );
+			array_splice( $current_task->task_info['order_point_id'], $key, 1 );
 			$current_task->time_info['elapsed'] -= $point->time_info['elapsed'];
 		} else {
 			wp_send_json_error();
 		}
 
-		$to_task->task_info['order_point_id'][] = $point_id;
+		$to_task->task_info['order_point_id'][] = (int) $point_id;
 
 		$to_task->time_info['elapsed'] += $point->time_info['elapsed'];
 
-		Task_Class::g()->update( $current_task );
-		Task_Class::g()->update( $to_task );
+		$current_task = Task_Class::g()->update( $current_task );
+		$to_task = Task_Class::g()->update( $to_task );
 
 		$point->post_id = $to_task_id;
 		$point = Point_Class::g()->update( $point );
