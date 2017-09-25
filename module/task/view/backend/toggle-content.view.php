@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		<?php echo do_shortcode( '[task_avatar ids="' . $task->author_id . '" size="50"]' ); ?>
 		<span class="time"><i class="dashicons dashicons-calendar-alt"></i>
 			<?php echo esc_html_e( 'Create ', 'task-manager' ); ?>
-			<?php echo esc_html( mb_strtolower( $task->date_human_readable ) ); ?>
+			<?php echo esc_html( mb_strtolower( $task->date['date_human_readable'] ) ); ?>
 		</span>
 	</div>
 </div>

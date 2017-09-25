@@ -1,7 +1,7 @@
 /**
  * Initialise l'objet "task" ainsi que la méthode "init" obligatoire pour la bibliothèque EoxiaJS.
  *
- * @since 1.0.0.0
+ * @since 1.0.0
  * @version 1.4.0-ford
  */
 window.eoxiaJS.taskManager.task = {};
@@ -23,6 +23,7 @@ window.eoxiaJS.taskManager.task.refresh = function() {
 };
 
 window.eoxiaJS.taskManager.task.event = function() {
+	jQuery( '.wpeo-project-wrap' ).on( 'keypress', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.keyEnterEditTitle );
 	jQuery( '.wpeo-project-wrap' ).on( 'blur', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.editTitle );
 	jQuery( window ).scroll( window.eoxiaJS.taskManager.task.onScrollLoadMore );
 };
@@ -89,17 +90,46 @@ window.eoxiaJS.taskManager.task.loadedMoreTask = function( triggeredElement, res
 	window.eoxiaJS.refresh();
 };
 
-window.eoxiaJS.taskManager.task.editTitle = function( event ) {
-	var data = {
-		action: 'edit_title',
-		_wpnonce: jQuery( this ).data( 'nonce' ),
-		task_id: jQuery( this ).closest( '.wpeo-project-task' ).data( 'id' ),
-		title: jQuery( this ).val()
-	};
+/**
+ * Envoie une requête pour enregsitrer le nouveau titre de la tâche.
+ *
+ * @since 1.0.0
+ * @version 1.4.0
+ *
+ * @param  {FocusEvent} event         L'état de l'évènement lors du 'blur'.
+ * @param  {HTMLInputElement} element Le champ de texte contenant le titre.
+ * @return {void}
+ */
+window.eoxiaJS.taskManager.task.editTitle = function( event, element ) {
+	var data = {};
 
-	jQuery( this ).closest( '.wpeo-task-header' ).addClass( 'loading' );
+	if ( ! element ) {
+		element = jQuery( this );
+	}
 
-	window.eoxiaJS.request.send( jQuery( this ), data );
+	data.action = 'edit_title';
+	data._wpnonce = element.data( 'nonce' );
+	data.task_id = element.closest( '.wpeo-project-task' ).data( 'id' );
+	data.title = element.val();
+
+	element.closest( '.wpeo-task-header' ).addClass( 'loading' );
+
+	window.eoxiaJS.request.send( element, data );
+};
+
+/**
+ * Appel la méthode 'editTitle' pour modifier le titre lors de l'appuie de la touche entré.
+ *
+ * @since 1.0.0
+ * @version 1.4.0
+ *
+ * @param  {KeyboardEvent} event L'état du clavier.
+ * @return {void}
+ */
+window.eoxiaJS.taskManager.task.keyEnterEditTitle = function( event ) {
+	if ( 13 === event.which || 13 === event.keyCode ) {
+		window.eoxiaJS.taskManager.task.editTitle( event, jQuery( this ) );
+	}
 };
 
 /**

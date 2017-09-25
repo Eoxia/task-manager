@@ -3,16 +3,17 @@
  * La vue d'une tâche dans le backend.
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
- * @since 1.0.0.0
- * @version 1.4.4-ford
+ * @since 1.0.0
+ * @version 1.4.0-ford
  * @copyright 2015-2017 Eoxia
- * @package task
- * @subpackage view
+ * @package Task_Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} ?>
 
 <div class="wpeo-project-task <?php echo ! empty( $task->front_info['display_color'] ) ? $task->front_info['display_color'] : 'white'; ?>" data-id="<?php echo esc_attr( $task->id ); ?>">
 	<div class="wpeo-project-task-container">
