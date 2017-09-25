@@ -2,14 +2,16 @@
 /**
  * Gestion des actions relatives aux commentaires
  *
- * @since 1.3.6.0
- * @version 1.3.6.0
- * @package Task-Manager\comment
+ * @since 1.3.6
+ * @version 1.4.0-ford
+ * @package Task_Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 
 /**
@@ -51,16 +53,7 @@ class Task_Comment_Action {
 		$task_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
 		$point_id = ! empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
 
-		$comments = Task_Comment_Class::g()->get( array(
-			'parent' => $point_id,
-			'status' => '-34070',
-		) );
-
-		if ( ! empty( $comments ) ) {
-			foreach ( $comments as $comment ) {
-				$comment->author = get_userdata( $comment->author_id );
-			}
-		}
+		$comments = Task_Comment_Class::g()->get_comments( $point_id );
 
 		$comment_schema = Task_Comment_Class::g()->get( array(
 			'schema' => true,
@@ -88,10 +81,8 @@ class Task_Comment_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.3.6.0
-	 * @version 1.3.6.0
-	 *
-	 * @todo: faille de sécurité
+	 * @since 1.3.6
+	 * @version 1.4.0-ford
 	 */
 	public function callback_edit_comment() {
 		check_ajax_referer( 'edit_comment' );
@@ -102,14 +93,19 @@ class Task_Comment_Action {
 		$date = ! empty( $_POST['date'] ) ? sanitize_text_field( $_POST['date'] ) : '';
 		$content = ! empty( $_POST['content'] ) ? trim( $_POST['content'] ) : '';
 		$time = ! empty( $_POST['time'] ) ? (int) $_POST['time'] : 0;
+		$value_changed = ! empty( $_POST['value_changed'] ) ? (bool) $_POST['value_changed'] : 0;
 
-		$content = str_replace( '<div>', '<br>', $content );
+		$content = str_replace( '<div>', '<br>', trim( $content ) );
 		$content = wp_kses( $content, array(
 			'br' => array(),
 			'tooltip' => array(
 				'class' => array(),
 			)
 		) );
+
+		if ( empty( $value_changed ) ) {
+			$date = current_time( 'mysql' );
+		}
 
 		$comment = Task_Comment_Class::g()->update( array(
 			'id' => $comment_id,
@@ -122,11 +118,18 @@ class Task_Comment_Action {
 			),
 		) );
 
-		$comment->author = get_userdata( $comment->author_id );
+		$comments = Task_Comment_Class::g()->get_comments( $parent_id );
+
+		$comment_schema = Task_Comment_Class::g()->get( array(
+			'schema' => true,
+		), true );
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/comment', array(
-			'comment' => $comment,
+		\eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/main', array(
+			'task_id' => $post_id,
+			'point_id' => $parent_id,
+			'comments' => $comments,
+			'comment_schema' => $comment_schema,
 		) );
 
 		$task = Task_Class::g()->get( array(
@@ -143,7 +146,7 @@ class Task_Comment_Action {
 			'view' => ob_get_clean(),
 			'namespace' => 'taskManager',
 			'module' => 'comment',
-			'callback_success' => ! empty( $comment_id ) ? 'editedCommentSuccess' : 'addedCommentSuccess',
+			'callback_success' => 'addedCommentSuccess',
 			'comment' => $comment,
 		) );
 	}

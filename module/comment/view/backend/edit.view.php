@@ -24,8 +24,9 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		<input type="hidden" name="parent_id" value="<?php echo esc_attr( $point_id ); ?>" />
 
 		<li class="wpeo-comment-date group-date">
-			<input type="text" style="width: 0px;" name="date" value="<?php echo esc_attr( $comment->date_input ); ?>" />
-			<div class="tooltip hover" aria-label="<?php echo esc_attr( $comment->date_input ); ?>"><span class="date-time dashicons dashicons-calendar-alt"></span></div>
+			<input type="text" style="width: 0px;" class="mysql-date" name="date" value="<?php echo esc_attr( $comment->date['date_input']['date'] ); ?>" />
+			<input type="hidden" name="value_changed" value="<?php echo ( ! empty( $comment->id ) ) ? 1 : 0; ?>" />
+			<div class="tooltip hover" aria-label="<?php echo esc_attr( $comment->date['date_input']['fr_FR']['date_time'] ); ?>"><span class="date-time dashicons dashicons-calendar-alt"></span></div>
 		</li>
 
 		<li class="wpeo-comment-content">
