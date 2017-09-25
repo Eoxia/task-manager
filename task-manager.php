@@ -8,7 +8,7 @@
 namespace task_manager;
 
 /**
- * Plugin Name: Task Manager alpha 🔨
+ * Plugin Name: Task Manager
  * Description: Quick and easy to use, manage all your tasks and your time with the Task Manager plugin.
  * Version: 1.3.6.0
  * Author: Eoxia <dev@eoxia.com>
@@ -19,7 +19,9 @@ namespace task_manager;
  * Domain Path: /language
  */
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 DEFINE( 'PLUGIN_TASK_MANAGER_PATH', realpath( plugin_dir_path( __FILE__ ) ) . '/' );
 DEFINE( 'PLUGIN_TASK_MANAGER_URL', plugins_url( basename( __DIR__ ) ) . '/' );
