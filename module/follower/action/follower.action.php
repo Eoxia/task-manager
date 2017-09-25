@@ -167,7 +167,7 @@ class Follower_Action {
 		$key = array_search( $user_id, $task->user_info['affected_id'], true );
 
 		if ( -1 < $key ) {
-			unset( $task->user_info['affected_id'][ $key ] );
+			array_splice( $task->user_info['affected_id'], $key, 1 );
 		}
 
 		Task_Class::g()->update( $task );
