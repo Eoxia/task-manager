@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2017-08-25 11:37+0100\n"
-"PO-Revision-Date: 2017-08-25 11:37+0100\n"
+"POT-Creation-Date: 2017-09-26 09:41+0200\n"
+"PO-Revision-Date: 2017-09-26 09:42+0200\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8\n"
+"X-Generator: Poedit 2.0.1\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html__;esc_attr_e\n"
@@ -29,10 +29,12 @@ msgid "Delete this comment ?"
 msgstr "Voulez vous supprimer ce commentaire ?"
 
 #: core/asset/js/language.js.php:3
+#: module/point/view/backend/toggle-content.view.php:29
 msgid "Delete this point ?"
 msgstr "Voulez vous supprimer ce point ?"
 
 #: core/asset/js/language.js.php:4
+#: module/task/view/backend/toggle-content.view.php:59
 msgid "Delete this task ?"
 msgstr "Voulez vous supprimer cette tâche ?"
 
@@ -229,41 +231,37 @@ msgstr "Vide"
 msgid "Nothing to display, select your log of file"
 msgstr "Aucune sélection à afficher, Merci de sélectionner un fichier"
 
-#: core/external/wpeo_model/class/constructor_data.class.php:33
-msgid "Unable to transfer risk to wordpress system."
-msgstr ""
-
-#: core/external/wpeo_util/config.util.php:45
+#: core/external/wpeo_util/config.util.php:46
 msgid "Impossible de charger le fichier"
 msgstr "Impossible de charger le fichier"
 
-#: core/external/wpeo_util/config.util.php:51
+#: core/external/wpeo_util/config.util.php:52
 msgid "Le module nécessite un slug"
 msgstr "Le module nécessite un slug"
 
-#: core/external/wpeo_util/external.util.php:37
-#: core/external/wpeo_util/module.util.php:41
+#: core/external/wpeo_util/external.util.php:39
+#: core/external/wpeo_util/module.util.php:43
 msgid "Aucun module a charger"
 msgstr "Aucun module a charger"
 
-#: core/external/wpeo_util/init.util.php:51
-#: core/external/wpeo_util/init.util.php:61
+#: core/external/wpeo_util/init.util.php:52
+#: core/external/wpeo_util/init.util.php:62
 msgid "Impossible de charger les fichiers .utils"
 msgstr "Impossible de charger les fichiers .utils"
 
-#: core/external/wpeo_util/init.util.php:55
+#: core/external/wpeo_util/init.util.php:56
 msgid "$path_to_core_folder_util n'est pas un dossier"
 msgstr "$path_to_core_folder_util n'est pas un dossier"
 
-#: core/external/wpeo_util/json.util.php:42
+#: core/external/wpeo_util/json.util.php:43
 msgid "Impossible d'ouvrir le fichier JSON"
 msgstr "Impossible d'ouvrir le fichier JSON"
 
-#: core/external/wpeo_util/json.util.php:60
+#: core/external/wpeo_util/json.util.php:61
 msgid "Les données du fichier JSON semble erronnés"
 msgstr "Les données du fichier JSON semble erronnés"
 
-#: core/external/wpeo_util/module.util.php:37
+#: core/external/wpeo_util/module.util.php:39
 #, php-format
 msgid "Les configurations de base de %s ne sont pas initialisées"
 msgstr ""
@@ -284,7 +282,7 @@ msgstr "Editer ce commentaire"
 msgid "Delete this comment"
 msgstr "Supprimer ce commentaire"
 
-#: module/comment/view/backend/edit.view.php:37
+#: module/comment/view/backend/edit.view.php:38
 #: module/comment/view/frontend/edit.view.php:33
 msgid "Your comment here..."
 msgstr "Écrire ce commentaire ici..."
@@ -294,16 +292,16 @@ msgstr "Écrire ce commentaire ici..."
 msgid "Followers"
 msgstr "Utilisateurs"
 
-#: module/history-time/view/backend/history-time.view.php:28
+#: module/history-time/view/backend/history-time.view.php:31
 #, php-format
 msgid "( %smin )"
 msgstr "( %smin )"
 
-#: module/history-time/view/backend/main.view.php:22
+#: module/history-time/view/backend/main.view.php:26
 msgid "New due time"
 msgstr "Nouvelle date de fin"
 
-#: module/history-time/view/backend/main.view.php:25
+#: module/history-time/view/backend/main.view.php:30
 msgid "Estimated time (min)"
 msgstr "Temps estimé (min)"
 
@@ -348,13 +346,12 @@ msgid " for the followers: "
 msgstr "pour les abonnés:"
 
 #: module/navigation/view/backend/tags.view.php:18
-#: module/tag/action/tag.action.php:52
-#: module/tag/view/backend/main.view.php:31
+#: module/tag/action/tag.action.php:52 module/tag/view/backend/main.view.php:31
 msgid "Categories"
 msgstr "Catégories"
 
-#: module/point/action/point.action.php:358
-#: module/point/action/point.action.php:359
+#: module/point/action/point.action.php:365
+#: module/point/action/point.action.php:366
 msgid "No task found"
 msgstr "Aucune tâche trouvé"
 
@@ -440,15 +437,19 @@ msgstr "Tâche non trouvée"
 msgid "Load more task..."
 msgstr "Chargement de tâche supplémentaire"
 
-#: module/task/view/backend/task-header.view.php:24
+#: module/task/view/backend/task-header.view.php:19
+msgid "Dead line"
+msgstr "Date limite"
+
+#: module/task/view/backend/task-header.view.php:26
 msgid "Elapsed time"
 msgstr "Temps passé"
 
-#: module/task/view/backend/task-header.view.php:28
+#: module/task/view/backend/task-header.view.php:30
 msgid "Estimated time"
 msgstr "Temps prévu"
 
-#: module/task/view/backend/task.view.php:36
+#: module/task/view/backend/task.view.php:37
 msgid "Task options"
 msgstr "Options"
 
