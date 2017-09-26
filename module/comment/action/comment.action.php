@@ -275,8 +275,16 @@ class Task_Comment_Action {
 		$comment_id = ! empty( $_POST['comment_id'] ) ? (int) $_POST['comment_id'] : 0;
 		$post_id = ! empty( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;
 		$parent_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
-		$content = ! empty( $_POST['content'] ) ? sanitize_text_field( $_POST['content'] ) : '';
+		$content = ! empty( $_POST['content'] ) ? trim( $_POST['content'] ) : '';
 		$time = ! empty( $_POST['time'] ) ? (int) $_POST['time'] : 0;
+
+		$content = str_replace( '<div>', '<br>', $content );
+		$content = wp_kses( $content, array(
+			'br' => array(),
+			'tooltip' => array(
+				'class' => array(),
+			)
+		) );
 
 		$comment = \task_manager\Task_Comment_Class::g()->update( array(
 			'id' => $comment_id,
