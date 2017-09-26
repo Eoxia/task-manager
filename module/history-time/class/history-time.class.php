@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
  * Manage all history_time.
  * History time define due time and estimated time on task.
  */
-class History_Time_Class extends Comment_Class {
+class History_Time_Class extends \eoxia\Comment_Class {
 	/**
 	 * Class name of model.
 	 *
@@ -52,7 +52,7 @@ class History_Time_Class extends Comment_Class {
 	 *
 	 * @var array
 	 */
-	protected $before_post_function = array( '\task_manager\convert_history_time_due_date_to_sql' );
+	protected $before_post_function = array();
 
 	/**
 	 * La fonction appelée automatiquement après la récupération de l'objet dans la base de donnée.
@@ -70,7 +70,7 @@ class History_Time_Class extends Comment_Class {
 	 * @version 1.0.0.0
 	 */
 	protected function construct() {
-
+		parent::construct();
 	}
 }
 

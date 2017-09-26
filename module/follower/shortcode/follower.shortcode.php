@@ -52,12 +52,12 @@ class Follower_Shortcode {
 		$followers = array();
 
 		if ( ! empty( $task->user_info['affected_id'] ) ) {
-			$followers = User_Class::g()->get( array(
+			$followers = Follower_Class::g()->get( array(
 				'include' => $task->user_info['affected_id'],
 			) );
 		}
 
-		View_Util::exec( 'follower', 'backend/main', array(
+		\eoxia\View_Util::exec( 'task-manager', 'follower', 'backend/main', array(
 			'task' => $task,
 			'followers' => $followers,
 		) );

@@ -16,12 +16,12 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 <?php
 
-View_Util::exec( 'comment', 'backend/new', array(
+\eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/edit', array(
 	'task_id' => $task_id,
 	'point_id' => $point_id,
 	'comment' => $comment_schema,
 ) );
 
-View_Util::exec( 'comment', 'backend/list-comment', array(
+\eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/list-comment', array(
 	'comments' => $comments,
 ) );

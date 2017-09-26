@@ -3,16 +3,17 @@
  * La vue d'une tâche dans le backend.
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.4.0-ford
  * @copyright 2015-2017 Eoxia
- * @package task
- * @subpackage view
+ * @package Task_Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} ?>
 
 <div class="wpeo-project-task <?php echo ! empty( $task->front_info['display_color'] ) ? $task->front_info['display_color'] : 'white'; ?>" data-id="<?php echo esc_attr( $task->id ); ?>">
 	<div class="wpeo-project-task-container">
@@ -29,69 +30,26 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 			<li class="toggle wpeo-task-setting"
 					data-parent="toggle"
-					data-target="content">
+					data-target="content"
+					data-mask="wpeo-project-task">
 
 				<div class="action">
-					<span class="wpeo-task-open-action" title="<?php esc_html_e( 'Options de la tâche', 'task-manager' ); ?>"><i class="fa fa-ellipsis-v"></i></span>
+					<span class="wpeo-task-open-action" title="<?php esc_html_e( 'Task options', 'task-manager' ); ?>"><i class="fa fa-ellipsis-v"></i></span>
 				</div>
 
-				<ul class="content task-header-action">
-					<li class="task-color">
-						<?php
-						if ( ! empty( Task_Class::g()->colors ) ) :
-							foreach ( Task_Class::g()->colors as $color ) :
-								?>
-								<span class="action-attribute <?php echo esc_attr( $color ); ?>" data-action="change_color"
-											data-nonce="<?php echo esc_attr( wp_create_nonce( 'change_color' ) ); ?>"
-											data-id="<?php echo esc_attr( $task->id ); ?>"
-											data-color="<?php echo esc_attr( $color ); ?>"
-											data-namespace="taskManager"
-											data-module="task"
-											data-before-method="beforeChangeColor"></span>
-								<?php
-							endforeach;
-						endif;
-						?>
-					</li>
-
-					<li class="open-popup-ajax"
-							data-action="load_task_properties"
-							data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_task_properties' ) ); ?>"
-							data-title="<?php esc_attr_e( 'Propriété de la tâche: #' . $task->id . ' ' . $task->title, 'task-manager' ); ?>"
-							data-id="<?php echo esc_attr( $task->id ); ?>"
-							data-parent="wpeo-project-task"
-							data-target="popup">
-						<span><?php esc_html_e( 'Propriété de la tâche', 'task-manager' ); ?></span>
-					</li>
-
-					<li class="action-attribute"
-							data-action="notify_by_mail"
-							data-nonce="<?php echo esc_attr( wp_create_nonce( 'notify_by_mail' ) ); ?>"
-							data-id="<?php echo esc_attr( $task->id ); ?>">
-						<span><?php esc_html_e( 'Notifier le responsable et les abonnés', 'task-manager' ); ?></span>
-					</li>
-
-					<li class="action-delete"
-							data-action="delete_task"
-							data-message-delete="<?php echo esc_attr( 'Supprimer cette tâche', 'task-manager' ); ?>"
-							data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_task' ) ); ?>"
-							data-id="<?php echo esc_attr( $task->id ); ?>">
-						<span><?php esc_html_e( 'Supprimer la tâche', 'task-manager' ); ?></span>
-					</li>
-
-					<li class="action-attribute"
-							data-action="<?php echo ( 'archive' !== $task->status ) ? 'to_archive' : 'to_unarchive'; ?>"
-							data-nonce="<?php echo esc_attr( wp_create_nonce( ( 'archive' === $task->status ) ? 'to_archive' : 'to_unarchive' ) ); ?>"
-							data-id="<?php echo esc_attr( $task->id ); ?>">
-						<span><?php esc_html_e( ( 'archive' !== $task->status ) ? 'Archiver' : 'Désarchiver', 'task-manager' ); ?></span>
-					</li>
-				</ul>
+				<div class="content task-header-action">
+					<?php \eoxia\View_Util::exec( 'task-manager', 'task', 'backend/toggle-content', array(
+						'task' => $task,
+					) ); ?>
+				</div>
 			</li>
 		</ul>
 		<!-- Fin en tête de la tâche -->
 
 		<!-- Sous en tête pour gérer le temps -->
-		<?php View_Util::exec( 'task', 'backend/task-header', array( 'task' => $task ) ); ?>
+		<?php \eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task-header', array(
+			'task' => $task,
+		) ); ?>
 		<!-- Fin de sous en tête -->
 
 		<!-- Corps de la tâche -->

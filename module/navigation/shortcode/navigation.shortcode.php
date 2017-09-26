@@ -43,7 +43,7 @@ class Search_Bar_Shortcode {
 	 */
 	public function callback_task_manager_search_bar( $param ) {
 		$categories = Tag_Class::g()->get( array() );
-		$followers = User_Class::g()->get( array(
+		$followers = Follower_Class::g()->get( array(
 			'role' => 'administrator',
 		) );
 
@@ -58,7 +58,7 @@ class Search_Bar_Shortcode {
 			'follower_id_selected' => array(),
 		), $param, 'task_manager_search_bar' );
 
-		View_Util::exec( 'navigation', 'backend/main', array(
+		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/main', array(
 			'categories' => $categories,
 			'followers' => $followers,
 			'param' => $param,

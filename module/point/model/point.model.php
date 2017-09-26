@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  */
 
-class Point_Model extends Comment_Model {
+class Point_Model extends \eoxia\Comment_Model {
 	public function __construct( $object ) {
 		$this->model['status']['bydefault'] = '-34070';
 		$this->model['author_id']['bydefault'] = get_current_user_id();

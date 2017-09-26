@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 if ( ! empty( $comments ) ) :
 	foreach ( $comments as $comment ) :
 		if ( 0 !== $comment->id ) :
-			View_Util::exec( 'comment', 'backend/comment', array(
+			\eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/comment', array(
 				'comment' => $comment,
 			) );
 		endif;

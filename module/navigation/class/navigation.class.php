@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 /**
  * Gestion de la navigation.
  */
-class Navigation_Class extends Singleton_Util {
+class Navigation_Class extends \eoxia\Singleton_Util {
 
 	/**
 	 * Le constructeur
@@ -57,14 +57,14 @@ class Navigation_Class extends Singleton_Util {
 		$categories_searched = substr( $categories_searched, 0, -2 );
 
 		if ( ! empty( $follower_id_selected ) ) {
-			$follower = User_Class::g()->get( array(
+			$follower = Follower_Class::g()->get( array(
 				'include' => $follower_id_selected,
 			), true );
 
 			$follower_searched = $follower->displayname;
 		}
 
-		View_Util::exec( 'navigation', 'backend/search-results', array(
+		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/search-results', array(
 			'term' => $term,
 			'categories_searched' => $categories_searched,
 			'follower_searched' => $follower_searched,

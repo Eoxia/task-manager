@@ -53,6 +53,13 @@ class Point_Action {
 		$parent_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
 		$content = ! empty( $_POST['content'] ) ? $_POST['content'] : '';
 
+		$content = wp_kses( $content, array(
+			'br' => array(),
+			'tooltip' => array(
+				'class' => array(),
+			)
+		) );
+
 		if ( empty( $parent_id ) || empty( $content ) ) {
 			wp_send_json_error();
 		}
@@ -64,7 +71,7 @@ class Point_Action {
 		) );
 
 		ob_start();
-		View_Util::exec( 'point', 'backend/point', array(
+		\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
 			'point' => $point,
 			'parent_id' => $parent_id,
 		) );
@@ -100,12 +107,12 @@ class Point_Action {
 		Point_Class::g()->update( $point );
 
 		$task = Task_Class::g()->get( array(
-			'include' => array( $point->post_id ),
+			'id' => $point->post_id,
 			'status' => array( 'publish', 'archive' ),
 		), true );
 
 		if( ( $key = array_search( $point_id, $task->task_info['order_point_id'] ) ) !== false ) {
-			unset( $task->task_info['order_point_id'][$key] );
+			array_splice( $task->task_info['order_point_id'], $key, 1 );
 		}
 		$task->time_info['elapsed'] -= $point->time_info['elapsed'];
 		$task = Task_Class::g()->update( $task );
@@ -137,7 +144,7 @@ class Point_Action {
 
 		if ( ! empty( $order_point_id ) ) {
 			foreach ( $order_point_id as $key => $point_id ) {
-				$order_point_id[ $key ] = (int) $point_id;
+				$order_point_id[ (int) $key ] = (int) $point_id;
 			}
 		}
 
@@ -161,13 +168,20 @@ class Point_Action {
 
 		if ( ! empty( $order_point_id ) ) {
 			foreach ( $order_point_id as $key => $point_id ) {
-				$new_order_point_id[ $key ] = $point_id;
+				$point = Point_Class::g()->get( array(
+					'id' => $point_id,
+				), true );
+				if ( 'trash' !== $point->status ) {
+					$new_order_point_id[ (int) $key ] = (int) $point->id;
+				}
 			}
 		}
 
 		if ( ! empty( $points_completed ) ) {
 			foreach ( $points_completed as $point_completed ) {
-				$new_order_point_id[] = $point_completed->id;
+				if ( 'trash' !== $point_completed->status ) {
+					$new_order_point_id[] = (int) $point_completed->id;
+				}
 			}
 		}
 
@@ -248,7 +262,7 @@ class Point_Action {
 		ob_start();
 		if ( ! empty( $completed_points ) ) {
 			foreach ( $completed_points as $point ) {
-				View_Util::exec( 'point', 'backend/point', array(
+				\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
 					'parent_id' => $task->id,
 					'point' => $point,
 				) );
@@ -280,12 +294,12 @@ class Point_Action {
 			'status' => -34070,
 		), true );
 
-		$point->author = User_Class::g()->get( array(
+		$point->author = Follower_Class::g()->get( array(
 			'include' => array( $point->author_id ),
 		), true );
 
 		ob_start();
-		View_Util::exec( 'point', 'backend/properties', array(
+		\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/properties', array(
 			'point' => $point,
 		) );
 
@@ -324,7 +338,7 @@ class Point_Action {
 				}
 
 				$tasks_founded[] = array(
-					'label' => $post->post_title,
+					'label' => '#' . $post->ID . ' - ' . $post->post_title,
 					'value' => $post->post_title,
 					'id' => $post->ID,
 				);
@@ -335,10 +349,22 @@ class Point_Action {
 		if ( !$founded_by_id && ! empty( $term ) && is_int( $term ) ) {
 			$post = get_post( $term );
 
+			if ( ! empty( $post ) ) {
+				if ( 'wpeo-task' === $post->post_type ) {
+					$tasks_founded[] = array(
+						'label' => '#' . $post->ID . ' - ' . $post->post_title,
+						'value' => $post->post_title,
+						'id' => $post->ID,
+					);
+				}
+			}
+		}
+
+		if ( empty( $tasks_founded ) ) {
 			$tasks_founded[] = array(
-				'label' => $post->post_title,
-				'value' => $post->post_title,
-				'id' => $post->ID,
+				'label' => __( 'No task found', 'task-manager' ),
+				'value' => __( 'No task found', 'task-manager' ),
+				'id' => 0,
 			);
 		}
 
@@ -382,18 +408,18 @@ class Point_Action {
 		$key = array_search( $point_id, $current_task->task_info['order_point_id'], true );
 
 		if ( false !== $key ) {
-			unset( $current_task->task_info['order_point_id'][ $key ] );
+			array_splice( $current_task->task_info['order_point_id'], $key, 1 );
 			$current_task->time_info['elapsed'] -= $point->time_info['elapsed'];
 		} else {
 			wp_send_json_error();
 		}
 
-		$to_task->task_info['order_point_id'][] = $point_id;
+		$to_task->task_info['order_point_id'][] = (int) $point_id;
 
 		$to_task->time_info['elapsed'] += $point->time_info['elapsed'];
 
-		Task_Class::g()->update( $current_task );
-		Task_Class::g()->update( $to_task );
+		$current_task = Task_Class::g()->update( $current_task );
+		$to_task = Task_Class::g()->update( $to_task );
 
 		$point->post_id = $to_task_id;
 		$point = Point_Class::g()->update( $point );

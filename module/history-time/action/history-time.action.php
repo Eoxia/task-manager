@@ -62,7 +62,7 @@ class History_Time_Action {
 		}
 
 		ob_start();
-		View_Util::exec( 'history-time', 'backend/main', array(
+		\eoxia\View_Util::exec( 'task-manager', 'history-time', 'backend/main', array(
 			'task_id' => $task_id,
 			'history_times' => $history_times,
 		) );
@@ -119,13 +119,13 @@ class History_Time_Action {
 			'post_status' => array( 'publish', 'archive' ),
 		), true );
 		ob_start();
-		View_Util::exec( 'task', 'backend/task-header', array(
+		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task-header', array(
 			'task' => $task,
 		) );
 		$task_header_view = ob_get_clean();
 
 		ob_start();
-		View_Util::exec( 'history-time', 'backend/main', array(
+		\eoxia\View_Util::exec( 'task-manager', 'history-time', 'backend/main', array(
 			'task_id' => $task_id,
 			'history_times' => $history_times,
 		) );
@@ -171,7 +171,7 @@ class History_Time_Action {
 			'post_status' => array( 'publish', 'archive' ),
 		), true );
 		ob_start();
-		View_Util::exec( 'task', 'backend/task-header', array(
+		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task-header', array(
 			'task' => $task,
 		) );
 		$task_header_view = ob_get_clean();

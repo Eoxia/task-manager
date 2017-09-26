@@ -1,4 +1,4 @@
-<?php namespace task_manager;
+<?php namespace eoxia;
 
 if ( !defined( 'ABSPATH' ) ) exit; ?>
 

@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 	<?php
 	if ( ! empty( $tags ) ) :
 		foreach ( $tags as $tag ) :
-			View_Util::exec( 'tag', 'backend/tag', array(
+			\eoxia\View_Util::exec( 'task-manager', 'tag', 'backend/tag', array(
 				'tag' => $tag,
 			) );
 		endforeach;
@@ -28,6 +28,6 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_tags' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->id ); ?>">
 		<span class="dashicons dashicons-plus-alt"></span>
-		<?php esc_html_e( 'Catégories', 'task-manager' ); ?>
+		<?php esc_html_e( 'Categories', 'task-manager' ); ?>
 	</li>
 </ul>

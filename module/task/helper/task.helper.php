@@ -43,7 +43,6 @@ class Task_Helper {
  * @version 1.3.6.0
  */
 function get_full_task( $data ) {
-
 	$data->last_history_time = History_Time_Class::g()->get( array(
 		'post_id' => $data->id,
 		'number' => 1,

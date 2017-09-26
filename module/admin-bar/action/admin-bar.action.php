@@ -36,7 +36,7 @@ class Admin_Bar_Action {
 		if ( current_user_can( 'administrator' ) ) {
 
 			ob_start();
-			View_Util::exec( 'admin-bar', 'backend/main' );
+			\eoxia\View_Util::exec( 'task-manager', 'admin-bar', 'backend/main' );
 			$view = ob_get_clean();
 
 			$button_open_popup = array(

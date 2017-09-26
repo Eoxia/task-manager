@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 /**
  * Gestion des points
  */
-class Point_Class extends Comment_Class {
+class Point_Class extends \eoxia\Comment_Class {
 
 	/**
 	 * Le nom du modèle
@@ -32,11 +32,11 @@ class Point_Class extends Comment_Class {
 	protected $meta_key		= 'wpeo_point';
 
 	/**
-	 * La route pour la rest API
+	 * La route pour accéder à l'objet dans la rest API
 	 *
 	 * @var string
 	 */
-	protected $base = 'task_manager/point';
+	protected $base = 'point';
 
 	/**
 	 * La version pour la rest API
@@ -57,7 +57,7 @@ class Point_Class extends Comment_Class {
 	 *
 	 * @var array
 	 */
-	protected $after_model_get_function = array( '\task_manager\get_full_point' );
+	protected $after_get_function = array( '\task_manager\get_full_point' );
 
 	/**
 	 * Constructeur qui inclus le modèle des points et également des les scripts
@@ -65,7 +65,9 @@ class Point_Class extends Comment_Class {
 	 *
 	 * @return void
 	 */
-	protected function construct() {}
+	protected function construct() {
+		parent::construct();
+	}
 
 	/**
 	 * Affiches les points d'une tâche.
@@ -78,11 +80,9 @@ class Point_Class extends Comment_Class {
 	 * @version 1.3.6.0
 	 */
 	public function display( $task_id, $frontend = false ) {
-		log_class::g()->start_ms( 'task_points' );
-
 		$task = Task_Class::g()->get( array(
 			'post__in' => array(
-				$task_id
+				$task_id,
 			),
 		), true );
 
@@ -117,12 +117,10 @@ class Point_Class extends Comment_Class {
 		);
 
 		if ( $frontend ) {
-			View_Util::exec( 'point', 'frontend/main', $args );
+			\eoxia\View_Util::exec( 'task-manager', 'point', 'frontend/main', $args );
 		} else {
-			View_Util::exec( 'point', 'backend/main', $args );
+			\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/main', $args );
 		}
-
-		log_class::g()->exec( 'task_points', 'task_points', 'Chargement des points', $args );
 	}
 }
 

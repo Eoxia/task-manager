@@ -6,7 +6,7 @@
  * @subpackage Module/task
  *
  * @since 1.0.0.0
- * @version 1.3.6.0
+ * @version 1.4.0-ford
  */
 
 namespace task_manager;
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 /**
  * Gestion des tâches.
  */
-class Task_Class extends Post_Class {
+class Task_Class extends \eoxia\Post_Class {
 
 	/**
 	 * Toutes les couleurs disponibles pour une t$ache
@@ -58,7 +58,7 @@ class Task_Class extends Post_Class {
 	 *
 	 * @var string
 	 */
-	protected $base = 'task-manager/task';
+	protected $base = 'task';
 
 	/**
 	 * La version de l'objet
@@ -196,9 +196,9 @@ class Task_Class extends Post_Class {
 					'include' => $tasks_id,
 					'post_status' => $param['status'],
 				) );
-			}
+			} // End if().
 
-		}
+		} // End if().
 
 		return $tasks;
 	}
@@ -214,7 +214,7 @@ class Task_Class extends Post_Class {
 	 * @version 1.3.6.0
 	 */
 	public function display_tasks( $tasks, $with_wrapper = false ) {
-		View_Util::exec( 'task', 'backend/tasks', array(
+		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/tasks', array(
 			'tasks' => $tasks,
 			'with_wrapper' => $with_wrapper,
 		) );

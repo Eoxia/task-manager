@@ -49,7 +49,7 @@ class Tag_Action {
 	 * @version 1.3.6.0
 	 */
 	public function callback_admin_menu() {
-		add_submenu_page( 'wpeomtm-dashboard', __( 'Catégories', 'task-manager' ), __( 'Catégories', 'task-manager' ), 'manage_options', 'edit-tags.php?taxonomy=wpeo_tag' );
+		add_submenu_page( 'wpeomtm-dashboard', __( 'Categories', 'task-manager' ), __( 'Categories', 'task-manager' ), 'manage_options', 'edit-tags.php?taxonomy=wpeo_tag' );
 	}
 
 	/**
@@ -135,7 +135,7 @@ class Tag_Action {
 		), true );
 
 		ob_start();
-		View_Util::exec( 'tag', 'backend/main-edit', array(
+		\eoxia\View_Util::exec( 'task-manager', 'tag', 'backend/main-edit', array(
 			'tags' => $tags,
 			'task' => $task,
 		) );
@@ -258,7 +258,7 @@ class Tag_Action {
 		), true );
 
 		ob_start();
-		View_Util::exec( 'navigation', 'backend/tag', array(
+		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/tag', array(
 			'category' => $category,
 		) );
 		wp_send_json_success( array(

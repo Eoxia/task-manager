@@ -26,7 +26,7 @@ class Avatar_Shortcode {
 		), $param, 'task_avatar' );
 
 		$users = Avatar_Class::g()->get_avatars( $param );
-		View_Util::exec( 'avatar', 'avatar', array(
+		\eoxia\View_Util::exec( 'task-manager', 'avatar', 'avatar', array(
 			'users' => $users,
 			'size' => $param['size'],
 		) );

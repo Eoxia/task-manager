@@ -40,12 +40,12 @@ class Owner_Action {
 			wp_send_json_error();
 		}
 
-		$users = User_Class::g()->get( array(
+		$users = Follower_Class::g()->get( array(
 			'role' => 'administrator',
 		) );
 
 		ob_start();
-		View_Util::exec( 'owner', 'backend/list', array(
+		\eoxia\View_Util::exec( 'task-manager', 'owner', 'backend/list', array(
 			'users' => $users,
 			'task_id' => $task_id,
 		) );

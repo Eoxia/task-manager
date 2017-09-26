@@ -1,8 +1,8 @@
 /**
  * Initialise l'objet "task" ainsi que la méthode "init" obligatoire pour la bibliothèque EoxiaJS.
  *
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.4.0-ford
  */
 window.eoxiaJS.taskManager.task = {};
 window.eoxiaJS.taskManager.task.offset = 0;
@@ -13,15 +13,39 @@ window.eoxiaJS.taskManager.task.init = function() {
 	jQuery( '.list-task' ).masonry( {
 		itemSelector: '.wpeo-project-task'
 	} );
+
+	window.eoxiaJS.taskManager.task.initAutoComplete();
 };
 
 window.eoxiaJS.taskManager.task.refresh = function() {
 	jQuery( '.list-task' ).masonry( 'layout' );
+	window.eoxiaJS.taskManager.task.initAutoComplete();
 };
 
 window.eoxiaJS.taskManager.task.event = function() {
+	jQuery( '.wpeo-project-wrap' ).on( 'keypress', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.keyEnterEditTitle );
 	jQuery( '.wpeo-project-wrap' ).on( 'blur', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.editTitle );
 	jQuery( window ).scroll( window.eoxiaJS.taskManager.task.onScrollLoadMore );
+};
+
+/**
+ * Initialise l'autocomplete pour déplacer la tâche.
+ *
+ * @return {void}
+ *
+ * @since 1.4.0-ford
+ * @version 1.4.0-ford
+ */
+window.eoxiaJS.taskManager.task.initAutoComplete = function() {
+	jQuery( '.search-parent' ).autocomplete( {
+		'source': 'admin-ajax.php?action=search_parent',
+		'delay': 0,
+		'select': function( event, ui ) {
+			jQuery( 'input[name="to_element_id"]' ).val( ui.item.id );
+			jQuery( this ).closest( '.form-fields' ).find( '.action-input' ).addClass( 'active' );
+			event.stopPropagation();
+		}
+	} );
 };
 
 window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
@@ -66,17 +90,46 @@ window.eoxiaJS.taskManager.task.loadedMoreTask = function( triggeredElement, res
 	window.eoxiaJS.refresh();
 };
 
-window.eoxiaJS.taskManager.task.editTitle = function( event ) {
-	var data = {
-		action: 'edit_title',
-		_wpnonce: jQuery( this ).data( 'nonce' ),
-		task_id: jQuery( this ).closest( '.wpeo-project-task' ).data( 'id' ),
-		title: jQuery( this ).val()
-	};
+/**
+ * Envoie une requête pour enregsitrer le nouveau titre de la tâche.
+ *
+ * @since 1.0.0
+ * @version 1.4.0
+ *
+ * @param  {FocusEvent} event         L'état de l'évènement lors du 'blur'.
+ * @param  {HTMLInputElement} element Le champ de texte contenant le titre.
+ * @return {void}
+ */
+window.eoxiaJS.taskManager.task.editTitle = function( event, element ) {
+	var data = {};
 
-	jQuery( this ).closest( '.wpeo-task-header' ).addClass( 'loading' );
+	if ( ! element ) {
+		element = jQuery( this );
+	}
 
-	window.eoxiaJS.request.send( jQuery( this ), data );
+	data.action = 'edit_title';
+	data._wpnonce = element.data( 'nonce' );
+	data.task_id = element.closest( '.wpeo-project-task' ).data( 'id' );
+	data.title = element.val();
+
+	element.closest( '.wpeo-task-header' ).addClass( 'loading' );
+
+	window.eoxiaJS.request.send( element, data );
+};
+
+/**
+ * Appel la méthode 'editTitle' pour modifier le titre lors de l'appuie de la touche entré.
+ *
+ * @since 1.0.0
+ * @version 1.4.0
+ *
+ * @param  {KeyboardEvent} event L'état du clavier.
+ * @return {void}
+ */
+window.eoxiaJS.taskManager.task.keyEnterEditTitle = function( event ) {
+	if ( 13 === event.which || 13 === event.keyCode ) {
+		window.eoxiaJS.taskManager.task.editTitle( event, jQuery( this ) );
+	}
 };
 
 /**
@@ -154,30 +207,6 @@ window.eoxiaJS.taskManager.task.loadedAllTask = function( triggeredElement, resp
 };
 
 /**
- * Le callback en cas de réussite à la requête Ajax "load_task_properties".
- *
- * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
- * @param  {Object}         response          Les données renvoyées par la requête Ajax.
- * @return {void}
- *
- * @since 1.0.0.0
- * @version 1.3.6.0
- */
-window.eoxiaJS.taskManager.task.loadedTaskProperties = function( triggeredElement, response ) {
-	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.popup .content' ).html( response.data.view );
-
-	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.popup .container' ).removeClass( 'loading' );
-
-	jQuery( '.search-parent' ).autocomplete( {
-		'source': 'admin-ajax.php?action=search_parent',
-		'appendTo': '.list-posts',
-		'select': function( event, ui ) {
-			jQuery( 'input[name="to_element_id"]' ).val( ui.item.id );
-		}
-	} );
-};
-
-/**
  * Le callback en cas de réussite à la requête Ajax "move_task_to".
  *
  * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
@@ -204,4 +233,18 @@ window.eoxiaJS.taskManager.task.loadedCorretiveTaskSuccess = function( triggered
 
 	jQuery( '.wpeo-header-bar li.active' ).removeClass( 'active' );
 	jQuery( triggeredElement ).addClass( 'active' );
+};
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "export_task".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.3.6.0
+ * @version 1.3.6.0
+ */
+window.eoxiaJS.taskManager.task.exportedTask = function( triggeredElement, response ) {
+	window.eoxiaJS.global.downloadFile( response.data.url, response.data.filename );
 };

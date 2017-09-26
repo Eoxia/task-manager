@@ -6,6 +6,8 @@
 	"path": "module/owner/",
 	"dependencies": {
 		"action": {},
+		"class": {},
+		"model": {},
 		"shortcode": {}
 	}
 }

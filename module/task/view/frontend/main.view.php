@@ -15,7 +15,7 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 <div class="wpeo-project-wrap">
-	<?php View_Util::exec( 'task', 'frontend/tasks', array(
+	<?php \eoxia\View_Util::exec( 'task-manager', 'task', 'frontend/tasks', array(
 		'tasks' => $tasks,
 	) ); ?>
 </div>

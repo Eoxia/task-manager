@@ -1,8 +1,8 @@
 /**
  * Initialise l'objet "comment" ainsi que la méthode "init" obligatoire pour la bibliothèque EoxiaJS.
  *
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.4.0-ford
  */
 window.eoxiaJS.taskManager.comment = {};
 
@@ -27,7 +27,7 @@ window.eoxiaJS.taskManager.comment.init = function() {
  * @version 1.0.0.0
  */
 window.eoxiaJS.taskManager.comment.event = function() {
-	jQuery( document ).on( 'keyup', '.comment.edit input[name="content"]', window.eoxiaJS.taskManager.comment.triggerCreate );
+	jQuery( document ).on( 'keyup', '.wpeo-comment-container div.content[contenteditable="true"]', window.eoxiaJS.taskManager.comment.triggerCreate );
 	jQuery( document ).on( 'blur keyup paste keydown click', '.comment .content', window.eoxiaJS.taskManager.comment.updateHiddenInput );
 	jQuery( document ).on( 'click', '.point.edit div[contenteditable="true"].wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.comment.loadComments );
 };
@@ -111,42 +111,31 @@ window.eoxiaJS.taskManager.comment.loadedCommentsSuccess = function( triggeredEl
  * Le callback en cas de réussite à la requête Ajax "edit_comment".
  * Met le contenu dans la div.comments.
  *
+ * @since 1.0.0
+ * @version 1.4.0-ford
+ *
  * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
  * @param  {Object}         response          Les données renvoyées par la requête Ajax.
  * @return {void}
  *
- * @since 1.0.0.0
- * @version 1.0.0.0
  */
 window.eoxiaJS.taskManager.comment.addedCommentSuccess = function( triggeredElement, response ) {
-	jQuery( triggeredElement ).closest( '.comments' ).children( '.comment.new' ).after( response.data.view );
-	jQuery( triggeredElement ).closest( 'form' )[0].reset();
+	jQuery( triggeredElement ).closest( '.comment' ).find( 'div.content' ).html( '' );
+
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.time.task );
-	jQuery( triggeredElement ).closest( '.comments' ).prev( 'form' ).find( '.wpeo-time-in-point' ).text( response.data.time.point );
+	jQuery( triggeredElement ).closest( '.comments' ).prev( '.form' ).find( '.wpeo-time-in-point' ).text( response.data.time.point );
 
 	jQuery( triggeredElement ).closest( '.comment' ).find( 'input[name="content"]' ).val( '' );
 	jQuery( triggeredElement ).closest( '.comment' ).find( 'input[name="time"]' ).val( '15' );
 	jQuery( triggeredElement ).closest( '.comment' ).find( '.content' ).html( '' );
 	jQuery( triggeredElement ).closest( '.comment' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
-	window.eoxiaJS.refresh();
-};
 
-/**
- * Le callback en cas de réussite à la requête Ajax "edit_comment".
- * Remplace la ligne courante du commentaire.
- *
- * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
- * @param  {Object}         response          Les données renvoyées par la requête Ajax.
- * @return {void}
- *
- * @since 1.0.0.0
- * @version 1.0.0.0
- */
-window.eoxiaJS.taskManager.comment.editedCommentSuccess = function( triggeredElement, response ) {
-	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.time.task );
-	jQuery( triggeredElement ).closest( '.comments' ).prev( 'form' ).find( '.wpeo-time-in-point' ).text( response.data.time.point );
+	jQuery( triggeredElement ).closest( '.comment' ).find( 'input[name="date"]' ).datetimepicker( 'reset' );
 
-	jQuery( triggeredElement ).closest( '.comment.edit' ).replaceWith( response.data.view );
+	jQuery( triggeredElement ).closest( '.comment' ).find( '.group-date div' ).attr( 'aria-label', jQuery( triggeredElement ).closest( '.comment' ).find( 'input[name="date"]' ).val() );
+	jQuery( triggeredElement ).closest( '.comment' ).find( '.group-date span' ).css( 'background', 'rgba( 0,0,0,0.2 )' );
+
+	jQuery( triggeredElement ).closest( 'div.point' ).find( '.comments' ).html( response.data.view );
 	window.eoxiaJS.refresh();
 };
 
@@ -164,6 +153,7 @@ window.eoxiaJS.taskManager.comment.editedCommentSuccess = function( triggeredEle
 window.eoxiaJS.taskManager.comment.deletedCommentSuccess = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.comment' ).fadeOut();
 
+	jQuery( triggeredElement ).closest( '.wpeo-project-task.mask' ).removeClass( 'mask' );
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.time.task );
 	jQuery( triggeredElement ).closest( '.comments' ).prev( 'form' ).find( '.wpeo-time-in-point' ).text( response.data.time.point );
 
@@ -182,4 +172,5 @@ window.eoxiaJS.taskManager.comment.deletedCommentSuccess = function( triggeredEl
  */
 window.eoxiaJS.taskManager.comment.loadedEditViewComment = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.comment' ).replaceWith( response.data.view );
+	jQuery( '.wpeo-project-task.mask' ).removeClass( 'mask' );
 };

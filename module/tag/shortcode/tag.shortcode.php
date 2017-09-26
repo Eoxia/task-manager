@@ -56,7 +56,7 @@ class Tag_Shortcode {
 			) );
 		}
 
-		View_Util::exec( 'tag', 'backend/main', array(
+		\eoxia\View_Util::exec( 'task-manager', 'tag', 'backend/main', array(
 			'task' => $task,
 			'tags' => $tags,
 		) );

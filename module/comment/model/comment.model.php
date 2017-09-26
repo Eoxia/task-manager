@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 /**
  * La définition du modèle des commentaires
  */
-class Task_Comment_Model extends Comment_Model {
+class Task_Comment_Model extends \eoxia\Comment_Model {
 
 	/**
 	 * Le constructeur qui permet de faire la définition du modèle.
@@ -28,10 +28,6 @@ class Task_Comment_Model extends Comment_Model {
 	 * @version 1.3.6.0
 	 */
 	public function __construct( $object ) {
-		$this->model['status']['bydefault'] = '-34070';
-		$this->model['author_id']['bydefault'] = get_current_user_id();
-		$this->model['date']['bydefault'] = date( 'd/m/Y' );
-
 		$this->model['time_info'] = array(
 			'type'			=> 'array',
 			'meta_type' => 'multiple',

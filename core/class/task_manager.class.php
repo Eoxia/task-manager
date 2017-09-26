@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Appelle la vue permettant d'afficher la navigation
  */
-class Task_Manager_Class extends Singleton_Util {
+class Task_Manager_Class extends \eoxia\Singleton_Util {
 
 	/**
 	 * Le constructeur

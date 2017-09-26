@@ -15,7 +15,8 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 <div class="point <?php echo ! empty( $point->id ) ? esc_attr( 'edit' ): ''; ?>" data-id="<?php echo esc_attr( $point->id ); ?>">
-	<form class="form" action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>" method="POST">
+
+	<div class="form">
 
 		<?php wp_nonce_field( 'edit_point' ); ?>
 		<input type="hidden" name="action" value="edit_point" />
@@ -24,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		<ul class="point-container">
 			<li class="point-valid">
 				<?php if ( ! empty( $point->id ) ) : ?>
-					<span class="wpeo-sort-point dashicons dashicons-screenoptions" title="<?php esc_attr_e( 'Glisser-déposer pour ajuster l\'ordre', 'task-manager' ); ?>"></span>
+					<span class="wpeo-sort-point dashicons dashicons-screenoptions" title="<?php esc_attr_e( 'Drag and drop', 'task-manager' ); ?>"></span>
 					<input type="checkbox" <?php echo ! empty( $point->point_info['completed'] ) ? 'checked': ''; ?> class="completed-point" data-nonce="<?php echo esc_attr( wp_create_nonce( 'complete_point' ) ); ?>" />
 				<?php endif; ?>
 			</li>
@@ -41,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					<?php echo $point->content; ?>
 				</div>
 				<?php if ( empty( $point->id ) ) : ?>
-					<span class="wpeo-point-new-placeholder"><?php esc_html_e( 'Écriver votre point ici...', 'task-manager' ); ?></span>
+					<span class="wpeo-point-new-placeholder"><?php esc_html_e( 'Write your point here...', 'task-manager' ); ?></span>
 				<?php endif; ?>
 			</li>
 
@@ -50,11 +51,11 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					<div 	class="wpeo-point-new-btn action-input animated"
 								data-parent="form"
 								data-loader="point"
-								title="<?php esc_attr( 'Ajouter ce point', 'task-manager' ); ?>">
+								title="<?php esc_attr( 'Add this point', 'task-manager' ); ?>">
 						<i class="dashicons dashicons-plus-alt"></i>
 					</div>
 				<?php else : ?>
-					<div class="hidden submit-form" data-parent="form"></div>
+					<div class="hidden action-input update" data-parent="form"></div>
 
 					<div class="wpeo-point-time">
 						<span class="dashicons dashicons-clock"></span>
@@ -63,36 +64,23 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 					<div class="toggle wpeo-task-setting"
 							data-parent="toggle"
-							data-target="content">
+							data-target="content"
+							data-mask="wpeo-project-task">
 
 						<div class="action">
-							<span class="wpeo-task-open-action" title="<?php esc_html_e( 'Options du point', 'task-manager' ); ?>"><i class="fa fa-ellipsis-v"></i></span>
+							<span class="wpeo-task-open-action" title="<?php esc_html_e( 'Point options', 'task-manager' ); ?>"><i class="fa fa-ellipsis-v"></i></span>
 						</div>
 
-						<ul class="left content point-header-action">
-							<li class="open-popup-ajax"
-									data-title="<?php esc_attr_e( 'Propriété du point: #' . $point->id . ' ' . substr( $point->content, 0, 20 ), 'task-manager' ); ?>"
-									data-action="load_point_properties"
-									data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_point_properties' ) ); ?>"
-									data-id="<?php echo esc_attr( $point->id ); ?>"
-									data-parent="wpeo-project-task"
-									data-target="popup">
-								<span><?php esc_html_e( 'Propriété du point', 'task-manager' ); ?></span>
-							</li>
-
-							<li class="action-delete"
-									data-action="delete_point"
-									data-message-delete="<?php echo esc_attr_e( 'Supprimer ce point', 'task-manager' ); ?>"
-									data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_point' ) ); ?>"
-									data-id="<?php echo esc_attr( $point->id ); ?>"
-								<span><?php esc_html_e( 'Supprimer le point', 'task-manager' ); ?></span>
-							</li>
-						</ul>
+						<div class="left content point-header-action">
+							<?php \eoxia\View_Util::exec( 'task-manager', 'point', 'backend/toggle-content', array(
+								'point' => $point,
+							) ); ?>
+						</div>
 					</div>
 				<?php	endif; ?>
 			</li>
 		</ul>
-	</form>
+	</div>
 
 	<ul class="comments hidden" data-id="<?php echo esc_attr( $point->id ); ?>"></ul>
 </div>

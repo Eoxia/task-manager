@@ -25,11 +25,11 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
  */
 function convert_date_to_sql( $data ) {
 	if ( strlen( $data->date ) === 10 ) {
-		$data->date .= ' ' . current_time( 'h:i:s' );
+		$data->date .= ' ' . current_time( 'H:i:s' );
 	}
 
 	$data->date = str_replace( '/', '-', $data->date );
-	$data->date = date( 'Y-m-d h:i:s', strtotime( $data->date ) );
+	$data->date = date( 'Y-m-d H:i:s', strtotime( $data->date ) );
 
 	return $data;
 }
@@ -44,10 +44,10 @@ function convert_date_to_sql( $data ) {
  * @version 1.3.6.0
  */
 function convert_date_display( $data ) {
-	$format = '\L\e d F Y à h\hi';
+	$format = '\L\e d F Y à H\hi';
 
-	$data->date_input = mysql2date( 'd/m/Y h:i', $data->date );
+	$data->date_input = mysql2date( 'd/m/Y H:i', $data->date );
 
-	$data->date = mysql2date( $format, $data->date );
+	$data->date_human_readable = mysql2date( $format, $data->date );
 	return $data;
 }

@@ -40,7 +40,7 @@ class Follower_Action {
 	public function ajax_load_followers() {
 		check_ajax_referer( 'load_followers' );
 
-		$followers = User_Class::g()->get( array(
+		$followers = Follower_Class::g()->get( array(
 			'role' => array(
 				'administrator'
 			),
@@ -53,7 +53,7 @@ class Follower_Action {
 		), true );
 
 		ob_start();
-		View_Util::exec( 'follower', 'backend/main-edit', array(
+		\eoxia\View_Util::exec( 'task-manager', 'follower', 'backend/main-edit', array(
 			'followers' => $followers,
 			'task' => $task,
 		) );
@@ -91,13 +91,13 @@ class Follower_Action {
 		$followers = array();
 
 		if ( ! empty( $task->user_info['affected_id'] ) ) {
-			$followers = User_Class::g()->get( array(
+			$followers = Follower_Class::g()->get( array(
 				'include' => $task->user_info['affected_id'],
 			) );
 		}
 
 		ob_start();
-		View_Util::exec( 'follower', 'backend/main', array(
+		\eoxia\View_Util::exec( 'task-manager', 'follower', 'backend/main', array(
 			'followers' => $followers,
 			'task' => $task,
 		) );
@@ -167,7 +167,7 @@ class Follower_Action {
 		$key = array_search( $user_id, $task->user_info['affected_id'], true );
 
 		if ( -1 < $key ) {
-			unset( $task->user_info['affected_id'][ $key ] );
+			array_splice( $task->user_info['affected_id'], $key, 1 );
 		}
 
 		Task_Class::g()->update( $task );

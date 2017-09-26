@@ -15,6 +15,7 @@ window.eoxiaJS.taskManager.point = {};
  * @version 1.0.0.0
  */
 window.eoxiaJS.taskManager.point.init = function() {
+	window.eoxiaJS.taskManager.point.initAutoComplete();
 	window.eoxiaJS.taskManager.point.event();
 	window.eoxiaJS.taskManager.point.refresh();
 };
@@ -33,9 +34,28 @@ window.eoxiaJS.taskManager.point.event = function() {
 	jQuery( document ).on( 'click', '.point.edit .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.activePoint );
 	jQuery( document ).on( 'blur keyup paste keydown click', '.point .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.updateHiddenInput );
 	jQuery( document ).on( 'blur paste', '.point.edit .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.editPoint );
-	jQuery( document ).on( 'click', 'form .completed-point', window.eoxiaJS.taskManager.point.completePoint );
+	jQuery( document ).on( 'click', '.form .completed-point', window.eoxiaJS.taskManager.point.completePoint );
 };
 
+/**
+ * Initialise l'autocomplete pour déplacer les points.
+ *
+ * @return {void}
+ *
+ * @since 1.4.0-ford
+ * @version 1.4.0-ford
+ */
+window.eoxiaJS.taskManager.point.initAutoComplete = function() {
+	jQuery( '.search-task' ).autocomplete( {
+		'source': 'admin-ajax.php?action=search_task',
+		'delay': 0,
+		'select': function( event, ui ) {
+			jQuery( 'input[name="to_task_id"]' ).val( ui.item.id );
+			jQuery( this ).closest( '.form-fields' ).find( '.action-input' ).addClass( 'active' );
+			event.stopPropagation();
+		}
+	} );
+};
 
 window.eoxiaJS.taskManager.point.triggerCreate = function( event ) {
 	if ( event.ctrlKey && 13 === event.keyCode ) {
@@ -111,6 +131,7 @@ window.eoxiaJS.taskManager.point.addedPointSuccess = function( triggeredElement,
 
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.points.sortable .point:last' ).before( response.data.view );
 
+	window.eoxiaJS.taskManager.point.initAutoComplete();
 	window.eoxiaJS.refresh();
 };
 
@@ -125,7 +146,9 @@ window.eoxiaJS.taskManager.point.addedPointSuccess = function( triggeredElement,
  * @since 1.0.0.0
  * @version 1.0.0.0
  */
-window.eoxiaJS.taskManager.point.editedPointSuccess = function( triggeredElement, response ) {};
+window.eoxiaJS.taskManager.point.editedPointSuccess = function( triggeredElement, response ) {
+	triggeredElement.closest( '.form' ).removeClass( 'loading' );
+};
 
 /**
  * Met à jour un point en cliquant sur le bouton pour envoyer le formulaire.
@@ -136,7 +159,8 @@ window.eoxiaJS.taskManager.point.editedPointSuccess = function( triggeredElement
  * @version 1.0.0.0
  */
 window.eoxiaJS.taskManager.point.editPoint = function() {
-	jQuery( this ).closest( 'form' ).find( '.submit-form' ).click();
+	jQuery( this ).closest( '.form' ).addClass( 'loading' );
+	jQuery( this ).closest( '.form' ).find( '.action-input.update' ).click();
 };
 
 /**
@@ -161,6 +185,8 @@ window.eoxiaJS.taskManager.point.deletedPointSuccess = function( triggeredElemen
 
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.time );
 
+	jQuery( triggeredElement ).closest( '.wpeo-project-task.mask' ).removeClass( 'mask' );
+
 	jQuery( triggeredElement ).closest( 'div.point.edit' ).fadeOut( 400, function() {
 		window.eoxiaJS.refresh();
 	} );
@@ -181,7 +207,7 @@ window.eoxiaJS.taskManager.point.completePoint = function() {
 	var data = {
 		action: 'complete_point',
 		_wpnonce: jQuery( this ).data( 'nonce' ),
-		point_id: jQuery( this ).closest( 'form' ).find( 'input[name="id"]' ).val(),
+		point_id: jQuery( this ).closest( '.form' ).find( 'input[name="id"]' ).val(),
 		complete: jQuery( this ).is( ':checked' )
 	};
 
@@ -267,14 +293,6 @@ window.eoxiaJS.taskManager.point.editOrder = function() {
 window.eoxiaJS.taskManager.point.loadedPointProperties = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.popup .content' ).html( response.data.view );
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.popup .container' ).removeClass( 'loading' );
-
-	jQuery( '.search-task' ).autocomplete( {
-		'source': 'admin-ajax.php?action=search_task',
-		'appendTo': '.list-tasks',
-		'select': function( event, ui ) {
-			jQuery( 'input[name="to_task_id"]' ).val( ui.item.id );
-		}
-	} );
 };
 
 /**
@@ -290,13 +308,20 @@ window.eoxiaJS.taskManager.point.loadedPointProperties = function( triggeredElem
 window.eoxiaJS.taskManager.point.movedPointTo = function( triggeredElement, response ) {
 
 	// Met à jour le temps.
-	jQuery( '.wpeo-project-task[data-id=' + response.data.current_task.id + ']' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.current_task.time_info.elapsed );
-	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.to_task.time_info.elapsed );
+	jQuery( '.wpeo-project-task[data-id=' + response.data.current_task.id + ']' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.current_task.time_info.time_display + ' (' + response.data.current_task.time_info.elapsed + 'min)' );
+	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.to_task.time_info.time_display + ' (' + response.data.to_task.time_info.elapsed + 'min)' );
 
 	// Met à jour le contenu.
 	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( '.points div.point:last' ).before( jQuery( '.point.edit[data-id=' + response.data.point.id + ']' ) );
 
 	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( '.point.edit[data-id=' + response.data.point.id + '] .point-toggle .action-attribute' ).attr( 'data-task-id', response.data.to_task.id );
+	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( '.point.edit[data-id=' + response.data.point.id + '] .point-header-action .form-fields .action-input' ).removeClass( 'active' );
+	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( '.point.edit[data-id=' + response.data.point.id + '] .point-header-action .form-fields .search-task' ).val( '' );
+	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( '.point.edit[data-id=' + response.data.point.id + '] .point-header-action .move-to input[name="task_id"]' ).val( response.data.to_task.id );
+	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( '.point.edit[data-id=' + response.data.point.id + '] .point-header-action .move-to input[name="to_task_id"]' ).val( '' );
+	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( '.point.edit[data-id=' + response.data.point.id + '] .point-header-action.active' ).removeClass( 'active' );
+
+	jQuery( '.wpeo-project-task.mask' ).removeClass( 'mask' );
 
 	window.eoxiaJS.refresh();
 };

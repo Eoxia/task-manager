@@ -1,16 +1,19 @@
 <?php
 /**
- * Display line history time.
+ * Affiches l'historique des 'dates estimées'.
  *
- * @package HistoryTime
- *
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @author Jimmy Latour <dev@eoxia.com>
+ * @since 1.0.0
+ * @version 1.4.0
+ * @copyright 2015-2017
+ * @package Task_Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} ?>
 
 <li class="list-element" data-id="<?php echo esc_attr( $history_time->id ); ?>">
 	<ul>
@@ -18,11 +21,11 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		<li class="author"><?php echo esc_html( $history_time->author->display_name ); ?></li>
 		<li class="date">
 			<span class="dashicons dashicons-calendar-alt"></span>
-			<?php echo Date_Util::g()->mysqldate2wordpress( $history_time->due_date, false ); ?>
+			<?php echo esc_html( substr( $history_time->due_date['date_human_readable'], 0, strlen( $history_time->due_date['date_human_readable'] ) - 8 ) ); ?>
 		</li>
 		<li class="time">
 			<span class="dashicons dashicons-clock"></span>
-			<?php echo esc_html( $history_time->time_info['estimated_time_display'] ); ?>
+			<?php echo esc_html( $history_time->estimated_time ); ?>
 		</li>
 		<li class="time">
 			<?php echo esc_html( sprintf( __( '( %smin )', 'task-manager' ), $history_time->estimated_time ) ); ?>

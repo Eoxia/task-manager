@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 /**
  * Gestion des commentaires
  */
-class Task_Comment_Class extends Comment_Class {
+class Task_Comment_Class extends \eoxia\Comment_Class {
 
 	/**
 	 * Le nom du modèle
@@ -36,7 +36,7 @@ class Task_Comment_Class extends Comment_Class {
 	 *
 	 * @var string
 	 */
-	protected $base = 'task_manager/time';
+	protected $base = 'comment';
 
 	/**
 	 * La version pour la rest API
@@ -50,34 +50,48 @@ class Task_Comment_Class extends Comment_Class {
 	 *
 	 * @var array
 	 */
-	protected $after_model_get_function = array( '\task_manager\convert_date_display' );
+	protected $after_get_function = array();
 
 	/**
 	 * La fonction appelée automatiquement après l'insertion de l'objet dans la base de donnée.
 	 *
 	 * @var array
 	 */
-	protected $before_post_function = array( '\task_manager\convert_date_to_sql', '\task_manager\compile_time' );
+	protected $before_post_function = array( '\task_manager\compile_time' );
 
 	/**
 	 * La fonction appelée automatiquement après la modification de l'objet dans la base de donnée.
 	 *
 	 * @var array
 	 */
-	protected $before_put_function = array( '\task_manager\convert_date_to_sql', '\task_manager\compile_time' );
+	protected $before_put_function = array( '\task_manager\compile_time' );
 
-	protected $after_post_function = array( '\task_manager\convert_date_display' );
-	protected $after_put_function = array( '\task_manager\convert_date_display' );
+	protected $after_post_function = array( );
+	protected $after_put_function = array( );
 
 	/**
-	 * Constructeur
+	 * Récupères les commentaires d'un point.
 	 *
-	 * @return void
+	 * @since 1.4.0-ford
+	 * @version 1.4.0-ford
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @param  integer $point_id L'ID du point.
+	 * @return array             La liste des commentaires du point.
 	 */
-	protected function construct() {}
+	public function get_comments( $point_id ) {
+		$comments = self::g()->get( array(
+			'parent' => $point_id,
+			'status' => '-34070',
+		) );
+
+		if ( ! empty( $comments ) ) {
+			foreach ( $comments as $comment ) {
+				$comment->author = get_userdata( $comment->author_id );
+			}
+		}
+
+		return $comments;
+	}
 }
 
 Task_Comment_Class::g();
