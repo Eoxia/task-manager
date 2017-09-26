@@ -25,6 +25,7 @@ window.eoxiaJS.taskManager.task.refresh = function() {
 window.eoxiaJS.taskManager.task.event = function() {
 	jQuery( '.wpeo-project-wrap' ).on( 'keypress', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.keyEnterEditTitle );
 	jQuery( '.wpeo-project-wrap' ).on( 'blur', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.editTitle );
+	jQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-task-time-manage .dashicons-editor-ul', window.eoxiaJS.taskManager.task.switchViewToLine );
 	jQuery( window ).scroll( window.eoxiaJS.taskManager.task.onScrollLoadMore );
 };
 
@@ -115,6 +116,24 @@ window.eoxiaJS.taskManager.task.editTitle = function( event, element ) {
 	element.closest( '.wpeo-task-header' ).addClass( 'loading' );
 
 	window.eoxiaJS.request.send( element, data );
+};
+
+/**
+ * Réaffiches les points lors du clic.
+ *
+ * @since 1.5.0
+ * @version 1.5.0
+ *
+ * @param  {ClickEvent} event         L'état de l'évènement lors du 'click'.
+ * @return {void}
+ */
+window.eoxiaJS.taskManager.task.switchViewToLine = function( event ) {
+	jQuery( this ).addClass( 'active' );
+	jQuery( this ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .dashicons-screenoptions.active' ).removeClass( 'active' );
+	jQuery( this ).closest( '.wpeo-project-task' ).find( '.history' ).hide();
+	jQuery( this ).closest( '.wpeo-project-task' ).find( '.points.sortable' ).show();
+	jQuery( this ).closest( '.wpeo-project-task' ).find( '.wpeo-task-point-use-toggle' ).show();
+	window.eoxiaJS.refresh();
 };
 
 /**

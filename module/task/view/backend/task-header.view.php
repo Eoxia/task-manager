@@ -4,7 +4,7 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.0.0
- * @version 1.4.0
+ * @version 1.5.0
  * @copyright 2015-2017 Eoxia
  * @package Task_Manager
  */
@@ -38,5 +38,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 			data-title="<?php echo esc_attr( '#' . $task->id . ' Historique du temps' ); ?>"
 			data-task-id="<?php echo esc_attr( $task->id ); ?>">
 		<span class="fa fa-history dashicons-image-rotate"></span>
+	</li>
+
+	<li>
+		<span class="dashicons dashicons-editor-ul active"></span>
+		<span class="action-attribute dashicons dashicons-screenoptions"
+					data-action="switch_view_to_grid"
+					data-nonce="<?php echo esc_attr( wp_create_nonce( 'switch_view_to_grid' ) ); ?>"
+					data-task-id="<?php echo esc_attr( $task->id ); ?>"></span>
 	</li>
 </ul>
