@@ -54,7 +54,9 @@ gulp.task('js_frontend', function() {
 		.pipe(gulp.dest('core/asset/js/'))
 })
 
-gulp.watch(paths.scss_backend[0], ["build_scss_backend"]);
-gulp.watch(paths.scss_backend[0], ["build_scss_backend_min"]);
-gulp.watch(paths.all_js, ["js"]);
-gulp.watch(paths.frontend_js, ["js_frontend"]);
+gulp.task('default', function() {
+	gulp.watch(paths.scss_backend[0], ["build_scss_backend"]);
+	gulp.watch(paths.scss_backend[0], ["build_scss_backend_min"]);
+	gulp.watch(paths.all_js, ["js"]);
+	gulp.watch(paths.frontend_js, ["js_frontend"]);
+});
