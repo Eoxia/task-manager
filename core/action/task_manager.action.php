@@ -1,8 +1,12 @@
 <?php
 /**
- * Initialise les fichiers .config.json
+ * Les actions principales de l'application.
  *
- * @package Evarisk\Plugin
+ * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @since 1.0.0
+ * @version 1.5.0
+ * @copyright 2015-2017 Eoxia
+ * @package Task_Manager
  */
 
 namespace task_manager;
@@ -12,8 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Initialise les scripts JS et CSS du Plugin
- * Ainsi que le fichier MO
+ * Les actions principales de l'application.
  */
 class Task_Manager_Action {
 
@@ -111,13 +114,14 @@ class Task_Manager_Action {
 	}
 
 	/**
-	 * Définition du menu dans l'administration de wordpress pour Digirisk / Define the menu for wordpress administration
+	 * @since 1.0.0
+	 * @version 1.5.0
+	 * Définition du menu dans l'administration de WordPress pour Task Manager
 	 */
 	public function callback_admin_menu() {
 		add_menu_page( __( 'Task', 'task-manager' ), __( 'Task', 'task-manager' ), 'publish_pages', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ), 'dashicons-layout' );
 		add_submenu_page( 'wpeomtm-dashboard', __( 'Task', 'task-manager' ), __( 'Task', 'task-manager' ), 'publish_pages', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ) );
 	}
-
 }
 
 new Task_Manager_Action();
