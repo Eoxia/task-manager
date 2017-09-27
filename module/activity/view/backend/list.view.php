@@ -18,20 +18,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php
 if ( ! empty( $datas ) ) :
 	foreach ( $datas as $date => $data ) :
-		if ( $date !== $last_date ) :
+		// if ( $date !== $last_date ) :
 			?>
-			<h3><?php echo esc_html( ucfirst( mysql2date( 'l', $date ) ) . ' ' . mysql2date( 'd/m/Y', $date ) ); ?></h3>
+			<div class="day">
+				<span class="label"><?php echo esc_html( ucfirst( mysql2date( 'l', $date ) ) . ' ' . mysql2date( 'd/m/Y', $date ) ); ?></span>
+			</div>
 			<?php
-		endif;
+		// endif;
 		if ( ! empty( $data ) ) :
 			foreach ( $data as $time => $elements ) :
 				if ( ! empty( $elements ) ) :
-					foreach ( $elements as $element ) :
-						echo do_shortcode( '[task_avatar ids="' . $element->author_id . '" size="20"]' );
-						echo esc_html( $element->date['date_input']['fr_FR']['time'] );
-						\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/' . $element->view, array(
-							'element' => $element,
-						) );
+					foreach ( $elements as $element ) : ?>
+
+
+						<div class="activity <?php echo esc_attr( $element->view ); ?>">
+							<div class="information">
+								<?php echo do_shortcode( '[task_avatar ids="' . $element->author_id . '" size="30"]' ); ?>
+								<span class="type"></span>
+								<span class="time-posted"><?php echo esc_html( substr( $element->date['date_input']['fr_FR']['time'], 0, -3 ) ); ?></span>
+							</div>
+							<div class="content"> <?php
+								\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/' . $element->view, array(
+									'element' => $element,
+								) ); ?>
+							</div>
+						</div> <?php
+
 					endforeach;
 				endif;
 			endforeach;

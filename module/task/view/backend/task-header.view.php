@@ -40,9 +40,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<span class="fa fa-history dashicons-image-rotate"></span>
 	</li>
 
-	<li>
-		<span class="dashicons dashicons-editor-ul active"></span>
-		<span class="action-attribute dashicons dashicons-screenoptions"
+	<li class="display-method-buttons">
+		<span class="dashicons dashicons-editor-ul list-display active"></span>
+		<span class="action-attribute dashicons dashicons-screenoptions grid-display"
 					data-action="load_last_activity"
 					data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_last_activity' ) ); ?>"
 					data-tasks-id="<?php echo esc_attr( $task->id ); ?>"></span>

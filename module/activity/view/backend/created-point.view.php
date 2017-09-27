@@ -15,4 +15,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<?php echo '#CREATEPOINT' . $element->id . ' ' . $element->content; ?>
+<span class="event-title"><?php echo '#' . $element->id . ' ' . $element->content; ?></span>

@@ -4308,7 +4308,8 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.2); }
 
 .wpeo-project-wrap .list-task .wpeo-project-task .wpeo-task-time-manage li {
-  padding: 0 8px 0 0; }
+  padding: 0 8px 0 0;
+  margin: auto 0; }
 
 .wpeo-project-wrap .list-task .wpeo-project-task .wpeo-task-time-manage li span {
   margin: auto 0; }
@@ -4318,7 +4319,6 @@
   margin-right: 6px; }
 
 .wpeo-project-wrap .list-task .wpeo-project-task .wpeo-task-time-manage li.wpeo-task-time-history {
-  margin-left: auto;
   padding: 0;
   font-size: 16px;
   color: rgba(0, 0, 0, 0.4);
@@ -4329,6 +4329,31 @@
 .wpeo-project-wrap .list-task .wpeo-project-task .wpeo-task-time-manage li.wpeo-task-time-history:hover {
   cursor: pointer;
   color: rgba(0, 0, 0, 0.6); }
+
+.wpeo-project-wrap .list-task .wpeo-project-task .wpeo-task-time-manage li.display-method-buttons {
+  margin-left: auto; }
+
+.wpeo-project-wrap .list-task .wpeo-project-task .wpeo-task-time-manage li.display-method-buttons .list-display, .wpeo-project-wrap .list-task .wpeo-project-task .wpeo-task-time-manage li.display-method-buttons .grid-display {
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.4);
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out; }
+
+.wpeo-project-wrap .list-task .wpeo-project-task .wpeo-task-time-manage li.display-method-buttons .list-display:hover, .wpeo-project-wrap .list-task .wpeo-project-task .wpeo-task-time-manage li.display-method-buttons .grid-display:hover {
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.2); }
+
+.wpeo-project-wrap .list-task .wpeo-project-task .wpeo-task-time-manage li.display-method-buttons .list-display.active, .wpeo-project-wrap .list-task .wpeo-project-task .wpeo-task-time-manage li.display-method-buttons .grid-display.active {
+  background: #389af6;
+  color: #fff; }
+
+.wpeo-project-wrap .list-task .wpeo-project-task .wpeo-task-time-manage li.display-method-buttons .list-display.active:hover, .wpeo-project-wrap .list-task .wpeo-project-task .wpeo-task-time-manage li.display-method-buttons .grid-display.active:hover {
+  background: #69b3f8; }
 
 .wpeo-project-wrap .wpeo-task-selected .task-marker {
   opacity: 1;
@@ -4996,6 +5021,133 @@ Popup
 
 .wpeo-project-wrap .wpeo-tag-wrap.edit .wpeo-tag.active:hover, .wpeo-project-wrap .wpeo-tag-wrap.edit .wpeo-tag.edit:hover {
   background: #1360c8; }
+
+/* ----------------------------------
+		Affichage historique
+-----------------------------------*/
+.wpeo-project-wrap .wpeo-project-task-container .history > .content {
+  padding: 1em;
+  /* Jour */
+  /* Activity single */ }
+
+.wpeo-project-wrap .wpeo-project-task-container .history > .content .day {
+  position: relative;
+  padding: 0.6em 0;
+  clear: both; }
+
+.wpeo-project-wrap .wpeo-project-task-container .history > .content .day .label {
+  font-size: 12px;
+  font-weight: 900;
+  color: #000;
+  text-transform: uppercase;
+  display: inline-block;
+  background: #fff;
+  position: relative;
+  z-index: 50;
+  padding-right: 1em; }
+
+.wpeo-project-wrap .wpeo-project-task-container .history > .content .day:after {
+  display: block;
+  content: '';
+  height: 1px;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  background: rgba(0, 0, 0, 0.05); }
+
+.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity {
+  padding: 0.6em 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+     -moz-box-orient: horizontal;
+     -moz-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  /* Point crée */
+  /* Commentaire crée */
+  /* Point validé */ }
+
+.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity .information {
+  width: 100%;
+  max-width: 50px;
+  position: relative; }
+
+.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity .information .user {
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+  border: 2px solid #fff;
+  z-index: 50; }
+
+.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity .information .user img, .wpeo-project-wrap .wpeo-project-task-container .history > .content .activity .information .user .wpeo-avatar-initial {
+  -webkit-border-radius: 50%;
+          border-radius: 50%; }
+
+.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity .information .type {
+  display: block;
+  width: 22px;
+  height: 22px;
+  background: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.5);
+  line-height: 22px;
+  text-align: center;
+  font-size: 14px;
+  position: absolute;
+  top: 0;
+  right: 4px;
+  -webkit-border-radius: 4px;
+          border-radius: 4px; }
+
+.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity .information .type:before {
+  font-family: FontAwesome; }
+
+.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity .content {
+  width: 100%;
+  padding-left: 1em;
+  margin: auto 0; }
+
+.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity .content .event-header {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex; }
+
+.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity .content .event-header .event-title {
+  width: auto; }
+
+.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity .content .event-header .event-time {
+  margin-left: auto; }
+
+.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity .content .event-title {
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.4em; }
+
+.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity .content .event-content {
+  font-family: 'kalamregular'; }
+
+.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity.created-point .information .type:before {
+  content: ""; }
+
+.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity.created-comment .information .type:before {
+  content: ""; }
+
+.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity.completed-point .information .type {
+  background: #35c54e;
+  color: #fff; }
+
+.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity.completed-point .information .type:before {
+  content: ""; }
+
+.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity.completed-point .content .event-title {
+  text-decoration: line-through; }
 
 /* ----------------------------------
 		Footer affichage utilisateurs

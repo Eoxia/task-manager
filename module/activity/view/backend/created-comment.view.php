@@ -15,7 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<?php
-echo '#CREATECOMMENT' . $element->parent->id . ' ' . $element->parent->content;
-echo $element->content;
-?>
+<div class="event-header">
+	<span class="event-title"><?php echo '#' . $element->parent->id . ' ' . $element->parent->content; ?></span>
+	<span class="event-time"><i class="dashicons dashicons-clock"></i><?php echo $element->time_info['elapsed']; ?></span>
+</div>
+<span class="event-content"><?php echo $element->content; ?></span>
