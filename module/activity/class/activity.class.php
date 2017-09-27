@@ -56,7 +56,11 @@ class Activity_Class extends \eoxia\Singleton_Util {
 						$point->view = 'created-point';
 
 						if ( $point->point_info['completed'] ) {
-							$point->view = 'completed-point';
+							$cloned_point = clone $point;
+							$cloned_point->view = 'completed-point';
+							$sql_date = substr( $cloned_point->time_info['last_completed']['date'], 0, strlen( $cloned_point->time_info['last_completed']['date'] ) - 9 );
+							$time = substr( $cloned_point->time_info['last_completed']['date'], 11, strlen( $cloned_point->time_info['last_completed']['date'] ) );
+							$datas[ $sql_date ][ $time ][] = $cloned_point;
 						}
 
 						$sql_date = substr( $point->date['date_input']['date'], 0, strlen( $point->date['date_input']['date'] ) - 9 );
