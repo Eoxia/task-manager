@@ -35,8 +35,6 @@ window.eoxiaJS.taskManager.point.event = function() {
 	jQuery( document ).on( 'blur keyup paste keydown click', '.point .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.updateHiddenInput );
 	jQuery( document ).on( 'blur paste', '.point.edit .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.editPoint );
 	jQuery( document ).on( 'click', '.form .completed-point', window.eoxiaJS.taskManager.point.completePoint );
-
-	jQuery( document ).on( 'click', '.history .load-more-history', window.eoxiaJS.taskManager.point.loadMoreHistory );
 };
 
 /**
@@ -228,38 +226,6 @@ window.eoxiaJS.taskManager.point.completePoint = function() {
 };
 
 /**
- * Envoie une requête pour charger plus d'évènement dans l'historique.
- *
- * @since 1.5.0
- * @version 1.5.0
- *
- * @return void
- */
-window.eoxiaJS.taskManager.point.loadMoreHistory = function( event ) {
-	var element = jQuery( this );
-
-	var data = {
-		action: 'switch_view_to_grid',
-		_wpnonce: element.closest( '.wpeo-project-task' ).find( '.dashicons-screenoptions' ).data( 'nonce' ),
-		task_id: element.closest( '.wpeo-project-task' ).data( 'id' ),
-		offset: element.closest( '.history' ).find( '.offset-event' ).val(),
-		last_date: element.closest( '.history' ).find( '.last-date' ).val()
-	};
-
-	jQuery.post( ajaxurl, data, function( response ) {
-		element.closest( '.wpeo-project-task' ).find( '.history .offset-event' ).val( response.data.offset );
-		element.closest( '.wpeo-project-task' ).find( '.history .content' ).append( response.data.view );
-		element.closest( '.wpeo-project-task' ).find( '.history .last-date' ).val( response.data.last_date );
-
-		if ( response.data.end ) {
-			element.closest( '.wpeo-project-task' ).find( '.history .load-more-history' ).hide();
-		}
-
-		window.eoxiaJS.refresh();
-	} );
-};
-
-/**
  * Avant de charger les points complétés, toggle la classe de la dashicons.
  *
  * @param  {HTMLSpanElement} triggeredElement L'élément HTML déclenchant l'action.
@@ -357,27 +323,5 @@ window.eoxiaJS.taskManager.point.movedPointTo = function( triggeredElement, resp
 
 	jQuery( '.wpeo-project-task.mask' ).removeClass( 'mask' );
 
-	window.eoxiaJS.refresh();
-};
-
-/**
- * Le callback en cas de réussite à la requête Ajax "switch_view_to_grid".
- *
- * @since 1.5.0
- * @version 1.5.0
- *
- * @param  {HTMLSpanElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
- * @param  {Object}          response          Les données renvoyées par la requête Ajax.
- * @return {void}
- */
-window.eoxiaJS.taskManager.point.switchedViewToGrid = function( triggeredElement, response ) {
-	triggeredElement.addClass( 'active' );
-	triggeredElement.closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .dashicons-editor-ul.active' ).removeClass( 'active' );
-	triggeredElement.closest( '.wpeo-project-task' ).find( '.points.sortable, .wpeo-task-point-use-toggle' ).hide();
-	triggeredElement.closest( '.wpeo-project-task' ).find( '.history .offset-event' ).val( response.data.offset );
-	triggeredElement.closest( '.wpeo-project-task' ).find( '.history .last-date' ).val( response.data.last_date );
-	triggeredElement.closest( '.wpeo-project-task' ).find( '.history .content' ).html( response.data.view );
-	triggeredElement.closest( '.wpeo-project-task' ).find( '.history' ).show();
-	triggeredElement.closest( '.wpeo-project-task' ).find( '.history .load-more-history' ).show();
 	window.eoxiaJS.refresh();
 };

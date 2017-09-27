@@ -55,7 +55,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<!-- Fin de sous en tête -->
 
 		<!-- Historique de la tâche -->
-		<?php \eoxia\View_Util::exec( 'task-manager', 'point', 'backend/grid/main', array() ); ?>
+		<?php \eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/main', array() ); ?>
 
 		<!-- Corps de la tâche -->
 		<?php Point_Class::g()->display( $task->id ); ?>

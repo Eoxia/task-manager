@@ -31,7 +31,8 @@
 		"module/liaison-post-type/liaison-post-type.config.json",
 		"module/shortcode-help/shortcode-help.config.json",
 		"module/admin-bar/admin-bar.config.json",
-		"module/timeline/timeline.config.json"
+		"module/timeline/timeline.config.json",
+		"module/activity/activity.config.json"
 	],
 	"debug": false,
 	"key_last_update_version" : "_tm_last_update_version"

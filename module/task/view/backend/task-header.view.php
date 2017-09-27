@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			data-parent="wpeo-project-task"
 			data-target="popup"
 			data-action="load_time_history"
-			data-title="<?php echo esc_attr( '#' . $task->id . ' Historique du temps' ); ?>"
+			data-title="<?php echo esc_attr_e( '#' . $task->id . ' History time', 'task-manager' ); ?>"
 			data-task-id="<?php echo esc_attr( $task->id ); ?>">
 		<span class="fa fa-history dashicons-image-rotate"></span>
 	</li>
@@ -43,8 +43,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<li>
 		<span class="dashicons dashicons-editor-ul active"></span>
 		<span class="action-attribute dashicons dashicons-screenoptions"
-					data-action="switch_view_to_grid"
-					data-nonce="<?php echo esc_attr( wp_create_nonce( 'switch_view_to_grid' ) ); ?>"
-					data-task-id="<?php echo esc_attr( $task->id ); ?>"></span>
+					data-action="load_last_activity"
+					data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_last_activity' ) ); ?>"
+					data-tasks-id="<?php echo esc_attr( $task->id ); ?>"></span>
 	</li>
 </ul>

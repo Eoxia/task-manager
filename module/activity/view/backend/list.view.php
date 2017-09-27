@@ -29,7 +29,7 @@ if ( ! empty( $datas ) ) :
 					foreach ( $elements as $element ) :
 						echo do_shortcode( '[task_avatar ids="' . $element->author_id . '" size="20"]' );
 						echo esc_html( $element->date['date_input']['fr_FR']['time'] );
-						\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/grid/' . $element->view, array(
+						\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/' . $element->view, array(
 							'element' => $element,
 						) );
 					endforeach;

@@ -46,8 +46,6 @@ class Task_Action {
 		add_action( 'wp_ajax_load_more_task', array( $this, 'callback_load_more_task' ) );
 
 		add_action( 'wp_ajax_export_task', array( $this, 'callback_export_task' ) );
-
-		add_action( 'wp_ajax_switch_view_to_grid', array( $this, 'callback_switch_view_to_grid' ) );
 	}
 
 	/**
@@ -528,83 +526,6 @@ class Task_Action {
 			'callback_success' => 'exportedTask',
 			'url' => $file_info['url'],
 			'filename' => $file_info['name'],
-		) );
-	}
-
-	/**
-	 * Charges les évènements liés à la tâche puis renvoie la vue.
-	 *
-	 * @since 1.5.0
-	 * @version 1.5.0
-	 *
-	 * @return void
-	 */
-	public function callback_switch_view_to_grid() {
-		check_ajax_referer( 'switch_view_to_grid' );
-
-		$task_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
-		$offset = ! empty( $_POST['offset'] ) ? (int) $_POST['offset'] : 0;
-		$last_date = ! empty( $_POST['last_date'] ) ? sanitize_text_field( $_POST['last_date'] ) : '';
-
-		if ( empty( $task_id ) ) {
-			wp_send_json_error();
-		}
-
-		$points = Point_Class::g()->get( array(
-			'post_id' => $task_id,
-			'status' => -34070,
-			'number' => \eoxia\Config_Util::$init['task-manager']->task->events_per_page,
-			'offset' => $offset,
-		) );
-
-		if ( ! empty( $offset ) ) {
-			$offset += \eoxia\Config_Util::$init['task-manager']->task->events_per_page;
-		} else {
-			$offset = \eoxia\Config_Util::$init['task-manager']->task->events_per_page;
-		}
-
-		$datas = array();
-
-		if ( ! empty( $points ) ) {
-			foreach ( $points as $point ) {
-				if ( 'trash' !== $point->status && Point_Class::g()->get_type() === $point->type && 0 !== $point->id ) {
-					if ( 0 === $point->parent_id ) {
-						$point->view = 'created-point';
-
-						if ( $point->point_info['completed'] ) {
-							$point->view = 'completed-point';
-						}
-
-						$sql_date = substr( $point->date['date_input']['date'], 0, strlen( $point->date['date_input']['date'] ) - 9 );
-						$time = substr( $point->date['date_input']['date'], 11, strlen( $point->date['date_input']['date'] ) );
-						$datas[ $sql_date ][ $time ][] = $point;
-					} else {
-						$point->view = 'created-comment';
-						$point->parent = Point_Class::g()->get( array(
-							'id' => $point->parent_id,
-						), true );
-
-						$sql_date = substr( $point->date['date_input']['date'], 0, strlen( $point->date['date_input']['date'] ) - 9 );
-						$time = substr( $point->date['date_input']['date'], 11, strlen( $point->date['date_input']['date'] ) );
-						$datas[ $sql_date ][ $time ][] = $point;
-					}
-				}
-			}
-		}
-
-		\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/grid/list', array(
-			'datas' => $datas,
-			'last_date' => $last_date,
-		) );
-
-		wp_send_json_success( array(
-			'namespace' => 'taskManager',
-			'module' => 'point',
-			'callback_success' => 'switchedViewToGrid',
-			'view' => ob_get_clean(),
-			'offset' => $offset,
-			'last_date' => ! empty( $sql_date ) ? $sql_date : '',
-			'end' => ( 0 === count( $datas ) ) ? true : false,
 		) );
 	}
 }

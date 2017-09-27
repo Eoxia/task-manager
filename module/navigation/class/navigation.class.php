@@ -28,7 +28,7 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 	 */
 	protected function construct() {}
 
-	public function display_search_result( $term, $categories_id_selected, $follower_id_selected ) {
+	public function get_search_result( $term, $categories_id_selected, $follower_id_selected ) {
 		$have_search = false;
 
 		$categories_selected = array();
@@ -64,11 +64,22 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 			$follower_searched = $follower->displayname;
 		}
 
-		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/search-results', array(
+		return array(
 			'term' => $term,
 			'categories_searched' => $categories_searched,
 			'follower_searched' => $follower_searched,
 			'have_search' => $have_search,
+		);
+	}
+
+	public function display_search_result( $term, $categories_id_selected, $follower_id_selected ) {
+		$data = $this->get_search_result( $term, $categories_id_selected, $follower_id_selected );
+
+		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/search-results', array(
+			'term' => $data['term'],
+			'categories_searched' => $data['categories_searched'],
+			'follower_searched' => $data['follower_searched'],
+			'have_search' => $data['have_search'],
 		) );
 	}
 }

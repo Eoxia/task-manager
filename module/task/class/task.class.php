@@ -1,17 +1,19 @@
 <?php
 /**
- * Gestion des tâches
+ * Gestion des tâches.
  *
- * @package Task Manager
- * @subpackage Module/task
- *
- * @since 1.0.0.0
- * @version 1.4.0-ford
+ * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @since 1.0.0
+ * @version 1.5.0
+ * @copyright 2015-2017 Eoxia
+ * @package Task_Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Gestion des tâches.
@@ -37,21 +39,21 @@ class Task_Class extends \eoxia\Post_Class {
 	 *
 	 * @var string
 	 */
-	protected $model_name 	= '\task_manager\Task_Model';
+	protected $model_name = '\task_manager\Task_Model';
 
 	/**
 	 * Le post type
 	 *
 	 * @var string
 	 */
-	protected $post_type	= 'wpeo-task';
+	protected $post_type = 'wpeo-task';
 
 	/**
 	 * La clé principale du modèle
 	 *
 	 * @var string
 	 */
-	protected $meta_key		= 'wpeo_task';
+	protected $meta_key = 'wpeo_task';
 
 	/**
 	 * La route pour accéder à l'objet dans la rest API
@@ -96,23 +98,24 @@ class Task_Class extends \eoxia\Post_Class {
 	protected $after_put_function = array( '\task_manager\get_full_task' );
 
 	/**
-	 * Le constructeur
+	 * Récupères les tâches.
 	 *
-	 * @return void
+	 * @since 1.0.0
+	 * @version 1.5.0
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.0.0.0
-	 */
-	protected function construct() {
-		parent::construct();
-	}
-
-	/**
-	 * [get_tasks description]
-	 * @param  [type] $param [description]
-	 * @return [type]        [description]
+	 * @param array $param {
+	 *                      Les propriétés du tableau.
 	 *
-	 * @todo: here
+	 *                      @type integer $id(optional)              L'ID de la tâche.
+	 *                      @type integer $offset(optional)          Sautes x tâches.
+	 *                      @type integer $posts_per_page(optional)  Le nombre de tâche.
+	 *                      @type array   $users_id(optional)        Un tableau contenant l'ID des utilisateurs.
+	 *                      @type array   $categories_id(optional)   Un tableau contenant le TERM_ID des categories.
+	 *                      @type string  $status(optional)          Le status des tâches.
+	 *                      @type integer $post_parent(optional)     L'ID du post parent.
+	 *                      @type string  $term(optional)            Le terme pour rechercher une tâche.
+	 * }.
+	 * @return array        La liste des tâches trouvées.
 	 */
 	public function get_tasks( $param ) {
 		global $wpdb;
@@ -130,8 +133,9 @@ class Task_Class extends \eoxia\Post_Class {
 		$tasks_id = array();
 
 		if ( ! empty( $param['id'] ) ) {
-			$tasks = Task_Class::g()->get( array(
+			$tasks = self::g()->get( array(
 				'include' => array( $param['id'] ),
+				'post_status' => 'any',
 			) );
 		} else {
 
@@ -192,7 +196,7 @@ class Task_Class extends \eoxia\Post_Class {
 			$tasks_id = $wpdb->get_col( $query );
 
 			if ( ! empty( $tasks_id ) ) {
-				$tasks = Task_Class::g()->get( array(
+				$tasks = self::g()->get( array(
 					'include' => $tasks_id,
 					'post_status' => $param['status'],
 				) );
