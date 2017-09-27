@@ -23,7 +23,20 @@ gulp.task('build_scss_backend', function() {
 			minifier: false,
 			autoprefixer: {"browsers": ["last 40 versions", "ios 6", "ie 9"]},
 			pseudoElements: true,
+			sass: true
+		}))
+		.pipe( gulp.dest( paths.scss_backend[1] ) );
+});
+
+gulp.task('build_scss_backend_min', function() {
+	gulp.src(paths.scss_backend[0])
+		.pipe( sass().on( 'error', sass.logError ) )
+		.pipe(please({
+			minifier: true,
+			autoprefixer: {"browsers": ["last 40 versions", "ios 6", "ie 9"]},
+			pseudoElements: true,
 			sass: true,
+			out: 'style.min.css'
 		}))
 		.pipe( gulp.dest( paths.scss_backend[1] ) );
 });
@@ -41,7 +54,7 @@ gulp.task('js_frontend', function() {
 		.pipe(gulp.dest('core/asset/js/'))
 })
 
-
 gulp.watch(paths.scss_backend[0], ["build_scss_backend"]);
+gulp.watch(paths.scss_backend[0], ["build_scss_backend_min"]);
 gulp.watch(paths.all_js, ["js"]);
 gulp.watch(paths.frontend_js, ["js_frontend"]);

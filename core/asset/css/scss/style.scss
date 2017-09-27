@@ -1,35 +1,36 @@
-@main-color: #389af6;
-@main-color-light: #55b6ed;
-@second-color: rgba(0,0,0,0.6);
+$main-color: #389af6;
+$main-color-light: #55b6ed;
+$second-color: rgba(0,0,0,0.6);
 
 /**
  * Variables de l'application
  */
 
 /* Bleu ciel, couleur principale */
-@a: #3495f0;
-@dark_a: #1360c8;
+$a: #3495f0;
+$dark_a: #1360c8;
 
 /* Bleu fonce, couleur de l'interface */
-@b: #272a35;
+$b: #272a35;
 
 /* Autres couleurs */
-@red: #e05353;
-@yellow: #e9ad4f;
-@green: #47e58e;
-@pink: #e454a2;
-@purple: #734fe9;
-@grey: #d6d6d6;
+$red: #e05353;
+$yellow: #e9ad4f;
+$green: #47e58e;
+$pink: #e454a2;
+$purple: #734fe9;
+$grey: #d6d6d6;
 
-@import "reset.less";
-@import "animation.less";
-@import "popup.less";
-@import "toggle.less";
-@import "functions.less";
-@import "font-awesome/less/font-awesome.less";
-@import "loader.less";
-@import "theme.less";
-@import "tooltip.less";
+@import "reset";
+@import "font/font";
+@import "animation";
+@import "popup";
+@import "toggle";
+@import "functions";
+@import "loader";
+@import "theme";
+@import "tooltip";
+@import "notification";
 
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
@@ -57,14 +58,14 @@
 		box-shadow: none;
 		transition: all 0.2s ease-out;
 		&:hover {
-			border-bottom: 1px solid @second-color;
+			border-bottom: 1px solid $second-color;
 		}
 	}
 	textarea {
 		box-shadow: none;
 	}
 	textarea:hover {
-		border-bottom: 1px solid @second-color;
+		border-bottom: 1px solid $second-color;
 	}
 	a[disabled="disabled"] {
 		pointer-events: none;
@@ -81,7 +82,7 @@
 		opacity: 0.4;
 	}
 	input[type="button"] {
-		// background: @main-color;
+		// background: $main-color;
 		font-family: 'Open Sans';
 		border: 0;
 		border-radius: 0;
@@ -114,7 +115,7 @@
 		min-height: 40px;
 
 		&::after {
-			.clear();
+			@include clear();
 		}
 		> li {
 			display: block;
@@ -130,7 +131,7 @@
 			}
 		}
 		> li.active {
-			border-bottom: 2px solid @main-color;
+			border-bottom: 2px solid $main-color;
 		}
 		> li.wpeo-general-search {
 			float: right;
@@ -164,10 +165,10 @@
 		// }
 		// > li:nth-of-type(5) {
 		// 	padding: 12px;
-		// 	background: @main-color;
+		// 	background: $main-color;
 		// 	color: #fff;
 		// 	&:hover:not(.disabled) {
-		// 		background: @main-color-light;
+		// 		background: $main-color-light;
 		// 	}
 		// }
 	}
@@ -243,7 +244,7 @@
 						cursor: pointer;
 					}
 					&.active {
-						background: @main-color;
+						background: $main-color;
 						&:hover {
 							background: #2e7dd5;
 						}
@@ -252,11 +253,11 @@
 				.wpeo-new-tag-search {
 					margin-left: 10px;
 					.wpeo-new-tag-search-btn {
-						color: @main-color;
+						color: $main-color;
 						margin-left: 10px;
 						&:hover {
 							cursor: pointer;
-							color: @main-color-light;
+							color: $main-color-light;
 						}
 						&:active {
 							margin-bottom: -1px;
@@ -266,18 +267,18 @@
 			}
 		}
 		.search-button {
-			background: @main-color;
+			background: $main-color;
 			color: #fff;
 			display: inline-block;
 			padding: 10px 14px;
 			margin-top: 10px;
 			&:hover {
 				cursor: pointer;
-				background: @main-color-light;
+				background: $main-color-light;
 			}
 		}
 		&:after {
-			.clear();
+			@include clear();
 		}
 
 	}
@@ -303,7 +304,7 @@
 					line-height: 2;
 				}
 				&:nth-of-type(2) {
-					color: @second-color;
+					color: $second-color;
 					font-size: 13px;
 				}
 				&:nth-of-type(3) {
@@ -323,7 +324,7 @@
 				line-height: 1.3;
 			}
 			.wpeo-point-time-edit-btn {
-				// color: @main-color;
+				// color: $main-color;
 			}
 			.wpeo-send-point-time-to-trash {
 				color: rgba(0,0,0,0.4);
@@ -332,7 +333,7 @@
 				cursor: pointer;
 			}
 			&:after {
-				.clear();
+				@include clear();
 			}
 		}
 	}
@@ -413,7 +414,7 @@
 				flex-direction: row;
 
 				&::after {
-					.clear();
+					@include clear();
 				}
 				li {
 					margin: auto;
@@ -591,7 +592,7 @@ Popup
 				font-size: 24px;
 				color: rgba(0,0,0,0.5);
 				&:hover {
-					color: @main-color;
+					color: $main-color;
 					background: none;
 				}
 			}
@@ -616,7 +617,7 @@ Popup
 					margin-left: 8px;
 					&.active {
 						pointer-events: all;
-						background: @main-color;
+						background: $main-color;
 					}
 				}
 			}
@@ -889,7 +890,7 @@ Popup
 					max-width: 5%;
 					text-align: right;
 					i {
-						background: @a;
+						background: $a;
 						border-radius: 50%;
 						font-size: 12px;
 						width: 20px;
@@ -900,7 +901,7 @@ Popup
 						transition: all 0.2s ease-out;
 						display: inline-block;
 						&:hover {
-							background: @dark_a;
+							background: $dark_a;
 							cursor: pointer;
 						}
 					}
@@ -1024,7 +1025,7 @@ Popup
 		background: rgba(0,0,0,0.05);
 		border-top: 1px solid rgba(0,0,0,0.2);
 		&::after {
-			.clear();
+			@include clear();
 		}
 		.wpeo-tag {
 			background: rgba(0,0,0,0.1);
@@ -1033,14 +1034,14 @@ Popup
 			font-size: 12px;
 			transition: all 0.2s ease-out;
 			&.active {
-				background: @a;
+				background: $a;
 				color: #fff;
 			}
 			// Icon save edition of tag
 			&.edit {
 				margin-left: auto;
 				margin-right: 0;
-				background: @a;
+				background: $a;
 				color: #fff;
 				height: auto;
 				width: auto;
@@ -1066,7 +1067,7 @@ Popup
 					background: rgba(0,0,0,0.2);
 				}
 				&.active:hover, &.edit:hover {
-					background: @dark_a;
+					background: $dark_a;
 				}
 			}
 		}
@@ -1083,7 +1084,7 @@ Popup
 		flex-wrap: wrap;
 		background: rgba(0,0,0,0.05);
 		&::after {
-			.clear();
+			@include clear();
 		}
 		.follower {
 			&:hover {
@@ -1100,7 +1101,7 @@ Popup
 				filter: grayscale(100%);
 			}
 			.wpeo-avatar-initial {
-				background: @grey;
+				background: $grey;
 			}
 			&.active {
 				img {
@@ -1111,12 +1112,12 @@ Popup
 					filter: grayscale(0%);
 				}
 				.wpeo-avatar-initial {
-					background: @a;
+					background: $a;
 				}
 			}
 			&.edit {
 				margin: auto 0 auto auto;
-				background: @a;
+				background: $a;
 				color: #fff;
 				height: auto;
 				width: auto;
@@ -1129,7 +1130,7 @@ Popup
 					line-height: 22px;
 				}
 				&:hover {
-					background: @dark_a;
+					background: $dark_a;
 					cursor: pointer;
 				}
 			}
@@ -1151,7 +1152,7 @@ Popup
 		.follower:not(.active) {
 			&:hover {
 				.wpeo-avatar-initial {
-					background: darken(@grey, 10%);
+					background: darken($grey, 10%);
 				}
 				img {
 					-webkit-filter: grayscale(60%);
@@ -1171,7 +1172,7 @@ Popup
 -----------------------------------*/
 
 .user {
-	background: @main-color;
+	background: $main-color;
 	color: #fff;
 	position: relative;
 	transition: all 0.2s ease-out;
@@ -1216,12 +1217,12 @@ Popup
 		width: 50px !important;
 		height: 50px !important;
 		padding: 16px;
-		// background: @main-color;
+		// background: $main-color;
 		color: #fff;
 		box-shadow: none;
 		transition: all 0.2s ease-out;
 		&:hover {
-			// background: @main-color-light;
+			// background: $main-color-light;
 		}
 	}
 }
@@ -1279,7 +1280,7 @@ Popup
 				position: absolute;
 				top: 16px;
 				right: 10px;
-				color: @second-color;
+				color: $second-color;
 				&:hover {
 					cursor: pointer;
 				}
@@ -1307,8 +1308,8 @@ Popup
 						height: auto;
 						&:hover {
 							cursor: pointer;
-							border: 1px solid @main-color;
-							color: @main-color;
+							border: 1px solid $main-color;
+							color: $main-color;
 						}
 					}
 				}
@@ -1317,7 +1318,7 @@ Popup
 				}
 			}
 			&::after {
-				.clear();
+				@include clear();
 			}
 		}
 		#wpeo-task-info, #wpeo-point-info {
@@ -1340,7 +1341,7 @@ Popup
 			.wpeo-point-title {
 				clear: both;
 				font-family: 'kalamregular';
-				color: @main-color;
+				color: $main-color;
 				padding: 10px 60px 0 60px;
 			}
 			.dashicons {
@@ -1363,7 +1364,7 @@ Popup
 			border-bottom: 1px solid rgba(0,0,0,0.2);
 			ul {
 				&:after {
-					.clear();
+					@include clear();
 				}
 			}
 			ul li {
@@ -1447,7 +1448,7 @@ Popup
 						line-height: 2;
 					}
 					&:nth-of-type(2) {
-						color: @second-color;
+						color: $second-color;
 						font-size: 13px;
 					}
 					&:last-child {
@@ -1463,7 +1464,7 @@ Popup
 					line-height: 1.3;
 				}
 				.wpeo-point-time-edit-btn {
-					// color: @main-color;
+					// color: $main-color;
 				}
 				.wpeo-send-point-time-to-trash {
 					color: rgba(0,0,0,0.4);
@@ -1472,7 +1473,7 @@ Popup
 					cursor: pointer;
 				}
 				&:after {
-					.clear();
+					@include clear();
 				}
 			}
 			.wpeo-point-no-comment {
@@ -1480,7 +1481,7 @@ Popup
 				color: rgba(0,0,0,0.4);
 			}
 			&:after {
-				.clear();
+				@include clear();
 			}
 		}
 		#wpeo-task-form-point-time {
@@ -1541,7 +1542,7 @@ Popup
 					text-shadow: none;
 				}
 				&:after {
-					.clear();
+					@include clear();
 				}
 			}
 			.wpeo-open-point-time-form {
@@ -1619,7 +1620,7 @@ Popup
 		}
 		&:after {
 			content: 'sqdqsd';
-			.clear();
+			@include clear();
 		}
 	}
 }
@@ -1652,7 +1653,7 @@ Popup
 			box-shadow: 0;
 		}
 		&::after {
-			.clear();
+			@include clear();
 		}
 	}
 
@@ -1725,7 +1726,7 @@ Popup
 					}
 				}
 				&:after {
-					.clear;
+					@include clear;
 				}
 			}
 			.timeline-block-content {
@@ -1738,7 +1739,7 @@ Popup
 
 			header {
 				position: relative;
-				background: @main-color;
+				background: $main-color;
 
 				&:before {
 					content: '';
@@ -1747,7 +1748,7 @@ Popup
 					height: 0;
 					border-style: solid;
 					border-width: 0 12px 10px 12px;
-					border-color: transparent transparent @main-color transparent;
+					border-color: transparent transparent $main-color transparent;
 					position: absolute;
 					left: 50%;
 					top: -10px;
@@ -1770,7 +1771,7 @@ Popup
 					padding-bottom: 10px;
 				}
 				&:after {
-					.clear;
+					@include clear;
 				}
 			}
 			&:before {
@@ -1778,7 +1779,7 @@ Popup
 				display: block;
 				width: 10px;
 				height: 10px;
-				background: @main-color;
+				background: $main-color;
 				margin: 0 auto 16px auto;
 				border: 4px solid #f1f1f1;
 				border-radius: 50%;
@@ -1786,7 +1787,7 @@ Popup
 		}
 		.content-day {
 			&:after {
-				.clear;
+				@include clear;
 			}
 		}
 		/* Jours */
@@ -1869,10 +1870,10 @@ Popup
 		}
 		.add-history-time {
 			margin-left: 14px;
-			color: @main-color;
+			color: $main-color;
 			transition: all 0.2s ease-out;
 			&:hover {
-				color: darken(@main-color, 10%);
+				color: darken($main-color, 10%);
 				cursor: pointer;
 			}
 		}
