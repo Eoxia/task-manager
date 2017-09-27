@@ -11,45 +11,23 @@ var uglify = require('gulp-uglify');
 var sass = require('gulp-sass');
 
 var paths = {
-  styles: ['core/asset/css/scss/style.scss'],
-  all_styles: ['core/asset/css/scss/*.scss'],
-	frontend: ['core/asset/css/frontend.scss'],
+	scss_backend: [ 'core/asset/css/scss/**/*.scss', 'core/asset/css/' ],
 	frontend_js: ['core/asset/js/lib/init.js', 'core/asset/js/lib/*.js', '**/*.frontend.js'],
   all_js: ['core/asset/js/lib/init.js', '**/*.backend.js'],
-	cssPath: "core/asset/css/"
 };
 
-gulp.task('build', function() {
-	gulp.src(paths.styles)
+gulp.task('build_scss_backend', function() {
+	gulp.src(paths.scss_backend[0])
 		.pipe( sass().on( 'error', sass.logError ) )
 		.pipe(please({
 			minifier: false,
 			autoprefixer: {"browsers": ["last 40 versions", "ios 6", "ie 9"]},
 			pseudoElements: true,
 			sass: true,
-			out: 'style.min.css'
 		}))
-
-		.pipe( gulp.dest( paths.cssPath ) );
+		.pipe( gulp.dest( paths.scss_backend[1] ) );
 });
 
-gulp.task('build_frontend', function() {
-  return gulp.src(paths.styles)
-    .pipe(plumber())
-    .pipe(less())
-    .pipe(please({
-        minifier: false,
-        autoprefixer: {"browsers": ["last 40 versions", "ios 6", "ie 9"]},
-        rem: true,
-        pseudoElements: true,
-        mqpacker: false,
-        opacity : true,
-        filters : true
-      }))
-    // .pipe(cssnano())
-    .pipe(rename("frontend.css"))
-    .pipe(gulp.dest('core/asset/css/'))
-});
 
 gulp.task('js', function() {
 	return gulp.src(paths.all_js)
@@ -64,6 +42,6 @@ gulp.task('js_frontend', function() {
 })
 
 
-gulp.watch(paths.all_styles, ["build"]);
+gulp.watch(paths.scss_backend[0], ["build_scss_backend"]);
 gulp.watch(paths.all_js, ["js"]);
 gulp.watch(paths.frontend_js, ["js_frontend"]);
