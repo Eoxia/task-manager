@@ -35,7 +35,7 @@ if ( ! empty( $datas ) ) :
 							<div class="information">
 								<?php echo do_shortcode( '[task_avatar ids="' . $element->author_id . '" size="30"]' ); ?>
 								<span class="type"></span>
-								<span class="time-posted"><?php echo esc_html( substr( $element->date['date_input']['fr_FR']['time'], 0, -3 ) ); ?></span>
+								<span class="time-posted"><?php echo esc_html( substr( $time, 0, -3 ) ); ?></span>
 							</div>
 							<div class="content"> <?php
 								\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/' . $element->view, array(

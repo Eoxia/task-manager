@@ -400,7 +400,7 @@ $grey: #d6d6d6;
 					opacity: 0;
 					pointer-events: none;
 					transition: all 0.2s ease-out;
-					z-index: 30;
+					z-index: 80;
 				}
    		}
 			&.mask .wpeo-project-task-container:before {
@@ -1215,6 +1215,24 @@ Popup
 				.content .event-title {
 					text-decoration: line-through;
 				}
+			}
+		}
+	}
+
+	.wpeo-project-task-container .history {
+		/* bouton load more */
+		.load-more-history {
+			background: $main-color;
+			border: 0;
+			box-shadow: none;
+			display: block;
+			margin: 0.4em auto;
+			color: #fff;
+			padding: 0.6em;
+			transition: all 0.2s ease-out;
+			&:hover {
+				cursor: pointer;
+				background: lighten($main-color, 10%);
 			}
 		}
 	}

@@ -3514,7 +3514,7 @@
 .wpeo-project-wrap .list-task .task-header-action .task-color .color-element > *:hover {
   border: 1px solid rgba(0, 0, 0, 0.6); }
 
-.wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-project-task-container, .wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-task-point-use-toggle p, .wpeo-project-wrap .list-task .wpeo-project-task.white .points .point {
+.wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-project-task-container, .wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-task-point-use-toggle p, .wpeo-project-wrap .list-task .wpeo-project-task.white .history > .content .day .label, .wpeo-project-wrap .list-task .wpeo-project-task.white .points .point {
   background: #fff; }
 
 .wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-main-user li:last-child a {
@@ -3529,7 +3529,7 @@
 .wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-point-new-btn:hover {
   color: #0967bf; }
 
-.wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-project-task-container, .wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-task-point-use-toggle p, .wpeo-project-wrap .list-task .wpeo-project-task.red .points .point {
+.wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-project-task-container, .wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-task-point-use-toggle p, .wpeo-project-wrap .list-task .wpeo-project-task.red .history > .content .day .label, .wpeo-project-wrap .list-task .wpeo-project-task.red .points .point {
   background: #ffc9ca; }
 
 .wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-main-user li:last-child a {
@@ -3544,7 +3544,7 @@
 .wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-point-new-btn:hover {
   color: #db0005; }
 
-.wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-project-task-container, .wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-task-point-use-toggle p, .wpeo-project-wrap .list-task .wpeo-project-task.yellow .points .point {
+.wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-project-task-container, .wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-task-point-use-toggle p, .wpeo-project-wrap .list-task .wpeo-project-task.yellow .history > .content .day .label, .wpeo-project-wrap .list-task .wpeo-project-task.yellow .points .point {
   background: #fff1bd; }
 
 .wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-main-user li:last-child a {
@@ -3559,7 +3559,7 @@
 .wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-point-new-btn:hover {
   color: #da8e00; }
 
-.wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-project-task-container, .wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-task-point-use-toggle p, .wpeo-project-wrap .list-task .wpeo-project-task.green .points .point {
+.wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-project-task-container, .wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-task-point-use-toggle p, .wpeo-project-wrap .list-task .wpeo-project-task.green .history > .content .day .label, .wpeo-project-wrap .list-task .wpeo-project-task.green .points .point {
   background: #dfffd8; }
 
 .wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-main-user li:last-child a {
@@ -3574,7 +3574,7 @@
 .wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-point-new-btn:hover {
   color: #1f752e; }
 
-.wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-project-task-container, .wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-task-point-use-toggle p, .wpeo-project-wrap .list-task .wpeo-project-task.blue .points .point {
+.wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-project-task-container, .wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-task-point-use-toggle p, .wpeo-project-wrap .list-task .wpeo-project-task.blue .history > .content .day .label, .wpeo-project-wrap .list-task .wpeo-project-task.blue .points .point {
   background: #d5eaff; }
 
 .wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-main-user li:last-child a {
@@ -3589,7 +3589,7 @@
 .wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-point-new-btn:hover {
   color: #0967bf; }
 
-.wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-project-task-container, .wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-task-point-use-toggle p, .wpeo-project-wrap .list-task .wpeo-project-task.purple .points .point {
+.wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-project-task-container, .wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-task-point-use-toggle p, .wpeo-project-wrap .list-task .wpeo-project-task.purple .history > .content .day .label, .wpeo-project-wrap .list-task .wpeo-project-task.purple .points .point {
   background: #e6d2ff; }
 
 .wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-main-user li:last-child a {
@@ -4183,7 +4183,7 @@
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
-  z-index: 30; }
+  z-index: 80; }
 
 .wpeo-project-wrap .list-task .wpeo-project-task.mask .wpeo-project-task-container:before {
   opacity: 1;
@@ -5148,6 +5148,26 @@ Popup
 
 .wpeo-project-wrap .wpeo-project-task-container .history > .content .activity.completed-point .content .event-title {
   text-decoration: line-through; }
+
+.wpeo-project-wrap .wpeo-project-task-container .history {
+  /* bouton load more */ }
+
+.wpeo-project-wrap .wpeo-project-task-container .history .load-more-history {
+  background: #389af6;
+  border: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  display: block;
+  margin: 0.4em auto;
+  color: #fff;
+  padding: 0.6em;
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out; }
+
+.wpeo-project-wrap .wpeo-project-task-container .history .load-more-history:hover {
+  cursor: pointer;
+  background: #69b3f8; }
 
 /* ----------------------------------
 		Footer affichage utilisateurs
