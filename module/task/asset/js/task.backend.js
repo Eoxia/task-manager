@@ -130,7 +130,7 @@ window.eoxiaJS.taskManager.task.editTitle = function( event, element ) {
 window.eoxiaJS.taskManager.task.switchViewToLine = function( event ) {
 	jQuery( this ).addClass( 'active' );
 	jQuery( this ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .dashicons-screenoptions.active' ).removeClass( 'active' );
-	jQuery( this ).closest( '.wpeo-project-task' ).find( '.history' ).hide();
+	jQuery( this ).closest( '.wpeo-project-task' ).find( '.activities' ).hide();
 	jQuery( this ).closest( '.wpeo-project-task' ).find( '.points.sortable' ).show();
 	jQuery( this ).closest( '.wpeo-project-task' ).find( '.wpeo-task-point-use-toggle' ).show();
 	window.eoxiaJS.refresh();

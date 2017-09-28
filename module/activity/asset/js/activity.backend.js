@@ -57,7 +57,7 @@ window.eoxiaJS.taskManager.activity.loadMoreHistory = function( event ) {
 
 	jQuery.post( ajaxurl, data, function( response ) {
 		element.closest( '.activities' ).find( '.offset-event' ).val( response.data.offset );
-		element.closest( '.activities' ).find( '.content' ).append( response.data.view );
+		element.closest( '.activities' ).find( '.content:first' ).append( response.data.view );
 		element.closest( '.activities' ).find( '.last-date' ).val( response.data.last_date );
 
 		if ( response.data.end ) {
@@ -114,4 +114,6 @@ window.eoxiaJS.taskManager.activity.loadedLastActivity = function( triggeredElem
 		jQuery( '.popup.last-activity .offset-event' ).val( response.data.offset );
 		jQuery( '.popup.last-activity .last-date' ).val( response.data.last_date );
 	}
+
+	window.eoxiaJS.refresh();
 };

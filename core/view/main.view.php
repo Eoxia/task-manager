@@ -37,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				data-before-method="getDataBeforeOpenPopup"
 				data-title="<?php echo esc_attr( 'Last activities', 'task-manager' ); ?>"></span>
 
-	<div class="popup last-activity history">
+	<div class="popup last-activity activities">
 		<div class="container">
 			<div class="header">
 				<h2 class="title">Titre de la popup</h2>

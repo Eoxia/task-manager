@@ -5025,17 +5025,17 @@ Popup
 /* ----------------------------------
 		Affichage historique
 -----------------------------------*/
-.wpeo-project-wrap .wpeo-project-task-container .history > .content {
+.wpeo-project-wrap .activities .content {
   padding: 1em;
   /* Jour */
   /* Activity single */ }
 
-.wpeo-project-wrap .wpeo-project-task-container .history > .content .day {
+.wpeo-project-wrap .activities .content .day {
   position: relative;
   padding: 0.6em 0;
   clear: both; }
 
-.wpeo-project-wrap .wpeo-project-task-container .history > .content .day .label {
+.wpeo-project-wrap .activities .content .day .label {
   font-size: 12px;
   font-weight: 900;
   color: #000;
@@ -5046,7 +5046,7 @@ Popup
   z-index: 50;
   padding-right: 1em; }
 
-.wpeo-project-wrap .wpeo-project-task-container .history > .content .day:after {
+.wpeo-project-wrap .activities .content .day:after {
   display: block;
   content: '';
   height: 1px;
@@ -5056,7 +5056,7 @@ Popup
   left: 0;
   background: rgba(0, 0, 0, 0.05); }
 
-.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity {
+.wpeo-project-wrap .activities .content .activity {
   padding: 0.6em 0;
   display: -webkit-box;
   display: -webkit-flex;
@@ -5074,22 +5074,22 @@ Popup
   /* Commentaire crée */
   /* Point validé */ }
 
-.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity .information {
+.wpeo-project-wrap .activities .content .activity .information {
   width: 100%;
   max-width: 50px;
   position: relative; }
 
-.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity .information .user {
+.wpeo-project-wrap .activities .content .activity .information .user {
   -webkit-border-radius: 50%;
           border-radius: 50%;
   border: 2px solid #fff;
   z-index: 50; }
 
-.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity .information .user img, .wpeo-project-wrap .wpeo-project-task-container .history > .content .activity .information .user .wpeo-avatar-initial {
+.wpeo-project-wrap .activities .content .activity .information .user img, .wpeo-project-wrap .activities .content .activity .information .user .wpeo-avatar-initial {
   -webkit-border-radius: 50%;
           border-radius: 50%; }
 
-.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity .information .type {
+.wpeo-project-wrap .activities .content .activity .information .type {
   display: block;
   width: 22px;
   height: 22px;
@@ -5104,55 +5104,55 @@ Popup
   -webkit-border-radius: 4px;
           border-radius: 4px; }
 
-.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity .information .type:before {
+.wpeo-project-wrap .activities .content .activity .information .type:before {
   font-family: FontAwesome; }
 
-.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity .content {
+.wpeo-project-wrap .activities .content .activity .content {
   width: 100%;
   padding-left: 1em;
   margin: auto 0; }
 
-.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity .content .event-header {
+.wpeo-project-wrap .activities .content .activity .content .event-header {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
   display: -ms-flexbox;
   display: flex; }
 
-.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity .content .event-header .event-title {
+.wpeo-project-wrap .activities .content .activity .content .event-header .event-title {
   width: auto; }
 
-.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity .content .event-header .event-time {
+.wpeo-project-wrap .activities .content .activity .content .event-header .event-time {
   margin-left: auto; }
 
-.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity .content .event-title {
+.wpeo-project-wrap .activities .content .activity .content .event-title {
   font-weight: 700;
   display: block;
   margin-bottom: 0.4em; }
 
-.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity .content .event-content {
+.wpeo-project-wrap .activities .content .activity .content .event-content {
   font-family: 'kalamregular'; }
 
-.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity.created-point .information .type:before {
+.wpeo-project-wrap .activities .content .activity.created-point .information .type:before {
   content: ""; }
 
-.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity.created-comment .information .type:before {
+.wpeo-project-wrap .activities .content .activity.created-comment .information .type:before {
   content: ""; }
 
-.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity.completed-point .information .type {
+.wpeo-project-wrap .activities .content .activity.completed-point .information .type {
   background: #35c54e;
   color: #fff; }
 
-.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity.completed-point .information .type:before {
+.wpeo-project-wrap .activities .content .activity.completed-point .information .type:before {
   content: ""; }
 
-.wpeo-project-wrap .wpeo-project-task-container .history > .content .activity.completed-point .content .event-title {
+.wpeo-project-wrap .activities .content .activity.completed-point .content .event-title {
   text-decoration: line-through; }
 
-.wpeo-project-wrap .wpeo-project-task-container .history {
+.wpeo-project-wrap .activities {
   /* bouton load more */ }
 
-.wpeo-project-wrap .wpeo-project-task-container .history .load-more-history {
+.wpeo-project-wrap .activities .load-more-history {
   background: #389af6;
   border: 0;
   -webkit-box-shadow: none;
@@ -5165,7 +5165,7 @@ Popup
   -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
-.wpeo-project-wrap .wpeo-project-task-container .history .load-more-history:hover {
+.wpeo-project-wrap .activities .load-more-history:hover {
   cursor: pointer;
   background: #69b3f8; }
 
