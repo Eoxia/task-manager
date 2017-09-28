@@ -3,7 +3,7 @@
  * .no-close -> désactive le bouton
  */
 
-.digirisk-wrap {
+.wpeo-project-wrap {
 
 	.popup {
 		position: fixed;
@@ -76,9 +76,9 @@
 				}
 			}
 		}
-		&.duer {
-			.content {
-				ul {
+		&.activities {
+			.container {
+				> .content {
 					height: 500px;
 					overflow-y: scroll;
 				}

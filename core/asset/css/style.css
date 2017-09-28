@@ -3241,7 +3241,7 @@
  * Popup
  * .no-close -> désactive le bouton
  */
-.digirisk-wrap .popup {
+.wpeo-project-wrap .popup {
   position: fixed;
   top: 0;
   left: 0;
@@ -3256,7 +3256,7 @@
   -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
-.digirisk-wrap .popup .container {
+.wpeo-project-wrap .popup .container {
   position: absolute;
   -webkit-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
@@ -3275,21 +3275,21 @@
           transform: translate(-50%, -54%);
   overflow-y: auto; }
 
-.digirisk-wrap .popup .container .header {
+.wpeo-project-wrap .popup .container .header {
   display: block;
   position: relative;
   margin-bottom: 20px; }
 
-.digirisk-wrap .popup .container .header .title {
+.wpeo-project-wrap .popup .container .header .title {
   text-transform: uppercase;
   font-size: 18px;
   white-space: normal; }
 
 @media (max-width: 480px) {
-  .digirisk-wrap .popup .container .header .title {
+  .wpeo-project-wrap .popup .container .header .title {
     font-size: 16px; } }
 
-.digirisk-wrap .popup .container .header .close {
+.wpeo-project-wrap .popup .container .header .close {
   position: absolute;
   right: 0;
   top: 0;
@@ -3299,32 +3299,32 @@
   -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
-.digirisk-wrap .popup .container .header .close:hover {
+.wpeo-project-wrap .popup .container .header .close:hover {
   cursor: pointer;
   color: rgba(0, 0, 0, 0.6); }
 
-.digirisk-wrap .popup.active {
+.wpeo-project-wrap .popup.active {
   opacity: 1;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
   pointer-events: auto; }
 
-.digirisk-wrap .popup.active .container {
+.wpeo-project-wrap .popup.active .container {
   -webkit-transform: translate(-50%, -50%);
       -ms-transform: translate(-50%, -50%);
        -o-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%); }
 
-.digirisk-wrap .popup.no-close .button {
+.wpeo-project-wrap .popup.no-close .button {
   background: #d6d6d6;
   color: rgba(0, 0, 0, 0.4);
   pointer-events: none; }
 
-.digirisk-wrap .popup.no-close .button:hover {
+.wpeo-project-wrap .popup.no-close .button:hover {
   background: #d6d6d6;
   color: rgba(0, 0, 0, 0.4);
   cursor: not-allowed; }
 
-.digirisk-wrap .popup.duer .content ul {
+.wpeo-project-wrap .popup.activities .container > .content {
   height: 500px;
   overflow-y: scroll; }
 
