@@ -25,6 +25,7 @@ window.eoxiaJS.taskManager.task.refresh = function() {
 window.eoxiaJS.taskManager.task.event = function() {
 	jQuery( '.wpeo-project-wrap' ).on( 'keypress', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.keyEnterEditTitle );
 	jQuery( '.wpeo-project-wrap' ).on( 'blur', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.editTitle );
+	jQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-task-time-manage .dashicons-editor-ul', window.eoxiaJS.taskManager.task.switchViewToLine );
 	jQuery( window ).scroll( window.eoxiaJS.taskManager.task.onScrollLoadMore );
 };
 
@@ -102,21 +103,56 @@ window.eoxiaJS.taskManager.task.loadedMoreTask = function( triggeredElement, res
  */
 window.eoxiaJS.taskManager.task.editTitle = function( event, element ) {
 	var data = {};
+<<<<<<< HEAD
 
 	if ( ! element ) {
 		element = jQuery( this );
 	}
 
+=======
+
+	if ( ! element ) {
+		element = jQuery( this );
+	}
+
+>>>>>>> origin/alpha
 	data.action = 'edit_title';
 	data._wpnonce = element.data( 'nonce' );
 	data.task_id = element.closest( '.wpeo-project-task' ).data( 'id' );
 	data.title = element.val();
+<<<<<<< HEAD
 
 	element.closest( '.wpeo-task-header' ).addClass( 'loading' );
 
 	window.eoxiaJS.request.send( element, data );
 };
 
+=======
+
+	element.closest( '.wpeo-task-header' ).addClass( 'loading' );
+
+	window.eoxiaJS.request.send( element, data );
+};
+
+/**
+ * Réaffiches les points lors du clic.
+ *
+ * @since 1.5.0
+ * @version 1.5.0
+ *
+ * @param  {ClickEvent} event         L'état de l'évènement lors du 'click'.
+ * @return {void}
+ */
+window.eoxiaJS.taskManager.task.switchViewToLine = function( event ) {
+	jQuery( this ).addClass( 'active' );
+	jQuery( this ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .dashicons-screenoptions.active' ).removeClass( 'active' );
+	jQuery( this ).closest( '.wpeo-project-task' ).find( '.activities' ).hide();
+	jQuery( this ).closest( '.wpeo-project-task' ).find( '.points.sortable' ).show();
+	jQuery( this ).closest( '.wpeo-project-task' ).find( '.wpeo-task-point-use-toggle' ).show();
+	window.eoxiaJS.refresh();
+};
+
+>>>>>>> origin/alpha
 /**
  * Appel la méthode 'editTitle' pour modifier le titre lors de l'appuie de la touche entré.
  *

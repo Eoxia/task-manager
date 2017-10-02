@@ -81,7 +81,13 @@ class Point_Class extends \eoxia\Comment_Class {
 	 */
 	public function display( $task_id, $frontend = false ) {
 		$task = Task_Class::g()->get( array(
+<<<<<<< HEAD
 			'id' => $task_id,
+=======
+			'post__in' => array(
+				$task_id,
+			),
+>>>>>>> origin/alpha
 		), true );
 
 		$points_completed = array();

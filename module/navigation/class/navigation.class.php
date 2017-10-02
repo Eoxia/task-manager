@@ -30,6 +30,7 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 	 */
 	protected function construct() {}
 
+<<<<<<< HEAD
 	/**
 	 * Récupères les noms des catégories et utilisateurs pour afficher le résultat de la recherche.
 	 *
@@ -42,6 +43,9 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 	 * @return void
 	 */
 	public function display_search_result( $term, $categories_id_selected, $follower_id_selected ) {
+=======
+	public function get_search_result( $term, $categories_id_selected, $follower_id_selected ) {
+>>>>>>> origin/alpha
 		$have_search = false;
 
 		$categories_selected = array();
@@ -75,11 +79,26 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 			$follower_searched = $follower->displayname;
 		}
 
+<<<<<<< HEAD
 		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/search-results', array(
+=======
+		return array(
+>>>>>>> origin/alpha
 			'term' => $term,
 			'categories_searched' => $categories_searched,
 			'follower_searched' => $follower_searched,
 			'have_search' => $have_search,
+		);
+	}
+
+	public function display_search_result( $term, $categories_id_selected, $follower_id_selected ) {
+		$data = $this->get_search_result( $term, $categories_id_selected, $follower_id_selected );
+
+		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/search-results', array(
+			'term' => $data['term'],
+			'categories_searched' => $data['categories_searched'],
+			'follower_searched' => $data['follower_searched'],
+			'have_search' => $data['have_search'],
 		) );
 	}
 }

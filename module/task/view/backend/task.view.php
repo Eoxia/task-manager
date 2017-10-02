@@ -4,7 +4,11 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.0.0
+<<<<<<< HEAD
  * @version 1.4.0-ford
+=======
+ * @version 1.5.0
+>>>>>>> origin/alpha
  * @copyright 2015-2017 Eoxia
  * @package Task_Manager
  */
@@ -47,10 +51,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<!-- Fin en tête de la tâche -->
 
 		<!-- Sous en tête pour gérer le temps -->
+<<<<<<< HEAD
 		<?php \eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task-header', array(
 			'task' => $task,
 		) ); ?>
+=======
+		<?php
+		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task-header', array(
+			'task' => $task,
+		) );
+		?>
+>>>>>>> origin/alpha
 		<!-- Fin de sous en tête -->
+
+		<!-- Historique de la tâche -->
+		<?php \eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/main', array() ); ?>
 
 		<!-- Corps de la tâche -->
 		<?php Point_Class::g()->display( $task->id ); ?>

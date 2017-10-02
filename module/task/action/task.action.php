@@ -3,16 +3,22 @@
  * Les actions relatives aux tâches.
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+<<<<<<< HEAD
  * @since 1.0.0.0
  * @version 1.4.0-ford
+=======
+ * @since 1.0.0
+ * @version 1.5.0
+>>>>>>> origin/alpha
  * @copyright 2015-2017 Eoxia
- * @package task
- * @subpackage action
+ * @package Task_Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Les actions relatives aux tâches.
@@ -22,8 +28,8 @@ class Task_Action {
 	/**
 	 * Initialise les actions liées au tâche.
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.5.0
 	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'callback_init' ) );

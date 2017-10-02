@@ -1,8 +1,8 @@
 /**
  * Initialise l'objet "point" ainsi que la méthode "init" obligatoire pour la bibliothèque EoxiaJS.
  *
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.5.0
  */
 window.eoxiaJS.taskManager.point = {};
 
@@ -325,9 +325,12 @@ window.eoxiaJS.taskManager.point.movedPointTo = function( triggeredElement, resp
 	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( '.point.edit[data-id=' + response.data.point.id + '] .point-header-action .move-to input[name="to_task_id"]' ).val( '' );
 	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( '.point.edit[data-id=' + response.data.point.id + '] .point-header-action.active' ).removeClass( 'active' );
 
+<<<<<<< HEAD
 	jQuery( '.wpeo-project-task[data-id=' + response.data.current_task.id + ']' ).find( '.wpeo-point-toggle-a .total-point' ).text( totalPointCurrentTask - 1 );
 	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( '.wpeo-point-toggle-a .total-point' ).text( totalPointToTask + 1 );
 
+=======
+>>>>>>> origin/alpha
 	jQuery( '.wpeo-project-task.mask' ).removeClass( 'mask' );
 
 	window.eoxiaJS.refresh();

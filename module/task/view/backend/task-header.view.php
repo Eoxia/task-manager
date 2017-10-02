@@ -4,7 +4,11 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.0.0
+<<<<<<< HEAD
  * @version 1.4.0
+=======
+ * @version 1.5.0
+>>>>>>> origin/alpha
  * @copyright 2015-2017 Eoxia
  * @package Task_Manager
  */
@@ -35,8 +39,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 			data-parent="wpeo-project-task"
 			data-target="popup"
 			data-action="load_time_history"
-			data-title="<?php echo esc_attr( '#' . $task->id . ' Historique du temps' ); ?>"
+			data-title="<?php echo esc_attr_e( '#' . $task->id . ' History time', 'task-manager' ); ?>"
 			data-task-id="<?php echo esc_attr( $task->id ); ?>">
 		<span class="fa fa-history dashicons-image-rotate"></span>
+	</li>
+
+	<li class="display-method-buttons">
+		<span class="dashicons dashicons-editor-ul list-display active"></span>
+		<span class="action-attribute dashicons dashicons-screenoptions grid-display"
+					data-action="load_last_activity"
+					data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_last_activity' ) ); ?>"
+					data-tasks-id="<?php echo esc_attr( $task->id ); ?>"></span>
 	</li>
 </ul>

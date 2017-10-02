@@ -53,6 +53,10 @@ class Point_Action {
 		$parent_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
 		$content = ! empty( $_POST['content'] ) ? $_POST['content'] : '';
 
+<<<<<<< HEAD
+=======
+		$content = str_replace( '<div>', '<br>', trim( $content ) );
+>>>>>>> origin/alpha
 		$content = wp_kses( $content, array(
 			'br' => array(),
 			'tooltip' => array(
