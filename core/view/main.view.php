@@ -3,16 +3,18 @@
  * La vue principale de la page "wpeomtm-dashboard"
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.4.0
  * @copyright 2015-2017 Eoxia
- * @package core
+ * @package Task_Manager
  * @subpackage view
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} ?>
 
 <div class="wrap wpeo-project-wrap">
 	<input type="hidden" class="user-id" value="<?php echo esc_attr( get_current_user_id() ); ?>" />
@@ -34,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	if ( ! empty( $id ) ) :
 		do_shortcode( '[task id="' . $id . '"]' );
 	else :
-		do_shortcode( '[task term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '" post_parent="0" with_wrapper="0"]' );
+		do_shortcode( '[task term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '" status="any" post_parent="0" with_wrapper="0"]' );
 	endif;
 	?>
 </div>
