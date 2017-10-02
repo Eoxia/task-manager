@@ -63,6 +63,25 @@ No questions asked yet.
 
 == Changelog ==
 
+= 1.4.1 =
+
+= Fix =
+
+* 11609 - Sometimes the text to the bottom of the page: 'load more' was displayed twice or more. Now it's corrected. The text is displayed only once.
+* 11605 - Points in archived task is now listing and readable.
+
+= 1.4.0 =
+
+= Improvment =
+
+* 10962 - Popup windows got better ui.
+* 10969 - Export function is back.
+* 9572/9574 - Add somes icons in popup windows on task and point.
+
+= Fix =
+
+* 11631 - After tab display, move a point to another task is functional.
+
 = 1.3.6.0 =
 
 * 6130 - Add pagination on scroll

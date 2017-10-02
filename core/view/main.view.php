@@ -61,7 +61,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	if ( ! empty( $id ) ) :
 		do_shortcode( '[task id="' . $id . '"]' );
 	else :
-		do_shortcode( '[task term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '" post_parent="0" with_wrapper="0"]' );
+		do_shortcode( '[task term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '" status="any" post_parent="0" with_wrapper="0"]' );
 	endif;
 	?>
 </div>

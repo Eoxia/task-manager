@@ -402,8 +402,8 @@ class Task_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.3.6.0
-	 * @version 1.3.6.0
+	 * @since 1.3.6
+	 * @version 1.5.0
 	 *
 	 * @todo: nonce
 	 */
@@ -414,6 +414,7 @@ class Task_Action {
 		$term = ! empty( $_POST['term'] ) ? sanitize_text_field( $_POST['term'] ) : '';
 		$users_id = ! empty( $_POST['users_id'] ) ? sanitize_text_field( $_POST['users_id'] ) : array();
 		$status = ! empty( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : array();
+		$tab = ! empty( $_POST['tab'] ) ? sanitize_text_field( $_POST['tab'] ) : array();
 
 		if ( ! empty( $users_id ) ) {
 			$users_id = explode( ',', $users_id );
@@ -425,7 +426,7 @@ class Task_Action {
 			$categories_id = explode( ',', $categories_id );
 		}
 
-		$param = array(
+		$param = apply_filters( 'task_manager_load_more_query_args', array(
 			'offset' => $offset,
 			'posts_per_page' => $posts_per_page,
 			'term' => $term,
@@ -433,7 +434,7 @@ class Task_Action {
 			'categories_id' => $categories_id,
 			'status' => $status,
 			'post_parent' => $post_parent,
-		);
+		), $tab );
 
 		ob_start();
 		$tasks = Task_Class::g()->get_tasks( $param );

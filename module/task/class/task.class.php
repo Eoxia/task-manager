@@ -125,12 +125,24 @@ class Task_Class extends \eoxia\Post_Class {
 		$param['posts_per_page'] = ! empty( $param['posts_per_page'] ) ? (int) $param['posts_per_page'] : -1;
 		$param['users_id'] = ! empty( $param['users_id'] ) ? (array) $param['users_id'] : array();
 		$param['categories_id'] = ! empty( $param['categories_id'] ) ? (array) $param['categories_id'] : array();
-		$param['status'] = ! empty( $param['status'] ) ? sanitize_text_field( $param['status'] ) : 'publish';
+		$param['status'] = ! empty( $param['status'] ) ? sanitize_text_field( $param['status'] ) : 'any';
 		$param['post_parent'] = ! empty( $param['post_parent'] ) ? (array) $param['post_parent'] : array( 0 );
 		$param['term'] = ! empty( $param['term'] ) ? sanitize_text_field( $param['term'] ) : '';
 
 		$tasks = array();
 		$tasks_id = array();
+
+		if ( ! empty( $param['status'] ) ) {
+			if ( 'any' === $param['status'] ) {
+				$param['status'] = '"publish","pending","draft","future","private","inherit","trash"';
+			} else {
+				// Ajout des apostrophes.
+				$param['status'] = '"' . $param['status'] . '"';
+
+				// Entre chaque virgule.
+				$param['status'] = str_replace( ',', '","', $param['status'] );
+			}
+		}
 
 		if ( ! empty( $param['id'] ) ) {
 			$tasks = self::g()->get( array(
@@ -145,7 +157,7 @@ class Task_Class extends \eoxia\Post_Class {
 				LEFT JOIN {$wpdb->postmeta} AS TASK_META ON TASK_META.post_id=TASK.ID AND TASK_META.meta_key='wpeo_task'
 				LEFT JOIN {$wpdb->term_relationships} AS CAT ON CAT.object_id=TASK.ID
 			WHERE TASK.post_type='wpeo-task'
-				AND TASK.post_status='" . $param['status'] . "' AND
+				AND TASK.post_status IN(" . $param['status'] . ") AND
 					( (
 						TASK.ID LIKE '%" . $param['term'] . "%' OR TASK.post_title LIKE '%" . $param['term'] . "%'
 					) OR (

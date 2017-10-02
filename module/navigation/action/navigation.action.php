@@ -3,16 +3,17 @@
  * Initialise les actions liées à la barre de recherche.
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.4.0
  * @copyright 2015-2017 Eoxia
- * @package task
- * @subpackage action
+ * @package Task_Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Les actions relatives aux tâches.
@@ -116,7 +117,7 @@ class Navigation_Action {
 		$search_result_view = ob_get_clean();
 
 		ob_start();
-		do_shortcode( '[task users_id="' . $follower_id_selected . '" categories_id="' . $categories_id_selected . '" term="' . $term . '" posts_per_page="' . \eoxia\Config_Util::$init['task-manager']->task->posts_per_page . '"]' );
+		do_shortcode( '[task users_id="' . $follower_id_selected . '" categories_id="' . $categories_id_selected . '" term="' . $term . '" posts_per_page="' . \eoxia\Config_Util::$init['task-manager']->task->posts_per_page . '" with_wrapper="0"]' );
 		$tasks_view = ob_get_clean();
 
 		wp_send_json_success( array(

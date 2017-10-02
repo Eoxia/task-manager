@@ -30,14 +30,14 @@ class Activity_Class extends \eoxia\Singleton_Util {
 	protected function construct() {}
 
 	/**
-	 * [get_activity description]
+	 * Récupères les commentaires et les points dans l'ordre de date décroissante.
 	 *
 	 * @since 1.5.0
 	 * @version 1.5.0
 	 *
-	 * @param  array $task_id [description]
-	 * @param  [type] $offset  [description]
-	 * @return [type]          [description]
+	 * @param array   $tasks_id L'ID des tâches parents.
+	 * @param integer $offset   Le nombre de résultat à passer.
+	 * @return array            La liste des commentaires et points.
 	 */
 	public function get_activity( $tasks_id, $offset ) {
 		$points = Point_Class::g()->get( array(
@@ -67,14 +67,17 @@ class Activity_Class extends \eoxia\Singleton_Util {
 						$time = substr( $point->date['date_input']['date'], 11, strlen( $point->date['date_input']['date'] ) );
 						$datas[ $sql_date ][ $time ][] = $point;
 					} else {
-						$point->view = 'created-comment';
-						$point->parent = Point_Class::g()->get( array(
-							'id' => $point->parent_id,
+						$comment = Task_Comment_Class::g()->get( array(
+							'id' => $point->id,
+						), true );
+						$comment->view = 'created-comment';
+						$comment->parent = Point_Class::g()->get( array(
+							'id' => $comment->parent_id,
 						), true );
 
-						$sql_date = substr( $point->date['date_input']['date'], 0, strlen( $point->date['date_input']['date'] ) - 9 );
-						$time = substr( $point->date['date_input']['date'], 11, strlen( $point->date['date_input']['date'] ) );
-						$datas[ $sql_date ][ $time ][] = $point;
+						$sql_date = substr( $comment->date['date_input']['date'], 0, strlen( $comment->date['date_input']['date'] ) - 9 );
+						$time = substr( $comment->date['date_input']['date'], 11, strlen( $comment->date['date_input']['date'] ) );
+						$datas[ $sql_date ][ $time ][] = $comment;
 					}
 				}
 			}

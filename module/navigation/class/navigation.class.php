@@ -5,13 +5,15 @@
  * @package Task Manager
  * @subpackage Module/navigation
  *
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.4.0
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Gestion de la navigation.
@@ -28,6 +30,23 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 	 */
 	protected function construct() {}
 
+	/**
+	 * Récupères les noms des catégories et utilisateurs pour afficher le résultat de la recherche.
+	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
+	 * @param  string $term                   Le terme de la recherche.
+	 * @param  string $categories_id_selected L'ID des catégories sélectionnées. Ex: x,y,i.
+	 * @param  string $follower_id_selected   L'ID des utilisateurs séléctionnés. Ex: x,y,i.
+	 * @return array {
+	 *         Les propriétés du tableau.
+	 *         @type string $term Le terme de la recherche.
+	 *         @type string $categories_searched Le nom des catégories séparées par des virgules.
+	 *         @type string $follower_searched   Le nom des utilisateurs séparés par des virgules.
+	 *         @type bool   $have_search         Si une recherche à eu lieu ou pas.
+	 * }
+	 */
 	public function get_search_result( $term, $categories_id_selected, $follower_id_selected ) {
 		$have_search = false;
 
@@ -37,13 +56,9 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 			$have_search = true;
 		}
 
-		$categories_id_selected = get_term_by( 'term_taxonomy_id', $categories_id_selected, 'wpeo_tag' );
-
-		if ( ! empty( $categories_id_selected ) ) {
-			$categories_selected = Tag_Class::g()->get( array(
-				'include' => $categories_id_selected->term_id,
-			) );
-		}
+		$categories_selected = Tag_Class::g()->get( array(
+			'include' => $categories_id_selected,
+		) );
 
 		$categories_searched = '';
 		$follower_searched = '';
@@ -72,6 +87,17 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 		);
 	}
 
+	/**
+	 * Récupères le résultat de la recherche et appel la vue search-results.
+	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
+	 * @param  string $term                   Le terme de la recherche.
+	 * @param  string $categories_id_selected L'ID des catégories sélectionnées. Ex: x,y,i.
+	 * @param  string $follower_id_selected   L'ID des utilisateurs séléctionnés. Ex: x,y,i.
+	 * @return void
+	 */
 	public function display_search_result( $term, $categories_id_selected, $follower_id_selected ) {
 		$data = $this->get_search_result( $term, $categories_id_selected, $follower_id_selected );
 

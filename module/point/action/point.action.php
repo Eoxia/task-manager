@@ -150,8 +150,7 @@ class Point_Action {
 		}
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $task_id ),
-			'post_status' => array( 'publish', 'archive' ),
+			'id' => $task_id,
 		), true );
 
 		$points = Point_Class::g()->get( array(
@@ -242,7 +241,7 @@ class Point_Action {
 		}
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $task_id ),
+			'id' => $task_id,
 		), true );
 
 		$completed_points = array();
@@ -392,13 +391,11 @@ class Point_Action {
 		}
 
 		$current_task = Task_Class::g()->get( array(
-			'post__in' => array( $task_id ),
-			'post_status' => array( 'publish', 'archive' ),
+			'id' => $task_id,
 		), true );
 
 		$to_task = Task_Class::g()->get( array(
-			'post__in' => array( $to_task_id ),
-			'post_status' => array( 'publish', 'archive' ),
+			'id' => $to_task_id,
 		), true );
 
 		$point = Point_Class::g()->get( array(
