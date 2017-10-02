@@ -43,7 +43,7 @@ class Task_Shortcode {
 			'categories_id' => array(),
 			'users_id' => array(),
 			'term' => '',
-			'status' => 'publish',
+			'status' => 'any',
 			'offset' => 0,
 			'post_parent' => 0,
 			'posts_per_page' => \eoxia\Config_Util::$init['task-manager']->task->posts_per_page,

@@ -103,8 +103,14 @@ window.eoxiaJS.taskManager.navigation.checkDataBeforeSearch = function( triggere
  * @version 1.3.6.0
  */
 window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredElement, response ) {
+	jQuery( '.wpeo-project-wrap .load-more' ).remove();
+
 	jQuery( '.list-task' ).masonry( 'remove', jQuery( '.wpeo-project-task' ) );
 	jQuery( '.list-task' ).replaceWith( response.data.view.tasks );
 	jQuery( '.list-task' ).masonry();
 	jQuery( '.search-results' ).replaceWith( response.data.view.search_result );
+	window.eoxiaJS.taskManager.task.offset = 0;
+	window.eoxiaJS.taskManager.task.canLoadMore = true;
+
+	window.eoxiaJS.refresh();
 };

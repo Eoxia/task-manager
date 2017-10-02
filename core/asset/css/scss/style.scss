@@ -400,7 +400,11 @@ $grey: #d6d6d6;
 					opacity: 0;
 					pointer-events: none;
 					transition: all 0.2s ease-out;
+<<<<<<< HEAD:core/asset/css/style.less
+					z-index: 30;
+=======
 					z-index: 80;
+>>>>>>> origin/alpha:core/asset/css/scss/style.scss
 				}
    		}
 			&.mask .wpeo-project-task-container:before {
@@ -615,7 +619,11 @@ Popup
 				font-size: 24px;
 				color: rgba(0,0,0,0.5);
 				&:hover {
+<<<<<<< HEAD:core/asset/css/style.less
+					color: @main-color;
+=======
 					color: $main-color;
+>>>>>>> origin/alpha:core/asset/css/scss/style.scss
 					background: none;
 				}
 			}
@@ -640,7 +648,11 @@ Popup
 					margin-left: 8px;
 					&.active {
 						pointer-events: all;
+<<<<<<< HEAD:core/asset/css/style.less
+						background: @main-color;
+=======
 						background: $main-color;
+>>>>>>> origin/alpha:core/asset/css/scss/style.scss
 					}
 				}
 			}

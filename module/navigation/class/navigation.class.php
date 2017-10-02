@@ -5,13 +5,15 @@
  * @package Task Manager
  * @subpackage Module/navigation
  *
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.4.0
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Gestion de la navigation.
@@ -28,7 +30,22 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 	 */
 	protected function construct() {}
 
+<<<<<<< HEAD
+	/**
+	 * Récupères les noms des catégories et utilisateurs pour afficher le résultat de la recherche.
+	 *
+	 * @since 1.4.0
+	 * @version 1.4.0
+	 *
+	 * @param  string $term                   Le terme de la recherche.
+	 * @param  string $categories_id_selected L'ID des catégories sélectionnées. Ex: x,y,i.
+	 * @param  string $follower_id_selected   L'ID des utilisateurs séléctionnés. Ex: x,y,i.
+	 * @return void
+	 */
+	public function display_search_result( $term, $categories_id_selected, $follower_id_selected ) {
+=======
 	public function get_search_result( $term, $categories_id_selected, $follower_id_selected ) {
+>>>>>>> origin/alpha
 		$have_search = false;
 
 		$categories_selected = array();
@@ -37,11 +54,9 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 			$have_search = true;
 		}
 
-		$categories_id_selected = get_term_by( 'term_taxonomy_id', $categories_id_selected, 'wpeo_tag' );
-
 		if ( ! empty( $categories_id_selected ) ) {
 			$categories_selected = Tag_Class::g()->get( array(
-				'include' => $categories_id_selected->term_id,
+				'include' => $categories_id_selected,
 			) );
 		}
 
@@ -64,7 +79,11 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 			$follower_searched = $follower->displayname;
 		}
 
+<<<<<<< HEAD
+		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/search-results', array(
+=======
 		return array(
+>>>>>>> origin/alpha
 			'term' => $term,
 			'categories_searched' => $categories_searched,
 			'follower_searched' => $follower_searched,

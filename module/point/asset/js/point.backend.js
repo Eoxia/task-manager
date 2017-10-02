@@ -74,8 +74,8 @@ window.eoxiaJS.taskManager.point.activePoint = function( event ) {
  *
  * @return void
  *
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.4.0
  */
 window.eoxiaJS.taskManager.point.refresh = function() {
 	jQuery( '.wpeo-project-wrap .points.sortable' ).sortable( {
@@ -83,6 +83,8 @@ window.eoxiaJS.taskManager.point.refresh = function() {
 		items: 'div.point.edit',
 		update: window.eoxiaJS.taskManager.point.editOrder
 	} );
+
+	window.eoxiaJS.taskManager.point.initAutoComplete();
 };
 
 /**
@@ -302,10 +304,12 @@ window.eoxiaJS.taskManager.point.loadedPointProperties = function( triggeredElem
  * @param  {Object}         response          Les données renvoyées par la requête Ajax.
  * @return {void}
  *
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.4.0
  */
 window.eoxiaJS.taskManager.point.movedPointTo = function( triggeredElement, response ) {
+	var totalPointCurrentTask = parseInt( jQuery( '.wpeo-project-task[data-id=' + response.data.current_task.id + ']' ).find( '.wpeo-point-toggle-a .total-point' ).text() );
+	var totalPointToTask = parseInt( jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( '.wpeo-point-toggle-a .total-point' ).text() );
 
 	// Met à jour le temps.
 	jQuery( '.wpeo-project-task[data-id=' + response.data.current_task.id + ']' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.current_task.time_info.time_display + ' (' + response.data.current_task.time_info.elapsed + 'min)' );
@@ -321,6 +325,12 @@ window.eoxiaJS.taskManager.point.movedPointTo = function( triggeredElement, resp
 	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( '.point.edit[data-id=' + response.data.point.id + '] .point-header-action .move-to input[name="to_task_id"]' ).val( '' );
 	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( '.point.edit[data-id=' + response.data.point.id + '] .point-header-action.active' ).removeClass( 'active' );
 
+<<<<<<< HEAD
+	jQuery( '.wpeo-project-task[data-id=' + response.data.current_task.id + ']' ).find( '.wpeo-point-toggle-a .total-point' ).text( totalPointCurrentTask - 1 );
+	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( '.wpeo-point-toggle-a .total-point' ).text( totalPointToTask + 1 );
+
+=======
+>>>>>>> origin/alpha
 	jQuery( '.wpeo-project-task.mask' ).removeClass( 'mask' );
 
 	window.eoxiaJS.refresh();

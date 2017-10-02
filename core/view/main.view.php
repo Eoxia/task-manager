@@ -4,9 +4,16 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.0.0
+<<<<<<< HEAD
+ * @version 1.4.0
+ * @copyright 2015-2017 Eoxia
+ * @package Task_Manager
+ * @subpackage view
+=======
  * @version 1.5.0
  * @copyright 2015-2017 Eoxia
  * @package Task_Manager
+>>>>>>> origin/alpha
  */
 
 namespace task_manager;
@@ -61,7 +68,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	if ( ! empty( $id ) ) :
 		do_shortcode( '[task id="' . $id . '"]' );
 	else :
-		do_shortcode( '[task term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '" post_parent="0" with_wrapper="0"]' );
+		do_shortcode( '[task term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '" status="any" post_parent="0" with_wrapper="0"]' );
 	endif;
 	?>
 </div>

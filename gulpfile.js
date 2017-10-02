@@ -1,6 +1,9 @@
 var gulp = require('gulp');
 var please = require('gulp-pleeease');
+<<<<<<< HEAD
+=======
 var less = require('gulp-less');
+>>>>>>> origin/alpha
 var watch = require('gulp-watch');
 var plumber = require('gulp-plumber');
 var rename = require("gulp-rename");
