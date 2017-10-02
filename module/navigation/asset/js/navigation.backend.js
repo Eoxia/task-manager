@@ -28,8 +28,8 @@ window.eoxiaJS.taskManager.navigation.triggerSearch = function( event ) {
  *
  * @return void
  *
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.4.0
  */
 window.eoxiaJS.taskManager.navigation.toggleMoreOptions = function() {
 	jQuery( '.wpeo-header-search' ).toggle();
@@ -109,10 +109,6 @@ window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredEleme
 	jQuery( '.list-task' ).replaceWith( response.data.view.tasks );
 	jQuery( '.list-task' ).masonry();
 	jQuery( '.search-results' ).replaceWith( response.data.view.search_result );
-<<<<<<< HEAD
-
-=======
->>>>>>> 3bfadccf929622ccd167c6eec665b4e9c801370b
 	window.eoxiaJS.taskManager.task.offset = 0;
 	window.eoxiaJS.taskManager.task.canLoadMore = true;
 
