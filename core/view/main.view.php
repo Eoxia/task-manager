@@ -4,16 +4,9 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.0.0
-<<<<<<< HEAD
- * @version 1.4.0
- * @copyright 2015-2017 Eoxia
- * @package Task_Manager
- * @subpackage view
-=======
  * @version 1.5.0
  * @copyright 2015-2017 Eoxia
  * @package Task_Manager
->>>>>>> origin/alpha
  */
 
 namespace task_manager;

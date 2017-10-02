@@ -103,31 +103,15 @@ window.eoxiaJS.taskManager.task.loadedMoreTask = function( triggeredElement, res
  */
 window.eoxiaJS.taskManager.task.editTitle = function( event, element ) {
 	var data = {};
-<<<<<<< HEAD
 
 	if ( ! element ) {
 		element = jQuery( this );
 	}
 
-=======
-
-	if ( ! element ) {
-		element = jQuery( this );
-	}
-
->>>>>>> origin/alpha
 	data.action = 'edit_title';
 	data._wpnonce = element.data( 'nonce' );
 	data.task_id = element.closest( '.wpeo-project-task' ).data( 'id' );
 	data.title = element.val();
-<<<<<<< HEAD
-
-	element.closest( '.wpeo-task-header' ).addClass( 'loading' );
-
-	window.eoxiaJS.request.send( element, data );
-};
-
-=======
 
 	element.closest( '.wpeo-task-header' ).addClass( 'loading' );
 
@@ -152,7 +136,6 @@ window.eoxiaJS.taskManager.task.switchViewToLine = function( event ) {
 	window.eoxiaJS.refresh();
 };
 
->>>>>>> origin/alpha
 /**
  * Appel la méthode 'editTitle' pour modifier le titre lors de l'appuie de la touche entré.
  *

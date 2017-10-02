@@ -30,10 +30,6 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 	 */
 	protected function construct() {}
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 3bfadccf929622ccd167c6eec665b4e9c801370b
 	/**
 	 * Récupères les noms des catégories et utilisateurs pour afficher le résultat de la recherche.
 	 *
@@ -43,7 +39,6 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 	 * @param  string $term                   Le terme de la recherche.
 	 * @param  string $categories_id_selected L'ID des catégories sélectionnées. Ex: x,y,i.
 	 * @param  string $follower_id_selected   L'ID des utilisateurs séléctionnés. Ex: x,y,i.
-<<<<<<< HEAD
 	 * @return array {
 	 *         Les propriétés du tableau.
 	 *         @type string $term Le terme de la recherche.
@@ -52,14 +47,7 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 	 *         @type bool   $have_search         Si une recherche à eu lieu ou pas.
 	 * }
 	 */
-=======
-	 * @return void
-	 */
-	public function display_search_result( $term, $categories_id_selected, $follower_id_selected ) {
-=======
->>>>>>> 3bfadccf929622ccd167c6eec665b4e9c801370b
 	public function get_search_result( $term, $categories_id_selected, $follower_id_selected ) {
->>>>>>> origin/alpha
 		$have_search = false;
 
 		$categories_selected = array();
@@ -68,17 +56,9 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 			$have_search = true;
 		}
 
-<<<<<<< HEAD
 		$categories_selected = Tag_Class::g()->get( array(
 			'include' => $categories_id_selected,
 		) );
-=======
-		if ( ! empty( $categories_id_selected ) ) {
-			$categories_selected = Tag_Class::g()->get( array(
-				'include' => $categories_id_selected,
-			) );
-		}
->>>>>>> 3bfadccf929622ccd167c6eec665b4e9c801370b
 
 		$categories_searched = '';
 		$follower_searched = '';
@@ -99,11 +79,7 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 			$follower_searched = $follower->displayname;
 		}
 
-<<<<<<< HEAD
-		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/search-results', array(
-=======
 		return array(
->>>>>>> origin/alpha
 			'term' => $term,
 			'categories_searched' => $categories_searched,
 			'follower_searched' => $follower_searched,

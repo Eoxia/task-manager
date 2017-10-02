@@ -3,13 +3,8 @@
  * Les actions relatives aux tâches.
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
-<<<<<<< HEAD
- * @since 1.0.0.0
- * @version 1.4.0-ford
-=======
  * @since 1.0.0
  * @version 1.5.0
->>>>>>> origin/alpha
  * @copyright 2015-2017 Eoxia
  * @package Task_Manager
  */
