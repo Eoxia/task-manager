@@ -45,8 +45,7 @@ class Tag_Shortcode {
 		$task_id = ! empty( $param['task_id'] ) ? (int) $param['task_id'] : 0;
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $task_id ),
-			'post_status' => array( 'publish', 'archive' ),
+			'id' => $task_id,
 		), true );
 
 		$tags = array();

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2017-09-26 09:41+0200\n"
-"PO-Revision-Date: 2017-09-26 09:42+0200\n"
+"Project-Id-Version: Task Manager 1.4.0\n"
+"POT-Creation-Date: 2017-10-02 10:13+0200\n"
+"PO-Revision-Date: 2017-10-02 10:14+0200\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -14,12 +14,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html__;esc_attr_e\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: core/asset\n"
-"X-Poedit-SearchPath-1: .\n"
+"X-Poedit-SearchPath-0: module\n"
+"X-Poedit-SearchPath-1: core\n"
 "X-Poedit-SearchPathExcluded-0: core/wpeo_logs\n"
 
 #: core/action/task_manager.action.php:117
-#: core/action/task_manager.action.php:118 core/view/main.view.php:22
+#: core/action/task_manager.action.php:118 core/view/main.view.php:24
 msgid "Task"
 msgstr "Tâche"
 
@@ -266,7 +266,7 @@ msgstr "Les données du fichier JSON semble erronnés"
 msgid "Les configurations de base de %s ne sont pas initialisées"
 msgstr ""
 
-#: core/view/main.view.php:26 module/task/action/task.action.php:94
+#: core/view/main.view.php:28 module/task/action/task.action.php:94
 msgid "New task"
 msgstr "Nouvelle tâche"
 
@@ -524,6 +524,200 @@ msgstr "Temps gaspillé"
 #: module/timeline/view/backend/week.view.php:12
 msgid "Week"
 msgstr "Semaine"
+
+#: node_modules/ajv/dist/regenerator.min.js:2
+msgid " "
+msgstr ""
+
+#: node_modules/ajv/dist/regenerator.min.js:2
+msgid "."
+msgstr ""
+
+#: node_modules/ajv/dist/regenerator.min.js:2
+msgid "*"
+msgstr ""
+
+#: node_modules/ajv/dist/regenerator.min.js:2
+#, fuzzy
+#| msgid "Export"
+msgid "import"
+msgstr "Exporter"
+
+#: node_modules/ajv/dist/regenerator.min.js:2
+msgid "{}"
+msgstr ""
+
+#: node_modules/ajv/dist/regenerator.min.js:2
+msgid ", "
+msgstr ""
+
+#: node_modules/ajv/dist/regenerator.min.js:2
+msgid "this"
+msgstr ""
+
+#: node_modules/ajv/dist/regenerator.min.js:2
+msgid "super"
+msgstr ""
+
+#: node_modules/ajv/dist/regenerator.min.js:2
+msgid "null"
+msgstr ""
+
+#: node_modules/ajv/dist/regenerator.min.js:2
+msgid ",\n"
+msgstr ""
+
+#: node_modules/ajv/dist/regenerator.min.js:2
+msgid " = "
+msgstr ""
+
+#: node_modules/ajv/dist/regenerator.min.js:2
+msgid "\n"
+msgstr ""
+
+#: node_modules/ajv/dist/regenerator.min.js:2
+msgid "debugger;"
+msgstr ""
+
+#: node_modules/ajv/dist/regenerator.min.js:2
+msgid ":"
+msgstr ""
+
+#: node_modules/ajv/dist/regenerator.min.js:2
+#, fuzzy
+#| msgid "Empty"
+msgid "empty"
+msgstr "Vide"
+
+#: node_modules/ajv/dist/regenerator.min.js:2
+msgid "any"
+msgstr ""
+
+#: node_modules/ajv/dist/regenerator.min.js:2
+msgid "mixed"
+msgstr ""
+
+#: node_modules/ajv/dist/regenerator.min.js:2
+#: node_modules/yargs/lib/usage.js:241
+msgid "boolean"
+msgstr ""
+
+#: node_modules/ajv/dist/regenerator.min.js:2
+msgid "interface "
+msgstr ""
+
+#: node_modules/ajv/dist/regenerator.min.js:2
+msgid " & "
+msgstr ""
+
+#: node_modules/ajv/dist/regenerator.min.js:2
+#: node_modules/yargs/lib/usage.js:246
+msgid "number"
+msgstr ""
+
+#: node_modules/ajv/dist/regenerator.min.js:2
+#: node_modules/yargs/lib/usage.js:243 node_modules/yargs/lib/usage.js:244
+msgid "string"
+msgstr ""
+
+#: node_modules/ajv/dist/regenerator.min.js:2
+msgid "typeof "
+msgstr ""
+
+#: node_modules/ajv/dist/regenerator.min.js:2
+msgid " | "
+msgstr ""
+
+#: node_modules/ajv/dist/regenerator.min.js:2
+msgid "void"
+msgstr ""
+
+#: node_modules/yargs-parser/index.js:301
+#, javascript-format
+msgid "Not enough arguments following: %s"
+msgstr ""
+
+#: node_modules/yargs-parser/index.js:449
+#, javascript-format
+msgid "Invalid JSON config file: %s"
+msgstr ""
+
+#: node_modules/yargs/lib/usage.js:169
+#, fuzzy
+#| msgid "Comment"
+msgid "Commands:"
+msgstr "Commentaire"
+
+#: node_modules/yargs/lib/usage.js:177 node_modules/yargs/lib/usage.js:407
+msgid "default:"
+msgstr ""
+
+#: node_modules/yargs/lib/usage.js:179
+msgid "aliases:"
+msgstr ""
+
+#: node_modules/yargs/lib/usage.js:242
+msgid "count"
+msgstr ""
+
+#: node_modules/yargs/lib/usage.js:245
+msgid "array"
+msgstr ""
+
+#: node_modules/yargs/lib/usage.js:250
+msgid "required"
+msgstr ""
+
+#: node_modules/yargs/lib/usage.js:251
+msgid "choices:"
+msgstr ""
+
+#: node_modules/yargs/lib/usage.js:270
+msgid "Examples:"
+msgstr ""
+
+#: node_modules/yargs/lib/usage.js:385
+msgid "generated-value"
+msgstr ""
+
+#: node_modules/yargs/lib/validation.js:26
+#: node_modules/yargs/lib/validation.js:49
+#, javascript-format
+msgid "Not enough non-option arguments: got %s, need at least %s"
+msgstr ""
+
+#: node_modules/yargs/lib/validation.js:37
+#, javascript-format
+msgid "Too many non-option arguments: got %s, maximum of %s"
+msgstr ""
+
+#: node_modules/yargs/lib/validation.js:185
+msgid "Invalid values:"
+msgstr ""
+
+#: node_modules/yargs/lib/validation.js:188
+#, javascript-format
+msgid "Argument: %s, Given: %s, Choices: %s"
+msgstr ""
+
+#: node_modules/yargs/lib/validation.js:218
+#, javascript-format
+msgid "Argument check failed: %s"
+msgstr ""
+
+#: node_modules/yargs/lib/validation.js:283
+msgid "Implications failed:"
+msgstr ""
+
+#: node_modules/yargs/lib/validation.js:313
+#, javascript-format
+msgid "Arguments %s and %s are mutually exclusive"
+msgstr ""
+
+#: node_modules/yargs/lib/validation.js:332
+#, javascript-format
+msgid "Did you mean %s?"
+msgstr ""
 
 #~ msgid "Write your comment here..."
 #~ msgstr "Écrivez votre commentaire ici..."
@@ -1130,9 +1324,6 @@ msgstr "Semaine"
 
 #~ msgid "MM"
 #~ msgstr "MM"
-
-#~ msgid "Comment"
-#~ msgstr "Commentaire"
 
 #~ msgid "Cancel"
 #~ msgstr "Annuler"
