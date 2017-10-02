@@ -103,7 +103,7 @@ class Point_Class extends \eoxia\Comment_Class {
 			} );
 		}
 
-		$point_schema = Point_Class::g()->get( array(
+		$point_schema = self::g()->get( array(
 			'schema' => true,
 		), true );
 

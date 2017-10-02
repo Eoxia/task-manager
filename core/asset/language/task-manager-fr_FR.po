@@ -14,8 +14,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html__;esc_attr_e\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: core/asset\n"
-"X-Poedit-SearchPath-1: .\n"
+"X-Poedit-SearchPath-0: module\n"
+"X-Poedit-SearchPath-1: core\n"
 "X-Poedit-SearchPathExcluded-0: core/wpeo_logs\n"
 
 #: core/action/task_manager.action.php:117

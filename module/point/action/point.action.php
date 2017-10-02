@@ -53,7 +53,10 @@ class Point_Action {
 		$parent_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
 		$content = ! empty( $_POST['content'] ) ? $_POST['content'] : '';
 
+<<<<<<< HEAD
+=======
 		$content = str_replace( '<div>', '<br>', trim( $content ) );
+>>>>>>> origin/alpha
 		$content = wp_kses( $content, array(
 			'br' => array(),
 			'tooltip' => array(
@@ -151,6 +154,10 @@ class Point_Action {
 
 		$task = Task_Class::g()->get( array(
 			'id' => $task_id,
+<<<<<<< HEAD
+=======
+			'post_status' => array( 'publish', 'archive' ),
+>>>>>>> 3bfadccf929622ccd167c6eec665b4e9c801370b
 		), true );
 
 		$points = Point_Class::g()->get( array(
@@ -392,10 +399,18 @@ class Point_Action {
 
 		$current_task = Task_Class::g()->get( array(
 			'id' => $task_id,
+<<<<<<< HEAD
+=======
+			'post_status' => array( 'publish', 'archive' ),
+>>>>>>> 3bfadccf929622ccd167c6eec665b4e9c801370b
 		), true );
 
 		$to_task = Task_Class::g()->get( array(
 			'id' => $to_task_id,
+<<<<<<< HEAD
+=======
+			'post_status' => array( 'publish', 'archive' ),
+>>>>>>> 3bfadccf929622ccd167c6eec665b4e9c801370b
 		), true );
 
 		$point = Point_Class::g()->get( array(

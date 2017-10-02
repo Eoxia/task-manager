@@ -157,7 +157,7 @@ class Task_Class extends \eoxia\Post_Class {
 				LEFT JOIN {$wpdb->postmeta} AS TASK_META ON TASK_META.post_id=TASK.ID AND TASK_META.meta_key='wpeo_task'
 				LEFT JOIN {$wpdb->term_relationships} AS CAT ON CAT.object_id=TASK.ID
 			WHERE TASK.post_type='wpeo-task'
-				AND TASK.post_status IN(" . $param['status'] . ") AND
+				AND TASK.post_status IN (" . $param['status'] . ") AND
 					( (
 						TASK.ID LIKE '%" . $param['term'] . "%' OR TASK.post_title LIKE '%" . $param['term'] . "%'
 					) OR (

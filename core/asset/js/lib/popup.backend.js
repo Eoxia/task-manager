@@ -58,14 +58,20 @@ if ( ! window.eoxiaJS.popup  ) {
 	 * Les paramètres de la requête doivent être configurer directement sur l'élement
 	 * Ex: data-action="load-workunit" data-id="190"
 	 *
+<<<<<<< HEAD
+=======
 	 * @since 1.0.0-easy
 	 * @version 1.1.0-easy
 	 *
+>>>>>>> origin/alpha
 	 * @param  {[type]} event [description]
 	 * @return {[type]}       [description]
 	 */
 	window.eoxiaJS.popup.openAjax = function( event ) {
 		var element = jQuery( this );
+<<<<<<< HEAD
+		var target = jQuery( this ).closest(  '.' + jQuery( this ).data( 'parent' ) ).find( '.' + jQuery( this ).data( 'target' ) );
+=======
 		var callbackData = {};
 		var key = undefined;
 		var target = jQuery( this ).closest(  '.' + jQuery( this ).data( 'parent' ) ).find( '.' + jQuery( this ).data( 'target' ) );
@@ -75,6 +81,7 @@ if ( ! window.eoxiaJS.popup  ) {
 			callbackData = window.eoxiaJS[element.attr( 'data-namespace' )][element.attr( 'data-module' )][element.attr( 'data-before-method' )]( element );
 		}
 
+>>>>>>> origin/alpha
 		target.addClass( 'active' );
 		target.find( '.container' ).addClass( 'loading' );
 
@@ -85,6 +92,8 @@ if ( ! window.eoxiaJS.popup  ) {
 		jQuery( this ).get_data( function( data ) {
 			delete data.parent;
 			delete data.target;
+<<<<<<< HEAD
+=======
 
 			for ( key in callbackData ) {
 				if ( ! data[key] ) {
@@ -92,6 +101,7 @@ if ( ! window.eoxiaJS.popup  ) {
 				}
 			}
 
+>>>>>>> origin/alpha
 			window.eoxiaJS.request.send( element, data );
 		});
 
