@@ -116,7 +116,7 @@ class Navigation_Action {
 		$search_result_view = ob_get_clean();
 
 		ob_start();
-		do_shortcode( '[task users_id="' . $follower_id_selected . '" categories_id="' . $categories_id_selected . '" term="' . $term . '" posts_per_page="' . \eoxia\Config_Util::$init['task-manager']->task->posts_per_page . '"]' );
+		do_shortcode( '[task users_id="' . $follower_id_selected . '" categories_id="' . $categories_id_selected . '" term="' . $term . '" posts_per_page="' . \eoxia\Config_Util::$init['task-manager']->task->posts_per_page . '" with_wrapper="0"]' );
 		$tasks_view = ob_get_clean();
 
 		wp_send_json_success( array(
