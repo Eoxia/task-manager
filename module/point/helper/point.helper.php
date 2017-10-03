@@ -28,8 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function update_post_order( $point ) {
 	if ( ! empty( $point->post_id ) ) {
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $point->post_id ),
-			'post_status' => array( 'publish', 'archive' ),
+			'id' => $point->post_id,
 		), true );
 
 		$task->task_info['order_point_id'][] = (int) $point->id;
