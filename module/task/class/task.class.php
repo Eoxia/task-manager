@@ -6,7 +6,7 @@
  * @subpackage Module/task
  *
  * @since 1.0.0.0
- * @version 1.4.0-ford
+ * @version 1.4.2
  */
 
 namespace task_manager;
@@ -111,7 +111,7 @@ class Task_Class extends \eoxia\Post_Class {
 	 * [get_tasks description]
 	 *
 	 * @since 1.4.0
-	 * @version 1.4.0
+	 * @version 1.4.2
 	 *
 	 * @param  [type] $param [description]
 	 * @return [type]        [description]
@@ -135,7 +135,7 @@ class Task_Class extends \eoxia\Post_Class {
 
 		if ( ! empty( $param['status'] ) ) {
 			if ( 'any' === $param['status'] ) {
-				$param['status'] = '"publish","pending","draft","future","private","inherit","trash"';
+				$param['status'] = '"publish","pending","draft","future","private","inherit"';
 			} else {
 				// Ajout des apostrophes.
 				$param['status'] = '"' . $param['status'] . '"';

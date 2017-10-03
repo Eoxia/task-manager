@@ -108,7 +108,6 @@ class Point_Action {
 
 		$task = Task_Class::g()->get( array(
 			'id' => $point->post_id,
-			'status' => array( 'publish', 'archive' ),
 		), true );
 
 		if( ( $key = array_search( $point_id, $task->task_info['order_point_id'] ) ) !== false ) {

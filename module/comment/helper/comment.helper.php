@@ -28,7 +28,7 @@ function compile_time( $data ) {
 	), true );
 
 	$task = Task_Class::g()->get( array(
-		'include' => array( $data->post_id ),
+		'id' => $data->post_id,
 	), true );
 
 	if ( 'trash' === $data->status ) {
