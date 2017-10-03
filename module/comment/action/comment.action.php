@@ -133,9 +133,7 @@ class Task_Comment_Action {
 		) );
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array(
-				$comment->post_id,
-			),
+			'id' => $comment->post_id,
 		), true );
 
 		wp_send_json_success( array(
@@ -215,9 +213,7 @@ class Task_Comment_Action {
 		$comment = Task_Comment_Class::g()->update( $comment );
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array(
-				$comment->post_id,
-			),
+			'id' => $comment->post_id,
 		), true );
 
 		wp_send_json_success( array(

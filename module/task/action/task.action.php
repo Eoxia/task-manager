@@ -138,9 +138,7 @@ class Task_Action {
 		}
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array(
-				$task_id
-			),
+			'id' => $task_id,
 		), true );
 
 		$task->status = 'trash';
