@@ -56,9 +56,11 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 			$have_search = true;
 		}
 
-		$categories_selected = Tag_Class::g()->get( array(
-			'include' => $categories_id_selected,
-		) );
+		if ( ! empty( $categories_id_selected ) ) {
+			$categories_selected = Tag_Class::g()->get( array(
+				'include' => $categories_id_selected,
+			) );
+		}
 
 		$categories_searched = '';
 		$follower_searched = '';
