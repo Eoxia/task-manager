@@ -134,7 +134,7 @@ class Task_Class extends \eoxia\Post_Class {
 
 		if ( ! empty( $param['status'] ) ) {
 			if ( 'any' === $param['status'] ) {
-				$param['status'] = '"publish","pending","draft","future","private","inherit","trash"';
+				$param['status'] = '"publish","pending","draft","future","private","inherit"';
 			} else {
 				// Ajout des apostrophes.
 				$param['status'] = '"' . $param['status'] . '"';
