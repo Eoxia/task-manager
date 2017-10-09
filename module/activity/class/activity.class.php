@@ -54,10 +54,12 @@ class Activity_Class extends \eoxia\Singleton_Util {
 				if ( 'trash' !== $point->status && Point_Class::g()->get_type() === $point->type && 0 !== $point->id ) {
 					if ( 0 === $point->parent_id ) {
 						$point->view = 'created-point';
+						$point->displayed_author_id = $point->author_id;
 
 						if ( $point->point_info['completed'] ) {
 							$cloned_point = clone $point;
 							$cloned_point->view = 'completed-point';
+							$cloned_point->displayed_author_id = $cloned_point->time_info['last_completed']['user_id'];
 							$sql_date = substr( $cloned_point->time_info['last_completed']['date'], 0, strlen( $cloned_point->time_info['last_completed']['date'] ) - 9 );
 							$time = substr( $cloned_point->time_info['last_completed']['date'], 11, strlen( $cloned_point->time_info['last_completed']['date'] ) );
 							$datas[ $sql_date ][ $time ][] = $cloned_point;
@@ -74,6 +76,7 @@ class Activity_Class extends \eoxia\Singleton_Util {
 						$comment->parent = Point_Class::g()->get( array(
 							'id' => $comment->parent_id,
 						), true );
+						$comment->displayed_author_id = $comment->author_id;
 
 						$sql_date = substr( $comment->date['date_input']['date'], 0, strlen( $comment->date['date_input']['date'] ) - 9 );
 						$time = substr( $comment->date['date_input']['date'], 11, strlen( $comment->date['date_input']['date'] ) );
