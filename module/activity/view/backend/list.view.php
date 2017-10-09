@@ -33,7 +33,7 @@ if ( ! empty( $datas ) ) :
 
 						<div class="activity <?php echo esc_attr( $element->view ); ?>">
 							<div class="information">
-								<?php echo do_shortcode( '[task_avatar ids="' . $element->author_id . '" size="30"]' ); ?>
+								<?php echo do_shortcode( '[task_avatar ids="' . $element->displayed_author_id . '" size="30"]' ); ?>
 								<span class="type"></span>
 								<span class="time-posted"><?php echo esc_html( substr( $time, 0, -3 ) ); ?></span>
 							</div>
