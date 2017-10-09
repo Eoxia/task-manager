@@ -76,9 +76,9 @@ function get_full_point( $point ) {
 	);
 
 	if ( ! empty( $point->time_info['completed_point'] ) ) {
-		foreach ( $point->time_info['completed_point'] as $element ) {
+		foreach ( $point->time_info['completed_point'] as $user_id => $element ) {
 			if ( ! empty( $element ) ) {
-				foreach ( $element as $user_id => $date ) {
+				foreach ( $element as $date ) {
 					if ( $date > $last_completed['date'] ) {
 						$last_completed['date'] = $date;
 						$last_completed['user_id'] = $user_id;
