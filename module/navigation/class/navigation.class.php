@@ -58,7 +58,7 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 
 		if ( ! empty( $categories_id_selected ) ) {
 			$categories_selected = Tag_Class::g()->get( array(
-				'include' => $categories_id_selected,
+				'term_taxonomy_id' => explode( ',', $categories_id_selected ),
 			) );
 		}
 
