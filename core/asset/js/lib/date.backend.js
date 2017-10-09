@@ -10,13 +10,17 @@ if ( ! window.eoxiaJS.date ) {
 	window.eoxiaJS.date = {};
 
 	window.eoxiaJS.date.init = function() {
-		jQuery( document ).on( 'click', 'input.date', function( e ) {
+		jQuery( document ).on( 'click', '.group-date .date', function( e ) {
 			jQuery( this ).closest( '.group-date' ).find( '.mysql-date' ).datetimepicker( {
 				'lang': 'fr',
 				'format': 'Y-m-d',
 				timepicker: false,
 				onChangeDateTime: function( dp, $input ) {
 					$input.closest( '.group-date' ).find( '.date' ).val( window.eoxiaJS.date.convertMySQLDate( $input.val(), false ) );
+
+					if ( $input.closest( '.group-date' ).attr( 'data-namespace' ) && $input.closest( '.group-date' ).attr( 'data-module' ) && $input.closest( '.group-date' ).attr( 'data-after-method' ) ) {
+						window.eoxiaJS[$input.closest( '.group-date' ).attr( 'data-namespace' )][$input.closest( '.group-date' ).attr( 'data-module' )][$input.closest( '.group-date' ).attr( 'data-after-method' )]( $input );
+					}
 				}
 			} ).datetimepicker( 'show' );
 		} );
@@ -26,10 +30,17 @@ if ( ! window.eoxiaJS.date ) {
 				'lang': 'fr',
 				'format': 'Y-m-d H:i:s',
 				onChangeDateTime: function( dp, $input ) {
-					$input.closest( '.group-date' ).find( 'input[name="value_changed"]' ).val( 1 );
+					if ( $input.closest( '.group-date' ).find( 'input[name="value_changed"]' ).length ) {
+						$input.closest( '.group-date' ).find( 'input[name="value_changed"]' ).val( 1 );
+					}
 					$input.closest( '.group-date' ).find( '.date-time' ).val( window.eoxiaJS.date.convertMySQLDate( $input.val() ) );
+
+					if ( $input.closest( '.group-date' ).attr( 'data-namespace' ) && $input.closest( '.group-date' ).attr( 'data-module' ) && $input.closest( '.group-date' ).attr( 'data-after-method' ) ) {
+						window.eoxiaJS[$input.closest( '.group-date' ).attr( 'data-namespace' )][$input.closest( '.group-date' ).attr( 'data-module' )][$input.closest( '.group-date' ).attr( 'data-after-method' )]( $input );
+					}
+
 					$input.closest( '.group-date' ).find( 'div' ).attr( 'aria-label', window.eoxiaJS.date.convertMySQLDate( $input.val() ) );
-					$input.closest( '.group-date' ).find( 'span' ).css( 'background', '#389af6' );
+					// $input.closest( '.group-date' ).find( 'span' ).css( 'background', '#389af6' );
 				}
 			} ).datetimepicker( 'show' );
 		} );
