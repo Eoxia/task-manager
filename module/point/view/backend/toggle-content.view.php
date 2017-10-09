@@ -4,10 +4,9 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.4.0-ford
- * @version 1.4.0-ford
+ * @version 1.5.0
  * @copyright 2015-2017 Eoxia
- * @package point
- * @subpackage view
+ * @package Task Manager
  */
 
 namespace task_manager;
@@ -17,8 +16,14 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 <div>
 	<div class="task-informations">
 		<?php echo do_shortcode( '[task_avatar ids="' . $point->author_id . '" size="50"]' ); ?>
-		<?php echo esc_html_e( 'Create ', 'task-manager' ); ?>
-		<?php echo esc_html( mb_strtolower( $point->date['date_human_readable'] ) ); ?>
+		<p>
+			<?php echo esc_html_e( 'Create ', 'task-manager' ); ?>
+
+			<span data-namespace="taskManager" data-module="point" data-after-method="afterTriggerChangeDate" class="group-date">
+				<input type="text" class="mysql-date" style="width: 0px; padding: 0px; border: none;" name="due_date" value="<?php echo esc_attr( $point->date['date_input']['date'] ); ?>" />
+				<span class="date-time"><?php echo esc_html( mb_strtolower( $point->date['date_human_readable'] ) ); ?></span>
+			</span>
+		<p>
 	</div>
 </div>
 
