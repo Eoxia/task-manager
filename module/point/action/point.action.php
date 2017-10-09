@@ -3,16 +3,17 @@
  *  Les actions relatives aux points.
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.5.0
  * @copyright 2015-2017 Eoxia
- * @package point
- * @subpackage view
+ * @package Task Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Les actions relatives aux points
@@ -28,6 +29,7 @@ class Point_Action {
 	public function __construct() {
 		/** Point */
 		add_action( 'wp_ajax_edit_point', array( $this, 'ajax_edit_point' ) );
+		add_action( 'wp_ajax_change_date_point', array( $this, 'ajax_change_date_point' ) );
 		add_action( 'wp_ajax_delete_point', array( $this, 'ajax_delete_point' ) );
 		add_action( 'wp_ajax_edit_order_point', array( $this, 'ajax_edit_order_point' ) );
 		add_action( 'wp_ajax_complete_point', array( $this, 'ajax_complete_point' ) );
@@ -85,6 +87,32 @@ class Point_Action {
 		) );
 	}
 
+	/**
+	* Change la date du point
+	*
+	* @since 1.5.0
+	* @version 1.5.0
+	*
+	* @return void
+	*/
+	public function ajax_change_date_point() {
+		$point_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+		$mysql_date = ! empty( $_POST['date'] ) ? sanitize_text_field( $_POST['date'] ) : '';
+
+		if ( empty( $point_id ) || empty( $mysql_date ) ) {
+			wp_send_json_error();
+		}
+
+		$point = Point_Class::g()->get( array(
+			'id' => $point_id,
+		), true );
+
+		$point->date = $mysql_date;
+
+		Point_Class::g()->update( $point );
+
+		wp_send_json_success();
+	}
 
 	/**
 	 * Supprimes le point.
