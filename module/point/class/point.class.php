@@ -2,8 +2,8 @@
 /**
  * Gestion des points
  *
- * @since 1.3.4.0
- * @version 1.3.4.0
+ * @since 1.3.4
+ * @version 1.5.0
  * @package Task-Manager\point
  */
 
@@ -77,7 +77,7 @@ class Point_Class extends \eoxia\Comment_Class {
 	 * @return void
 	 *
 	 * @since 1.3.6
-	 * @version 1.4.0
+	 * @version 1.5.0
 	 */
 	public function display( $task_id, $frontend = false ) {
 		$task = Task_Class::g()->get( array(
@@ -95,10 +95,17 @@ class Point_Class extends \eoxia\Comment_Class {
 			) );
 
 			$points_completed = array_filter( $points, function( $point ) {
+				if ( 0 === $point->id ) {
+					return false;
+				}
+
 				return true === $point->point_info['completed'];
 			} );
 
 			$points_uncompleted = array_filter( $points, function( $point ) {
+				if ( 0 === $point->id ) {
+					return false;
+				}
 				return false === $point->point_info['completed'];
 			} );
 		}
