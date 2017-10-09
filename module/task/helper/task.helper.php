@@ -7,7 +7,11 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 class Task_Helper {
 	public static function update_points( $data ) {
 		$compiled_time = 0;
-		$points = Point_Class::g()->get( array( 'post_id' => $data->id, 'parent' => 0, 'order' => 'ASC' ) );
+		$points = Point_Class::g()->get( array(
+			'post_id' => $data->id,
+			'parent' => 0,
+			'order' => 'ASC',
+		) );
 		$points_ids = $new_points_ids = array();
 		foreach ( $points as $point ) {
 			if ( 0 !== $point->id || 'trash' !== $point->status ) {
