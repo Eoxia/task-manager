@@ -1,18 +1,19 @@
 <?php
 /**
- * Edition d'un commentaire le backend.
+ * Edition d'un commentaire dans le backend.
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.5.0
  * @copyright 2015-2017 Eoxia
- * @package comment
- * @subpackage view
+ * @package Task Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} ?>
 
 <li class="comment new">
 	<ul class="wpeo-comment-container">
@@ -31,9 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 		<li class="wpeo-comment-content">
 			<input type="hidden" name="content" value="<?php echo esc_attr( $comment->content ); ?>" />
-			<div class="content" contenteditable="true">
-				<?php echo $comment->content; ?>
-			</div>
+			<div class="content" contenteditable="true"><?php echo trim( $comment->content ); ?></div>
 			<?php if ( empty( $comment->id ) ) : ?>
 				<span class="wpeo-point-new-placeholder"><?php esc_html_e( 'Your comment here...', 'task-manager' ); ?></span>
 			<?php endif; ?>
@@ -44,7 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		<?php if ( ! empty( $comment->id ) ) : ?>
 			<li class="wpeo-save-point"><i data-parent="wpeo-comment-container" class="action-input fa fa-floppy-o" aria-hidden="true"></i></li>
 		<?php else : ?>
-			<li data-parent="wpeo-comment-container" class="wpeo-point-new-btn action-input dashicons dashicons-plus-alt"></li>
+			<li data-parent="wpeo-comment-container" style="opacity: 0.4;" class="wpeo-point-new-btn action-input dashicons dashicons-plus-alt"></li>
 		<?php endif; ?>
 	</ul>
 </li>
