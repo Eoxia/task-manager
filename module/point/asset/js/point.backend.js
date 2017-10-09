@@ -5,7 +5,7 @@
  * @version 1.5.0
  */
 window.eoxiaJS.taskManager.point = {};
-
+window.eoxiaJS.taskManager.point.lastContent = '';
 /**
  * La méthode obligatoire pour la biblotèque EoxiaJS.
  *
@@ -67,6 +67,7 @@ window.eoxiaJS.taskManager.point.activePoint = function( event ) {
 	jQuery( '.point.active' ).removeClass( 'active' );
 
 	jQuery( this ).closest( '.point' ).addClass( 'active' );
+	window.eoxiaJS.taskManager.point.lastContent = jQuery( this ).closest( '.point' ).find( '.point-content input[name="content"]' ).val();
 };
 
 /**
@@ -120,18 +121,22 @@ window.eoxiaJS.taskManager.point.updateHiddenInput = function( event ) {
  * @param  {Object}         response          Les données renvoyées par la requête Ajax.
  * @return {void}
  *
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.5.0
  */
 window.eoxiaJS.taskManager.point.addedPointSuccess = function( triggeredElement, response ) {
-	var totalPoint = jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.total-point' ).text();
+	var totalPoint = parseInt( triggeredElement.closest( '.wpeo-project-task' ).find( '.total-point' ).text() );
 	totalPoint++;
-	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.total-point' ).text( totalPoint );
 
-	triggeredElement.closest( '.form' ).find( '.wpeo-point-new-contenteditable' ).text( '' );
-	triggeredElement.closest( '.form' ).find( 'input[name="content"]' ).html( '' );
+	triggeredElement.closest( '.wpeo-project-task' ).find( '.total-point' ).text( totalPoint );
 
-	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.points.sortable .point:last' ).before( response.data.view );
+	triggeredElement.closest( '.point' ).find( '.wpeo-point-new-contenteditable' ).text( '' );
+	triggeredElement.closest( '.point' ).find( 'input[name="content"]' ).html( '' );
+
+	triggeredElement.closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 0.4 );
+	triggeredElement.closest( '.point' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
+
+	triggeredElement.closest( '.wpeo-project-task' ).find( '.points.sortable .point:last' ).before( response.data.view );
 
 	window.eoxiaJS.taskManager.point.initAutoComplete();
 	window.eoxiaJS.refresh();
@@ -155,14 +160,16 @@ window.eoxiaJS.taskManager.point.editedPointSuccess = function( triggeredElement
 /**
  * Met à jour un point en cliquant sur le bouton pour envoyer le formulaire.
  *
- * @return void
+ * @since 1.0.0
+ * @version 1.5.0
  *
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @return void
  */
 window.eoxiaJS.taskManager.point.editPoint = function() {
-	jQuery( this ).closest( '.form' ).addClass( 'loading' );
-	jQuery( this ).closest( '.form' ).find( '.action-input.update' ).click();
+	if ( window.eoxiaJS.taskManager.point.lastContent !== jQuery( this ).closest( '.form' ).find( '.point-content input[name="content"]' ).val() ) {
+		jQuery( this ).closest( '.form' ).addClass( 'loading' );
+		jQuery( this ).closest( '.form' ).find( '.action-input.update' ).click();
+	}
 };
 
 /**
@@ -331,4 +338,25 @@ window.eoxiaJS.taskManager.point.movedPointTo = function( triggeredElement, resp
 	jQuery( '.wpeo-project-task[data-id=' + response.data.to_task.id + ']' ).find( '.wpeo-point-toggle-a .total-point' ).text( totalPointToTask + 1 );
 
 	window.eoxiaJS.refresh();
+};
+
+/**
+ * Méthode appelé lors de la modification de la date du point.
+ * Envoie une requête AJAX pour effectuer la mise à jour en base de donnée.
+ *
+ * @since 1.5.0
+ * @version 1.5.0
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ *
+ * @return {void}
+ */
+window.eoxiaJS.taskManager.point.afterTriggerChangeDate = function( triggeredElement ) {
+	var data = {
+		action: 'change_date_point',
+		id: triggeredElement.closest( '.point ').attr( 'data-id' ),
+		date: triggeredElement.val()
+	};
+
+	window.eoxiaJS.request.send( triggeredElement, data );
 };
