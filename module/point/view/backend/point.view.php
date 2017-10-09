@@ -37,10 +37,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 			</li>
 
 			<li class="point-content content">
-				<input type="hidden" name="content" value="<?php esc_attr( $point->content ); ?>" />
-				<div class="wpeo-point-new-contenteditable" contenteditable="true">
-					<?php echo $point->content; ?>
-				</div>
+				<input type="hidden" name="content" value="<?php echo esc_attr( $point->content ); ?>" />
+				<div class="wpeo-point-new-contenteditable" contenteditable="true"><?php echo trim( $point->content ); ?></div>
 				<?php if ( empty( $point->id ) ) : ?>
 					<span class="wpeo-point-new-placeholder"><?php esc_html_e( 'Write your point here...', 'task-manager' ); ?></span>
 				<?php endif; ?>
@@ -51,6 +49,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					<div 	class="wpeo-point-new-btn action-input animated"
 								data-parent="form"
 								data-loader="point"
+								style="opacity: 0.4;"
 								title="<?php esc_attr( 'Add this point', 'task-manager' ); ?>">
 						<i class="dashicons dashicons-plus-alt"></i>
 					</div>
