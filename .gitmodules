@@ -7,3 +7,6 @@
 [submodule "core/external/wpeo_util"]
 	path = core/external/wpeo_util
 	url = https://github.com/eoxia/wpeo_util
+[submodule "core/external/wpeo_assets"]
+	path = core/external/wpeo_assets
+	url = https://github.com/Eoxia/wpeo_assets
