@@ -27,6 +27,7 @@ window.eoxiaJS.taskManager.task.event = function() {
 	jQuery( '.wpeo-project-wrap' ).on( 'blur', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.editTitle );
 	jQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-task-time-manage .dashicons-editor-ul', window.eoxiaJS.taskManager.task.switchViewToLine );
 	jQuery( window ).scroll( window.eoxiaJS.taskManager.task.onScrollLoadMore );
+	jQuery( '.wpeo-project-wrap' ).on( 'click', '.task-header-action .success span', window.eoxiaJS.taskManager.task.closeSuccess );
 };
 
 /**
@@ -266,4 +267,38 @@ window.eoxiaJS.taskManager.task.loadedCorretiveTaskSuccess = function( triggered
  */
 window.eoxiaJS.taskManager.task.exportedTask = function( triggeredElement, response ) {
 	window.eoxiaJS.global.downloadFile( response.data.url, response.data.filename );
+};
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "notify_by_mail".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.5.0
+ * @version 1.5.0
+ */
+window.eoxiaJS.taskManager.task.notifiedByMail = function( triggeredElement, response ) {
+	var successElement = triggeredElement.closest( '.task-header-action' ).find( '.success' );
+	successElement.addClass( 'active' );
+
+	successElement.interval = setTimeout( function() {
+		successElement.removeClass( 'active' );
+	}, 3000 );
+};
+
+
+/**
+ * Enlève la classe 'active' de l'élement 'success'.
+ *
+ * @since 1.5.0
+ * @version 1.5.0
+ *
+ * @param  {MouseEvent} event L'état de la souri.
+ *
+ * @return {void}
+ */
+window.eoxiaJS.taskManager.task.closeSuccess = function( event ) {
+	jQuery( this ).closest( '.success.active' ).removeClass( 'active' );
 };
