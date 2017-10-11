@@ -47,6 +47,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 					data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_last_activity' ) ); ?>"
 					data-tasks-id="<?php echo esc_attr( $task->id ); ?>"></span>
 	</li>
-
-	<?php echo apply_filters( 'task_manager_task_header_actions_after', '' ); ?>
 </ul>
