@@ -221,7 +221,7 @@ class Task_Action {
 		}
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $id ),
+			'id' => $id,
 		), true );
 
 		$sender_data = wp_get_current_user();
@@ -278,8 +278,7 @@ class Task_Action {
 		$task_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $task_id ),
-			'post_status' => array( 'publish', 'archive' ),
+			'id' => $task_id,
 		), true );
 
 		$task->author = Follower_Class::g()->get( array(
@@ -380,8 +379,7 @@ class Task_Action {
 		}
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $task_id ),
-			'post_status' => array( 'publish', 'archive' ),
+			'id' => $task_id,
 		), true );
 
 		$task->parent_id = $to_element_id;
@@ -468,8 +466,7 @@ class Task_Action {
 		}
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $task_id ),
-			'post_status' => array( 'publish', 'archive' ),
+			'id' => $task_id,
 		), true );
 
 		$points_completed = array();
