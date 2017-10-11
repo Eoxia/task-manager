@@ -30,6 +30,7 @@ class Task_Helper {
 		}
 		$data->task_info['order_point_id'] = $points_ids;
 		$data->time_info['elapsed'] = $compiled_time;
+
 		return $data;
 	}
 }
@@ -74,6 +75,11 @@ function get_full_task( $data ) {
 		$format = '%aj %hh %imin';
 	}
 	$data->time_info['estimated_time_display'] = $dtf->diff( $dtt )->format( $format );
+
+	// Fix TMP.
+	if ( ! isset( $data->user_info['affected_id'] ) ) {
+		$data->user_info['affected_id'] = array();
+	}
 
 	return $data;
 }
