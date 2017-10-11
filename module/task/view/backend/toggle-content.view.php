@@ -82,6 +82,9 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 			data-loader="actions">
 		<span><i class="fa fa-download"></i></span>
 	</li>
+
+	<?php echo apply_filters( 'task_manager_task_header_actions_after', $task->id ); ?>
+	
 </ul>
 
 <div class="move-to">
