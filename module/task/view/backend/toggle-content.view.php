@@ -3,16 +3,24 @@
  * Les propriétés d'une tâche.
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
- * @since 1.0.0.0
- * @version 1.4.0-ford
+ * @since 1.0.0
+ * @version 1.5.0
  * @copyright 2015-2017 Eoxia
- * @package task
- * @subpackage view
+ * @package Task Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} ?>
+
+<div class="success">
+	<div class="content">
+		<p>Notification envoyée</p>
+		<span>OK</span>
+	</div>
+</div>
 
 <div class="gridwrapper w2">
 	<ul class="task-color">
@@ -49,7 +57,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 			data-action="<?php echo ( 'archive' !== $task->status ) ? 'to_archive' : 'to_unarchive'; ?>"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( ( 'archive' === $task->status ) ? 'to_archive' : 'to_unarchive' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->id ); ?>"
-			data-loader="actions">
+			data-loader="task-header-action">
 		<span><i class="fa fa-archive"></i></span>
 	</li>
 
@@ -59,7 +67,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 			data-message-delete="<?php echo esc_attr_e( 'Delete this task ?', 'task-manager' ); ?>"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_task' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->id ); ?>"
-			data-loader="actions">
+			data-loader="task-header-action">
 		<span><i class="fa fa-trash"></i></span>
 	</li>
 
@@ -69,7 +77,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 			data-action="notify_by_mail"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'notify_by_mail' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->id ); ?>"
-			data-loader="actions">
+			data-loader="task-header-action">
 		<span><i class="fa fa-bell"></i></span>
 	</li>
 
@@ -79,12 +87,12 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 			data-action="export_task"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_task' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->id ); ?>"
-			data-loader="actions">
+			data-loader="task-header-action">
 		<span><i class="fa fa-download"></i></span>
 	</li>
 
-	<?php echo apply_filters( 'task_manager_task_header_actions_after', $task->id ); ?>
-	
+	<?php apply_filters( 'task_manager_task_header_actions_after', $task->id ); ?>
+
 </ul>
 
 <div class="move-to">
