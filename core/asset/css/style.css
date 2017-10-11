@@ -3828,6 +3828,9 @@
 .wpeo-project-wrap .wpeo-project-task-container input[type="text"], .wpeo-project-wrap .wpeo-project-task-container textarea {
   background-color: transparent !important; }
 
+.xdsoft_datetimepicker {
+  z-index: 100000 !important; }
+
 /* ----------------------------------
 		Global
 -----------------------------------*/
@@ -4382,13 +4385,70 @@ Popup
   transition: all 0.2s east-out;
   opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-  pointer-events: none; }
+  pointer-events: none;
+  overflow: hidden; }
 
 .wpeo-project-wrap .task-header-action.active, .wpeo-project-wrap .point-header-action.active {
   top: 30px;
   opacity: 1;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
   pointer-events: all; }
+
+.wpeo-project-wrap .task-header-action .success, .wpeo-project-wrap .point-header-action .success {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: block;
+  width: 100%;
+  height: 100%;
+  z-index: 99999;
+  -webkit-transform: translateY(-100%);
+      -ms-transform: translateY(-100%);
+       -o-transform: translateY(-100%);
+          transform: translateY(-100%);
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out; }
+
+.wpeo-project-wrap .task-header-action .success.active, .wpeo-project-wrap .point-header-action .success.active {
+  -webkit-transform: translateY(0%);
+      -ms-transform: translateY(0%);
+       -o-transform: translateY(0%);
+          transform: translateY(0%); }
+
+.wpeo-project-wrap .task-header-action .success .content, .wpeo-project-wrap .point-header-action .success .content {
+  text-align: center;
+  position: relative;
+  top: 50%;
+  width: 100%;
+  background: none;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+       -o-transform: translateY(-50%);
+          transform: translateY(-50%);
+  display: block;
+  left: 0; }
+
+.wpeo-project-wrap .task-header-action .success .content p, .wpeo-project-wrap .point-header-action .success .content p {
+  font-size: 1.5em;
+  color: #3495f0;
+  margin-bottom: 20px; }
+
+.wpeo-project-wrap .task-header-action .success .content span, .wpeo-project-wrap .point-header-action .success .content span {
+  color: white;
+  padding: 8px;
+  text-align: center;
+  line-height: 1.5;
+  background-color: #3495f0;
+  border: none;
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out; }
+
+.wpeo-project-wrap .task-header-action .success .content span:hover, .wpeo-project-wrap .point-header-action .success .content span:hover {
+  background-color: #1360c8;
+  cursor: pointer; }
 
 .wpeo-project-wrap .task-header-action .task-color, .wpeo-project-wrap .task-header-action .task-informations, .wpeo-project-wrap .task-header-action .actions, .wpeo-project-wrap .task-header-action .move-to, .wpeo-project-wrap .point-header-action .task-color, .wpeo-project-wrap .point-header-action .task-informations, .wpeo-project-wrap .point-header-action .actions, .wpeo-project-wrap .point-header-action .move-to {
   padding: 1em; }
