@@ -5,8 +5,8 @@
  * @package Task Manager
  * @subpackage Module/Tag
  *
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.5.0
  */
 
 namespace task_manager;
@@ -34,8 +34,8 @@ class Follower_Action {
 	/**
 	 * Récupère les followers existants dans la base et les retournent pour affichage
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.5.0
 	 */
 	public function ajax_load_followers() {
 		check_ajax_referer( 'load_followers' );
@@ -48,8 +48,7 @@ class Follower_Action {
 		$task_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $task_id ),
-			'post_status' => array( 'publish', 'archive' ),
+			'id' => $task_id,
 		), true );
 
 		ob_start();
@@ -84,8 +83,7 @@ class Follower_Action {
 		}
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $task_id ),
-			'post_status' => array( 'publish', 'archive' ),
+			'id' => $task_id,
 		), true );
 
 		$followers = array();
@@ -128,7 +126,7 @@ class Follower_Action {
 		}
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $task_id ),
+			'id' => $task_id,
 		), true );
 
 		$task->user_info['affected_id'][] = $user_id;
@@ -161,7 +159,7 @@ class Follower_Action {
 		}
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $task_id ),
+			'id' => $task_id,
 		), true );
 
 		$key = array_search( $user_id, $task->user_info['affected_id'], true );
