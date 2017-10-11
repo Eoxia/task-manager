@@ -27,18 +27,21 @@ window.eoxiaJS.taskManager.comment.init = function() {
  * @version 1.5.0
  */
 window.eoxiaJS.taskManager.comment.event = function() {
-	jQuery( document ).on( 'click', 'body', window.eoxiaJS.taskManager.comment.closePoint );
+	// jQuery( document ).on( 'click', 'body', window.eoxiaJS.taskManager.comment.closePoint );
+	// jQuery( document ).on( 'click', '.wpeo-project-task .point .comment', window.eoxiaJS.taskManager.comment.preventClosePoint );
 	jQuery( document ).on( 'keyup', '.wpeo-comment-container div.content[contenteditable="true"]', window.eoxiaJS.taskManager.comment.triggerCreate );
 	jQuery( document ).on( 'blur keyup paste keydown click', '.comment .content', window.eoxiaJS.taskManager.comment.updateHiddenInput );
 	jQuery( document ).on( 'click', '.point.edit div[contenteditable="true"].wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.comment.loadComments );
 };
 
 /**
-* Fermes les points.active ainsi que leurs commentaires
-*
-* @since 1.5.0
-* @version 1.5.0
-*/
+ * Fermes les points.active ainsi que leurs commentaires
+ *
+ * @since 1.5.0
+ * @version 1.5.0
+ *
+ * @return {void}
+ */
 window.eoxiaJS.taskManager.comment.closePoint = function( event ) {
 	jQuery( '.point.active' ).removeClass( 'active' );
 	if ( jQuery( 'div.point' ).find( '.comments' ).is( ':visible' ) ) {
@@ -46,6 +49,18 @@ window.eoxiaJS.taskManager.comment.closePoint = function( event ) {
 			window.eoxiaJS.refresh();
 		} );
 	}
+};
+
+/**
+ * Stop propagation afin d'éviter la fermeture du point.
+ *
+ * @since 1.5.0
+ * @version 1.5.0
+ *
+ * @return {void}
+ */
+window.eoxiaJS.taskManager.comment.preventClosePoint = function( event ) {
+	event.stopPropagation();
 };
 
 window.eoxiaJS.taskManager.comment.triggerCreate = function( event ) {
@@ -183,4 +198,9 @@ window.eoxiaJS.taskManager.comment.deletedCommentSuccess = function( triggeredEl
 window.eoxiaJS.taskManager.comment.loadedEditViewComment = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.comment' ).replaceWith( response.data.view );
 	jQuery( '.wpeo-project-task.mask' ).removeClass( 'mask' );
+};
+
+window.eoxiaJS.taskManager.comment.afterTriggerChangeDate = function( $input ) {
+	$input.closest( '.group-date' ).find( 'div' ).attr( 'aria-label', window.eoxiaJS.date.convertMySQLDate( $input.val() ) );
+	$input.closest( '.group-date' ).find( 'span' ).css( 'background', '#389af6' );
 };
