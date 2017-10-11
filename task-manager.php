@@ -29,6 +29,5 @@ DEFINE( 'PLUGIN_TASK_MANAGER_DIR', basename( __DIR__ ) );
 
 require_once 'core/external/wpeo_util/singleton.util.php';
 require_once 'core/external/wpeo_util/init.util.php';
-require_once 'core/external/wpeo_log/class/log.class.php';
 
 \eoxia\Init_util::g()->exec( PLUGIN_TASK_MANAGER_PATH, basename( __FILE__, '.php' ) );
