@@ -4,7 +4,7 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.0.0
- * @version 1.5.0
+ * @version 1.5.1
  * @copyright 2015-2017 Eoxia
  * @package Task_Manager
  */
@@ -77,6 +77,12 @@ class Task_Manager_Action {
 		}
 	}
 
+	/**
+	 * Enqueue scripts in frontend
+	 *
+	 * @since 1.0.0
+	 * @version 1.5.0
+	 */
 	public function callback_enqueue_scripts() {
 		$pagename = get_query_var( 'pagename' );
 		if ( in_array( $pagename, \eoxia\Config_Util::$init['task-manager']->insert_scripts_pages, true ) ) {
@@ -86,6 +92,7 @@ class Task_Manager_Action {
 		wp_register_style( 'task-manager-frontend-style', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/frontend.css', array(), \eoxia\Config_Util::$init['task-manager']->version );
 		wp_enqueue_style( 'task-manager-frontend-style' );
 
+		wp_enqueue_script( 'task-manager-scripts-lib', PLUGIN_TASK_MANAGER_URL . 'core/external/wpeo_assets/js/dest/wpeo-assets.js', array( 'jquery', 'jquery-form', 'jquery-ui-datepicker' ), \eoxia\Config_Util::$init['task-manager']->version, false );
 		wp_enqueue_script( 'task-manager-frontend-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/frontend.min.js', array(), \eoxia\Config_Util::$init['task-manager']->version, false );
 	}
 
