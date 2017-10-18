@@ -54,6 +54,8 @@ class Task_Manager_Action {
 			wp_enqueue_media();
 			add_thickbox();
 		}
+
+		wp_enqueue_script( 'wpeo-assets-scripts', PLUGIN_TASK_MANAGER_URL . 'core/external/wpeo_assets/js/dest/wpeo-assets.js', array( 'jquery', 'jquery-form', 'jquery-ui-datepicker' ), \eoxia\Config_Util::$init['task-manager']->version, false );
 	}
 
 	/**
@@ -70,7 +72,6 @@ class Task_Manager_Action {
 			wp_enqueue_style( 'task-manager-datepicker', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/datepicker.min.css', array(), \eoxia\Config_Util::$init['task-manager']->version );
 			wp_enqueue_style( 'task-manager-datetimepicker', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/jquery.datetimepicker.css', array(), \eoxia\Config_Util::$init['task-manager']->version );
 
-			wp_enqueue_script( 'task-manager-scripts-lib', PLUGIN_TASK_MANAGER_URL . 'core/external/wpeo_assets/js/dest/wpeo-assets.js', array( 'jquery', 'jquery-form', 'jquery-ui-datepicker' ), \eoxia\Config_Util::$init['task-manager']->version, false );
 			wp_enqueue_script( 'task-manager-masonry', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/masonry.min.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
 			wp_enqueue_script( 'task-manager-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/backend.min.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
 			wp_enqueue_script( 'task-manager-datetimepicker-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/jquery.datetimepicker.full.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
