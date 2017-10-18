@@ -89,6 +89,58 @@ class Activity_Class extends \eoxia\Singleton_Util {
 		$datas['last_date'] = ! empty( $sql_date ) ? $sql_date : '';
 		return $datas;
 	}
+
+	/**
+	 *
+	 *
+	 * @param  [type] $user_id    [description]
+	 * @param  string $date_start [description]
+	 * @param  string $date_end   [description]
+	 *
+	 * @return [type]             [description]
+	 */
+	public function display_user_activity_by_date( $user_id, $date_start = '', $date_end = '' ) {
+
+		if ( empty( $date_start ) ) {
+			$date_start = current_time( 'Y-m-d' );
+		}
+		if ( empty( $date_end ) ) {
+			$date_end = current_time( 'Y-m-d' );
+		}
+
+		$query = $GLOBALS['wpdb']->prepare(
+			"SELECT TASK_PARENT.post_title as PT_title, TASK_PARENT.ID as PT_ID,
+							TASK.post_title AS T_title, TASK.ID as T_ID,
+							POINT.comment_content AS POINT_title, POINT.comment_ID AS POINT_ID,
+							COMMENT.comment_content AS COM_title, COMMENT.comment_ID as COM_ID,
+							COMMENTMETA.meta_value AS COM_DETAILS
+			FROM {$GLOBALS['wpdb']->comments} AS COMMENT
+				INNER JOIN {$GLOBALS['wpdb']->commentmeta} AS COMMENTMETA ON COMMENTMETA.comment_id = COMMENT.comment_ID
+				INNER JOIN {$GLOBALS['wpdb']->comments} AS POINT ON POINT.comment_ID = COMMENT.comment_parent
+				INNER JOIN {$GLOBALS['wpdb']->posts} AS TASK ON TASK.ID = POINT.comment_post_ID
+					LEFT JOIN {$GLOBALS['wpdb']->posts} AS TASK_PARENT ON TASK_PARENT.ID = TASK.post_parent
+			WHERE COMMENT.user_id = %d
+				AND COMMENT.comment_date >= %s
+				AND COMMENT.comment_date <= %s
+				AND COMMENTMETA.meta_key = %s
+				AND COMMENT.comment_approved != 'trash'
+				AND POINT.comment_approved != 'trash'
+				AND TASK.post_status IN ( 'publish', 'inherit' )",
+			$user_id, $date_start . ' 00:00:00', $date_end . ' 23:59:59', 'wpeo_time'
+		);
+		$datas = $GLOBALS['wpdb']->get_results( $query );
+
+		ob_start();
+		\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/customer-activity', array(
+			'datas' => $datas,
+			'date_start' => $date_start,
+			'date_end' => $date_end,
+		) );
+		$view = ob_get_clean();
+
+		return $view;
+	}
+
 }
 
 Activity_Class::g();

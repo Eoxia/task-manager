@@ -28,6 +28,10 @@ class Activity_Action {
 	 */
 	public function __construct() {
 		add_action( 'wp_ajax_load_last_activity', array( $this, 'callback_load_last_activity' ) );
+
+		add_action( 'admin_bar_menu', array( $this, 'action_admin_bar_menu' ), 11 );
+
+		add_action( 'wp_ajax_open_popup_user_activity', array( $this, 'load_customer_activity' ) );
 	}
 
 	/**
@@ -108,6 +112,78 @@ class Activity_Action {
 			'end' => ( 0 === count( $datas ) ) ? true : false,
 		) );
 	}
+
+	/**
+	 * Adds a 'Switch back to {user}' link to the account menu in WordPress' admin bar.
+	 *
+	 * @param \WP_Admin_Bar $wp_admin_bar The admin bar object.
+	 */
+	public function action_admin_bar_menu( \WP_Admin_Bar $wp_admin_bar ) {
+
+		if ( ! function_exists( 'is_admin_bar_showing' ) ) {
+			return;
+		}
+		if ( ! is_admin_bar_showing() ) {
+			return;
+		}
+
+		if ( method_exists( $wp_admin_bar, 'get_node' ) ) {
+			if ( $wp_admin_bar->get_node( 'user-actions' ) ) {
+				$parent = 'user-actions';
+			} else {
+				return;
+			}
+		} elseif ( get_option( 'show_avatars' ) ) {
+			$parent = 'my-account-with-avatar';
+		} else {
+			$parent = 'my-account';
+		}
+
+		if ( current_user_can( 'manage_options' ) ) {
+			$query_args = array(
+				'action'   => 'open_popup_user_activity',
+				'_wpnonce' => wp_create_nonce( 'load_user_activity' ),
+				'width'    => '1024',
+				'height'   => '768px',
+				'first_load'   => true,
+			);
+			$wp_admin_bar->add_menu( array(
+				'parent' => $parent,
+				'id'     => 'task-manger-view-daily-activities',
+				'href'			=> '#',
+				'title'			=> __( 'My daily activity', 'task-manager' ),
+				'meta'		 	=> array(
+					'onclick' => 'tb_show( "' . __( 'Your activity', 'task-manager' ) . '", "' . add_query_arg( $query_args, admin_url( 'admin-ajax.php' ) ) . '" )',
+				),
+			) );
+		}
+	}
+
+	/**
+	 * Load user activity by date
+	 */
+	public function load_customer_activity() {
+		check_ajax_referer( 'load_user_activity' );
+
+		$customer_id = get_current_user_id();
+		$date_start = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_start'] ) ? $_POST['tm_abu_date_start'] : current_time( 'Y-m-d' );
+		$date_end = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_end'] ) ? $_POST['tm_abu_date_end'] : current_time( 'Y-m-d' );
+		$first_load = ! empty( $_GET ) && ! empty( $_GET['first_load'] ) ? $_GET['first_load'] : false;
+
+		$view = Activity_Class::g()->display_user_activity_by_date( $customer_id, $date_start, $date_end );
+
+		if ( $first_load ) {
+			wp_die( $view ); // WPCS: XSS ok.
+		}
+
+		wp_send_json_success( array(
+			'namespace' => 'taskManager',
+			'module' => 'adminBar',
+			'callback_success' => 'loadedCustomerActivity',
+			'view' => $view,
+		) );
+	}
+
 }
 
 new Activity_Action();
