@@ -91,7 +91,6 @@ class Task_Manager_Action {
 		wp_register_style( 'task-manager-frontend-style', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/frontend.css', array(), \eoxia\Config_Util::$init['task-manager']->version );
 		wp_enqueue_style( 'task-manager-frontend-style' );
 
-		wp_enqueue_script( 'task-manager-scripts-lib', PLUGIN_TASK_MANAGER_URL . 'core/external/wpeo_assets/js/dest/wpeo-assets.js', array( 'jquery', 'jquery-form', 'jquery-ui-datepicker' ), \eoxia\Config_Util::$init['task-manager']->version, false );
 		wp_enqueue_script( 'task-manager-frontend-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/frontend.min.js', array(), \eoxia\Config_Util::$init['task-manager']->version, false );
 	}
 

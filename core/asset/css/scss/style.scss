@@ -33,6 +33,13 @@ $grey: #d6d6d6;
 @import "notification";
 
 
+#wpeo-task-metabox.closed h2 span a.page-title-action {
+	display: none;
+}
+#wpeo-task-metabox h2 span a.page-title-action {
+	top: 0px;
+}
+
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
 .wpeo-project-wrap {
 	.list-task {

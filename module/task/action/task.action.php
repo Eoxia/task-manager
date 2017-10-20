@@ -46,6 +46,8 @@ class Task_Action {
 		add_action( 'wp_ajax_load_more_task', array( $this, 'callback_load_more_task' ) );
 
 		add_action( 'wp_ajax_export_task', array( $this, 'callback_export_task' ) );
+
+		add_action( 'add_meta_boxes', array( $this, 'callback_add_meta_boxes' ), 10, 2 );
 	}
 
 	/**
@@ -524,6 +526,25 @@ class Task_Action {
 			'filename' => $file_info['name'],
 		) );
 	}
+
+	/**
+	 * Fait le contenu de la metabox
+	 *
+	 * @param string  $post_type Le type du post.
+	 * @param WP_Post $post      Les données du post.
+	 *
+	 * @since 1.0.0.0
+	 * @version 1.0.0.0
+	 */
+	public function callback_add_meta_boxes( $post_type, $post ) {
+		if ( in_array( $post_type, \eoxia\Config_Util::$init['task-manager']->associate_post_type, true ) ) {
+			ob_start();
+			\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/metabox-create-buttons', array( 'parent_id' => $post->ID ) );
+			$buttons = ob_get_clean();
+			add_meta_box( 'wpeo-task-metabox', __( 'Task', 'task-manager' ) . $buttons, array( Task_Class::g(), 'callback_render_metabox' ), $post_type, 'normal', 'default' );
+		}
+	}
+
 }
 
 new Task_Action();

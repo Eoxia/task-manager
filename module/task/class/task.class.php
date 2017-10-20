@@ -237,6 +237,102 @@ class Task_Class extends \eoxia\Post_Class {
 			'with_wrapper' => $with_wrapper,
 		) );
 	}
+
+	/**
+	 * Fait le rendu de la metabox
+	 *
+	 * @param  WP_Post $post les données du post.
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 * @version 1.1.0
+	 */
+	public function callback_render_metabox( $post ) {
+		$parent_id = $post->ID;
+		$user_id = $post->post_author;
+
+		$tasks = array();
+		$task_ids_for_history = array();
+		$total_time_elapsed = 0;
+		$total_time_estimated = 0;
+
+		// Affichage des tâches de l'élément sur lequel on se trouve.
+		$tasks[ $post->ID ]['title'] = '';
+		$tasks[ $post->ID ]['data'] = \task_manager\Task_Class::g()->get_tasks( array(
+			'post_parent' => $post->ID,
+		) );
+
+		if ( ! empty( $tasks[ $post->ID ]['data'] ) ) {
+			foreach ( $tasks[ $post->ID ]['data'] as $task ) {
+				if ( empty( $tasks[ $post->ID ]['total_time_elapsed'] ) ) {
+					$tasks[ $post->ID ]['total_time_elapsed'] = 0;
+				}
+
+				$tasks[ $post->ID ]['total_time_elapsed'] += $task->time_info['elapsed'];
+				$total_time_elapsed += $task->time_info['elapsed'];
+				$total_time_estimated += $task->last_history_time->estimated_time;
+
+				$task_ids_for_history[] = $task->id;
+			}
+		}
+
+		// Récupération des enfants de l'élément sur lequel on se trouve.
+		$args = array(
+			'post_parent' => $post->ID,
+			'post_type'   => \eoxia\Config_Util::$init['task-manager']->associate_post_type,
+			'numberposts' => -1,
+			'post_status' => 'any',
+		);
+		$children = get_posts( $args );
+
+		if ( ! empty( $children ) ) {
+			foreach ( $children as $child ) {
+				$tasks[ $child->ID ]['title'] = sprintf( __( 'Task for %1$s', 'task-manager' ), $child->post_title );
+				$tasks[ $child->ID ]['data'] = \task_manager\Task_Class::g()->get_tasks( array(
+					'post_parent' => $child->ID,
+				) );
+
+				if ( empty( $tasks[ $child->ID ]['data'] ) ) {
+					unset( $tasks[ $child->ID ] );
+				}
+
+				if ( ! empty( $tasks[ $child->ID ]['data'] ) ) {
+					foreach ( $tasks[ $child->ID ]['data'] as $task ) {
+						if ( empty( $tasks[ $child->ID ]['total_time_elapsed'] ) ) {
+							$tasks[ $child->ID ]['total_time_elapsed'] = 0;
+						}
+						$tasks[ $child->ID ]['total_time_elapsed'] += $task->time_info['elapsed'];
+						$total_time_elapsed += $task->time_info['elapsed'];
+						$total_time_estimated += $task->last_history_time->estimated_time;
+
+						$task_ids_for_history[] = $task->id;
+					}
+				}
+			}
+		}
+
+		$format = '%hh %imin';
+		$dtf = new \DateTime( '@0' );
+		$dtt = new \DateTime( '@' . ( $total_time_elapsed * 60 ) );
+		if ( 1440 <= $total_time_elapsed ) {
+			$format = '%aj %hh %imin';
+		}
+		$total_time_elapsed = $dtf->diff( $dtt )->format( $format );
+
+		$dtt = new \DateTime( '@' . ( $total_time_estimated * 60 ) );
+		if ( 1440 <= $total_time_estimated ) {
+			$format = '%aj %hh %imin';
+		}
+		$total_time_estimated = $dtf->diff( $dtt )->format( $format );
+
+		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/metabox-posts', array(
+			'tasks'                 => $tasks,
+			'task_ids_for_history'  => implode( ',', $task_ids_for_history ),
+			'total_time_elapsed'    => $total_time_elapsed,
+			'total_time_estimated'  => $total_time_estimated,
+		) );
+	}
+
 }
 
 Task_Class::g();

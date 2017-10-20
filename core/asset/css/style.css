@@ -3825,6 +3825,12 @@
          -o-transform: none;
             transform: none; } }
 
+#wpeo-task-metabox.closed h2 span a.page-title-action {
+  display: none; }
+
+#wpeo-task-metabox h2 span a.page-title-action {
+  top: 0px; }
+
 .wpeo-project-wrap .wpeo-project-task-container input[type="text"], .wpeo-project-wrap .wpeo-project-task-container textarea {
   background-color: transparent !important; }
 
