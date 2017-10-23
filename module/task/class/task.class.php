@@ -228,14 +228,23 @@ class Task_Class extends \eoxia\Post_Class {
 	 *
 	 * @return void
 	 *
-	 * @since 1.3.6.0
-	 * @version 1.3.6.0
+	 * @since 1.3.6
+	 * @version 1.5.0
+	 *
+	 * @todo: With_wrapper ?
 	 */
-	public function display_tasks( $tasks, $with_wrapper = false ) {
-		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/tasks', array(
-			'tasks' => $tasks,
-			'with_wrapper' => $with_wrapper,
-		) );
+	public function display_tasks( $tasks, $frontend = false ) {
+		if ( $frontend ) {
+			\eoxia\View_Util::exec( 'task-manager', 'task', 'frontend/tasks', array(
+				'tasks' => $tasks,
+				'with_wrapper' => false,
+			) );
+		} else {
+			\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/tasks', array(
+				'tasks' => $tasks,
+				'with_wrapper' => false,
+			) );
+		}
 	}
 
 	/**
@@ -245,7 +254,7 @@ class Task_Class extends \eoxia\Post_Class {
 	 * @return void
 	 *
 	 * @since 1.0.0
-	 * @version 1.1.0
+	 * @version 1.5.0
 	 */
 	public function callback_render_metabox( $post ) {
 		$parent_id = $post->ID;
@@ -258,7 +267,7 @@ class Task_Class extends \eoxia\Post_Class {
 
 		// Affichage des tâches de l'élément sur lequel on se trouve.
 		$tasks[ $post->ID ]['title'] = '';
-		$tasks[ $post->ID ]['data'] = \task_manager\Task_Class::g()->get_tasks( array(
+		$tasks[ $post->ID ]['data'] = self::g()->get_tasks( array(
 			'post_parent' => $post->ID,
 		) );
 

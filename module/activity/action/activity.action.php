@@ -52,6 +52,7 @@ class Activity_Action {
 		$term = ! empty( $_POST['term'] ) ? sanitize_text_field( $_POST['term'] ) : '';
 		$categories_id_selected = ! empty( $_POST['categories_id_selected'] ) ? sanitize_text_field( $_POST['categories_id_selected'] ) : '';
 		$follower_id_selected = ! empty( $_POST['follower_id_selected'] ) ? (int) $_POST['follower_id_selected'] : 0;
+		$frontend = ! empty( $_POST['frontend'] ) ? true : false;
 
 		if ( empty( $tasks_id ) ) {
 			$tasks = Task_Class::g()->get_tasks( array(
@@ -102,8 +103,8 @@ class Activity_Action {
 		}
 
 		wp_send_json_success( array(
-			'namespace' => 'taskManager',
-			'module' => 'activity',
+			'namespace' => ! $frontend ? 'taskManager' : 'taskManagerFrontendWPShop',
+			'module' => ! $frontend ? 'activity' : 'frontendSupport',
 			'callback_success' => 'loadedLastActivity',
 			'view' => $view,
 			'title_popup' => $title . $title_popup,

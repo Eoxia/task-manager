@@ -4,11 +4,13 @@ $second-color: rgba(0,0,0,0.6);
 
 $a: #3495f0;
 $dark_a: #1360c8;
+$grey: #d6d6d6;
 
 @import "animation";
 @import "font/font";
 @import "loader";
 @import "tooltip";
+@import "popup";
 
 @-moz-document url-prefix() {
 .entry-content {

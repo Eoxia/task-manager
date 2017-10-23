@@ -280,12 +280,7 @@ window.eoxiaJS.taskManager.task.exportedTask = function( triggeredElement, respo
  * @version 1.5.0
  */
 window.eoxiaJS.taskManager.task.notifiedByMail = function( triggeredElement, response ) {
-	var successElement = triggeredElement.closest( '.task-header-action' ).find( '.success' );
-	successElement.addClass( 'active' );
 
-	successElement.interval = setTimeout( function() {
-		successElement.removeClass( 'active' );
-	}, 3000 );
 };
 
 
