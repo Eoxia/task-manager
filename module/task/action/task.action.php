@@ -316,14 +316,15 @@ class Task_Action {
 		$posts_founded = array();
 		$ids_founded = array();
 
-		$query = "SELECT ID, post_title FROM {$wpdb->posts} WHERE ID LIKE '%" . $term . "%' AND post_type IN('" . implode( $posts_type, '\',\'' ) . "')";
+		$query = apply_filters( 'task_manager_search_parent_query', "SELECT ID, post_title FROM {$wpdb->posts} WHERE ID LIKE '%" . $term . "%' AND post_type IN('" . implode( $posts_type, '\',\'' ) . "')" , $term );
+
 		$results = $wpdb->get_results( $query );
 
 		if ( ! empty( $results ) ) {
 			foreach ( $results as $post ) {
 				$posts_founded[] = array(
-					'label' => '#' . $post->ID . ' - ' . $post->post_title,
-					'value' => '#' . $post->ID . ' - ' . $post->post_title,
+					'label' => '' . $term . ' - ' . $post->post_title,
+					'value' => '' . $term . ' - ' . $post->post_title,
 					'id' => $post->ID,
 				);
 
@@ -379,11 +380,14 @@ class Task_Action {
 		}
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $task_id ),
-			'post_status' => array( 'publish', 'archive' ),
+			'id' => $task_id,
 		), true );
 
 		$task->parent_id = $to_element_id;
+
+		$risk = \digi\Risk_Class::g()->get( array(
+			'id' => $to_element_id,
+		), true );
 
 		Task_Class::g()->update( $task );
 
@@ -391,6 +395,8 @@ class Task_Action {
 			'namespace' => 'taskManager',
 			'module' => 'task',
 			'callback_success' => 'movedTaskTo',
+			'task_id' => $task_id,
+			'unique_identifier' => $risk->unique_identifier,
 		) );
 	}
 

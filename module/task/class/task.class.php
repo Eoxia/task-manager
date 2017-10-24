@@ -145,6 +145,8 @@ class Task_Class extends \eoxia\Post_Class {
 			}
 		}
 
+		$param = apply_filters( 'task_manager_get_tasks_args', $param );
+
 		if ( ! empty( $param['id'] ) ) {
 			$tasks = self::g()->get( array(
 				'include' => array( $param['id'] ),
