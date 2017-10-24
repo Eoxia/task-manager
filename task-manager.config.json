@@ -31,5 +31,6 @@
 	],
 	"debug": false,
 	"key_last_update_version" : "_tm_last_update_version",
-	"associate_post_type": []
+	"associate_post_type": [],
+	"hour_equal_one_day": 7
 }
