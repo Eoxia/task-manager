@@ -71,16 +71,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<span><i class="fa fa-trash"></i></span>
 	</li>
 
-
-	<li class="action-attribute tooltip hover"
+	<li class="open-popup-ajax tooltip hover"
 			aria-label="<?php esc_html_e( 'Notify team', 'task-manager' ); ?>"
-			data-action="notify_by_mail"
-			data-nonce="<?php echo esc_attr( wp_create_nonce( 'notify_by_mail' ) ); ?>"
-			data-id="<?php echo esc_attr( $task->id ); ?>"
-			data-loader="task-header-action">
+			data-parent="wpeo-project-task"
+			data-target="popup"
+			data-action="load_notify_popup"
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_notify_popup' ) ); ?>"
+			data-title="<?php echo esc_attr_e( '#' . $task->id . ' Notify popup', 'task-manager' ); ?>"
+			data-id="<?php echo esc_attr( $task->id ); ?>">
 		<span><i class="fa fa-bell"></i></span>
 	</li>
-
 
 	<li class="action-attribute tooltip hover"
 			aria-label="<?php esc_html_e( 'Export', 'task-manager' ); ?>"
@@ -98,14 +98,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="move-to">
 	<div>
 		<input type="hidden" name="task_id" value="<?php echo esc_attr( $task->id ); ?>" />
-		<input type="hidden" name="action" value="move_task_to" />
-		<?php wp_nonce_field( 'move_task_to' ); ?>
 
 		<label for="move_task"><?php esc_html_e( 'Move the task to', 'task-manager' ); ?></label>
 		<div class="form-fields">
 			<input type="text" class="search-parent" />
 			<input type="hidden" name="to_element_id" />
-			<input type="button" class="action-input" data-loader="move-to" data-parent="move-to" value="<?php esc_html_e( 'OK', 'task-manager' ); ?>" />
+			<input type="button" class="action-input" data-action="move_task_to" data-nonce="<?php echo esc_attr( wp_create_nonce( 'move_task_to' ) ); ?>" data-loader="move-to" data-parent="move-to" value="<?php esc_html_e( 'OK', 'task-manager' ); ?>" />
 		</div>
 		<div class="list-posts">
 		</div>

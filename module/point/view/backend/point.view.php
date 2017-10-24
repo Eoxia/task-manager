@@ -12,14 +12,14 @@
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} ?>
 
 <div class="point <?php echo ! empty( $point->id ) ? esc_attr( 'edit' ): ''; ?>" data-id="<?php echo esc_attr( $point->id ); ?>">
 
 	<div class="form">
 
-		<?php wp_nonce_field( 'edit_point' ); ?>
-		<input type="hidden" name="action" value="edit_point" />
 		<input type="hidden" name="id" value="<?php echo esc_attr( $point->id ); ?>" />
 		<input type="hidden" name="parent_id" value="<?php echo esc_attr( $parent_id ); ?>" />
 		<ul class="point-container">
@@ -49,12 +49,17 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 					<div 	class="wpeo-point-new-btn action-input animated"
 								data-parent="form"
 								data-loader="point"
+								data-action="edit_point"
+								data-nonce="<?php echo esc_attr( wp_create_nonce( 'edit_point' ) ); ?>"
 								style="opacity: 0.4;"
 								title="<?php esc_attr( 'Add this point', 'task-manager' ); ?>">
 						<i class="dashicons dashicons-plus-alt"></i>
 					</div>
 				<?php else : ?>
-					<div class="hidden action-input update" data-parent="form"></div>
+					<div class="hidden action-input update"
+								data-parent="form"
+								data-action="edit_point"
+								data-nonce="<?php echo esc_attr( wp_create_nonce( 'edit_point' ) ); ?>"></div>
 
 					<div class="wpeo-point-time">
 						<span class="dashicons dashicons-clock"></span>

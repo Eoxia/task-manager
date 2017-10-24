@@ -43,14 +43,12 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 	<div class="">
 		<input type="hidden" name="task_id" value="<?php echo esc_attr( $point->post_id ); ?>" />
 		<input type="hidden" name="point_id" value="<?php echo esc_attr( $point->id ); ?>" />
-		<input type="hidden" name="action" value="move_point_to" />
-		<?php wp_nonce_field( 'move_point_to' ); ?>
 
 		<label for="move_task"><?php esc_html_e( 'Move the point to', 'task-manager' ); ?></label>
 		<div class="form-fields">
 			<input type="text" class="search-task" />
 			<input type="hidden" name="to_task_id" />
-			<input type="button" class="action-input" data-loader="move-to" data-parent="move-to" value="<?php esc_html_e( 'OK', 'task-manager' ); ?>" />
+			<input type="button" class="action-input" data-action="move_point_to" data-nonce="<?php echo esc_attr( wp_create_nonce( 'move_point_to' ) ); ?>" data-loader="move-to" data-parent="move-to" value="<?php esc_html_e( 'OK', 'task-manager' ); ?>" />
 		</div>
 		<div class="list-tasks-to-move">
 		</div>
