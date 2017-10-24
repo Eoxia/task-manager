@@ -37,7 +37,6 @@ class Task_Action {
 		add_action( 'wp_ajax_edit_title', array( $this, 'callback_edit_title' ) );
 
 		add_action( 'wp_ajax_change_color', array( $this, 'callback_change_color' ) );
-		add_action( 'wp_ajax_notify_by_mail', array( $this, 'callback_notify_by_mail' ) );
 		add_action( 'wp_ajax_load_task_properties', array( $this, 'callback_load_task_properties' ) );
 
 		add_action( 'wp_ajax_search_parent', array( $this, 'callback_search_parent' ) );
@@ -202,68 +201,6 @@ class Task_Action {
 		Task_Class::g()->update( $task );
 
 		wp_send_json_success();
-	}
-
-	/**
-	 * Envoie une notification par email au responsable et followers de la tâche avec en contenant du mail:
-	 * Le nom de la tâche, les points, et des liens rapides pour y accéder.
-	 *
-	 * @return void
-	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
-	 */
-	public function callback_notify_by_mail() {
-		check_ajax_referer( 'notify_by_mail' );
-
-		$id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
-
-		if ( empty( $id ) ) {
-			wp_send_json_error();
-		}
-
-		$task = Task_Class::g()->get( array(
-			'id' => $id,
-		), true );
-
-		$sender_data = wp_get_current_user();
-		$admin_email = get_bloginfo( 'admin_email' );
-		$blog_name = get_bloginfo( 'name' );
-		$owner_info = get_userdata( $task->user_info['owner_id'] );
-
-		$recipients = array();
-		$recipients[] = $owner_info->user_email;
-
-		if ( ! empty( $task->user_info['affected_id'] ) ) {
-			foreach ( $task->user_info['affected_id'] as $user_id ) {
-				$user_info = get_userdata( $user_id );
-				$recipients[] = $user_info->user_email;
-			}
-		}
-
-		$subject = 'Task Manager: ';
-		$subject .= __( 'The task #' . $task->id . ' ' . $task->title, 'task-manager' );
-
-		$body = __( '<p>This mail has been send automaticly</p>', 'task-manager' );
-		$body .= '<h2>#' . $task->id . ' ' . $task->title . ' send by ' . $sender_data->user_login . ' (' . $sender_data->user_email . ')</h2>';
-		$body = apply_filters( 'task_points_mail', $body, $task );
-		$body .= '<ul>';
-		if ( ! empty( $task->parent_id ) ) {
-			$body .= '<li><a href="' . admin_url( 'post.php?action=edit&post=' . $task->parent_id ) . '">Customer link</a></li>';
-		}
-		$body .= '<li><a href="' . admin_url( 'admin.php?page=wpeomtm-dashboard&term=' . $task->id ) . '">Task link</a></li>';
-		$body .= '</ul>';
-
-		$headers = array( 'Content-Type: text/html; charset=UTF-8' );
-		$headers[] = 'From: ' . $blog_name . ' <' . $admin_email . '>';
-
-		wp_mail( $recipients, $subject, $body, $headers );
-
-		wp_send_json_success( array(
-			'namespace' => 'taskManager',
-			'module' => 'task',
-			'callback_success' => 'notifiedByMail',
-		) );
 	}
 
 	/**
