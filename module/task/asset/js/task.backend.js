@@ -2,7 +2,7 @@
  * Initialise l'objet "task" ainsi que la méthode "init" obligatoire pour la bibliothèque EoxiaJS.
  *
  * @since 1.0.0
- * @version 1.4.0-ford
+ * @version 1.5.0
  */
 window.eoxiaJS.taskManager.task = {};
 window.eoxiaJS.taskManager.task.offset = 0;
@@ -28,6 +28,7 @@ window.eoxiaJS.taskManager.task.event = function() {
 	jQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-task-time-manage .dashicons-editor-ul', window.eoxiaJS.taskManager.task.switchViewToLine );
 	jQuery( window ).scroll( window.eoxiaJS.taskManager.task.onScrollLoadMore );
 	jQuery( '.wpeo-project-wrap' ).on( 'click', '.task-header-action .success span', window.eoxiaJS.taskManager.task.closeSuccess );
+	jQuery( '#poststuff' ).on( 'click', '#wpeo-task-metabox', window.eoxiaJS.taskManager.task.refresh );
 };
 
 /**
