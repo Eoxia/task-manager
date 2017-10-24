@@ -4,7 +4,7 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.0.0
- * @version 1.1.0
+ * @version 1.5.0
  * @copyright 2015-2017 Eoxia
  * @package core
  * @subpackage view
@@ -25,7 +25,10 @@ $tag_list = \eoxia\Config_Util::$init['task-manager-wpshop']->quick_task_tags;
 	$tag_title = '';
 	if ( ! empty( $slug ) ) :
 		$tag_def = get_term_by( 'slug', $slug, Tag_Class::g()->get_taxonomy() );
-		if ( ! is_wp_error( $tag_def ) ) :
+
+		if ( ! $tag_def ) :
+			$tag_title = ' "' . $slug . '"';
+		elseif ( ! is_wp_error( $tag_def ) ) :
 			$tag_title = ' "' . $tag_def->name . '"';
 		endif;
 	endif;
