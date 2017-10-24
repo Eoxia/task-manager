@@ -13,9 +13,9 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} ?>
+}
 
-<?php if ( ! empty( $have_search ) ) : ?>
+if ( ! empty( $have_search ) ) : ?>
 	<?php esc_html_e( 'Results', 'task-manager' ); ?>
 
 	<?php
