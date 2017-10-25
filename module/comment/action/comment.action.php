@@ -139,7 +139,7 @@ class Task_Comment_Action {
 		wp_send_json_success( array(
 			'time' => array(
 				'point' => $comment->point->time_info['elapsed'],
-				'task' => $task->time_info['time_display'] . ' (' . $task->time_info['elapsed'] . 'min)',
+				'task' => \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] ),
 			),
 			'view' => ob_get_clean(),
 			'namespace' => 'taskManager',

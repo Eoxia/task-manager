@@ -23,11 +23,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<li class="wpeo-task-elapsed">
 		<i class="dashicons dashicons-clock"></i>
-		<span class="elapsed tooltip hover" aria-label="<?php echo esc_html_e( 'Elapsed time', 'task-manager' ); ?>"><?php echo esc_html( $task->time_info['time_display'] . ' (' . $task->time_info['elapsed'] . 'min)' ); ?></span>
+		<span class="elapsed tooltip hover" aria-label="<?php echo esc_html_e( 'Elapsed time', 'task-manager' ); ?>"><?php echo esc_html( \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] ) ); ?></span>
 	</li>
 	<li class="wpeo-task-estimated">
 		<?php if ( ! empty( $task->last_history_time->estimated_time ) ) : ?>
-			<span class="estimated tooltip hover" aria-label="<?php echo esc_html_e( 'Estimated time', 'task-manager' ); ?>">/ <?php echo esc_html( $task->time_info['estimated_time_display'] . ' (' . $task->last_history_time->estimated_time . 'min)' ); ?></span>
+			<span class="estimated tooltip hover" aria-label="<?php echo esc_html_e( 'Estimated time', 'task-manager' ); ?>">/ <?php echo esc_html( \eoxia\Date_Util::g()->convert_to_custom_hours( $task->last_history_time->estimated_time ) ); ?></span>
 		<?php endif; ?>
 	</li>
 

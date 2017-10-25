@@ -146,7 +146,7 @@ class Point_Action {
 		$task = Task_Class::g()->update( $task );
 
 		wp_send_json_success( array(
-			'time' => $task->time_info['time_display'] . ' (' . $task->time_info['elapsed'] . 'min)',
+			'time' => \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] ),
 			'namespace' => 'taskManager',
 			'module' => 'point',
 			'callback_success' => 'deletedPointSuccess',
@@ -403,8 +403,8 @@ class Point_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.5.0
 	 */
 	public function ajax_move_point_to() {
 		check_ajax_referer( 'move_point_to' );

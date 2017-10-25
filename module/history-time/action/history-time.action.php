@@ -3,16 +3,17 @@
  * Les actions relatives à l'historique de temps.
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.5.0
  * @copyright 2015-2017 Eoxia
- * @package task
- * @subpackage action
+ * @package Task_Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Les actions relatives à l'historique de temps.
@@ -115,9 +116,9 @@ class History_Time_Action {
 		do_action( 'tm_created_history_time', $history_time_created, $task_id, $due_date, $estimated_time );
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $task_id ),
-			'post_status' => array( 'publish', 'archive' ),
+			'id' => $task_id,
 		), true );
+
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task-header', array(
 			'task' => $task,
@@ -132,12 +133,12 @@ class History_Time_Action {
 		$history_time_view = ob_get_clean();
 
 		wp_send_json_success( array(
-			'task_id'						=> $task_id,
-			'history_time_view'	=> $history_time_view,
-			'task_header_view'	=> $task_header_view,
+			'task_id' => $task_id,
+			'history_time_view' => $history_time_view,
+			'task_header_view' => $task_header_view,
 			'namespace' => 'taskManager',
-			'module'						=> 'historyTime',
-			'callback_success'	=> 'createdHistoryTime',
+			'module' => 'historyTime',
+			'callback_success' => 'createdHistoryTime',
 		) );
 	}
 

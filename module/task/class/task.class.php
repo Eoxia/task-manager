@@ -320,19 +320,8 @@ class Task_Class extends \eoxia\Post_Class {
 			}
 		}
 
-		$format = '%hh %imin';
-		$dtf = new \DateTime( '@0' );
-		$dtt = new \DateTime( '@' . ( $total_time_elapsed * 60 ) );
-		if ( 1440 <= $total_time_elapsed ) {
-			$format = '%aj %hh %imin';
-		}
-		$total_time_elapsed = $dtf->diff( $dtt )->format( $format );
-
-		$dtt = new \DateTime( '@' . ( $total_time_estimated * 60 ) );
-		if ( 1440 <= $total_time_estimated ) {
-			$format = '%aj %hh %imin';
-		}
-		$total_time_estimated = $dtf->diff( $dtt )->format( $format );
+		$total_time_elapsed = \eoxia\Date_Util::g()->convert_to_custom_hours( $total_time_elapsed );
+		$total_time_estimated = \eoxia\Date_Util::g()->convert_to_custom_hours( $total_time_estimated );
 
 		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/metabox-posts', array(
 			'tasks'                 => $tasks,
