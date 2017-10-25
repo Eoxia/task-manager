@@ -6393,6 +6393,68 @@ Popup
   display: block; }
 
 /* ----------------------------------
+		Popup notification
+-----------------------------------*/
+.wpeo-project-wrap .popup-notification > .container {
+  max-width: 460px; }
+
+.wpeo-project-wrap .popup-notification ul:after {
+  display: block;
+  content: '';
+  clear: both; }
+
+.wpeo-project-wrap .popup-notification .follower {
+  float: left;
+  margin: 0.4em; }
+
+.wpeo-project-wrap .popup-notification .follower .user:hover {
+  cursor: pointer !important;
+  -webkit-box-shadow: 0 0 0 1px #3495f0;
+          box-shadow: 0 0 0 1px #3495f0; }
+
+.wpeo-project-wrap .popup-notification .follower img {
+  filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feColorMatrix type="matrix" color-interpolation-filters="sRGB" values="0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0" /></filter></svg>#filter');
+  -webkit-filter: grayscale(100%);
+          filter: grayscale(100%); }
+
+.wpeo-project-wrap .popup-notification .follower.active .user {
+  -webkit-box-shadow: 0 0 0 3px #3495f0;
+          box-shadow: 0 0 0 3px #3495f0; }
+
+.wpeo-project-wrap .popup-notification .follower.active .user img {
+  filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feColorMatrix type="matrix" color-interpolation-filters="sRGB" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0" /></filter></svg>#filter');
+  -webkit-filter: grayscale(0);
+          filter: grayscale(0); }
+
+.wpeo-project-wrap .popup-notification .notify-label {
+  margin-top: 1em; }
+
+.wpeo-project-wrap .popup-notification .notify-label label {
+  font-size: 14px;
+  margin-right: 0.4em; }
+
+.wpeo-project-wrap .popup-notification .notify-label input {
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  margin-top: 0.1em; }
+
+.wpeo-project-wrap .popup-notification .send-notification {
+  background: #389af6;
+  border: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  display: block;
+  margin: .4em 0 .4em auto;
+  color: #fff;
+  padding: .6em;
+  -webkit-transition: all .2s ease-out;
+  -o-transition: all .2s ease-out;
+  transition: all .2s ease-out; }
+
+.wpeo-project-wrap .popup-notification .send-notification:hover {
+  cursor: pointer;
+  background: #69b3f8; }
+
+/* ----------------------------------
 		Responsive
 -----------------------------------*/
 @media (max-width: 1000px) {

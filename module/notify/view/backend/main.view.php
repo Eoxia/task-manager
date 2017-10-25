@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<ul>
+<ul class="list-follower">
 	<?php
 	if ( ! empty( $followers ) ) :
 		foreach ( $followers as $follower ) :
@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <input type="hidden" name="users_id" value="<?php echo esc_attr( implode( ',', $affected_id ) ); ?>" />
 
-<button class="action-input"
+<button class="action-input send-notification"
 			data-parent="popup"
 			data-action="send_notification"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'send_notification' ) ); ?>"
