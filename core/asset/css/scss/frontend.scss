@@ -14,6 +14,18 @@ $green: #47e58e;
 @import "popup";
 @import "theme";
 
+@font-face {
+    font-family: 'kalamregular';
+    src: url('../font/kalam-regular-webfont.eot');
+    src: url('../font/kalam-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/kalam-regular-webfont.woff2') format('woff2'),
+         url('../font/kalam-regular-webfont.woff') format('woff'),
+         url('../font/kalam-regular-webfont.ttf') format('truetype'),
+         url('../font/kalam-regular-webfont.svg#kalamregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 @-moz-document url-prefix() {
 .entry-content {
 	.list-task {
@@ -590,7 +602,9 @@ $green: #47e58e;
 -----------------------------------*/
 .wpeo-project-wrap {
 	.last-activity .content {
-		padding: 1em;
+		> .content {
+			padding: 1em;
+		}
 		/* Jour */
 		.day {
 			position: relative;

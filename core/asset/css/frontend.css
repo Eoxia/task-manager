@@ -3232,6 +3232,13 @@
 .wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-point-new-btn:hover {
   color: #4c257d; }
 
+@font-face {
+  font-family: 'kalamregular';
+  src: url("../font/kalam-regular-webfont.eot");
+  src: url("../font/kalam-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../font/kalam-regular-webfont.woff2") format("woff2"), url("../font/kalam-regular-webfont.woff") format("woff"), url("../font/kalam-regular-webfont.ttf") format("truetype"), url("../font/kalam-regular-webfont.svg#kalamregular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
 @-moz-document url-prefix() {
   .entry-content .list-task .wpeo-project-task {
     overflow: hidden !important; } }
@@ -3867,9 +3874,11 @@
 		Affichage historique
 -----------------------------------*/
 .wpeo-project-wrap .last-activity .content {
-  padding: 1em;
   /* Jour */
   /* Activity single */ }
+
+.wpeo-project-wrap .last-activity .content > .content {
+  padding: 1em; }
 
 .wpeo-project-wrap .last-activity .content .day {
   position: relative;

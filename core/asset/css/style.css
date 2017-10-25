@@ -5097,9 +5097,11 @@ Popup
 		Affichage historique
 -----------------------------------*/
 .wpeo-project-wrap .activities .content {
-  padding: 1em;
   /* Jour */
   /* Activity single */ }
+
+.wpeo-project-wrap .activities .content > .content {
+  padding: 1em; }
 
 .wpeo-project-wrap .activities .content .day {
   position: relative;
