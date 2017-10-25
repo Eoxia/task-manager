@@ -25,7 +25,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				data-loader="point"
 				data-task-id="<?php echo esc_attr( $point->post_id ); ?>"
 				data-point-id="<?php echo esc_attr( $point->id ); ?>">
-			<i class="fa fa-arrow-right" aria-hidden="true"></i>
+
+				<i class="icon-toggle fa fa-angle-right" aria-hidden="true"></i>
 
 			<?php if ( ! empty( $point->id ) ) : ?>
 				<span class="wpeo-block-id">#<?php echo esc_attr( $point->id ); ?></span>

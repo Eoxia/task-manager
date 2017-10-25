@@ -5,12 +5,14 @@ $second-color: rgba(0,0,0,0.6);
 $a: #3495f0;
 $dark_a: #1360c8;
 $grey: #d6d6d6;
+$green: #47e58e;
 
 @import "animation";
 @import "font/font";
 @import "loader";
 @import "tooltip";
 @import "popup";
+@import "theme";
 
 @-moz-document url-prefix() {
 .entry-content {
@@ -28,6 +30,7 @@ $grey: #d6d6d6;
 .wpeo-project-wrap {
 	ul, li {
 		list-style: none;
+		margin: 0;
 	}
 	* {
 		margin: 0;
@@ -75,11 +78,13 @@ $grey: #d6d6d6;
 			margin: auto 0;
 		}
 		.wpeo-task-id {
-			width: 10%;
 			font-weight: 800;
+			min-width: 80px;
+			max-width: 80px;
+			width: 100%;
 		}
 		.wpeo-task-title {
-			width: 70%;
+			width: 100%;
 			padding: 0 0 0 8px;
 			h2 {
 				font-weight: 300;
@@ -90,7 +95,9 @@ $grey: #d6d6d6;
 			}
 		}
 		.wpeo-task-elapsed {
-			width: 20%;
+			min-width: 200px;
+			max-width: 200px;
+			width: 100%;
 			position: relative;
 			text-align: right;
 			margin-left: auto;
@@ -122,8 +129,13 @@ $grey: #d6d6d6;
 				flex-direction: row;
 			}
 			.point-action {
-				width: 14%;
+				min-width: 120px;
+				max-width: 120px;
+				width: 100%;
 				margin-left: auto;
+				.wpeo-point-time, .wpeo-point-comment {
+					margin-left: auto;
+				}
 				.wpeo-point-time {
 					.dashicons-clock, span {
 						float: left;
@@ -137,23 +149,26 @@ $grey: #d6d6d6;
 				}
 			}
 			.point-toggle {
-				width: 14%;
+				min-width: 80px;
+				max-width: 80px;
+				width: 100%;
 				.action-attribute, .wpeo-block-id {
 					margin: auto 0;
 				}
-				.action-attribute {
+				.icon-toggle {
 					font-size: 16px;
 					color: rgba(0,0,0,0.6);
 					transition: all 0.2s ease-out;
 					line-height: 1.2;
+					padding-right: 0.4em;
 					&:hover {
 						cursor: pointer;
 						color: rgba(0,0,0,0.9);
 						animation-duration: 0.6s;
-						&.dashicons-arrow-right-alt2 {
+						&.fa-angle-right {
 							animation-name: bounceLeft;
 						}
-						&.dashicons-arrow-down-alt2 {
+						&.fa-angle-down {
 							animation-name: bounceTop;
 						}
 					}
@@ -163,8 +178,8 @@ $grey: #d6d6d6;
 				}
 			}
 			.point-content {
-				width: 72%;
-				min-width: 72%;
+				width: 100%;
+				// min-width: 72%;
 			}
 			.point-action {
 				.dashicons {
@@ -462,297 +477,6 @@ $grey: #d6d6d6;
 }
 
 
-
-// /* Reset */
-// .wpeo-project-wrap {
-// 	clear: both;
-// 	font-family: 'Open Sans', sans-serif;
-// 	font-size: 14px;
-// 	font-weight: 400;
-// 	* {
-// 		margin: 0;
-// 		padding: 0;
-// 		box-sizing: border-box;
-// 	}
-// 	ul, li {
-// 		list-style-type: none !important;
-// 		list-style: none !important;
-// 	}
-// }
-//
-// /* Main container */
-// .wpeo-project-wrap {
-// 	display: flex;
-// 	flex-direction: row;
-// 	.wpeo-project-task {
-// 		width: 100%;
-// 	}
-// 	.wpeo-window-dashboard {
-// 		min-width: 360px;
-// 	}
-// 	.wpeo-project-task {
-// 		padding: 10px 20px 10px 10px;
-// 	}
-// 	.wpeo-window-dashboard {
-// 		padding-top: 10px;
-// 	}
-// 	.dashicons {
-// 		color: rgba(0,0,0,0.8);
-// 	}
-// }
-//
-// /* Liste des taches */
-// .list-task {
-// 	.wpeo-project-task {
-// 		background: #fff;
-// 		box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.2);
-// 		margin-bottom: 20px;
-// 		/*header*/
-// 		header {
-// 			border-bottom: 1px solid rgba(0,0,0,0.2);
-// 			padding: 12px;
-// 			display: flex;
-// 			flex-direction: row;
-// 			h2 {
-// 				font-size: 14px;
-// 				font-weight: 700;
-// 				margin: auto 0;
-// 			}
-// 			.task-time {
-// 				margin: auto 0 auto auto;
-// 				min-width: 90px;
-// 				text-align: right;
-// 			}
-// 			.dashicons {
-// 				line-height: 1.2;
-// 			}
-// 		}
-// 		/*content*/
-// 		.wpeo-task-point {
-// 			padding: 12px;
-// 			li {
-// 				display: flex;
-// 				flex-direction: row;
-// 				padding: 6px 0;
-// 				&:hover {
-// 					cursor: pointer;
-// 					.point-content {
-// 						color: $main-color;
-// 						border-bottom: 1px solid rgba(0,0,0,0.3);
-// 					}
-// 				}
-// 			}
-// 			.point-info {
-// 				min-width: 70px;
-// 				text-align: right;
-// 				margin: auto 0 auto auto;
-//
-// 				.dashicons {
-// 					line-height: 1.2;
-// 				}
-// 			}
-// 			.point-content {
-// 				padding-bottom: 4px;
-// 				transition: all 0.2s ease-out;
-// 				width: 100%;
-// 				border-bottom: 1px solid rgba(0,0,0,0.1);
-// 				&.active {
-// 					color: $main-color;
-// 					border-bottom: 1px solid rgba(0,0,0,0.3);
-// 				}
-// 			}
-// 			.wpeo-task-point-use-toggle {
-// 				text-align: center;
-// 				position: relative;
-// 				border-top: 1px solid rgba(0,0,0,0.2);
-// 				margin-top: 20px;
-// 				padding-bottom: 0;
-// 				&:hover {
-// 					.wpeo-point-toggle-arrow {
-// 						background: $main-color;
-// 					}
-// 				}
-// 				p {
-// 					margin: 0;
-// 					position: relative;
-// 					top: -20px;
-// 					background: #fff;
-// 					left: 50%;
-// 					transform: translateX(-50%);
-// 					padding: 0 10px;
-// 				}
-// 				.wpeo-point-toggle-arrow {
-// 					background: rgba(0,0,0,0.3);
-// 					color: #fff;
-// 					border-radius: 50%;
-// 					font-size: 14px;
-// 					padding: 4px 0;
-// 					margin: 2px 4px 0 0;
-// 					transition: all 0.2s ease-out;
-// 					min-width: 20px;
-// 				}
-// 			}
-// 			.completed-point {
-// 				&.hidden  {
-// 					display: none;
-// 				}
-// 			}
-// 		}
-// 	}
-// }
-//
-// /* Window */
-// .wpeo-window-dashboard {
-// 	.wpeo-task-account-window-content {
-// 		width: 360px;
-// 		background: #fff;
-// 		box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.2);
-// 		padding: 10px;
-// 		max-height: 600px;
-// 		overflow-y: scroll;
-// 		&.fixe {
-// 			position: fixed;
-// 			top: 0;
-// 		}
-// 	}
-// 	#wpeo-task-form-point-time {
-// 		border: 1px solid rgba(0,0,0,0.1);
-// 		background: rgba(0,0,0,0.05);
-// 		padding: 10px;
-// 		.wpeo-task-form-input > div {
-// 			display: flex;
-// 			flex-direction: row;
-// 			textarea {
-// 				font-size: 14px;
-// 				font-family: 'Open Sans', sans-serif;
-// 				line-height: 1;
-// 				background: #fff;
-// 				width: 100%;
-// 				border: 1px solid rgba(0,0,0,0.4);
-// 				transition: all 0.2s ease-out;
-// 				padding: 4px;
-// 				&:focus {
-// 					outline: none;
-// 				}
-// 				&:hover, &:focus {
-// 					border: 1px solid rgba(0,0,0,0.8);
-// 				}
-// 			}
-// 			.wpeo-submit {
-// 				border-radius: 50%;
-// 				background: $main-color;
-// 				width: 22px;
-// 				min-width: 22px;
-// 				height: 22px;
-// 				text-align: center;
-// 				line-height: 22px;
-// 				margin: auto 0 auto 4px;
-// 				padding: 0;
-// 				border: 0;
-// 				color: #fff;
-// 				transition: all 0.2s ease-out;
-// 				&:focus {
-// 					outline: none;
-// 				}
-// 				&:hover {
-// 					background: #6fb9ff;
-// 				}
-// 			}
-// 		}
-// 	}
-// 	.wpeo-point-no-comment {
-// 		font-size: 12px;
-// 		font-style: italic;
-// 		color: rgba(0,0,0,0.4);
-// 		line-height: 1.1;
-// 	}
-// 	#wpeo-task-point-history {
-// 		.user {
-// 			border-radius: 50%;
-// 			width: 26px;
-// 			height: 26px;
-// 			background: $main-color;
-// 			color: #fff;
-// 			position: relative;
-// 			transition: all 0.2s ease-out;
-// 			img {
-// 				position: absolute;
-// 				top: 0;
-// 				left: 0;
-// 				width: 100%;
-// 				height: 100%;
-// 			}
-// 			.wpeo-avatar-initial {
-// 				display: flex;
-// 				height: 100%;
-// 			}
-// 			span {
-// 				color: #fff;
-// 				text-align: center;
-// 				margin: auto;
-// 				display: inline-block;
-// 				width: 100%;
-// 			}
-// 		}
-// 		.wpeo-point-comment {
-// 			padding: 6px 0;
-// 			margin-bottom: 6px;
-// 			border-bottom: 1px solid rgba(0,0,0,0.1);
-// 			&:last-child {
-// 				border-bottom: 0;
-// 			}
-// 			.name, .date {
-// 				font-size: 12px;
-// 				color: rgba(0,0,0,0.6);
-// 			}
-// 			.name {
-// 				&:after {
-// 					content: ',';
-// 				}
-// 			}
-// 			.date {
-// 				line-height: 2;
-// 			}
-// 			.action {
-// 				float: right;
-// 				font-weight: bold;
-// 				.wpeo-point-time-edit-btn {
-// 					color: #389af6;
-// 				}
-// 				.wpeo-send-point-time-to-trash {
-// 					color: #da5b5b;
-// 				}
-// 				.wpeo-point-time-edit-btn, .wpeo-send-point-time-to-trash {
-// 					&:hover {
-// 						cursor: pointer;
-// 					}
-// 				}
-// 			}
-// 			.comment {
-// 				clear: both;
-// 				float: none;
-// 				font-size: 12px;
-// 				margin: 0;
-// 				padding-top: 10px;
-// 			}
-// 			li {
-// 				float: left;
-// 				margin-right: 10px;
-// 				&:nth-of-type(2), &:nth-of-type(3) {
-// 					line-height: 2;
-// 				}
-// 				&:nth-of-type(2) {
-// 					color: $second-color;
-// 					font-size: 13px;
-// 				}
-// 				&:last-child {
-// 				}
-// 			}
-// 		}
-// 	}
-// }
-//
-//
 .wpeo-window-ask-task-container {
 	display: flex;
   a {
@@ -856,6 +580,148 @@ $grey: #d6d6d6;
 		.dashicons {
 			color: #fff;
 			line-height: 20px;
+		}
+	}
+}
+
+
+/* ----------------------------------
+		Affichage historique
+-----------------------------------*/
+.wpeo-project-wrap {
+	.last-activity .content {
+		padding: 1em;
+		/* Jour */
+		.day {
+			position: relative;
+			padding: 0.6em 0;
+			clear: both;
+			.label {
+				font-size: 12px;
+				font-weight: 900;
+				color: #000;
+				text-transform: uppercase;
+				display: inline-block;
+				background: #fff;
+				position: relative;
+				z-index: 50;
+				padding-right: 1em;
+			}
+			&:after {
+				display: block;
+				content: '';
+				height: 1px;
+				width: 100%;
+				position: absolute;
+				top: 50%;
+				left: 0;
+				background: rgba(0,0,0,0.05);
+			}
+		}
+
+		/* Activity single */
+		.activity {
+			padding: 0.6em 0;
+			display: flex;
+			flex-direction: row;
+
+			.information {
+				width: 100%;
+				max-width: 50px;
+				position: relative;
+				.user {
+					border-radius: 50%;
+					border: 2px solid #fff;
+					z-index: 50;
+					img, .wpeo-avatar-initial {
+						border-radius: 50%;
+					}
+				}
+				.type {
+					display: block;
+					width: 22px;
+					height: 22px;
+					background: rgba(0,0,0,0.1);
+					color: rgba(0,0,0,0.5);
+					line-height: 22px;
+					text-align: center;
+					font-size: 14px;
+					position: absolute;
+					top: 0;
+					right: 4px;
+					border-radius: 4px;
+					&:before {
+						font-family: FontAwesome;
+					}
+				}
+			}
+			.content {
+				width: 100%;
+				padding-left: 1em;
+				margin: auto 0;
+
+				.event-header {
+					display: flex;
+					.event-title {
+						width: auto;
+					}
+					.event-time {
+						margin-left: auto;
+					}
+				}
+				.event-title {
+					font-weight: 700;
+					display: block;
+					margin-bottom: 0.4em;
+				}
+				.event-content {
+					font-family: 'kalamregular';
+				}
+			}
+
+			/* Point crée */
+			&.created-point {
+				.information .type:before {
+					content: $fa-var-list-ul;
+				}
+			}
+			/* Commentaire crée */
+			&.created-comment {
+				.information .type:before {
+					content: $fa-var-commenting-o;
+				}
+			}
+			/* Point validé */
+			&.completed-point {
+				.information .type {
+					background: $green;
+					color: #fff;
+					&:before {
+						content: $fa-var-check;
+					}
+				}
+				.content .event-title {
+					text-decoration: line-through;
+				}
+			}
+		}
+	}
+
+	.activities {
+		/* bouton load more */
+		.load-more-history {
+			background: $main-color;
+			border: 0;
+			box-shadow: none;
+			display: block;
+			margin: 0.4em auto;
+			color: #fff;
+			padding: 0.6em;
+			transition: all 0.2s ease-out;
+			&:hover {
+				cursor: pointer;
+				background: lighten($main-color, 10%);
+			}
 		}
 	}
 }
