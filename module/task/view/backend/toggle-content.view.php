@@ -75,6 +75,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			aria-label="<?php esc_html_e( 'Notify team', 'task-manager' ); ?>"
 			data-parent="wpeo-project-task"
 			data-target="popup"
+			data-class="popup-notification"
 			data-action="load_notify_popup"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_notify_popup' ) ); ?>"
 			data-title="<?php echo esc_attr_e( '#' . $task->id . ' Notify popup', 'task-manager' ); ?>"
