@@ -13,15 +13,23 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-}
+} ?>
 
-\eoxia\View_Util::exec( 'task-manager', 'notify', 'backend/list-admin', array(
-	'followers' => $followers,
-	'task' => $task,
-	'affected_id' => $affected_id,
-) );
+<ul>
+	<?php
+	if ( ! empty( $followers ) ) :
+		foreach ( $followers as $follower ) :
+			?>
+			<li>
+				<?php echo do_shortcode( '[task_avatar ids=' . $follower->id . ']' ); ?>
+			</li>
+			<?php
+		endforeach;
+	endif;
+	?>
+</ul>
 
-echo apply_filters( 'task_manager_popup_notify_after', '', $task ); ?>
+<?php echo apply_filters( 'task_manager_popup_notify_after', '', $task ); ?>
 
 <button class="action-input"
 			data-parent="popup"
