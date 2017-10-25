@@ -130,6 +130,8 @@ class Notify_Action {
 		$headers[] = 'From: ' . $blog_name . ' <' . $admin_email . '>';
 
 		$recipients = apply_filters( 'task_manager_notify_send_notification_recipients', $recipients, $task, $_POST );
+		$subject = apply_filters( 'task_manager_notify_send_notification_subject', $subject, $task, $_POST );
+		$body = apply_filters( 'task_manager_notify_send_notification_body', $subject, $task, $_POST );
 
 		if ( wp_mail( $recipients, $subject, $body, $headers ) ) {
 			\eoxia\LOG_Util::log( sprintf( 'Send the task %1$d to %2$s success', $task->id, implode( ',', $recipients ) ), 'task-manager' );
