@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	if ( ! empty( $followers ) ) :
 		foreach ( $followers as $follower ) :
 			?>
-			<li>
+			<li class="follower <?php echo ( in_array( $follower->id, $task->user_info['affected_id'], true ) || $follower->id === $task->user_info['owner_id'] ) ? 'active' : ''; ?>" data-id="<?php echo esc_attr( $follower->id ); ?>" style="width: 50px; height: 50px;">
 				<?php echo do_shortcode( '[task_avatar ids=' . $follower->id . ']' ); ?>
 			</li>
 			<?php
@@ -30,6 +30,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 </ul>
 
 <?php echo apply_filters( 'task_manager_popup_notify_after', '', $task ); ?>
+
+<input type="hidden" name="users_id" value="<?php echo esc_attr( implode( ',', $affected_id ) ); ?>" />
 
 <button class="action-input"
 			data-parent="popup"
