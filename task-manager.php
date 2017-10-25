@@ -30,3 +30,5 @@ DEFINE( 'PLUGIN_TASK_MANAGER_DIR', basename( __DIR__ ) );
 require_once( 'core/external/eo-framework/eo-framework.php' );
 
 \eoxia\Init_util::g()->exec( PLUGIN_TASK_MANAGER_PATH, basename( __FILE__, '.php' ) );
+
+\eoxia\Config_Util::$init['eo-framework']->hour_equal_one_day = 7;
