@@ -1161,7 +1161,10 @@ Popup
 -----------------------------------*/
 .wpeo-project-wrap {
 	.activities .content {
-		padding: 1em;
+
+		> .content {
+			padding: 1em;
+		}
 		/* Jour */
 		.day {
 			position: relative;
