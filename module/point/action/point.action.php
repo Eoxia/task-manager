@@ -45,8 +45,8 @@ class Point_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.5.0
 	 */
 	public function ajax_edit_point() {
 		check_ajax_referer( 'edit_point' );
@@ -63,7 +63,7 @@ class Point_Action {
 			)
 		) );
 
-		if ( empty( $parent_id ) || empty( $content ) ) {
+		if ( empty( $parent_id ) ) {
 			wp_send_json_error();
 		}
 
