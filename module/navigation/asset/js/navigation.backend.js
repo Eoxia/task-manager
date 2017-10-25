@@ -56,6 +56,8 @@ window.eoxiaJS.taskManager.navigation.loadedMyTask = function( triggeredElement,
 
 	jQuery( '.wpeo-header-bar li.active' ).removeClass( 'active' );
 	jQuery( triggeredElement ).addClass( 'active' );
+
+	window.eoxiaJS.refresh();
 };
 
 /**
