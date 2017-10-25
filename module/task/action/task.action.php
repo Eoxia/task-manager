@@ -83,8 +83,8 @@ class Task_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.5.0
 	 */
 	public function callback_create_task() {
 		check_ajax_referer( 'create_task' );
@@ -93,7 +93,7 @@ class Task_Action {
 		$tag_slug_selected = ! empty( $_POST['tag'] ) ? sanitize_text_field( $_POST['tag'] ) : 0;
 
 		$task = Task_Class::g()->create( array(
-			'title' 		=> __( 'New task', 'task-manager' ),
+			'title' => __( 'New task', 'task-manager' ),
 			'parent_id' => $parent_id,
 		) );
 
@@ -158,8 +158,8 @@ class Task_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.5.0
 	 */
 	public function callback_edit_title() {
 		check_ajax_referer( 'edit_title' );
@@ -167,8 +167,12 @@ class Task_Action {
 		$task_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
 		$title = ! empty( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : '';
 
+		if ( empty( $task_id ) ) {
+			wp_send_json_error();
+		}
+
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $task_id ),
+			'id' => $task_id,
 		), true );
 
 		$task->title = $title;
@@ -183,8 +187,8 @@ class Task_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.5.0
 	 */
 	public function callback_change_color() {
 		check_ajax_referer( 'change_color' );
@@ -193,7 +197,7 @@ class Task_Action {
 		$color = ! empty( $_POST['color'] ) ? sanitize_text_field( $_POST['color'] ) : '';
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $id ),
+			'id' => $id,
 		), true );
 
 		$task->front_info['display_color'] = $color;
