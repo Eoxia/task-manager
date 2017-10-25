@@ -27,7 +27,7 @@ window.eoxiaJS.taskManager.notify.init = function() {
  * @return {void}
  */
 window.eoxiaJS.taskManager.notify.event = function() {
-	jQuery( '.wpeo-project-wrap' ).on( 'click', '.popup .wpeo-ul-users .follower', window.eoxiaJS.taskManager.notify.selectUser );
+	jQuery( '.wpeo-project-wrap' ).on( 'click', '.popup.popup-notification ul li', window.eoxiaJS.taskManager.notify.selectUser );
 };
 
 /**
@@ -40,7 +40,7 @@ window.eoxiaJS.taskManager.notify.event = function() {
  */
 window.eoxiaJS.taskManager.notify.selectUser = function() {
 	var index = 0;
-	var popup = jQuery( this ).closest( '.popup' );
+	var popup = jQuery( this ).closest( '.popup.popup-notification' );
 	var input = popup.find( 'input[name="users_id"]' );
 	var currentVal = input.val();
 
