@@ -225,6 +225,7 @@ window.eoxiaJS.taskManager.task.loadedAllTask = function( triggeredElement, resp
 
 	jQuery( '.wpeo-header-bar li.active' ).removeClass( 'active' );
 	jQuery( triggeredElement ).addClass( 'active' );
+	window.eoxiaJS.refresh();
 };
 
 /**
@@ -254,6 +255,7 @@ window.eoxiaJS.taskManager.task.loadedCorretiveTaskSuccess = function( triggered
 
 	jQuery( '.wpeo-header-bar li.active' ).removeClass( 'active' );
 	jQuery( triggeredElement ).addClass( 'active' );
+	window.eoxiaJS.refresh();
 };
 
 /**
