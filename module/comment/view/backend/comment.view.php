@@ -47,6 +47,6 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 				</ul>
 			</div>
 		</li>
-		<li class="wpeo-comment-content"><?php echo nl2br( $comment->content ); ?></li>
+		<li class="wpeo-comment-content"><?php echo nl2br( stripslashes( $comment->content ) ); ?></li>
 	</ul>
 </li>
