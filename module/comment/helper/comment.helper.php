@@ -2,14 +2,16 @@
 /**
  * Fonctions helpers des commentaires
  *
- * @since 1.3.6.0
- * @version 1.3.6.0
- * @package Task-Manager\comment
+ * @since 1.3.6
+ * @version 1.5.0
+ * @package Task_Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Compile le temps du commentaire dans le point parent et la tâche parente.
@@ -18,13 +20,12 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
  *
  * @return Task_Comment_Class Les données de l'objet modifié.
  *
- * @since 1.3.6.0
- * @version 1.3.6.0
+ * @since 1.3.6
+ * @version 1.5.0
  */
 function compile_time( $data ) {
 	$point = Point_Class::g()->get( array(
-		'status' => '-34070',
-		'comment__in' => array( $data->parent_id ),
+		'id' => $data->parent_id,
 	), true );
 
 	$task = Task_Class::g()->get( array(
@@ -37,8 +38,7 @@ function compile_time( $data ) {
 	} else {
 		if ( 0 !== $data->id ) {
 			$comment = Task_Comment_Class::g()->get( array(
-				'status' => '-34070',
-				'comment__in' => array( $data->id ),
+				'id' => $data->id,
 			), true );
 
 			$point->time_info['elapsed'] -= $comment->time_info['elapsed'];
@@ -49,6 +49,7 @@ function compile_time( $data ) {
 		$task->time_info['elapsed'] += $data->time_info['elapsed'];
 	}
 
+	$point->content = addslashes( $point->content );
 	$data->point = Point_Class::g()->update( $point );
 	$data->task = Task_Class::g()->update( $task );
 
