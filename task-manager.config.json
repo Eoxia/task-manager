@@ -5,7 +5,8 @@
 	"description": "L'application Task Manager",
 	"insert_scripts_pages": [
 		"toplevel_page_wpeomtm-dashboard",
-		"toplevel_page_digirisk-simple-risk-evaluation"
+		"toplevel_page_digirisk-simple-risk-evaluation",
+		"tache_page_task-manager-time-exceeded"
 	],
 	"externals": [],
 	"modules": [
@@ -25,6 +26,7 @@
 		"module/liaison-post-type/liaison-post-type.config.json",
 		"module/shortcode-help/shortcode-help.config.json",
 		"module/admin-bar/admin-bar.config.json",
+		"module/time_exceeded/time_exceeded.config.json",
 		"module/timeline/timeline.config.json",
 		"module/activity/activity.config.json",
 		"module/tools/tools.config.json"
