@@ -144,8 +144,6 @@ class Activity_Action {
 			$query_args = array(
 				'action'   => 'open_popup_user_activity',
 				'_wpnonce' => wp_create_nonce( 'load_user_activity' ),
-				'width'    => '1024',
-				'height'   => '768px',
 				'first_load'   => true,
 			);
 			$wp_admin_bar->add_menu( array(
