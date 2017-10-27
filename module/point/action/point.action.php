@@ -73,6 +73,8 @@ class Point_Action {
 			'content' => $content,
 		) );
 
+		$point->content = stripslashes( $point->content );
+
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
 			'point' => $point,
