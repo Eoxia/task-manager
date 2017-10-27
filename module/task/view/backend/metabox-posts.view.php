@@ -6,8 +6,7 @@
  * @since 1.5.0
  * @version 1.5.0
  * @copyright 2015-2017 Eoxia
- * @package task
- * @subpackage view
+ * @package Task_Manager
  */
 
 namespace task_manager;
@@ -20,12 +19,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<p class="alignright"><?php esc_html_e( 'Total time past', 'task-manager' ); ?> : <?php echo esc_html( $total_time_elapsed ); ?> / <?php echo esc_html( $total_time_estimated ); ?></p>
 		<span class="open-popup-ajax dashicons dashicons-screenoptions alignright"
 					data-parent="wpeo-project-wrap"
-					data-target="last-activity"
+					data-target="popup"
 					data-action="load_last_activity"
+					data-class="last-activity activities"
 					data-tasks-id="<?php echo esc_attr( $task_ids_for_history ); ?>"
 					data-title="<?php echo esc_attr( 'Last activities', 'task-manager' ); ?>"></span>
 
-		<div class="popup last-activity activities">
+		<div class="popup">
 			<div class="container">
 				<div class="header">
 					<h2 class="title"></h2>
