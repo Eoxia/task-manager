@@ -2,15 +2,16 @@
 /**
  * Gestion des commentaires
  *
- * @since 1.3.4.0
- * @version 1.3.6.0
- * @package Task-Manager\comment
+ * @since 1.3.4
+ * @version 1.5.0
+ * @package Task_Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
-
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Gestion des commentaires
@@ -22,14 +23,14 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 	 *
 	 * @var string
 	 */
-	protected $model_name 	= 'task_manager\Task_Comment_Model';
+	protected $model_name = 'task_manager\Task_Comment_Model';
 
 	/**
 	 * La clé principale du modèle
 	 *
 	 * @var string
 	 */
-	protected $meta_key		= 'wpeo_time';
+	protected $meta_key = 'wpeo_time';
 
 	/**
 	 * La route pour la rest API
@@ -66,8 +67,8 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 	 */
 	protected $before_put_function = array( '\task_manager\compile_time' );
 
-	protected $after_post_function = array( );
-	protected $after_put_function = array( );
+	protected $after_post_function = array();
+	protected $after_put_function = array();
 
 	/**
 	 * Récupères les commentaires d'un point.
