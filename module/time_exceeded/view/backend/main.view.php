@@ -28,8 +28,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<label for="end_date"><?php esc_html_e( 'End date', 'task-manager' ); ?></label>
 		<input type="date" id="end_date" name="end_date" value="<?php echo esc_attr( $end_date ); ?>" />
 
-		<label for="max_exceeded_time"><?php esc_html_e( 'Max exceeded time', 'task-manager' ); ?></label>
-		<input type="text" id="max_exceeded_time" name="max_exceeded_time" value="<?php echo esc_attr( $max_exceeded_time ); ?>" />
+		<label for="min_exceeded_time"><?php esc_html_e( 'Min exceeded time', 'task-manager' ); ?></label>
+		<input type="text" id="min_exceeded_time" name="min_exceeded_time" value="<?php echo esc_attr( $min_exceeded_time ); ?>" />
+
+		<label for="require_time_history"><?php esc_html_e( 'Require time history' ); ?></label>
+		<input type="checkbox" id="require_time_history" name="require_time_history" />
+
 		<input type="button" class="action-input" data-parent="form" value="<?php echo esc_html_e( 'Filter', 'task-manager' ); ?>" />
 	</div>
 
@@ -45,7 +49,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</thead>
 
 		<tbody>
-			<?php Time_Exceeded_Class::g()->display( $start_date, $end_date, $max_exceeded_time ); ?>
+			<?php Time_Exceeded_Class::g()->display( $start_date, $end_date, $min_exceeded_time ); ?>
 		</tbody>
 	</table>
 </div>

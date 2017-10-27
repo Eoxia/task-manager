@@ -54,15 +54,13 @@ class Time_Exceeded_Action {
 	public function callback_load_time_exceeded() {
 		check_ajax_referer( 'load_time_exceeded' );
 
-		$max_time_exceeded = ! empty( $_POST['max_exceeded_time'] ) ? (int) $_POST['max_exceeded_time'] : \eoxia\Config_Util::$init['task-manager']->time_exceeded->default_time_exceeded;
+		$require_time_history = ( ! empty( $_POST['require_time_history'] ) && $_POST['require_time_history'] === 'true' ) ? true : false; // Toujours sur ON. A corrigé après manger.
+		$min_exceeded_time = ! empty( $_POST['min_exceeded_time'] ) ? (int) $_POST['min_exceeded_time'] : \eoxia\Config_Util::$init['task-manager']->time_exceeded->default_time_exceeded;
 		$start_date = ! empty( $_POST['start_date'] ) ? sanitize_text_field( $_POST['start_date'] ) : '';
 		$end_date = ! empty( $_POST['end_date'] ) ? sanitize_text_field( $_POST['end_date'] ) : '';
 
-		$start_date .= ' 00:00:00';
-		$end_date .= ' 23:59:59';
-
 		ob_start();
-		Time_Exceeded_Class::g()->display( $start_date, $end_date, $max_time_exceeded );
+		Time_Exceeded_Class::g()->display( $start_date, $end_date, $min_exceeded_time, $require_time_history );
 		wp_send_json_success( array(
 			'namespace' => 'taskManager',
 			'module' => 'timeExceeded',

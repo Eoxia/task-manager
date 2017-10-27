@@ -39,7 +39,7 @@ class Time_Exceeded_Class extends \eoxia\Singleton_Util {
 	 * @return void
 	 */
 	public function callback_submenu_page() {
-		$max_exceeded_time = \eoxia\Config_Util::$init['task-manager']->time_exceeded->default_time_exceeded;
+		$min_exceeded_time = \eoxia\Config_Util::$init['task-manager']->time_exceeded->default_time_exceeded;
 		$start_date = new \DateTime( 'first day of this month' );
 		$start_date = $start_date->format( 'Y-m-d' );
 		$end_date = new \DateTime( 'last day of this month' );
@@ -48,7 +48,7 @@ class Time_Exceeded_Class extends \eoxia\Singleton_Util {
 		\eoxia\View_Util::exec( 'task-manager', 'time_exceeded', 'backend/main', array(
 			'start_date' => $start_date,
 			'end_date' => $end_date,
-			'max_exceeded_time' => $max_exceeded_time,
+			'min_exceeded_time' => $min_exceeded_time,
 		) );
 	}
 
@@ -60,11 +60,11 @@ class Time_Exceeded_Class extends \eoxia\Singleton_Util {
 	 *
 	 * @param string  $start_date        La date de début au format mysql.
 	 * @param string  $end_date          La date de fin au format mysql.
-	 * @param integer $max_time_exceeded Le temps dépassé maximum.
+	 * @param integer $min_time_exceeded Le temps dépassé minimum.
 	 *
 	 * @return void
 	 */
-	public function display( $start_date, $end_date, $max_time_exceeded ) {
+	public function display( $start_date, $end_date, $min_time_exceeded, $require_time_history = false ) {
 		$tasks = Task_Class::g()->get( array(
 			'date_query' => array(
 				array(
@@ -78,23 +78,41 @@ class Time_Exceeded_Class extends \eoxia\Singleton_Util {
 					'inclusive' => true,
 				),
 			),
-			'post_parent' => 188,
 			'posts_per_page' => -1,
 		) );
 		$tasks_exceed_time = array();
 
 		if ( ! empty( $tasks ) ) {
 			foreach ( $tasks as $key => $task ) {
-				if ( ! empty( $task->last_history_time ) ) {
 
-					if ( ! empty( $task->last_history_time->id ) && ( $task->time_info['elapsed'] - $task->last_history_time->estimated_time ) <= $max_time_exceeded ) {
+				if ( $require_time_history ) {
+
+					if ( ! empty( $task->last_history_time ) && ! empty( $task->last_history_time->id ) && ( $task->time_info['elapsed'] - $task->last_history_time->estimated_time ) > $min_time_exceeded ) {
 						$tasks_exceed_time[] = $task;
 					}
 
-					$task->display_estimated = $task->last_history_time->estimated_time;
+					$task->time_displayed = \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] ) . ' / ' . \eoxia\Date_Util::g()->convert_to_custom_hours( $task->last_history_time->estimated_time );
 					$task->diff_time = $task->time_info['elapsed'] - $task->last_history_time->estimated_time;
+
+				} else {
+					if ( $task->time_info['elapsed'] > $min_time_exceeded ) {
+						$tasks_exceed_time[] = $task;
+
+						$task->time_displayed = \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] );
+						$task->diff_time = $task->time_info['elapsed'] - $min_time_exceeded;
+					}
 				}
 
+				$task->time_exceeded_displayed = '';
+
+				if ( ! empty( $task->diff_time ) ) {
+					$task->time_exceeded_displayed = \eoxia\Date_Util::g()->convert_to_custom_hours( $task->diff_time );
+				}
+			}
+		}
+
+		if ( ! empty( $tasks_exceed_time ) ) {
+			foreach ( $tasks_exceed_time as $task ) {
 				$task->task_parent = __( 'No parent', 'task-manager' );
 
 				if ( ! empty( $task->parent_id ) ) {

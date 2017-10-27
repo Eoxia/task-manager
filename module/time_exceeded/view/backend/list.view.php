@@ -32,8 +32,8 @@ if ( ! empty( $tasks_exceed_time ) ) :
 				<?php endif ; ?>
 			</td>
 
-			<td><?php echo esc_html( \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] ) . ' / ' . \eoxia\Date_Util::g()->convert_to_custom_hours( $task->display_estimated ) ); ?></td>
-			<td><?php echo esc_html( \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] - $task->display_estimated ) ); ?></td>
+			<td><?php echo esc_html( $task->time_displayed ); ?></td>
+			<td><?php echo esc_html( $task->time_exceeded_displayed ); ?></td>
 		</tr>
 		<?php
 	endforeach;
