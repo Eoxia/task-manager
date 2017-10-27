@@ -37,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</li>
 
 			<li class="point-content content">
-				<input type="hidden" name="content" value="<?php echo esc_attr( $point->content ); ?>" />
+				<input type="hidden" name="content" value="<?php echo esc_attr( trim( $point->content ) ); ?>" />
 				<div class="wpeo-point-new-contenteditable" contenteditable="true"><?php echo trim( $point->content ); ?></div>
 				<?php if ( empty( $point->id ) ) : ?>
 					<span class="wpeo-point-new-placeholder"><?php esc_html_e( 'Write your point here...', 'task-manager' ); ?></span>
@@ -76,9 +76,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 						</div>
 
 						<div class="left content point-header-action">
-							<?php \eoxia\View_Util::exec( 'task-manager', 'point', 'backend/toggle-content', array(
+							<?php
+							\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/toggle-content', array(
 								'point' => $point,
-							) ); ?>
+							) );
+							?>
 						</div>
 					</div>
 				<?php	endif; ?>
