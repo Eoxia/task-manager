@@ -57,12 +57,16 @@ class Task_Manager_Action {
 	}
 
 	/**
-	 * Initialise le fichier style.min.css et backend.min.js du plugin DigiRisk.
+	 * Initialise le fichier style.min.css et backend.min.js du plugin Task Manager.
+	 *
+	 * @since 0.1.0
+	 * @version 1.5.0
 	 *
 	 * @return void nothing
 	 */
 	public function callback_admin_enqueue_scripts() {
 		$screen = get_current_screen();
+
 		if ( in_array( $screen->id, \eoxia\config_util::$init['task-manager']->insert_scripts_pages, true ) ) {
 			wp_register_style( 'task-manager-style', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/style.min.css', array(), \eoxia\config_util::$init['task-manager']->version );
 			wp_enqueue_style( 'task-manager-style' );
