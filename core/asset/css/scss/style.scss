@@ -880,6 +880,7 @@ Popup
 		background: rgba(0,0,0,0.05);
 		padding: 4px 0 10px 0;
 		.comment {
+
 			.wpeo-comment-container {
 				display: flex;
 				flex-direction: row;
@@ -2176,6 +2177,47 @@ Popup
 	animation-name: fadeInRightBig;
 }
 
+@keyframes blink {
+	0% {
+		background-color: rgba(85, 182, 237, 0);
+	}
+	10% {
+		background-color: rgba(85, 182, 237, 1);
+	}
+	20% {
+		background-color: rgba(85, 182, 237, 0);
+	}
+	30% {
+		background-color: rgba(85, 182, 237, 1);
+	}
+	40% {
+		background-color: rgba(85, 182, 237, 0);
+	}
+	50% {
+		background-color: rgba(85, 182, 237, 1);
+	}
+	60% {
+		background-color: rgba(85, 182, 237, 0);
+	}
+	70% {
+		background-color: rgba(85, 182, 237, 1);
+	}
+	80% {
+		background-color: rgba(85, 182, 237, 0);
+	}
+	90% {
+		background-color: rgba(85, 182, 237, 1);
+	}
+	100% {
+		background-color: rgba(85, 182, 237, 0);
+	}
+}
+
+.blink {
+	animation-duration: 2s;
+	animation-name: blink;
+}
+
 @keyframes bounceIn {
 	from, 40%, 60%, to {
 		animation-timing-function: cubic-bezier(0.415, 0.250, 1.000);
@@ -2330,6 +2372,18 @@ Popup
 			cursor: pointer;
 			background: #69b3f8;
 		}
+	}
+}
+
+/* ----------------------------------
+		Temporaire pour le blink
+-----------------------------------*/
+.wpeo-project-wrap {
+	.blink {
+		display: block;
+		width: 100%;
+		background-color: $main-color-light;
+		opacity: 1;
 	}
 }
 

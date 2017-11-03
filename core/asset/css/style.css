@@ -6220,6 +6220,86 @@ Popup
        -o-animation-name: fadeInRightBig;
           animation-name: fadeInRightBig; }
 
+@-webkit-keyframes blink {
+  0% {
+    background-color: rgba(85, 182, 237, 0); }
+  10% {
+    background-color: #55b6ed; }
+  20% {
+    background-color: rgba(85, 182, 237, 0); }
+  30% {
+    background-color: #55b6ed; }
+  40% {
+    background-color: rgba(85, 182, 237, 0); }
+  50% {
+    background-color: #55b6ed; }
+  60% {
+    background-color: rgba(85, 182, 237, 0); }
+  70% {
+    background-color: #55b6ed; }
+  80% {
+    background-color: rgba(85, 182, 237, 0); }
+  90% {
+    background-color: #55b6ed; }
+  100% {
+    background-color: rgba(85, 182, 237, 0); } }
+
+@-o-keyframes blink {
+  0% {
+    background-color: rgba(85, 182, 237, 0); }
+  10% {
+    background-color: #55b6ed; }
+  20% {
+    background-color: rgba(85, 182, 237, 0); }
+  30% {
+    background-color: #55b6ed; }
+  40% {
+    background-color: rgba(85, 182, 237, 0); }
+  50% {
+    background-color: #55b6ed; }
+  60% {
+    background-color: rgba(85, 182, 237, 0); }
+  70% {
+    background-color: #55b6ed; }
+  80% {
+    background-color: rgba(85, 182, 237, 0); }
+  90% {
+    background-color: #55b6ed; }
+  100% {
+    background-color: rgba(85, 182, 237, 0); } }
+
+@keyframes blink {
+  0% {
+    background-color: rgba(85, 182, 237, 0); }
+  10% {
+    background-color: #55b6ed; }
+  20% {
+    background-color: rgba(85, 182, 237, 0); }
+  30% {
+    background-color: #55b6ed; }
+  40% {
+    background-color: rgba(85, 182, 237, 0); }
+  50% {
+    background-color: #55b6ed; }
+  60% {
+    background-color: rgba(85, 182, 237, 0); }
+  70% {
+    background-color: #55b6ed; }
+  80% {
+    background-color: rgba(85, 182, 237, 0); }
+  90% {
+    background-color: #55b6ed; }
+  100% {
+    background-color: rgba(85, 182, 237, 0); } }
+
+.blink {
+  -webkit-animation-duration: 2s;
+       -o-animation-duration: 2s;
+          animation-duration: 2s;
+  -webkit-animation-name: blink;
+       -o-animation-name: blink;
+          animation-name: blink; }
+
 @keyframes bounceIn {
   from, 40%, 60%, to {
     -webkit-animation-timing-function: cubic-bezier(0.415, 0.25, 1);
@@ -6453,6 +6533,16 @@ Popup
 .wpeo-project-wrap .popup-notification .send-notification:hover {
   cursor: pointer;
   background: #69b3f8; }
+
+/* ----------------------------------
+		Temporaire pour le blink
+-----------------------------------*/
+.wpeo-project-wrap .blink {
+  display: block;
+  width: 100%;
+  background-color: #55b6ed;
+  opacity: 1;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"; }
 
 /* ----------------------------------
 		Responsive
