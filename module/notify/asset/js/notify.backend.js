@@ -27,7 +27,7 @@ window.eoxiaJS.taskManager.notify.init = function() {
  * @return {void}
  */
 window.eoxiaJS.taskManager.notify.event = function() {
-	jQuery( '.wpeo-project-wrap' ).on( 'click', '.popup.popup-notification ul li', window.eoxiaJS.taskManager.notify.selectUser );
+	jQuery( document ).on( 'click', '.popup.popup-notification ul li', window.eoxiaJS.taskManager.notify.selectUser );
 };
 
 /**

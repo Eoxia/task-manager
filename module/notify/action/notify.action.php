@@ -88,6 +88,11 @@ class Notify_Action {
 
 		$id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 		$users_id = ! empty( $_POST['users_id'] ) ? sanitize_text_field( $_POST['users_id'] ) : '';
+		$data = ! empty( $_POST ) ? (array) $_POST : array();
+
+		if ( ! isset( $data['notify_customer'] ) ) {
+			$data['notify_customer'] = false;
+		}
 
 		if ( empty( $id ) || empty( $users_id ) ) {
 			wp_send_json_error();
@@ -112,7 +117,6 @@ class Notify_Action {
 			}
 		}
 
-
 		$subject = 'Task Manager: ';
 		$subject .= __( 'The task #' . $task->id . ' ' . $task->title, 'task-manager' );
 
@@ -129,9 +133,9 @@ class Notify_Action {
 		$headers = array( 'Content-Type: text/html; charset=UTF-8' );
 		$headers[] = 'From: ' . $blog_name . ' <' . $admin_email . '>';
 
-		$recipients = apply_filters( 'task_manager_notify_send_notification_recipients', $recipients, $task, $_POST );
-		$subject = apply_filters( 'task_manager_notify_send_notification_subject', $subject, $task, $_POST );
-		$body = apply_filters( 'task_manager_notify_send_notification_body', $subject, $task, $_POST );
+		$recipients = apply_filters( 'task_manager_notify_send_notification_recipients', $recipients, $task, $data );
+		$subject = apply_filters( 'task_manager_notify_send_notification_subject', $subject, $task, $data );
+		$body = apply_filters( 'task_manager_notify_send_notification_body', $subject, $task, $data );
 
 		if ( wp_mail( $recipients, $subject, $body, $headers ) ) {
 			\eoxia\LOG_Util::log( sprintf( 'Send the task %1$d to %2$s success', $task->id, implode( ',', $recipients ) ), 'task-manager' );
