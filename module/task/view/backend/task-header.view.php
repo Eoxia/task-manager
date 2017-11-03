@@ -16,10 +16,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <ul class="wpeo-task-time-manage">
-	<li class="wpeo-task-date tooltip hover" aria-label="<?php echo esc_html_e( 'Dead line', 'task-manager' ); ?>">
-		<i class="dashicons dashicons-calendar-alt"></i>
-		<span><?php echo esc_html( $task->last_history_time->due_date['date_input']['fr_FR']['date'] ); ?></span>
-	</li>
+	<?php if ( 0 !== $task->last_history_time->id ) : ?>
+		<li class="wpeo-task-date tooltip hover" aria-label="<?php echo esc_html_e( 'Dead line', 'task-manager' ); ?>">
+			<i class="dashicons dashicons-calendar-alt"></i>
+			<span><?php echo esc_html( $task->last_history_time->due_date['date_input']['fr_FR']['date'] ); ?></span>
+		</li>
+	<?php endif; ?>
 
 	<li class="wpeo-task-elapsed">
 		<i class="dashicons dashicons-clock"></i>
