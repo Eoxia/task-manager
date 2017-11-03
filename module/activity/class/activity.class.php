@@ -55,6 +55,8 @@ class Activity_Class extends \eoxia\Singleton_Util {
 					if ( 0 === $point->parent_id ) {
 						$point->view = 'created-point';
 						$point->displayed_author_id = $point->author_id;
+						$point->userdata = get_userdata( $point->author_id );
+						$point->displayed_username = $point->userdata->display_name;
 
 						if ( $point->point_info['completed'] ) {
 							$cloned_point = clone $point;
@@ -77,6 +79,8 @@ class Activity_Class extends \eoxia\Singleton_Util {
 							'id' => $comment->parent_id,
 						), true );
 						$comment->displayed_author_id = $comment->author_id;
+						$comment->userdata = get_userdata( $comment->author_id );
+						$comment->displayed_username = $comment->userdata->display_name;
 
 						$sql_date = substr( $comment->date['date_input']['date'], 0, strlen( $comment->date['date_input']['date'] ) - 9 );
 						$time = substr( $comment->date['date_input']['date'], 11, strlen( $comment->date['date_input']['date'] ) );
@@ -91,16 +95,18 @@ class Activity_Class extends \eoxia\Singleton_Util {
 	}
 
 	/**
+	 * Récupères l'activité d'un utilisateur entre deux dates.
 	 *
+	 * @since 1.5.0
+	 * @version 1.5.0
 	 *
-	 * @param  [type] $user_id    [description]
-	 * @param  string $date_start [description]
-	 * @param  string $date_end   [description]
+	 * @param  integer $user_id    L'ID de l'utilisateur.
+	 * @param  string  $date_start Date de début.
+	 * @param  string  $date_end   Date de fin.
 	 *
-	 * @return [type]             [description]
+	 * @return array
 	 */
 	public function display_user_activity_by_date( $user_id, $date_start = '', $date_end = '' ) {
-
 		if ( empty( $date_start ) ) {
 			$date_start = current_time( 'Y-m-d' );
 		}
@@ -131,15 +137,7 @@ class Activity_Class extends \eoxia\Singleton_Util {
 		);
 		$datas = $GLOBALS['wpdb']->get_results( $query );
 
-		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/customer-activity', array(
-			'datas' => $datas,
-			'date_start' => $date_start,
-			'date_end' => $date_end,
-		) );
-		$view = ob_get_clean();
-
-		return $view;
+		return $datas;
 	}
 
 }
