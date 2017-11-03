@@ -16,17 +16,3 @@ if ( undefined === window.eoxiaJS.taskManager ) {
  * @version 1.5.0
  */
 window.eoxiaJS.taskManager.adminBar = {};
-
-/**
- * Le callback en cas de réussite à la requête Ajax "load_customer_activity".
- *
- * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
- * @param  {Object}         response          Les données renvoyées par la requête Ajax.
- * @return {void}
- *
- * @since 1.5.0
- * @version 1.5.0
- */
-window.eoxiaJS.taskManager.adminBar.loadedCustomerActivity = function( triggeredElement, response ) {
-	jQuery( '#TB_ajaxContent' ).html( response.data.view );
-};
