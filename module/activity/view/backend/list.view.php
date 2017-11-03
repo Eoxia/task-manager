@@ -19,18 +19,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! empty( $datas ) ) :
 	foreach ( $datas as $date => $data ) :
 		// if ( $date !== $last_date ) :
+		if ( ! empty( $data ) && is_array( $data ) ) :
 			?>
 			<div class="day">
 				<span class="label"><?php echo esc_html( ucfirst( mysql2date( 'l', $date ) ) . ' ' . mysql2date( 'd/m/Y', $date ) ); ?></span>
 			</div>
 			<?php
 		// endif;
-		if ( ! empty( $data ) ) :
 			foreach ( $data as $time => $elements ) :
 				if ( ! empty( $elements ) ) :
 					foreach ( $elements as $element ) : ?>
-
-
 						<div class="activity <?php echo esc_attr( $element->view ); ?>">
 							<div class="information">
 								<?php echo do_shortcode( '[task_avatar ids="' . $element->displayed_author_id . '" size="30"]' ); ?>
