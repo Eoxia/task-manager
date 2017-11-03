@@ -126,8 +126,8 @@ class Task_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.5.0
 	 */
 	public function callback_delete_task() {
 		check_ajax_referer( 'delete_task' );
@@ -145,6 +145,9 @@ class Task_Action {
 		$task->status = 'trash';
 
 		Task_Class::g()->update( $task );
+
+		do_action( 'tm_delete_task', $task );
+
 		wp_send_json_success( array(
 			'namespace' => 'taskManager',
 			'module' => 'task',
