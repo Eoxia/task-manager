@@ -3,16 +3,17 @@
  * La vue principale des points dans le backend.
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.5.0
  * @copyright 2015-2017 Eoxia
- * @package point
- * @subpackage view
+ * @package Task_Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} ?>
 
 <div class="points sortable">
 	<?php
@@ -20,6 +21,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 		foreach ( $points_uncompleted as $point ) :
 			\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
 				'point' => $point,
+				'comment_id' => $comment_id,
+				'point_id' => $point_id,
 				'parent_id' => $point->post_id,
 			) );
 		endforeach;
@@ -27,6 +30,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 	\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
 		'point' => $point_schema,
+		'comment_id' => $comment_id,
+		'point_id' => $point_id,
 		'parent_id' => $task_id,
 	) );
 	?>
