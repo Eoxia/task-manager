@@ -3,7 +3,7 @@
  * Gestion des actions relatives aux commentaires
  *
  * @since 1.3.6
- * @version 1.4.0-ford
+ * @version 1.5.0
  * @package Task_Manager
  */
 
@@ -24,8 +24,8 @@ class Task_Comment_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.3.6
 	 */
 	public function __construct() {
 		add_action( 'wp_ajax_load_comments', array( $this, 'callback_load_comments' ) );
@@ -41,35 +41,22 @@ class Task_Comment_Action {
 	}
 
 	/**
-	 * Charges les commentaires d'un point et renvoie la vue à la réponse ajax.
+	 * Utilises la méthode "display" pour récupérer la vue puis l'envoie à la réponse ajax.
+	 *
+	 * @since 1.3.6
+	 * @version 1.5.0
 	 *
 	 * @return void
-	 *
-	 * @since 1.3.6.0
-	 * @version 1.3.6.0
 	 * @todo nonce
 	 */
 	public function callback_load_comments() {
 		$task_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
 		$point_id = ! empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
 
-		$comments = Task_Comment_Class::g()->get_comments( $point_id );
-
-		$comment_schema = Task_Comment_Class::g()->get( array(
-			'schema' => true,
-		), true );
-
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/main', array(
-			'task_id' => $task_id,
-			'point_id' => $point_id,
-			'comments' => $comments,
-			'comment_schema' => $comment_schema,
-		) );
-		$view = ob_get_clean();
-
+		Task_Comment_Class::g()->display( $task_id, $point_id );
 		wp_send_json_success( array(
-			'view' => $view,
+			'view' => ob_get_clean(),
 			'namespace' => 'taskManager',
 			'module' => 'comment',
 			'callback_success' => 'loadedCommentsSuccess',
@@ -135,6 +122,8 @@ class Task_Comment_Action {
 		$task = Task_Class::g()->get( array(
 			'id' => $comment->post_id,
 		), true );
+
+		do_action( 'tm_edit_comment', $task, $comment->point, $comment );
 
 		wp_send_json_success( array(
 			'time' => array(
