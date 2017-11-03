@@ -77,6 +77,8 @@ class Tag_Action {
 
 		Task_Class::g()->update( $task );
 
+		do_action( 'tm_archive_task', $task );
+
 		wp_send_json_success( array(
 			'namespace' => 'taskManager',
 			'module' => 'tag',
