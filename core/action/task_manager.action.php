@@ -4,7 +4,7 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.0.0
- * @version 1.5.1
+ * @version 1.5.0
  * @copyright 2015-2017 Eoxia
  * @package Task_Manager
  */
@@ -124,12 +124,13 @@ class Task_Manager_Action {
 	}
 
 	/**
+	 * Définition du menu "Task Manager" dans l'administration de WordPress.
+	 *
 	 * @since 1.0.0
 	 * @version 1.5.0
-	 * Définition du menu dans l'administration de WordPress pour Task Manager
 	 */
 	public function callback_admin_menu() {
-		add_menu_page( __( 'Task', 'task-manager' ), __( 'Task', 'task-manager' ), 'publish_pages', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ), 'dashicons-layout' );
+		add_menu_page( __( 'Task', 'task-manager' ), __( 'Task', 'task-manager' ), 'publish_pages', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ), PLUGIN_TASK_MANAGER_URL . 'core/asset/icon-16x16.png' );
 		add_submenu_page( 'wpeomtm-dashboard', __( 'Task', 'task-manager' ), __( 'Task', 'task-manager' ), 'publish_pages', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ) );
 	}
 }
