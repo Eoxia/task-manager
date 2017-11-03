@@ -3,11 +3,10 @@
  * La vue d'un point dans le backend.
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.5.0
  * @copyright 2015-2017 Eoxia
- * @package point
- * @subpackage view
+ * @package Task_Manager
  */
 
 namespace task_manager;
@@ -16,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="point <?php echo ! empty( $point->id ) ? esc_attr( 'edit' ): ''; ?>" data-id="<?php echo esc_attr( $point->id ); ?>">
+<div class="point <?php echo ! empty( $point->id ) ? esc_attr( 'edit' ) : ''; ?>" data-id="<?php echo esc_attr( $point->id ); ?>">
 
 	<div class="form">
 
@@ -88,5 +87,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</ul>
 	</div>
 
-	<ul class="comments hidden" data-id="<?php echo esc_attr( $point->id ); ?>"></ul>
+	<ul class="comments <?php echo ( Task_Comment_Class::g()->is_parent( $point->id, $comment_id ) || ( $point->id === $point_id && 0 !== $point->id )  ) ? '' : 'hidden'; ?>" data-id="<?php echo esc_attr( $point->id ); ?>">
+		<?php
+		if ( Task_Comment_Class::g()->is_parent( $point->id, $comment_id ) || ( $point->id === $point_id && 0 !== $point->id ) ) :
+			Task_Comment_Class::g()->display( $point->post_id, $point->id );
+		endif;
+		?>
+	</ul>
 </div>
