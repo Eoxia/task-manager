@@ -29,7 +29,7 @@ window.eoxiaJS.taskManager.comment.init = function() {
 window.eoxiaJS.taskManager.comment.event = function() {
 	// jQuery( document ).on( 'click', 'body', window.eoxiaJS.taskManager.comment.closePoint );
 	// jQuery( document ).on( 'click', '.wpeo-project-task .point .comment', window.eoxiaJS.taskManager.comment.preventClosePoint );
-	jQuery( document ).on( 'keyup', '.wpeo-comment-container div.content[contenteditable="true"]', window.eoxiaJS.taskManager.comment.triggerCreate );
+	jQuery( document ).on( 'keyup', '.wpeo-comment-container div.content[contenteditable="true"], .wpeo-comment-container input[name="time"]', window.eoxiaJS.taskManager.comment.triggerCreate );
 	jQuery( document ).on( 'blur keyup paste keydown click', '.comment .content', window.eoxiaJS.taskManager.comment.updateHiddenInput );
 	jQuery( document ).on( 'click', '.point.edit div[contenteditable="true"].wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.comment.loadComments );
 };
