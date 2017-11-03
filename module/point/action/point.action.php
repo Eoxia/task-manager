@@ -121,8 +121,8 @@ class Point_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.5.0
 	 */
 	public function ajax_delete_point() {
 		check_ajax_referer( 'delete_point' );
@@ -146,6 +146,8 @@ class Point_Action {
 		}
 		$task->time_info['elapsed'] -= $point->time_info['elapsed'];
 		$task = Task_Class::g()->update( $task );
+
+		do_action( 'tm_delete_point', $point );
 
 		wp_send_json_success( array(
 			'time' => \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] ),
@@ -225,8 +227,8 @@ class Point_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.5.0
 	 */
 	public function ajax_complete_point() {
 		check_ajax_referer( 'complete_point' );
@@ -235,7 +237,7 @@ class Point_Action {
 		$complete = ( isset( $_POST['complete'] )  && 'true' === $_POST['complete'] ) ? true : false;
 
 		$point = Point_Class::g()->get( array(
-			'comment__in' => array( $point_id ),
+			'id' => $point_id,
 			'status' => '-34070',
 		), true );
 
@@ -248,6 +250,8 @@ class Point_Action {
 		}
 
 		Point_Class::g()->update( $point );
+
+		do_action( 'tm_complete_point', $point );
 
 		wp_send_json_success();
 	}
