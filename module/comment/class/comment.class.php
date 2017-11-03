@@ -93,6 +93,62 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 
 		return $comments;
 	}
+
+	/**
+	 * Récupères les commentaires du point puis appel la vue "main" du module "comment".
+	 *
+	 * @since 1.5.0
+	 * @version 1.5.0
+	 *
+	 * @param  integer $task_id L'ID de la tâche.
+	 * @param  integer $point_id L'ID du point.
+	 *
+	 * @return void
+	 */
+	public function display( $task_id, $point_id ) {
+		$comment_id = ! empty( $_GET['comment_id'] ) ? (int) $_GET['comment_id'] : 0;
+
+		$comments = self::g()->get_comments( $point_id );
+
+		$comment_schema = self::g()->get( array(
+			'schema' => true,
+		), true );
+
+		\eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/main', array(
+			'task_id' => $task_id,
+			'point_id' => $point_id,
+			'comments' => $comments,
+			'comment_selected_id' => $comment_id,
+			'comment_schema' => $comment_schema,
+		) );
+	}
+
+	/**
+	 * Est-ce que le point est le parent du commentaire ?
+	 *
+	 * @since 1.5.0
+	 * @version 1.5.0
+	 *
+	 * @param integer $point_id    L'ID du point.
+	 * @param integer $comment_id  L'ID du commentaire.
+	 *
+	 * @return boolean             True si le commentaire est un enfant. Sinon false.
+	 */
+	public function is_parent( $point_id, $comment_id ) {
+		if ( 0 === $point_id || 0 === $comment_id ) {
+			return false;
+		}
+
+		$comment = self::g()->get( array(
+			'id' => $comment_id,
+		), true );
+
+		if ( $comment->parent_id === $point_id ) {
+			return true;
+		}
+
+		return false;
+	}
 }
 
 Task_Comment_Class::g();
