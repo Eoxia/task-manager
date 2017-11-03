@@ -1,11 +1,12 @@
 <?php
 /**
- * Appelle la vue principale de l'application
+ * Classes principale du plugin.
  *
- * @package TaskManager\Plugin
- *
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @since 0.1.0
+ * @version 1.5.0
+ * @copyright 2015-2017 Eoxia
+ * @package Task_Manager
  */
 
 namespace task_manager;
@@ -15,25 +16,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Appelle la vue permettant d'afficher la navigation
+ * Classes principale du plugin.
  */
 class Task_Manager_Class extends \eoxia\Singleton_Util {
 
 	/**
-	 * Le constructeur
+	 * Constructeur obligatoire pour l'utilisation de Singleton_Util.
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 0.1.0
+	 * @version 1.5.0
 	 */
 	protected function construct() {}
 
 	/**
 	 * La méthode qui permet d'afficher la page
 	 *
-	 * @return void
+	 * @since 0.1.0
+	 * @version 1.5.0
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @return void
 	 */
 	public function display() {
 		$term = ! empty( $_GET['term'] ) ? sanitize_text_field( $_GET['term'] ) : ''; // WPCS: CSRF ok.
