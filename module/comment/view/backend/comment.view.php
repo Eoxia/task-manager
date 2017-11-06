@@ -31,6 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 
 				<ul class="left content point-header-action">
+					<?php echo apply_filters( 'tm_comment_toggle_before', '', $comment ); ?>
 					<li class="action-attribute"
 							data-action="load_edit_view_comment"
 							data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_edit_view_comment' ) ); ?>"
@@ -45,6 +46,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							data-id="<?php echo esc_attr( $comment->id ); ?>"
 						<span><?php esc_html_e( 'Delete this comment', 'task-manager' ); ?></span>
 					</li>
+					<?php echo apply_filters( 'tm_comment_toggle_after', '', $comment ); ?>
 				</ul>
 			</div>
 		</li>

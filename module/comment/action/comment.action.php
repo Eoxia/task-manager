@@ -118,6 +118,7 @@ class Task_Comment_Action {
 			'comments' => $comments,
 			'comment_schema' => $comment_schema,
 		) );
+		$view = ob_get_clean();
 
 		$task = Task_Class::g()->get( array(
 			'id' => $comment->post_id,
@@ -130,7 +131,7 @@ class Task_Comment_Action {
 				'point' => $comment->point->time_info['elapsed'],
 				'task' => \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] ),
 			),
-			'view' => ob_get_clean(),
+			'view' => $view,
 			'namespace' => 'taskManager',
 			'module' => 'comment',
 			'callback_success' => 'addedCommentSuccess',
