@@ -13,6 +13,4 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} ?>
-
-<span class="event-title" style="width:auto;font-weight: 700;display: block;margin-bottom: .4em;"><?php echo '#' . $element->id . ' ' . $element->content; ?></span>
+} ?><span><?php echo '#' . $element->id . ' ' . $element->content; ?></span>

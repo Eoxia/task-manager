@@ -1,6 +1,6 @@
 <?php
 /**
- * L'affichage dans le mode 'grille' d'un point complété.
+ * Message d'action lors de la création d'un commentaire.
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.5.0
@@ -13,4 +13,4 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} ?><span><?php echo '#' . $element->id . ' ' . $element->content; ?></span>
+} esc_html_e( ' New comment', 'task-manager' ); ?>
