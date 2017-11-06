@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2017-10-31 17:53+0100\n"
-"PO-Revision-Date: 2017-10-31 17:53+0100\n"
+"POT-Creation-Date: 2017-11-06 15:39+0100\n"
+"PO-Revision-Date: 2017-11-06 15:40+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -20,12 +20,12 @@ msgstr ""
 
 #: core/action/task_manager.action.php:133
 #: core/action/task_manager.action.php:134 core/view/main.view.php:23
-#: module/task/action/task.action.php:485
+#: module/task/action/task.action.php:488
 msgid "Task"
 msgstr "Tâche"
 
 #: core/asset/js/language.js.php:2
-#: module/comment/view/backend/comment.view.php:43
+#: module/comment/view/backend/comment.view.php:44
 msgid "Delete this comment ?"
 msgstr "Voulez vous supprimer ce commentaire ?"
 
@@ -86,20 +86,16 @@ msgid "Set as default thumbnail"
 msgstr ""
 
 #: core/external/eo-framework/modules/wpeo-upload/view/gallery.view.php:63
-#, fuzzy
-#| msgid "Add a media"
 msgid "Add a new file"
-msgstr "Ajouter un média"
+msgstr "Ajouter un fichier"
 
 #: core/external/eo-framework/modules/wpeo-upload/view/gallery.view.php:74
 msgid "Change file"
 msgstr ""
 
 #: core/external/eo-framework/modules/wpeo-upload/view/gallery.view.php:88
-#, fuzzy
-#| msgid "Associated time"
 msgid "Dissociate"
-msgstr "Temps affecté"
+msgstr "Dissocier"
 
 #: core/view/main.view.php:27 module/task/action/task.action.php:96
 msgid "New task"
@@ -107,25 +103,33 @@ msgstr "Nouvelle tâche"
 
 #: core/view/main.view.php:54 module/activity/view/backend/main.view.php:25
 #: module/task/view/backend/metabox-posts.view.php:39
-#, fuzzy
-#| msgid "Load more task..."
 msgid "Load more"
 msgstr "Chargement de tâche supplémentaire"
 
 #: module/activity/view/backend/list.view.php:51
-#: module/activity/view/backend/mail/list.view.php:62
-#, fuzzy
-#| msgid "Time history"
+#: module/activity/view/backend/mail/list.view.php:54
 msgid "End of history"
-msgstr "Historique du temps"
+msgstr "Fin de l'historique"
+
+#: module/activity/view/backend/mail/action-completed-point.view.php:16
+msgid " Point completed"
+msgstr "Point complété"
+
+#: module/activity/view/backend/mail/action-created-comment.view.php:16
+msgid " New comment"
+msgstr "Nouveau commentaire"
+
+#: module/activity/view/backend/mail/action-created-point.view.php:16
+msgid " New point"
+msgstr "Nouveau point"
 
 #: module/activity/view/backend/mail/list.view.php:19
 msgid "Access my full support"
 msgstr "Accéder à mon support complet"
 
-#: module/activity/view/backend/mail/list.view.php:24
-msgid "Last activities on your support:"
-msgstr "Dernières activités sur votre support:"
+#: module/activity/view/backend/mail/list.view.php:23
+msgid "Last activities on your support"
+msgstr "Dernières activités sur votre support"
 
 #: module/activity/view/backend/title.view.php:19
 #: module/navigation/view/backend/search-results.view.php:19
@@ -151,11 +155,11 @@ msgstr "pour les abonnés:"
 msgid "Comment options"
 msgstr "Options"
 
-#: module/comment/view/backend/comment.view.php:38
+#: module/comment/view/backend/comment.view.php:39
 msgid "Edit this comment"
 msgstr "Editer ce commentaire"
 
-#: module/comment/view/backend/comment.view.php:46
+#: module/comment/view/backend/comment.view.php:47
 msgid "Delete this comment"
 msgstr "Supprimer ce commentaire"
 
@@ -185,35 +189,29 @@ msgstr "Temps estimé (min)"
 #: module/indicator/action/indicator.action.php:42
 #: module/indicator/view/backend/main.view.php:19
 msgid "Indicator"
-msgstr ""
+msgstr "Indicateur"
 
 #: module/indicator/action/indicator.action.php:43
 msgid "My daily activity"
-msgstr ""
+msgstr "Mon activité de la journée"
 
 #: module/indicator/view/backend/daily-activity.view.php:26
 #: module/time_exceeded/view/backend/main.view.php:25
-#, fuzzy
-#| msgid "Creation date"
 msgid "Start date"
-msgstr "Date de création"
+msgstr "Date de début"
 
 #: module/indicator/view/backend/daily-activity.view.php:30
 #: module/time_exceeded/view/backend/main.view.php:28
-#, fuzzy
-#| msgid "Due date"
 msgid "End date"
 msgstr "Date de fin"
 
 #: module/indicator/view/backend/daily-activity.view.php:35
-#, fuzzy
-#| msgid "View this service"
 msgid "View activity"
-msgstr "Voir ce service"
+msgstr "Voir l'activité"
 
 #: module/indicator/view/backend/daily-activity.view.php:59
 msgid "No activity found for now"
-msgstr ""
+msgstr "Pas d'activité trouvé pour le moment."
 
 #: module/navigation/view/backend/main.view.php:20
 msgid "All tasks"
@@ -244,20 +242,20 @@ msgstr "Rechercher"
 msgid "Categories"
 msgstr "Catégories"
 
-#: module/notify/action/notify.action.php:117
+#: module/notify/action/notify.action.php:121
 msgid "The task #"
 msgstr "La tâche #"
 
-#: module/notify/action/notify.action.php:119
+#: module/notify/action/notify.action.php:123
 msgid "<p>This mail has been send automaticly</p>"
 msgstr "<p>Cet email a été envoyé automatiquement</p>"
 
 #: module/notify/view/backend/main.view.php:40
 msgid "Send notification"
-msgstr ""
+msgstr "Envoyer la notification"
 
-#: module/point/action/point.action.php:394
-#: module/point/action/point.action.php:395
+#: module/point/action/point.action.php:398
+#: module/point/action/point.action.php:399
 msgid "No task found"
 msgstr "Aucune tâche trouvé"
 
@@ -270,15 +268,15 @@ msgstr "Incomplet"
 msgid "Completed points"
 msgstr "Points completés"
 
-#: module/point/view/backend/point.view.php:28
+#: module/point/view/backend/point.view.php:27
 msgid "Drag and drop"
 msgstr "Glisser et déposer"
 
-#: module/point/view/backend/point.view.php:43
+#: module/point/view/backend/point.view.php:42
 msgid "Write your point here..."
 msgstr "Écrivez votre point ici..."
 
-#: module/point/view/backend/point.view.php:75
+#: module/point/view/backend/point.view.php:74
 msgid "Point options"
 msgstr "Options du point"
 
@@ -313,24 +311,23 @@ msgstr "ici"
 msgid "and refresh this section."
 msgstr "et recharger cette section."
 
-#: module/task/action/task.action.php:297
-#: module/task/action/task.action.php:298
+#: module/task/action/task.action.php:300
+#: module/task/action/task.action.php:301
 msgid "No post found"
 msgstr "Aucun post trouvé"
 
-#: module/task/action/task.action.php:442
+#: module/task/action/task.action.php:445
 msgid "Uncompleted"
 msgstr "Terminé"
 
-#: module/task/action/task.action.php:450
+#: module/task/action/task.action.php:453
 msgid "Completed"
 msgstr "Complété(s)"
 
 #: module/task/class/task.class.php:299
-#, fuzzy, php-format
-#| msgid "Task informations"
+#, php-format
 msgid "Task for %1$s"
-msgstr "Informations de la tâche"
+msgstr "Tâche pour %1$s"
 
 #: module/task/filter/task.filter.php:149
 #: module/task/filter/task.filter.php:156
@@ -342,14 +339,13 @@ msgid "Load more task..."
 msgstr "Chargement de tâche supplémentaire"
 
 #: module/task/view/backend/metabox-create-buttons.view.php:43
-#, fuzzy, php-format
-#| msgid "New task"
+#, php-format
 msgid "New task%1$s"
-msgstr "Nouvelle tâche"
+msgstr "Nouvelle tâche%1$s"
 
 #: module/task/view/backend/metabox-posts.view.php:19
 msgid "Total time past"
-msgstr ""
+msgstr "Total du temps passé"
 
 #: module/task/view/backend/task-header.view.php:20
 msgid "Dead line"
@@ -399,13 +395,11 @@ msgstr ""
 
 #: module/time_exceeded/class/time-exceeded.class.php:116
 msgid "No parent"
-msgstr ""
+msgstr "Pas de parent"
 
 #: module/time_exceeded/view/backend/main.view.php:19
-#, fuzzy
-#| msgid "Task Management"
 msgid "Task Manager: Time Exceeded"
-msgstr "Gestion de la tâche"
+msgstr "Tâche: Temps excédé"
 
 #: module/time_exceeded/view/backend/main.view.php:31
 msgid "Min exceeded time"
@@ -430,16 +424,12 @@ msgid "Title"
 msgstr "Titre"
 
 #: module/time_exceeded/view/backend/main.view.php:45
-#, fuzzy
-#| msgid "Parent Task:"
 msgid "Parent task"
-msgstr "Tâche parent:"
+msgstr "Tâche parent"
 
 #: module/time_exceeded/view/backend/main.view.php:46
-#, fuzzy
-#| msgid "Time : "
 msgid "Time"
-msgstr "Temps :"
+msgstr "Temps"
 
 #: module/timeline/action/timeline.action.php:73
 #: module/timeline/view/backend/main.view.php:4
@@ -795,9 +785,6 @@ msgstr ""
 #~ msgid "Owner of the point"
 #~ msgstr "Créateur du point"
 
-#~ msgid "Point completed"
-#~ msgstr "Point complété"
-
 #~ msgid "Point uncompleted"
 #~ msgstr "Point terminé"
 
@@ -806,9 +793,6 @@ msgstr ""
 
 #~ msgid "at"
 #~ msgstr "à"
-
-#~ msgid "Add comment"
-#~ msgstr "Ajouter un commentaire"
 
 #~ msgid "The task #%d has been created by the user #%d"
 #~ msgstr "La tâche #%d à été créer par l'utilisateur #%d"
@@ -839,9 +823,6 @@ msgstr ""
 
 #~ msgid "The owner for the task #%d has been changed to %d by the user #%d"
 #~ msgstr "Le responsable pour la tâche #%d à été changé vers %d par l'utilisateur #%d"
-
-#~ msgid "to the point"
-#~ msgstr "pour le point"
 
 #~ msgid "to the task"
 #~ msgstr "pour la tâche"
