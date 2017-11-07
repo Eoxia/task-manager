@@ -3826,6 +3826,48 @@
          -o-transform: none;
             transform: none; } }
 
+.wpeo-project-wrap .popup.patch-note .container {
+  max-height: 90%;
+  overflow-y: auto; }
+
+.wpeo-project-wrap .popup.patch-note .container .note {
+  font-style: normal;
+  margin-bottom: 2em; }
+
+.wpeo-project-wrap .popup.patch-note .container img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 0.6em; }
+
+.wpeo-project-wrap .popup.patch-note .container .entry-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 0.6em;
+  color: rgba(0, 0, 0, 0.8); }
+
+.wpeo-project-wrap .popup.patch-note .container .entry-content {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.6); }
+
+.wpeo-project-wrap .popup.patch-note .container .entry-content strong {
+  font-weight: 700; }
+
+.wpeo-project-wrap .popup.patch-note .container .entry-content em {
+  font-style: italic; }
+
+.wpeo-project-wrap .popup.patch-note .container .entry-content ul, .wpeo-project-wrap .popup.patch-note .container .entry-content li {
+  list-style-type: disc; }
+
+.wpeo-project-wrap .popup.patch-note .container .entry-content ul {
+  margin-left: 1em;
+  margin-bottom: 0.6em; }
+
+.wpeo-project-wrap .popup.patch-note .container .entry-content li {
+  margin-left: 0.6em; }
+
+.wpeo-project-wrap .popup.patch-note .container .entry-content p {
+  margin-bottom: 0.6em; }
+
 #wpeo-task-metabox.closed h2 span a.page-title-action {
   display: none; }
 
