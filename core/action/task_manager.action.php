@@ -66,6 +66,8 @@ class Task_Manager_Action {
 	 */
 	public function callback_admin_enqueue_scripts() {
 		$screen = get_current_screen();
+		wp_register_style( 'task-manager-global-style', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/global.css', array(), \eoxia\config_util::$init['task-manager']->version );
+		wp_enqueue_style( 'task-manager-global-style' );
 
 		if ( in_array( $screen->id, \eoxia\config_util::$init['task-manager']->insert_scripts_pages, true ) ) {
 			wp_register_style( 'task-manager-style', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/style.min.css', array(), \eoxia\config_util::$init['task-manager']->version );
@@ -130,7 +132,10 @@ class Task_Manager_Action {
 	 * @version 1.5.0
 	 */
 	public function callback_admin_menu() {
-		add_menu_page( __( 'Task', 'task-manager' ), __( 'Task', 'task-manager' ), 'publish_pages', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ), PLUGIN_TASK_MANAGER_URL . 'core/asset/icon-16x16.png' );
+		$title = __( 'Task', 'task-manager' );
+		$title = apply_filters( 'tm_task_main_menu_title', $title );
+
+		add_menu_page( $title, $title, 'publish_pages', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ), PLUGIN_TASK_MANAGER_URL . 'core/asset/icon-16x16.png' );
 		add_submenu_page( 'wpeomtm-dashboard', __( 'Task', 'task-manager' ), __( 'Task', 'task-manager' ), 'publish_pages', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ) );
 	}
 }
