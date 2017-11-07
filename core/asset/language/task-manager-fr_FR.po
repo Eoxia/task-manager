@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2017-11-06 15:39+0100\n"
-"PO-Revision-Date: 2017-11-06 15:40+0100\n"
+"POT-Creation-Date: 2017-11-07 14:26+0100\n"
+"PO-Revision-Date: 2017-11-07 14:26+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -12,14 +12,14 @@ msgstr ""
 "X-Generator: Poedit 2.0.1\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html__;esc_attr_e\n"
+"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html__;esc_attr_e;_x\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: module\n"
 "X-Poedit-SearchPath-1: core\n"
 "X-Poedit-SearchPathExcluded-0: core/wpeo_logs\n"
 
-#: core/action/task_manager.action.php:133
-#: core/action/task_manager.action.php:134 core/view/main.view.php:23
+#: core/action/task_manager.action.php:137
+#: core/action/task_manager.action.php:141 core/view/main.view.php:23
 #: module/task/action/task.action.php:488
 msgid "Task"
 msgstr "Tâche"
@@ -42,6 +42,10 @@ msgstr "Voulez vous supprimer cette tâche ?"
 #: core/asset/js/language.js.php:5
 msgid "Create the tag"
 msgstr "Créer la catégorie"
+
+#: core/class/task-manager.class.php:64
+msgid "No change log for this version."
+msgstr "Pas de note de mise à jour pour cette version."
 
 #: core/external/eo-framework/core/class/config.class.php:55
 msgid "Unable to load file"
@@ -101,27 +105,31 @@ msgstr "Dissocier"
 msgid "New task"
 msgstr "Nouvelle tâche"
 
-#: core/view/main.view.php:54 module/activity/view/backend/main.view.php:25
-#: module/task/view/backend/metabox-posts.view.php:39
-msgid "Load more"
-msgstr "Chargement de tâche supplémentaire"
+#: core/view/main.view.php:40
+#: module/task/view/backend/metabox-posts.view.php:26
+msgid "Last activities"
+msgstr "Dernières activités"
+
+#: core/view/patch-note.view.php:22
+msgid "Change log for the"
+msgstr ""
 
 #: module/activity/view/backend/list.view.php:51
-#: module/activity/view/backend/mail/list.view.php:54
+#: module/activity/view/backend/mail/list.view.php:57
 msgid "End of history"
 msgstr "Fin de l'historique"
 
 #: module/activity/view/backend/mail/action-completed-point.view.php:16
-msgid " Point completed"
-msgstr "Point complété"
+msgid "completed a point"
+msgstr "a complété le point"
 
 #: module/activity/view/backend/mail/action-created-comment.view.php:16
-msgid " New comment"
-msgstr "Nouveau commentaire"
+msgid "added a new comment on the point"
+msgstr "a ajouté un nouveau commentaire sur le point"
 
 #: module/activity/view/backend/mail/action-created-point.view.php:16
-msgid " New point"
-msgstr "Nouveau point"
+msgid "added a new point"
+msgstr "a ajouté un nouveau point"
 
 #: module/activity/view/backend/mail/list.view.php:19
 msgid "Access my full support"
@@ -131,6 +139,11 @@ msgstr "Accéder à mon support complet"
 msgid "Last activities on your support"
 msgstr "Dernières activités sur votre support"
 
+#: module/activity/view/backend/main.view.php:25
+#: module/task/view/backend/metabox-posts.view.php:39
+msgid "Load more"
+msgstr "Chargement de tâche supplémentaire"
+
 #: module/activity/view/backend/title.view.php:19
 #: module/navigation/view/backend/search-results.view.php:19
 msgid "Results"
@@ -139,12 +152,12 @@ msgstr "Résultats"
 #: module/activity/view/backend/title.view.php:23
 #: module/navigation/view/backend/search-results.view.php:23
 msgid " with the term "
-msgstr "avec le terme"
+msgstr " avec le terme "
 
 #: module/activity/view/backend/title.view.php:30
 #: module/navigation/view/backend/search-results.view.php:28
 msgid " in the categories: "
-msgstr "dans les catégories:"
+msgstr "dans les catégories: "
 
 #: module/activity/view/backend/title.view.php:37
 #: module/navigation/view/backend/search-results.view.php:33
@@ -191,7 +204,7 @@ msgstr "Temps estimé (min)"
 msgid "Indicator"
 msgstr "Indicateur"
 
-#: module/indicator/action/indicator.action.php:43
+#: module/indicator/action/indicator.action.php:46
 msgid "My daily activity"
 msgstr "Mon activité de la journée"
 
@@ -237,25 +250,43 @@ msgstr "Plus d'options"
 msgid "Search"
 msgstr "Rechercher"
 
-#: module/navigation/view/backend/tags.view.php:18
+#: module/navigation/view/backend/tags.view.php:20
 #: module/tag/action/tag.action.php:52 module/tag/view/backend/main.view.php:31
 msgid "Categories"
 msgstr "Catégories"
 
-#: module/notify/action/notify.action.php:121
-msgid "The task #"
-msgstr "La tâche #"
+#: module/navigation/view/backend/tags.view.php:30
+msgid "Create categories"
+msgstr "Créer des catégories"
 
 #: module/notify/action/notify.action.php:123
-msgid "<p>This mail has been send automaticly</p>"
-msgstr "<p>Cet email a été envoyé automatiquement</p>"
+#, php-format
+msgid "The task #%1$d %2$s"
+msgstr "La tâche #%1$d %2$s"
+
+#: module/notify/action/notify.action.php:125
+msgid "This mail has been send automaticly"
+msgstr "Ce message à été envoyé automatiquement"
+
+#: module/notify/action/notify.action.php:128
+#, php-format
+msgid "#%1$d %2$s send by %3$s (%4$s)"
+msgstr "#%1$d %2$s envoyé par %3$s (%4$s)"
+
+#: module/notify/action/notify.action.php:138
+msgid "Customer link"
+msgstr "Lien vers le client"
+
+#: module/notify/action/notify.action.php:140
+msgid "Task link"
+msgstr "Lien vers la tâche"
 
 #: module/notify/view/backend/main.view.php:40
 msgid "Send notification"
 msgstr "Envoyer la notification"
 
-#: module/point/action/point.action.php:398
-#: module/point/action/point.action.php:399
+#: module/point/action/point.action.php:402
+#: module/point/action/point.action.php:403
 msgid "No task found"
 msgstr "Aucune tâche trouvé"
 
@@ -283,7 +314,7 @@ msgstr "Options du point"
 #: module/point/view/backend/toggle-content.view.php:20
 #: module/task/view/backend/toggle-content.view.php:48
 msgid "Create "
-msgstr "Créé"
+msgstr "Créé "
 
 #: module/point/view/backend/toggle-content.view.php:32
 #: module/task/view/backend/toggle-content.view.php:65
@@ -301,7 +332,7 @@ msgstr "OK"
 
 #: module/tag/view/backend/main-edit.view.php:28
 msgid "Create categories "
-msgstr "Créer des catégories"
+msgstr "Créer des catégories "
 
 #: module/tag/view/backend/main-edit.view.php:29
 msgid "here"
@@ -336,7 +367,7 @@ msgstr "Tâche non trouvée"
 
 #: module/task/view/backend/main.view.php:22
 msgid "Load more task..."
-msgstr "Chargement de tâche supplémentaire"
+msgstr "Chargement de tâche supplémentaire..."
 
 #: module/task/view/backend/metabox-create-buttons.view.php:43
 #, php-format
@@ -360,9 +391,9 @@ msgid "Estimated time"
 msgstr "Temps prévu"
 
 #: module/task/view/backend/task-header.view.php:40
-#: module/task/view/backend/toggle-content.view.php:81
-msgid "#"
-msgstr ""
+#, php-format
+msgid "#%1$s History time"
+msgstr "#%1$s Historique du temps"
 
 #: module/task/view/backend/task.view.php:37
 msgid "Task options"
@@ -379,6 +410,11 @@ msgstr "Désarchiver"
 #: module/task/view/backend/toggle-content.view.php:75
 msgid "Notify team"
 msgstr "Notifier l'équipe"
+
+#: module/task/view/backend/toggle-content.view.php:81
+#, php-format
+msgid "#%1$s Notify popup"
+msgstr "#%1$s Notification"
 
 #: module/task/view/backend/toggle-content.view.php:87
 msgid "Export"
@@ -488,14 +524,30 @@ msgid "Week"
 msgstr "Semaine"
 
 #: module/tools/view/backend/main.view.php:19
-#, fuzzy
-#| msgid "Task Manager"
 msgid "Task Manager Tools"
-msgstr "Tâches"
+msgstr "Task Manager Outils"
 
 #: module/tools/view/backend/main.view.php:143
 msgid "Page"
 msgstr ""
+
+#~ msgid "#"
+#~ msgstr "#"
+
+#~ msgid "The task #"
+#~ msgstr "La tâche #"
+
+#~ msgid "<p>This mail has been send automaticly</p>"
+#~ msgstr "<p>Cet email a été envoyé automatiquement</p>"
+
+#~ msgid " Point completed"
+#~ msgstr "Point complété"
+
+#~ msgid " New comment"
+#~ msgstr "Nouveau commentaire"
+
+#~ msgid " New point"
+#~ msgstr "Nouveau point"
 
 #~ msgid "Logs"
 #~ msgstr "Journaux"
@@ -776,9 +828,6 @@ msgstr ""
 #~ msgid "Create"
 #~ msgstr "Créer"
 
-#~ msgid "Number of comments on the point"
-#~ msgstr "Monbre de commentiares du point"
-
 #~ msgid "Ref"
 #~ msgstr "Ref"
 
@@ -938,9 +987,6 @@ msgstr ""
 #~ msgid "Click here to add a tag"
 #~ msgstr "Cliquez ici pour ajouter un tag"
 
-#~ msgid "Or add a new tag..."
-#~ msgstr "Ajoutez un nouveau tag..."
-
 #~ msgid "Add the comment #"
 #~ msgstr "Ajouter le commentaire #"
 
@@ -1016,9 +1062,6 @@ msgstr ""
 #~ msgid "More informations"
 #~ msgstr "Plus d'infos"
 
-#~ msgid "No owner for this task"
-#~ msgstr "Pas de responsable pour cette tâche."
-
 #~ msgid "Options"
 #~ msgstr "Options"
 
@@ -1030,9 +1073,6 @@ msgstr ""
 
 #~ msgid "Choose a customer"
 #~ msgstr "Choisir un client"
-
-#~ msgid "Uncompleted point"
-#~ msgstr "Les points incomplets"
 
 #~ msgid "Task name"
 #~ msgstr "Nom de la tâche"
