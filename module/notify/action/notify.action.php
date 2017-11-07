@@ -118,16 +118,23 @@ class Notify_Action {
 		}
 
 		$subject = 'Task Manager: ';
-		$subject .= __( 'The task #' . $task->id . ' ' . $task->title, 'task-manager' );
 
-		$body = __( '<p>This mail has been send automaticly</p>', 'task-manager' );
-		$body .= '<h2>#' . $task->id . ' ' . $task->title . ' send by ' . $sender_data->user_login . ' (' . $sender_data->user_email . ')</h2>';
+		// translators: La tâche #150 Nouvelle tâche.
+		$subject .= sprintf( __( 'The task #%1$d %2$s', 'task-manager' ), $task->id, $task->title );
+
+		$body = '<p>' . __( 'This mail has been send automaticly', 'task-manager' ) . '</p>';
+
+		$body .= '<h2>';
+		// translators: #150 Nouvelle tâche send by username (username@domain.com).
+		$body .= sprintf( __( '#%1$d %2$s send by %3$s (%4$s)', 'task-manager' ), $task->id, $task->title, $sender_data->user_login, $sender_data->user_email );
+		$body .= '</h2>';
+
 		$body = apply_filters( 'task_points_mail', $body, $task );
 		$body .= '<ul>';
 		if ( ! empty( $task->parent_id ) ) {
-			$body .= '<li><a href="' . admin_url( 'post.php?action=edit&post=' . $task->parent_id ) . '">Customer link</a></li>';
+			$body .= '<li><a href="' . admin_url( 'post.php?action=edit&post=' . $task->parent_id ) . '">' . __( 'Customer link', 'task-manager' ) . '</a></li>';
 		}
-		$body .= '<li><a href="' . admin_url( 'admin.php?page=wpeomtm-dashboard&term=' . $task->id ) . '">Task link</a></li>';
+		$body .= '<li><a href="' . admin_url( 'admin.php?page=wpeomtm-dashboard&term=' . $task->id ) . '">' . __( 'Task link', 'task-manager' ) . '</a></li>';
 		$body .= '</ul>';
 
 		$headers = array( 'Content-Type: text/html; charset=UTF-8' );
@@ -135,7 +142,7 @@ class Notify_Action {
 
 		$recipients = apply_filters( 'task_manager_notify_send_notification_recipients', $recipients, $task, $data );
 		$subject = apply_filters( 'task_manager_notify_send_notification_subject', $subject, $task, $data );
-		$body = apply_filters( 'task_manager_notify_send_notification_body', $subject, $task, $data );
+		$body = apply_filters( 'task_manager_notify_send_notification_body', $body, $task, $data );
 
 		if ( wp_mail( $recipients, $subject, $body, $headers ) ) {
 			\eoxia\LOG_Util::log( sprintf( 'Send the task %1$d to %2$s success', $task->id, implode( ',', $recipients ) ), 'task-manager' );
