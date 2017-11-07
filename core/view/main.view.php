@@ -51,7 +51,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="content">
 				</div>
 
-				<button class="load-more-history"><?php esc_html_e( 'Load more', 'task-manager' ); ?></button> <!-- Ne pas supprimer 'load-more-history' -->
 			</div>
 		</div>
 	</div>
