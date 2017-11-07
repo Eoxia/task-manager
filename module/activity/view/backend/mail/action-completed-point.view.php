@@ -13,4 +13,4 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} esc_html_e( ' completed a point', 'task-manager' ); ?>
+} ?>&nbsp;<?php esc_html_e( 'completed a point', 'task-manager' ); ?>
