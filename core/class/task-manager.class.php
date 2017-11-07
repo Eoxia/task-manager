@@ -44,6 +44,31 @@ class Task_Manager_Class extends \eoxia\Singleton_Util {
 
 		require( PLUGIN_TASK_MANAGER_PATH . '/core/view/main.view.php' );
 	}
+
+	/**
+	 * Récupères le patch note pour la version actuelle.
+	 *
+	 * @since 1.5.0
+	 * @version 1.5.0
+	 *
+	 * @return string|object
+	 */
+	public function get_patch_note() {
+		$patch_note_url = 'https://www.evarisk.com/wp-json/wp/v2/posts/33101';
+		$json = wp_remote_get( $patch_note_url, array(
+			'headers' => array(
+				'Content-Type' => 'application/json',
+			),
+		) );
+
+		$result = __( 'No change log for this version.', 'task-manager' );
+
+		if ( ! empty( $json ) && ! empty( $json['body'] ) ) {
+			$result = json_decode( $json['body'] );
+		}
+
+		return $result;
+	}
 }
 
 new Task_Manager_Class();
