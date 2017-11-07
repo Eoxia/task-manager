@@ -2,16 +2,18 @@
 /**
  * Vue pour afficher les catégories dans la barre de recherche.
  *
- * @package Task Manager
- * @subpackage Module/Tag
- *
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @author Jimmy Latour <jimmy@eoxia.com>
+ * @since 0.1.0
+ * @version 1.5.0
+ * @copyright 2015-2017 Eoxia
+ * @package Task_Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} ?>
 
 <input type="hidden" name="categories_id_selected" />
 <ul class="tags">
@@ -23,6 +25,10 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 				'category' => $category,
 			) );
 		endforeach;
+	else :
+		?>
+		<li><a target="_blank" href="<?php echo esc_attr( admin_url( 'edit-tags.php?taxonomy=wpeo_tag' ) ); ?>"><?php esc_html_e( 'Create categories', 'task-manager' ); ?></li>
+		<?php
 	endif;
 	?>
 </ul>
