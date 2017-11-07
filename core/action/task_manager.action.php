@@ -35,6 +35,8 @@ class Task_Manager_Action {
 
 		add_action( 'init', array( $this, 'callback_plugins_loaded' ) );
 		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 12 );
+
+		add_action( 'wp_ajax_close_tm_change_log', array( $this, 'callback_close_change_log' ) );
 	}
 
 	/**
@@ -137,6 +139,36 @@ class Task_Manager_Action {
 
 		add_menu_page( $title, $title, 'publish_pages', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ), PLUGIN_TASK_MANAGER_URL . 'core/asset/icon-16x16.png' );
 		add_submenu_page( 'wpeomtm-dashboard', __( 'Task', 'task-manager' ), __( 'Task', 'task-manager' ), 'publish_pages', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ) );
+	}
+
+	/**
+	 * Lors de la fermeture de la notification de la popup.
+	 * Met la metadonnée '_wptm_user_change_log' avec le numéro de version actuel à true.
+	 *
+	 * @since 1.5.0
+	 * @version 1.5.0
+	 *
+	 * @return void
+	 */
+	public function callback_close_change_log() {
+		check_ajax_referer( 'close_change_log' );
+
+		$version = ! empty( $_POST['version'] ) ? sanitize_text_field( $_POST['version'] ) : '';
+
+		if ( empty( $version ) ) {
+			wp_send_json_error();
+		}
+
+		$meta = get_user_meta( get_current_user_id(), '_wptm_user_change_log', true );
+
+		if ( empty( $meta ) ) {
+			$meta = array();
+		}
+
+		$meta[ $version ] = true;
+		update_user_meta( get_current_user_id(), '_wptm_user_change_log', $meta );
+
+		wp_send_json_success( array() );
 	}
 }
 
