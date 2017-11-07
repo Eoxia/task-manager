@@ -79,6 +79,8 @@ class Point_Action {
 		\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
 			'point' => $point,
 			'parent_id' => $parent_id,
+			'point_id' => 0,
+			'comment_id' => 0,
 		) );
 
 		wp_send_json_success( array(
@@ -298,6 +300,8 @@ class Point_Action {
 				\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
 					'parent_id' => $task->id,
 					'point' => $point,
+					'point_id' => 0,
+					'comment_id' => 0,
 				) );
 			}
 		}

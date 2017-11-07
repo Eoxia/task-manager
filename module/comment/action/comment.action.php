@@ -117,6 +117,7 @@ class Task_Comment_Action {
 			'point_id' => $parent_id,
 			'comments' => $comments,
 			'comment_schema' => $comment_schema,
+			'comment_selected_id' => 0,
 		) );
 		$view = ob_get_clean();
 
