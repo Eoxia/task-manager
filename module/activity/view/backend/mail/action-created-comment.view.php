@@ -13,4 +13,4 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} esc_html_e( ' New comment', 'task-manager' ); ?>
+} esc_html_e( ' added a new comment on the point', 'task-manager' ); ?> <span style="font-style: italic;"><?php echo '#' . $element->parent->id . ' ' . $element->parent->content; ?></span>

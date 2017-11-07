@@ -13,4 +13,4 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} esc_html_e( ' New point', 'task-manager' ); ?>
+} esc_html_e( ' added a new point', 'task-manager' ); ?>
