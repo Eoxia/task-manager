@@ -39,7 +39,10 @@ class Indicator_Action {
 	 * @return void
 	 */
 	public function callback_admin_menu() {
-		add_submenu_page( 'wpeomtm-dashboard', __( 'Indicator', 'task-manager' ), __( 'Indicator', 'task-manager' ), 'manage_options', 'task-manager-indicator', array( Indicator_Class::g(), 'callback_submenu_page' ) );
+		$title = __( 'Indicator', 'task-manager' );
+		$title = apply_filters( 'tm_indicator_menu_title', $title );
+
+		add_submenu_page( 'wpeomtm-dashboard', $title, $title, 'manage_options', 'task-manager-indicator', array( Indicator_Class::g(), 'callback_submenu_page' ) );
 		add_meta_box( 'tm-indicator-activity', __( 'My daily activity', 'task-manager' ), array( Indicator_Class::g(), 'callback_my_daily_activity' ), 'task-manager-indicator-my-activity', 'normal' );
 	}
 }
