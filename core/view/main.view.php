@@ -37,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					data-class="last-activity activities"
 					data-module="activity"
 					data-before-method="getDataBeforeOpenPopup"
-					data-title="<?php echo esc_attr( 'Last activities', 'task-manager' ); ?>"></span>
+					data-title="<?php echo esc_attr_e( 'Last activities', 'task-manager' ); ?>"></span>
 
 		<div class="popup last-activity activities">
 			<div class="container">
@@ -55,10 +55,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div>
 
-
-
 	<?php do_shortcode( '[task_manager_search_bar term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '"]' ); ?>
-
 
 	<?php
 	if ( ! empty( $id ) ) :
@@ -66,5 +63,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	else :
 		do_shortcode( '[task term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '" status="any" post_parent="0" with_wrapper="0"]' );
 	endif;
+	//
+	// $version = get_user_meta( get_current_user_id(), '_wptm_user_change_log', true );
+	//
+	// if ( empty( $version[ \eoxia\Config_Util::$init['task-manager']->major_version ] ) ) :
+	// 	require( PLUGIN_TASK_MANAGER_PATH . '/core/view/patch-note.view.php' );
+	// endif;
 	?>
 </div>
