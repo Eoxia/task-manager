@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					data-action="load_last_activity"
 					data-class="last-activity activities"
 					data-tasks-id="<?php echo esc_attr( $task_ids_for_history ); ?>"
-					data-title="<?php echo esc_attr( 'Last activities', 'task-manager' ); ?>"></span>
+					data-title="<?php echo esc_attr_e( 'Last activities', 'task-manager' ); ?>"></span>
 
 		<div class="popup">
 			<div class="container">

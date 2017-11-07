@@ -78,7 +78,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			data-class="popup-notification"
 			data-action="load_notify_popup"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_notify_popup' ) ); ?>"
-			data-title="<?php echo esc_attr_e( '#' . $task->id . ' Notify popup', 'task-manager' ); ?>"
+			data-title="<?php echo sprintf( __( '#%1$s Notify popup', 'task-manager' ), esc_attr( $task->id ) ); ?>"
 			data-id="<?php echo esc_attr( $task->id ); ?>">
 		<span><i class="fa fa-bell"></i></span>
 	</li>

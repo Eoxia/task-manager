@@ -37,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			data-parent="wpeo-project-task"
 			data-target="popup"
 			data-action="load_time_history"
-			data-title="<?php echo esc_attr_e( '#' . $task->id . ' History time', 'task-manager' ); ?>"
+			data-title="<?php echo sprintf( __( '#%1$s History time', 'task-manager' ), esc_attr( $task->id ) ); ?>"
 			data-task-id="<?php echo esc_attr( $task->id ); ?>">
 		<span class="fa fa-history dashicons-image-rotate"></span>
 	</li>
