@@ -70,7 +70,6 @@ class Task_Manager_Action {
 		$screen = get_current_screen();
 		wp_register_style( 'task-manager-global-style', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/global.css', array(), \eoxia\config_util::$init['task-manager']->version );
 		wp_enqueue_style( 'task-manager-global-style' );
-
 		if ( in_array( $screen->id, \eoxia\config_util::$init['task-manager']->insert_scripts_pages, true ) ) {
 			wp_register_style( 'task-manager-style', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/style.min.css', array(), \eoxia\config_util::$init['task-manager']->version );
 			wp_enqueue_style( 'task-manager-style' );
@@ -115,10 +114,19 @@ class Task_Manager_Action {
 	}
 
 	/**
-	 * Initialise le fichier MO
+	 * Initialise le fichier MO et les capacités
+	 *
+	 * @since 1.0.0
+	 * @version 1.5.0
 	 */
 	public function callback_plugins_loaded() {
 		$i18n_loaded = load_plugin_textdomain( 'task-manager', false, PLUGIN_TASK_MANAGER_DIR . '/core/asset/language/' );
+
+		/** Set capability to administrator by default */
+		$administrator_role = get_role( 'administrator' );
+		if ( ! $administrator_role->has_cap( 'manage_task_manager' ) ) {
+			$administrator_role->add_cap( 'manage_task_manager' );
+		}
 	}
 
 	public function callback_wp_print_scripts() {
@@ -137,8 +145,8 @@ class Task_Manager_Action {
 		$title = __( 'Task', 'task-manager' );
 		$title = apply_filters( 'tm_task_main_menu_title', $title );
 
-		add_menu_page( $title, $title, 'publish_pages', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ), PLUGIN_TASK_MANAGER_URL . 'core/asset/icon-16x16.png' );
-		add_submenu_page( 'wpeomtm-dashboard', __( 'Task', 'task-manager' ), __( 'Task', 'task-manager' ), 'publish_pages', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ) );
+		add_menu_page( $title, $title, 'manage_task_manager', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ), PLUGIN_TASK_MANAGER_URL . 'core/asset/icon-16x16.png' );
+		add_submenu_page( 'wpeomtm-dashboard', __( 'Task', 'task-manager' ), __( 'Task', 'task-manager' ), 'manage_task_manager', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ) );
 	}
 
 	/**
