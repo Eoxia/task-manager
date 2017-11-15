@@ -119,7 +119,7 @@ class Activity_Class extends \eoxia\Singleton_Util {
 							TASK.post_title AS T_title, TASK.ID as T_ID,
 							POINT.comment_content AS POINT_title, POINT.comment_ID AS POINT_ID,
 							COMMENT.comment_content AS COM_title, COMMENT.comment_ID as COM_ID,
-							COMMENTMETA.meta_value AS COM_DETAILS
+							COMMENTMETA.meta_value AS COM_DETAILS, COMMENT.comment_date AS COM_DATE
 			FROM {$GLOBALS['wpdb']->comments} AS COMMENT
 				INNER JOIN {$GLOBALS['wpdb']->commentmeta} AS COMMENTMETA ON COMMENTMETA.comment_id = COMMENT.comment_ID
 				INNER JOIN {$GLOBALS['wpdb']->comments} AS POINT ON POINT.comment_ID = COMMENT.comment_parent

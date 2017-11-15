@@ -39,14 +39,22 @@ ob_start();
 <?php if ( ! empty( $datas ) ) : ?>
 	<?php foreach ( $datas as $activity ) : ?>
 	<tr>
-		<td style="width: 20%; vertical-align: top;" ><?php if ( ! empty( $activity->PT_ID ) ) : ?><?php echo esc_html( $activity->PT_title ); ?><?php else : ?>	- <?php endif; ?></td>
+		<td style="width: 20%; vertical-align: top;" ><?php if ( ! empty( $activity->PT_ID ) ) : ?><a href="<?php echo esc_url( get_permalink( $activity->PT_ID ) ); ?>" target="wptm_view_activity_element" ><?php echo esc_html( $activity->PT_title ); ?></a><?php else : ?>	- <?php endif; ?></td>
 		<td style="width: 20%;vertical-align: top;" ><?php echo esc_html( $activity->T_title ); ?></td>
 		<td style="width: 50%;vertical-align: top;" ><?php echo esc_html( $activity->POINT_title ); ?></td>
 		<td>&nbsp;</td>
 	</tr>
 	<tr>
-		<td style="border-bottom: 1px solid #000;" >&nbsp;</td>
-		<td style="border-bottom: 1px solid #000;" colspan="2"><?php echo esc_html( $activity->COM_title ); ?></td>
+		<td style="border-bottom: 1px solid #000; text-align: center;" ><?php echo esc_html( mysql2date( 'd-m-Y H:i', $activity->COM_DATE, true ) ); ?></td>
+		<td style="border-bottom: 1px solid #000;" colspan="2">
+			<?php
+				$link = 'admin.php?page=wpeomtm-dashboard&term=' . $activity->T_ID . '&point_id=' . $activity->POINT_ID . '&comment_id=' . $activity->COM_ID;
+				if ( ! empty( $activity->PT_ID ) ) {
+					$link = 'post.php?post=' . $activity->PT_ID . '&term=' . $activity->T_ID . '&action=edit&point_id=' . $activity->POINT_ID . '&comment_id=' . $activity->COM_ID;
+				}
+			?>
+			<a target="wptm_view_activity_element" style="color: #000; text-decoration: none;" href="<?php echo esc_url( admin_url( $link ) ); ?>" ><?php echo $activity->COM_title; // WPCS : XSS ok. ?></a>
+		</td>
 		<td style="border-bottom: 1px solid #000;" ><?php
 			$com_details = ( ! empty( $activity->COM_DETAILS ) ? json_decode( $activity->COM_DETAILS ) : '' );
 			echo esc_html( $com_details->time_info->elapsed );
@@ -62,7 +70,7 @@ ob_start();
 </table><?php
 $output = ob_get_clean();
 
-echo wp_kses( str_replace( '{{ total_time }}', $total_time, $output ), array(
+echo wp_kses( str_replace( '{{ total_time }}', \eoxia\Date_Util::g()->convert_to_custom_hours( $total_time ), $output ), array(
 	'table'  => array(
 		'style'	=> array(),
 		'class'	=> array(),
@@ -84,4 +92,10 @@ echo wp_kses( str_replace( '{{ total_time }}', $total_time, $output ), array(
 		'class'	=> array(),
 		'data-parent' => array(),
 	),
+	'a' => array(
+		'href' => array(),
+		'target' => array(),
+		'style' => array(),
+	),
+	'br' => array(),
 ) );
