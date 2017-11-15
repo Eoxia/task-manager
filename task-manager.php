@@ -1,13 +1,5 @@
 <?php
 /**
- * Fichier boot du plugin
- *
- * @package TaskManager\Plugin
- */
-
-namespace task_manager;
-
-/**
  * Plugin Name: Task Manager
  * Description: Quick and easy to use, manage all your tasks and your time with the Task Manager plugin.
  * Version: 1.5.0-alpha
@@ -17,7 +9,11 @@ namespace task_manager;
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: task-manager
  * Domain Path: /language
+ *
+ * @package TaskManager\Plugin
  */
+
+namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
