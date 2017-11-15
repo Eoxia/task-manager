@@ -40,7 +40,7 @@ class Time_Exceeded_Action {
 	 * @return void
 	 */
 	public function callback_admin_menu() {
-		add_submenu_page( 'wpeomtm-dashboard', __( 'Time exceeded', 'task-manager' ), __( 'Time exceeded', 'task-manager' ), 'manage_options', 'task-manager-time-exceeded', array( Time_Exceeded_Class::g(), 'callback_submenu_page' ) );
+		add_submenu_page( 'wpeomtm-dashboard', __( 'Time exceeded', 'task-manager' ), __( 'Time exceeded', 'task-manager' ), 'manage_task_manager', 'task-manager-time-exceeded', array( Time_Exceeded_Class::g(), 'callback_submenu_page' ) );
 	}
 
 	/**
