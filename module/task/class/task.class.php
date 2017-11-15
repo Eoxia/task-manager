@@ -148,8 +148,7 @@ class Task_Class extends \eoxia\Post_Class {
 
 		if ( ! empty( $param['id'] ) ) {
 			$tasks = self::g()->get( array(
-				'include' => array( $param['id'] ),
-				'post_status' => 'any',
+				'id' => (int) $param['id'],
 			) );
 		} else {
 
