@@ -8,7 +8,8 @@
 		"toplevel_page_wpeomtm-dashboard",
 		"toplevel_page_digirisk-simple-risk-evaluation",
 		"tache_page_task-manager-time-exceeded",
-		"tache_page_task-manager-indicator"
+		"tache_page_task-manager-indicator",
+		"settings_page_task-manager-setting"
 	],
 	"externals": [],
 	"modules": [
@@ -32,6 +33,7 @@
 		"module/timeline/timeline.config.json",
 		"module/activity/activity.config.json",
 		"module/indicator/indicator.config.json",
+		"module/setting/setting.config.json",
 		"module/tools/tools.config.json"
 	],
 	"debug": false,
