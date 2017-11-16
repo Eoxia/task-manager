@@ -131,7 +131,7 @@ class Activity_Class extends \eoxia\Singleton_Util {
 				AND COMMENTMETA.meta_key = %s
 				AND COMMENT.comment_approved != 'trash'
 				AND POINT.comment_approved != 'trash'
-				AND TASK.post_status IN ( 'publish', 'inherit' )
+				AND TASK.post_status IN ( 'archive', 'publish', 'inherit' )
 			ORDER BY COMMENT.comment_date DESC",
 			$user_id, $date_start . ' 00:00:00', $date_end . ' 23:59:59', 'wpeo_time'
 		);
