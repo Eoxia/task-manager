@@ -51,7 +51,7 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 	 *
 	 * @var array
 	 */
-	protected $after_get_function = array();
+	protected $after_get_function = array( '\task_manager\calcul_elapsed_time' );
 
 	/**
 	 * La fonction appelée automatiquement après l'insertion de l'objet dans la base de donnée.

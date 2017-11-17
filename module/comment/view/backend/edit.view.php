@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php endif; ?>
 		</li>
 
-		<li class="wpeo-comment-time"><span class="fa fa-clock-o"></span> <input type="text" name="time" value="<?php echo esc_attr( $comment->time_info['elapsed'] ); ?>" /></li>
+		<li class="wpeo-comment-time"><span class="fa fa-clock-o"></span> <input type="text" name="time" value="<?php echo esc_attr( empty( $comment->id ) && isset( $comment->time_info['calculed_elapsed'] ) ? $comment->time_info['calculed_elapsed'] : $comment->time_info['elapsed'] ); ?>" /></li>
 
 		<?php if ( ! empty( $comment->id ) ) : ?>
 			<li class="wpeo-save-point"><i data-parent="wpeo-comment-container" class="action-input fa fa-floppy-o" aria-hidden="true"></i></li>
