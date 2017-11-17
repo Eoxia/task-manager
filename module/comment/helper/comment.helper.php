@@ -73,7 +73,7 @@ function calcul_elapsed_time( $data ) {
 	if ( in_array( get_current_user_id(), array( 286, 381 ), true ) ) {
 		// Récupération du dernier commentaire ajouté dans la base.
 		$query = $GLOBALS['wpdb']->prepare(
-			"SELECT COMMENT.comment_date AS COM_DATE
+			"SELECT TIMEDIFF( %s, COMMENT.comment_date ) AS DIFF_DATE
 			FROM {$GLOBALS['wpdb']->comments} AS COMMENT
 				INNER JOIN {$GLOBALS['wpdb']->commentmeta} AS COMMENTMETA ON COMMENTMETA.comment_id = COMMENT.comment_ID
 				INNER JOIN {$GLOBALS['wpdb']->comments} AS POINT ON POINT.comment_ID = COMMENT.comment_parent
@@ -86,14 +86,20 @@ function calcul_elapsed_time( $data ) {
 				AND TASK.post_status IN ( 'archive', 'publish', 'inherit' )
 			ORDER BY COMMENT.comment_date DESC
 			LIMIT 1",
-			get_current_user_id(), current_time( 'Y-m-d 00:00:00' ), 'wpeo_time'
+			current_time( 'mysql' ), get_current_user_id(), current_time( 'Y-m-d 00:00:00' ), 'wpeo_time'
 		);
-		$last_comment_date = $GLOBALS['wpdb']->get_var( $query );
-		if ( ! empty( $last_comment_date ) ) {
-			$datetime1 = new \DateTime( $last_comment_date );
-			$datetime2 = new \DateTime( current_time( 'mysql' ) );
-			$interval = $datetime2->diff( $datetime1 );
-			$data->time_info['calculed_elapsed'] = $interval->format( '%I' );
+		$time_since_last_comment = $GLOBALS['wpdb']->get_var( $query );
+		if ( ! empty( $time_since_last_comment ) ) {
+			$the_interval = 0;
+			$time_components = explode( ':', $time_since_last_comment );
+			// Convert hours in minutes.
+			if ( ! empty( $time_components[0] ) ) {
+				$the_interval += $time_components[0] * 60;
+			}
+			if ( ! empty( $time_components[1] ) ) {
+				$the_interval += $time_components[1];
+			}
+			$data->time_info['calculed_elapsed'] = $the_interval;
 		}
 	}
 
