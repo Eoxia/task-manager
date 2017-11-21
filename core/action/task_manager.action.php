@@ -3,7 +3,7 @@
  * Les actions principales de l'application.
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
- * @since 1.0.0
+ * @since 0.1.0
  * @version 1.5.0
  * @copyright 2015-2017 Eoxia
  * @package Task_Manager
@@ -27,7 +27,7 @@ class Task_Manager_Action {
 	 * plugins_loaded (Pour appeler le domaine de traduction)
 	 */
 	public function __construct() {
-		add_action( 'admin_enqueue_scripts', array( $this, 'callback_before_admin_enqueue_scripts' ), 10 );
+		// add_action( 'admin_enqueue_scripts', array( $this, 'callback_before_admin_enqueue_scripts' ), 10 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'callback_admin_enqueue_scripts' ), 11 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'callback_enqueue_scripts' ), 11 );
 		add_action( 'admin_print_scripts', array( $this, 'callback_admin_print_scripts' ) );
@@ -43,18 +43,25 @@ class Task_Manager_Action {
 	 * Initialise les fichiers JS inclus dans WordPress (jQuery, wp.media et thickbox)
 	 *
 	 * @return void nothing
+	 *
+	 * @todo: A supprimer par la suite si aucun bug. (20/11/2017)
 	 */
 	public function callback_before_admin_enqueue_scripts() {
 		$screen = get_current_screen();
-		if ( in_array( $screen->id, \eoxia\Config_Util::$init['task-manager']->insert_scripts_pages, true ) ) {
-			wp_enqueue_script( 'jquery' );
-			wp_enqueue_script( 'jquery-form' );
-			wp_enqueue_script( 'jquery-ui-datepicker' );
-			wp_enqueue_script( 'jquery-ui-sortable' );
-			wp_enqueue_script( 'jquery-ui-accordion' );
-			wp_enqueue_script( 'jquery-ui-autocomplete' );
-			wp_enqueue_media();
-			add_thickbox();
+		if ( ! empty( \eoxia\Config_Util::$init['task-manager']->insert_scripts_pages ) ) {
+			foreach ( \eoxia\Config_Util::$init['task-manager']->insert_scripts_pages as $insert_script_page ) {
+				if ( false !== strpos( $screen->id, $insert_script_page ) ) {
+					wp_enqueue_script( 'jquery' );
+					wp_enqueue_script( 'jquery-form' );
+					wp_enqueue_script( 'jquery-ui-datepicker' );
+					wp_enqueue_script( 'jquery-ui-sortable' );
+					wp_enqueue_script( 'jquery-ui-accordion' );
+					wp_enqueue_script( 'jquery-ui-autocomplete' );
+					wp_enqueue_media();
+					add_thickbox();
+					break;
+				}
+			}
 		}
 	}
 
@@ -70,16 +77,31 @@ class Task_Manager_Action {
 		$screen = get_current_screen();
 		wp_register_style( 'task-manager-global-style', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/global.css', array(), \eoxia\config_util::$init['task-manager']->version );
 		wp_enqueue_style( 'task-manager-global-style' );
-		if ( in_array( $screen->id, \eoxia\config_util::$init['task-manager']->insert_scripts_pages, true ) ) {
-			wp_register_style( 'task-manager-style', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/style.min.css', array(), \eoxia\config_util::$init['task-manager']->version );
-			wp_enqueue_style( 'task-manager-style' );
 
-			wp_enqueue_style( 'task-manager-datepicker', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/datepicker.min.css', array(), \eoxia\Config_Util::$init['task-manager']->version );
-			wp_enqueue_style( 'task-manager-datetimepicker', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/jquery.datetimepicker.css', array(), \eoxia\Config_Util::$init['task-manager']->version );
+		if ( ! empty( \eoxia\Config_Util::$init['task-manager']->insert_scripts_pages ) ) {
+			foreach ( \eoxia\Config_Util::$init['task-manager']->insert_scripts_pages as $insert_script_page ) {
+				if ( false !== strpos( $screen->id, $insert_script_page ) ) {
+					wp_enqueue_script( 'jquery' );
+					wp_enqueue_script( 'jquery-form' );
+					wp_enqueue_script( 'jquery-ui-datepicker' );
+					wp_enqueue_script( 'jquery-ui-sortable' );
+					wp_enqueue_script( 'jquery-ui-accordion' );
+					wp_enqueue_script( 'jquery-ui-autocomplete' );
+					wp_enqueue_media();
+					add_thickbox();
 
-			wp_enqueue_script( 'task-manager-masonry', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/masonry.min.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
-			wp_enqueue_script( 'task-manager-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/backend.min.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
-			wp_enqueue_script( 'task-manager-datetimepicker-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/jquery.datetimepicker.full.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
+					wp_register_style( 'task-manager-style', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/style.min.css', array(), \eoxia\config_util::$init['task-manager']->version );
+					wp_enqueue_style( 'task-manager-style' );
+
+					wp_enqueue_style( 'task-manager-datepicker', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/datepicker.min.css', array(), \eoxia\Config_Util::$init['task-manager']->version );
+					wp_enqueue_style( 'task-manager-datetimepicker', PLUGIN_TASK_MANAGER_URL . 'core/asset/css/jquery.datetimepicker.css', array(), \eoxia\Config_Util::$init['task-manager']->version );
+
+					wp_enqueue_script( 'task-manager-masonry', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/masonry.min.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
+					wp_enqueue_script( 'task-manager-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/backend.min.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
+					wp_enqueue_script( 'task-manager-datetimepicker-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/jquery.datetimepicker.full.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
+					break;
+				}
+			}
 		}
 	}
 
