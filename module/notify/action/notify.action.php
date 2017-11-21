@@ -91,7 +91,7 @@ class Notify_Action {
 		$data = ! empty( $_POST ) ? (array) $_POST : array();
 
 		if ( ! isset( $data['notify_customer'] ) ) {
-			$data['notify_customer'] = false;
+			$data['notify_customer'] = 'false';
 		}
 
 		if ( empty( $id ) || empty( $users_id ) ) {
