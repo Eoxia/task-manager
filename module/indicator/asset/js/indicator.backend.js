@@ -6,6 +6,27 @@
  */
 window.eoxiaJS.taskManager.indicator = {};
 
+window.eoxiaJS.taskManager.indicator.init = function() {
+	window.eoxiaJS.taskManager.indicator.event();
+};
+
+window.eoxiaJS.taskManager.indicator.event = function() {
+	jQuery( document ).on( 'click', '.page-indicator button.handlediv', window.eoxiaJS.taskManager.indicator.toggleMetabox );
+};
+
+window.eoxiaJS.taskManager.indicator.toggleMetabox = function( event ) {
+	// var data = {
+	// 	"action": ":closed-postboxes",
+	// 	"closed": ":wpeo-task-metabox",
+	// 	"hidden": "slugdiv",
+	// 	"closedpostboxesnonce": "nonce",
+	// };
+  //
+	// window.eoxiaJS.request.send( jQuery( this ), data, function( triggeredElement, response ) {
+  //
+	// } );
+}
+
 /**
  * Le callback en cas de réussite à la requête Ajax "load_customer_activity".
  *

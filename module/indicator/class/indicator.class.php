@@ -23,7 +23,13 @@ class Indicator_Class extends \eoxia\Singleton_Util {
 	protected function construct() {}
 
 	public function callback_submenu_page() {
-		\eoxia\View_Util::exec( 'task-manager', 'indicator', 'backend/main' );
+		$closed_meta_box = get_user_meta( get_current_user_id(), 'closedpostboxes_tache_page_task-manager-indicator' );
+		$order_meta_box = get_user_meta( get_current_user_id(), 'meta-box-order_tache_page_task-manager-indicator' );
+
+		\eoxia\View_Util::exec( 'task-manager', 'indicator', 'backend/main', array(
+			'closed_meta_box' => $closed_meta_box,
+			'order_meta_box' => $order_meta_box,
+		) );
 	}
 
 	public function callback_my_daily_activity() {
