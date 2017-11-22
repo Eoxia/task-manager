@@ -70,7 +70,10 @@ function compile_time( $data ) {
  * @version 1.5.0
  */
 function calcul_elapsed_time( $data ) {
-	if ( in_array( get_current_user_id(), array( 286, 381 ), true ) ) {
+	$user = Follower_Class::g()->get( array(
+		'include' => get_current_user_id(),
+	), true );
+	if ( true === $user->_tm_auto_elapsed_time ) {
 		// Récupération du dernier commentaire ajouté dans la base.
 		$query = $GLOBALS['wpdb']->prepare(
 			"SELECT TIMEDIFF( %s, COMMENT.comment_date ) AS DIFF_DATE

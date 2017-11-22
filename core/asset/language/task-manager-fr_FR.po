@@ -1,25 +1,25 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2017-11-07 14:26+0100\n"
-"PO-Revision-Date: 2017-11-07 14:26+0100\n"
+"POT-Creation-Date: 2017-11-22 15:12+0100\n"
+"PO-Revision-Date: 2017-11-22 15:14+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.1\n"
+"X-Generator: Poedit 2.0.4\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html__;esc_attr_e;_x\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: module\n"
 "X-Poedit-SearchPath-1: core\n"
-"X-Poedit-SearchPathExcluded-0: core/wpeo_logs\n"
+"X-Poedit-SearchPathExcluded-0: core/external\n"
 
-#: core/action/task_manager.action.php:137
-#: core/action/task_manager.action.php:141 core/view/main.view.php:23
+#: core/action/task_manager.action.php:167
+#: core/action/task_manager.action.php:171 core/view/main.view.php:23
 #: module/task/action/task.action.php:488
 msgid "Task"
 msgstr "Tâche"
@@ -46,60 +46,6 @@ msgstr "Créer la catégorie"
 #: core/class/task-manager.class.php:64
 msgid "No change log for this version."
 msgstr "Pas de note de mise à jour pour cette version."
-
-#: core/external/eo-framework/core/class/config.class.php:55
-msgid "Unable to load file"
-msgstr ""
-
-#: core/external/eo-framework/core/class/config.class.php:61
-msgid "This plugin need to have a slug"
-msgstr ""
-
-#: core/external/eo-framework/core/class/external.class.php:52
-msgid "Aucun module a charger"
-msgstr "Aucun module a charger"
-
-#: core/external/eo-framework/core/class/init.class.php:66
-#: core/external/eo-framework/core/class/init.class.php:76
-msgid "Impossible de charger les fichiers .utils"
-msgstr "Impossible de charger les fichiers .utils"
-
-#: core/external/eo-framework/core/class/init.class.php:70
-msgid "$path_to_core_folder_util n'est pas un dossier"
-msgstr "$path_to_core_folder_util n'est pas un dossier"
-
-#: core/external/eo-framework/core/class/json.class.php:41
-msgid "Enabled to load JSON file"
-msgstr ""
-
-#: core/external/eo-framework/core/class/json.class.php:53
-msgid "Error in JSON file"
-msgstr ""
-
-#: core/external/eo-framework/core/class/module.class.php:51
-#, php-format
-msgid "Main config %s not init"
-msgstr ""
-
-#: core/external/eo-framework/core/class/module.class.php:55
-msgid "No module to load"
-msgstr ""
-
-#: core/external/eo-framework/modules/wpeo-upload/view/gallery.view.php:53
-msgid "Set as default thumbnail"
-msgstr ""
-
-#: core/external/eo-framework/modules/wpeo-upload/view/gallery.view.php:63
-msgid "Add a new file"
-msgstr "Ajouter un fichier"
-
-#: core/external/eo-framework/modules/wpeo-upload/view/gallery.view.php:74
-msgid "Change file"
-msgstr ""
-
-#: core/external/eo-framework/modules/wpeo-upload/view/gallery.view.php:88
-msgid "Dissociate"
-msgstr "Dissocier"
 
 #: core/view/main.view.php:27 module/task/action/task.action.php:96
 msgid "New task"
@@ -186,6 +132,24 @@ msgstr "Écrire ce commentaire ici..."
 msgid "Followers"
 msgstr "Utilisateurs"
 
+#: module/follower/view/backend/user-profile.view.php:19
+#: module/setting/view/main.view.php:19
+msgid "Task Manager settings"
+msgstr "Réglages pour Task Manager"
+
+#: module/follower/view/backend/user-profile.view.php:24
+msgid "Compil time automatically"
+msgstr "Temps passé calculé automatiquement"
+
+#: module/follower/view/backend/user-profile.view.php:27
+msgid ""
+"Get the time of last comment you enter and fill elapsed time from this time. "
+"(You don't need to make hard calcul to get your elapsed time ;) "
+msgstr ""
+"Récupère l'heure du dernier commentaire que vous avez entré et rempli le "
+"temps passé automatiquement dans le commentaire que vous souhaitez ajouter. "
+"(Plus besoin de calcul compliqué ;) )"
+
 #: module/history-time/view/backend/history-time.view.php:31
 #, php-format
 msgid "( %smin )"
@@ -199,12 +163,12 @@ msgstr "Nouvelle date de fin"
 msgid "Estimated time (min)"
 msgstr "Temps estimé (min)"
 
-#: module/indicator/action/indicator.action.php:42
+#: module/indicator/action/indicator.action.php:45
 #: module/indicator/view/backend/main.view.php:19
 msgid "Indicator"
 msgstr "Indicateur"
 
-#: module/indicator/action/indicator.action.php:46
+#: module/indicator/action/indicator.action.php:49
 msgid "My daily activity"
 msgstr "Mon activité de la journée"
 
@@ -222,7 +186,7 @@ msgstr "Date de fin"
 msgid "View activity"
 msgstr "Voir l'activité"
 
-#: module/indicator/view/backend/daily-activity.view.php:59
+#: module/indicator/view/backend/daily-activity.view.php:67
 msgid "No activity found for now"
 msgstr "Pas d'activité trouvé pour le moment."
 
@@ -268,16 +232,16 @@ msgstr "La tâche #%1$d %2$s"
 msgid "This mail has been send automaticly"
 msgstr "Ce message à été envoyé automatiquement"
 
-#: module/notify/action/notify.action.php:128
+#: module/notify/action/notify.action.php:129
 #, php-format
 msgid "#%1$d %2$s send by %3$s (%4$s)"
 msgstr "#%1$d %2$s envoyé par %3$s (%4$s)"
 
-#: module/notify/action/notify.action.php:138
+#: module/notify/action/notify.action.php:135
 msgid "Customer link"
 msgstr "Lien vers le client"
 
-#: module/notify/action/notify.action.php:140
+#: module/notify/action/notify.action.php:137
 msgid "Task link"
 msgstr "Lien vers la tâche"
 
@@ -330,6 +294,52 @@ msgstr "Déplacer le point vers"
 msgid "OK"
 msgstr "OK"
 
+#: module/setting/view/capability/has-cap.view.php:20
+msgid ""
+"La capacité \"manage_task_manager\" est appliqué sur tous les utilisateurs "
+"dont le rôle est abonnés. Vous devez supprimer la capacité "
+"\"manage_task_manager\" sur celui-ci pour pouvoir gérer manuellement ce "
+"droit par utilisateur"
+msgstr ""
+
+#: module/setting/view/capability/list-item.view.php:24
+msgid "Droit à Task Manager"
+msgstr ""
+
+#: module/setting/view/capability/list.view.php:23
+#: module/time_exceeded/view/backend/main.view.php:43
+msgid "ID"
+msgstr "ID"
+
+#: module/setting/view/capability/list.view.php:24
+msgid "Email"
+msgstr ""
+
+#: module/setting/view/capability/list.view.php:25
+msgid "Rôle"
+msgstr ""
+
+#: module/setting/view/capability/list.view.php:26
+msgid "A les droit sur Task Manager"
+msgstr ""
+
+#: module/setting/view/capability/list.view.php:51
+#: module/tools/view/backend/main.view.php:143
+msgid "Page"
+msgstr ""
+
+#: module/setting/view/capability/main.view.php:22
+msgid "Gestion des droits de Task Manager"
+msgstr ""
+
+#: module/setting/view/capability/main.view.php:24
+msgid "Définissez les droits d'accés à l'application Task Manager"
+msgstr ""
+
+#: module/setting/view/capability/main.view.php:33
+msgid "Enregistrer"
+msgstr ""
+
 #: module/tag/view/backend/main-edit.view.php:28
 msgid "Create categories "
 msgstr "Créer des catégories "
@@ -355,7 +365,7 @@ msgstr "Terminé"
 msgid "Completed"
 msgstr "Complété(s)"
 
-#: module/task/class/task.class.php:299
+#: module/task/class/task.class.php:298
 #, php-format
 msgid "Task for %1$s"
 msgstr "Tâche pour %1$s"
@@ -427,7 +437,7 @@ msgstr "Déplacer la tâche vers"
 #: module/time_exceeded/action/time-exceeded.action.php:43
 #: module/time_exceeded/view/backend/main.view.php:47
 msgid "Time exceeded"
-msgstr ""
+msgstr "Temps dépassé"
 
 #: module/time_exceeded/class/time-exceeded.class.php:116
 msgid "No parent"
@@ -439,7 +449,7 @@ msgstr "Tâche: Temps excédé"
 
 #: module/time_exceeded/view/backend/main.view.php:31
 msgid "Min exceeded time"
-msgstr ""
+msgstr "Valeur de comparaison"
 
 #: module/time_exceeded/view/backend/main.view.php:34
 #, fuzzy
@@ -450,10 +460,6 @@ msgstr "Historique du temps"
 #: module/time_exceeded/view/backend/main.view.php:37
 msgid "Filter"
 msgstr ""
-
-#: module/time_exceeded/view/backend/main.view.php:43
-msgid "ID"
-msgstr "ID"
 
 #: module/time_exceeded/view/backend/main.view.php:44
 msgid "Title"
@@ -527,9 +533,23 @@ msgstr "Semaine"
 msgid "Task Manager Tools"
 msgstr "Task Manager Outils"
 
-#: module/tools/view/backend/main.view.php:143
-msgid "Page"
-msgstr ""
+#~ msgid "Unable to load file"
+#~ msgstr "Impossible de"
+
+#~ msgid "Aucun module a charger"
+#~ msgstr "Aucun module a charger"
+
+#~ msgid "Impossible de charger les fichiers .utils"
+#~ msgstr "Impossible de charger les fichiers .utils"
+
+#~ msgid "$path_to_core_folder_util n'est pas un dossier"
+#~ msgstr "$path_to_core_folder_util n'est pas un dossier"
+
+#~ msgid "Dissociate"
+#~ msgstr "Dissocier"
+
+#~ msgid "Add a new file"
+#~ msgstr "Ajouter un fichier"
 
 #~ msgid "#"
 #~ msgstr "#"
@@ -795,11 +815,19 @@ msgstr ""
 #~ msgid "Create the point #%d with the content : %s for the task #%d"
 #~ msgstr "Créer le point #%d avec le contenu : %s pour la tâche #%d"
 
-#~ msgid "The point #%d was deleted for the task #%d. The elapsed time for this point was %d minute(s). The elapsed time for this task is now %d minute(s)"
-#~ msgstr "Le point #%d à été supprimé pour la tâche #%d. Le temps passé pour le point était de %d minute(s). Le temps passé pour la tâche est maintenant de %d minute(s)"
+#~ msgid ""
+#~ "The point #%d was deleted for the task #%d. The elapsed time for this "
+#~ "point was %d minute(s). The elapsed time for this task is now %d minute(s)"
+#~ msgstr ""
+#~ "Le point #%d à été supprimé pour la tâche #%d. Le temps passé pour le "
+#~ "point était de %d minute(s). Le temps passé pour la tâche est maintenant "
+#~ "de %d minute(s)"
 
-#~ msgid "The point #%d was updated with the content : %s and set to completed : %s"
-#~ msgstr "Le point #%d à été mis à jour avec le contenu : %s et mis sur complété : %s"
+#~ msgid ""
+#~ "The point #%d was updated with the content : %s and set to completed : %s"
+#~ msgstr ""
+#~ "Le point #%d à été mis à jour avec le contenu : %s et mis sur complété : "
+#~ "%s"
 
 #~ msgid "Point not found"
 #~ msgstr "Point non trouvé"
@@ -838,7 +866,9 @@ msgstr ""
 #~ msgstr "Point terminé"
 
 #~ msgid "There is no comment on this point. Click above to add one."
-#~ msgstr "Il n'y a pas de comment sur ce point. Cliquez ci-dessous pour en ajouter un."
+#~ msgstr ""
+#~ "Il n'y a pas de comment sur ce point. Cliquez ci-dessous pour en ajouter "
+#~ "un."
 
 #~ msgid "at"
 #~ msgstr "à"
@@ -846,11 +876,19 @@ msgstr ""
 #~ msgid "The task #%d has been created by the user #%d"
 #~ msgstr "La tâche #%d à été créer par l'utilisateur #%d"
 
-#~ msgid "The task #%d has been edited by the user #%d with the title : %s and the estimated time %d"
-#~ msgstr "La tâche #%d à été éditée par l'utilisateur #%d avec le titre : %s et le temps estimé %d"
+#~ msgid ""
+#~ "The task #%d has been edited by the user #%d with the title : %s and the "
+#~ "estimated time %d"
+#~ msgstr ""
+#~ "La tâche #%d à été éditée par l'utilisateur #%d avec le titre : %s et le "
+#~ "temps estimé %d"
 
-#~ msgid "The task #%d has been edited by the user #%d with the frontend info display_user : %s and the display_time : %s "
-#~ msgstr "La tâche #%d à été éditée par l'utilisateur #%d avec le option frontend display_user : %s et le display_time : %s"
+#~ msgid ""
+#~ "The task #%d has been edited by the user #%d with the frontend info "
+#~ "display_user : %s and the display_time : %s "
+#~ msgstr ""
+#~ "La tâche #%d à été éditée par l'utilisateur #%d avec le option frontend "
+#~ "display_user : %s et le display_time : %s"
 
 #~ msgid "The task #%d has been send to archive by the user #%d"
 #~ msgstr "La tâche #%d à été envoyée en archive par l'utilisateur #%d"
@@ -865,13 +903,18 @@ msgstr ""
 #~ msgstr "Les tâches %s à été exportées par l'utilisateur #%d"
 
 #~ msgid "The tag %d has selected for the task #%d by the user #%d"
-#~ msgstr "La catégorie %d à été sélectionné pour la tâche #%d par l'utilisateur #%d"
+#~ msgstr ""
+#~ "La catégorie %d à été sélectionné pour la tâche #%d par l'utilisateur #%d"
 
 #~ msgid "The tag %d has deselected for the task #%d by the user #%d"
-#~ msgstr "La catégorie %d à été désélectionné pour la tâche #%d par l'utilisateur #%d"
+#~ msgstr ""
+#~ "La catégorie %d à été désélectionné pour la tâche #%d par l'utilisateur #"
+#~ "%d"
 
 #~ msgid "The owner for the task #%d has been changed to %d by the user #%d"
-#~ msgstr "Le responsable pour la tâche #%d à été changé vers %d par l'utilisateur #%d"
+#~ msgstr ""
+#~ "Le responsable pour la tâche #%d à été changé vers %d par l'utilisateur #"
+#~ "%d"
 
 #~ msgid "to the task"
 #~ msgstr "pour la tâche"
@@ -916,7 +959,9 @@ msgstr ""
 #~ msgstr "Chercher par Client..."
 
 #~ msgid "No tasks, press the \"New task\" button for create a task"
-#~ msgstr "Pas de tâche, appuyez sur le bouton \"Nouvelle tâche\" pour créer une tâche"
+#~ msgstr ""
+#~ "Pas de tâche, appuyez sur le bouton \"Nouvelle tâche\" pour créer une "
+#~ "tâche"
 
 #~ msgid "Write your ticket"
 #~ msgstr "Écrivez votre ticket"
@@ -1111,7 +1156,8 @@ msgstr ""
 #~ msgstr "Le fichier à été déssocier avec succés"
 
 #~ msgid "A required parameter is missing, please check your request."
-#~ msgstr "Un paramètre requis est manquant, s'il vous plaît vérifier votre demande."
+#~ msgstr ""
+#~ "Un paramètre requis est manquant, s'il vous plaît vérifier votre demande."
 
 #~ msgid "Nothing to display"
 #~ msgstr "Rien à afficher"
@@ -1153,7 +1199,9 @@ msgstr ""
 #~ msgstr "Vous avez créé une nouvelle tâche"
 
 #~ msgid "You are not allowed to edit this task : You need to be in write mode"
-#~ msgstr "Vous n'êtes pas autorisé à modifier cette tâche : Vous avez besoin d'être en mode écriture"
+#~ msgstr ""
+#~ "Vous n'êtes pas autorisé à modifier cette tâche : Vous avez besoin d'être "
+#~ "en mode écriture"
 
 #~ msgid "Problem to delete the task : The ID is not found"
 #~ msgstr "Problème pour supprimer cette tâche : ID manquant"
