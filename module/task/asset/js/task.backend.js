@@ -71,7 +71,8 @@ window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
 
 			data.categories_id = jQuery( '.wpeo-header-search input[name="categories_id_selected"]' ).val();
 
-			jQuery( '.load-more' ).addClass( 'loading' );
+			window.eoxiaJS.loader.display( jQuery( '.load-more' ) );
+			jQuery( '.load-more' ).show();
 			window.eoxiaJS.request.send( jQuery( '.load-more' ), data );
 		}
 	}
@@ -89,6 +90,7 @@ window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
  */
 window.eoxiaJS.taskManager.task.loadedMoreTask = function( triggeredElement, response ) {
 	var element = jQuery( response.data.view );
+	jQuery( '.load-more' ).hide();
 	jQuery( '.list-task' ).append( element ).masonry( 'appended', element );
 	window.eoxiaJS.taskManager.task.canLoadMore = response.data.can_load_more;
 	window.eoxiaJS.refresh();
@@ -116,8 +118,7 @@ window.eoxiaJS.taskManager.task.editTitle = function( event, element ) {
 	data.task_id = element.closest( '.wpeo-project-task' ).data( 'id' );
 	data.title = element.val();
 
-	element.closest( '.wpeo-task-header' ).addClass( 'loading' );
-
+	window.eoxiaJS.loader.display( element.closest( '.wpeo-task-header' ) );
 	window.eoxiaJS.request.send( element, data );
 };
 

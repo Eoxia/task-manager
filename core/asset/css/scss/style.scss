@@ -40,15 +40,10 @@ $color__green: #47e58e;
 @import "popup";
 @import "toggle";
 @import "functions";
-@import "loader";
 @import "theme";
 @import "tooltip";
 @import "notification";
 @import "patchnote";
-
-/** Temporaires en attente de EO-Framework **/
-@import "../../../external/eo-framework/core/assets/css/scss/modules/table";
-
 
 #wpeo-task-metabox.closed h2 span a.page-title-action {
 	display: none;
