@@ -258,6 +258,9 @@ class Task_Comment_Action {
 
 	public function callback_edit_comment_front() {
 		check_ajax_referer( 'edit_comment_front' );
+		if ( false === is_user_logged_in() ) {
+			wp_send_json_error();
+		}
 
 		$comment_id = ! empty( $_POST['comment_id'] ) ? (int) $_POST['comment_id'] : 0;
 		$post_id = ! empty( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;

@@ -70,39 +70,41 @@ function compile_time( $data ) {
  * @version 1.5.0
  */
 function calcul_elapsed_time( $data ) {
-	$user = Follower_Class::g()->get( array(
-		'include' => get_current_user_id(),
-	), true );
-	if ( true === $user->_tm_auto_elapsed_time ) {
-		// Récupération du dernier commentaire ajouté dans la base.
-		$query = $GLOBALS['wpdb']->prepare(
-			"SELECT TIMEDIFF( %s, COMMENT.comment_date ) AS DIFF_DATE
-			FROM {$GLOBALS['wpdb']->comments} AS COMMENT
-				INNER JOIN {$GLOBALS['wpdb']->commentmeta} AS COMMENTMETA ON COMMENTMETA.comment_id = COMMENT.comment_ID
-				INNER JOIN {$GLOBALS['wpdb']->comments} AS POINT ON POINT.comment_ID = COMMENT.comment_parent
-				INNER JOIN {$GLOBALS['wpdb']->posts} AS TASK ON TASK.ID = POINT.comment_post_ID
-			WHERE COMMENT.user_id = %d
-				AND COMMENT.comment_date >= %s
-				AND COMMENTMETA.meta_key = %s
-				AND COMMENT.comment_approved != 'trash'
-				AND POINT.comment_approved != 'trash'
-				AND TASK.post_status IN ( 'archive', 'publish', 'inherit' )
-			ORDER BY COMMENT.comment_date DESC
-			LIMIT 1",
-			current_time( 'mysql' ), get_current_user_id(), current_time( 'Y-m-d 00:00:00' ), 'wpeo_time'
-		);
-		$time_since_last_comment = $GLOBALS['wpdb']->get_var( $query );
-		if ( ! empty( $time_since_last_comment ) ) {
-			$the_interval = 0;
-			$time_components = explode( ':', $time_since_last_comment );
-			// Convert hours in minutes.
-			if ( ! empty( $time_components[0] ) ) {
-				$the_interval += $time_components[0] * 60;
+	if ( ! empty( get_current_user_id() ) ) {
+		$user = Follower_Class::g()->get( array(
+			'include' => get_current_user_id(),
+		), true );
+		if ( true === $user->_tm_auto_elapsed_time ) {
+			// Récupération du dernier commentaire ajouté dans la base.
+			$query = $GLOBALS['wpdb']->prepare(
+				"SELECT TIMEDIFF( %s, COMMENT.comment_date ) AS DIFF_DATE
+				FROM {$GLOBALS['wpdb']->comments} AS COMMENT
+					INNER JOIN {$GLOBALS['wpdb']->commentmeta} AS COMMENTMETA ON COMMENTMETA.comment_id = COMMENT.comment_ID
+					INNER JOIN {$GLOBALS['wpdb']->comments} AS POINT ON POINT.comment_ID = COMMENT.comment_parent
+					INNER JOIN {$GLOBALS['wpdb']->posts} AS TASK ON TASK.ID = POINT.comment_post_ID
+				WHERE COMMENT.user_id = %d
+					AND COMMENT.comment_date >= %s
+					AND COMMENTMETA.meta_key = %s
+					AND COMMENT.comment_approved != 'trash'
+					AND POINT.comment_approved != 'trash'
+					AND TASK.post_status IN ( 'archive', 'publish', 'inherit' )
+				ORDER BY COMMENT.comment_date DESC
+				LIMIT 1",
+				current_time( 'mysql' ), get_current_user_id(), current_time( 'Y-m-d 00:00:00' ), 'wpeo_time'
+			);
+			$time_since_last_comment = $GLOBALS['wpdb']->get_var( $query );
+			if ( ! empty( $time_since_last_comment ) ) {
+				$the_interval = 0;
+				$time_components = explode( ':', $time_since_last_comment );
+				// Convert hours in minutes.
+				if ( ! empty( $time_components[0] ) ) {
+					$the_interval += $time_components[0] * 60;
+				}
+				if ( ! empty( $time_components[1] ) ) {
+					$the_interval += $time_components[1];
+				}
+				$data->time_info['calculed_elapsed'] = $the_interval;
 			}
-			if ( ! empty( $time_components[1] ) ) {
-				$the_interval += $time_components[1];
-			}
-			$data->time_info['calculed_elapsed'] = $the_interval;
 		}
 	}
 

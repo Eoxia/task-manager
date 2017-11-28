@@ -14,11 +14,13 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-\eoxia\View_Util::exec( 'task-manager', 'comment', 'frontend/edit', array(
-	'task_id' => $task_id,
-	'point_id' => $point_id,
-	'comment' => $comment_schema,
-) );
+if ( true === is_user_logged_in() ) :
+	\eoxia\View_Util::exec( 'task-manager', 'comment', 'frontend/edit', array(
+		'task_id' => $task_id,
+		'point_id' => $point_id,
+		'comment' => $comment_schema,
+	) );
+endif;
 
 \eoxia\View_Util::exec( 'task-manager', 'comment', 'frontend/list-comment', array(
 	'comments' => $comments,
