@@ -38,16 +38,23 @@ class Point_Filter {
 	public function callback_task_points_mail( $string, $task ) {
 		if ( ! empty( $task->task_info['order_point_id'] ) ) {
 			$list_point = Point_Class::g()->get( array(
-				'post_id' => $task_id,
+				'post_id' => $task->id,
 				'comment__in' => $task->task_info['order_point_id'],
 				'status' => -34070,
 			) );
 
 			$list_point_completed = array_filter( $list_point, function( $point ) {
+				if ( empty( $point->id ) ) {
+					return false;
+				}
 				return true === $point->point_info['completed'];
 			} );
 
 			$list_point_uncompleted = array_filter( $list_point, function( $point ) {
+				if ( empty( $point->id ) ) {
+					return false;
+				}
+				
 				return false === $point->point_info['completed'];
 			} );
 		}

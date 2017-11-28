@@ -2,7 +2,7 @@
  * Initialise l'objet "task" ainsi que la méthode "init" obligatoire pour la bibliothèque EoxiaJS.
  *
  * @since 1.0.0
- * @version 1.4.0-ford
+ * @version 1.5.0
  */
 window.eoxiaJS.taskManager.task = {};
 window.eoxiaJS.taskManager.task.offset = 0;
@@ -25,7 +25,11 @@ window.eoxiaJS.taskManager.task.refresh = function() {
 window.eoxiaJS.taskManager.task.event = function() {
 	jQuery( '.wpeo-project-wrap' ).on( 'keypress', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.keyEnterEditTitle );
 	jQuery( '.wpeo-project-wrap' ).on( 'blur', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.editTitle );
+	jQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-task-time-manage .dashicons-editor-ul', window.eoxiaJS.taskManager.task.switchViewToLine );
 	jQuery( window ).scroll( window.eoxiaJS.taskManager.task.onScrollLoadMore );
+	jQuery( '.wpeo-project-wrap' ).on( 'click', '.task-header-action .success span', window.eoxiaJS.taskManager.task.closeSuccess );
+	jQuery( '#poststuff' ).on( 'click', '#wpeo-task-metabox', window.eoxiaJS.taskManager.task.refresh );
+	jQuery( '#wpeo-task-metabox h2 span .action-attribute' ).click( window.eoxiaJS.action.execAttribute );
 };
 
 /**
@@ -67,7 +71,8 @@ window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
 
 			data.categories_id = jQuery( '.wpeo-header-search input[name="categories_id_selected"]' ).val();
 
-			jQuery( '.load-more' ).addClass( 'loading' );
+			window.eoxiaJS.loader.display( jQuery( '.load-more' ) );
+			jQuery( '.load-more' ).show();
 			window.eoxiaJS.request.send( jQuery( '.load-more' ), data );
 		}
 	}
@@ -85,6 +90,7 @@ window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
  */
 window.eoxiaJS.taskManager.task.loadedMoreTask = function( triggeredElement, response ) {
 	var element = jQuery( response.data.view );
+	jQuery( '.load-more' ).hide();
 	jQuery( '.list-task' ).append( element ).masonry( 'appended', element );
 	window.eoxiaJS.taskManager.task.canLoadMore = response.data.can_load_more;
 	window.eoxiaJS.refresh();
@@ -112,9 +118,26 @@ window.eoxiaJS.taskManager.task.editTitle = function( event, element ) {
 	data.task_id = element.closest( '.wpeo-project-task' ).data( 'id' );
 	data.title = element.val();
 
-	element.closest( '.wpeo-task-header' ).addClass( 'loading' );
-
+	window.eoxiaJS.loader.display( element.closest( '.wpeo-task-header' ) );
 	window.eoxiaJS.request.send( element, data );
+};
+
+/**
+ * Réaffiches les points lors du clic.
+ *
+ * @since 1.5.0
+ * @version 1.5.0
+ *
+ * @param  {ClickEvent} event         L'état de l'évènement lors du 'click'.
+ * @return {void}
+ */
+window.eoxiaJS.taskManager.task.switchViewToLine = function( event ) {
+	jQuery( this ).addClass( 'active' );
+	jQuery( this ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .dashicons-screenoptions.active' ).removeClass( 'active' );
+	jQuery( this ).closest( '.wpeo-project-task' ).find( '.activities' ).hide();
+	jQuery( this ).closest( '.wpeo-project-task' ).find( '.points.sortable' ).show();
+	jQuery( this ).closest( '.wpeo-project-task' ).find( '.wpeo-task-point-use-toggle' ).show();
+	window.eoxiaJS.refresh();
 };
 
 /**
@@ -204,6 +227,7 @@ window.eoxiaJS.taskManager.task.loadedAllTask = function( triggeredElement, resp
 
 	jQuery( '.wpeo-header-bar li.active' ).removeClass( 'active' );
 	jQuery( triggeredElement ).addClass( 'active' );
+	window.eoxiaJS.refresh();
 };
 
 /**
@@ -233,6 +257,7 @@ window.eoxiaJS.taskManager.task.loadedCorretiveTaskSuccess = function( triggered
 
 	jQuery( '.wpeo-header-bar li.active' ).removeClass( 'active' );
 	jQuery( triggeredElement ).addClass( 'active' );
+	window.eoxiaJS.refresh();
 };
 
 /**
@@ -247,4 +272,33 @@ window.eoxiaJS.taskManager.task.loadedCorretiveTaskSuccess = function( triggered
  */
 window.eoxiaJS.taskManager.task.exportedTask = function( triggeredElement, response ) {
 	window.eoxiaJS.global.downloadFile( response.data.url, response.data.filename );
+};
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "notify_by_mail".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.5.0
+ * @version 1.5.0
+ */
+window.eoxiaJS.taskManager.task.notifiedByMail = function( triggeredElement, response ) {
+
+};
+
+
+/**
+ * Enlève la classe 'active' de l'élement 'success'.
+ *
+ * @since 1.5.0
+ * @version 1.5.0
+ *
+ * @param  {MouseEvent} event L'état de la souri.
+ *
+ * @return {void}
+ */
+window.eoxiaJS.taskManager.task.closeSuccess = function( event ) {
+	jQuery( this ).closest( '.success.active' ).removeClass( 'active' );
 };

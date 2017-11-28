@@ -70,7 +70,7 @@ class Timeline_Action {
 	 * @return [type] [description]
 	 */
 	public function callback_admin_menu() {
-		add_submenu_page( 'wpeomtm-dashboard', __( 'Timeline', 'task-manager' ), __( 'Timeline', 'task-manager' ), 'manage_options', 'tm-timeline', array( Timeline_Class::g(), 'callback_submenu_page' ) );
+		add_submenu_page( 'wpeomtm-dashboard', __( 'Timeline', 'task-manager' ), __( 'Timeline', 'task-manager' ), 'manage_task_manager', 'tm-timeline', array( Timeline_Class::g(), 'callback_submenu_page' ) );
 	}
 }
 

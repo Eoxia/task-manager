@@ -28,8 +28,8 @@ window.eoxiaJS.taskManager.navigation.triggerSearch = function( event ) {
  *
  * @return void
  *
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.4.0
  */
 window.eoxiaJS.taskManager.navigation.toggleMoreOptions = function() {
 	jQuery( '.wpeo-header-search' ).toggle();
@@ -56,6 +56,8 @@ window.eoxiaJS.taskManager.navigation.loadedMyTask = function( triggeredElement,
 
 	jQuery( '.wpeo-header-bar li.active' ).removeClass( 'active' );
 	jQuery( triggeredElement ).addClass( 'active' );
+
+	window.eoxiaJS.refresh();
 };
 
 /**
@@ -86,7 +88,7 @@ window.eoxiaJS.taskManager.navigation.checkDataBeforeSearch = function( triggere
 		categoriesIdSelected.push( parseInt( jQuery( item ).attr( 'data-tag-id' ) ) );
 	} );
 
-	jQuery( 'input[name="categories_id_selected"] ' ).val( categoriesIdSelected.join( ',' ) );
+	jQuery( 'input[name="categories_id_selected"]' ).val( categoriesIdSelected.join( ',' ) );
 
 	return true;
 };
@@ -99,8 +101,8 @@ window.eoxiaJS.taskManager.navigation.checkDataBeforeSearch = function( triggere
  * @param  {Object}         response          Les données renvoyées par la requête Ajax.
  * @return {void}
  *
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.4.0
  */
 window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredElement, response ) {
 	jQuery( '.wpeo-project-wrap .load-more' ).remove();

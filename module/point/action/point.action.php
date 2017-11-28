@@ -3,16 +3,17 @@
  *  Les actions relatives aux points.
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.5.0
  * @copyright 2015-2017 Eoxia
- * @package point
- * @subpackage view
+ * @package Task Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Les actions relatives aux points
@@ -28,6 +29,7 @@ class Point_Action {
 	public function __construct() {
 		/** Point */
 		add_action( 'wp_ajax_edit_point', array( $this, 'ajax_edit_point' ) );
+		add_action( 'wp_ajax_change_date_point', array( $this, 'ajax_change_date_point' ) );
 		add_action( 'wp_ajax_delete_point', array( $this, 'ajax_delete_point' ) );
 		add_action( 'wp_ajax_edit_order_point', array( $this, 'ajax_edit_order_point' ) );
 		add_action( 'wp_ajax_complete_point', array( $this, 'ajax_complete_point' ) );
@@ -43,8 +45,8 @@ class Point_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.5.0
 	 */
 	public function ajax_edit_point() {
 		check_ajax_referer( 'edit_point' );
@@ -53,6 +55,7 @@ class Point_Action {
 		$parent_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
 		$content = ! empty( $_POST['content'] ) ? $_POST['content'] : '';
 
+		$content = str_replace( '<div>', '<br>', trim( $content ) );
 		$content = wp_kses( $content, array(
 			'br' => array(),
 			'tooltip' => array(
@@ -60,7 +63,7 @@ class Point_Action {
 			)
 		) );
 
-		if ( empty( $parent_id ) || empty( $content ) ) {
+		if ( empty( $parent_id ) ) {
 			wp_send_json_error();
 		}
 
@@ -70,10 +73,14 @@ class Point_Action {
 			'content' => $content,
 		) );
 
+		$point->content = stripslashes( $point->content );
+
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
 			'point' => $point,
 			'parent_id' => $parent_id,
+			'point_id' => 0,
+			'comment_id' => 0,
 		) );
 
 		wp_send_json_success( array(
@@ -84,14 +91,40 @@ class Point_Action {
 		) );
 	}
 
+	/**
+	* Change la date du point
+	*
+	* @since 1.5.0
+	* @version 1.5.0
+	*
+	* @return void
+	*/
+	public function ajax_change_date_point() {
+		$point_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+		$mysql_date = ! empty( $_POST['date'] ) ? sanitize_text_field( $_POST['date'] ) : '';
+
+		if ( empty( $point_id ) || empty( $mysql_date ) ) {
+			wp_send_json_error();
+		}
+
+		$point = Point_Class::g()->get( array(
+			'id' => $point_id,
+		), true );
+
+		$point->date = $mysql_date;
+
+		Point_Class::g()->update( $point );
+
+		wp_send_json_success();
+	}
 
 	/**
 	 * Supprimes le point.
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.5.0
 	 */
 	public function ajax_delete_point() {
 		check_ajax_referer( 'delete_point' );
@@ -116,8 +149,10 @@ class Point_Action {
 		$task->time_info['elapsed'] -= $point->time_info['elapsed'];
 		$task = Task_Class::g()->update( $task );
 
+		do_action( 'tm_delete_point', $point );
+
 		wp_send_json_success( array(
-			'time' => $task->time_info['time_display'] . ' (' . $task->time_info['elapsed'] . 'min)',
+			'time' => \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] ),
 			'namespace' => 'taskManager',
 			'module' => 'point',
 			'callback_success' => 'deletedPointSuccess',
@@ -149,7 +184,6 @@ class Point_Action {
 
 		$task = Task_Class::g()->get( array(
 			'id' => $task_id,
-			'post_status' => array( 'publish', 'archive' ),
 		), true );
 
 		$points = Point_Class::g()->get( array(
@@ -195,8 +229,8 @@ class Point_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.5.0
 	 */
 	public function ajax_complete_point() {
 		check_ajax_referer( 'complete_point' );
@@ -205,7 +239,7 @@ class Point_Action {
 		$complete = ( isset( $_POST['complete'] )  && 'true' === $_POST['complete'] ) ? true : false;
 
 		$point = Point_Class::g()->get( array(
-			'comment__in' => array( $point_id ),
+			'id' => $point_id,
 			'status' => '-34070',
 		), true );
 
@@ -218,6 +252,8 @@ class Point_Action {
 		}
 
 		Point_Class::g()->update( $point );
+
+		do_action( 'tm_complete_point', $point );
 
 		wp_send_json_success();
 	}
@@ -264,6 +300,8 @@ class Point_Action {
 				\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
 					'parent_id' => $task->id,
 					'point' => $point,
+					'point_id' => 0,
+					'comment_id' => 0,
 				) );
 			}
 		}
@@ -375,8 +413,8 @@ class Point_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.5.0
 	 */
 	public function ajax_move_point_to() {
 		check_ajax_referer( 'move_point_to' );
@@ -391,12 +429,10 @@ class Point_Action {
 
 		$current_task = Task_Class::g()->get( array(
 			'id' => $task_id,
-			'post_status' => array( 'publish', 'archive' ),
 		), true );
 
 		$to_task = Task_Class::g()->get( array(
 			'id' => $to_task_id,
-			'post_status' => array( 'publish', 'archive' ),
 		), true );
 
 		$point = Point_Class::g()->get( array(

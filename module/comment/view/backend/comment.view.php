@@ -3,18 +3,19 @@
  * Un commentaire dans le backend.
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.5.0
  * @copyright 2015-2017 Eoxia
- * @package comment
- * @subpackage view
+ * @package Task_Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} ?>
 
-<li class="comment view">
+<li class="comment view <?php echo ( $comment_selected_id === $comment->id ) ? 'blink' : ''; ?>">
 	<ul class="wpeo-comment-container">
 		<li class="avatar"><?php echo do_shortcode( '[task_avatar ids="' . $comment->author_id . '" size="20"]' ); ?></li>
 		<li class="wpeo-comment-date"><?php echo esc_html( $comment->date['date_human_readable'] ); ?></li>
@@ -30,6 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 				</div>
 
 				<ul class="left content point-header-action">
+					<?php echo apply_filters( 'tm_comment_toggle_before', '', $comment ); ?>
 					<li class="action-attribute"
 							data-action="load_edit_view_comment"
 							data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_edit_view_comment' ) ); ?>"
@@ -44,6 +46,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 							data-id="<?php echo esc_attr( $comment->id ); ?>"
 						<span><?php esc_html_e( 'Delete this comment', 'task-manager' ); ?></span>
 					</li>
+					<?php echo apply_filters( 'tm_comment_toggle_after', '', $comment ); ?>
 				</ul>
 			</div>
 		</li>

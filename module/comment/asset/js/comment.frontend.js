@@ -14,22 +14,32 @@ window.eoxiaJS.taskManagerFrontend.comment.beforeLoadComment = function( trigger
 	}
 
 	if ( triggeredElement.closest( 'div.point' ).find( '.comments' ).is( ':visible'  ) ) {
+		triggeredElement.closest( '.point' ).find( '.point-toggle .fa' ).toggleClass( 'fa-angle-down fa-angle-right' );
+		triggeredElement.closest( 'div.point' ).find( '.comments' ).slideUp();
+
 		return false;
 	}
+
+	jQuery( '.wpeo-project-task .point .point-toggle .fa.fa-angle-down' ).toggleClass( 'fa-angle-right fa-angle-down' );
 
 	return true;
 };
 
 window.eoxiaJS.taskManagerFrontend.comment.loadedFrontComments = function( triggeredElement, response ) {
-	jQuery( triggeredElement ).closest( '.point' ).find( '.comments' ).html( response.data.view );
+	triggeredElement.closest( '.point' ).find( '.point-toggle .fa' ).toggleClass( 'fa-angle-right fa-angle-down' );
+	triggeredElement.closest( '.point' ).find( '.comments' ).html( response.data.view );
 	triggeredElement.closest( 'div.point' ).find( '.comments' ).slideDown();
 };
 
 window.eoxiaJS.taskManagerFrontend.comment.addedCommentSuccess = function( triggeredElement, response ) {
-	jQuery( triggeredElement ).closest( '.wpeo-comment-container' ).find( 'input[name="content"]' ).val( '' );
-	jQuery( triggeredElement ).closest( '.wpeo-comment-container' ).find( '.content' ).html( '' );
-	jQuery( triggeredElement ).closest( '.comments .comment.new' ).after( response.data.view );
-	jQuery( triggeredElement ).closest( '.comment' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
+	var currentNumberComment = parseInt( triggeredElement.closest( '.point' ).find( '.wpeo-point-comment span:last' ).text() );
+	currentNumberComment++;
+
+	triggeredElement.closest( '.wpeo-comment-container' ).find( 'input[name="content"]' ).val( '' );
+	triggeredElement.closest( '.wpeo-comment-container' ).find( '.content' ).html( '' );
+	triggeredElement.closest( '.comments .comment.new' ).after( response.data.view );
+	triggeredElement.closest( '.comment' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
+	triggeredElement.closest( '.point' ).find( '.wpeo-point-comment span:last' ).text( currentNumberComment );
 };
 
 /**

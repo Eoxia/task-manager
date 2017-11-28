@@ -1,0 +1,12 @@
+{
+	"name": "Gestion des notifications",
+	"slug": "notify",
+	"version": "1.5.0",
+	"description": "Le module gérant les notifications",
+	"path": "module/notify/",
+	"dependencies": {
+		"action": {},
+		"class": {}
+	},
+	"state": true
+}

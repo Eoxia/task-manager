@@ -5,8 +5,8 @@
  * @package Task Manager
  * @subpackage Module/Tag
  *
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.5.0
  */
 
 namespace task_manager;
@@ -29,13 +29,19 @@ class Follower_Action {
 
 		add_action( 'wp_ajax_follower_affectation', array( $this, 'ajax_follower_affectation' ) );
 		add_action( 'wp_ajax_follower_unaffectation', array( $this, 'ajax_follower_unaffectation' ) );
+
+		add_action( 'show_user_profile', array( $this, 'callback_edit_user_profile' ) );
+		add_action( 'edit_user_profile', array( $this, 'callback_edit_user_profile' ) );
+
+		add_action( 'personal_options_update', array( $this, 'callback_user_profile_edit' ) );
+		add_action( 'edit_user_profile_update', array( $this, 'callback_user_profile_edit' ) );
 	}
 
 	/**
 	 * Récupère les followers existants dans la base et les retournent pour affichage
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.5.0
 	 */
 	public function ajax_load_followers() {
 		check_ajax_referer( 'load_followers' );
@@ -48,8 +54,7 @@ class Follower_Action {
 		$task_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $task_id ),
-			'post_status' => array( 'publish', 'archive' ),
+			'id' => $task_id,
 		), true );
 
 		ob_start();
@@ -84,8 +89,7 @@ class Follower_Action {
 		}
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $task_id ),
-			'post_status' => array( 'publish', 'archive' ),
+			'id' => $task_id,
 		), true );
 
 		$followers = array();
@@ -128,7 +132,7 @@ class Follower_Action {
 		}
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $task_id ),
+			'id' => $task_id,
 		), true );
 
 		$task->user_info['affected_id'][] = $user_id;
@@ -161,7 +165,7 @@ class Follower_Action {
 		}
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $task_id ),
+			'id' => $task_id,
 		), true );
 
 		$key = array_search( $user_id, $task->user_info['affected_id'], true );
@@ -178,6 +182,39 @@ class Follower_Action {
 			'nonce' => wp_create_nonce( 'follower_affectation' ),
 		) );
 	}
+
+	/**
+	 * Ajoute les champs spécifiques à note de frais dans le compte utilisateur.
+	 *
+	 * @param  WP_User $user L'objet contenant la définition complète de l'utilisateur.
+	 */
+	public function callback_edit_user_profile( $user  ) {
+		$user = Follower_Class::g()->get( array(
+			'include' => array( $user->ID ),
+		), true );
+
+		\eoxia\View_Util::exec( 'task-manager', 'follower', 'backend/user-profile', array(
+			'user' => $user,
+		) );
+	}
+
+	/**
+	 * Enregistre les informations spécifiques de Note de Frais
+	 *
+	 * @param  integer $user_id L'identifiant de l'utilisateur pour qui il faut sauvegarder les informations.
+	 */
+	public function callback_user_profile_edit( $user_id ) {
+		check_admin_referer( 'update-user_' . $user_id );
+		if ( ! current_user_can( 'edit_user', $user_id ) ) {
+			return false;
+		}
+
+		$user = array( 'id' => $user_id );
+		$user['_tm_auto_elapsed_time'] = ! empty( $_POST ) && ! empty( $_POST['_tm_auto_elapsed_time'] ) ? sanitize_text_field( $_POST['_tm_auto_elapsed_time'] ) : '';
+
+		$user_update = Follower_Class::g()->update( $user );
+	}
+
 }
 
 new Follower_Action();

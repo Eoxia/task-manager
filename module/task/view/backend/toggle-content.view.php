@@ -3,16 +3,24 @@
  * Les propriétés d'une tâche.
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
- * @since 1.0.0.0
- * @version 1.4.0-ford
+ * @since 1.0.0
+ * @version 1.5.0
  * @copyright 2015-2017 Eoxia
- * @package task
- * @subpackage view
+ * @package Task Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} ?>
+
+<div class="success">
+	<div class="content">
+		<p>Notification envoyée</p>
+		<span>OK</span>
+	</div>
+</div>
 
 <div class="gridwrapper w2">
 	<ul class="task-color">
@@ -49,7 +57,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 			data-action="<?php echo ( 'archive' !== $task->status ) ? 'to_archive' : 'to_unarchive'; ?>"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( ( 'archive' === $task->status ) ? 'to_archive' : 'to_unarchive' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->id ); ?>"
-			data-loader="actions">
+			data-loader="task-header-action">
 		<span><i class="fa fa-archive"></i></span>
 	</li>
 
@@ -59,42 +67,44 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 			data-message-delete="<?php echo esc_attr_e( 'Delete this task ?', 'task-manager' ); ?>"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_task' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->id ); ?>"
-			data-loader="actions">
+			data-loader="task-header-action">
 		<span><i class="fa fa-trash"></i></span>
 	</li>
 
-
-	<li class="action-attribute tooltip hover"
+	<li class="open-popup-ajax tooltip hover"
 			aria-label="<?php esc_html_e( 'Notify team', 'task-manager' ); ?>"
-			data-action="notify_by_mail"
-			data-nonce="<?php echo esc_attr( wp_create_nonce( 'notify_by_mail' ) ); ?>"
-			data-id="<?php echo esc_attr( $task->id ); ?>"
-			data-loader="actions">
+			data-parent="wpeo-project-task"
+			data-target="popup"
+			data-class="popup-notification"
+			data-action="load_notify_popup"
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_notify_popup' ) ); ?>"
+			data-title="<?php echo sprintf( __( '#%1$s Notify popup', 'task-manager' ), esc_attr( $task->id ) ); ?>"
+			data-id="<?php echo esc_attr( $task->id ); ?>">
 		<span><i class="fa fa-bell"></i></span>
 	</li>
-
 
 	<li class="action-attribute tooltip hover"
 			aria-label="<?php esc_html_e( 'Export', 'task-manager' ); ?>"
 			data-action="export_task"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_task' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->id ); ?>"
-			data-loader="actions">
+			data-loader="task-header-action">
 		<span><i class="fa fa-download"></i></span>
 	</li>
+
+	<?php apply_filters( 'task_manager_task_header_actions_after', $task->id ); ?>
+
 </ul>
 
 <div class="move-to">
 	<div>
 		<input type="hidden" name="task_id" value="<?php echo esc_attr( $task->id ); ?>" />
-		<input type="hidden" name="action" value="move_task_to" />
-		<?php wp_nonce_field( 'move_task_to' ); ?>
 
 		<label for="move_task"><?php esc_html_e( 'Move the task to', 'task-manager' ); ?></label>
 		<div class="form-fields">
 			<input type="text" class="search-parent" />
 			<input type="hidden" name="to_element_id" />
-			<input type="button" class="action-input" data-loader="move-to" data-parent="move-to" value="<?php esc_html_e( 'OK', 'task-manager' ); ?>" />
+			<input type="button" class="action-input" data-action="move_task_to" data-nonce="<?php echo esc_attr( wp_create_nonce( 'move_task_to' ) ); ?>" data-loader="move-to" data-parent="move-to" value="<?php esc_html_e( 'OK', 'task-manager' ); ?>" />
 		</div>
 		<div class="list-posts">
 		</div>

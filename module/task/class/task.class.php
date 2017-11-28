@@ -1,17 +1,19 @@
 <?php
 /**
- * Gestion des tâches
+ * Gestion des tâches.
  *
- * @package Task Manager
- * @subpackage Module/task
- *
- * @since 1.0.0.0
- * @version 1.4.2
+ * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @since 1.0.0
+ * @version 1.5.0
+ * @copyright 2015-2017 Eoxia
+ * @package Task_Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Gestion des tâches.
@@ -37,21 +39,21 @@ class Task_Class extends \eoxia\Post_Class {
 	 *
 	 * @var string
 	 */
-	protected $model_name 	= '\task_manager\Task_Model';
+	protected $model_name = '\task_manager\Task_Model';
 
 	/**
 	 * Le post type
 	 *
 	 * @var string
 	 */
-	protected $post_type	= 'wpeo-task';
+	protected $post_type = 'wpeo-task';
 
 	/**
 	 * La clé principale du modèle
 	 *
 	 * @var string
 	 */
-	protected $meta_key		= 'wpeo_task';
+	protected $meta_key = 'wpeo_task';
 
 	/**
 	 * La route pour accéder à l'objet dans la rest API
@@ -96,27 +98,29 @@ class Task_Class extends \eoxia\Post_Class {
 	protected $after_put_function = array( '\task_manager\get_full_task' );
 
 	/**
-	 * Le constructeur
+	 * Récupères les tâches.
 	 *
-	 * @return void
-	 *
-	 * @since 1.0.0.0
-	 * @version 1.0.0.0
-	 */
-	protected function construct() {
-		parent::construct();
-	}
-
-	/**
-	 * [get_tasks description]
-	 *
+<<<<<<< HEAD
+	 * @since 1.0.0
+	 * @version 1.5.0
+=======
 	 * @since 1.4.0
 	 * @version 1.4.2
+>>>>>>> master
 	 *
-	 * @param  [type] $param [description]
-	 * @return [type]        [description]
+	 * @param array $param {
+	 *                      Les propriétés du tableau.
 	 *
-	 * @todo: here
+	 *                      @type integer $id(optional)              L'ID de la tâche.
+	 *                      @type integer $offset(optional)          Sautes x tâches.
+	 *                      @type integer $posts_per_page(optional)  Le nombre de tâche.
+	 *                      @type array   $users_id(optional)        Un tableau contenant l'ID des utilisateurs.
+	 *                      @type array   $categories_id(optional)   Un tableau contenant le TERM_ID des categories.
+	 *                      @type string  $status(optional)          Le status des tâches.
+	 *                      @type integer $post_parent(optional)     L'ID du post parent.
+	 *                      @type string  $term(optional)            Le terme pour rechercher une tâche.
+	 * }.
+	 * @return array        La liste des tâches trouvées.
 	 */
 	public function get_tasks( $param ) {
 		global $wpdb;
@@ -149,7 +153,7 @@ class Task_Class extends \eoxia\Post_Class {
 
 		if ( ! empty( $param['id'] ) ) {
 			$tasks = self::g()->get( array(
-				'include' => array( $param['id'] ),
+				'id' => (int) $param['id'],
 			) );
 		} else {
 
@@ -210,7 +214,7 @@ class Task_Class extends \eoxia\Post_Class {
 			$tasks_id = $wpdb->get_col( $query );
 
 			if ( ! empty( $tasks_id ) ) {
-				$tasks = Task_Class::g()->get( array(
+				$tasks = self::g()->get( array(
 					'include' => $tasks_id,
 					'post_status' => $param['status'],
 				) );
@@ -228,15 +232,109 @@ class Task_Class extends \eoxia\Post_Class {
 	 *
 	 * @return void
 	 *
-	 * @since 1.3.6.0
-	 * @version 1.3.6.0
+	 * @since 1.3.6
+	 * @version 1.5.0
+	 *
+	 * @todo: With_wrapper ?
 	 */
-	public function display_tasks( $tasks, $with_wrapper = false ) {
-		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/tasks', array(
-			'tasks' => $tasks,
-			'with_wrapper' => $with_wrapper,
+	public function display_tasks( $tasks, $frontend = false ) {
+		if ( $frontend ) {
+			\eoxia\View_Util::exec( 'task-manager', 'task', 'frontend/tasks', array(
+				'tasks' => $tasks,
+				'with_wrapper' => false,
+			) );
+		} else {
+			\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/tasks', array(
+				'tasks' => $tasks,
+				'with_wrapper' => false,
+			) );
+		}
+	}
+
+	/**
+	 * Fait le rendu de la metabox
+	 *
+	 * @param  WP_Post $post les données du post.
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 * @version 1.5.0
+	 */
+	public function callback_render_metabox( $post ) {
+		$parent_id = $post->ID;
+		$user_id = $post->post_author;
+
+		$tasks = array();
+		$task_ids_for_history = array();
+		$total_time_elapsed = 0;
+		$total_time_estimated = 0;
+
+		// Affichage des tâches de l'élément sur lequel on se trouve.
+		$tasks[ $post->ID ]['title'] = '';
+		$tasks[ $post->ID ]['data'] = self::g()->get_tasks( array(
+			'post_parent' => $post->ID,
+		) );
+
+		if ( ! empty( $tasks[ $post->ID ]['data'] ) ) {
+			foreach ( $tasks[ $post->ID ]['data'] as $task ) {
+				if ( empty( $tasks[ $post->ID ]['total_time_elapsed'] ) ) {
+					$tasks[ $post->ID ]['total_time_elapsed'] = 0;
+				}
+
+				$tasks[ $post->ID ]['total_time_elapsed'] += $task->time_info['elapsed'];
+				$total_time_elapsed += $task->time_info['elapsed'];
+				$total_time_estimated += $task->last_history_time->estimated_time;
+
+				$task_ids_for_history[] = $task->id;
+			}
+		}
+
+		// Récupération des enfants de l'élément sur lequel on se trouve.
+		$args = array(
+			'post_parent' => $post->ID,
+			'post_type'   => \eoxia\Config_Util::$init['task-manager']->associate_post_type,
+			'numberposts' => -1,
+			'post_status' => 'any',
+		);
+		$children = get_posts( $args );
+
+		if ( ! empty( $children ) ) {
+			foreach ( $children as $child ) {
+				$tasks[ $child->ID ]['title'] = sprintf( __( 'Task for %1$s', 'task-manager' ), $child->post_title );
+				$tasks[ $child->ID ]['data'] = \task_manager\Task_Class::g()->get_tasks( array(
+					'post_parent' => $child->ID,
+				) );
+
+				if ( empty( $tasks[ $child->ID ]['data'] ) ) {
+					unset( $tasks[ $child->ID ] );
+				}
+
+				if ( ! empty( $tasks[ $child->ID ]['data'] ) ) {
+					foreach ( $tasks[ $child->ID ]['data'] as $task ) {
+						if ( empty( $tasks[ $child->ID ]['total_time_elapsed'] ) ) {
+							$tasks[ $child->ID ]['total_time_elapsed'] = 0;
+						}
+						$tasks[ $child->ID ]['total_time_elapsed'] += $task->time_info['elapsed'];
+						$total_time_elapsed += $task->time_info['elapsed'];
+						$total_time_estimated += $task->last_history_time->estimated_time;
+
+						$task_ids_for_history[] = $task->id;
+					}
+				}
+			}
+		}
+
+		$total_time_elapsed = \eoxia\Date_Util::g()->convert_to_custom_hours( $total_time_elapsed );
+		$total_time_estimated = \eoxia\Date_Util::g()->convert_to_custom_hours( $total_time_estimated );
+
+		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/metabox-posts', array(
+			'tasks'                 => $tasks,
+			'task_ids_for_history'  => implode( ',', $task_ids_for_history ),
+			'total_time_elapsed'    => $total_time_elapsed,
+			'total_time_estimated'  => $total_time_estimated,
 		) );
 	}
+
 }
 
 Task_Class::g();

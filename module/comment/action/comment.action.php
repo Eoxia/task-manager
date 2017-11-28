@@ -3,7 +3,7 @@
  * Gestion des actions relatives aux commentaires
  *
  * @since 1.3.6
- * @version 1.4.0-ford
+ * @version 1.5.0
  * @package Task_Manager
  */
 
@@ -24,8 +24,8 @@ class Task_Comment_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.3.6
 	 */
 	public function __construct() {
 		add_action( 'wp_ajax_load_comments', array( $this, 'callback_load_comments' ) );
@@ -41,35 +41,22 @@ class Task_Comment_Action {
 	}
 
 	/**
-	 * Charges les commentaires d'un point et renvoie la vue à la réponse ajax.
+	 * Utilises la méthode "display" pour récupérer la vue puis l'envoie à la réponse ajax.
+	 *
+	 * @since 1.3.6
+	 * @version 1.5.0
 	 *
 	 * @return void
-	 *
-	 * @since 1.3.6.0
-	 * @version 1.3.6.0
 	 * @todo nonce
 	 */
 	public function callback_load_comments() {
 		$task_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
 		$point_id = ! empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
 
-		$comments = Task_Comment_Class::g()->get_comments( $point_id );
-
-		$comment_schema = Task_Comment_Class::g()->get( array(
-			'schema' => true,
-		), true );
-
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/main', array(
-			'task_id' => $task_id,
-			'point_id' => $point_id,
-			'comments' => $comments,
-			'comment_schema' => $comment_schema,
-		) );
-		$view = ob_get_clean();
-
+		Task_Comment_Class::g()->display( $task_id, $point_id );
 		wp_send_json_success( array(
-			'view' => $view,
+			'view' => ob_get_clean(),
 			'namespace' => 'taskManager',
 			'module' => 'comment',
 			'callback_success' => 'loadedCommentsSuccess',
@@ -130,18 +117,22 @@ class Task_Comment_Action {
 			'point_id' => $parent_id,
 			'comments' => $comments,
 			'comment_schema' => $comment_schema,
+			'comment_selected_id' => 0,
 		) );
+		$view = ob_get_clean();
 
 		$task = Task_Class::g()->get( array(
 			'id' => $comment->post_id,
 		), true );
 
+		do_action( 'tm_edit_comment', $task, $comment->point, $comment );
+
 		wp_send_json_success( array(
 			'time' => array(
 				'point' => $comment->point->time_info['elapsed'],
-				'task' => $task->time_info['time_display'] . ' (' . $task->time_info['elapsed'] . 'min)',
+				'task' => \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] ),
 			),
-			'view' => ob_get_clean(),
+			'view' => $view,
 			'namespace' => 'taskManager',
 			'module' => 'comment',
 			'callback_success' => 'addedCommentSuccess',
@@ -267,6 +258,9 @@ class Task_Comment_Action {
 
 	public function callback_edit_comment_front() {
 		check_ajax_referer( 'edit_comment_front' );
+		if ( false === is_user_logged_in() ) {
+			wp_send_json_error();
+		}
 
 		$comment_id = ! empty( $_POST['comment_id'] ) ? (int) $_POST['comment_id'] : 0;
 		$post_id = ! empty( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;
@@ -294,6 +288,11 @@ class Task_Comment_Action {
 		) );
 
 		$comment->author = get_userdata( $comment->author_id );
+
+		// Ajoutes une demande dans la donnée compilé.
+		if ( in_array( 'customer', $comment->author->roles, true ) ) {
+			do_action( 'tm_customer_add_entry_customer_ask', $comment->id );
+		}
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'comment', 'frontend/comment', array(

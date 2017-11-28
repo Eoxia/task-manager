@@ -1,0 +1,12 @@
+{
+	"name": "Setting",
+	"slug": "setting",
+	"version": "1.5.0",
+	"description": "Le module gérant les configuration de Task Manager",
+	"path": "module/setting/",
+	"state": true,
+	"dependencies": {
+		"action": {},
+		"class": {}
+	}
+}

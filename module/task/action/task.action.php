@@ -3,16 +3,17 @@
  * Les actions relatives aux tâches.
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
- * @since 1.0.0.0
- * @version 1.4.0-ford
+ * @since 1.0.0
+ * @version 1.5.0
  * @copyright 2015-2017 Eoxia
- * @package task
- * @subpackage action
+ * @package Task_Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Les actions relatives aux tâches.
@@ -22,8 +23,8 @@ class Task_Action {
 	/**
 	 * Initialise les actions liées au tâche.
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.5.0
 	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'callback_init' ) );
@@ -36,7 +37,6 @@ class Task_Action {
 		add_action( 'wp_ajax_edit_title', array( $this, 'callback_edit_title' ) );
 
 		add_action( 'wp_ajax_change_color', array( $this, 'callback_change_color' ) );
-		add_action( 'wp_ajax_notify_by_mail', array( $this, 'callback_notify_by_mail' ) );
 		add_action( 'wp_ajax_load_task_properties', array( $this, 'callback_load_task_properties' ) );
 
 		add_action( 'wp_ajax_search_parent', array( $this, 'callback_search_parent' ) );
@@ -45,6 +45,8 @@ class Task_Action {
 		add_action( 'wp_ajax_load_more_task', array( $this, 'callback_load_more_task' ) );
 
 		add_action( 'wp_ajax_export_task', array( $this, 'callback_export_task' ) );
+
+		add_action( 'add_meta_boxes', array( $this, 'callback_add_meta_boxes' ), 10, 2 );
 	}
 
 	/**
@@ -81,8 +83,8 @@ class Task_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.5.0
 	 */
 	public function callback_create_task() {
 		check_ajax_referer( 'create_task' );
@@ -91,7 +93,7 @@ class Task_Action {
 		$tag_slug_selected = ! empty( $_POST['tag'] ) ? sanitize_text_field( $_POST['tag'] ) : 0;
 
 		$task = Task_Class::g()->create( array(
-			'title' 		=> __( 'New task', 'task-manager' ),
+			'title' => __( 'New task', 'task-manager' ),
 			'parent_id' => $parent_id,
 		) );
 
@@ -124,8 +126,8 @@ class Task_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.5.0
 	 */
 	public function callback_delete_task() {
 		check_ajax_referer( 'delete_task' );
@@ -143,6 +145,9 @@ class Task_Action {
 		$task->status = 'trash';
 
 		Task_Class::g()->update( $task );
+
+		do_action( 'tm_delete_task', $task );
+
 		wp_send_json_success( array(
 			'namespace' => 'taskManager',
 			'module' => 'task',
@@ -156,8 +161,8 @@ class Task_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.5.0
 	 */
 	public function callback_edit_title() {
 		check_ajax_referer( 'edit_title' );
@@ -165,8 +170,12 @@ class Task_Action {
 		$task_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
 		$title = ! empty( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : '';
 
+		if ( empty( $task_id ) ) {
+			wp_send_json_error();
+		}
+
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $task_id ),
+			'id' => $task_id,
 		), true );
 
 		$task->title = $title;
@@ -181,8 +190,8 @@ class Task_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.5.0
 	 */
 	public function callback_change_color() {
 		check_ajax_referer( 'change_color' );
@@ -191,7 +200,7 @@ class Task_Action {
 		$color = ! empty( $_POST['color'] ) ? sanitize_text_field( $_POST['color'] ) : '';
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $id ),
+			'id' => $id,
 		), true );
 
 		$task->front_info['display_color'] = $color;
@@ -199,68 +208,6 @@ class Task_Action {
 		Task_Class::g()->update( $task );
 
 		wp_send_json_success();
-	}
-
-	/**
-	 * Envoie une notification par email au responsable et followers de la tâche avec en contenant du mail:
-	 * Le nom de la tâche, les points, et des liens rapides pour y accéder.
-	 *
-	 * @return void
-	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
-	 */
-	public function callback_notify_by_mail() {
-		check_ajax_referer( 'notify_by_mail' );
-
-		$id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
-
-		if ( empty( $id ) ) {
-			wp_send_json_error();
-		}
-
-		$task = Task_Class::g()->get( array(
-			'post__in' => array( $id ),
-		), true );
-
-		$sender_data = wp_get_current_user();
-		$admin_email = get_bloginfo( 'admin_email' );
-		$blog_name = get_bloginfo( 'name' );
-		$owner_info = get_userdata( $task->user_info['owner_id'] );
-
-		$recipients = array();
-		$recipients[] = $owner_info->user_email;
-
-		if ( ! empty( $task->user_info['affected_id'] ) ) {
-			foreach ( $task->user_info['affected_id'] as $user_id ) {
-				$user_info = get_userdata( $user_id );
-				$recipients[] = $user_info->user_email;
-			}
-		}
-
-		$subject = 'Task Manager: ';
-		$subject .= __( 'The task #' . $task->id . ' ' . $task->title, 'task-manager' );
-
-		$body = __( '<p>This mail has been send automaticly</p>', 'task-manager' );
-		$body .= '<h2>#' . $task->id . ' ' . $task->title . ' send by ' . $sender_data->user_login . ' (' . $sender_data->user_email . ')</h2>';
-		$body = apply_filters( 'task_points_mail', $body, $task );
-		$body .= '<ul>';
-		if ( ! empty( $task->parent_id ) ) {
-			$body .= '<li><a href="' . admin_url( 'post.php?action=edit&post=' . $task->parent_id ) . '">Customer link</a></li>';
-		}
-		$body .= '<li><a href="' . admin_url( 'admin.php?page=wpeomtm-dashboard&term=' . $task->id ) . '">Task link</a></li>';
-		$body .= '</ul>';
-
-		$headers = array( 'Content-Type: text/html; charset=UTF-8' );
-		$headers[] = 'From: ' . $blog_name . ' <' . $admin_email . '>';
-
-		wp_mail( $recipients, $subject, $body, $headers );
-
-		wp_send_json_success( array(
-			'namespace' => 'taskManager',
-			'module' => 'task',
-			'callback_success' => 'notifiedByMail',
-		) );
 	}
 
 	/**
@@ -277,8 +224,7 @@ class Task_Action {
 		$task_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $task_id ),
-			'post_status' => array( 'publish', 'archive' ),
+			'id' => $task_id,
 		), true );
 
 		$task->author = Follower_Class::g()->get( array(
@@ -405,8 +351,8 @@ class Task_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.3.6.0
-	 * @version 1.3.6.0
+	 * @since 1.3.6
+	 * @version 1.5.0
 	 *
 	 * @todo: nonce
 	 */
@@ -417,6 +363,7 @@ class Task_Action {
 		$term = ! empty( $_POST['term'] ) ? sanitize_text_field( $_POST['term'] ) : '';
 		$users_id = ! empty( $_POST['users_id'] ) ? sanitize_text_field( $_POST['users_id'] ) : array();
 		$status = ! empty( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : array();
+		$tab = ! empty( $_POST['tab'] ) ? sanitize_text_field( $_POST['tab'] ) : array();
 
 		if ( ! empty( $users_id ) ) {
 			$users_id = explode( ',', $users_id );
@@ -428,7 +375,7 @@ class Task_Action {
 			$categories_id = explode( ',', $categories_id );
 		}
 
-		$param = array(
+		$param = apply_filters( 'task_manager_load_more_query_args', array(
 			'offset' => $offset,
 			'posts_per_page' => $posts_per_page,
 			'term' => $term,
@@ -436,7 +383,7 @@ class Task_Action {
 			'categories_id' => $categories_id,
 			'status' => $status,
 			'post_parent' => $post_parent,
-		);
+		), $tab );
 
 		ob_start();
 		$tasks = Task_Class::g()->get_tasks( $param );
@@ -472,8 +419,7 @@ class Task_Action {
 		}
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $task_id ),
-			'post_status' => array( 'publish', 'archive' ),
+			'id' => $task_id,
 		), true );
 
 		$points_completed = array();
@@ -531,6 +477,25 @@ class Task_Action {
 			'filename' => $file_info['name'],
 		) );
 	}
+
+	/**
+	 * Fait le contenu de la metabox
+	 *
+	 * @param string  $post_type Le type du post.
+	 * @param WP_Post $post      Les données du post.
+	 *
+	 * @since 1.0.0.0
+	 * @version 1.0.0.0
+	 */
+	public function callback_add_meta_boxes( $post_type, $post ) {
+		if ( in_array( $post_type, \eoxia\Config_Util::$init['task-manager']->associate_post_type, true ) ) {
+			ob_start();
+			\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/metabox-create-buttons', array( 'parent_id' => $post->ID ) );
+			$buttons = ob_get_clean();
+			add_meta_box( 'wpeo-task-metabox', __( 'Task', 'task-manager' ) . $buttons, array( Task_Class::g(), 'callback_render_metabox' ), $post_type, 'normal', 'default' );
+		}
+	}
+
 }
 
 new Task_Action();

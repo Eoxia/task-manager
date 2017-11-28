@@ -52,13 +52,6 @@ class Tag_Class extends \eoxia\Term_Class {
 	 */
 	protected $version = '0.1';
 
-	/**
-	 * Ecrase la fonction du parent
-	 */
-	protected function construct() {
-		parent::construct();
-	}
-
 }
 
 Tag_Class::g();

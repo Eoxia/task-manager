@@ -1,0 +1,741 @@
+$main-color: #389af6;
+$main-color-light: #55b6ed;
+$second-color: rgba(0,0,0,0.6);
+
+$a: #3495f0;
+$dark_a: #1360c8;
+$grey: #d6d6d6;
+$green: #47e58e;
+
+@import "animation";
+@import "font/font";
+@import "loader";
+@import "tooltip";
+@import "popup";
+@import "theme";
+
+@font-face {
+    font-family: 'kalamregular';
+    src: url('../font/kalam-regular-webfont.eot');
+    src: url('../font/kalam-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/kalam-regular-webfont.woff2') format('woff2'),
+         url('../font/kalam-regular-webfont.woff') format('woff'),
+         url('../font/kalam-regular-webfont.ttf') format('truetype'),
+         url('../font/kalam-regular-webfont.svg#kalamregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@-moz-document url-prefix() {
+.entry-content {
+	.list-task {
+		.wpeo-project-task {
+			overflow: hidden!important;
+			}
+		}
+	}
+}
+
+/* ----------------------------------
+		Task general settings
+-----------------------------------*/
+.wpeo-project-wrap {
+	ul, li {
+		list-style: none;
+		margin: 0;
+	}
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	.hidden {
+		display: none;
+	}
+}
+
+
+/* ----------------------------------
+		Task Container
+-----------------------------------*/
+.wpeo-project-wrap {
+	.wpeo-project-task {
+		width: 100%;
+		padding: 10px;
+		font-size: 14px;
+		.wpeo-project-task-container {
+			background: #fff;
+			box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.2);
+			position: relative;
+			transition: all 0.2s ease-out;
+		}
+	}
+}
+
+/* ----------------------------------
+		Task header
+-----------------------------------*/
+.wpeo-project-wrap {
+	.wpeo-project-task .wpeo-task-header {
+		padding: 14px;
+		display: flex;
+		flex-direction: row;
+		border-bottom: 1px solid rgba(0,0,0,0.2);
+
+		&::after {
+			display: block;
+			clear: both;
+		}
+		li {
+			margin: auto 0;
+		}
+		.wpeo-task-id {
+			font-weight: 800;
+			min-width: 80px;
+			max-width: 80px;
+			width: 100%;
+		}
+		.wpeo-task-title {
+			width: 100%;
+			padding: 0 0 0 8px;
+			h2 {
+				font-weight: 300;
+				width: 100%;
+				font-size: 20px;
+				margin: 0;
+				padding: 0;
+			}
+		}
+		.wpeo-task-elapsed {
+			min-width: 200px;
+			max-width: 200px;
+			width: 100%;
+			position: relative;
+			text-align: right;
+			margin-left: auto;
+			.wpeo-task-open-action {
+				padding: 0 6px;
+				color: rgba(0,0,0,0.2);
+				transition: all 0.2s ease-out;
+				&:hover {
+					cursor: pointer;
+					color: rgba(0,0,0,0.4);
+				}
+			}
+		}
+	}
+}
+
+/* ----------------------------------
+		Task points
+-----------------------------------*/
+.wpeo-project-wrap {
+	.points {
+		background: #fff;
+		.point-container {
+			display: flex;
+			flex-direction: row;
+			padding: 8px 14px 0 14px;
+			.point-action, .point-toggle, .point-content {
+				display: flex;
+				flex-direction: row;
+			}
+			.point-action {
+				min-width: 120px;
+				max-width: 120px;
+				width: 100%;
+				margin-left: auto;
+				.wpeo-point-time, .wpeo-point-comment {
+					margin-left: auto;
+				}
+				.wpeo-point-time {
+					.dashicons-clock, span {
+						float: left;
+					}
+					.dashicons-clock {
+						margin-right: 4px;
+					}
+					span {
+						margin: auto 0;
+					}
+				}
+			}
+			.point-toggle {
+				min-width: 80px;
+				max-width: 80px;
+				width: 100%;
+				.action-attribute, .wpeo-block-id {
+					margin: auto 0;
+				}
+				.icon-toggle {
+					font-size: 16px;
+					color: rgba(0,0,0,0.6);
+					transition: all 0.2s ease-out;
+					line-height: 1.2;
+					padding-right: 0.4em;
+					&:hover {
+						cursor: pointer;
+						color: rgba(0,0,0,0.9);
+						animation-duration: 0.6s;
+						&.fa-angle-right {
+							animation-name: bounceLeft;
+						}
+						&.fa-angle-down {
+							animation-name: bounceTop;
+						}
+					}
+				}
+				.wpeo-block-id {
+					font-weight: 800;
+				}
+			}
+			.point-content {
+				width: 100%;
+				// min-width: 72%;
+			}
+			.point-action {
+				.dashicons {
+					color: rgba(0,0,0,0.8);
+				}
+			}
+		}
+		.point {
+			&.edit:first-child {
+				padding-top: 10px;
+			}
+			&:not(.edit) {
+				.point-content {
+					position: relative;
+					.wpeo-point-new-placeholder {
+					}
+				}
+			}
+			&:hover {
+				.wpeo-sort-point, .wpeo-task-setting i, .action-delete {
+					opacity: 1;
+				}
+			}
+		}
+	}
+}
+
+/* ----------------------------------
+		Task completed points
+-----------------------------------*/
+.wpeo-project-wrap {
+	.wpeo-task-point-use-toggle {
+		border-top: 1px solid rgba(0, 0, 0, 0.2);
+		margin-top: 24px;
+		padding-bottom: 16px;
+		text-align: center;
+		p {
+			display: inline-block;
+			padding: 0 20px;
+			position: relative;
+			top: -13px;
+			transition: all 0.2s ease-out 0s;
+			background: #fff;
+			&:hover {
+				cursor: pointer;
+			}
+		}
+		.wpeo-point-toggle-arrow {
+			background: rgba(0, 0, 0, 0.3) none repeat scroll 0 0;
+			border-radius: 50%;
+			color: #fff;
+			font-size: 14px;
+			margin-right: 4px;
+			padding: 4px 0;
+		}
+		.wpeo-point-toggle-a {
+			color: #000;
+			font-weight: bold;
+			text-decoration: none;
+		}
+		.points {
+			text-align: left;
+		}
+	}
+}
+
+/* ----------------------------------
+		Commentaires
+-----------------------------------*/
+.wpeo-project-wrap {
+	.points .point .comments {
+		background: rgba(0,0,0,0.05);
+		padding: 4px 0 10px 0;
+		.comment {
+			.wpeo-comment-container {
+				display: flex;
+				flex-direction: row;
+				padding: 8px 14px 0;
+				margin-left: 15%;
+				width: 85%;
+				.user {
+					border-radius: 50%;
+				}
+			}
+			&.new ul {
+				input {
+					width: 100%;
+					font-size: 13px;
+					margin: 0;
+					padding: 2px;
+				}
+				.wpeo-comment-date, .wpeo-comment-time {
+					display: flex;
+					span {
+						margin: auto;
+						font-size: 14px;
+						color: rgba(0,0,0,0.4);
+					}
+				}
+				.wpeo-comment-date {
+					width: 100%;
+					max-width: 20%;
+				}
+				.wpeo-comment-content {
+					position: relative;
+					margin: 0 16px;
+					width: 100%;
+					max-width: 90%;
+					margin: auto 6px;
+					border-bottom: 1px solid rgba(0,0,0,.1);
+					transition: all .2s ease-out;
+					padding-bottom: 2px;
+					&:hover {
+						border-bottom: 1px solid rgba(0,0,0,.4);
+					}
+					&:focus, .content:focus {
+						outline: none;
+					}
+					.content {
+						min-height: 22px;
+					}
+					.wpeo-point-new-placeholder {
+						color: rgba(0,0,0,.4);
+				    position: absolute;
+				    left: 6px;
+				    bottom: 2px;
+				    pointer-events: none;
+					}
+				}
+				.wpeo-comment-time {
+					width: 100%;
+					max-width: 12%;
+					input {
+						padding: 2px;
+					}
+				}
+				.wpeo-point-new-btn {
+					text-align: right;
+					width: 100%;
+					max-width: 5%;
+					transition: all 0.2s ease-out;
+					margin: auto 0 auto auto;
+					color: $main-color;
+					&:hover {
+						cursor: pointer;
+						color: lighten($main-color, 10%);
+					}
+				}
+			}
+			&.view ul, &.edit ul {
+				flex-wrap: wrap;
+				> .avatar {
+					width: 100%;
+					max-width: 5%;
+					.user {
+						span {
+							font-size: 12px;
+						}
+						img, .wpeo-avatar-initial, .wpeo-avatar-initial span {
+							border-radius: 50%;
+						}
+					}
+				}
+				.wpeo-save-point {
+					width: 100%;
+					max-width: 5%;
+					text-align: right;
+					i {
+						background: $a;
+						border-radius: 50%;
+						font-size: 12px;
+						width: 20px;
+						line-height: 20px;
+						text-align: center;
+						color: #fff;
+						margin-left: auto;
+						transition: all 0.2s ease-out;
+						display: inline-block;
+						&:hover {
+							background: $dark_a;
+							cursor: pointer;
+						}
+					}
+				}
+				.wpeo-comment-date {
+					font-size: 12px;
+					color: rgba(0,0,0,0.4);
+					width: 100%;
+					max-width: 78%;
+				}
+				.wpeo-comment-content {
+					width: 100%;
+					input {
+						width: 100%;
+					}
+				}
+				.wpeo-comment-time {
+					span {
+						padding: 4px 4px 0 0;
+					}
+					display: flex;
+					width: 100%;
+					max-width: 10%;
+				}
+				.wpeo-comment-action {
+					margin-left: auto;
+					.wpeo-comment-setting {
+						padding: 0 10px;
+						i {
+							color: rgba(0,0,0,0.2);
+							transition: all 0.2s ease-out;
+						}
+						&:hover {
+							cursor: pointer;
+							i {
+								color: rgba(0,0,0,0.4);
+							}
+						}
+					}
+				}
+				.wpeo-save-point {
+					margin-left: auto;
+				}
+			}
+			&.edit ul {
+				.wpeo-comment-time input {
+					width: 100%;
+				}
+				.wpeo-comment-date input, .wpeo-comment-time input {
+					font-size: 12px;
+				}
+			}
+		}
+	}
+}
+
+/* ----------------------------------
+		Avatar
+-----------------------------------*/
+
+.user {
+	background: $main-color;
+	color: #fff;
+	position: relative;
+	transition: all 0.2s ease-out;
+
+	img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+	.wpeo-avatar-initial {
+		display: flex;
+		height: 100%;
+	}
+	span {
+		font-size: 16px;
+		text-align: center;
+		margin: auto;
+		display: inline-block;
+		width: 100%;
+	}
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+.wpeo-main-user {
+	background: #404a53;
+	display: flex;
+	justify-content: flex-end;
+	height: 50px;
+	.wpeo-user-owner {
+		li {
+			float: left;
+		}
+	}
+	li:first-child {
+		margin-right: auto;
+	}
+	li:last-child a {
+		width: 50px !important;
+		height: 50px !important;
+		padding: 16px;
+		// background: $main-color;
+		color: #fff;
+		box-shadow: none;
+		transition: all 0.2s ease-out;
+		&:hover {
+			// background: $main-color-light;
+		}
+	}
+}
+
+
+.wpeo-window-ask-task-container {
+	display: flex;
+  a {
+	  background: $main-color;
+	  color: #fff;
+	  font-size: 14px;
+	  display: inline-block;
+		min-width: 180px;
+		width: 180px;
+		line-height: 50px;
+		height: 50px;
+		text-align: center;
+		margin: auto 0;
+		transition: all 0.2s ease-out;
+	  &:hover, &:focus, &:active {
+	  	color: #fff;
+			background: #6fb9ff;
+	  }
+  }
+  #wpeo-window-ask-task {
+    display: none;
+    border: 1px solid rgba(0,0,0,0.1);
+	  background: rgba(0,0,0,0.05);
+	  padding: 20px;
+		width: 100%;
+		margin-left: 20px;
+  }
+  form {
+    display: flex;
+    flex-direction: row;
+    > * {
+      margin: 0 4px;
+    }
+    textarea {
+      width: 100%;
+    }
+    input {
+      margin: 0 !important;
+    }
+    input[type="text"], textarea {
+      height: 40px;
+			width: 100%;
+			padding: 0 10px;
+    }
+		input[type="button"] {
+			background: #389af6;
+			color: #fff;
+			padding: 10px;
+			font-size: 14px;
+			display: inline-block;
+			border: 0;
+			margin-left: 10px !important;
+			transition: all 0.2s ease-out;
+			&:hover {
+				background: #6fb9ff;
+			}
+		}
+    input[type="text"], textarea, :placeholder-shown, :placeholder-shown, ::-webkit-input-placeholder {
+      font-family: 'Kalam', sans-serif;
+      font-weight: normal;
+    }
+    :placeholder-shown, :placeholder-shown, ::-webkit-input-placeholder {
+      color: rgba(0,0,0,0.4);
+    }
+  }
+}
+
+.wpeo-project-search {
+	width: 100%;
+	display: flex;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+	padding-bottom: 12px;
+	margin: 12px 0;
+	&:after {
+		display: block;
+		content: '';
+		clear: both;
+	}
+	input[type="text"] {
+		margin: auto 0 auto auto;
+		padding: 6px 12px;
+	}
+	.search-button {
+		background: $main-color;
+		color: #fff;
+		display: inline-block;
+		transition: all 0.2s ease-out;
+		border: 0;
+		min-width: 36px;
+		width: 36px;
+		height: 36px;
+		text-align: center;
+		margin-left: 10px;
+		&:hover, &:focus, &:active {
+	  	color: #fff;
+			background: #6fb9ff;
+			.dashicons {
+				color: #fff;
+			}
+	  }
+		.dashicons {
+			color: #fff;
+			line-height: 20px;
+		}
+	}
+}
+
+
+/* ----------------------------------
+		Affichage historique
+-----------------------------------*/
+.wpeo-project-wrap {
+	.last-activity .content {
+		> .content {
+			padding: 1em;
+		}
+		/* Jour */
+		.day {
+			position: relative;
+			padding: 0.6em 0;
+			clear: both;
+			.label {
+				font-size: 12px;
+				font-weight: 900;
+				color: #000;
+				text-transform: uppercase;
+				display: inline-block;
+				background: #fff;
+				position: relative;
+				z-index: 50;
+				padding-right: 1em;
+			}
+			&:after {
+				display: block;
+				content: '';
+				height: 1px;
+				width: 100%;
+				position: absolute;
+				top: 50%;
+				left: 0;
+				background: rgba(0,0,0,0.05);
+			}
+		}
+
+		/* Activity single */
+		.activity {
+			padding: 0.6em 0;
+			display: flex;
+			flex-direction: row;
+
+			.information {
+				width: 100%;
+				max-width: 50px;
+				position: relative;
+				.user {
+					border-radius: 50%;
+					border: 2px solid #fff;
+					z-index: 50;
+					img, .wpeo-avatar-initial {
+						border-radius: 50%;
+					}
+				}
+				.type {
+					display: block;
+					width: 22px;
+					height: 22px;
+					background: rgba(0,0,0,0.1);
+					color: rgba(0,0,0,0.5);
+					line-height: 22px;
+					text-align: center;
+					font-size: 14px;
+					position: absolute;
+					top: 0;
+					right: 4px;
+					border-radius: 4px;
+					&:before {
+						font-family: FontAwesome;
+					}
+				}
+			}
+			.content {
+				width: 100%;
+				padding-left: 1em;
+				margin: auto 0;
+
+				.event-header {
+					display: flex;
+					.event-title {
+						width: auto;
+					}
+					.event-time {
+						margin-left: auto;
+					}
+				}
+				.event-title {
+					font-weight: 700;
+					display: block;
+					margin-bottom: 0.4em;
+				}
+				.event-content {
+					font-family: 'kalamregular';
+				}
+			}
+
+			/* Point crée */
+			&.created-point {
+				.information .type:before {
+					content: $fa-var-list-ul;
+				}
+			}
+			/* Commentaire crée */
+			&.created-comment {
+				.information .type:before {
+					content: $fa-var-commenting-o;
+				}
+			}
+			/* Point validé */
+			&.completed-point {
+				.information .type {
+					background: $green;
+					color: #fff;
+					&:before {
+						content: $fa-var-check;
+					}
+				}
+				.content .event-title {
+					text-decoration: line-through;
+				}
+			}
+		}
+	}
+
+	.activities {
+		/* bouton load more */
+		.load-more-history {
+			background: $main-color;
+			border: 0;
+			box-shadow: none;
+			display: block;
+			margin: 0.4em auto;
+			color: #fff;
+			padding: 0.6em;
+			transition: all 0.2s ease-out;
+			&:hover {
+				cursor: pointer;
+				background: lighten($main-color, 10%);
+			}
+		}
+	}
+}

@@ -3,16 +3,17 @@
  * Gestion des shortcodes en relation des tâches.
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.4.0
  * @copyright 2015-2017 Eoxia
- * @package task
- * @subpackage view
+ * @package Task_Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Gestion des shortcodes en relation des tâches.
@@ -34,8 +35,8 @@ class Task_Shortcode {
 	 * @param  array $param Les paramètres du shortcode.
 	 * @return void
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.4.0
 	 */
 	public function callback_task( $param ) {
 		$param = shortcode_atts( array(

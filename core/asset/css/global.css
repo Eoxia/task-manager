@@ -1,0 +1,28 @@
+/** Ce fichier est inclus dans tout "wp-admin" de WordPress **/
+
+/* ----------------------------------
+		Notification (rond orange)
+-----------------------------------*/
+#wpadminbar .wp-ui-notification {
+  display: inline;
+  padding: 1px 7px 1px 6px !important;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+  color: #fff;
+  margin-left: 5px; }
+
+.menu-top .wp-ui-notification {
+	display: inline-block;
+background-color: #d54e21;
+color: #fff;
+font-size: 9px;
+line-height: 17px;
+font-weight: 600;
+margin: 1px 0 0 2px;
+vertical-align: top;
+-webkit-border-radius: 10px;
+border-radius: 10px;
+z-index: 26; }
+.menu-top .wp-ui-notification span {
+	display: block;
+    padding: 0 6px; }

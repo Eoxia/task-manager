@@ -22,15 +22,27 @@ class Admin_Bar_Action {
 	 * Le constructeur
 	 */
 	public function __construct() {
+		add_action( 'admin_enqueue_scripts', array( $this, 'callback_admin_enqueue_scripts' ) );
+
 		add_action( 'admin_bar_menu', array( $this, 'callback_admin_bar_menu' ), 106 );
 
 		add_action( 'admin_post_search_task', array( $this, 'callback_search_task' ) );
 	}
 
 	/**
+	 * Initialise le fichier style.min.css et backend.min.js du plugin DigiRisk.
+	 *
+	 * @return void nothing
+	 */
+	public function callback_admin_enqueue_scripts() {
+		$module = 'admin-bar';
+		wp_enqueue_script( 'task-manager-admin-bar', \eoxia\Config_Util::$init['task-manager']->$module->url . 'asset/js/admin-bar.js', array( 'jquery', 'jquery-form', 'jquery-ui-datepicker' ), \eoxia\Config_Util::$init['task-manager']->version, false );
+	}
+
+	/**
 	 * [callback_admin_bar_menu description]
+	 *
 	 * @param  [type] $wp_admin_bar [description]
-	 * @return [type]               [description]
 	 */
 	public function callback_admin_bar_menu( $wp_admin_bar ) {
 		if ( current_user_can( 'administrator' ) ) {

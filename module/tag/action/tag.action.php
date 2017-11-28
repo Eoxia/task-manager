@@ -49,7 +49,7 @@ class Tag_Action {
 	 * @version 1.3.6.0
 	 */
 	public function callback_admin_menu() {
-		add_submenu_page( 'wpeomtm-dashboard', __( 'Categories', 'task-manager' ), __( 'Categories', 'task-manager' ), 'manage_options', 'edit-tags.php?taxonomy=wpeo_tag' );
+		add_submenu_page( 'wpeomtm-dashboard', __( 'Categories', 'task-manager' ), __( 'Categories', 'task-manager' ), 'manage_task_manager', 'edit-tags.php?taxonomy=wpeo_tag' );
 	}
 
 	/**
@@ -76,6 +76,8 @@ class Tag_Action {
 		$task->status = 'archive';
 
 		Task_Class::g()->update( $task );
+
+		do_action( 'tm_archive_task', $task );
 
 		wp_send_json_success( array(
 			'namespace' => 'taskManager',

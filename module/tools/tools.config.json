@@ -1,0 +1,11 @@
+{
+	"name": "Outils de Task Manager",
+	"slug": "tools",
+	"version": "1.5.0",
+	"description": "Le module gérant les outils de Task Manager",
+	"path": "module/tools/",
+	"dependencies": {
+		"action": {},
+		"class": {}
+	}
+}
