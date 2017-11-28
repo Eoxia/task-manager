@@ -63,12 +63,26 @@ No questions asked yet.
 
 == Changelog ==
 
+<<<<<<< HEAD
 = 1.5.0 =
 
 = Improvment =
 
 * 11482 - Add last activity window in task.
 * 12327 - Add "indicator" Page.
+=======
+= 1.4.3 =
+
+= Fix =
+
+* 12100: Fix connection with the plugin DigiRisk.
+
+= 1.4.2 =
+
+= Fix =
+
+* 11683 - A new task could be created unintentionally during an action on an existing task.
+>>>>>>> master
 
 = 1.4.1 =
 
