@@ -3,7 +3,7 @@
  * Fonctions helpers des commentaires
  *
  * @since 1.3.6
- * @version 1.5.0
+ * @version 1.5.1
  * @package Task_Manager
  */
 
@@ -67,12 +67,13 @@ function compile_time( $data ) {
  * @return Task_Comment_Class Les données de l'objet modifié.
  *
  * @since 1.5.0
- * @version 1.5.0
+ * @version 1.5.1
  */
 function calcul_elapsed_time( $data ) {
-	if ( ! empty( get_current_user_id() ) ) {
+	$current_user = get_current_user_id();
+	if ( ! empty( $current_user ) ) {
 		$user = Follower_Class::g()->get( array(
-			'include' => get_current_user_id(),
+			'include' => $current_user,
 		), true );
 		if ( true === $user->_tm_auto_elapsed_time ) {
 			// Récupération du dernier commentaire ajouté dans la base.
@@ -90,7 +91,7 @@ function calcul_elapsed_time( $data ) {
 					AND TASK.post_status IN ( 'archive', 'publish', 'inherit' )
 				ORDER BY COMMENT.comment_date DESC
 				LIMIT 1",
-				current_time( 'mysql' ), get_current_user_id(), current_time( 'Y-m-d 00:00:00' ), 'wpeo_time'
+				current_time( 'mysql' ), $current_user, current_time( 'Y-m-d 00:00:00' ), 'wpeo_time'
 			);
 			$time_since_last_comment = $GLOBALS['wpdb']->get_var( $query );
 			if ( ! empty( $time_since_last_comment ) ) {
