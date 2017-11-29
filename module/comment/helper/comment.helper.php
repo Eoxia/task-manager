@@ -70,9 +70,10 @@ function compile_time( $data ) {
  * @version 1.5.0
  */
 function calcul_elapsed_time( $data ) {
-	if ( ! empty( get_current_user_id() ) ) {
+	$current_user = get_current_user_id();
+	if ( ! empty( $current_user ) ) {
 		$user = Follower_Class::g()->get( array(
-			'include' => get_current_user_id(),
+			'include' => $current_user,
 		), true );
 		if ( true === $user->_tm_auto_elapsed_time ) {
 			// Récupération du dernier commentaire ajouté dans la base.
@@ -90,7 +91,7 @@ function calcul_elapsed_time( $data ) {
 					AND TASK.post_status IN ( 'archive', 'publish', 'inherit' )
 				ORDER BY COMMENT.comment_date DESC
 				LIMIT 1",
-				current_time( 'mysql' ), get_current_user_id(), current_time( 'Y-m-d 00:00:00' ), 'wpeo_time'
+				current_time( 'mysql' ), $current_user, current_time( 'Y-m-d 00:00:00' ), 'wpeo_time'
 			);
 			$time_since_last_comment = $GLOBALS['wpdb']->get_var( $query );
 			if ( ! empty( $time_since_last_comment ) ) {
