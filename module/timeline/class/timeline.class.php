@@ -68,8 +68,8 @@ class Timeline_Class extends \eoxia\Singleton_Util {
 	}
 
 	public function render_week( $year, $month, $week, $w, $results ) {
-		$year = 2018;
-		$month = 08;
+		$year = '2018';
+		$month = '08';
 		$start_date_time = new \DateTime( $year . '-' . $month );
 		$start_date_time->setISODate( $year, $week );
 		if( $week == date( 'W' ) && $month == date( 'm' ) && $year == date( 'Y' ) ) {

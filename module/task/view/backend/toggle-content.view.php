@@ -110,3 +110,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div>
 </div>
+
+<?php echo apply_filters( 'task_manager_task_header_action_end', '', $task->id ); ?>

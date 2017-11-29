@@ -3,7 +3,7 @@ Contributors: Eoxia
 Donate link:
 Tags: task, tasks, management, manager, collaboration, dashboard, organizer, project management, project manager, projects, task lists, task management, task manager, Time Tracking, to do, to do list, todo, todo list
 Requires at least: 4.4.0
-Tested up to: 4.8.3
+Tested up to: 4.9.0
 Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -63,7 +63,26 @@ No questions asked yet.
 
 == Changelog ==
 
+<<<<<<< HEAD
 = 1.5.0 =
+
+= Improvment =
+
+* 11482 - Add last activity window in task.
+* 12327 - Add "indicator" Page.
+=======
+= 1.4.3 =
+
+= Fix =
+
+* 12100: Fix connection with the plugin DigiRisk.
+
+= 1.4.2 =
+
+= Fix =
+
+* 11683 - A new task could be created unintentionally during an action on an existing task.
+>>>>>>> master
 
 = 1.4.1 =
 
