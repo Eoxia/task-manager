@@ -100,13 +100,8 @@ class Task_Class extends \eoxia\Post_Class {
 	/**
 	 * Récupères les tâches.
 	 *
-<<<<<<< HEAD
 	 * @since 1.0.0
 	 * @version 1.5.0
-=======
-	 * @since 1.4.0
-	 * @version 1.4.2
->>>>>>> master
 	 *
 	 * @param array $param {
 	 *                      Les propriétés du tableau.
