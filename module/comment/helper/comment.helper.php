@@ -3,7 +3,7 @@
  * Fonctions helpers des commentaires
  *
  * @since 1.3.6
- * @version 1.5.0
+ * @version 1.5.1
  * @package Task_Manager
  */
 
@@ -67,7 +67,7 @@ function compile_time( $data ) {
  * @return Task_Comment_Class Les données de l'objet modifié.
  *
  * @since 1.5.0
- * @version 1.5.0
+ * @version 1.5.1
  */
 function calcul_elapsed_time( $data ) {
 	$current_user = get_current_user_id();
