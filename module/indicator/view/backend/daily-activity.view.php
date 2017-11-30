@@ -133,6 +133,8 @@ echo wp_kses( str_replace( '{{ total_time }}', \eoxia\Date_Util::g()->convert_to
 	'div' => array(
 		'class' => array(),
 		'id' => array(),
+		'style' => array(),
+		'aria-label' => array(),
 	),
 	'i' => array(
 		'class' => array(),
@@ -142,5 +144,9 @@ echo wp_kses( str_replace( '{{ total_time }}', \eoxia\Date_Util::g()->convert_to
 	),
 	'span' => array(
 		'class' => array(),
+	),
+	'img' => array(
+		'class' => array(),
+		'src' => array(),
 	),
 ) );
