@@ -20,7 +20,7 @@ $total_time = 0;
 ob_start();
 ?>
 <!-- Temps total travaillé -->
-<div class="total-time">
+<div class="total-time wpeo-tooltip-event" aria-label="<?php echo esc_attr( mysql2date( 'd M Y H:i', current_time( 'mysql' ), true ) ); ?>" >
 	<i class="fa fa-clock-o"></i> {{ total_time }}
 </div>
 
