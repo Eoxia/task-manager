@@ -1207,7 +1207,7 @@ Popup
 
 		/* Activity single */
 		.activity {
-			padding: 0.6em 0;
+			padding: 0.6em 0 1.6em 0;
 			display: flex;
 			flex-direction: row;
 
@@ -1248,20 +1248,51 @@ Popup
 
 				.event-header {
 					display: flex;
-					.event-title {
-						width: auto;
+
+					.dashicons {
+						font-size: 16px;
+						line-height: 1;
+						width: 14px;
+						height: 14px;
+						vertical-align: top !important;
+					}
+					[class*="event"] {
+						width: 25%;
+						i {
+							margin-right: 0.4em;
+							color: rgba(0,0,0,0.3);
+						}
 					}
 					.event-time {
 						margin-left: auto;
+						text-align: right;
+						i {
+							color: rgba(0,0,0,0.7);
+						}
 					}
 				}
-				.event-title {
+				.event-title, .event-client, .event-task, .event-point {
 					font-weight: 700;
 					display: block;
 					margin-bottom: 0.4em;
+					padding-right: 0.2em;
+					color: rgba(0,0,0,0.8);
+					a {
+						color: rgba(0,0,0,0.5);
+						transition: all 0.2s ease-out;
+						text-decoration: none;
+						&:hover {
+							color: rgba(0,0,0,0.8);
+						}
+					}
 				}
 				.event-content {
 					font-family: 'kalamregular';
+					color: rgba(0,0,0,0.9);
+					a {
+						color: rgba(0,0,0,0.9);
+						text-decoration: none;
+					}
 				}
 			}
 
@@ -2383,6 +2414,32 @@ Popup
 		&:hover {
 			cursor: pointer;
 			background: #69b3f8;
+		}
+	}
+}
+
+/* ----------------------------------
+		Temporaire pour le blink
+-----------------------------------*/
+#tm-indicator-activity {
+	.inside {
+		margin: 0;
+		padding: 0;
+	}
+	.total-time {
+		position: absolute;
+		top: -28px;
+		right: 40px;
+	}
+	.filter-activity {
+		background: rgba(0,0,0,0.1);
+		padding: 0.6em;
+	}
+	label {
+		color: rgba(0,0,0,0.5);
+
+		i {
+			margin-right: 0.4em;
 		}
 	}
 }

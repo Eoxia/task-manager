@@ -5138,7 +5138,7 @@ Popup
   background: rgba(0, 0, 0, 0.05); }
 
 .wpeo-project-wrap .activities .activity {
-  padding: 0.6em 0;
+  padding: 0.6em 0 1.6em 0;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -5200,19 +5200,51 @@ Popup
   display: -ms-flexbox;
   display: flex; }
 
-.wpeo-project-wrap .activities .activity .content .event-header .event-title {
-  width: auto; }
+.wpeo-project-wrap .activities .activity .content .event-header .dashicons {
+  font-size: 16px;
+  line-height: 1;
+  width: 14px;
+  height: 14px;
+  vertical-align: top !important; }
+
+.wpeo-project-wrap .activities .activity .content .event-header [class*="event"] {
+  width: 25%; }
+
+.wpeo-project-wrap .activities .activity .content .event-header [class*="event"] i {
+  margin-right: 0.4em;
+  color: rgba(0, 0, 0, 0.3); }
 
 .wpeo-project-wrap .activities .activity .content .event-header .event-time {
-  margin-left: auto; }
+  margin-left: auto;
+  text-align: right; }
 
-.wpeo-project-wrap .activities .activity .content .event-title {
+.wpeo-project-wrap .activities .activity .content .event-header .event-time i {
+  color: rgba(0, 0, 0, 0.7); }
+
+.wpeo-project-wrap .activities .activity .content .event-title, .wpeo-project-wrap .activities .activity .content .event-client, .wpeo-project-wrap .activities .activity .content .event-task, .wpeo-project-wrap .activities .activity .content .event-point {
   font-weight: 700;
   display: block;
-  margin-bottom: 0.4em; }
+  margin-bottom: 0.4em;
+  padding-right: 0.2em;
+  color: rgba(0, 0, 0, 0.8); }
+
+.wpeo-project-wrap .activities .activity .content .event-title a, .wpeo-project-wrap .activities .activity .content .event-client a, .wpeo-project-wrap .activities .activity .content .event-task a, .wpeo-project-wrap .activities .activity .content .event-point a {
+  color: rgba(0, 0, 0, 0.5);
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  text-decoration: none; }
+
+.wpeo-project-wrap .activities .activity .content .event-title a:hover, .wpeo-project-wrap .activities .activity .content .event-client a:hover, .wpeo-project-wrap .activities .activity .content .event-task a:hover, .wpeo-project-wrap .activities .activity .content .event-point a:hover {
+  color: rgba(0, 0, 0, 0.8); }
 
 .wpeo-project-wrap .activities .activity .content .event-content {
-  font-family: 'kalamregular'; }
+  font-family: 'kalamregular';
+  color: rgba(0, 0, 0, 0.9); }
+
+.wpeo-project-wrap .activities .activity .content .event-content a {
+  color: rgba(0, 0, 0, 0.9);
+  text-decoration: none; }
 
 .wpeo-project-wrap .activities .activity.created-point .information .type:before {
   content: ""; }
@@ -6541,6 +6573,28 @@ Popup
 .wpeo-project-wrap .popup-notification .send-notification:hover {
   cursor: pointer;
   background: #69b3f8; }
+
+/* ----------------------------------
+		Temporaire pour le blink
+-----------------------------------*/
+#tm-indicator-activity .inside {
+  margin: 0;
+  padding: 0; }
+
+#tm-indicator-activity .total-time {
+  position: absolute;
+  top: -28px;
+  right: 40px; }
+
+#tm-indicator-activity .filter-activity {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 0.6em; }
+
+#tm-indicator-activity label {
+  color: rgba(0, 0, 0, 0.5); }
+
+#tm-indicator-activity label i {
+  margin-right: 0.4em; }
 
 /* ----------------------------------
 		Temporaire pour le blink
