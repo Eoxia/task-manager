@@ -36,7 +36,7 @@ ob_start();
 		<input type="hidden" value="open_popup_user_activity" name="action" />
 		<input type="hidden" value="<?php echo esc_attr( wp_create_nonce( 'load_user_activity' ) ); ?>" name="_wpnonce" />
 	</label>
-	<button class="button-primary action-input" data-parent="tm-choose-the-date" id="tm-user-activity-load-by-date" ><?php esc_html_e( 'View activity', 'task-manager' ); ?></button>
+	<button class="button-primary action-input" data-parent="filter-activity" id="tm-user-activity-load-by-date" ><?php esc_html_e( 'View activity', 'task-manager' ); ?></button>
 </div>
 
 <!-- Liste des tâches effectuées -->
@@ -57,7 +57,7 @@ ob_start();
 								<span class="event-client">
 									<i class="fa fa-user"></i>
 									<?php if ( ! empty( $activity->PT_ID ) ) : ?>
-									<a href="<?php echo esc_url( get_permalink( $activity->PT_ID ) ); ?>" target="wptm_view_activity_element" >
+									<a href="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' . $activity->PT_ID ) ); ?>" target="wptm_view_activity_element" >
 										<?php echo esc_html( '#' . $activity->PT_ID . ' ' . $activity->PT_title ); ?>
 									</a>
 								<?php else : ?>
