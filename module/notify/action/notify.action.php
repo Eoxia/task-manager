@@ -4,7 +4,7 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.5.0
- * @version 1.5.0
+ * @version 1.5.2
  * @copyright 2015-2017 Eoxia
  * @package Task_Manager
  */
@@ -35,7 +35,7 @@ class Notify_Action {
 	 * Récupères la vue 'backend/main' ainsi que les utilisateurs dont le role est 'administrateur'.
 	 *
 	 * @since 1.5.0
-	 * @version 1.5.0
+	 * @version 1.5.2
 	 *
 	 * @return void
 	 */
@@ -56,19 +56,18 @@ class Notify_Action {
 			'role' => 'administrator',
 		) );
 
-		$affected_id = $task->user_info['affected_id'];
-		$affected_id[] = $task->user_info['owner_id'];
+		$affected_id   = $task->user_info['affected_id'];
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'notify', 'backend/main', array(
-			'followers' => $followers,
-			'task' => $task,
+			'followers'   => $followers,
+			'task'        => $task,
 			'affected_id' => $affected_id,
 		) );
 
 		wp_send_json_success( array(
-			'namespace' => 'taskManager',
-			'module' => 'notify',
+			'namespace'        => 'taskManager',
+			'module'           => 'notify',
 			'callback_success' => 'loadedNotifyPopup',
 			'view' => ob_get_clean(),
 		) );
