@@ -113,7 +113,7 @@ window.eoxiaJS.taskManager.comment.loadComments = function( event ) {
 			window.eoxiaJS.refresh();
 		} );
 
-		jQuery( this ).addClass( 'loading' );
+		window.eoxiaJS.loader.display( jQuery( this ) );
 		window.eoxiaJS.request.send( jQuery( this ), data );
 	}
 };
