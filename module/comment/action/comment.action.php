@@ -287,12 +287,8 @@ class Task_Comment_Action {
 			),
 		) );
 
-		$comment->author = get_userdata( $comment->author_id );
-
-		// Ajoutes une demande dans la donnée compilé.
-		if ( in_array( 'customer', $comment->author->roles, true ) ) {
-			do_action( 'tm_customer_add_entry_customer_ask', $comment->id );
-		}
+		// Possibilité de lancer une action après ajout d'un commentaire.
+		do_action( 'tm_action_after_comment_update', $comment->id );
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'comment', 'frontend/comment', array(
