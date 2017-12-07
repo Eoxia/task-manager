@@ -80,8 +80,7 @@ class Activity_Action {
 			'datas' => $datas,
 			'last_date' => $last_date,
 		) );
-
-		$view = ob_get_clean();
+		$view = '<div class="wpeo-project-wrap" ><div class="activities" >' . ob_get_clean() . '</div></div>';
 
 		$data_search = Navigation_Class::g()->get_search_result( $term, $categories_id_selected, $follower_id_selected );
 		ob_start();
@@ -105,6 +104,7 @@ class Activity_Action {
 			'title_popup' => $title . $title_popup,
 			'offset' => $offset,
 			'last_date' => $last_date,
+			'buttons_view' => '&nbsp;',
 			'end' => ( 0 === count( $datas ) ) ? true : false,
 		) );
 	}

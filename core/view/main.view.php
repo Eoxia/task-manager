@@ -28,33 +28,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</h2>
 	</div>
 
-	<div class="activity-content">
-		<span class="open-popup-ajax dashicons dashicons-screenoptions"
-					data-parent="activity-content"
-					data-target="popup"
-					data-action="load_last_activity"
-					data-namespace="taskManager"
-					data-class="last-activity activities"
-					data-module="activity"
-					data-before-method="getDataBeforeOpenPopup"
-					data-title="<?php echo esc_attr_e( 'Last activities', 'task-manager' ); ?>"></span>
-
-		<div class="popup last-activity activities">
-			<div class="container">
-				<div class="header">
-					<h2 class="title">Titre de la popup</h2>
-					<i class="close fa fa-times"></i>
-				</div>
-				<input type="hidden" class="offset-event" value="<?php echo esc_attr( \eoxia\Config_Util::$init['task-manager']->activity->activity_per_page ); ?>" />
-				<input type="hidden" class="last-date" value="" />
-
-				<div class="content">
-				</div>
-
-			</div>
-		</div>
-	</div>
-
 	<?php do_shortcode( '[task_manager_search_bar term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '"]' ); ?>
 
 	<?php

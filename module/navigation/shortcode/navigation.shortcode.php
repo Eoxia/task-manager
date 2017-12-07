@@ -64,6 +64,7 @@ class Search_Bar_Shortcode {
 			'param' => $param,
 		) );
 	}
+
 }
 
 new Search_Bar_Shortcode();
