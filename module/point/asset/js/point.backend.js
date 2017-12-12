@@ -110,7 +110,9 @@ window.eoxiaJS.taskManager.point.updateHiddenInput = function( event ) {
 
 	jQuery( this ).closest( '.point' ).find( '.point-content input[name="content"]' ).val( jQuery( this ).html() );
 
-	window.eoxiaJS.refresh();
+	jQuery( this ).closest( '.point' ).find( '.point-content input[name="content"]' ).trigger( 'change' );
+
+	// window.eoxiaJS.refresh();
 };
 
 /**
@@ -140,6 +142,8 @@ window.eoxiaJS.taskManager.point.addedPointSuccess = function( triggeredElement,
 
 	window.eoxiaJS.taskManager.point.initAutoComplete();
 	window.eoxiaJS.refresh();
+
+	triggeredElement.trigger( 'addedPointSuccess' );
 };
 
 /**
@@ -150,8 +154,8 @@ window.eoxiaJS.taskManager.point.addedPointSuccess = function( triggeredElement,
  * @param  {Object}         response          Les données renvoyées par la requête Ajax.
  * @return {void}
  *
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.6.0
  */
 window.eoxiaJS.taskManager.point.editedPointSuccess = function( triggeredElement, response ) {
 	triggeredElement.closest( '.form' ).removeClass( 'loading' );
