@@ -375,8 +375,8 @@ class Point_Action {
 				}
 
 				$tasks_founded[] = array(
-					'label' => '#' . $post->ID . ' - ' . $post->post_title,
-					'value' => $post->post_title,
+					'label' => '#' . $post->ID . ' ' . $post->post_title,
+					'value' => '#' . $post->ID . ' ' . $post->post_title,
 					'id' => $post->ID,
 				);
 			}
@@ -389,8 +389,8 @@ class Point_Action {
 			if ( ! empty( $post ) ) {
 				if ( 'wpeo-task' === $post->post_type ) {
 					$tasks_founded[] = array(
-						'label' => '#' . $post->ID . ' - ' . $post->post_title,
-						'value' => $post->post_title,
+						'label' => '#' . $post->ID . ' ' . $post->post_title,
+						'value' => '#' . $post->ID . ' ' . $post->post_title,
 						'id' => $post->ID,
 					);
 				}

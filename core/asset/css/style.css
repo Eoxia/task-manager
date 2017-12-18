@@ -6597,6 +6597,85 @@ Popup
   margin-right: 0.4em; }
 
 /* ----------------------------------
+		Metabox "quick time".
+-----------------------------------*/
+#tm-indicator-quick-task .setting-quick-time-button {
+  position: absolute;
+  right: 40px;
+  top: 5px;
+  height: 30px;
+  width: 30px;
+  padding: 0px 5px; }
+
+/* ----------------------------------
+		Model "setting-quick-time"
+-----------------------------------*/
+.setting-quick-time ul {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+     -moz-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between; }
+
+.setting-quick-time ul li.task {
+  width: 15%; }
+
+.setting-quick-time ul li.point {
+  width: 15%; }
+
+.setting-quick-time ul li.content {
+  width: 70%; }
+
+.setting-quick-time ul li.actions {
+  width: 50px;
+  margin-right: 0; }
+
+#tm-indicator-quick-task .content ul, .popup-quick-time .content ul {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+     -moz-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between; }
+
+#tm-indicator-quick-task .content ul li.task, .popup-quick-time .content ul li.task {
+  width: 15%; }
+
+#tm-indicator-quick-task .content ul li.point, .popup-quick-time .content ul li.point {
+  width: 15%; }
+
+#tm-indicator-quick-task .content ul li.content, .popup-quick-time .content ul li.content {
+  width: 70%; }
+
+#tm-indicator-quick-task .content ul li.content textarea, .popup-quick-time .content ul li.content textarea {
+  width: 100%; }
+
+#tm-indicator-quick-task .content ul li.min, .popup-quick-time .content ul li.min {
+  width: 10%; }
+
+#tm-indicator-quick-task .content ul li.actions, .popup-quick-time .content ul li.actions {
+  text-align: right;
+  width: 50px;
+  margin-right: 0; }
+
+#tm-indicator-quick-task .content .wpeo-button, .popup-quick-time .content .wpeo-button {
+  float: right; }
+
+#tm-indicator-quick-task .content:after, .popup-quick-time .content:after {
+  displat: block;
+  content: '';
+  clear: both; }
+
+/* ----------------------------------
 		Temporaire pour le blink
 -----------------------------------*/
 .wpeo-project-wrap .blink {

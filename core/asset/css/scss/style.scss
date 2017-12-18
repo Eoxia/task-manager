@@ -2445,6 +2445,86 @@ Popup
 }
 
 /* ----------------------------------
+		Metabox "quick time".
+-----------------------------------*/
+#tm-indicator-quick-task {
+	.setting-quick-time-button {
+		position: absolute;
+		right: 40px;
+		top: 5px;
+		height: 30px;
+		width: 30px;
+		padding: 0px 5px;
+	}
+}
+
+/* ----------------------------------
+		Model "setting-quick-time"
+-----------------------------------*/
+.setting-quick-time {
+	ul {
+		display: flex;
+		justify-content: space-between;
+		li {
+			&.task {
+				width: 15%;
+			}
+			&.point {
+				width: 15%;
+			}
+			&.content {
+				width: 70%;
+			}
+			&.actions {
+				width: 50px;
+				margin-right: 0;
+			}
+		}
+	}
+}
+
+#tm-indicator-quick-task, .popup-quick-time {
+	.content {
+		ul {
+			display: flex;
+			justify-content: space-between;
+			li {
+				&.task {
+					width: 15%;
+				}
+				&.point {
+					width: 15%;
+				}
+				&.content {
+					width: 70%;
+					textarea {
+						width: 100%;
+					}
+				}
+				&.min {
+					width: 10%;
+				}
+				&.actions {
+					text-align: right;
+					width: 50px;
+					margin-right: 0;
+				}
+			}
+		}
+
+		.wpeo-button {
+			float: right;
+		}
+
+		&:after {
+			displat: block;
+			content: '';
+			clear: both;
+		}
+	}
+}
+
+/* ----------------------------------
 		Temporaire pour le blink
 -----------------------------------*/
 .wpeo-project-wrap {
