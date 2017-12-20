@@ -51,6 +51,9 @@ class Quick_Time_Action {
 
 	/**
 	 * Ajoutes des commentaires
+	 *
+	 * @since 1.6.0
+	 * @version 1.6.0
 	 */
 	public function ajax_quick_time_add_comment() {
 		check_ajax_referer( 'quick_time_add_comment' );
@@ -76,7 +79,7 @@ class Quick_Time_Action {
 		}
 
 		ob_start();
-		Quick_Time_Class::g()->display();
+		Quick_Time_Class::g()->display_list();
 		wp_send_json_success( array(
 			'namespace'        => 'taskManager',
 			'module'           => 'quickTime',

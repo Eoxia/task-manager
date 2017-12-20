@@ -133,11 +133,11 @@ window.eoxiaJS.taskManager.quickTime.quickTimeAddedComment = function( triggered
  */
 window.eoxiaJS.taskManager.quickTime.onCheckedCheckAll = function( event ) {
 	if ( jQuery( this ).is( ':checked' ) ) {
-		jQuery( '.quick-time-content .item input[type="checkbox"]' ).attr( 'checked', true );
+		jQuery( this ).closest( '.quick-time-content' ).find( '.item input[type="checkbox"]' ).attr( 'checked', true );
 	} else {
-		jQuery( '.quick-time-content .item input[type="checkbox"]' ).attr( 'checked', false );
-		jQuery( '.quick-time-content .item .displayed' ).val( '' );
-		jQuery( '.quick-time-content .item input.time' ).val( '' );
+		jQuery( this ).closest( '.quick-time-content' ).find( '.item input[type="checkbox"]' ).attr( 'checked', false );
+		jQuery( this ).closest( '.quick-time-content' ).find( '.item .displayed' ).val( '' );
+		jQuery( this ).closest( '.quick-time-content' ).find( '.item input.time' ).val( '' );
 	}
 
 	window.eoxiaJS.taskManager.quickTime.updateTime( jQuery( this ) );

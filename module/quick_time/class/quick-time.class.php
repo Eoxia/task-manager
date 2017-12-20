@@ -39,6 +39,30 @@ class Quick_Time_Class extends \eoxia\Singleton_Util {
 	 * @return void
 	 */
 	public function display() {
+		\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/main' );
+	}
+
+	/**
+	 * Affiches le bouton "réglage".
+	 *
+	 * @since 1.6.0
+	 * @version 1.6.0
+	 *
+	 * @return void
+	 */
+	public function display_setting_button() {
+		\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/button-setting' );
+	}
+
+	/**
+	 * Affiches la liste des "temps rapides".
+	 *
+	 * @since 1.6.0
+	 * @version 1.6.0
+	 *
+	 * @return void
+	 */
+	public function display_list() {
 		$quicktimes = $this->get_quicktimes();
 		sort( $quicktimes );
 
@@ -46,7 +70,7 @@ class Quick_Time_Class extends \eoxia\Singleton_Util {
 			'schema' => true,
 		), true );
 
-		\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/main', array(
+		\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/list', array(
 			'quicktimes'     => $quicktimes,
 			'comment_schema' => $comment_schema,
 		) );

@@ -78,7 +78,7 @@ class Admin_Bar_Action {
 		check_ajax_referer( 'load_popup_quick_time' );
 
 		ob_start();
-		Quick_Time_Class::g()->display();
+		Quick_Time_Class::g()->display_list();
 		wp_send_json_success( array(
 			'view'         => ob_get_clean(),
 			'buttons_view' => '&nbsp;',
