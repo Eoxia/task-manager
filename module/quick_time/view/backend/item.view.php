@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</li>
 	<li class="min">
 		<i class="fa fa-clock-o" aria-hidden="true"></i>
-		<input type="hidden" name="comments[<?php echo esc_attr( $i ); ?>][time]" />
+		<input type="hidden" class="time" name="comments[<?php echo esc_attr( $i ); ?>][time]" />
 		<input type="text" class="displayed" />
 	<li>
 	<li class="actions"><input type="checkbox" class="set_time" /></li>

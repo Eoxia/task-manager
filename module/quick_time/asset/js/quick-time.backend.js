@@ -45,7 +45,7 @@ window.eoxiaJS.taskManager.quickTime.event = function() {
  * @return {void}
  */
 window.eoxiaJS.taskManager.quickTime.initAutoComplete = function() {
-	jQuery( '.search-task' ).autocomplete( {
+	jQuery( '.quick-time-search-task' ).autocomplete( {
 		source: 'admin-ajax.php?action=search_task',
 		delay: 0,
 		select: function( event, ui ) {
@@ -58,7 +58,8 @@ window.eoxiaJS.taskManager.quickTime.initAutoComplete = function() {
 			jQuery( this ).closest( '.form-fields' ).find( '.action-input' ).addClass( 'active' );
 			event.stopPropagation();
 
-			window.eoxiaJS.request.send( jQuery( this ).closest( '.form-fields' ), data );
+			window.eoxiaJS.loader.display( jQuery( this ).closest( '.form' ) );
+			window.eoxiaJS.request.send( jQuery( this ).closest( '.form' ), data );
 		}
 	} );
 };
@@ -136,10 +137,10 @@ window.eoxiaJS.taskManager.quickTime.onCheckedCheckAll = function( event ) {
 	} else {
 		jQuery( '.quick-time-content .item input[type="checkbox"]' ).attr( 'checked', false );
 		jQuery( '.quick-time-content .item .displayed' ).val( '' );
-		jQuery( '.quick-time-content .item input[name="time"]' ).val( '' );
+		jQuery( '.quick-time-content .item input.time' ).val( '' );
 	}
 
-	window.eoxiaJS.taskManager.quickTime.updateTime();
+	window.eoxiaJS.taskManager.quickTime.updateTime( jQuery( this ) );
 };
 
 /**
@@ -155,10 +156,10 @@ window.eoxiaJS.taskManager.quickTime.onCheckedCheckAll = function( event ) {
 window.eoxiaJS.taskManager.quickTime.onChecked = function( event ) {
 	if ( ! jQuery( this ).is( ':checked' ) ) {
 		jQuery( this ).closest( 'ul' ).find( '.displayed' ).val( '' );
-		jQuery( this ).closest( 'ul' ).find( 'input[name="time"]' ).val( '' );
+		jQuery( this ).closest( 'ul' ).find( 'input.time' ).val( '' );
 	}
 
-	window.eoxiaJS.taskManager.quickTime.updateTime();
+	window.eoxiaJS.taskManager.quickTime.updateTime( jQuery( this ) );
 };
 
 /**
@@ -177,7 +178,7 @@ window.eoxiaJS.taskManager.quickTime.onKeyUp = function( event ) {
 		jQuery( this ).closest( 'ul' ).find( 'input[type="checkbox"]' ).attr( 'checked', false );
 	}
 
-	window.eoxiaJS.taskManager.quickTime.updateTime();
+	window.eoxiaJS.taskManager.quickTime.updateTime( jQuery( this ) );
 };
 
 /**
@@ -186,17 +187,19 @@ window.eoxiaJS.taskManager.quickTime.onKeyUp = function( event ) {
  * @since 1.6.0
  * @version 1.6.0
  *
+ * @param {mixed} element L'élément déclenchant l'action.
+ *
  * @return {void}
  */
-window.eoxiaJS.taskManager.quickTime.updateTime = function() {
-	var totalTime = parseInt( jQuery( '.quick-time-content .header .time' ).text() );
+window.eoxiaJS.taskManager.quickTime.updateTime = function( element ) {
+	var totalTime = parseInt( element.closest( '.quick-time-content' ).find( '.header .time' ).text() );
 	var checkedElements, container;
 	var numberCheckedElement = 0;
 
-	checkedElements      = jQuery( '.quick-time-content .item .set_time:checked' );
+	checkedElements      = element.closest( '.quick-time-content' ).find( '.item .set_time:checked' );
 	numberCheckedElement = checkedElements.length;
 
-	jQuery( '.quick-time-content .item .min input.displayed' ).each( function() {
+	element.closest( '.quick-time-content' ).find( '.item .min input.displayed' ).each( function() {
 		if ( jQuery( this ).val() && ! isNaN( jQuery( this ).val() ) ) {
 			totalTime -= parseInt( jQuery( this ).val() );
 			numberCheckedElement--;
@@ -208,20 +211,20 @@ window.eoxiaJS.taskManager.quickTime.updateTime = function() {
 		totalTime = 0;
 	}
 
-	jQuery( '.quick-time-content .set_time' ).each( function() {
+	element.closest( '.quick-time-content' ).find( '.set_time' ).each( function() {
 		container = jQuery( this ).closest( 'ul' );
 
 		if ( jQuery( this ).is( ':checked' ) ) {
 			container.find( 'input.displayed' ).attr( 'placeholder', parseInt( totalTime / numberCheckedElement ) );
 
 			if ( container.find( 'input.displayed' ).val() && ! isNaN( container.find( 'input.displayed' ).val() ) ) {
-				container.find( 'input[name="time"]' ).val( parseInt( container.find( 'input.displayed' ).val() ) );
+				container.find( 'input.time' ).val( parseInt( container.find( 'input.displayed' ).val() ) );
 			} else {
-				container.find( 'input[name="time"]' ).val( parseInt( totalTime / numberCheckedElement ) );
+				container.find( 'input.time' ).val( parseInt( totalTime / numberCheckedElement ) );
 			}
 		} else {
 			container.find( 'input.displayed' ).attr( 'placeholder', '' );
-			container.find( 'input[name="time"]' ).val( '' );
+			container.find( 'input.time' ).val( '' );
 		}
 	} );
 }

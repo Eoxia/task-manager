@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<li class="task">
 			<div class="form-fields">
-				<input type="text" class="search-task" placeholder="<?php echo esc_attr_e( 'Name/ID Task', 'task-manager' ); ?>" />
+				<input type="text" class="quick-time-search-task" placeholder="<?php echo esc_attr_e( 'Name/ID Task', 'task-manager' ); ?>" />
 				<input type="hidden" name="task_id" />
 			</div>
 			<div class="list-posts">
@@ -42,8 +42,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</ul>
 
 	<?php
-	if ( ! empty( $quick_times ) ) :
-		foreach ( $quick_times as $key => $quick_time ) :
+	if ( ! empty( $quicktimes ) ) :
+		foreach ( $quicktimes as $key => $quick_time ) :
 			\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/setting/item', array(
 				'key'        => $key,
 				'quick_time' => $quick_time,

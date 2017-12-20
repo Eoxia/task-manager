@@ -6,7 +6,8 @@
 	"path": "module/quick_time/",
 	"dependencies": {
 		"action": {},
-		"class": {}
+		"class": {},
+		"helper": {}
 	},
 	"meta_quick_time": "_tm_quick_time"
 }

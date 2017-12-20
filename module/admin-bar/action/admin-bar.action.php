@@ -80,7 +80,8 @@ class Admin_Bar_Action {
 		ob_start();
 		Quick_Time_Class::g()->display();
 		wp_send_json_success( array(
-			'view' => ob_get_clean(),
+			'view'         => ob_get_clean(),
+			'buttons_view' => '&nbsp;',
 		) );
 	}
 

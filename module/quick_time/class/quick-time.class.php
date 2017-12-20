@@ -39,10 +39,16 @@ class Quick_Time_Class extends \eoxia\Singleton_Util {
 	 * @return void
 	 */
 	public function display() {
-		$quicktimes = $this->get_quick_time();
+		$quicktimes = $this->get_quicktimes();
+		sort( $quicktimes );
+
+		$comment_schema = Task_Comment_Class::g()->get( array(
+			'schema' => true,
+		), true );
 
 		\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/main', array(
-			'quicktimes' => $quicktimes,
+			'quicktimes'     => $quicktimes,
+			'comment_schema' => $comment_schema,
 		) );
 	}
 
@@ -54,33 +60,17 @@ class Quick_Time_Class extends \eoxia\Singleton_Util {
 	 *
 	 * @return array (Voir au dessus)
 	 */
-	public function get_quick_time() {
-		$quick_times = get_user_meta( get_current_user_id(), \eoxia\Config_Util::$init['task-manager']->quick_time->meta_quick_time, true );
-
-		if ( ! empty( $quick_times ) ) {
-			foreach ( $quick_times as &$quick_time ) {
-				$quick_time['displayed'] = array(
-					'task'               => Task_Class::g()->get( array(
-						'id' => $quick_time['task_id'],
-					), true ),
-					'point'              => Point_Class::g()->get( array(
-						'id' => $quick_time['point_id'],
-					), true ),
-					'point_fake_content' => '',
-				);
-
-				$quick_time['displayed']['point_fake_content'] = '#' . $quick_time['displayed']['point']->id . ' ' . $quick_time['displayed']['point']->content;
-
-				if ( strlen( $quick_time['displayed']['point']->content ) > 15 ) :
-					$quick_time['displayed']['point_fake_content'] = substr( $quick_time['displayed']['point']->content, 0, 15 );
-					$quick_time['displayed']['point_fake_content'] = '#' . $quick_time['displayed']['point']->id . ' ' . $quick_time['displayed']['point_fake_content'] . '...';
-				endif;
+	public function get_quicktimes() {
+		$quicktimes = get_user_meta( get_current_user_id(), \eoxia\Config_Util::$init['task-manager']->quick_time->meta_quick_time, true );
+		if ( ! empty( $quicktimes ) ) {
+			foreach ( $quicktimes as $key => $quicktime ) {
+				$quicktimes[ $key ] = quicktime_format_data( $quicktime );
 			}
 		}
 
-		rsort( $quick_times );
-		return $quick_times;
+		return $quicktimes;
 	}
+
 }
 
 Quick_Time_Class::g();

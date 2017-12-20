@@ -15,6 +15,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
+<span class="wpeo-button button-light wpeo-modal-event setting-quick-time-button"
+	data-action="open_setting_quick_time"
+	data-class="setting-quick-time"
+	data-title="<?php echo esc_attr_e( 'Setting of the add quick time list', 'task-manager' ); ?>">
+	<span class="fa fa-cog" aria-hidden="true"></span>
+</span>
+
 <div class="content quick-time-content">
 	<input type="hidden" name="action" value="quick_time_add_comment" />
 	<?php wp_nonce_field( 'quick_time_add_comment' ); ?>
@@ -25,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<li class="content"><?php esc_html_e( 'Comment', 'task-manager' ); ?></li>
 			<li class="min">
 				<i class="fa fa-clock-o" aria-hidden="true"></i>
-				<span class="time">120</span>
+				<span class="time"><?php echo esc_attr( isset( $comment_schema->time_info['calculed_elapsed'] ) ? $comment_schema->time_info['calculed_elapsed'] : $comment_schema->time_info['elapsed'] ); ?></span>
 				<span><?php esc_html_e( 'min.', 'task-manager' ); ?></span>
 			</li>
 			<li class="action"><input type="checkbox" /></li>

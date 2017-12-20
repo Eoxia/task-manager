@@ -46,10 +46,7 @@ class Quick_Time_Action {
 	 * @return void
 	 */
 	public function callback_admin_init() {
-		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/metabox-title' );
-		$title = ob_get_clean();
-		add_meta_box( 'tm-indicator-quick-task', $title, array( Quick_Time_Class::g(), 'display' ), 'task-manager-indicator', 'normal' );
+		add_meta_box( 'tm-indicator-quick-task', __( 'Quick time', 'task-manager' ), array( Quick_Time_Class::g(), 'display' ), 'task-manager-indicator', 'normal' );
 	}
 
 	/**
@@ -98,11 +95,12 @@ class Quick_Time_Action {
 	 * @return void
 	 */
 	public function ajax_open_setting_quick_time() {
-		$quick_times = Quick_Time_Class::g()->get_quick_time();
+		$quicktimes = Quick_Time_Class::g()->get_quicktimes();
+		sort( $quicktimes );
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/setting/main', array(
-			'quick_times' => $quick_times,
+			'quicktimes' => $quicktimes,
 		) );
 		$view = ob_get_clean();
 		wp_send_json_success( array(
@@ -176,36 +174,23 @@ class Quick_Time_Action {
 
 		$meta = get_user_meta( get_current_user_id(), \eoxia\Config_Util::$init['task-manager']->quick_time->meta_quick_time, true );
 
-		$meta[] = array(
-			'task_id'  => $task_id,
-			'point_id' => $point_id,
-			'content'  => $content,
+		$data = array(
+			'task_id'   => $task_id,
+			'point_id'  => $point_id,
+			'content'   => $content,
+			'displayed' => array(),
 		);
+
+		$meta[] = $data;
 
 		update_user_meta( get_current_user_id(), \eoxia\Config_Util::$init['task-manager']->quick_time->meta_quick_time, $meta );
 
-		$quick_time = array(
-			'content' => $content,
-		);
-
-		$quick_time['displayed'] = array(
-			'task'  => Task_Class::g()->get( array(
-				'id' => $task_id,
-			), true ),
-			'point' => Point_Class::g()->get( array(
-				'id' => $point_id,
-			), true ),
-		);
-
-		if ( strlen( $quick_time['displayed']['point']->content ) > 50 ) {
-			$quick_time['displayed']['point']->content  = substr( $quick_time['displayed']['point']->content, 0, 50 );
-			$quick_time['displayed']['point']->content .= '...';
-		}
+		$data = quicktime_format_data( $data );
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/setting/item', array(
 			'key'        => $task_id . '-' . $point_id,
-			'quick_time' => $quick_time,
+			'quick_time' => $data,
 		) );
 		wp_send_json_success( array(
 			'namespace'        => 'taskManager',
