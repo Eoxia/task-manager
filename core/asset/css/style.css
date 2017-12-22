@@ -3447,6 +3447,41 @@
 .wpeo-project-wrap .toggle.option .content:before {
   border-color: transparent transparent #fff transparent; }
 
+/**
+ * Loader
+ * .loading -> Ajouter cette classe sur un bloc pendant un chargement
+ */
+.wpeo-project-wrap .loading, .wpeo-project-wrap.loading {
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  pointer-events: none;
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  position: relative; }
+
+.wpeo-project-wrap .loading:before, .wpeo-project-wrap.loading:before {
+  display: inline-block;
+  content: '';
+  border: 3px solid #a7a7a7;
+  border-top: 3px solid #3495f0;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  z-index: 99;
+  left: 50%;
+  top: 50%;
+  -webkit-animation: spin 1s ease-out infinite;
+       -o-animation: spin 1s ease-out infinite;
+          animation: spin 1s ease-out infinite; }
+
+.wpeo-project-wrap .load-more.loading:before {
+  position: static;
+  margin-top: 8px;
+  float: left; }
+
 /* ------------------------------
 	FUNCTIONS
 		* .clear()
@@ -6596,84 +6631,6 @@ Popup
 #tm-indicator-activity label i {
   margin-right: 0.4em; }
 
-/* ----------------------------------
-		Metabox "quick time".
------------------------------------*/
-#tm-indicator-quick-task .setting-quick-time-button {
-  position: absolute;
-  right: 40px;
-  top: 5px;
-  height: 30px;
-  width: 30px;
-  padding: 0px 5px; }
-
-/* ----------------------------------
-		Model "setting-quick-time"
------------------------------------*/
-.setting-quick-time ul {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-     -moz-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between; }
-
-.setting-quick-time ul li.task {
-  width: 15%; }
-
-.setting-quick-time ul li.point {
-  width: 15%; }
-
-.setting-quick-time ul li.content {
-  width: 70%; }
-
-.setting-quick-time ul li.actions {
-  width: 50px;
-  margin-right: 0; }
-
-#tm-indicator-quick-task .content ul, .popup-quick-time .content ul {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-     -moz-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between; }
-
-#tm-indicator-quick-task .content ul li.task, .popup-quick-time .content ul li.task {
-  width: 15%; }
-
-#tm-indicator-quick-task .content ul li.point, .popup-quick-time .content ul li.point {
-  width: 15%; }
-
-#tm-indicator-quick-task .content ul li.content, .popup-quick-time .content ul li.content {
-  width: 70%; }
-
-#tm-indicator-quick-task .content ul li.content textarea, .popup-quick-time .content ul li.content textarea {
-  width: 100%; }
-
-#tm-indicator-quick-task .content ul li.min, .popup-quick-time .content ul li.min {
-  width: 10%; }
-
-#tm-indicator-quick-task .content ul li.actions, .popup-quick-time .content ul li.actions {
-  text-align: right;
-  width: 50px;
-  margin-right: 0; }
-
-#tm-indicator-quick-task .content .wpeo-button, .popup-quick-time .content .wpeo-button {
-  float: right; }
-
-#tm-indicator-quick-task .content:after, .popup-quick-time .content:after {
-  displat: block;
-  content: '';
-  clear: both; }
 
 /* ----------------------------------
 		Temporaire pour le blink

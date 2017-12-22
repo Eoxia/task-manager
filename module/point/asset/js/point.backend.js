@@ -32,7 +32,7 @@ window.eoxiaJS.taskManager.point.event = function() {
 	jQuery( document ).on( 'keyup', '.point:not(.edit) .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.triggerCreate );
 
 	jQuery( document ).on( 'click', '.point.edit .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.activePoint );
-	jQuery( document ).on( 'blur keyup paste keydown click', '.point .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.updateHiddenInput );
+	jQuery( document ).on( 'blur keyup paste keydown click', '.point .point-content .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.updateHiddenInput );
 	jQuery( document ).on( 'blur paste', '.point.edit .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.editPoint );
 	jQuery( document ).on( 'click', '.form .completed-point', window.eoxiaJS.taskManager.point.completePoint );
 };
@@ -95,17 +95,21 @@ window.eoxiaJS.taskManager.point.refresh = function() {
  * @return {void}
  *
  * @since 1.0.0
- * @version 1.3.6.0
+ * @version 1.6.0
  */
 window.eoxiaJS.taskManager.point.updateHiddenInput = function( event ) {
-	if ( 0 < jQuery( this ).text().length ) {
-		jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 1 );
-		jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-placeholder' ).addClass( 'hidden' );
-		jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'pointerEvents', 'auto' );
-	} else {
-		jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 0.4 );
-		jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
-		jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'pointerEvents', 'none' );
+	if ( ! jQuery( this ).closest( '.point' ).hasClass( 'edit' ) ) {
+		if ( 0 < jQuery( this ).text().length ) {
+			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 1 );
+			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-placeholder' ).addClass( 'hidden' );
+			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'pointerEvents', 'auto' );
+			window.eoxiaJS.taskManager.core.initSafeExit( true );
+		} else {
+			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 0.4 );
+			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
+			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'pointerEvents', 'none' );
+			window.eoxiaJS.taskManager.core.initSafeExit( false );
+		}
 	}
 
 	jQuery( this ).closest( '.point' ).find( '.point-content input[name="content"]' ).val( jQuery( this ).html() );
@@ -124,7 +128,7 @@ window.eoxiaJS.taskManager.point.updateHiddenInput = function( event ) {
  * @return {void}
  *
  * @since 1.0.0
- * @version 1.5.0
+ * @version 1.6.0
  */
 window.eoxiaJS.taskManager.point.addedPointSuccess = function( triggeredElement, response ) {
 	var totalPoint = parseInt( triggeredElement.closest( '.wpeo-project-task' ).find( '.total-point' ).text() );
@@ -144,6 +148,7 @@ window.eoxiaJS.taskManager.point.addedPointSuccess = function( triggeredElement,
 	window.eoxiaJS.refresh();
 
 	triggeredElement.trigger( 'addedPointSuccess' );
+	window.eoxiaJS.taskManager.core.initSafeExit( false );
 };
 
 /**
