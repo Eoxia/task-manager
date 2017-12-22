@@ -26,6 +26,7 @@
 	"dependencies": {
 		"chai": "3.5.0",
 		"chai-as-promised": "^7.1.1",
+		"glob": "^7.1.2",
 		"nightmare": "^2.10.0"
 	}
 }

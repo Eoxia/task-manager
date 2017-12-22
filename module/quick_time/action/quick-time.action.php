@@ -82,7 +82,7 @@ class Quick_Time_Action {
 		Quick_Time_Class::g()->display_list();
 		wp_send_json_success( array(
 			'namespace'        => 'taskManager',
-			'module'           => 'quickTime',
+			'module'           => 'adminBar',
 			'callback_success' => 'quickTimeAddedComment',
 			'view'             => ob_get_clean(),
 		) );
