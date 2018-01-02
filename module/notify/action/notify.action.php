@@ -4,7 +4,7 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.5.0
- * @version 1.5.2
+ * @version 1.6.0
  * @copyright 2015-2017 Eoxia
  * @package Task_Manager
  */
@@ -35,7 +35,7 @@ class Notify_Action {
 	 * Récupères la vue 'backend/main' ainsi que les utilisateurs dont le role est 'administrateur'.
 	 *
 	 * @since 1.5.0
-	 * @version 1.5.2
+	 * @version 1.6.0
 	 *
 	 * @return void
 	 */
@@ -56,7 +56,13 @@ class Notify_Action {
 			'role' => 'administrator',
 		) );
 
-		$affected_id   = $task->user_info['affected_id'];
+		$affected_id = $task->user_info['affected_id'];
+
+		$owner_data = get_userdata( $task->user_info['owner_id'] );
+
+		if ( ! in_array( $task->user_info['owner_id'], $affected_id ) && in_array( 'administrator', (array) $owner_data->roles, true ) ) {
+			$affected_id[] = $task->user_info['owner_id'];
+		}
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'notify', 'backend/main', array(
@@ -69,7 +75,7 @@ class Notify_Action {
 			'namespace'        => 'taskManager',
 			'module'           => 'notify',
 			'callback_success' => 'loadedNotifyPopup',
-			'view' => ob_get_clean(),
+			'view'             => ob_get_clean(),
 		) );
 	}
 
@@ -80,18 +86,15 @@ class Notify_Action {
 	 * @return void
 	 *
 	 * @since 1.5.0
-	 * @version 1.5.0
+	 * @version 1.6.0
 	 */
 	public function callback_send_notification() {
 		check_ajax_referer( 'send_notification' );
 
-		$id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
-		$users_id = ! empty( $_POST['users_id'] ) ? sanitize_text_field( $_POST['users_id'] ) : '';
-		$data = ! empty( $_POST ) ? (array) $_POST : array();
-
-		if ( ! isset( $data['notify_customer'] ) ) {
-			$data['notify_customer'] = 'false';
-		}
+		$id           = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+		$users_id     = ! empty( $_POST['users_id'] ) ? sanitize_text_field( $_POST['users_id'] ) : '';
+		$customers_id = ! empty( $_POST['customers_id'] ) ? sanitize_text_field( $_POST['customers_id'] ) : '';
+		$data         = ! empty( $_POST ) ? (array) $_POST : array();
 
 		if ( empty( $id ) || empty( $users_id ) ) {
 			wp_send_json_error();
@@ -103,7 +106,7 @@ class Notify_Action {
 
 		$sender_data = wp_get_current_user();
 		$admin_email = get_bloginfo( 'admin_email' );
-		$blog_name = get_bloginfo( 'name' );
+		$blog_name   = get_bloginfo( 'name' );
 
 		$recipients = array();
 
@@ -111,7 +114,7 @@ class Notify_Action {
 
 		if ( ! empty( $users_id ) ) {
 			foreach ( $users_id as $user_id ) {
-				$user_info = get_userdata( $user_id );
+				$user_info    = get_userdata( $user_id );
 				$recipients[] = $user_info->user_email;
 			}
 		}
@@ -128,7 +131,7 @@ class Notify_Action {
 		$body .= sprintf( __( '#%1$d %2$s send by %3$s (%4$s)', 'task-manager' ), $task->id, $task->title, $sender_data->user_login, $sender_data->user_email );
 		$body .= '</h2>';
 
-		$body = apply_filters( 'task_points_mail', $body, $task );
+		$body  = apply_filters( 'task_points_mail', $body, $task );
 		$body .= '<ul>';
 		if ( ! empty( $task->parent_id ) ) {
 			$body .= '<li><a href="' . admin_url( 'post.php?action=edit&post=' . $task->parent_id ) . '">' . __( 'Customer link', 'task-manager' ) . '</a></li>';
@@ -136,22 +139,26 @@ class Notify_Action {
 		$body .= '<li><a href="' . admin_url( 'admin.php?page=wpeomtm-dashboard&term=' . $task->id ) . '">' . __( 'Task link', 'task-manager' ) . '</a></li>';
 		$body .= '</ul>';
 
-		$headers = array( 'Content-Type: text/html; charset=UTF-8' );
+		$headers   = array( 'Content-Type: text/html; charset=UTF-8' );
 		$headers[] = 'From: ' . $blog_name . ' <' . $admin_email . '>';
 
 		$recipients = apply_filters( 'task_manager_notify_send_notification_recipients', $recipients, $task, $data );
-		$subject = apply_filters( 'task_manager_notify_send_notification_subject', $subject, $task, $data );
-		$body = apply_filters( 'task_manager_notify_send_notification_body', $body, $task, $data );
+		$subject    = apply_filters( 'task_manager_notify_send_notification_subject', $subject, $task, $data );
+		$body       = apply_filters( 'task_manager_notify_send_notification_body', $body, $task, $data );
 
-		if ( wp_mail( $recipients, $subject, $body, $headers ) ) {
-			\eoxia\LOG_Util::log( sprintf( 'Send the task %1$d to %2$s success', $task->id, implode( ',', $recipients ) ), 'task-manager' );
+		if ( ! empty( $recipients ) && ! empty( $subject ) && ! empty( $body ) ) {
+			if ( wp_mail( $recipients, $subject, $body, $headers ) ) {
+				\eoxia\LOG_Util::log( sprintf( 'Send the task %1$d to %2$s success', $task->id, implode( ',', $recipients ) ), 'task-manager' );
+			} else {
+				\eoxia\LOG_Util::log( sprintf( 'Send the task %1$d to %2$s failed', $task->id, implode( ',', $recipients ) ), 'task-manager', 'EO_ERROR' );
+			}
 		} else {
 			\eoxia\LOG_Util::log( sprintf( 'Send the task %1$d to %2$s failed', $task->id, implode( ',', $recipients ) ), 'task-manager', 'EO_ERROR' );
 		}
 
 		wp_send_json_success( array(
-			'namespace' => 'taskManager',
-			'module' => 'notify',
+			'namespace'        => 'taskManager',
+			'module'           => 'notify',
 			'callback_success' => 'sendedNotification',
 		) );
 	}
