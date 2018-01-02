@@ -57,23 +57,25 @@ window.eoxiaJS.taskManager.adminBar.event = function() {
  * @return {void}
  */
 window.eoxiaJS.taskManager.adminBar.initAutoComplete = function() {
-	jQuery( '.quick-time-search-task' ).autocomplete( {
-		source: 'admin-ajax.php?action=search_task',
-		delay: 0,
-		select: function( event, ui ) {
-			var data = {
-				action: 'quick_task_setting_refresh_point',
-				task_id: ui.item.id
-			};
+	if ( jQuery.autocomplete ) {
+		jQuery( '.quick-time-search-task' ).autocomplete( {
+			source: 'admin-ajax.php?action=search_task',
+			delay: 0,
+			select: function( event, ui ) {
+				var data = {
+					action: 'quick_task_setting_refresh_point',
+					task_id: ui.item.id
+				};
 
-			jQuery( 'input[name="task_id"]' ).val( ui.item.id );
-			jQuery( this ).closest( '.form-fields' ).find( '.action-input' ).addClass( 'active' );
-			event.stopPropagation();
+				jQuery( 'input[name="task_id"]' ).val( ui.item.id );
+				jQuery( this ).closest( '.form-fields' ).find( '.action-input' ).addClass( 'active' );
+				event.stopPropagation();
 
-			window.eoxiaJS.loader.display( jQuery( this ).closest( '.form' ) );
-			window.eoxiaJS.request.send( jQuery( this ).closest( '.form' ), data );
-		}
-	} );
+				window.eoxiaJS.loader.display( jQuery( this ).closest( '.form' ) );
+				window.eoxiaJS.request.send( jQuery( this ).closest( '.form' ), data );
+			}
+		} );
+	}
 };
 
 /**
