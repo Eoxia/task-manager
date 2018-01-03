@@ -4,8 +4,8 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.0.0
- * @version 1.5.0
- * @copyright 2015-2017 Eoxia
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -17,10 +17,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <ul class="wpeo-task-time-manage">
 	<?php if ( 0 !== $task->last_history_time->id ) : ?>
-		<li class="wpeo-task-date tooltip hover" aria-label="<?php echo esc_html_e( 'Dead line', 'task-manager' ); ?>">
-			<i class="dashicons dashicons-calendar-alt"></i>
-			<span><?php echo esc_html( $task->last_history_time->due_date['date_input']['fr_FR']['date'] ); ?></span>
-		</li>
+		<?php if ( $task->last_history_time->repeat ) : ?>
+			<li><?php esc_html_e( 'Repeated', 'task-manager' ); ?>
+		<?php else : ?>
+			<li class="wpeo-task-date tooltip hover" aria-label="<?php echo esc_html_e( 'Dead line', 'task-manager' ); ?>">
+				<i class="dashicons dashicons-calendar-alt"></i>
+				<span><?php echo esc_html( $task->last_history_time->due_date['date_input']['fr_FR']['date'] ); ?></span>
+			</li>
+		<?php endif; ?>
 	<?php endif; ?>
 
 	<li class="wpeo-task-elapsed">
@@ -37,7 +41,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			data-parent="wpeo-project-task"
 			data-target="popup"
 			data-action="load_time_history"
-			data-title="<?php echo sprintf( __( '#%1$s History time', 'task-manager' ), esc_attr( $task->id ) ); ?>"
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_time_history' ) ); ?>"
+			data-class="history-time"
+			data-title="<?php echo sprintf( __( '#%1$s Time history', 'task-manager' ), esc_attr( $task->id ) ); ?>"
 			data-task-id="<?php echo esc_attr( $task->id ); ?>">
 		<span class="fa fa-history dashicons-image-rotate"></span>
 	</li>

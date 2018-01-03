@@ -2131,12 +2131,17 @@ Popup
 	.history-time-new {
 		padding: 12px 0;
 		border-bottom: 1px solid rgba(0,0,0,0.1);
-		input[type="text"] {
-			border: 0;
-			box-shadow: none;
-			background: rgba(0,0,0,0.1);
-			padding: 6px;
+		border-top: 1px solid rgba(0,0,0,0.1);
+
+		.wpeo-button {
+			float: right;
 		}
+		&:after {
+			display: block;
+			content: '';
+			clear: both;
+		}
+
 		.add-history-time {
 			margin-left: 14px;
 			color: $main-color;
@@ -2518,7 +2523,7 @@ Popup
 		}
 
 		&:after {
-			displat: block;
+			display: block;
 			content: '';
 			clear: both;
 		}
