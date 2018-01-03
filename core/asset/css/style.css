@@ -3315,12 +3315,12 @@
        -o-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%); }
 
-.wpeo-project-wrap .popup.no-close .button {
+.wpeo-project-wrap .popup.no-close:not(.popup-update-manager) .button {
   background: #d6d6d6;
   color: rgba(0, 0, 0, 0.4);
   pointer-events: none; }
 
-.wpeo-project-wrap .popup.no-close .button:hover {
+.wpeo-project-wrap .popup.no-close:not(.popup-update-manager) .button:hover {
   background: #d6d6d6;
   color: rgba(0, 0, 0, 0.4);
   cursor: not-allowed; }

@@ -1,7 +1,7 @@
 {
 	"name": "Task Manager",
 	"slug": "task-manager",
-	"version": "1.5.1",
+	"version": "1.6.0",
 	"major_version": "1.5.0",
 	"description": "L'application Task Manager",
 	"insert_scripts_pages": [
@@ -9,13 +9,14 @@
 		"digirisk-simple-risk-evaluation",
 		"task-manager-time-exceeded",
 		"task-manager-indicator",
-		"task-manager-setting"
+		"task-manager-setting",
+		"task-manager-update"
 	],
 	"externals": [],
 	"modules": [
 		"core/core.config.json",
 
-		"module/update-manager/update-manager.config.json",
+		"module/update_manager/update_manager.config.json",
 		"module/avatar/avatar.config.json",
 		"module/notify/notify.config.json",
 		"module/task/task.config.json",
@@ -39,5 +40,6 @@
 	],
 	"debug": false,
 	"key_last_update_version" : "_tm_last_update_version",
+	"core_option": "_tm_core_option",
 	"associate_post_type": []
 }

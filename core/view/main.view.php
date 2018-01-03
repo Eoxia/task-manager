@@ -4,8 +4,8 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 0.1.0
- * @version 1.5.0
- * @copyright 2015-2017 Eoxia
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -36,11 +36,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	else :
 		do_shortcode( '[task term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '" status="any" post_parent="0" with_wrapper="0"]' );
 	endif;
-	//
-	// $version = get_user_meta( get_current_user_id(), '_wptm_user_change_log', true );
-	//
-	// if ( empty( $version[ \eoxia\Config_Util::$init['task-manager']->major_version ] ) ) :
-	// 	require( PLUGIN_TASK_MANAGER_PATH . '/core/view/patch-note.view.php' );
-	// endif;
+
+	$waiting_updates = get_option( '_tm_waited_updates', array() );
+	echo '<pre>'; print_r( $waiting_updates ); echo '</pre>';
+	if ( ! empty( $waiting_updates ) && strpos( $_SERVER['REQUEST_URI'], 'admin.php' ) && ! strpos( $_SERVER['REQUEST_URI'], 'admin.php?page=task-manager-update' ) ) :
+		\eoxia\View_Util::exec( 'task-manager', 'update_manager', 'say-to-update' );
+	endif;
+
 	?>
 </div>
