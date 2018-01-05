@@ -4,7 +4,7 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.0.0
- * @version 1.5.0
+ * @version 1.6.0
  * @copyright 2015-2017 Eoxia
  * @package Task_Manager
  */
@@ -26,18 +26,19 @@ class Task_Comment_Model extends \eoxia\Comment_Model {
 	 * @param Task_Comment_Model $object L'objet.
 	 *
 	 * @since 1.0.0
-	 * @version 1.5.0
+	 * @version 1.6.0
 	 */
 	public function __construct( $object ) {
 		$this->model['time_info'] = array(
-			'type' => 'array',
+			'type'      => 'array',
 			'meta_type' => 'multiple',
-			'bydefault' => array(
-				'elapsed' => 15,
-			),
-			'elapsed' => array(
-				'type' => 'integer',
-				'meta_type' => 'multiple',
+			'child'     => array(
+				'elapsed' => array(
+					'type'       => 'array',
+					'array_type' => 'integer',
+					'meta_type'  => 'multiple',
+					'bydefault'  => array( 15 ),
+				),
 			),
 		);
 

@@ -31,16 +31,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php do_shortcode( '[task_manager_search_bar term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '"]' ); ?>
 
 	<?php
-	if ( ! empty( $id ) ) :
-		do_shortcode( '[task id="' . $id . '"]' );
-	else :
-		do_shortcode( '[task term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '" status="any" post_parent="0" with_wrapper="0"]' );
-	endif;
-
 	$waiting_updates = get_option( '_tm_waited_updates', array() );
-	echo '<pre>'; print_r( $waiting_updates ); echo '</pre>';
 	if ( ! empty( $waiting_updates ) && strpos( $_SERVER['REQUEST_URI'], 'admin.php' ) && ! strpos( $_SERVER['REQUEST_URI'], 'admin.php?page=task-manager-update' ) ) :
 		\eoxia\View_Util::exec( 'task-manager', 'update_manager', 'say-to-update' );
+	else :
+		if ( ! empty( $id ) ) :
+			do_shortcode( '[task id="' . $id . '"]' );
+		else :
+			do_shortcode( '[task term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '" status="any" post_parent="0" with_wrapper="0"]' );
+		endif;
 	endif;
 
 	?>

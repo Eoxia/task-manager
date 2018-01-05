@@ -64,16 +64,6 @@ function get_full_task( $data ) {
 		'number'  => 1,
 	), true );
 
-	$format = '%hh %imin';
-	$dtf    = new \DateTime( '@0' );
-
-	/** Gestion de l'affichage du temps estimé en jours/heures */
-	$dtt = new \DateTime( '@' . ( $data->last_history_time->estimated_time * 60 ) );
-	if ( 1440 <= $data->last_history_time->estimated_time ) {
-		$format = '%aj %hh %imin';
-	}
-	$data->time_info['estimated_time_display'] = $dtf->diff( $dtt )->format( $format );
-
 	// Fix TMP.
 	if ( ! isset( $data->user_info['affected_id'] ) ) {
 		$data->user_info['affected_id'] = array();
@@ -99,23 +89,15 @@ function get_full_task( $data ) {
 				'type__not_in' => array( 'history_time' ),
 			) );
 
-			$data->time_info['elapsed'] = 0;
+			$data->time_info['elapsed'] = array( 0 );
 
 			if ( ! empty( $comments ) ) {
 				foreach ( $comments as $comment ) {
-					$data->time_info['elapsed'] += $comment->time_info['elapsed'];
+					$data->time_info['elapsed'][0] += end( $comment->time_info['elapsed'] );
 				}
 			}
 		}
 	}
-
-	/** Gestion de l'affichage du temps passé en jours/heures */
-	$dtt = new \DateTime( '@' . ( $data->time_info['elapsed'] * 60 ) );
-	if ( 1440 <= $data->time_info['elapsed'] ) {
-		$format = '%aj %hh %imin';
-	}
-
-	$data->time_info['time_display'] = $dtf->diff( $dtt )->format( $format );
 
 	return $data;
 }

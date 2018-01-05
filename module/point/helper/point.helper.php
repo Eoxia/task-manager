@@ -4,7 +4,7 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.0.0
- * @version 1.4.0-ford
+ * @version 1.6.0
  * @copyright 2015-2017 Eoxia
  * @package Task_Manager
  */
@@ -46,8 +46,8 @@ function update_post_order( $point ) {
  *
  * @return Point_Model Les données du point modifié
  *
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.6.0
  */
 function get_full_point( $point ) {
 	$point->count_comments = 0;
@@ -55,8 +55,8 @@ function get_full_point( $point ) {
 	if ( ! empty( $point->post_id ) && ! empty( $point->id ) ) {
 		$comments = Task_Comment_Class::g()->get( array(
 			'post_id' => $point->post_id,
-			'parent' => $point->id,
-			'status' => '-34070',
+			'parent'  => $point->id,
+			'status'  => '-34070',
 		) );
 
 		if ( ! empty( $comments ) ) {
@@ -71,7 +71,7 @@ function get_full_point( $point ) {
 	// $point->content = parse_content_tooltip( $point->content );
 
 	$last_completed = array(
-		'date' => '',
+		'date'    => '',
 		'user_id' => 0,
 	);
 
@@ -80,13 +80,14 @@ function get_full_point( $point ) {
 			if ( ! empty( $element ) ) {
 				foreach ( $element as $date ) {
 					if ( $date > $last_completed['date'] ) {
-						$last_completed['date'] = $date;
+						$last_completed['date']    = $date;
 						$last_completed['user_id'] = $user_id;
 					}
 				}
 			}
 		}
 	}
+
 	$point->time_info['last_completed'] = $last_completed;
 
 	return $point;

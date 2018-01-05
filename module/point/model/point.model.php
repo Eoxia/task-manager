@@ -38,33 +38,32 @@ class Point_Model extends \eoxia\Comment_Model {
 			'meta_type' => 'multiple',
 			'since'     => '1.0.0',
 			'version'   => '1.6.0',
-			'bydefault' => array(
-				'elapsed'           => array(),
-				'completed_point'   => array(),
-				'uncompleted_point' => array(),
-			),
+			'child'     => array(),
 		);
 
-		$this->model['time_info']['elapsed'] = array(
+		$this->model['time_info']['child']['elapsed'] = array(
 			'type'       => 'array',
 			'array_type' => 'integer',
 			'meta_type'  => 'multiple',
 			'since'      => '1.0.0',
 			'version'    => '1.6.0',
+			'bydefault'  => array( 0 ),
 		);
 
-		$this->model['time_info']['completed_point'] = array(
+		$this->model['time_info']['child']['completed_point'] = array(
 			'type'      => 'array',
 			'meta_type' => 'multiple',
 			'since'     => '1.0.0',
 			'version'   => '1.6.0',
+			'bydefault' => array(),
 		);
 
-		$this->model['time_info']['uncompleted_point'] = array(
+		$this->model['time_info']['child']['uncompleted_point'] = array(
 			'type'      => 'array',
 			'meta_type' => 'multiple',
 			'since'     => '1.0.0',
 			'version'   => '1.6.0',
+			'bydefault' => array(),
 		);
 
 		$this->model['point_info'] = array(

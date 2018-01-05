@@ -4,7 +4,7 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.0.0
- * @version 1.5.0
+ * @version 1.6.0
  * @copyright 2015-2017 Eoxia
  * @package Task Manager
  */
@@ -124,7 +124,7 @@ class Point_Action {
 	 * @return void
 	 *
 	 * @since 1.0.0
-	 * @version 1.5.0
+	 * @version 1.6.0
 	 */
 	public function ajax_delete_point() {
 		check_ajax_referer( 'delete_point' );
@@ -146,15 +146,16 @@ class Point_Action {
 		if( ( $key = array_search( $point_id, $task->task_info['order_point_id'] ) ) !== false ) {
 			array_splice( $task->task_info['order_point_id'], $key, 1 );
 		}
-		$task->time_info['elapsed'] -= $point->time_info['elapsed'];
+
+		$task->time_info['elapsed'][] = end( $task->time_info['elapsed'] ) - end( $point->time_info['elapsed'] );
 		$task = Task_Class::g()->update( $task );
 
 		do_action( 'tm_delete_point', $point );
 
 		wp_send_json_success( array(
-			'time' => \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] ),
-			'namespace' => 'taskManager',
-			'module' => 'point',
+			'time'             => \eoxia\Date_Util::g()->convert_to_custom_hours( end( $task->time_info['elapsed'] ) ),
+			'namespace'        => 'taskManager',
+			'module'           => 'point',
 			'callback_success' => 'deletedPointSuccess',
 		) );
 	}
@@ -414,7 +415,7 @@ class Point_Action {
 	 * @return void
 	 *
 	 * @since 1.0.0
-	 * @version 1.5.0
+	 * @version 1.6.0
 	 */
 	public function ajax_move_point_to() {
 		check_ajax_referer( 'move_point_to' );
@@ -437,21 +438,21 @@ class Point_Action {
 
 		$point = Point_Class::g()->get( array(
 			'comment__in' => array( $point_id ),
-			'status' => -34070,
+			'status'      => -34070,
 		), true );
 
 		$key = array_search( $point_id, $current_task->task_info['order_point_id'], true );
 
 		if ( false !== $key ) {
 			array_splice( $current_task->task_info['order_point_id'], $key, 1 );
-			$current_task->time_info['elapsed'] -= $point->time_info['elapsed'];
+			$current_task->time_info['elapsed'][] = end( $current_task->time_info['elapsed'] ) - end( $point->time_info['elapsed'] );
 		} else {
 			wp_send_json_error();
 		}
 
 		$to_task->task_info['order_point_id'][] = (int) $point_id;
 
-		$to_task->time_info['elapsed'] += $point->time_info['elapsed'];
+		$to_task->time_info['elapsed'][] = end( $to_task->time_info['elapsed'] ) + end( $point->time_info['elapsed'] );
 
 		$current_task = Task_Class::g()->update( $current_task );
 		$to_task = Task_Class::g()->update( $to_task );
@@ -476,12 +477,14 @@ class Point_Action {
 		}
 
 		wp_send_json_success( array(
-			'namespace' => 'taskManager',
-			'module' => 'point',
-			'callback_success' => 'movedPointTo',
-			'point' => $point,
-			'current_task' => $current_task,
-			'to_task' => $to_task,
+			'namespace'                 => 'taskManager',
+			'module'                    => 'point',
+			'callback_success'          => 'movedPointTo',
+			'point'                     => $point,
+			'current_task'              => $current_task,
+			'to_task'                   => $to_task,
+			'current_task_elapsed_time' => \eoxia\Date_Util::g()->convert_to_custom_hours( end( $current_task->time_info['elapsed'] ) ),
+			'to_task_elapsed_time'      => \eoxia\Date_Util::g()->convert_to_custom_hours( end( $to_task->time_info['elapsed'] ) ),
 		) );
 	}
 }

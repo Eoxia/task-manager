@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<li class="wpeo-task-elapsed">
 		<i class="dashicons dashicons-clock"></i>
-		<span class="elapsed tooltip hover" aria-label="<?php echo esc_html_e( 'Elapsed time', 'task-manager' ); ?>"><?php echo esc_html( \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] ) ); ?></span>
+		<span class="elapsed tooltip hover" aria-label="<?php echo esc_html_e( 'Elapsed time', 'task-manager' ); ?>"><?php echo esc_html( \eoxia\Date_Util::g()->convert_to_custom_hours( end( $task->time_info['elapsed'] ) ) ); ?></span>
 	</li>
 	<li class="wpeo-task-estimated">
 		<?php if ( ! empty( $task->last_history_time->estimated_time ) ) : ?>

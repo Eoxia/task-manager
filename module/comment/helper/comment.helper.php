@@ -3,7 +3,7 @@
  * Fonctions helpers des commentaires
  *
  * @since 1.3.6
- * @version 1.5.1
+ * @version 1.6.0
  * @package Task_Manager
  */
 
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return Task_Comment_Class Les données de l'objet modifié.
  *
  * @since 1.3.6
- * @version 1.5.0
+ * @version 1.6.0
  */
 function compile_time( $data ) {
 	$point = Point_Class::g()->get( array(
@@ -32,29 +32,27 @@ function compile_time( $data ) {
 		'id' => $data->post_id,
 	), true );
 
+	$point_updated_elapsed = end( $point->time_info['elapsed'] );
+	$task_updated_elapsed  = end( $task->time_info['elapsed'] );
+
 	if ( 'trash' === $data->status ) {
-		$point->time_info['elapsed'] -= $data->time_info['elapsed'];
-		$task->time_info['elapsed'] -= $data->time_info['elapsed'];
+		$point_updated_elapsed -= end( $data->time_info['elapsed'] );
+		$task_updated_elapsed  -= end( $data->time_info['elapsed'] );
 	} else {
 		if ( 0 !== $data->id ) {
-			$comment = Task_Comment_Class::g()->get( array(
-				'id' => $data->id,
-			), true );
-
-			$point->time_info['elapsed'] -= $comment->time_info['elapsed'];
-			$task->time_info['elapsed'] -= $comment->time_info['elapsed'];
+			$point_updated_elapsed -= $data->time_info['elapsed'][ count( $data->time_info['elapsed'] ) - 1 ];
+			$task_updated_elapsed  -= $data->time_info['elapsed'][ count( $data->time_info['elapsed'] ) - 1 ];
 		}
 
-		$point->time_info['elapsed'] += $data->time_info['elapsed'];
-		$task->time_info['elapsed'] += $data->time_info['elapsed'];
+		$point_updated_elapsed += end( $data->time_info['elapsed'] );
+		$task_updated_elapsed  += end( $data->time_info['elapsed'] );
 	}
 
-	$point->content = addslashes( $point->content );
-	$data->point = Point_Class::g()->update( $point );
-	$data->task = Task_Class::g()->update( $task );
-
-	$data->point = $point;
-	$data->task = $task;
+	$point->time_info['elapsed'][] = $point_updated_elapsed;
+	$task->time_info['elapsed'][]  = $task_updated_elapsed;
+	$point->content                = addslashes( $point->content );
+	$data->point                   = Point_Class::g()->update( $point );
+	$data->task                    = Task_Class::g()->update( $task );
 
 	return $data;
 }

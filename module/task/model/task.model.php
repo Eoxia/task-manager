@@ -65,13 +65,14 @@ class Task_Model extends \eoxia\Post_Model {
 		$this->model['time_info'] = array(
 			'type'      => 'array',
 			'meta_type' => 'multiple',
+			'child'     => array(),
 			'bydefault' => array(
 				'history_time' => array(),
 				'elapsed'      => 0,
 			),
 		);
 
-		$this->model['time_info']['history_time'] = array(
+		$this->model['time_info']['child']['history_time'] = array(
 			'type'        => 'array',
 			'array_type'  => 'integer',
 			'meta_type'   => 'multiple',
@@ -81,8 +82,9 @@ class Task_Model extends \eoxia\Post_Model {
 			'version'     => '1.6.0',
 		);
 
-		$this->model['time_info']['elapsed'] = array(
-			'type'        => 'integer',
+		$this->model['time_info']['child']['elapsed'] = array(
+			'type'        => 'array',
+			'array_type'  => 'integer',
 			'meta_type'   => 'multiple',
 			'description' => 'Le temps passé sur la tâche en minute',
 			'since'       => '1.0.0',
@@ -98,21 +100,21 @@ class Task_Model extends \eoxia\Post_Model {
 			'version'     => '1.6.0',
 		);
 
-		$this->model['display_time'] = array(
+		$this->model['front_info']['display_time'] = array(
 			'type'      => 'boolean',
 			'meta_type' => 'multiple',
 			'since'     => '1.0.0',
 			'version'   => '1.6.0',
 		);
 
-		$this->model['display_user'] = array(
+		$this->model['front_info']['display_user'] = array(
 			'type'      => 'boolean',
 			'meta_type' => 'multiple',
 			'since'     => '1.0.0',
 			'version'   => '1.6.0',
 		);
 
-		$this->model['display_color'] = array(
+		$this->model['front_info']['display_color'] = array(
 			'type'      => 'string',
 			'meta_type' => 'multiple',
 			'since'     => '1.0.0',
@@ -142,8 +144,8 @@ class Task_Model extends \eoxia\Post_Model {
 			'type'       => 'array',
 			'array_type' => 'integer',
 			'meta_type'  => 'multiple',
-			'since'     => '1.0.0',
-			'version'   => '1.6.0',
+			'since'      => '1.0.0',
+			'version'    => '1.6.0',
 		);
 
 		$this->model['taxonomy'] = array(

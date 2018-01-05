@@ -336,7 +336,7 @@ window.eoxiaJS.taskManager.point.movedPointTo = function( triggeredElement, resp
 
 	// Met à jour le temps et le nombre de point sur la tâche.
 	if ( currentTask.length ) {
-		currentTask.find( '.wpeo-task-time-manage .elapsed' ).text( response.data.current_task.time_info.time_display + ' (' + response.data.current_task.time_info.elapsed + 'min)' );
+		currentTask.find( '.wpeo-task-time-manage .elapsed' ).text( response.data.current_task_elapsed_time );
 		currentTask.find( '.wpeo-point-toggle-a .total-point' ).text( totalPointCompleteCurrentTask - 1 );
 
 		if ( response.data.point.point_info.completed ) {
@@ -365,7 +365,7 @@ window.eoxiaJS.taskManager.point.movedPointTo = function( triggeredElement, resp
 		totalPointUncompleteToTask = parseInt( toTask.find( '.wpeo-point-toggle-a .point-completed' ).text() );
 		totalPointCompleteToTask   = parseInt( toTask.find( '.wpeo-point-toggle-a .total-point' ).text() );
 
-		toTask.find( '.wpeo-task-time-manage .elapsed' ).text( response.data.to_task.time_info.time_display + ' (' + response.data.to_task.time_info.elapsed + 'min)' );
+		toTask.find( '.wpeo-task-time-manage .elapsed' ).text( response.data.to_task_elapsed_time );
 
 		toTask.find( '.point.edit[data-id=' + response.data.point.id + '] .point-toggle .action-attribute' ).attr( 'data-task-id', response.data.to_task.id );
 		toTask.find( '.point.edit[data-id=' + response.data.point.id + '] .point-header-action .form-fields .action-input' ).removeClass( 'active' );
