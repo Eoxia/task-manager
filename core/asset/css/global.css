@@ -30,78 +30,84 @@ z-index: 26; }
 		/* ----------------------------------
 				Metabox "quick time".
 		-----------------------------------*/
-		#tm-indicator-quick-task .setting-quick-time-button {
+		.quick-time-content .setting-quick-time-button {
 		  position: absolute;
-		  right: 40px;
-		  top: 5px;
-		  height: 30px;
-		  width: 30px;
-		  padding: 0px 5px; }
+		  right: 30px;
+		  top: 2px;
+		  padding: 5px;
+		  line-height: 1;
+		  -webkit-border-radius: 6px;
+		          border-radius: 6px; }
+
+		.quick-time-content .inside {
+		  padding: 0;
+		  margin: 0;
+		  position: static; }
+
+		.quick-time-content .list {
+		  border-collapse: collapse; }
+
+		.quick-time-content .list > thead {
+		  background: #fff;
+		  color: rgba(0, 0, 0, 0.8);
+		  border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
+
+		.quick-time-content .list td, .quick-time-content .list th {
+		  padding: 0.4em 1em;
+		  vertical-align: middle; }
+
+		.quick-time-content .list .item:nth-child(odd) {
+		  background: rgba(0, 0, 0, 0.1); }
+
+		.quick-time-content .list .item:nth-child(even) {
+		  background: #fff; }
+
+		.quick-time-content .list .task, .quick-time-content .list .point {
+		  width: 15%;
+		  max-width: 15%; }
+
+		.quick-time-content .list .min {
+		  width: 10%;
+		  max-width: 10%; }
+
+		.quick-time-content .list .min > div {
+		  display: -webkit-box;
+		  display: -webkit-flex;
+		  display: -moz-box;
+		  display: -ms-flexbox;
+		  display: flex; }
+
+		.quick-time-content .list .min .fa {
+		  margin: auto 0;
+		  padding-right: 0.4em; }
+
+		.quick-time-content .list .action {
+		  width: 5%;
+		  max-width: 5%;
+		  text-align: right; }
+
+		.quick-time-content .list .content {
+		  width: 55%;
+		  max-width: 55%; }
+
+		.quick-time-content .list input[type="text"], .quick-time-content .list textarea {
+		  width: 100%;
+		  border: 1px solid rgba(0, 0, 0, 0.2);
+		  padding: 0.4em; }
+
+		.quick-time-content .list input[type="text"]:focus, .quick-time-content .list textarea:focus {
+		  border: 1px solid rgba(0, 0, 0, 0.4); }
+
+		.quick-time-content .wpeo-button {
+		  margin: 1em; }
 
 		/* ----------------------------------
 				Model "setting-quick-time"
 		-----------------------------------*/
-		.setting-quick-time ul {
-		  display: -webkit-box;
-		  display: -webkit-flex;
-		  display: -moz-box;
-		  display: -ms-flexbox;
-		  display: flex;
-		  -webkit-box-pack: justify;
-		  -webkit-justify-content: space-between;
-		     -moz-box-pack: justify;
-		      -ms-flex-pack: justify;
-		          justify-content: space-between; }
-
-		.setting-quick-time ul li.task {
-		  width: 15%; }
-
-		.setting-quick-time ul li.point {
-		  width: 15%; }
-
-		.setting-quick-time ul li.content {
-		  width: 70%; }
-
-		.setting-quick-time ul li.actions {
-		  width: 50px;
-		  margin-right: 0; }
-
-		#tm-indicator-quick-task .content ul, .popup-quick-time .content ul {
-		  display: -webkit-box;
-		  display: -webkit-flex;
-		  display: -moz-box;
-		  display: -ms-flexbox;
-		  display: flex;
-		  -webkit-box-pack: justify;
-		  -webkit-justify-content: space-between;
-		     -moz-box-pack: justify;
-		      -ms-flex-pack: justify;
-		          justify-content: space-between; }
-
-		#tm-indicator-quick-task .content ul li.task, .popup-quick-time .content ul li.task {
-		  width: 15%; }
-
-		#tm-indicator-quick-task .content ul li.point, .popup-quick-time .content ul li.point {
-		  width: 15%; }
-
-		#tm-indicator-quick-task .content ul li.content, .popup-quick-time .content ul li.content {
-		  width: 70%; }
-
-		#tm-indicator-quick-task .content ul li.content textarea, .popup-quick-time .content ul li.content textarea {
-		  width: 100%; }
-
-		#tm-indicator-quick-task .content ul li.min, .popup-quick-time .content ul li.min {
-		  width: 10%; }
-
-		#tm-indicator-quick-task .content ul li.actions, .popup-quick-time .content ul li.actions {
-		  text-align: right;
-		  width: 50px;
-		  margin-right: 0; }
-
-		#tm-indicator-quick-task .content .wpeo-button, .popup-quick-time .content .wpeo-button {
+		.quick-time-content .content .wpeo-button, .popup-quick-time .content .wpeo-button {
 		  float: right; }
 
-		#tm-indicator-quick-task .content:after, .popup-quick-time .content:after {
-		  displat: block;
+		.quick-time-content .content:after, .popup-quick-time .content:after {
+		  display: block;
 		  content: '';
 		  clear: both; }
