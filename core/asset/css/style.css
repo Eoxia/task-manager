@@ -6638,71 +6638,126 @@ Popup
 -----------------------------------*/
 #tm-indicator-quick-task .setting-quick-time-button {
   position: absolute;
-  right: 40px;
-  top: 5px;
-  height: 30px;
-  width: 30px;
-  padding: 0px 5px; }
+  right: 30px;
+  top: 2px;
+  padding: 5px;
+  line-height: 1;
+  -webkit-border-radius: 6px;
+          border-radius: 6px; }
+
+#tm-indicator-quick-task .inside {
+  padding: 0;
+  margin: 0;
+  position: static; }
+
+#tm-indicator-quick-task .list {
+  border-collapse: collapse; }
+
+#tm-indicator-quick-task .list > thead {
+  background: #fff;
+  color: rgba(0, 0, 0, 0.8);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
+
+#tm-indicator-quick-task .list td, #tm-indicator-quick-task .list th {
+  padding: 0.4em 1em;
+  vertical-align: middle; }
+
+#tm-indicator-quick-task .list .item:nth-child(odd) {
+  background: rgba(0, 0, 0, 0.1); }
+
+#tm-indicator-quick-task .list .item:nth-child(even) {
+  background: #fff; }
+
+#tm-indicator-quick-task .list .task, #tm-indicator-quick-task .list .point {
+  width: 15%;
+  max-width: 15%; }
+
+#tm-indicator-quick-task .list .min {
+  width: 10%;
+  max-width: 10%; }
+
+#tm-indicator-quick-task .list .min > div {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex; }
+
+#tm-indicator-quick-task .list .min .fa {
+  margin: auto 0;
+  padding-right: 0.4em; }
+
+#tm-indicator-quick-task .list .action {
+  width: 5%;
+  max-width: 5%;
+  text-align: right; }
+
+#tm-indicator-quick-task .list .content {
+  width: 55%;
+  max-width: 55%; }
+
+#tm-indicator-quick-task .list input[type="text"], #tm-indicator-quick-task .list textarea {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 0.4em; }
+
+#tm-indicator-quick-task .list input[type="text"]:focus, #tm-indicator-quick-task .list textarea:focus {
+  border: 1px solid rgba(0, 0, 0, 0.4); }
+
+#tm-indicator-quick-task .wpeo-button {
+  margin: 0 1em 1em 0; }
 
 /* ----------------------------------
-		Model "setting-quick-time"
+		Modal "setting-quick-time"
 -----------------------------------*/
-.setting-quick-time ul {
+.setting-quick-time .list ul, .setting-quick-time .list li {
+  margin: 0; }
+
+.setting-quick-time .list ul {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
   display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-     -moz-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between; }
+  display: flex; }
 
-.setting-quick-time ul li.task {
-  width: 15%; }
+.setting-quick-time .list ul > li {
+  padding: 0.4em; }
 
-.setting-quick-time ul li.point {
-  width: 15%; }
+.setting-quick-time .list .item.form {
+  margin-bottom: 1em; }
 
-.setting-quick-time ul li.content {
-  width: 70%; }
+.setting-quick-time .list .item:not(.form) .task {
+  font-weight: 700; }
 
-.setting-quick-time ul li.actions {
-  width: 50px;
-  margin-right: 0; }
+.setting-quick-time .list .task, .setting-quick-time .list .point {
+  width: 20%;
+  max-width: 20%; }
 
-#tm-indicator-quick-task .content ul, .popup-quick-time .content ul {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-     -moz-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between; }
+.setting-quick-time .list .actions {
+  width: 5%;
+  max-width: 5%;
+  text-align: right; }
 
-#tm-indicator-quick-task .content ul li.task, .popup-quick-time .content ul li.task {
-  width: 15%; }
+.setting-quick-time .list .content {
+  width: 60%;
+  max-width: 60%; }
 
-#tm-indicator-quick-task .content ul li.point, .popup-quick-time .content ul li.point {
-  width: 15%; }
+.setting-quick-time .list input[type="text"], .setting-quick-time .list select, .setting-quick-time .list textarea {
+  width: 100%;
+  padding: 0.6em;
+  margin: auto 0;
+  height: 38px; }
 
-#tm-indicator-quick-task .content ul li.content, .popup-quick-time .content ul li.content {
-  width: 70%; }
+.setting-quick-time .list .action-delete {
+  background: #adadad;
+  border-color: #adadad;
+  color: #fff;
+  font-size: 14px; }
 
-#tm-indicator-quick-task .content ul li.content textarea, .popup-quick-time .content ul li.content textarea {
-  width: 100%; }
-
-#tm-indicator-quick-task .content ul li.min, .popup-quick-time .content ul li.min {
-  width: 10%; }
-
-#tm-indicator-quick-task .content ul li.actions, .popup-quick-time .content ul li.actions {
-  text-align: right;
-  width: 50px;
-  margin-right: 0; }
+.setting-quick-time .list .button-square-20 {
+  width: 20px;
+  height: 20px;
+  line-height: 20px; }
 
 #tm-indicator-quick-task .content .wpeo-button, .popup-quick-time .content .wpeo-button {
   float: right; }

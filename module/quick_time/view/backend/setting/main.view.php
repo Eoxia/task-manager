@@ -33,10 +33,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<option value="0"><?php echo esc_html_e( 'Choose point', 'task-manager' ); ?></option>
 			</select>
 		</li>
-		<li class="content"><textarea name="content" placeholder="<?php echo esc_attr_e( 'Default comment', 'task-manager' ); ?>"></textarea></li>
+		<li class="content"><textarea name="content" rows="1" placeholder="<?php echo esc_attr_e( 'Default comment', 'task-manager' ); ?>"></textarea></li>
 		<li class="actions">
-			<div class="action-input wpeo-button button-progress" data-parent="form">
-				<span class="dashicons dashicons-plus-alt"></span>
+			<div class="action-input wpeo-button button-progress button-blue button-square-20 button-rounded" data-parent="form">
+				<span class="button-icon fa fa-plus"></span>
 			</div>
 		</li>
 	</ul>

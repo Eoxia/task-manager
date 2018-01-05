@@ -105,7 +105,7 @@ window.eoxiaJS.taskManager.quickTime.addedConfigQuickTime = function( triggeredE
  * @version 1.6.0
  */
 window.eoxiaJS.taskManager.quickTime.deletedConfigQuickTime = function( triggeredElement, response ) {
-	jQuery( triggeredElement ).closest( 'ul.item' ).fadeOut();
+	jQuery( triggeredElement ).closest( '.item' ).fadeOut();
 };
 
 /**
@@ -155,8 +155,8 @@ window.eoxiaJS.taskManager.quickTime.onCheckedCheckAll = function( event ) {
  */
 window.eoxiaJS.taskManager.quickTime.onChecked = function( event ) {
 	if ( ! jQuery( this ).is( ':checked' ) ) {
-		jQuery( this ).closest( 'ul' ).find( '.displayed' ).val( '' );
-		jQuery( this ).closest( 'ul' ).find( 'input.time' ).val( '' );
+		jQuery( this ).closest( '.item' ).find( '.displayed' ).val( '' );
+		jQuery( this ).closest( '.item' ).find( 'input.time' ).val( '' );
 	}
 
 	window.eoxiaJS.taskManager.quickTime.updateTime( jQuery( this ) );
@@ -173,9 +173,9 @@ window.eoxiaJS.taskManager.quickTime.onChecked = function( event ) {
  */
 window.eoxiaJS.taskManager.quickTime.onKeyUp = function( event ) {
 	if ( '' !== jQuery( this ).val() ) {
-		jQuery( this ).closest( 'ul' ).find( 'input[type="checkbox"]' ).attr( 'checked', true );
+		jQuery( this ).closest( '.item' ).find( 'input[type="checkbox"]' ).attr( 'checked', true );
 	} else {
-		jQuery( this ).closest( 'ul' ).find( 'input[type="checkbox"]' ).attr( 'checked', false );
+		jQuery( this ).closest( '.item' ).find( 'input[type="checkbox"]' ).attr( 'checked', false );
 	}
 
 	window.eoxiaJS.taskManager.quickTime.updateTime( jQuery( this ) );
@@ -212,7 +212,7 @@ window.eoxiaJS.taskManager.quickTime.updateTime = function( element ) {
 	}
 
 	element.closest( '.quick-time-content' ).find( '.set_time' ).each( function() {
-		container = jQuery( this ).closest( 'ul' );
+		container = jQuery( this ).closest( '.item' );
 
 		if ( jQuery( this ).is( ':checked' ) ) {
 			container.find( 'input.displayed' ).attr( 'placeholder', parseInt( totalTime / numberCheckedElement ) );

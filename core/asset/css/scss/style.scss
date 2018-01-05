@@ -2456,67 +2456,179 @@ Popup
 #tm-indicator-quick-task {
 	.setting-quick-time-button {
 		position: absolute;
-		right: 40px;
-		top: 5px;
-		height: 30px;
-		width: 30px;
-		padding: 0px 5px;
+		right: 30px;
+		top: 2px;
+		padding: 5px;
+		line-height: 1;
+		border-radius: 6px;
 	}
-}
-
-/* ----------------------------------
-		Model "setting-quick-time"
------------------------------------*/
-.setting-quick-time {
-	ul {
-		display: flex;
-		justify-content: space-between;
-		li {
-			&.task {
-				width: 15%;
+	.inside {
+		padding: 0;
+		margin: 0;
+		position: static;
+	}
+	.list {
+		border-collapse: collapse;
+		> thead {
+			background: #fff;
+			color: rgba(0,0,0,0.8);
+			border-bottom: 1px solid rgba(0,0,0,0.1);
+		}
+		td, th {
+			padding: 0.4em 1em;
+			vertical-align: middle;
+		}
+		.item {
+			&:nth-child(odd) {
+				background: rgba(0,0,0,0.1);
 			}
-			&.point {
-				width: 15%;
+			&:nth-child(even) {
+				background: #fff;
 			}
-			&.content {
-				width: 70%;
+		}
+		.task, .point {
+			width: 15%;
+			max-width: 15%;
+		}
+		.min {
+			width: 10%;
+			max-width: 10%;
+			> div {
+				display: flex;
 			}
-			&.actions {
-				width: 50px;
-				margin-right: 0;
+			.fa {
+				margin: auto 0;
+				padding-right: 0.4em;
+			}
+		}
+		.action {
+			width: 5%;
+			max-width: 5%;
+			text-align: right;
+		}
+		.content {
+			width: 55%;
+			max-width: 55%;
+		}
+		input[type="text"], textarea {
+			width: 100%;
+			border: 1px solid rgba(0,0,0,0.2);
+			padding: 0.4em;
+			&:focus {
+				border: 1px solid rgba(0,0,0,0.4);
 			}
 		}
 	}
+	.wpeo-button {
+		margin: 0 1em 1em 0;
+	}
+
+}
+
+/* ----------------------------------
+		Modal "setting-quick-time"
+-----------------------------------*/
+
+.setting-quick-time {
+	.list {
+		ul, li {
+			margin: 0;
+		}
+		ul {
+			display: flex;
+			> li {
+				padding: 0.4em;
+			}
+		}
+		.item.form {
+			margin-bottom: 1em;
+		}
+		.item:not(.form) {
+			.task {
+				font-weight: 700;
+			}
+		}
+		.task, .point {
+			width: 20%;
+			max-width: 20%;
+		}
+		.actions {
+			width: 5%;
+			max-width: 5%;
+			text-align: right;
+		}
+		.content {
+			width: 60%;
+			max-width: 60%;
+		}
+		input[type="text"], select, textarea {
+			width: 100%;
+			padding: 0.6em;
+			margin: auto 0;
+			height: 38px;
+		}
+		.action-delete {
+			background: #adadad;
+			border-color: #adadad;
+			color: #fff;
+			font-size: 14px;
+		}
+		.button-square-20 {
+			width: 20px;
+			height: 20px;
+			line-height: 20px;
+		}
+	}
+
+	// ul {
+	// 	display: flex;
+	// 	justify-content: space-between;
+	// 	li {
+	// 		&.task {
+	// 			width: 15%;
+	// 		}
+	// 		&.point {
+	// 			width: 15%;
+	// 		}
+	// 		&.content {
+	// 			width: 70%;
+	// 		}
+	// 		&.actions {
+	// 			width: 50px;
+	// 			margin-right: 0;
+	// 		}
+	// 	}
+	// }
 }
 
 #tm-indicator-quick-task, .popup-quick-time {
 	.content {
-		ul {
-			display: flex;
-			justify-content: space-between;
-			li {
-				&.task {
-					width: 15%;
-				}
-				&.point {
-					width: 15%;
-				}
-				&.content {
-					width: 70%;
-					textarea {
-						width: 100%;
-					}
-				}
-				&.min {
-					width: 10%;
-				}
-				&.actions {
-					text-align: right;
-					width: 50px;
-					margin-right: 0;
-				}
-			}
-		}
+		// ul {
+		// 	display: flex;
+		// 	justify-content: space-between;
+		// 	li {
+		// 		&.task {
+		// 			width: 15%;
+		// 		}
+		// 		&.point {
+		// 			width: 15%;
+		// 		}
+		// 		&.content {
+		// 			width: 70%;
+		// 			textarea {
+		// 				width: 100%;
+		// 			}
+		// 		}
+		// 		&.min {
+		// 			width: 10%;
+		// 		}
+		// 		&.actions {
+		// 			text-align: right;
+		// 			width: 50px;
+		// 			margin-right: 0;
+		// 		}
+		// 	}
+		// }
 
 		.wpeo-button {
 			float: right;
