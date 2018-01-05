@@ -309,7 +309,7 @@ class Update_160 {
 		if ( empty( $task ) ) {
 			$position = false;
 		} else {
-			$position = array_search( $point->id, $task->task_info['order_point_id'], true );
+			$position = array_search( $point->id, (int) $task->task_info['order_point_id'], true );
 		}
 
 		if ( false === $position ) {
