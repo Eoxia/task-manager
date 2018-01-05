@@ -31,7 +31,7 @@ window.eoxiaJS.taskManager.updateManager.requestUpdate = function( args ) {
 
 	if ( versionToUpdate ) {
 		if ( ( args && ! args.more ) || ! args ) {
-			jQuery( '.log' ).append( '<li><h2>Mise à jour <strong>' + versionToUpdate + '</strong> en cours...</h2></li>' );
+			jQuery( '.log' ).append( '<li><h2>Update <strong>' + versionToUpdate + '</strong> in progress...</h2></li>' );
 		}
 
 		var data = {
@@ -46,12 +46,16 @@ window.eoxiaJS.taskManager.updateManager.requestUpdate = function( args ) {
 				description += args.moreDescription;
 			}
 
-			jQuery( '.log' ).append( '<li>' + description + window.digi_loader + '</li>' );
+			jQuery( '.log' ).append( '<li>' + description + window.task_manager_loader + '</li>' );
 
 			jQuery.post( ajaxurl, data, function( response ) {
 				jQuery( '.log img' ).remove();
 
 				if ( response.data.done ) {
+					if ( response.data.args && response.data.args.doneDescription ) {
+						jQuery( '.log' ).append( '<li>' + response.data.args.doneDescription + '</li>' );
+						delete response.data.args.doneDescription;
+					}
 
 					jQuery( 'input[name="version[' + versionToUpdate + '][action][]"]:first' ).remove();
 					jQuery( 'input[name="version[' + versionToUpdate + '][description][]"]:first' ).remove();
@@ -70,6 +74,10 @@ window.eoxiaJS.taskManager.updateManager.requestUpdate = function( args ) {
 							window.location = response.data.url;
 						});
 					} else {
+
+						if ( response.data.args.resetArgs ) {
+							delete response.data.args;
+						}
 						window.eoxiaJS.taskManager.updateManager.requestUpdate( response.data.args );
 					}
 				} else {
@@ -81,7 +89,7 @@ window.eoxiaJS.taskManager.updateManager.requestUpdate = function( args ) {
 				jQuery.post( ajaxurl, { action: 'tm_redirect_to_dashboard', key: key, error_version: versionToUpdate, error_status: error.status, error_text: error.responseText }, function( response ) {
 					jQuery( '.log' ).append( '<li>' + response.data.message + '</li>' );
 					window.removeEventListener( 'beforeunload', window.eoxiaJS.taskManager.updateManager.safeExit );
-					window.location = response.data.url;
+					// window.location = response.data.url;
 				});
 			} );
 		}

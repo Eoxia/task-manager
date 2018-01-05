@@ -24,8 +24,26 @@
 
 $datas = array(
 	array(
-		'action'      => 'task_manager_update_1600_task_compiled_time',
-		'description' => __( 'Create compiled time for all tasks.', 'task-manager' ),
+		'action'      => 'task_manager_update_1600_calcul_number_points',
+		'description' => __( 'Count points in database.', 'task-manager' ),
+		'since'       => '1.6.0',
+		'version'     => '1.6.0',
+	),
+	array(
+		'action'      => 'task_manager_update_1600_points',
+		'description' => __( 'Update point type and elapsed time', 'task-manager' ),
+		'since'       => '1.6.0',
+		'version'     => '1.6.0',
+	),
+	array(
+		'action'      => 'task_manager_update_1600_calcul_number_comments',
+		'description' => __( 'Count comments in database.', 'task-manager' ),
+		'since'       => '1.6.0',
+		'version'     => '1.6.0',
+	),
+	array(
+		'action'      => 'task_manager_update_1600_comments',
+		'description' => __( 'Update comments type and elapsed time', 'task-manager' ),
 		'since'       => '1.6.0',
 		'version'     => '1.6.0',
 	),

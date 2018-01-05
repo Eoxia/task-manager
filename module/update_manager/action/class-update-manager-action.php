@@ -81,6 +81,9 @@ class Update_Manager_Action {
 
 	/**
 	 * AJAX Callback - Return the website url
+	 *
+	 * @since 1.6.0
+	 * @version 1.6.0
 	 */
 	public function callback_tm_redirect_to_dashboard() {
 		$error_version = ! empty( $_POST['error_version'] ) ? sanitize_text_field( $_POST['error_version'] ) : '';
@@ -92,7 +95,7 @@ class Update_Manager_Action {
 		}
 
 		\eoxia\LOG_Util::log( 'mise à jour end', 'task-manager' );
-
+    //
 		// $version = (int) str_replace( '.', '', \eoxia\Config_Util::$init['task-manager']->version );
 		// if ( 3 === strlen( $version ) ) {
 		// 	$version *= 10;
