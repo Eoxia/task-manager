@@ -62,10 +62,6 @@ function get_full_point( $point ) {
 		if ( ! empty( $comments ) ) {
 			$point->count_comments = count( $comments );
 		}
-
-		if ( ! empty( $comments ) && ! empty( $comments[0] ) && 0 === $comments[0]->id ) {
-			$point->count_comments--;
-		}
 	}
 
 	// $point->content = parse_content_tooltip( $point->content );

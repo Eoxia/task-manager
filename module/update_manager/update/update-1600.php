@@ -225,6 +225,8 @@ class Update_160 {
 	 * @return void
 	 */
 	public function callback_task_manager_update_1600_comments() {
+		$start_func = microtime( true );
+
 		$done          = false;
 		$count_comment = ! empty( $_POST['args']['countComment'] ) ? (int) $_POST['args']['countComment'] : 0;
 		$index         = ! empty( $_POST['args']['index'] ) ? (int) $_POST['args']['index'] : 0;
@@ -265,8 +267,11 @@ class Update_160 {
 
 		if ( ! empty( $comments ) ) {
 			foreach ( $comments as $comment ) {
+				$start_ms = microtime( true );
 				$comment->type = Task_Comment_Class::g()->get_type();
 				Task_Comment_Class::g()->update( $comment );
+				$end_ms = microtime( true );
+				\eoxia\LOG_Util::log( 'Comment #' . $comment->id . ' done in ' . ( $end_ms - $start_ms ), 'task-manager' );
 			}
 		}
 
@@ -276,6 +281,8 @@ class Update_160 {
 			$index = $count_comment;
 			$done  = true;
 		}
+		$end_func = microtime( true );
+		\eoxia\LOG_Util::log( 'Comment function done in ' . ( $end_func - $start_func ), 'task-manager' );
 
 		wp_send_json_success( array(
 			'done' => $done,
