@@ -3876,7 +3876,7 @@
   top: 0px; }
 
 .wpeo-project-wrap .wpeo-project-task-container input[type="text"], .wpeo-project-wrap .wpeo-project-task-container textarea {
-  background-color: transparent !important; }
+  background-color: transparent; }
 
 .xdsoft_datetimepicker {
   z-index: 100000 !important; }
@@ -6768,9 +6768,23 @@ Popup
   clear: both; }
 
 /* ----------------------------------
+		Module WPEO Form fix
+-----------------------------------*/
+.wpeo-form input[type="text"] {
+  background: #ececec !important;
+  border: 0 !important; }
+
+.wpeo-form input[type="radio"]:before {
+  display: none;
+  content: ''; }
+
+.wpeo-form input[type="radio"] ~ label {
+  margin-bottom: 0; }
+
+/* ----------------------------------
 		Temporaire pour le blink
 -----------------------------------*/
-.wpeo-project-wrap .blink {
+body .wpeo-project-wrap .blink {
   display: block;
   width: 100%;
   background-color: #55b6ed;
