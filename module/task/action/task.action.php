@@ -46,6 +46,8 @@ class Task_Action {
 
 		add_action( 'wp_ajax_export_task', array( $this, 'callback_export_task' ) );
 
+		add_action( 'wp_ajax_recompile_task', array( $this, 'callback_recompile_task' ) );
+
 		add_action( 'add_meta_boxes', array( $this, 'callback_add_meta_boxes' ), 10, 2 );
 	}
 
@@ -475,6 +477,31 @@ class Task_Action {
 			'callback_success' => 'exportedTask',
 			'url' => $file_info['url'],
 			'filename' => $file_info['name'],
+		) );
+	}
+
+	/**
+	 * Recompiles toutes les données de la tâche.
+	 *
+	 * @since 1.6.0
+	 * @version 1.6.0
+	 *
+	 * @return void
+	 */
+	public function callback_recompile_task() {
+		check_ajax_referer( 'compile_task' );
+
+		$id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+
+		$task = Task_Class:g()->get( array(
+			'id' => $id,
+		), true );
+
+		wp_send_json_success( array(
+			'namespace'        => 'taskManager',
+			'module'           => 'task',
+			'callback_success' => 'recompiledTask',
+			'task'             => $task,
 		) );
 	}
 

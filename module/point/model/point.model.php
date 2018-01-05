@@ -71,15 +71,30 @@ class Point_Model extends \eoxia\Comment_Model {
 			'meta_type' => 'multiple',
 			'since'     => '1.0.0',
 			'version'   => '1.6.0',
-			'bydefault' => array(
-				'completed' => false,
-			),
+			'child'     => array(),
 		);
 
-		$this->model['point_info']['completed'] = array(
+		// @todo: A supprimer après la mise à jour 1600.
+		$this->model['point_info']['child']['completed'] = array(
 			'type'      => 'boolean',
 			'meta_type' => 'multiple',
 			'since'     => '1.0.0',
+			'version'   => '1.6.0',
+		);
+
+		$this->model['completed'] = array(
+			'type'      => 'boolean',
+			'field'     => '_tm_completed',
+			'meta_type' => 'single',
+			'since'     => '1.6.0',
+			'version'   => '1.6.0',
+		);
+
+		$this->model['order'] = array(
+			'type'      => 'integer',
+			'field'     => '_tm_order',
+			'meta_type' => 'single',
+			'since'     => '1.6.0',
 			'version'   => '1.6.0',
 		);
 

@@ -46,7 +46,7 @@ class Point_Action {
 	 * @return void
 	 *
 	 * @since 1.0.0
-	 * @version 1.5.0
+	 * @version 1.6.0
 	 */
 	public function ajax_edit_point() {
 		check_ajax_referer( 'edit_point' );
@@ -65,6 +65,16 @@ class Point_Action {
 
 		if ( empty( $parent_id ) ) {
 			wp_send_json_error();
+		}
+
+		if ( 0 === $point_id ) {
+			$task = Task_Class::g()->get( array(
+				'id' => $parent_id,
+			), true );
+
+			$task->count_uncompleted_points++;
+
+			Task_Class::g()->update( $task );
 		}
 
 		$point = Point_Class::g()->update( array(
@@ -148,6 +158,13 @@ class Point_Action {
 		}
 
 		$task->time_info['elapsed'][] = end( $task->time_info['elapsed'] ) - end( $point->time_info['elapsed'] );
+
+		if ( $point->completed ) {
+			$task->count_completed_points--;
+		} else {
+			$task->count_uncompleted_points--;
+		}
+
 		$task = Task_Class::g()->update( $task );
 
 		do_action( 'tm_delete_point', $point );
@@ -179,48 +196,14 @@ class Point_Action {
 
 		if ( ! empty( $order_point_id ) ) {
 			foreach ( $order_point_id as $key => $point_id ) {
-				$order_point_id[ (int) $key ] = (int) $point_id;
-			}
-		}
-
-		$task = Task_Class::g()->get( array(
-			'id' => $task_id,
-		), true );
-
-		$points = Point_Class::g()->get( array(
-			'post_id' => $task->id,
-			'orderby' => 'comment__in',
-			'comment__in' => $task->task_info['order_point_id'],
-			'status' => -34070,
-		) );
-
-		$points_completed = array_filter( $points, function( $point ) {
-			return true === $point->point_info['completed'];
-		} );
-
-		$new_order_point_id = array();
-
-		if ( ! empty( $order_point_id ) ) {
-			foreach ( $order_point_id as $key => $point_id ) {
 				$point = Point_Class::g()->get( array(
 					'id' => $point_id,
 				), true );
-				if ( 'trash' !== $point->status ) {
-					$new_order_point_id[ (int) $key ] = (int) $point->id;
-				}
+
+				$point->order = (int) $key;
+				Point_Class::g()->update( $point );
 			}
 		}
-
-		if ( ! empty( $points_completed ) ) {
-			foreach ( $points_completed as $point_completed ) {
-				if ( 'trash' !== $point_completed->status ) {
-					$new_order_point_id[] = (int) $point_completed->id;
-				}
-			}
-		}
-
-		$task->task_info['order_point_id'] = $new_order_point_id;
-		Task_Class::g()->update( $task );
 
 		wp_send_json_success();
 	}
@@ -231,7 +214,7 @@ class Point_Action {
 	 * @return void
 	 *
 	 * @since 1.0.0
-	 * @version 1.5.0
+	 * @version 1.6.0
 	 */
 	public function ajax_complete_point() {
 		check_ajax_referer( 'complete_point' );
@@ -241,18 +224,26 @@ class Point_Action {
 
 		$point = Point_Class::g()->get( array(
 			'id' => $point_id,
-			'status' => '-34070',
 		), true );
 
-		$point->point_info['completed'] = $complete;
+		$task = Task_Class::g()->get( array(
+			'id' => $point->post_id,
+		), true );
+
+		$point->completed = $complete;
 
 		if ( $complete ) {
+			$task->count_completed_points++;
+			$task->count_uncompleted_points--;
 			$point->time_info['completed_point'][ get_current_user_id() ][] = current_time( 'mysql' );
 		} else {
+			$task->count_completed_points--;
+			$task->count_uncompleted_points++;
 			$point->time_info['uncompleted_point'][ get_current_user_id() ][] = current_time( 'mysql' );
 		}
 
 		Point_Class::g()->update( $point );
+		Task_Class::g()->update( $task );
 
 		do_action( 'tm_complete_point', $point );
 
@@ -264,8 +255,8 @@ class Point_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.3.6.0
-	 * @version 1.3.6.0
+	 * @since 1.3.6
+	 * @version 1.6.0
 	 */
 	public function ajax_load_completed_point() {
 		check_ajax_referer( 'load_completed_point' );
@@ -276,36 +267,20 @@ class Point_Action {
 			wp_send_json_error();
 		}
 
-		$task = Task_Class::g()->get( array(
-			'id' => $task_id,
-		), true );
-
-		$completed_points = array();
-
-		if ( ! empty( $task->task_info['order_point_id'] ) ) {
-			$points = Point_Class::g()->get( array(
-				'post_id' => $task->id,
-				'orderby' => 'comment__in',
-				'comment__in' => $task->task_info['order_point_id'],
-				'status' => -34070,
-			) );
-
-			$completed_points = array_filter( $points, function( $point ) {
-				return true === $point->point_info['completed'];
-			} );
-		}
+		$points = Point_Class::g()->get( array(
+			'post_id'    => $task_id,
+			'type'       => Point_Class::g()->get_type(),
+			'meta_key'   => '_tm_completed',
+			'meta_value' => true,
+		) );
 
 		ob_start();
-		if ( ! empty( $completed_points ) ) {
-			foreach ( $completed_points as $point ) {
-				\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
-					'parent_id' => $task->id,
-					'point' => $point,
-					'point_id' => 0,
-					'comment_id' => 0,
-				) );
-			}
-		}
+		\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/points', array(
+			'comment_id' => 0,
+			'point_id'   => 0,
+			'parent_id'  => $task_id,
+			'points'     => $points,
+		) );
 		wp_send_json_success( array(
 			'namespace' => 'taskManager',
 			'module' => 'point',

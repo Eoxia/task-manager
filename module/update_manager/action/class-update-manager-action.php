@@ -95,13 +95,13 @@ class Update_Manager_Action {
 		}
 
 		\eoxia\LOG_Util::log( 'mise à jour end', 'task-manager' );
-    //
-		// $version = (int) str_replace( '.', '', \eoxia\Config_Util::$init['task-manager']->version );
-		// if ( 3 === strlen( $version ) ) {
-		// 	$version *= 10;
-		// }
-		// update_option( \eoxia\Config_Util::$init['task-manager']->key_last_update_version, $version );
-		// delete_option( '_tm_waited_updates' );
+
+		$version = (int) str_replace( '.', '', \eoxia\Config_Util::$init['task-manager']->version );
+		if ( 3 === strlen( $version ) ) {
+			$version *= 10;
+		}
+		update_option( \eoxia\Config_Util::$init['task-manager']->key_last_update_version, $version );
+		delete_option( '_tm_waited_updates' );
 
 		$data = array(
 			'url'     => admin_url( 'admin.php?page=wpeomtm-dashboard' ),

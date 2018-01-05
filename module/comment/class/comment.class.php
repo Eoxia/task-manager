@@ -40,6 +40,13 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 	protected $base = 'comment';
 
 	/**
+	 * Le type du commentaire
+	 *
+	 * @var string
+	 */
+	protected $comment_type = 'wpeo_time';
+
+	/**
 	 * La version pour la rest API
 	 *
 	 * @var string

@@ -86,11 +86,12 @@ class Update_160 {
 	 * @return void
 	 */
 	public function callback_task_manager_update_1600_points() {
-		$done          = false;
-		$count_point   = ! empty( $_POST['args']['countPoint'] ) ? (int) $_POST['args']['countPoint'] : 0;
-		$index         = ! empty( $_POST['args']['index'] ) ? (int) $_POST['args']['index'] : 0;
+		$done        = false;
+		$count_point = ! empty( $_POST['args']['countPoint'] ) ? (int) $_POST['args']['countPoint'] : 0;
+		$index       = ! empty( $_POST['args']['index'] ) ? (int) $_POST['args']['index'] : 0;
 
 		global $wpdb;
+		$task_schema = Task_Class::g()->get_schema();
 
 		$point_ids = $wpdb->get_col(
 			$wpdb->prepare(
@@ -115,19 +116,42 @@ class Update_160 {
 			)
 		);
 
-		$points = Point_Class::g()->get( array(
-			'comment__in' => $point_ids,
-			'status'      => '-34070',
-		) );
+		$points = array();
+
+		if ( ! empty( $point_ids ) ) {
+			$points = Point_Class::g()->get( array(
+				'comment__in' => $point_ids,
+				'status'      => '-34070',
+			) );
+		}
 
 		if ( ! empty( $points ) ) {
 			foreach ( $points as $point ) {
-				if ( ! is_array( $point->time_info['elapsed'] ) ) {
-					\eoxia\LOG_Util::log( 'Update 1600 point #' . $point->id . ' elapsed value : ' . $point->time_info['elapsed'], 'task-manager' );
-				}
-				$point->time_info['elapsed'] = array( $point->time_info['elapsed'] );
-				\eoxia\LOG_Util::log( 'Update 1600 points (' . $index . '/' . $count_point . '): ' . json_encode( $point ), 'task-manager' );
+				$point->type      = Point_Class::g()->get_type();
+				$point->completed = $point->point_info['completed'];
+				$point->order     = $this->search_position( $point );
+
 				Point_Class::g()->update( $point );
+
+				if ( $point->completed ) {
+					$count_completed_point = get_post_meta( $point->post_id, $task_schema['count_completed_points']['field'], true );
+
+					if ( empty( $count_completed_point ) ) {
+						$count_completed_point = 0;
+					}
+
+					$count_completed_point++;
+					update_post_meta( $point->post_id, $task_schema['count_completed_points']['field'], $count_completed_point );
+				} else {
+					$count_uncompleted_point = get_post_meta( $point->post_id, $task_schema['count_uncompleted_points']['field'], true );
+
+					if ( empty( $count_uncompleted_point ) ) {
+						$count_uncompleted_point = 0;
+					}
+
+					$count_uncompleted_point++;
+					update_post_meta( $point->post_id, $task_schema['count_uncompleted_points']['field'], $count_uncompleted_point );
+				}
 			}
 		}
 
@@ -230,14 +254,18 @@ class Update_160 {
 			)
 		);
 
-		$comments = Task_Comment_Class::g()->get( array(
-			'comment__in' => $comment_ids,
-			'status'      => '-34070',
-		) );
+		$comments = array();
+
+		if ( ! empty( $comment_ids ) ) {
+			$comments = Task_Comment_Class::g()->get( array(
+				'comment__in' => $comment_ids,
+				'status'      => '-34070',
+			) );
+		}
 
 		if ( ! empty( $comments ) ) {
 			foreach ( $comments as $comment ) {
-				$comment->time_info['elapsed'] = (array) $comment->time_info['elapsed'];
+				$comment->type = Task_Comment_Class::g()->get_type();
 				Task_Comment_Class::g()->update( $comment );
 			}
 		}
@@ -260,6 +288,36 @@ class Update_160 {
 				'more'            => true,
 			),
 		) );
+	}
+
+	/**
+	 * Recherches la position du point dans le tableau "order_point_id" de la tâche.
+	 *
+	 * @since 1.6.0
+	 * @version 1.6.0
+	 *
+	 * @param  Point_Model $point Les données du point.
+	 * @return integer            La position du point.
+	 */
+	public function search_position( $point ) {
+		$position = false;
+
+		$task = Task_Class::g()->get( array(
+			'id' => $point->post_id,
+		), true );
+
+		if ( empty( $task ) ) {
+			$position = false;
+		} else {
+			$position = array_search( $point->id, $task->task_info['order_point_id'], true );
+		}
+
+		if ( false === $position ) {
+			\eoxia\LOG_Util::log( 'No order for the point #' . $point->id . ' setted to 0 in task #' . $task->id, 'task-manager' );
+			$position = 0;
+		}
+
+		return $position;
 	}
 
 }

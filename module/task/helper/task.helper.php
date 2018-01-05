@@ -99,5 +99,7 @@ function get_full_task( $data ) {
 		}
 	}
 
+	$data->count_all_points = $data->count_uncompleted_points + $data->count_completed_points;
+
 	return $data;
 }

@@ -267,7 +267,7 @@ window.eoxiaJS.taskManager.point.beforeLoadCompletedPoint = function( triggeredE
  * @return {void}
  *
  * @since 1.0.0
- * @version 1.0.0
+ * @version 1.6.0
  */
 window.eoxiaJS.taskManager.point.loadedCompletedPoint = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.points.completed' ).html( response.data.view );
@@ -280,19 +280,19 @@ window.eoxiaJS.taskManager.point.loadedCompletedPoint = function( triggeredEleme
  * @return void
  *
  * @since 1.0.0
- * @version 1.3.6.0
+ * @version 1.6.0
  */
 window.eoxiaJS.taskManager.point.editOrder = function() {
 	var orderPointId = [];
-	var objectId = jQuery( this ).closest( '.wpeo-project-task' ).data( 'id' );
-	var data = {};
+	var objectId     = jQuery( this ).closest( '.wpeo-project-task' ).data( 'id' );
+	var data         = {};
 
 	jQuery( this ).find( '.point.edit' ).each( function() {
 		orderPointId.push( jQuery( this ).data( 'id' ) );
 	} );
 
-	data.action = 'edit_order_point';
-	data.task_id = objectId;
+	data.action         = 'edit_order_point';
+	data.task_id        = objectId;
 	data.order_point_id = orderPointId;
 
 	window.eoxiaJS.request.send( jQuery( this ), data );

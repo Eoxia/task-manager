@@ -2,7 +2,6 @@
 	"name": "Task Manager",
 	"slug": "task-manager",
 	"version": "1.6.0",
-	"major_version": "1.5.0",
 	"description": "L'application Task Manager",
 	"insert_scripts_pages": [
 		"wpeomtm-dashboard",

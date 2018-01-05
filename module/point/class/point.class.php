@@ -40,6 +40,13 @@ class Point_Class extends \eoxia\Comment_Class {
 	protected $base = 'point';
 
 	/**
+	 * Le type du commentaire
+	 *
+	 * @var string
+	 */
+	protected $comment_type = 'wpeo_point';
+
+	/**
 	 * La version pour la rest API
 	 *
 	 * @var string
@@ -64,58 +71,48 @@ class Point_Class extends \eoxia\Comment_Class {
 	 * Affiches les points d'une tâche.
 	 *
 	 * @since 1.3.6
-	 * @version 1.5.0
+	 * @version 1.6.0
 	 *
 	 * @param integer $task_id   L'ID de la tâche.
 	 * @param boolean $frontend  true si l'affichage est sur le front end, sinon false.
 	 *
 	 * @return void
+	 *
+	 * @todo Ajouter "comment_id" et "point_id" en paramètre. Et renommer en selected_*
 	 */
 	public function display( $task_id, $frontend = false ) {
 		$comment_id = ! empty( $_GET['comment_id'] ) ? (int) $_GET['comment_id'] : 0;
-		$point_id = ! empty( $_GET['point_id'] ) ? (int) $_GET['point_id'] : 0;
+		$point_id   = ! empty( $_GET['point_id'] ) ? (int) $_GET['point_id'] : 0;
 
 		$task = Task_Class::g()->get( array(
 			'id' => $task_id,
 		), true );
 
-		$points_completed = array();
-		$points_uncompleted = array();
-		if ( ! empty( $task->task_info['order_point_id'] ) ) {
-			$points = self::g()->get( array(
-				'post_id' => $task->id,
-				'orderby' => 'comment__in',
-				'comment__in' => $task->task_info['order_point_id'],
-				'status' => -34070,
-			) );
-
-			$points_completed = array_filter( $points, function( $point ) {
-				if ( 0 === $point->id ) {
-					return false;
-				}
-
-				return true === $point->point_info['completed'];
-			} );
-
-			$points_uncompleted = array_filter( $points, function( $point ) {
-				if ( 0 === $point->id ) {
-					return false;
-				}
-				return false === $point->point_info['completed'];
-			} );
-		}
+		$points = self::g()->get( array(
+			'post_id'    => $task->id,
+			'type'       => self::g()->get_type(),
+			'meta_key'   => '_tm_order',
+			'orderby'    => 'meta_value_num',
+			'meta_query' => array(
+				array(
+					'key'     => '_tm_completed',
+					'value'   => false,
+					'compare' => '=',
+				),
+			),
+		) );
 
 		$point_schema = self::g()->get( array(
 			'schema' => true,
 		), true );
 
 		$args = array(
-			'task_id' => $task_id,
-			'comment_id' => $comment_id,
-			'point_id' => $point_id,
-			'points_completed' => $points_completed,
-			'points_uncompleted' => $points_uncompleted,
-			'point_schema' => $point_schema,
+			'task'               => $task,
+			'task_id'            => $task_id,
+			'comment_id'         => $comment_id,
+			'point_id'           => $point_id,
+			'points_uncompleted' => $points,
+			'point_schema'       => $point_schema,
 		);
 
 		if ( $frontend ) {

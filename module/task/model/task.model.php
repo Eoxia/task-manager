@@ -148,6 +148,22 @@ class Task_Model extends \eoxia\Post_Model {
 			'version'    => '1.6.0',
 		);
 
+		$this->model['count_completed_points'] = array(
+			'type'      => 'integer',
+			'meta_type' => 'single',
+			'field'     => '_tm_count_completed_points',
+			'since'     => '1.6.0',
+			'version'   => '1.6.0',
+		);
+
+		$this->model['count_uncompleted_points'] = array(
+			'type'      => 'integer',
+			'meta_type' => 'single',
+			'field'     => '_tm_count_uncompleted_points',
+			'since'     => '1.6.0',
+			'version'   => '1.6.0',
+		);
+
 		$this->model['taxonomy'] = array(
 			'type'      => 'array',
 			'meta_type' => 'multiple',
