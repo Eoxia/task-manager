@@ -64,7 +64,7 @@ $color__green: #47e58e;
 
 .wpeo-project-wrap .wpeo-project-task-container {
 	input[type="text"], textarea {
-		background-color: transparent !important;
+		background-color: transparent;
 	}
 }
 
@@ -2579,57 +2579,10 @@ Popup
 			line-height: 20px;
 		}
 	}
-
-	// ul {
-	// 	display: flex;
-	// 	justify-content: space-between;
-	// 	li {
-	// 		&.task {
-	// 			width: 15%;
-	// 		}
-	// 		&.point {
-	// 			width: 15%;
-	// 		}
-	// 		&.content {
-	// 			width: 70%;
-	// 		}
-	// 		&.actions {
-	// 			width: 50px;
-	// 			margin-right: 0;
-	// 		}
-	// 	}
-	// }
 }
 
 #tm-indicator-quick-task, .popup-quick-time {
 	.content {
-		// ul {
-		// 	display: flex;
-		// 	justify-content: space-between;
-		// 	li {
-		// 		&.task {
-		// 			width: 15%;
-		// 		}
-		// 		&.point {
-		// 			width: 15%;
-		// 		}
-		// 		&.content {
-		// 			width: 70%;
-		// 			textarea {
-		// 				width: 100%;
-		// 			}
-		// 		}
-		// 		&.min {
-		// 			width: 10%;
-		// 		}
-		// 		&.actions {
-		// 			text-align: right;
-		// 			width: 50px;
-		// 			margin-right: 0;
-		// 		}
-		// 	}
-		// }
-
 		.wpeo-button {
 			float: right;
 		}
@@ -2643,9 +2596,28 @@ Popup
 }
 
 /* ----------------------------------
+		Module WPEO Form fix
+-----------------------------------*/
+.wpeo-form {
+	input[type="text"] {
+		background: #ececec !important;
+		border: 0 !important;
+	}
+	input[type="radio"] {
+		&::before {
+			display: none;
+			content: '';
+		}
+	}
+	input[type="radio"] ~ label {
+		margin-bottom: 0;
+	}
+}
+
+/* ----------------------------------
 		Temporaire pour le blink
 -----------------------------------*/
-.wpeo-project-wrap {
+body .wpeo-project-wrap {
 	.blink {
 		display: block;
 		width: 100%;
