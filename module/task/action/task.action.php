@@ -489,19 +489,51 @@ class Task_Action {
 	 * @return void
 	 */
 	public function callback_recompile_task() {
-		check_ajax_referer( 'compile_task' );
+		check_ajax_referer( 'recompile_task' );
 
 		$id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 
-		$task = Task_Class:g()->get( array(
+		$task = Task_Class::g()->get( array(
 			'id' => $id,
 		), true );
 
+		// Recompiles le nombre de point complété et incomplété.
+		// Recompiles le temps.
+		$elapsed           = 0;
+		$count_completed   = 0;
+		$count_uncompleted = 0;
+		$points            = Point_Class::g()->get( array(
+			'post_id' => $task->id,
+			'type'    => Point_Class::g()->get_type(),
+		) );
+
+		if ( ! empty( $points ) ) {
+			foreach ( $points as $point ) {
+				$elapsed += end( $point->time_info['elapsed'] );
+
+				if ( $point->completed ) {
+					$count_completed++;
+				} else {
+					$count_uncompleted++;
+				}
+			}
+		}
+
+		$task->time_info['elapsed'][]   = $elapsed;
+		$task->count_completed_points   = $count_completed;
+		$task->count_uncompleted_points = $count_uncompleted;
+
+		Task_Class::g()->update( $task );
+
+		ob_start();
+		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task', array(
+			'task' => $task,
+		) );
 		wp_send_json_success( array(
 			'namespace'        => 'taskManager',
 			'module'           => 'task',
 			'callback_success' => 'recompiledTask',
-			'task'             => $task,
+			'view'             => ob_get_clean(),
 		) );
 	}
 
