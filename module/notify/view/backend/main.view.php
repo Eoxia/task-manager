@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		(<span class="selected-number"><?php echo esc_html( count( $affected_id ) ); ?></span>/<span class="total-number"><?php echo esc_html( count( $followers ) ); ?></span>)
 	</h2>
 
-	<ul class="list-follower">
+	<ul class="list-follower wpeo-ul-users">
 		<?php
 		if ( ! empty( $followers ) ) :
 			foreach ( $followers as $follower ) :

@@ -276,8 +276,8 @@ class Task_Class extends \eoxia\Post_Class {
 					$tasks[ $post->ID ]['total_time_elapsed'] = 0;
 				}
 
-				$tasks[ $post->ID ]['total_time_elapsed'] += $task->time_info['elapsed'];
-				$total_time_elapsed += $task->time_info['elapsed'];
+				$tasks[ $post->ID ]['total_time_elapsed'] += end( $task->time_info['elapsed'] );
+				$total_time_elapsed += end( $task->time_info['elapsed'] );
 				$total_time_estimated += $task->last_history_time->estimated_time;
 
 				$task_ids_for_history[] = $task->id;
