@@ -256,12 +256,7 @@ class Update_160 {
 	 * @return void
 	 */
 	public function callback_task_manager_update_1600_comments() {
-<<<<<<< HEAD
 		$timestamp_debut = microtime(true);
-=======
-		$start_func = microtime( true );
-
->>>>>>> d6b3fa926587d8e0107952e030d7a45160d87410
 		$done          = false;
 		$count_comment = ! empty( $_POST['args']['countComment'] ) ? (int) $_POST['args']['countComment'] : 0;
 		$index         = ! empty( $_POST['args']['index'] ) ? (int) $_POST['args']['index'] : 0;
@@ -304,17 +299,11 @@ class Update_160 {
 			foreach ( $comments as $comment ) {
 				$start_ms = microtime( true );
 				$comment->type = Task_Comment_Class::g()->get_type();
-<<<<<<< HEAD
 				$comment       = Task_Comment_Class::g()->update( $comment );
 
 				if ( Task_Comment_Class::g()->get_type() !== $comment->type ) {
 					\eoxia\LOG_Util::log( 'Comment #' . $comment->id . ' type is not equal wpeo_time', 'task-manager' );
 				}
-=======
-				Task_Comment_Class::g()->update( $comment );
-				$end_ms = microtime( true );
-				\eoxia\LOG_Util::log( 'Comment #' . $comment->id . ' done in ' . ( $end_ms - $start_ms ), 'task-manager' );
->>>>>>> d6b3fa926587d8e0107952e030d7a45160d87410
 			}
 		}
 
@@ -363,11 +352,7 @@ class Update_160 {
 		if ( empty( $task ) ) {
 			$position = false;
 		} else {
-<<<<<<< HEAD
-			$position = array_search( $point->id, $task->task_info['order_point_id'] );
-=======
 			$position = array_search( $point->id, (int) $task->task_info['order_point_id'], true );
->>>>>>> d6b3fa926587d8e0107952e030d7a45160d87410
 		}
 
 		if ( false === $position ) {
