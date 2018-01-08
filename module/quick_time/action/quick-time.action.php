@@ -66,15 +66,28 @@ class Quick_Time_Action {
 				$comment['point_id'] = (int) $comment['point_id'];
 				$comment['content']  = sanitize_text_field( $comment['content'] );
 				$comment['time']     = (int) $comment['time'];
+				$comment['can_add']  = 'true' == $comment['can_add'] ? true : false;
 
-				$comment = Task_Comment_Class::g()->update( array(
-					'post_id'   => $comment['task_id'],
-					'parent_id' => $comment['point_id'],
-					'content'   => $comment['content'],
-					'time_info' => array(
-						'elapsed' => $comment['time'],
-					),
-				) );
+				if ( $comment['can_add'] ) {
+					$comment = Task_Comment_Class::g()->get( array(
+						'schema' => $comment_id,
+					), true );
+
+					$comment->time_info['elapsed'][0] = $time;
+					$comment->post_id                 = $post_id;
+					$comment->parent_id               = $parent_id;
+					$comment->content                 = $content;
+
+					Task_Comment_Class::g()->update( $comment );
+
+					$point = Point_Class::g()->get( array(
+						'id' => $parent_id,
+					), true );
+
+					$point->count_comments++;
+
+					Point_Class::g()->update( $point );
+				}
 			}
 		}
 

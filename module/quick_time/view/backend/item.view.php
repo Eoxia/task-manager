@@ -34,5 +34,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<input type="text" class="displayed" />
 		</div>
 	</td>
-	<td class="action"><input type="checkbox" class="set_time" /></td>
+	<td class="action"><input type="checkbox" class="set_time" name="comments[<?php echo esc_attr( $i ); ?>][can_add]" /></td>
 </tr>

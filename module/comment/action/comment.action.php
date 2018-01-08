@@ -116,14 +116,14 @@ class Task_Comment_Action {
 		$comment->date      = $date;
 		$comment->content   = $content;
 
-		$comment        = Task_Comment_Class::g()->update( $comment );
+		$comment = Task_Comment_Class::g()->update( $comment );
 
 		if ( $new ) {
 			$point = Point_Class::g()->get( array(
 				'id' => $parent_id,
 			), true );
 
-			$point->count_comment++;
+			$point->count_comments++;
 
 			Point_Class::g()->update( $point );
 		}
@@ -205,7 +205,7 @@ class Task_Comment_Action {
 	 * @return void
 	 *
 	 * @since 1.0.0
-	 * @version 1.3.6
+	 * @version 1.6.0
 	 */
 	public function callback_delete_task_comment() {
 		check_ajax_referer( 'delete_task_comment' );
@@ -223,6 +223,11 @@ class Task_Comment_Action {
 
 		$comment->status = 'trash';
 		$comment         = Task_Comment_Class::g()->update( $comment );
+
+
+		$comment->point->count_comments--;
+
+		Point_Class::g()->update( $comment->point );
 
 		$task = Task_Class::g()->get( array(
 			'id' => $comment->post_id,

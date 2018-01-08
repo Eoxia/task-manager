@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<li class="author"><?php echo esc_html( $history_time->author->display_name ); ?></li>
 
 		<li class="date">
-			<?php if ( $history_time->repeat ) : ?>
+			<?php if ( 'recursive' === $history_time->custom ) : ?>
 				<?php esc_html_e( 'Repeat monthly', 'task-manager' ); ?>
 			<?php else : ?>
 				<span class="dashicons dashicons-calendar-alt"></span>

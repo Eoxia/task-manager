@@ -103,6 +103,25 @@ class Point_Class extends \eoxia\Comment_Class {
 			),
 		) );
 
+		$points_completed = array();
+		// Dans le frontend, les points complétés sont affichées directement.
+		if ( $frontend ) {
+			$points_completed = self::g()->get( array(
+				'post_id'    => $task->id,
+				'type'       => self::g()->get_type(),
+				'meta_key'   => '_tm_order',
+				'orderby'    => 'meta_value_num',
+				'order'      => 'ASC',
+				'meta_query' => array(
+					array(
+						'key'     => '_tm_completed',
+						'value'   => true,
+						'compare' => '=',
+					),
+				),
+			) );
+		}
+
 		$point_schema = self::g()->get( array(
 			'schema' => true,
 		), true );
@@ -113,6 +132,7 @@ class Point_Class extends \eoxia\Comment_Class {
 			'comment_id'         => $comment_id,
 			'point_id'           => $point_id,
 			'points_uncompleted' => $points,
+			'points_completed'   => $points_completed,
 			'point_schema'       => $point_schema,
 		);
 

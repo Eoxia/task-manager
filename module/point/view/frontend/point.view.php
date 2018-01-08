@@ -4,8 +4,8 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.0.0
- * @version 1.4.0
- * @copyright 2015-2017 Eoxia
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
  * @package Task Manager
  */
 
@@ -47,7 +47,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<li class="point-action">
 			<div class="wpeo-point-time">
 				<span class="dashicons dashicons-clock"></span>
-				<span class="wpeo-time-in-point"><?php echo esc_attr( $point->time_info['elapsed'] ); ?></span>
+				<span class="wpeo-time-in-point"><?php echo esc_attr( end( $point->time_info['elapsed'] ) ); ?></span>
 			</div>
 			<div class="wpeo-point-comment">
 				<span class="dashicons dashicons-admin-comments"></span>

@@ -5,7 +5,7 @@
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.0.0
  * @version 1.6.0
- * @copyright 2015-2017 Eoxia
+ * @copyright 2015-2018 Eoxia
  * @package Task Manager
  */
 
@@ -23,11 +23,10 @@ class Point_Action {
 	/**
 	 * Le constructeur
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.6.0
 	 */
 	public function __construct() {
-		/** Point */
 		add_action( 'wp_ajax_edit_point', array( $this, 'ajax_edit_point' ) );
 		add_action( 'wp_ajax_change_date_point', array( $this, 'ajax_change_date_point' ) );
 		add_action( 'wp_ajax_delete_point', array( $this, 'ajax_delete_point' ) );
@@ -35,7 +34,6 @@ class Point_Action {
 		add_action( 'wp_ajax_complete_point', array( $this, 'ajax_complete_point' ) );
 		add_action( 'wp_ajax_load_completed_point', array( $this, 'ajax_load_completed_point' ) );
 
-		add_action( 'wp_ajax_load_point_properties', array( $this, 'ajax_load_point_properties' ) );
 		add_action( 'wp_ajax_search_task', array( $this, 'ajax_search_task' ) );
 		add_action( 'wp_ajax_move_point_to', array( $this, 'ajax_move_point_to' ) );
 	}
@@ -78,25 +76,26 @@ class Point_Action {
 		}
 
 		$point = Point_Class::g()->update( array(
-			'id' => $point_id,
+			'id'      => $point_id,
 			'post_id' => $parent_id,
 			'content' => $content,
+			'order'   => ( $task->count_uncompleted_points - 1 ), // - 1 car la valeur est incrémenté juste avant.
 		) );
 
 		$point->content = stripslashes( $point->content );
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
-			'point' => $point,
-			'parent_id' => $parent_id,
-			'point_id' => 0,
+			'point'      => $point,
+			'parent_id'  => $parent_id,
+			'point_id'   => 0,
 			'comment_id' => 0,
 		) );
 
 		wp_send_json_success( array(
-			'view' => ob_get_clean(),
-			'namespace' => 'taskManager',
-			'module' => 'point',
+			'view'             => ob_get_clean(),
+			'namespace'        => 'taskManager',
+			'module'           => 'point',
 			'callback_success' => ! empty( $point_id ) ? 'editedPointSuccess' : 'addedPointSuccess',
 		) );
 	}
@@ -108,9 +107,11 @@ class Point_Action {
 	* @version 1.5.0
 	*
 	* @return void
+	*
+	* @todo: nonce
 	*/
 	public function ajax_change_date_point() {
-		$point_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+		$point_id   = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 		$mysql_date = ! empty( $_POST['date'] ) ? sanitize_text_field( $_POST['date'] ) : '';
 
 		if ( empty( $point_id ) || empty( $mysql_date ) ) {
@@ -182,12 +183,12 @@ class Point_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.6.0
 	 * @todo nonce
 	 */
 	public function ajax_edit_order_point() {
-		$task_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+		$task_id        = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
 		$order_point_id = ! empty( $_POST['order_point_id'] ) ? (array) $_POST['order_point_id'] : array();
 
 		if ( empty( $task_id ) || empty( $order_point_id ) ) {
@@ -233,10 +234,14 @@ class Point_Action {
 		$point->completed = $complete;
 
 		if ( $complete ) {
+			$point->order = $task->count_completed_points;
+
 			$task->count_completed_points++;
 			$task->count_uncompleted_points--;
 			$point->time_info['completed_point'][ get_current_user_id() ][] = current_time( 'mysql' );
 		} else {
+			$point->order = $task->count_uncompleted_points;
+
 			$task->count_completed_points--;
 			$task->count_uncompleted_points++;
 			$point->time_info['uncompleted_point'][ get_current_user_id() ][] = current_time( 'mysql' );
@@ -282,45 +287,10 @@ class Point_Action {
 			'points'     => $points,
 		) );
 		wp_send_json_success( array(
-			'namespace' => 'taskManager',
-			'module' => 'point',
+			'namespace'        => 'taskManager',
+			'module'           => 'point',
 			'callback_success' => 'loadedCompletedPoint',
-			'view' => ob_get_clean(),
-		) );
-	}
-
-	/**
-	 * Charges les propriétés du point et renvoie la vue à la réponse AJAX.
-	 *
-	 * @return void
-	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
-	 */
-	public function ajax_load_point_properties() {
-		check_ajax_referer( 'load_point_properties' );
-
-		$point_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
-
-		$point = Point_Class::g()->get( array(
-			'comment__in' => array( $point_id ),
-			'status' => -34070,
-		), true );
-
-		$point->author = Follower_Class::g()->get( array(
-			'include' => array( $point->author_id ),
-		), true );
-
-		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/properties', array(
-			'point' => $point,
-		) );
-
-		wp_send_json_success( array(
-			'namespace' => 'taskManager',
-			'view' => ob_get_clean(),
-			'module' => 'point',
-			'callback_success' => 'loadedPointProperties',
+			'view'             => ob_get_clean(),
 		) );
 	}
 
@@ -329,16 +299,16 @@ class Point_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.6.0
 	 */
 	public function ajax_search_task() {
-		$term = sanitize_text_field( $_GET['term'] );
+		$term          = sanitize_text_field( $_GET['term'] );
 		$founded_by_id = false;
 
 		$query = new \WP_Query( array(
-			'post_type' => 'wpeo-task',
-			's' => $term,
+			'post_type'   => 'wpeo-task',
+			's'           => $term,
 			'post_status' => array( 'publish', 'draft', 'archive' ),
 		) );
 
@@ -353,13 +323,13 @@ class Point_Action {
 				$tasks_founded[] = array(
 					'label' => '#' . $post->ID . ' ' . $post->post_title,
 					'value' => '#' . $post->ID . ' ' . $post->post_title,
-					'id' => $post->ID,
+					'id'    => $post->ID,
 				);
 			}
 		}
 
 		$term = (int) $term;
-		if ( !$founded_by_id && ! empty( $term ) && is_int( $term ) ) {
+		if ( ! $founded_by_id && ! empty( $term ) && is_int( $term ) ) {
 			$post = get_post( $term );
 
 			if ( ! empty( $post ) ) {
@@ -367,7 +337,7 @@ class Point_Action {
 					$tasks_founded[] = array(
 						'label' => '#' . $post->ID . ' ' . $post->post_title,
 						'value' => '#' . $post->ID . ' ' . $post->post_title,
-						'id' => $post->ID,
+						'id'    => $post->ID,
 					);
 				}
 			}
@@ -377,7 +347,7 @@ class Point_Action {
 			$tasks_founded[] = array(
 				'label' => __( 'No task found', 'task-manager' ),
 				'value' => __( 'No task found', 'task-manager' ),
-				'id' => 0,
+				'id'    => 0,
 			);
 		}
 
@@ -395,8 +365,8 @@ class Point_Action {
 	public function ajax_move_point_to() {
 		check_ajax_referer( 'move_point_to' );
 
-		$task_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
-		$point_id = ! empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
+		$task_id    = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+		$point_id   = ! empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
 		$to_task_id = ! empty( $_POST['to_task_id'] ) ? (int) $_POST['to_task_id'] : 0;
 
 		if ( empty( $task_id ) || empty( $point_id ) || empty( $to_task_id ) ) {
@@ -426,19 +396,28 @@ class Point_Action {
 		}
 
 		$to_task->task_info['order_point_id'][] = (int) $point_id;
+		$to_task->time_info['elapsed'][]        = end( $to_task->time_info['elapsed'] ) + end( $point->time_info['elapsed'] );
 
-		$to_task->time_info['elapsed'][] = end( $to_task->time_info['elapsed'] ) + end( $point->time_info['elapsed'] );
+		if ( $point->completed ) {
+			$point->order = $to_task->count_completed_points;
+			$current_task->count_completed_points--;
+			$to_task->count_completed_points++;
+		} else {
+			$point->order = $to_task->count_uncompleted_points;
+			$current_task->count_uncompleted_points--;
+			$to_task->count_uncompleted_points++;
+		}
 
 		$current_task = Task_Class::g()->update( $current_task );
-		$to_task = Task_Class::g()->update( $to_task );
+		$to_task      = Task_Class::g()->update( $to_task );
 
 		$point->post_id = $to_task_id;
-		$point = Point_Class::g()->update( $point );
+		$point          = Point_Class::g()->update( $point );
 
 		$comments = Task_Comment_Class::g()->get( array(
 			'post_id' => $task_id,
-			'parent' => $point_id,
-			'status' => -34070,
+			'parent'  => $point_id,
+			'status'  => -34070,
 		) );
 
 		if ( ! empty( $comments ) ) {

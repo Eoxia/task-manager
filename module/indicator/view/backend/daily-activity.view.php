@@ -4,8 +4,8 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.5.0
- * @version 1.5.0
- * @copyright 2015-2017 Eoxia
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -75,9 +75,9 @@ ob_start();
 							<!-- Temps passé -->
 							<?php
 							$com_details = ( ! empty( $activity->COM_DETAILS ) ? json_decode( $activity->COM_DETAILS ) : '' );
-							$total_time += $com_details->time_info->elapsed;
+							$total_time += end( $com_details->time_info->elapsed );
 							?>
-							<span class="event-time"><i class="dashicons dashicons-clock"></i><?php echo ! empty( $com_details->time_info->elapsed ) ? esc_html( $com_details->time_info->elapsed ) : 0; ?></span>
+							<span class="event-time"><i class="dashicons dashicons-clock"></i><?php echo ! empty( $com_details->time_info->elapsed ) ? esc_html( end( $com_details->time_info->elapsed ) ) : 0; ?></span>
 						</div>
 
 						<span class="event-content">
@@ -112,7 +112,7 @@ echo wp_kses( str_replace( '{{ total_time }}', \eoxia\Date_Util::g()->convert_to
 	),
 	'td'     => array(
 		'style'   => array(),
-		'class' => array(),
+		'class'   => array(),
 		'colspan' => array(),
 	),
 	'input'  => array(
@@ -121,32 +121,32 @@ echo wp_kses( str_replace( '{{ total_time }}', \eoxia\Date_Util::g()->convert_to
 		'name'  => array(),
 	),
 	'button' => array(
-		'class' => array(),
+		'class'       => array(),
 		'data-parent' => array(),
 	),
-	'a' => array(
-		'href' => array(),
+	'a'      => array(
+		'href'   => array(),
 		'target' => array(),
-		'style' => array(),
+		'style'  => array(),
 	),
-	'br' => array(),
-	'div' => array(
-		'class' => array(),
-		'id' => array(),
-		'style' => array(),
+	'br'     => array(),
+	'div'    => array(
+		'class'      => array(),
+		'id'         => array(),
+		'style'      => array(),
 		'aria-label' => array(),
 	),
-	'i' => array(
+	'i'      => array(
 		'class' => array(),
 	),
-	'label' => array(
+	'label'  => array(
 		'class' => array(),
 	),
-	'span' => array(
+	'span'   => array(
 		'class' => array(),
 	),
-	'img' => array(
+	'img'    => array(
 		'class' => array(),
-		'src' => array(),
+		'src'   => array(),
 	),
 ) );

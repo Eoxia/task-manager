@@ -133,7 +133,6 @@ window.eoxiaJS.taskManager.adminBar.deletedConfigQuickTime = function( triggered
  * @version 1.6.0
  */
 window.eoxiaJS.taskManager.adminBar.quickTimeAddedComment = function( triggeredElement, response ) {
-	alert('ok');
 	jQuery( '.quick-time-content' ).replaceWith( response.data.view );
 };
 

@@ -313,8 +313,6 @@ class Update_160 {
 			$index = $count_comment;
 			$done  = true;
 		}
-		$end_func = microtime( true );
-		\eoxia\LOG_Util::log( 'Comment function done in ' . ( $end_func - $start_func ), 'task-manager' );
 
 		$timestamp_fin = microtime(true);
 		$difference_ms = $timestamp_fin - $timestamp_debut;

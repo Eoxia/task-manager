@@ -34,22 +34,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div>
 				<div class="group-date form-element">
 					<label><i class="dashicons dashicons-calendar-alt"></i> <?php esc_html_e( 'Due date', 'task-manager' ); ?> </label>
-					<input type="text" class="mysql-date" style="width: 0px; padding: 0px; border: none;" name="due_date" value="<?php echo esc_attr( current_time( 'mysql' ) ); ?>" />
-					<input class="date" type="text" />
+					<input type="text" class="mysql-date" style="width: 0px; padding: 0px; border: none;" name="due_date" value="<?php echo esc_attr( $history_time_schema->due_date['date_input']['date'] ); ?>" />
+					<input class="date" type="text" value="<?php echo esc_attr( $history_time_schema->due_date['date_input']['fr_FR']['date'] ); ?>" />
 				</div>
-
-				<!-- <div class="form-element">
-					<input name="repeat" id="repeat" type="checkbox" />
-					<label for="repeat"><?php esc_html_e( 'Repeat monthly', 'task-manager' ); ?></label>
-				</div> -->
 
 				<div class="wpeo-form">
 					<div class="form-element">
-						<input type="radio" id="radio1" name="type" checked value="radio1">
-						<label for="radio1"><?php esc_html_e( 'Recursive time per month', 'task-manager' ); ?></label>
+						<input type="radio" id="recursive" name="custom" value="recursive">
+						<label for="recursive"><?php esc_html_e( 'Recursive time per month', 'task-manager' ); ?></label>
 
-						<input type="radio" id="radio2" name="type" value="radio2" checked>
-						<label for="radio2"><?php esc_html_e( 'Define due date', 'task-manager' ); ?></label>
+						<input type="radio" id="due_date" name="custom" value="due_date" checked>
+						<label for="due_date"><?php esc_html_e( 'Define due date', 'task-manager' ); ?></label>
 					</div>
 				</div>
 

@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <ul class="wpeo-task-time-manage">
 	<?php if ( 0 !== $task->last_history_time->id ) : ?>
-		<?php if ( $task->last_history_time->repeat ) : ?>
+		<?php if ( 'recursive' === $task->last_history_time->custom ) : ?>
 			<li><?php esc_html_e( 'Repeated', 'task-manager' ); ?>
 		<?php else : ?>
 			<li class="wpeo-task-date tooltip hover" aria-label="<?php echo esc_html_e( 'Dead line', 'task-manager' ); ?>">

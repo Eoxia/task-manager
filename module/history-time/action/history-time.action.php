@@ -49,28 +49,8 @@ class History_Time_Action {
 			wp_send_json_error();
 		}
 
-		$history_times = History_Time_Class::g()->get( array(
-			'post_id'          => $task_id,
-			'orderby'          => 'ASC',
-			'comment_approved' => '-34070',
-		) );
-
-		if ( ! empty( $history_times ) ) {
-			foreach ( $history_times as $key => $history_time ) {
-				if ( 0 === $history_time->id ) {
-					array_splice( $history_times, $key, 1 );
-				} else {
-					$history_time->author = get_userdata( $history_time->author_id );
-				}
-			}
-		}
-
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'history-time', 'backend/main', array(
-			'task_id'       => $task_id,
-			'history_times' => $history_times,
-		) );
-
+		History_Time_Class::g()->display_histories_time( $task_id );
 		wp_send_json_success( array(
 			'view'             => ob_get_clean(),
 			'namespace'        => 'taskManager',
@@ -92,7 +72,7 @@ class History_Time_Action {
 
 		$task_id        = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
 		$due_date       = ! empty( $_POST['due_date'] ) ? $_POST['due_date'] : '';
-		$repeat         = ( ! empty( $_POST['repeat'] ) && 'true' === $_POST['repeat'] ) ? true : false;
+		$custom         = ! empty( $_POST['custom'] ) ? sanitize_text_field( $_POST['custom'] ) : '';
 		$estimated_time = ! empty( $_POST['estimated_time'] ) ? (int) $_POST['estimated_time'] : 0;
 
 		if ( empty( $task_id ) ) {
@@ -103,20 +83,8 @@ class History_Time_Action {
 			'post_id'        => $task_id,
 			'due_date'       => $due_date,
 			'estimated_time' => $estimated_time,
-			'repeat'         => $repeat,
+			'custom'         => $custom,
 		) );
-
-		$history_times = History_Time_Class::g()->get( array(
-			'post_id'          => $task_id,
-			'orderby'          => 'ASC',
-			'comment_approved' => '-34070',
-		) );
-
-		if ( ! empty( $history_times ) ) {
-			foreach ( $history_times as $history_time ) {
-				$history_time->author = get_userdata( $history_time->author_id );
-			}
-		}
 
 		do_action( 'tm_created_history_time', $history_time_created, $task_id, $due_date, $estimated_time );
 
@@ -131,10 +99,7 @@ class History_Time_Action {
 		$task_header_view = ob_get_clean();
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'history-time', 'backend/main', array(
-			'task_id'       => $task_id,
-			'history_times' => $history_times,
-		) );
+		History_Time_Class::g()->display_histories_time( $task_id );
 		$history_time_view = ob_get_clean();
 
 		wp_send_json_success( array(

@@ -62,12 +62,8 @@ function get_full_task( $data ) {
 	$data->last_history_time = History_Time_Class::g()->get( array(
 		'post_id' => $data->id,
 		'number'  => 1,
+		'type'    => History_Time_Class::g()->get_type(),
 	), true );
-
-	// Fix TMP.
-	if ( ! isset( $data->user_info['affected_id'] ) ) {
-		$data->user_info['affected_id'] = array();
-	}
 
 	if ( empty( $data->last_history_time->id ) ) {
 		$data->last_history_time = History_Time_Class::g()->get( array(
@@ -75,7 +71,7 @@ function get_full_task( $data ) {
 		), true );
 	} else {
 		// Calcul du temps si on est en mode "répétition" mensuel.
-		if ( $data->last_history_time->repeat ) {
+		if ( 'recursive' === $data->last_history_time->custom ) {
 			$comments = Task_Comment_Class::g()->get( array(
 				'date_query'   => array(
 					'after' => array(

@@ -40,14 +40,14 @@ class History_Time_Model extends \eoxia\Comment_Model {
 			'bydefault' => 0,
 		);
 
-		$this->model['repeat'] = array(
+		$this->model['custom'] = array(
 			'meta_type'   => 'single',
-			'field'       => '_tm_repeat',
-			'type'        => 'boolean',
+			'field'       => '_tm_custom',
+			'type'        => 'string',
 			'bydefault'   => false,
 			'since'       => '1.6.0',
 			'version'     => '1.6.0',
-			'description' => 'Permet de faire une récurrence mensuelle',
+			'description' => 'Type de l\'historique',
 		);
 
 		parent::__construct( $object );
