@@ -98,6 +98,14 @@ class Point_Model extends \eoxia\Comment_Model {
 			'version'   => '1.6.0',
 		);
 
+		$this->model['count_comments'] = array(
+			'type'      => 'integer',
+			'field'     => '_tm_count_comment',
+			'meta_type' => 'single',
+			'since'     => '1.0.0',
+			'version'   => '1.6.0',
+		);
+
 		parent::__construct( $object );
 	}
 

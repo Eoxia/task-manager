@@ -50,24 +50,6 @@ function update_post_order( $point ) {
  * @version 1.6.0
  */
 function get_full_point( $point ) {
-	$point->count_comments = 0;
-
-	if ( ! empty( $point->post_id ) && ! empty( $point->id ) ) {
-		$comments = Task_Comment_Class::g()->get( array(
-			'post_id' => $point->post_id,
-			'parent'  => $point->id,
-			'status'  => '-34070',
-		) );
-
-		if ( ! empty( $comments ) ) {
-			$point->count_comments = count( $comments );
-		}
-
-		if ( ! empty( $comments ) && ! empty( $comments[0] ) && 0 === $comments[0]->id ) {
-			$point->count_comments--;
-		}
-	}
-
 	// $point->content = parse_content_tooltip( $point->content );
 
 	$last_completed = array(

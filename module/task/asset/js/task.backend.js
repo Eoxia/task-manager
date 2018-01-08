@@ -287,6 +287,22 @@ window.eoxiaJS.taskManager.task.exportedTask = function( triggeredElement, respo
 window.eoxiaJS.taskManager.task.notifiedByMail = function( triggeredElement, response ) {
 
 };
+/**
+ * Le callback en cas de réussite à la requête Ajax "recompile_task".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.6.0
+ * @version 1.6.0
+ */
+window.eoxiaJS.taskManager.task.recompiledTask = function( triggeredElement, response ) {
+	var currentStyle = triggeredElement.closest( '.wpeo-project-task' ).attr( 'style' );
+	var view         = jQuery( response.data.view );
+	view.attr( 'style', currentStyle );
+	triggeredElement.closest( '.wpeo-project-task' ).replaceWith( view );
+};
 
 
 /**

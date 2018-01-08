@@ -93,6 +93,7 @@ class Point_Class extends \eoxia\Comment_Class {
 			'type'       => self::g()->get_type(),
 			'meta_key'   => '_tm_order',
 			'orderby'    => 'meta_value_num',
+			'order'      => 'ASC',
 			'meta_query' => array(
 				array(
 					'key'     => '_tm_completed',

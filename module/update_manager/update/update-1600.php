@@ -24,7 +24,7 @@ class Update_160 {
 	 *
 	 * @var integer
 	 */
-	private $limit = 20;
+	private $limit = 100;
 	/**
 	 * Instanciate update for current version
 	 */
@@ -86,6 +86,7 @@ class Update_160 {
 	 * @return void
 	 */
 	public function callback_task_manager_update_1600_points() {
+		$timestamp_debut = microtime(true);
 		$done        = false;
 		$count_point = ! empty( $_POST['args']['countPoint'] ) ? (int) $_POST['args']['countPoint'] : 0;
 		$index       = ! empty( $_POST['args']['index'] ) ? (int) $_POST['args']['index'] : 0;
@@ -110,7 +111,7 @@ class Update_160 {
 					'-34070',
 					'',
 					Task_Class::g()->get_post_type(),
-					$index,
+					0,
 					$this->limit,
 				)
 			)
@@ -125,13 +126,39 @@ class Update_160 {
 			) );
 		}
 
+		$count_point_updated = get_option( '_tm_update_1600_point_updated', true );
+
+		if ( empty( $count_point_updated ) ) {
+			$count_point_updated = 0;
+		}
+
 		if ( ! empty( $points ) ) {
 			foreach ( $points as $point ) {
-				$point->type      = Point_Class::g()->get_type();
-				$point->completed = $point->point_info['completed'];
-				$point->order     = $this->search_position( $point );
+				$point->type           = Point_Class::g()->get_type();
+				$point->completed      = $point->point_info['completed'];
+				$point->order          = $this->search_position( $point );
+				$point->count_comments = 0;
 
-				Point_Class::g()->update( $point );
+				if ( ! empty( $point->post_id ) ) {
+					$comments = Task_Comment_Class::g()->get( array(
+						'post_id' => $point->post_id,
+						'parent'  => $point->id,
+						'status'  => '-34070',
+					) );
+
+					if ( ! empty( $comments ) ) {
+						$point->count_comments = count( $comments );
+					}
+				}
+
+				$point = Point_Class::g()->update( $point );
+
+				if ( Point_Class::g()->get_type() !== $point->type ) {
+					\eoxia\LOG_Util::log( 'Point #' . $point->id . ' type is not equal wpeo_point', 'task-manager' );
+				} else {
+					$count_point_updated++;
+					update_option( '_tm_update_1600_point_updated', $count_point_updated );
+				}
 
 				if ( $point->completed ) {
 					$count_completed_point = get_post_meta( $point->post_id, $task_schema['count_completed_points']['field'], true );
@@ -161,6 +188,10 @@ class Update_160 {
 			$index = $count_point;
 			$done  = true;
 		}
+
+		$timestamp_fin = microtime(true);
+		$difference_ms = $timestamp_fin - $timestamp_debut;
+		\eoxia\LOG_Util::log( $difference_ms, 'task-manager' );
 
 		wp_send_json_success( array(
 			'done' => $done,
@@ -225,6 +256,7 @@ class Update_160 {
 	 * @return void
 	 */
 	public function callback_task_manager_update_1600_comments() {
+		$timestamp_debut = microtime(true);
 		$done          = false;
 		$count_comment = ! empty( $_POST['args']['countComment'] ) ? (int) $_POST['args']['countComment'] : 0;
 		$index         = ! empty( $_POST['args']['index'] ) ? (int) $_POST['args']['index'] : 0;
@@ -248,7 +280,7 @@ class Update_160 {
 					'-34070',
 					'',
 					Task_Class::g()->get_post_type(),
-					$index,
+					0,
 					$this->limit,
 				)
 			)
@@ -266,7 +298,11 @@ class Update_160 {
 		if ( ! empty( $comments ) ) {
 			foreach ( $comments as $comment ) {
 				$comment->type = Task_Comment_Class::g()->get_type();
-				Task_Comment_Class::g()->update( $comment );
+				$comment       = Task_Comment_Class::g()->update( $comment );
+
+				if ( Task_Comment_Class::g()->get_type() !== $comment->type ) {
+					\eoxia\LOG_Util::log( 'Comment #' . $comment->id . ' type is not equal wpeo_time', 'task-manager' );
+				}
 			}
 		}
 
@@ -276,6 +312,10 @@ class Update_160 {
 			$index = $count_comment;
 			$done  = true;
 		}
+
+		$timestamp_fin = microtime(true);
+		$difference_ms = $timestamp_fin - $timestamp_debut;
+		\eoxia\LOG_Util::log( 'Update comment: ' . $difference_ms, 'task-manager' );
 
 		wp_send_json_success( array(
 			'done' => $done,
@@ -309,7 +349,7 @@ class Update_160 {
 		if ( empty( $task ) ) {
 			$position = false;
 		} else {
-			$position = array_search( $point->id, $task->task_info['order_point_id'], true );
+			$position = array_search( $point->id, $task->task_info['order_point_id'] );
 		}
 
 		if ( false === $position ) {
