@@ -32,27 +32,27 @@ function compile_time( $data ) {
 		'id' => $data->post_id,
 	), true );
 
-	$point_updated_elapsed = end( $point->time_info['elapsed'] );
-	$task_updated_elapsed  = end( $task->time_info['elapsed'] );
+	$point_updated_elapsed = $point->time_info['elapsed'];
+	$task_updated_elapsed  = $task->time_info['elapsed'];
 
 	if ( 'trash' === $data->status ) {
-		$point_updated_elapsed -= end( $data->time_info['elapsed'] );
-		$task_updated_elapsed  -= end( $data->time_info['elapsed'] );
+		$point_updated_elapsed -= $data->time_info['elapsed'];
+		$task_updated_elapsed  -= $data->time_info['elapsed'];
 	} else {
 		if ( 0 !== $data->id ) {
-			$point_updated_elapsed -= $data->time_info['elapsed'][ count( $data->time_info['elapsed'] ) - 1 ];
-			$task_updated_elapsed  -= $data->time_info['elapsed'][ count( $data->time_info['elapsed'] ) - 1 ];
+			$point_updated_elapsed -= $data->time_info['elapsed'];
+			$task_updated_elapsed  -= $data->time_info['elapsed'];
 		}
 
-		$point_updated_elapsed += end( $data->time_info['elapsed'] );
-		$task_updated_elapsed  += end( $data->time_info['elapsed'] );
+		$point_updated_elapsed += $data->time_info['elapsed'];
+		$task_updated_elapsed  += $data->time_info['elapsed'];
 	}
 
-	$point->time_info['elapsed'][] = $point_updated_elapsed;
-	$task->time_info['elapsed'][]  = $task_updated_elapsed;
-	$point->content                = addslashes( $point->content );
-	$data->point                   = Point_Class::g()->update( $point );
-	$data->task                    = Task_Class::g()->update( $task );
+	$point->time_info['elapsed'] = $point_updated_elapsed;
+	$task->time_info['elapsed']  = $task_updated_elapsed;
+	$point->content              = addslashes( $point->content );
+	$data->point                 = Point_Class::g()->update( $point );
+	$data->task                  = Task_Class::g()->update( $task );
 
 	return $data;
 }

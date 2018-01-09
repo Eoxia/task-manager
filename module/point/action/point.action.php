@@ -158,7 +158,7 @@ class Point_Action {
 			array_splice( $task->task_info['order_point_id'], $key, 1 );
 		}
 
-		$task->time_info['elapsed'][] = end( $task->time_info['elapsed'] ) - end( $point->time_info['elapsed'] );
+		$task->time_info['elapsed'] = $task->time_info['elapsed'] - $point->time_info['elapsed'];
 
 		if ( $point->completed ) {
 			$task->count_completed_points--;
@@ -171,7 +171,7 @@ class Point_Action {
 		do_action( 'tm_delete_point', $point );
 
 		wp_send_json_success( array(
-			'time'             => \eoxia\Date_Util::g()->convert_to_custom_hours( end( $task->time_info['elapsed'] ) ),
+			'time'             => \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] ),
 			'namespace'        => 'taskManager',
 			'module'           => 'point',
 			'callback_success' => 'deletedPointSuccess',
@@ -390,13 +390,13 @@ class Point_Action {
 
 		if ( false !== $key ) {
 			array_splice( $current_task->task_info['order_point_id'], $key, 1 );
-			$current_task->time_info['elapsed'][] = end( $current_task->time_info['elapsed'] ) - end( $point->time_info['elapsed'] );
+			$current_task->time_info['elapsed'] = $current_task->time_info['elapsed'] - $point->time_info['elapsed'];
 		} else {
 			wp_send_json_error();
 		}
 
 		$to_task->task_info['order_point_id'][] = (int) $point_id;
-		$to_task->time_info['elapsed'][]        = end( $to_task->time_info['elapsed'] ) + end( $point->time_info['elapsed'] );
+		$to_task->time_info['elapsed']          = $to_task->time_info['elapsed'] + $point->time_info['elapsed'];
 
 		if ( $point->completed ) {
 			$point->order = $to_task->count_completed_points;
@@ -437,8 +437,8 @@ class Point_Action {
 			'point'                     => $point,
 			'current_task'              => $current_task,
 			'to_task'                   => $to_task,
-			'current_task_elapsed_time' => \eoxia\Date_Util::g()->convert_to_custom_hours( end( $current_task->time_info['elapsed'] ) ),
-			'to_task_elapsed_time'      => \eoxia\Date_Util::g()->convert_to_custom_hours( end( $to_task->time_info['elapsed'] ) ),
+			'current_task_elapsed_time' => \eoxia\Date_Util::g()->convert_to_custom_hours( $current_task->time_info['elapsed'] ),
+			'to_task_elapsed_time'      => \eoxia\Date_Util::g()->convert_to_custom_hours( $to_task->time_info['elapsed'] ),
 		) );
 	}
 }

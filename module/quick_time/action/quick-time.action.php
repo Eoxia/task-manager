@@ -73,10 +73,10 @@ class Quick_Time_Action {
 						'schema' => $comment_id,
 					), true );
 
-					$comment->time_info['elapsed'][0] = $time;
-					$comment->post_id                 = $post_id;
-					$comment->parent_id               = $parent_id;
-					$comment->content                 = $content;
+					$comment->time_info['elapsed'] = $time;
+					$comment->post_id              = $post_id;
+					$comment->parent_id            = $parent_id;
+					$comment->content              = $content;
 
 					Task_Comment_Class::g()->update( $comment );
 

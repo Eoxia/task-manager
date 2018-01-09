@@ -509,7 +509,7 @@ class Task_Action {
 
 		if ( ! empty( $points ) ) {
 			foreach ( $points as $point ) {
-				$elapsed += end( $point->time_info['elapsed'] );
+				$elapsed += $point->time_info['elapsed'];
 
 				if ( $point->completed ) {
 					$count_completed++;

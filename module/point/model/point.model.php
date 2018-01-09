@@ -42,12 +42,11 @@ class Point_Model extends \eoxia\Comment_Model {
 		);
 
 		$this->model['time_info']['child']['elapsed'] = array(
-			'type'       => 'array',
-			'array_type' => 'integer',
-			'meta_type'  => 'multiple',
-			'since'      => '1.0.0',
-			'version'    => '1.6.0',
-			'bydefault'  => array( 0 ),
+			'type'      => 'integer',
+			'meta_type' => 'multiple',
+			'since'     => '1.0.0',
+			'version'   => '1.6.0',
+			'bydefault' => 0,
 		);
 
 		$this->model['time_info']['child']['completed_point'] = array(

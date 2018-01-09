@@ -85,11 +85,11 @@ function get_full_task( $data ) {
 				'type__not_in' => array( 'history_time' ),
 			) );
 
-			$data->time_info['elapsed'] = array( 0 );
+			$data->time_info['elapsed'] = 0;
 
 			if ( ! empty( $comments ) ) {
 				foreach ( $comments as $comment ) {
-					$data->time_info['elapsed'][0] += end( $comment->time_info['elapsed'] );
+					$data->time_info['elapsed'] += $comment->time_info['elapsed'];
 				}
 			}
 		}

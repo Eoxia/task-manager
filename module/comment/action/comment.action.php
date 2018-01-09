@@ -105,16 +105,11 @@ class Task_Comment_Action {
 			), true );
 		}
 
-		if ( 0 !== $comment->id ) {
-			$comment->time_info['elapsed'][] = $time;
-		} else {
-			$comment->time_info['elapsed'][0] = $time;
-		}
-
-		$comment->post_id   = $post_id;
-		$comment->parent_id = $parent_id;
-		$comment->date      = $date;
-		$comment->content   = $content;
+		$comment->post_id              = $post_id;
+		$comment->parent_id            = $parent_id;
+		$comment->date                 = $date;
+		$comment->content              = $content;
+		$comment->time_info['elapsed'] = $time;
 
 		$comment = Task_Comment_Class::g()->update( $comment );
 
@@ -151,8 +146,8 @@ class Task_Comment_Action {
 
 		wp_send_json_success( array(
 			'time' => array(
-				'point' => end( $comment->point->time_info['elapsed'] ),
-				'task'  => \eoxia\Date_Util::g()->convert_to_custom_hours( end( $task->time_info['elapsed'] ) ),
+				'point' => $comment->point->time_info['elapsed'],
+				'task'  => \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] ),
 			),
 			'view'             => $view,
 			'namespace'        => 'taskManager',
@@ -235,8 +230,8 @@ class Task_Comment_Action {
 
 		wp_send_json_success( array(
 			'time' => array(
-				'point' => end( $comment->point->time_info['elapsed'] ),
-				'task'  => \eoxia\Date_Util::g()->convert_to_custom_hours( end( $task->time_info['elapsed'] ) ),
+				'point' => $comment->point->time_info['elapsed'],
+				'task'  => \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] ),
 			),
 			'namespace'        => 'taskManager',
 			'module'           => 'comment',

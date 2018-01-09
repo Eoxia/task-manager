@@ -34,10 +34,9 @@ class Task_Comment_Model extends \eoxia\Comment_Model {
 			'meta_type' => 'multiple',
 			'child'     => array(
 				'elapsed' => array(
-					'type'       => 'array',
-					'array_type' => 'integer',
-					'meta_type'  => 'multiple',
-					'bydefault'  => array( 15 ),
+					'type'      => 'integer',
+					'meta_type' => 'multiple',
+					'bydefault' => 15,
 				),
 			),
 		);

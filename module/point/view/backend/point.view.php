@@ -62,7 +62,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 					<div class="wpeo-point-time">
 						<span class="dashicons dashicons-clock"></span>
-						<span class="wpeo-time-in-point"><?php echo esc_attr( end( $point->time_info['elapsed'] ) ); ?></span>
+						<span class="wpeo-time-in-point"><?php echo esc_attr( $point->time_info['elapsed'] ); ?></span>
 					</div>
 
 					<div class="toggle wpeo-task-setting"

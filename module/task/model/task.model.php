@@ -83,8 +83,15 @@ class Task_Model extends \eoxia\Post_Model {
 		);
 
 		$this->model['time_info']['child']['elapsed'] = array(
-			'type'        => 'array',
-			'array_type'  => 'integer',
+			'type'        => 'integer',
+			'meta_type'   => 'multiple',
+			'description' => 'Le temps passé sur la tâche en minute',
+			'since'       => '1.0.0',
+			'version'     => '1.6.0',
+		);
+
+		$this->model['time_info']['child']['elapsed'] = array(
+			'type'        => 'integer',
 			'meta_type'   => 'multiple',
 			'description' => 'Le temps passé sur la tâche en minute',
 			'since'       => '1.0.0',

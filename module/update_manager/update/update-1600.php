@@ -24,9 +24,13 @@ class Update_160 {
 	 *
 	 * @var integer
 	 */
-	private $limit = 100;
+	private $limit = 50;
+
 	/**
-	 * Instanciate update for current version
+	 * Le constructeur
+	 *
+	 * @since 1.6.0
+	 * @version 1.6.0
 	 */
 	public function __construct() {
 		add_action( 'wp_ajax_task_manager_update_1600_calcul_number_points', array( $this, 'callback_task_manager_update_1600_calcul_number_points' ) );
