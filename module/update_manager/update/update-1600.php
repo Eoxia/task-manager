@@ -358,7 +358,7 @@ class Update_160 {
 		}
 
 		if ( false === $position ) {
-			\eoxia\LOG_Util::log( 'No order for the point #' . $point->id . ' setted to 0 in task #' . $task->id, 'task-manager' );
+			\eoxia\LOG_Util::log( 'No order for the point #' . $point->id . ' setted to 0 in task #' . $task->id . '(' . json_encode( $task->task_info['order_point_id'] ) . ')', 'task-manager' );
 			$position = 0;
 		}
 
