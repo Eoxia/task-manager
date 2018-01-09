@@ -3973,6 +3973,9 @@
 
 .wpeo-project-wrap .wpeo-header-bar > ul > li.wpeo-general-search {
   float: right;
+  padding: 4px; }
+
+.wpeo-project-wrap .wpeo-header-bar > ul > li.wpeo-general-search .general-search {
   padding: 6px 20px; }
 
 .wpeo-project-wrap .wpeo-header-bar > ul > li.wpeo-general-search label {

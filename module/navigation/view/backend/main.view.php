@@ -37,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 					<i class="dashicons dashicons-search"></i>
 					<input type="text" name="term" value="<?php echo esc_attr( $param['term'] ); ?>" placeholder="<?php esc_attr_e( 'Search...', 'task-manager' ); ?>" />
 				</label>
-				<span class="more-search-options"><?php esc_html_e( 'More options', 'task-manager' ); ?></span>
+				<span class="wpeo-button button-light more-search-options"><?php esc_html_e( 'More options', 'task-manager' ); ?></span>
 			</li>
 
 		</ul>

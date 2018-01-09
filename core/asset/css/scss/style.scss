@@ -160,7 +160,12 @@ $color__green: #47e58e;
 		}
 		> li.wpeo-general-search {
 			float: right;
-			padding: 6px 20px;
+			padding: 4px;
+
+			.general-search {
+				padding: 6px 20px;
+			}
+
 			label {
 				background: #fff;
 				border: 1px solid rgba(0,0,0,0.1);
@@ -183,6 +188,7 @@ $color__green: #47e58e;
 					color: rgba(0,0,0,0.8);
 				}
 			}
+
 		}
 		// > li:nth-of-type(5) {
 		// 	float: right;
