@@ -463,7 +463,12 @@ $color__green: #47e58e;
 						}
 					}
 					.toggle .content {
-						max-width: 50px;
+						max-width: 150px;
+						display: flex;
+						flex-wrap: wrap;
+						li {
+							width: 50px;
+						}
 					}
 				}
 				.wpeo-task-id {

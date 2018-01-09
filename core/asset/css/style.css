@@ -4289,7 +4289,18 @@
   cursor: pointer; }
 
 .wpeo-project-wrap .list-task .wpeo-project-task .wpeo-task-header .wpeo-task-author .toggle .content {
-  max-width: 50px; }
+  max-width: 150px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap; }
+
+.wpeo-project-wrap .list-task .wpeo-project-task .wpeo-task-header .wpeo-task-author .toggle .content li {
+  width: 50px; }
 
 .wpeo-project-wrap .list-task .wpeo-project-task .wpeo-task-header .wpeo-task-id {
   width: 12%;

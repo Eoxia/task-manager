@@ -519,7 +519,7 @@ class Task_Action {
 			}
 		}
 
-		$task->time_info['elapsed'][]   = $elapsed;
+		$task->time_info['elapsed']   = $elapsed;
 		$task->count_completed_points   = $count_completed;
 		$task->count_uncompleted_points = $count_uncompleted;
 

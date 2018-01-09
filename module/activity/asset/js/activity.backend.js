@@ -99,7 +99,7 @@ window.eoxiaJS.taskManager.activity.loadedLastActivity = function( triggeredElem
 	if ( triggeredElement.closest( '.wpeo-project-task' ).length ) {
 		triggeredElement.addClass( 'active' );
 		triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .load-more-history' ).show();
-		triggeredElement.closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .dashicons-editor-ul.active' ).removeClass( 'active' );
+		triggeredElement.closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .list-display.active' ).removeClass( 'active' );
 		triggeredElement.closest( '.wpeo-project-task' ).find( '.points.sortable, .wpeo-task-point-use-toggle' ).hide();
 		triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .offset-event' ).val( response.data.offset );
 		triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .last-date' ).val( response.data.last_date );

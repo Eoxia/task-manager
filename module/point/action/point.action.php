@@ -65,6 +65,12 @@ class Point_Action {
 			wp_send_json_error();
 		}
 
+		$point_args = array(
+			'id'      => $point_id,
+			'post_id' => $parent_id,
+			'content' => $content,
+		);
+
 		if ( 0 === $point_id ) {
 			$task = Task_Class::g()->get( array(
 				'id' => $parent_id,
@@ -73,14 +79,11 @@ class Point_Action {
 			$task->count_uncompleted_points++;
 
 			Task_Class::g()->update( $task );
+
+			$point_args['order'] = ( $task->count_uncompleted_points - 1 ); // - 1 car la valeur est incrémenté juste avant.
 		}
 
-		$point = Point_Class::g()->update( array(
-			'id'      => $point_id,
-			'post_id' => $parent_id,
-			'content' => $content,
-			'order'   => ( $task->count_uncompleted_points - 1 ), // - 1 car la valeur est incrémenté juste avant.
-		) );
+		$point = Point_Class::g()->update( $point_args );
 
 		$point->content = stripslashes( $point->content );
 

@@ -75,9 +75,9 @@ ob_start();
 							<!-- Temps passé -->
 							<?php
 							$com_details = ( ! empty( $activity->COM_DETAILS ) ? json_decode( $activity->COM_DETAILS ) : '' );
-							$total_time += end( $com_details->time_info->elapsed );
+							$total_time += $com_details->time_info->elapsed;
 							?>
-							<span class="event-time"><i class="dashicons dashicons-clock"></i><?php echo ! empty( $com_details->time_info->elapsed ) ? esc_html( end( $com_details->time_info->elapsed ) ) : 0; ?></span>
+							<span class="event-time"><i class="dashicons dashicons-clock"></i><?php echo ! empty( $com_details->time_info->elapsed ) ? esc_html( $com_details->time_info->elapsed ) : 0; ?></span>
 						</div>
 
 						<span class="event-content">

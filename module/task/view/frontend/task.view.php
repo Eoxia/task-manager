@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<li class="wpeo-task-elapsed">
 				<i class="dashicons dashicons-clock"></i>
-				<span class="elapsed"><?php echo esc_html( \eoxia\Date_Util::g()->convert_to_custom_hours( end( $task->time_info['elapsed'] ), false ) ); ?></span>/
+				<span class="elapsed"><?php echo esc_html( \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'], false ) ); ?></span>/
 				<span class="estimated"><?php echo esc_html( \eoxia\Date_Util::g()->convert_to_custom_hours( $task->last_history_time->estimated_time, false ) ); ?></span>
 			</li>
 		</ul>
