@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<li class="wpeo-comment-time">
 			<span class="fa fa-clock-o"></span>
-			<input type="text" name="time" value="<?php echo esc_attr( empty( $comment->id ) && isset( $comment->time_info['calculed_elapsed'] ) ) ? $comment->time_info['calculed_elapsed'] : end( $comment->time_info['elapsed'] ); ?>" />
+			<input type="text" name="time" value="<?php echo esc_attr( empty( $comment->id ) && isset( $comment->time_info['calculed_elapsed'] ) ) ? $comment->time_info['calculed_elapsed'] : $comment->time_info['elapsed']; ?>" />
 		</li>
 
 		<?php if ( ! empty( $comment->id ) ) : ?>
