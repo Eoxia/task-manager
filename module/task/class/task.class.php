@@ -4,8 +4,8 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.0.0
- * @version 1.5.0
- * @copyright 2015-2017 Eoxia
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -253,20 +253,20 @@ class Task_Class extends \eoxia\Post_Class {
 	 * @return void
 	 *
 	 * @since 1.0.0
-	 * @version 1.5.0
+	 * @version 1.6.0
 	 */
 	public function callback_render_metabox( $post ) {
 		$parent_id = $post->ID;
-		$user_id = $post->post_author;
+		$user_id   = $post->post_author;
 
-		$tasks = array();
+		$tasks                = array();
 		$task_ids_for_history = array();
-		$total_time_elapsed = 0;
+		$total_time_elapsed   = 0;
 		$total_time_estimated = 0;
 
 		// Affichage des tâches de l'élément sur lequel on se trouve.
 		$tasks[ $post->ID ]['title'] = '';
-		$tasks[ $post->ID ]['data'] = self::g()->get_tasks( array(
+		$tasks[ $post->ID ]['data']  = self::g()->get_tasks( array(
 			'post_parent' => $post->ID,
 		) );
 
@@ -276,16 +276,16 @@ class Task_Class extends \eoxia\Post_Class {
 					$tasks[ $post->ID ]['total_time_elapsed'] = 0;
 				}
 
-				$tasks[ $post->ID ]['total_time_elapsed'] += end( $task->time_info['elapsed'] );
-				$total_time_elapsed += end( $task->time_info['elapsed'] );
-				$total_time_estimated += $task->last_history_time->estimated_time;
+				$tasks[ $post->ID ]['total_time_elapsed'] += $task->time_info['elapsed'];
+				$total_time_elapsed                       += $task->time_info['elapsed'];
+				$total_time_estimated                     += $task->last_history_time->estimated_time;
 
 				$task_ids_for_history[] = $task->id;
 			}
 		}
 
 		// Récupération des enfants de l'élément sur lequel on se trouve.
-		$args = array(
+		$args     = array(
 			'post_parent' => $post->ID,
 			'post_type'   => \eoxia\Config_Util::$init['task-manager']->associate_post_type,
 			'numberposts' => -1,
@@ -296,7 +296,7 @@ class Task_Class extends \eoxia\Post_Class {
 		if ( ! empty( $children ) ) {
 			foreach ( $children as $child ) {
 				$tasks[ $child->ID ]['title'] = sprintf( __( 'Task for %1$s', 'task-manager' ), $child->post_title );
-				$tasks[ $child->ID ]['data'] = \task_manager\Task_Class::g()->get_tasks( array(
+				$tasks[ $child->ID ]['data']  = self::g()->get_tasks( array(
 					'post_parent' => $child->ID,
 				) );
 
@@ -310,8 +310,8 @@ class Task_Class extends \eoxia\Post_Class {
 							$tasks[ $child->ID ]['total_time_elapsed'] = 0;
 						}
 						$tasks[ $child->ID ]['total_time_elapsed'] += $task->time_info['elapsed'];
-						$total_time_elapsed += $task->time_info['elapsed'];
-						$total_time_estimated += $task->last_history_time->estimated_time;
+						$total_time_elapsed                        += $task->time_info['elapsed'];
+						$total_time_estimated                      += $task->last_history_time->estimated_time;
 
 						$task_ids_for_history[] = $task->id;
 					}
@@ -319,14 +319,14 @@ class Task_Class extends \eoxia\Post_Class {
 			}
 		}
 
-		$total_time_elapsed = \eoxia\Date_Util::g()->convert_to_custom_hours( $total_time_elapsed );
+		$total_time_elapsed   = \eoxia\Date_Util::g()->convert_to_custom_hours( $total_time_elapsed );
 		$total_time_estimated = \eoxia\Date_Util::g()->convert_to_custom_hours( $total_time_estimated );
 
 		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/metabox-posts', array(
-			'tasks'                 => $tasks,
-			'task_ids_for_history'  => implode( ',', $task_ids_for_history ),
-			'total_time_elapsed'    => $total_time_elapsed,
-			'total_time_estimated'  => $total_time_estimated,
+			'tasks'                => $tasks,
+			'task_ids_for_history' => implode( ',', $task_ids_for_history ),
+			'total_time_elapsed'   => $total_time_elapsed,
+			'total_time_estimated' => $total_time_estimated,
 		) );
 	}
 
