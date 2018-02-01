@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<i class="fa fa-ellipsis-v"></i>
 						<i class="fa fa-ellipsis-v"></i>
 					</span>
-					<input type="checkbox" <?php echo ! empty( $point->point_info['completed'] ) ? 'checked': ''; ?> class="completed-point" data-nonce="<?php echo esc_attr( wp_create_nonce( 'complete_point' ) ); ?>" />
+					<input type="checkbox" <?php echo ! empty( $point->completed ) ? 'checked': ''; ?> class="completed-point" data-nonce="<?php echo esc_attr( wp_create_nonce( 'complete_point' ) ); ?>" />
 				<?php endif; ?>
 			</li>
 
