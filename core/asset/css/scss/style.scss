@@ -751,23 +751,28 @@ Popup
 		.point-container {
 			display: flex;
 			flex-direction: row;
-			padding: 8px 14px 0 14px;
-			.point-valid, .point-action, .point-toggle, .point-content {
+			padding: 8px 6px 0 6px;
+			.point-valid, .point-action {
 				display: flex;
 				flex-direction: row;
 			}
 			.point-valid {
-				width: 7%;
+				min-width: 36px;
 				.completed-point, .wpeo-sort-point {
 					margin: auto 0;
 				}
 				.wpeo-sort-point {
-					color: rgba(0,0,0,0.1);
+					color: rgba(0,0,0,0.4);
 					transition: all 0.2s ease-out;
 					opacity: 0;
+					display: flex;
+
+					.fa {
+						padding: 0 1px;
+					}
 					&:hover {
 						cursor: pointer;
-						color: rgba(0,0,0,0.4);
+						color: rgba(0,0,0,0.8);
 					}
 				}
 				.completed-point {
@@ -777,7 +782,7 @@ Popup
 				}
 			}
 			.point-action {
-				width: 15%;
+				min-width: 70px;
 				margin-right: auto;
 				display: flex;
 				flex-direction: row;
@@ -825,36 +830,35 @@ Popup
 				}
 			}
 			.point-toggle {
-				width: 8%;
 				.action-attribute, .wpeo-block-id {
 					margin: auto 0;
 				}
-				.action-attribute {
-					font-size: 16px;
-					color: rgba(0,0,0,0.6);
-					transition: all 0.2s ease-out;
-					line-height: 1.2;
-					&:hover {
-						cursor: pointer;
-						color: rgba(0,0,0,0.9);
-						animation-duration: 0.6s;
-						&.dashicons-arrow-right-alt2 {
-							animation-name: bounceLeft;
-						}
-						&.dashicons-arrow-down-alt2 {
-							animation-name: bounceTop;
-						}
-					}
-				}
+				// .action-attribute {
+				// 	font-size: 16px;
+				// 	color: rgba(0,0,0,0.6);
+				// 	transition: all 0.2s ease-out;
+				// 	line-height: 1.2;
+				// 	&:hover {
+				// 		cursor: pointer;
+				// 		color: rgba(0,0,0,0.9);
+				// 		animation-duration: 0.6s;
+				// 		&.dashicons-arrow-right-alt2 {
+				// 			animation-name: bounceLeft;
+				// 		}
+				// 		&.dashicons-arrow-down-alt2 {
+				// 			animation-name: bounceTop;
+				// 		}
+				// 	}
+				// }
 				.wpeo-block-id {
 					font-weight: 700;
 				}
 			}
 			.point-content {
-				width: 70%;
-				min-width: 70%;
+				width: 100%;
+				padding: 0 0.4em;
 				.wpeo-point-new-contenteditable {
-					margin: auto 6px;
+					margin: auto 0;
 				}
 				.wpeo-point-new-contenteditable {
 					min-height: 24px;
@@ -908,14 +912,16 @@ Popup
 			.wpeo-comment-container {
 				display: flex;
 				flex-direction: row;
-				padding: 8px 14px 0;
-				margin-left: 15%;
-				width: 85%;
+				padding: 8px 6px 0;
+				padding-left: 40px;
+				width: 100%;
 				.user {
 					border-radius: 50%;
 				}
 			}
 			.wpeo-comment-date {
+				font-size: 12px;
+				font-weight: 700;
 				span {
 					margin: auto;
 				}
@@ -952,14 +958,12 @@ Popup
 					display: flex;
 				}
 				.wpeo-comment-date {
-					width: 100%;
-					max-width: 11%;
+					max-width: 30px;
 				}
 				.wpeo-comment-content {
 					position: relative;
 					margin: 0 16px;
 					width: 100%;
-					max-width: 73%;
 					margin: auto 6px;
 					border-bottom: 1px solid rgba(0,0,0,.1);
 					transition: all .2s ease-out;
@@ -977,7 +981,7 @@ Popup
 				}
 				.wpeo-comment-time {
 					width: 100%;
-					max-width: 12%;
+					max-width: 40px;
 					input {
 						padding: 2px;
 					}
@@ -985,7 +989,7 @@ Popup
 				.wpeo-point-new-btn {
 					text-align: right;
 					width: 100%;
-					max-width: 5%;
+					max-width: 26px;
 					transition: all 0.2s ease-out;
 					margin: auto 0 auto auto;
 					&:hover {
@@ -1018,7 +1022,7 @@ Popup
 				flex-wrap: wrap;
 				> .avatar {
 					width: 100%;
-					max-width: 5%;
+					max-width: 20px;
 					margin-right: 6px;
 					.user {
 						span {
@@ -1032,8 +1036,7 @@ Popup
 				.wpeo-comment-date {
 					// font-size: 12px;
 					// color: rgba(0,0,0,0.4);
-					width: 100%;
-					max-width: 77%;
+					// width: 100%;
 				}
 				.wpeo-comment-content {
 					width: 100%;
@@ -1046,11 +1049,12 @@ Popup
 						padding: 4px 4px 0 0;
 					}
 					display: flex;
+					margin-left: auto;
 					width: 100%;
-					max-width: 10%;
+					max-width: 40px;
 				}
 				.wpeo-comment-action {
-					margin-left: auto;
+					max-width: 26px;
 					.wpeo-comment-setting {
 						padding: 0 10px;
 						i {

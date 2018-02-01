@@ -24,19 +24,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<ul class="point-container">
 			<li class="point-valid">
 				<?php if ( ! empty( $point->id ) ) : ?>
-					<span class="wpeo-sort-point dashicons dashicons-screenoptions" title="<?php esc_attr_e( 'Drag and drop', 'task-manager' ); ?>"></span>
-					<input type="checkbox" <?php echo ! empty( $point->completed ) ? 'checked' : ''; ?> class="completed-point" data-nonce="<?php echo esc_attr( wp_create_nonce( 'complete_point' ) ); ?>" />
-				<?php endif; ?>
-			</li>
-
-			<li class="point-toggle">
-				<?php if ( ! empty( $point->id ) ) : ?>
-					<span class="wpeo-block-id">#<?php echo esc_attr( $point->id ); ?></span>
+					<span class="wpeo-sort-point" title="<?php esc_attr_e( 'Drag and drop', 'task-manager' ); ?>">
+						<i class="fa fa-ellipsis-v"></i>
+						<i class="fa fa-ellipsis-v"></i>
+					</span>
+					<input type="checkbox" <?php echo ! empty( $point->point_info['completed'] ) ? 'checked': ''; ?> class="completed-point" data-nonce="<?php echo esc_attr( wp_create_nonce( 'complete_point' ) ); ?>" />
 				<?php endif; ?>
 			</li>
 
 			<li class="point-content content">
 				<input type="hidden" name="content" value="<?php echo esc_attr( trim( $point->content ) ); ?>" />
+				<div class="point-toggle">
+					<?php if ( ! empty( $point->id ) ) : ?>
+						<span class="wpeo-block-id">#<?php echo esc_attr( $point->id ); ?></span>
+					<?php endif; ?>
+				</div>
 				<div class="wpeo-point-new-contenteditable" contenteditable="true"><?php echo trim( $point->content ); ?></div>
 				<?php if ( empty( $point->id ) ) : ?>
 					<span class="wpeo-point-new-placeholder"><?php esc_html_e( 'Write your point here...', 'task-manager' ); ?></span>
