@@ -46,6 +46,8 @@ class Task_Action {
 
 		add_action( 'wp_ajax_export_task', array( $this, 'callback_export_task' ) );
 
+		add_action( 'wp_ajax_recompile_task', array( $this, 'callback_recompile_task' ) );
+
 		add_action( 'add_meta_boxes', array( $this, 'callback_add_meta_boxes' ), 10, 2 );
 	}
 
@@ -475,6 +477,63 @@ class Task_Action {
 			'callback_success' => 'exportedTask',
 			'url' => $file_info['url'],
 			'filename' => $file_info['name'],
+		) );
+	}
+
+	/**
+	 * Recompiles toutes les données de la tâche.
+	 *
+	 * @since 1.6.0
+	 * @version 1.6.0
+	 *
+	 * @return void
+	 */
+	public function callback_recompile_task() {
+		check_ajax_referer( 'recompile_task' );
+
+		$id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+
+		$task = Task_Class::g()->get( array(
+			'id' => $id,
+		), true );
+
+		// Recompiles le nombre de point complété et incomplété.
+		// Recompiles le temps.
+		$elapsed           = 0;
+		$count_completed   = 0;
+		$count_uncompleted = 0;
+		$points            = Point_Class::g()->get( array(
+			'post_id' => $task->id,
+			'type'    => Point_Class::g()->get_type(),
+		) );
+
+		if ( ! empty( $points ) ) {
+			foreach ( $points as $point ) {
+				$elapsed += $point->time_info['elapsed'];
+
+				if ( $point->completed ) {
+					$count_completed++;
+				} else {
+					$count_uncompleted++;
+				}
+			}
+		}
+
+		$task->time_info['elapsed']     = $elapsed;
+		$task->count_completed_points   = $count_completed;
+		$task->count_uncompleted_points = $count_uncompleted;
+
+		Task_Class::g()->update( $task );
+
+		ob_start();
+		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task', array(
+			'task' => $task,
+		) );
+		wp_send_json_success( array(
+			'namespace'        => 'taskManager',
+			'module'           => 'task',
+			'callback_success' => 'recompiledTask',
+			'view'             => ob_get_clean(),
 		) );
 	}
 

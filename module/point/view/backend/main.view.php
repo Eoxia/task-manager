@@ -4,8 +4,8 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.0.0
- * @version 1.5.0
- * @copyright 2015-2017 Eoxia
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -17,22 +17,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="points sortable">
 	<?php
-	if ( ! empty( $points_uncompleted ) ) :
-		foreach ( $points_uncompleted as $point ) :
-			\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
-				'point' => $point,
-				'comment_id' => $comment_id,
-				'point_id' => $point_id,
-				'parent_id' => $point->post_id,
-			) );
-		endforeach;
-	endif;
+	\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/points', array(
+		'comment_id' => $comment_id,
+		'point_id'   => $point_id,
+		'parent_id'  => $task_id,
+		'points'     => $points_uncompleted,
+	) );
 
 	\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
-		'point' => $point_schema,
+		'point'      => $point_schema,
 		'comment_id' => $comment_id,
-		'point_id' => $point_id,
-		'parent_id' => $task_id,
+		'point_id'   => $point_id,
+		'parent_id'  => $task_id,
 	) );
 	?>
 </div>
@@ -49,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<span class="dashicons dashicons-plus wpeo-point-toggle-arrow"></span>
 		<span class="wpeo-point-toggle-a">
 			<?php esc_html_e( 'Completed points', 'task-manager' ); ?>
-			(<span class="wpeo-task-count-completed"><span class="point-completed"><?php echo count( $points_completed ); ?></span>/<span class="total-point"><?php echo count( $points_uncompleted ) + count( $points_completed ); ?></span></span>)
+			(<span class="wpeo-task-count-completed"><span class="point-completed"><?php echo esc_html( $task->count_completed_points ); ?></span>/<span class="total-point"><?php echo esc_html( $task->count_all_points ); ?></span></span>)
 		</span>
 	</p>
 

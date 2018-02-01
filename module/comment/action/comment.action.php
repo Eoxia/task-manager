@@ -3,7 +3,7 @@
  * Gestion des actions relatives aux commentaires
  *
  * @since 1.3.6
- * @version 1.5.0
+ * @version 1.6.0
  * @package Task_Manager
  */
 
@@ -66,21 +66,22 @@ class Task_Comment_Action {
 	/**
 	 * Ajoutes un commentaires et l'attache à un point
 	 *
-	 * @return void
-	 *
 	 * @since 1.3.6
-	 * @version 1.4.0-ford
+	 * @version 1.6.0
+	 *
+	 * @return void
 	 */
 	public function callback_edit_comment() {
 		check_ajax_referer( 'edit_comment' );
 
-		$comment_id = ! empty( $_POST['comment_id'] ) ? (int) $_POST['comment_id'] : 0;
-		$post_id = ! empty( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;
-		$parent_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
-		$date = ! empty( $_POST['date'] ) ? sanitize_text_field( $_POST['date'] ) : '';
-		$content = ! empty( $_POST['content'] ) ? trim( $_POST['content'] ) : '';
-		$time = ! empty( $_POST['time'] ) ? (int) $_POST['time'] : 0;
+		$comment_id    = ! empty( $_POST['comment_id'] ) ? (int) $_POST['comment_id'] : 0;
+		$post_id       = ! empty( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;
+		$parent_id     = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
+		$date          = ! empty( $_POST['date'] ) ? sanitize_text_field( $_POST['date'] ) : '';
+		$content       = ! empty( $_POST['content'] ) ? trim( $_POST['content'] ) : '';
+		$time          = ! empty( $_POST['time'] ) ? (int) $_POST['time'] : 0;
 		$value_changed = ! empty( $_POST['value_changed'] ) ? (bool) $_POST['value_changed'] : 0;
+		$new           = 0 === $comment_id ? true : false;
 
 		$content = str_replace( '<div>', '<br>', trim( $content ) );
 		$content = wp_kses( $content, array(
@@ -94,29 +95,45 @@ class Task_Comment_Action {
 			$date = current_time( 'mysql' );
 		}
 
-		$comment = Task_Comment_Class::g()->update( array(
-			'id' => $comment_id,
-			'post_id' => $post_id,
-			'parent_id' => $parent_id,
-			'date' => $date,
-			'content' => $content,
-			'time_info' => array(
-				'elapsed' => $time,
-			),
-		) );
+		if ( ! empty( $comment_id ) ) {
+			$comment = Task_Comment_Class::g()->get( array(
+				'id' => $comment_id,
+			), true );
+		} else {
+			$comment = Task_Comment_Class::g()->get( array(
+				'schema' => $comment_id,
+			), true );
+		}
 
-		$comments = Task_Comment_Class::g()->get_comments( $parent_id );
+		$comment->post_id              = $post_id;
+		$comment->parent_id            = $parent_id;
+		$comment->date                 = $date;
+		$comment->content              = $content;
+		$comment->time_info['elapsed'] = $time;
 
+		$comment = Task_Comment_Class::g()->update( $comment );
+
+		if ( $new ) {
+			$point = Point_Class::g()->get( array(
+				'id' => $parent_id,
+			), true );
+
+			$point->count_comments++;
+
+			Point_Class::g()->update( $point );
+		}
+
+		$comments       = Task_Comment_Class::g()->get_comments( $parent_id );
 		$comment_schema = Task_Comment_Class::g()->get( array(
 			'schema' => true,
 		), true );
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/main', array(
-			'task_id' => $post_id,
-			'point_id' => $parent_id,
-			'comments' => $comments,
-			'comment_schema' => $comment_schema,
+			'task_id'             => $post_id,
+			'point_id'            => $parent_id,
+			'comments'            => $comments,
+			'comment_schema'      => $comment_schema,
 			'comment_selected_id' => 0,
 		) );
 		$view = ob_get_clean();
@@ -130,13 +147,13 @@ class Task_Comment_Action {
 		wp_send_json_success( array(
 			'time' => array(
 				'point' => $comment->point->time_info['elapsed'],
-				'task' => \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] ),
+				'task'  => \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] ),
 			),
-			'view' => $view,
-			'namespace' => 'taskManager',
-			'module' => 'comment',
+			'view'             => $view,
+			'namespace'        => 'taskManager',
+			'module'           => 'comment',
 			'callback_success' => 'addedCommentSuccess',
-			'comment' => $comment,
+			'comment'          => $comment,
 		) );
 	}
 
@@ -145,8 +162,8 @@ class Task_Comment_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.3.6.0
-	 * @version 1.3.6.0
+	 * @since 1.3.6
+	 * @version 1.3.6
 	 */
 	public function callback_load_edit_view_comment() {
 		check_ajax_referer( 'load_edit_view_comment' );
@@ -182,8 +199,8 @@ class Task_Comment_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.6.0
 	 */
 	public function callback_delete_task_comment() {
 		check_ajax_referer( 'delete_task_comment' );
@@ -196,12 +213,16 @@ class Task_Comment_Action {
 
 		$comment = Task_Comment_Class::g()->get( array(
 			'comment__in' => array( $comment_id ),
-			'status' => '-34070',
+			'status'      => '-34070',
 		), true );
 
 		$comment->status = 'trash';
+		$comment         = Task_Comment_Class::g()->update( $comment );
 
-		$comment = Task_Comment_Class::g()->update( $comment );
+
+		$comment->point->count_comments--;
+
+		Point_Class::g()->update( $comment->point );
 
 		$task = Task_Class::g()->get( array(
 			'id' => $comment->post_id,
@@ -210,10 +231,10 @@ class Task_Comment_Action {
 		wp_send_json_success( array(
 			'time' => array(
 				'point' => $comment->point->time_info['elapsed'],
-				'task' => $task->time_info['time_display'] . ' (' . $task->time_info['elapsed'] . 'min)',
+				'task'  => \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] ),
 			),
-			'namespace' => 'taskManager',
-			'module' => 'comment',
+			'namespace'        => 'taskManager',
+			'module'           => 'comment',
 			'callback_success' => 'deletedCommentSuccess',
 		) );
 	}
@@ -287,12 +308,8 @@ class Task_Comment_Action {
 			),
 		) );
 
-		$comment->author = get_userdata( $comment->author_id );
-
-		// Ajoutes une demande dans la donnée compilé.
-		if ( in_array( 'customer', $comment->author->roles, true ) ) {
-			do_action( 'tm_customer_add_entry_customer_ask', $comment->id );
-		}
+		// Possibilité de lancer une action après ajout d'un commentaire.
+		do_action( 'tm_action_after_comment_update', $comment->id );
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'comment', 'frontend/comment', array(

@@ -3315,12 +3315,12 @@
        -o-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%); }
 
-.wpeo-project-wrap .popup.no-close .button {
+.wpeo-project-wrap .popup.no-close:not(.popup-update-manager) .button {
   background: #d6d6d6;
   color: rgba(0, 0, 0, 0.4);
   pointer-events: none; }
 
-.wpeo-project-wrap .popup.no-close .button:hover {
+.wpeo-project-wrap .popup.no-close:not(.popup-update-manager) .button:hover {
   background: #d6d6d6;
   color: rgba(0, 0, 0, 0.4);
   cursor: not-allowed; }
@@ -3446,6 +3446,41 @@
 
 .wpeo-project-wrap .toggle.option .content:before {
   border-color: transparent transparent #fff transparent; }
+
+/**
+ * Loader
+ * .loading -> Ajouter cette classe sur un bloc pendant un chargement
+ */
+.wpeo-project-wrap .loading, .wpeo-project-wrap.loading {
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  pointer-events: none;
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  position: relative; }
+
+.wpeo-project-wrap .loading:before, .wpeo-project-wrap.loading:before {
+  display: inline-block;
+  content: '';
+  border: 3px solid #a7a7a7;
+  border-top: 3px solid #3495f0;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  z-index: 99;
+  left: 50%;
+  top: 50%;
+  -webkit-animation: spin 1s ease-out infinite;
+       -o-animation: spin 1s ease-out infinite;
+          animation: spin 1s ease-out infinite; }
+
+.wpeo-project-wrap .load-more.loading:before {
+  position: static;
+  margin-top: 8px;
+  float: left; }
 
 /* ------------------------------
 	FUNCTIONS
@@ -3841,7 +3876,7 @@
   top: 0px; }
 
 .wpeo-project-wrap .wpeo-project-task-container input[type="text"], .wpeo-project-wrap .wpeo-project-task-container textarea {
-  background-color: transparent !important; }
+  background-color: transparent; }
 
 .xdsoft_datetimepicker {
   z-index: 100000 !important; }
@@ -3938,6 +3973,9 @@
 
 .wpeo-project-wrap .wpeo-header-bar > ul > li.wpeo-general-search {
   float: right;
+  padding: 4px; }
+
+.wpeo-project-wrap .wpeo-header-bar > ul > li.wpeo-general-search .general-search {
   padding: 6px 20px; }
 
 .wpeo-project-wrap .wpeo-header-bar > ul > li.wpeo-general-search label {
@@ -4251,7 +4289,18 @@
   cursor: pointer; }
 
 .wpeo-project-wrap .list-task .wpeo-project-task .wpeo-task-header .wpeo-task-author .toggle .content {
-  max-width: 50px; }
+  max-width: 150px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap; }
+
+.wpeo-project-wrap .list-task .wpeo-project-task .wpeo-task-header .wpeo-task-author .toggle .content li {
+  width: 50px; }
 
 .wpeo-project-wrap .list-task .wpeo-project-task .wpeo-task-header .wpeo-task-id {
   width: 12%;
@@ -5117,7 +5166,7 @@ Popup
   background: rgba(0, 0, 0, 0.05); }
 
 .wpeo-project-wrap .activities .activity {
-  padding: 0.6em 0;
+  padding: 0.6em 0 1.6em 0;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -5179,19 +5228,51 @@ Popup
   display: -ms-flexbox;
   display: flex; }
 
-.wpeo-project-wrap .activities .activity .content .event-header .event-title {
-  width: auto; }
+.wpeo-project-wrap .activities .activity .content .event-header .dashicons {
+  font-size: 16px;
+  line-height: 1;
+  width: 14px;
+  height: 14px;
+  vertical-align: top !important; }
+
+.wpeo-project-wrap .activities .activity .content .event-header [class*="event"] {
+  width: 25%; }
+
+.wpeo-project-wrap .activities .activity .content .event-header [class*="event"] i {
+  margin-right: 0.4em;
+  color: rgba(0, 0, 0, 0.3); }
 
 .wpeo-project-wrap .activities .activity .content .event-header .event-time {
-  margin-left: auto; }
+  margin-left: auto;
+  text-align: right; }
 
-.wpeo-project-wrap .activities .activity .content .event-title {
+.wpeo-project-wrap .activities .activity .content .event-header .event-time i {
+  color: rgba(0, 0, 0, 0.7); }
+
+.wpeo-project-wrap .activities .activity .content .event-title, .wpeo-project-wrap .activities .activity .content .event-client, .wpeo-project-wrap .activities .activity .content .event-task, .wpeo-project-wrap .activities .activity .content .event-point {
   font-weight: 700;
   display: block;
-  margin-bottom: 0.4em; }
+  margin-bottom: 0.4em;
+  padding-right: 0.2em;
+  color: rgba(0, 0, 0, 0.8); }
+
+.wpeo-project-wrap .activities .activity .content .event-title a, .wpeo-project-wrap .activities .activity .content .event-client a, .wpeo-project-wrap .activities .activity .content .event-task a, .wpeo-project-wrap .activities .activity .content .event-point a {
+  color: rgba(0, 0, 0, 0.5);
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  text-decoration: none; }
+
+.wpeo-project-wrap .activities .activity .content .event-title a:hover, .wpeo-project-wrap .activities .activity .content .event-client a:hover, .wpeo-project-wrap .activities .activity .content .event-task a:hover, .wpeo-project-wrap .activities .activity .content .event-point a:hover {
+  color: rgba(0, 0, 0, 0.8); }
 
 .wpeo-project-wrap .activities .activity .content .event-content {
-  font-family: 'kalamregular'; }
+  font-family: 'kalamregular';
+  color: rgba(0, 0, 0, 0.9); }
+
+.wpeo-project-wrap .activities .activity .content .event-content a {
+  color: rgba(0, 0, 0, 0.9);
+  text-decoration: none; }
 
 .wpeo-project-wrap .activities .activity.created-point .information .type:before {
   content: ""; }
@@ -6064,14 +6145,16 @@ Popup
 -----------------------------------*/
 .history-time-container .history-time-new {
   padding: 12px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.1); }
 
-.history-time-container .history-time-new input[type="text"] {
-  border: 0;
-  -webkit-box-shadow: none;
-          box-shadow: none;
-  background: rgba(0, 0, 0, 0.1);
-  padding: 6px; }
+.history-time-container .history-time-new .wpeo-button {
+  float: right; }
+
+.history-time-container .history-time-new:after {
+  display: block;
+  content: '';
+  clear: both; }
 
 .history-time-container .history-time-new .add-history-time {
   margin-left: 14px;
@@ -6524,7 +6607,177 @@ Popup
 /* ----------------------------------
 		Temporaire pour le blink
 -----------------------------------*/
-.wpeo-project-wrap .blink {
+#tm-indicator-activity .inside {
+  margin: 0;
+  padding: 0; }
+
+#tm-indicator-activity .total-time {
+  position: absolute;
+  top: -28px;
+  right: 40px; }
+
+#tm-indicator-activity .filter-activity {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 0.6em; }
+
+#tm-indicator-activity label {
+  color: rgba(0, 0, 0, 0.5); }
+
+#tm-indicator-activity label i {
+  margin-right: 0.4em; }
+
+/* ----------------------------------
+		Metabox "quick time".
+-----------------------------------*/
+#tm-indicator-quick-task .setting-quick-time-button {
+  position: absolute;
+  right: 30px;
+  top: 2px;
+  padding: 5px;
+  line-height: 1;
+  -webkit-border-radius: 6px;
+          border-radius: 6px; }
+
+#tm-indicator-quick-task .inside {
+  padding: 0;
+  margin: 0;
+  position: static; }
+
+#tm-indicator-quick-task .list {
+  border-collapse: collapse; }
+
+#tm-indicator-quick-task .list > thead {
+  background: #fff;
+  color: rgba(0, 0, 0, 0.8);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
+
+#tm-indicator-quick-task .list td, #tm-indicator-quick-task .list th {
+  padding: 0.4em 1em;
+  vertical-align: middle; }
+
+#tm-indicator-quick-task .list .item:nth-child(odd) {
+  background: rgba(0, 0, 0, 0.1); }
+
+#tm-indicator-quick-task .list .item:nth-child(even) {
+  background: #fff; }
+
+#tm-indicator-quick-task .list .task, #tm-indicator-quick-task .list .point {
+  width: 15%;
+  max-width: 15%; }
+
+#tm-indicator-quick-task .list .min {
+  width: 10%;
+  max-width: 10%; }
+
+#tm-indicator-quick-task .list .min > div {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex; }
+
+#tm-indicator-quick-task .list .min .fa {
+  margin: auto 0;
+  padding-right: 0.4em; }
+
+#tm-indicator-quick-task .list .action {
+  width: 5%;
+  max-width: 5%;
+  text-align: right; }
+
+#tm-indicator-quick-task .list .content {
+  width: 55%;
+  max-width: 55%; }
+
+#tm-indicator-quick-task .list input[type="text"], #tm-indicator-quick-task .list textarea {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 0.4em; }
+
+#tm-indicator-quick-task .list input[type="text"]:focus, #tm-indicator-quick-task .list textarea:focus {
+  border: 1px solid rgba(0, 0, 0, 0.4); }
+
+#tm-indicator-quick-task .wpeo-button {
+  margin: 0 1em 1em 0; }
+
+/* ----------------------------------
+		Modal "setting-quick-time"
+-----------------------------------*/
+.setting-quick-time .list ul, .setting-quick-time .list li {
+  margin: 0; }
+
+.setting-quick-time .list ul {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex; }
+
+.setting-quick-time .list ul > li {
+  padding: 0.4em; }
+
+.setting-quick-time .list .item.form {
+  margin-bottom: 1em; }
+
+.setting-quick-time .list .item:not(.form) .task {
+  font-weight: 700; }
+
+.setting-quick-time .list .task, .setting-quick-time .list .point {
+  width: 20%;
+  max-width: 20%; }
+
+.setting-quick-time .list .actions {
+  width: 5%;
+  max-width: 5%;
+  text-align: right; }
+
+.setting-quick-time .list .content {
+  width: 60%;
+  max-width: 60%; }
+
+.setting-quick-time .list input[type="text"], .setting-quick-time .list select, .setting-quick-time .list textarea {
+  width: 100%;
+  padding: 0.6em;
+  margin: auto 0;
+  height: 38px; }
+
+.setting-quick-time .list .action-delete {
+  background: #adadad;
+  border-color: #adadad;
+  color: #fff;
+  font-size: 14px; }
+
+.setting-quick-time .list .button-square-20 {
+  width: 20px;
+  height: 20px;
+  line-height: 20px; }
+
+#tm-indicator-quick-task .content .wpeo-button, .popup-quick-time .content .wpeo-button {
+  float: right; }
+
+#tm-indicator-quick-task .content:after, .popup-quick-time .content:after {
+  display: block;
+  content: '';
+  clear: both; }
+
+/* ----------------------------------
+		Module WPEO Form fix
+-----------------------------------*/
+.wpeo-form input[type="text"] {
+  background: #ececec !important;
+  border: 0 !important; }
+
+.wpeo-form input[type="radio"]:before {
+  display: none;
+  content: ''; }
+
+.wpeo-form input[type="radio"] ~ label {
+  margin-bottom: 0; }
+
+/* ----------------------------------
+		Temporaire pour le blink
+-----------------------------------*/
+body .wpeo-project-wrap .blink {
   display: block;
   width: 100%;
   background-color: #55b6ed;

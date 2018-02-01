@@ -1,8 +1,8 @@
 /**
  * Initialise l'objet "tag" ainsi que la méthode "init" obligatoire pour la bibliothèque EoxiaJS.
  *
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.6.0
  */
 window.eoxiaJS.taskManager.tag = {};
 
@@ -31,8 +31,8 @@ window.eoxiaJS.taskManager.tag.before_load_tags = function( element ) {
  * @param  {Object}         response          Les données renvoyées par la requête Ajax.
  * @return {void}
  *
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.0.0
  */
 window.eoxiaJS.taskManager.tag.archivedTaskSuccess = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).remove();
@@ -51,8 +51,8 @@ window.eoxiaJS.taskManager.tag.archivedTaskSuccess = function( triggeredElement,
  * @param  {Object}         response          Les données renvoyées par la requête Ajax.
  * @return {void}
  *
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.0.0
  */
 window.eoxiaJS.taskManager.tag.unarchivedTaskSuccess = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).remove();
@@ -71,8 +71,8 @@ window.eoxiaJS.taskManager.tag.unarchivedTaskSuccess = function( triggeredElemen
  * @param  {Object}         response          Les données renvoyées par la requête Ajax.
  * @return {void}
  *
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.0.0
  */
 window.eoxiaJS.taskManager.tag.loadedTagSuccess = function( element, response ) {
 	element.closest( '.wpeo-tag-wrap' ).replaceWith( response.data.view );
@@ -87,8 +87,8 @@ window.eoxiaJS.taskManager.tag.loadedTagSuccess = function( element, response ) 
  * @param  {Object}         response          Les données renvoyées par la requête Ajax.
  * @return {void}
  *
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.0.0
  */
 window.eoxiaJS.taskManager.tag.closedTagEditMode = function( element, response ) {
 	element.closest( '.wpeo-tag-wrap' ).replaceWith( response.data.view );
@@ -103,8 +103,8 @@ window.eoxiaJS.taskManager.tag.closedTagEditMode = function( element, response )
  * @param  {Object}         response          Les données renvoyées par la requête Ajax.
  * @return {void}
  *
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.0.0
  */
 window.eoxiaJS.taskManager.tag.loadedArchivedTask = function( triggeredElement, response ) {
 	jQuery( '.wpeo-project-wrap .load-more' ).remove();
@@ -130,7 +130,7 @@ window.eoxiaJS.taskManager.tag.loadedArchivedTask = function( triggeredElement, 
  * @param  {HTMLUListElement} element L'élément déclenchant la méthode au clique.
  * @return {void}
  *
- * @since 1.0.0.0
+ * @since 1.0.0
  * @version 1.3.6.0
  */
 window.eoxiaJS.taskManager.tag.beforeAffectTag = function( element ) {
@@ -145,7 +145,7 @@ window.eoxiaJS.taskManager.tag.beforeAffectTag = function( element ) {
  * @param  {HTMLUListElement} element L'élément déclenchant la méthode au clique.
  * @return {void}
  *
- * @since 1.0.0.0
+ * @since 1.0.0
  * @version 1.3.6.0
  */
 window.eoxiaJS.taskManager.tag.beforeUnaffectTag = function( element ) {
@@ -161,7 +161,7 @@ window.eoxiaJS.taskManager.tag.beforeUnaffectTag = function( element ) {
  * @param  {Object}         response          Les données renvoyées par la requête Ajax.
  * @return {void}
  *
- * @since 1.0.0.0
+ * @since 1.0.0
  * @version 1.3.6.0
  */
 window.eoxiaJS.taskManager.tag.createdTagSuccess = function( triggeredElement, response ) {
@@ -172,31 +172,50 @@ window.eoxiaJS.taskManager.tag.createdTagSuccess = function( triggeredElement, r
 /**
  * Le callback en cas de réussite à la requête Ajax "tag_affectation".
  *
- * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {HTMLDivElement} element  L'élement HTML déclenchant la requête Ajax.
  * @param  {Object}         response          Les données renvoyées par la requête Ajax.
  * @return {void}
  *
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.6.0
  */
 window.eoxiaJS.taskManager.tag.affectedTagSuccess = function( element, response ) {
-	element.attr( 'data-action', 'tag_affectation' );
-	element.attr( 'data-before-method', 'beforeAffectTag' );
+	element.attr( 'data-action', 'tag_unaffectation' );
+	element.attr( 'data-before-method', 'beforeUnaffectTag' );
 	element.attr( 'data-nonce', response.data.nonce );
+
+	if ( response.data.go_to_archive ) {
+		element.closest( '.wpeo-project-task' ).remove();
+
+		if ( jQuery().masonry ) {
+			jQuery( '.list-task' ).masonry( 'remove', element.closest( '.wpeo-project-task' ) );
+		}
+
+		window.eoxiaJS.refresh();
+	}
 };
 
 /**
  * Le callback en cas de réussite à la requête Ajax "tag_unaffectation".
  *
- * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {HTMLDivElement} element  L'élement HTML déclenchant la requête Ajax.
  * @param  {Object}         response          Les données renvoyées par la requête Ajax.
  * @return {void}
  *
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.6.0
  */
 window.eoxiaJS.taskManager.tag.unaffectedTagSuccess = function( element, response ) {
-	element.attr( 'data-action', 'tag_unaffectation' );
-	element.attr( 'data-before-method', 'beforeUnaffectTag' );
+	element.attr( 'data-action', 'tag_affectation' );
+	element.attr( 'data-before-method', 'beforeAffectTag' );
 	element.attr( 'data-nonce', response.data.nonce );
+
+	if ( response.data.go_to_all_task ) {
+		element.closest( '.wpeo-project-task' ).remove();
+
+		if ( jQuery().masonry ) {
+			jQuery( '.list-task' ).masonry( 'remove', element.closest( '.wpeo-project-task' ) );
+		}
+		window.eoxiaJS.refresh();
+	}
 };

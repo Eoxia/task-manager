@@ -2,50 +2,58 @@
 /**
  * Gestion de l'historique du temps sur une tâche.
  *
- * @since 1.3.4.0
- * @version 1.3.6.0
- * @package Task-Manager\history-time
+ * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @since 1.3.4
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
+ * @package Task_Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
- * Manage all history_time.
- * History time define due time and estimated time on task.
+ * Gestion de l'historique du temps sur une tâche.
  */
 class History_Time_Class extends \eoxia\Comment_Class {
+
 	/**
-	 * Class name of model.
+	 * Le nom du modèle
 	 *
 	 * @var string
 	 */
-	protected $model_name	= '\task_manager\History_Time_Model';
+	protected $model_name = '\task_manager\History_Time_Model';
+
 	/**
 	 * Key to use on meta DataBase.
 	 *
 	 * @var string
 	 */
-	protected $meta_key	= 'wpeo_history_time';
+	protected $meta_key = 'wpeo_history_time';
+
 	/**
-	 * Type to use on DataBase.
+	 * Le type
 	 *
 	 * @var string
 	 */
-	protected $comment_type	= 'history_time';
+	protected $comment_type = 'history_time';
+
 	/**
 	 * API REST base.
 	 *
 	 * @var string
 	 */
-	protected $base		= 'history_time';
+	protected $base = 'history_time';
+
 	/**
 	 * Version of controller.
 	 *
 	 * @var string
 	 */
-	protected $version	= '0.1';
+	protected $version = '0.1';
 
 	/**
 	 * La fonction appelée automatiquement après l'insertion de l'objet dans la base de donnée.
@@ -62,15 +70,37 @@ class History_Time_Class extends \eoxia\Comment_Class {
 	protected $after_model_get_function = array( '\task_manager\get_full_history_time' );
 
 	/**
-	 * Le constructeur
+	 * Charges les historiques de temps et les affiches.
 	 *
+	 * @since 1.6.0
+	 * @version 1.6.0
+	 *
+	 * @param  integer $task_id L'ID de la tâche.
 	 * @return void
-	 *
-	 * @since 1.0.0.0
-	 * @version 1.0.0.0
 	 */
-	protected function construct() {
-		parent::construct();
+	public function display_histories_time( $task_id ) {
+		$history_time_schema = self::g()->get( array(
+			'schema' => true,
+		), true );
+
+		$history_times = self::g()->get( array(
+			'post_id'          => $task_id,
+			'orderby'          => 'ASC',
+			'comment_approved' => '-34070',
+			'type'             => self::g()->get_type(),
+		) );
+
+		if ( ! empty( $history_times ) ) {
+			foreach ( $history_times as $key => $history_time ) {
+				$history_time->author = get_userdata( $history_time->author_id );
+			}
+		}
+
+		\eoxia\View_Util::exec( 'task-manager', 'history-time', 'backend/main', array(
+			'task_id'             => $task_id,
+			'history_times'       => $history_times,
+			'history_time_schema' => $history_time_schema,
+		) );
 	}
 }
 

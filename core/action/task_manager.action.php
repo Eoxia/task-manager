@@ -126,13 +126,13 @@ class Task_Manager_Action {
 	/**
 	 * Initialise en php le fichier permettant la traduction des variables string JavaScript.
 	 *
-	 * @return void nothing
+	 * @since 1.6.0
+	 * @version 1.6.0
+	 *
+	 * @return void
 	 */
 	public function callback_admin_print_scripts() {
-		$screen = get_current_screen();
-		if ( in_array( $screen->id, \eoxia\config_util::$init['task-manager']->insert_scripts_pages, true ) ) {
-			require( PLUGIN_TASK_MANAGER_PATH . '/core/asset/js/language.js.php' );
-		}
+		require PLUGIN_TASK_MANAGER_PATH . '/core/asset/js/language.js.php';
 	}
 
 	/**
@@ -151,6 +151,14 @@ class Task_Manager_Action {
 		}
 	}
 
+	/**
+	 * Initialise ajaxurl.
+	 *
+	 * @since 1.6.0
+	 * @version 1.6.0
+	 *
+	 * @return void
+	 */
 	public function callback_wp_print_scripts() {
 		?>
 		<script>var ajaxurl = "<?php echo admin_url( 'admin-ajax.php' ); ?>";</script>

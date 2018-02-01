@@ -1,8 +1,8 @@
 /**
  * Initialise l'objet "historyTime" ainsi que la méthode "init" obligatoire pour la bibliothèque EoxiaJS.
  *
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.0.0
  */
 window.eoxiaJS.taskManager.historyTime = {};
 
@@ -11,8 +11,8 @@ window.eoxiaJS.taskManager.historyTime = {};
  *
  * @return {void}
  *
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.0.0
  */
 window.eoxiaJS.taskManager.historyTime.init = function() {
 	window.eoxiaJS.taskManager.historyTime.event();
@@ -23,11 +23,10 @@ window.eoxiaJS.taskManager.historyTime.init = function() {
  *
  * @return {void}
  *
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.6.0
  */
-window.eoxiaJS.taskManager.historyTime.event = function() {
-};
+window.eoxiaJS.taskManager.historyTime.event = function() {};
 
 /**
  * Le callback en cas de réussite à la requête Ajax "load_history_time".
@@ -36,8 +35,8 @@ window.eoxiaJS.taskManager.historyTime.event = function() {
  * @param  {Object}         response          Les données renvoyées par la requête Ajax.
  * @return {void}
  *
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.0.0
  */
 window.eoxiaJS.taskManager.historyTime.loadedTimeHistorySuccess = function( element, response ) {
 	jQuery( element ).closest( '.wpeo-project-task' ).find( '.popup .content' ).html( response.data.view );
@@ -51,8 +50,8 @@ window.eoxiaJS.taskManager.historyTime.loadedTimeHistorySuccess = function( elem
  * @param  {Object}         response          Les données renvoyées par la requête Ajax.
  * @return {void}
  *
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.0.0
  */
 window.eoxiaJS.taskManager.historyTime.createdHistoryTime = function( element, response ) {
 	jQuery( element ).closest( '.wpeo-project-task' ).find( '.popup .content .history-time-container' ).replaceWith( response.data.history_time_view );
@@ -66,8 +65,8 @@ window.eoxiaJS.taskManager.historyTime.createdHistoryTime = function( element, r
  * @param  {Object}         response          Les données renvoyées par la requête Ajax.
  * @return {void}
  *
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.0.0
  */
 window.eoxiaJS.taskManager.historyTime.deletedHistoryTime = function( element, response ) {
 	jQuery( element ).closest( '.list-element' ).fadeOut();

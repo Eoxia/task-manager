@@ -4,8 +4,8 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.0.0
- * @version 1.5.0
- * @copyright 2015-2017 Eoxia
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -17,10 +17,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <ul class="wpeo-task-time-manage">
 	<?php if ( 0 !== $task->last_history_time->id ) : ?>
-		<li class="wpeo-task-date tooltip hover" aria-label="<?php echo esc_html_e( 'Dead line', 'task-manager' ); ?>">
-			<i class="dashicons dashicons-calendar-alt"></i>
-			<span><?php echo esc_html( $task->last_history_time->due_date['date_input']['fr_FR']['date'] ); ?></span>
-		</li>
+		<?php if ( 'recursive' === $task->last_history_time->custom ) : ?>
+			<li><?php esc_html_e( 'Repeated', 'task-manager' ); ?>
+		<?php else : ?>
+			<li class="wpeo-task-date tooltip hover" aria-label="<?php echo esc_html_e( 'Dead line', 'task-manager' ); ?>">
+				<i class="dashicons dashicons-calendar-alt"></i>
+				<span><?php echo esc_html( $task->last_history_time->due_date['date_input']['fr_FR']['date'] ); ?></span>
+			</li>
+		<?php endif; ?>
 	<?php endif; ?>
 
 	<li class="wpeo-task-elapsed">
@@ -37,15 +41,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 			data-parent="wpeo-project-task"
 			data-target="popup"
 			data-action="load_time_history"
-			data-title="<?php echo sprintf( __( '#%1$s History time', 'task-manager' ), esc_attr( $task->id ) ); ?>"
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_time_history' ) ); ?>"
+			data-class="history-time"
+			data-title="<?php echo sprintf( __( '#%1$s Time history', 'task-manager' ), esc_attr( $task->id ) ); ?>"
 			data-task-id="<?php echo esc_attr( $task->id ); ?>">
 		<span class="fa fa-history dashicons-image-rotate"></span>
 	</li>
 
 	<li class="display-method-buttons">
-		<span class="dashicons dashicons-editor-ul list-display active"></span>
-		<span class="action-attribute dashicons dashicons-screenoptions grid-display"
+		<span class="dashicons dashicons-screenoptions list-display active wpeo-tooltip-event"
+			aria-label="<?php echo esc_attr_e( 'Edit display', 'task-manager' ); ?>"></span>
+		<span class="action-attribute dashicons dashicons-editor-ul grid-display wpeo-tooltip-event"
 					data-action="load_last_activity"
+					aria-label="<?php echo esc_attr_e( 'Activity display', 'task-manager' ); ?>"
 					data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_last_activity' ) ); ?>"
 					data-tasks-id="<?php echo esc_attr( $task->id ); ?>"></span>
 	</li>

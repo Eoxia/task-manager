@@ -4,8 +4,8 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.0.0
- * @version 1.4.0
- * @copyright 2015-2017 Eoxia
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -21,9 +21,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Task_Shortcode {
 
 	/**
-	 * Ce constructeur ajoute le shortcode suivant:
+	 * Constructeur
 	 *
-	 * - task
+	 * @since 1.0.0
+	 * @version 1.0.0
 	 */
 	public function __construct() {
 		add_shortcode( 'task', array( $this, 'callback_task' ) );
@@ -32,24 +33,23 @@ class Task_Shortcode {
 	/**
 	 * Le shortcode pour afficher les tâches
 	 *
+	 * @since 1.0.0
+	 * @version 1.6.0
+	 *
 	 * @param  array $param Les paramètres du shortcode.
 	 * @return void
-	 *
-	 * @since 1.0.0
-	 * @version 1.4.0
 	 */
 	public function callback_task( $param ) {
 		$param = shortcode_atts( array(
-			'id' => 0,
-			'categories_id' => array(),
-			'users_id' => array(),
-			'term' => '',
-			'status' => 'any',
-			'offset' => 0,
-			'post_parent' => 0,
+			'id'             => 0,
+			'categories_id'  => array(),
+			'users_id'       => array(),
+			'term'           => '',
+			'status'         => 'any',
+			'offset'         => 0,
+			'post_parent'    => 0,
 			'posts_per_page' => \eoxia\Config_Util::$init['task-manager']->task->posts_per_page,
-			'frontend' => false,
-			'with_wrapper' => true,
+			'with_wrapper'   => true,
 		), $param, 'task' );
 
 		if ( ! is_array( $param['categories_id'] ) && ! empty( $param['categories_id'] ) ) {
@@ -70,14 +70,14 @@ class Task_Shortcode {
 
 		$tasks = Task_Class::g()->get_tasks( $param );
 
-		if ( $param['frontend'] ) {
+		if ( ! is_admin() ) {
 			\eoxia\View_Util::exec( 'task-manager', 'task', 'frontend/main', array(
-				'tasks' => $tasks,
+				'tasks'        => $tasks,
 				'with_wrapper' => $param['with_wrapper'],
 			) );
 		} else {
 			\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/main', array(
-				'tasks' => $tasks,
+				'tasks'        => $tasks,
 				'with_wrapper' => $param['with_wrapper'],
 			) );
 		}

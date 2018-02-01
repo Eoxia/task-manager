@@ -25,7 +25,7 @@ window.eoxiaJS.taskManager.task.refresh = function() {
 window.eoxiaJS.taskManager.task.event = function() {
 	jQuery( '.wpeo-project-wrap' ).on( 'keypress', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.keyEnterEditTitle );
 	jQuery( '.wpeo-project-wrap' ).on( 'blur', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.editTitle );
-	jQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-task-time-manage .dashicons-editor-ul', window.eoxiaJS.taskManager.task.switchViewToLine );
+	jQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-task-time-manage .list-display', window.eoxiaJS.taskManager.task.switchViewToLine );
 	jQuery( window ).scroll( window.eoxiaJS.taskManager.task.onScrollLoadMore );
 	jQuery( '.wpeo-project-wrap' ).on( 'click', '.task-header-action .success span', window.eoxiaJS.taskManager.task.closeSuccess );
 	jQuery( '#poststuff' ).on( 'click', '#wpeo-task-metabox', window.eoxiaJS.taskManager.task.refresh );
@@ -133,7 +133,7 @@ window.eoxiaJS.taskManager.task.editTitle = function( event, element ) {
  */
 window.eoxiaJS.taskManager.task.switchViewToLine = function( event ) {
 	jQuery( this ).addClass( 'active' );
-	jQuery( this ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .dashicons-screenoptions.active' ).removeClass( 'active' );
+	jQuery( this ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .dashicons-editor-ul.active' ).removeClass( 'active' );
 	jQuery( this ).closest( '.wpeo-project-task' ).find( '.activities' ).hide();
 	jQuery( this ).closest( '.wpeo-project-task' ).find( '.points.sortable' ).show();
 	jQuery( this ).closest( '.wpeo-project-task' ).find( '.wpeo-task-point-use-toggle' ).show();
@@ -286,6 +286,22 @@ window.eoxiaJS.taskManager.task.exportedTask = function( triggeredElement, respo
  */
 window.eoxiaJS.taskManager.task.notifiedByMail = function( triggeredElement, response ) {
 
+};
+/**
+ * Le callback en cas de réussite à la requête Ajax "recompile_task".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.6.0
+ * @version 1.6.0
+ */
+window.eoxiaJS.taskManager.task.recompiledTask = function( triggeredElement, response ) {
+	var currentStyle = triggeredElement.closest( '.wpeo-project-task' ).attr( 'style' );
+	var view         = jQuery( response.data.view );
+	view.attr( 'style', currentStyle );
+	triggeredElement.closest( '.wpeo-project-task' ).replaceWith( view );
 };
 
 

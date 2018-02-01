@@ -4,8 +4,8 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.0.0
- * @version 1.5.0
- * @copyright 2015-2017 Eoxia
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -23,8 +23,8 @@ class History_Time_Action {
 	/**
 	 * Initialise les actions liées à l'historique de temps.
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.3.6
 	 */
 	public function __construct() {
 		add_action( 'wp_ajax_load_time_history', array( $this, 'callback_load_time_history' ) );
@@ -36,42 +36,25 @@ class History_Time_Action {
 	/**
 	 * Charges les historiques de temps de la tâche puis renvoie la vue à la requête AJAX.
 	 *
+	 * @since 1.0.0
+	 * @version 1.6.0
+	 *
 	 * @return void
-	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
-	 *
-	 * @todo nonce
 	 */
 	public function callback_load_time_history() {
+		check_ajax_referer( 'load_time_history' );
 		$task_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
 
 		if ( empty( $task_id ) ) {
 			wp_send_json_error();
 		}
 
-		$history_times = History_Time_Class::g()->get( array(
-			'post_id' => $task_id,
-			'orderby' => 'ASC',
-			'comment_approved' => '-34070',
-		) );
-
-		if ( ! empty( $history_times ) ) {
-			foreach ( $history_times as $history_time ) {
-				$history_time->author = get_userdata( $history_time->author_id );
-			}
-		}
-
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'history-time', 'backend/main', array(
-			'task_id' => $task_id,
-			'history_times' => $history_times,
-		) );
-
+		History_Time_Class::g()->display_histories_time( $task_id );
 		wp_send_json_success( array(
-			'view' => ob_get_clean(),
-			'namespace' => 'taskManager',
-			'module' => 'historyTime',
+			'view'             => ob_get_clean(),
+			'namespace'        => 'taskManager',
+			'module'           => 'historyTime',
 			'callback_success' => 'loadedTimeHistorySuccess',
 		) );
 	}
@@ -81,14 +64,15 @@ class History_Time_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.6.0
 	 */
 	public function callback_create_history_time() {
 		check_ajax_referer( 'create_history_time' );
 
-		$task_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
-		$due_date = ! empty( $_POST['due_date'] ) ? $_POST['due_date'] : '';
+		$task_id        = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+		$due_date       = ! empty( $_POST['due_date'] ) ? $_POST['due_date'] : '';
+		$custom         = ! empty( $_POST['custom'] ) ? sanitize_text_field( $_POST['custom'] ) : '';
 		$estimated_time = ! empty( $_POST['estimated_time'] ) ? (int) $_POST['estimated_time'] : 0;
 
 		if ( empty( $task_id ) ) {
@@ -96,22 +80,11 @@ class History_Time_Action {
 		}
 
 		$history_time_created = History_Time_Class::g()->create( array(
-			'post_id' => $task_id,
-			'due_date' => $due_date,
+			'post_id'        => $task_id,
+			'due_date'       => $due_date,
 			'estimated_time' => $estimated_time,
+			'custom'         => $custom,
 		) );
-
-		$history_times = History_Time_Class::g()->get( array(
-			'post_id' => $task_id,
-			'orderby' => 'ASC',
-			'comment_approved' => '-34070',
-		) );
-
-		if ( ! empty( $history_times ) ) {
-			foreach ( $history_times as $history_time ) {
-				$history_time->author = get_userdata( $history_time->author_id );
-			}
-		}
 
 		do_action( 'tm_created_history_time', $history_time_created, $task_id, $due_date, $estimated_time );
 
@@ -126,19 +99,16 @@ class History_Time_Action {
 		$task_header_view = ob_get_clean();
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'history-time', 'backend/main', array(
-			'task_id' => $task_id,
-			'history_times' => $history_times,
-		) );
+		History_Time_Class::g()->display_histories_time( $task_id );
 		$history_time_view = ob_get_clean();
 
 		wp_send_json_success( array(
-			'task_id' => $task_id,
+			'task_id'           => $task_id,
 			'history_time_view' => $history_time_view,
-			'task_header_view' => $task_header_view,
-			'namespace' => 'taskManager',
-			'module' => 'historyTime',
-			'callback_success' => 'createdHistoryTime',
+			'task_header_view'  => $task_header_view,
+			'namespace'         => 'taskManager',
+			'module'            => 'historyTime',
+			'callback_success'  => 'createdHistoryTime',
 		) );
 	}
 
@@ -147,8 +117,8 @@ class History_Time_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.3.6.0
-	 * @version 1.3.6.0
+	 * @since 1.3.6
+	 * @version 1.3.6
 	 */
 	public function callback_delete_history_time() {
 		check_ajax_referer( 'delete_history_time' );

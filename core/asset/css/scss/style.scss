@@ -39,6 +39,7 @@ $color__green: #47e58e;
 @import "animation";
 @import "popup";
 @import "toggle";
+@import "loader";
 @import "functions";
 @import "theme";
 @import "tooltip";
@@ -63,7 +64,7 @@ $color__green: #47e58e;
 
 .wpeo-project-wrap .wpeo-project-task-container {
 	input[type="text"], textarea {
-		background-color: transparent !important;
+		background-color: transparent;
 	}
 }
 
@@ -159,7 +160,12 @@ $color__green: #47e58e;
 		}
 		> li.wpeo-general-search {
 			float: right;
-			padding: 6px 20px;
+			padding: 4px;
+
+			.general-search {
+				padding: 6px 20px;
+			}
+
 			label {
 				background: #fff;
 				border: 1px solid rgba(0,0,0,0.1);
@@ -182,6 +188,7 @@ $color__green: #47e58e;
 					color: rgba(0,0,0,0.8);
 				}
 			}
+
 		}
 		// > li:nth-of-type(5) {
 		// 	float: right;
@@ -456,7 +463,12 @@ $color__green: #47e58e;
 						}
 					}
 					.toggle .content {
-						max-width: 50px;
+						max-width: 150px;
+						display: flex;
+						flex-wrap: wrap;
+						li {
+							width: 50px;
+						}
 					}
 				}
 				.wpeo-task-id {
@@ -1211,7 +1223,7 @@ Popup
 
 		/* Activity single */
 		.activity {
-			padding: 0.6em 0;
+			padding: 0.6em 0 1.6em 0;
 			display: flex;
 			flex-direction: row;
 
@@ -1252,20 +1264,51 @@ Popup
 
 				.event-header {
 					display: flex;
-					.event-title {
-						width: auto;
+
+					.dashicons {
+						font-size: 16px;
+						line-height: 1;
+						width: 14px;
+						height: 14px;
+						vertical-align: top !important;
+					}
+					[class*="event"] {
+						width: 25%;
+						i {
+							margin-right: 0.4em;
+							color: rgba(0,0,0,0.3);
+						}
 					}
 					.event-time {
 						margin-left: auto;
+						text-align: right;
+						i {
+							color: rgba(0,0,0,0.7);
+						}
 					}
 				}
-				.event-title {
+				.event-title, .event-client, .event-task, .event-point {
 					font-weight: 700;
 					display: block;
 					margin-bottom: 0.4em;
+					padding-right: 0.2em;
+					color: rgba(0,0,0,0.8);
+					a {
+						color: rgba(0,0,0,0.5);
+						transition: all 0.2s ease-out;
+						text-decoration: none;
+						&:hover {
+							color: rgba(0,0,0,0.8);
+						}
+					}
 				}
 				.event-content {
 					font-family: 'kalamregular';
+					color: rgba(0,0,0,0.9);
+					a {
+						color: rgba(0,0,0,0.9);
+						text-decoration: none;
+					}
 				}
 			}
 
@@ -2103,12 +2146,17 @@ Popup
 	.history-time-new {
 		padding: 12px 0;
 		border-bottom: 1px solid rgba(0,0,0,0.1);
-		input[type="text"] {
-			border: 0;
-			box-shadow: none;
-			background: rgba(0,0,0,0.1);
-			padding: 6px;
+		border-top: 1px solid rgba(0,0,0,0.1);
+
+		.wpeo-button {
+			float: right;
 		}
+		&:after {
+			display: block;
+			content: '';
+			clear: both;
+		}
+
 		.add-history-time {
 			margin-left: 14px;
 			color: $main-color;
@@ -2394,7 +2442,197 @@ Popup
 /* ----------------------------------
 		Temporaire pour le blink
 -----------------------------------*/
-.wpeo-project-wrap {
+#tm-indicator-activity {
+	.inside {
+		margin: 0;
+		padding: 0;
+	}
+	.total-time {
+		position: absolute;
+		top: -28px;
+		right: 40px;
+	}
+	.filter-activity {
+		background: rgba(0,0,0,0.1);
+		padding: 0.6em;
+	}
+	label {
+		color: rgba(0,0,0,0.5);
+
+		i {
+			margin-right: 0.4em;
+		}
+	}
+}
+
+/* ----------------------------------
+		Metabox "quick time".
+-----------------------------------*/
+#tm-indicator-quick-task {
+	.setting-quick-time-button {
+		position: absolute;
+		right: 30px;
+		top: 2px;
+		padding: 5px;
+		line-height: 1;
+		border-radius: 6px;
+	}
+	.inside {
+		padding: 0;
+		margin: 0;
+		position: static;
+	}
+	.list {
+		border-collapse: collapse;
+		> thead {
+			background: #fff;
+			color: rgba(0,0,0,0.8);
+			border-bottom: 1px solid rgba(0,0,0,0.1);
+		}
+		td, th {
+			padding: 0.4em 1em;
+			vertical-align: middle;
+		}
+		.item {
+			&:nth-child(odd) {
+				background: rgba(0,0,0,0.1);
+			}
+			&:nth-child(even) {
+				background: #fff;
+			}
+		}
+		.task, .point {
+			width: 15%;
+			max-width: 15%;
+		}
+		.min {
+			width: 10%;
+			max-width: 10%;
+			> div {
+				display: flex;
+			}
+			.fa {
+				margin: auto 0;
+				padding-right: 0.4em;
+			}
+		}
+		.action {
+			width: 5%;
+			max-width: 5%;
+			text-align: right;
+		}
+		.content {
+			width: 55%;
+			max-width: 55%;
+		}
+		input[type="text"], textarea {
+			width: 100%;
+			border: 1px solid rgba(0,0,0,0.2);
+			padding: 0.4em;
+			&:focus {
+				border: 1px solid rgba(0,0,0,0.4);
+			}
+		}
+	}
+	.wpeo-button {
+		margin: 0 1em 1em 0;
+	}
+
+}
+
+/* ----------------------------------
+		Modal "setting-quick-time"
+-----------------------------------*/
+
+.setting-quick-time {
+	.list {
+		ul, li {
+			margin: 0;
+		}
+		ul {
+			display: flex;
+			> li {
+				padding: 0.4em;
+			}
+		}
+		.item.form {
+			margin-bottom: 1em;
+		}
+		.item:not(.form) {
+			.task {
+				font-weight: 700;
+			}
+		}
+		.task, .point {
+			width: 20%;
+			max-width: 20%;
+		}
+		.actions {
+			width: 5%;
+			max-width: 5%;
+			text-align: right;
+		}
+		.content {
+			width: 60%;
+			max-width: 60%;
+		}
+		input[type="text"], select, textarea {
+			width: 100%;
+			padding: 0.6em;
+			margin: auto 0;
+			height: 38px;
+		}
+		.action-delete {
+			background: #adadad;
+			border-color: #adadad;
+			color: #fff;
+			font-size: 14px;
+		}
+		.button-square-20 {
+			width: 20px;
+			height: 20px;
+			line-height: 20px;
+		}
+	}
+}
+
+#tm-indicator-quick-task, .popup-quick-time {
+	.content {
+		.wpeo-button {
+			float: right;
+		}
+
+		&:after {
+			display: block;
+			content: '';
+			clear: both;
+		}
+	}
+}
+
+/* ----------------------------------
+		Module WPEO Form fix
+-----------------------------------*/
+.wpeo-form {
+	input[type="text"] {
+		background: #ececec !important;
+		border: 0 !important;
+	}
+	input[type="radio"] {
+		&::before {
+			display: none;
+			content: '';
+		}
+	}
+	input[type="radio"] ~ label {
+		margin-bottom: 0;
+	}
+}
+
+/* ----------------------------------
+		Temporaire pour le blink
+-----------------------------------*/
+body .wpeo-project-wrap {
 	.blink {
 		display: block;
 		width: 100%;

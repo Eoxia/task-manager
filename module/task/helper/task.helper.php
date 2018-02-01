@@ -1,8 +1,19 @@
 <?php
+/**
+ * Fonctions "helper" des tâches.
+ *
+ * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @since 1.0.0
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
+ * @package Task_Manager
+ */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 class Task_Helper {
 	public static function update_points( $data ) {
@@ -40,46 +51,51 @@ class Task_Helper {
  * -Tache
  * -Dernier history time
  *
+ * @since 1.3.6
+ * @version 1.6.0
+ *
  * @param Task_Model $data Les données de la tâche.
  *
- * @return Task_Model     Les données de la tâche modifié.
- *
- * @since 1.3.6.0
- * @version 1.3.6.0
+ * @return Task_Model      Les données de la tâche modifié.
  */
 function get_full_task( $data ) {
 	$data->last_history_time = History_Time_Class::g()->get( array(
 		'post_id' => $data->id,
-		'number' => 1,
+		'number'  => 1,
+		'type'    => History_Time_Class::g()->get_type(),
 	), true );
 
 	if ( empty( $data->last_history_time->id ) ) {
 		$data->last_history_time = History_Time_Class::g()->get( array(
 			'schema' => true,
 		), true );
+	} else {
+		// Calcul du temps si on est en mode "répétition" mensuel.
+		if ( 'recursive' === $data->last_history_time->custom ) {
+			$comments = Task_Comment_Class::g()->get( array(
+				'date_query'   => array(
+					'after' => array(
+						'year'  => current_time( 'Y' ),
+						'month' => current_time( 'm' ),
+						'day'   => '01',
+					),
+				),
+				'status'       => -34070,
+				'post_id'      => $data->id,
+				'type__not_in' => array( 'history_time' ),
+			) );
+
+			$data->time_info['elapsed'] = 0;
+
+			if ( ! empty( $comments ) ) {
+				foreach ( $comments as $comment ) {
+					$data->time_info['elapsed'] += $comment->time_info['elapsed'];
+				}
+			}
+		}
 	}
 
-	$format = '%hh %imin';
-	$dtf = new \DateTime( '@0' );
-
-	/** Gestion de l'affichage du temps passé en jours/heures */
-	$dtt = new \DateTime( '@' . ( $data->time_info['elapsed'] * 60 ) );
-	if ( 1440 <= $data->time_info['elapsed'] ) {
-		$format = '%aj %hh %imin';
-	}
-	$data->time_info['time_display'] = $dtf->diff( $dtt )->format( $format );
-
-	/** Gestion de l'affichage du temps estimé en jours/heures */
-	$dtt = new \DateTime( '@' . ( $data->last_history_time->estimated_time * 60 ) );
-	if ( 1440 <= $data->last_history_time->estimated_time ) {
-		$format = '%aj %hh %imin';
-	}
-	$data->time_info['estimated_time_display'] = $dtf->diff( $dtt )->format( $format );
-
-	// Fix TMP.
-	if ( ! isset( $data->user_info['affected_id'] ) ) {
-		$data->user_info['affected_id'] = array();
-	}
+	$data->count_all_points = $data->count_uncompleted_points + $data->count_completed_points;
 
 	return $data;
 }

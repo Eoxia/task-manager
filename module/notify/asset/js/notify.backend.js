@@ -39,9 +39,9 @@ window.eoxiaJS.taskManager.notify.event = function() {
  * @return {void}
  */
 window.eoxiaJS.taskManager.notify.selectUser = function() {
-	var index = 0;
-	var popup = jQuery( this ).closest( '.popup.popup-notification' );
-	var input = popup.find( 'input[name="users_id"]' );
+	var index      = 0;
+	var container  = jQuery( this ).closest( 'ul' );
+	var input      = container.find( 'input' );
 	var currentVal = input.val();
 
 	if ( currentVal ) {
@@ -65,6 +65,8 @@ window.eoxiaJS.taskManager.notify.selectUser = function() {
 			currentVal.splice( index, 1 );
 		}
 	}
+
+	jQuery( this ).closest( 'div' ).find( '.selected-number' ).text( currentVal.length );
 
 	input.val( currentVal.join( ',' ) );
 };
@@ -92,16 +94,9 @@ window.eoxiaJS.taskManager.notify.loadedNotifyPopup = function( triggeredElement
  * @return {void}
  *
  * @since 1.5.0
- * @version 1.5.0
+ * @version 1.6.0
  */
 window.eoxiaJS.taskManager.notify.sendedNotification = function( triggeredElement, response ) {
-	// var successElement = triggeredElement.closest( '.task-header-action' ).find( '.success' );
-	// successElement.addClass( 'active' );
-	//
-	// successElement.interval = setTimeout( function() {
-	// 	successElement.removeClass( 'active' );
-	// }, 3000 );
-
 	triggeredElement.closest( '.popup' ).find( '.close' ).click();
 
 

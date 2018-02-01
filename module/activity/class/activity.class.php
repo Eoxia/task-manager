@@ -79,8 +79,12 @@ class Activity_Class extends \eoxia\Singleton_Util {
 							'id' => $comment->parent_id,
 						), true );
 						$comment->displayed_author_id = $comment->author_id;
-						$comment->userdata = get_userdata( $comment->author_id );
-						$comment->displayed_username = $comment->userdata->display_name;
+						if ( ! empty( $comment->author_id ) ) {
+							$comment->userdata = get_userdata( $comment->author_id );
+							$comment->displayed_username = $comment->userdata->display_name;
+						} else {
+							$comment->displayed_username = '-';
+						}
 
 						$sql_date = substr( $comment->date['date_input']['date'], 0, strlen( $comment->date['date_input']['date'] ) - 9 );
 						$time = substr( $comment->date['date_input']['date'], 11, strlen( $comment->date['date_input']['date'] ) );

@@ -1,11 +1,11 @@
 <?php
 /**
- * Affiches l'historique des 'dates estimées'.
+ * Affiches un historique.
  *
  * @author Jimmy Latour <dev@eoxia.com>
- * @since 1.0.0
- * @version 1.4.0
- * @copyright 2015-2017
+ * @since 1.6.0
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -19,9 +19,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<ul>
 		<li class="avatar"><?php echo get_avatar( $history_time->author_id, 16 ); ?></li>
 		<li class="author"><?php echo esc_html( $history_time->author->display_name ); ?></li>
+
 		<li class="date">
-			<span class="dashicons dashicons-calendar-alt"></span>
-			<?php echo esc_html( substr( $history_time->due_date['date_human_readable'], 0, strlen( $history_time->due_date['date_human_readable'] ) - 8 ) ); ?>
+			<?php if ( 'recursive' === $history_time->custom ) : ?>
+				<?php esc_html_e( 'Repeat monthly', 'task-manager' ); ?>
+			<?php else : ?>
+				<span class="dashicons dashicons-calendar-alt"></span>
+				<?php echo esc_html( substr( $history_time->due_date['date_human_readable'], 0, strlen( $history_time->due_date['date_human_readable'] ) - 8 ) ); ?>
+			<?php endif; ?>
 		</li>
 		<li class="time">
 			<span class="dashicons dashicons-clock"></span>

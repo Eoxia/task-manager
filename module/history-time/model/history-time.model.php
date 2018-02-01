@@ -4,8 +4,8 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.0.0
- * @version 1.4.0
- * @copyright 2015-2017 Eoxia
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -24,27 +24,31 @@ class History_Time_Model extends \eoxia\Comment_Model {
 	 * Le constructeur défini le schéma.
 	 *
 	 * @since 1.0.0
-	 * @version 1.4.0
+	 * @version 1.6.0
 	 *
 	 * @param History_Time_Model $object L'objet.
 	 */
 	public function __construct( $object ) {
-		$this->model = array_merge( $this->model, array(
-			'due_date' => array(
-				'meta_type' => 'multiple',
-				'type' => 'wpeo_date',
-			),
-			'estimated_time' => array(
-				'meta_type' => 'multiple',
-				'type' => 'integer',
-				'bydefault' => '',
-			),
-			'google_event_id' => array(
-				'meta_type' => 'multiple',
-				'type' => 'array',
-				'bydefault' => array(),
-			),
-		) );
+		$this->model['due_date'] = array(
+			'meta_type' => 'multiple',
+			'type'      => 'wpeo_date',
+		);
+
+		$this->model['estimated_time'] = array(
+			'meta_type' => 'multiple',
+			'type'      => 'integer',
+			'bydefault' => 0,
+		);
+
+		$this->model['custom'] = array(
+			'meta_type'   => 'single',
+			'field'       => '_tm_custom',
+			'type'        => 'string',
+			'bydefault'   => false,
+			'since'       => '1.6.0',
+			'version'     => '1.6.0',
+			'description' => 'Type de l\'historique',
+		);
 
 		parent::__construct( $object );
 	}

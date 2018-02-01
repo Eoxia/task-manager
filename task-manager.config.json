@@ -1,21 +1,21 @@
 {
 	"name": "Task Manager",
 	"slug": "task-manager",
-	"version": "1.5.1",
-	"major_version": "1.5.0",
+	"version": "1.6.0",
 	"description": "L'application Task Manager",
 	"insert_scripts_pages": [
 		"wpeomtm-dashboard",
 		"digirisk-simple-risk-evaluation",
 		"task-manager-time-exceeded",
 		"task-manager-indicator",
-		"task-manager-setting"
+		"task-manager-setting",
+		"task-manager-update"
 	],
 	"externals": [],
 	"modules": [
 		"core/core.config.json",
 
-		"module/update-manager/update-manager.config.json",
+		"module/update_manager/update_manager.config.json",
 		"module/avatar/avatar.config.json",
 		"module/notify/notify.config.json",
 		"module/task/task.config.json",
@@ -34,9 +34,11 @@
 		"module/activity/activity.config.json",
 		"module/indicator/indicator.config.json",
 		"module/setting/setting.config.json",
+		"module/quick_time/quick_time.config.json",
 		"module/tools/tools.config.json"
 	],
 	"debug": false,
 	"key_last_update_version" : "_tm_last_update_version",
+	"core_option": "_tm_core_option",
 	"associate_post_type": []
 }

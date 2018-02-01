@@ -4,8 +4,8 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 0.1.0
- * @version 1.5.0
- * @copyright 2015-2017 Eoxia
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -28,46 +28,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</h2>
 	</div>
 
-	<div class="activity-content">
-		<span class="open-popup-ajax dashicons dashicons-screenoptions"
-					data-parent="activity-content"
-					data-target="popup"
-					data-action="load_last_activity"
-					data-namespace="taskManager"
-					data-class="last-activity activities"
-					data-module="activity"
-					data-before-method="getDataBeforeOpenPopup"
-					data-title="<?php echo esc_attr_e( 'Last activities', 'task-manager' ); ?>"></span>
-
-		<div class="popup last-activity activities">
-			<div class="container">
-				<div class="header">
-					<h2 class="title">Titre de la popup</h2>
-					<i class="close fa fa-times"></i>
-				</div>
-				<input type="hidden" class="offset-event" value="<?php echo esc_attr( \eoxia\Config_Util::$init['task-manager']->activity->activity_per_page ); ?>" />
-				<input type="hidden" class="last-date" value="" />
-
-				<div class="content">
-				</div>
-
-			</div>
-		</div>
-	</div>
-
 	<?php do_shortcode( '[task_manager_search_bar term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '"]' ); ?>
 
 	<?php
-	if ( ! empty( $id ) ) :
-		do_shortcode( '[task id="' . $id . '"]' );
+	$waiting_updates = get_option( '_tm_waited_updates', array() );
+	if ( ! empty( $waiting_updates ) && strpos( $_SERVER['REQUEST_URI'], 'admin.php' ) && ! strpos( $_SERVER['REQUEST_URI'], 'admin.php?page=task-manager-update' ) ) :
+		\eoxia\View_Util::exec( 'task-manager', 'update_manager', 'say-to-update' );
 	else :
-		do_shortcode( '[task term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '" status="any" post_parent="0" with_wrapper="0"]' );
+		if ( ! empty( $id ) ) :
+			do_shortcode( '[task id="' . $id . '"]' );
+		else :
+			do_shortcode( '[task term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '" status="any" post_parent="0" with_wrapper="0"]' );
+		endif;
 	endif;
-	//
-	// $version = get_user_meta( get_current_user_id(), '_wptm_user_change_log', true );
-	//
-	// if ( empty( $version[ \eoxia\Config_Util::$init['task-manager']->major_version ] ) ) :
-	// 	require( PLUGIN_TASK_MANAGER_PATH . '/core/view/patch-note.view.php' );
-	// endif;
+
 	?>
 </div>

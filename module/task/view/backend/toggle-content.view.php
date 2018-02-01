@@ -71,6 +71,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<span><i class="fa fa-trash"></i></span>
 	</li>
 
+	<li class="action-attribute tooltip hover"
+			aria-label="<?php echo esc_html_e( 'Recompile task', 'task-manager' ); ?>"
+			data-action="recompile_task"
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'recompile_task' ) ); ?>"
+			data-id="<?php echo esc_attr( $task->id ); ?>"
+			data-loader="task-header-action">
+		<span><i class="fa fa-refresh"></i></span>
+	</li>
+
 	<li class="open-popup-ajax tooltip hover"
 			aria-label="<?php esc_html_e( 'Notify team', 'task-manager' ); ?>"
 			data-parent="wpeo-project-task"

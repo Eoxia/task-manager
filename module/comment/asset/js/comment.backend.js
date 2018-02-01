@@ -2,7 +2,7 @@
  * Initialise l'objet "comment" ainsi que la méthode "init" obligatoire pour la bibliothèque EoxiaJS.
  *
  * @since 1.0.0
- * @version 1.4.0-ford
+ * @version 1.6.0
  */
 window.eoxiaJS.taskManager.comment = {};
 
@@ -30,7 +30,7 @@ window.eoxiaJS.taskManager.comment.event = function() {
 	// jQuery( document ).on( 'click', 'body', window.eoxiaJS.taskManager.comment.closePoint );
 	// jQuery( document ).on( 'click', '.wpeo-project-task .point .comment', window.eoxiaJS.taskManager.comment.preventClosePoint );
 	jQuery( document ).on( 'keyup', '.wpeo-comment-container div.content[contenteditable="true"], .wpeo-comment-container input[name="time"]', window.eoxiaJS.taskManager.comment.triggerCreate );
-	jQuery( document ).on( 'blur keyup paste keydown click', '.comment .content', window.eoxiaJS.taskManager.comment.updateHiddenInput );
+	jQuery( document ).on( 'blur keyup paste keydown click', '.comments .comment .content', window.eoxiaJS.taskManager.comment.updateHiddenInput );
 	jQuery( document ).on( 'click', '.point.edit div[contenteditable="true"].wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.comment.loadComments );
 };
 
@@ -75,16 +75,18 @@ window.eoxiaJS.taskManager.comment.triggerCreate = function( event ) {
  * @param  {MouseEvent} event L'évènement de la souris lors de l'action.
  * @return {void}
  *
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.6.0
  */
 window.eoxiaJS.taskManager.comment.updateHiddenInput = function( event ) {
 	if ( 0 < jQuery( this ).text().length ) {
 		jQuery( this ).closest( '.comment' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 1 );
 		jQuery( this ).closest( '.comment' ).find( '.wpeo-point-new-placeholder' ).addClass( 'hidden' );
+		window.eoxiaJS.taskManager.core.initSafeExit( true );
 	} else {
 		jQuery( this ).closest( '.comment' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 0.4 );
 		jQuery( this ).closest( '.comment' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
+		window.eoxiaJS.taskManager.core.initSafeExit( false );
 	}
 
 	jQuery( this ).closest( '.comment' ).find( '.wpeo-comment-content input[name="content"]' ).val( jQuery( this ).html() );
@@ -113,7 +115,7 @@ window.eoxiaJS.taskManager.comment.loadComments = function( event ) {
 			window.eoxiaJS.refresh();
 		} );
 
-		jQuery( this ).addClass( 'loading' );
+		window.eoxiaJS.loader.display( jQuery( this ) );
 		window.eoxiaJS.request.send( jQuery( this ), data );
 	}
 };
@@ -161,7 +163,7 @@ window.eoxiaJS.taskManager.comment.addedCommentSuccess = function( triggeredElem
 	jQuery( '.wpeo-project-task[data-id="' + response.data.comment.post_id + '"] .point[data-id="' + response.data.comment.parent_id + '"] .comment.new div.content' ).focus();
 
 	window.eoxiaJS.refresh();
-
+	window.eoxiaJS.taskManager.core.initSafeExit( false );
 };
 
 /**

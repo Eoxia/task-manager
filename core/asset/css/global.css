@@ -26,3 +26,88 @@ z-index: 26; }
 .menu-top .wp-ui-notification span {
 	display: block;
     padding: 0 6px; }
+
+		/* ----------------------------------
+				Metabox "quick time".
+		-----------------------------------*/
+		.quick-time-content .setting-quick-time-button {
+		  position: absolute;
+		  right: 30px;
+		  top: 2px;
+		  padding: 5px;
+		  line-height: 1;
+		  -webkit-border-radius: 6px;
+		          border-radius: 6px; }
+
+		.quick-time-content .inside {
+		  padding: 0;
+		  margin: 0;
+		  position: static; }
+
+		.quick-time-content .list {
+		  border-collapse: collapse; }
+
+		.quick-time-content .list > thead {
+		  background: #fff;
+		  color: rgba(0, 0, 0, 0.8);
+		  border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
+
+		.quick-time-content .list td, .quick-time-content .list th {
+		  padding: 0.4em 1em;
+		  vertical-align: middle; }
+
+		.quick-time-content .list .item:nth-child(odd) {
+		  background: rgba(0, 0, 0, 0.1); }
+
+		.quick-time-content .list .item:nth-child(even) {
+		  background: #fff; }
+
+		.quick-time-content .list .task, .quick-time-content .list .point {
+		  width: 15%;
+		  max-width: 15%; }
+
+		.quick-time-content .list .min {
+		  width: 10%;
+		  max-width: 10%; }
+
+		.quick-time-content .list .min > div {
+		  display: -webkit-box;
+		  display: -webkit-flex;
+		  display: -moz-box;
+		  display: -ms-flexbox;
+		  display: flex; }
+
+		.quick-time-content .list .min .fa {
+		  margin: auto 0;
+		  padding-right: 0.4em; }
+
+		.quick-time-content .list .action {
+		  width: 5%;
+		  max-width: 5%;
+		  text-align: right; }
+
+		.quick-time-content .list .content {
+		  width: 55%;
+		  max-width: 55%; }
+
+		.quick-time-content .list input[type="text"], .quick-time-content .list textarea {
+		  width: 100%;
+		  border: 1px solid rgba(0, 0, 0, 0.2);
+		  padding: 0.4em; }
+
+		.quick-time-content .list input[type="text"]:focus, .quick-time-content .list textarea:focus {
+		  border: 1px solid rgba(0, 0, 0, 0.4); }
+
+		.quick-time-content .wpeo-button {
+		  margin: 1em; }
+
+		/* ----------------------------------
+				Model "setting-quick-time"
+		-----------------------------------*/
+		.quick-time-content .content .wpeo-button, .popup-quick-time .content .wpeo-button {
+		  float: right; }
+
+		.quick-time-content .content:after, .popup-quick-time .content:after {
+		  display: block;
+		  content: '';
+		  clear: both; }

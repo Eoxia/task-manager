@@ -3,7 +3,7 @@
  * Gestion des commentaires
  *
  * @since 1.3.4
- * @version 1.5.0
+ * @version 1.6.0
  * @package Task_Manager
  */
 
@@ -40,6 +40,13 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 	protected $base = 'comment';
 
 	/**
+	 * Le type du commentaire
+	 *
+	 * @var string
+	 */
+	protected $comment_type = 'wpeo_time';
+
+	/**
 	 * La version pour la rest API
 	 *
 	 * @var string
@@ -68,6 +75,7 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 	protected $before_put_function = array( '\task_manager\compile_time' );
 
 	protected $after_post_function = array();
+
 	protected $after_put_function = array();
 
 	/**
@@ -104,6 +112,7 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 	 * @param  integer $point_id L'ID du point.
 	 *
 	 * @return void
+	 * @todo: Faire passer le paramètre comment_id et le renommé en selected_comment_id.
 	 */
 	public function display( $task_id, $point_id ) {
 		$comment_id = ! empty( $_GET['comment_id'] ) ? (int) $_GET['comment_id'] : 0;
@@ -115,11 +124,11 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 		), true );
 
 		\eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/main', array(
-			'task_id' => $task_id,
-			'point_id' => $point_id,
-			'comments' => $comments,
+			'task_id'             => $task_id,
+			'point_id'            => $point_id,
+			'comments'            => $comments,
 			'comment_selected_id' => $comment_id,
-			'comment_schema' => $comment_schema,
+			'comment_schema'      => $comment_schema,
 		) );
 	}
 
