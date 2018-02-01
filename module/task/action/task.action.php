@@ -333,10 +333,6 @@ class Task_Action {
 
 		$task->parent_id = $to_element_id;
 
-		$risk = \digi\Risk_Class::g()->get( array(
-			'id' => $to_element_id,
-		), true );
-
 		Task_Class::g()->update( $task );
 
 		wp_send_json_success( array(
@@ -344,7 +340,6 @@ class Task_Action {
 			'module' => 'task',
 			'callback_success' => 'movedTaskTo',
 			'task_id' => $task_id,
-			'unique_identifier' => $risk->unique_identifier,
 		) );
 	}
 

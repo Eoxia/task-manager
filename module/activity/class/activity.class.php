@@ -51,7 +51,7 @@ class Activity_Class extends \eoxia\Singleton_Util {
 
 		if ( ! empty( $points ) ) {
 			foreach ( $points as $point ) {
-				if ( 'trash' !== $point->status && Point_Class::g()->get_type() === $point->type && 0 !== $point->id ) {
+				if ( 'trash' !== $point->status && ( Point_Class::g()->get_type() === $point->type || Task_Comment_Class::g()->get_type() === $point->type ) && 0 !== $point->id ) {
 					if ( 0 === $point->parent_id ) {
 						$point->view = 'created-point';
 						$point->displayed_author_id = $point->author_id;
@@ -73,6 +73,7 @@ class Activity_Class extends \eoxia\Singleton_Util {
 					} else {
 						$comment = Task_Comment_Class::g()->get( array(
 							'id' => $point->id,
+							'type' => 'wpeo_time',
 						), true );
 						$comment->view = 'created-comment';
 						$comment->parent = Point_Class::g()->get( array(
