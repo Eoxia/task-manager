@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<th class="content" data-title="<?php esc_html_e( 'Comment', 'task-manager' ); ?>"><?php esc_html_e( 'Comment', 'task-manager' ); ?></th>
 				<th class="min" data-title="<?php esc_html_e( 'min.', 'task-manager' ); ?>">
 					<i class="fa fa-clock-o" aria-hidden="true"></i>
-					<span class="time"><?php echo esc_attr( isset( $comment_schema->time_info['calculed_elapsed'] ) ? $comment_schema->time_info['calculed_elapsed'] : end( $comment_schema->time_info['elapsed'] ) ); ?></span>
+					<span class="time"><?php echo esc_attr( isset( $comment_schema->time_info['calculed_elapsed'] ) ? $comment_schema->time_info['calculed_elapsed'] : $comment_schema->time_info['elapsed'] ); ?></span>
 					<span><?php esc_html_e( 'min.', 'task-manager' ); ?></span>
 				</th>
 				<th class="action"><input type="checkbox" /></th>
