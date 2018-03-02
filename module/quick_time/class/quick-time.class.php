@@ -64,7 +64,6 @@ class Quick_Time_Class extends \eoxia\Singleton_Util {
 	 */
 	public function display_list() {
 		$quicktimes = $this->get_quicktimes();
-		sort( $quicktimes );
 
 		$comment_schema = Task_Comment_Class::g()->get( array(
 			'schema' => true,
@@ -91,6 +90,7 @@ class Quick_Time_Class extends \eoxia\Singleton_Util {
 			foreach ( $quicktimes as $key => $quicktime ) {
 				$quicktimes[ $key ] = quicktime_format_data( $quicktime );
 			}
+			sort( $quicktimes );
 		}
 
 		return $quicktimes;

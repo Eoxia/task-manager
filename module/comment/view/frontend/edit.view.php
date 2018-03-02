@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</li>
 
 			<?php if ( ! empty( $comment->data['id'] ) ) : ?>
-				<li class="wpeo-save-point"><i data-parent="edit" class="action-input fa fa-floppy-o" aria-hidden="true"></i></li>
+				<li class="wpeo-save-point"><i data-parent="edit" class="action-input far fa-save" aria-hidden="true"></i></li>
 			<?php else : ?>
 				<span data-parent="edit" class="wpeo-point-new-btn action-input dashicons dashicons-plus-alt"></span>
 			<?php endif; ?>

@@ -56,18 +56,20 @@ class History_Time_Class extends \eoxia\Comment_Class {
 	protected $version = '0.1';
 
 	/**
-	 * La fonction appelée automatiquement après l'insertion de l'objet dans la base de donnée.
+	 * Statut personnalisé pour l'élément.
 	 *
-	 * @var array
+	 * @var string
 	 */
-	protected $before_post_function = array();
+	protected $status = '-34070';
 
 	/**
-	 * La fonction appelée automatiquement après la récupération de l'objet dans la base de donnée.
+	 * Définition des fonctions de callback pour l'élément.
 	 *
-	 * @var array
+	 * @var  array
 	 */
-	protected $after_model_get_function = array( '\task_manager\get_full_history_time' );
+	protected $callback_func = array(
+		'after_get' => array( '\task_manager\get_full_history_time' ),
+	);
 
 	/**
 	 * Charges les historiques de temps et les affiches.

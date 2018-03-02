@@ -77,25 +77,18 @@ class Task_Class extends \eoxia\Post_Class {
 	protected $attached_taxonomy_type = 'wpeo_tag';
 
 	/**
-	 * La fonction appelée automatiquement après la récupération de l'objet dans la base de donnée.
+	 * Définition des fonctions de callback pour l'élément.
 	 *
-	 * @var array
+	 * @var  array
 	 */
-	protected $after_get_function = array( '\task_manager\get_full_task' );
-
-	/**
-	 * La fonction appelée automatiquement après la création de l'objet dans la base de donnée.
-	 *
-	 * @var array
-	 */
-	protected $after_post_function = array( '\task_manager\get_full_task' );
-
-	/**
-	 * La fonction appelée automatiquement après la mise à jour de l'objet dans la base de donnée.
-	 *
-	 * @var array
-	 */
-	protected $after_put_function = array( '\task_manager\get_full_task' );
+	protected $callback_func = array(
+		'before_get'  => array(),
+		'before_put'  => array(),
+		'before_post' => array(),
+		'after_get'   => array( '\task_manager\get_full_task' ),
+		'after_put'   => array( '\task_manager\get_full_task' ),
+		'after_post'  => array( '\task_manager\get_full_task' ),
+	);
 
 	/**
 	 * Récupères les tâches.
@@ -276,9 +269,9 @@ class Task_Class extends \eoxia\Post_Class {
 					$tasks[ $post->ID ]['total_time_elapsed'] = 0;
 				}
 
-				$tasks[ $post->ID ]['total_time_elapsed'] += $task->time_info['elapsed'];
-				$total_time_elapsed                       += $task->time_info['elapsed'];
-				$total_time_estimated                     += $task->last_history_time->estimated_time;
+				$tasks[ $post->ID ]['total_time_elapsed'] += $task->data['time_info']['elapsed'];
+				$total_time_elapsed                       += $task->data['time_info']['elapsed'];
+				$total_time_estimated                     += $task->data['last_history_time']->estimated_time;
 
 				$task_ids_for_history[] = $task->id;
 			}
@@ -309,9 +302,9 @@ class Task_Class extends \eoxia\Post_Class {
 						if ( empty( $tasks[ $child->ID ]['total_time_elapsed'] ) ) {
 							$tasks[ $child->ID ]['total_time_elapsed'] = 0;
 						}
-						$tasks[ $child->ID ]['total_time_elapsed'] += $task->time_info['elapsed'];
-						$total_time_elapsed                        += $task->time_info['elapsed'];
-						$total_time_estimated                      += $task->last_history_time->estimated_time;
+						$tasks[ $child->ID ]['total_time_elapsed'] += $task->data['time_info']['elapsed'];
+						$total_time_elapsed                        += $task->data['time_info']['elapsed'];
+						$total_time_estimated                      += $task->data['last_history_time']->estimated_time;
 
 						$task_ids_for_history[] = $task->id;
 					}

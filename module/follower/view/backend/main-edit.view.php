@@ -30,6 +30,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 				data-action="close_followers_edit_mode"
 				data-nonce="<?php echo esc_attr( wp_create_nonce( 'close_followers_edit_mode' ) ); ?>"
 				data-id="<?php echo esc_attr( $task->data['id'] ); ?>">
-		<i class="fa fa-floppy-o" ></i>
+		<i class="far fa-save" ></i>
 	</li>
 </ul>

@@ -54,29 +54,22 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 	protected $version = '0.1';
 
 	/**
-	 * La fonction appelée automatiquement après la récupération de l'objet depuis la base de donnée.
+	 * Statut personnalisé pour l'élément.
 	 *
-	 * @var array
+	 * @var string
 	 */
-	protected $after_get_function = array( '\task_manager\calcul_elapsed_time' );
+	protected $status = '-34070';
 
 	/**
-	 * La fonction appelée automatiquement après l'insertion de l'objet dans la base de donnée.
+	 * Définition des fonctions de callback pour l'élément.
 	 *
-	 * @var array
+	 * @var  array
 	 */
-	protected $before_post_function = array();
-
-	/**
-	 * La fonction appelée automatiquement après la modification de l'objet dans la base de donnée.
-	 *
-	 * @var array
-	 */
-	protected $before_put_function = array();
-
-	protected $after_post_function = array( '\task_manager\compile_time' );
-
-	protected $after_put_function = array( '\task_manager\compile_time' );
+	protected $callback_func = array(
+		'after_get'   => array( '\task_manager\calcul_elapsed_time' ),
+		'after_put'   => array( '\task_manager\compile_time' ),
+		'after_post'  => array( '\task_manager\compile_time' ),
+	);
 
 	/**
 	 * Récupères les commentaires d'un point.

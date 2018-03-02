@@ -54,18 +54,11 @@ class Point_Class extends \eoxia\Comment_Class {
 	protected $version = '0.1';
 
 	/**
-	 * La fonction appelée automatiquement après l'insertion de l'objet dans la base de donnée.
+	 * Statut personnalisé pour l'élément.
 	 *
-	 * @var array
+	 * @var string
 	 */
-	protected $after_post_function = array();
-
-	/**
-	 * La fonction appelée automatiquement après la récupération de l'objet dans la base de donnée.
-	 *
-	 * @var array
-	 */
-	protected $after_get_function = array( '\task_manager\get_full_point' );
+	protected $status = '-34070';
 
 	/**
 	 * Affiches les points d'une tâche.
@@ -91,16 +84,16 @@ class Point_Class extends \eoxia\Comment_Class {
 		$points = self::g()->get( array(
 			'post_id'    => $task->data['id'],
 			'type'       => self::g()->get_type(),
-			'meta_key'   => '_tm_order',
-			'orderby'    => 'meta_value_num',
+			// 'meta_key'   => '_tm_order',
+			// 'orderby'    => 'meta_value_num',
 			'order'      => 'ASC',
-			'meta_query' => array(
-				array(
-					'key'     => '_tm_completed',
-					'value'   => false,
-					'compare' => '=',
-				),
-			),
+			// 'meta_query' => array(
+			// 	array(
+			// 		'key'     => '_tm_completed',
+			// 		'value'   => false,
+			// 		'compare' => '=',
+			// 	),
+			// ),
 		) );
 
 		$points_completed = array();

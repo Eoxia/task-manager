@@ -39,12 +39,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</li>
 
 		<li class="wpeo-comment-time">
-			<span class="fa fa-clock-o"></span>
+			<span class="dashicons dashicons-clock"></span>
 			<input type="text" name="time" value="<?php echo esc_attr( empty( $comment->data['id'] ) && isset( $comment->data['time_info']['calculed_elapsed'] ) ) ? $comment->data['time_info']['calculed_elapsed'] : $comment->data['time_info']['elapsed']; ?>" />
 		</li>
 
 		<?php if ( ! empty( $comment->data['id'] ) ) : ?>
-			<li data-parent="wpeo-comment-container" class="wpeo-save-point action-input "><i class="fa fa-floppy-o" aria-hidden="true"></i></li>
+			<li data-parent="wpeo-comment-container" class="wpeo-save-point action-input "><i class="far fa-save" aria-hidden="true"></i></li>
 		<?php else : ?>
 			<li data-parent="wpeo-comment-container" style="opacity: 0.4;" class="wpeo-point-new-btn action-input dashicons dashicons-plus-alt"></li>
 		<?php endif; ?>

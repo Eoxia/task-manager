@@ -30,7 +30,6 @@ class Point_Model extends \eoxia\Comment_Model {
 	 * @param string $req_method La méthode HTTP actuellement utilisée.
 	 */
 	public function __construct( $object, $req_method = null ) {
-		$this->schema['status']['default']    = '-34070';
 		$this->schema['author_id']['default'] = get_current_user_id();
 		$this->schema['date']['default']      = current_time( 'mysql' );
 

@@ -224,7 +224,7 @@ class Point_Action {
 		check_ajax_referer( 'complete_point' );
 
 		$point_id = ! empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
-		$complete = ( isset( $_POST['complete'] )  && 'true' === $_POST['complete'] ) ? true : false;
+		$complete = ( isset( $_POST['complete'] ) && 'true' === $_POST['complete'] ) ? true : false;
 
 		$point = Point_Class::g()->get( array(
 			'id' => $point_id,

@@ -13,8 +13,8 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} ?>
-
+}
+?>
 <ul class="wpeo-task-time-manage">
 	<?php if ( 0 !== $task->data['last_history_time']->data['id'] ) : ?>
 		<?php if ( 'recursive' === $task->data['last_history_time']->data['custom'] ) : ?>

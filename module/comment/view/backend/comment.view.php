@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<ul class="wpeo-comment-container">
 		<li class="avatar"><?php echo do_shortcode( '[task_avatar ids="' . $comment->data['author_id'] . '" size="20"]' ); ?></li>
 		<li class="wpeo-comment-date"><?php echo esc_html( $comment->data['date']['rendered']['date_human_readable'] ); ?></li>
-		<li class="wpeo-comment-time"><span class="fa fa-clock-o"></span> <?php echo esc_html( $comment->data['time_info']['elapsed'] ); ?></li>
+		<li class="wpeo-comment-time"><span class="dashicons dashicons-clock"></span> <?php echo esc_html( $comment->data['time_info']['elapsed'] ); ?></li>
 		<li class="wpeo-comment-action">
 			<div class="toggle wpeo-comment-setting"
 					data-parent="toggle"

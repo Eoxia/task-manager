@@ -104,7 +104,6 @@ class Quick_Time_Action {
 	 */
 	public function ajax_open_setting_quick_time() {
 		$quicktimes = Quick_Time_Class::g()->get_quicktimes();
-		sort( $quicktimes );
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/setting/main', array(

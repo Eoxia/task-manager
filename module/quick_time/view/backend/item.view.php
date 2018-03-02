@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</td>
 	<td class="min" data-title="<?php esc_html_e( 'min.', 'task-manager' ); ?>">
 		<div>
-			<i class="fa fa-clock-o" aria-hidden="true"></i>
+			<i class="dashicons dashicons-clock" aria-hidden="true"></i>
 			<input type="hidden" class="time" name="comments[<?php echo esc_attr( $i ); ?>][time]" />
 			<input type="text" class="displayed" />
 		</div>
