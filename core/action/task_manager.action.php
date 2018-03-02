@@ -4,8 +4,8 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 0.1.0
- * @version 1.5.0
- * @copyright 2015-2017 Eoxia
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -149,6 +149,8 @@ class Task_Manager_Action {
 		if ( ! $administrator_role->has_cap( 'manage_task_manager' ) ) {
 			$administrator_role->add_cap( 'manage_task_manager' );
 		}
+
+		Task_Manager_Class::g()->init_default_data();
 	}
 
 	/**

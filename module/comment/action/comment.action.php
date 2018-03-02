@@ -95,32 +95,38 @@ class Task_Comment_Action {
 			$date = current_time( 'mysql' );
 		}
 
+		$old_elapsed = 0;
+
 		if ( ! empty( $comment_id ) ) {
 			$comment = Task_Comment_Class::g()->get( array(
 				'id' => $comment_id,
 			), true );
+
+			$comment->data['time_info']['old_elapsed'] = $comment->data['time_info']['elapsed'];
 		} else {
 			$comment = Task_Comment_Class::g()->get( array(
 				'schema' => $comment_id,
 			), true );
 		}
 
-		$comment->post_id              = $post_id;
-		$comment->parent_id            = $parent_id;
-		$comment->date                 = $date;
-		$comment->content              = $content;
-		$comment->time_info['elapsed'] = $time;
 
-		$comment = Task_Comment_Class::g()->update( $comment );
+		$comment->data['post_id']              = $post_id;
+		$comment->data['parent_id']            = $parent_id;
+		$comment->data['date']                 = $date;
+		$comment->data['content']              = $content;
+		$comment->data['time_info']['elapsed'] = $time;
+		$comment->data['status']               = '-34070';
+
+		$comment = Task_Comment_Class::g()->update( $comment->data, true );
 
 		if ( $new ) {
 			$point = Point_Class::g()->get( array(
 				'id' => $parent_id,
 			), true );
 
-			$point->count_comments++;
+			$point->data['count_comments']++;
 
-			Point_Class::g()->update( $point );
+			Point_Class::g()->update( $point->data, true );
 		}
 
 		$comments       = Task_Comment_Class::g()->get_comments( $parent_id );
@@ -139,15 +145,15 @@ class Task_Comment_Action {
 		$view = ob_get_clean();
 
 		$task = Task_Class::g()->get( array(
-			'id' => $comment->post_id,
+			'id' => $comment->data['post_id'],
 		), true );
 
-		do_action( 'tm_edit_comment', $task, $comment->point, $comment );
+		do_action( 'tm_edit_comment', $task, $comment->data['point'], $comment );
 
 		wp_send_json_success( array(
 			'time' => array(
-				'point' => $comment->point->time_info['elapsed'],
-				'task'  => \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] ),
+				'point' => $comment->data['point']->data['time_info']['elapsed'],
+				'task'  => \eoxia\Date_Util::g()->convert_to_custom_hours( $task->data['time_info']['elapsed'] ),
 			),
 			'view'             => $view,
 			'namespace'        => 'taskManager',
@@ -175,14 +181,13 @@ class Task_Comment_Action {
 		}
 
 		$comment = Task_Comment_Class::g()->get( array(
-			'comment__in' => array( $comment_id ),
-			'status' => -34070,
+			'id' => $comment_id,
 		), true );
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/edit', array(
-			'task_id' => $comment->post_id,
-			'point_id' => $comment->parent_id,
+			'task_id' => $comment->data['post_id'],
+			'point_id' => $comment->data['parent_id'],
 			'comment' => $comment,
 		) );
 
@@ -212,26 +217,25 @@ class Task_Comment_Action {
 		}
 
 		$comment = Task_Comment_Class::g()->get( array(
-			'comment__in' => array( $comment_id ),
-			'status'      => '-34070',
+			'id' => $comment_id,
 		), true );
 
-		$comment->status = 'trash';
-		$comment         = Task_Comment_Class::g()->update( $comment );
+		$comment->data['status'] = 'trash';
+		$comment                 = Task_Comment_Class::g()->update( $comment->data, true );
 
 
-		$comment->point->count_comments--;
+		$comment->data['point']->data['count_comments']--;
 
-		Point_Class::g()->update( $comment->point );
+		Point_Class::g()->update( $comment->data['point']->data, true );
 
 		$task = Task_Class::g()->get( array(
-			'id' => $comment->post_id,
+			'id' => $comment->data['post_id'],
 		), true );
 
 		wp_send_json_success( array(
 			'time' => array(
-				'point' => $comment->point->time_info['elapsed'],
-				'task'  => \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] ),
+				'point' => $comment->data['point']->data['time_info']['elapsed'],
+				'task'  => \eoxia\Date_Util::g()->convert_to_custom_hours( $task->data['time_info']['elapsed'] ),
 			),
 			'namespace'        => 'taskManager',
 			'module'           => 'comment',
@@ -252,7 +256,7 @@ class Task_Comment_Action {
 
 		if ( ! empty( $comments ) ) {
 			foreach ( $comments as $comment ) {
-				$comment->author = get_userdata( $comment->author_id );
+				$comment->data['author'] = get_userdata( $comment->data['author_id'] );
 			}
 		}
 
@@ -277,6 +281,14 @@ class Task_Comment_Action {
 		));
 	}
 
+	/**
+	 * Edition d'un commentaire dans le front.
+	 *
+	 * @since 1.3.6
+	 * @version 1.6.0
+	 *
+	 * @return void
+	 */
 	public function callback_edit_comment_front() {
 		check_ajax_referer( 'edit_comment_front' );
 		if ( false === is_user_logged_in() ) {
@@ -284,10 +296,11 @@ class Task_Comment_Action {
 		}
 
 		$comment_id = ! empty( $_POST['comment_id'] ) ? (int) $_POST['comment_id'] : 0;
-		$post_id = ! empty( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;
-		$parent_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
-		$content = ! empty( $_POST['content'] ) ? trim( $_POST['content'] ) : '';
-		$time = ! empty( $_POST['time'] ) ? (int) $_POST['time'] : 0;
+		$post_id    = ! empty( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;
+		$parent_id  = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
+		$content    = ! empty( $_POST['content'] ) ? trim( $_POST['content'] ) : '';
+		$time       = ! empty( $_POST['time'] ) ? (int) $_POST['time'] : 0;
+		$new        = 0 === $comment_id ? true : false;
 
 		$content = str_replace( '<div>', '<br>', $content );
 		$content = wp_kses( $content, array(
@@ -297,19 +310,29 @@ class Task_Comment_Action {
 			)
 		) );
 
-		$comment = \task_manager\Task_Comment_Class::g()->update( array(
-			'id' => $comment_id,
-			'post_id' => $post_id,
+		$comment = \task_manager\Task_Comment_Class::g()->create( array(
+			'id'        => $comment_id,
+			'post_id'   => $post_id,
 			'parent_id' => $parent_id,
-			'date' => current_time( 'mysql' ),
-			'content' => $content,
+			'date'      => current_time( 'mysql' ),
+			'content'   => $content,
 			'time_info' => array(
 				'elapsed' => $time,
 			),
-		) );
+		), true );
+
+		if ( $new ) {
+			$point = Point_Class::g()->get( array(
+				'id' => $parent_id,
+			), true );
+
+			$point->data['count_comments']++;
+
+			Point_Class::g()->update( $point->data, true );
+		}
 
 		// Possibilité de lancer une action après ajout d'un commentaire.
-		do_action( 'tm_action_after_comment_update', $comment->id );
+		do_action( 'tm_action_after_comment_update', $comment->data['id'] );
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'comment', 'frontend/comment', array(
@@ -317,10 +340,6 @@ class Task_Comment_Action {
 		) );
 
 		wp_send_json_success( array(
-			'time' => array(
-				'point' => $comment->point->time_info['elapsed'],
-				'task' => $comment->task->time_info['elapsed'],
-			),
 			'view' => ob_get_clean(),
 			'namespace' => 'taskManagerFrontend',
 			'module' => 'comment',

@@ -39,7 +39,7 @@ class History_Time_Class extends \eoxia\Comment_Class {
 	 *
 	 * @var string
 	 */
-	protected $comment_type = 'history_time';
+	protected $type = 'history_time';
 
 	/**
 	 * API REST base.
@@ -84,15 +84,15 @@ class History_Time_Class extends \eoxia\Comment_Class {
 		), true );
 
 		$history_times = self::g()->get( array(
-			'post_id'          => $task_id,
-			'orderby'          => 'ASC',
-			'comment_approved' => '-34070',
-			'type'             => self::g()->get_type(),
+			'post_id' => $task_id,
+			'orderby' => 'ASC',
+			'status'  => '-34070',
+			'type'    => self::g()->get_type(),
 		) );
 
 		if ( ! empty( $history_times ) ) {
 			foreach ( $history_times as $key => $history_time ) {
-				$history_time->author = get_userdata( $history_time->author_id );
+				$history_time->data['author'] = get_userdata( $history_time->data['author_id'] );
 			}
 		}
 

@@ -21,7 +21,7 @@ if ( ! empty( $points ) ) :
 			'point'      => $point,
 			'comment_id' => $comment_id,
 			'point_id'   => $point_id,
-			'parent_id'  => $point->post_id,
+			'parent_id'  => $point->data['post_id'],
 		) );
 	endforeach;
 endif;

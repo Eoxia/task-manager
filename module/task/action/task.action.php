@@ -4,8 +4,8 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.0.0
- * @version 1.5.0
- * @copyright 2015-2017 Eoxia
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -24,7 +24,7 @@ class Task_Action {
 	 * Initialise les actions liées au tâche.
 	 *
 	 * @since 1.0.0
-	 * @version 1.5.0
+	 * @version 1.6.0
 	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'callback_init' ) );
@@ -37,7 +37,6 @@ class Task_Action {
 		add_action( 'wp_ajax_edit_title', array( $this, 'callback_edit_title' ) );
 
 		add_action( 'wp_ajax_change_color', array( $this, 'callback_change_color' ) );
-		add_action( 'wp_ajax_load_task_properties', array( $this, 'callback_load_task_properties' ) );
 
 		add_action( 'wp_ajax_search_parent', array( $this, 'callback_search_parent' ) );
 		add_action( 'wp_ajax_move_task_to', array( $this, 'callback_move_task_to' ) );
@@ -56,7 +55,7 @@ class Task_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
+	 * @since 1.0.0
 	 * @version 1.3.6.0
 	 */
 	public function callback_init() {
@@ -68,7 +67,7 @@ class Task_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
+	 * @since 1.0.0
 	 * @version 1.3.6.0
 	 */
 	public function callback_wp_print_script() {
@@ -86,18 +85,19 @@ class Task_Action {
 	 * @return void
 	 *
 	 * @since 1.0.0
-	 * @version 1.5.0
+	 * @version 1.6.0
 	 */
 	public function callback_create_task() {
 		check_ajax_referer( 'create_task' );
 
-		$parent_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
+		$parent_id         = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
 		$tag_slug_selected = ! empty( $_POST['tag'] ) ? sanitize_text_field( $_POST['tag'] ) : 0;
 
-		$task = Task_Class::g()->create( array(
-			'title' => __( 'New task', 'task-manager' ),
+		$task_args = array(
+			'title'     => __( 'New task', 'task-manager' ),
 			'parent_id' => $parent_id,
-		) );
+			'status'    => 'publish',
+		);
 
 		if ( ! empty( $tag_slug_selected ) ) {
 			$tag = get_term_by( 'slug', $tag_slug_selected, 'wpeo_tag', 'ARRAY_A' );
@@ -106,9 +106,14 @@ class Task_Action {
 				$tag = wp_create_term( $tag_slug_selected, 'wpeo_tag' );
 			}
 
-			$task->taxonomy['wpeo_tag'][] = (int) $tag['term_id'];
-			Task_Class::g()->update( $task );
+			$task_args['taxonomy'] = array(
+				Tag_Class::g()->get_type() => array(
+					$tag['term_id'],
+				),
+			);
 		}
+
+		$task = Task_Class::g()->create( $task_args, true );
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task', array(
@@ -116,10 +121,10 @@ class Task_Action {
 		) );
 
 		wp_send_json_success( array(
-			'namespace' => 'taskManager',
-			'module' => 'task',
+			'namespace'        => 'taskManager',
+			'module'           => 'task',
 			'callback_success' => 'createdTaskSuccess',
-			'view' => ob_get_clean(),
+			'view'             => ob_get_clean(),
 		) );
 	}
 
@@ -129,7 +134,7 @@ class Task_Action {
 	 * @return void
 	 *
 	 * @since 1.0.0
-	 * @version 1.5.0
+	 * @version 1.6.0
 	 */
 	public function callback_delete_task() {
 		check_ajax_referer( 'delete_task' );
@@ -141,20 +146,20 @@ class Task_Action {
 		}
 
 		$task = Task_Class::g()->get( array(
-			'id' => $task_id,
+			'p' => $task_id,
 		), true );
 
-		$task->status = 'trash';
+		$task->data['status'] = 'trash';
 
-		Task_Class::g()->update( $task );
+		Task_Class::g()->update( $task->data, true );
 
 		do_action( 'tm_delete_task', $task );
 
 		wp_send_json_success( array(
-			'namespace' => 'taskManager',
-			'module' => 'task',
+			'namespace'        => 'taskManager',
+			'module'           => 'task',
 			'callback_success' => 'deletedTaskSuccess',
-			'view' => ob_get_clean(),
+			'view'             => ob_get_clean(),
 		) );
 	}
 
@@ -164,26 +169,26 @@ class Task_Action {
 	 * @return void
 	 *
 	 * @since 1.0.0
-	 * @version 1.5.0
+	 * @version 1.6.0
 	 */
 	public function callback_edit_title() {
 		check_ajax_referer( 'edit_title' );
 
 		$task_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
-		$title = ! empty( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : '';
+		$title   = ! empty( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : '';
 
 		if ( empty( $task_id ) ) {
 			wp_send_json_error();
 		}
 
 		$task = Task_Class::g()->get( array(
-			'id' => $task_id,
+			'p' => $task_id,
 		), true );
 
-		$task->title = $title;
-		$task->slug = sanitize_title( $title );
+		$task->data['title'] = $title;
+		$task->data['slug']  = sanitize_title( $title );
 
-		Task_Class::g()->update( $task );
+		Task_Class::g()->update( $task->data, true );
 		wp_send_json_success();
 	}
 
@@ -193,76 +198,42 @@ class Task_Action {
 	 * @return void
 	 *
 	 * @since 1.0.0
-	 * @version 1.5.0
+	 * @version 1.6.0
 	 */
 	public function callback_change_color() {
 		check_ajax_referer( 'change_color' );
 
-		$id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+		$id    = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 		$color = ! empty( $_POST['color'] ) ? sanitize_text_field( $_POST['color'] ) : '';
 
 		$task = Task_Class::g()->get( array(
-			'id' => $id,
+			'p' => $id,
 		), true );
 
-		$task->front_info['display_color'] = $color;
+		$task->data['front_info']['display_color'] = $color;
 
-		Task_Class::g()->update( $task );
+		Task_Class::g()->update( $task->data, true );
 
 		wp_send_json_success();
 	}
 
 	/**
-	 * Charges les propriétés de la tâche et renvoie la vue à la réponse AJAX.
-	 *
-	 * @return void
-	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
-	 */
-	public function callback_load_task_properties() {
-		check_ajax_referer( 'load_task_properties' );
-
-		$task_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
-
-		$task = Task_Class::g()->get( array(
-			'id' => $task_id,
-		), true );
-
-		$task->author = Follower_Class::g()->get( array(
-			'include' => array( $task->author_id ),
-		), true );
-
-		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/properties', array(
-			'task' => $task,
-		) );
-
-		wp_send_json_success( array(
-			'view' => ob_get_clean(),
-			'namespace' => 'taskManager',
-			'module' => 'task',
-			'callback_success' => 'loadedTaskProperties',
-		) );
-	}
-
-	/**
 	 * Recherche dans les posts types selon le term.
 	 *
-	 * @return void
+	 * @since 1.0.0
+	 * @version 1.6.0
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.4.0-ford
+	 * @return void
 	 */
 	public function callback_search_parent() {
 		global $wpdb;
 		$term = sanitize_text_field( $_GET['term'] );
 
 		$posts_type = get_post_types();
-		unset( $posts_type[ Task_Class::g()->get_post_type() ] );
+		unset( $posts_type[ Task_Class::g()->get_type() ] );
 
 		$posts_founded = array();
-		$ids_founded = array();
+		$ids_founded   = array();
 
 		$query = apply_filters( 'task_manager_search_parent_query', "SELECT ID, post_title FROM {$wpdb->posts} WHERE ID LIKE '%" . $term . "%' AND post_type IN('" . implode( $posts_type, '\',\'' ) . "')" , $term );
 
@@ -273,7 +244,7 @@ class Task_Action {
 				$posts_founded[] = array(
 					'label' => '' . $term . ' - ' . $post->post_title,
 					'value' => '' . $term . ' - ' . $post->post_title,
-					'id' => $post->ID,
+					'id'    => $post->ID,
 				);
 
 				$ids_founded[] = $post->ID;
@@ -281,8 +252,8 @@ class Task_Action {
 		}
 
 		$query = new \WP_Query( array(
-			'post_type' => $posts_type,
-			's' => $term,
+			'post_type'   => $posts_type,
+			's'           => $term,
 			'post_status' => array( 'publish', 'draft' ),
 		) );
 
@@ -292,7 +263,7 @@ class Task_Action {
 					$posts_founded[] = array(
 						'label' => '#' . $post->ID . ' - ' . $post->post_title,
 						'value' => '#' . $post->ID . ' - ' . $post->post_title,
-						'id' => $post->ID,
+						'id'    => $post->ID,
 					);
 				}
 			}
@@ -302,7 +273,7 @@ class Task_Action {
 			$posts_founded[] = array(
 				'label' => __( 'No post found', 'task-manager' ),
 				'value' => __( 'No post found', 'task-manager' ),
-				'id' => 0,
+				'id'    => 0,
 			);
 		}
 
@@ -314,13 +285,13 @@ class Task_Action {
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.6.0
 	 */
 	public function callback_move_task_to() {
 		check_ajax_referer( 'move_task_to' );
 
-		$task_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+		$task_id       = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
 		$to_element_id = ! empty( $_POST['to_element_id'] ) ? (int) $_POST['to_element_id'] : 0;
 
 		if ( empty( $task_id ) || empty( $to_element_id ) ) {
@@ -331,15 +302,15 @@ class Task_Action {
 			'id' => $task_id,
 		), true );
 
-		$task->parent_id = $to_element_id;
+		$task->data['parent_id'] = $to_element_id;
 
-		Task_Class::g()->update( $task );
+		Task_Class::g()->update( $task->data );
 
 		wp_send_json_success( array(
-			'namespace' => 'taskManager',
-			'module' => 'task',
+			'namespace'        => 'taskManager',
+			'module'           => 'task',
 			'callback_success' => 'movedTaskTo',
-			'task_id' => $task_id,
+			'task_id'          => $task_id,
 		) );
 	}
 
@@ -354,13 +325,13 @@ class Task_Action {
 	 * @todo: nonce
 	 */
 	public function callback_load_more_task() {
-		$offset = ! empty( $_POST['offset'] ) ? (int) $_POST['offset'] : 0;
+		$offset         = ! empty( $_POST['offset'] ) ? (int) $_POST['offset'] : 0;
 		$posts_per_page = ! empty( $_POST['posts_per_page'] ) ? (int) $_POST['posts_per_page'] : 0;
-		$post_parent = ! empty( $_POST['post_parent'] ) ? (int) $_POST['post_parent'] : 0;
-		$term = ! empty( $_POST['term'] ) ? sanitize_text_field( $_POST['term'] ) : '';
-		$users_id = ! empty( $_POST['users_id'] ) ? sanitize_text_field( $_POST['users_id'] ) : array();
-		$status = ! empty( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : array();
-		$tab = ! empty( $_POST['tab'] ) ? sanitize_text_field( $_POST['tab'] ) : array();
+		$post_parent    = ! empty( $_POST['post_parent'] ) ? (int) $_POST['post_parent'] : 0;
+		$term           = ! empty( $_POST['term'] ) ? sanitize_text_field( $_POST['term'] ) : '';
+		$users_id       = ! empty( $_POST['users_id'] ) ? sanitize_text_field( $_POST['users_id'] ) : array();
+		$status         = ! empty( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : array();
+		$tab            = ! empty( $_POST['tab'] ) ? sanitize_text_field( $_POST['tab'] ) : array();
 
 		if ( ! empty( $users_id ) ) {
 			$users_id = explode( ',', $users_id );
@@ -373,26 +344,26 @@ class Task_Action {
 		}
 
 		$param = apply_filters( 'task_manager_load_more_query_args', array(
-			'offset' => $offset,
+			'offset'         => $offset,
 			'posts_per_page' => $posts_per_page,
-			'term' => $term,
-			'users_id' => $users_id,
-			'categories_id' => $categories_id,
-			'status' => $status,
-			'post_parent' => $post_parent,
+			'term'           => $term,
+			'users_id'       => $users_id,
+			'categories_id'  => $categories_id,
+			'status'         => $status,
+			'post_parent'    => $post_parent,
 		), $tab );
 
-		ob_start();
-		$tasks = Task_Class::g()->get_tasks( $param );
 
+		$tasks = Task_Class::g()->get_tasks( $param );
+		ob_start();
 		Task_Class::g()->display_tasks( $tasks );
 
 		wp_send_json_success( array(
-			'view' => ob_get_clean(),
-			'namespace' => 'taskManager',
-			'module' => 'task',
+			'view'             => ob_get_clean(),
+			'namespace'        => 'taskManager',
+			'module'           => 'task',
 			'callback_success' => 'loadedMoreTask',
-			'can_load_more' => ! empty( $tasks ) ? true : false,
+			'can_load_more'    => ! empty( $tasks ) ? true : false,
 		) );
 	}
 
@@ -419,38 +390,49 @@ class Task_Action {
 			'id' => $task_id,
 		), true );
 
-		$points_completed = array();
-		$points_uncompleted = array();
-		if ( ! empty( $task->task_info['order_point_id'] ) ) {
-			$points = Point_Class::g()->get( array(
-				'post_id' => $task->id,
-				'orderby' => 'comment__in',
-				'comment__in' => $task->task_info['order_point_id'],
-				'status' => -34070,
-			) );
+		$points_uncompleted = Point_Class::g()->get( array(
+			'post_id'    => $task->data['id'],
+			'type'       => Point_Class::g()->get_type(),
+			'meta_key'   => '_tm_order',
+			'orderby'    => 'meta_value_num',
+			'order'      => 'ASC',
+			'meta_query' => array(
+				array(
+					'key'     => '_tm_completed',
+					'value'   => false,
+					'compare' => '=',
+				),
+			),
+		) );
 
-			$points_completed = array_filter( $points, function( $point ) {
-				return true === $point->point_info['completed'];
-			} );
+		$points_completed = Point_Class::g()->get( array(
+			'post_id'    => $task->data['id'],
+			'type'       => Point_Class::g()->get_type(),
+			'meta_key'   => '_tm_order',
+			'orderby'    => 'meta_value_num',
+			'order'      => 'ASC',
+			'meta_query' => array(
+				array(
+					'key'     => '_tm_completed',
+					'value'   => true,
+					'compare' => '=',
+				),
+			),
+		) );
 
-			$points_uncompleted = array_filter( $points, function( $point ) {
-				return false === $point->point_info['completed'];
-			} );
-		}
-
-		$file_name = $task->slug . current_time( 'timestamp' ) . '.txt';
+		$file_name = $task->data['slug'] . current_time( 'timestamp' ) . '.txt';
 		$file_info = array(
-			'name' => $task->slug . current_time( 'timestamp' ) . '.txt',
-			'path' => $upload['path'] . '/' . $file_name,
-			'url' => $upload['url'] . '/' . $file_name,
-			'content' => $task->id . ' - ' . $task->title . "\r\n\r\n",
+			'name'    => $task->data['slug'] . current_time( 'timestamp' ) . '.txt',
+			'path'    => $upload['path'] . '/' . $file_name,
+			'url'     => $upload['url'] . '/' . $file_name,
+			'content' => $task->data['id'] . ' - ' . $task->data['title'] . "\r\n\r\n",
 		);
 
 		$file_info['content'] .= __( 'Uncompleted', 'task-manager' ) . "\r\n";
 
 		if ( ! empty( $points_uncompleted ) ) {
 			foreach ( $points_uncompleted as $point ) {
-				$file_info['content'] .= '	' . $point->id . ' - ' . trim( $point->content ) . "\r\n";
+				$file_info['content'] .= '	' . $point->data['id'] . ' - ' . trim( $point->data['content'] ) . "\r\n";
 			}
 		}
 
@@ -458,7 +440,7 @@ class Task_Action {
 
 		if ( ! empty( $points_completed ) ) {
 			foreach ( $points_completed as $point ) {
-				$file_info['content'] .= '	' . $point->id . ' - ' . trim( $point->content ) . "\r\n";
+				$file_info['content'] .= '	' . $point->data['id'] . ' - ' . trim( $point->data['content'] ) . "\r\n";
 			}
 		}
 
@@ -467,11 +449,11 @@ class Task_Action {
 		fclose( $fp );
 
 		wp_send_json_success( array(
-			'namespace' => 'taskManager',
-			'module' => 'task',
+			'namespace'        => 'taskManager',
+			'module'           => 'task',
 			'callback_success' => 'exportedTask',
-			'url' => $file_info['url'],
-			'filename' => $file_info['name'],
+			'url'              => $file_info['url'],
+			'filename'         => $file_info['name'],
 		) );
 	}
 
@@ -494,31 +476,44 @@ class Task_Action {
 
 		// Recompiles le nombre de point complété et incomplété.
 		// Recompiles le temps.
-		$elapsed           = 0;
+		$elapsed_task      = 0;
+		$elapsed_point     = 0;
 		$count_completed   = 0;
 		$count_uncompleted = 0;
-		$points            = Point_Class::g()->get( array(
-			'post_id' => $task->id,
+
+		$points = Point_Class::g()->get( array(
+			'post_id' => $task->data['id'],
 			'type'    => Point_Class::g()->get_type(),
+			'status'  => '-34070',
 		) );
 
 		if ( ! empty( $points ) ) {
 			foreach ( $points as $point ) {
-				$elapsed += $point->time_info['elapsed'];
+				$elapsed_point = 0;
+				$comments      = Task_Comment_Class::g()->get( array(
+					'post_id' => $task->data['id'],
+					'parent'  => $point->data['id'],
+					'type'    => Task_Comment_Class::g()->get_type(),
+					'status'  => '-34070',
+				) );
 
-				if ( $point->completed ) {
-					$count_completed++;
-				} else {
-					$count_uncompleted++;
+				if ( ! empty( $comments ) ) {
+					foreach ( $comments as $comment ) {
+						$elapsed_point += $comment->data['time_info']['elapsed'];
+					}
 				}
+
+				$point->data['time_info']['elapsed'] = (int) $elapsed_point;
+				$elapsed_task                       += (int) $elapsed_point;
+				Point_Class::g()->update( $point->data, true );
 			}
 		}
 
-		$task->time_info['elapsed']     = $elapsed;
-		$task->count_completed_points   = $count_completed;
-		$task->count_uncompleted_points = $count_uncompleted;
+		$task->data['time_info']['elapsed']     = $elapsed_task;
+		$task->data['count_completed_points']   = $count_completed;
+		$task->data['count_uncompleted_points'] = $count_uncompleted;
 
-		Task_Class::g()->update( $task );
+		Task_Class::g()->update( $task->data, true );
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task', array(
@@ -538,8 +533,8 @@ class Task_Action {
 	 * @param string  $post_type Le type du post.
 	 * @param WP_Post $post      Les données du post.
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.0.0.0
+	 * @since 1.0.0
+	 * @version 1.0.0
 	 */
 	public function callback_add_meta_boxes( $post_type, $post ) {
 		if ( in_array( $post_type, \eoxia\Config_Util::$init['task-manager']->associate_post_type, true ) ) {

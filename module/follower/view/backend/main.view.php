@@ -5,13 +5,15 @@
  * @package Task Manager
  * @subpackage Module/Tag
  *
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.6.0
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} ?>
 
 <ul class="wpeo-ul-users">
 	<?php
@@ -27,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 	<li class="action-attribute follower add"
 			data-action="load_followers"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_followers' ) ); ?>"
-			data-id="<?php echo esc_attr( $task->id ); ?>">
+			data-id="<?php echo esc_attr( $task->data['id'] ); ?>">
 		<span class="dashicons dashicons-plus-alt"></span>
 		<?php esc_html_e( 'Followers', 'task-manager' ); ?>
 	</li>

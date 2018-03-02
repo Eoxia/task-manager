@@ -1,7 +1,7 @@
 {
 	"name": "Le responsable d'une tâche",
 	"slug": "owner",
-	"version": "1.3.6.0",
+	"version": "1.6.0",
 	"description": "Le module gérant les responsables",
 	"path": "module/owner/",
 	"dependencies": {

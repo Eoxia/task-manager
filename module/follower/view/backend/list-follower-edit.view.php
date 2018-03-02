@@ -11,7 +11,9 @@
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) {	exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 if ( ! empty( $users ) ) :
 	foreach ( $users as $user ) :

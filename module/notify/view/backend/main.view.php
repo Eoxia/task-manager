@@ -5,7 +5,7 @@
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.5.0
  * @version 1.6.0
- * @copyright 2015-2017 Eoxia
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -26,8 +26,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		if ( ! empty( $followers ) ) :
 			foreach ( $followers as $follower ) :
 				?>
-				<li class="follower <?php echo ( in_array( $follower->id, $task->user_info['affected_id'], true ) || $follower->id === $task->user_info['owner_id'] ) ? 'active' : ''; ?>" data-id="<?php echo esc_attr( $follower->id ); ?>" style="width: 50px; height: 50px;">
-					<?php echo do_shortcode( '[task_avatar ids=' . $follower->id . ']' ); ?>
+				<li class="follower <?php echo ( in_array( $follower->data['id'], $task->data['user_info']['affected_id'], true ) || $follower->data['id'] === $task->data['user_info']['owner_id'] ) ? 'active' : ''; ?>" data-id="<?php echo esc_attr( $follower->data['id'] ); ?>" style="width: 50px; height: 50px;">
+					<?php echo do_shortcode( '[task_avatar ids=' . $follower->data['id'] . ']' ); ?>
 				</li>
 				<?php
 			endforeach;
@@ -43,4 +43,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 			data-parent="popup"
 			data-action="send_notification"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'send_notification' ) ); ?>"
-			data-id="<?php echo esc_attr( $task->id ); ?>"><?php echo esc_html_e( 'Send notification', 'task-manager' ); ?></button>
+			data-id="<?php echo esc_attr( $task->data['id'] ); ?>"><?php echo esc_html_e( 'Send notification', 'task-manager' ); ?></button>

@@ -4,8 +4,8 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.0.0
- * @version 1.5.0
- * @copyright 2015-2017 Eoxia
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -17,11 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! empty( $comments ) ) :
 	foreach ( $comments as $comment ) :
-		if ( 0 !== $comment->id ) :
-			\eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/comment', array(
-				'comment' => $comment,
-				'comment_selected_id' => $comment_selected_id,
-			) );
-		endif;
+		\eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/comment', array(
+			'comment'             => $comment,
+			'comment_selected_id' => $comment_selected_id,
+		) );
 	endforeach;
 endif;

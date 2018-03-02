@@ -5,7 +5,7 @@
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.6.0
  * @version 1.6.0
- * @copyright 2015-2017 Eoxia
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -86,6 +86,7 @@ class Quick_Time_Class extends \eoxia\Singleton_Util {
 	 */
 	public function get_quicktimes() {
 		$quicktimes = get_user_meta( get_current_user_id(), \eoxia\Config_Util::$init['task-manager']->quick_time->meta_quick_time, true );
+
 		if ( ! empty( $quicktimes ) ) {
 			foreach ( $quicktimes as $key => $quicktime ) {
 				$quicktimes[ $key ] = quicktime_format_data( $quicktime );

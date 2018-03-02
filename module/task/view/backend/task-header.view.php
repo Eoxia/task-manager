@@ -16,24 +16,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <ul class="wpeo-task-time-manage">
-	<?php if ( 0 !== $task->last_history_time->id ) : ?>
-		<?php if ( 'recursive' === $task->last_history_time->custom ) : ?>
+	<?php if ( 0 !== $task->data['last_history_time']->data['id'] ) : ?>
+		<?php if ( 'recursive' === $task->data['last_history_time']->data['custom'] ) : ?>
 			<li><?php esc_html_e( 'Repeated', 'task-manager' ); ?>
 		<?php else : ?>
 			<li class="wpeo-task-date tooltip hover" aria-label="<?php echo esc_html_e( 'Dead line', 'task-manager' ); ?>">
 				<i class="dashicons dashicons-calendar-alt"></i>
-				<span><?php echo esc_html( $task->last_history_time->due_date['date_input']['fr_FR']['date'] ); ?></span>
+				<span><?php echo esc_html( $task->data['last_history_time']->data['due_date']['rendered']['date'] ); ?></span>
 			</li>
 		<?php endif; ?>
 	<?php endif; ?>
 
 	<li class="wpeo-task-elapsed">
 		<i class="dashicons dashicons-clock"></i>
-		<span class="elapsed tooltip hover" aria-label="<?php echo esc_html_e( 'Elapsed time', 'task-manager' ); ?>"><?php echo esc_html( \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] ) ); ?></span>
+		<span class="elapsed tooltip hover" aria-label="<?php echo esc_html_e( 'Elapsed time', 'task-manager' ); ?>"><?php echo esc_html( \eoxia\Date_Util::g()->convert_to_custom_hours( $task->data['time_info']['elapsed'] ) ); ?></span>
 	</li>
 	<li class="wpeo-task-estimated">
-		<?php if ( ! empty( $task->last_history_time->estimated_time ) ) : ?>
-			<span class="estimated tooltip hover" aria-label="<?php echo esc_html_e( 'Estimated time', 'task-manager' ); ?>">/ <?php echo esc_html( \eoxia\Date_Util::g()->convert_to_custom_hours( $task->last_history_time->estimated_time ) ); ?></span>
+		<?php if ( ! empty( $task->data['last_history_time']->data['estimated_time'] ) ) : ?>
+			<span class="estimated tooltip hover" aria-label="<?php echo esc_html_e( 'Estimated time', 'task-manager' ); ?>">/ <?php echo esc_html( \eoxia\Date_Util::g()->convert_to_custom_hours( $task->data['last_history_time']->data['estimated_time'] ) ); ?></span>
 		<?php endif; ?>
 	</li>
 
@@ -43,8 +43,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			data-action="load_time_history"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_time_history' ) ); ?>"
 			data-class="history-time"
-			data-title="<?php echo sprintf( __( '#%1$s Time history', 'task-manager' ), esc_attr( $task->id ) ); ?>"
-			data-task-id="<?php echo esc_attr( $task->id ); ?>">
+			data-title="<?php echo sprintf( __( '#%1$s Time history', 'task-manager' ), esc_attr( $task->data['id'] ) ); ?>"
+			data-task-id="<?php echo esc_attr( $task->data['id'] ); ?>">
 		<span class="fa fa-history dashicons-image-rotate"></span>
 	</li>
 
@@ -55,6 +55,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 					data-action="load_last_activity"
 					aria-label="<?php echo esc_attr_e( 'Activity display', 'task-manager' ); ?>"
 					data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_last_activity' ) ); ?>"
-					data-tasks-id="<?php echo esc_attr( $task->id ); ?>"></span>
+					data-tasks-id="<?php echo esc_attr( $task->data['id'] ); ?>"></span>
 	</li>
 </ul>

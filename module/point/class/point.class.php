@@ -44,7 +44,7 @@ class Point_Class extends \eoxia\Comment_Class {
 	 *
 	 * @var string
 	 */
-	protected $comment_type = 'wpeo_point';
+	protected $type = 'wpeo_point';
 
 	/**
 	 * La version pour la rest API
@@ -58,7 +58,7 @@ class Point_Class extends \eoxia\Comment_Class {
 	 *
 	 * @var array
 	 */
-	protected $after_post_function = array( '\task_manager\update_post_order' );
+	protected $after_post_function = array();
 
 	/**
 	 * La fonction appelée automatiquement après la récupération de l'objet dans la base de donnée.
@@ -85,11 +85,11 @@ class Point_Class extends \eoxia\Comment_Class {
 		$point_id   = ! empty( $_GET['point_id'] ) ? (int) $_GET['point_id'] : 0;
 
 		$task = Task_Class::g()->get( array(
-			'id' => $task_id,
+			'p' => $task_id,
 		), true );
 
 		$points = self::g()->get( array(
-			'post_id'    => $task->id,
+			'post_id'    => $task->data['id'],
 			'type'       => self::g()->get_type(),
 			'meta_key'   => '_tm_order',
 			'orderby'    => 'meta_value_num',
@@ -107,7 +107,7 @@ class Point_Class extends \eoxia\Comment_Class {
 		// Dans le frontend, les points complétés sont affichées directement.
 		if ( $frontend ) {
 			$points_completed = self::g()->get( array(
-				'post_id'    => $task->id,
+				'post_id'    => $task->data['id'],
 				'type'       => self::g()->get_type(),
 				'meta_key'   => '_tm_order',
 				'orderby'    => 'meta_value_num',

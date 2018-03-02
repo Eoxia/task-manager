@@ -5,7 +5,7 @@
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.0.0
  * @version 1.6.0
- * @copyright 2015-2017 Eoxia
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -23,13 +23,14 @@ class Task_Comment_Model extends \eoxia\Comment_Model {
 	/**
 	 * Le constructeur qui permet de faire la définition du modèle.
 	 *
-	 * @param Task_Comment_Model $object L'objet.
+	 * @param Task_Comment_Model $object     L'objet.
+	 * @param string             $req_method Get ou Post.
 	 *
 	 * @since 1.0.0
 	 * @version 1.6.0
 	 */
-	public function __construct( $object ) {
-		$this->model['time_info'] = array(
+	public function __construct( $object, $req_method = null ) {
+		$this->schema['time_info'] = array(
 			'type'      => 'array',
 			'meta_type' => 'multiple',
 			'child'     => array(
@@ -38,9 +39,13 @@ class Task_Comment_Model extends \eoxia\Comment_Model {
 					'meta_type' => 'multiple',
 					'bydefault' => 15,
 				),
+				'old_elapsed' => array(
+					'type' => 'integer',
+					'meta_type' => 'multiple',
+				),
 			),
 		);
 
-		parent::__construct( $object );
+		parent::__construct( $object, $req_method );
 	}
 }

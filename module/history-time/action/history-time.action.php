@@ -79,17 +79,17 @@ class History_Time_Action {
 			wp_send_json_error();
 		}
 
-		$history_time_created = History_Time_Class::g()->create( array(
+		$history_time_created = History_Time_Class::g()->update( array(
 			'post_id'        => $task_id,
 			'due_date'       => $due_date,
 			'estimated_time' => $estimated_time,
 			'custom'         => $custom,
-		) );
+		), true );
 
 		do_action( 'tm_created_history_time', $history_time_created, $task_id, $due_date, $estimated_time );
 
 		$task = Task_Class::g()->get( array(
-			'id' => $task_id,
+			'p' => $task_id,
 		), true );
 
 		ob_start();

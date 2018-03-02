@@ -15,7 +15,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Fonctions "helper" des tâches.
+ */
 class Task_Helper {
+
+	/**
+	 * Met à jour le temp compilé dans les points.
+	 *
+	 * @param  [type] $data [description]
+	 * @return [type]       [description]
+	 */
 	public static function update_points( $data ) {
 		$compiled_time = 0;
 		$points = Point_Class::g()->get( array(
@@ -54,24 +64,23 @@ class Task_Helper {
  * @since 1.3.6
  * @version 1.6.0
  *
- * @param Task_Model $data Les données de la tâche.
+ * @param Task_Model $object Les données de la tâche.
  *
- * @return Task_Model      Les données de la tâche modifié.
+ * @return Task_Model         Les données de la tâche modifié.
  */
-function get_full_task( $data ) {
-	$data->last_history_time = History_Time_Class::g()->get( array(
-		'post_id' => $data->id,
+function get_full_task( $object ) {
+	$object->data['last_history_time'] = History_Time_Class::g()->get( array(
+		'post_id' => $object->data['id'],
 		'number'  => 1,
-		'type'    => History_Time_Class::g()->get_type(),
 	), true );
 
-	if ( empty( $data->last_history_time->id ) ) {
-		$data->last_history_time = History_Time_Class::g()->get( array(
+	if ( empty( $object->data['last_history_time']->data['id'] ) ) {
+		$object->data['last_history_time'] = History_Time_Class::g()->get( array(
 			'schema' => true,
 		), true );
 	} else {
 		// Calcul du temps si on est en mode "répétition" mensuel.
-		if ( 'recursive' === $data->last_history_time->custom ) {
+		if ( 'recursive' === $object->data['last_history_time']->data['custom'] ) {
 			$comments = Task_Comment_Class::g()->get( array(
 				'date_query'   => array(
 					'after' => array(
@@ -81,21 +90,21 @@ function get_full_task( $data ) {
 					),
 				),
 				'status'       => -34070,
-				'post_id'      => $data->id,
+				'post_id'      => $object->data['id'],
 				'type__not_in' => array( 'history_time' ),
 			) );
 
-			$data->time_info['elapsed'] = 0;
+			$object->data['time_info']['elapsed'] = 0;
 
 			if ( ! empty( $comments ) ) {
 				foreach ( $comments as $comment ) {
-					$data->time_info['elapsed'] += $comment->time_info['elapsed'];
+					$object->data['time_info']['elapsed'] += $comment->data['time_info']['elapsed'];
 				}
 			}
 		}
 	}
 
-	$data->count_all_points = $data->count_uncompleted_points + $data->count_completed_points;
+	$object->data['count_all_points'] = $object->data['count_uncompleted_points'] + $object->data['count_completed_points'];
 
-	return $data;
+	return $object;
 }

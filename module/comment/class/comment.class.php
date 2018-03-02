@@ -44,7 +44,7 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 	 *
 	 * @var string
 	 */
-	protected $comment_type = 'wpeo_time';
+	protected $type = 'wpeo_time';
 
 	/**
 	 * La version pour la rest API
@@ -65,18 +65,18 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 	 *
 	 * @var array
 	 */
-	protected $before_post_function = array( '\task_manager\compile_time' );
+	protected $before_post_function = array();
 
 	/**
 	 * La fonction appelée automatiquement après la modification de l'objet dans la base de donnée.
 	 *
 	 * @var array
 	 */
-	protected $before_put_function = array( '\task_manager\compile_time' );
+	protected $before_put_function = array();
 
-	protected $after_post_function = array();
+	protected $after_post_function = array( '\task_manager\compile_time' );
 
-	protected $after_put_function = array();
+	protected $after_put_function = array( '\task_manager\compile_time' );
 
 	/**
 	 * Récupères les commentaires d'un point.
@@ -90,12 +90,11 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 	public function get_comments( $point_id ) {
 		$comments = self::g()->get( array(
 			'parent' => $point_id,
-			'status' => '-34070',
 		) );
 
 		if ( ! empty( $comments ) ) {
 			foreach ( $comments as $comment ) {
-				$comment->author = get_userdata( $comment->author_id );
+				$comment->data['author'] = get_userdata( $comment->data['author_id'] );
 			}
 		}
 

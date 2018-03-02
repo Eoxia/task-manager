@@ -23,38 +23,37 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.3.6
  * @version 1.6.0
  */
-function compile_time( $data ) {
+function compile_time( $object ) {
 	$point = Point_Class::g()->get( array(
-		'id' => $data->parent_id,
+		'id' => $object->data['parent_id'],
 	), true );
 
 	$task = Task_Class::g()->get( array(
-		'id' => $data->post_id,
+		'id' => $object->data['post_id'],
 	), true );
 
-	$point_updated_elapsed = $point->time_info['elapsed'];
-	$task_updated_elapsed  = $task->time_info['elapsed'];
+	$point_updated_elapsed = $point->data['time_info']['elapsed'];
+	$task_updated_elapsed  = $task->data['time_info']['elapsed'];
 
-	if ( 'trash' === $data->status ) {
-		$point_updated_elapsed -= $data->time_info['elapsed'];
-		$task_updated_elapsed  -= $data->time_info['elapsed'];
+	if ( 'trash' === $object->data['status'] ) {
+		$point_updated_elapsed -= $object->data['time_info']['elapsed'];
+		$task_updated_elapsed  -= $object->data['time_info']['elapsed'];
 	} else {
-		if ( 0 !== $data->id ) {
-			$point_updated_elapsed -= $data->time_info['elapsed'];
-			$task_updated_elapsed  -= $data->time_info['elapsed'];
+		if ( isset( $object->data['time_info']['old_elapsed'] ) ) {
+			$point_updated_elapsed -= $object->data['time_info']['old_elapsed'];
+			$task_updated_elapsed  -= $object->data['time_info']['old_elapsed'];
 		}
-
-		$point_updated_elapsed += $data->time_info['elapsed'];
-		$task_updated_elapsed  += $data->time_info['elapsed'];
+		$point_updated_elapsed += $object->data['time_info']['elapsed'];
+		$task_updated_elapsed  += $object->data['time_info']['elapsed'];
 	}
 
-	$point->time_info['elapsed'] = $point_updated_elapsed;
-	$task->time_info['elapsed']  = $task_updated_elapsed;
-	$point->content              = addslashes( $point->content );
-	$data->point                 = Point_Class::g()->update( $point );
-	$data->task                  = Task_Class::g()->update( $task );
+	$point->data['time_info']['elapsed'] = $point_updated_elapsed;
+	$task->data['time_info']['elapsed']  = $task_updated_elapsed;
+	$point->data['content']              = addslashes( $point->data['content'] );
+	$object->data['point']               = Point_Class::g()->update( $point->data, true );
+	$object->data['task']                = Task_Class::g()->update( $task->data, true );
 
-	return $data;
+	return $object;
 }
 
 /**
@@ -67,14 +66,14 @@ function compile_time( $data ) {
  * @since 1.5.0
  * @version 1.5.1
  */
-function calcul_elapsed_time( $data ) {
-	if ( 0 === $data->id ) {
+function calcul_elapsed_time( $object ) {
+	if ( 0 === $object->data['id'] ) {
 		$current_user = get_current_user_id();
 		if ( ! empty( $current_user ) ) {
 			$user = Follower_Class::g()->get( array(
 				'include' => $current_user,
 			), true );
-			if ( true === $user->_tm_auto_elapsed_time ) {
+			if ( true === $user->data['_tm_auto_elapsed_time'] ) {
 				// Récupération du dernier commentaire ajouté dans la base.
 				$query = $GLOBALS['wpdb']->prepare(
 					"SELECT TIMEDIFF( %s, COMMENT.comment_date ) AS DIFF_DATE
@@ -103,11 +102,11 @@ function calcul_elapsed_time( $data ) {
 					if ( ! empty( $time_components[1] ) ) {
 						$the_interval += $time_components[1];
 					}
-					$data->time_info['calculed_elapsed'] = $the_interval;
+					$object->data['time_info']['calculed_elapsed'] = $the_interval;
 				}
 			}
 		}
 	}
 
-	return $data;
+	return $object;
 }

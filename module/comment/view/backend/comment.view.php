@@ -15,11 +15,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<li class="comment view <?php echo ( $comment_selected_id === $comment->id ) ? 'blink' : ''; ?>">
+<li class="comment view <?php echo ( $comment_selected_id === $comment->data['id'] ) ? 'blink' : ''; ?>">
 	<ul class="wpeo-comment-container">
-		<li class="avatar"><?php echo do_shortcode( '[task_avatar ids="' . $comment->author_id . '" size="20"]' ); ?></li>
-		<li class="wpeo-comment-date"><?php echo esc_html( $comment->date['date_human_readable'] ); ?></li>
-		<li class="wpeo-comment-time"><span class="fa fa-clock-o"></span> <?php echo esc_html( $comment->time_info['elapsed'] ); ?></li>
+		<li class="avatar"><?php echo do_shortcode( '[task_avatar ids="' . $comment->data['author_id'] . '" size="20"]' ); ?></li>
+		<li class="wpeo-comment-date"><?php echo esc_html( $comment->data['date']['rendered']['date_human_readable'] ); ?></li>
+		<li class="wpeo-comment-time"><span class="fa fa-clock-o"></span> <?php echo esc_html( $comment->data['time_info']['elapsed'] ); ?></li>
 		<li class="wpeo-comment-action">
 			<div class="toggle wpeo-comment-setting"
 					data-parent="toggle"
@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<li class="action-attribute"
 							data-action="load_edit_view_comment"
 							data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_edit_view_comment' ) ); ?>"
-							data-id="<?php echo esc_attr( $comment->id ); ?>"
+							data-id="<?php echo esc_attr( $comment->data['id'] ); ?>"
 						<span><?php esc_html_e( 'Edit this comment', 'task-manager' ); ?></span>
 					</li>
 
@@ -43,13 +43,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 							data-action="delete_task_comment"
 							data-message-delete="<?php echo esc_attr_e( 'Delete this comment ?', 'task-manager' ); ?>"
 							data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_task_comment' ) ); ?>"
-							data-id="<?php echo esc_attr( $comment->id ); ?>"
+							data-id="<?php echo esc_attr( $comment->data['id'] ); ?>"
 						<span><?php esc_html_e( 'Delete this comment', 'task-manager' ); ?></span>
 					</li>
 					<?php echo apply_filters( 'tm_comment_toggle_after', '', $comment ); ?>
 				</ul>
 			</div>
 		</li>
-		<li class="wpeo-comment-content"><?php echo nl2br( $comment->content ); ?></li>
+		<li class="wpeo-comment-content"><?php echo nl2br( $comment->data['content'] ); ?></li>
 	</ul>
 </li>

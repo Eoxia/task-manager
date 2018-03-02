@@ -2,15 +2,17 @@
 /**
  * Owners actions
  *
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.6.0
  *
- * @package module/owner
+ * @package Task_Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Users actions
@@ -28,8 +30,8 @@ class Owner_Action {
 	/**
 	 * Switching the view "owner" as edit mode.
 	 *
-	 * @since 0.1
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.6.0
 	 */
 	public function ajax_load_edit_mode_owner() {
 		check_ajax_referer( 'load_edit_mode_owner' );
@@ -46,26 +48,31 @@ class Owner_Action {
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'owner', 'backend/list', array(
-			'users' => $users,
+			'users'   => $users,
 			'task_id' => $task_id,
 		) );
 		$view = ob_get_clean();
 
 		wp_send_json_success( array(
-			'namespace' => 'taskManager',
-			'module' => 'owner',
+			'namespace'        => 'taskManager',
+			'module'           => 'owner',
 			'callback_success' => 'loadedEditModeOwnerSuccess',
-			'view' => $view,
+			'view'             => $view,
 		) );
 	}
 
 	/**
-	 * @todo: comment
+	 * Changes la valeur de "owner_id" par l'ID reçu.
+	 *
+	 * @since 1.0.0
+	 * @version 1.6.0
+	 *
+	 * @return void
 	 */
 	public function ajax_switch_owner() {
 		check_ajax_referer( 'switch_owner' );
 
-		$task_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+		$task_id  = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
 		$owner_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 
 		if ( empty( $task_id ) || empty( $owner_id ) ) {
@@ -73,20 +80,20 @@ class Owner_Action {
 		}
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $task_id ),
+			'p' => $task_id,
 		), true );
 
-		$task->user_info['owner_id'] = $owner_id;
+		$task->data['user_info']['owner_id'] = $owner_id;
 
-		Task_Class::g()->update( $task );
+		Task_Class::g()->update( $task->data, true );
 
 		ob_start();
-		echo do_shortcode( '[task_manager_owner_task task_id=' . $task->id . ' owner_id=' . $owner_id . ']' );
+		echo do_shortcode( '[task_manager_owner_task task_id=' . $task->data['id'] . ' owner_id=' . $owner_id . ']' );
 		wp_send_json_success( array(
-			'namespace' => 'taskManager',
-			'module' => 'owner',
+			'namespace'        => 'taskManager',
+			'module'           => 'owner',
 			'callback_success' => 'switchedOwnerSuccess',
-			'view' => ob_get_clean(),
+			'view'             => ob_get_clean(),
 		) );
 	}
 }

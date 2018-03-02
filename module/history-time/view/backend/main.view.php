@@ -34,8 +34,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div>
 				<div class="group-date form-element">
 					<label><i class="dashicons dashicons-calendar-alt"></i> <?php esc_html_e( 'Due date', 'task-manager' ); ?> </label>
-					<input type="text" class="mysql-date" style="width: 0px; padding: 0px; border: none;" name="due_date" value="<?php echo esc_attr( $history_time_schema->due_date['date_input']['date'] ); ?>" />
-					<input class="date" type="text" value="<?php echo esc_attr( $history_time_schema->due_date['date_input']['fr_FR']['date'] ); ?>" />
+					<input type="hidden" class="mysql-date" name="due_date" value="<?php echo esc_attr( $history_time_schema->data['due_date']['raw'] ); ?>" />
+					<input class="date" type="text" value="<?php echo esc_attr( $history_time_schema->data['due_date']['rendered']['date'] ); ?>" />
 				</div>
 
 				<div class="wpeo-form">
@@ -64,7 +64,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php
 		if ( ! empty( $history_times ) ) :
 			foreach ( $history_times as $history_time ) :
-				if ( ! empty( $history_time->id ) ) :
+				if ( ! empty( $history_time->data['id'] ) ) :
 					\eoxia\View_Util::exec( 'task-manager', 'history-time', 'backend/history-time', array(
 						'history_time' => $history_time,
 					) );

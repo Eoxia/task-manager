@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="point <?php echo ! empty( $point->id ) ? esc_attr( 'edit' ) : ''; ?>" data-id="<?php echo esc_attr( $point->id ); ?>">
+<div class="point <?php echo ! empty( $point->data['id'] ) ? esc_attr( 'edit' ) : ''; ?>" data-id="<?php echo esc_attr( $point->data['id'] ); ?>">
 	<ul class="point-container">
 		<li class="point-toggle action-attribute"
 				data-namespace="taskManagerFrontend"
@@ -23,13 +23,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 				data-before-method="beforeLoadComment"
 				data-action="load_front_comments"
 				data-loader="point"
-				data-task-id="<?php echo esc_attr( $point->post_id ); ?>"
-				data-point-id="<?php echo esc_attr( $point->id ); ?>">
+				data-task-id="<?php echo esc_attr( $point->data['post_id'] ); ?>"
+				data-point-id="<?php echo esc_attr( $point->data['id'] ); ?>">
 
 				<i class="icon-toggle fa fa-angle-right" aria-hidden="true"></i>
 
-			<?php if ( ! empty( $point->id ) ) : ?>
-				<span class="wpeo-block-id">#<?php echo esc_attr( $point->id ); ?></span>
+			<?php if ( ! empty( $point->data['id'] ) ) : ?>
+				<span class="wpeo-block-id">#<?php echo esc_attr( $point->data['id'] ); ?></span>
 			<?php endif; ?>
 		</li>
 
@@ -39,22 +39,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 				data-before-method="beforeLoadComment"
 				data-action="load_front_comments"
 				data-loader="point"
-				data-task-id="<?php echo esc_attr( $point->post_id ); ?>"
-				data-point-id="<?php echo esc_attr( $point->id ); ?>">
-			<span><?php echo $point->content; ?></span>
+				data-task-id="<?php echo esc_attr( $point->data['post_id'] ); ?>"
+				data-point-id="<?php echo esc_attr( $point->data['id'] ); ?>">
+			<span><?php echo $point->data['content']; ?></span>
 		</li>
 
 		<li class="point-action">
 			<div class="wpeo-point-time">
 				<span class="dashicons dashicons-clock"></span>
-				<span class="wpeo-time-in-point"><?php echo esc_attr( $point->time_info['elapsed'] ); ?></span>
+				<span class="wpeo-time-in-point"><?php echo esc_attr( $point->data['time_info']['elapsed'] ); ?></span>
 			</div>
 			<div class="wpeo-point-comment">
 				<span class="dashicons dashicons-admin-comments"></span>
-				<span><?php echo esc_html( $point->count_comments ); ?></span>
+				<span><?php echo esc_html( $point->data['count_comments'] ); ?></span>
 			</div>
 		</li>
 	</ul>
 
-	<ul class="comments hidden" data-id="<?php echo esc_attr( $point->id ); ?>"></ul>
+	<ul class="comments hidden" data-id="<?php echo esc_attr( $point->data['id'] ); ?>"></ul>
 </div>

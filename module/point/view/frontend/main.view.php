@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		foreach ( $points_uncompleted as $point ) :
 			\eoxia\View_Util::exec( 'task-manager', 'point', 'frontend/point', array(
 				'point'     => $point,
-				'parent_id' => $point->post_id,
+				'parent_id' => $point->data['post_id'],
 			) );
 		endforeach;
 	endif;
@@ -43,7 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			foreach ( $points_completed as $point ) :
 				\eoxia\View_Util::exec( 'task-manager', 'point', 'frontend/point', array(
 					'point'     => $point,
-					'parent_id' => $point->post_id,
+					'parent_id' => $point->data['post_id'],
 				) );
 			endforeach;
 		endif;

@@ -2,16 +2,17 @@
 /**
  * Vue pour afficher la liste des followers en mode "edition" dans une tâche.
  *
- * @package Task Manager
- * @subpackage Module/Tag
+ * @since 1.0.0
+ * @version 1.6.0
  *
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @package Task_Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} ?>
 
 <ul class="wpeo-ul-users">
 	<?php
@@ -28,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 	<li class="follower edit action-attribute"
 				data-action="close_followers_edit_mode"
 				data-nonce="<?php echo esc_attr( wp_create_nonce( 'close_followers_edit_mode' ) ); ?>"
-				data-id="<?php echo esc_attr( $task->id ); ?>">
+				data-id="<?php echo esc_attr( $task->data['id'] ); ?>">
 		<i class="fa fa-floppy-o" ></i>
 	</li>
 </ul>

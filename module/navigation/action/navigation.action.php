@@ -70,9 +70,9 @@ class Navigation_Action {
 		ob_start();
 		echo do_shortcode( '[task users_id="' . get_current_user_id() . '" with_wrapper="0"]' );
 		wp_send_json_success( array(
-			'view' => ob_get_clean(),
-			'namespace' => 'taskManager',
-			'module' => 'navigation',
+			'view'             => ob_get_clean(),
+			'namespace'        => 'taskManager',
+			'module'           => 'navigation',
 			'callback_success' => 'loadedMyTask',
 		) );
 	}

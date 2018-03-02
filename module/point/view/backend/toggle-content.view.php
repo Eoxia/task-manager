@@ -4,24 +4,26 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.4.0-ford
- * @version 1.5.0
- * @copyright 2015-2017 Eoxia
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
  * @package Task Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} ?>
 
 <div>
 	<div class="task-informations">
-		<?php echo do_shortcode( '[task_avatar ids="' . $point->author_id . '" size="50"]' ); ?>
+		<?php echo do_shortcode( '[task_avatar ids="' . $point->data['author_id'] . '" size="50"]' ); ?>
 		<p>
 			<?php echo esc_html_e( 'Create ', 'task-manager' ); ?>
 
 			<span data-namespace="taskManager" data-module="point" data-after-method="afterTriggerChangeDate" class="group-date">
-				<input type="text" class="mysql-date" style="width: 0px; padding: 0px; border: none;" name="due_date" value="<?php echo esc_attr( $point->date['date_input']['date'] ); ?>" />
-				<span class="date-time"><?php echo esc_html( mb_strtolower( $point->date['date_human_readable'] ) ); ?></span>
+				<input type="hidden" class="mysql-date" name="due_date" value="<?php echo esc_attr( $point->data['date']['raw'] ); ?>" />
+				<span class="date-time"><?php echo esc_html( mb_strtolower( $point->data['date']['rendered']['date_time'] ) ); ?></span>
 			</span>
 		<p>
 	</div>
@@ -33,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 			data-action="delete_point"
 			data-message-delete="<?php echo esc_attr_e( 'Delete this point ?', 'task-manager' ); ?>"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_point' ) ); ?>"
-			data-id="<?php echo esc_attr( $point->id ); ?>"
+			data-id="<?php echo esc_attr( $point->data['id'] ); ?>"
 			data-loader="actions">
 		<span><i class="fa fa-trash"></i></span>
 	</li>
@@ -41,8 +43,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
 <div class="move-to">
 	<div class="">
-		<input type="hidden" name="task_id" value="<?php echo esc_attr( $point->post_id ); ?>" />
-		<input type="hidden" name="point_id" value="<?php echo esc_attr( $point->id ); ?>" />
+		<input type="hidden" name="task_id" value="<?php echo esc_attr( $point->data['post_id'] ); ?>" />
+		<input type="hidden" name="point_id" value="<?php echo esc_attr( $point->data['id'] ); ?>" />
 
 		<label for="move_task"><?php esc_html_e( 'Move the point to', 'task-manager' ); ?></label>
 		<div class="form-fields">

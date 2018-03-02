@@ -4,8 +4,8 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.5.0
- * @version 1.5.0
- * @copyright 2015-2017 Eoxia
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -15,4 +15,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<span class="event-title"><?php echo '#' . $element->id . ' ' . $element->content; ?></span>
+<span class="event-title"><?php echo '#' . $element->data['id'] . ' ' . $element->data['content']; ?></span>

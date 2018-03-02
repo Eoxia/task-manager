@@ -15,38 +15,38 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="point <?php echo ! empty( $point->id ) ? esc_attr( 'edit' ) : ''; ?>" data-id="<?php echo esc_attr( $point->id ); ?>">
+<div class="point <?php echo ! empty( $point->data['id'] ) ? esc_attr( 'edit' ) : ''; ?>" data-id="<?php echo esc_attr( $point->data['id'] ); ?>">
 
 	<div class="form">
 
-		<input type="hidden" name="id" value="<?php echo esc_attr( $point->id ); ?>" />
+		<input type="hidden" name="id" value="<?php echo esc_attr( $point->data['id'] ); ?>" />
 		<input type="hidden" name="parent_id" value="<?php echo esc_attr( $parent_id ); ?>" />
 		<ul class="point-container">
 			<li class="point-valid">
-				<?php if ( ! empty( $point->id ) ) : ?>
+				<?php if ( ! empty( $point->data['id'] ) ) : ?>
 					<span class="wpeo-sort-point" title="<?php esc_attr_e( 'Drag and drop', 'task-manager' ); ?>">
 						<i class="fa fa-ellipsis-v"></i>
 						<i class="fa fa-ellipsis-v"></i>
 					</span>
-					<input type="checkbox" <?php echo ! empty( $point->completed ) ? 'checked': ''; ?> class="completed-point" data-nonce="<?php echo esc_attr( wp_create_nonce( 'complete_point' ) ); ?>" />
+					<input type="checkbox" <?php echo ! empty( $point->data['completed'] ) ? 'checked' : ''; ?> class="completed-point" data-nonce="<?php echo esc_attr( wp_create_nonce( 'complete_point' ) ); ?>" />
 				<?php endif; ?>
 			</li>
 
 			<li class="point-content content">
-				<input type="hidden" name="content" value="<?php echo esc_attr( trim( $point->content ) ); ?>" />
+				<input type="hidden" name="content" value="<?php echo esc_attr( trim( $point->data['content'] ) ); ?>" />
 				<div class="point-toggle">
-					<?php if ( ! empty( $point->id ) ) : ?>
-						<span class="wpeo-block-id">#<?php echo esc_attr( $point->id ); ?></span>
+					<?php if ( ! empty( $point->data['id'] ) ) : ?>
+						<span class="wpeo-block-id">#<?php echo esc_attr( $point->data['id'] ); ?></span>
 					<?php endif; ?>
 				</div>
-				<div class="wpeo-point-new-contenteditable" contenteditable="true"><?php echo trim( $point->content ); ?></div>
-				<?php if ( empty( $point->id ) ) : ?>
+				<div class="wpeo-point-new-contenteditable" contenteditable="true"><?php echo trim( $point->data['content'] ); ?></div>
+				<?php if ( empty( $point->data['id'] ) ) : ?>
 					<span class="wpeo-point-new-placeholder"><?php esc_html_e( 'Write your point here...', 'task-manager' ); ?></span>
 				<?php endif; ?>
 			</li>
 
 			<li class="point-action">
-				<?php	if ( empty( $point->id ) ) : ?>
+				<?php	if ( empty( $point->data['id'] ) ) : ?>
 					<div 	class="wpeo-point-new-btn action-input animated"
 								data-parent="form"
 								data-loader="point"
@@ -64,7 +64,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 					<div class="wpeo-point-time">
 						<span class="dashicons dashicons-clock"></span>
-						<span class="wpeo-time-in-point"><?php echo esc_attr( $point->time_info['elapsed'] ); ?></span>
+						<span class="wpeo-time-in-point"><?php echo esc_attr( $point->data['time_info']['elapsed'] ); ?></span>
 					</div>
 
 					<div class="toggle wpeo-task-setting"
@@ -89,10 +89,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</ul>
 	</div>
 
-	<ul class="comments <?php echo ( Task_Comment_Class::g()->is_parent( $point->id, $comment_id ) || ( $point->id === $point_id && 0 !== $point->id )  ) ? '' : 'hidden'; ?>" data-id="<?php echo esc_attr( $point->id ); ?>">
+	<ul class="comments <?php echo ( Task_Comment_Class::g()->is_parent( $point->data['id'], $comment_id ) || ( $point->data['id'] === $point_id && 0 !== $point->data['id'] )  ) ? '' : 'hidden'; ?>" data-id="<?php echo esc_attr( $point->data['id'] ); ?>">
 		<?php
-		if ( Task_Comment_Class::g()->is_parent( $point->id, $comment_id ) || ( $point->id === $point_id && 0 !== $point->id ) ) :
-			Task_Comment_Class::g()->display( $point->post_id, $point->id );
+		if ( Task_Comment_Class::g()->is_parent( $point->data['id'], $comment_id ) || ( $point->data['id'] === $point_id && 0 !== $point->data['id'] ) ) :
+			Task_Comment_Class::g()->display( $point->data['post_id'], $point->data['id'] );
 		endif;
 		?>
 	</ul>

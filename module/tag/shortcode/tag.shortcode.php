@@ -4,8 +4,8 @@
  *
  * @author Jimmy Latour <jimmy.eoxia@gmail.com>
  * @since 1.0.0
- * @version 1.4.0
- * @copyright 2015-2017 Eoxia
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -25,8 +25,8 @@ class Tag_Shortcode {
 	 *
 	 * - task
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.3.6.0
+	 * @since 1.0.0
+	 * @version 1.3.6
 	 */
 	public function __construct() {
 		add_shortcode( 'task_manager_task_tag', array( $this, 'callback_task_manager_task_tag' ) );
@@ -40,19 +40,19 @@ class Tag_Shortcode {
 	 * @return void
 	 *
 	 * @since 1.3.6
-	 * @version 1.4.0
+	 * @version 1.6.0
 	 */
 	public function callback_task_manager_task_tag( $param ) {
 		$task_id = ! empty( $param['task_id'] ) ? (int) $param['task_id'] : 0;
 
 		$task = Task_Class::g()->get( array(
-			'id' => $task_id,
+			'p' => $task_id,
 		), true );
 
 		$tags = array();
-		if ( ! empty( $task->taxonomy['wpeo_tag'] ) ) {
+		if ( ! empty( $task->data['taxonomy'][ Tag_Class::g()->get_type() ] ) ) {
 			$tags = Tag_Class::g()->get( array(
-				'include' => $task->taxonomy['wpeo_tag'],
+				'include' => $task->data['taxonomy'][ Tag_Class::g()->get_type() ],
 			) );
 		}
 

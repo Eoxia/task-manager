@@ -26,12 +26,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @version 1.4.0-ford
  */
 function update_post_order( $point ) {
-	if ( ! empty( $point->post_id ) ) {
+	if ( ! empty( $point->data['post_id'] ) ) {
 		$task = Task_Class::g()->get( array(
-			'id' => $point->post_id,
+			'id' => $point->data['post_id'],
 		), true );
 
-		$task->task_info['order_point_id'][] = (int) $point->id;
+		$task->data['task_info']['order_point_id'][] = (int) $point->id;
 
 		Task_Class::g()->update( $task );
 	}
@@ -57,8 +57,8 @@ function get_full_point( $point ) {
 		'user_id' => 0,
 	);
 
-	if ( ! empty( $point->time_info['completed_point'] ) ) {
-		foreach ( $point->time_info['completed_point'] as $user_id => $element ) {
+	if ( ! empty( $point->data['time_info']['completed_point'] ) ) {
+		foreach ( $point->data['time_info']['completed_point'] as $user_id => $element ) {
 			if ( ! empty( $element ) ) {
 				foreach ( $element as $date ) {
 					if ( $date > $last_completed['date'] ) {
@@ -70,7 +70,7 @@ function get_full_point( $point ) {
 		}
 	}
 
-	$point->time_info['last_completed'] = $last_completed;
+	$point->data['time_info']['last_completed'] = $last_completed;
 
 	return $point;
 }

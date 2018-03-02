@@ -2,11 +2,10 @@
 /**
  * Gestion de la navigation
  *
- * @package Task Manager
- * @subpackage Module/navigation
- *
  * @since 1.0.0
- * @version 1.4.0
+ * @version 1.6.0
+ *
+ * @package Task_Manager
  */
 
 namespace task_manager;
@@ -25,8 +24,8 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 	 *
 	 * @return void
 	 *
-	 * @since 1.0.0.0
-	 * @version 1.0.0.0
+	 * @since 1.0.0
+	 * @version 1.0.0
 	 */
 	protected function construct() {}
 
@@ -63,11 +62,11 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 		}
 
 		$categories_searched = '';
-		$follower_searched = '';
+		$follower_searched   = '';
 
 		if ( ! empty( $categories_selected ) ) {
 			foreach ( $categories_selected as $categorie ) {
-				$categories_searched .= $categorie->name . ', ';
+				$categories_searched .= $categorie->data['name'] . ', ';
 			}
 		}
 
@@ -78,14 +77,14 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 				'include' => $follower_id_selected,
 			), true );
 
-			$follower_searched = $follower->displayname;
+			$follower_searched = $follower->data['displayname'];
 		}
 
 		return array(
-			'term' => $term,
+			'term'                => $term,
 			'categories_searched' => $categories_searched,
-			'follower_searched' => $follower_searched,
-			'have_search' => $have_search,
+			'follower_searched'   => $follower_searched,
+			'have_search'         => $have_search,
 		);
 	}
 

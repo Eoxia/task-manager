@@ -46,7 +46,7 @@ class Task_Class extends \eoxia\Post_Class {
 	 *
 	 * @var string
 	 */
-	protected $post_type = 'wpeo-task';
+	protected $type = 'wpeo-task';
 
 	/**
 	 * La clé principale du modèle
@@ -120,16 +120,16 @@ class Task_Class extends \eoxia\Post_Class {
 	public function get_tasks( $param ) {
 		global $wpdb;
 
-		$param['id'] = isset( $param['id'] ) ? (int) $param['id'] : 0;
-		$param['offset'] = ! empty( $param['offset'] ) ? (int) $param['offset'] : 0;
+		$param['id']             = isset( $param['id'] ) ? (int) $param['id'] : 0;
+		$param['offset']         = ! empty( $param['offset'] ) ? (int) $param['offset'] : 0;
 		$param['posts_per_page'] = ! empty( $param['posts_per_page'] ) ? (int) $param['posts_per_page'] : -1;
-		$param['users_id'] = ! empty( $param['users_id'] ) ? (array) $param['users_id'] : array();
-		$param['categories_id'] = ! empty( $param['categories_id'] ) ? (array) $param['categories_id'] : array();
-		$param['status'] = ! empty( $param['status'] ) ? sanitize_text_field( $param['status'] ) : 'any';
-		$param['post_parent'] = ! empty( $param['post_parent'] ) ? (array) $param['post_parent'] : array( 0 );
-		$param['term'] = ! empty( $param['term'] ) ? sanitize_text_field( $param['term'] ) : '';
+		$param['users_id']       = ! empty( $param['users_id'] ) ? (array) $param['users_id'] : array();
+		$param['categories_id']  = ! empty( $param['categories_id'] ) ? (array) $param['categories_id'] : array();
+		$param['status']         = ! empty( $param['status'] ) ? sanitize_text_field( $param['status'] ) : 'any';
+		$param['post_parent']    = ! empty( $param['post_parent'] ) ? (array) $param['post_parent'] : array( 0 );
+		$param['term']           = ! empty( $param['term'] ) ? sanitize_text_field( $param['term'] ) : '';
 
-		$tasks = array();
+		$tasks    = array();
 		$tasks_id = array();
 
 		if ( ! empty( $param['status'] ) ) {
@@ -148,7 +148,7 @@ class Task_Class extends \eoxia\Post_Class {
 
 		if ( ! empty( $param['id'] ) ) {
 			$tasks = self::g()->get( array(
-				'id' => (int) $param['id'],
+				'p' => (int) $param['id'],
 			) );
 		} else {
 
@@ -210,7 +210,7 @@ class Task_Class extends \eoxia\Post_Class {
 
 			if ( ! empty( $tasks_id ) ) {
 				$tasks = self::g()->get( array(
-					'include' => $tasks_id,
+					'post__in'    => $tasks_id,
 					'post_status' => $param['status'],
 				) );
 			} // End if().
@@ -228,19 +228,19 @@ class Task_Class extends \eoxia\Post_Class {
 	 * @return void
 	 *
 	 * @since 1.3.6
-	 * @version 1.5.0
+	 * @version 1.6.0
 	 *
 	 * @todo: With_wrapper ?
 	 */
 	public function display_tasks( $tasks, $frontend = false ) {
 		if ( $frontend ) {
 			\eoxia\View_Util::exec( 'task-manager', 'task', 'frontend/tasks', array(
-				'tasks' => $tasks,
+				'tasks'        => $tasks,
 				'with_wrapper' => false,
 			) );
 		} else {
 			\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/tasks', array(
-				'tasks' => $tasks,
+				'tasks'        => $tasks,
 				'with_wrapper' => false,
 			) );
 		}

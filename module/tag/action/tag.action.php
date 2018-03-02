@@ -26,7 +26,6 @@ class Tag_Action {
 	public function __construct() {
 		add_action( 'admin_init', array( $this, 'callback_admin_init' ) );
 
-
 		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 99 );
 		add_action( 'wp_ajax_to_archive', array( $this, 'ajax_to_archive' ) );
 		add_action( 'wp_ajax_to_unarchive', array( $this, 'ajax_to_unarchive' ) );
@@ -51,10 +50,10 @@ class Tag_Action {
 	 * @return void
 	 */
 	public function callback_admin_init() {
-		$archive_term = get_term_by( 'slug', 'archive', Tag_Class::g()->get_taxonomy() );
+		$archive_term = get_term_by( 'slug', 'archive', Tag_Class::g()->get_type() );
 
 		if ( ! $archive_term ) {
-			wp_insert_term( 'archive', Tag_Class::g()->get_taxonomy() );
+			wp_insert_term( 'archive', Tag_Class::g()->get_type() );
 		}
 	}
 
@@ -64,7 +63,7 @@ class Tag_Action {
 	 * @return void
 	 *
 	 * @since 1.0.0
-	 * @version 1.3.6.0
+	 * @version 1.6.0
 	 */
 	public function callback_admin_menu() {
 		add_submenu_page( 'wpeomtm-dashboard', __( 'Categories', 'task-manager' ), __( 'Categories', 'task-manager' ), 'manage_task_manager', 'edit-tags.php?taxonomy=wpeo_tag' );
@@ -88,18 +87,18 @@ class Tag_Action {
 		}
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $task_id ),
+			'p' => $task_id,
 		), true );
 
-		$task->status = 'archive';
+		$task->data['status'] = 'archive';
 
-		$archive_term = get_term_by( 'slug', 'archive', Tag_Class::g()->get_taxonomy() );
+		$archive_term = get_term_by( 'slug', 'archive', Tag_Class::g()->get_type() );
 
-		if ( $archive_term && 0 !== $archive_term->term_id ) {
-			$task->taxonomy[ Tag_Class::g()->get_taxonomy() ][] = $archive_term->term_id;
+		if ( ! empty( $archive_term->term_id ) ) {
+			$task->data['taxonomy'][ Tag_Class::g()->get_type() ][] = $archive_term->term_id;
 		}
 
-		Task_Class::g()->update( $task );
+		Task_Class::g()->update( $task->data, true );
 
 		do_action( 'tm_archive_task', $task );
 
@@ -128,23 +127,23 @@ class Tag_Action {
 		}
 
 		$task = Task_Class::g()->get( array(
-			'id' => $task_id,
+			'p' => $task_id,
 		), true );
 
-		$task->status = 'publish';
+		$task->data['status'] = 'publish';
 
-		$archive_term = get_term_by( 'slug', 'archive', Tag_Class::g()->get_taxonomy() );
+		$archive_term = get_term_by( 'slug', 'archive', Tag_Class::g()->get_type() );
 
-		if ( $archive_term && 0 !== $archive_term->term_id ) {
-			$key = array_search( $archive_term->term_id, $task->taxonomy[ Tag_Class::g()->get_taxonomy() ], true );
+		if ( ! empty( $archive_term->term_id ) ) {
+			$key = array_search( $archive_term->term_id, $task->data['taxonomy'][ Tag_Class::g()->get_type() ], true );
 			if ( false !== $key ) {
-				array_splice( $task->taxonomy[ Tag_Class::g()->get_taxonomy() ], $key, 1 );
+				array_splice( $task->data['taxonomy'][ Tag_Class::g()->get_type() ], $key, 1 );
 			}
 
-			wp_remove_object_terms( $task_id, $archive_term->term_id, Tag_Class::g()->get_taxonomy() );
+			wp_remove_object_terms( $task_id, $archive_term->term_id, Tag_Class::g()->get_type() );
 		}
 
-		Task_Class::g()->update( $task );
+		Task_Class::g()->update( $task->data, true );
 
 		wp_send_json_success( array(
 			'namespace'        => 'taskManager',
@@ -162,12 +161,11 @@ class Tag_Action {
 	public function ajax_load_tags() {
 		check_ajax_referer( 'load_tags' );
 
-		$tags = Tag_Class::g()->get();
+		$tags    = Tag_Class::g()->get();
 		$task_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $task_id ),
-			'post_status' => array( 'publish', 'archive' ),
+			'p' => $task_id,
 		), true );
 
 		ob_start();
@@ -177,10 +175,10 @@ class Tag_Action {
 		) );
 
 		wp_send_json_success( array(
-			'namespace' => 'taskManager',
-			'module' => 'tag',
+			'namespace'        => 'taskManager',
+			'module'           => 'tag',
 			'callback_success' => 'loadedTagSuccess',
-			'view' => ob_get_clean(),
+			'view'             => ob_get_clean(),
 		) );
 	}
 
@@ -225,25 +223,25 @@ class Tag_Action {
 		$tag_id  = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 		$task_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
 
-		$archive_term  = get_term_by( 'slug', 'archive', Tag_Class::g()->get_taxonomy() );
+		$archive_term  = get_term_by( 'slug', 'archive', Tag_Class::g()->get_type() );
 		$go_to_archive = false;
 
 		$task = Task_Class::g()->get( array(
-			'id' => $task_id,
+			'p' => $task_id,
 		), true );
 
 		if ( empty( $tag_id ) || empty( $task_id ) || empty( $task ) ) {
 			wp_send_json_error();
 		}
 
-		$task->taxonomy[ Tag_Class::g()->get_taxonomy() ][] = $tag_id;
+		$task->data['taxonomy'][ Tag_Class::g()->get_type() ][] = $tag_id;
 
 		if ( $archive_term && $archive_term->term_id === $tag_id ) {
-			$task->status  = 'archive';
-			$go_to_archive = true;
+			$task->data['status'] = 'archive';
+			$go_to_archive        = true;
 		}
 
-		Task_Class::g()->update( $task );
+		Task_Class::g()->update( $task->data, true );
 
 		wp_send_json_success( array(
 			'namespace'        => 'taskManager',
@@ -271,20 +269,20 @@ class Tag_Action {
 		}
 
 		$task = Task_Class::g()->get( array(
-			'id' => $task_id,
+			'p' => $task_id,
 		), true );
 
 		$go_to_all_task = false;
-		$archive_term   = get_term_by( 'slug', 'archive', Tag_Class::g()->get_taxonomy() );
+		$archive_term   = get_term_by( 'slug', 'archive', Tag_Class::g()->get_type() );
 
 		if ( $archive_term && $archive_term->term_id === $tag_id ) {
-			$task->status   = 'publish';
-			$go_to_all_task = true;
+			$task->data['status'] = 'publish';
+			$go_to_all_task       = true;
 		}
 
-		Task_Class::g()->update( $task );
+		Task_Class::g()->update( $task->data, true );
 
-		wp_remove_object_terms( $task_id, $tag_id, Tag_Class::g()->get_taxonomy() );
+		wp_remove_object_terms( $task_id, $tag_id, Tag_Class::g()->get_type() );
 
 		wp_send_json_success( array(
 			'namespace'        => 'taskManager',
