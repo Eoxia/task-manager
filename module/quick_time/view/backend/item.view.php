@@ -17,11 +17,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <tr class="item">
 	<td class="task" data-title="<?php esc_html_e( 'Task ID', 'task-manager' ); ?>">
-		<input type="hidden" name="comments[<?php echo esc_attr( $i ); ?>][task_id]" value="<?php echo esc_attr( $quicktime['displayed']['task']->id ); ?>" />
-		<strong><?php echo esc_html( '#' . $quicktime['displayed']['task']->id . ' ' . $quicktime['displayed']['task']->title ); ?></strong>
+		<input type="hidden" name="comments[<?php echo esc_attr( $i ); ?>][task_id]" value="<?php echo esc_attr( $quicktime['displayed']['task']->data['id'] ); ?>" />
+		<strong><?php echo esc_html( '#' . $quicktime['displayed']['task']->data['id'] . ' ' . $quicktime['displayed']['task']->data['title'] ); ?></strong>
 	</td>
-	<td class="point wpeo-tooltip-event" data-title="<?php esc_html_e( 'Point ID', 'task-manager' ); ?>" aria-label="<?php echo esc_attr( '#' . $quicktime['displayed']['point']->id . ' ' . $quicktime['displayed']['point']->content ); ?>">
-		<input type="hidden" name="comments[<?php echo esc_attr( $i ); ?>][point_id]" value="<?php echo esc_attr( $quicktime['displayed']['point']->id ); ?>" />
+	<td class="point wpeo-tooltip-event" data-title="<?php esc_html_e( 'Point ID', 'task-manager' ); ?>" aria-label="<?php echo esc_attr( '#' . $quicktime['displayed']['point']->data['id'] . ' ' . $quicktime['displayed']['point']->data['content'] ); ?>">
+		<input type="hidden" name="comments[<?php echo esc_attr( $i ); ?>][point_id]" value="<?php echo esc_attr( $quicktime['displayed']['point']->data['id'] ); ?>" />
 		<?php echo esc_html( $quicktime['displayed']['point_fake_content'] ); ?>
 	</td>
 	<td class="content" data-title="<?php esc_html_e( 'Comment', 'task-manager' ); ?>">

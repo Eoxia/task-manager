@@ -188,7 +188,7 @@ class Task_Action {
 		$task->data['title'] = $title;
 		$task->data['slug']  = sanitize_title( $title );
 
-		Task_Class::g()->update( $task->data, true );
+		Task_Class::g()->update( $task->data );
 		wp_send_json_success();
 	}
 
@@ -212,7 +212,7 @@ class Task_Action {
 
 		$task->data['front_info']['display_color'] = $color;
 
-		Task_Class::g()->update( $task->data, true );
+		Task_Class::g()->update( $task->data );
 
 		wp_send_json_success();
 	}

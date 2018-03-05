@@ -3,7 +3,7 @@
  * Gestion des points
  *
  * @since 1.3.4
- * @version 1.5.0
+ * @version 1.6.0
  * @package Task-Manager\point
  */
 
@@ -84,16 +84,16 @@ class Point_Class extends \eoxia\Comment_Class {
 		$points = self::g()->get( array(
 			'post_id'    => $task->data['id'],
 			'type'       => self::g()->get_type(),
-			// 'meta_key'   => '_tm_order',
-			// 'orderby'    => 'meta_value_num',
+			'meta_key'   => '_tm_order',
+			'orderby'    => 'meta_value_num',
 			'order'      => 'ASC',
-			// 'meta_query' => array(
-			// 	array(
-			// 		'key'     => '_tm_completed',
-			// 		'value'   => false,
-			// 		'compare' => '=',
-			// 	),
-			// ),
+			'meta_query' => array(
+				array(
+					'key'     => '_tm_completed',
+					'value'   => false,
+					'compare' => '=',
+				),
+			),
 		) );
 
 		$points_completed = array();

@@ -115,7 +115,7 @@ class Task_Comment_Action {
 		$comment->data['date']                 = $date;
 		$comment->data['content']              = $content;
 		$comment->data['time_info']['elapsed'] = $time;
-		$comment->data['status']               = '-34070';
+		$comment->data['status']               = '1';
 
 		$comment = Task_Comment_Class::g()->update( $comment->data, true );
 

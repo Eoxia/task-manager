@@ -42,9 +42,12 @@ class Activity_Class extends \eoxia\Singleton_Util {
 	public function get_activity( $tasks_id, $offset ) {
 		$points = Point_Class::g()->get( array(
 			'post__in' => $tasks_id,
-			'status'   => -34070,
 			'number'   => \eoxia\Config_Util::$init['task-manager']->activity->activity_per_page,
 			'offset'   => $offset,
+			'type__in' => array(
+				Point_Class::g()->get_type(),
+				Task_Comment_Class::g()->get_type(),
+			),
 		) );
 
 		$datas = array();
@@ -71,10 +74,8 @@ class Activity_Class extends \eoxia\Singleton_Util {
 						$time                          = substr( $point->data['date']['raw'], 11, strlen( $point->data['date']['raw'] ) );
 						$datas[ $sql_date ][ $time ][] = $point;
 					} else {
-
 						$comment = Task_Comment_Class::g()->get( array(
-							'id'   => $point->data['id'],
-							'type' => 'wpeo_time',
+							'id' => $point->data['id'],
 						), true );
 
 						$comment->data['view']   = 'created-comment';

@@ -91,6 +91,35 @@ class Task_Class extends \eoxia\Post_Class {
 	);
 
 	/**
+	 * Permet d'ajouter le post_status 'archive'.
+	 *
+	 * @since 1.0.0
+	 * @version 1.0.0
+	 *
+	 * @param array   $args   Les paramètres à appliquer pour la récupération @see https://codex.wordpress.org/Function_Reference/WP_Query.
+	 * @param boolean $single Si on veut récupérer un tableau, ou qu'une seule entrée.
+	 *
+	 * @return Object
+	 */
+	public function get( $args = array(), $single = false ) {
+		$array_posts = array();
+
+		// Définition des arguments par défaut pour la récupération des "posts".
+		$default_args = array(
+			'post_status'    => array(
+				'any',
+				'archive',
+			),
+			'post_type'      => $this->get_type(),
+			'posts_per_page' => -1,
+		);
+
+		$final_args = wp_parse_args( $args, $default_args );
+
+		return parent::get( $final_args, $single );
+	}
+
+	/**
 	 * Récupères les tâches.
 	 *
 	 * @since 1.0.0

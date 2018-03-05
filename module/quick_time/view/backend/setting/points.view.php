@@ -18,14 +18,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php
 if ( ! empty( $points ) ) :
 	foreach ( $points as $point ) :
-		$displayed_point_content = $point->content;
+		$displayed_point_content = $point->data['content'];
 		if ( strlen( $displayed_point_content ) > 50 ) :
 			$displayed_point_content  = substr( $displayed_point_content, 0, 50 );
 			$displayed_point_content .= '...';
 		endif;
 
 		?>
-		<option title="<?php echo esc_attr( $point->content ); ?>" value="<?php echo esc_attr( $point->id ); ?>"><?php echo esc_html( '#' . $point->id . ' ' . $displayed_point_content ); ?></option>
+		<option title="<?php echo esc_attr( $point->data['content'] ); ?>" value="<?php echo esc_attr( $point->data['id'] ); ?>"><?php echo esc_html( '#' . $point->data['id'] . ' ' . $displayed_point_content ); ?></option>
 		<?php
 	endforeach;
 endif;

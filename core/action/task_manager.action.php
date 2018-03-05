@@ -151,6 +151,14 @@ class Task_Manager_Action {
 		}
 
 		Task_Manager_Class::g()->init_default_data();
+
+		//
+		// $comment = Task_Comment_Class::g()->create( array(
+		// 	'content' => 'chocolat',
+		// ) );
+		//
+		// echo '<pre>'; print_r( $comment ); echo '</pre>';exit;
+
 	}
 
 	/**

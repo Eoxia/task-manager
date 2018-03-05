@@ -67,6 +67,7 @@ class Quick_Time_Action {
 				$comment['content']              = sanitize_text_field( $comment['content'] );
 				$comment['time_info']['elapsed'] = (int) $comment['time'];
 				$comment['can_add']              = 'true' == $comment['can_add'] ? true : false;
+				$comment['status']               = '1';
 
 				if ( $comment['can_add'] ) {
 
@@ -76,7 +77,7 @@ class Quick_Time_Action {
 						'id' => $comment['parent_id'],
 					), true );
 
-					$point->count_comments++;
+					$point->data['count_comments']++;
 
 					Point_Class::g()->update( $point );
 				}
@@ -136,15 +137,12 @@ class Quick_Time_Action {
 			'id' => $task_id,
 		), true );
 
-		if ( empty( $task ) || empty( $task->task_info['order_point_id'] ) ) {
+		if ( empty( $task ) ) {
 			wp_send_json_error();
 		}
 
 		$points = Point_Class::g()->get( array(
-			'post_id'     => $task->id,
-			'orderby'     => 'comment__in',
-			'comment__in' => $task->task_info['order_point_id'],
-			'status'      => -34070,
+			'post_id' => $task->data['id'],
 		) );
 
 		ob_start();

@@ -16,9 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <ul class="item">
-	<li class="task"><?php echo esc_html( '#' . $quick_time['displayed']['task']->id . ' ' . $quick_time['displayed']['task']->title ); ?></li>
+	<li class="task"><?php echo esc_html( '#' . $quick_time['displayed']['task']->data['id'] . ' ' . $quick_time['displayed']['task']->data['title'] ); ?></li>
 	<li class="point wpeo-tooltip-event"
-		aria-label="<?php echo esc_attr( '#' . $quick_time['displayed']['point']->id . ' ' . $quick_time['displayed']['point']->content ); ?>"><?php echo esc_html( $quick_time['displayed']['point_fake_content'] ); ?></li>
+		aria-label="<?php echo esc_attr( '#' . $quick_time['displayed']['point']->data['id'] . ' ' . $quick_time['displayed']['point']->data['content'] ); ?>"><?php echo esc_html( $quick_time['displayed']['point_fake_content'] ); ?></li>
 	<li class="content"><?php echo ! empty( $quick_time['content'] ) ? esc_html( $quick_time['content'] ) : __( 'No comment', 'task-manager' ); ?></li>
 	<li class="actions">
 		<div class="action-delete wpeo-button button-progress button-grey button-square-20 button-rounded"

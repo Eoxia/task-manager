@@ -88,7 +88,6 @@ class History_Time_Class extends \eoxia\Comment_Class {
 		$history_times = self::g()->get( array(
 			'post_id' => $task_id,
 			'orderby' => 'ASC',
-			'status'  => '-34070',
 			'type'    => self::g()->get_type(),
 		) );
 
