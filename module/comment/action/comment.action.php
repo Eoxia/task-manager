@@ -243,6 +243,14 @@ class Task_Comment_Action {
 		) );
 	}
 
+	/**
+	 * Charges les commentairs pour le front.
+	 *
+	 * @since 1.0.0
+	 * @version 1.6.0
+	 *
+	 * @return void
+	 */
 	public function callback_load_front_comments() {
 		// check_ajax_referer( 'load_front_comments' );
 
@@ -251,7 +259,6 @@ class Task_Comment_Action {
 
 		$comments = \task_manager\Task_Comment_Class::g()->get( array(
 			'parent' => $point_id,
-			'status' => '-34070',
 		) );
 
 		if ( ! empty( $comments ) ) {

@@ -38,6 +38,8 @@ class Update_160 {
 
 		add_action( 'wp_ajax_task_manager_update_1600_calcul_number_comments', array( $this, 'callback_task_manager_update_1600_calcul_number_comments' ) );
 		add_action( 'wp_ajax_task_manager_update_1600_comments', array( $this, 'callback_task_manager_update_1600_comments' ) );
+
+		add_action( 'task_manager_update_1600_history_time', array( $this, 'callback_task_manager_update_1600_history_time' ) );
 	}
 
 	/**
@@ -332,6 +334,37 @@ class Update_160 {
 				'resetArgs'       => $done ? true : false,
 				'more'            => true,
 			),
+		) );
+	}
+
+	/**
+	 * Récupères les commentaires et y ajoutes un type et fait la mise à jour de la meta "elapsed".
+	 *
+	 * @since 1.6.0
+	 * @version 1.6.0
+	 *
+	 * @return void
+	 */
+	public function callback_task_manager_update_1600_history_time() {
+		$comments = get_comments( array(
+			'type'   => 'history_time',
+			'status' => array( 'publish', 'trash' ),
+		) );
+
+
+		if ( ! empty( $comments ) ) {
+			foreach ( $comments as $comment ) {
+				$meta = json_decode( get_comment_meta( $comment->comment_ID, 'wpeo_history_time', true ), true );
+				if ( ! empty( $meta ) && ! empty( $meta['due_date'] ) && ! empty( $meta['due_date']['date_input'] ) ) {
+					$meta['due_date'] = $meta['due_date']['date_input']['date'];
+					$meta = json_encode( $meta );
+					update_comment_meta( $comment->comment_ID, 'wpeo_history_time', $meta );
+				}
+			}
+		}
+
+		wp_send_json_success( array(
+			'done' => true,
 		) );
 	}
 

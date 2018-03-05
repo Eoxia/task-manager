@@ -47,4 +47,10 @@ $datas = array(
 		'since'       => '1.6.0',
 		'version'     => '1.6.0',
 	),
+	array(
+		'action'      => 'task_manager_update_1600_history_time',
+		'description' => __( 'Update history time data in database', 'task-manager' ),
+		'since'       => '1.6.0',
+		'version'     => '1.6.0',
+	),
 );
