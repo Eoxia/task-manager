@@ -2386,8 +2386,8 @@ Popup
 /* ----------------------------------
 		Popup notification
 -----------------------------------*/
-.wpeo-project-wrap .popup-notification {
-	> .container {
+.popup-notification {
+	> .modal-container {
 		max-width: 460px
 	}
 	ul::after {

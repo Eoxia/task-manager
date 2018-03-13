@@ -80,10 +80,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<span><i class="fa fa-refresh"></i></span>
 	</li>
 
-	<li class="open-popup-ajax tooltip hover"
+	<li class="wpeo-modal-event tooltip hover"
 			aria-label="<?php esc_html_e( 'Notify team', 'task-manager' ); ?>"
-			data-parent="wpeo-project-task"
-			data-target="popup"
 			data-class="popup-notification"
 			data-action="load_notify_popup"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_notify_popup' ) ); ?>"

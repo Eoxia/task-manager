@@ -72,10 +72,8 @@ class Notify_Action {
 		) );
 
 		wp_send_json_success( array(
-			'namespace'        => 'taskManager',
-			'module'           => 'notify',
-			'callback_success' => 'loadedNotifyPopup',
-			'view'             => ob_get_clean(),
+			'view'         => ob_get_clean(),
+			'buttons_view' => '',
 		) );
 	}
 

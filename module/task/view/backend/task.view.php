@@ -2,7 +2,7 @@
 /**
  * La vue d'une tâche dans le backend.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
  * @version 1.6.0
  * @copyright 2015-2018 Eoxia
@@ -28,19 +28,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<input type="text" name="task[title]" data-nonce="<?php echo esc_attr( wp_create_nonce( 'edit_title' ) ); ?>" class="wpeo-project-task-title" value="<?php echo esc_html( ! empty( $task->data['title'] ) ? $task->data['title'] : 'New task' ); ?>" />
 			</li>
 
-			<li class="toggle wpeo-task-setting"
+			<li class="wpeo-dropdown wpeo-task-setting"
 					data-parent="toggle"
 					data-target="content"
 					data-mask="wpeo-project-task">
 
-				<div class="action">
-					<span class="wpeo-task-open-action" title="<?php esc_html_e( 'Task options', 'task-manager' ); ?>"><i class="fa fa-ellipsis-v"></i></span>
-				</div>
+				<span class="wpeo-button button-transparent dropdown-toggle"
+					><i class="fa fa-ellipsis-v"></i></span>
 
-				<div class="content task-header-action">
-					<?php \eoxia\View_Util::exec( 'task-manager', 'task', 'backend/toggle-content', array(
+				<div class="dropdown-content task-header-action">
+					<?php
+					\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/toggle-content', array(
 						'task' => $task,
-					) ); ?>
+					) );
+					?>
 				</div>
 			</li>
 		</ul>

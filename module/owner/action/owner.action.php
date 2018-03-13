@@ -47,7 +47,7 @@ class Owner_Action {
 		) );
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'owner', 'backend/list', array(
+		\eoxia\View_Util::exec( 'task-manager', 'owner', 'backend/dropdown-main', array(
 			'users'   => $users,
 			'task_id' => $task_id,
 		) );

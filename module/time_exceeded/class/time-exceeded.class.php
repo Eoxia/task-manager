@@ -91,14 +91,14 @@ class Time_Exceeded_Class extends \eoxia\Singleton_Util {
 						$tasks_exceed_time[] = $task;
 					}
 
-					$task->time_displayed = \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] ) . ' / ' . \eoxia\Date_Util::g()->convert_to_custom_hours( $task->last_history_time->estimated_time );
+					$task->time_displayed = convert_to_custom_hours( $task->time_info['elapsed'] ) . ' / ' . convert_to_custom_hours( $task->last_history_time->estimated_time );
 					$task->diff_time = $task->time_info['elapsed'] - $task->last_history_time->estimated_time;
 
 				} else {
 					if ( $task->time_info['elapsed'] > $min_time_exceeded ) {
 						$tasks_exceed_time[] = $task;
 
-						$task->time_displayed = \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] );
+						$task->time_displayed = convert_to_custom_hours( $task->time_info['elapsed'] );
 						$task->diff_time = $task->time_info['elapsed'] - $min_time_exceeded;
 					}
 				}
@@ -106,7 +106,7 @@ class Time_Exceeded_Class extends \eoxia\Singleton_Util {
 				$task->time_exceeded_displayed = '';
 
 				if ( ! empty( $task->diff_time ) ) {
-					$task->time_exceeded_displayed = \eoxia\Date_Util::g()->convert_to_custom_hours( $task->diff_time );
+					$task->time_exceeded_displayed = convert_to_custom_hours( $task->diff_time );
 				}
 			}
 		}

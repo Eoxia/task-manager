@@ -7,9 +7,9 @@
 	"dependencies": {
 		"action": {},
 		"helper": {},
-		"filter": {},
 		"model": {},
 		"class": {},
+		"filter": {},
 		"shortcode": {}
 	},
 	"posts_per_page": 8,

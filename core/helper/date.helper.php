@@ -2,52 +2,48 @@
 /**
  * Fonction gérant les dates pour les modèles.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
- * @since 1.0.0.0
- * @version 1.3.6.0
- * @copyright 2015-2017 Eoxia
+ * @author Eoxia <dev@geoxia.com>
+ * @since 1.0.0
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
  * @package TaskManager
- * @subpackage helper
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
-
-/**
- * Convertie la date au format français dd/mm/yy en format SQL
- *
- * @param  object $data Les donnnées du modèle.
- * @return object       Les donnnées du modèle avec la date au format SQL
- *
- * @since 1.0.0.0
- * @version 1.3.6.0
- */
-function convert_date_to_sql( $data ) {
-	if ( strlen( $data->date ) === 10 ) {
-		$data->date .= ' ' . current_time( 'H:i:s' );
-	}
-
-	$data->date = str_replace( '/', '-', $data->date );
-	$data->date = date( 'Y-m-d H:i:s', strtotime( $data->date ) );
-
-	return $data;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 
 /**
- * Convertie la date au format SQL vers le format français
+ * Convertis les minutes en un format spécial sur 7h = 1 jour.
  *
- * @param  object $data Les donnnées du modèle.
- * @return object       Les donnnées du modèle avec la date au format SQL
+ * @since 1.0.0
+ * @version 1.0.0
  *
- * @version 1.0.0.0
- * @version 1.3.6.0
+ * @param  integer $min               Le nombre de minute.
+ * @param  boolean $display_full_min  Si oui, affiches $min entre paranthèse.
+ *
+ * @return string                     La date formatée.
  */
-function convert_date_display( $data ) {
-	$format = '\L\e d F Y à H\hi';
+function convert_to_custom_hours( $min, $display_full_min = true ) {
+	$minut_for_one_day = \eoxia\Config_Util::$init['eo-framework']->hour_equal_one_day * 60;
+	$day               = intval( $min / $minut_for_one_day );
+	$sub_min           = $min - ( $day * $minut_for_one_day );
+	$hour              = intval( $sub_min / 60 );
+	$clone_min         = intval( $sub_min - ( $hour * 60 ) );
+	$display           = '';
 
-	$data->date_input = mysql2date( 'd/m/Y H:i', $data->date );
+	if ( ! empty( $day ) ) {
+		$display .= $day . 'j ';
+	}
+	if ( ! empty( $hour ) ) {
+		$display .= $hour . 'h ';
+	}
+	$display .= $clone_min . 'min';
+	if ( $display_full_min ) {
+		$display .= ' (' . $min . 'min)';
+	}
 
-	$data->date_human_readable = mysql2date( $format, $data->date );
-	return $data;
+	return $display;
 }

@@ -1,11 +1,31 @@
 <?php
+/**
+ * Les filtres relatives aux tâches.
+ *
+ * @author Eoxia <dev@eoxia.com>
+ * @since 1.0.0
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
+ * @package Task_Manager
+ */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
+/**
+ * Les filtres relatives aux tâches.
+ */
 class Task_Filter {
 
+	/**
+	 * Constructeur
+	 *
+	 * @since 1.0.0
+	 * @version 1.6.0
+	 */
 	public function __construct() {
 		add_filter( 'task_manager_dashboard_title', array( $this, 'callback_dashboard_title' ) );
 		add_filter( 'task_manager_dashboard_filter', array( $this, 'callback_dashboard_filter' ), 12 );

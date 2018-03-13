@@ -189,7 +189,7 @@ class Follower_Action {
 	 */
 	public function callback_edit_user_profile( $user  ) {
 		$user = Follower_Class::g()->get( array(
-			'include' => array( $user->ID ),
+			'id' => $user->ID,
 		), true );
 
 		\eoxia\View_Util::exec( 'task-manager', 'follower', 'backend/user-profile', array(
@@ -208,8 +208,8 @@ class Follower_Action {
 			return false;
 		}
 
-		$user = array( 'id' => $user_id );
-		$user['_tm_auto_elapsed_time'] = ! empty( $_POST ) && ! empty( $_POST['_tm_auto_elapsed_time'] ) ? sanitize_text_field( $_POST['_tm_auto_elapsed_time'] ) : '';
+		$user                          = array( 'id' => $user_id );
+		$user['_tm_auto_elapsed_time'] = isset( $_POST['_tm_auto_elapsed_time'] ) && boolval( $_POST['_tm_auto_elapsed_time'] ) ? true : false;
 
 		$user_update = Follower_Class::g()->update( $user );
 	}

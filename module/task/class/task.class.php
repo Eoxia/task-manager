@@ -77,20 +77,6 @@ class Task_Class extends \eoxia\Post_Class {
 	protected $attached_taxonomy_type = 'wpeo_tag';
 
 	/**
-	 * Définition des fonctions de callback pour l'élément.
-	 *
-	 * @var  array
-	 */
-	protected $callback_func = array(
-		'before_get'  => array(),
-		'before_put'  => array(),
-		'before_post' => array(),
-		'after_get'   => array( '\task_manager\get_full_task' ),
-		'after_put'   => array( '\task_manager\get_full_task' ),
-		'after_post'  => array( '\task_manager\get_full_task' ),
-	);
-
-	/**
 	 * Permet d'ajouter le post_status 'archive'.
 	 *
 	 * @since 1.0.0
@@ -341,8 +327,8 @@ class Task_Class extends \eoxia\Post_Class {
 			}
 		}
 
-		$total_time_elapsed   = \eoxia\Date_Util::g()->convert_to_custom_hours( $total_time_elapsed );
-		$total_time_estimated = \eoxia\Date_Util::g()->convert_to_custom_hours( $total_time_estimated );
+		$total_time_elapsed   = convert_to_custom_hours( $total_time_elapsed );
+		$total_time_estimated = convert_to_custom_hours( $total_time_estimated );
 
 		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/metabox-posts', array(
 			'tasks'                => $tasks,
