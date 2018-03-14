@@ -38,8 +38,9 @@ class Update_160 {
 
 		add_action( 'wp_ajax_task_manager_update_1600_calcul_number_comments', array( $this, 'callback_task_manager_update_1600_calcul_number_comments' ) );
 		add_action( 'wp_ajax_task_manager_update_1600_comments', array( $this, 'callback_task_manager_update_1600_comments' ) );
+		add_action( 'wp_ajax_task_manager_update_1600_comment_status', array( $this, 'callback_task_manager_update_1600_comment_status' ) );
 
-		add_action( 'task_manager_update_1600_history_time', array( $this, 'callback_task_manager_update_1600_history_time' ) );
+		add_action( 'wp_ajax_task_manager_update_1600_history_time', array( $this, 'callback_task_manager_update_1600_history_time' ) );
 	}
 
 	/**
@@ -68,7 +69,7 @@ class Update_160 {
 					0,
 					'-34070',
 					'',
-					Task_Class::g()->get_post_type(),
+					Task_Class::g()->get_type(),
 				)
 			)
 		);
@@ -116,7 +117,7 @@ class Update_160 {
 					0,
 					'-34070',
 					'',
-					Task_Class::g()->get_post_type(),
+					Task_Class::g()->get_type(),
 					0,
 					$this->limit,
 				)
@@ -238,7 +239,7 @@ class Update_160 {
 					0,
 					'-34070',
 					'',
-					Task_Class::g()->get_post_type(),
+					Task_Class::g()->get_type(),
 				)
 			)
 		);
@@ -262,10 +263,10 @@ class Update_160 {
 	 * @return void
 	 */
 	public function callback_task_manager_update_1600_comments() {
-		$timestamp_debut = microtime(true);
-		$done          = false;
-		$count_comment = ! empty( $_POST['args']['countComment'] ) ? (int) $_POST['args']['countComment'] : 0;
-		$index         = ! empty( $_POST['args']['index'] ) ? (int) $_POST['args']['index'] : 0;
+		$timestamp_debut = microtime( true );
+		$done            = false;
+		$count_comment   = ! empty( $_POST['args']['countComment'] ) ? (int) $_POST['args']['countComment'] : 0;
+		$index           = ! empty( $_POST['args']['index'] ) ? (int) $_POST['args']['index'] : 0;
 
 		global $wpdb;
 
@@ -285,7 +286,7 @@ class Update_160 {
 					0,
 					'-34070',
 					'',
-					Task_Class::g()->get_post_type(),
+					Task_Class::g()->get_type(),
 					0,
 					$this->limit,
 				)
@@ -338,7 +339,7 @@ class Update_160 {
 	}
 
 	/**
-	 * Récupères les commentaires et y ajoutes un type et fait la mise à jour de la meta "elapsed".
+	 * Récupère les metas des "history_time" qui contiennent la valeur input_date
 	 *
 	 * @since 1.6.0
 	 * @version 1.6.0
@@ -346,25 +347,25 @@ class Update_160 {
 	 * @return void
 	 */
 	public function callback_task_manager_update_1600_history_time() {
-		$comments = get_comments( array(
-			'type'   => 'history_time',
-			'status' => array( 'publish', 'trash' ),
-		) );
+		global $wpdb;
 
+		$history_time_to_repair = $wpdb->get_results( $wpdb->prepare( "SELECT meta_id, meta_value FROM {$wpdb->commentmeta} WHERE meta_key LIKE %s AND meta_value LIKE %s", $wpdb->esc_like( 'wpeo_history_time' ), '%' . $wpdb->esc_like( 'date_input' ) . '%' ) );
 
-		if ( ! empty( $comments ) ) {
-			foreach ( $comments as $comment ) {
-				$meta = json_decode( get_comment_meta( $comment->comment_ID, 'wpeo_history_time', true ), true );
+		if ( ! empty( $history_time_to_repair ) ) {
+			foreach ( $history_time_to_repair as $meta_definition ) {
+				$meta = json_decode( $meta_definition->meta_value, true );
 				if ( ! empty( $meta ) && ! empty( $meta['due_date'] ) && ! empty( $meta['due_date']['date_input'] ) ) {
 					$meta['due_date'] = $meta['due_date']['date_input']['date'];
-					$meta = json_encode( $meta );
-					update_comment_meta( $comment->comment_ID, 'wpeo_history_time', $meta );
+					$wpdb->update( $wpdb->commentmeta, array( 'meta_value' => wp_json_encode( $meta ) ), array( 'meta_id' => $meta_definition->meta_id ) );
 				}
 			}
 		}
 
 		wp_send_json_success( array(
 			'done' => true,
+			'args' => array(
+				'more' => true,
+			),
 		) );
 	}
 
@@ -396,6 +397,50 @@ class Update_160 {
 		}
 
 		return $position;
+	}
+
+	/**
+	 * Modifie les valeurs de comment approved dans la base de données pour utiliser les valeurs de base de WordPress.
+	 *
+	 * @return void
+	 */
+	public function callback_task_manager_update_1600_comment_status() {
+		global $wpdb;
+
+		// Mise à jour des -34070 en 1.
+		$wpdb->update( $wpdb->comments, array( 'comment_approved' => 1 ), array(
+			'comment_approved' => -34070,
+			'comment_type'     => Task_Comment_Class::g()->get_type(),
+		) );
+		$wpdb->update( $wpdb->comments, array( 'comment_approved' => 1 ), array(
+			'comment_approved' => -34070,
+			'comment_type'     => Point_Class::g()->get_type(),
+		) );
+		$wpdb->update( $wpdb->comments, array( 'comment_approved' => 1 ), array(
+			'comment_approved' => -34070,
+			'comment_type'     => History_Time_Class::g()->get_type(),
+		) );
+
+		// Mise à jour des -34071 en trash.
+		$wpdb->update( $wpdb->comments, array( 'comment_approved' => 'trash' ), array(
+			'comment_approved' => -34071,
+			'comment_type'     => Task_Comment_Class::g()->get_type(),
+		) );
+		$wpdb->update( $wpdb->comments, array( 'comment_approved' => 'trash' ), array(
+			'comment_approved' => -34071,
+			'comment_type'     => Point_Class::g()->get_type(),
+		) );
+		$wpdb->update( $wpdb->comments, array( 'comment_approved' => 'trash' ), array(
+			'comment_approved' => -34071,
+			'comment_type'     => History_Time_Class::g()->get_type(),
+		) );
+
+		wp_send_json_success( array(
+			'done' => true,
+			'args' => array(
+				'more' => true,
+			),
+		) );
 	}
 
 }
