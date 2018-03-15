@@ -163,7 +163,7 @@ var wpeo_point = {
   delete_point_time: function(event, element) {
     event.preventDefault();
 
-    if( confirm( wpeo_project_delete_comment_time ) ) {
+    if( confirm( taskManagerFrontend.wpeo_project_delete_comment_time ) ) {
 
       var point_id = jQuery( element ).closest( '.wpeo-window-dashboard' ).data( 'id' );
       var point_time_id = jQuery( element ).closest( '.wpeo-point-comment' ).data( 'id' );

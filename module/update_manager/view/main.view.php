@@ -16,7 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <h1>
-	<?php esc_html_e( 'Update Manager', 'eoxia' ); ?>
+	<?php esc_html_e( 'Update Manager', 'task-manager' ); ?>
+	<input type="hidden" name="action_when_update_finished" value="tm_redirect_to_dashboard" />
 </h1>
 
 <?php if ( ! empty( $waiting_updates ) ) : ?>
@@ -29,8 +30,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php endforeach; ?>
 	<?php endforeach; ?>
 <?php else : ?>
-	<?php esc_html_e( 'Rien à faire ici', 'digirisk' ); ?>
-	<strong><a href="<?php echo esc_attr( admin_url( '?page=wpeomtm-dashboard' ) ); ?>"><?php echo esc_html_e( 'retour à l\'application.', 'task-manager' ); ?></a></strong>
+	<?php esc_html_e( 'No updates available for current version', 'task-manager' ); ?>
+	<strong><a href="<?php echo esc_attr( admin_url( '?page=wpeomtm-dashboard' ) ); ?>"><?php echo esc_html_e( 'Back to main application', 'task-manager' ); ?></a></strong>
 <?php endif; ?>
 
 <ul class="log"></ul>

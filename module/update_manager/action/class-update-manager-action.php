@@ -76,7 +76,7 @@ class Update_Manager_Action {
 	 * @version 1.6.0
 	 */
 	public function callback_admin_menu() {
-		add_submenu_page( '123', __( 'Task Manager Update', 'task-manager' ), __( 'Task Manager Update', 'task-manager' ), 'manage_options', 'task-manager-update', array( Update_Manager::g(), 'display' ) );
+		add_submenu_page( '123', __( 'Task Manager Update', 'task-manager' ), __( 'Task Manager Update', 'task-manager' ), 'manage_options', \eoxia\Config_Util::$init['task-manager']->update_page_url, array( Update_Manager::g(), 'display' ) );
 	}
 
 	/**

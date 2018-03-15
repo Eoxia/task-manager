@@ -30,7 +30,6 @@ class Task_Manager_Action {
 		// add_action( 'admin_enqueue_scripts', array( $this, 'callback_before_admin_enqueue_scripts' ), 10 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'callback_admin_enqueue_scripts' ), 11 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'callback_enqueue_scripts' ), 11 );
-		add_action( 'admin_print_scripts', array( $this, 'callback_admin_print_scripts' ) );
 		add_action( 'wp_print_scripts', array( $this, 'callback_wp_print_scripts' ) );
 
 		add_action( 'init', array( $this, 'callback_plugins_loaded' ) );
@@ -98,6 +97,15 @@ class Task_Manager_Action {
 
 					wp_enqueue_script( 'task-manager-masonry', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/masonry.min.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
 					wp_enqueue_script( 'task-manager-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/backend.min.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
+					wp_localize_script( 'task-manager-script', 'taskManager', array(
+						'updateManagerUrlPage'      => 'admin_page_' . \eoxia\Config_Util::$init['task-manager']->update_page_url,
+						'updateManagerconfirmExit'  => __( 'Your data are being updated. If you confirm that you want to leave this page, your data could be corrupted', 'task-manager' ),
+						'updateManagerloader'       => '<img src=' . admin_url( '/images/loading.gif' ) . ' />',
+						// Translators: %s is the version number with strong markup.
+						'updateManagerInProgress'   => sprintf( __( 'Update %s in progress', 'task-manager' ), '<strong>{{ versionNumber }}</strong>' ),
+						// Translators: %s is the version number with strong markup.
+						'updateManagerErrorOccured' => sprintf( __( 'An error occured. Please take a look at %s logs', 'task-manager' ), '<strong>{{ versionNumber }}</strong>' ),
+					) );
 					wp_enqueue_script( 'task-manager-datetimepicker-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/jquery.datetimepicker.full.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
 					break;
 				}
@@ -121,18 +129,9 @@ class Task_Manager_Action {
 		wp_enqueue_style( 'task-manager-frontend-style' );
 
 		wp_enqueue_script( 'task-manager-frontend-script', PLUGIN_TASK_MANAGER_URL . 'core/asset/js/frontend.min.js', array(), \eoxia\Config_Util::$init['task-manager']->version, false );
-	}
-
-	/**
-	 * Initialise en php le fichier permettant la traduction des variables string JavaScript.
-	 *
-	 * @since 1.6.0
-	 * @version 1.6.0
-	 *
-	 * @return void
-	 */
-	public function callback_admin_print_scripts() {
-		require PLUGIN_TASK_MANAGER_PATH . '/core/asset/js/language.js.php';
+		wp_localize_script( 'task-manager-frontend-script', 'taskManagerFrontend', array(
+			'wpeo_project_delete_comment_time' => __( 'Delete this comment ?', 'task-manager' ),
+		) );
 	}
 
 	/**
@@ -151,14 +150,6 @@ class Task_Manager_Action {
 		}
 
 		Task_Manager_Class::g()->init_default_data();
-
-		//
-		// $comment = Task_Comment_Class::g()->create( array(
-		// 	'content' => 'chocolat',
-		// ) );
-		//
-		// echo '<pre>'; print_r( $comment ); echo '</pre>';exit;
-
 	}
 
 	/**
@@ -218,6 +209,7 @@ class Task_Manager_Action {
 
 		wp_send_json_success( array() );
 	}
+
 }
 
 new Task_Manager_Action();

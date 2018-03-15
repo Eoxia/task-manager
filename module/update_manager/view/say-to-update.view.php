@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<p style="font-size: 1.4em;"><?php esc_html_e( 'Warning! Stop the update process can destroy your data.', 'task-manager' ); ?></p>
 
 			<p style="text-align: center; margin-top: 20px;">
-				<a class="button blue" href="<?php echo esc_attr( admin_url( 'admin.php?page=task-manager-update' ) ); ?>">
+				<a class="button blue" href="<?php echo esc_attr( admin_url( 'admin.php?page=' . \eoxia\Config_Util::$init['task-manager']->update_page_url ) ); ?>">
 					<span><?php esc_html_e( 'Start update', 'task-manager' ); ?></span>
 				</a>
 				<a class="back-update" href="<?php echo esc_attr( admin_url( 'index.php' ) ); ?>"><?php esc_html_e( 'Back', 'task-manager' ); ?></a>

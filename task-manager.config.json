@@ -40,5 +40,6 @@
 	"debug": false,
 	"key_last_update_version" : "_tm_last_update_version",
 	"core_option": "_tm_core_option",
+	"update_page_url": "task-manager-update",
 	"associate_post_type": []
 }

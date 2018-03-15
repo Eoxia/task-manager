@@ -24,29 +24,28 @@ window.eoxiaJS.taskManager.updateManager.requestUpdateFunc = {
 	endMethod: []
 };
 window.eoxiaJS.taskManager.updateManager.requestUpdate = function( args ) {
+	var redirectAction  = jQuery( 'input[name="action_when_update_finished"]' ).val();
 	var key             = jQuery( 'input.current-key' ).val();
 	var versionToUpdate = jQuery( 'input[name="version_available[]"]:first' ).val();
 	var action          = jQuery( 'input[name="version[' + versionToUpdate + '][action][]"]:first' ).val();
 	var description     = jQuery( 'input[name="version[' + versionToUpdate + '][description][]"]:first' ).val();
+	var data = {
+		action: action,
+		versionToUpdate: versionToUpdate,
+		args: args
+	};
 
 	if ( versionToUpdate ) {
 		if ( ( args && ! args.more ) || ! args ) {
-			jQuery( '.log' ).append( '<li><h2>Update <strong>' + versionToUpdate + '</strong> in progress...</h2></li>' );
+			jQuery( '.log' ).append( '<li><h2>' + taskManager.updateManagerInProgress.replace( '{{ versionNumber }}', versionToUpdate ) + '</h2></li>' );
 		}
 
-		var data = {
-			action: action,
-			versionToUpdate: versionToUpdate,
-			args: args
-		};
-
 		if ( action ) {
-
 			if ( args && args.moreDescription ) {
 				description += args.moreDescription;
 			}
 
-			jQuery( '.log' ).append( '<li>' + description + window.task_manager_loader + '</li>' );
+			jQuery( '.log' ).append( '<li>' + description + taskManager.updateManagerloader + '</li>' );
 
 			jQuery.post( ajaxurl, data, function( response ) {
 				jQuery( '.log img' ).remove();
@@ -68,13 +67,8 @@ window.eoxiaJS.taskManager.updateManager.requestUpdate = function( args ) {
 					if ( 0 == jQuery( 'input[name="version_available[]"]:first' ).length ) {
 						delete response.data.args;
 
-						jQuery.post( ajaxurl, { action: 'tm_redirect_to_dashboard', key: key }, function( response ) {
-							jQuery( '.log' ).append( '<li>' + response.data.message + '</li>' );
-							window.removeEventListener( 'beforeunload', window.eoxiaJS.taskManager.updateManager.safeExit );
-							window.location = response.data.url;
-						});
+						window.eoxiaJS.taskManager.updateManager.redirect( { action: redirectAction, key: key }, true );
 					} else {
-
 						if ( response.data.args.resetArgs ) {
 							delete response.data.args;
 						}
@@ -85,23 +79,32 @@ window.eoxiaJS.taskManager.updateManager.requestUpdate = function( args ) {
 				}
 			} )
 			.fail( function( error, t, r ) {
-				jQuery( '.log' ).append( '<li>Erreur: veuillez consulter les logs de la version: ' + versionToUpdate + '</li>' );
-				jQuery.post( ajaxurl, { action: 'tm_redirect_to_dashboard', key: key, error_version: versionToUpdate, error_status: error.status, error_text: error.responseText }, function( response ) {
-					jQuery( '.log' ).append( '<li>' + response.data.message + '</li>' );
-					window.removeEventListener( 'beforeunload', window.eoxiaJS.taskManager.updateManager.safeExit );
-					// window.location = response.data.url;
-				});
+				jQuery( '.log' ).append( '<li>' + taskManager.updateManagerErrorOccured.replace( '{{ versionNumber }}', versionToUpdate ) + '</li>' );
+				window.eoxiaJS.taskManager.updateManager.redirect( { action: redirectAction, key: key, error_version: versionToUpdate, error_status: error.status, error_text: error.responseText }, false );
 			} );
 		}
 	}
 
 	if ( jQuery( '.no-update' ).length ) {
-		jQuery.post( ajaxurl, { action: 'tm_redirect_to_dashboard', key: key }, function( response ) {
-			jQuery( '.log' ).append( '<li>' + response.data.message + '</li>' );
-			window.removeEventListener( 'beforeunload', window.eoxiaJS.taskManager.updateManager.safeExit );
-			window.location = response.data.url;
-		});
+		window.eoxiaJS.taskManager.updateManager.redirect( { action: redirectAction, key: key }, true );
 	}
+};
+
+/**
+ * Redirection vers la page principale de l'application une fois les mises à jour terminées.
+ *
+ * @param  {[type]} key [description]
+ *
+ * @return {void}
+ */
+window.eoxiaJS.taskManager.updateManager.redirect = function( requestArgs, redirect ) {
+	jQuery.post( ajaxurl, requestArgs, function( response, redirect ) {
+		jQuery( '.log' ).append( '<li>' + response.data.message + '</li>' );
+		window.removeEventListener( 'beforeunload', window.eoxiaJS.taskManager.updateManager.safeExit );
+		if ( redirect ) {
+			// window.location = response.data.url;
+		}
+	});
 };
 
 /**
@@ -114,9 +117,8 @@ window.eoxiaJS.taskManager.updateManager.requestUpdate = function( args ) {
  * @return {string}
  */
 window.eoxiaJS.taskManager.updateManager.safeExit = function( event ) {
-	if ( 'admin_page_task-manager-update' === event.currentTarget.adminpage ) {
-		var confirmationMessage = 'Vos données sont en cours de mise à jour, elles risque d\'être corrompues si vous quittez la page de mise à jour.';
-
+	var confirmationMessage = taskManager.updateManagerconfirmExit;
+	if ( taskManager.updateManagerUrlPage === event.currentTarget.adminpage ) {
 		event.returnValue = confirmationMessage;
 		return confirmationMessage;
 	}

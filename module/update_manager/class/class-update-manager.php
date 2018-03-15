@@ -44,6 +44,7 @@ class Update_Manager extends \eoxia\Singleton_Util {
 			'waiting_updates' => $waiting_updates,
 		) );
 	}
+
 }
 
 new Update_Manager();

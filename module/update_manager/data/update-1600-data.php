@@ -24,6 +24,12 @@
 
 $datas = array(
 	array(
+		'action'      => 'task_manager_update_1600_lost_datas',
+		'description' => __( 'Fix problems with points/comments that are orphelans', 'task-manager' ),
+		'since'       => '1.6.0',
+		'version'     => '1.6.0',
+	),
+	array(
 		'action'      => 'task_manager_update_1600_calcul_number_points',
 		'description' => __( 'Count points in database.', 'task-manager' ),
 		'since'       => '1.6.0',
