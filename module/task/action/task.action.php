@@ -145,13 +145,12 @@ class Task_Action {
 			wp_send_json_error();
 		}
 
-		$task = Task_Class::g()->get( array(
-			'p' => $task_id,
-		), true );
+		$task = Task_Class::g()->update( array(
+			'id' => $task_id,
+			'status' => 'trash',
+		) );
 
-		$task->data['status'] = 'trash';
-
-		Task_Class::g()->update( $task->data, true );
+		echo '<pre>'; print_r( $task ); echo '</pre>';
 
 		do_action( 'tm_delete_task', $task );
 

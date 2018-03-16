@@ -216,26 +216,20 @@ class Task_Comment_Action {
 			wp_send_json_error();
 		}
 
-		$comment = Task_Comment_Class::g()->get( array(
-			'id' => $comment_id,
-		), true );
-
-		$comment->data['status'] = 'trash';
-		$comment                 = Task_Comment_Class::g()->update( $comment->data, true );
-
+		$comment = Task_Comment_Class::g()->update( array(
+			'id'     => $comment_id,
+			'status' => 'trash',
+		) );
 
 		$comment->data['point']->data['count_comments']--;
 
-		Point_Class::g()->update( $comment->data['point']->data, true );
+		Point_Class::g()->update( $comment->data['point']->data );
 
-		$task = Task_Class::g()->get( array(
-			'id' => $comment->data['post_id'],
-		), true );
 
 		wp_send_json_success( array(
 			'time' => array(
 				'point' => $comment->data['point']->data['time_info']['elapsed'],
-				'task'  => convert_to_custom_hours( $task->data['time_info']['elapsed'] ),
+				'task'  => convert_to_custom_hours( $comment->data['task']->data['time_info']['elapsed'] ),
 			),
 			'namespace'        => 'taskManager',
 			'module'           => 'comment',

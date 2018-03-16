@@ -53,6 +53,7 @@ class History_Time_Action {
 		History_Time_Class::g()->display_histories_time( $task_id );
 		wp_send_json_success( array(
 			'view'             => ob_get_clean(),
+			'buttons_view'     => '',
 			'namespace'        => 'taskManager',
 			'module'           => 'historyTime',
 			'callback_success' => 'loadedTimeHistorySuccess',

@@ -6,9 +6,9 @@
 	"path": "module/comment/",
 	"dependencies": {
 		"action": {},
-		"helper": {},
 		"model": {},
 		"class": {},
+		"filter": {},
 		"shortcode": {}
 	}
 }

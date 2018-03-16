@@ -78,7 +78,7 @@ class Point_Class extends \eoxia\Comment_Class {
 		$point_id   = ! empty( $_GET['point_id'] ) ? (int) $_GET['point_id'] : 0;
 
 		$task = Task_Class::g()->get( array(
-			'p' => $task_id,
+			'id' => $task_id,
 		), true );
 
 		$points = self::g()->get( array(
