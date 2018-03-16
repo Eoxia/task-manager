@@ -54,7 +54,7 @@ class Point_Filter {
 				if ( empty( $point->id ) ) {
 					return false;
 				}
-				
+
 				return false === $point->point_info['completed'];
 			} );
 		}

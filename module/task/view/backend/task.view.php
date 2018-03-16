@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<li class="wpeo-task-id">#<?php echo esc_html( $task->data['id'] ); ?></li>
 
 			<li class="wpeo-task-title">
-				<input type="text" name="task[title]" data-nonce="<?php echo esc_attr( wp_create_nonce( 'edit_title' ) ); ?>" class="wpeo-project-task-title" value="<?php echo esc_html( ! empty( $task->data['title'] ) ? $task->data['title'] : 'New task' ); ?>" />
+				<input type="text" name="task[title]" data-nonce="<?php echo esc_attr( wp_create_nonce( 'edit_title' ) ); ?>" class="wpeo-project-task-title" value="<?php echo esc_html( $task->data['title'] ); ?>" />
 			</li>
 
 			<li class="wpeo-dropdown wpeo-task-setting"
@@ -70,18 +70,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php echo do_shortcode( '[task_manager_task_follower task_id=' . $task->data['id'] . ']' ); ?>
 		<!-- Fin des followers -->
 
-		<!-- Popup -->
-		<div class="popup">
-			<div class="container">
-				<div class="header">
-					<h2 class="title">Titre de la popup</h2>
-					<i class="close fa fa-times"></i>
-				</div>
-
-				<div class="content">
-				</div>
-			</div>
-		</div>
-		<!-- Fin popup -->
 	</div>
 </div>

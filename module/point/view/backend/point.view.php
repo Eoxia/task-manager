@@ -67,16 +67,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<span class="wpeo-time-in-point"><?php echo esc_attr( $point->data['time_info']['elapsed'] ); ?></span>
 					</div>
 
-					<div class="toggle wpeo-task-setting"
+					<div class="wpeo-dropdown wpeo-task-setting"
 							data-parent="toggle"
 							data-target="content"
 							data-mask="wpeo-project-task">
 
-						<div class="action">
-							<span class="wpeo-task-open-action" title="<?php esc_html_e( 'Point options', 'task-manager' ); ?>"><i class="fa fa-ellipsis-v"></i></span>
-						</div>
+						<span class="wpeo-button button-transparent dropdown-toggle"
+							><i class="fa fa-ellipsis-v"></i></span>
 
-						<div class="left content point-header-action">
+						<div class="dropdown-content point-header-action">
 							<?php
 							\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/toggle-content', array(
 								'point' => $point,

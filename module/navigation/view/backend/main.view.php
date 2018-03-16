@@ -2,23 +2,24 @@
 /**
  * Vue pour afficher la barre de recherche.
  *
- * @package Task Manager
- * @subpackage Module/Tag
- *
  * @since 1.0.0.0
  * @version 1.3.6.0
+ *
+ * @package Task Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} ?>
 
 <div class="form" action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>" method="POST">
 	<header class="wpeo-header-bar">
 		<ul>
 
 			<li class="action-attribute active" data-action="load_all_task" data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_all_task' ) ); ?>"><?php esc_html_e( 'All tasks', 'task-manager' ); ?></li>
-			<li class="action-attribute" data-action="load_my_task" data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_my_task' ) ); ?>"><?php esc_html_e( 'My task', 'task-manager' ); ?></li>
+			<!-- <li class="action-attribute" data-action="load_my_task" data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_my_task' ) ); ?>"><?php esc_html_e( 'My task', 'task-manager' ); ?></li> -->
 			<li class="action-attribute" data-action="load_archived_task" data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_archived_task' ) ); ?>"><?php esc_html_e( 'Archived task', 'task-manager' ); ?></li>
 
 			<li class="wpeo-modal-event"

@@ -15,13 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="success">
-	<div class="content">
-		<p>Notification envoyée</p>
-		<span>OK</span>
-	</div>
-</div>
-
 <div class="gridwrapper w2">
 	<ul class="task-color">
 		<?php

@@ -37,15 +37,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php endif; ?>
 	</li>
 
-	<li class="wpeo-task-time-history open-popup-ajax"
-			data-parent="wpeo-project-task"
-			data-target="popup"
+	<li class="wpeo-task-time-history wpeo-modal-event tooltip hover"
+			aria-label="<?php esc_html_e( 'Edit dead line', 'task-manager' ); ?>"
+			data-class="history-time"
 			data-action="load_time_history"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_time_history' ) ); ?>"
-			data-class="history-time"
 			data-title="<?php echo sprintf( __( '#%1$s Time history', 'task-manager' ), esc_attr( $task->data['id'] ) ); ?>"
 			data-task-id="<?php echo esc_attr( $task->data['id'] ); ?>">
-		<span class="fa fa-history dashicons-image-rotate"></span>
+		<span><i class="fa fa-history dashicons-image-rotate"></i></span>
 	</li>
 
 	<li class="display-method-buttons">
