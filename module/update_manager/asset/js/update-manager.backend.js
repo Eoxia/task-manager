@@ -67,7 +67,7 @@ window.eoxiaJS.taskManager.updateManager.requestUpdate = function( args ) {
 					if ( 0 == jQuery( 'input[name="version_available[]"]:first' ).length ) {
 						delete response.data.args;
 
-						window.eoxiaJS.taskManager.updateManager.redirect( { action: redirectAction, key: key }, true );
+						window.eoxiaJS.taskManager.updateManager.redirect( { action: redirectAction }, true );
 					} else {
 						if ( response.data.args.resetArgs ) {
 							delete response.data.args;
@@ -80,13 +80,13 @@ window.eoxiaJS.taskManager.updateManager.requestUpdate = function( args ) {
 			} )
 			.fail( function( error, t, r ) {
 				jQuery( '.log' ).append( '<li>' + taskManager.updateManagerErrorOccured.replace( '{{ versionNumber }}', versionToUpdate ) + '</li>' );
-				window.eoxiaJS.taskManager.updateManager.redirect( { action: redirectAction, key: key, error_version: versionToUpdate, error_status: error.status, error_text: error.responseText }, false );
+				window.eoxiaJS.taskManager.updateManager.redirect( { action: redirectAction, error_version: versionToUpdate, error_status: error.status, error_text: error.responseText }, false );
 			} );
 		}
 	}
 
 	if ( jQuery( '.no-update' ).length ) {
-		window.eoxiaJS.taskManager.updateManager.redirect( { action: redirectAction, key: key }, true );
+		window.eoxiaJS.taskManager.updateManager.redirect( { action: redirectAction }, true );
 	}
 };
 
@@ -98,11 +98,11 @@ window.eoxiaJS.taskManager.updateManager.requestUpdate = function( args ) {
  * @return {void}
  */
 window.eoxiaJS.taskManager.updateManager.redirect = function( requestArgs, redirect ) {
-	jQuery.post( ajaxurl, requestArgs, function( response, redirect ) {
+	jQuery.post( ajaxurl, requestArgs, function( response ) {
 		jQuery( '.log' ).append( '<li>' + response.data.message + '</li>' );
 		window.removeEventListener( 'beforeunload', window.eoxiaJS.taskManager.updateManager.safeExit );
 		if ( redirect ) {
-			// window.location = response.data.url;
+			window.location = response.data.url;
 		}
 	});
 };

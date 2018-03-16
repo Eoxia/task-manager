@@ -36,10 +36,11 @@ $datas = array(
 		'version'     => '1.6.0',
 	),
 	array(
-		'action'      => 'task_manager_update_1600_points',
-		'description' => __( 'Update point data in database', 'task-manager' ),
-		'since'       => '1.6.0',
-		'version'     => '1.6.0',
+		'action'         => 'task_manager_update_1600_points',
+		'description'    => __( 'Update point data in database', 'task-manager' ),
+		'since'          => '1.6.0',
+		'version'        => '1.6.0',
+		'count_callback' => '\task_manager\Update_160::callback_task_manager_update_1600_calcul_number_points',
 	),
 	array(
 		'action'      => 'task_manager_update_1600_calcul_number_comments',
@@ -48,10 +49,11 @@ $datas = array(
 		'version'     => '1.6.0',
 	),
 	array(
-		'action'      => 'task_manager_update_1600_comments',
-		'description' => __( 'Update comments data in database', 'task-manager' ),
-		'since'       => '1.6.0',
-		'version'     => '1.6.0',
+		'action'         => 'task_manager_update_1600_comments',
+		'description'    => __( 'Update comments data in database', 'task-manager' ),
+		'since'          => '1.6.0',
+		'version'        => '1.6.0',
+		'count_callback' => '\task_manager\Update_160::callback_task_manager_update_1600_calcul_number_comments',
 	),
 	array(
 		'action'      => 'task_manager_update_1600_history_time',

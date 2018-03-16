@@ -14,7 +14,6 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
 /**
  * Mise à jour des données pour la version 1.6.0
  */
@@ -24,7 +23,7 @@ class Update_160 {
 	 *
 	 * @var integer
 	 */
-	private $limit = 50;
+	private static $limit = 50;
 
 	/**
 	 * Le constructeur
@@ -52,10 +51,10 @@ class Update_160 {
 	 *
 	 * @return void
 	 */
-	public function callback_task_manager_update_1600_calcul_number_points() {
+	public static function callback_task_manager_update_1600_calcul_number_points() {
 		global $wpdb;
 
-		$count_points = (int) $wpdb->get_var( $this->prepare_request( 'count( COMMENT.comment_ID )', true, '=', Point_Class::g()->get_type() ) ); // WPCS: unprepared sql.
+		$count_points = (int) $wpdb->get_var( self::prepare_request( 'count( COMMENT.comment_ID )', true, '=', Point_Class::g()->get_type() ) ); // WPCS: unprepared sql.
 
 		wp_send_json_success( array(
 			'done' => true,
@@ -89,7 +88,7 @@ class Update_160 {
 			$count_point_updated = 0;
 		}
 
-		$points = $wpdb->get_results( $this->prepare_request( 'COMMENT.comment_ID, COMMENT.comment_approved, COMMENT.comment_content', true, '=', Point_Class::g()->get_type() ) ); // WPCS: unprepared sql.
+		$points = $wpdb->get_results( self::prepare_request( 'COMMENT.comment_ID, COMMENT.comment_approved, COMMENT.comment_content', true, '=', Point_Class::g()->get_type() ) ); // WPCS: unprepared sql.
 		if ( ! empty( $points ) ) {
 			foreach ( $points as $point ) {
 				$the_point = Point_Class::g()->update( array(
@@ -146,7 +145,7 @@ class Update_160 {
 			}
 		}
 
-		$index += $this->limit;
+		$index += self::$limit;
 
 		if ( $index >= $count_point ) {
 			$index = $count_point;
@@ -179,7 +178,7 @@ class Update_160 {
 	 *
 	 * @return [type]                [description]
 	 */
-	public function prepare_request( $column_to_get, $paginate, $comparison, $type ) {
+	public static function prepare_request( $column_to_get, $paginate, $comparison, $type ) {
 		global $wpdb;
 
 		$query_string = "SELECT {$column_to_get}
@@ -191,7 +190,7 @@ class Update_160 {
 			AND TASK.post_type = %s";
 
 		if ( ! empty( $paginate ) ) {
-			$query_string .= ' LIMIT 0, ' . $this->limit;
+			$query_string .= ' LIMIT 0, ' . self::$limit;
 		}
 
 		$query = $wpdb->prepare( $query_string, array(
@@ -211,10 +210,10 @@ class Update_160 {
 	 *
 	 * @return void
 	 */
-	public function callback_task_manager_update_1600_calcul_number_comments() {
+	public static function callback_task_manager_update_1600_calcul_number_comments() {
 		global $wpdb;
 
-		$count_comment = (int) $wpdb->get_var( $this->prepare_request( 'count(COMMENT.comment_ID)', 0, '!=', Task_Comment_Class::g()->get_type() ) );// WPCS: unprepared sql.
+		$count_comment = (int) $wpdb->get_var( self::prepare_request( 'count(COMMENT.comment_ID)', 0, '!=', Task_Comment_Class::g()->get_type() ) );// WPCS: unprepared sql.
 
 		wp_send_json_success( array(
 			'done' => true,
@@ -242,7 +241,7 @@ class Update_160 {
 
 		global $wpdb;
 
-		$comments = $wpdb->get_results( $this->prepare_request( 'COMMENT.comment_ID, COMMENT.comment_approved, COMMENT.comment_content', true, '!=', Task_Comment_Class::g()->get_type() ) ); // WPCS: unprepared sql.
+		$comments = $wpdb->get_results( self::prepare_request( 'COMMENT.comment_ID, COMMENT.comment_approved, COMMENT.comment_content', true, '!=', Task_Comment_Class::g()->get_type() ) ); // WPCS: unprepared sql.
 		if ( ! empty( $comments ) ) {
 			foreach ( $comments as $comment ) {
 				$the_comment = Task_Comment_Class::g()->update( array(
@@ -258,7 +257,7 @@ class Update_160 {
 			}
 		}
 
-		$index += $this->limit;
+		$index += self::$limit;
 
 		if ( $index >= $count_comment ) {
 			$index = $count_comment;

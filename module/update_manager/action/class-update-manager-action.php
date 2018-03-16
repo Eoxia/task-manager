@@ -52,7 +52,6 @@ class Update_Manager_Action {
 			}
 
 			if ( $last_version_done !== $current_version_to_check ) {
-				$update_path      = \eoxia\Config_Util::$init['task-manager']->update_manager->path . 'update/';
 				$update_data_path = \eoxia\Config_Util::$init['task-manager']->update_manager->path . 'data/';
 
 				for ( $i = ( (int) substr( $last_version_done, 0, 4 ) + 1 ); $i <= $current_version_to_check; $i++ ) {
