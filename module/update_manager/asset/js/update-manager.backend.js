@@ -23,10 +23,10 @@ window.eoxiaJS.taskManager.updateManager.init = function() {
 				$form.closest( '.wpeo-update-item' ).toggleClass( 'wpeo-update-in-progress-item' );
 				$form.closest( '.wpeo-update-item' ).toggleClass( 'wpeo-update-done-item' );
 			}
-			// window.eoxiaJS.taskManager.updateManager.requestUpdate();
+			window.eoxiaJS.taskManager.updateManager.requestUpdate();
 		}
 	});
-	// window.eoxiaJS.taskManager.updateManager.requestUpdate();
+	window.eoxiaJS.taskManager.updateManager.requestUpdate();
 	window.addEventListener( 'beforeunload', window.eoxiaJS.taskManager.updateManager.safeExit );
 };
 
