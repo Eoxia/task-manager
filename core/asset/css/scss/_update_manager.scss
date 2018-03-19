@@ -1,0 +1,102 @@
+/**
+ * Interface de mise à jour des données
+ */
+.wpeo-project-wrap {
+	.wpeo-project-update-manager {
+		.wpeo-update-item {
+			display: block;
+			width: 100%;
+			height: 8em;
+			background-color: lightgrey;
+			border-radius: 4px;
+			text-align: center;
+			line-height: 6em;
+			color: #000;
+			font-size: 14px;
+
+			> div {
+				float: left;
+			}
+			> div:first-child {
+				width: 30px;
+				height: 100%;
+				position: relative;
+
+				.spinner, i.dashicons {
+					float: unset;
+					margin: auto 0 0 0;
+					position: absolute;
+					left: 10%;
+					top: 50%;
+					transform: translateY(-50%);
+				}
+			}
+
+			> div:last-child {
+				width: 90%;
+				line-height: normal;
+				.wpeo-update-item-description {
+					p {
+						font-size: 13px;
+						text-align: left;
+						height: 5em;
+					}
+				}
+			}
+
+			.wpeo-update-item-progress {
+				height: 20px;
+				line-height: 20px;
+				border: 1px solid grey;
+				position: relative;
+				.wpeo-update-item-progression {
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 0%;
+					height: 100%;
+					background-color: lightblue;
+					z-index: 20;
+				}
+				.wpeo-update-item-stats {
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					z-index: 30;
+				}
+			}
+
+			&.wpeo-update-waiting-item > div i.dashicons:before {
+				content: "\f160";
+			}
+			&.wpeo-update-in-progress-item {
+				background-color: #80bdff;
+				> div .spinner {
+					visibility: visible;
+				}
+			}
+			&.wpeo-update-done-item {
+				background-color: lightgreen;
+				> div i.dashicons {
+					font-size: 30px;
+					color: lightgreen;
+					font-weight: bold;
+					top: 45%;
+					left: 0;
+					&:before {
+						content: "\f147";
+					}
+				}
+
+				.wpeo-update-item-progress {
+					.wpeo-update-item-progression {
+						width: 100%;
+					}
+				}
+			}
+		}
+	}
+
+}

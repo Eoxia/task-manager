@@ -16,14 +16,32 @@ window.eoxiaJS.taskManager.updateManager = {};
  * @version 1.6.0
  */
 window.eoxiaJS.taskManager.updateManager.init = function() {
-	window.eoxiaJS.taskManager.updateManager.requestUpdate();
+	jQuery( '.wpeo-update-item' ).find( 'form' ).ajaxForm({
+		dataType: 'json',
+		success: function( responseText, statusText, xhr, $form ) {
+			if ( responseText.data.done ) {
+				$form.closest( '.wpeo-update-item' ).toggleClass( 'wpeo-update-in-progress-item' );
+				$form.closest( '.wpeo-update-item' ).toggleClass( 'wpeo-update-done-item' );
+			}
+			// window.eoxiaJS.taskManager.updateManager.requestUpdate();
+		}
+	});
+	// window.eoxiaJS.taskManager.updateManager.requestUpdate();
 	window.addEventListener( 'beforeunload', window.eoxiaJS.taskManager.updateManager.safeExit );
 };
 
 window.eoxiaJS.taskManager.updateManager.requestUpdateFunc = {
 	endMethod: []
 };
-window.eoxiaJS.taskManager.updateManager.requestUpdate = function( args ) {
+
+window.eoxiaJS.taskManager.updateManager.requestUpdate = function() {
+	var currentUpdateItemID = '#' + jQuery( '.wpeo-update-waiting-item:first' ).attr( 'id' );
+	jQuery( currentUpdateItemID ).toggleClass( 'wpeo-update-waiting-item' );
+	jQuery( currentUpdateItemID ).toggleClass( 'wpeo-update-in-progress-item' );
+	jQuery( currentUpdateItemID ).find( 'form' ).submit();
+};
+
+window.eoxiaJS.taskManager.updateManager.requestUpdateV1 = function( args ) {
 	var redirectAction  = jQuery( 'input[name="action_when_update_finished"]' ).val();
 	var key             = jQuery( 'input.current-key' ).val();
 	var versionToUpdate = jQuery( 'input[name="version_available[]"]:first' ).val();
