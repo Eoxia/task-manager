@@ -150,8 +150,6 @@ class Task_Action {
 			'status' => 'trash',
 		) );
 
-		echo '<pre>'; print_r( $task ); echo '</pre>';
-
 		do_action( 'tm_delete_task', $task );
 
 		wp_send_json_success( array(
