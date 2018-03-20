@@ -2,7 +2,7 @@
 /**
  * Classe gérant les mises à jour.
  *
- * @author Jimmy Latour <jimmy@eoxia.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.6.0
  * @version 1.6.0
  * @copyright 2015-2018 Eoxia
@@ -16,9 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Classe gérant les mises à jour de Task Manager.
+ * Classe gérant les mises à jour.
  */
-class Update_Manager extends \eoxia\Singleton_Util {
+class Update_Manager extends \Eoxia\Singleton_Util {
 
 	/**
 	 * Constructeur obligatoire pour Singleton_Util
@@ -39,12 +39,11 @@ class Update_Manager extends \eoxia\Singleton_Util {
 	 * @return void
 	 */
 	public function display() {
-		$waiting_updates = get_option( '_tm_waited_updates', array() );
-		\eoxia\View_Util::exec( 'task-manager', 'update_manager', 'main', array(
-			'waiting_updates' => $waiting_updates,
+		\eoxia\View_Util::exec( 'eo-framework', 'wpeo_update_manager', 'main', array(
+			'waiting_updates' => get_option( \eoxia\Config_Util::$init['task-manager']->key_waiting_updates, array() ),
+			'redirect_action' => 'tm_redirect_to_dashboard',
+			'dashboard_url'   => \eoxia\Config_Util::$init['task-manager']->dashboard_page_url,
 		) );
 	}
 
 }
-
-new Update_Manager();

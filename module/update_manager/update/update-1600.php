@@ -41,6 +41,8 @@ class Update_160 {
 		add_action( 'wp_ajax_task_manager_update_1600_history_time', array( $this, 'callback_task_manager_update_1600_history_time' ) );
 
 		add_action( 'wp_ajax_task_manager_update_1600_comment_status', array( $this, 'callback_task_manager_update_1600_comment_status' ) );
+
+		add_action( 'wp_ajax_task_manager_update_1600_archived_task', array( $this, 'callback_task_manager_update_1600_archived_task' ) );
 	}
 
 	/**
@@ -55,22 +57,15 @@ class Update_160 {
 		$done_comments = 0;
 		$todo_comments = 0;
 
-		wp_send_json_success( array(
-			'done'              => true,
-			// Translators: 1. number of done elements. 2. number of waited element to do.
-			'doneDescription'   => sprintf( __( '%1$s lines have been treated on %2$s', 'task-manager' ), $done_comments, $todo_comments ),
-			'doneElementNumber' => $done_comments,
-			'errors'            => null,
-		) );
-
-		$orphelan_lines = $GLOBALS['wpdb']->get_results( $GLOBALS['wpdb']->prepare( "
+		$query = $GLOBALS['wpdb']->prepare( "
 			SELECT C.comment_ID, P.comment_post_ID
 			FROM {$GLOBALS['wpdb']->comments} AS C
 				INNER JOIN {$GLOBALS['wpdb']->comments} AS P ON P.comment_ID = C.comment_parent
 			WHERE C.comment_approved = %s
 			AND C.comment_type = %s
 			AND C.comment_parent != %d
-			AND C.comment_post_ID = %d", '-34070', '', 0, 0 ) );
+			AND C.comment_post_ID = %d", '-34070', '', 0, 0 );
+		$orphelan_lines = $GLOBALS['wpdb']->get_results( $query );
 		if ( ! empty( $orphelan_lines ) ) {
 			$todo_comments = count( $orphelan_lines );
 			foreach ( $orphelan_lines as $comment ) {
@@ -79,7 +74,9 @@ class Update_160 {
 		}
 
 		wp_send_json_success( array(
+			'updateComplete'    => false,
 			'done'              => true,
+			'progression'       => '',
 			'doneDescription'   => sprintf( __( '%1$s lines have been treated on %2$s', 'task-manager' ), $done_comments, $todo_comments ),
 			'doneElementNumber' => $done_comments,
 			'errors'            => null,
@@ -109,13 +106,13 @@ class Update_160 {
 	 */
 	public function callback_task_manager_update_1600_points() {
 		check_ajax_referer( 'task_manager_update_1600_points' );
-		exit( __LINE__ . '--');
 
 		$timestamp_debut = microtime( true );
 		$done            = false;
-		$count_point     = ! empty( $_POST['args']['countPoint'] ) ? (int) $_POST['args']['countPoint'] : 0;
-		$index           = ! empty( $_POST['args']['index'] ) ? (int) $_POST['args']['index'] : 0;
+		$count_point     = ! empty( $_POST['total_number'] ) ? (int) $_POST['total_number'] : 0;
+		$index           = ! empty( $_POST['done_number'] ) ? (int) $_POST['done_number'] : 0;
 
+		$task_schema = Task_Class::g()->get_schema();
 
 		$count_point_updated = get_option( '_tm_update_1600_point_updated', true );
 		if ( empty( $count_point_updated ) ) {
@@ -191,15 +188,13 @@ class Update_160 {
 		\eoxia\LOG_Util::log( $difference_ms, 'task-manager' );
 
 		wp_send_json_success( array(
-			'done' => $done,
-			'args' => array(
-				'index'           => $index,
-				'countPoint'      => $count_point,
-				'moreDescription' => '(' . $index . '/' . $count_point . ')',
-				'doneDescription' => $done ? __( 'Update point type and elapsed time', 'task-manager' ) . '(' . $index . '/' . $count_point . ')' : '',
-				'resetArgs'       => $done ? true : false,
-				'more'            => true,
-			),
+			'updateComplete'    => false,
+			'done'              => $done,
+			'progression'       => $index . '/' . $count_point,
+			'progressionPerCent' => 0 !== $count_point ? ( ( $index * 100 ) / $count_point ) : 0,
+			'doneDescription'   => sprintf( __( '%1$s points ( type, status ) updated on %2$s', 'task-manager' ), $index, $count_point ),
+			'doneElementNumber' => $index,
+			'errors'            => null,
 		) );
 	}
 
@@ -226,13 +221,11 @@ class Update_160 {
 	 */
 	public function callback_task_manager_update_1600_comments() {
 		check_ajax_referer( 'task_manager_update_1600_comments' );
-		exit( __LINE__ . '--');
-
 
 		$timestamp_debut = microtime( true );
 		$done            = false;
-		$count_comment   = ! empty( $_POST['args']['countComment'] ) ? (int) $_POST['args']['countComment'] : 0;
-		$index           = ! empty( $_POST['args']['index'] ) ? (int) $_POST['args']['index'] : 0;
+		$count_comment   = ! empty( $_POST['total_number'] ) ? (int) $_POST['total_number'] : 0;
+		$index           = ! empty( $_POST['done_number'] ) ? (int) $_POST['done_number'] : 0;
 
 		$comments = $GLOBALS['wpdb']->get_results( self::prepare_request( 'COMMENT.comment_ID, COMMENT.comment_approved, COMMENT.comment_content', true, '!=', Task_Comment_Class::g()->get_type() ) ); // WPCS: unprepared sql.
 		if ( ! empty( $comments ) ) {
@@ -262,15 +255,13 @@ class Update_160 {
 		\eoxia\LOG_Util::log( 'Update comment: ' . $difference_ms, 'task-manager' );
 
 		wp_send_json_success( array(
-			'done' => $done,
-			'args' => array(
-				'index'           => $index,
-				'countComment'    => $count_comment,
-				'moreDescription' => '(' . $index . '/' . $count_comment . ')',
-				'doneDescription' => $done ? __( 'Update comment type and elapsed time', 'task-manager' ) . '(' . $index . '/' . $count_comment . ')' : '',
-				'resetArgs'       => $done ? true : false,
-				'more'            => true,
-			),
+			'updateComplete'     => false,
+			'done'               => $done,
+			'progression'        => $index . '/' . $count_comment,
+			'progressionPerCent' => 0 !== $count_comment ? ( ( $index * 100 ) / $count_comment ) : 0,
+			'doneDescription'    => sprintf( __( '%1$s comments ( type, status ) updated on %2$s', 'task-manager' ), $index, $count_comment ),
+			'doneElementNumber'  => $index,
+			'errors'             => null,
 		) );
 	}
 
@@ -284,14 +275,14 @@ class Update_160 {
 	 */
 	public function callback_task_manager_update_1600_history_time() {
 		check_ajax_referer( 'task_manager_update_1600_history_time' );
-		exit( __LINE__ . '--');
 
 		$done_history_time = 0;
+		$history_time_todo = 0;
 
 		$history_time_to_repair = $GLOBALS['wpdb']->get_results( $GLOBALS['wpdb']->prepare( "SELECT meta_id, meta_value FROM {$GLOBALS['wpdb']->commentmeta} WHERE meta_key LIKE %s AND meta_value LIKE %s", $GLOBALS['wpdb']->esc_like( 'wpeo_history_time' ), '%' . $GLOBALS['wpdb']->esc_like( 'date_input' ) . '%' ) );
 
 		if ( ! empty( $history_time_to_repair ) ) {
-			$history_time_todo = count( $history_time_todo );
+			$history_time_todo = count( $history_time_to_repair );
 			foreach ( $history_time_to_repair as $meta_definition ) {
 				$meta = json_decode( $meta_definition->meta_value, true );
 				if ( ! empty( $meta ) && ! empty( $meta['due_date'] ) && ! empty( $meta['due_date']['date_input'] ) ) {
@@ -302,12 +293,13 @@ class Update_160 {
 		}
 
 		wp_send_json_success( array(
-			'done' => true,
-			'args' => array(
-				// Translators: 1. Number of history time updated. 2. Number of history time to update.
-				'doneDescription' => sprintf( __( '%1$s history_time have been treated on %2$s', 'task-manager' ), $done_history_time, $history_time_todo ),
-				'more'            => true,
-			),
+			'updateComplete'    => false,
+			'done'              => true,
+			'progression'       => $done_history_time . '/' . $history_time_todo,
+			'progressionPerCent' => 100,
+			'doneDescription'   => sprintf( __( '%1$s history_time have been treated on %2$s', 'task-manager' ), $done_history_time, $history_time_todo ),
+			'doneElementNumber' => $done_history_time,
+			'errors'            => null,
 		) );
 	}
 
@@ -318,9 +310,9 @@ class Update_160 {
 	 */
 	public function callback_task_manager_update_1600_comment_status() {
 		check_ajax_referer( 'task_manager_update_1600_comment_status' );
-		exit( __LINE__ . '--');
 
 		$comment_updated      = 0;
+		$point_updated        = 0;
 		$history_time_updated = 0;
 
 		// Mise à jour des -34070 en 1.
@@ -352,12 +344,65 @@ class Update_160 {
 		) );
 
 		wp_send_json_success( array(
-			'done' => true,
-			'args' => array(
-				// Translators: 1. The point number treated by the update manager. 2. The comment number treated by the update manager. 3. The history time number treated by the update manager.
-				'doneDescription' => sprintf( __( '%1$s points, %2$s comments, %3$s history_time have been treated', 'task-manager' ), $point_updated, $comment_updated, $history_time_updated ),
-				'more'            => true,
-			),
+			'updateComplete'     => false,
+			'done'               => true,
+			'progression'        => '',
+			'progressionPerCent' => 100,
+			'doneDescription'    => sprintf( __( '%1$s points, %2$s comments, %3$s history_time have been treated', 'task-manager' ), $point_updated, $comment_updated, $history_time_updated ),
+			'doneElementNumber'  => ( $point_updated + $comment_updated + $history_time_updated ),
+			'errors'             => null,
+		) );
+	}
+
+	/**
+	 * Mise à jour des tâches archivées.
+	 * SUppression de la catégorie archive et mise à jour du statut de la tâche en 'archive' si ce n'est pas déjà le cas.
+	 *
+	 * @return void
+	 */
+	public function callback_task_manager_update_1600_archived_task() {
+		check_ajax_referer( 'task_manager_update_1600_archived_task' );
+		$done_tasks = 0;
+		$todo_tasks = 0;
+		$errors     = array();
+
+		$query = $GLOBALS['wpdb']->prepare( "
+			SELECT TR.object_id AS ID, P.post_status, T.term_id
+			FROM {$GLOBALS['wpdb']->term_relationships} AS TR
+				INNER JOIN {$GLOBALS['wpdb']->term_taxonomy} AS TT ON TT.term_taxonomy_id = TR.term_taxonomy_id
+				INNER JOIN {$GLOBALS['wpdb']->terms} AS T ON T.term_id = TT.term_id
+				INNER JOIN {$GLOBALS['wpdb']->posts} AS P ON ( P.ID = TR.object_id )
+			WHERE T.slug = %s
+				AND TT.taxonomy = %s
+				AND P.post_type = %s", 'archive', 'wpeo_tag', Task_Class::g()->get_type() );
+		$archived_task_by_tag = $GLOBALS['wpdb']->get_results( $query );
+		if ( ! empty( $archived_task_by_tag ) ) {
+			foreach( $archived_task_by_tag as $task ) {
+				// Change le statut de la tâche si nécessaire.
+				if ( 'archive' !== $task->post_status ) {
+					$todo_tasks++;
+					$update_task = $GLOBALS['wpdb']->update( $GLOBALS['wpdb']->posts, array( 'post_status' => 'archive' ), array( 'ID' => $task->ID ) );
+					if ( false !== $update_task ) {
+						$done_tasks++;
+					} else {
+						$errors[] = sprintf( __( 'An error occured while modifying task %d', 'task-manager' ), $task->ID );
+					}
+				}
+				// Supprime le tag 'archive' des relations de la tâche.
+				wp_remove_object_terms( $task->ID, $task->term_id, 'archive' );
+				// Supprime le term 'archive' de la base.
+				wp_delete_term( $task->term_id, 'archive' );
+			}
+		}
+
+		wp_send_json_success( array(
+			'updateComplete'     => false,
+			'done'               => true,
+			'progression'        => '',
+			'progressionPerCent' => 100,
+			'doneDescription'    => sprintf( __( '%1$d tasks have been marked as archived on %2$d', 'task-manager' ), $done_tasks, $todo_tasks ),
+			'doneElementNumber'  => $done_tasks,
+			'errors'             => $errors,
 		) );
 	}
 

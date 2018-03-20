@@ -2,10 +2,10 @@
 /**
  * Les données pour la MAJ 1.6.0
  *
- * @author Jimmy Latour <jimmy@eoxia.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.6.0
  * @version 1.6.0
- * @copyright 2015-2017 Eoxia
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -16,10 +16,12 @@
  *
  * Exemples:
  * 'action'            => 'task_manager_update_1600_task_compiled_time',
- * 'description'       => __( 'Create compiled time for all tasks.', 'task-manager' ),
+ * 'title'             => __( 'What the update will do.', 'task-manager' ),
+ * 'description'       => __( 'Details for update human friendly.', 'task-manager' ),
  * 'since'             => '1.6.0',
  * 'version'           => '1.7.0',
  * 'description_1.7.0' => 'Correction du warning de l'index du tableau X..'
+ * 'update_index'      => 'XXXa',
  */
 
 $datas = array(
@@ -28,7 +30,7 @@ $datas = array(
 		'title'        => __( 'Fix problems with points/comments that are orphelans', 'task-manager' ),
 		'description'  => __( 'Some points/comments may have problems on the comment post ID, this update will fix them', 'task-manager' ),
 		'since'        => '1.6.0',
-		'version'      => '1.6.0',
+		'version'      => '1.6.0.1',
 		'update_index' => '160a',
 	),
 	array(
@@ -54,7 +56,7 @@ $datas = array(
 		'title'        => __( 'Update history time data in database', 'task-manager' ),
 		'description'  => __( 'Clean meta datas of previsionnal times in database', 'task-manager' ),
 		'since'        => '1.6.0',
-		'version'      => '1.6.0',
+		'version'      => '1.6.0.1',
 		'update_index' => '160d',
 	),
 	array(
@@ -62,7 +64,15 @@ $datas = array(
 		'title'        => __( 'Update comment approved in database', 'task-manager' ),
 		'description'  => __( 'Check and change the `comment_type` field and the `comment_approved` field for comments used in task manager', 'task-manager' ),
 		'since'        => '1.6.0',
-		'version'      => '1.6.0',
+		'version'      => '1.6.0.1',
 		'update_index' => '160e',
+	),
+	array(
+		'action'       => 'task_manager_update_1600_archived_task',
+		'title'        => __( 'Clean archived tasks', 'task-manager' ),
+		'description'  => __( 'Remove the archive tag and change the status to archive if it is not already the case', 'task-manager' ),
+		'since'        => '1.6.0',
+		'version'      => '1.6.0.1',
+		'update_index' => '160f',
 	),
 );
