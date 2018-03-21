@@ -364,6 +364,7 @@ class Update_160 {
 		check_ajax_referer( 'task_manager_update_1600_archived_task' );
 		$done_tasks = 0;
 		$todo_tasks = 0;
+		$archive_id = 0;
 		$errors     = array();
 
 		$query = $GLOBALS['wpdb']->prepare( "
@@ -389,10 +390,18 @@ class Update_160 {
 					}
 				}
 				// Supprime le tag 'archive' des relations de la tâche.
-				wp_remove_object_terms( $task->ID, $task->term_id, 'archive' );
-				// Supprime le term 'archive' de la base.
-				wp_delete_term( $task->term_id, 'archive' );
+				wp_remove_object_terms( $task->ID, $task->term_id, 'wpeo_tag' );
 			}
+		}
+		// Supprime le term 'archive' de la base.
+		if ( 0 === $archive_id ) {
+			$archive_term = get_term_by( 'slug', 'archive', 'wpeo_tag' );
+			if ( false !== $archive_term ) {
+				$archive_id = (int) $archive_term->term_id;
+			}
+		}
+		if ( ! empty( $archive_id ) ) {
+			wp_delete_term( $archive_id, 'wpeo_tag' );
 		}
 
 		wp_send_json_success( array(

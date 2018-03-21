@@ -54,7 +54,7 @@ window.eoxiaJS.taskManager.historyTime.loadedTimeHistorySuccess = function( elem
  * @version 1.0.0
  */
 window.eoxiaJS.taskManager.historyTime.createdHistoryTime = function( element, response ) {
-	jQuery( element ).closest( '.wpeo-project-task' ).find( '.popup .content .history-time-container' ).replaceWith( response.data.history_time_view );
+	jQuery( 'body' ).find( '.wpeo-modal .modal-container .modal-content .history-time-container' ).replaceWith( response.data.history_time_view );
 	jQuery( 'div[data-id="' + response.data.task_id + '"]' ).find( 'ul.wpeo-task-time-manage' ).replaceWith( response.data.task_header_view );
 };
 

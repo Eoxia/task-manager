@@ -350,8 +350,7 @@ window.eoxiaJS.taskManager.point.movedPointTo = function( triggeredElement, resp
 				jQuery( '.point.edit[data-id=' + response.data.point.id + ']' ).fadeOut( 400, function() {
 					jQuery( this ).remove();
 				} );
-			}
-			else {
+			} else {
 				toTask.find( '.points.sortable div.point:last' ).before( jQuery( '.point.edit[data-id=' + response.data.point.id + ']' ) );
 			}
 		} else {
@@ -399,7 +398,7 @@ window.eoxiaJS.taskManager.point.movedPointTo = function( triggeredElement, resp
 window.eoxiaJS.taskManager.point.afterTriggerChangeDate = function( triggeredElement ) {
 	var data = {
 		action: 'change_date_point',
-		id: triggeredElement.closest( '.point ').attr( 'data-id' ),
+		id: triggeredElement.closest( '.point' ).attr( 'data-id' ),
 		date: triggeredElement.val()
 	};
 

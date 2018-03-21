@@ -40,16 +40,17 @@ class Update_Manager_Action extends \eoxia\Update_Manager_Action {
 	 * @version 1.6.0
 	 */
 	public function callback_tm_redirect_to_dashboard() {
-		$version = (int) str_replace( '.', '', Config_Util::$init['task-manager']->version );
+		$version = (int) str_replace( '.', '', \eoxia\Config_Util::$init['task-manager']->version );
 		if ( 3 === strlen( $version ) ) {
 			$version *= 10;
 		}
-		update_option( Config_Util::$init['task-manager']->key_last_update_version, $version );
-		delete_option( Config_Util::$init['task-manager']->key_waiting_updates );
+		update_option( \eoxia\Config_Util::$init['task-manager']->key_last_update_version, $version );
+		delete_option( \eoxia\Config_Util::$init['task-manager']->key_waiting_updates );
 
 		wp_send_json_success( array(
 			'updateComplete'  => true,
-			'doneDescription' => sprintf( __( 'Redirect to Task Manager. %sClick here if nothing append%s', 'task-manager') ),
+			'doneDescription' => sprintf( __( 'Redirect to Task Manager. %sClick here if nothing append%s', 'task-manager'), '<a href="" >', '</a>' ),
+			'url'             => admin_url( '?page=' . \eoxia\Config_Util::$init['task-manager']->dashboard_page_url ),
 		) );
 	}
 

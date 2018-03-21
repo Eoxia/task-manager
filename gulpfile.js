@@ -32,7 +32,8 @@ gulp.task( 'build_scss_framework', function() {
 		.pipe( please({
 			minifier: true,
 			out: 'style.min.css'
-		} ) );
+		} ) )
+		.pipe( gulp.dest( paths.scss_plugin[1] ) );
 });
 
 gulp.task( 'build_lib_js_framework', function() {
@@ -55,7 +56,8 @@ gulp.task( 'build_scss_module_upload', function() {
 		.pipe( please({
 			minifier: true,
 			out: 'style.min.css'
-		} ) );
+		} ) )
+		.pipe( gulp.dest( paths.scss_wpeo_upload[1] ) );
 });
 
 // SCSS EO Update Manager
@@ -72,7 +74,8 @@ gulp.task( 'build_scss_module_update_manager', function() {
 		.pipe( please({
 			minifier: true,
 			out: 'style.min.css'
-		} ) );
+		} ) )
+		.pipe( gulp.dest( paths.scss_wpeo_update_manager[1] ) );
 });
 
 // SCSS Plugin
@@ -90,7 +93,8 @@ gulp.task( 'build_scss_plugin', function() {
 		.pipe( please({
 			minifier: true,
 			out: 'style.min.css'
-		} ) );
+		} ) )
+		.pipe( gulp.dest( paths.scss_plugin[1] ) );
 });
 
 // JS Plugin
