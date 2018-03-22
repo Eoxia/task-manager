@@ -411,12 +411,12 @@ class Point_Action {
 		$comments = Task_Comment_Class::g()->get( array(
 			'post_id' => $task_id,
 			'parent'  => $point_id,
-			'status'  => -34070,
+			'status'  => 1,
 		) );
 
 		if ( ! empty( $comments ) ) {
 			foreach ( $comments as $comment ) {
-				if ( 0 !== $comment->id ) {
+				if ( 0 !== $comment->data['id'] ) {
 					$comment->data['post_id'] = $to_task_id;
 
 					Task_Comment_Class::g()->update( $comment->data );

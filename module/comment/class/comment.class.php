@@ -58,7 +58,7 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 	 *
 	 * @var string
 	 */
-	protected $status = '-34070';
+	protected $status = '1';
 
 	/**
 	 * Définition des fonctions de callback pour l'élément.

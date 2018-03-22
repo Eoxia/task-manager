@@ -58,7 +58,7 @@ class Point_Class extends \eoxia\Comment_Class {
 	 *
 	 * @var string
 	 */
-	protected $status = '-34070';
+	protected $status = '1';
 
 	/**
 	 * Affiches les points d'une tâche.

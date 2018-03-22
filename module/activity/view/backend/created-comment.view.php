@@ -10,7 +10,6 @@
  */
 
 namespace task_manager;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>

@@ -187,7 +187,7 @@ class Task_Filter {
 		/** Récupères tous les points */
 		global $point_controller;
 
-		$list_point = $point_controller->index( $task->id, array( 'comment__in' => $task->option['task_info']['order_point_id'], 'status' => -34070 ) );
+		$list_point = $point_controller->index( $task->id, array( 'comment__in' => $task->option['task_info']['order_point_id'], 'status' => 1 ) );
 
 		if ( ! empty( $list_point ) ) {
 			foreach ( $list_point as $point ) {
@@ -206,7 +206,7 @@ class Task_Filter {
 
 		/** Récupères le dernier temps voulu */
 		global $due_controller;
-		$list_due = $due_controller->index( $task->id, array( 'number' => 1, 'orderby' => 'comment_date', 'parent' => 0, 'status' => -34070 ) );
+		$list_due = $due_controller->index( $task->id, array( 'number' => 1, 'orderby' => 'comment_date', 'parent' => 0, 'status' => 1 ) );
 
 		if ( ! empty( $list_due ) ) {
 			$task->option['date_info']['due'] = $list_due[0]->id;

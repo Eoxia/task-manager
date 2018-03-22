@@ -216,24 +216,24 @@ class Quick_Time_Action {
 	public function ajax_remove_config_quick_time() {
 		check_ajax_referer( 'remove_config_quick_time' );
 
-		$task_id  = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
-		$point_id = ! empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
+		$task_id    = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+		$point_id   = ! empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
+		$chosen_key = ! empty( $_POST['key'] ) ? (int) $_POST['key'] : 0;
 
 		if ( empty( $task_id ) || empty( $point_id ) ) {
 			wp_send_json_error();
 		}
 
 		$quicktimes = get_user_meta( get_current_user_id(), \eoxia\Config_Util::$init['task-manager']->quick_time->meta_quick_time, true );
-
 		if ( ! empty( $quicktimes ) ) {
 			foreach ( $quicktimes as $key => $quicktime ) {
-				if ( $quicktime['task_id'] === $task_id && $quicktime['point_id'] === $point_id ) {
-					$quicktimes = array_splice( $quicktimes, $key, 1 );
+				if ( $chosen_key === $key && $quicktime['task_id'] === $task_id && $quicktime['point_id'] === $point_id ) {
+					array_splice( $quicktimes, $key, 1 );
 				}
 			}
 		}
 
-		update_user_meta( get_current_user_id(), \eoxia\Config_Util::$init['task-manager']->quick_time->meta_quick_time, $meta );
+		update_user_meta( get_current_user_id(), \eoxia\Config_Util::$init['task-manager']->quick_time->meta_quick_time, $quicktimes );
 
 		wp_send_json_success( array(
 			'namespace'        => 'taskManager',

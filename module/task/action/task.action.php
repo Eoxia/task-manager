@@ -475,13 +475,13 @@ class Task_Action {
 		// Recompiles le temps.
 		$elapsed_task      = 0;
 		$elapsed_point     = 0;
-		$count_completed   = 0;
 		$count_uncompleted = 0;
+		$count_completed   = 0;
 
 		$points = Point_Class::g()->get( array(
 			'post_id' => $task->data['id'],
 			'type'    => Point_Class::g()->get_type(),
-			'status'  => '-34070',
+			'status'  => 1,
 		) );
 
 		if ( ! empty( $points ) ) {
@@ -491,13 +491,19 @@ class Task_Action {
 					'post_id' => $task->data['id'],
 					'parent'  => $point->data['id'],
 					'type'    => Task_Comment_Class::g()->get_type(),
-					'status'  => '-34070',
+					'status'  => 1,
 				) );
 
 				if ( ! empty( $comments ) ) {
 					foreach ( $comments as $comment ) {
 						$elapsed_point += $comment->data['time_info']['elapsed'];
 					}
+				}
+
+				if ( $point->data['completed'] ) {
+					$count_completed++;
+				} else {
+					$count_uncompleted++;
 				}
 
 				$point->data['time_info']['elapsed'] = (int) $elapsed_point;

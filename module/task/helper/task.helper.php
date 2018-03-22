@@ -89,7 +89,7 @@ function get_full_task( $object ) {
 						'day'   => '01',
 					),
 				),
-				'status'       => -34070,
+				'status'       => 1,
 				'post_id'      => $object->data['id'],
 				'type__not_in' => array( 'history_time' ),
 			) );

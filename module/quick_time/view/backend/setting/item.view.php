@@ -23,8 +23,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<li class="actions">
 		<div class="action-delete wpeo-button button-progress button-grey button-square-20 button-rounded"
 			data-action="remove_config_quick_time"
+			data-message-delete="<?php echo esc_attr_e( 'Delete this preset ?', 'task-manager' ); ?>"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'remove_config_quick_time' ) ); ?>"
-			data-key="<?php echo esc_attr( $key ); ?>">
+			data-key="<?php echo esc_attr( $key ); ?>"
+			data-task-id="<?php echo esc_attr( $quick_time['task_id'] ); ?>"
+			data-point-id="<?php echo esc_attr( $quick_time['point_id'] ); ?>">
 			<span class="button-icon fa fa-times" aria-hidden="true"></span>
 		</div>
 	</li>

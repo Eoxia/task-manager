@@ -81,7 +81,7 @@ function parse_content_tooltip( $content ) {
 	if ( ! empty( $matches[1] ) ) {
 		$comments = \task_manager\Task_Comment_Class::g()->get( array(
 			'comment__in' => $matches[1],
-			'status' => '-34070',
+			'status' => 1,
 		) );
 
 		if ( ! empty( $comments ) ) {

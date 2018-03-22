@@ -159,13 +159,17 @@ class Task_Class extends \eoxia\Post_Class {
 				'p' => (int) $param['id'],
 			) );
 		} else {
+			$point_type = Point_Class::g()->get_type();
+
+			$comment_type = Task_Comment_Class::g()->get_type();
 
 			$query = "SELECT DISTINCT TASK.ID FROM {$wpdb->posts} AS TASK
-				LEFT JOIN {$wpdb->comments} AS POINT ON POINT.comment_post_ID=TASK.ID
-				LEFT JOIN {$wpdb->comments} AS COMMENT ON COMMENT.comment_post_id=TASK.ID
+				LEFT JOIN {$wpdb->comments} AS POINT ON POINT.comment_post_ID=TASK.ID AND POINT.comment_approved = 1 AND POINT.comment_type = '{$point_type}'
+				LEFT JOIN {$wpdb->comments} AS COMMENT ON COMMENT.comment_parent=POINT.comment_ID AND COMMENT.comment_approved = 1 AND POINT.comment_approved = 1 AND COMMENT.comment_type = '{$comment_type}'
 				LEFT JOIN {$wpdb->postmeta} AS TASK_META ON TASK_META.post_id=TASK.ID AND TASK_META.meta_key='wpeo_task'
 				LEFT JOIN {$wpdb->term_relationships} AS CAT ON CAT.object_id=TASK.ID
 			WHERE TASK.post_type='wpeo-task'
+
 				AND TASK.post_status IN (" . $param['status'] . ") AND
 					( (
 						TASK.ID LIKE '%" . $param['term'] . "%' OR TASK.post_title LIKE '%" . $param['term'] . "%'
@@ -196,16 +200,15 @@ class Task_Class extends \eoxia\Post_Class {
 			}
 
 			if ( ! empty( $param['categories_id'] ) ) {
-				$query .= "AND (";
-
-				if ( ! empty( $param['categories_id'] ) ) {
-					foreach ( $param['categories_id'] as $cat_id ) {
-						$query .= '(CAT.term_taxonomy_id=' . $cat_id . ') OR';
-					}
+				$sub_query = '   ';
+				foreach ( $param['categories_id'] as $cat_id ) {
+					$sub_query .= '(CAT.term_taxonomy_id=' . $cat_id . ') OR';
 				}
 
-				$query = substr( $query, 0, strlen( $query ) - 2 );
-				$query .= ')';
+				$sub_query = substr( $sub_query, 0, -3 );
+				if ( ! empty( $sub_query ) ) {
+					$query .= "AND ({$sub_query})";
+				}
 			}
 
 			$query .= " ORDER BY TASK.post_date DESC ";

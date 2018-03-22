@@ -90,7 +90,7 @@ class Quick_Time_Class extends \eoxia\Singleton_Util {
 			foreach ( $quicktimes as $key => $quicktime ) {
 				$quicktimes[ $key ] = quicktime_format_data( $quicktime );
 			}
-			sort( $quicktimes );
+			// sort( $quicktimes );
 		}
 
 		return $quicktimes;

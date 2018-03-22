@@ -36,26 +36,26 @@ class Point_Filter {
 	 * @version 1.3.6.0
 	 */
 	public function callback_task_points_mail( $string, $task ) {
-		if ( ! empty( $task->task_info['order_point_id'] ) ) {
+		if ( ! empty( $task->data['task_info']['order_point_id'] ) ) {
 			$list_point = Point_Class::g()->get( array(
-				'post_id' => $task->id,
-				'comment__in' => $task->task_info['order_point_id'],
-				'status' => -34070,
+				'post_id' => $task->data['id'],
+				'comment__in' => $task->data['task_info']['order_point_id'],
+				'status' => 1,
 			) );
 
 			$list_point_completed = array_filter( $list_point, function( $point ) {
-				if ( empty( $point->id ) ) {
+				if ( empty( $point->data['id'] ) ) {
 					return false;
 				}
-				return true === $point->point_info['completed'];
+				return true === $point->data['completed'];
 			} );
 
 			$list_point_uncompleted = array_filter( $list_point, function( $point ) {
-				if ( empty( $point->id ) ) {
+				if ( empty( $point->data['id'] ) ) {
 					return false;
 				}
 
-				return false === $point->point_info['completed'];
+				return false === $point->data['completed'];
 			} );
 		}
 

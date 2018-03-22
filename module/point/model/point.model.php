@@ -75,10 +75,11 @@ class Point_Model extends \eoxia\Comment_Model {
 
 		// @todo: A supprimer après la mise à jour 1600.
 		$this->schema['point_info']['child']['completed'] = array(
-			'type'      => 'boolean',
-			'meta_type' => 'multiple',
-			'since'     => '1.0.0',
-			'version'   => '1.6.0',
+			'type'       => 'boolean',
+			'meta_type'  => 'multiple',
+			'since'      => '1.0.0',
+			'version'    => '1.6.0',
+			'deprecated' => '>1.6.0',
 		);
 
 		$this->schema['completed'] = array(
