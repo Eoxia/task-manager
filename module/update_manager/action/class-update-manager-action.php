@@ -49,11 +49,11 @@ class Update_Manager_Action extends \eoxia\Update_Manager_Action {
 
 		wp_send_json_success( array(
 			'updateComplete'  => true,
-			'doneDescription' => sprintf( __( 'Redirect to Task Manager. %sClick here if nothing append%s', 'task-manager'), '<a href="" >', '</a>' ),
+			// Translators: 1. Start of link to dashboard 2. End of link to dashboard.
+			'doneDescription' => sprintf( __( 'You will be redirect to Task Manager main dashboard. %1$sClick here if nothing append%2$s', 'task-manager' ), '<a href="" >', '</a>' ),
 			'url'             => admin_url( '?page=' . \eoxia\Config_Util::$init['task-manager']->dashboard_page_url ),
 		) );
 	}
-
 }
 
 new Update_Manager_Action();
