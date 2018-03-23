@@ -15,21 +15,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="popup popup-update-manager active no-close">
-	<div class="container">
-		<div class="header">
+<div class="wpeo-modal popup-update-manager active modal-active modal-force-display">
+	<div class="modal-container">
+		<div class="modal-header">
 			<h2 class="title"><?php echo esc_html_e( 'Update required', 'task-manager' ); ?></h2>
 		</div>
-		<div class="content">
+		<div class="modal-content">
 			<p style="font-size: 1.4em; margin-bottom: 10px;"><?php esc_html_e( 'Need to update Task Manager data', 'task-manager' ); ?></p>
 			<p style="font-size: 1.4em;"><?php esc_html_e( 'Warning! Stop the update process can destroy your data.', 'task-manager' ); ?></p>
+		</div>
 
-			<p style="text-align: center; margin-top: 20px;">
-				<a class="button blue" href="<?php echo esc_attr( admin_url( 'admin.php?page=' . \eoxia\Config_Util::$init['task-manager']->update_page_url ) ); ?>">
-					<span><?php esc_html_e( 'Start update', 'task-manager' ); ?></span>
-				</a>
-				<a class="back-update" href="<?php echo esc_attr( admin_url( 'index.php' ) ); ?>"><?php esc_html_e( 'Back', 'task-manager' ); ?></a>
-			</p>
+		<div class="modal-footer">
+			<a class="button blue" href="<?php echo esc_attr( admin_url( 'admin.php?page=' . \eoxia\Config_Util::$init['task-manager']->update_page_url ) ); ?>">
+				<span><?php esc_html_e( 'Start update', 'task-manager' ); ?></span>
+			</a>
+			<a class="back-update" href="<?php echo esc_attr( admin_url( 'index.php' ) ); ?>"><?php esc_html_e( 'Back', 'task-manager' ); ?></a>
 		</div>
 	</div>
 </div>
