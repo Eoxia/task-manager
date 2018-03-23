@@ -24,10 +24,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<input type="hidden" name="post_id" value="<?php echo esc_attr( $task_id ); ?>" />
 		<input type="hidden" name="parent_id" value="<?php echo esc_attr( $point_id ); ?>" />
 
-		<li class="wpeo-comment-date group-date" data-namespace="taskManager" data-module="comment" data-after-method="afterTriggerChangeDate">
-			<input type="text" class="mysql-date" name="date" value="<?php echo esc_attr( $comment->data['date']['raw'] ); ?>" />
+		<li class="wpeo-comment-date group-date" data-time="true" data-namespace="taskManager" data-module="comment" data-after-method="afterTriggerChangeDate">
+			<input type="hidden" class="mysql-date" name="date" value="<?php echo esc_attr( $comment->data['date']['raw'] ); ?>" />
 			<input type="hidden" name="value_changed" value="<?php echo ( ! empty( $comment->data['id'] ) ) ? 1 : 0; ?>" />
-			<div class="tooltip hover" aria-label="<?php echo esc_attr( $comment->data['date']['rendered']['date_time'] ); ?>"><span class="date-time dashicons dashicons-calendar-alt"></span></div>
+			<div class="tooltip hover" aria-label="<?php echo esc_attr( $comment->data['date']['rendered']['date_time'] ); ?>"><span class="date dashicons dashicons-calendar-alt"></span></div>
 		</li>
 
 		<li class="wpeo-comment-content">

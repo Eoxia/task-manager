@@ -203,6 +203,6 @@ window.eoxiaJS.taskManager.comment.loadedEditViewComment = function( triggeredEl
 };
 
 window.eoxiaJS.taskManager.comment.afterTriggerChangeDate = function( $input ) {
-	$input.closest( '.group-date' ).find( 'div' ).attr( 'aria-label', window.eoxiaJS.date.convertMySQLDate( $input.val() ) );
+	$input.closest( '.group-date' ).find( 'div' ).attr( 'aria-label', $input.val() );
 	$input.closest( '.group-date' ).find( 'span' ).css( 'background', '#389af6' );
 };

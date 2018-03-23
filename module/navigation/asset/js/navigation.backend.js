@@ -90,6 +90,8 @@ window.eoxiaJS.taskManager.navigation.checkDataBeforeSearch = function( triggere
 
 	jQuery( 'input[name="categories_id_selected"]' ).val( categoriesIdSelected.join( ',' ) );
 
+	window.eoxiaJS.loader.display( jQuery( '.wpeo-general-search' ) );
+
 	return true;
 };
 
@@ -106,6 +108,7 @@ window.eoxiaJS.taskManager.navigation.checkDataBeforeSearch = function( triggere
  */
 window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredElement, response ) {
 	jQuery( '.wpeo-project-wrap .load-more' ).remove();
+	window.eoxiaJS.loader.remove( jQuery( '.wpeo-general-search' ) );
 
 	jQuery( '.list-task' ).masonry( 'remove', jQuery( '.wpeo-project-task' ) );
 	jQuery( '.list-task' ).replaceWith( response.data.view.tasks );
