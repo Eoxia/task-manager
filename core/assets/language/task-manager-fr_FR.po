@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
 "POT-Creation-Date: 2018-03-20 11:14+0100\n"
-"PO-Revision-Date: 2018-03-20 11:25+0100\n"
+"PO-Revision-Date: 2018-03-23 17:08+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -161,7 +161,7 @@ msgstr "Temps récursive par mois"
 
 #: module/history-time/view/backend/form.view.php:44
 msgid "Define due date"
-msgstr "Défini la date limite"
+msgstr "Deadline"
 
 #: module/history-time/view/backend/form.view.php:52
 msgid "Update dead line"
@@ -486,7 +486,7 @@ msgstr "Temps prévu"
 
 #: module/task/view/backend/task-header.view.php:41
 msgid "Edit dead line"
-msgstr "Fermer la fenêtre"
+msgstr "Gestion du temps projet"
 
 #: module/task/view/backend/task-header.view.php:45
 #, php-format
