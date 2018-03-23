@@ -45,51 +45,51 @@ if ( ! defined( 'ABSPATH' ) ) {
 </div>
 
 <ul class="actions">
-	<li class="action-attribute tooltip hover"
+	<li class="action-attribute wpeo-tooltip-event" data-direction="top"
 			aria-label="<?php ( 'archive' !== $task->data['status'] ) ? esc_html_e( 'Archive', 'task-manager' ) : esc_html_e( 'Unarchive', 'task-manager' ); ?>"
 			data-action="<?php echo ( 'archive' !== $task->data['status'] ) ? 'to_archive' : 'to_unarchive'; ?>"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( ( 'archive' === $task->data['status'] ) ? 'to_archive' : 'to_unarchive' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->data['id'] ); ?>"
 			data-loader="task-header-action">
-		<span><i class="fa fa-archive"></i></span>
+		<span><i class="fas fa-archive"></i></span>
 	</li>
 
-	<li class="action-delete tooltip hover"
+	<li class="action-delete wpeo-tooltip-event" data-direction="top"
 			aria-label="<?php esc_html_e( 'Delete', 'task-manager' ); ?>"
 			data-action="delete_task"
 			data-message-delete="<?php echo esc_attr_e( 'Delete this task ?', 'task-manager' ); ?>"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_task' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->data['id'] ); ?>"
 			data-loader="task-header-action">
-		<span><i class="fa fa-trash"></i></span>
+		<span><i class="fas fa-trash"></i></span>
 	</li>
 
-	<li class="action-attribute tooltip hover"
+	<li class="action-attribute wpeo-tooltip-event" data-direction="top"
 			aria-label="<?php echo esc_html_e( 'Recompile task', 'task-manager' ); ?>"
 			data-action="recompile_task"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'recompile_task' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->data['id'] ); ?>"
 			data-loader="task-header-action">
-		<span><i class="fa fa-refresh"></i></span>
+		<span><i class="fas fa-redo"></i></span>
 	</li>
 
-	<li class="wpeo-modal-event tooltip hover"
+	<li class="wpeo-modal-event wpeo-tooltip-event" data-direction="top"
 			aria-label="<?php esc_html_e( 'Notify team', 'task-manager' ); ?>"
 			data-class="popup-notification"
 			data-action="load_notify_popup"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_notify_popup' ) ); ?>"
 			data-title="<?php echo sprintf( __( '#%1$s Notify popup', 'task-manager' ), esc_attr( $task->data['id'] ) ); ?>"
 			data-id="<?php echo esc_attr( $task->data['id'] ); ?>">
-		<span><i class="fa fa-bell"></i></span>
+		<span><i class="fas fa-bell"></i></span>
 	</li>
 
-	<li class="action-attribute tooltip hover"
+	<li class="action-attribute wpeo-tooltip-event" data-direction="top"
 			aria-label="<?php esc_html_e( 'Export', 'task-manager' ); ?>"
 			data-action="export_task"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_task' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->data['id'] ); ?>"
 			data-loader="task-header-action">
-		<span><i class="fa fa-download"></i></span>
+		<span><i class="fas fa-download"></i></span>
 	</li>
 
 	<?php apply_filters( 'task_manager_task_header_actions_after', $task->data['id'] ); ?>

@@ -7,16 +7,16 @@
     "test": "mocha"
   },
   "author": "Eoxia",
-	"contributors": [
-		{
-			"name": "Evarisk",
-			"email": "dev@evarisk.com"
-		},
-		{
-			"name": "Eoxia",
-			"email": "dev@eoxia.com"
-		}
-	],
+  "contributors": [
+    {
+      "name": "Evarisk",
+      "email": "dev@evarisk.com"
+    },
+    {
+      "name": "Eoxia",
+      "email": "dev@eoxia.com"
+    }
+  ],
   "license": "GPLv3",
   "dependencies": {
     "chai": "^4.1.2",

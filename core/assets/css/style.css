@@ -3973,7 +3973,7 @@
 
 .wpeo-project-wrap .wpeo-header-bar > ul > li.wpeo-general-search {
   float: right;
-  padding: 4px; }
+  padding: 0; }
 
 .wpeo-project-wrap .wpeo-header-bar > ul > li.wpeo-general-search .general-search {
   padding: 6px 20px; }
@@ -3992,7 +3992,7 @@
 
 .wpeo-project-wrap .wpeo-header-bar > ul > li.wpeo-general-search .dashicons-search {
   color: rgba(0, 0, 0, 0.2);
-  line-height: 24px;
+  line-height: 2;
   font-size: 18px; }
 
 .wpeo-project-wrap .wpeo-header-bar > ul > li.wpeo-general-search .open-search-filter {
@@ -4167,7 +4167,7 @@
   -webkit-border-radius: 50%;
           border-radius: 50%; }
 
-.wpeo-project-wrap .wpeo-project-last-comment .wpeo-point-comment .dashicons {
+.wpeo-project-wrap .wpeo-project-last-comment .wpeo-point-comment .dashicons, .wpeo-project-wrap .wpeo-project-last-comment .wpeo-point-comment [class*="fa"] {
   line-height: 1.3; }
 
 .wpeo-project-wrap .wpeo-project-last-comment .wpeo-point-comment .wpeo-send-point-time-to-trash {
@@ -4943,25 +4943,21 @@ Popup
 .wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-save-point {
   width: 100%;
   max-width: 5%;
-  text-align: right; }
+  text-align: right;
+  margin: auto 0 auto auto; }
 
-.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-save-point i {
-  background: #3495f0;
-  -webkit-border-radius: 50%;
-          border-radius: 50%;
-  font-size: 12px;
-  width: 20px;
-  line-height: 20px;
-  text-align: center;
-  color: #fff;
-  margin-left: auto;
-  -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out;
+.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-save-point .save-icon {
+  font-size: 16px;
   display: inline-block; }
 
-.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-save-point i:hover {
-  background: #1360c8;
+.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-save-point .save-icon .fa-circle {
+  color: #3495f0;
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out; }
+
+.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-save-point .save-icon:hover .fa-circle {
+  color: #1360c8;
   cursor: pointer; }
 
 .wpeo-project-wrap .points .point .comments .comment.view ul, .wpeo-project-wrap .points .point .comments .comment.edit ul {
@@ -4998,25 +4994,16 @@ Popup
   max-width: 40px; }
 
 .wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-time span, .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-time span {
-  padding: 4px 4px 0 0; }
+  padding: 0 4px 0 0;
+  font-size: 14px; }
 
 .wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-action, .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-action {
   max-width: 26px; }
 
-.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-action .wpeo-comment-setting, .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-action .wpeo-comment-setting {
-  padding: 0 10px; }
-
-.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-action .wpeo-comment-setting i, .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-action .wpeo-comment-setting i {
-  color: rgba(0, 0, 0, 0.2);
-  -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out; }
-
-.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-action .wpeo-comment-setting:hover, .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-action .wpeo-comment-setting:hover {
-  cursor: pointer; }
-
-.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-action .wpeo-comment-setting:hover i, .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-action .wpeo-comment-setting:hover i {
-  color: rgba(0, 0, 0, 0.4); }
+.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-action .dropdown-toggle, .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-action .dropdown-toggle {
+  padding: 0 10px;
+  font-size: 12px;
+  border-top: 0; }
 
 .wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-save-point, .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-save-point {
   margin-left: auto; }
@@ -5132,6 +5119,9 @@ Popup
 /* ----------------------------------
 		Affichage historique
 -----------------------------------*/
+.wpeo-project-wrap {
+  /* Page indicateurs */ }
+
 .wpeo-project-wrap .activities {
   /* Jour */
   /* Activity single */ }
@@ -5235,13 +5225,6 @@ Popup
   height: 14px;
   vertical-align: top !important; }
 
-.wpeo-project-wrap .activities .activity .content .event-header [class*="event"] {
-  width: 25%; }
-
-.wpeo-project-wrap .activities .activity .content .event-header [class*="event"] i {
-  margin-right: 0.4em;
-  color: rgba(0, 0, 0, 0.3); }
-
 .wpeo-project-wrap .activities .activity .content .event-header .event-time {
   margin-left: auto;
   text-align: right; }
@@ -5309,6 +5292,13 @@ Popup
 .wpeo-project-wrap .activities .load-more-history:hover {
   cursor: pointer;
   background: #69b3f8; }
+
+.wpeo-project-wrap .daily-activity .event-header [class*="event"] {
+  width: 25%; }
+
+.wpeo-project-wrap .daily-activity .event-header [class*="event"] i {
+  margin-right: 0.4em;
+  color: rgba(0, 0, 0, 0.3); }
 
 /* ----------------------------------
 		Footer affichage utilisateurs
@@ -6763,17 +6753,6 @@ Popup
 /* ----------------------------------
 		Module WPEO Form fix
 -----------------------------------*/
-.wpeo-form input[type="text"] {
-  background: #ececec !important;
-  border: 0 !important; }
-
-.wpeo-form input[type="radio"]:before {
-  display: none;
-  content: ''; }
-
-.wpeo-form input[type="radio"] ~ label {
-  margin-bottom: 0; }
-
 /* ----------------------------------
 		Temporaire pour le blink
 -----------------------------------*/

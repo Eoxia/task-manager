@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<li class="wpeo-comment-date group-date" data-time="true" data-namespace="taskManager" data-module="comment" data-after-method="afterTriggerChangeDate">
 			<input type="hidden" class="mysql-date" name="date" value="<?php echo esc_attr( $comment->data['date']['raw'] ); ?>" />
 			<input type="hidden" name="value_changed" value="<?php echo ( ! empty( $comment->data['id'] ) ) ? 1 : 0; ?>" />
-			<div class="tooltip hover" aria-label="<?php echo esc_attr( $comment->data['date']['rendered']['date_time'] ); ?>"><span class="date dashicons dashicons-calendar-alt"></span></div>
+			<div class="tooltip hover" aria-label="<?php echo esc_attr( $comment->data['date']['rendered']['date_time'] ); ?>"><span class="date-time date dashicons dashicons-calendar-alt"></span></div>
 		</li>
 
 		<li class="wpeo-comment-content">
@@ -44,7 +44,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</li>
 
 		<?php if ( ! empty( $comment->data['id'] ) ) : ?>
-			<li data-parent="wpeo-comment-container" class="wpeo-save-point action-input "><i class="far fa-save" aria-hidden="true"></i></li>
+			<li data-parent="wpeo-comment-container" class="wpeo-save-point action-input ">
+				<span class="fa-layers fa-fw save-icon">
+					<i class="fas fa-circle"></i>
+					<i class="fa-inverse fas fa-save" data-fa-transform="shrink-6"></i>
+				</span>
+			</li>
 		<?php else : ?>
 			<li data-parent="wpeo-comment-container" style="opacity: 0.4;" class="wpeo-point-new-btn action-input dashicons dashicons-plus-alt"></li>
 		<?php endif; ?>

@@ -30,14 +30,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 </div>
 
 <ul class="actions">
-	<li class="action-delete tooltip hover"
+	<li class="action-delete wpeo-tooltip-event" data-position="top"
 			aria-label="<?php esc_html_e( 'Delete', 'task-manager' ); ?>"
 			data-action="delete_point"
 			data-message-delete="<?php echo esc_attr_e( 'Delete this point ?', 'task-manager' ); ?>"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_point' ) ); ?>"
 			data-id="<?php echo esc_attr( $point->data['id'] ); ?>"
 			data-loader="actions">
-		<span><i class="fa fa-trash"></i></span>
+		<span><i class="fas fa-trash"></i></span>
 	</li>
 </ul>
 

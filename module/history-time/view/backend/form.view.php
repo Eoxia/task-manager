@@ -23,29 +23,37 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div>
 			<div class="form-element">
-				<label><i class="dashicons dashicons-clock"></i> <?php esc_html_e( 'Estimated time (min)', 'task-manager' ); ?> </label>
-				<input name="estimated_time" value="60" type="text" />
+				<span class="form-label"><i class="dashicons dashicons-clock"></i> <?php esc_html_e( 'Estimated time (min)', 'task-manager' ); ?></span>
+				<label class="form-field-container">
+					<input name="estimated_time" class="form-field" value="60" type="text" />
+				</label>
 			</div>
 		</div>
 
 		<div>
-			<div class="group-date form-element">
-				<label><i class="dashicons dashicons-calendar-alt"></i> <?php esc_html_e( 'Due date', 'task-manager' ); ?> </label>
-				<input type="hidden" class="mysql-date" name="due_date" value="<?php echo esc_attr( $history_time_schema->data['due_date']['raw'] ); ?>" />
-				<input class="date" type="text" value="<?php echo esc_attr( $history_time_schema->data['due_date']['rendered']['date'] ); ?>" />
+			<div class="form-element group-date">
+				<span class="form-label"><i class="dashicons dashicons-calendar-alt"></i> <?php esc_html_e( 'Due date', 'task-manager' ); ?></span>
+				<label class="form-field-container">
+					<input type="hidden" class="mysql-date" name="due_date" value="<?php echo esc_attr( $history_time_schema->data['due_date']['raw'] ); ?>" />
+					<input class="date form-field" type="text" value="<?php echo esc_attr( $history_time_schema->data['due_date']['rendered']['date'] ); ?>" />
+				</label>
 			</div>
 
-			<div class="wpeo-form">
-				<div class="form-element">
-					<input type="radio" id="recursive" name="custom" value="recursive">
-					<label for="recursive"><?php esc_html_e( 'Recursive time per month', 'task-manager' ); ?></label>
-
-					<input type="radio" id="due_date" name="custom" value="due_date" checked>
-					<label for="due_date"><?php esc_html_e( 'Define due date', 'task-manager' ); ?></label>
-				</div>
+			<div class="form-element form-align-horizontal">
+				<span class="form-label"><i class="far fa-redo"></i> <?php esc_html_e( 'Recursion', 'task-manager' ); ?></span>
+				<label class="form-field-container">
+					<div class="form-field-inline">
+						<input type="radio" class="form-field" id="recursive" name="custom" value="recursive">
+						<label for="recursive"><?php esc_html_e( 'Recursive time per month', 'task-manager' ); ?></label>
+					</div>
+					<div class="form-field-inline">
+						<input type="radio" class="form-field" id="due_date" name="custom" value="due_date" checked>
+						<label for="due_date"><?php esc_html_e( 'Define due date', 'task-manager' ); ?></label>
+					</div>
+				</label>
 			</div>
-
 		</div>
+
 	</div>
 
 	<div data-parent="history-time-new" class="action-input wpeo-button button-blue">
