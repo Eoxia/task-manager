@@ -20,7 +20,7 @@ var paths = {
 
 // EO Framework 1.0.0
 gulp.task( 'build_scss_framework', function() {
-	gulp.src( paths.scss_plugin[0] )
+	gulp.src( [frameworkPath + 'core/assets/css/scss/style.scss'] )
 		.pipe( sass().on( 'error', sass.logError ) )
 		.pipe( please({
 			minifier: false,
@@ -28,12 +28,12 @@ gulp.task( 'build_scss_framework', function() {
 			pseudoElements: true,
 			sass: true
 		} ) )
-		.pipe( gulp.dest( paths.scss_plugin[1] ) )
+		.pipe( gulp.dest( paths.scss_framework[1] ) )
 		.pipe( please({
 			minifier: true,
 			out: 'style.min.css'
 		} ) )
-		.pipe( gulp.dest( paths.scss_plugin[1] ) );
+		.pipe( gulp.dest( paths.scss_framework[1] ) );
 });
 
 gulp.task( 'build_lib_js_framework', function() {
