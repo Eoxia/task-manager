@@ -197,11 +197,17 @@ class Quick_Time_Action {
 			'key'        => $task_id . '-' . $point_id,
 			'quick_time' => $data,
 		) );
+		$new_item_view = ob_get_clean();
+
+		ob_start();
+		\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/setting/form', array() );
+		$form_view = ob_get_clean();
 		wp_send_json_success( array(
 			'namespace'        => 'taskManager',
 			'module'           => 'quickTime',
 			'callback_success' => 'addedConfigQuickTime',
-			'view'             => ob_get_clean(),
+			'new_item_view'    => $new_item_view,
+			'form_view'        => $form_view,
 		) );
 	}
 
