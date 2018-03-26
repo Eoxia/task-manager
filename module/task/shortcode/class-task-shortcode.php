@@ -2,7 +2,7 @@
 /**
  * Gestion des shortcodes en relation des tâches.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
  * @version 1.6.0
  * @copyright 2015-2018 Eoxia
@@ -37,7 +37,8 @@ class Task_Shortcode {
 	 * @version 1.6.0
 	 *
 	 * @param  array $param Les paramètres du shortcode.
-	 * @return void
+	 *
+	 * @return HTML Le code HTML permettant d'afficher une tâche.
 	 */
 	public function callback_task( $param ) {
 		$param = shortcode_atts( array(

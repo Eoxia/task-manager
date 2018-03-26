@@ -22,7 +22,7 @@ if ( ! empty( $users ) ) :
 				data-nonce="<?php echo esc_attr( wp_create_nonce( 'switch_owner' ) ); ?>"
 				data-task-id="<?php echo esc_attr( $task_id ); ?>"
 				data-id="<?php echo esc_attr( $user->data['id'] ); ?>">
-			<?php do_shortcode( '[task_avatar ids="' . $user->data['id'] . '" size="32"]' ); ?>
+			<?php echo do_shortcode( '[task_avatar ids="' . $user->data['id'] . '" size="32"]' ); ?>
 			</span>
 		</li>
 	<?php endforeach;

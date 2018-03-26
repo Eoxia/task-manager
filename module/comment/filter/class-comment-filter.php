@@ -42,15 +42,30 @@ class Comment_Filter {
 	 */
 	public function compile_time( $object, $args ) {
 		$point = Point_Class::g()->get( array(
-			'id' => $object->data['parent_id'],
+			'id'     => $object->data['parent_id'],
+			'status' => array( '1', 'trash' ),
 		), true );
 
 		$task = Task_Class::g()->get( array(
-			'id' => $object->data['post_id'],
+			'id'          => $object->data['post_id'],
+			'post_status' => array(
+				'any',
+				'archive',
+				'trash',
+			),
 		), true );
 
 		$point_updated_elapsed = $point->data['time_info']['elapsed'];
 		$task_updated_elapsed  = $task->data['time_info']['elapsed'];
+
+		if ( ! is_object( $point ) || ! is_object( $task ) ) {
+			echo "<pre>"; print_r($point); echo "</pre>";
+			echo "<pre>"; print_r($task); echo "</pre>";
+			echo "<pre>"; print_r($object); echo "</pre>";
+			\eoxia\LOG_Util::log( sprintf( 'Point for update data compilation %s', wp_json_encode( $point ) ), 'task-manager-compile-update' );
+			\eoxia\LOG_Util::log( sprintf( 'Task for update data compilation %s', wp_json_encode( $task ) ), 'task-manager-compile-update' );
+			\eoxia\LOG_Util::log( sprintf( 'Object for update data compilation %s', wp_json_encode( $object ) ), 'task-manager-compile-update' );
+		}
 
 		if ( 'trash' === $object->data['status'] ) {
 			$point_updated_elapsed -= $object->data['time_info']['elapsed'];
@@ -66,9 +81,7 @@ class Comment_Filter {
 
 		$point->data['time_info']['elapsed'] = $point_updated_elapsed;
 		$task->data['time_info']['elapsed']  = $task_updated_elapsed;
-
 		$point->data['content']              = addslashes( $point->data['content'] );
-
 		$object->data['point']               = Point_Class::g()->update( $point->data );
 		$object->data['task']                = Task_Class::g()->update( $task->data );
 
@@ -95,7 +108,7 @@ class Comment_Filter {
 				), true );
 				if ( true === $user->data['_tm_auto_elapsed_time'] ) {
 					// Récupération du dernier commentaire ajouté dans la base.
-					$query = $GLOBALS['wpdb']->prepare(
+					$query                   = $GLOBALS['wpdb']->prepare(
 						"SELECT TIMEDIFF( %s, COMMENT.comment_date ) AS DIFF_DATE
 						FROM {$GLOBALS['wpdb']->comments} AS COMMENT
 							INNER JOIN {$GLOBALS['wpdb']->commentmeta} AS COMMENTMETA ON COMMENTMETA.comment_id = COMMENT.comment_ID
@@ -113,7 +126,7 @@ class Comment_Filter {
 					);
 					$time_since_last_comment = $GLOBALS['wpdb']->get_var( $query );
 					if ( ! empty( $time_since_last_comment ) ) {
-						$the_interval = 0;
+						$the_interval    = 0;
 						$time_components = explode( ':', $time_since_last_comment );
 						// Convert hours in minutes.
 						if ( ! empty( $time_components[0] ) ) {

@@ -93,7 +93,7 @@ class Update_1600 {
 	 * @return integer Le nombre total de points à traiter dans cette mise à jour.
 	 */
 	public static function callback_task_manager_update_1600_calcul_number_points() {
-		$count_points = (int) $GLOBALS['wpdb']->get_var( self::prepare_request( 'count( COMMENT.comment_ID )', true, '=', Point_Class::g()->get_type() ) ); // WPCS: unprepared sql.
+		$count_points = (int) $GLOBALS['wpdb']->get_var( self::prepare_request( 'count( COMMENT.comment_ID )', false, '=', Point_Class::g()->get_type() ) ); // WPCS: unprepared sql.
 		return $count_points;
 	}
 
@@ -127,7 +127,7 @@ class Update_1600 {
 					'id'      => (int) $point->comment_ID,
 					'type'    => Point_Class::g()->get_type(),
 					'content' => $point->comment_content,
-					'status'  => ( '-34071' === $point->comment_approved ? 'trash' : '1' ),
+					'status'  => ( ( '-34071' === $point->comment_approved ) || ( 'trash' === $point->comment_approved ) ? 'trash' : '1' ),
 				) );
 
 				$the_point->data['completed']      = $the_point->data['point_info']['completed'];
@@ -209,7 +209,7 @@ class Update_1600 {
 	 * @return integer Le nombre total de commentaire à traiter dans cette mise à jour.
 	 */
 	public static function callback_task_manager_update_1600_calcul_number_comments() {
-		$count_comment = (int) $GLOBALS['wpdb']->get_var( self::prepare_request( 'count(COMMENT.comment_ID)', 0, '!=', Task_Comment_Class::g()->get_type() ) );// WPCS: unprepared sql.
+		$count_comment = (int) $GLOBALS['wpdb']->get_var( self::prepare_request( 'count(COMMENT.comment_ID)', false, '!=', Task_Comment_Class::g()->get_type() ) );// WPCS: unprepared sql.
 		return $count_comment;
 	}
 
@@ -223,6 +223,7 @@ class Update_1600 {
 	 */
 	public function callback_task_manager_update_1600_comments() {
 		check_ajax_referer( 'task_manager_update_1600_comments' );
+		global $wp_filter;
 
 		$timestamp_debut = microtime( true );
 		$done            = false;
@@ -231,12 +232,14 @@ class Update_1600 {
 
 		$comments = $GLOBALS['wpdb']->get_results( self::prepare_request( 'COMMENT.comment_ID, COMMENT.comment_approved, COMMENT.comment_content', true, '!=', Task_Comment_Class::g()->get_type() ) ); // WPCS: unprepared sql.
 		if ( ! empty( $comments ) ) {
+			$comment_filter = new Comment_Filter();
+			remove_filter( 'eo_model_' . Task_Comment_Class::g()->get_type() . '_after_put', array( $comment_filter, 'compile_time' ), 10, 2 );
 			foreach ( $comments as $comment ) {
 				$the_comment = Task_Comment_Class::g()->update( array(
 					'id'      => (int) $comment->comment_ID,
 					'type'    => Task_Comment_Class::g()->get_type(),
 					'content' => $comment->comment_content,
-					'status'  => ( '-34071' === $comment->comment_approved ? 'trash' : '1' ),
+					'status'  => ( ( '-34071' === $comment->comment_approved ) || ( 'trash' === $comment->comment_approved ) ? 'trash' : '1' ),
 				) );
 
 				if ( Task_Comment_Class::g()->get_type() !== $the_comment->data['type'] ) {
@@ -433,23 +436,50 @@ class Update_1600 {
 	 * @return string                La requête préparée.
 	 */
 	public static function prepare_request( $column_to_get, $paginate, $comparison, $type ) {
+		$comment_approved = array(
+			'trash',
+			'',
+			'-34070',
+			'-34071',
+		);
+		$comment_type     = array(
+			'',
+			$type,
+		);
+		$prepare_args     = array(
+			0,
+			Task_Class::g()->get_type(),
+		);
+
 		$query_string = "SELECT {$column_to_get}
 		 FROM {$GLOBALS['wpdb']->comments} AS COMMENT
 			JOIN {$GLOBALS['wpdb']->posts} AS TASK ON TASK.ID = COMMENT.comment_post_ID
 		 WHERE COMMENT.comment_parent {$comparison} %d
-			AND COMMENT.comment_approved IN ( '-34070', '-34071' )
-			AND COMMENT.comment_type IN ( '', %s )
-			AND TASK.post_type = %s";
+		 	AND TASK.post_type = %s";
+
+		$sub_query_string = array();
+		foreach ( $comment_approved as $status ) {
+			foreach ( $comment_type as $type ) {
+				if ( 'trash' !== $status && '' !== $type ) {
+					$sub_query_string[] = '( COMMENT.comment_approved = %s AND COMMENT.comment_type = %s )';
+					$prepare_args[]     = $status;
+					$prepare_args[]     = $type;
+				}
+			}
+		}
+		if ( ! empty( $sub_query_string ) ) {
+			$query_string .= ' AND ( ' . implode( ' OR ', $sub_query_string ) . ' ) ';
+		}
 
 		if ( ! empty( $paginate ) ) {
 			$query_string .= ' LIMIT 0, ' . self::$limit;
 		}
 
-		$query = $GLOBALS['wpdb']->prepare( $query_string, array(
-			0,
-			$type,
-			Task_Class::g()->get_type(),
-		) ); // WPCS: unprepared sql.
+		$query = $GLOBALS['wpdb']->prepare( $query_string, $prepare_args ); // WPCS: unprepared sql.
+
+		if ( Point_Class::g()->get_type() === $type ) {
+			echo __LINE__ . " - " . $query . "<hr/>";exit;
+		}
 
 		return $query;
 	}

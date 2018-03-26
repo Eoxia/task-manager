@@ -15,12 +15,12 @@
 	"modules": [
 		"core/core.config.json",
 
+		"module/comment/comment.config.json",
 		"module/update_manager/update_manager.config.json",
 		"module/avatar/avatar.config.json",
 		"module/notify/notify.config.json",
 		"module/task/task.config.json",
 		"module/point/point.config.json",
-		"module/comment/comment.config.json",
 		"module/history-time/history-time.config.json",
 		"module/navigation/navigation.config.json",
 		"module/tag/tag.config.json",

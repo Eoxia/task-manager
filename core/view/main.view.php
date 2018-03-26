@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php
 	$waiting_updates = get_option( '_tm_waited_updates', array() );
 	if ( ! empty( $waiting_updates ) && strpos( $_SERVER['REQUEST_URI'], 'admin.php' ) && ! strpos( $_SERVER['REQUEST_URI'], 'admin.php?page=' . \eoxia\Config_Util::$init['task-manager']->update_page_url ) ) :
-		\eoxia\View_Util::exec( 'task-manager', 'update_manager', 'say-to-update' );
+		\eoxia\Update_Manager_Class::g()->display_say_to_update( 'task-manager', __( 'Need to update Task Manager data', 'task-manager' ) );
 	else :
 		if ( ! empty( $id ) ) :
 			echo do_shortcode( '[task id="' . $id . '"]' );

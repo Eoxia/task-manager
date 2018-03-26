@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<!-- En tête de la tâche -->
 		<ul class="wpeo-task-header">
-			<li class="wpeo-task-author"><?php do_shortcode( '[task_manager_owner_task task_id="' . $task->data['id'] . '" owner_id="' . $task->data['user_info']['owner_id'] . '"]' ); ?></li>
+			<li class="wpeo-task-author"><?php echo do_shortcode( '[task_manager_owner_task task_id="' . $task->data['id'] . '" owner_id="' . $task->data['user_info']['owner_id'] . '"]' ); ?></li>
 
 			<li class="wpeo-task-id">#<?php echo esc_html( $task->data['id'] ); ?></li>
 

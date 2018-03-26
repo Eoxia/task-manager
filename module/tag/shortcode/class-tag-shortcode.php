@@ -2,7 +2,7 @@
 /**
  * Gestion des shortcodes en relation aux catégories.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
  * @version 1.6.0
  * @copyright 2015-2018 Eoxia
@@ -37,10 +37,10 @@ class Tag_Shortcode {
 	 *
 	 * @param array $param Les paramètres du shortcode.
 	 *
-	 * @return void
-	 *
 	 * @since 1.3.6
 	 * @version 1.6.0
+	 *
+	 * @return HTML Le code HTML permettant l'affichage de la liste des tags associés à une tâche.
 	 */
 	public function callback_task_manager_task_tag( $param ) {
 		$task_id = ! empty( $param['task_id'] ) ? (int) $param['task_id'] : 0;
@@ -56,11 +56,15 @@ class Tag_Shortcode {
 			) );
 		}
 
+		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'tag', 'backend/main', array(
 			'task' => $task,
 			'tags' => $tags,
 		) );
+
+		return ob_get_clean();
 	}
+
 }
 
 new Tag_Shortcode();

@@ -2,7 +2,7 @@
 /**
  * Gestion des shortcodes en relation aux followers.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
  * @version 1.6.0
  * @copyright 2015-2018 Eoxia
@@ -37,10 +37,10 @@ class Search_Bar_Shortcode {
 	 *
 	 * @param array $param Les paramètres du shortcode.
 	 *
-	 * @return void
-	 *
 	 * @since 1.3.6
 	 * @version 1.6.0
+	 *
+	 * @return HTML Le code HTML permettant d'afficher la zone de recherche
 	 */
 	public function callback_task_manager_search_bar( $param ) {
 		$categories = Tag_Class::g()->get( array() );
@@ -56,11 +56,14 @@ class Search_Bar_Shortcode {
 			'follower_id_selected'   => array(),
 		), $param, 'task_manager_search_bar' );
 
+		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/main', array(
 			'categories' => $categories,
 			'followers'  => $followers,
 			'param'      => $param,
 		) );
+
+		return ob_get_clean();
 	}
 
 }

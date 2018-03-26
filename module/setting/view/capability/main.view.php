@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php Setting_Class::g()->display_role_has_cap(); ?>
 
-	<?php do_shortcode( '[digi-search icon="dashicons dashicons-search" next-action="display_setting_user_task_manager" type="user" target="list-users"]' ); ?>
+	<?php echo do_shortcode( '[digi-search icon="dashicons dashicons-search" next-action="display_setting_user_task_manager" type="user" target="list-users"]' ); ?>
 
 	<?php Setting_Class::g()->display_user_list_capacity(); ?>
 
