@@ -51,7 +51,7 @@ class Update_Manager_Action extends \eoxia\Update_Manager_Action {
 			'updateComplete'  => true,
 			// Translators: 1. Start of link to dashboard 2. End of link to dashboard.
 			'doneDescription' => sprintf( __( 'You will be redirect to Task Manager main dashboard. %1$sClick here if nothing append%2$s', 'task-manager' ), '<a href="" >', '</a>' ),
-			'url'             => admin_url( '?page=' . \eoxia\Config_Util::$init['task-manager']->dashboard_page_url ),
+			'url'             => admin_url( 'admin.php?page=' . \eoxia\Config_Util::$init['task-manager']->dashboard_page_url ),
 		) );
 	}
 }

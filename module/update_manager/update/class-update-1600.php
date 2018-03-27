@@ -398,6 +398,10 @@ class Update_1600 {
 						$errors[] = sprintf( __( 'An error occured while modifying task %d', 'task-manager' ), $task->ID );
 					}
 				}
+				if ( 0 === $archive_id ) {
+					// Récupère l'identifiant de la catégorie "archive".
+					$archive_id = $task->term_id;
+				}
 				// Supprime le tag 'archive' des relations de la tâche.
 				wp_remove_object_terms( $task->ID, $task->term_id, 'wpeo_tag' );
 			}
@@ -460,7 +464,7 @@ class Update_1600 {
 		$sub_query_string = array();
 		foreach ( $comment_approved as $status ) {
 			foreach ( $comment_type as $type ) {
-				if ( 'trash' !== $status && '' !== $type ) {
+				if ( 'trash' !== $status || '' === $type ) {
 					$sub_query_string[] = '( COMMENT.comment_approved = %s AND COMMENT.comment_type = %s )';
 					$prepare_args[]     = $status;
 					$prepare_args[]     = $type;
@@ -478,7 +482,7 @@ class Update_1600 {
 		$query = $GLOBALS['wpdb']->prepare( $query_string, $prepare_args ); // WPCS: unprepared sql.
 
 		if ( Point_Class::g()->get_type() === $type ) {
-			echo __LINE__ . " - " . $query . "<hr/>";exit;
+			// echo __LINE__ . " - " . $query . "<hr/>";exit;
 		}
 
 		return $query;
