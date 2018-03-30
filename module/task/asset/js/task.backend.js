@@ -271,7 +271,7 @@ window.eoxiaJS.taskManager.task.loadedCorretiveTaskSuccess = function( triggered
  * @version 1.3.6.0
  */
 window.eoxiaJS.taskManager.task.exportedTask = function( triggeredElement, response ) {
-	window.eoxiaJS.global.downloadFile( response.data.url, response.data.filename );
+	jQuery( '.tm_export_result_container' ).find( 'textarea' ).html( response.data.content );
 };
 
 /**
@@ -287,6 +287,7 @@ window.eoxiaJS.taskManager.task.exportedTask = function( triggeredElement, respo
 window.eoxiaJS.taskManager.task.notifiedByMail = function( triggeredElement, response ) {
 
 };
+
 /**
  * Le callback en cas de réussite à la requête Ajax "recompile_task".
  *
@@ -303,7 +304,6 @@ window.eoxiaJS.taskManager.task.recompiledTask = function( triggeredElement, res
 	view.attr( 'style', currentStyle );
 	triggeredElement.closest( '.wpeo-project-task' ).replaceWith( view );
 };
-
 
 /**
  * Enlève la classe 'active' de l'élement 'success'.

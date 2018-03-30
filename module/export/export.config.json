@@ -1,0 +1,11 @@
+{
+	"name": "Task export",
+	"slug": "export",
+	"version": "1.5.1",
+	"description": "Le module gérant les exports des tâches",
+	"path": "module/export/",
+	"dependencies": {
+		"class": {},
+		"action": {}
+	}
+}

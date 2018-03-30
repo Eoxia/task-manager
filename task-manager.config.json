@@ -1,7 +1,7 @@
 {
 	"name": "Task Manager",
 	"slug": "task-manager",
-	"version": "1.6.0",
+	"version": "1.5.2",
 	"description": "L'application Task Manager",
 	"insert_scripts_pages": [
 		"wpeomtm-dashboard",
@@ -16,6 +16,7 @@
 		"core/core.config.json",
 
 		"module/update_manager/update_manager.config.json",
+		"module/export/export.config.json",
 		"module/avatar/avatar.config.json",
 		"module/notify/notify.config.json",
 		"module/task/task.config.json",

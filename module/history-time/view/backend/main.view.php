@@ -40,10 +40,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 				<div class="wpeo-form">
 					<div class="form-element">
-						<input type="radio" id="recursive" name="custom" value="recursive">
+						<input type="radio" id="recursive" name="custom" value="recursive" <?php echo ( 'recursive' === $last_history_time->custom ? 'checked' : '' ); ?>>
 						<label for="recursive"><?php esc_html_e( 'Recursive time per month', 'task-manager' ); ?></label>
 
-						<input type="radio" id="due_date" name="custom" value="due_date" checked>
+						<input type="radio" id="due_date" name="custom" value="due_date" <?php echo ( 'recursive' !== $last_history_time->custom ? 'checked' : '' ); ?>>
 						<label for="due_date"><?php esc_html_e( 'Define due date', 'task-manager' ); ?></label>
 					</div>
 				</div>

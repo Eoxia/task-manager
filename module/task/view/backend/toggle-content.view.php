@@ -92,10 +92,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<span><i class="fa fa-bell"></i></span>
 	</li>
 
-	<li class="action-attribute tooltip hover"
+	<li class="open-popup-ajax tooltip hover"
 			aria-label="<?php esc_html_e( 'Export', 'task-manager' ); ?>"
-			data-action="export_task"
-			data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_task' ) ); ?>"
+			data-parent="wpeo-project-task"
+			data-target="popup"
+			data-class="popup-export"
+			data-action="load_export_popup"
+			data-title="<?php echo sprintf( __( '#%1$s Export popup', 'task-manager' ), esc_attr( $task->id ) ); ?>"
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_export_popup' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->id ); ?>"
 			data-loader="task-header-action">
 		<span><i class="fa fa-download"></i></span>
