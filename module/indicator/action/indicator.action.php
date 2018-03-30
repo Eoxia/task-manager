@@ -2,9 +2,9 @@
 /**
  * Les actions relatives aux indications.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.5.0
- * @version 1.5.0
+ * @version 1.6.1
  * @copyright 2015-2017 Eoxia
  * @package Task_Manager
  */
@@ -55,7 +55,7 @@ class Indicator_Action {
 		wp_enqueue_script( 'postbox' );
 
 		add_screen_option( 'layout_columns', array(
-			'max' => 2,
+			'max'     => 2,
 			'default' => 2,
 		) );
 	}

@@ -8,6 +8,5 @@
 		"action": {},
 		"class": {}
 	},
-	"default_time_exceeded": 60,
-	"state": false
+	"default_time_exceeded": 60
 }
