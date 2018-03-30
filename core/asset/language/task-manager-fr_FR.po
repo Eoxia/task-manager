@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2018-01-09 17:00+0100\n"
-"PO-Revision-Date: 2018-01-09 17:04+0100\n"
+"POT-Creation-Date: 2018-03-30 11:05+0200\n"
+"PO-Revision-Date: 2018-03-30 11:11+0200\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.5\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html__;esc_attr_e;_x\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: core/action/task_manager.action.php:175
 #: core/action/task_manager.action.php:179 core/view/main.view.php:23
-#: module/task/action/task.action.php:554
+#: module/task/action/task.action.php:473
 msgid "Task"
 msgstr "Tâche"
 
@@ -47,7 +47,7 @@ msgstr "Créer la catégorie"
 msgid "No change log for this version."
 msgstr "Pas de note de mise à jour pour cette version."
 
-#: core/view/main.view.php:27 module/task/action/task.action.php:98
+#: core/view/main.view.php:27 module/task/action/task.action.php:96
 msgid "New task"
 msgstr "Nouvelle tâche"
 
@@ -124,6 +124,55 @@ msgstr "Supprimer ce commentaire"
 msgid "Your comment here..."
 msgstr "Écrire ce commentaire ici..."
 
+#: module/export/action/export.class.php:78
+msgid "Uncompleted"
+msgstr "Terminé"
+
+#: module/export/action/export.class.php:95
+msgid "Completed"
+msgstr "Complété(s)"
+
+#: module/export/class/export.action.php:58
+msgid "No task selected for export"
+msgstr "Aucune tâche n'a été sélectionnée pour l'export"
+
+#: module/export/class/export.action.php:117
+msgid "No points have beend founded for this task"
+msgstr "Aucun point n'a été trouvé pour cette tâche"
+
+#: module/export/view/main.view.php:24
+msgid "Export all"
+msgstr "Exporter"
+
+#: module/export/view/main.view.php:28
+msgid "Choose date"
+msgstr "Par date"
+
+#: module/export/view/main.view.php:33
+msgid "From date"
+msgstr "A partir du"
+
+#: module/export/view/main.view.php:38
+msgid "To date"
+msgstr "Jusqu'au"
+
+#: module/export/view/main.view.php:45
+msgid "Include comments"
+msgstr "Exporter les commentaires"
+
+#: module/export/view/main.view.php:50
+msgid "Display points/comments ID"
+msgstr "Afficher les ID"
+
+#: module/export/view/main.view.php:52
+#: module/task/view/backend/toggle-content.view.php:96
+msgid "Export"
+msgstr "Exporter"
+
+#: module/export/view/main.view.php:55
+msgid "Export content"
+msgstr "Votre export"
+
 #: module/follower/view/backend/main.view.php:32
 #: module/navigation/view/backend/followers.view.php:17
 msgid "Followers"
@@ -166,7 +215,7 @@ msgstr "Date limite"
 
 #: module/history-time/view/backend/main.view.php:44
 msgid "Recursive time per month"
-msgstr "Temps récursive par mois"
+msgstr "Temps mensuel"
 
 #: module/history-time/view/backend/main.view.php:47
 msgid "Define due date"
@@ -302,11 +351,11 @@ msgstr "Points completés"
 msgid "Drag and drop"
 msgstr "Glisser et déposer"
 
-#: module/point/view/backend/point.view.php:42
+#: module/point/view/backend/point.view.php:44
 msgid "Write your point here..."
 msgstr "Écrivez votre point ici..."
 
-#: module/point/view/backend/point.view.php:74
+#: module/point/view/backend/point.view.php:76
 msgid "Point options"
 msgstr "Options du point"
 
@@ -325,7 +374,7 @@ msgid "Move the point to"
 msgstr "Déplacer le point vers"
 
 #: module/point/view/backend/toggle-content.view.php:51
-#: module/task/view/backend/toggle-content.view.php:116
+#: module/task/view/backend/toggle-content.view.php:120
 msgid "OK"
 msgstr "OK"
 
@@ -436,18 +485,10 @@ msgstr "ici"
 msgid "and refresh this section."
 msgstr "et recharger cette section."
 
-#: module/task/action/task.action.php:303
-#: module/task/action/task.action.php:304
+#: module/task/action/task.action.php:301
+#: module/task/action/task.action.php:302
 msgid "No post found"
 msgstr "Aucun post trouvé"
-
-#: module/task/action/task.action.php:454
-msgid "Uncompleted"
-msgstr "Terminé"
-
-#: module/task/action/task.action.php:462
-msgid "Completed"
-msgstr "Complété(s)"
 
 #: module/task/class/task.class.php:298
 #, php-format
@@ -526,11 +567,12 @@ msgstr "Notifier l'équipe"
 msgid "#%1$s Notify popup"
 msgstr "#%1$s Notification"
 
-#: module/task/view/backend/toggle-content.view.php:96
-msgid "Export"
-msgstr "Exporter"
+#: module/task/view/backend/toggle-content.view.php:101
+#, php-format
+msgid "#%1$s Export popup"
+msgstr "Export pour le tâche #%1$s"
 
-#: module/task/view/backend/toggle-content.view.php:112
+#: module/task/view/backend/toggle-content.view.php:116
 msgid "Move the task to"
 msgstr "Déplacer la tâche vers"
 
@@ -643,31 +685,31 @@ msgstr "Redirection vers Task Manager"
 
 #: module/update_manager/data/update-1600-data.php:28
 msgid "Count points in database."
-msgstr ""
+msgstr "Comptage du nombre de points."
 
 #: module/update_manager/data/update-1600-data.php:34
 msgid "Update point data in database"
-msgstr ""
+msgstr "Mise à jour des données des points"
 
 #: module/update_manager/data/update-1600-data.php:40
 msgid "Count comments in database."
-msgstr ""
+msgstr "Comptage du nombre de commentaires."
 
 #: module/update_manager/data/update-1600-data.php:46
 msgid "Update comments data in database"
-msgstr ""
+msgstr "Mise à jour des données des commentaires"
 
 #: module/update_manager/update/update-1600.php:206
 msgid "Update point type and elapsed time"
-msgstr ""
+msgstr "Mise à jour des types de points et temps passé"
 
 #: module/update_manager/update/update-1600.php:331
 msgid "Update comment type and elapsed time"
-msgstr ""
+msgstr "Mise à jour des types des commentaires et des temps passés"
 
 #: module/update_manager/view/main.view.php:19
 msgid "Update Manager"
-msgstr ""
+msgstr "Module de mise à jour des données"
 
 #: module/update_manager/view/main.view.php:32
 msgid "Rien à faire ici"
@@ -1464,9 +1506,6 @@ msgstr "Retour"
 
 #~ msgid "Tasks tracker"
 #~ msgstr "Suivi de tâche"
-
-#~ msgid "Export all"
-#~ msgstr "Exporter"
 
 #~ msgid "Delete the point"
 #~ msgstr "Supprimer ce point"
