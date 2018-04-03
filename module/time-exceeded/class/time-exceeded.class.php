@@ -31,6 +31,30 @@ class Time_Exceeded_Class extends \eoxia\Singleton_Util {
 	protected function construct() {}
 
 	/**
+	 * Fait le rendu des tâches dont le temps passé dépasse le temps estimé.
+	 *
+	 * @since 1.5.0
+	 * @version 1.5.0
+	 *
+	 * @return void
+	 */
+	public function display() {
+		$module_name = 'time-exceeded';
+
+		$require_time_history = ! empty( $_POST['require_time_history'] ) && ( 'true' === $_POST['require_time_history'] ) ? true : false; // Toujours sur ON. A corrigé après manger.
+		$min_exceeded_time    = ! empty( $_POST['min_exceeded_time'] ) ? (int) $_POST['min_exceeded_time'] : \eoxia\Config_Util::$init['task-manager']->$module_name->default_time_exceeded;
+		$start_date           = ! empty( $_POST['start_date'] ) ? sanitize_text_field( $_POST['start_date'] ) : date( 'Y-m-d', strtotime( 'first day of this month' ) );
+		$end_date             = ! empty( $_POST['end_date'] ) ? sanitize_text_field( $_POST['end_date'] ) : date( 'Y-m-d', strtotime( 'last day of this month' ) );
+
+		\eoxia\View_Util::exec( 'task-manager', 'time-exceeded', 'backend/main', array(
+			'start_date'           => $start_date,
+			'end_date'             => $end_date,
+			'min_exceeded_time'    => $min_exceeded_time,
+			'require_time_history' => $require_time_history,
+		) );
+	}
+
+	/**
 	 * Récupère la liste des temps dépassé à afficher
 	 *
 	 * @since 1.5.0
@@ -41,9 +65,9 @@ class Time_Exceeded_Class extends \eoxia\Singleton_Util {
 	 * @param integer $min_time_exceeded    Le temps dépassé minimum.
 	 * @param integer $require_time_history Faut il vérifier absolument que le temps soit indiqué dans le prévisionnel.
 	 *
-	 * @return array La liste des tâches/points ayant dépassé le temps par rapport aux critères.
+	 * @return void
 	 */
-	public function get_exceeded_elements( $start_date, $end_date, $min_time_exceeded, $require_time_history = false ) {
+	public function display_exceeded_elements( $start_date, $end_date, $min_time_exceeded, $require_time_history = false ) {
 		$tasks_exceed_time = array();
 		$tasks             = Task_Class::g()->get( array(
 			'date_query'     => array(
@@ -108,20 +132,8 @@ class Time_Exceeded_Class extends \eoxia\Singleton_Util {
 			return ( $a->diff_time > $b->diff_time ) ? -1 : 1;
 		} );
 
-		return $tasks_exceed_time;
-	}
-
-	/**
-	 * Fait le rendu des tâches dont le temps passé dépasse le temps estimé.
-	 *
-	 * @since 1.5.0
-	 * @version 1.5.0
-	 *
-	 * @return void
-	 */
-	public function display() {
-		\eoxia\View_Util::exec( 'task-manager', 'time_exceeded', 'backend/list', array(
-			'tasks_exceed_time' => $this->get_exceeded_elements(),
+		\eoxia\View_Util::exec( 'task-manager', 'time-exceeded', 'backend/list', array(
+			'tasks_exceed_time' => $tasks_exceed_time,
 		) );
 	}
 

@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2018-03-20 11:14+0100\n"
-"PO-Revision-Date: 2018-03-23 17:08+0100\n"
+"POT-Creation-Date: 2018-03-30 21:35+0200\n"
+"PO-Revision-Date: 2018-03-30 21:46+0200\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 1.8.12\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html__;esc_attr_e;_x\n"
@@ -43,7 +43,7 @@ msgstr "Voulez vous supprimer ce commentaire ?"
 
 #: core/action/task_manager.action.php:176
 #: core/action/task_manager.action.php:180 core/view/main.view.php:23
-#: module/task/action/task.action.php:541
+#: module/task/action/task.action.php:455
 msgid "Task"
 msgstr "Tâche"
 
@@ -51,9 +51,13 @@ msgstr "Tâche"
 msgid "No change log for this version."
 msgstr "Pas de note de mise à jour pour cette version."
 
-#: core/view/main.view.php:27 module/task/action/task.action.php:97
+#: core/view/main.view.php:27 module/task/action/task.action.php:95
 msgid "New task"
 msgstr "Nouvelle tâche"
+
+#: core/view/main.view.php:36
+msgid "Need to update Task Manager data"
+msgstr "Les données de Task Manager doivent être mise à jour"
 
 #: module/activity/view/backend/list.view.php:51
 #: module/activity/view/backend/mail/list.view.php:57
@@ -124,6 +128,55 @@ msgstr "Supprimer ce commentaire"
 msgid "Your comment here..."
 msgstr "Écrire ce commentaire ici..."
 
+#: module/export/action/export.action.php:58
+msgid "No task selected for export"
+msgstr "Aucune tâche sélectionnée pour l'export"
+
+#: module/export/action/export.action.php:117
+msgid "No points have beend founded for this task"
+msgstr "Aucun point n'a été trouvé pour cette tâche"
+
+#: module/export/class/export.class.php:68
+msgid "Uncompleted"
+msgstr "Terminé"
+
+#: module/export/class/export.class.php:72
+msgid "Completed"
+msgstr "Complété(s)"
+
+#: module/export/view/main.view.php:24
+msgid "Export all"
+msgstr "Exporter"
+
+#: module/export/view/main.view.php:28
+msgid "Choose date"
+msgstr "Par période"
+
+#: module/export/view/main.view.php:33
+msgid "From date"
+msgstr "A partir de"
+
+#: module/export/view/main.view.php:38
+msgid "To date"
+msgstr "Jusqu'au"
+
+#: module/export/view/main.view.php:45
+msgid "Include comments"
+msgstr "Exporter les commentaires"
+
+#: module/export/view/main.view.php:50
+msgid "Display points/comments ID"
+msgstr "Afficher les ID des points/commentaires"
+
+#: module/export/view/main.view.php:52
+#: module/task/view/backend/toggle-content.view.php:87
+msgid "Export"
+msgstr "Exporter"
+
+#: module/export/view/main.view.php:55
+msgid "Export content"
+msgstr "Votre export"
+
 #: module/follower/view/backend/main.view.php:34
 #: module/navigation/view/backend/followers.view.php:18
 msgid "Followers"
@@ -151,19 +204,23 @@ msgstr ""
 msgid "Estimated time (min)"
 msgstr "Temps estimé (min)"
 
-#: module/history-time/view/backend/form.view.php:33
+#: module/history-time/view/backend/form.view.php:35
 msgid "Due date"
 msgstr "Date limite"
 
-#: module/history-time/view/backend/form.view.php:41
-msgid "Recursive time per month"
-msgstr "Temps récursive par mois"
+#: module/history-time/view/backend/form.view.php:43
+msgid "Recursion"
+msgstr "Type de prévisionnel"
 
-#: module/history-time/view/backend/form.view.php:44
+#: module/history-time/view/backend/form.view.php:47
+msgid "Recursive time per month"
+msgstr "Temps mensuel"
+
+#: module/history-time/view/backend/form.view.php:51
 msgid "Define due date"
 msgstr "Deadline"
 
-#: module/history-time/view/backend/form.view.php:52
+#: module/history-time/view/backend/form.view.php:60
 msgid "Update dead line"
 msgstr "Enregistrer"
 
@@ -194,12 +251,12 @@ msgid "My daily activity"
 msgstr "Mon activité de la journée"
 
 #: module/indicator/view/backend/daily-activity.view.php:30
-#: module/time_exceeded/view/backend/main.view.php:25
+#: module/time-exceeded/view/backend/main.view.php:22
 msgid "Start date"
 msgstr "Date de début"
 
 #: module/indicator/view/backend/daily-activity.view.php:34
-#: module/time_exceeded/view/backend/main.view.php:28
+#: module/time-exceeded/view/backend/main.view.php:27
 msgid "End date"
 msgstr "Date de fin"
 
@@ -358,21 +415,43 @@ msgstr "min."
 msgid "Add time"
 msgstr "Ajouter du temps"
 
+#: module/quick_time/view/backend/setting/form.view.php:24
+msgid "Name/ID Task"
+msgstr "Nom/ID Tâche"
+
+#: module/quick_time/view/backend/setting/form.view.php:32
+msgid "Choose point"
+msgstr "Choisir point"
+
+#: module/quick_time/view/backend/setting/form.view.php:35
+msgid "Default comment"
+msgstr "Commentaire par défaut"
+
 #: module/quick_time/view/backend/setting/item.view.php:22
 msgid "No comment"
 msgstr "Pas de commentaire"
 
-#: module/quick_time/view/backend/setting/main.view.php:25
-msgid "Name/ID Task"
-msgstr "Nom/ID Tâche"
+#: module/quick_time/view/backend/setting/item.view.php:26
+msgid "Delete this preset ?"
+msgstr "Supprimer cet éléments?"
 
-#: module/quick_time/view/backend/setting/main.view.php:33
-msgid "Choose point"
-msgstr "Choisir point"
+#: module/say-to-update.view.php:21
+msgid "Update required"
+msgstr "Mise à jour requise"
 
-#: module/quick_time/view/backend/setting/main.view.php:36
-msgid "Default comment"
-msgstr "Commentaire par défaut"
+#: module/say-to-update.view.php:25
+msgid "Warning! Stop the update process can destroy your data."
+msgstr ""
+"Attention! Arrêté le processus de mise à jour peut entraîner une perte de "
+"donnée."
+
+#: module/say-to-update.view.php:30
+msgid "Start update"
+msgstr "Lancer la mise à jour"
+
+#: module/say-to-update.view.php:32
+msgid "Back"
+msgstr "Retour"
 
 #: module/setting/view/capability/has-cap.view.php:20
 msgid ""
@@ -387,7 +466,7 @@ msgid "Droit à Task Manager"
 msgstr ""
 
 #: module/setting/view/capability/list.view.php:23
-#: module/time_exceeded/view/backend/main.view.php:43
+#: module/time-exceeded/view/backend/list.view.php:20
 msgid "ID"
 msgstr "ID"
 
@@ -432,20 +511,12 @@ msgstr "ici"
 msgid "and refresh this section."
 msgstr "et recharger cette section."
 
-#: module/task/action/task.action.php:271
-#: module/task/action/task.action.php:272
+#: module/task/action/task.action.php:269
+#: module/task/action/task.action.php:270
 msgid "No post found"
 msgstr "Aucun post trouvé"
 
-#: module/task/action/task.action.php:428
-msgid "Uncompleted"
-msgstr "Terminé"
-
-#: module/task/action/task.action.php:436
-msgid "Completed"
-msgstr "Complété(s)"
-
-#: module/task/class/task.class.php:306
+#: module/task/class/task.class.php:309
 #, php-format
 msgid "Task for %1$s"
 msgstr "Tâche pour %1$s"
@@ -526,52 +597,54 @@ msgstr "Notifier l'équipe"
 msgid "#%1$s Notify popup"
 msgstr "#%1$s Notification"
 
-#: module/task/view/backend/toggle-content.view.php:87
-msgid "Export"
-msgstr "Exporter"
-
 #: module/task/view/backend/toggle-content.view.php:103
 msgid "Move the task to"
 msgstr "Déplacer la tâche vers"
 
-#: module/time_exceeded/action/time-exceeded.action.php:43
-#: module/time_exceeded/view/backend/main.view.php:47
+#: module/time-exceeded/action/class-time-exceeded-action.php:43
+#: module/time-exceeded/view/backend/list.view.php:24
 msgid "Time exceeded"
-msgstr "Temps dépassé"
+msgstr "Afficher les tâches avec un temps supérieur aux prévisions"
 
-#: module/time_exceeded/class/time-exceeded.class.php:116
+#: module/time-exceeded/class/time-exceeded.class.php:119
 msgid "No parent"
 msgstr "Pas de parent"
 
-#: module/time_exceeded/view/backend/main.view.php:19
-msgid "Task Manager: Time Exceeded"
-msgstr "Tâche: Temps excédé"
-
-#: module/time_exceeded/view/backend/main.view.php:31
-msgid "Min exceeded time"
-msgstr "Valeur de comparaison"
-
-#: module/time_exceeded/view/backend/main.view.php:34
-#, fuzzy
-#| msgid "Time history"
-msgid "Require time history"
-msgstr "Historique du temps"
-
-#: module/time_exceeded/view/backend/main.view.php:37
-msgid "Filter"
-msgstr "Filtre"
-
-#: module/time_exceeded/view/backend/main.view.php:44
+#: module/time-exceeded/view/backend/list.view.php:21
 msgid "Title"
 msgstr "Titre"
 
-#: module/time_exceeded/view/backend/main.view.php:45
+#: module/time-exceeded/view/backend/list.view.php:22
 msgid "Parent task"
 msgstr "Tâche parent"
 
-#: module/time_exceeded/view/backend/main.view.php:46
+#: module/time-exceeded/view/backend/list.view.php:23
 msgid "Time"
 msgstr "Temps"
+
+#: module/time-exceeded/view/backend/list.view.php:34
+msgid "There is no task with exceeded time corresponding to your search."
+msgstr ""
+"Il n'y a pas de tâche dont le temps est dépassé qui correspondent à votre "
+"recherche"
+
+#: module/time-exceeded/view/backend/main.view.php:31
+msgid "Display task with time over"
+msgstr "Temps de référence (en minute)"
+
+#: module/time-exceeded/view/backend/main.view.php:34
+msgid "Require time history"
+msgstr "Uniquement avec prévisionnel"
+
+#: module/time-exceeded/view/backend/main.view.php:37
+msgid "Display exceeded tasks"
+msgstr "Rechercher"
+
+#: module/time-exceeded/view/backend/main.view.php:41
+msgid "Please use form above in order to view task where time is exceeded"
+msgstr ""
+"Merci d'utiliser le formulaire ci-dessus pour chercher et voir les tâches "
+"ayant dépassées les prévisions"
 
 #: module/timeline/action/timeline.action.php:73
 #: module/timeline/view/backend/main.view.php:4
@@ -633,11 +706,20 @@ msgstr "Semaine"
 msgid "Task Manager Tools"
 msgstr "Task Manager Outils"
 
-#: module/update_manager/data/update-1601-data.php:30
+#: module/update_manager/action/class-update-manager-action.php:53
+#, php-format
+msgid ""
+"You will be redirect to Task Manager main dashboard. %1$sClick here if "
+"nothing append%2$s"
+msgstr ""
+"Vous allez être redirigé vers le tableau de bord principal de Task Manager. "
+"%1$sCliquez ici si rien de se passe%2$s"
+
+#: module/update_manager/data/update-1600-data.php:30
 msgid "Fix problems with points/comments that are orphelans"
 msgstr "Corrections des points et commentaires non associés à une tâche"
 
-#: module/update_manager/data/update-1601-data.php:31
+#: module/update_manager/data/update-1600-data.php:31
 msgid ""
 "Some points/comments may have problems on the comment post ID, this update "
 "will fix them"
@@ -645,40 +727,40 @@ msgstr ""
 "Certains points/commentaires peuvent avoir un problème d'affectation à leur "
 "tâche, cette mise à jour réaffecte ces éléments"
 
-#: module/update_manager/data/update-1601-data.php:38
+#: module/update_manager/data/update-1600-data.php:39
 msgid "Update point data in database"
 msgstr "Mise à jour des données des points dans la base de données"
 
-#: module/update_manager/data/update-1601-data.php:39
+#: module/update_manager/data/update-1600-data.php:40
 msgid ""
 "Change the `comment_type` field and the `comment_approved` field for points"
 msgstr ""
 "Modification des champs `comment_type` et `comment_approved` pour les points"
 
-#: module/update_manager/data/update-1601-data.php:47
+#: module/update_manager/data/update-1600-data.php:48
 msgid "Update comments data in database"
 msgstr "Mise à jour des données des commentaires dans la base de données"
 
-#: module/update_manager/data/update-1601-data.php:48
+#: module/update_manager/data/update-1600-data.php:49
 msgid ""
 "Change the `comment_type` field and the `comment_approved` field for comments"
 msgstr ""
 "Modification des champs `comment_type` et `comment_approved` pour les "
 "commentaires"
 
-#: module/update_manager/data/update-1601-data.php:56
+#: module/update_manager/data/update-1600-data.php:57
 msgid "Update history time data in database"
 msgstr "Mise à jour des historiques de temps dans la base de données"
 
-#: module/update_manager/data/update-1601-data.php:57
+#: module/update_manager/data/update-1600-data.php:58
 msgid "Clean meta datas of previsionnal times in database"
 msgstr "Optimisation des données des temps prévisionnels"
 
-#: module/update_manager/data/update-1601-data.php:64
+#: module/update_manager/data/update-1600-data.php:66
 msgid "Update comment approved in database"
 msgstr "Mise à jour du champs `comment_approved` pour task-manager"
 
-#: module/update_manager/data/update-1601-data.php:65
+#: module/update_manager/data/update-1600-data.php:67
 msgid ""
 "Check and change the `comment_type` field and the `comment_approved` field "
 "for comments used in task manager"
@@ -686,11 +768,11 @@ msgstr ""
 "Vérifie les modifications des champs `comment_type` et `comment_approved` "
 "pour les éléments associés dans task-manager"
 
-#: module/update_manager/data/update-1601-data.php:72
+#: module/update_manager/data/update-1600-data.php:75
 msgid "Clean archived tasks"
 msgstr "Optimisation des tâches archivées"
 
-#: module/update_manager/data/update-1601-data.php:73
+#: module/update_manager/data/update-1600-data.php:76
 msgid ""
 "Remove the archive tag and change the status to archive if it is not already "
 "the case"
@@ -698,63 +780,50 @@ msgstr ""
 "Suppression de la catégorie 'archive' et modification du statuts des tâches "
 "n'ayant pas le statut 'archive'"
 
-#: module/update_manager/update/update-1601.php:79
+#: module/update_manager/update/class-update-1600.php:81
 #, php-format
 msgid "%1$s lines have been treated on %2$s"
 msgstr "%1$s lignes traitées sur %2$s"
 
-#: module/update_manager/update/update-1601.php:193
+#: module/update_manager/update/class-update-1600.php:197
 #, php-format
 msgid "%1$s points ( type, status ) updated on %2$s"
 msgstr "%1$s points (type,status) traités sur %2$s"
 
-#: module/update_manager/update/update-1601.php:260
+#: module/update_manager/update/class-update-1600.php:268
 #, php-format
 msgid "%1$s comments ( type, status ) updated on %2$s"
 msgstr "%1$s commentaires (type,status) traités sur %2$s"
 
-#: module/update_manager/update/update-1601.php:296
+#: module/update_manager/update/class-update-1600.php:307
 #, php-format
 msgid "%1$s history_time have been treated on %2$s"
 msgstr "%1$s temps prévisionnel (history_time) traitées sur %2$s"
 
-#: module/update_manager/update/update-1601.php:345
+#: module/update_manager/update/class-update-1600.php:359
 #, php-format
 msgid "%1$s points, %2$s comments, %3$s history_time have been treated"
 msgstr ""
 "%1$s points, %2$s commentaire, %3$s prévisionnel de temps ont été traités"
 
-#: module/update_manager/update/update-1601.php:382
+#: module/update_manager/update/class-update-1600.php:398
 #, php-format
 msgid "An error occured while modifying task %d"
 msgstr "Une erreur est survenu lors de la modification de la tâche %d"
 
-#: module/update_manager/update/update-1601.php:396
+#: module/update_manager/update/class-update-1600.php:426
 #, php-format
 msgid "%1$d tasks have been marked as archived on %2$d"
 msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
 
-#: module/update_manager/view/say-to-update.view.php:21
-msgid "Update required"
-msgstr "Mise à jour requise"
+#~ msgid "Task Manager: Time Exceeded"
+#~ msgstr "Tâche: Temps excédé"
 
-#: module/update_manager/view/say-to-update.view.php:24
-msgid "Need to update Task Manager data"
-msgstr "Les données de Task Manager doivent être mise à jour"
+#~ msgid "Min exceeded time"
+#~ msgstr "Valeur de comparaison"
 
-#: module/update_manager/view/say-to-update.view.php:25
-msgid "Warning! Stop the update process can destroy your data."
-msgstr ""
-"Attention! Arrêté le processus de mise à jour peut entraîner une perte de "
-"donnée."
-
-#: module/update_manager/view/say-to-update.view.php:29
-msgid "Start update"
-msgstr "Lancer la mise à jour"
-
-#: module/update_manager/view/say-to-update.view.php:31
-msgid "Back"
-msgstr "Retour"
+#~ msgid "Filter"
+#~ msgstr "Filtre"
 
 #~ msgid "Create the tag"
 #~ msgstr "Créer la catégorie"
@@ -1545,9 +1614,6 @@ msgstr "Retour"
 
 #~ msgid "Tasks tracker"
 #~ msgstr "Suivi de tâche"
-
-#~ msgid "Export all"
-#~ msgstr "Exporter"
 
 #~ msgid "Delete the point"
 #~ msgstr "Supprimer ce point"

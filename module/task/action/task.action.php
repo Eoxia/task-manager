@@ -43,8 +43,6 @@ class Task_Action {
 
 		add_action( 'wp_ajax_load_more_task', array( $this, 'callback_load_more_task' ) );
 
-		add_action( 'wp_ajax_export_task', array( $this, 'callback_export_task' ) );
-
 		add_action( 'wp_ajax_recompile_task', array( $this, 'callback_recompile_task' ) );
 
 		add_action( 'add_meta_boxes', array( $this, 'callback_add_meta_boxes' ), 10, 2 );
@@ -361,96 +359,6 @@ class Task_Action {
 			'module'           => 'task',
 			'callback_success' => 'loadedMoreTask',
 			'can_load_more'    => ! empty( $tasks ) ? true : false,
-		) );
-	}
-
-	/**
-	 * Exportes les points de la tâche dans un fichier .txt
-	 *
-	 * @return void
-	 *
-	 * @since 1.3.6.0
-	 * @version 1.3.6.0
-	 */
-	public function callback_export_task() {
-		check_ajax_referer( 'export_task' );
-
-		$upload = wp_upload_dir();
-
-		$task_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
-
-		if ( empty( $task_id ) ) {
-			wp_send_json_error();
-		}
-
-		$task = Task_Class::g()->get( array(
-			'id' => $task_id,
-		), true );
-
-		$points_uncompleted = Point_Class::g()->get( array(
-			'post_id'    => $task->data['id'],
-			'type'       => Point_Class::g()->get_type(),
-			'meta_key'   => '_tm_order',
-			'orderby'    => 'meta_value_num',
-			'order'      => 'ASC',
-			'meta_query' => array(
-				array(
-					'key'     => '_tm_completed',
-					'value'   => false,
-					'compare' => '=',
-				),
-			),
-		) );
-
-		$points_completed = Point_Class::g()->get( array(
-			'post_id'    => $task->data['id'],
-			'type'       => Point_Class::g()->get_type(),
-			'meta_key'   => '_tm_order',
-			'orderby'    => 'meta_value_num',
-			'order'      => 'ASC',
-			'meta_query' => array(
-				array(
-					'key'     => '_tm_completed',
-					'value'   => true,
-					'compare' => '=',
-				),
-			),
-		) );
-
-		$file_name = $task->data['slug'] . current_time( 'timestamp' ) . '.txt';
-		$file_info = array(
-			'name'    => $task->data['slug'] . current_time( 'timestamp' ) . '.txt',
-			'path'    => $upload['path'] . '/' . $file_name,
-			'url'     => $upload['url'] . '/' . $file_name,
-			'content' => $task->data['id'] . ' - ' . $task->data['title'] . "\r\n\r\n",
-		);
-
-		$file_info['content'] .= __( 'Uncompleted', 'task-manager' ) . "\r\n";
-
-		if ( ! empty( $points_uncompleted ) ) {
-			foreach ( $points_uncompleted as $point ) {
-				$file_info['content'] .= '	' . $point->data['id'] . ' - ' . trim( $point->data['content'] ) . "\r\n";
-			}
-		}
-
-		$file_info['content'] .= __( 'Completed', 'task-manager' ) . "\r\n";
-
-		if ( ! empty( $points_completed ) ) {
-			foreach ( $points_completed as $point ) {
-				$file_info['content'] .= '	' . $point->data['id'] . ' - ' . trim( $point->data['content'] ) . "\r\n";
-			}
-		}
-
-		$fp = fopen( $file_info['path'], 'w' );
-		fputs( $fp, $file_info['content'] );
-		fclose( $fp );
-
-		wp_send_json_success( array(
-			'namespace'        => 'taskManager',
-			'module'           => 'task',
-			'callback_success' => 'exportedTask',
-			'url'              => $file_info['url'],
-			'filename'         => $file_info['name'],
 		) );
 	}
 

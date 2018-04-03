@@ -2,7 +2,7 @@
  * Initialise l'objet "timeExceeded" ainsi que la méthode "init" obligatoire pour la bibliothèque EoxiaJS.
  *
  * @since 1.5.0
- * @version 1.5.0
+ * @version 1.6.1
  */
 window.eoxiaJS.taskManager.timeExceeded = {};
 
@@ -21,8 +21,8 @@ window.eoxiaJS.taskManager.timeExceeded.event = function() {
  * @return {void}
  *
  * @since 1.5.0
- * @version 1.5.0
+ * @version 1.6.1
  */
 window.eoxiaJS.taskManager.timeExceeded.loadedTimeExceeded = function( triggeredElement, response ) {
-	jQuery( '.wpeo-project-wrap table tbody' ).html( response.data.view );
+	jQuery( '#tm-indicator-time-exceeded .inside table' ).replaceWith( response.data.view );
 };

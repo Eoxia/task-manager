@@ -113,66 +113,66 @@ class Update_1600 {
 		$count_point     = ! empty( $_POST['total_number'] ) ? (int) $_POST['total_number'] : 0;
 		$index           = ! empty( $_POST['done_number'] ) ? (int) $_POST['done_number'] : 0;
 
-		$task_schema = Task_Class::g()->get_schema();
+		$task_schema  = Task_Class::g()->get_schema();
+		$point_schema = Point_Class::g()->get_schema();
 
 		$count_point_updated = get_option( '_tm_update_1600_point_updated', true );
 		if ( empty( $count_point_updated ) ) {
 			$count_point_updated = 0;
 		}
 
-		$points = $GLOBALS['wpdb']->get_results( self::prepare_request( 'COMMENT.comment_ID, COMMENT.comment_approved, COMMENT.comment_content', true, '=', Point_Class::g()->get_type() ) ); // WPCS: unprepared sql.
+		$points = $GLOBALS['wpdb']->get_results( self::prepare_request( 'COMMENT.comment_ID, COMMENT.comment_approved, COMMENT.comment_content, COMMENT.comment_post_ID', true, '=', Point_Class::g()->get_type() ) ); // WPCS: unprepared sql.
 		if ( ! empty( $points ) ) {
 			foreach ( $points as $point ) {
-				$the_point = Point_Class::g()->update( array(
-					'id'      => (int) $point->comment_ID,
-					'type'    => Point_Class::g()->get_type(),
-					'content' => $point->comment_content,
-					'status'  => ( ( '-34071' === $point->comment_approved ) || ( 'trash' === $point->comment_approved ) ? 'trash' : '1' ),
-				) );
+				$comment_metas = get_comment_meta( (int) $point->comment_ID );
 
-				$the_point->data['completed']      = $the_point->data['point_info']['completed'];
-				$the_point->data['order']          = $this->search_position( $the_point );
-				$the_point->data['count_comments'] = 0;
-
-				if ( ! empty( $the_point->data['post_id'] ) ) {
-					$comments = Task_Comment_Class::g()->get( array(
-						'post_id' => $the_point->data['post_id'],
-						'parent'  => $the_point->data['id'],
-						'status'  => '-34070',
-					) );
-
-					if ( ! empty( $comments ) ) {
-						$the_point->data['count_comments'] = count( $comments );
-					}
-				}
-
-				$the_point = Point_Class::g()->update( $the_point->data );
-
-				if ( Point_Class::g()->get_type() !== $the_point->data['type'] ) {
-					\eoxia\LOG_Util::log( 'Comment #' . $the_point->data['id'] . ' type is not equal wpeo_point', 'task-manager' );
+				$the_point_data['comment_ID']       = (int) $point->comment_ID;
+				$the_point_data['type']             = Point_Class::g()->get_type();
+				$the_point_data['comment_approved'] = ( ( '-34071' === $point->comment_approved ) || ( 'trash' === $point->comment_approved ) ? 'trash' : '1' );
+				$comment_update = wp_update_comment( $the_point_data );
+				if ( 0 === $comment_update ) {
+					\eoxia\LOG_Util::log( 'Update for comment #' . (int) $point->comment_ID . ' failed', 'task-manager' );
 				} else {
 					$count_point_updated++;
 					update_option( '_tm_update_1600_point_updated', $count_point_updated );
 				}
 
-				if ( $the_point->data['completed'] ) {
-					$count_completed_point = get_post_meta( $the_point->data['post_id'], $task_schema['count_completed_points']['field'], true );
+				// Mise à jour des metas du point.
 
+				// Nombre de commentaires.
+				$tm_count_comment = 0;
+				if ( ! empty( $point->comment_post_ID ) ) {
+					$comments = Task_Comment_Class::g()->get( array(
+						'post_id' => $point->comment_post_ID,
+						'parent'  => (int) $point->comment_ID,
+						'status'  => '-34070',
+					) );
+
+					if ( ! empty( $comments ) ) {
+						$tm_count_comment = count( $comments );
+					}
+				}
+				update_comment_meta( (int) $point->comment_ID, $point_schema['count_comments']['field'], $tm_count_comment );
+
+				// Position du point dans la tâche.
+				update_comment_meta( (int) $point->comment_ID, $point_schema['order']['field'], $this->search_position( (int) $point->comment_ID, $point->comment_post_ID ) );
+
+				// Statut du point terminé / en cours.
+				if ( ! empty( $comment_metas ) && ! empty( $comment_metas[ Point_Class::g()->get_meta_key() ] ) && ! isset( $comment_metas[ $point_schema['completed']['field'] ] ) ) {
+					$wpeo_point_meta = json_decode( $comment_metas[ Point_Class::g()->get_meta_key() ][0] );
+					if ( true === $wpeo_point_meta->point_info->completed ) {
+						$meta_name = $task_schema['count_uncompleted_points']['field'];
+						update_comment_meta( (int) $point->comment_ID, $point_schema['completed']['field'], true );
+					} else {
+						$meta_name = $task_schema['count_completed_points']['field'];
+						update_comment_meta( (int) $point->comment_ID, $point_schema['completed']['field'], false );
+					}
+					$count_point = get_post_meta( $point->comment_post_ID, $meta_name, true );
 					if ( empty( $count_completed_point ) ) {
-						$count_completed_point = 0;
+						$count_point = 0;
 					}
-
-					$count_completed_point++;
-					update_post_meta( $the_point->data['post_id'], $task_schema['count_completed_points']['field'], $count_completed_point );
-				} else {
-					$count_uncompleted_point = get_post_meta( $the_point->data['post_id'], $task_schema['count_uncompleted_points']['field'], true );
-
-					if ( empty( $count_uncompleted_point ) ) {
-						$count_uncompleted_point = 0;
-					}
-
-					$count_uncompleted_point++;
-					update_post_meta( $the_point->data['post_id'], $task_schema['count_uncompleted_points']['field'], $count_uncompleted_point );
+					$count_point++;
+					update_post_meta( $point->comment_post_ID, $meta_name, $count_point );
 				}
 			}
 		}
@@ -223,27 +223,24 @@ class Update_1600 {
 	 */
 	public function callback_task_manager_update_1600_comments() {
 		check_ajax_referer( 'task_manager_update_1600_comments' );
-		global $wp_filter;
 
-		$timestamp_debut = microtime( true );
 		$done            = false;
 		$count_comment   = ! empty( $_POST['total_number'] ) ? (int) $_POST['total_number'] : 0;
 		$index           = ! empty( $_POST['done_number'] ) ? (int) $_POST['done_number'] : 0;
 
-		$comments = $GLOBALS['wpdb']->get_results( self::prepare_request( 'COMMENT.comment_ID, COMMENT.comment_approved, COMMENT.comment_content', true, '!=', Task_Comment_Class::g()->get_type() ) ); // WPCS: unprepared sql.
+		$comments = $GLOBALS['wpdb']->get_results( self::prepare_request( 'COMMENT.comment_ID, COMMENT.comment_approved, COMMENT.comment_content, COMMENT.comment_post_ID', true, '!=', Task_Comment_Class::g()->get_type() ) ); // WPCS: unprepared sql.
 		if ( ! empty( $comments ) ) {
 			$comment_filter = new Comment_Filter();
-			remove_filter( 'eo_model_' . Task_Comment_Class::g()->get_type() . '_after_put', array( $comment_filter, 'compile_time' ), 10, 2 );
 			foreach ( $comments as $comment ) {
-				$the_comment = Task_Comment_Class::g()->update( array(
-					'id'      => (int) $comment->comment_ID,
-					'type'    => Task_Comment_Class::g()->get_type(),
-					'content' => $comment->comment_content,
-					'status'  => ( ( '-34071' === $comment->comment_approved ) || ( 'trash' === $comment->comment_approved ) ? 'trash' : '1' ),
-				) );
-
-				if ( Task_Comment_Class::g()->get_type() !== $the_comment->data['type'] ) {
-					\eoxia\LOG_Util::log( 'Comment #' . $the_comment->data['id'] . ' type is not equal wpeo_time', 'task-manager' );
+				$the_comment_data['comment_ID']       = (int) $comment->comment_ID;
+				$the_comment_data['type']             = Task_Comment_Class::g()->get_type();
+				$the_comment_data['comment_approved'] = ( ( '-34071' === $comment->comment_approved ) || ( 'trash' === $comment->comment_approved ) ? 'trash' : '1' );
+				$point_updates = wp_update_comment( $the_comment_data );
+				if ( 0 === $point_updates ) {
+					\eoxia\LOG_Util::log( 'Update for comment #' . (int) $comment->comment_ID . ' failed', 'task-manager' );
+				} else {
+					$count_comment_updated++;
+					update_option( '_tm_update_1600_comment_updated', $count_comment_updated );
 				}
 			}
 		}
@@ -254,10 +251,6 @@ class Update_1600 {
 			$index = $count_comment;
 			$done  = true;
 		}
-
-		$timestamp_fin = microtime( true );
-		$difference_ms = $timestamp_fin - $timestamp_debut;
-		\eoxia\LOG_Util::log( 'Update comment: ' . $difference_ms, 'task-manager' );
 
 		wp_send_json_success( array(
 			'updateComplete'     => false,
@@ -497,17 +490,17 @@ class Update_1600 {
 	 * @param  Point_Model $point Les données du point.
 	 * @return integer            La position du point.
 	 */
-	public function search_position( $point ) {
+	public function search_position( $point_id, $task_id ) {
 		$position = false;
 
 		$task = Task_Class::g()->get( array(
-			'id' => $point->data['post_id'],
+			'id' => $task_id,
 		), true );
 
 		if ( empty( $task ) ) {
 			$position = false;
 		} else {
-			$position = array_search( $point->data['id'], $task->data['task_info']['order_point_id'] );
+			$position = array_search( $point_id, $task->data['task_info']['order_point_id'] );
 		}
 
 		if ( false === $position ) {

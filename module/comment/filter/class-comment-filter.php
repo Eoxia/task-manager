@@ -45,6 +45,7 @@ class Comment_Filter {
 			'id'     => $object->data['parent_id'],
 			'status' => array( '1', 'trash' ),
 		), true );
+		echo "<pre>"; print_r($point); echo "</pre>";exit;
 
 		$task = Task_Class::g()->get( array(
 			'id'          => $object->data['post_id'],
