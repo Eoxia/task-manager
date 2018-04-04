@@ -45,7 +45,6 @@ class Comment_Filter {
 			'id'     => $object->data['parent_id'],
 			'status' => array( '1', 'trash' ),
 		), true );
-		echo "<pre>"; print_r($point); echo "</pre>";exit;
 
 		$task = Task_Class::g()->get( array(
 			'id'          => $object->data['post_id'],
@@ -60,9 +59,6 @@ class Comment_Filter {
 		$task_updated_elapsed  = $task->data['time_info']['elapsed'];
 
 		if ( ! is_object( $point ) || ! is_object( $task ) ) {
-			echo "<pre>"; print_r($point); echo "</pre>";
-			echo "<pre>"; print_r($task); echo "</pre>";
-			echo "<pre>"; print_r($object); echo "</pre>";
 			\eoxia\LOG_Util::log( sprintf( 'Point for update data compilation %s', wp_json_encode( $point ) ), 'task-manager-compile-update' );
 			\eoxia\LOG_Util::log( sprintf( 'Task for update data compilation %s', wp_json_encode( $task ) ), 'task-manager-compile-update' );
 			\eoxia\LOG_Util::log( sprintf( 'Object for update data compilation %s', wp_json_encode( $object ) ), 'task-manager-compile-update' );

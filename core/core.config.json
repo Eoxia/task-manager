@@ -6,7 +6,6 @@
 	"path": "core/",
 	"dependencies": {
 		"action": {},
-		"class": {},
-		"helper": {}
+		"class": {}
 	}
 }

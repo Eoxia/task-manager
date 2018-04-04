@@ -102,7 +102,7 @@ ob_start();
 <?php
 $output = ob_get_clean();
 
-echo wp_kses( str_replace( '{{ total_time }}', convert_to_custom_hours( $total_time ), $output ), array(
+echo wp_kses( str_replace( '{{ total_time }}', \eoxia\Date_Util::g()->convert_to_custom_hours( $total_time ), $output ), array(
 	'table'  => array(
 		'style' => array(),
 		'class' => array(),

@@ -224,9 +224,10 @@ class Update_1600 {
 	public function callback_task_manager_update_1600_comments() {
 		check_ajax_referer( 'task_manager_update_1600_comments' );
 
-		$done            = false;
-		$count_comment   = ! empty( $_POST['total_number'] ) ? (int) $_POST['total_number'] : 0;
-		$index           = ! empty( $_POST['done_number'] ) ? (int) $_POST['done_number'] : 0;
+		$done                  = false;
+		$count_comment         = ! empty( $_POST['total_number'] ) ? (int) $_POST['total_number'] : 0;
+		$index                 = ! empty( $_POST['done_number'] ) ? (int) $_POST['done_number'] : 0;
+		$count_comment_updated = 0;
 
 		$comments = $GLOBALS['wpdb']->get_results( self::prepare_request( 'COMMENT.comment_ID, COMMENT.comment_approved, COMMENT.comment_content, COMMENT.comment_post_ID', true, '!=', Task_Comment_Class::g()->get_type() ) ); // WPCS: unprepared sql.
 		if ( ! empty( $comments ) ) {
@@ -235,7 +236,7 @@ class Update_1600 {
 				$the_comment_data['comment_ID']       = (int) $comment->comment_ID;
 				$the_comment_data['type']             = Task_Comment_Class::g()->get_type();
 				$the_comment_data['comment_approved'] = ( ( '-34071' === $comment->comment_approved ) || ( 'trash' === $comment->comment_approved ) ? 'trash' : '1' );
-				$point_updates = wp_update_comment( $the_comment_data );
+				$point_updates                        = wp_update_comment( $the_comment_data );
 				if ( 0 === $point_updates ) {
 					\eoxia\LOG_Util::log( 'Update for comment #' . (int) $comment->comment_ID . ' failed', 'task-manager' );
 				} else {

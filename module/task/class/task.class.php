@@ -289,9 +289,9 @@ class Task_Class extends \eoxia\Post_Class {
 
 				$tasks[ $post->ID ]['total_time_elapsed'] += $task->data['time_info']['elapsed'];
 				$total_time_elapsed                       += $task->data['time_info']['elapsed'];
-				$total_time_estimated                     += $task->data['last_history_time']->estimated_time;
+				$total_time_estimated                     += $task->data['last_history_time']->data['estimated_time'];
 
-				$task_ids_for_history[] = $task->id;
+				$task_ids_for_history[] = $task->data['id'];
 			}
 		}
 
@@ -330,8 +330,8 @@ class Task_Class extends \eoxia\Post_Class {
 			}
 		}
 
-		$total_time_elapsed   = convert_to_custom_hours( $total_time_elapsed );
-		$total_time_estimated = convert_to_custom_hours( $total_time_estimated );
+		$total_time_elapsed   = \eoxia\Date_Util::g()->convert_to_custom_hours( $total_time_elapsed );
+		$total_time_estimated = \eoxia\Date_Util::g()->convert_to_custom_hours( $total_time_estimated );
 
 		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/metabox-posts', array(
 			'tasks'                => $tasks,
