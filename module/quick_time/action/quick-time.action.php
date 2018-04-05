@@ -113,6 +113,7 @@ class Quick_Time_Action {
 		$view = ob_get_clean();
 		wp_send_json_success( array(
 			'view' => $view,
+			'buttons_view' => '',
 		) );
 	}
 
