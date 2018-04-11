@@ -45,13 +45,14 @@ class Activity_Class extends \eoxia\Singleton_Util {
 			'status' => -34070,
 			'number' => \eoxia\Config_Util::$init['task-manager']->activity->activity_per_page,
 			'offset' => $offset,
+			'type__in' => array( Point_Class::g()->get_type(), Task_Comment_Class::g()->get_type() ),
 		) );
 
 		$datas = array();
 
 		if ( ! empty( $points ) ) {
 			foreach ( $points as $point ) {
-				if ( 'trash' !== $point->status && Point_Class::g()->get_type() === $point->type && 0 !== $point->id ) {
+				if ( 'trash' !== $point->status && ( Point_Class::g()->get_type() === $point->type || Task_Comment_Class::g()->get_type() === $point->type ) && 0 !== $point->id ) {
 					if ( 0 === $point->parent_id ) {
 						$point->view = 'created-point';
 						$point->displayed_author_id = $point->author_id;
