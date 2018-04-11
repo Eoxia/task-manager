@@ -2,7 +2,7 @@
 /**
  * Les actions relatives à la chronologie
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0.0
  * @version 1.3.6.0
  * @copyright 2015-2017 Eoxia

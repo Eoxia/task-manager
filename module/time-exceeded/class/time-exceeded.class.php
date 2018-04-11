@@ -87,39 +87,40 @@ class Time_Exceeded_Class extends \eoxia\Singleton_Util {
 
 		if ( ! empty( $tasks ) ) {
 			foreach ( $tasks as $key => $task ) {
+				$task_data = $task->data;
 
 				if ( $require_time_history ) {
 
-					if ( ! empty( $task->last_history_time ) && ! empty( $task->last_history_time->id ) && ( $task->time_info['elapsed'] - $task->last_history_time->estimated_time ) > $min_time_exceeded ) {
+					if ( ! empty( $task_data['last_history_time'] ) && ! empty( $task_data['last_history_time']->id ) && ( $task_data['time_info']['elapsed'] - $task_data['last_history_time']->estimated_time ) > $min_time_exceeded ) {
 						$tasks_exceed_time[] = $task;
 					}
 
-					$task->time_displayed = \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] ) . ' / ' . \eoxia\Date_Util::g()->convert_to_custom_hours( $task->last_history_time->estimated_time );
-					$task->diff_time      = $task->time_info['elapsed'] - $task->last_history_time->estimated_time;
+					$task_data['time_displayed'] = \eoxia\Date_Util::g()->convert_to_custom_hours( $task_data['time_info']['elapsed'] ) . ' / ' . \eoxia\Date_Util::g()->convert_to_custom_hours( $task_data['last_history_time']->estimated_time );
+					$task_data['diff_time']      = $task_data['time_info']['elapsed'] - $task_data['last_history_time']->estimated_time;
 
 				} else {
-					if ( $task->time_info['elapsed'] > $min_time_exceeded ) {
+					if ( $task_data['time_info']['elapsed'] > $min_time_exceeded ) {
 						$tasks_exceed_time[] = $task;
 
-						$task->time_displayed = \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] );
-						$task->diff_time      = $task->time_info['elapsed'] - $min_time_exceeded;
+						$task_data['time_displayed'] = \eoxia\Date_Util::g()->convert_to_custom_hours( $task_data['time_info']['elapsed'] );
+						$task_data['diff_time']      = $task_data['time_info']['elapsed'] - $min_time_exceeded;
 					}
 				}
 
-				$task->time_exceeded_displayed = '';
+				$task_data['time_exceeded_displayed'] = '';
 
-				if ( ! empty( $task->diff_time ) ) {
-					$task->time_exceeded_displayed = \eoxia\Date_Util::g()->convert_to_custom_hours( $task->diff_time );
+				if ( ! empty( $task_data['diff_time'] ) ) {
+					$task_data['time_exceeded_displayed'] = \eoxia\Date_Util::g()->convert_to_custom_hours( $task_data['diff_time'] );
 				}
 			}
 		}
 
 		if ( ! empty( $tasks_exceed_time ) ) {
 			foreach ( $tasks_exceed_time as $task ) {
-				$task->task_parent = __( 'No parent', 'task-manager' );
+				$task_data['task_parent'] = __( 'No parent', 'task-manager' );
 
-				if ( ! empty( $task->parent_id ) ) {
-					$task->task_parent = get_post( $task->parent_id );
+				if ( ! empty( $task_data['parent_id'] ) ) {
+					$task_data['task_parent'] = get_post( $task_data['parent_id'] );
 				}
 			}
 		}

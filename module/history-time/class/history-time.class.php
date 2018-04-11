@@ -2,7 +2,7 @@
 /**
  * Gestion de l'historique du temps sur une tâche.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.3.4
  * @version 1.6.0
  * @copyright 2015-2018 Eoxia

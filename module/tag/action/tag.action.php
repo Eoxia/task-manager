@@ -2,7 +2,7 @@
 /**
  * Gestion des actions des catégories.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
  * @version 1.6.0
  * @copyright 2015-2017 Eoxia
@@ -310,7 +310,7 @@ class Tag_Action {
 			wp_send_json_error();
 		}
 
-		$term = wp_create_term( $tag_name, Tag_Class::g()->get_taxonomy() );
+		$term = wp_create_term( $tag_name, Tag_Class::g()->get_type() );
 		$category = Tag_Class::g()->get( array(
 			'include' => array( $term['term_id'] ),
 		), true );

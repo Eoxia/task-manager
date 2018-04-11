@@ -2,7 +2,7 @@
 /**
  * Les actions relatives aux notifications.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.5.0
  * @version 1.6.0
  * @copyright 2015-2018 Eoxia

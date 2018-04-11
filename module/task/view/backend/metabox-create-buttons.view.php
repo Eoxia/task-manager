@@ -2,7 +2,7 @@
 /**
  * La vue principale de la page des clients WPShop.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
  * @version 1.5.0
  * @copyright 2015-2017 Eoxia
@@ -24,7 +24,7 @@ $tag_list = \eoxia\Config_Util::$init['task-manager-wpshop']->quick_task_tags;
 	<?php
 	$tag_title = '';
 	if ( ! empty( $slug ) ) :
-		$tag_def = get_term_by( 'slug', $slug, Tag_Class::g()->get_taxonomy() );
+		$tag_def = get_term_by( 'slug', $slug, Tag_Class::g()->get_type() );
 
 		if ( ! $tag_def ) :
 			$tag_title = ' "' . $slug . '"';

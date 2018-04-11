@@ -2,7 +2,7 @@
 /**
  * Les propriétés d'un point.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.4.0-ford
  * @version 1.6.0
  * @copyright 2015-2018 Eoxia
