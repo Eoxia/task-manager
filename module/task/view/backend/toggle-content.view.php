@@ -83,10 +83,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<span><i class="fas fa-bell"></i></span>
 	</li>
 
-	<li class="action-attribute wpeo-tooltip-event" data-direction="top"
+	<li class="wpeo-modal-event wpeo-tooltip-event" data-direction="top"
 			aria-label="<?php esc_html_e( 'Export', 'task-manager' ); ?>"
-			data-action="export_task"
-			data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_task' ) ); ?>"
+			data-action="load_export_popup"
+			data-class="popup-export"
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_export_popup' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->data['id'] ); ?>"
 			data-loader="task-header-action">
 		<span><i class="fas fa-download"></i></span>
