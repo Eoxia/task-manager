@@ -93,19 +93,24 @@ window.eoxiaJS.taskManager.activity.getDataBeforeOpenPopup = function( element )
  * @return {void}
  *
  * @since 1.5.0
- * @version 1.5.0
+ * @version 1.6.0
  */
 window.eoxiaJS.taskManager.activity.loadedLastActivity = function( triggeredElement, response ) {
 	if ( triggeredElement.closest( '.wpeo-project-task' ).length ) {
 		triggeredElement.addClass( 'active' );
-		triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .load-more-history' ).show();
+
+		if ( response.data.end ) {
+			triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .load-more-history' ).hide();
+		} else {
+			triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .load-more-history' ).show();
+		}
+
 		triggeredElement.closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .list-display.active' ).removeClass( 'active' );
 		triggeredElement.closest( '.wpeo-project-task' ).find( '.points.sortable, .wpeo-task-point-use-toggle' ).hide();
 		triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .offset-event' ).val( response.data.offset );
 		triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .last-date' ).val( response.data.last_date );
 		triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .content' ).html( response.data.view );
 		triggeredElement.closest( '.wpeo-project-task' ).find( '.activities' ).show();
-		triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .load-more-history' ).show();
 	} else {
 		jQuery( '.popup.last-activity .content' ).html( response.data.view );
 		jQuery( '.popup.last-activity .container' ).removeClass( 'loading' );

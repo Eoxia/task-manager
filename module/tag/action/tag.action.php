@@ -5,7 +5,7 @@
  * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
  * @version 1.6.0
- * @copyright 2015-2017 Eoxia
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -24,8 +24,6 @@ class Tag_Action {
 	 * Instanciation des crochets pour les "actions" utilisées par les tags
 	 */
 	public function __construct() {
-		add_action( 'admin_init', array( $this, 'callback_admin_init' ) );
-
 		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 99 );
 		add_action( 'wp_ajax_to_archive', array( $this, 'ajax_to_archive' ) );
 		add_action( 'wp_ajax_to_unarchive', array( $this, 'ajax_to_unarchive' ) );
@@ -39,22 +37,6 @@ class Tag_Action {
 
 		/** Création d'un tag */
 		add_action( 'wp_ajax_create_tag', array( $this, 'ajax_create_tag' ) );
-	}
-
-	/**
-	 * Créer la catégorie "archive".
-	 *
-	 * @since 1.6.0
-	 * @version 1.6.0
-	 *
-	 * @return void
-	 */
-	public function callback_admin_init() {
-		$archive_term = get_term_by( 'slug', 'archive', Tag_Class::g()->get_type() );
-
-		if ( ! $archive_term ) {
-			wp_insert_term( 'archive', Tag_Class::g()->get_type() );
-		}
 	}
 
 	/**
