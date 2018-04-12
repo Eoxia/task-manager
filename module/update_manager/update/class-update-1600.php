@@ -110,7 +110,7 @@ class Update_1600 {
 
 		$timestamp_debut = microtime( true );
 		$done            = false;
-		$count_point     = ! empty( $_POST['total_number'] ) ? (int) $_POST['total_number'] : 0;
+		$total_number    = ! empty( $_POST['total_number'] ) ? (int) $_POST['total_number'] : 0;
 		$index           = ! empty( $_POST['done_number'] ) ? (int) $_POST['done_number'] : 0;
 
 		$task_schema  = Task_Class::g()->get_schema();
@@ -129,6 +129,7 @@ class Update_1600 {
 				$the_point_data['comment_ID']       = (int) $point->comment_ID;
 				$the_point_data['type']             = Point_Class::g()->get_type();
 				$the_point_data['comment_approved'] = ( ( '-34071' === $point->comment_approved ) || ( 'trash' === $point->comment_approved ) ? 'trash' : '1' );
+
 				$comment_update = wp_update_comment( $the_point_data );
 				if ( 0 === $comment_update ) {
 					\eoxia\LOG_Util::log( 'Update for comment #' . (int) $point->comment_ID . ' failed', 'task-manager' );
@@ -138,7 +139,6 @@ class Update_1600 {
 				}
 
 				// Mise à jour des metas du point.
-
 				// Nombre de commentaires.
 				$tm_count_comment = 0;
 				if ( ! empty( $point->comment_post_ID ) ) {
@@ -167,20 +167,20 @@ class Update_1600 {
 						$meta_name = $task_schema['count_completed_points']['field'];
 						update_comment_meta( (int) $point->comment_ID, $point_schema['completed']['field'], false );
 					}
-					$count_point = get_post_meta( $point->comment_post_ID, $meta_name, true );
+					$task_number_point = get_post_meta( $point->comment_post_ID, $meta_name, true );
 					if ( empty( $count_completed_point ) ) {
-						$count_point = 0;
+						$task_number_point = 0;
 					}
-					$count_point++;
-					update_post_meta( $point->comment_post_ID, $meta_name, $count_point );
+					$task_number_point++;
+					update_post_meta( $point->comment_post_ID, $meta_name, $task_number_point );
 				}
 			}
 		}
 
 		$index += self::$limit;
 
-		if ( $index >= $count_point ) {
-			$index = $count_point;
+		if ( $index >= $total_number ) {
+			$index = $total_number;
 			$done  = true;
 		}
 
@@ -191,10 +191,10 @@ class Update_1600 {
 		wp_send_json_success( array(
 			'updateComplete'     => false,
 			'done'               => $done,
-			'progression'        => $index . '/' . $count_point,
-			'progressionPerCent' => 0 !== $count_point ? ( ( $index * 100 ) / $count_point ) : 0,
+			'progression'        => $index . '/' . $total_number,
+			'progressionPerCent' => 0 !== $count_point_updated ? ( ( $index * 100 ) / $count_point_updated ) : 0,
 			// Translators: 1. Number of treated points 2. Previsionnal number of points to treat.
-			'doneDescription'    => sprintf( __( '%1$s points ( type, status ) updated on %2$s', 'task-manager' ), $index, $count_point ),
+			'doneDescription'    => sprintf( __( '%1$s points ( type, status ) updated on %2$s', 'task-manager' ), $index, $count_point_updated ),
 			'doneElementNumber'  => $index,
 			'errors'             => null,
 		) );
