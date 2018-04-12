@@ -128,7 +128,7 @@ class Update_1600 {
 				$comment_metas = get_comment_meta( (int) $point->comment_ID );
 
 				$the_point_data['comment_ID']       = (int) $point->comment_ID;
-				$the_point_data['type']             = Point_Class::g()->get_type();
+				$the_point_data['comment_type']     = Point_Class::g()->get_type();
 				$the_point_data['comment_approved'] = ( ( '-34071' === $point->comment_approved ) || ( 'trash' === $point->comment_approved ) ? 'trash' : '1' );
 
 				$comment_update = wp_update_comment( $the_point_data );
@@ -193,7 +193,7 @@ class Update_1600 {
 			'progression'        => $count_point_updated . '/' . $total_number,
 			'progressionPerCent' => 0 !== $count_point_updated ? ( ( $count_point_updated * 100 ) / $total_number ) : 0,
 			// Translators: 1. Number of treated points 2. Previsionnal number of points to treat.
-			'doneDescription'    => sprintf( __( '%1$s points ( type, status ) updated on %2$s', 'task-manager' ), $count_point_updated, $count_point_updated ),
+			'doneDescription'    => sprintf( __( '%1$s points ( type, status ) updated on %2$s', 'task-manager' ), $count_point_updated, $total_number ),
 			'doneElementNumber'  => $count_point_updated,
 			'errors'             => null,
 		) );
@@ -233,7 +233,7 @@ class Update_1600 {
 			$comment_filter = new Comment_Filter();
 			foreach ( $comments as $comment ) {
 				$the_comment_data['comment_ID']       = (int) $comment->comment_ID;
-				$the_comment_data['type']             = Task_Comment_Class::g()->get_type();
+				$the_comment_data['comment_type']     = Task_Comment_Class::g()->get_type();
 				$the_comment_data['comment_approved'] = ( ( '-34071' === $comment->comment_approved ) || ( 'trash' === $comment->comment_approved ) ? 'trash' : '1' );
 				$point_updates                        = wp_update_comment( $the_comment_data );
 				if ( 0 === $point_updates ) {
