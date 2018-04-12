@@ -54,6 +54,11 @@ class Update_1600 {
 	 */
 	public function callback_task_manager_update_1600_lost_datas() {
 		check_ajax_referer( 'task_manager_update_1600_lost_datas' );
+
+		// Supprimes l'option qui peut être déjà incrémenter et ne pas faire la mise à jour de toutes les données des points.
+		$delete_status = delete_option( '_tm_update_1600_point_updated' );
+		\eoxia\LOG_Util::log( 'Delete _tm_update_1600_point_updated with return status: ' . $delete_status, 'task-manager' );
+
 		$done_comments = 0;
 		$todo_comments = 0;
 
@@ -111,15 +116,11 @@ class Update_1600 {
 		$timestamp_debut = microtime( true );
 		$done            = false;
 		$total_number    = ! empty( $_POST['total_number'] ) ? (int) $_POST['total_number'] : 0;
-		$index           = ! empty( $_POST['done_number'] ) ? (int) $_POST['done_number'] : 0;
 
 		$task_schema  = Task_Class::g()->get_schema();
 		$point_schema = Point_Class::g()->get_schema();
 
-		$count_point_updated = get_option( '_tm_update_1600_point_updated', true );
-		if ( empty( $count_point_updated ) ) {
-			$count_point_updated = 0;
-		}
+		$count_point_updated = get_option( '_tm_update_1600_point_updated', 0 );
 
 		$points = $GLOBALS['wpdb']->get_results( self::prepare_request( 'COMMENT.comment_ID, COMMENT.comment_approved, COMMENT.comment_content, COMMENT.comment_post_ID', true, '=', Point_Class::g()->get_type() ) ); // WPCS: unprepared sql.
 		if ( ! empty( $points ) ) {
@@ -177,11 +178,9 @@ class Update_1600 {
 			}
 		}
 
-		$index += self::$limit;
-
-		if ( $index >= $total_number ) {
-			$index = $total_number;
-			$done  = true;
+		if ( $count_point_updated >= $total_number ) {
+			$count_point_updated = $total_number;
+			$done                = true;
 		}
 
 		$timestamp_fin = microtime( true );
@@ -191,11 +190,11 @@ class Update_1600 {
 		wp_send_json_success( array(
 			'updateComplete'     => false,
 			'done'               => $done,
-			'progression'        => $index . '/' . $total_number,
-			'progressionPerCent' => 0 !== $count_point_updated ? ( ( $index * 100 ) / $count_point_updated ) : 0,
+			'progression'        => $count_point_updated . '/' . $total_number,
+			'progressionPerCent' => 0 !== $count_point_updated ? ( ( $count_point_updated * 100 ) / $total_number ) : 0,
 			// Translators: 1. Number of treated points 2. Previsionnal number of points to treat.
-			'doneDescription'    => sprintf( __( '%1$s points ( type, status ) updated on %2$s', 'task-manager' ), $index, $count_point_updated ),
-			'doneElementNumber'  => $index,
+			'doneDescription'    => sprintf( __( '%1$s points ( type, status ) updated on %2$s', 'task-manager' ), $count_point_updated, $count_point_updated ),
+			'doneElementNumber'  => $count_point_updated,
 			'errors'             => null,
 		) );
 	}
@@ -407,8 +406,15 @@ class Update_1600 {
 				$archive_id = (int) $archive_term->term_id;
 			}
 		}
+
 		if ( ! empty( $archive_id ) ) {
-			wp_delete_term( $archive_id, 'wpeo_tag' );
+			$deleted_archive_state = wp_delete_term( $archive_id, 'wpeo_tag' );
+
+			if ( ! is_wp_error( $deleted_archive_state ) ) {
+				\eoxia\LOG_Util::log( 'Tag archive has beed deleted with return state: ' . $deleted_archive_state, 'task-manager' );
+			} else {
+				\eoxia\LOG_Util::log( 'Tag archive has beed deleted with return state: ' . wp_json_encode( $deleted_archive_state ), 'task-manager' );
+			}
 		}
 
 		wp_send_json_success( array(
