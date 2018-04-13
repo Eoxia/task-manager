@@ -37,7 +37,6 @@
   /*--------------------------------------------------------------
 	# Modules
 	--------------------------------------------------------------*/
-  /* Different colors define by classname for the tasks */
   /*--------------------------------------------------------------
 	# Elements
 	--------------------------------------------------------------*/
@@ -322,9 +321,6 @@
 .wpeo-project-wrap textarea:hover {
   border-bottom: 1px solid rgba(0, 0, 0, 0.6); }
 
-.wpeo-project-wrap .list-task input[type="text"], .wpeo-project-wrap .list-task textarea {
-  background-color: transparent; }
-
 .wpeo-project-wrap a[disabled="disabled"] {
   pointer-events: none;
   text-decoration: none;
@@ -336,128 +332,6 @@
 .wpeo-project-wrap .disabled {
   opacity: 0.4;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)"; }
-
-.wpeo-project-wrap .list-task .task-header-action .task-color .white {
-  background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.2); }
-
-.wpeo-project-wrap .list-task .task-header-action .task-color .red {
-  background: #ffc9ca;
-  border: 1px solid #ff4246; }
-
-.wpeo-project-wrap .list-task .task-header-action .task-color .yellow {
-  background: #fff1bd;
-  border: 1px solid #ffbd41; }
-
-.wpeo-project-wrap .list-task .task-header-action .task-color .green {
-  background: #dfffd8;
-  border: 1px solid #35c54e; }
-
-.wpeo-project-wrap .list-task .task-header-action .task-color .blue {
-  background: #d5eaff;
-  border: 1px solid #389af6; }
-
-.wpeo-project-wrap .list-task .task-header-action .task-color .purple {
-  background: #e6d2ff;
-  border: 1px solid #7c41c7; }
-
-.wpeo-project-wrap .list-task .task-header-action .task-color .color-element > * {
-  -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out; }
-
-.wpeo-project-wrap .list-task .task-header-action .task-color .color-element > *:hover {
-  border: 1px solid rgba(0, 0, 0, 0.6); }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-project-task-container, .wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-task-point-use-toggle p, .wpeo-project-wrap .list-task .wpeo-project-task.white .points .point {
-  background: #fff; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-main-user li:last-child a {
-  background: #389af6; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-main-user li:last-child a:hover {
-  background: #69b3f8; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-point-new-btn, .wpeo-project-wrap .list-task .wpeo-project-task.white textarea:focus, .wpeo-project-wrap .list-task .wpeo-project-task.white textarea.active, .wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-task-point-completed input[type=checkbox]:checked:before, .wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-tag-add-tag {
-  color: #389af6; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.white .wpeo-point-new-btn:hover {
-  color: #0967bf; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-project-task-container, .wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-task-point-use-toggle p, .wpeo-project-wrap .list-task .wpeo-project-task.red .points .point {
-  background: #ffc9ca; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-main-user li:last-child a {
-  background: #ff4246; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-main-user li:last-child a:hover {
-  background: #ff7578; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-point-new-btn, .wpeo-project-wrap .list-task .wpeo-project-task.red textarea:focus, .wpeo-project-wrap .list-task .wpeo-project-task.red textarea.active, .wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-task-point-completed input[type=checkbox]:checked:before, .wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-tag-add-tag {
-  color: #ff4246; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.red .wpeo-point-new-btn:hover {
-  color: #db0005; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-project-task-container, .wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-task-point-use-toggle p, .wpeo-project-wrap .list-task .wpeo-project-task.yellow .points .point {
-  background: #fff1bd; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-main-user li:last-child a {
-  background: #ffbd41; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-main-user li:last-child a:hover {
-  background: #ffcf74; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-point-new-btn, .wpeo-project-wrap .list-task .wpeo-project-task.yellow textarea:focus, .wpeo-project-wrap .list-task .wpeo-project-task.yellow textarea.active, .wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-task-point-completed input[type=checkbox]:checked:before, .wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-tag-add-tag {
-  color: #ffbd41; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.yellow .wpeo-point-new-btn:hover {
-  color: #da8e00; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-project-task-container, .wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-task-point-use-toggle p, .wpeo-project-wrap .list-task .wpeo-project-task.green .points .point {
-  background: #dfffd8; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-main-user li:last-child a {
-  background: #35c54e; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-main-user li:last-child a:hover {
-  background: #5ad36f; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-point-new-btn, .wpeo-project-wrap .list-task .wpeo-project-task.green textarea:focus, .wpeo-project-wrap .list-task .wpeo-project-task.green textarea.active, .wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-task-point-completed input[type=checkbox]:checked:before, .wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-tag-add-tag {
-  color: #35c54e; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.green .wpeo-point-new-btn:hover {
-  color: #1f752e; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-project-task-container, .wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-task-point-use-toggle p, .wpeo-project-wrap .list-task .wpeo-project-task.blue .points .point {
-  background: #d5eaff; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-main-user li:last-child a {
-  background: #389af6; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-main-user li:last-child a:hover {
-  background: #69b3f8; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-point-new-btn, .wpeo-project-wrap .list-task .wpeo-project-task.blue textarea:focus, .wpeo-project-wrap .list-task .wpeo-project-task.blue textarea.active, .wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-task-point-completed input[type=checkbox]:checked:before, .wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-tag-add-tag {
-  color: #389af6; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.blue .wpeo-point-new-btn:hover {
-  color: #0967bf; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-project-task-container, .wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-task-point-use-toggle p, .wpeo-project-wrap .list-task .wpeo-project-task.purple .points .point {
-  background: #e6d2ff; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-main-user li:last-child a {
-  background: #7c41c7; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-main-user li:last-child a:hover {
-  background: #9768d3; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-point-new-btn, .wpeo-project-wrap .list-task .wpeo-project-task.purple textarea:focus, .wpeo-project-wrap .list-task .wpeo-project-task.purple textarea.active, .wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-task-point-completed input[type=checkbox]:checked:before, .wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-tag-add-tag {
-  color: #7c41c7; }
-
-.wpeo-project-wrap .list-task .wpeo-project-task.purple .wpeo-point-new-btn:hover {
-  color: #4c257d; }
 
 .wpeo-project-wrap .wpeo-no-display {
   display: none; }
@@ -1541,9 +1415,6 @@
 .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-date input, .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-time input {
   font-size: 12px; }
 
-.wpeo-project-wrap .wpeo-point-comment-edit .wpeo-point-time-elapsed {
-  width: 40px; }
-
 .wpeo-project-wrap #tm-indicator-activity .inside {
   margin: 0;
   padding: 0; }
@@ -1706,7 +1577,7 @@
   text-decoration: none; }
 
 .wpeo-project-wrap .activities .activity.completed-point .information .type {
-  background: #35c54e;
+  background: #47e58e;
   color: #fff; }
 
 .wpeo-project-wrap .activities .activity.completed-point .content .event-title {
@@ -2206,17 +2077,6 @@
 #tm-indicator-time-exceeded label i {
   margin-right: 0.4em; }
 
-#wpeo-task-metabox.closed h2 span a.page-title-action {
-  display: none; }
-
-#wpeo-task-metabox h2 span a.page-title-action {
-  top: 0px; }
-
 /*--------------------------------------------------------------
 # Modules externes du Framework
 --------------------------------------------------------------*/
-.ui-autocomplete {
-  z-index: 99999 !important; }
-
-.xdsoft_datetimepicker {
-  z-index: 100000 !important; }

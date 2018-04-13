@@ -1,0 +1,36 @@
+.popup-export {
+	.tm_export_form_container {
+		float: left;
+		width: 30%;
+	}
+	.tm_export_date_container {
+		&:after {
+			display: table;
+			content: "";
+			clear: both;
+		}
+		> :first-child {
+			float: left;
+			margin: 5px 15px 5px 0;
+		}
+		> :last-child {
+			float: left;
+			margin: 5px 0 5px 15px;
+		}
+		input[class="mysql-date"] {
+			width: 0px;
+			height: 0px;
+			border: 0px solid #FFF;
+		}
+	}
+
+	.tm_export_result_container {
+		float: left;
+		width: 65%;
+
+		textarea {
+			width: 100%;
+			height: 400px;
+		}
+	}
+}

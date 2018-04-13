@@ -1,0 +1,133 @@
+.list-task {
+	clear: both;
+}
+
+.wpeo-project-task .wpeo-task-header {
+	padding: 10px 14px;
+	display: flex;
+	flex-direction: row;
+
+	&::after {
+		display: block;
+		content: '';
+		clear: both;
+	}
+
+	li {
+		margin: auto;
+	}
+
+	.wpeo-task-author {
+		padding-right: 8px;
+		.user {
+			border-radius: 50%;
+			overflow: hidden;
+			img {
+				border-radius: 50%;
+			}
+			&:hover {
+				cursor: pointer;
+			}
+		}
+		.toggle .content {
+			max-width: 150px;
+			display: flex;
+			flex-wrap: wrap;
+			li {
+				width: 50px;
+			}
+		}
+	}
+
+	.wpeo-task-id {
+		width: 12%;
+		font-weight: 700;
+	}
+	.wpeo-task-title {
+		width: 78%;
+		padding: 0 0 0 8px;
+		input {
+			font-weight: 300;
+			width: 100%;
+			font-size: 20px;
+		}
+	}
+	.wpeo-task-setting {
+		width: 10%;
+		position: relative;
+		text-align: right;
+		.wpeo-task-open-action {
+			padding: 0 6px;
+			color: rgba(0,0,0,0.2);
+			transition: all 0.2s ease-out;
+			&:hover {
+				cursor: pointer;
+				color: rgba(0,0,0,0.4);
+			}
+		}
+		@keyframes taskOptionAnimation {
+			from { opacity: 0; top: 26px; }
+			to { opacity: 1; top: 30px; }
+		}
+	}
+}
+
+.wpeo-project-task .wpeo-task-time-manage {
+	background: rgba(0,0,0,0.05);
+	padding: 10px 14px;
+	display: flex;
+	flex-direction: row;
+	border-bottom: 1px solid rgba(0,0,0,0.2);
+	li {
+		padding: 0 8px 0 0;
+		margin: auto 0;
+		span {
+			margin: auto 0;
+		}
+	}
+	.wpeo-task-date, .wpeo-task-elapsed {
+		.dashicons {
+			float: left;
+			margin-right: 6px;
+		}
+	}
+	li.wpeo-task-time-history {
+		padding: 0;
+		font-size: 16px;
+		color: rgba(0,0,0,0.4);
+		transition: all 0.2s ease-out;
+		&:hover {
+			cursor: pointer;
+			color: rgba(0,0,0,0.6);
+		}
+	}
+	li.display-method-buttons {
+		margin-left: auto;
+		.list-display, .grid-display {
+			width: 26px;
+			height: 26px;
+			line-height: 26px;
+			text-align: center;
+			background: rgba(0,0,0,0.1);
+			color: rgba(0,0,0,0.4);
+			transition: all 0.2s ease-out;
+			&:hover {
+				cursor: pointer;
+				background: rgba(0,0,0,0.2);
+			}
+			&.active {
+				background: $main-color;
+				color: #fff;
+				&:hover {
+					background: lighten($main-color, 10%);
+				}
+			}
+		}
+	}
+}
+
+.wpeo-task-selected {
+	.task-marker {
+		opacity: 1;
+	}
+}

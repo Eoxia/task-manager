@@ -1,0 +1,173 @@
+.activities {
+	> .content {
+		padding: 1em;
+	}
+	/* Jour */
+	.day {
+		position: relative;
+		padding: 0.6em 0;
+		clear: both;
+		.label {
+			font-size: 12px;
+			font-weight: 900;
+			color: #000;
+			text-transform: uppercase;
+			display: inline-block;
+			background: #fff;
+			position: relative;
+			z-index: 50;
+			padding-right: 1em;
+		}
+		&:after {
+			display: block;
+			content: '';
+			height: 1px;
+			width: 100%;
+			position: absolute;
+			top: 50%;
+			left: 0;
+			background: rgba(0,0,0,0.05);
+		}
+	}
+
+	/* Activity single */
+	.activity {
+		padding: 0.6em 0 1.6em 0;
+		display: flex;
+		flex-direction: row;
+
+		.information {
+			width: 100%;
+			max-width: 50px;
+			position: relative;
+			.user {
+				border-radius: 50%;
+				border: 2px solid #fff;
+				z-index: 50;
+				img, .wpeo-avatar-initial {
+					border-radius: 50%;
+				}
+			}
+			.type {
+				display: block;
+				width: 22px;
+				height: 22px;
+				background: rgba(0,0,0,0.1);
+				color: rgba(0,0,0,0.5);
+				line-height: 22px;
+				text-align: center;
+				font-size: 14px;
+				position: absolute;
+				top: 0;
+				right: 4px;
+				border-radius: 4px;
+				&:before {
+					font-family: FontAwesome;
+				}
+			}
+		}
+		.content {
+			width: 100%;
+			padding-left: 1em;
+			margin: auto 0;
+
+			.event-header {
+				display: flex;
+
+				.dashicons {
+					font-size: 16px;
+					line-height: 1;
+					width: 14px;
+					height: 14px;
+					vertical-align: top !important;
+				}
+
+				.event-time {
+					margin-left: auto;
+					text-align: right;
+					i {
+						color: rgba(0,0,0,0.7);
+					}
+				}
+			}
+			.event-title, .event-client, .event-task, .event-point {
+				font-weight: 700;
+				display: block;
+				margin-bottom: 0.4em;
+				padding-right: 0.2em;
+				color: rgba(0,0,0,0.8);
+				a {
+					color: rgba(0,0,0,0.5);
+					transition: all 0.2s ease-out;
+					text-decoration: none;
+					&:hover {
+						color: rgba(0,0,0,0.8);
+					}
+				}
+			}
+			.event-content {
+				font-family: 'kalamregular';
+				color: rgba(0,0,0,0.9);
+				a {
+					color: rgba(0,0,0,0.9);
+					text-decoration: none;
+				}
+			}
+		}
+
+		/* Point crée */
+		&.created-point {
+			.information .type:before {
+				// content: $fa-var-list-ul;
+			}
+		}
+		/* Commentaire crée */
+		&.created-comment {
+			.information .type:before {
+				// content: $fa-var-commenting-o;
+			}
+		}
+		/* Point validé */
+		&.completed-point {
+			.information .type {
+				background: $green;
+				color: #fff;
+				&:before {
+					// content: $fa-var-check;
+				}
+			}
+			.content .event-title {
+				text-decoration: line-through;
+			}
+		}
+	}
+}
+
+.activities {
+	/* bouton load more */
+	.load-more-history {
+		background: $main-color;
+		border: 0;
+		box-shadow: none;
+		display: block;
+		margin: 0.4em auto;
+		color: #fff;
+		padding: 0.6em;
+		transition: all 0.2s ease-out;
+		&:hover {
+			cursor: pointer;
+			background: lighten($main-color, 10%);
+		}
+	}
+}
+
+/* Page indicateurs */
+.daily-activity {
+	.event-header [class*="event"] {
+		width: 25%;
+		i {
+			margin-right: 0.4em;
+			color: rgba(0,0,0,0.3);
+		}
+	}
+}
