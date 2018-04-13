@@ -17,13 +17,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="search-results">
 	<?php if ( ! empty( $have_search ) ) : ?>
 		<h3>
-			<?php esc_html_e( 'Results', 'task-manager' ); ?>
+			<?php esc_html_e( 'Search criteria: ', 'task-manager' ); ?>
 
 			<?php
 			if ( 'any' === $status ) :
-				esc_html_e( ' in all tasks ', 'task-manager' );
+				esc_html_e( ' all tasks ', 'task-manager' );
 			elseif ( 'archive' === $status ) :
-				esc_html_e( ' in archived tasks', 'task-manager' );
+				esc_html_e( ' archived tasks', 'task-manager' );
 			endif;
 			?>
 
