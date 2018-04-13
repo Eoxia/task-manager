@@ -94,6 +94,8 @@ window.eoxiaJS.taskManager.quickTime.addedConfigQuickTime = function( triggeredE
 	el.fadeIn();
 
 	triggeredElement.closest( '.form' ).replaceWith( response.data.form_view );
+
+	jQuery( "#tm-indicator-quick-task .inside" ).html( response.data.metabox_view );
 };
 
 /**
@@ -108,6 +110,8 @@ window.eoxiaJS.taskManager.quickTime.addedConfigQuickTime = function( triggeredE
  */
 window.eoxiaJS.taskManager.quickTime.deletedConfigQuickTime = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.item' ).fadeOut();
+
+	jQuery( "#tm-indicator-quick-task .inside" ).html( response.data.metabox_view );
 };
 
 /**

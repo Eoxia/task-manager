@@ -202,12 +202,17 @@ class Quick_Time_Action {
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/setting/form', array() );
 		$form_view = ob_get_clean();
+
+		ob_start();
+		Quick_Time_Class::g()->display();
+		$metabox_view = ob_get_clean();
 		wp_send_json_success( array(
 			'namespace'        => 'taskManager',
 			'module'           => 'quickTime',
 			'callback_success' => 'addedConfigQuickTime',
 			'new_item_view'    => $new_item_view,
 			'form_view'        => $form_view,
+			'metabox_view'     => $metabox_view,
 		) );
 	}
 
@@ -241,10 +246,14 @@ class Quick_Time_Action {
 
 		update_user_meta( get_current_user_id(), \eoxia\Config_Util::$init['task-manager']->quick_time->meta_quick_time, $quicktimes );
 
+		ob_start();
+		Quick_Time_Class::g()->display();
+		$metabox_view = ob_get_clean();
 		wp_send_json_success( array(
 			'namespace'        => 'taskManager',
 			'module'           => 'quickTime',
 			'callback_success' => 'deletedConfigQuickTime',
+			'metabox_view'     => $metabox_view,
 		) );
 	}
 }
