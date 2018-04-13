@@ -16,30 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Met à jour l'ordre des points
- *
- * @param  Point_Model $point Les données du point.
- *
- * @return Point_Model Les données du point modifié
- *
- * @since 1.0.0
- * @version 1.4.0-ford
- */
-function update_post_order( $point ) {
-	if ( ! empty( $point->data['post_id'] ) ) {
-		$task = Task_Class::g()->get( array(
-			'id' => $point->data['post_id'],
-		), true );
-
-		$task->data['task_info']['order_point_id'][] = (int) $point->id;
-
-		Task_Class::g()->update( $task );
-	}
-
-	return $point;
-}
-
-/**
  * Récupères toutes les données du point
  *
  * @param  Point_Model $point Les données du point.

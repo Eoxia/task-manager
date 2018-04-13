@@ -76,7 +76,6 @@ class Export_Action {
 		);
 
 		if ( 'by_date' === $export_type && ( null !== $date_from || null !== $date_to ) ) {
-			$point_id_list = implode( ',', $task->data['task_info']['order_point_id'] );
 			$query         = $GLOBALS['wpdb']->prepare(
 				"SELECT GROUP_CONCAT( DISTINCT( P.comment_ID ) ) AS pointsID
 				FROM {$GLOBALS['wpdb']->comments} AS P

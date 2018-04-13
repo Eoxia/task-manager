@@ -157,10 +157,6 @@ class Point_Action {
 			'id' => $point->data['post_id'],
 		), true );
 
-		if( ( $key = array_search( $point_id, $task->data['task_info']['order_point_id'] ) ) !== false ) {
-			array_splice( $task->data['task_info']['order_point_id'], $key, 1 );
-		}
-
 		$task->data['time_info']['elapsed'] = $task->data['time_info']['elapsed'] - $point->data['time_info']['elapsed'];
 
 		if ( $point->data['completed'] ) {
