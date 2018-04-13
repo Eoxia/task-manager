@@ -13,4 +13,4 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} ?><p><?php echo '#' . $element->id . ' ' . $element->content; ?></p>
+} ?><p><?php echo '#' . $element->data['id'] . ' ' . $element->data['content']; ?></p>
