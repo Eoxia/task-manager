@@ -194,7 +194,7 @@ class Quick_Time_Action {
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/setting/item', array(
-			'key'        => $task_id . '-' . $point_id,
+			'key'        => key( end( $meta ) ),
 			'quick_time' => $data,
 		) );
 		$new_item_view = ob_get_clean();
