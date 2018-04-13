@@ -52,6 +52,7 @@ class Search_Bar_Shortcode {
 		array_unshift( $followers, $empty_user );
 		$param = shortcode_atts( array(
 			'term'                   => '',
+			'status'                 => 'any',
 			'categories_id_selected' => array(),
 			'follower_id_selected'   => array(),
 		), $param, 'task_manager_search_bar' );

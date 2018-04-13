@@ -2,21 +2,30 @@
 /**
  * Affichage des critères de recherche.
  *
- * @package Task Manager
- * @subpackage Module/Tag
+ * @since 1.0.0
+ * @version 1.6.0
  *
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @package Task_Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} ?>
 
 <div class="search-results">
 	<?php if ( ! empty( $have_search ) ) : ?>
 		<h3>
 			<?php esc_html_e( 'Results', 'task-manager' ); ?>
+
+			<?php
+			if ( 'any' === $status ) :
+				esc_html_e( ' in all tasks ', 'task-manager' );
+			elseif ( 'archive' === $status ) :
+				esc_html_e( ' in archived tasks', 'task-manager' );
+			endif;
+			?>
 
 			<?php
 			if ( ! empty( $term ) ) :
