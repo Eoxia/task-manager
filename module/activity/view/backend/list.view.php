@@ -32,7 +32,21 @@ if ( ! empty( $datas ) ) :
 						<div class="activity <?php echo esc_attr( $element->data['view'] ); ?>">
 							<div class="information">
 								<?php echo do_shortcode( '[task_avatar ids="' . $element->data['displayed_author_id'] . '" size="30"]' ); ?>
-								<span class="type"></span>
+								<span class="type <?php echo $element->data['view']; ?>">
+									<?php
+									switch ( $element->data['view'] ) {
+										case 'created-comment':
+											echo '<i class="far fa-comments"></i>';
+											break;
+										case 'created-point':
+											echo '<i class="far fa-list-ul"></i>';
+											break;
+										case 'completed-point':
+											echo '<i class="far fa-check"></i>';
+											break;
+									}
+									?>
+								</span>
 								<span class="time-posted"><?php echo esc_html( substr( $time, 0, -3 ) ); ?></span>
 							</div>
 							<div class="content"> <?php

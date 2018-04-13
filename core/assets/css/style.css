@@ -10,6 +10,13 @@
 /* Bleu fonce, couleur de l'interface */
 /* Autres couleurs */
 /** Temporaires en attente de EO-Framework **/
+@font-face {
+  font-family: 'kalamregular';
+  src: url("../font/kalam-regular-webfont.eot");
+  src: url("../font/kalam-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../font/kalam-regular-webfont.woff2") format("woff2"), url("../font/kalam-regular-webfont.woff") format("woff"), url("../font/kalam-regular-webfont.ttf") format("truetype"), url("../font/kalam-regular-webfont.svg#kalamregular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
 .wpeo-project-wrap {
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
@@ -59,14 +66,6 @@
 @media (max-width: 480px) {
   .wpeo-project-wrap {
     padding-right: 0; } }
-
-@font-face {
-  .wpeo-project-wrap {
-    font-family: 'kalamregular';
-    src: url("../font/kalam-regular-webfont.eot");
-    src: url("../font/kalam-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../font/kalam-regular-webfont.woff2") format("woff2"), url("../font/kalam-regular-webfont.woff") format("woff"), url("../font/kalam-regular-webfont.ttf") format("truetype"), url("../font/kalam-regular-webfont.svg#kalamregular") format("svg");
-    font-weight: normal;
-    font-style: normal; } }
 
 .wpeo-project-wrap p,
 .wpeo-project-wrap blockquote,
