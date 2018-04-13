@@ -1811,7 +1811,7 @@
   display: block; }
 
 .popup-notification > .modal-container {
-  max-width: 460px; }
+  max-width: 800px; }
 
 .popup-notification ul:after {
   display: block;
