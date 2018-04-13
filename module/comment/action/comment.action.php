@@ -216,10 +216,13 @@ class Task_Comment_Action {
 			wp_send_json_error();
 		}
 
-		$comment = Task_Comment_Class::g()->update( array(
-			'id'     => $comment_id,
-			'status' => 'trash',
-		) );
+		$comment = Task_Comment_Class::g()->get( array(
+			'id' => $comment_id,
+		), true );
+
+		$comment->data['status'] = 'trash';
+
+		$comment = Task_Comment_Class::g()->update( $comment->data );
 
 		$comment->data['point']->data['count_comments']--;
 
