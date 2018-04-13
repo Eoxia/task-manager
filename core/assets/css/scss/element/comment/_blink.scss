@@ -1,0 +1,34 @@
+/* ----------------------------------
+		Temporaire pour le blink
+-----------------------------------*/
+#tm-indicator-activity {
+	.inside {
+		margin: 0;
+		padding: 0;
+	}
+	.total-time {
+		position: absolute;
+		top: -28px;
+		right: 40px;
+	}
+	.filter-activity {
+		background: rgba(0,0,0,0.1);
+		padding: 0.6em;
+	}
+	label {
+		color: rgba(0,0,0,0.5);
+
+		i {
+			margin-right: 0.4em;
+		}
+	}
+}
+
+body .wpeo-project-wrap {
+	.blink {
+		display: block;
+		width: 100%;
+		background-color: $main-color-light;
+		opacity: 1;
+	}
+}

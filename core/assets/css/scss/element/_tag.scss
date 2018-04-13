@@ -1,0 +1,55 @@
+.wpeo-tag-wrap {
+	display: flex;
+	flex-wrap: wrap;
+	background: rgba(0,0,0,0.05);
+	border-top: 1px solid rgba(0,0,0,0.2);
+	&::after {
+		display: block;
+		content: '';
+		clear: both;
+	}
+	.wpeo-tag {
+		background: rgba(0,0,0,0.1);
+		padding: 8px 16px;
+		color: rgba(0,0,0,0.6);
+		font-size: 12px;
+		transition: all 0.2s ease-out;
+		&.active {
+			background: $a;
+			color: #fff;
+		}
+		// Icon save edition of tag
+		&.edit {
+			margin-left: auto;
+			margin-right: 0;
+			background: $a;
+			color: #fff;
+			height: auto;
+			width: auto;
+			padding: 8px;
+			text-align: center;
+			line-height: 1.5;
+		}
+		// Icon add other tag
+		&.add {
+			border-radius: 30px;
+			transform: scale(0.8);
+			font-size: 14px;
+			&:hover {
+				cursor: pointer;
+				background: rgba(0,0,0,0.2);
+			}
+		}
+	}
+	&.edit {
+		.wpeo-tag {
+			&:hover {
+				cursor: pointer;
+				background: rgba(0,0,0,0.2);
+			}
+			&.active:hover, &.edit:hover {
+				background: $dark_a;
+			}
+		}
+	}
+}

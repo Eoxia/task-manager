@@ -1,0 +1,167 @@
+#tm-indicator-quick-task {
+	.setting-quick-time-button {
+		position: absolute;
+		right: 30px;
+		top: 2px;
+		padding: 5px;
+		line-height: 1;
+		border-radius: 6px;
+	}
+	.inside {
+		padding: 0;
+		margin: 0;
+		position: static;
+	}
+	.list {
+		border-collapse: collapse;
+		> thead {
+			background: #fff;
+			color: rgba(0,0,0,0.8);
+			border-bottom: 1px solid rgba(0,0,0,0.1);
+		}
+		td, th {
+			padding: 0.4em 1em;
+			vertical-align: middle;
+		}
+		.item {
+			&:nth-child(odd) {
+				background: rgba(0,0,0,0.1);
+			}
+			&:nth-child(even) {
+				background: #fff;
+			}
+		}
+		.task, .point {
+			width: 15%;
+			max-width: 15%;
+		}
+		.min {
+			width: 10%;
+			max-width: 10%;
+			> div {
+				display: flex;
+			}
+			.fa {
+				margin: auto 0;
+				padding-right: 0.4em;
+			}
+		}
+		.action {
+			width: 5%;
+			max-width: 5%;
+			text-align: right;
+		}
+		.content {
+			width: 55%;
+			max-width: 55%;
+		}
+		input[type="text"], textarea {
+			width: 100%;
+			border: 1px solid rgba(0,0,0,0.2);
+			padding: 0.4em;
+			&:focus {
+				border: 1px solid rgba(0,0,0,0.4);
+			}
+		}
+	}
+	.wpeo-button {
+		margin: 0 1em 1em 0;
+	}
+
+}
+
+
+.setting-quick-time {
+	.list {
+		ul, li {
+			margin: 0;
+		}
+		ul {
+			display: flex;
+			> li {
+				padding: 0.4em;
+			}
+		}
+		.item.form {
+			margin-bottom: 1em;
+		}
+		.item:not(.form) {
+			.task {
+				font-weight: 700;
+			}
+		}
+		.task, .point {
+			width: 20%;
+			max-width: 20%;
+		}
+		.actions {
+			width: 5%;
+			max-width: 5%;
+			text-align: right;
+		}
+		.content {
+			width: 60%;
+			max-width: 60%;
+		}
+		input[type="text"], select, textarea {
+			width: 100%;
+			padding: 0.6em;
+			margin: auto 0;
+			height: 38px;
+		}
+		.action-delete {
+			background: #adadad;
+			border-color: #adadad;
+			color: #fff;
+			font-size: 14px;
+		}
+		.button-square-20 {
+			width: 20px;
+			height: 20px;
+			line-height: 20px;
+		}
+	}
+}
+
+#tm-indicator-quick-task, .popup-quick-time {
+	.content {
+		.wpeo-button {
+			float: right;
+		}
+
+		&:after {
+			display: block;
+			content: '';
+			clear: both;
+		}
+	}
+}
+
+#tm-indicator-time-exceeded {
+	.inside {
+		margin: 0;
+		padding: 0;
+	}
+	.filter-exceeded-time {
+		background: rgba(0,0,0,0.1);
+		padding: 0.6em;
+
+		#min_exceeded_time {
+			width: 50px;
+		}
+	}
+	label {
+		color: rgba(0,0,0,0.5);
+
+		i {
+			margin-right: 0.4em;
+		}
+	}
+}
+
+#wpeo-task-metabox.closed h2 span a.page-title-action {
+	display: none;
+}
+#wpeo-task-metabox h2 span a.page-title-action {
+	top: 0px;
+}

@@ -7,12 +7,12 @@ $dark_a: #1360c8;
 $grey: #d6d6d6;
 $green: #47e58e;
 
-@import "animation";
+// @import "animation";
 @import "font/font";
-@import "loader";
-@import "tooltip";
-@import "popup";
-@import "theme";
+// @import "loader";
+// @import "tooltip";
+// @import "popup";
+@import "module/theme";
 
 @font-face {
     font-family: 'kalamregular';
