@@ -36,7 +36,6 @@ window.eoxiaJS.taskManager.taskExport.loadedExportPopup = function( triggeredEle
  * @return {[type]}        [description]
  */
 window.eoxiaJS.taskManager.taskExport.afterTriggerChangeDate = function( $input ) {
-
 	$input.closest( '.group-date' ).find( '.date-display' ).html( $input.val() );
 };
 
@@ -52,4 +51,18 @@ window.eoxiaJS.taskManager.taskExport.displayDateForExport = function( triggered
 	} else {
 		jQuery( '.tm_export_date_container' ).hide();
 	}
+};
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "export_task".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.3.6
+ * @version 1.6.0
+ */
+window.eoxiaJS.taskManager.taskExport.exportedTask = function( triggeredElement, response ) {
+	jQuery( '.tm_export_result_container' ).find( 'textarea' ).html( response.data.content );
 };
