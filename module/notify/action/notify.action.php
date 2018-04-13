@@ -70,10 +70,15 @@ class Notify_Action {
 			'task'        => $task,
 			'affected_id' => $affected_id,
 		) );
-
+		$popup_view = ob_get_clean();
+		ob_start();
+		\eoxia\View_Util::exec( 'task-manager', 'notify', 'backend/button', array(
+			'task' => $task,
+		) );
+		$buttons_view = ob_get_clean();
 		wp_send_json_success( array(
-			'view'         => ob_get_clean(),
-			'buttons_view' => '',
+			'view'         => $popup_view,
+			'buttons_view' => $buttons_view,
 		) );
 	}
 

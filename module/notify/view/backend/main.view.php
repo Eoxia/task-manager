@@ -37,10 +37,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</ul>
 </div>
 
-<?php echo apply_filters( 'task_manager_popup_notify_after', '', $task ); ?>
-
-<button class="action-input send-notification"
-			data-parent="wpeo-modal"
-			data-action="send_notification"
-			data-nonce="<?php echo esc_attr( wp_create_nonce( 'send_notification' ) ); ?>"
-			data-id="<?php echo esc_attr( $task->data['id'] ); ?>"><?php echo esc_html_e( 'Send notification', 'task-manager' ); ?></button>
+<?php
+echo wp_kses( apply_filters( 'task_manager_popup_notify_after', '', $task ), array(
+	'h2'   => array(),
+	'h3'   => array(
+		'style' => array(),
+	),
+	'div'  => array(
+		'style'      => array(),
+		'class'      => array(),
+		'aria-label' => array(),
+	),
+	'p'    => array(
+		'style' => array(),
+	),
+	'span' => array(
+		'style' => array(),
+	),
+	'br'   => array(
+		'style' => array(),
+	),
+	'ul'   => array(
+		'class' => array(),
+	),
+	'li'   => array(
+		'class'   => array(),
+		'data-id' => array(),
+		'style'   => array(),
+	),
+	'img'  => array(
+		'class' => array(),
+		'src'   => array(),
+	),
+) );

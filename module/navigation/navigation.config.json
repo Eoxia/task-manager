@@ -1,6 +1,7 @@
 {
 	"name": "La barre de navigation",
 	"slug": "navigation",
+	"since": "1.6.0",
 	"version": "1.6.0",
 	"description": "Le module gérant la barre de navigation",
 	"path": "module/navigation/",

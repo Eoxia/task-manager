@@ -61,17 +61,6 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 	protected $status = '1';
 
 	/**
-	 * Définition des fonctions de callback pour l'élément.
-	 *
-	 * @var  array
-	 */
-	protected $callback_func = array(
-		'after_get'  => array( '\task_manager\calcul_elapsed_time' ),
-		'after_put'  => array( '\task_manager\compile_time' ),
-		'after_post' => array( '\task_manager\compile_time' ),
-	);
-
-	/**
 	 * Récupères les commentaires d'un point.
 	 *
 	 * @since 1.4.0-ford

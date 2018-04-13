@@ -27,7 +27,7 @@ class Time_Exceeded_Action {
 	 * @version 1.5.0
 	 */
 	public function __construct() {
-		add_action( 'admin_init', array( $this, 'callback_admin_init' ) );
+		// add_action( 'admin_init', array( $this, 'callback_admin_init' ) );
 		add_action( 'wp_ajax_load_time_exceeded', array( $this, 'callback_load_time_exceeded' ) );
 	}
 

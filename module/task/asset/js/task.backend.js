@@ -261,20 +261,6 @@ window.eoxiaJS.taskManager.task.loadedCorretiveTaskSuccess = function( triggered
 };
 
 /**
- * Le callback en cas de réussite à la requête Ajax "export_task".
- *
- * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
- * @param  {Object}         response          Les données renvoyées par la requête Ajax.
- * @return {void}
- *
- * @since 1.3.6.0
- * @version 1.3.6.0
- */
-window.eoxiaJS.taskManager.task.exportedTask = function( triggeredElement, response ) {
-	window.eoxiaJS.global.downloadFile( response.data.url, response.data.filename );
-};
-
-/**
  * Le callback en cas de réussite à la requête Ajax "notify_by_mail".
  *
  * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.

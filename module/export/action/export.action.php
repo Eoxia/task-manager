@@ -43,7 +43,7 @@ class Export_Action {
 
 		$response         = array(
 			'namespace'        => 'taskManager',
-			'module'           => 'task',
+			'module'           => 'taskExport',
 			'callback_success' => 'exportedTask',
 		);
 		$export_file      = false;
@@ -67,56 +67,53 @@ class Export_Action {
 			'id' => $task_id,
 		), true );
 
-		if ( ! empty( $task->data['task_info']['order_point_id'] ) ) {
-			$get_args = array(
-				'post_id'     => $task->data['id'],
-				'orderby'     => 'comment__in',
-				'comment__in' => $task->data['task_info']['order_point_id'],
-				'status'      => -34070,
+		$get_args = array(
+			'post_id'  => $task->data['id'],
+			'orderby'  => 'meta_value_num',
+			'order'    => 'ASC',
+			'meta_key' => '_tm_order',
+			'status'   => 1,
+		);
+
+		if ( 'by_date' === $export_type && ( null !== $date_from || null !== $date_to ) ) {
+			$point_id_list = implode( ',', $task->data['task_info']['order_point_id'] );
+			$query         = $GLOBALS['wpdb']->prepare(
+				"SELECT GROUP_CONCAT( DISTINCT( P.comment_ID ) ) AS pointsID
+				FROM {$GLOBALS['wpdb']->comments} AS P
+					JOIN {$GLOBALS['wpdb']->posts} AS T ON ( T.ID=P.comment_post_ID )
+					LEFT JOIN {$GLOBALS['wpdb']->comments} AS C ON ( C.comment_parent = P.comment_ID )
+				WHERE P.comment_parent = %d
+					AND T.post_type = %s
+					AND P.comment_post_ID = %d
+					AND ( ( P.comment_date >= %s
+					AND P.comment_date <= %s ) OR ( C.comment_date >= %s
+					AND C.comment_date <= %s ) )", 0, Task_Class::g()->get_type(), $task->data['id'], $date_from, $date_to, $date_from, $date_to
 			);
 
-			if ( 'by_date' === $export_type && ( null !== $date_from || null !== $date_to ) ) {
-				$point_id_list = implode( ',', $task->data['task_info']['order_point_id'] );
-				$query         = $GLOBALS['wpdb']->prepare(
-					"SELECT GROUP_CONCAT( DISTINCT( P.comment_ID ) ) AS pointsID
-					FROM {$GLOBALS['wpdb']->comments} AS P
-						LEFT JOIN {$GLOBALS['wpdb']->comments} AS C ON ( C.comment_parent = P.comment_ID )
-					WHERE P.comment_parent = %d
-						AND P.comment_post_ID = %d
-						AND P.comment_ID IN ( {$point_id_list} )
-						AND ( ( P.comment_date >= %s
-						AND P.comment_date <= %s ) OR ( C.comment_date >= %s
-						AND C.comment_date <= %s ) )", 0, $task->data['id'], $date_from, $date_to, $date_from, $date_to
+			$get_args['comment__in'] = explode( ',', $GLOBALS['wpdb']->get_var( $query ) );
+
+			if ( null !== $date_from && null !== $date_to ) {
+				$build_args['date_query'] = array(
+					'relation' => 'AND',
 				);
-
-				$get_args['comment__in'] = explode( ',', $GLOBALS['wpdb']->get_var( $query ) );
-
-				if ( null !== $date_from && null !== $date_to ) {
-					$build_args['date_query'] = array(
-						'relation' => 'AND',
-					);
-				}
-				if ( null !== $date_from ) {
-					$build_args['date_query']['after'] = array(
-						'year'  => substr( $date_from, 0, 4 ),
-						'month' => substr( $date_from, 5, 2 ),
-						'day'   => substr( $date_from, 8, 2 ),
-					);
-				}
-				if ( null !== $date_to ) {
-					$build_args['date_query']['before'] = array(
-						'year'  => substr( $date_to, 0, 4 ),
-						'month' => substr( $date_to, 5, 2 ),
-						'day'   => substr( $date_to, 8, 2 ),
-					);
-				}
 			}
-
-			$points = Point_Class::g()->get( $get_args );
-		} else {
-			wp_send_json_error( array( __( 'No points have beend founded for this task', 'task-manager' ) ) );
+			if ( null !== $date_from ) {
+				$build_args['date_query']['after'] = array(
+					'year'  => substr( $date_from, 0, 4 ),
+					'month' => substr( $date_from, 5, 2 ),
+					'day'   => substr( $date_from, 8, 2 ),
+				);
+			}
+			if ( null !== $date_to ) {
+				$build_args['date_query']['before'] = array(
+					'year'  => substr( $date_to, 0, 4 ),
+					'month' => substr( $date_to, 5, 2 ),
+					'day'   => substr( $date_to, 8, 2 ),
+				);
+			}
 		}
 
+		$points              = Point_Class::g()->get( $get_args );
 		$response['content'] = Export_Class::g()->build_data( $task, $points, $build_args );
 
 		if ( $export_file ) {
@@ -159,6 +156,7 @@ class Export_Action {
 			'module'           => 'taskExport',
 			'callback_success' => 'loadedExportPopup',
 			'view'             => ob_get_clean(),
+			'buttons_view'     => '',
 		) );
 	}
 
