@@ -66,7 +66,7 @@ window.eoxiaJS.taskManager.navigation.checkDataBeforeSearch = function( triggere
 
 	jQuery( 'input[name="categories_id_selected"]' ).val( categoriesIdSelected.join( ',' ) );
 
-	if ( ! triggeredElement.hasClass( 'change-status' ) ) {
+	if ( triggeredElement && ! triggeredElement.hasClass( 'change-status' ) ) {
 		window.eoxiaJS.loader.display( jQuery( '.wpeo-general-search' ) );
 	}
 
