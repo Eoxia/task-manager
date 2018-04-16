@@ -81,7 +81,21 @@ class Activity_Action {
 			'last_date' => $last_date,
 			'offset'    => $offset,
 		) );
-		$view = ob_get_clean();
+		$view = '<div class="wpeo-project-wrap" ><div class="activities" >' . ob_get_clean() . '</div></div>';
+
+		$data_search = Navigation_Class::g()->get_search_result( $term, $categories_id_selected, $follower_id_selected );
+		ob_start();
+		\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/title', array(
+			'term'                => $data_search['term'],
+			'categories_searched' => $data_search['categories_searched'],
+			'follower_searched'   => $data_search['follower_searched'],
+			'have_search'         => $data_search['have_search'],
+		) );
+		$title_popup = ob_get_clean();
+
+		if ( ! empty( $title_popup ) ) {
+			$title_popup = ':' . $title_popup;
+		}
 
 		wp_send_json_success( array(
 			'namespace'        => ! $frontend ? 'taskManager' : 'taskManagerFrontendWPShop',
@@ -90,6 +104,7 @@ class Activity_Action {
 			'view'             => $view,
 			'offset'           => $offset,
 			'last_date'        => $last_date,
+			'buttons_view'     => '',
 			'end'              => ( \eoxia\Config_Util::$init['task-manager']->activity->activity_per_page !== $datas['count'] ) ? true : false,
 		) );
 	}
