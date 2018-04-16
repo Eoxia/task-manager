@@ -273,18 +273,6 @@
   font-size: 1rem;
   line-height: 1.5; }
 
-.wpeo-project-wrap h1, .wpeo-project-wrap h2, .wpeo-project-wrap h3, .wpeo-project-wrap h4, .wpeo-project-wrap h5, .wpeo-project-wrap h6 {
-  clear: both; }
-
-.wpeo-project-wrap h1 {
-  float: left; }
-
-.wpeo-project-wrap h1, .wpeo-project-wrap h2, .wpeo-project-wrap h3, .wpeo-project-wrap h4, .wpeo-project-wrap h5, .wpeo-project-wrap h6 {
-  clear: both; }
-
-.wpeo-project-wrap h1 {
-  float: left; }
-
 .wpeo-project-wrap input[type="text"] {
   border: 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
