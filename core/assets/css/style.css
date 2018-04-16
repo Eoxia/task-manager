@@ -1797,6 +1797,18 @@
 .wpeo-project-wrap .load-more.loading {
   display: block; }
 
+.wpeo-project-wrap button.load-more-history {
+  background: #3495f0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border: 0;
+  color: #fff;
+  padding: 0.4em 1em; }
+
+.wpeo-project-wrap button.load-more-history:hover {
+  cursor: pointer;
+  background: rgba(52, 149, 240, 0.8); }
+
 .popup-notification > .modal-container {
   max-width: 800px; }
 
