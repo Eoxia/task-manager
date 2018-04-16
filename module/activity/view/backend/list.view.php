@@ -18,14 +18,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php
 if ( ! empty( $datas ) ) :
 	foreach ( $datas as $date => $data ) :
-		// if ( $date !== $last_date ) :
 		if ( ! empty( $data ) && is_array( $data ) ) :
-			?>
-			<div class="day">
-				<span class="label"><?php echo esc_html( ucfirst( mysql2date( 'l', $date ) ) . ' ' . mysql2date( 'd/m/Y', $date ) ); ?></span>
-			</div>
-			<?php
-		// endif;
+			if ( $date !== $last_date || 5 === $offset ) :
+				?>
+				<div class="day">
+					<span class="label"><?php echo esc_html( ucfirst( mysql2date( 'l', $date ) ) . ' ' . mysql2date( 'd/m/Y', $date ) ); ?></span>
+				</div>
+				<?php
+				$last_date = $date;
+			endif;
 			foreach ( $data as $time => $elements ) :
 				if ( ! empty( $elements ) ) :
 					foreach ( $elements as $element ) : ?>

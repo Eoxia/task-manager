@@ -34,14 +34,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 				data-before-method="checkDataBeforeSearch"
 				data-parent="form"><?php esc_html_e( 'Archived task', 'task-manager' ); ?></li>
 
-			<li class="wpeo-modal-event"
-				data-action="load_last_activity"
-				data-class="popup-quick-task"
-				data-title="<?php esc_html_e( 'Last activities', 'task-manager' ); ?>"
-				data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_popup_quick_task' ) ); ?>">
-				<i class="dashicons dashicons-screenoptions" ></i><?php esc_html_e( 'Last activities', 'task-manager' ); ?>
-			</li>
-
 			<?php echo apply_filters( 'task_manager_navigation_after', '' ); ?>
 
 			<li class="wpeo-general-search">

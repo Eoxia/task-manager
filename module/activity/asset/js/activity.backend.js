@@ -34,12 +34,14 @@ window.eoxiaJS.taskManager.activity.event = function() {
  * Envoie une requête pour charger plus d'évènement dans l'historique.
  *
  * @since 1.5.0
- * @version 1.5.0
+ * @version 1.6.0
  *
  * @return void
  */
 window.eoxiaJS.taskManager.activity.loadMoreHistory = function( event ) {
 	var element = jQuery( this );
+	window.eoxiaJS.loader.display( element );
+
 
 	var data = {
 		action: 'load_last_activity',
@@ -60,10 +62,14 @@ window.eoxiaJS.taskManager.activity.loadMoreHistory = function( event ) {
 		element.closest( '.activities' ).find( '.content:first' ).append( response.data.view );
 		element.closest( '.activities' ).find( '.last-date' ).val( response.data.last_date );
 
+
 		if ( response.data.end ) {
 			element.closest( '.activities' ).find( '.load-more-history' ).hide();
+		} else {
+			element.closest( '.activities' ).find( '.load-more-history' ).show();
 		}
 
+		window.eoxiaJS.loader.remove( element.closest( '.activities' ).find( '.load-more-history' ) );
 		window.eoxiaJS.refresh();
 	} );
 };
