@@ -67,7 +67,7 @@ class Point_Filter {
 		if ( ! empty( $list_point_uncompleted ) ) :
 			$string .= '<ul>';
 			foreach ( $list_point_uncompleted as $element ) :
-				$string .= '<li>#' . $element->id . ' - ' . $element->content . '</li>';
+				$string .= '<li>#' . $element->data['id'] . ' - ' . $element->data['content'] . '</li>';
 			endforeach;
 			$string .= '</ul>';
 		endif;
