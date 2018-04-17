@@ -39,34 +39,40 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php
 echo wp_kses( apply_filters( 'task_manager_popup_notify_after', '', $task ), array(
-	'h2'   => array(),
-	'h3'   => array(
+	'h2'    => array(),
+	'h3'    => array(
 		'style' => array(),
 	),
-	'div'  => array(
+	'div'   => array(
 		'style'      => array(),
 		'class'      => array(),
 		'aria-label' => array(),
 	),
-	'p'    => array(
+	'p'     => array(
 		'style' => array(),
 	),
-	'span' => array(
+	'span'  => array(
 		'style' => array(),
-	),
-	'br'   => array(
-		'style' => array(),
-	),
-	'ul'   => array(
 		'class' => array(),
 	),
-	'li'   => array(
+	'br'    => array(
+		'style' => array(),
+	),
+	'ul'    => array(
+		'class' => array(),
+	),
+	'li'    => array(
 		'class'   => array(),
 		'data-id' => array(),
 		'style'   => array(),
 	),
-	'img'  => array(
+	'img'   => array(
 		'class' => array(),
 		'src'   => array(),
+	),
+	'input' => array(
+		'type'  => array(),
+		'name'  => array(),
+		'value' => array(),
 	),
 ) );
