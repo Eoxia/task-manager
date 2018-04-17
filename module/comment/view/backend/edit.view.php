@@ -51,7 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</span>
 			</li>
 		<?php else : ?>
-			<li data-parent="wpeo-comment-container" style="opacity: 0.4;" class="wpeo-point-new-btn action-input dashicons dashicons-plus-alt"></li>
+			<li data-parent="wpeo-comment-container" style="opacity: 0.4;" class="wpeo-point-new-btn action-input no-action dashicons dashicons-plus-alt"></li>
 		<?php endif; ?>
 	</ul>
 </li>

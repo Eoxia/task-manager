@@ -116,13 +116,17 @@ class Admin_Bar_Class extends \eoxia\Singleton_Util {
 	 * @return integer Le nombre de demande
 	 */
 	public function get_number_ask() {
-		$ids   = get_option( \eoxia\Config_Util::$init['task-manager-wpshop']->key_customer_ask, array() );
-		$count = 0;
-		if ( ! empty( $ids ) ) {
-			foreach ( $ids as $task_id => $points ) {
-				if ( ! empty( $points ) ) {
-					foreach ( $points as $point_id => $id ) {
-						$count += count( $id );
+		$count = '';
+
+		if ( isset( \eoxia\Config_Util::$init['task-manager-wpshop'] ) ) {
+			$ids   = get_option( \eoxia\Config_Util::$init['task-manager-wpshop']->key_customer_ask, array() );
+			$count = 0;
+			if ( ! empty( $ids ) ) {
+				foreach ( $ids as $task_id => $points ) {
+					if ( ! empty( $points ) ) {
+						foreach ( $points as $point_id => $id ) {
+							$count += count( $id );
+						}
 					}
 				}
 			}
