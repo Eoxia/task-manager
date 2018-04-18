@@ -83,7 +83,7 @@ class Activity_Action {
 		) );
 		$view = '<div class="wpeo-project-wrap" ><div class="activities" >' . ob_get_clean() . '</div></div>';
 
-		$data_search = Navigation_Class::g()->get_search_result( $term, $categories_id_selected, $follower_id_selected );
+		$data_search = Navigation_Class::g()->get_search_result( $term, 'any', $categories_id_selected, $follower_id_selected );
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/title', array(
 			'term'                => $data_search['term'],
