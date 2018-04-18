@@ -41,8 +41,8 @@ window.eoxiaJS.taskManager.navigation.toggleMoreOptions = function() {
  *
  * @return {void}
  *
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @since 1.0.0
+ * @version 1.3.6
  */
 window.eoxiaJS.taskManager.navigation.selectTag = function() {
 	jQuery( this ).toggleClass( 'active' );
@@ -68,6 +68,8 @@ window.eoxiaJS.taskManager.navigation.checkDataBeforeSearch = function( triggere
 
 	if ( triggeredElement && ! triggeredElement.hasClass( 'change-status' ) ) {
 		window.eoxiaJS.loader.display( jQuery( '.wpeo-general-search' ) );
+	} else if ( triggeredElement && triggeredElement.hasClass( 'change-status' ) ) {
+		jQuery( '.wpeo-header-bar input[name="status"]' ).val( triggeredElement.data( 'status' ) );
 	}
 
 	return true;

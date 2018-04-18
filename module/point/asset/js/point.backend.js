@@ -101,11 +101,13 @@ window.eoxiaJS.taskManager.point.updateHiddenInput = function( event ) {
 	if ( ! jQuery( this ).closest( '.point' ).hasClass( 'edit' ) ) {
 		if ( 0 < jQuery( this ).text().length ) {
 			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 1 );
+			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).removeClass( 'no-action' );
 			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-placeholder' ).addClass( 'hidden' );
 			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'pointerEvents', 'auto' );
 			window.eoxiaJS.taskManager.core.initSafeExit( true );
 		} else {
 			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 0.4 );
+			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).addClass( 'no-action' );
 			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
 			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'pointerEvents', 'none' );
 			window.eoxiaJS.taskManager.core.initSafeExit( false );
@@ -137,9 +139,10 @@ window.eoxiaJS.taskManager.point.addedPointSuccess = function( triggeredElement,
 	triggeredElement.closest( '.wpeo-project-task' ).find( '.total-point' ).text( totalPoint );
 
 	triggeredElement.closest( '.point' ).find( '.wpeo-point-new-contenteditable' ).text( '' );
-	triggeredElement.closest( '.point' ).find( 'input[name="content"]' ).html( '' );
+	triggeredElement.closest( '.point' ).find( 'input[name="content"]' ).val( '' );
 
 	triggeredElement.closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 0.4 );
+	triggeredElement.closest( '.point' ).find( '.wpeo-point-new-btn' ).addClass( 'no-action' );
 	triggeredElement.closest( '.point' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
 
 	triggeredElement.closest( '.wpeo-project-task' ).find( '.points.sortable .point:last' ).before( response.data.view );

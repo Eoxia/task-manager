@@ -64,8 +64,8 @@ window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
 			data.offset = window.eoxiaJS.taskManager.task.offset;
 			data.posts_per_page = window.task_manager_posts_per_page;
 			data.term = jQuery( '.wpeo-header-bar input[name="term"]' ).val();
-			data.users_id = ( 'load_my_task' == jQuery( '.wpeo-header-bar li.active' ).data( 'action' ) ) ? jQuery( 'input.user-id' ).val() : jQuery( '.wpeo-header-search select[name="follower_id_selected"]' ).val();
-			data.status = ( 'load_archived_task' == jQuery( '.wpeo-header-bar li.active' ).data( 'action' ) ) ? 'archive' : 'publish';
+			data.users_id = jQuery( '.wpeo-header-search select[name="follower_id_selected"]' ).val();
+			data.status = jQuery( '.wpeo-header-bar input[name="status"]' ).val();
 
 			window.eoxiaJS.taskManager.navigation.checkDataBeforeSearch( undefined );
 

@@ -47,7 +47,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<li class="point-action">
 				<?php	if ( empty( $point->data['id'] ) ) : ?>
-					<div 	class="wpeo-point-new-btn action-input animated"
+					<div 	class="wpeo-point-new-btn action-input animated no-action"
 								data-parent="form"
 								data-loader="point"
 								data-action="edit_point"
