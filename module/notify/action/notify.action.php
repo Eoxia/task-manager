@@ -99,7 +99,7 @@ class Notify_Action {
 		$customers_id = ! empty( $_POST['customers_id'] ) ? sanitize_text_field( $_POST['customers_id'] ) : '';
 		$data         = ! empty( $_POST ) ? (array) $_POST : array();
 
-		if ( empty( $id ) || empty( $users_id ) ) {
+		if ( empty( $id ) ) {
 			wp_send_json_error();
 		}
 
@@ -113,9 +113,9 @@ class Notify_Action {
 
 		$recipients = array();
 
-		$users_id = explode( ',', $users_id );
-
 		if ( ! empty( $users_id ) ) {
+			$users_id = explode( ',', $users_id );
+
 			foreach ( $users_id as $user_id ) {
 				$user_info    = get_userdata( $user_id );
 				$recipients[] = $user_info->user_email;

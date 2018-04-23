@@ -2,10 +2,10 @@
 /**
  * Affichage de la liste des utilisateurs pour affecter les capacités
  *
- * @author Jimmy Latour <jimmy@evarisk.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.5.0
- * @version 1.5.0
- * @copyright 2015-2017 Evarisk
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		if ( ! empty( $users ) ) :
 			foreach ( $users as $user ) :
 				\eoxia\View_Util::exec( 'task-manager', 'setting', 'capability/list-item', array(
-					'user' => $user,
+					'user'                 => $user,
 					'has_capacity_in_role' => $has_capacity_in_role,
 				) );
 			endforeach;
@@ -44,14 +44,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php
 			$big = 999999999;
 			echo paginate_links( array(
-				'base' => admin_url( 'admin-ajax.php?action=task-manager-setting&current_page=%_%' ),
-				'format' => '%#%',
-				'current' => $current_page,
-				'total' => $number_page,
+				'base'               => admin_url( 'admin-ajax.php?action=task-manager-setting&current_page=%_%' ),
+				'format'             => '%#%',
+				'current'            => $current_page,
+				'total'              => $number_page,
 				'before_page_number' => '<span class="screen-reader-text">' . __( 'Page', 'task-manager' ) . ' </span>',
-				'type' => 'plain',
-				'next_text' => '<i class="dashicons dashicons-arrow-right"></i>',
-				'prev_text' => '<i class="dashicons dashicons-arrow-left"></i>',
+				'type'               => 'plain',
+				'next_text'          => '<i class="dashicons dashicons-arrow-right"></i>',
+				'prev_text'          => '<i class="dashicons dashicons-arrow-left"></i>',
 			) );
 			?>
 		</div>

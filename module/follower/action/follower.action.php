@@ -56,10 +56,37 @@ class Follower_Action {
 			'id' => $task_id,
 		), true );
 
+		// Récupères les followers supplémentaires qui ne sont plus "administrateur". Afin de pouvoir les afficher dans l'interface.
+		$followers_only_id         = array();
+		$followers_no_role_only_id = array();
+		if ( ! empty( $followers ) ) {
+			foreach ( $followers as $follower ) {
+				$followers_only_id[] = $follower->data['id'];
+			}
+		}
+
+		if ( ! empty( $task->data['user_info']['affected_id'] ) ) {
+			foreach ( $task->data['user_info']['affected_id'] as $key => $affected_id ) {
+				if ( ! in_array( $affected_id, $followers_only_id, true ) ) {
+					$followers_no_role_only_id[] = $affected_id;
+					break;
+				}
+			}
+		}
+
+		$followers_no_role = array();
+
+		if ( ! empty( $followers_no_role_only_id ) ) {
+			$followers_no_role = Follower_Class::g()->get( array(
+				'include' => $followers_no_role_only_id,
+			) );
+		}
+
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'follower', 'backend/main-edit', array(
-			'followers' => $followers,
-			'task'      => $task,
+			'followers'         => $followers,
+			'followers_no_role' => $followers_no_role,
+			'task'              => $task,
 		) );
 
 		wp_send_json_success( array(

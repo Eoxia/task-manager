@@ -384,7 +384,6 @@ class Point_Action {
 			'id' => $point_id,
 		), true );
 
-
 		$current_task->data['time_info']['elapsed'] = $current_task->data['time_info']['elapsed'] - $point->data['time_info']['elapsed'];
 		$to_task->data['time_info']['elapsed']      = $to_task->data['time_info']['elapsed'] + $point->data['time_info']['elapsed'];
 
@@ -419,6 +418,8 @@ class Point_Action {
 				}
 			}
 		}
+
+		do_action( 'tm_after_move_point_to', $point, $current_task );
 
 		wp_send_json_success( array(
 			'namespace'                 => 'taskManager',
