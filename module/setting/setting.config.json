@@ -1,12 +1,14 @@
 {
 	"name": "Setting",
 	"slug": "setting",
-	"version": "1.5.0",
+	"since": "1.5.0",
+	"version": "1.6.0",
 	"description": "Le module gérant les configuration de Task Manager",
 	"path": "module/setting/",
 	"state": true,
 	"dependencies": {
 		"action": {},
 		"class": {}
-	}
+	},
+	"key_use_search_in_admin_bar": "_tm_use_search_in_admin_bar"
 }

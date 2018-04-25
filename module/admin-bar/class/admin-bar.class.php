@@ -5,7 +5,7 @@
  * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
  * @version 1.6.0
- * @copyright 2015-2017 Eoxia
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -57,22 +57,25 @@ class Admin_Bar_Class extends \eoxia\Singleton_Util {
 	 * En cliquant dessus, renvoies vers la page "task-manager-indicator".
 	 *
 	 * @since 1.0.0
-	 * @version 1.2.0
+	 * @version 1.6.0
 	 *
 	 * @param mixed $wp_admin_bar L'objet de WordPress pour gérer les noeuds.
 	 * @return void
 	 */
 	public function init_search( $wp_admin_bar ) {
-		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'admin-bar', 'backend/main' );
-		$view = ob_get_clean();
+		$use_search_in_admin_bar = get_option( \eoxia\Config_Util::$init['task-manager']->setting->key_use_search_in_admin_bar, false );
+		if ( $use_search_in_admin_bar ) {
+			ob_start();
+			\eoxia\View_Util::exec( 'task-manager', 'admin-bar', 'backend/main' );
+			$view = ob_get_clean();
 
-		$button_open_popup = array(
-			'id'    => 'button-search-task',
-			'title' => $view,
-		);
+			$button_open_popup = array(
+				'id'    => 'button-search-task',
+				'title' => $view,
+			);
 
-		$wp_admin_bar->add_node( $button_open_popup );
+			$wp_admin_bar->add_node( $button_open_popup );
+		}
 	}
 
 	/**

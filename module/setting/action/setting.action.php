@@ -2,10 +2,10 @@
 /**
  * Les actions relatives aux réglages de Task Manager.
  *
- * @author Jimmy Latour <jimmy@evarisk.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.5.0
- * @version 1.5.0
- * @copyright 2015-2017 Evarisk
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -29,6 +29,7 @@ class Setting_Action {
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		add_action( 'wp_ajax_save_capability_task_manager', array( $this, 'callback_save_capability_task_manager' ) );
+		add_action( 'wp_ajax_save_general_settings', array( $this, 'callback_save_general_settings' ) );
 
 		add_action( 'display_setting_user_task_manager', array( $this, 'callback_display_setting_user_task_manager' ), 10, 2 );
 		add_action( 'wp_ajax_paginate_setting_task_manager_page_user', array( $this, 'callback_paginate_setting_task_manager_page_user' ) );
@@ -53,7 +54,11 @@ class Setting_Action {
 	 * @version 1.5.0
 	 */
 	public function add_option_page() {
-		\eoxia\View_Util::exec( 'task-manager', 'setting', 'main' );
+		$use_search_in_admin_bar = get_option( \eoxia\Config_Util::$init['task-manager']->setting->key_use_search_in_admin_bar, true );
+
+		\eoxia\View_Util::exec( 'task-manager', 'setting', 'main', array(
+			'use_search_in_admin_bar' => $use_search_in_admin_bar,
+		) );
 	}
 
 	/**
@@ -84,6 +89,24 @@ class Setting_Action {
 			'module' => 'setting',
 			'callback_success' => 'savedCapability',
 		) );
+	}
+
+	/**
+	 * Save general settings
+	 *
+	 * @since 1.6.0
+	 * @version 1.6.0
+	 *
+	 * @return void
+	 */
+	public function callback_save_general_settings() {
+		check_ajax_referer( 'save_general_settings' );
+
+		$display_search_bar = ( ! empty( $_POST['display_search_bar'] ) && 'true' === $_POST['display_search_bar'] ) ? true : false;
+
+		update_option( \eoxia\Config_Util::$init['task-manager']->setting->key_use_search_in_admin_bar, $display_search_bar );
+
+		wp_send_json_success();
 	}
 
 	/**
