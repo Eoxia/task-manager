@@ -50,8 +50,9 @@ class Activity_Class extends \eoxia\Singleton_Util {
 			),
 		) );
 
-		$datas = array();
-		$datas['count'] = 0;
+		$datas              = array();
+		$datas['count']     = 0;
+		$datas['last_date'] = '';
 
 		if ( ! empty( $points ) ) {
 			foreach ( $points as $point ) {
@@ -82,9 +83,14 @@ class Activity_Class extends \eoxia\Singleton_Util {
 						), true );
 
 						$comment->data['view']   = 'created-comment';
+
 						$comment->data['parent'] = Point_Class::g()->get( array(
 							'id' => $comment->data['parent_id'],
 						), true );
+
+						if ( empty( $comment->data['parent'] ) ) {
+							continue;
+						}
 
 						$comment->data['displayed_author_id'] = $comment->data['author_id'];
 
