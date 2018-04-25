@@ -39,7 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<li class="wpeo-task-time-history wpeo-modal-event tooltip hover"
 			aria-label="<?php esc_html_e( 'Edit dead line', 'task-manager' ); ?>"
-			data-class="history-time wpeo-wrap"
+			data-class="history-time wpeo-wrap wpeo-project-wrap"
 			data-action="load_time_history"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_time_history' ) ); ?>"
 			data-title="<?php echo sprintf( __( '#%1$s Time history', 'task-manager' ), esc_attr( $task->data['id'] ) ); ?>"

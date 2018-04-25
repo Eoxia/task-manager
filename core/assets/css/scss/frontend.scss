@@ -8,10 +8,10 @@ $grey: #d6d6d6;
 $green: #47e58e;
 
 // @import "animation";
-@import "font/font";
 // @import "loader";
 // @import "tooltip";
 // @import "popup";
+@import "font/font";
 @import "module/theme";
 
 @font-face {
@@ -44,7 +44,7 @@ $green: #47e58e;
 		list-style: none;
 		margin: 0;
 	}
-	* {
+	p, ul, li, h2 {
 		margin: 0;
 		padding: 0;
 		box-sizing: border-box;
@@ -172,7 +172,8 @@ $green: #47e58e;
 					color: rgba(0,0,0,0.6);
 					transition: all 0.2s ease-out;
 					line-height: 1.2;
-					padding-right: 0.4em;
+					// padding-right: 0.4em;
+
 					&:hover {
 						cursor: pointer;
 						color: rgba(0,0,0,0.9);
@@ -601,141 +602,5 @@ $green: #47e58e;
 		Affichage historique
 -----------------------------------*/
 .wpeo-project-wrap {
-	.last-activity .content {
-		> .content {
-			padding: 1em;
-		}
-		/* Jour */
-		.day {
-			position: relative;
-			padding: 0.6em 0;
-			clear: both;
-			.label {
-				font-size: 12px;
-				font-weight: 900;
-				color: #000;
-				text-transform: uppercase;
-				display: inline-block;
-				background: #fff;
-				position: relative;
-				z-index: 50;
-				padding-right: 1em;
-			}
-			&:after {
-				display: block;
-				content: '';
-				height: 1px;
-				width: 100%;
-				position: absolute;
-				top: 50%;
-				left: 0;
-				background: rgba(0,0,0,0.05);
-			}
-		}
-
-		/* Activity single */
-		.activity {
-			padding: 0.6em 0;
-			display: flex;
-			flex-direction: row;
-
-			.information {
-				width: 100%;
-				max-width: 50px;
-				position: relative;
-				.user {
-					border-radius: 50%;
-					border: 2px solid #fff;
-					z-index: 50;
-					img, .wpeo-avatar-initial {
-						border-radius: 50%;
-					}
-				}
-				.type {
-					display: block;
-					width: 22px;
-					height: 22px;
-					background: rgba(0,0,0,0.1);
-					color: rgba(0,0,0,0.5);
-					line-height: 22px;
-					text-align: center;
-					font-size: 14px;
-					position: absolute;
-					top: 0;
-					right: 4px;
-					border-radius: 4px;
-					&:before {
-						font-family: FontAwesome;
-					}
-				}
-			}
-			.content {
-				width: 100%;
-				padding-left: 1em;
-				margin: auto 0;
-
-				.event-header {
-					display: flex;
-					.event-title {
-						width: auto;
-					}
-					.event-time {
-						margin-left: auto;
-					}
-				}
-				.event-title {
-					font-weight: 700;
-					display: block;
-					margin-bottom: 0.4em;
-				}
-				.event-content {
-					font-family: 'kalamregular';
-				}
-			}
-
-			/* Point crée */
-			&.created-point {
-				.information .type:before {
-					content: $fa-var-list-ul;
-				}
-			}
-			/* Commentaire crée */
-			&.created-comment {
-				.information .type:before {
-					content: $fa-var-commenting-o;
-				}
-			}
-			/* Point validé */
-			&.completed-point {
-				.information .type {
-					background: $green;
-					color: #fff;
-					&:before {
-						content: $fa-var-check;
-					}
-				}
-				.content .event-title {
-					text-decoration: line-through;
-				}
-			}
-		}
-	}
-
-	.activities {
-		/* bouton load more */
-		.load-more-history {
-			background: $main-color;
-			border: 0;
-			box-shadow: none;
-			display: block;
-			margin: 0.4em auto;
-			color: #fff;
-			padding: 0.6em;
-			transition: all 0.2s ease-out;
-			&:hover {
-				cursor: pointer;
-				background: lighten($main-color, 10%);
-			}
-		}
-	}
+	@import "element/activity/activity";
 }
