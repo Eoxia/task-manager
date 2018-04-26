@@ -3,8 +3,8 @@ Contributors: Eoxia
 Donate link:
 Tags: task, tasks, management, manager, collaboration, dashboard, organizer, project management, project manager, projects, task lists, task management, task manager, Time Tracking, to do, to do list, todo, todo list
 Requires at least: 4.4.0
-Tested up to: 4.9.0
-Stable tag: 1.5.1
+Tested up to: 4.9.5
+Stable tag: 1.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -62,6 +62,24 @@ No questions asked yet.
 5. See the history
 
 == Changelog ==
+
+= 1.6.0 =
+
+= Improvment =
+
+* 12775 - Add "quick time" button in the admin bar "create" menu. "Quick time" settings are availables in "Indicator" page.
+* 12867 - Ask the user to confirm if he really want to leave the page after starting to type into a point or a comment.
+* 13011 - Add "Automated time calculation" settings for user who want that time between each comment is automatically setted.
+* 13963 - Visual improvment for "history time" modal in tasks.
+* 14171 - Add "recurrent time" type for history time.
+* 14221 - Add a button in options' task allowing to refresh displayed data in tasks seams to be corrupted.
+* 14349 - Shortcode for displaying a task in WordPress frontend has been renamed as [task]
+* 14427 - Disallow comment or point creation when the content is empty.
+* 14711 - Allow to unaffect a user which is not admin anymore from tasks (edited)
+
+= Fix =
+
+* 16176 - Fix pagination for archived tasks.
 
 = 1.5.1 =
 
