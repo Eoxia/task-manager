@@ -99,6 +99,7 @@ class History_Time_Class extends \eoxia\Comment_Class {
 
 		\eoxia\View_Util::exec( 'task-manager', 'history-time', 'backend/main', array(
 			'task_id'             => $task_id,
+			'last_history_time'   => $history_times[0],
 			'history_times'       => $history_times,
 			'history_time_schema' => $history_time_schema,
 		) );
