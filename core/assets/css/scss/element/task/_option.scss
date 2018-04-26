@@ -1,0 +1,164 @@
+.task-header-action, .point-header-action {
+	text-align: left;
+	position: absolute;
+	right: 0;
+	background: #fff;
+	box-shadow: 1px 1px 5px 0 rgba(0,0,0,.2);
+	top: 20px;
+	z-index: 500;
+	// animation: taskOptionAnimation 0.2s ease-out;
+	transition: all 0.2s east-out;
+	opacity: 0;
+	pointer-events: none;
+	overflow: hidden;
+
+	&.active {
+		top: 30px;
+		opacity: 1;
+		pointer-events: all;
+	}
+
+	.success {
+		position: absolute;
+		top: 0;
+		left: 0;
+		background: rgba(0,0,0,.8);
+		display: block;
+		width: 100%;
+		height: 100%;
+		z-index: 99999;
+		transform: translateY(-100%);
+		transition: all 0.2s ease-out;
+		&.active {
+			transform: translateY(0%);
+		}
+		.content {
+			text-align: center;
+
+			position: relative;
+			top: 50%;
+			width:100%;
+			background: none;
+			transform: translateY(-50%);
+			display: block;
+			left: 0;
+			p {
+				font-size: 1.5em;
+				color: $a;
+				margin-bottom: 20px;
+			}
+			span {
+				color: white;
+				padding: 8px;
+				text-align: center;
+				line-height: 1.5;
+				background-color: $a;
+				border: none;
+				transition: all 0.2s ease-out;
+				&:hover {
+					background-color: $dark_a;
+					cursor: pointer;
+				}
+			}
+		}
+	}
+
+	.task-color, .task-informations, .actions, .move-to {
+		padding: 1em;
+	}
+	.gridwrapper {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		border-bottom: 1px solid rgba(0,0,0,0.1);
+		> * {
+			width: 50%;
+		}
+	}
+	.task-color {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		border-right: 1px solid rgba(0,0,0,0.1);
+		.color-element {
+			width: 33.333333%;
+			padding: 0;
+			&:hover {
+				background: none;
+			}
+		}
+		span {
+			width: 26px;
+			height: 26px;
+			display: inline-block;
+			border-radius: 50%;
+			margin-right: 4px;
+			&:hover {
+				cursor: pointer;
+			}
+		}
+		&:hover {
+			background: none;
+			cursor: default;
+		}
+	}
+	.task-informations {
+		text-align: center;
+		.user {
+			margin: auto;
+		}
+		.time {
+			font-size: 12px;
+			line-height: 2;
+		}
+	}
+	.actions {
+		text-align: center;
+		border-bottom: 1px solid rgba(0,0,0,0.1);
+		li {
+			display: inline-block;
+			padding: 4px;
+			font-size: 24px;
+			color: rgba(0,0,0,0.5);
+			&:hover {
+				color: $main-color;
+				background: none;
+			}
+		}
+	}
+	.move-to {
+		label {
+			display: block;
+			font-weight: 700;
+			margin-bottom: 10px;
+		}
+		.form-fields {
+			display: flex;
+			.search-parent, .search-task {
+				width: 70%;
+				background-color: rgba(0,0,0,0.05) !important;
+				border-bottom: 0;
+			}
+			.action-input {
+				width: 30%;
+				pointer-events: none;
+				background: rgba(0,0,0,0.4);
+				margin-left: 8px;
+				&.active {
+					pointer-events: all;
+					background: $main-color;
+				}
+			}
+		}
+	}
+}
+
+.task-header-action {
+	width: 320px !important;
+}
+.point-header-action {
+	width: 160px !important;
+	.task-informations {
+		border-bottom: 1px solid rgba(0,0,0,0.1);
+	}
+}

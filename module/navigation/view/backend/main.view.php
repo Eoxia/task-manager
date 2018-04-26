@@ -2,32 +2,37 @@
 /**
  * Vue pour afficher la barre de recherche.
  *
- * @package Task Manager
- * @subpackage Module/Tag
+ * @since 1.0.0
+ * @version 1.6.0
  *
- * @since 1.0.0.0
- * @version 1.3.6.0
+ * @package Task_Manager
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} ?>
 
 <div class="form" action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>" method="POST">
 	<header class="wpeo-header-bar">
+		<input type="hidden" name="status" value="any" />
+
 		<ul>
 
-			<li class="action-attribute active" data-action="load_all_task" data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_all_task' ) ); ?>"><?php esc_html_e( 'All tasks', 'task-manager' ); ?></li>
-			<li class="action-attribute" data-action="load_my_task" data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_my_task' ) ); ?>"><?php esc_html_e( 'My task', 'task-manager' ); ?></li>
-			<li class="action-attribute" data-action="load_archived_task" data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_archived_task' ) ); ?>"><?php esc_html_e( 'Archived task', 'task-manager' ); ?></li>
-
-			<li class="wpeo-modal-event"
-				data-action="load_last_activity"
-				data-class="popup-quick-task"
-				data-title="<?php esc_html_e( 'Last activities', 'task-manager' ); ?>"
-				data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_popup_quick_task' ) ); ?>">
-				<i class="dashicons dashicons-screenoptions" ></i><?php esc_html_e( 'Last activities', 'task-manager' ); ?>
-			</li>
+			<li class="action-input change-status active"
+				data-status="any"
+				data-namespace="taskManager"
+				data-module="navigation"
+				data-before-method="checkDataBeforeSearch"
+				data-parent="form"><?php esc_html_e( 'All tasks', 'task-manager' ); ?></li>
+			<!-- <li class="action-attribute" data-action="load_my_task" data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_my_task' ) ); ?>"><?php esc_html_e( 'My task', 'task-manager' ); ?></li> -->
+			<li class="action-input change-status"
+				data-status="archive"
+				data-namespace="taskManager"
+				data-module="navigation"
+				data-before-method="checkDataBeforeSearch"
+				data-parent="form"><?php esc_html_e( 'Archived task', 'task-manager' ); ?></li>
 
 			<?php echo apply_filters( 'task_manager_navigation_after', '' ); ?>
 
@@ -45,22 +50,32 @@ if ( ! defined( 'ABSPATH' ) ) {	exit; } ?>
 
 	<div class="wpeo-header-search hidden active">
 
-		<?php \eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/followers', array(
+		<?php
+		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/followers', array(
 			'followers' => $followers,
-		) ); ?>
+		) );
+		?>
 
 		<ul>
 			<li class="tag-search">
-				<?php \eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/tags', array(
+				<?php
+				\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/tags', array(
 					'categories' => $categories,
-				) ); ?>
+				) );
+				?>
 			</li>
 		</ul>
 
 		<?php apply_filters( 'tm_search_options_bottom', '' ); ?>
 
-		<a class="action-input search-button" data-loader="form" data-namespace="taskManager" data-module="navigation" data-before-method="checkDataBeforeSearch" data-parent="form"><?php esc_html_e( 'Search', 'task-manager' ); ?></a>
+		<a class="action-input search-button"
+			data-loader="form"
+			data-namespace="taskManager"
+			data-module="navigation"
+			data-before-method="checkDataBeforeSearch"
+			data-parent="form"><?php esc_html_e( 'Search', 'task-manager' ); ?></a>
 	</div>
 </div>
 
-<?php Navigation_Class::g()->display_search_result( $param['term'], $param['categories_id_selected'], $param['follower_id_selected'] );
+<?php
+Navigation_Class::g()->display_search_result( $param['term'], $param['status'], $param['categories_id_selected'], $param['follower_id_selected'] );

@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<!-- Entête -->
 	<div class="modal-header">
 		<h2 class="modal-title">{{title}}</h2>
-		<i class="modal-close fa fa-times"></i>
+		<div class="modal-close"><i class="fal fa-times"></i></div>
 	</div>
 
 	<!-- Corps -->

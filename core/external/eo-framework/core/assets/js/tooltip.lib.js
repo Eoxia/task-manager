@@ -13,33 +13,38 @@ if ( ! window.eoxiaJS.tooltip ) {
 	window.eoxiaJS.tooltip.display = function( event ) {
 		var direction = ( jQuery( this ).data( 'direction' ) ) ? jQuery( this ).data( 'direction' ) : 'top';
 		var el = jQuery( '<span class="wpeo-tooltip tooltip-' + direction + '">' + jQuery( this ).attr( 'aria-label' ) + '</span>' );
-		var pos = jQuery( this ).offset();
+		var pos = jQuery( this ).position();
+		var offset = jQuery( this ).offset();
 		jQuery( this )[0].tooltipElement = el;
 		jQuery( 'body' ).append( jQuery( this )[0].tooltipElement );
+
+		if ( jQuery( this ).data( 'color' ) ) {
+			el.addClass( 'tooltip-' + jQuery( this ).data( 'color' ) );
+		}
 
 		var top = 0;
 		var left = 0;
 
 		switch( jQuery( this ).data( 'direction' ) ) {
 			case 'left':
-				top = ( pos.top - ( el.height() / 2 ) + ( jQuery( this ).height() / 2 ) ) + 'px';
-				left = ( pos.left - el.width() - 10 ) + 'px';
+				top = ( offset.top - ( el.outerHeight() / 2 ) + ( jQuery( this ).outerHeight() / 2 ) ) + 'px';
+				left = ( offset.left - el.outerWidth() - 10 ) + 3 + 'px';
 				break;
 			case 'right':
-				top = ( pos.top - ( el.height() / 2 ) + ( jQuery( this ).height() / 2 ) ) + 'px';
-				left = pos.left + jQuery( this ).width() + 10 + 'px';
+				top = ( offset.top - ( el.outerHeight() / 2 ) + ( jQuery( this ).outerHeight() / 2 ) ) + 'px';
+				left = offset.left + jQuery( this ).outerWidth() + 8 + 'px';
 				break;
 			case 'bottom':
-				top = ( pos.top + jQuery( this ).height() + 10 ) + 'px';
-				left = ( pos.left - ( el.outerWidth() / 2 ) + ( jQuery( this ).outerWidth() / 2 ) ) + 'px';
+				top = ( offset.top + jQuery( this ).height() + 10 ) + 10 + 'px';
+				left = ( offset.left - ( el.outerWidth() / 2 ) + ( jQuery( this ).outerWidth() / 2 ) ) + 'px';
 				break;
 			case 'top':
-				top = ( pos.top - jQuery( this ).height() ) + 'px';
-				left = ( pos.left - ( el.outerWidth() / 2 ) + ( jQuery( this ).outerWidth() / 2 ) ) + 'px';
+				top = offset.top - el.outerHeight() - 4  + 'px';
+				left = ( offset.left - ( el.outerWidth() / 2 ) + ( jQuery( this ).outerWidth() / 2 ) ) + 'px';
 				break;
 			default:
-				top = ( pos.top - jQuery( this ).height() ) + 'px';
-				left = ( pos.left - ( el.outerWidth() / 2 ) + ( jQuery( this ).outerWidth() / 2 ) ) + 'px';
+				top = offset.top - el.outerHeight() - 4  + 'px';
+				left = ( offset.left - ( el.outerWidth() / 2 ) + ( jQuery( this ).outerWidth() / 2 ) ) + 'px';
 				break;
 		}
 

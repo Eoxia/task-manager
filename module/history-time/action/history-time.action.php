@@ -2,7 +2,7 @@
 /**
  * Les actions relatives à l'historique de temps.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
  * @version 1.6.0
  * @copyright 2015-2018 Eoxia
@@ -53,6 +53,7 @@ class History_Time_Action {
 		History_Time_Class::g()->display_histories_time( $task_id );
 		wp_send_json_success( array(
 			'view'             => ob_get_clean(),
+			'buttons_view'     => '',
 			'namespace'        => 'taskManager',
 			'module'           => 'historyTime',
 			'callback_success' => 'loadedTimeHistorySuccess',
@@ -79,17 +80,17 @@ class History_Time_Action {
 			wp_send_json_error();
 		}
 
-		$history_time_created = History_Time_Class::g()->create( array(
+		$history_time_created = History_Time_Class::g()->update( array(
 			'post_id'        => $task_id,
 			'due_date'       => $due_date,
 			'estimated_time' => $estimated_time,
 			'custom'         => $custom,
-		) );
+		), true );
 
 		do_action( 'tm_created_history_time', $history_time_created, $task_id, $due_date, $estimated_time );
 
 		$task = Task_Class::g()->get( array(
-			'id' => $task_id,
+			'p' => $task_id,
 		), true );
 
 		ob_start();

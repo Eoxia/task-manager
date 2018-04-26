@@ -2,10 +2,10 @@
 /**
  * La définition du schéma des données d'une tâche.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
  * @version 1.6.0
- * @copyright 2015-2017 Eoxia
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -26,35 +26,36 @@ class Task_Model extends \eoxia\Post_Model {
 	 * @since 1.0.0
 	 * @version 1.6.0
 	 *
-	 * @param Task_Model $object L'objet.
+	 * @param Task_Model $object     L'objet.
+	 * @param string     $req_method La méthode HTTP actuellement utilisée.
 	 */
-	public function __construct( $object ) {
-		$this->model['user_info'] = array(
+	public function __construct( $object, $req_method = null ) {
+		$this->schema['user_info'] = array(
 			'type'      => 'array',
 			'meta_type' => 'multiple',
-			'bydefault' => array(
-				'owner_id'    => get_current_user_id(),
-				'affected_id' => array(),
-			),
+			'child'     => array(),
 		);
 
-		$this->model['user_info']['owner_id'] = array(
+		$this->schema['user_info']['child']['owner_id'] = array(
 			'type'        => 'integer',
 			'meta_type'   => 'multiple',
 			'description' => 'Le responsable de la tâche',
 			'since'       => '1.0.0',
 			'version'     => '1.6.0',
+			'default'     => get_current_user_id(),
 		);
 
-		$this->model['user_info']['affected_id'] = array(
-			'type'        => 'integer',
+		$this->schema['user_info']['child']['affected_id'] = array(
+			'type'        => 'array',
+			'array_type'  => 'integer',
 			'meta_type'   => 'multiple',
 			'description' => 'Les utilisateurs (admin) affectés à la tâche',
 			'since'       => '1.0.0',
 			'version'     => '1.6.0',
+			'default'     => array(),
 		);
 
-		$this->model['user_info']['writer_id'] = array(
+		$this->schema['user_info']['child']['writer_id'] = array(
 			'type'        => 'integer',
 			'meta_type'   => 'multiple',
 			'description' => 'Plus utilisé depuis 2016.',
@@ -62,17 +63,13 @@ class Task_Model extends \eoxia\Post_Model {
 			'version'     => '1.6.0',
 		);
 
-		$this->model['time_info'] = array(
+		$this->schema['time_info'] = array(
 			'type'      => 'array',
 			'meta_type' => 'multiple',
 			'child'     => array(),
-			'bydefault' => array(
-				'history_time' => array(),
-				'elapsed'      => 0,
-			),
 		);
 
-		$this->model['time_info']['child']['history_time'] = array(
+		$this->schema['time_info']['child']['history_time'] = array(
 			'type'        => 'array',
 			'array_type'  => 'integer',
 			'meta_type'   => 'multiple',
@@ -82,7 +79,7 @@ class Task_Model extends \eoxia\Post_Model {
 			'version'     => '1.6.0',
 		);
 
-		$this->model['time_info']['child']['elapsed'] = array(
+		$this->schema['time_info']['child']['elapsed'] = array(
 			'type'        => 'integer',
 			'meta_type'   => 'multiple',
 			'description' => 'Le temps passé sur la tâche en minute',
@@ -90,7 +87,7 @@ class Task_Model extends \eoxia\Post_Model {
 			'version'     => '1.6.0',
 		);
 
-		$this->model['time_info']['child']['elapsed'] = array(
+		$this->schema['time_info']['child']['elapsed'] = array(
 			'type'        => 'integer',
 			'meta_type'   => 'multiple',
 			'description' => 'Le temps passé sur la tâche en minute',
@@ -98,56 +95,54 @@ class Task_Model extends \eoxia\Post_Model {
 			'version'     => '1.6.0',
 		);
 
-		$this->model['front_info'] = array(
+		$this->schema['front_info'] = array(
 			'type'        => 'array',
 			'meta_type'   => 'multiple',
 			'description' => 'Les options dans le frontend de WordPress',
 			'todo'        => 'Cette donnée n\'est plus utilisé depuis 2016 (03/01/2018, Jimmy)',
 			'since'       => '1.0.0',
 			'version'     => '1.6.0',
+			'child'       => array(),
 		);
 
-		$this->model['front_info']['display_time'] = array(
+		$this->schema['front_info']['child']['display_time'] = array(
 			'type'      => 'boolean',
 			'meta_type' => 'multiple',
 			'since'     => '1.0.0',
 			'version'   => '1.6.0',
 		);
 
-		$this->model['front_info']['display_user'] = array(
+		$this->schema['front_info']['child']['display_user'] = array(
 			'type'      => 'boolean',
 			'meta_type' => 'multiple',
 			'since'     => '1.0.0',
 			'version'   => '1.6.0',
 		);
 
-		$this->model['front_info']['display_color'] = array(
+		$this->schema['front_info']['child']['display_color'] = array(
 			'type'      => 'string',
 			'meta_type' => 'multiple',
 			'since'     => '1.0.0',
 			'version'   => '1.6.0',
 		);
 
-		$this->model['task_info'] = array(
+		$this->schema['task_info'] = array(
 			'type'        => 'array',
 			'meta_type'   => 'multiple',
 			'description' => 'Les informations de la tâche',
 			'since'       => '1.0.0',
 			'version'     => '1.6.0',
-			'bydefault'   => array(
-				'completed'      => false,
-				'order_point_id' => array(),
-			),
+			'child'       => array(),
 		);
 
-		$this->model['task_info']['completed'] = array(
+		$this->schema['task_info']['child']['completed'] = array(
 			'type'      => 'boolean',
 			'meta_type' => 'multiple',
 			'since'     => '1.0.0',
 			'version'   => '1.6.0',
 		);
 
-		$this->model['task_info']['order_point_id'] = array(
+		$this->schema['task_info']['child']['order_point_id'] = array(
 			'type'       => 'array',
 			'array_type' => 'integer',
 			'meta_type'  => 'multiple',
@@ -155,29 +150,31 @@ class Task_Model extends \eoxia\Post_Model {
 			'version'    => '1.6.0',
 		);
 
-		$this->model['count_completed_points'] = array(
+		$this->schema['count_completed_points'] = array(
 			'type'      => 'integer',
 			'meta_type' => 'single',
 			'field'     => '_tm_count_completed_points',
+			'default'   => 0,
 			'since'     => '1.6.0',
 			'version'   => '1.6.0',
 		);
 
-		$this->model['count_uncompleted_points'] = array(
+		$this->schema['count_uncompleted_points'] = array(
 			'type'      => 'integer',
 			'meta_type' => 'single',
 			'field'     => '_tm_count_uncompleted_points',
+			'default'   => 0,
 			'since'     => '1.6.0',
 			'version'   => '1.6.0',
 		);
 
-		$this->model['taxonomy'] = array(
+		$this->schema['taxonomy'] = array(
 			'type'      => 'array',
 			'meta_type' => 'multiple',
 			'since'     => '1.0.0',
 			'version'   => '1.6.0',
 			'child'     => array(
-				'wpeo_tag' => array(
+				Tag_Class::g()->get_type() => array(
 					'meta_type'  => 'multiple',
 					'array_type' => 'integer',
 					'type'       => 'array',
@@ -185,6 +182,6 @@ class Task_Model extends \eoxia\Post_Model {
 			),
 		);
 
-		parent::__construct( $object );
+		parent::__construct( $object, $req_method );
 	}
 }

@@ -17,7 +17,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 				// endfor;
 				// $current_month = 12;
 
-			?></div><?php
+			?></div>
+			<?php
 		// endforeach;
 	endif;
 	?>

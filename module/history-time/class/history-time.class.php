@@ -2,7 +2,7 @@
 /**
  * Gestion de l'historique du temps sur une tâche.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.3.4
  * @version 1.6.0
  * @copyright 2015-2018 Eoxia
@@ -39,7 +39,7 @@ class History_Time_Class extends \eoxia\Comment_Class {
 	 *
 	 * @var string
 	 */
-	protected $comment_type = 'history_time';
+	protected $type = 'history_time';
 
 	/**
 	 * API REST base.
@@ -56,18 +56,20 @@ class History_Time_Class extends \eoxia\Comment_Class {
 	protected $version = '0.1';
 
 	/**
-	 * La fonction appelée automatiquement après l'insertion de l'objet dans la base de donnée.
+	 * Statut personnalisé pour l'élément.
 	 *
-	 * @var array
+	 * @var string
 	 */
-	protected $before_post_function = array();
+	protected $status = '1';
 
 	/**
-	 * La fonction appelée automatiquement après la récupération de l'objet dans la base de donnée.
+	 * Définition des fonctions de callback pour l'élément.
 	 *
-	 * @var array
+	 * @var  array
 	 */
-	protected $after_model_get_function = array( '\task_manager\get_full_history_time' );
+	protected $callback_func = array(
+		'after_get' => array( '\task_manager\get_full_history_time' ),
+	);
 
 	/**
 	 * Charges les historiques de temps et les affiches.
@@ -84,15 +86,14 @@ class History_Time_Class extends \eoxia\Comment_Class {
 		), true );
 
 		$history_times = self::g()->get( array(
-			'post_id'          => $task_id,
-			'orderby'          => 'ASC',
-			'comment_approved' => '-34070',
-			'type'             => self::g()->get_type(),
+			'post_id' => $task_id,
+			'orderby' => 'ASC',
+			'type'    => self::g()->get_type(),
 		) );
 
 		if ( ! empty( $history_times ) ) {
 			foreach ( $history_times as $key => $history_time ) {
-				$history_time->author = get_userdata( $history_time->author_id );
+				$history_time->data['author'] = get_userdata( $history_time->data['author_id'] );
 			}
 		}
 

@@ -2,7 +2,7 @@
 /**
  * Fonctions "helper" des points
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
  * @version 1.6.0
  * @copyright 2015-2017 Eoxia
@@ -13,30 +13,6 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-}
-
-/**
- * Met à jour l'ordre des points
- *
- * @param  Point_Model $point Les données du point.
- *
- * @return Point_Model Les données du point modifié
- *
- * @since 1.0.0
- * @version 1.4.0-ford
- */
-function update_post_order( $point ) {
-	if ( ! empty( $point->post_id ) ) {
-		$task = Task_Class::g()->get( array(
-			'id' => $point->post_id,
-		), true );
-
-		$task->task_info['order_point_id'][] = (int) $point->id;
-
-		Task_Class::g()->update( $task );
-	}
-
-	return $point;
 }
 
 /**
@@ -57,8 +33,8 @@ function get_full_point( $point ) {
 		'user_id' => 0,
 	);
 
-	if ( ! empty( $point->time_info['completed_point'] ) ) {
-		foreach ( $point->time_info['completed_point'] as $user_id => $element ) {
+	if ( ! empty( $point->data['time_info']['completed_point'] ) ) {
+		foreach ( $point->data['time_info']['completed_point'] as $user_id => $element ) {
 			if ( ! empty( $element ) ) {
 				foreach ( $element as $date ) {
 					if ( $date > $last_completed['date'] ) {
@@ -70,7 +46,7 @@ function get_full_point( $point ) {
 		}
 	}
 
-	$point->time_info['last_completed'] = $last_completed;
+	$point->data['time_info']['last_completed'] = $last_completed;
 
 	return $point;
 }
@@ -81,7 +57,7 @@ function parse_content_tooltip( $content ) {
 	if ( ! empty( $matches[1] ) ) {
 		$comments = \task_manager\Task_Comment_Class::g()->get( array(
 			'comment__in' => $matches[1],
-			'status' => '-34070',
+			'status' => 1,
 		) );
 
 		if ( ! empty( $comments ) ) {

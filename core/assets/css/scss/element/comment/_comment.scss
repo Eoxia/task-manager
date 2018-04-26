@@ -1,0 +1,173 @@
+.points .point .comments {
+	background: rgba(0,0,0,0.05);
+	padding: 4px 0 10px 0;
+	.comment {
+
+		.wpeo-comment-container {
+			display: flex;
+			flex-direction: row;
+			padding: 8px 6px 0;
+			padding-left: 40px;
+			width: 100%;
+			.user {
+				border-radius: 50%;
+			}
+		}
+		.wpeo-comment-date {
+			font-size: 12px;
+			font-weight: 700;
+			span {
+				margin: auto;
+			}
+			input[type="text"] {
+				height: 0;
+				position: absolute;
+				opacity: 0;
+			}
+			> div {
+				display: inline-block;
+			}
+			.date-time {
+				background: rgba(0,0,0,0.2);
+				color: #fff;
+				display: inline;
+				padding: 4px;
+				border-radius: 50%;
+				font-size: 20px;
+				transition: all 0.2s ease-out;
+				&:hover {
+					cursor: pointer;
+					background: rgba(0,0,0,0.4);
+				}
+			}
+		}
+		&.new ul {
+			input {
+				width: 100%;
+				font-size: 13px;
+				margin: 0;
+				padding: 2px;
+			}
+			.wpeo-comment-date, .wpeo-comment-time {
+				display: flex;
+			}
+			.wpeo-comment-date {
+				max-width: 30px;
+			}
+			.wpeo-comment-content {
+				position: relative;
+				margin: 0 16px;
+				width: 100%;
+				margin: auto 6px;
+				border-bottom: 1px solid rgba(0,0,0,.1);
+				transition: all .2s ease-out;
+				padding-bottom: 2px;
+				.content {
+					min-height: 22px;
+				}
+				.wpeo-point-new-placeholder {
+					color: rgba(0,0,0,.4);
+					position: absolute;
+					left: 6px;
+					bottom: 2px;
+					pointer-events: none;
+				}
+			}
+			.wpeo-comment-time {
+				width: 100%;
+				max-width: 40px;
+				input {
+					padding: 2px;
+				}
+			}
+			.wpeo-point-new-btn {
+				text-align: right;
+				width: 100%;
+				max-width: 26px;
+				transition: all 0.2s ease-out;
+				margin: auto 0 auto auto;
+				&:hover {
+					cursor: pointer;
+				}
+			}
+			.wpeo-save-point {
+				width: 100%;
+				max-width: 5%;
+				text-align: right;
+				margin: auto 0 auto auto;
+
+				.save-icon {
+					font-size: 16px;
+					display: inline-block;
+
+					.fa-circle {
+						color: $a;
+						transition: all 0.2s ease-out;
+					}
+					&:hover .fa-circle {
+						color: $dark_a;
+						cursor: pointer;
+					}
+				}
+			}
+		}
+		&.view ul, &.edit ul {
+			flex-wrap: wrap;
+			> .avatar {
+				width: 100%;
+				max-width: 20px;
+				margin-right: 6px;
+				.user {
+					span {
+						font-size: 12px;
+					}
+					img, .wpeo-avatar-initial, .wpeo-avatar-initial span {
+						border-radius: 50%;
+					}
+				}
+			}
+			.wpeo-comment-content {
+				width: 100%;
+				input {
+					width: 100%;
+				}
+			}
+			.wpeo-comment-time {
+				span {
+					padding: 0 4px 0 0;
+					font-size: 14px;
+				}
+				display: flex;
+				margin-left: auto;
+				width: 100%;
+				max-width: 40px;
+			}
+			.wpeo-comment-action {
+				max-width: 26px;
+				.dropdown-toggle {
+					padding: 0 10px;
+					font-size: 12px;
+					border-top: 0;
+				}
+			}
+			.wpeo-save-point {
+				margin-left: auto;
+			}
+		}
+		&.edit ul {
+			.wpeo-comment-time input {
+				width: 100%;
+			}
+			.wpeo-comment-date input, .wpeo-comment-time input {
+				font-size: 12px;
+			}
+		}
+	}
+}
+.wpeo-point-comment-edit {
+	.wpeo-point-time-elapsed {
+		width: 40px;
+	}
+}
+
+@import "blink";

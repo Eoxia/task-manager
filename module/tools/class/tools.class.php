@@ -2,7 +2,7 @@
 /**
  * Gestion des outils.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.5.0
  * @version 1.5.0
  * @copyright 2015-2017 Eoxia
@@ -40,7 +40,7 @@ class Tools_Class extends \eoxia\Singleton_Util {
 		$current_page = ! empty( $_GET['current_page'] ) ? (int) $_GET['current_page'] : 1;
 
 		// $args_where = array(
-		// 	'status' => -34070,
+		// 	'status' => 1,
 		// 	'parent' => 0,
 		// 	'number' => $this->limit,
 		// 	'offset' => ( $current_page - 1 ) * $this->limit,
@@ -79,7 +79,7 @@ class Tools_Class extends \eoxia\Singleton_Util {
 						'post__not_in' => array( $task->id ),
 						'orderby' => 'comment__in',
 						'comment__in' => $task->task_info['order_point_id'],
-						'status' => -34070,
+						'status' => 1,
 					) );
 
 					if ( ! empty( $task->points ) ) {
@@ -89,7 +89,7 @@ class Tools_Class extends \eoxia\Singleton_Util {
 							} else {
 								$point->comments = Task_Comment_Class::g()->get( array(
 									'parent' => $point->id,
-									'status' => -34070
+									'status' => 1
 								) );
 							}
 						}

@@ -2,10 +2,10 @@
 /**
  * Affichages des dernierès activités pour le mail de support.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.5.0
- * @version 1.5.0
- * @copyright 2015-2017 Eoxia
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -33,14 +33,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<div style="display: block; margin: 2em 0; border-bottom: 1px solid rgba(0,0,0,0.1);">
 								<p style="font-weight: 700;">
 									<span><?php echo esc_html( ucfirst( mysql2date( 'l', $date ) ) . ' ' . mysql2date( 'd/m/Y', $date ) ); ?></span>
-									<span><?php echo esc_html( ' ' . substr( $time, 0, -3 ) ); echo esc_html( ', ' . $element->displayed_username ); ?></span>
-									<span><?php \eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/mail/action-' . $element->view, array(
+									<span><?php echo esc_html( ' ' . substr( $time, 0, -3 ) ); echo esc_html( ', ' . $element->data['displayed_username'] ); ?></span>
+									<span><?php \eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/mail/action-' . $element->data['view'], array(
 										'element' => $element,
 									) ); ?></span>
 								</p>
 								<div>
 									<?php
-									\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/mail/' . $element->view, array(
+									\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/mail/' . $element->data['view'], array(
 										'element' => $element,
 									) );
 									?>

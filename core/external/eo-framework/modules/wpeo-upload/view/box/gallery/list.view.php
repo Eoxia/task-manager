@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		else :
 			?>
 			<div class="document">
-				<i class="icon fa fa-paperclip" aria-hidden="true"></i>
+				<i class="icon far fa-paperclip" aria-hidden="true"></i>
 
 				<?php $document_name = get_attached_file( $main_picture_id ); ?>
 				<p>
@@ -46,7 +46,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					else :
 						?>
 						<div class="document">
-							<i class="icon fa fa-paperclip" aria-hidden="true"></i>
+							<i class="icon far fa-paperclip" aria-hidden="true"></i>
 
 							<?php $document_name = get_attached_file( $id ); ?>
 							<p>

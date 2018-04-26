@@ -2,7 +2,7 @@
 /**
  * La vue principale de la metabox des tâches rapides.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.6.0
  * @version 1.6.0
  * @copyright 2015-2017 Eoxia
@@ -26,8 +26,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<th class="point" data-title="<?php esc_html_e( 'Point ID', 'task-manager' ); ?>"><?php esc_html_e( 'Point ID', 'task-manager' ); ?></th>
 				<th class="content" data-title="<?php esc_html_e( 'Comment', 'task-manager' ); ?>"><?php esc_html_e( 'Comment', 'task-manager' ); ?></th>
 				<th class="min" data-title="<?php esc_html_e( 'min.', 'task-manager' ); ?>">
-					<i class="fa fa-clock-o" aria-hidden="true"></i>
-					<span class="time"><?php echo esc_attr( isset( $comment_schema->time_info['calculed_elapsed'] ) ? $comment_schema->time_info['calculed_elapsed'] : end( $comment_schema->time_info['elapsed'] ) ); ?></span>
+					<i class="dashicons dashicons-clock" aria-hidden="true"></i>
+					<span class="time"><?php echo esc_attr( isset( $comment_schema->data['time_info']['calculed_elapsed'] ) ? $comment_schema->data['time_info']['calculed_elapsed'] : $comment_schema->data['time_info']['elapsed'] ); ?></span>
 					<span><?php esc_html_e( 'min.', 'task-manager' ); ?></span>
 				</th>
 				<th class="action"><input type="checkbox" /></th>
@@ -61,7 +61,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<li class="point"><?php esc_html_e( 'Point ID', 'task-manager' ); ?></li>
 			<li class="content"><?php esc_html_e( 'Comment', 'task-manager' ); ?></li>
 			<li class="min">
-				<i class="fa fa-clock-o" aria-hidden="true"></i>
+				<i class="dashicons dashicons-clock" aria-hidden="true"></i>
 				<span class="time"><?php echo esc_attr( isset( $comment_schema->time_info['calculed_elapsed'] ) ? $comment_schema->time_info['calculed_elapsed'] : end( $comment_schema->time_info['elapsed'] ) ); ?></span>
 				<span><?php esc_html_e( 'min.', 'task-manager' ); ?></span>
 			</li>

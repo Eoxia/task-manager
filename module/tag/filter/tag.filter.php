@@ -2,8 +2,10 @@
 /**
  * Fichier de gestion des filtres permettant l'utilisation de "Tag" dans les tâches
  *
- * @package Task Manager
- * @subpackage Module/Tag
+ * @since 1.0.0
+ * @version 1.6.0
+ *
+ * @package Task_Manager
  */
 
 namespace task_manager;
@@ -73,12 +75,12 @@ class Tag_Filter {
 	 */
 	public function callback_task_footer( $current_task_footer_html, $task ) {
 		$list_tag = Tag_Class::g()->get( array(
-			'post_id' => $task->id,
+			'post_id' => $task->data['id'],
 		) );
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'tag', 'backend/tags-wrapper', array(
-			'object' => $task,
+			'object'   => $task,
 			'list_tag' => $list_tag,
 		) );
 		$current_task_footer_html .= ob_get_clean();

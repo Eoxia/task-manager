@@ -1,0 +1,52 @@
+.popup-notification {
+	> .modal-container {
+		max-width: 800px
+	}
+	ul::after {
+		display: block;
+		content: '';
+		clear: both;
+	}
+	.follower {
+		float: left;
+		margin: 0.4em;
+		.user:hover {
+			cursor: pointer !important;
+			box-shadow: 0 0 0 1px $a;
+		}
+		img {
+			filter: grayscale(100%);
+		}
+		&.active .user {
+			box-shadow: 0 0 0 3px $a;
+			img {
+				filter: grayscale(0);
+			}
+		}
+	}
+	.notify-label {
+		margin-top: 1em;
+		label {
+			font-size: 14px;
+			margin-right: 0.4em;
+		}
+		input {
+			border: 1px solid rgba(0,0,0,0.8);
+			margin-top: 0.1em;
+		}
+	}
+	.send-notification {
+		background: #389af6;
+		border: 0;
+		box-shadow: none;
+		display: block;
+		margin: .4em 0 .4em auto;
+		color: #fff;
+		padding: .6em;
+		transition: all .2s ease-out;
+		&:hover {
+			cursor: pointer;
+			background: #69b3f8;
+		}
+	}
+}

@@ -2,7 +2,7 @@
 /**
  * Fonctions helpers des quick times.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.6.0
  * @version 1.6.0
  * @copyright 2015-2017 Eoxia
@@ -38,11 +38,11 @@ function quicktime_format_data( $data ) {
 
 	$data['displayed']['point_fake_content'] = '';
 
-	$data['displayed']['point_fake_content'] = '#' . $data['displayed']['point']->id . ' ' . $data['displayed']['point']->content;
+	$data['displayed']['point_fake_content'] = '#' . $data['displayed']['point']->data['id'] . ' ' . $data['displayed']['point']->data['content'];
 
-	if ( strlen( $data['displayed']['point']->content ) > 15 ) {
-		$data['displayed']['point_fake_content'] = substr( $data['displayed']['point']->content, 0, 15 );
-		$data['displayed']['point_fake_content'] = '#' . $data['displayed']['point']->id . ' ' . $data['displayed']['point_fake_content'] . '...';
+	if ( strlen( $data['displayed']['point']->data['content'] ) > 15 ) {
+		$data['displayed']['point_fake_content'] = substr( $data['displayed']['point']->data['content'], 0, 15 );
+		$data['displayed']['point_fake_content'] = '#' . $data['displayed']['point']->data['id'] . ' ' . $data['displayed']['point_fake_content'] . '...';
 	}
 
 	return $data;

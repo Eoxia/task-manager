@@ -89,9 +89,13 @@ window.eoxiaJS.taskManager.quickTime.settingRefreshedPoint = function( triggered
  * @version 1.6.0
  */
 window.eoxiaJS.taskManager.quickTime.addedConfigQuickTime = function( triggeredElement, response ) {
-	var el = jQuery( response.data.view ).hide();
+	var el = jQuery( response.data.new_item_view ).hide();
 	jQuery( '.setting-quick-time .list .form' ).after( el );
 	el.fadeIn();
+
+	triggeredElement.closest( '.form' ).replaceWith( response.data.form_view );
+
+	jQuery( "#tm-indicator-quick-task .inside" ).html( response.data.metabox_view );
 };
 
 /**
@@ -106,6 +110,8 @@ window.eoxiaJS.taskManager.quickTime.addedConfigQuickTime = function( triggeredE
  */
 window.eoxiaJS.taskManager.quickTime.deletedConfigQuickTime = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.item' ).fadeOut();
+
+	jQuery( "#tm-indicator-quick-task .inside" ).html( response.data.metabox_view );
 };
 
 /**

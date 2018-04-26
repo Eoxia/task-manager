@@ -1,0 +1,23 @@
+.load-more {
+	text-align: center;
+	display: none;
+	max-width: 200px;
+	width: 100%;
+	margin: 10px auto 0 auto;
+	&.loading {
+		display: block;
+	}
+}
+
+button.load-more-history {
+	background: $a;
+	box-shadow: none;
+	border: 0;
+	color: #fff;
+	padding: 0.4em 1em;
+
+	&:hover {
+		cursor: pointer;
+		background: rgba($a, 0.8);
+	}
+}

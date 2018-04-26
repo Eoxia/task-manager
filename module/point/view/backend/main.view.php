@@ -2,7 +2,7 @@
 /**
  * La vue principale des points dans le backend.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
  * @version 1.6.0
  * @copyright 2015-2018 Eoxia
@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<span class="dashicons dashicons-plus wpeo-point-toggle-arrow"></span>
 		<span class="wpeo-point-toggle-a">
 			<?php esc_html_e( 'Completed points', 'task-manager' ); ?>
-			(<span class="wpeo-task-count-completed"><span class="point-completed"><?php echo esc_html( $task->count_completed_points ); ?></span>/<span class="total-point"><?php echo esc_html( $task->count_all_points ); ?></span></span>)
+			(<span class="wpeo-task-count-completed"><span class="point-completed"><?php echo esc_html( $task->data['count_completed_points'] ); ?></span>/<span class="total-point"><?php echo esc_html( $task->data['count_all_points'] ); ?></span></span>)
 		</span>
 	</p>
 

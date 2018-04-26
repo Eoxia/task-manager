@@ -2,11 +2,10 @@
 /**
  * Fichier de gestion des "actions" pour les followers
  *
- * @package Task Manager
- * @subpackage Module/Tag
- *
  * @since 1.0.0
- * @version 1.5.0
+ * @version 1.6.0
+ *
+ * @package Task_Manager
  */
 
 namespace task_manager;
@@ -48,26 +47,53 @@ class Follower_Action {
 
 		$followers = Follower_Class::g()->get( array(
 			'role' => array(
-				'administrator'
+				'administrator',
 			),
 		) );
-		$task_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+		$task_id   = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 
 		$task = Task_Class::g()->get( array(
 			'id' => $task_id,
 		), true );
 
+		// Récupères les followers supplémentaires qui ne sont plus "administrateur". Afin de pouvoir les afficher dans l'interface.
+		$followers_only_id         = array();
+		$followers_no_role_only_id = array();
+		if ( ! empty( $followers ) ) {
+			foreach ( $followers as $follower ) {
+				$followers_only_id[] = $follower->data['id'];
+			}
+		}
+
+		if ( ! empty( $task->data['user_info']['affected_id'] ) ) {
+			foreach ( $task->data['user_info']['affected_id'] as $key => $affected_id ) {
+				if ( ! in_array( $affected_id, $followers_only_id, true ) ) {
+					$followers_no_role_only_id[] = $affected_id;
+					break;
+				}
+			}
+		}
+
+		$followers_no_role = array();
+
+		if ( ! empty( $followers_no_role_only_id ) ) {
+			$followers_no_role = Follower_Class::g()->get( array(
+				'include' => $followers_no_role_only_id,
+			) );
+		}
+
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'follower', 'backend/main-edit', array(
-			'followers' => $followers,
-			'task' => $task,
+			'followers'         => $followers,
+			'followers_no_role' => $followers_no_role,
+			'task'              => $task,
 		) );
 
 		wp_send_json_success( array(
-			'namespace' => 'taskManager',
-			'module' => 'follower',
+			'namespace'        => 'taskManager',
+			'module'           => 'follower',
 			'callback_success' => 'loadedFollowersSuccess',
-			'view' => ob_get_clean(),
+			'view'             => ob_get_clean(),
 		) );
 	}
 
@@ -94,22 +120,22 @@ class Follower_Action {
 
 		$followers = array();
 
-		if ( ! empty( $task->user_info['affected_id'] ) ) {
+		if ( ! empty( $task->data['user_info']['affected_id'] ) ) {
 			$followers = Follower_Class::g()->get( array(
-				'include' => $task->user_info['affected_id'],
+				'include' => $task->data['user_info']['affected_id'],
 			) );
 		}
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'follower', 'backend/main', array(
 			'followers' => $followers,
-			'task' => $task,
+			'task'      => $task,
 		) );
 		wp_send_json_success( array(
-			'namespace' => 'taskManager',
-			'module' => 'follower',
+			'namespace'        => 'taskManager',
+			'module'           => 'follower',
 			'callback_success' => 'closedFollowersEditMode',
-			'view' => ob_get_clean(),
+			'view'             => ob_get_clean(),
 		) );
 	}
 
@@ -135,14 +161,14 @@ class Follower_Action {
 			'id' => $task_id,
 		), true );
 
-		$task->user_info['affected_id'][] = $user_id;
+		$task->data['user_info']['affected_id'][] = $user_id;
 
-		Task_Class::g()->update( $task );
+		Task_Class::g()->update( $task->data );
 
 		wp_send_json_success( array(
-			'module' => 'follower',
+			'module'           => 'follower',
 			'callback_success' => 'affectedFollowerSuccess',
-			'nonce' => wp_create_nonce( 'follower_unaffectation' ),
+			'nonce'            => wp_create_nonce( 'follower_unaffectation' ),
 		) );
 	}
 
@@ -168,18 +194,18 @@ class Follower_Action {
 			'id' => $task_id,
 		), true );
 
-		$key = array_search( $user_id, $task->user_info['affected_id'], true );
+		$key = array_search( $user_id, $task->data['user_info']['affected_id'], true );
 
 		if ( -1 < $key ) {
-			array_splice( $task->user_info['affected_id'], $key, 1 );
+			array_splice( $task->data['user_info']['affected_id'], $key, 1 );
 		}
 
-		Task_Class::g()->update( $task );
+		Task_Class::g()->update( $task->data );
 
 		wp_send_json_success( array(
-			'module' => 'follower',
+			'module'           => 'follower',
 			'callback_success' => 'unaffectedFollowerSuccess',
-			'nonce' => wp_create_nonce( 'follower_affectation' ),
+			'nonce'            => wp_create_nonce( 'follower_affectation' ),
 		) );
 	}
 
@@ -190,7 +216,7 @@ class Follower_Action {
 	 */
 	public function callback_edit_user_profile( $user  ) {
 		$user = Follower_Class::g()->get( array(
-			'include' => array( $user->ID ),
+			'id' => $user->ID,
 		), true );
 
 		\eoxia\View_Util::exec( 'task-manager', 'follower', 'backend/user-profile', array(
@@ -209,8 +235,8 @@ class Follower_Action {
 			return false;
 		}
 
-		$user = array( 'id' => $user_id );
-		$user['_tm_auto_elapsed_time'] = ! empty( $_POST ) && ! empty( $_POST['_tm_auto_elapsed_time'] ) ? sanitize_text_field( $_POST['_tm_auto_elapsed_time'] ) : '';
+		$user                          = array( 'id' => $user_id );
+		$user['_tm_auto_elapsed_time'] = isset( $_POST['_tm_auto_elapsed_time'] ) && boolval( $_POST['_tm_auto_elapsed_time'] ) ? true : false;
 
 		$user_update = Follower_Class::g()->update( $user );
 	}

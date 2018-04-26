@@ -64,8 +64,8 @@ window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
 			data.offset = window.eoxiaJS.taskManager.task.offset;
 			data.posts_per_page = window.task_manager_posts_per_page;
 			data.term = jQuery( '.wpeo-header-bar input[name="term"]' ).val();
-			data.users_id = ( 'load_my_task' == jQuery( '.wpeo-header-bar li.active' ).data( 'action' ) ) ? jQuery( 'input.user-id' ).val() : jQuery( '.wpeo-header-search select[name="follower_id_selected"]' ).val();
-			data.status = ( 'load_archived_task' == jQuery( '.wpeo-header-bar li.active' ).data( 'action' ) ) ? 'archive' : 'publish';
+			data.users_id = jQuery( '.wpeo-header-search select[name="follower_id_selected"]' ).val();
+			data.status = jQuery( '.wpeo-header-bar input[name="status"]' ).val();
 
 			window.eoxiaJS.taskManager.navigation.checkDataBeforeSearch( undefined );
 
@@ -261,20 +261,6 @@ window.eoxiaJS.taskManager.task.loadedCorretiveTaskSuccess = function( triggered
 };
 
 /**
- * Le callback en cas de réussite à la requête Ajax "export_task".
- *
- * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
- * @param  {Object}         response          Les données renvoyées par la requête Ajax.
- * @return {void}
- *
- * @since 1.3.6.0
- * @version 1.3.6.0
- */
-window.eoxiaJS.taskManager.task.exportedTask = function( triggeredElement, response ) {
-	jQuery( '.tm_export_result_container' ).find( 'textarea' ).html( response.data.content );
-};
-
-/**
  * Le callback en cas de réussite à la requête Ajax "notify_by_mail".
  *
  * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
@@ -287,7 +273,6 @@ window.eoxiaJS.taskManager.task.exportedTask = function( triggeredElement, respo
 window.eoxiaJS.taskManager.task.notifiedByMail = function( triggeredElement, response ) {
 
 };
-
 /**
  * Le callback en cas de réussite à la requête Ajax "recompile_task".
  *
@@ -304,6 +289,7 @@ window.eoxiaJS.taskManager.task.recompiledTask = function( triggeredElement, res
 	view.attr( 'style', currentStyle );
 	triggeredElement.closest( '.wpeo-project-task' ).replaceWith( view );
 };
+
 
 /**
  * Enlève la classe 'active' de l'élement 'success'.

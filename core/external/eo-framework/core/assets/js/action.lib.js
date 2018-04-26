@@ -1,17 +1,21 @@
 /**
- * Action for make request AJAX.
+ * Gestion des actions XHR principaux
  *
- * @since 1.0.0-easy
- * @version 1.1.0-easy
- * @todo Replace the three actions to one.
+ * -action-input:     Déclenches une requête XHR avec les balises inputs contenu dans le contenaire parent.
+ * -action-attribute: Déclenches une requête XHR avec les attributs de l'élément déclencheur.
+ * -action-delete:    Déclenches une requête XHR avec les attributs de l'élément déclencheur si l'utilisateur confirme la popin "confirm" du navigateur.
+ *
+ * @since 1.0.0
+ * @version 1.0.0
  */
 
 if ( ! window.eoxiaJS.action ) {
 	/**
 	 * Declare the object action.
 	 *
-	 * @since 1.0.0-easy
-	 * @version 1.0.0-easy
+	 * @since 1.0.0
+	 * @version 1.0.0
+	 *
 	 * @type {Object}
 	 */
 	window.eoxiaJS.action = {};
@@ -19,8 +23,9 @@ if ( ! window.eoxiaJS.action ) {
 	/**
 	 * This method call the event method
 	 *
-	 * @since 1.0.0-easy
-	 * @version 1.0.0-easy
+	 * @since 1.0.0
+	 * @version 1.0.0
+	 *
 	 * @return {void}
 	 */
 	window.eoxiaJS.action.init = function() {
@@ -30,8 +35,9 @@ if ( ! window.eoxiaJS.action ) {
 	/**
 	 * This method initialize the click event on three classes.
 	 *
-	 * @since 1.0.0-easy
-	 * @version 1.0.0-easy
+	 * @since 1.0.0
+	 * @version 1.0.0
+	 *
 	 * @return {void}
 	 */
 	window.eoxiaJS.action.event = function() {
@@ -43,35 +49,34 @@ if ( ! window.eoxiaJS.action ) {
 	/**
 	 * Make a request with input value founded inside the parent of the HTML element clicked.
 	 *
+	 * @since 1.0.0
+	 * @version 1.0.0
+	 *
 	 * @param  {MouseEvent} event Properties of element triggered by the MouseEvent.
-	 * @since 1.0.0-easy
-	 * @version 1.0.0-easy
+	 *
 	 * @return {void}
 	 */
 	window.eoxiaJS.action.execInput = function( event ) {
-		var element = jQuery( this ), parentElement = element, loaderElement = element, listInput = undefined, data = {}, i = 0, doAction = true, key = undefined, inputAlreadyIn = [];
+		var element = jQuery( this ), parentElement = element, listInput = undefined, data = {}, i = 0, doAction = true, key = undefined, inputAlreadyIn = [];
 		event.preventDefault();
-
-		if ( element.attr( 'data-loader' ) ) {
-			loaderElement = element.closest( '.' + element.attr( 'data-loader' ) );
-		}
 
 		if ( element.attr( 'data-parent' ) ) {
 			parentElement = element.closest( '.' + element.attr( 'data-parent' ) );
 		}
 
 		/** Méthode appelée avant l'action */
-		if ( element.attr( 'data-namespace' ) && element.attr( 'data-module' ) && element.attr( 'data-before-method' ) ) {
+		if ( element.attr( 'data-module' ) && element.attr( 'data-before-method' ) ) {
 			doAction = false;
 			doAction = window.eoxiaJS[element.attr( 'data-namespace' )][element.attr( 'data-module' )][element.attr( 'data-before-method' )]( element );
-		}
-
-		if ( element.hasClass( '.grey' ) ) {
-			doAction = false;
+		} else {
+			if ( ! doAction ) {
+				doAction = window.eoxiaJS.action.checkBeforeCB(element);
+			}
 		}
 
 		if ( doAction ) {
-			window.eoxiaJS.loader.display( loaderElement );
+			window.eoxiaJS.loader.display( element );
+
 			listInput = window.eoxiaJS.arrayForm.getInput( parentElement );
 			for ( i = 0; i < listInput.length; i++ ) {
 				if ( listInput[i].name && -1 === inputAlreadyIn.indexOf( listInput[i].name ) ) {
@@ -93,21 +98,18 @@ if ( ! window.eoxiaJS.action ) {
 	/**
 	 * Make a request with data on HTML element clicked.
 	 *
+	 * @since 1.0.0
+	 * @version 1.0.0
+	 *
 	 * @param  {MouseEvent} event Properties of element triggered by the MouseEvent.
-	 * @since 1.0.0-easy
-	 * @version 1.0.0-easy
+	 *
 	 * @return {void}
 	 */
 	window.eoxiaJS.action.execAttribute = function( event ) {
 	  var element = jQuery( this );
 		var doAction = true;
-		var loaderElement = element;
 
 		event.preventDefault();
-
-		if ( element.attr( 'data-loader' ) ) {
-			loaderElement = element.closest( '.' + element.attr( 'data-loader' ) );
-		}
 
 		/** Méthode appelée avant l'action */
 		if ( element.attr( 'data-module' ) && element.attr( 'data-before-method' ) ) {
@@ -123,13 +125,13 @@ if ( ! window.eoxiaJS.action ) {
 			if ( jQuery( this ).attr( 'data-confirm' ) ) {
 				if ( window.confirm( jQuery( this ).attr( 'data-confirm' ) ) ) {
 					element.get_data( function( data ) {
-						window.eoxiaJS.loader.display( loaderElement );
+						window.eoxiaJS.loader.display( element );
 						window.eoxiaJS.request.send( element, data );
 					} );
 				}
 			} else {
 				element.get_data( function( data ) {
-					window.eoxiaJS.loader.display( loaderElement );
+					window.eoxiaJS.loader.display( element );
 					window.eoxiaJS.request.send( element, data );
 				} );
 			}
@@ -141,21 +143,18 @@ if ( ! window.eoxiaJS.action ) {
 	/**
 	 * Make a request with data on HTML element clicked with a custom delete message.
 	 *
+	 * @since 1.0.0
+	 * @version 1.0.0
+	 *
 	 * @param  {MouseEvent} event Properties of element triggered by the MouseEvent.
-	 * @since 1.0.0-easy
-	 * @version 1.0.0-easy
+	 *
 	 * @return {void}
 	 */
 	window.eoxiaJS.action.execDelete = function( event ) {
 		var element = jQuery( this );
 		var doAction = true;
-		var loaderElement = element;
 
 		event.preventDefault();
-
-		if ( element.attr( 'data-loader' ) ) {
-			loaderElement = element.closest( '.' + element.attr( 'data-loader' ) );
-		}
 
 		/** Méthode appelée avant l'action */
 		if ( element.attr( 'data-namespace' ) && element.attr( 'data-module' ) && element.attr( 'data-before-method' ) ) {
@@ -170,10 +169,36 @@ if ( ! window.eoxiaJS.action ) {
 		if ( doAction ) {
 			if ( window.confirm( element.attr( 'data-message-delete' ) ) ) {
 				element.get_data( function( data ) {
-					window.eoxiaJS.loader.display( loaderElement );
+					window.eoxiaJS.loader.display( element );
 					window.eoxiaJS.request.send( element, data );
 				} );
 			}
 		}
 	};
+
+	/**
+	 * Si une méthode de callback existe avant l'action, cette méthode l'appel.
+	 *
+	 * @since 1.0.0
+	 * @version 1.0.0
+	 *
+	 * @param  {Object} element L'élément déclencheur.
+	 *
+	 * @return {bool}           True si l'action peut être envoyé, sinon False.
+	 */
+	window.eoxiaJS.action.checkBeforeCB = function( element ) {
+		var beforeMethod = element.attr( 'wpeo-before-cb' );
+
+		if ( ! beforeMethod ) {
+			return true;
+		}
+
+		beforeMethod = beforeMethod.split( '/' );
+
+		if ( ! beforeMethod[0] || ! beforeMethod[1] || ! beforeMethod[2] ) {
+			return true;
+		}
+
+		return window.eoxiaJS[beforeMethod[0]][beforeMethod[1]][beforeMethod[2]]( element );
+	}
 }

@@ -1,3 +1,10 @@
+/**
+ * Gestion des onglets.
+ *
+ * @since 1.0.0
+ * @version 1.0.0
+ */
+
 if ( ! window.eoxiaJS.tab ) {
 	window.eoxiaJS.tab = {};
 
@@ -6,7 +13,7 @@ if ( ! window.eoxiaJS.tab ) {
 	};
 
 	window.eoxiaJS.tab.event = function() {
-	  jQuery( document ).on( 'click', '.tab-element', window.eoxiaJS.tab.load );
+	  jQuery( document ).on( 'click', '.wpeo-tab .tab-element', window.eoxiaJS.tab.load );
 	};
 
 	window.eoxiaJS.tab.load = function( event ) {
@@ -16,28 +23,31 @@ if ( ! window.eoxiaJS.tab ) {
 	  event.preventDefault();
 		event.stopPropagation();
 
-		tabTriggered.closest( '.content' ).removeClass( 'active' );
+		tabTriggered.closest( '.wpeo-tab' ).find( '.tab-element.tab-active' ).removeClass( 'tab-active' );
+		tabTriggered.addClass( 'tab-active' );
 
-		if ( ! tabTriggered.hasClass( 'no-tab' ) && tabTriggered.data( 'action' ) ) {
-			jQuery( '.tab .tab-element.active' ).removeClass( 'active' );
-			tabTriggered.addClass( 'active' );
-
+		if ( ! tabTriggered.attr( 'data-action' ) ) {
+			tabTriggered.closest( '.wpeo-tab' ).find( '.tab-content.tab-active' ).removeClass( 'tab-active' );
+			tabTriggered.closest( '.wpeo-tab' ).find( '.tab-content[id="' + tabTriggered.attr( 'data-target' ) + '"]' ).addClass( 'tab-active' );
+		} else {
 			data = {
-				action: 'load_tab_content',
-				_wpnonce: tabTriggered.data( 'nonce' ),
-				tab_to_display: tabTriggered.data( 'action' ),
-				title: tabTriggered.data( 'title' ),
-				element_id: tabTriggered.data( 'id' )
+				action: tabTriggered.attr( 'data-action' ),
+				_wpnonce: tabTriggered.attr( 'data-nonce' ),
+				target: tabTriggered.attr( 'data-target' ),
+				title: tabTriggered.attr( 'data-title' ),
+				element_id: tabTriggered.attr( 'data-id' )
 		  };
 
-			jQuery( '.' + tabTriggered.data( 'target' ) ).addClass( 'loading' );
+			window.eoxiaJS.loader.display( tabTriggered );
 
 			jQuery.post( window.ajaxurl, data, function( response ) {
-				jQuery( '.' + tabTriggered.data( 'target' ) ).replaceWith( response.data.template );
+				window.eoxiaJS.loader.remove( tabTriggered );
+				tabTriggered.closest( '.wpeo-tab' ).find( '.tab-content.tab-active' ).removeClass( 'tab-active' );
+				tabTriggered.closest( '.wpeo-tab' ).find( '.tab-content' ).addClass( 'tab-active' );
+				tabTriggered.closest( '.wpeo-tab' ).find( '.tab-content' ).html( response.data.view );
 
 				window.eoxiaJS.tab.callTabChanged();
 			} );
-
 		}
 
 	};
@@ -46,7 +56,7 @@ if ( ! window.eoxiaJS.tab ) {
 		var key = undefined, slug = undefined;
 		for ( key in window.eoxiaJS ) {
 			for ( slug in window.eoxiaJS[key] ) {
-				if ( window.eoxiaJS[key][slug].tabChanged ) {
+				if ( window.eoxiaJS && window.eoxiaJS[key] && window.eoxiaJS[key][slug].tabChanged ) {
 					window.eoxiaJS[key][slug].tabChanged();
 				}
 			}

@@ -2,7 +2,7 @@
 /**
  * La vue principale de la page "wpeomtm-dashboard"
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 0.1.0
  * @version 1.6.0
  * @copyright 2015-2018 Eoxia
@@ -28,17 +28,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</h2>
 	</div>
 
-	<?php do_shortcode( '[task_manager_search_bar term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '"]' ); ?>
+	<?php echo do_shortcode( '[task_manager_search_bar term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '"]' ); ?>
 
 	<?php
 	$waiting_updates = get_option( '_tm_waited_updates', array() );
-	if ( ! empty( $waiting_updates ) && strpos( $_SERVER['REQUEST_URI'], 'admin.php' ) && ! strpos( $_SERVER['REQUEST_URI'], 'admin.php?page=task-manager-update' ) ) :
-		\eoxia\View_Util::exec( 'task-manager', 'update_manager', 'say-to-update' );
+	if ( ! empty( $waiting_updates ) && strpos( $_SERVER['REQUEST_URI'], 'admin.php' ) && ! strpos( $_SERVER['REQUEST_URI'], 'admin.php?page=' . \eoxia\Config_Util::$init['task-manager']->update_page_url ) ) :
+		\eoxia\Update_Manager_Class::g()->display_say_to_update( 'task-manager', __( 'Need to update Task Manager data', 'task-manager' ) );
 	else :
 		if ( ! empty( $id ) ) :
-			do_shortcode( '[task id="' . $id . '"]' );
+			echo do_shortcode( '[task id="' . $id . '"]' );
 		else :
-			do_shortcode( '[task term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '" status="any" post_parent="0" with_wrapper="0"]' );
+			echo do_shortcode( '[task term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '" status="any" post_parent="0" with_wrapper="0"]' );
 		endif;
 	endif;
 

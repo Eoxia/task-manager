@@ -36,7 +36,7 @@ class Tag_Class extends \eoxia\Term_Class {
 	 *
 	 * @var string
 	 */
-	protected $taxonomy = 'wpeo_tag';
+	protected $type = 'wpeo_tag';
 
 	/**
 	 * Base de l'url pour la récupération au travers de l'API / Base slug for retriving through API

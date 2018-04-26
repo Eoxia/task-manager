@@ -2,10 +2,10 @@
 /**
  * Les actions relatives aux notifications.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.5.0
  * @version 1.6.0
- * @copyright 2015-2017 Eoxia
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -49,19 +49,19 @@ class Notify_Action {
 		}
 
 		$task = Task_Class::g()->get( array(
-			'id' => $id,
+			'p' => $id,
 		), true );
 
 		$followers = Follower_Class::g()->get( array(
 			'role' => 'administrator',
 		) );
 
-		$affected_id = $task->user_info['affected_id'];
+		$affected_id = $task->data['user_info']['affected_id'];
 
-		$owner_data = get_userdata( $task->user_info['owner_id'] );
+		$owner_data = get_userdata( $task->data['user_info']['owner_id'] );
 
-		if ( ! in_array( $task->user_info['owner_id'], $affected_id ) && in_array( 'administrator', (array) $owner_data->roles, true ) ) {
-			$affected_id[] = $task->user_info['owner_id'];
+		if ( ! in_array( $task->data['user_info']['owner_id'], $affected_id, true ) && in_array( 'administrator', (array) $owner_data->roles, true ) ) {
+			$affected_id[] = $task->data['user_info']['owner_id'];
 		}
 
 		ob_start();
@@ -70,12 +70,15 @@ class Notify_Action {
 			'task'        => $task,
 			'affected_id' => $affected_id,
 		) );
-
+		$popup_view = ob_get_clean();
+		ob_start();
+		\eoxia\View_Util::exec( 'task-manager', 'notify', 'backend/button', array(
+			'task' => $task,
+		) );
+		$buttons_view = ob_get_clean();
 		wp_send_json_success( array(
-			'namespace'        => 'taskManager',
-			'module'           => 'notify',
-			'callback_success' => 'loadedNotifyPopup',
-			'view'             => ob_get_clean(),
+			'view'         => $popup_view,
+			'buttons_view' => $buttons_view,
 		) );
 	}
 
@@ -96,12 +99,12 @@ class Notify_Action {
 		$customers_id = ! empty( $_POST['customers_id'] ) ? sanitize_text_field( $_POST['customers_id'] ) : '';
 		$data         = ! empty( $_POST ) ? (array) $_POST : array();
 
-		if ( empty( $id ) || empty( $users_id ) ) {
+		if ( empty( $id ) ) {
 			wp_send_json_error();
 		}
 
 		$task = Task_Class::g()->get( array(
-			'id' => $id,
+			'p' => $id,
 		), true );
 
 		$sender_data = wp_get_current_user();
@@ -110,9 +113,9 @@ class Notify_Action {
 
 		$recipients = array();
 
-		$users_id = explode( ',', $users_id );
-
 		if ( ! empty( $users_id ) ) {
+			$users_id = explode( ',', $users_id );
+
 			foreach ( $users_id as $user_id ) {
 				$user_info    = get_userdata( $user_id );
 				$recipients[] = $user_info->user_email;
@@ -122,21 +125,21 @@ class Notify_Action {
 		$subject = 'Task Manager: ';
 
 		// translators: La tâche #150 Nouvelle tâche.
-		$subject .= sprintf( __( 'The task #%1$d %2$s', 'task-manager' ), $task->id, $task->title );
+		$subject .= sprintf( __( 'The task #%1$d %2$s', 'task-manager' ), $task->data['id'], $task->data['title'] );
 
 		$body = '<p>' . __( 'This mail has been send automaticly', 'task-manager' ) . '</p>';
 
 		$body .= '<h2>';
 		// translators: #150 Nouvelle tâche send by username (username@domain.com).
-		$body .= sprintf( __( '#%1$d %2$s send by %3$s (%4$s)', 'task-manager' ), $task->id, $task->title, $sender_data->user_login, $sender_data->user_email );
+		$body .= sprintf( __( '#%1$d %2$s send by %3$s (%4$s)', 'task-manager' ), $task->data['id'], $task->data['title'], $sender_data->user_login, $sender_data->user_email );
 		$body .= '</h2>';
 
 		$body  = apply_filters( 'task_points_mail', $body, $task );
 		$body .= '<ul>';
-		if ( ! empty( $task->parent_id ) ) {
-			$body .= '<li><a href="' . admin_url( 'post.php?action=edit&post=' . $task->parent_id ) . '">' . __( 'Customer link', 'task-manager' ) . '</a></li>';
+		if ( ! empty( $task->data['parent_id'] ) ) {
+			$body .= '<li><a href="' . admin_url( 'post.php?action=edit&post=' . $task->data['parent_id'] ) . '">' . __( 'Customer link', 'task-manager' ) . '</a></li>';
 		}
-		$body .= '<li><a href="' . admin_url( 'admin.php?page=wpeomtm-dashboard&term=' . $task->id ) . '">' . __( 'Task link', 'task-manager' ) . '</a></li>';
+		$body .= '<li><a href="' . admin_url( 'admin.php?page=wpeomtm-dashboard&term=' . $task->data['id'] ) . '">' . __( 'Task link', 'task-manager' ) . '</a></li>';
 		$body .= '</ul>';
 
 		$headers   = array( 'Content-Type: text/html; charset=UTF-8' );
@@ -148,12 +151,12 @@ class Notify_Action {
 
 		if ( ! empty( $recipients ) && ! empty( $subject ) && ! empty( $body ) ) {
 			if ( wp_mail( $recipients, $subject, $body, $headers ) ) {
-				\eoxia\LOG_Util::log( sprintf( 'Send the task %1$d to %2$s success', $task->id, implode( ',', $recipients ) ), 'task-manager' );
+				\eoxia\LOG_Util::log( sprintf( 'Send the task %1$d to %2$s success', $task->data['id'], implode( ',', $recipients ) ), 'task-manager' );
 			} else {
-				\eoxia\LOG_Util::log( sprintf( 'Send the task %1$d to %2$s failed', $task->id, implode( ',', $recipients ) ), 'task-manager', 'EO_ERROR' );
+				\eoxia\LOG_Util::log( sprintf( 'Send the task %1$d to %2$s failed', $task->data['id'], implode( ',', $recipients ) ), 'task-manager', 'EO_ERROR' );
 			}
 		} else {
-			\eoxia\LOG_Util::log( sprintf( 'Send the task %1$d to %2$s failed', $task->id, implode( ',', $recipients ) ), 'task-manager', 'EO_ERROR' );
+			\eoxia\LOG_Util::log( sprintf( 'Send the task %1$d to %2$s failed', $task->data['id'], implode( ',', $recipients ) ), 'task-manager', 'EO_ERROR' );
 		}
 
 		wp_send_json_success( array(

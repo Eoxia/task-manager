@@ -2,7 +2,7 @@
 /**
  * La définition du schéma des données de l'historique du temps.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
  * @version 1.6.0
  * @copyright 2015-2018 Eoxia
@@ -26,30 +26,32 @@ class History_Time_Model extends \eoxia\Comment_Model {
 	 * @since 1.0.0
 	 * @version 1.6.0
 	 *
-	 * @param History_Time_Model $object L'objet.
+	 * @param History_Time_Model $object     L'objet.
+	 * @param string             $req_method La méthode
 	 */
-	public function __construct( $object ) {
-		$this->model['due_date'] = array(
+	public function __construct( $object, $req_method = null ) {
+		$this->schema['due_date'] = array(
 			'meta_type' => 'multiple',
 			'type'      => 'wpeo_date',
+			'context'   => array( 'GET' ),
 		);
 
-		$this->model['estimated_time'] = array(
+		$this->schema['estimated_time'] = array(
 			'meta_type' => 'multiple',
 			'type'      => 'integer',
-			'bydefault' => 0,
+			'default'   => 0,
 		);
 
-		$this->model['custom'] = array(
+		$this->schema['custom'] = array(
 			'meta_type'   => 'single',
 			'field'       => '_tm_custom',
 			'type'        => 'string',
-			'bydefault'   => false,
+			'default'     => false,
 			'since'       => '1.6.0',
 			'version'     => '1.6.0',
 			'description' => 'Type de l\'historique',
 		);
 
-		parent::__construct( $object );
+		parent::__construct( $object, $req_method );
 	}
 }

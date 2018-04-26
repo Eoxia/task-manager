@@ -34,12 +34,14 @@ window.eoxiaJS.taskManager.activity.event = function() {
  * Envoie une requête pour charger plus d'évènement dans l'historique.
  *
  * @since 1.5.0
- * @version 1.5.0
+ * @version 1.6.0
  *
  * @return void
  */
 window.eoxiaJS.taskManager.activity.loadMoreHistory = function( event ) {
 	var element = jQuery( this );
+	window.eoxiaJS.loader.display( element );
+
 
 	var data = {
 		action: 'load_last_activity',
@@ -60,10 +62,14 @@ window.eoxiaJS.taskManager.activity.loadMoreHistory = function( event ) {
 		element.closest( '.activities' ).find( '.content:first' ).append( response.data.view );
 		element.closest( '.activities' ).find( '.last-date' ).val( response.data.last_date );
 
+
 		if ( response.data.end ) {
 			element.closest( '.activities' ).find( '.load-more-history' ).hide();
+		} else {
+			element.closest( '.activities' ).find( '.load-more-history' ).show();
 		}
 
+		window.eoxiaJS.loader.remove( element.closest( '.activities' ).find( '.load-more-history' ) );
 		window.eoxiaJS.refresh();
 	} );
 };
@@ -93,19 +99,24 @@ window.eoxiaJS.taskManager.activity.getDataBeforeOpenPopup = function( element )
  * @return {void}
  *
  * @since 1.5.0
- * @version 1.5.0
+ * @version 1.6.0
  */
 window.eoxiaJS.taskManager.activity.loadedLastActivity = function( triggeredElement, response ) {
 	if ( triggeredElement.closest( '.wpeo-project-task' ).length ) {
 		triggeredElement.addClass( 'active' );
-		triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .load-more-history' ).show();
+
+		if ( response.data.end ) {
+			triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .load-more-history' ).hide();
+		} else {
+			triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .load-more-history' ).show();
+		}
+
 		triggeredElement.closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .list-display.active' ).removeClass( 'active' );
 		triggeredElement.closest( '.wpeo-project-task' ).find( '.points.sortable, .wpeo-task-point-use-toggle' ).hide();
 		triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .offset-event' ).val( response.data.offset );
 		triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .last-date' ).val( response.data.last_date );
 		triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .content' ).html( response.data.view );
 		triggeredElement.closest( '.wpeo-project-task' ).find( '.activities' ).show();
-		triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .load-more-history' ).show();
 	} else {
 		jQuery( '.popup.last-activity .content' ).html( response.data.view );
 		jQuery( '.popup.last-activity .container' ).removeClass( 'loading' );

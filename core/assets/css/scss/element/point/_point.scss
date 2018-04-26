@@ -1,0 +1,137 @@
+.points {
+	background: rgba(0,0,0,.05);
+	.point-container {
+		display: flex;
+		flex-direction: row;
+		padding: 8px 6px 0 6px;
+		.point-valid, .point-action {
+			display: flex;
+			flex-direction: row;
+		}
+		.point-valid {
+			min-width: 36px;
+			.completed-point, .wpeo-sort-point {
+				margin: auto 0;
+			}
+			.wpeo-sort-point {
+				color: rgba(0,0,0,0.4);
+				transition: all 0.2s ease-out;
+				opacity: 0;
+				display: flex;
+
+				.fa {
+					padding: 0 1px;
+				}
+				&:hover {
+					cursor: pointer;
+					color: rgba(0,0,0,0.8);
+				}
+			}
+			.completed-point {
+				margin-left: 4px;
+				background: #fff !important;
+				border-radius: 3px;
+			}
+		}
+		.point-action {
+			min-width: 70px;
+			margin-right: auto;
+			display: flex;
+			flex-direction: row;
+			.wpeo-point-time,  .wpeo-task-setting, .action-delete {
+				margin: auto 0;
+			}
+			.wpeo-point-time {
+				display: flex;
+				flex-direction: row;
+				width: 50%;
+				.dashicons-clock {
+					margin-right: 4px;
+				}
+				span {
+					margin: auto 0;
+				}
+			}
+			.wpeo-task-setting {
+				margin-left: auto;
+				text-align: center;
+				transition: all 0.2s ease-out;
+				.wpeo-task-open-action > i {
+					min-width: 20px;
+					font-size: 14px;
+					line-height: 20px;
+					border-radius: 50%;
+					transition: all 0.2s ease-out;
+					opacity: 0;
+					color: rgba(0,0,0,.2);
+				}
+				&:hover {
+					cursor: pointer;
+					.wpeo-task-open-action > i {
+						color: rgba(0,0,0,.4);
+					}
+				}
+			}
+			.wpeo-point-new-btn {
+				margin: auto 0 auto auto;
+				transition: all 0.2s ease-out;
+				display: block;
+				&:hover {
+					cursor: pointer;
+				}
+			}
+		}
+		.point-toggle {
+			.action-attribute, .wpeo-block-id {
+				margin: auto 0;
+			}
+			.wpeo-block-id {
+				font-weight: 700;
+			}
+		}
+		.point-content {
+			width: 100%;
+			padding: 0 0.4em;
+			.wpeo-point-new-contenteditable {
+				margin: auto 0;
+			}
+			.wpeo-point-new-contenteditable {
+				min-height: 24px;
+				border-bottom: 1px solid rgba(0,0,0,0.1);
+				transition: all 0.2s ease-out;
+				padding-bottom: 6px;
+				font-family: 'kalamregular', 'open sans', sans-serif;
+				width: 100%;
+				&:hover {
+					border-bottom: 1px solid rgba(0,0,0,0.4);
+				}
+			}
+			.wpeo-point-new-placeholder {
+				color: rgba(0,0,0,0.4);
+				position: absolute;
+				left: 6px;
+				bottom: 6px;
+				pointer-events: none;
+			}
+		}
+	}
+	.point {
+		&.edit:first-child {
+			padding-top: 10px;
+		}
+		&:not(.edit) {
+			.point-content {
+				position: relative;
+				.wpeo-point-new-placeholder {
+				}
+			}
+		}
+		&:hover {
+			.wpeo-sort-point, .wpeo-task-setting .wpeo-task-open-action > i, .action-delete {
+				opacity: 1;
+			}
+		}
+	}
+}
+
+@import "completed";

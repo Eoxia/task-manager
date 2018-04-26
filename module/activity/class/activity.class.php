@@ -2,10 +2,10 @@
 /**
  * Gestion des activitées.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.5.0
- * @version 1.5.0
- * @copyright 2015-2017 Eoxia
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -33,7 +33,7 @@ class Activity_Class extends \eoxia\Singleton_Util {
 	 * Récupères les commentaires et les points dans l'ordre de date décroissante.
 	 *
 	 * @since 1.5.0
-	 * @version 1.5.0
+	 * @version 1.6.0
 	 *
 	 * @param array   $tasks_id L'ID des tâches parents.
 	 * @param integer $offset   Le nombre de résultat à passer.
@@ -42,60 +42,77 @@ class Activity_Class extends \eoxia\Singleton_Util {
 	public function get_activity( $tasks_id, $offset ) {
 		$points = Point_Class::g()->get( array(
 			'post__in' => $tasks_id,
-			'status' => -34070,
-			'number' => \eoxia\Config_Util::$init['task-manager']->activity->activity_per_page,
-			'offset' => $offset,
-			'type__in' => array( Point_Class::g()->get_type(), Task_Comment_Class::g()->get_type() ),
+			'number'   => \eoxia\Config_Util::$init['task-manager']->activity->activity_per_page,
+			'offset'   => $offset,
+			'type__in' => array(
+				Point_Class::g()->get_type(),
+				Task_Comment_Class::g()->get_type(),
+			),
 		) );
 
-		$datas = array();
+		$datas              = array();
+		$datas['count']     = 0;
+		$datas['last_date'] = '';
 
 		if ( ! empty( $points ) ) {
 			foreach ( $points as $point ) {
-				if ( 'trash' !== $point->status && ( Point_Class::g()->get_type() === $point->type || Task_Comment_Class::g()->get_type() === $point->type ) && 0 !== $point->id ) {
-					if ( 0 === $point->parent_id ) {
-						$point->view = 'created-point';
-						$point->displayed_author_id = $point->author_id;
-						$point->userdata = get_userdata( $point->author_id );
-						$point->displayed_username = $point->userdata->display_name;
+				if ( 'trash' !== $point->data['status'] && ( Point_Class::g()->get_type() === $point->data['type'] || Task_Comment_Class::g()->get_type() === $point->data['type'] ) && 0 !== $point->data['id'] ) {
+					if ( 0 === $point->data['parent_id'] ) {
+						$point->data['view']                = 'created-point';
+						$point->data['displayed_author_id'] = $point->data['author_id'];
+						$point->data['userdata']            = get_userdata( $point->data['author_id'] );
+						$point->data['displayed_username']  = $point->data['userdata']->display_name;
 
-						if ( $point->point_info['completed'] ) {
-							$cloned_point = clone $point;
-							$cloned_point->view = 'completed-point';
-							$cloned_point->displayed_author_id = $cloned_point->time_info['last_completed']['user_id'];
-							$sql_date = substr( $cloned_point->time_info['last_completed']['date'], 0, strlen( $cloned_point->time_info['last_completed']['date'] ) - 9 );
-							$time = substr( $cloned_point->time_info['last_completed']['date'], 11, strlen( $cloned_point->time_info['last_completed']['date'] ) );
-							$datas[ $sql_date ][ $time ][] = $cloned_point;
+						if ( $point->data['point_info']['completed'] ) {
+							$cloned_point                              = clone $point;
+							$cloned_point->data['view']                = 'completed-point';
+							$cloned_point->data['displayed_author_id'] = $cloned_point->data['time_info']['last_completed']['user_id'];
+							$sql_date                                  = substr( $cloned_point->data['time_info']['last_completed']['date'], 0, strlen( $cloned_point->data['time_info']['last_completed']['date'] ) - 9 );
+							$time                                      = substr( $cloned_point->data['time_info']['last_completed']['date'], 11, strlen( $cloned_point->data['time_info']['last_completed']['date'] ) );
+							$datas[ $sql_date ][ $time ][]             = $cloned_point;
+							$datas['count']++;
 						}
 
-						$sql_date = substr( $point->date['date_input']['date'], 0, strlen( $point->date['date_input']['date'] ) - 9 );
-						$time = substr( $point->date['date_input']['date'], 11, strlen( $point->date['date_input']['date'] ) );
+						$sql_date                      = substr( $point->data['date']['raw'], 0, strlen( $point->data['date']['raw'] ) - 9 );
+						$time                          = substr( $point->data['date']['raw'], 11, strlen( $point->data['date']['raw'] ) );
 						$datas[ $sql_date ][ $time ][] = $point;
+						$datas['count']++;
 					} else {
 						$comment = Task_Comment_Class::g()->get( array(
-							'id' => $point->id,
+							'id' => $point->data['id'],
 						), true );
-						$comment->view = 'created-comment';
-						$comment->parent = Point_Class::g()->get( array(
-							'id' => $comment->parent_id,
+
+						$comment->data['view']   = 'created-comment';
+
+						$comment->data['parent'] = Point_Class::g()->get( array(
+							'id' => $comment->data['parent_id'],
 						), true );
-						$comment->displayed_author_id = $comment->author_id;
-						if ( ! empty( $comment->author_id ) ) {
-							$comment->userdata = get_userdata( $comment->author_id );
-							$comment->displayed_username = $comment->userdata->display_name;
-						} else {
-							$comment->displayed_username = '-';
+
+						if ( empty( $comment->data['parent'] ) ) {
+							continue;
 						}
 
-						$sql_date = substr( $comment->date['date_input']['date'], 0, strlen( $comment->date['date_input']['date'] ) - 9 );
-						$time = substr( $comment->date['date_input']['date'], 11, strlen( $comment->date['date_input']['date'] ) );
+						$comment->data['displayed_author_id'] = $comment->data['author_id'];
+
+						if ( ! empty( $comment->data['author_id'] ) ) {
+							$comment->data['userdata']           = get_userdata( $comment->data['author_id'] );
+							$comment->data['displayed_username'] = $comment->data['userdata']->display_name;
+						} else {
+							$comment->data['displayed_username'] = '-';
+						}
+
+						$sql_date                      = substr( $comment->data['date']['raw'], 0, strlen( $comment->data['date']['raw'] ) - 9 );
+						$time                          = substr( $comment->data['date']['raw'], 11, strlen( $comment->data['date']['raw'] ) );
 						$datas[ $sql_date ][ $time ][] = $comment;
+						$datas['count']++;
 					}
+				}
+
+				if ( empty( $datas['last_date'] ) ) {
+					$datas['last_date'] = ! empty( $sql_date ) ? $sql_date : '';
 				}
 			}
 		}
-
-		$datas['last_date'] = ! empty( $sql_date ) ? $sql_date : '';
 		return $datas;
 	}
 

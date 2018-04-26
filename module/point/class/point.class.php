@@ -3,7 +3,7 @@
  * Gestion des points
  *
  * @since 1.3.4
- * @version 1.5.0
+ * @version 1.6.0
  * @package Task-Manager\point
  */
 
@@ -44,7 +44,7 @@ class Point_Class extends \eoxia\Comment_Class {
 	 *
 	 * @var string
 	 */
-	protected $comment_type = 'wpeo_point';
+	protected $type = 'wpeo_point';
 
 	/**
 	 * La version pour la rest API
@@ -54,18 +54,11 @@ class Point_Class extends \eoxia\Comment_Class {
 	protected $version = '0.1';
 
 	/**
-	 * La fonction appelée automatiquement après l'insertion de l'objet dans la base de donnée.
+	 * Statut personnalisé pour l'élément.
 	 *
-	 * @var array
+	 * @var string
 	 */
-	protected $after_post_function = array( '\task_manager\update_post_order' );
-
-	/**
-	 * La fonction appelée automatiquement après la récupération de l'objet dans la base de donnée.
-	 *
-	 * @var array
-	 */
-	protected $after_get_function = array( '\task_manager\get_full_point' );
+	protected $status = '1';
 
 	/**
 	 * Affiches les points d'une tâche.
@@ -89,7 +82,7 @@ class Point_Class extends \eoxia\Comment_Class {
 		), true );
 
 		$points = self::g()->get( array(
-			'post_id'    => $task->id,
+			'post_id'    => $task->data['id'],
 			'type'       => self::g()->get_type(),
 			'meta_key'   => '_tm_order',
 			'orderby'    => 'meta_value_num',
@@ -107,7 +100,7 @@ class Point_Class extends \eoxia\Comment_Class {
 		// Dans le frontend, les points complétés sont affichées directement.
 		if ( $frontend ) {
 			$points_completed = self::g()->get( array(
-				'post_id'    => $task->id,
+				'post_id'    => $task->data['id'],
 				'type'       => self::g()->get_type(),
 				'meta_key'   => '_tm_order',
 				'orderby'    => 'meta_value_num',

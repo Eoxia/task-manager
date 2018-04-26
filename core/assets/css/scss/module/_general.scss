@@ -1,0 +1,13 @@
+a[disabled="disabled"] {
+	pointer-events: none;
+	text-decoration: none;
+	color: black;
+}
+
+p {
+	margin: 0;
+}
+
+.disabled {
+	opacity: 0.4;
+}

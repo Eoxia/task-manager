@@ -24,7 +24,7 @@ class Owner_Class extends \eoxia\User_Class {
 	 *
 	 * @var string
 	 */
-	protected $model_name 	= '\task_manager\Owner_Model';
+	protected $model_name = '\task_manager\Owner_Model';
 
 	/**
 	 * La route pour accéder à l'objet dans la rest API
@@ -32,18 +32,6 @@ class Owner_Class extends \eoxia\User_Class {
 	 * @var string
 	 */
 	protected $base = 'owner';
-
-	/**
-	 * Le constructeur
-	 *
-	 * @return void
-	 *
-	 * @since 1.3.6.0
-	 * @version 1.3.6.0
-	 */
-	protected function construct() {
-		parent::construct();
-	}
 
 }
 

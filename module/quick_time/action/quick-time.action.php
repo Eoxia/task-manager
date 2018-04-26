@@ -2,7 +2,7 @@
 /**
  * Les actions relatives aux temps rapides.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.6.0
  * @version 1.6.0
  * @copyright 2015-2017 Eoxia
@@ -67,6 +67,7 @@ class Quick_Time_Action {
 				$comment['content']              = sanitize_text_field( $comment['content'] );
 				$comment['time_info']['elapsed'] = (int) $comment['time'];
 				$comment['can_add']              = 'true' == $comment['can_add'] ? true : false;
+				$comment['status']               = '1';
 
 				if ( $comment['can_add'] ) {
 
@@ -76,7 +77,7 @@ class Quick_Time_Action {
 						'id' => $comment['parent_id'],
 					), true );
 
-					$point->count_comments++;
+					$point->data['count_comments']++;
 
 					Point_Class::g()->update( $point );
 				}
@@ -104,7 +105,6 @@ class Quick_Time_Action {
 	 */
 	public function ajax_open_setting_quick_time() {
 		$quicktimes = Quick_Time_Class::g()->get_quicktimes();
-		sort( $quicktimes );
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/setting/main', array(
@@ -138,15 +138,12 @@ class Quick_Time_Action {
 			'id' => $task_id,
 		), true );
 
-		if ( empty( $task ) || empty( $task->task_info['order_point_id'] ) ) {
+		if ( empty( $task ) ) {
 			wp_send_json_error();
 		}
 
 		$points = Point_Class::g()->get( array(
-			'post_id'     => $task->id,
-			'orderby'     => 'comment__in',
-			'comment__in' => $task->task_info['order_point_id'],
-			'status'      => -34070,
+			'post_id' => $task->data['id'],
 		) );
 
 		ob_start();
@@ -198,14 +195,25 @@ class Quick_Time_Action {
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/setting/item', array(
-			'key'        => $task_id . '-' . $point_id,
+			'key'        => key( end( $meta ) ),
 			'quick_time' => $data,
 		) );
+		$new_item_view = ob_get_clean();
+
+		ob_start();
+		\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/setting/form', array() );
+		$form_view = ob_get_clean();
+
+		ob_start();
+		Quick_Time_Class::g()->display();
+		$metabox_view = ob_get_clean();
 		wp_send_json_success( array(
 			'namespace'        => 'taskManager',
 			'module'           => 'quickTime',
 			'callback_success' => 'addedConfigQuickTime',
-			'view'             => ob_get_clean(),
+			'new_item_view'    => $new_item_view,
+			'form_view'        => $form_view,
+			'metabox_view'     => $metabox_view,
 		) );
 	}
 
@@ -220,29 +228,33 @@ class Quick_Time_Action {
 	public function ajax_remove_config_quick_time() {
 		check_ajax_referer( 'remove_config_quick_time' );
 
-		$task_id  = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
-		$point_id = ! empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
+		$task_id    = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+		$point_id   = ! empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
+		$chosen_key = ! empty( $_POST['key'] ) ? (int) $_POST['key'] : 0;
 
 		if ( empty( $task_id ) || empty( $point_id ) ) {
 			wp_send_json_error();
 		}
 
 		$quicktimes = get_user_meta( get_current_user_id(), \eoxia\Config_Util::$init['task-manager']->quick_time->meta_quick_time, true );
-
 		if ( ! empty( $quicktimes ) ) {
 			foreach ( $quicktimes as $key => $quicktime ) {
-				if ( $quicktime['task_id'] === $task_id && $quicktime['point_id'] === $point_id ) {
-					$quicktimes = array_splice( $quicktimes, $key, 1 );
+				if ( $chosen_key === $key && $quicktime['task_id'] === $task_id && $quicktime['point_id'] === $point_id ) {
+					array_splice( $quicktimes, $key, 1 );
 				}
 			}
 		}
 
-		update_user_meta( get_current_user_id(), \eoxia\Config_Util::$init['task-manager']->quick_time->meta_quick_time, $meta );
+		update_user_meta( get_current_user_id(), \eoxia\Config_Util::$init['task-manager']->quick_time->meta_quick_time, $quicktimes );
 
+		ob_start();
+		Quick_Time_Class::g()->display();
+		$metabox_view = ob_get_clean();
 		wp_send_json_success( array(
 			'namespace'        => 'taskManager',
 			'module'           => 'quickTime',
 			'callback_success' => 'deletedConfigQuickTime',
+			'metabox_view'     => $metabox_view,
 		) );
 	}
 }

@@ -2,10 +2,10 @@
 /**
  * Affichage de la popup pour gérer les notifications.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.5.0
  * @version 1.6.0
- * @copyright 2015-2017 Eoxia
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -26,8 +26,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		if ( ! empty( $followers ) ) :
 			foreach ( $followers as $follower ) :
 				?>
-				<li class="follower <?php echo ( in_array( $follower->id, $task->user_info['affected_id'], true ) || $follower->id === $task->user_info['owner_id'] ) ? 'active' : ''; ?>" data-id="<?php echo esc_attr( $follower->id ); ?>" style="width: 50px; height: 50px;">
-					<?php echo do_shortcode( '[task_avatar ids=' . $follower->id . ']' ); ?>
+				<li class="follower <?php echo ( in_array( $follower->data['id'], $task->data['user_info']['affected_id'], true ) || $follower->data['id'] === $task->data['user_info']['owner_id'] ) ? 'active' : ''; ?>" data-id="<?php echo esc_attr( $follower->data['id'] ); ?>" style="width: 50px; height: 50px;">
+					<?php echo do_shortcode( '[task_avatar ids=' . $follower->data['id'] . ']' ); ?>
 				</li>
 				<?php
 			endforeach;
@@ -37,10 +37,42 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</ul>
 </div>
 
-<?php echo apply_filters( 'task_manager_popup_notify_after', '', $task ); ?>
-
-<button class="action-input send-notification"
-			data-parent="popup"
-			data-action="send_notification"
-			data-nonce="<?php echo esc_attr( wp_create_nonce( 'send_notification' ) ); ?>"
-			data-id="<?php echo esc_attr( $task->id ); ?>"><?php echo esc_html_e( 'Send notification', 'task-manager' ); ?></button>
+<?php
+echo wp_kses( apply_filters( 'task_manager_popup_notify_after', '', $task ), array(
+	'h2'    => array(),
+	'h3'    => array(
+		'style' => array(),
+	),
+	'div'   => array(
+		'style'      => array(),
+		'class'      => array(),
+		'aria-label' => array(),
+	),
+	'p'     => array(
+		'style' => array(),
+	),
+	'span'  => array(
+		'style' => array(),
+		'class' => array(),
+	),
+	'br'    => array(
+		'style' => array(),
+	),
+	'ul'    => array(
+		'class' => array(),
+	),
+	'li'    => array(
+		'class'   => array(),
+		'data-id' => array(),
+		'style'   => array(),
+	),
+	'img'   => array(
+		'class' => array(),
+		'src'   => array(),
+	),
+	'input' => array(
+		'type'  => array(),
+		'name'  => array(),
+		'value' => array(),
+	),
+) );

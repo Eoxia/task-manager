@@ -45,14 +45,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 				) );
 				?>
 			</h2>
-			<i class="modal-close fa fa-times"></i>
+			<div class="modal-close"><i class="fal fa-times"></i></div>
 		</div>
 
 		<!-- Corps -->
 		<div class="modal-content">
 			<?php require( \eoxia\Config_Util::$init['eo-framework']->wpeo_upload->path . '/view/box/gallery/list.view.php' ); ?>
 			<?php require( \eoxia\Config_Util::$init['eo-framework']->wpeo_upload->path . '/view/box/gallery/navigation-arrow.view.php' ); ?>
-			<?php require( \eoxia\Config_Util::$init['eo-framework']->wpeo_upload->path . '/view/box/gallery/actions.view.php' ); ?>
+
+			<?php if ( 'edit' === $data['mode'] ) :
+				require( \eoxia\Config_Util::$init['eo-framework']->wpeo_upload->path . '/view/box/gallery/actions.view.php' );
+			endif;
+			?>
 		</div>
 
 		<!-- Footer -->

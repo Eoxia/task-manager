@@ -28,6 +28,9 @@ if ( ! window.eoxiaJS.arrayForm ) {
 			case 'checkbox':
 				return input.checked;
 				break;
+			case 'radio':
+				return jQuery( 'input[name="' + jQuery( input ).attr( 'name' ) + '"]:checked' ).val();
+				break;
 			default:
 				return input.value;
 				break;

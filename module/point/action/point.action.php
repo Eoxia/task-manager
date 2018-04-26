@@ -2,7 +2,7 @@
 /**
  *  Les actions relatives aux points.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
  * @version 1.6.0
  * @copyright 2015-2018 Eoxia
@@ -49,9 +49,9 @@ class Point_Action {
 	public function ajax_edit_point() {
 		check_ajax_referer( 'edit_point' );
 
-		$point_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+		$point_id  = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 		$parent_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
-		$content = ! empty( $_POST['content'] ) ? $_POST['content'] : '';
+		$content   = ! empty( $_POST['content'] ) ? $_POST['content'] : '';
 
 		$content = str_replace( '<div>', '<br>', trim( $content ) );
 		$content = wp_kses( $content, array(
@@ -76,16 +76,16 @@ class Point_Action {
 				'id' => $parent_id,
 			), true );
 
-			$task->count_uncompleted_points++;
+			$task->data['count_uncompleted_points']++;
 
-			Task_Class::g()->update( $task );
+			Task_Class::g()->update( $task->data );
 
-			$point_args['order'] = ( $task->count_uncompleted_points - 1 ); // - 1 car la valeur est incrémenté juste avant.
+			$point_args['order'] = ( $task->data['count_uncompleted_points'] - 1 ); // - 1 car la valeur est incrémenté juste avant.
 		}
 
-		$point = Point_Class::g()->update( $point_args );
+		$point = Point_Class::g()->update( $point_args, true );
 
-		$point->content = stripslashes( $point->content );
+		$point->data['content'] = stripslashes( $point->data['content'] );
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
@@ -149,32 +149,28 @@ class Point_Action {
 			'id' => $point_id,
 		), true );
 
-		$point->status = 'trash';
+		$point->data['status'] = 'trash';
 
-		Point_Class::g()->update( $point );
+		Point_Class::g()->update( $point->data );
 
 		$task = Task_Class::g()->get( array(
-			'id' => $point->post_id,
+			'id' => $point->data['post_id'],
 		), true );
 
-		if( ( $key = array_search( $point_id, $task->task_info['order_point_id'] ) ) !== false ) {
-			array_splice( $task->task_info['order_point_id'], $key, 1 );
-		}
+		$task->data['time_info']['elapsed'] = $task->data['time_info']['elapsed'] - $point->data['time_info']['elapsed'];
 
-		$task->time_info['elapsed'] = $task->time_info['elapsed'] - $point->time_info['elapsed'];
-
-		if ( $point->completed ) {
-			$task->count_completed_points--;
+		if ( $point->data['completed'] ) {
+			$task->data['count_completed_points']--;
 		} else {
-			$task->count_uncompleted_points--;
+			$task->data['count_uncompleted_points']--;
 		}
 
-		$task = Task_Class::g()->update( $task );
+		$task = Task_Class::g()->update( $task->data );
 
 		do_action( 'tm_delete_point', $point );
 
 		wp_send_json_success( array(
-			'time'             => \eoxia\Date_Util::g()->convert_to_custom_hours( $task->time_info['elapsed'] ),
+			'time'             => \eoxia\Date_Util::g()->convert_to_custom_hours( $task->data['time_info']['elapsed'] ),
 			'namespace'        => 'taskManager',
 			'module'           => 'point',
 			'callback_success' => 'deletedPointSuccess',
@@ -204,8 +200,8 @@ class Point_Action {
 					'id' => $point_id,
 				), true );
 
-				$point->order = (int) $key;
-				Point_Class::g()->update( $point );
+				$point->data['order'] = (int) $key;
+				Point_Class::g()->update( $point->data );
 			}
 		}
 
@@ -224,34 +220,34 @@ class Point_Action {
 		check_ajax_referer( 'complete_point' );
 
 		$point_id = ! empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
-		$complete = ( isset( $_POST['complete'] )  && 'true' === $_POST['complete'] ) ? true : false;
+		$complete = ( isset( $_POST['complete'] ) && 'true' === $_POST['complete'] ) ? true : false;
 
 		$point = Point_Class::g()->get( array(
 			'id' => $point_id,
 		), true );
 
 		$task = Task_Class::g()->get( array(
-			'id' => $point->post_id,
+			'id' => $point->data['post_id'],
 		), true );
 
-		$point->completed = $complete;
+		$point->data['completed'] = $complete;
 
 		if ( $complete ) {
-			$point->order = $task->count_completed_points;
+			$point->data['order'] = $task->data['count_completed_points'];
 
-			$task->count_completed_points++;
-			$task->count_uncompleted_points--;
-			$point->time_info['completed_point'][ get_current_user_id() ][] = current_time( 'mysql' );
+			$task->data['count_completed_points']++;
+			$task->data['count_uncompleted_points']--;
+			$point->data['time_info']['completed_point'][ get_current_user_id() ][] = current_time( 'mysql' );
 		} else {
-			$point->order = $task->count_uncompleted_points;
+			$point->data['order'] = $task->count_uncompleted_points;
 
-			$task->count_completed_points--;
-			$task->count_uncompleted_points++;
-			$point->time_info['uncompleted_point'][ get_current_user_id() ][] = current_time( 'mysql' );
+			$task->data['count_completed_points']--;
+			$task->data['count_uncompleted_points']++;
+			$point->data['time_info']['uncompleted_point'][ get_current_user_id() ][] = current_time( 'mysql' );
 		}
 
-		Point_Class::g()->update( $point );
-		Task_Class::g()->update( $task );
+		Point_Class::g()->update( $point->data );
+		Task_Class::g()->update( $task->data );
 
 		do_action( 'tm_complete_point', $point );
 
@@ -385,53 +381,45 @@ class Point_Action {
 		), true );
 
 		$point = Point_Class::g()->get( array(
-			'comment__in' => array( $point_id ),
-			'status'      => -34070,
+			'id' => $point_id,
 		), true );
 
-		$key = array_search( $point_id, $current_task->task_info['order_point_id'], true );
+		$current_task->data['time_info']['elapsed'] = $current_task->data['time_info']['elapsed'] - $point->data['time_info']['elapsed'];
+		$to_task->data['time_info']['elapsed']      = $to_task->data['time_info']['elapsed'] + $point->data['time_info']['elapsed'];
 
-		if ( false !== $key ) {
-			array_splice( $current_task->task_info['order_point_id'], $key, 1 );
-			$current_task->time_info['elapsed'] = $current_task->time_info['elapsed'] - $point->time_info['elapsed'];
+		if ( $point->data['completed'] ) {
+			$point->data['order'] = $to_task->data['count_completed_points'];
+			$current_task->data['count_completed_points']--;
+			$to_task->data['count_completed_points']++;
 		} else {
-			wp_send_json_error();
+			$point->data['order'] = $to_task->data['count_uncompleted_points'];
+			$current_task->data['count_uncompleted_points']--;
+			$to_task->data['count_uncompleted_points']++;
 		}
 
-		$to_task->task_info['order_point_id'][] = (int) $point_id;
-		$to_task->time_info['elapsed']          = $to_task->time_info['elapsed'] + $point->time_info['elapsed'];
+		$current_task = Task_Class::g()->update( $current_task->data );
+		$to_task      = Task_Class::g()->update( $to_task->data );
 
-		if ( $point->completed ) {
-			$point->order = $to_task->count_completed_points;
-			$current_task->count_completed_points--;
-			$to_task->count_completed_points++;
-		} else {
-			$point->order = $to_task->count_uncompleted_points;
-			$current_task->count_uncompleted_points--;
-			$to_task->count_uncompleted_points++;
-		}
-
-		$current_task = Task_Class::g()->update( $current_task );
-		$to_task      = Task_Class::g()->update( $to_task );
-
-		$point->post_id = $to_task_id;
-		$point          = Point_Class::g()->update( $point );
+		$point->data['post_id'] = $to_task_id;
+		$point                  = Point_Class::g()->update( $point->data );
 
 		$comments = Task_Comment_Class::g()->get( array(
 			'post_id' => $task_id,
 			'parent'  => $point_id,
-			'status'  => -34070,
+			'status'  => 1,
 		) );
 
 		if ( ! empty( $comments ) ) {
 			foreach ( $comments as $comment ) {
-				if ( 0 !== $comment->id ) {
-					$comment->post_id = $to_task_id;
+				if ( 0 !== $comment->data['id'] ) {
+					$comment->data['post_id'] = $to_task_id;
 
-					Task_Comment_Class::g()->update( $comment );
+					Task_Comment_Class::g()->update( $comment->data );
 				}
 			}
 		}
+
+		do_action( 'tm_after_move_point_to', $point, $current_task );
 
 		wp_send_json_success( array(
 			'namespace'                 => 'taskManager',
@@ -440,8 +428,8 @@ class Point_Action {
 			'point'                     => $point,
 			'current_task'              => $current_task,
 			'to_task'                   => $to_task,
-			'current_task_elapsed_time' => \eoxia\Date_Util::g()->convert_to_custom_hours( $current_task->time_info['elapsed'] ),
-			'to_task_elapsed_time'      => \eoxia\Date_Util::g()->convert_to_custom_hours( $to_task->time_info['elapsed'] ),
+			'current_task_elapsed_time' => \eoxia\Date_Util::g()->convert_to_custom_hours( $current_task->data['time_info']['elapsed'] ),
+			'to_task_elapsed_time'      => \eoxia\Date_Util::g()->convert_to_custom_hours( $to_task->data['time_info']['elapsed'] ),
 		) );
 	}
 }

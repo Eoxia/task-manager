@@ -2,7 +2,7 @@
 /**
  * La vue des points.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.6.0
  * @version 1.6.0
  * @copyright 2015-2017 Eoxia
@@ -17,13 +17,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! empty( $points ) ) :
 	foreach ( $points as $point ) :
-		if ( 0 !== $point->id ) :
-			\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
-				'point'      => $point,
-				'comment_id' => $comment_id,
-				'point_id'   => $point_id,
-				'parent_id'  => $point->post_id,
-			) );
-		endif;
+		\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
+			'point'      => $point,
+			'comment_id' => $comment_id,
+			'point_id'   => $point_id,
+			'parent_id'  => $point->data['post_id'],
+		) );
 	endforeach;
 endif;

@@ -1,18 +1,43 @@
-<?php namespace task_manager;
+<?php
+/**
+ * La définition du schéma des données d'un abonnées.
+ *
+ * @author Eoxia <dev@eoxia.com>
+ * @since 1.0.0
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
+ * @package Task_Manager
+ */
 
-if ( !defined( 'ABSPATH' ) ) exit;
+namespace task_manager;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * La définition du schéma des données d'un abonnées.
+ */
 class Follower_Model extends \eoxia\User_Model {
 
-
-	public function __construct( $object ) {
-		$this->model['_tm_auto_elapsed_time'] = array(
-			'type'			=> 'boolean',
+	/**
+	 * Le constructeur défini le schéma.
+	 *
+	 * @since 1.0.0
+	 * @version 1.6.0
+	 *
+	 * @param Follower_Model $object     L'objet.
+	 * @param string         $req_method La méthode HTTP actuellement utilisée.
+	 */
+	public function __construct( $object, $req_method = null ) {
+		$this->schema['_tm_auto_elapsed_time'] = array(
+			'type'      => 'boolean',
 			'meta_type' => 'single',
-			'field' 		=> '_tm_auto_elapsed_time',
+			'field'     => '_tm_auto_elapsed_time',
+			'default'   => false,
 		);
 
-		parent::__construct( $object );
+		parent::__construct( $object, $req_method );
 	}
 
 

@@ -27,7 +27,7 @@ window.eoxiaJS.taskManager.notify.init = function() {
  * @return {void}
  */
 window.eoxiaJS.taskManager.notify.event = function() {
-	jQuery( document ).on( 'click', '.popup.popup-notification ul li', window.eoxiaJS.taskManager.notify.selectUser );
+	jQuery( document ).on( 'click', '.popup-notification ul li', window.eoxiaJS.taskManager.notify.selectUser );
 };
 
 /**
@@ -97,7 +97,7 @@ window.eoxiaJS.taskManager.notify.loadedNotifyPopup = function( triggeredElement
  * @version 1.6.0
  */
 window.eoxiaJS.taskManager.notify.sendedNotification = function( triggeredElement, response ) {
-	triggeredElement.closest( '.popup' ).find( '.close' ).click();
+	triggeredElement.closest( '.wpeo-modal' ).find( '.close' ).click();
 
 
 };

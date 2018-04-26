@@ -15,13 +15,13 @@
 	"modules": [
 		"core/core.config.json",
 
+		"module/comment/comment.config.json",
 		"module/update_manager/update_manager.config.json",
 		"module/export/export.config.json",
 		"module/avatar/avatar.config.json",
 		"module/notify/notify.config.json",
 		"module/task/task.config.json",
 		"module/point/point.config.json",
-		"module/comment/comment.config.json",
 		"module/history-time/history-time.config.json",
 		"module/navigation/navigation.config.json",
 		"module/tag/tag.config.json",
@@ -30,16 +30,20 @@
 		"module/liaison-post-type/liaison-post-type.config.json",
 		"module/shortcode-help/shortcode-help.config.json",
 		"module/admin-bar/admin-bar.config.json",
-		"module/time_exceeded/time_exceeded.config.json",
+		"module/time-exceeded/time-exceeded.config.json",
 		"module/timeline/timeline.config.json",
 		"module/activity/activity.config.json",
 		"module/indicator/indicator.config.json",
 		"module/setting/setting.config.json",
 		"module/quick_time/quick_time.config.json",
+		"module/export/export.config.json",
 		"module/tools/tools.config.json"
 	],
 	"debug": false,
 	"key_last_update_version" : "_tm_last_update_version",
 	"core_option": "_tm_core_option",
+	"key_waiting_updates": "_tm_waited_updates",
+	"dashboard_page_url": "wpeomtm-dashboard",
+	"update_page_url": "task-manager-update",
 	"associate_post_type": []
 }

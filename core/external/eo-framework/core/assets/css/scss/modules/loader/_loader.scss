@@ -15,13 +15,15 @@
 	.loader-spin {
 		position: absolute;
 		border: 3px solid #a7a7a7;
-		border-top: 3px solid darken($color__primary, 60%);
+		border-top: 3px solid darken($color__primary, 40%);
 		border-radius: 50%;
 		width: 20px;
 		height: 20px;
 		z-index: 99;
 		left: 50%;
 		top: 50%;
+		margin: 0 !important;
+		padding: 0 !important;
 		animation: loader-spin 1s ease-out infinite;
 	}
 }

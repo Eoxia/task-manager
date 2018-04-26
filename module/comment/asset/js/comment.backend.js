@@ -11,8 +11,8 @@ window.eoxiaJS.taskManager.comment = {};
  *
  * @return {void}
  *
- * @since 1.0.0.0
- * @version 1.0.0.0
+ * @since 1.0.0
+ * @version 1.0.0
  */
 window.eoxiaJS.taskManager.comment.init = function() {
 	window.eoxiaJS.taskManager.comment.event();
@@ -27,8 +27,6 @@ window.eoxiaJS.taskManager.comment.init = function() {
  * @version 1.5.0
  */
 window.eoxiaJS.taskManager.comment.event = function() {
-	// jQuery( document ).on( 'click', 'body', window.eoxiaJS.taskManager.comment.closePoint );
-	// jQuery( document ).on( 'click', '.wpeo-project-task .point .comment', window.eoxiaJS.taskManager.comment.preventClosePoint );
 	jQuery( document ).on( 'keyup', '.wpeo-comment-container div.content[contenteditable="true"], .wpeo-comment-container input[name="time"]', window.eoxiaJS.taskManager.comment.triggerCreate );
 	jQuery( document ).on( 'blur keyup paste keydown click', '.comments .comment .content', window.eoxiaJS.taskManager.comment.updateHiddenInput );
 	jQuery( document ).on( 'click', '.point.edit div[contenteditable="true"].wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.comment.loadComments );
@@ -82,10 +80,12 @@ window.eoxiaJS.taskManager.comment.updateHiddenInput = function( event ) {
 	if ( 0 < jQuery( this ).text().length ) {
 		jQuery( this ).closest( '.comment' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 1 );
 		jQuery( this ).closest( '.comment' ).find( '.wpeo-point-new-placeholder' ).addClass( 'hidden' );
+		jQuery( this ).closest( '.comment' ).find( '.wpeo-point-new-btn ').removeClass( 'no-action' );
 		window.eoxiaJS.taskManager.core.initSafeExit( true );
 	} else {
 		jQuery( this ).closest( '.comment' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 0.4 );
 		jQuery( this ).closest( '.comment' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
+		jQuery( this ).closest( '.comment' ).find( '.wpeo-point-new-btn ').addClass( 'no-action' );
 		window.eoxiaJS.taskManager.core.initSafeExit( false );
 	}
 
@@ -203,6 +203,6 @@ window.eoxiaJS.taskManager.comment.loadedEditViewComment = function( triggeredEl
 };
 
 window.eoxiaJS.taskManager.comment.afterTriggerChangeDate = function( $input ) {
-	$input.closest( '.group-date' ).find( 'div' ).attr( 'aria-label', window.eoxiaJS.date.convertMySQLDate( $input.val() ) );
+	$input.closest( '.group-date' ).find( 'div' ).attr( 'aria-label', $input.val() );
 	$input.closest( '.group-date' ).find( 'span' ).css( 'background', '#389af6' );
 };

@@ -2,7 +2,7 @@
 /**
  * Classes principale du plugin.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 0.1.0
  * @version 1.5.0
  * @copyright 2015-2017 Eoxia
@@ -68,6 +68,28 @@ class Task_Manager_Class extends \eoxia\Singleton_Util {
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Initialise les données par défaut de Task Manager.
+	 *
+	 * @since 1.6.0
+	 * @version 1.6.0
+	 *
+	 * @return void
+	 */
+	public function init_default_data() {
+		$current_version = get_option( \eoxia\Config_Util::$init['task-manager']->key_last_update_version, null );
+
+		if ( null === $current_version ) {
+			$version = (int) str_replace( '.', '', \eoxia\Config_Util::$init['task-manager']->version );
+
+			if ( 3 === strlen( $version ) ) {
+				$version *= 10;
+			}
+
+			update_option( \eoxia\Config_Util::$init['task-manager']->key_last_update_version, $version );
+		}
 	}
 }
 

@@ -2,10 +2,10 @@
 /**
  * La vue principale des indications.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.5.0
- * @version 1.5.0
- * @copyright 2015-2017 Eoxia
+ * @version 1.6.1
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -21,20 +21,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<form name="my_form" method="post">
 
 		<input type="hidden" name="action" value="some-action">
-		<?php wp_nonce_field( 'some-action-nonce' );
+		<?php
+		wp_nonce_field( 'some-action-nonce' );
 
 		/* Used to save closed meta boxes and their order */
 		wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false );
-		wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
+		wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false );
+		?>
 
 		<!-- Rest of admin page here -->
 
 		<div id="poststuff">
-			<div id="post-body" class="metabox-holder columns-<?php echo 1 == get_current_screen()->get_columns() ? '1' : '2'; ?>">
+			<div id="post-body" class="metabox-holder columns-<?php echo 1 === get_current_screen()->get_columns() ? '1' : '2'; ?>">
 				<div id="postbox-container-2" class="postbox-container">
-					<?php
-					do_meta_boxes( 'task-manager-indicator', 'normal', '' );
-					?>
+					<?php do_meta_boxes( 'task-manager-indicator', 'normal', '' ); ?>
 				</div>
 				<!-- meta box containers here -->
 		</div>

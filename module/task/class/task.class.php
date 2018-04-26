@@ -2,7 +2,7 @@
 /**
  * Gestion des tâches.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
  * @version 1.6.0
  * @copyright 2015-2018 Eoxia
@@ -46,7 +46,7 @@ class Task_Class extends \eoxia\Post_Class {
 	 *
 	 * @var string
 	 */
-	protected $post_type = 'wpeo-task';
+	protected $type = 'wpeo-task';
 
 	/**
 	 * La clé principale du modèle
@@ -77,25 +77,33 @@ class Task_Class extends \eoxia\Post_Class {
 	protected $attached_taxonomy_type = 'wpeo_tag';
 
 	/**
-	 * La fonction appelée automatiquement après la récupération de l'objet dans la base de donnée.
+	 * Permet d'ajouter le post_status 'archive'.
 	 *
-	 * @var array
+	 * @since 1.0.0
+	 * @version 1.0.0
+	 *
+	 * @param array   $args   Les paramètres à appliquer pour la récupération @see https://codex.wordpress.org/Function_Reference/WP_Query.
+	 * @param boolean $single Si on veut récupérer un tableau, ou qu'une seule entrée.
+	 *
+	 * @return Object
 	 */
-	protected $after_get_function = array( '\task_manager\get_full_task' );
+	public function get( $args = array(), $single = false ) {
+		$array_posts = array();
 
-	/**
-	 * La fonction appelée automatiquement après la création de l'objet dans la base de donnée.
-	 *
-	 * @var array
-	 */
-	protected $after_post_function = array( '\task_manager\get_full_task' );
+		// Définition des arguments par défaut pour la récupération des "posts".
+		$default_args = array(
+			'post_status'    => array(
+				'any',
+				'archive',
+			),
+			'post_type'      => $this->get_type(),
+			'posts_per_page' => -1,
+		);
 
-	/**
-	 * La fonction appelée automatiquement après la mise à jour de l'objet dans la base de donnée.
-	 *
-	 * @var array
-	 */
-	protected $after_put_function = array( '\task_manager\get_full_task' );
+		$final_args = wp_parse_args( $args, $default_args );
+
+		return parent::get( $final_args, $single );
+	}
 
 	/**
 	 * Récupères les tâches.
@@ -120,16 +128,16 @@ class Task_Class extends \eoxia\Post_Class {
 	public function get_tasks( $param ) {
 		global $wpdb;
 
-		$param['id'] = isset( $param['id'] ) ? (int) $param['id'] : 0;
-		$param['offset'] = ! empty( $param['offset'] ) ? (int) $param['offset'] : 0;
+		$param['id']             = isset( $param['id'] ) ? (int) $param['id'] : 0;
+		$param['offset']         = ! empty( $param['offset'] ) ? (int) $param['offset'] : 0;
 		$param['posts_per_page'] = ! empty( $param['posts_per_page'] ) ? (int) $param['posts_per_page'] : -1;
-		$param['users_id'] = ! empty( $param['users_id'] ) ? (array) $param['users_id'] : array();
-		$param['categories_id'] = ! empty( $param['categories_id'] ) ? (array) $param['categories_id'] : array();
-		$param['status'] = ! empty( $param['status'] ) ? sanitize_text_field( $param['status'] ) : 'any';
-		$param['post_parent'] = ! empty( $param['post_parent'] ) ? (array) $param['post_parent'] : array( 0 );
-		$param['term'] = ! empty( $param['term'] ) ? sanitize_text_field( $param['term'] ) : '';
+		$param['users_id']       = ! empty( $param['users_id'] ) ? (array) $param['users_id'] : array();
+		$param['categories_id']  = ! empty( $param['categories_id'] ) ? (array) $param['categories_id'] : array();
+		$param['status']         = ! empty( $param['status'] ) ? sanitize_text_field( $param['status'] ) : 'any';
+		$param['post_parent']    = ! empty( $param['post_parent'] ) ? (array) $param['post_parent'] : array( 0 );
+		$param['term']           = ! empty( $param['term'] ) ? sanitize_text_field( $param['term'] ) : '';
 
-		$tasks = array();
+		$tasks    = array();
 		$tasks_id = array();
 
 		if ( ! empty( $param['status'] ) ) {
@@ -148,16 +156,20 @@ class Task_Class extends \eoxia\Post_Class {
 
 		if ( ! empty( $param['id'] ) ) {
 			$tasks = self::g()->get( array(
-				'id' => (int) $param['id'],
+				'p' => (int) $param['id'],
 			) );
 		} else {
+			$point_type = Point_Class::g()->get_type();
+
+			$comment_type = Task_Comment_Class::g()->get_type();
 
 			$query = "SELECT DISTINCT TASK.ID FROM {$wpdb->posts} AS TASK
-				LEFT JOIN {$wpdb->comments} AS POINT ON POINT.comment_post_ID=TASK.ID
-				LEFT JOIN {$wpdb->comments} AS COMMENT ON COMMENT.comment_post_id=TASK.ID
+				LEFT JOIN {$wpdb->comments} AS POINT ON POINT.comment_post_ID=TASK.ID AND POINT.comment_approved = 1 AND POINT.comment_type = '{$point_type}'
+				LEFT JOIN {$wpdb->comments} AS COMMENT ON COMMENT.comment_parent=POINT.comment_ID AND COMMENT.comment_approved = 1 AND POINT.comment_approved = 1 AND COMMENT.comment_type = '{$comment_type}'
 				LEFT JOIN {$wpdb->postmeta} AS TASK_META ON TASK_META.post_id=TASK.ID AND TASK_META.meta_key='wpeo_task'
 				LEFT JOIN {$wpdb->term_relationships} AS CAT ON CAT.object_id=TASK.ID
 			WHERE TASK.post_type='wpeo-task'
+
 				AND TASK.post_status IN (" . $param['status'] . ") AND
 					( (
 						TASK.ID LIKE '%" . $param['term'] . "%' OR TASK.post_title LIKE '%" . $param['term'] . "%'
@@ -188,16 +200,15 @@ class Task_Class extends \eoxia\Post_Class {
 			}
 
 			if ( ! empty( $param['categories_id'] ) ) {
-				$query .= "AND (";
-
-				if ( ! empty( $param['categories_id'] ) ) {
-					foreach ( $param['categories_id'] as $cat_id ) {
-						$query .= '(CAT.term_taxonomy_id=' . $cat_id . ') OR';
-					}
+				$sub_query = '   ';
+				foreach ( $param['categories_id'] as $cat_id ) {
+					$sub_query .= '(CAT.term_taxonomy_id=' . $cat_id . ') OR';
 				}
 
-				$query = substr( $query, 0, strlen( $query ) - 2 );
-				$query .= ')';
+				$sub_query = substr( $sub_query, 0, -3 );
+				if ( ! empty( $sub_query ) ) {
+					$query .= "AND ({$sub_query})";
+				}
 			}
 
 			$query .= " ORDER BY TASK.post_date DESC ";
@@ -210,7 +221,7 @@ class Task_Class extends \eoxia\Post_Class {
 
 			if ( ! empty( $tasks_id ) ) {
 				$tasks = self::g()->get( array(
-					'include' => $tasks_id,
+					'post__in'    => $tasks_id,
 					'post_status' => $param['status'],
 				) );
 			} // End if().
@@ -228,19 +239,19 @@ class Task_Class extends \eoxia\Post_Class {
 	 * @return void
 	 *
 	 * @since 1.3.6
-	 * @version 1.5.0
+	 * @version 1.6.0
 	 *
 	 * @todo: With_wrapper ?
 	 */
 	public function display_tasks( $tasks, $frontend = false ) {
 		if ( $frontend ) {
 			\eoxia\View_Util::exec( 'task-manager', 'task', 'frontend/tasks', array(
-				'tasks' => $tasks,
+				'tasks'        => $tasks,
 				'with_wrapper' => false,
 			) );
 		} else {
 			\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/tasks', array(
-				'tasks' => $tasks,
+				'tasks'        => $tasks,
 				'with_wrapper' => false,
 			) );
 		}
@@ -276,11 +287,11 @@ class Task_Class extends \eoxia\Post_Class {
 					$tasks[ $post->ID ]['total_time_elapsed'] = 0;
 				}
 
-				$tasks[ $post->ID ]['total_time_elapsed'] += $task->time_info['elapsed'];
-				$total_time_elapsed                       += $task->time_info['elapsed'];
-				$total_time_estimated                     += $task->last_history_time->estimated_time;
+				$tasks[ $post->ID ]['total_time_elapsed'] += $task->data['time_info']['elapsed'];
+				$total_time_elapsed                       += $task->data['time_info']['elapsed'];
+				$total_time_estimated                     += $task->data['last_history_time']->data['estimated_time'];
 
-				$task_ids_for_history[] = $task->id;
+				$task_ids_for_history[] = $task->data['id'];
 			}
 		}
 
@@ -309,11 +320,11 @@ class Task_Class extends \eoxia\Post_Class {
 						if ( empty( $tasks[ $child->ID ]['total_time_elapsed'] ) ) {
 							$tasks[ $child->ID ]['total_time_elapsed'] = 0;
 						}
-						$tasks[ $child->ID ]['total_time_elapsed'] += $task->time_info['elapsed'];
-						$total_time_elapsed                        += $task->time_info['elapsed'];
-						$total_time_estimated                      += $task->last_history_time->estimated_time;
+						$tasks[ $child->ID ]['total_time_elapsed'] += $task->data['time_info']['elapsed'];
+						$total_time_elapsed                        += $task->data['time_info']['elapsed'];
+						$total_time_estimated                      += $task->data['last_history_time']->data['estimated_time'];
 
-						$task_ids_for_history[] = $task->id;
+						$task_ids_for_history[] = $task->data['id'];
 					}
 				}
 			}

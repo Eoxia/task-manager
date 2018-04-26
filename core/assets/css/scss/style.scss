@@ -1,0 +1,66 @@
+/*!
+	PROJECT : Task Manager
+	Created by Eoxia
+*/
+
+@import "mixins/mixins-master";
+@import "variable/variable";
+
+@font-face {
+    font-family: 'kalamregular';
+    src: url('../font/kalam-regular-webfont.eot');
+    src: url('../font/kalam-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/kalam-regular-webfont.woff2') format('woff2'),
+         url('../font/kalam-regular-webfont.woff') format('woff'),
+         url('../font/kalam-regular-webfont.ttf') format('truetype'),
+         url('../font/kalam-regular-webfont.svg#kalamregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.wpeo-project-wrap {
+	box-sizing: border-box;
+	padding-right: 20px;
+	*,
+	*:before,
+	*:after { /* Inherit box-sizing to make it easier to change the property for components that leverage other behavior; see http://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
+	 box-sizing: inherit;
+	}
+	@media ( max-width: $media__small ) {
+	 padding-right: 0;
+	}
+
+
+	/*--------------------------------------------------------------
+	# Normalize
+	--------------------------------------------------------------*/
+	@import "module/normalize";
+
+	/*--------------------------------------------------------------
+	# Font
+	--------------------------------------------------------------*/
+	@import "font/font";
+
+	/*--------------------------------------------------------------
+	# Modules
+	--------------------------------------------------------------*/
+	@import "module/module";
+
+	/*--------------------------------------------------------------
+	# Elements
+	--------------------------------------------------------------*/
+	@import "element/element";
+
+}
+
+
+@import "element/notification";
+@import "element/export";
+@import "element/user";
+@import "element/shortcut/shortcut";
+
+
+/*--------------------------------------------------------------
+# Modules externes du Framework
+--------------------------------------------------------------*/
+@import "external/external.scss";

@@ -2,10 +2,10 @@
 /**
  * Les actions relatives aux activitées.
  *
- * @author Jimmy Latour <jimmy.eoxia@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.5.0
- * @version 1.5.0
- * @copyright 2015-2017 Eoxia
+ * @version 1.6.0
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -24,7 +24,7 @@ class Activity_Action {
 	 * Initialise les actions liées aux activitées.
 	 *
 	 * @since 1.5.0
-	 * @version 1.5.0
+	 * @version 1.6.0
 	 */
 	public function __construct() {
 		add_action( 'wp_ajax_load_last_activity', array( $this, 'callback_load_last_activity' ) );
@@ -35,30 +35,30 @@ class Activity_Action {
 	 * Charges les évènements liés à la tâche puis renvoie la vue.
 	 *
 	 * @since 1.5.0
-	 * @version 1.5.0
+	 * @version 1.6.0
 	 *
 	 * @return void
 	 */
 	public function callback_load_last_activity() {
-		$title = ! empty( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : '';
-		$tasks_id = ! empty( $_POST['tasks_id'] ) ? sanitize_text_field( $_POST['tasks_id'] ) : '';
-		$offset = ! empty( $_POST['offset'] ) ? (int) $_POST['offset'] : 0;
-		$last_date = ! empty( $_POST['last_date'] ) ? sanitize_text_field( $_POST['last_date'] ) : '';
-		$term = ! empty( $_POST['term'] ) ? sanitize_text_field( $_POST['term'] ) : '';
+		$title                  = ! empty( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : '';
+		$tasks_id               = ! empty( $_POST['tasks_id'] ) ? sanitize_text_field( $_POST['tasks_id'] ) : '';
+		$offset                 = ! empty( $_POST['offset'] ) ? (int) $_POST['offset'] : 0;
+		$last_date              = ! empty( $_POST['last_date'] ) ? sanitize_text_field( $_POST['last_date'] ) : '';
+		$term                   = ! empty( $_POST['term'] ) ? sanitize_text_field( $_POST['term'] ) : '';
 		$categories_id_selected = ! empty( $_POST['categories_id_selected'] ) ? sanitize_text_field( $_POST['categories_id_selected'] ) : '';
-		$follower_id_selected = ! empty( $_POST['follower_id_selected'] ) ? (int) $_POST['follower_id_selected'] : 0;
-		$frontend = ! empty( $_POST['frontend'] ) ? true : false;
+		$follower_id_selected   = ! empty( $_POST['follower_id_selected'] ) ? (int) $_POST['follower_id_selected'] : 0;
+		$frontend               = ! empty( $_POST['frontend'] ) ? true : false;
 
 		if ( empty( $tasks_id ) ) {
 			$tasks = Task_Class::g()->get_tasks( array(
 				'posts_per_page' => \eoxia\Config_Util::$init['task-manager']->task->posts_per_page,
-				'categories_id' => $categories_id_selected,
-				'term' => $term,
-				'users_id' => $follower_id_selected,
+				'categories_id'  => $categories_id_selected,
+				'term'           => $term,
+				'users_id'       => $follower_id_selected,
 			) );
 
 			$tasks_id = array_map( function( $e ) {
-				return $e->id;
+				return $e->data['id'];
 			}, $tasks );
 		} else {
 			$tasks_id = explode( ',', $tasks_id );
@@ -77,18 +77,19 @@ class Activity_Action {
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/list', array(
-			'datas' => $datas,
+			'datas'     => $datas,
 			'last_date' => $last_date,
+			'offset'    => $offset,
 		) );
 		$view = '<div class="wpeo-project-wrap" ><div class="activities" >' . ob_get_clean() . '</div></div>';
 
-		$data_search = Navigation_Class::g()->get_search_result( $term, $categories_id_selected, $follower_id_selected );
+		$data_search = Navigation_Class::g()->get_search_result( $term, 'any', $categories_id_selected, $follower_id_selected );
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/title', array(
-			'term' => $data_search['term'],
+			'term'                => $data_search['term'],
 			'categories_searched' => $data_search['categories_searched'],
-			'follower_searched' => $data_search['follower_searched'],
-			'have_search' => $data_search['have_search'],
+			'follower_searched'   => $data_search['follower_searched'],
+			'have_search'         => $data_search['have_search'],
 		) );
 		$title_popup = ob_get_clean();
 
@@ -97,15 +98,14 @@ class Activity_Action {
 		}
 
 		wp_send_json_success( array(
-			'namespace' => ! $frontend ? 'taskManager' : 'taskManagerFrontendWPShop',
-			'module' => ! $frontend ? 'activity' : 'frontendSupport',
+			'namespace'        => ! $frontend ? 'taskManager' : 'taskManagerFrontendWPShop',
+			'module'           => ! $frontend ? 'activity' : 'frontendSupport',
 			'callback_success' => 'loadedLastActivity',
-			'view' => $view,
-			'title_popup' => $title . $title_popup,
-			'offset' => $offset,
-			'last_date' => $last_date,
-			'buttons_view' => '&nbsp;',
-			'end' => ( 0 === count( $datas ) ) ? true : false,
+			'view'             => $view,
+			'offset'           => $offset,
+			'last_date'        => $last_date,
+			'buttons_view'     => '',
+			'end'              => ( \eoxia\Config_Util::$init['task-manager']->activity->activity_per_page !== $datas['count'] ) ? true : false,
 		) );
 	}
 

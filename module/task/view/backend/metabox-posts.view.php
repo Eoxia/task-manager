@@ -17,28 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="wrap wpeo-project-wrap">
 	<div class="wpeo-project-dashboard">
 		<p class="alignright"><?php esc_html_e( 'Total time past', 'task-manager' ); ?> : <?php echo esc_html( $total_time_elapsed ); ?> / <?php echo esc_html( $total_time_estimated ); ?></p>
-		<span class="open-popup-ajax dashicons dashicons-screenoptions alignright"
-					data-parent="wpeo-project-wrap"
-					data-target="popup"
-					data-action="load_last_activity"
-					data-class="last-activity activities"
-					data-tasks-id="<?php echo esc_attr( $task_ids_for_history ); ?>"
-					data-title="<?php echo esc_attr_e( 'Last activities', 'task-manager' ); ?>"></span>
-
-		<div class="popup">
-			<div class="container">
-				<div class="header">
-					<h2 class="title"></h2>
-					<i class="close fa fa-times"></i>
-				</div>
-				<input type="hidden" class="offset-event" value="<?php echo esc_attr( \eoxia\Config_Util::$init['task-manager']->activity->activity_per_page ); ?>" />
-				<input type="hidden" class="last-date" value="" />
-
-				<div class="content"></div>
-
-				<button class="load-more-history"><?php esc_html_e( 'Load more', 'task-manager' ); ?></button> <!-- Ne pas supprimer 'load-more-history' -->
-			</div>
-		</div>
+	
 	</div>
 
 

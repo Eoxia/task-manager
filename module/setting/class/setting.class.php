@@ -59,7 +59,7 @@ class Setting_Class extends \eoxia\Singleton_Util {
 	 * Récupères la liste des utilisateurs pour les afficher dans la vue "capability/list".
 	 *
 	 * @since 1.5.0
-	 * @version 1.5.0
+	 * @version 1.6.0
 	 *
 	 * @param array $list_user_id La liste des utilisateurs à afficher. Peut être vide pour récupérer tous les utilisateurs.
 	 *
@@ -69,8 +69,8 @@ class Setting_Class extends \eoxia\Singleton_Util {
 		$current_page = ! empty( $_POST['next_page'] ) ? (int) $_POST['next_page'] : 1;
 		$args_user = array(
 			'exclude' => array( 1 ),
-			'offset' => ( $current_page - 1 ) * $this->limit_user,
-			'number' => $this->limit_user,
+			'offset'  => ( $current_page - 1 ) * $this->limit_user,
+			'number'  => $this->limit_user,
 		);
 
 		if ( ! empty( $list_user_id ) ) {
@@ -84,24 +84,24 @@ class Setting_Class extends \eoxia\Singleton_Util {
 		unset( $args_user['include'] );
 		$args_user['fields'] = array( 'ID' );
 
-		$count_user = count( \eoxia\User_Class::g()->get( $args_user ) );
+		$count_user  = count( \eoxia\User_Class::g()->get( $args_user ) );
 		$number_page = ceil( $count_user / $this->limit_user );
 
-		$role_subscriber = get_role( 'subscriber' );
+		$role_subscriber      = get_role( 'subscriber' );
 		$has_capacity_in_role = ! empty( $role_subscriber->capabilities['task_manager'] ) ? true : false;
 
 		if ( ! empty( $users ) ) {
 			foreach ( $users as &$user ) {
-				$user->wordpress_user = new \WP_User( $user->id );
+				$user->wordpress_user = new \WP_User( $user->data['id'] );
 			}
 		}
 
 		\eoxia\View_Util::exec( 'task-manager', 'setting', 'capability/list', array(
-			'users' => $users,
+			'users'                => $users,
 			'has_capacity_in_role' => $has_capacity_in_role,
-			'number_page' => $number_page,
-			'count_user' => $count_user,
-			'current_page' => $current_page,
+			'number_page'          => $number_page,
+			'count_user'           => $count_user,
+			'current_page'         => $current_page,
 		) );
 	}
 }

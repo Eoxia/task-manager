@@ -1,0 +1,12 @@
+{
+	"name": "Gestion des temps dépassés",
+	"slug": "time-exceeded",
+	"version": "1.6.1",
+	"description": "Le module gérant les temps dépassés",
+	"path": "module/time-exceeded/",
+	"dependencies": {
+		"action": {},
+		"class": {}
+	},
+	"default_time_exceeded": 60
+}
