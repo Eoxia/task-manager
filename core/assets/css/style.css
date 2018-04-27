@@ -3747,7 +3747,7 @@ readers do not read off random characters that represent icons */
 
 .wpeo-project-wrap .wpeo-header-bar > ul > li.wpeo-general-search .dashicons-search {
   color: rgba(0, 0, 0, 0.2);
-  line-height: 1.4;
+  line-height: 2em;
   font-size: 18px; }
 
 .wpeo-project-wrap .wpeo-header-bar > ul > li.wpeo-general-search .open-search-filter {
