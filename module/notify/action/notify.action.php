@@ -118,7 +118,7 @@ class Notify_Action {
 
 			foreach ( $users_id as $user_id ) {
 				$user_info    = get_userdata( $user_id );
-				$recipients[] = $user_info->user_email;
+				$recipients[] = $user_info;
 			}
 		}
 
@@ -150,13 +150,21 @@ class Notify_Action {
 		$body       = apply_filters( 'task_manager_notify_send_notification_body', $body, $task, $data );
 
 		if ( ! empty( $recipients ) && ! empty( $subject ) && ! empty( $body ) ) {
-			if ( wp_mail( $recipients, $subject, $body, $headers ) ) {
-				\eoxia\LOG_Util::log( sprintf( 'Send the task %1$d to %2$s success', $task->data['id'], implode( ',', $recipients ) ), 'task-manager' );
-			} else {
-				\eoxia\LOG_Util::log( sprintf( 'Send the task %1$d to %2$s failed', $task->data['id'], implode( ',', $recipients ) ), 'task-manager', 'EO_ERROR' );
+			if ( ! empty( $recipients ) ) {
+				foreach ( $recipients as $recipient ) {
+					if ( in_array( 'administrator', $recipient->roles, true ) ) {
+						$body = apply_filters( 'task_manager_notify_send_notification_body_administrator', $body, $task, $data );
+					}
+
+					if ( wp_mail( $recipient->user_email, $subject, $body, $headers ) ) {
+						\eoxia\LOG_Util::log( sprintf( 'Send the task %1$d to %2$s success', $task->data['id'], $recipient->user_email ), 'task-manager' );
+					} else {
+						\eoxia\LOG_Util::log( sprintf( 'Send the task %1$d to %2$s failed', $task->data['id'], $recipient->user_email ), 'task-manager', 'EO_ERROR' );
+					}
+				}
 			}
 		} else {
-			\eoxia\LOG_Util::log( sprintf( 'Send the task %1$d to %2$s failed', $task->data['id'], implode( ',', $recipients ) ), 'task-manager', 'EO_ERROR' );
+			\eoxia\LOG_Util::log( sprintf( 'Send the task %1$d failed', $task->data['id'] ), 'task-manager', 'EO_ERROR' );
 		}
 
 		wp_send_json_success( array(

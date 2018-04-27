@@ -2,7 +2,7 @@
  * Initialise l'objet "notify" ainsi que la méthode "init" obligatoire pour la bibliothèque EoxiaJS.
  *
  * @since 1.5.0
- * @version 1.5.0
+ * @version 1.6.1
  */
 window.eoxiaJS.taskManager.notify = {};
 
@@ -94,10 +94,10 @@ window.eoxiaJS.taskManager.notify.loadedNotifyPopup = function( triggeredElement
  * @return {void}
  *
  * @since 1.5.0
- * @version 1.6.0
+ * @version 1.6.1
  */
 window.eoxiaJS.taskManager.notify.sendedNotification = function( triggeredElement, response ) {
-	triggeredElement.closest( '.wpeo-modal' ).find( '.close' ).click();
+	triggeredElement.closest( '.wpeo-modal' ).find( '.modal-close' ).click();
 
 
 };

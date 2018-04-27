@@ -3,7 +3,7 @@
  * Gestion des commentaires
  *
  * @since 1.3.4
- * @version 1.6.0
+ * @version 1.6.1
  * @package Task_Manager
  */
 
@@ -117,7 +117,7 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 	 * Est-ce que le point est le parent du commentaire ?
 	 *
 	 * @since 1.5.0
-	 * @version 1.5.0
+	 * @version 1.6.1
 	 *
 	 * @param integer $point_id    L'ID du point.
 	 * @param integer $comment_id  L'ID du commentaire.
@@ -133,7 +133,7 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 			'id' => $comment_id,
 		), true );
 
-		if ( $comment->parent_id === $point_id ) {
+		if ( $comment->data['parent_id'] === $point_id ) {
 			return true;
 		}
 
