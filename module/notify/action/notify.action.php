@@ -152,11 +152,12 @@ class Notify_Action {
 		if ( ! empty( $recipients ) && ! empty( $subject ) && ! empty( $body ) ) {
 			if ( ! empty( $recipients ) ) {
 				foreach ( $recipients as $recipient ) {
+					$cloned_body = $body;
 					if ( in_array( 'administrator', $recipient->roles, true ) ) {
-						$body = apply_filters( 'task_manager_notify_send_notification_body_administrator', $body, $task, $data );
+						$cloned_body = apply_filters( 'task_manager_notify_send_notification_body_administrator', $body, $task, $data );
 					}
 
-					if ( wp_mail( $recipient->user_email, $subject, $body, $headers ) ) {
+					if ( wp_mail( $recipient->user_email, $subject, $cloned_body, $headers ) ) {
 						\eoxia\LOG_Util::log( sprintf( 'Send the task %1$d to %2$s success', $task->data['id'], $recipient->user_email ), 'task-manager' );
 					} else {
 						\eoxia\LOG_Util::log( sprintf( 'Send the task %1$d to %2$s failed', $task->data['id'], $recipient->user_email ), 'task-manager', 'EO_ERROR' );
