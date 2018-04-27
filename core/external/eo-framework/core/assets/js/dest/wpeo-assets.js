@@ -316,32 +316,6 @@ if ( ! window.eoxiaJS.arrayForm ) {
 	};
 }
 
-if ( ! jQuery.fn.get_data ) {
-	jQuery.fn.get_data = function( cb ) {
-		this.each( function() {
-			var data = {};
-			var i = 0;
-			var localName = undefined;
-
-			for ( i = 0; i <  jQuery( this )[0].attributes.length; i++ ) {
-				localName = jQuery( this )[0].attributes[i].localName;
-				if ( 'data' === localName.substr( 0, 4 ) || 'action' === localName ) {
-					localName = localName.substr( 5 );
-
-					if ( 'nonce' === localName ) {
-						localName = '_wpnonce';
-					}
-
-					localName = localName.replace( '-', '_' );
-					data[localName] =  jQuery( this )[0].attributes[i].value;
-				}
-			}
-
-			cb( data );
-		} );
-	};
-}
-
 /**
  * Gestion du dropdown.
  *
@@ -766,42 +740,6 @@ if ( ! window.eoxiaJS.form ) {
 	};
 }
 
-if ( ! window.eoxiaJS.global ) {
-	window.eoxiaJS.global = {};
-
-	window.eoxiaJS.global.init = function() {};
-
-	window.eoxiaJS.global.downloadFile = function( urlToFile, filename ) {
-		var alink = document.createElement( 'a' );
-		alink.setAttribute( 'href', urlToFile );
-		alink.setAttribute( 'download', filename );
-		if ( document.createEvent ) {
-			var event = document.createEvent( 'MouseEvents' );
-			event.initEvent( 'click', true, true );
-			alink.dispatchEvent( event );
-		} else {
-			alink.click();
-		}
-	};
-
-	window.eoxiaJS.global.removeDiacritics = function( input ) {
-		var output = '';
-		var normalized = input.normalize( 'NFD' );
-		var i = 0;
-		var j = 0;
-
-		while ( i < input.length ) {
-			output += normalized[j];
-
-			j += ( input[i] == normalized[j] ) ? 1 : 2;
-			i++;
-		}
-
-		return output;
-	};
-
-	}
-
 /**
  * Gestion du loader.
  *
@@ -1078,47 +1016,6 @@ if ( ! window.eoxiaJS.popover ) {
 		if ( element[0].popoverElement ) {
 			jQuery( element[0].popoverElement ).remove();
 			delete element[0].popoverElement;
-		}
-	};
-}
-
-"use strict";
-
-var regex = {
-	validateEmail: function(email) {
-	    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	    return re.test(email);
-	},
-
-	validateEndEmail: function( endEmail ) {
-		var re = /^[a-zA-Z0-9]+\.[a-zA-Z0-9]+(\.[a-z-A-Z0-9]+)?$/;
-		return re.test( endEmail );
-	}
-};
-
-if ( ! window.eoxiaJS.render ) {
-	window.eoxiaJS.render = {};
-
-	window.eoxiaJS.render.init = function() {
-		window.eoxiaJS.render.event();
-	};
-
-	window.eoxiaJS.render.event = function() {};
-
-	window.eoxiaJS.render.callRenderChanged = function() {
-		var key = undefined;
-		var slug = undefined;
-
-		for ( key in window.eoxiaJS ) {
-			if ( window.eoxiaJS[key].renderChanged ) {
-				window.eoxiaJS[key].renderChanged();
-			}
-
-			for ( slug in window.eoxiaJS[key] ) {
-				if ( window.eoxiaJS[key][slug].renderChanged ) {
-					window.eoxiaJS[key][slug].renderChanged();
-				}
-			}
 		}
 	};
 }
