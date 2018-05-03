@@ -445,14 +445,14 @@ class Task_Action {
 	 * @param WP_Post $post      Les données du post.
 	 *
 	 * @since 1.0.0
-	 * @version 1.0.0
+	 * @version 1.6.2
 	 */
 	public function callback_add_meta_boxes( $post_type, $post ) {
 		if ( in_array( $post_type, \eoxia\Config_Util::$init['task-manager']->associate_post_type, true ) ) {
 			ob_start();
 			\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/metabox-create-buttons', array( 'parent_id' => $post->ID ) );
 			$buttons = ob_get_clean();
-			add_meta_box( 'wpeo-task-metabox', __( 'Task', 'task-manager' ) . $buttons, array( Task_Class::g(), 'callback_render_metabox' ), $post_type, 'normal', 'default' );
+			add_meta_box( 'wpeo-task-metabox', __( 'Task', 'task-manager' ) . apply_filters( 'tm_posts_metabox_buttons', $buttons ), array( Task_Class::g(), 'callback_render_metabox' ), $post_type, 'normal', 'default' );
 		}
 	}
 

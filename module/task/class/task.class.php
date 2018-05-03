@@ -334,6 +334,7 @@ class Task_Class extends \eoxia\Post_Class {
 		$total_time_estimated = \eoxia\Date_Util::g()->convert_to_custom_hours( $total_time_estimated );
 
 		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/metabox-posts', array(
+			'post'                 => $post,
 			'tasks'                => $tasks,
 			'task_ids_for_history' => implode( ',', $task_ids_for_history ),
 			'total_time_elapsed'   => $total_time_elapsed,
