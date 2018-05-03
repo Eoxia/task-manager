@@ -29,7 +29,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<i class="fa fa-ellipsis-v"></i>
 					</span>
 					<input type="checkbox" <?php echo ! empty( $point->data['completed'] ) ? 'checked' : ''; ?> class="completed-point" data-nonce="<?php echo esc_attr( wp_create_nonce( 'complete_point' ) ); ?>" />
-				<?php endif; ?>
+					<!-- filter start -->
+					<?php
+					else :
+						apply_filters( 'tm_point_before', '' );
+					endif;
+					?>
+					<!-- filter end -->
 			</li>
 
 			<li class="point-content content">
@@ -46,6 +52,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</li>
 
 			<li class="point-action">
+
+				<?php apply_filters( 'tm_point_after', '' ); ?>
+
 				<?php	if ( empty( $point->data['id'] ) ) : ?>
 					<div 	class="wpeo-point-new-btn action-input animated no-action"
 								data-parent="form"

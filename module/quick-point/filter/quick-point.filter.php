@@ -47,11 +47,9 @@ class Quick_Point_Filter {
 		check_ajax_referer( 'edit_point' );
 		$bool_status = ( isset( $_POST['bool_status'] ) && 'true' === $_POST['bool_status'] ) ? true : false;
 		$time_info   = ! empty( $_POST['time_info'] ) ? (int) $_POST['time_info'] : 0;
-		if ( isset( $bool_status ) && 'true' === $bool_status ) {
-			if ( isset( $bool_status ) ) {
-				$object->data['completed'] = $bool_status;
-				Point_Class::g()->update( $object->data );
-			}
+		if ( $bool_status ) {
+			$object->data['completed'] = $bool_status;
+			Point_Class::g()->update( $object->data );
 			Task_Comment_Class::g()->create(array(
 				'comment_content' => $object->data['content'],
 				'parent_id'       => $object->data['id'],
