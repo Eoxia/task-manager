@@ -1,0 +1,11 @@
+{
+	"name": "Quick Point",
+	"slug": "quick-point",
+	"version": "0.1.0",
+	"description": "Vue modal",
+	"path": "module/quick-point/",
+	"dependencies": {
+		"filter": {},
+		"action": {}
+	}
+}
