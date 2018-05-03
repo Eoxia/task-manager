@@ -97,6 +97,7 @@ class Point_Model extends \eoxia\Comment_Model {
 			'meta_type' => 'single',
 			'since'     => '1.6.0',
 			'version'   => '1.6.0',
+			'required'  => true,
 		);
 
 		$this->schema['count_comments'] = array(
