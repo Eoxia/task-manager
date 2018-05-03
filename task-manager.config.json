@@ -37,6 +37,7 @@
 		"module/setting/setting.config.json",
 		"module/quick_time/quick_time.config.json",
 		"module/export/export.config.json",
+		"module/import/import.config.json",
 		"module/tools/tools.config.json"
 	],
 	"debug": false,
