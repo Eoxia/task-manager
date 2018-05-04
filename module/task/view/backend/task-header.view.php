@@ -4,7 +4,7 @@
  *
  * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
- * @version 1.6.0
+ * @version 1.7.0
  * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
@@ -47,7 +47,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<span><i class="fa fa-history dashicons-image-rotate"></i></span>
 	</li>
 
-	<!-- jules BTN Start ! action => QuickAddComment -->
 	<li class="wpeo-modal-event wpeo-tooltip-event quick-point-event"
 			data-action="quick_add_comment"
 			data-title="<?php echo esc_attr_e( 'Quick point add', 'task-manager' ); ?>"
@@ -62,7 +61,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<i class="fas fa-plus" data-fa-transform="shrink-6 up-6 right-8"></i>
 		</span>
 	</li>
-	<!-- jules BTN End ! -->
 
 	<li class="display-method-buttons">
 		<span class="dashicons dashicons-screenoptions list-display active wpeo-tooltip-event"

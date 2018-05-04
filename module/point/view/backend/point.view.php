@@ -4,7 +4,7 @@
  *
  * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
- * @version 1.6.0
+ * @version 1.7.0
  * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
