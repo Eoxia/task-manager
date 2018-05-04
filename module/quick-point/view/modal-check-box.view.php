@@ -2,10 +2,10 @@
 /**
  * Vu du bouton Check-box de la modal .
  *
- * @author ||||||||
- * @since 1.6.1
- * @version 1.6.1
- * @copyright 2018+
+ * @author Eoxia <dev@eoxia.com>
+ * @since 1.7.0
+ * @version 1.7.0
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -13,10 +13,8 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-}
+} ?>
 
-?>
 <div class="form-field-inline">
-	<input type="checkbox" name="bool_status" class="completed-point">
+	<input type="checkbox" name="completed" class="completed-point">
 </div>
-<input type="hidden" name="hock" value="true">

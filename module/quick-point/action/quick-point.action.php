@@ -1,11 +1,11 @@
 <?php
 /**
- * Le fichier action du module Quick-Point.
+ * Action principale de Quick Point
  *
- * @author ||||||||
- * @since 1.6.1
- * @version 1.6.1
- * @copyright 2018+
+ * @author Eoxia <dev@eoxia.com>
+ * @since 1.7.0
+ * @version 1.7.0
+ * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
 
@@ -16,52 +16,59 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Action of Quick_Point.
+ * Action principale de Quick Point
  */
 class Quick_Point_Action {
 
 	/**
-	 * Constructor
+	 * Constructeur
 	 *
-	 * @since 1.6.1
-	 * @version 1.6.1
+	 * @since 1.7.0
+	 * @version 1.7.0
 	 */
 	public function __construct() {
-			add_action( 'wp_ajax_quick_add_comment', array( $this, 'callback_quick_add_comment' ) );
+			add_action( 'wp_ajax_load_modal_quick_point', array( $this, 'callback_load_modal_quick_point' ) );
 	}
 
 	/**
-	 * Ajoute une function qui charge les vues .
-	 * vu du btn validé + modal vue principale .
+	 * Charges le contenu de la modal Quick Point
 	 *
-	 * @since 1.6.1
-	 * @version 1.6.1
+	 * Ajoutes deux filtres pour ajouter une checkbox et un input type text
+	 *
+	 * @since 1.7.0
+	 * @version 1.7.0
 	 */
-	public function callback_quick_add_comment() {
-		check_ajax_referer( 'quick_add_comment' );
-		$quictime_filter = new Quick_Point_Filter();
-		add_filter( 'tm_point_before', array( $quictime_filter, 'callback_tm_point_before' ) );
-		add_filter( 'tm_point_after', array( $quictime_filter, 'input_text' ) );
-		$point   = Point_Class::g()->get(array(
+	public function callback_load_modal_quick_point() {
+		check_ajax_referer( 'load_modal_quick_point' );
+
+		$task_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+
+		if ( empty( $task_id ) ) {
+			wp_send_json_error();
+		}
+
+		$quick_point_filter = new Quick_Point_Filter();
+		add_filter( 'tm_point_before', array( $quick_point_filter, 'callback_tm_point_before' ) );
+		add_filter( 'tm_point_after', array( $quick_point_filter, 'callback_point_after' ) );
+
+		$point = Point_Class::g()->get(array(
 			'id' => '0',
 		), true );
-		$task_id = $_POST['task_id'];
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'quick-point', 'modal', array(
+		\eoxia\View_Util::exec( 'task-manager', 'quick-point', 'modal-content', array(
 			'task_id' => $task_id,
 			'point'   => $point,
 		) );
-		$ob_clean_modal = ob_get_clean();
+		$modal_content_view = ob_get_clean();
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'quick-point', 'modal-input-valid' );
-		$ob_clean_modal_btn = ob_get_clean();
-
+		$modal_buttons_view = ob_get_clean();
 
 		wp_send_json_success( array(
-			'view'         => $ob_clean_modal,
-			'buttons_view' => $ob_clean_modal_btn,
+			'view'         => $modal_content_view,
+			'buttons_view' => $modal_buttons_view,
 		) );
 	}
 }

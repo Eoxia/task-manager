@@ -48,11 +48,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</li>
 
 	<li class="wpeo-modal-event wpeo-tooltip-event quick-point-event"
-			data-action="quick_add_comment"
+			data-action="load_modal_quick_point"
 			data-title="<?php echo esc_attr_e( 'Quick point add', 'task-manager' ); ?>"
 			aria-label="<?php echo esc_attr_e( 'Quick point add', 'task-manager' ); ?>"
 			data-task-id="<?php echo esc_attr( $task->data['id'] ); ?>"
-			data-nonce="<?php echo esc_attr( wp_create_nonce( 'quick_add_comment' ) ); ?>"
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_modal_quick_point' ) ); ?>"
 			data-quick="true"
 			data-class="wpeo-project-wrap quick-point">
 		<span class="fa-layers fa-fw">
