@@ -100,6 +100,10 @@ class Point_Action {
 			'namespace'        => 'taskManager',
 			'module'           => 'point',
 			'callback_success' => ! empty( $point_id ) ? 'editedPointSuccess' : 'addedPointSuccess',
+			//zone ajouter J start
+			'task_id' => $parent_id,
+			'point'      => $point,
+				//zone ajouter J End
 		) );
 	}
 

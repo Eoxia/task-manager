@@ -32,7 +32,7 @@ class Quick_Point_Action {
 
 	/**
 	 * Ajoute une function qui charge les vues .
-	 *  .
+	 * vu du btn validé + modal vue principale .
 	 *
 	 * @since 1.6.1
 	 * @version 1.6.1
@@ -46,14 +46,22 @@ class Quick_Point_Action {
 			'id' => '0',
 		), true );
 		$task_id = $_POST['task_id'];
+
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'quick-point', 'modal', array(
 			'task_id' => $task_id,
 			'point'   => $point,
 		) );
-		$modal_view = ob_get_clean();
+		$ob_clean_modal = ob_get_clean();
+
+		ob_start();
+		\eoxia\View_Util::exec( 'task-manager', 'quick-point', 'modal-input-valid' );
+		$ob_clean_modal_btn = ob_get_clean();
+
+
 		wp_send_json_success( array(
-			'view' => $modal_view,
+			'view'         => $ob_clean_modal,
+			'buttons_view' => $ob_clean_modal_btn,
 		) );
 	}
 }
