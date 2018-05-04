@@ -90,10 +90,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_export_popup' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->data['id'] ); ?>"
 			data-loader="task-header-action">
-		<span><i class="fas fa-download"></i></span>
+		<span><i class="fas fa-upload"></i></span>
 	</li>
 
-	<?php apply_filters( 'task_manager_task_header_actions_after', $task->data['id'] ); ?>
+	<?php apply_filters( 'task_manager_task_header_actions_after', $task->data['id'], $task ); ?>
 
 </ul>
 

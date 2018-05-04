@@ -1,6 +1,6 @@
 %task%Ma première tâche est trop cool
 %point%Un point facile
 %point%Un point moins facile
-%task%Ma première tâche est trop cool
+%task%Ma seconde tâche est trop cool
 %point%Un point facile
 %point%Un point moins facile
