@@ -47,19 +47,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<span><i class="fa fa-history dashicons-image-rotate"></i></span>
 	</li>
 
+	<!-- jules BTN Start ! action => QuickAddComment -->
+	<li class="wpeo-modal-event wpeo-tooltip-event quick-point-event"
+			data-action="quick_add_comment"
+			data-title="<?php echo esc_attr_e( 'Quick point add', 'task-manager' ); ?>"
+			aria-label="<?php echo esc_attr_e( 'Quick point add', 'task-manager' ); ?>"
+			data-task-id="<?php echo esc_attr( $task->data['id'] ); ?>"
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'quick_add_comment' ) ); ?>"
+			data-quick="true"
+			data-class="quick-point">
+		<span class="fa-layers fa-fw">
+			<i class="fas fa-list-ul"></i>
+			<i class="fas fa-circle" data-fa-transform="up-6 right-8"></i>
+			<i class="fas fa-plus" data-fa-transform="shrink-6 up-6 right-8"></i>
+		</span>
+	</li>
+	<!-- jules BTN End ! -->
+
 	<li class="display-method-buttons">
 		<span class="dashicons dashicons-screenoptions list-display active wpeo-tooltip-event"
 			aria-label="<?php echo esc_attr_e( 'Edit display', 'task-manager' ); ?>"></span>
-
-		<!-- jules BTN Start ! action => QuickAddComment -->
-		<span class="wpeo-modal-event wpeo-button button-red"
-					data-action="quick_add_comment"
-					aria-label="<?php echo esc_attr_e( 'J_Modal', 'task-manager' ); ?>"
-					data-task-id="<?php echo esc_attr( $task->data['id'] ); ?>"
-					data-nonce="<?php echo esc_attr( wp_create_nonce( 'quick_add_comment' ) ); ?>"
-					data-quick="true"
-					>J</span>
-					<!-- jules BTN End ! -->
 
 		<span class="action-attribute dashicons dashicons-editor-ul grid-display wpeo-tooltip-event"
 					data-action="load_last_activity"
