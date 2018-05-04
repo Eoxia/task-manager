@@ -18,6 +18,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <div class="form-field-inline">
 	<input type="checkbox" name="bool_status" class="completed-point">
-	<label for="checkbox1">C</label>
 </div>
 <input type="hidden" name="hock" value="true">

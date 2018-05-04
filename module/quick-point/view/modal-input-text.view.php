@@ -16,6 +16,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<div>
-	<input type="text" name="time_info" value="15">
-</div>
+<i class="dashicons dashicons-clock"></i>
+<input type="text" class="point-time" name="time_info" value="15">

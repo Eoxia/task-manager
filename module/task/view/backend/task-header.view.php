@@ -55,7 +55,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			data-task-id="<?php echo esc_attr( $task->data['id'] ); ?>"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'quick_add_comment' ) ); ?>"
 			data-quick="true"
-			data-class="quick-point">
+			data-class="wpeo-project-wrap quick-point">
 		<span class="fa-layers fa-fw">
 			<i class="fas fa-list-ul"></i>
 			<i class="fas fa-circle" data-fa-transform="up-6 right-8"></i>
