@@ -71,6 +71,8 @@ class Point_Action {
 			'content' => $content,
 		);
 
+		$task = null;
+		
 		if ( 0 === $point_id ) {
 			$task = Task_Class::g()->get( array(
 				'id' => $parent_id,
@@ -100,10 +102,9 @@ class Point_Action {
 			'namespace'        => 'taskManager',
 			'module'           => 'point',
 			'callback_success' => ! empty( $point_id ) ? 'editedPointSuccess' : 'addedPointSuccess',
-			//zone ajouter J start
-			'task_id' => $parent_id,
-			'point'      => $point,
-				//zone ajouter J End
+			'task_id'          => $parent_id,
+			'task'             => $task,
+			'point'            => $point,
 		) );
 	}
 

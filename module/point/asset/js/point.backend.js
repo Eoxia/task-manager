@@ -133,21 +133,22 @@ window.eoxiaJS.taskManager.point.updateHiddenInput = function( event ) {
  * @version 1.7.0
  */
 window.eoxiaJS.taskManager.point.addedPointSuccess = function( triggeredElement, response ) {
-	var totalPoint = parseInt( jQuery("div.wpeo-project-task[data-id='" + response.data.task_id + "']" ).find( '.total-point' ).text() );
-	totalPoint++;
+	var task = jQuery( "div.wpeo-project-task[data-id='" + response.data.task_id + "']" );
 
-	jQuery( "div.wpeo-project-task[data-id='" + response.data.task_id + "']" ).find( '.total-point' ).text( totalPoint );
+	task.find( '.total-point' ).text( response.data.task.data.count_all_points );
 
-	triggeredElement.closest( '.point' ).find( '.wpeo-point-new-contenteditable' ).text( '' );
-	triggeredElement.closest( '.point' ).find( 'input[name="content"]' ).val( '' );
-	triggeredElement.closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 0.4 );
-	triggeredElement.closest( '.point' ).find( '.wpeo-point-new-btn' ).addClass( 'no-action' );
-	triggeredElement.closest( '.point' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
+	if ( triggeredElement.closest( '.point' ).length ) {
+		triggeredElement.closest( '.point' ).find( '.wpeo-point-new-contenteditable' ).text( '' );
+		triggeredElement.closest( '.point' ).find( 'input[name="content"]' ).val( '' );
+		triggeredElement.closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 0.4 );
+		triggeredElement.closest( '.point' ).find( '.wpeo-point-new-btn' ).addClass( 'no-action' );
+		triggeredElement.closest( '.point' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
+	}
 
 	if (response.data.point.data.completed != true ){
-		jQuery("div.wpeo-project-task[data-id='"+response.data.task_id+"']").find( '.points.sortable .point:last' ).before( response.data.view );
+		task.find( '.points.sortable .point:last' ).before( response.data.view );
 	}
-	
+
 	window.eoxiaJS.taskManager.point.initAutoComplete();
 	window.eoxiaJS.refresh();
 	triggeredElement.trigger( 'addedPointSuccess' );
