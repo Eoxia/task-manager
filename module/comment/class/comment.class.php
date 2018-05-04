@@ -63,17 +63,20 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 	/**
 	 * Récupères les commentaires d'un point.
 	 *
-	 * @since 1.4.0-ford
-	 * @version 1.4.0-ford
+	 * @since 1.4.0
+	 * @version 1.7.0
 	 *
-	 * @param  integer $point_id L'ID du point.
+	 * @param integer $point_id L'ID du point.
+	 * @param array   $args Optionnel. Des arguments supplémentaire permettant de filtrer les commentaires retournés.
+	 *
 	 * @return array             La liste des commentaires du point.
 	 */
-	public function get_comments( $point_id ) {
-		$comments = self::g()->get( array(
+	public function get_comments( $point_id, $args = array() ) {
+		$default_args = array(
 			'parent' => $point_id,
-		) );
+		);
 
+		$comments = self::g()->get( wp_parse_args( $args, $default_args ) );
 		if ( ! empty( $comments ) ) {
 			foreach ( $comments as $comment ) {
 				$comment->data['author'] = get_userdata( $comment->data['author_id'] );
