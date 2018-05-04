@@ -16,6 +16,7 @@
 		"core/core.config.json",
 
 		"module/comment/comment.config.json",
+		"module/quick-point/quick-point.config.json",
 		"module/update_manager/update_manager.config.json",
 		"module/export/export.config.json",
 		"module/avatar/avatar.config.json",

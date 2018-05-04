@@ -1,0 +1,76 @@
+/** Bouton pour ouvrir la modal */
+.wpeo-project-task .wpeo-task-time-manage {
+	.quick-point-event {
+		margin: auto 0.4em;
+		padding: 0;
+
+		.fa-list-ul, .fa-circle {
+			color: #000;
+			opacity: 0.4;
+			@include transition();
+		}
+		.fa-plus {
+			color: #fff;
+		}
+		&:hover {
+			cursor: pointer;
+			.fa-list-ul, .fa-circle {
+				opacity: 0.7;
+			}
+		}
+	}
+}
+
+/**
+ * Modal d'ajout rapide
+ * Classe parente : wpeo-project-wrap
+ */
+&.wpeo-modal.quick-point {
+	.point-container {
+		display: flex;
+
+		li {
+			margin: auto 0;
+		}
+	}
+	.point-content {
+		position: relative;
+		width: 100%;
+
+		.wpeo-point-new-contenteditable {
+			min-height: 24px;
+			border-bottom: 1px solid rgba(0,0,0,.1);
+			transition: all .2s ease-out;
+			padding-bottom: 6px;
+			font-family: "kalamregular", open sans, sans-serif;
+			width: 100%;
+			padding-left: 0.5em;
+		}
+		.wpeo-point-new-placeholder {
+			color: rgba(0,0,0,.4);
+			position: absolute;
+			left: 6px;
+			top: 0;
+			pointer-events: none;
+		}
+	}
+
+	.point-valid {
+		padding-right: 0.6em;
+	}
+
+	.point-action {
+		display: flex;
+		max-width: 60px;
+
+		* {
+			margin: auto 0;
+		}
+		.wpeo-point-new-btn {
+			display: none;
+		}
+		.point-time {
+			width: 100%;
+		}
+	}
+}

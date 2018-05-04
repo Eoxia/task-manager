@@ -1,7 +1,7 @@
 {
 	"name": "Les tâches",
 	"slug": "task",
-	"version": "1.6.0",
+	"version": "1.7.0",
 	"description": "Le module gérant les tâches",
 	"path": "module/task/",
 	"dependencies": {

@@ -4,7 +4,7 @@
  *
  * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
- * @version 1.6.0
+ * @version 1.7.0
  * @copyright 2015-2018 Eoxia
  * @package Task Manager
  */
@@ -44,7 +44,7 @@ class Point_Action {
 	 * @return void
 	 *
 	 * @since 1.0.0
-	 * @version 1.6.0
+	 * @version 1.7.0
 	 */
 	public function ajax_edit_point() {
 		check_ajax_referer( 'edit_point' );
@@ -100,6 +100,10 @@ class Point_Action {
 			'namespace'        => 'taskManager',
 			'module'           => 'point',
 			'callback_success' => ! empty( $point_id ) ? 'editedPointSuccess' : 'addedPointSuccess',
+			//zone ajouter J start
+			'task_id' => $parent_id,
+			'point'      => $point,
+				//zone ajouter J End
 		) );
 	}
 

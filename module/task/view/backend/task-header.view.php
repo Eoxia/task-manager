@@ -4,7 +4,7 @@
  *
  * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
- * @version 1.6.0
+ * @version 1.7.0
  * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
@@ -47,9 +47,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<span><i class="fa fa-history dashicons-image-rotate"></i></span>
 	</li>
 
+	<li class="wpeo-modal-event wpeo-tooltip-event quick-point-event"
+			data-action="load_modal_quick_point"
+			data-title="<?php echo esc_attr_e( 'Quick point add', 'task-manager' ); ?>"
+			aria-label="<?php echo esc_attr_e( 'Quick point add', 'task-manager' ); ?>"
+			data-task-id="<?php echo esc_attr( $task->data['id'] ); ?>"
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_modal_quick_point' ) ); ?>"
+			data-quick="true"
+			data-class="wpeo-project-wrap quick-point">
+		<span class="fa-layers fa-fw">
+			<i class="fas fa-list-ul"></i>
+			<i class="fas fa-circle" data-fa-transform="up-6 right-8"></i>
+			<i class="fas fa-plus" data-fa-transform="shrink-6 up-6 right-8"></i>
+		</span>
+	</li>
+
 	<li class="display-method-buttons">
 		<span class="dashicons dashicons-screenoptions list-display active wpeo-tooltip-event"
 			aria-label="<?php echo esc_attr_e( 'Edit display', 'task-manager' ); ?>"></span>
+
 		<span class="action-attribute dashicons dashicons-editor-ul grid-display wpeo-tooltip-event"
 					data-action="load_last_activity"
 					aria-label="<?php echo esc_attr_e( 'Activity display', 'task-manager' ); ?>"
