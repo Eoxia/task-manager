@@ -34,7 +34,7 @@ class Import_Class extends \eoxia\Singleton_Util {
 		$get_exemple_file = wp_remote_get( \eoxia\Config_Util::$init['task-manager']->import->url . '/test.txt' );
 
 		\eoxia\View_Util::exec( 'task-manager', 'import', 'backend/import-textarea', array(
-			'default_content' => wp_remote_retrieve_body( $get_exemple_file ),
+			'default_content' => '',
 		) );
 	}
 
