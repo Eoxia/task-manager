@@ -6,6 +6,7 @@
 	"path": "module/import/",
 	"dependencies": {
 		"action": {},
+		"class": {},
 		"filter": {}
 	}
 }

@@ -24,53 +24,89 @@ class Import_Action {
 	 * Instanciation des actions pour l'import des tâches.
 	 */
 	public function __construct() {
+		add_action( 'wp_ajax_load_import_modal', array( $this, 'cb_load_import_modal' ) );
+
 		add_action( 'wp_ajax_import_content', array( $this, 'cb_import_content' ) );
+	}
+
+	/**
+	 * AJAX Callback - Charge la vue de la modal permettant d'importer des points dans une tâches.
+	 */
+	public function cb_load_import_modal() {
+		check_ajax_referer( 'load_import_modal' );
+
+		$task_id = ! empty( $_POST ) && ! empty( (int) $_POST['id'] ) ? (int) $_POST['id'] : 0;
+
+		// Récupération de la vue du contenu de la modal.
+		ob_start();
+		Import_Class::g()->display_textarea();
+		$modal_content = ob_get_clean();
+
+		// Récupéreation de la vue des bouttons de la modal.
+		ob_start();
+		\eoxia\View_Util::exec( 'task-manager', 'import', 'backend/ajax-modal-save-buttons', array(
+			'task_id' => $task_id,
+		) );
+		$buttons_view = ob_get_clean();
+
+		wp_send_json_success( array(
+			'view'         => $modal_content,
+			'buttons_view' => $buttons_view,
+		) );
 	}
 
 	/**
 	 * AJAX Callback - Importe les données selon le format défini.
 	 *
-	 * %taks%Titre De la tâche.
+	 * %task%Titre De la tâche.
 	 * %point%Intitulé du point.
 	 * %point%Intitulé du point.
 	 */
 	public function cb_import_content() {
 		check_ajax_referer( 'import_content' );
 
-		$parent_id = ! empty( $_POST ) && ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : null;
+		$post_id = ! empty( $_POST ) && ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
+		$task_id = ! empty( $_POST ) && ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+		if ( empty( $post_id ) && empty( $task_id ) ) {
+			wp_send_json_error( array( 'message' => __( 'No element have been given for import data for', 'task-manager' ) ) );
+		}
 
 		$content = ! empty( $_POST ) && ! empty( $_POST['content'] ) ? trim( $_POST['content'] ) : null;
 		if ( null === $content ) {
 			wp_send_json_error( array( 'message' => __( 'No content have been given for import', 'task-manager' ) ) );
 		}
 
-		$tasks = explode( '%task%', $content );
-		if ( ! empty( $tasks ) ) {
-			foreach ( $tasks as $task ) {
-				if ( ! empty( $task ) ) {
-					$points = explode( '%point%', $task );
-					if ( ! empty( $points ) ) {
-						// La première ligne est le nom de la tâche.
-						$task = Task_Class::g()->create( array(
-							'title'     => $points[0],
-							'parent_id' => $parent_id,
-						) );
-						unset( $points[0] ); // On supprime l'entrée 0.
+		$created_elements = Import_Class::g()->treat_content( $post_id, $content, $task_id );
 
-						// Les suivantes sont des points.
-						foreach ( $points as $index => $point ) {
-							Point_Class::g()->create( array(
-								'post_id' => $task->data['id'],
-								'content' => $point,
-								'order'   => $index,
-							) );
-						}
-					}
-				}
+		$view = '';
+		$type = '';
+		if ( ! empty( $created_elements['created']['tasks'] ) ) {
+			$type = 'tasks';
+			foreach ( $created_elements['created']['tasks'] as $task ) {
+				ob_start();
+				\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task', array(
+					'task' => $task,
+				) );
+				$view .= ob_get_clean();
+			}
+		} elseif ( ! empty( $created_elements['created']['points'] ) ) {
+			$type = 'points';
+			foreach ( $created_elements['created']['points'] as $point ) {
+				ob_start();
+				\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
+					'point' => $point,
+				) );
+				$view .= ob_get_clean();
 			}
 		}
 
-		wp_send_json_success();
+		wp_send_json_success( array(
+			'namespace'        => 'taskManager',
+			'module'           => 'import',
+			'callback_success' => 'importSuccess',
+			'type'             => $type,
+			'view'             => $view,
+		) );
 	}
 
 }
