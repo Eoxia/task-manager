@@ -40,6 +40,8 @@ class Activity_Action {
 	 * @return void
 	 */
 	public function callback_load_last_activity() {
+		check_ajax_referer( 'load_last_activity' );
+
 		$title                  = ! empty( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : '';
 		$tasks_id               = ! empty( $_POST['tasks_id'] ) ? sanitize_text_field( $_POST['tasks_id'] ) : '';
 		$offset                 = ! empty( $_POST['offset'] ) ? (int) $_POST['offset'] : 0;
@@ -119,23 +121,23 @@ class Activity_Action {
 		check_ajax_referer( 'load_user_activity' );
 
 		$customer_id = get_current_user_id();
-		$date_start = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_start'] ) ? $_POST['tm_abu_date_start'] : current_time( 'Y-m-d' );
-		$date_end = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_end'] ) ? $_POST['tm_abu_date_end'] : current_time( 'Y-m-d' );
+		$date_start  = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_start'] ) ? $_POST['tm_abu_date_start'] : current_time( 'Y-m-d' );
+		$date_end    = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_end'] ) ? $_POST['tm_abu_date_end'] : current_time( 'Y-m-d' );
 
 		$datas = Activity_Class::g()->display_user_activity_by_date( $customer_id, $date_start, $date_end );
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'indicator', 'backend/daily-activity', array(
 			'date_start' => $date_start,
-			'date_end' => $date_end,
-			'datas' => $datas,
+			'date_end'   => $date_end,
+			'datas'      => $datas,
 		) );
 
 		wp_send_json_success( array(
-			'namespace' => 'taskManager',
-			'module' => 'indicator',
+			'namespace'        => 'taskManager',
+			'module'           => 'indicator',
 			'callback_success' => 'loadedCustomerActivity',
-			'view' => ob_get_clean(),
+			'view'             => ob_get_clean(),
 		) );
 	}
 

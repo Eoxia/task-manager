@@ -14,11 +14,11 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
-<div class="tm-import-tasks-container" style="position: absolute; top: -35px; right: 30px;" >
+<div class="tm-import-tasks-container" >
 	<!-- Bouton d'ouverture de la modal pour l'import de tâches -->
 	<a href="#" class="page-title-action wpeo-modal-event"
 		data-target="tm-import-tasks"
-		data-parent="tm-import-tasks-container" ><?php esc_html_e( 'Import', 'task-manager' ); ?></a>
+		data-parent="tm-import-tasks-container" ><i class="fas fa-download" ></i>&nbsp;<?php esc_html_e( 'Import', 'task-manager' ); ?></a>
 
 	<!-- Structure de la modal pour l'import de tâches -->
 	<div class="wpeo-modal tm-import-tasks">
@@ -35,8 +35,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<a class="wpeo-button button-main button-uppercase action-input"
 					data-parent-id="<?php echo esc_attr( $post->ID ); ?>"
 					data-parent="tm-import-tasks"
-					data-action="import_content"
-					data-nonce="<?php echo esc_attr( wp_create_nonce( 'import_content' ) ); ?>" ><span><?php esc_html_e( 'Import', 'task-manager' ); ?></span></a>
+					data-action="tm_import_tasks_and_points"
+					data-nonce="<?php echo esc_attr( wp_create_nonce( 'tm_import_tasks_and_points' ) ); ?>" ><span><?php esc_html_e( 'Import', 'task-manager' ); ?></span></a>
 			</div>
 		</div>
 	</div>

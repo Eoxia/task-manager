@@ -18,5 +18,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 <a class="wpeo-button button-main button-uppercase action-input"
 	data-task-id="<?php echo esc_attr( $task_id ); ?>"
 	data-parent="tm-import-tasks"
-	data-action="import_content"
-	data-nonce="<?php echo esc_attr( wp_create_nonce( 'import_content' ) ); ?>" ><span><?php esc_html_e( 'Import', 'task-manager' ); ?></span></a>
+	data-action="tm_import_tasks_and_points"
+	data-nonce="<?php echo esc_attr( wp_create_nonce( 'tm_import_tasks_and_points' ) ); ?>" ><span><?php esc_html_e( 'Import', 'task-manager' ); ?></span></a>

@@ -26,7 +26,7 @@ class Import_Action {
 	public function __construct() {
 		add_action( 'wp_ajax_load_import_modal', array( $this, 'cb_load_import_modal' ) );
 
-		add_action( 'wp_ajax_import_content', array( $this, 'cb_import_content' ) );
+		add_action( 'wp_ajax_tm_import_tasks_and_points', array( $this, 'cb_tm_import_tasks_and_points' ) );
 	}
 
 	/**
@@ -62,8 +62,16 @@ class Import_Action {
 	 * %point%Intitulé du point.
 	 * %point%Intitulé du point.
 	 */
-	public function cb_import_content() {
-		check_ajax_referer( 'import_content' );
+	public function cb_tm_import_tasks_and_points() {
+		check_ajax_referer( 'tm_import_tasks_and_points' );
+
+		$response = array(
+			'namespace'        => 'taskManager',
+			'module'           => 'import',
+			'callback_success' => 'importSuccess',
+			'type'             => '',
+			'view'             => '',
+		);
 
 		$post_id = ! empty( $_POST ) && ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
 		$task_id = ! empty( $_POST ) && ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
@@ -78,35 +86,35 @@ class Import_Action {
 
 		$created_elements = Import_Class::g()->treat_content( $post_id, $content, $task_id );
 
-		$view = '';
-		$type = '';
 		if ( ! empty( $created_elements['created']['tasks'] ) ) {
-			$type = 'tasks';
+			$response['type'] = 'tasks';
 			foreach ( $created_elements['created']['tasks'] as $task ) {
 				ob_start();
 				\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task', array(
 					'task' => $task,
 				) );
-				$view .= ob_get_clean();
+				$response['view'] .= ob_get_clean();
 			}
 		} elseif ( ! empty( $created_elements['created']['points'] ) ) {
-			$type = 'points';
+			$response['type']    = 'points';
+			$response['point']   = '';
+			$response['task_id'] = $task_id;
+			$response['task']    = Task_Class::g()->get( array(
+				'id' => $task_id,
+			), true );
 			foreach ( $created_elements['created']['points'] as $point ) {
 				ob_start();
 				\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
-					'point' => $point,
+					'point'      => $point,
+					'parent_id'  => $task_id,
+					'comment_id' => 0,
+					'point_id'   => 0,
 				) );
-				$view .= ob_get_clean();
+				$response['view'] .= ob_get_clean();
 			}
 		}
 
-		wp_send_json_success( array(
-			'namespace'        => 'taskManager',
-			'module'           => 'import',
-			'callback_success' => 'importSuccess',
-			'type'             => $type,
-			'view'             => $view,
-		) );
+		wp_send_json_success( $response );
 	}
 
 }

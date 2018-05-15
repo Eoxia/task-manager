@@ -4007,7 +4007,8 @@ readers do not read off random characters that represent icons */
 		Affichage historique
 -----------------------------------*/
 .wpeo-project-wrap {
-  /* Page indicateurs */ }
+  /* Page indicateurs */
+  /* Activity dans les posts */ }
 
 .wpeo-project-wrap .activities {
   /* Jour */
@@ -4177,3 +4178,12 @@ readers do not read off random characters that represent icons */
 .wpeo-project-wrap .daily-activity .event-header [class*="event"] i {
   margin-right: 0.4em;
   color: rgba(0, 0, 0, 0.3); }
+
+.wpeo-project-wrap .post-last-activity {
+  margin-left: 20px;
+  float: left;
+  width: 40%; }
+
+.wpeo-project-wrap .post-last-activity li:first-child {
+  text-align: center;
+  cursor: pointer; }

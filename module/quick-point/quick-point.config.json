@@ -8,5 +8,6 @@
 	"dependencies": {
 		"filter": {},
 		"action": {}
-	}
+	},
+	"state": false
 }

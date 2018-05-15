@@ -34,7 +34,7 @@ class Import_Class extends \eoxia\Singleton_Util {
 		$get_exemple_file = wp_remote_get( \eoxia\Config_Util::$init['task-manager']->import->url . '/test.txt' );
 
 		\eoxia\View_Util::exec( 'task-manager', 'import', 'backend/import-textarea', array(
-			'default_content' => '',
+			'default_content' => wp_remote_retrieve_body( $get_exemple_file ),
 		) );
 	}
 
@@ -76,7 +76,7 @@ class Import_Class extends \eoxia\Singleton_Util {
 					$line               = str_replace( '%point%', '', $line );
 				}
 
-				if ( $line_type_is_task ) {
+				if ( ! empty( $line ) && $line_type_is_task ) {
 					if ( ! empty( $post_id ) ) {
 						$created_task = Task_Class::g()->create( array(
 							'title'     => $line,
@@ -90,13 +90,15 @@ class Import_Class extends \eoxia\Singleton_Util {
 					} else {
 						$element_list['not_created']['tasks'][] = $line;
 					}
-				} elseif ( $line_type_is_point ) {
+				} elseif ( ! empty( $line ) && $line_type_is_point ) {
 					if ( ! empty( $task_id ) ) {
-						$created_point = Point_Class::g()->create( array(
+						$point_args    = array(
 							'post_id' => $task_id,
 							'content' => $line,
 							'order'   => $index,
-						) );
+						);
+						$created_point = Point_Class::g()->create( $point_args );
+
 						// On vérifie que la création ce soit bien passée.
 						if ( ! empty( $created_point ) && ! empty( $created_point->data['id'] ) ) {
 							$element_list['created']['points'][] = $created_point;

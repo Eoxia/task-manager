@@ -34,13 +34,13 @@ class Task_Comment_Model extends \eoxia\Comment_Model {
 			'type'      => 'array',
 			'meta_type' => 'multiple',
 			'child'     => array(
-				'elapsed' => array(
+				'elapsed'     => array(
 					'type'      => 'integer',
 					'meta_type' => 'multiple',
-					'bydefault' => 15,
+					'default'   => 15,
 				),
 				'old_elapsed' => array(
-					'type' => 'integer',
+					'type'      => 'integer',
 					'meta_type' => 'multiple',
 				),
 			),

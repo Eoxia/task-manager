@@ -28,8 +28,6 @@
 		"module/tag/tag.config.json",
 		"module/owner/owner.config.json",
 		"module/follower/follower.config.json",
-		"module/liaison-post-type/liaison-post-type.config.json",
-		"module/shortcode-help/shortcode-help.config.json",
 		"module/admin-bar/admin-bar.config.json",
 		"module/time-exceeded/time-exceeded.config.json",
 		"module/timeline/timeline.config.json",

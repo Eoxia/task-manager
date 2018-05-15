@@ -13,4 +13,15 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} ?><textarea name="content" style="width: 100%; height: 350px;" ><?php echo esc_html( $default_content ); ?></textarea>
+} ?>
+<div class="tm-import-add-keyword" >
+	<div class="wpeo-button button-blue" data-type="task" >
+		<i class="button-icon fas fa-plus-circle"></i>
+		<span><?php esc_html_e( 'Task', 'task-manager' ); ?></span>
+	</div>
+	<div class="wpeo-button button-blue" data-type="point" >
+		<i class="button-icon fas fa-plus-circle"></i>
+		<span><?php esc_html_e( 'Point', 'task-manager' ); ?></span>
+	</div>
+</div>
+<textarea name="content" ><?php echo esc_html( $default_content ); ?></textarea>

@@ -7,6 +7,7 @@
 	"path": "module/activity/",
 	"dependencies": {
 		"action": {},
+		"filter": {},
 		"class": {}
 	},
 	"activity_per_page": 5

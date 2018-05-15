@@ -145,7 +145,7 @@ window.eoxiaJS.taskManager.point.addedPointSuccess = function( triggeredElement,
 		triggeredElement.closest( '.point' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
 	}
 
-	if (response.data.point.data.completed != true ){
+	if ( response.data.point && true != response.data.point.data.completed ) {
 		task.find( '.points.sortable .point:last' ).before( response.data.view );
 	}
 
