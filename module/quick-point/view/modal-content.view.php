@@ -20,4 +20,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 	'parent_id'  => $task_id,
 	'comment_id' => 0,
 	'point_id'   => $point->data['id'],
-) );
+) ); ?>
+<input type="hidden" name="tm_point_is_quick_point" value="true" />

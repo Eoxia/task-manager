@@ -48,8 +48,8 @@ class Quick_Point_Action {
 		}
 
 		$quick_point_filter = new Quick_Point_Filter();
-		add_filter( 'tm_point_before', array( $quick_point_filter, 'callback_tm_point_before' ) );
-		add_filter( 'tm_point_after', array( $quick_point_filter, 'callback_point_after' ) );
+		add_filter( 'tm_point_before', array( $quick_point_filter, 'callback_tm_point_before' ), 10, 2 );
+		add_filter( 'tm_point_after', array( $quick_point_filter, 'callback_point_after' ), 10, 2 );
 
 		$point = Point_Class::g()->get(array(
 			'id' => '0',
@@ -71,5 +71,6 @@ class Quick_Point_Action {
 			'buttons_view' => $modal_buttons_view,
 		) );
 	}
+
 }
 new Quick_Point_Action();

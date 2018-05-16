@@ -39,12 +39,20 @@ class Quick_Point_Filter {
 	 * @since 1.7.0
 	 * @version 1.7.0
 	 *
-	 * @param string $default Cette donnée n'est pas utilisée.
+	 * @param string      $current_content Donnée de contenu par défaut. Par défaut elle est vide mais pour une meilleure compatibilité il faut la remplir.
+	 * @param Point_Model $point           Définition complète du point.
 	 *
-	 * @return void
+	 * @return string                      Le contenu a renvoyer après avoir été traité par le filtre.
 	 */
-	public function callback_tm_point_before( $default ) {
-		\eoxia\View_Util::exec( 'task-manager', 'quick-point', 'modal-check-box' );
+	public function callback_tm_point_before( $current_content, $point ) {
+
+		if ( empty( $point->data['id'] ) ) {
+			ob_start();
+			\eoxia\View_Util::exec( 'task-manager', 'quick-point', 'modal-check-box' );
+			$current_content .= ob_get_clean();
+		}
+
+		return $current_content;
 	}
 
 	/**
@@ -62,22 +70,25 @@ class Quick_Point_Filter {
 	 * @return Point_Model $object Les données du point modifiée.
 	 */
 	public function callback_after_save_point( $object, $args_cb ) {
-		$completed = ( isset( $_POST['completed'] ) && 'true' === $_POST['completed'] ) ? true : false; // WPCS: CSRF ok.
-		$time_info = ! empty( $_POST['time_info'] ) ? (int) $_POST['time_info'] : 0; // WPCS: CSRF ok.
+		$tm_point_is_quick_point = ( isset( $_POST['tm_point_is_quick_point'] ) && 'true' === $_POST['tm_point_is_quick_point'] ) ? true : false; // WPCS: CSRF ok.
+		if ( $tm_point_is_quick_point ) {
+			$completed = ( isset( $_POST['completed'] ) && 'true' === $_POST['completed'] ) ? true : false; // WPCS: CSRF ok.
+			$time_info = ! empty( $_POST['time_info'] ) ? (int) $_POST['time_info'] : 0; // WPCS: CSRF ok.
 
-		$object->data['completed'] = $completed;
-		Point_Class::g()->update( $object->data );
+			$object->data['completed'] = $completed;
+			Point_Class::g()->update( $object->data );
 
-		Task_Comment_Class::g()->create(array(
-			'comment_content' => $object->data['content'],
-			'parent_id'       => $object->data['id'],
-			'post_id'         => $object->data['post_id'],
-			'time_info'       => array(
-				'elapsed' => $time_info,
-			),
-		) );
+			Task_Comment_Class::g()->create(array(
+				'comment_content' => $object->data['content'],
+				'parent_id'       => $object->data['id'],
+				'post_id'         => $object->data['post_id'],
+				'time_info'       => array(
+					'elapsed' => $time_info,
+				),
+			) );
 
-		$object = Point_Class::g()->get( array( 'id' => $object->data['id'] ), true );
+			$object = Point_Class::g()->get( array( 'id' => $object->data['id'] ), true );
+		}
 
 		return $object;
 	}
@@ -88,10 +99,20 @@ class Quick_Point_Filter {
 	 * @since 1.7.0
 	 * @version 1.7.0
 	 *
-	 * @return void
+	 * @param string      $current_content Donnée de contenu par défaut. Par défaut elle est vide mais pour une meilleure compatibilité il faut la remplir.
+	 * @param Point_Model $point           Définition complète du point.
+	 *
+	 * @return string                      Le contenu a renvoyer après avoir été traité par le filtre.
 	 */
-	public function callback_point_after() {
-		\eoxia\View_Util::exec( 'task-manager', 'quick-point', 'modal-input-text' );
+	public function callback_point_after( $current_content, $point ) {
+
+		if ( empty( $point->data['id'] ) ) {
+			ob_start();
+			\eoxia\View_Util::exec( 'task-manager', 'quick-point', 'modal-input-text' );
+			$current_content .= ob_get_clean();
+		}
+
+		return $current_content;
 	}
 
 	/**

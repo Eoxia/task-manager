@@ -33,7 +33,7 @@ window.eoxiaJS.taskManager.import.importSuccess = function( element, response ) 
 		window.eoxiaJS.taskManager.core.initSafeExit( false );
 	}
 
-	jQuery( '.wpeo-modal.tm-import-tasks.modal-active .modal-close' ).click();
+	window.eoxiaJS.modal.close();
 };
 
 /**

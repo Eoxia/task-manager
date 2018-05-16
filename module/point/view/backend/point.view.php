@@ -31,9 +31,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<input type="checkbox" <?php echo ! empty( $point->data['completed'] ) ? 'checked' : ''; ?> class="completed-point" data-nonce="<?php echo esc_attr( wp_create_nonce( 'complete_point' ) ); ?>" />
 					<!-- filter start -->
 					<?php
-					else :
-						apply_filters( 'tm_point_before', '' );
 					endif;
+					echo apply_filters( 'tm_point_before', '', $point ); // WPCS: XSS  ok.
 					?>
 					<!-- filter end -->
 			</li>
@@ -53,7 +52,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<li class="point-action">
 
-				<?php apply_filters( 'tm_point_after', '' ); ?>
+				<?php echo apply_filters( 'tm_point_after', '', $point ); // WPCS: XSS  ok. ?>
 
 				<?php	if ( empty( $point->data['id'] ) ) : ?>
 					<div 	class="wpeo-point-new-btn action-input animated no-action"
