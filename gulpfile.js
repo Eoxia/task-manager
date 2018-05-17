@@ -15,7 +15,8 @@ var paths = {
 
 	scss_plugin: ['core/assets/css/scss/**/*.scss', 'core/assets/css/'],
 	js_frontend_plugin: ['core/assets/js/init.js', '**/*.frontend.js'],
-	js_backend_plugin: ['core/assets/js/init.js', '**/*.backend.js']
+	js_backend_plugin: ['core/assets/js/init.js', '**/*.backend.js'],
+	js_global_plugin: ['core/assets/js/init-global.js', '**/*.global.js']
 };
 
 // EO Framework 1.0.0
@@ -104,6 +105,13 @@ gulp.task( 'build_js_backend', function() {
 		.pipe( gulp.dest( 'core/assets/js/' ) );
 });
 
+// JS GLOBAL Plugin
+gulp.task( 'build_js_global', function() {
+	return gulp.src( paths.js_global_plugin )
+		.pipe( concat( 'global.min.js' ) )
+		.pipe( gulp.dest( 'core/assets/js/' ) );
+});
+
 gulp.task( 'build_js_frontend', function() {
 	return gulp.src( paths.js_frontend_plugin )
 		.pipe( concat( 'frontend.min.js' ) )
@@ -118,5 +126,6 @@ gulp.task( 'default', function() {
 
 	gulp.watch( paths.scss_plugin[0], ['build_scss_plugin'] );
 	gulp.watch( paths.js_backend_plugin, ['build_js_backend'] );
+	gulp.watch( paths.js_global_plugin, ['build_js_global'] );
 	gulp.watch( paths.js_frontend_plugin, ['build_js_frontend'] );
 });
