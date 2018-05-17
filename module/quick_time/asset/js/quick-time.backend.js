@@ -2,7 +2,7 @@
  * Initialise l'objet "quickTime" ainsi que la méthode "init" obligatoire pour la bibliothèque EoxiaJS.
  *
  * @since 1.6.0
- * @version 1.6.0
+ * @version 1.7.0
  */
 window.eoxiaJS.taskManager.quickTime = {};
 /**
@@ -34,6 +34,7 @@ window.eoxiaJS.taskManager.quickTime.event = function() {
 	jQuery( document ).on( 'click', '.quick-time-content thead input[type="checkbox"]', window.eoxiaJS.taskManager.quickTime.onCheckedCheckAll );
 	jQuery( document ).on( 'click', '.quick-time-content .item .set_time', window.eoxiaJS.taskManager.quickTime.onChecked );
 	jQuery( document ).on( 'keyup', '.quick-time-content .item .min .displayed', window.eoxiaJS.taskManager.quickTime.onKeyUp );
+	jQuery( document ).on( 'keyup', '.setting-quick-time textarea', window.eoxiaJS.taskManager.quickTime.triggerCreate );
 };
 
 /**
@@ -186,6 +187,21 @@ window.eoxiaJS.taskManager.quickTime.onKeyUp = function( event ) {
 
 	window.eoxiaJS.taskManager.quickTime.updateTime( jQuery( this ) );
 };
+
+/**
+ * Créer un réglage d'un temps rapide lors de la pression des touches CTRL + Entrer.
+ *
+ * @since 1.7.0
+ * @version 1.7.0
+ *
+ * @param  {KeyboardEvent} event L'état du clavier au keyUp.
+ * @return {void}
+ */
+window.eoxiaJS.taskManager.quickTime.triggerCreate = function( event ) {
+	if ( event.ctrlKey && 13 === event.keyCode ) {
+		jQuery( '.setting-quick-time .action-input' ).click();
+	}
+}
 
 /**
  * Met à jour le temps dans tous les input type text selon le nombre d'élement coché.
