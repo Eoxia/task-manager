@@ -4,7 +4,7 @@
  *
  * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
- * @version 1.6.0
+ * @version 1.7.0
  * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
@@ -119,7 +119,7 @@ class History_Time_Action {
 	 * @return void
 	 *
 	 * @since 1.3.6
-	 * @version 1.3.6
+	 * @version 1.7.0
 	 */
 	public function callback_delete_history_time() {
 		check_ajax_referer( 'delete_history_time' );
@@ -131,17 +131,17 @@ class History_Time_Action {
 		}
 
 		$history_time = History_Time_Class::g()->get( array(
-			'comment__in' => array( $history_time_id ),
+			'id' => $history_time_id,
 		), true );
 
-		$history_time->status = '-34071';
+		$history_time->data['status'] = 'trash';
 
-		History_Time_Class::g()->update( $history_time );
+		History_Time_Class::g()->update( $history_time->data );
 
 		$task = Task_Class::g()->get( array(
-			'post__in' => array( $history_time->post_id ),
-			'post_status' => array( 'publish', 'archive' ),
+			'id' => $history_time->data['post_id'],
 		), true );
+
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task-header', array(
 			'task' => $task,
@@ -151,10 +151,10 @@ class History_Time_Action {
 		do_action( 'tm_deleted_history_time', $history_time_id );
 
 		wp_send_json_success( array(
-			'task_id'						=> $history_time->post_id,
-			'task_header_view'	=> $task_header_view,
-			'namespace' => 'taskManager',
-			'module' => 'historyTime',
+			'task_id'          => $history_time->data['post_id'],
+			'task_header_view' => $task_header_view,
+			'namespace'        => 'taskManager',
+			'module'           => 'historyTime',
 			'callback_success' => 'deletedHistoryTime',
 		) );
 	}
