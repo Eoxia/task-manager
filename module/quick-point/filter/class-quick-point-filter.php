@@ -71,12 +71,9 @@ class Quick_Point_Filter {
 	 */
 	public function callback_after_save_point( $object, $args_cb ) {
 		$tm_point_is_quick_point = ( isset( $_POST['tm_point_is_quick_point'] ) && 'true' === $_POST['tm_point_is_quick_point'] ) ? true : false; // WPCS: CSRF ok.
-		if ( $tm_point_is_quick_point ) {
-			$completed = ( isset( $_POST['completed'] ) && 'true' === $_POST['completed'] ) ? true : false; // WPCS: CSRF ok.
-			$time_info = ! empty( $_POST['time_info'] ) ? (int) $_POST['time_info'] : 0; // WPCS: CSRF ok.
 
-			$object->data['completed'] = $completed;
-			Point_Class::g()->update( $object->data );
+		if ( $tm_point_is_quick_point ) {
+			$time_info = ! empty( $_POST['time_info'] ) ? (int) $_POST['time_info'] : 0; // WPCS: CSRF ok.
 
 			Task_Comment_Class::g()->create(array(
 				'comment_content' => $object->data['content'],
@@ -87,7 +84,14 @@ class Quick_Point_Filter {
 				),
 			) );
 
+			// Mise à jour des données du point après l'ajout du commentaire.
 			$object = Point_Class::g()->get( array( 'id' => $object->data['id'] ), true );
+
+			$task = Task_Class::g()->get( array(
+				'id' => $object->data['post_id'],
+			), true );
+
+			$object->data['parent_task_completed_points'] = $task->data['count_completed_points'];
 		}
 
 		return $object;
@@ -105,7 +109,6 @@ class Quick_Point_Filter {
 	 * @return string                      Le contenu a renvoyer après avoir été traité par le filtre.
 	 */
 	public function callback_point_after( $current_content, $point ) {
-
 		if ( empty( $point->data['id'] ) ) {
 			ob_start();
 			\eoxia\View_Util::exec( 'task-manager', 'quick-point', 'modal-input-text' );

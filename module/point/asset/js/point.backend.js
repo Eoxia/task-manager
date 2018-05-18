@@ -29,12 +29,12 @@ window.eoxiaJS.taskManager.point.init = function() {
  * @version 1.0.0
  */
 window.eoxiaJS.taskManager.point.event = function() {
-	jQuery( document ).on( 'keyup', '.point:not(.edit) .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.triggerCreate );
+	// jQuery( document ).on( 'keyup', '.wpeo-project-task .point:not(.edit) .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.triggerCreate );
 
-	jQuery( document ).on( 'click', '.point.edit .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.activePoint );
+	jQuery( document ).on( 'click', '.wpeo-project-task .point.edit .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.activePoint );
 	jQuery( document ).on( 'blur keyup paste keydown click', '.point .point-content .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.updateHiddenInput );
-	jQuery( document ).on( 'blur paste', '.point.edit .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.editPoint );
-	jQuery( document ).on( 'click', '.form .completed-point', window.eoxiaJS.taskManager.point.completePoint );
+	jQuery( document ).on( 'blur paste', '.wpeo-project-task .point.edit .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.editPoint );
+	jQuery( document ).on( 'click', '.wpeo-project-task .form .completed-point', window.eoxiaJS.taskManager.point.completePoint );
 };
 
 /**
@@ -136,6 +136,7 @@ window.eoxiaJS.taskManager.point.addedPointSuccess = function( triggeredElement,
 	var task = jQuery( "div.wpeo-project-task[data-id='" + response.data.task_id + "']" );
 
 	task.find( '.total-point' ).text( response.data.task.data.count_all_points );
+	task.find( '.point-completed' ).text( response.data.task.data.count_completed_points );
 
 	if ( triggeredElement.closest( '.point' ).length ) {
 		triggeredElement.closest( '.point' ).find( '.wpeo-point-new-contenteditable' ).text( '' );
