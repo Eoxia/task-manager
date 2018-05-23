@@ -55,14 +55,16 @@ class Activity_Filter {
 		) );
 		$last_activity = ob_get_clean();
 
-		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/post-last-activity', array(
-			'post'                 => $post,
-			'task_ids_for_history' => implode( ',', $task_ids_for_history ),
-			'last_activity'        => $last_activity,
-			'last_date'            => \eoxia\Date_Util::g()->fill_date( $last_date ),
-		) );
-		$current_output .= ob_get_clean();
+		if ( ! empty( $task_ids_for_history ) ) {
+			ob_start();
+			\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/post-last-activity', array(
+				'post'                 => $post,
+				'task_ids_for_history' => implode( ',', $task_ids_for_history ),
+				'last_activity'        => $last_activity,
+				'last_date'            => \eoxia\Date_Util::g()->fill_date( $last_date ),
+			) );
+			$current_output .= ob_get_clean();
+		}
 
 		return $current_output;
 	}
