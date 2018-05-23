@@ -1,0 +1,12 @@
+{
+	"name": "Les tâches",
+	"slug": "import",
+	"version": "1.0.0",
+	"description": "Le module permettant de créer des tâches et des points à partir d'un fichier texte",
+	"path": "module/import/",
+	"dependencies": {
+		"action": {},
+		"class": {},
+		"filter": {}
+	}
+}

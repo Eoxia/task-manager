@@ -27,7 +27,6 @@ class Task_Manager_Action {
 	 * plugins_loaded (Pour appeler le domaine de traduction)
 	 */
 	public function __construct() {
-		// add_action( 'admin_enqueue_scripts', array( $this, 'callback_before_admin_enqueue_scripts' ), 10 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'callback_admin_enqueue_scripts' ), 11 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'callback_enqueue_scripts' ), 11 );
 		add_action( 'wp_print_scripts', array( $this, 'callback_wp_print_scripts' ) );
@@ -36,32 +35,6 @@ class Task_Manager_Action {
 		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 12 );
 
 		add_action( 'wp_ajax_close_tm_change_log', array( $this, 'callback_close_change_log' ) );
-	}
-
-	/**
-	 * Initialise les fichiers JS inclus dans WordPress (jQuery, wp.media et thickbox)
-	 *
-	 * @return void nothing
-	 *
-	 * @todo: A supprimer par la suite si aucun bug. (20/11/2017)
-	 */
-	public function callback_before_admin_enqueue_scripts() {
-		$screen = get_current_screen();
-		if ( ! empty( \eoxia\Config_Util::$init['task-manager']->insert_scripts_pages ) ) {
-			foreach ( \eoxia\Config_Util::$init['task-manager']->insert_scripts_pages as $insert_script_page ) {
-				if ( false !== strpos( $screen->id, $insert_script_page ) ) {
-					wp_enqueue_script( 'jquery' );
-					wp_enqueue_script( 'jquery-form' );
-					wp_enqueue_script( 'jquery-ui-datepicker' );
-					wp_enqueue_script( 'jquery-ui-sortable' );
-					wp_enqueue_script( 'jquery-ui-accordion' );
-					wp_enqueue_script( 'jquery-ui-autocomplete' );
-					wp_enqueue_media();
-					add_thickbox();
-					break;
-				}
-			}
-		}
 	}
 
 	/**
@@ -77,18 +50,18 @@ class Task_Manager_Action {
 		wp_register_style( 'task-manager-global-style', PLUGIN_TASK_MANAGER_URL . 'core/assets/css/global.css', array(), \eoxia\config_util::$init['task-manager']->version );
 		wp_enqueue_style( 'task-manager-global-style' );
 
+		wp_enqueue_script( 'jquery' );
+		wp_enqueue_script( 'jquery-form' );
+		wp_enqueue_script( 'jquery-ui-datepicker' );
+		wp_enqueue_script( 'jquery-ui-sortable' );
+		wp_enqueue_script( 'jquery-ui-accordion' );
+		wp_enqueue_script( 'jquery-ui-autocomplete' );
+		wp_enqueue_media();
+		add_thickbox();
+
 		if ( ! empty( \eoxia\Config_Util::$init['task-manager']->insert_scripts_pages ) ) {
 			foreach ( \eoxia\Config_Util::$init['task-manager']->insert_scripts_pages as $insert_script_page ) {
 				if ( false !== strpos( $screen->id, $insert_script_page ) ) {
-					wp_enqueue_script( 'jquery' );
-					wp_enqueue_script( 'jquery-form' );
-					wp_enqueue_script( 'jquery-ui-datepicker' );
-					wp_enqueue_script( 'jquery-ui-sortable' );
-					wp_enqueue_script( 'jquery-ui-accordion' );
-					wp_enqueue_script( 'jquery-ui-autocomplete' );
-					wp_enqueue_media();
-					add_thickbox();
-
 					wp_register_style( 'task-manager-style', PLUGIN_TASK_MANAGER_URL . 'core/assets/css/style.min.css', array(), \eoxia\config_util::$init['task-manager']->version );
 					wp_enqueue_style( 'task-manager-style' );
 
@@ -111,6 +84,8 @@ class Task_Manager_Action {
 				}
 			}
 		}
+
+			wp_enqueue_script( 'task-manager-global-script', PLUGIN_TASK_MANAGER_URL . 'core/assets/js/global.min.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
 	}
 
 	/**

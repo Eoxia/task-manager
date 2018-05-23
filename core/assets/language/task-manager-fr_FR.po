@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2018-03-30 21:35+0200\n"
-"PO-Revision-Date: 2018-03-30 21:46+0200\n"
+"POT-Creation-Date: 2018-05-16 14:38+0200\n"
+"PO-Revision-Date: 2018-05-16 14:39+0200\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 2.0.7\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html__;esc_attr_e;_x\n"
@@ -43,6 +43,7 @@ msgstr "Voulez vous supprimer ce commentaire ?"
 
 #: core/action/task_manager.action.php:176
 #: core/action/task_manager.action.php:180 core/view/main.view.php:23
+#: module/import/view/backend/import-textarea.view.php:20
 #: module/task/action/task.action.php:455
 msgid "Task"
 msgstr "Tâche"
@@ -59,7 +60,7 @@ msgstr "Nouvelle tâche"
 msgid "Need to update Task Manager data"
 msgstr "Les données de Task Manager doivent être mise à jour"
 
-#: module/activity/view/backend/list.view.php:51
+#: module/activity/view/backend/list.view.php:66
 #: module/activity/view/backend/mail/list.view.php:57
 msgid "End of history"
 msgstr "Fin de l'historique"
@@ -85,27 +86,33 @@ msgid "Last activities on your support"
 msgstr "Dernières activités sur votre support"
 
 #: module/activity/view/backend/main.view.php:25
-#: module/task/view/backend/metabox-posts.view.php:39
 msgid "Load more"
 msgstr "Charger plus"
 
+#: module/activity/view/backend/post-last-activity.view.php:22
+msgid "Last activities"
+msgstr "Dernières activités"
+
+#: module/activity/view/backend/post-last-activity.view.php:24
+msgid "View complete history"
+msgstr "Historique complet"
+
 #: module/activity/view/backend/title.view.php:19
-#: module/navigation/view/backend/search-results.view.php:19
 msgid "Results"
 msgstr "Résultats"
 
 #: module/activity/view/backend/title.view.php:23
-#: module/navigation/view/backend/search-results.view.php:23
+#: module/navigation/view/backend/search-results.view.php:32
 msgid " with the term "
 msgstr " avec le terme "
 
 #: module/activity/view/backend/title.view.php:30
-#: module/navigation/view/backend/search-results.view.php:28
+#: module/navigation/view/backend/search-results.view.php:37
 msgid " in the categories: "
 msgstr "dans les catégories:"
 
 #: module/activity/view/backend/title.view.php:37
-#: module/navigation/view/backend/search-results.view.php:33
+#: module/navigation/view/backend/search-results.view.php:42
 msgid " for the followers: "
 msgstr "pour les abonnés:"
 
@@ -131,10 +138,6 @@ msgstr "Écrire ce commentaire ici..."
 #: module/export/action/export.action.php:58
 msgid "No task selected for export"
 msgstr "Aucune tâche sélectionnée pour l'export"
-
-#: module/export/action/export.action.php:117
-msgid "No points have beend founded for this task"
-msgstr "Aucun point n'a été trouvé pour cette tâche"
 
 #: module/export/class/export.class.php:68
 msgid "Uncompleted"
@@ -241,6 +244,35 @@ msgstr "Les historiques de temps"
 msgid "No history time for now"
 msgstr "Aucun historique de temps pour le moment"
 
+#: module/import/action/class-import-action.php:79
+msgid "No element have been given for import data for"
+msgstr "Aucun élément n'a été fourni pour l'import"
+
+#: module/import/action/class-import-action.php:84
+msgid "No content have been given for import"
+msgstr "Aucun contenu n'a été fourni pour l'import"
+
+#: module/import/view/backend/ajax-modal-open-button.view.php:19
+#: module/import/view/backend/ajax-modal-save-buttons.view.php:22
+#: module/import/view/backend/inline-modal.view.php:21
+#: module/import/view/backend/inline-modal.view.php:39
+msgid "Import"
+msgstr "Importer"
+
+#: module/import/view/backend/ajax-modal-open-button.view.php:22
+#, php-format
+msgid "Import points from text file in : %s"
+msgstr "Import de points depuis un fichier texte dans la tâche : %s"
+
+#: module/import/view/backend/ajax-modal-save-buttons.view.php:17
+#: module/import/view/backend/inline-modal.view.php:34
+msgid "Cancel"
+msgstr "Annuler"
+
+#: module/import/view/backend/import-textarea.view.php:24
+msgid "Point"
+msgstr "Point"
+
 #: module/indicator/action/indicator.action.php:45
 #: module/indicator/view/backend/main.view.php:19
 msgid "Indicator"
@@ -268,38 +300,44 @@ msgstr "Voir l'activité"
 msgid "No activity found for now"
 msgstr "Pas d'activité trouvé pour le moment."
 
-#: module/navigation/view/backend/main.view.php:21
+#: module/navigation/view/backend/main.view.php:28
 msgid "All tasks"
 msgstr "Toutes les tâches"
 
-#: module/navigation/view/backend/main.view.php:22
+#: module/navigation/view/backend/main.view.php:29
 msgid "My task"
 msgstr "Mes tâches"
 
-#: module/navigation/view/backend/main.view.php:23
+#: module/navigation/view/backend/main.view.php:35
 msgid "Archived task"
 msgstr "Tâches archivés"
 
-#: module/navigation/view/backend/main.view.php:28
-#: module/navigation/view/backend/main.view.php:30
-#: module/task/view/backend/metabox-posts.view.php:26
-msgid "Last activities"
-msgstr "Dernières activités"
-
-#: module/navigation/view/backend/main.view.php:39
+#: module/navigation/view/backend/main.view.php:43
 msgid "Search..."
 msgstr "Rechercher..."
 
-#: module/navigation/view/backend/main.view.php:41
+#: module/navigation/view/backend/main.view.php:45
 msgid "More options"
 msgstr "Plus d'options"
 
-#: module/navigation/view/backend/main.view.php:63
+#: module/navigation/view/backend/main.view.php:76
 msgid "Search"
 msgstr "Rechercher"
 
+#: module/navigation/view/backend/search-results.view.php:20
+msgid "Search criteria: "
+msgstr "Critère de recherche : "
+
+#: module/navigation/view/backend/search-results.view.php:24
+msgid " all tasks "
+msgstr "Toutes les tâches"
+
+#: module/navigation/view/backend/search-results.view.php:26
+msgid " archived tasks"
+msgstr "Tâches archivées"
+
 #: module/navigation/view/backend/tags.view.php:20
-#: module/tag/action/tag.action.php:69 module/tag/view/backend/main.view.php:32
+#: module/tag/action/tag.action.php:51 module/tag/view/backend/main.view.php:32
 msgid "Categories"
 msgstr "Catégories"
 
@@ -307,42 +345,42 @@ msgstr "Catégories"
 msgid "Create categories"
 msgstr "Créer des catégories"
 
-#: module/notify/action/notify.action.php:123
+#: module/notify/action/notify.action.php:128
 #, php-format
 msgid "The task #%1$d %2$s"
 msgstr "La tâche #%1$d %2$s"
 
-#: module/notify/action/notify.action.php:125
+#: module/notify/action/notify.action.php:130
 msgid "This mail has been send automaticly"
 msgstr "Ce message à été envoyé automatiquement"
 
-#: module/notify/action/notify.action.php:129
+#: module/notify/action/notify.action.php:134
 #, php-format
 msgid "#%1$d %2$s send by %3$s (%4$s)"
 msgstr "#%1$d %2$s envoyé par %3$s (%4$s)"
 
-#: module/notify/action/notify.action.php:135
+#: module/notify/action/notify.action.php:140
 msgid "Customer link"
 msgstr "Lien vers le client"
 
-#: module/notify/action/notify.action.php:137
+#: module/notify/action/notify.action.php:142
 msgid "Task link"
 msgstr "Lien vers la tâche"
+
+#: module/notify/view/backend/button.view.php:22
+msgid "Send notification"
+msgstr "Envoyer la notification"
 
 #: module/notify/view/backend/main.view.php:20
 msgid "Teams"
 msgstr "Équipe"
 
-#: module/notify/view/backend/main.view.php:46
-msgid "Send notification"
-msgstr "Envoyer la notification"
-
-#: module/point/action/point.action.php:351
 #: module/point/action/point.action.php:352
+#: module/point/action/point.action.php:353
 msgid "No task found"
 msgstr "Aucune tâche trouvé"
 
-#: module/point/filter/point.filter.php:62
+#: module/point/filter/point.filter.php:66
 msgid "Incompleted"
 msgstr "Incomplet"
 
@@ -355,7 +393,7 @@ msgstr "Points completés"
 msgid "Drag and drop"
 msgstr "Glisser et déposer"
 
-#: module/point/view/backend/point.view.php:44
+#: module/point/view/backend/point.view.php:49
 msgid "Write your point here..."
 msgstr "Écrivez votre point ici..."
 
@@ -378,9 +416,18 @@ msgid "Move the point to"
 msgstr "Déplacer le point vers"
 
 #: module/point/view/backend/toggle-content.view.php:53
-#: module/task/view/backend/toggle-content.view.php:107
+#: module/task/view/backend/toggle-content.view.php:108
 msgid "OK"
 msgstr "OK"
+
+#: module/quick-point/view/modal-button-opener.view.php:18
+#: module/quick-point/view/modal-button-opener.view.php:19
+msgid "Quick point add"
+msgstr "Point rapide"
+
+#: module/quick-point/view/modal-input-valid.view.php:22
+msgid "Confirm"
+msgstr "Ajouter"
 
 #: module/quick_time/view/backend/button-setting.view.php:21
 msgid "Setting of the add quick time list"
@@ -495,9 +542,25 @@ msgstr ""
 msgid "Définissez les droits d'accés à l'application Task Manager"
 msgstr ""
 
-#: module/setting/view/capability/main.view.php:33
+#: module/setting/view/capability/main.view.php:31
 msgid "Enregistrer"
 msgstr ""
+
+#: module/setting/view/general/main.view.php:26
+msgid "Use search task in admin bar"
+msgstr "Afficher la barre de recherche dans la barre d'administration"
+
+#: module/setting/view/general/main.view.php:32
+msgid "Save changes"
+msgstr "Enregistrer les changements"
+
+#: module/setting/view/main.view.php:25
+msgid "General settings"
+msgstr "Réglages généraux"
+
+#: module/setting/view/main.view.php:26
+msgid "Rights management"
+msgstr "Gestion des droits"
 
 #: module/tag/view/backend/main-edit.view.php:29
 msgid "Create categories "
@@ -516,15 +579,10 @@ msgstr "et recharger cette section."
 msgid "No post found"
 msgstr "Aucun post trouvé"
 
-#: module/task/class/task.class.php:309
+#: module/task/class/task.class.php:310
 #, php-format
 msgid "Task for %1$s"
 msgstr "Tâche pour %1$s"
-
-#: module/task/filter/task.filter.php:169
-#: module/task/filter/task.filter.php:176
-msgid "Task not found"
-msgstr "Tâche non trouvée"
 
 #: module/task/view/backend/main.view.php:22
 msgid "Load more task..."
@@ -535,7 +593,7 @@ msgstr "Chargement de tâche supplémentaire..."
 msgid "New task%1$s"
 msgstr "Nouvelle tâche%1$s"
 
-#: module/task/view/backend/metabox-posts.view.php:19
+#: module/task/view/backend/metabox-posts.view.php:20
 msgid "Total time past"
 msgstr "Total du temps passé"
 
@@ -564,11 +622,11 @@ msgstr "Gestion du temps projet"
 msgid "#%1$s Time history"
 msgstr "#%1$s Historique du temps"
 
-#: module/task/view/backend/task-header.view.php:52
+#: module/task/view/backend/task-header.view.php:54
 msgid "Edit display"
 msgstr "Affichage édition"
 
-#: module/task/view/backend/task-header.view.php:55
+#: module/task/view/backend/task-header.view.php:58
 msgid "Activity display"
 msgstr "Affichage activité"
 
@@ -597,7 +655,7 @@ msgstr "Notifier l'équipe"
 msgid "#%1$s Notify popup"
 msgstr "#%1$s Notification"
 
-#: module/task/view/backend/toggle-content.view.php:103
+#: module/task/view/backend/toggle-content.view.php:104
 msgid "Move the task to"
 msgstr "Déplacer la tâche vers"
 
@@ -606,7 +664,7 @@ msgstr "Déplacer la tâche vers"
 msgid "Time exceeded"
 msgstr "Afficher les tâches avec un temps supérieur aux prévisions"
 
-#: module/time-exceeded/class/time-exceeded.class.php:119
+#: module/time-exceeded/class/time-exceeded.class.php:120
 msgid "No parent"
 msgstr "Pas de parent"
 
@@ -780,33 +838,33 @@ msgstr ""
 "Suppression de la catégorie 'archive' et modification du statuts des tâches "
 "n'ayant pas le statut 'archive'"
 
-#: module/update_manager/update/class-update-1600.php:81
+#: module/update_manager/update/class-update-1600.php:86
 #, php-format
 msgid "%1$s lines have been treated on %2$s"
 msgstr "%1$s lignes traitées sur %2$s"
 
-#: module/update_manager/update/class-update-1600.php:197
+#: module/update_manager/update/class-update-1600.php:196
 #, php-format
 msgid "%1$s points ( type, status ) updated on %2$s"
 msgstr "%1$s points (type,status) traités sur %2$s"
 
-#: module/update_manager/update/class-update-1600.php:268
+#: module/update_manager/update/class-update-1600.php:261
 #, php-format
 msgid "%1$s comments ( type, status ) updated on %2$s"
 msgstr "%1$s commentaires (type,status) traités sur %2$s"
 
-#: module/update_manager/update/class-update-1600.php:307
+#: module/update_manager/update/class-update-1600.php:300
 #, php-format
 msgid "%1$s history_time have been treated on %2$s"
 msgstr "%1$s temps prévisionnel (history_time) traitées sur %2$s"
 
-#: module/update_manager/update/class-update-1600.php:359
+#: module/update_manager/update/class-update-1600.php:352
 #, php-format
 msgid "%1$s points, %2$s comments, %3$s history_time have been treated"
 msgstr ""
 "%1$s points, %2$s commentaire, %3$s prévisionnel de temps ont été traités"
 
-#: module/update_manager/update/class-update-1600.php:398
+#: module/update_manager/update/class-update-1600.php:391
 #, php-format
 msgid "An error occured while modifying task %d"
 msgstr "Une erreur est survenu lors de la modification de la tâche %d"
@@ -815,6 +873,15 @@ msgstr "Une erreur est survenu lors de la modification de la tâche %d"
 #, php-format
 msgid "%1$d tasks have been marked as archived on %2$d"
 msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
+
+#~ msgid "Import points from text file"
+#~ msgstr "Import de points depuis un fichier texte dans la tâche"
+
+#~ msgid "No points have beend founded for this task"
+#~ msgstr "Aucun point n'a été trouvé pour cette tâche"
+
+#~ msgid "Task not found"
+#~ msgstr "Tâche non trouvée"
 
 #~ msgid "Task Manager: Time Exceeded"
 #~ msgstr "Tâche: Temps excédé"
@@ -1575,9 +1642,6 @@ msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
 
 #~ msgid "MM"
 #~ msgstr "MM"
-
-#~ msgid "Cancel"
-#~ msgstr "Annuler"
 
 #~ msgid "Users"
 #~ msgstr "Utilisateurs"

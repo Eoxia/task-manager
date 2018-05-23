@@ -1,7 +1,7 @@
 {
 	"name": "Task Manager",
 	"slug": "task-manager",
-	"version": "1.6.1",
+	"version": "1.7.0",
 	"description": "L'application Task Manager",
 	"insert_scripts_pages": [
 		"wpeomtm-dashboard",
@@ -16,6 +16,7 @@
 		"core/core.config.json",
 
 		"module/comment/comment.config.json",
+		"module/quick-point/quick-point.config.json",
 		"module/update_manager/update_manager.config.json",
 		"module/export/export.config.json",
 		"module/avatar/avatar.config.json",
@@ -27,8 +28,6 @@
 		"module/tag/tag.config.json",
 		"module/owner/owner.config.json",
 		"module/follower/follower.config.json",
-		"module/liaison-post-type/liaison-post-type.config.json",
-		"module/shortcode-help/shortcode-help.config.json",
 		"module/admin-bar/admin-bar.config.json",
 		"module/time-exceeded/time-exceeded.config.json",
 		"module/timeline/timeline.config.json",
@@ -37,6 +36,7 @@
 		"module/setting/setting.config.json",
 		"module/quick_time/quick_time.config.json",
 		"module/export/export.config.json",
+		"module/import/import.config.json",
 		"module/tools/tools.config.json"
 	],
 	"debug": false,

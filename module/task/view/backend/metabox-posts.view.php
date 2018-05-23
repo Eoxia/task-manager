@@ -14,23 +14,18 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
-<div class="wrap wpeo-project-wrap">
+<div class="wrap wpeo-project-wrap wpeo-wrap">
 	<div class="wpeo-project-dashboard">
+		<?php echo apply_filters( 'tm_posts_metabox_project_dashboard', '', $post, $tasks ); // WPCS: XSS ok. ?>
 		<p class="alignright"><?php esc_html_e( 'Total time past', 'task-manager' ); ?> : <?php echo esc_html( $total_time_elapsed ); ?> / <?php echo esc_html( $total_time_estimated ); ?></p>
-	
 	</div>
 
-
-	<?php
-	if ( ! empty( $tasks ) ) :
-		foreach ( $tasks as $key => $data ) :
-			?>
-			<?php if ( ! empty( $data['title'] ) ) : ?><hr/><h2><?php echo esc_html( $data['title'] ); ?></h2><?php endif; ?>
-			<div class="list-task">
-				<?php \task_manager\Task_Class::g()->display_tasks( $data['data'] ); ?>
-			</div>
-			<?php
-		endforeach;
-	endif;
-	?>
+	<?php	if ( ! empty( $tasks ) ) : ?>
+		<?php foreach ( $tasks as $key => $data ) : ?>
+			<?php if ( ! empty( $data['title'] ) ) : ?>
+				<hr/><h2><?php echo esc_html( $data['title'] ); ?></h2>
+			<?php endif; ?>
+			<div class="list-task"><?php \task_manager\Task_Class::g()->display_tasks( $data['data'] ); ?></div>
+		<?php endforeach; ?>
+	<?php endif; ?>
 </div>

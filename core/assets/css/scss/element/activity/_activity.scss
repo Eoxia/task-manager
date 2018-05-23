@@ -171,3 +171,14 @@
 		}
 	}
 }
+
+/* Activity dans les posts */
+.post-last-activity {
+	margin-left: 20px;
+	float: left;
+	width: 40%;
+	li:first-child {
+		text-align: center;
+		cursor: pointer;
+	}
+}

@@ -225,7 +225,6 @@ class Task_Class extends \eoxia\Post_Class {
 					'post_status' => $param['status'],
 				) );
 			} // End if().
-
 		} // End if().
 
 		return $tasks;
@@ -234,7 +233,8 @@ class Task_Class extends \eoxia\Post_Class {
 	/**
 	 * Charges les tâches, et fait le rendu.
 	 *
-	 * @param  array $param Les paramètres pour charger les tâches.
+	 * @param array $tasks    La liste des tâches qu'il faut afficher.
+	 * @param bool  $frontend L'affichage aura t il lieu dans le front ou le back.
 	 *
 	 * @return void
 	 *
@@ -306,6 +306,7 @@ class Task_Class extends \eoxia\Post_Class {
 
 		if ( ! empty( $children ) ) {
 			foreach ( $children as $child ) {
+				/* Translators: Titre du post sur lequel on veut afficher les tâches. */
 				$tasks[ $child->ID ]['title'] = sprintf( __( 'Task for %1$s', 'task-manager' ), $child->post_title );
 				$tasks[ $child->ID ]['data']  = self::g()->get_tasks( array(
 					'post_parent' => $child->ID,
@@ -334,6 +335,7 @@ class Task_Class extends \eoxia\Post_Class {
 		$total_time_estimated = \eoxia\Date_Util::g()->convert_to_custom_hours( $total_time_estimated );
 
 		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/metabox-posts', array(
+			'post'                 => $post,
 			'tasks'                => $tasks,
 			'task_ids_for_history' => implode( ',', $task_ids_for_history ),
 			'total_time_elapsed'   => $total_time_elapsed,

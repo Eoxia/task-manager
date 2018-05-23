@@ -135,6 +135,57 @@ class Point_Class extends \eoxia\Comment_Class {
 			\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/main', $args );
 		}
 	}
+
+	/**
+	 * Complète un point en base de donnée.
+	 *
+	 * @since 1.7.0
+	 * @version 1.7.0
+	 *
+	 * @param  int     $point_id     L'ID du point.
+	 * @param  boolean $completed    True ou false.
+	 * @param  boolean $is_new_point True ou false.
+	 *
+	 * @return boolean               True ou false.
+	 */
+	public function complete_point( $point_id, $completed, $is_new_point ) {
+		$point = $this->get( array(
+			'id' => $point_id,
+		), true );
+
+		$task = Task_Class::g()->get( array(
+			'id' => $point->data['post_id'],
+		), true );
+
+		$point->data['completed'] = $completed;
+
+		if ( $completed ) {
+			$point->data['order'] = $task->data['count_completed_points'];
+
+			$task->data['count_completed_points']++;
+
+			if ( ! $is_new_point ) {
+				$task->data['count_uncompleted_points']--;
+			}
+			$point->data['time_info']['completed_point'][ get_current_user_id() ][] = current_time( 'mysql' );
+		} else {
+			$point->data['order'] = $task->data['count_uncompleted_points'];
+
+			if ( ! $is_new_point ) {
+				$task->data['count_completed_points']--;
+			}
+
+			$task->data['count_uncompleted_points']++;
+			$point->data['time_info']['uncompleted_point'][ get_current_user_id() ][] = current_time( 'mysql' );
+		}
+
+		$point = $this->update( $point->data );
+		Task_Class::g()->update( $task->data );
+
+		do_action( 'tm_complete_point', $point );
+
+		return $point;
+	}
 }
 
 Point_Class::g();

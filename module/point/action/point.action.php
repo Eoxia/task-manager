@@ -4,7 +4,7 @@
  *
  * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
- * @version 1.6.0
+ * @version 1.7.0
  * @copyright 2015-2018 Eoxia
  * @package Task Manager
  */
@@ -44,12 +44,13 @@ class Point_Action {
 	 * @return void
 	 *
 	 * @since 1.0.0
-	 * @version 1.6.0
+	 * @version 1.7.0
 	 */
 	public function ajax_edit_point() {
 		check_ajax_referer( 'edit_point' );
 
 		$point_id  = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+		$completed = ( isset( $_POST['completed'] ) && 'true' === $_POST['completed'] ) ? true : false; // WPCS: CSRF ok.
 		$parent_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
 		$content   = ! empty( $_POST['content'] ) ? $_POST['content'] : '';
 
@@ -71,19 +72,16 @@ class Point_Action {
 			'content' => $content,
 		);
 
-		if ( 0 === $point_id ) {
-			$task = Task_Class::g()->get( array(
-				'id' => $parent_id,
-			), true );
-
-			$task->data['count_uncompleted_points']++;
-
-			Task_Class::g()->update( $task->data );
-
-			$point_args['order'] = ( $task->data['count_uncompleted_points'] - 1 ); // - 1 car la valeur est incrémenté juste avant.
-		}
+		$task = null;
 
 		$point = Point_Class::g()->update( $point_args, true );
+
+		// Dans le cas ou c'est un nouveau point.
+		if ( 0 === $point_id ) {
+			$point = Point_Class::g()->complete_point( $point->data['id'], $completed, true );
+
+			$task = Task_Class::g()->get( array( 'id' => $parent_id ), true );
+		}
 
 		$point->data['content'] = stripslashes( $point->data['content'] );
 
@@ -100,6 +98,9 @@ class Point_Action {
 			'namespace'        => 'taskManager',
 			'module'           => 'point',
 			'callback_success' => ! empty( $point_id ) ? 'editedPointSuccess' : 'addedPointSuccess',
+			'task_id'          => $parent_id,
+			'task'             => $task,
+			'point'            => $point,
 		) );
 	}
 
@@ -222,34 +223,7 @@ class Point_Action {
 		$point_id = ! empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
 		$complete = ( isset( $_POST['complete'] ) && 'true' === $_POST['complete'] ) ? true : false;
 
-		$point = Point_Class::g()->get( array(
-			'id' => $point_id,
-		), true );
-
-		$task = Task_Class::g()->get( array(
-			'id' => $point->data['post_id'],
-		), true );
-
-		$point->data['completed'] = $complete;
-
-		if ( $complete ) {
-			$point->data['order'] = $task->data['count_completed_points'];
-
-			$task->data['count_completed_points']++;
-			$task->data['count_uncompleted_points']--;
-			$point->data['time_info']['completed_point'][ get_current_user_id() ][] = current_time( 'mysql' );
-		} else {
-			$point->data['order'] = $task->count_uncompleted_points;
-
-			$task->data['count_completed_points']--;
-			$task->data['count_uncompleted_points']++;
-			$point->data['time_info']['uncompleted_point'][ get_current_user_id() ][] = current_time( 'mysql' );
-		}
-
-		Point_Class::g()->update( $point->data );
-		Task_Class::g()->update( $task->data );
-
-		do_action( 'tm_complete_point', $point );
+		Point_Class::g()->complete_point( $point_id, $complete );
 
 		wp_send_json_success();
 	}

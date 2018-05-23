@@ -4,7 +4,7 @@
  *
  * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
- * @version 1.6.0
+ * @version 1.7.0
  * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
@@ -47,9 +47,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<span><i class="fa fa-history dashicons-image-rotate"></i></span>
 	</li>
 
+	<?php echo apply_filters( 'tm_task_header', '', $task ); // WPCS: XSS ok. ?>
+
 	<li class="display-method-buttons">
 		<span class="dashicons dashicons-screenoptions list-display active wpeo-tooltip-event"
 			aria-label="<?php echo esc_attr_e( 'Edit display', 'task-manager' ); ?>"></span>
+
 		<span class="action-attribute dashicons dashicons-editor-ul grid-display wpeo-tooltip-event"
 					data-action="load_last_activity"
 					aria-label="<?php echo esc_attr_e( 'Activity display', 'task-manager' ); ?>"

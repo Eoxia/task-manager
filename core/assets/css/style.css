@@ -77,10 +77,18 @@ readers do not read off random characters that represent icons */
 	# Elements
 	--------------------------------------------------------------*/
   /** Import des modules */
+  /** Bouton pour ouvrir la modal */
+  /**
+ * Modal d'ajout rapide
+ * Classe parente : wpeo-project-wrap
+ */
   /* ----------------------------------
 		Temporaire pour le blink
 -----------------------------------*/
   /* Page indicateurs */
+  /* Activity dans les posts */
+  /* Bouton d'import dans les posts: deplacement vers la barre de la metabox */
+  /* Modal d'import */
   /** Import des éléments simples */ }
 
 .wpeo-project-wrap *,
@@ -4588,6 +4596,80 @@ readers do not read off random characters that represent icons */
 .wpeo-project-wrap .wpeo-task-point-use-toggle .points {
   text-align: left; }
 
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-time-manage .quick-point-event {
+  margin: auto 0.4em;
+  padding: 0; }
+
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-time-manage .quick-point-event .fa-list-ul, .wpeo-project-wrap .wpeo-project-task .wpeo-task-time-manage .quick-point-event .fa-circle {
+  color: #000;
+  opacity: 0.4;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out; }
+
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-time-manage .quick-point-event .fa-plus {
+  color: #fff; }
+
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-time-manage .quick-point-event:hover {
+  cursor: pointer; }
+
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-time-manage .quick-point-event:hover .fa-list-ul, .wpeo-project-wrap .wpeo-project-task .wpeo-task-time-manage .quick-point-event:hover .fa-circle {
+  opacity: 0.7;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)"; }
+
+.wpeo-project-wrap.wpeo-modal.quick-point .point-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex; }
+
+.wpeo-project-wrap.wpeo-modal.quick-point .point-container li {
+  margin: auto 0; }
+
+.wpeo-project-wrap.wpeo-modal.quick-point .point-content {
+  position: relative;
+  width: 100%; }
+
+.wpeo-project-wrap.wpeo-modal.quick-point .point-content .wpeo-point-new-contenteditable {
+  min-height: 24px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  -webkit-transition: all .2s ease-out;
+  -o-transition: all .2s ease-out;
+  transition: all .2s ease-out;
+  padding-bottom: 6px;
+  font-family: "kalamregular", open sans, sans-serif;
+  width: 100%;
+  padding-left: 0.5em; }
+
+.wpeo-project-wrap.wpeo-modal.quick-point .point-content .wpeo-point-new-placeholder {
+  color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  left: 6px;
+  top: 0;
+  pointer-events: none; }
+
+.wpeo-project-wrap.wpeo-modal.quick-point .point-valid {
+  padding-right: 0.6em; }
+
+.wpeo-project-wrap.wpeo-modal.quick-point .point-action {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  max-width: 60px; }
+
+.wpeo-project-wrap.wpeo-modal.quick-point .point-action * {
+  margin: auto 0; }
+
+.wpeo-project-wrap.wpeo-modal.quick-point .point-action .wpeo-point-new-btn {
+  display: none; }
+
+.wpeo-project-wrap.wpeo-modal.quick-point .point-action .point-time {
+  width: 100%; }
+
 .wpeo-project-wrap .points .point .comments {
   background: rgba(0, 0, 0, 0.05);
   padding: 4px 0 10px 0; }
@@ -4972,6 +5054,27 @@ readers do not read off random characters that represent icons */
 .wpeo-project-wrap .daily-activity .event-header [class*="event"] i {
   margin-right: 0.4em;
   color: rgba(0, 0, 0, 0.3); }
+
+.wpeo-project-wrap .post-last-activity {
+  margin-left: 20px;
+  float: left;
+  width: 40%; }
+
+.wpeo-project-wrap .post-last-activity li:first-child {
+  text-align: center;
+  cursor: pointer; }
+
+.wpeo-project-wrap .tm-import-tasks-container {
+  right: 30px;
+  position: absolute;
+  top: -35px; }
+
+.wpeo-project-wrap .tm-import-tasks textarea {
+  width: 100%;
+  height: 330px; }
+
+.wpeo-project-wrap .tm-import-tasks .tm-import-add-keyword {
+  margin: 0 0 20px 0; }
 
 .wpeo-project-wrap .wpeo-tag-wrap {
   display: -webkit-box;

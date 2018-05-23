@@ -1,0 +1,18 @@
+/* Bouton d'import dans les posts: deplacement vers la barre de la metabox */
+.tm-import-tasks-container {
+	right: 30px;
+	position: absolute;
+	top: -35px;
+}
+
+/* Modal d'import */
+.tm-import-tasks {
+	textarea {
+		width: 100%;
+		height: 330px;
+	}
+
+	.tm-import-add-keyword {
+		margin: 0 0 20px 0;
+	}
+}

@@ -29,7 +29,6 @@ window.eoxiaJS.taskManager.task.event = function() {
 	jQuery( window ).scroll( window.eoxiaJS.taskManager.task.onScrollLoadMore );
 	jQuery( '.wpeo-project-wrap' ).on( 'click', '.task-header-action .success span', window.eoxiaJS.taskManager.task.closeSuccess );
 	jQuery( '#poststuff' ).on( 'click', '#wpeo-task-metabox', window.eoxiaJS.taskManager.task.refresh );
-	jQuery( '#wpeo-task-metabox h2 span .action-attribute' ).click( window.eoxiaJS.action.execAttribute );
 };
 
 /**

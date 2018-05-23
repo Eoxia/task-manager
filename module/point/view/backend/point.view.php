@@ -4,7 +4,7 @@
  *
  * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
- * @version 1.6.0
+ * @version 1.7.0
  * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
@@ -29,7 +29,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<i class="fa fa-ellipsis-v"></i>
 					</span>
 					<input type="checkbox" <?php echo ! empty( $point->data['completed'] ) ? 'checked' : ''; ?> class="completed-point" data-nonce="<?php echo esc_attr( wp_create_nonce( 'complete_point' ) ); ?>" />
-				<?php endif; ?>
+					<!-- filter start -->
+					<?php
+					endif;
+					echo apply_filters( 'tm_point_before', '', $point ); // WPCS: XSS  ok.
+					?>
+					<!-- filter end -->
 			</li>
 
 			<li class="point-content content">
@@ -46,6 +51,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</li>
 
 			<li class="point-action">
+
+				<?php echo apply_filters( 'tm_point_after', '', $point ); // WPCS: XSS  ok. ?>
+
 				<?php	if ( empty( $point->data['id'] ) ) : ?>
 					<div 	class="wpeo-point-new-btn action-input animated no-action"
 								data-parent="form"

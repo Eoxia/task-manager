@@ -79,7 +79,7 @@ class Quick_Time_Action {
 
 					$point->data['count_comments']++;
 
-					Point_Class::g()->update( $point );
+					Point_Class::g()->update( $point->data );
 				}
 			}
 		}

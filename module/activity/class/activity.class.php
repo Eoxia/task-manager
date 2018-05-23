@@ -39,10 +39,10 @@ class Activity_Class extends \eoxia\Singleton_Util {
 	 * @param integer $offset   Le nombre de résultat à passer.
 	 * @return array            La liste des commentaires et points.
 	 */
-	public function get_activity( $tasks_id, $offset ) {
+	public function get_activity( $tasks_id, $offset, $nb_per_page = 0, $activities_type = array( 'created-point', 'completed-point', 'created-comment' ) ) {
 		$points = Point_Class::g()->get( array(
 			'post__in' => $tasks_id,
-			'number'   => \eoxia\Config_Util::$init['task-manager']->activity->activity_per_page,
+			'number'   => empty( $nb_per_page ) ? \eoxia\Config_Util::$init['task-manager']->activity->activity_per_page : $nb_per_page,
 			'offset'   => $offset,
 			'type__in' => array(
 				Point_Class::g()->get_type(),
@@ -67,22 +67,28 @@ class Activity_Class extends \eoxia\Singleton_Util {
 							$cloned_point                              = clone $point;
 							$cloned_point->data['view']                = 'completed-point';
 							$cloned_point->data['displayed_author_id'] = $cloned_point->data['time_info']['last_completed']['user_id'];
+							$datas['last_date']                        = $cloned_point->data['date']['raw'];
 							$sql_date                                  = substr( $cloned_point->data['time_info']['last_completed']['date'], 0, strlen( $cloned_point->data['time_info']['last_completed']['date'] ) - 9 );
 							$time                                      = substr( $cloned_point->data['time_info']['last_completed']['date'], 11, strlen( $cloned_point->data['time_info']['last_completed']['date'] ) );
-							$datas[ $sql_date ][ $time ][]             = $cloned_point;
+							if ( in_array( $cloned_point->data['view'], $activities_type, true ) ) {
+								$datas[ $sql_date ][ $time ][] = $cloned_point;
+							}
 							$datas['count']++;
 						}
 
-						$sql_date                      = substr( $point->data['date']['raw'], 0, strlen( $point->data['date']['raw'] ) - 9 );
-						$time                          = substr( $point->data['date']['raw'], 11, strlen( $point->data['date']['raw'] ) );
-						$datas[ $sql_date ][ $time ][] = $point;
+						$datas['last_date'] = $point->data['date']['raw'];
+						$sql_date           = substr( $point->data['date']['raw'], 0, strlen( $point->data['date']['raw'] ) - 9 );
+						$time               = substr( $point->data['date']['raw'], 11, strlen( $point->data['date']['raw'] ) );
+						if ( in_array( $point->data['view'], $activities_type, true ) ) {
+							$datas[ $sql_date ][ $time ][] = $point;
+						}
 						$datas['count']++;
 					} else {
 						$comment = Task_Comment_Class::g()->get( array(
 							'id' => $point->data['id'],
 						), true );
 
-						$comment->data['view']   = 'created-comment';
+						$comment->data['view'] = 'created-comment';
 
 						$comment->data['parent'] = Point_Class::g()->get( array(
 							'id' => $comment->data['parent_id'],
@@ -100,10 +106,12 @@ class Activity_Class extends \eoxia\Singleton_Util {
 						} else {
 							$comment->data['displayed_username'] = '-';
 						}
-
-						$sql_date                      = substr( $comment->data['date']['raw'], 0, strlen( $comment->data['date']['raw'] ) - 9 );
-						$time                          = substr( $comment->data['date']['raw'], 11, strlen( $comment->data['date']['raw'] ) );
-						$datas[ $sql_date ][ $time ][] = $comment;
+						$datas['last_date'] = $comment->data['date']['raw'];
+						$sql_date           = substr( $comment->data['date']['raw'], 0, strlen( $comment->data['date']['raw'] ) - 9 );
+						$time               = substr( $comment->data['date']['raw'], 11, strlen( $comment->data['date']['raw'] ) );
+						if ( in_array( $comment->data['view'], $activities_type, true ) ) {
+							$datas[ $sql_date ][ $time ][] = $comment;
+						}
 						$datas['count']++;
 					}
 				}
