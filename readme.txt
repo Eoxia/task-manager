@@ -3,8 +3,8 @@ Contributors: Eoxia
 Donate link:
 Tags: task, tasks, management, manager, collaboration, dashboard, organizer, project management, project manager, projects, task lists, task management, task manager, Time Tracking, to do, to do list, todo, todo list
 Requires at least: 4.4.0
-Tested up to: 4.9.5
-Stable tag: 1.6.1
+Tested up to: 4.9.6
+Stable tag: 1.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -62,6 +62,26 @@ No questions asked yet.
 5. See the history
 
 == Changelog ==
+
+= 1.7.0 =
+
+= Fix =
+
+* 17719 - Fix comment export regarding chosen date
+* 17796 - Fix default time when adding a new comment
+* 17604 - Disallow several request for "Mark as read" in indicator page
+* 17948 - Fix quick time button on WordPress dashboard
+* 17980 - Fix behaviour in quick point modal for saving
+* 17981 - Fix time previsionnal time deletion
+* 18031 - Fix "masonry" render when recompiling a task
+* 18125 - Fix date choice when adding a comment
+
+= Improvment =
+
+* 17897 - Display last event into a post metabox when tasks are associated to the post type
+* 16383 - Create a preset by pressing "ctrl + enter"
+* 17602 - Import tasks and points from a text file
+* 17697 - Allow to create a point and a comment with the same content quickly
 
 = 1.6.1 =
 
