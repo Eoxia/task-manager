@@ -35,6 +35,8 @@ window.eoxiaJS.taskManager.point.event = function() {
 	jQuery( document ).on( 'blur keyup paste keydown click', '.point .point-content .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.updateHiddenInput );
 	jQuery( document ).on( 'blur paste', '.wpeo-project-task .point.edit .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.editPoint );
 	jQuery( document ).on( 'click', '.wpeo-project-task .form .completed-point', window.eoxiaJS.taskManager.point.completePoint );
+
+	jQuery( document ).on( 'click', '.point-type-display-buttons button', window.eoxiaJS.taskManager.point.displayPointPerType );
 };
 
 /**
@@ -402,4 +404,34 @@ window.eoxiaJS.taskManager.point.afterTriggerChangeDate = function( triggeredEle
 	};
 
 	window.eoxiaJS.request.send( triggeredElement, data );
+};
+
+/**
+ * Méthode appelée lors du clic sur les boutons de hoix du type de points affichés dans une tâche.
+ *
+ * @since 1.8.0
+ * @version 1.8.0
+ *
+ * @param  {type} event  L'événement lancé lors de l'action.
+ *
+ * @return {void}
+ */
+window.eoxiaJS.taskManager.displayPointPerType = function( event ) {
+	event.preventDefault();
+
+	// Si les types de points sont déjà chargés, on les masques ou on les affiche sans requetes supplémentaires.
+	if ( 'true' == jQuery( this ).attr( 'data-points-loaded' ) ) {
+		var display = false;
+		// Si le bouton possède la classe "active" c'est que les points sont affichés et qu'il faut les cacher.
+		if ( jQuery( this ).hasClass( 'active' ) ) {
+
+		} else {
+
+		}
+		jQuery( this ).next( '.points' ).find( '.point-container' ).each( function() {
+			console.log( jQuery( this ).closest( '.point' ).attr( 'data-id' ) );
+		} );
+	} else {
+		console.log( 'request required' );
+	}
 };

@@ -15,20 +15,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="wrap wpeo-project-wrap">
+<div class="wrap wpeo-wrap wpeo-project-wrap">
 	<input type="hidden" class="user-id" value="<?php echo esc_attr( get_current_user_id() ); ?>" />
 
 	<div class="wpeo-project-dashboard">
 		<h2>
-			<?php	esc_html_e( 'Task', 'task-manager' ); ?>
+			<?php	esc_html_e( 'Tasks', 'task-manager' ); ?>
 			<a 	href="#"
 					class="action-attribute add-new-h2"
 					data-action="create_task"
 					data-nonce="<?php echo esc_attr( wp_create_nonce( 'create_task' ) ); ?>"><?php esc_html_e( 'New task', 'task-manager' ); ?></a>
 		</h2>
+		<?php echo do_shortcode( '[task_manager_search_bar term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '"]' ); ?>
 	</div>
 
-	<?php echo do_shortcode( '[task_manager_search_bar term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '"]' ); ?>
 
 	<?php
 	$waiting_updates = get_option( '_tm_waited_updates', array() );

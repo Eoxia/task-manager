@@ -1,11 +1,12 @@
 .list-task {
 	clear: both;
+	top: 70px;
 }
 
 .wpeo-project-task .wpeo-task-header {
-	padding: 10px 14px;
 	display: flex;
 	flex-direction: row;
+	margin: 5px;
 
 	&::after {
 		display: block;
@@ -13,12 +14,13 @@
 		clear: both;
 	}
 
-	li {
-		margin: auto;
-	}
-
 	.wpeo-task-author {
-		padding-right: 8px;
+		width: 10%;
+		position: relative;
+		text-align: center;
+		div.wpeo-dropdown {
+			margin: 15px 0 0 0;
+		}
 		.user {
 			border-radius: 50%;
 			overflow: hidden;
@@ -39,40 +41,49 @@
 		}
 	}
 
-	.wpeo-task-id {
-		width: 12%;
-		font-weight: 700;
-	}
-	.wpeo-task-title {
-		width: 78%;
-		padding: 0 0 0 8px;
-		input {
-			font-weight: 300;
-			width: 100%;
-			font-size: 20px;
-		}
-	}
-	.wpeo-task-setting {
-		width: 10%;
-		position: relative;
-		text-align: right;
-		.wpeo-task-open-action {
-			padding: 0 6px;
-			color: rgba(0,0,0,0.2);
-			transition: all 0.2s ease-out;
-			&:hover {
-				cursor: pointer;
-				color: rgba(0,0,0,0.4);
+	.wpeo-task-main-info {
+		width: 100%;
+		.wpeo-task-title {
+			input {
+				font-weight: 300;
+				width: 100%;
+				font-size: 20px;
 			}
 		}
+
+		ul {
+			display: flex;
+			flex-direction: row;
+			width: 100%;
+			margin: 5px 0 0 0;
+
+			&::after {
+				display: block;
+				content: '';
+				clear: both;
+			}
+
+			li {
+				padding: 4px;
+			}
+		}
+	}
+
+	.wpeo-task-setting {
+		width: 8%;
+		position: relative;
+		text-align: center;
+		span.wpeo-button {
+			margin: 10px 0 0 0;
+		}
 		@keyframes taskOptionAnimation {
-			from { opacity: 0; top: 26px; }
-			to { opacity: 1; top: 30px; }
+			from { opacity: 0; top: 36px; }
+			to { opacity: 1; top: 40px; }
 		}
 	}
 }
 
-.wpeo-project-task .wpeo-task-time-manage {
+.wpeo-project-task .wpeo-task-filter {
 	background: rgba(0,0,0,0.05);
 	padding: 10px 14px;
 	display: flex;
@@ -85,20 +96,16 @@
 			margin: auto 0;
 		}
 	}
-	.wpeo-task-date, .wpeo-task-elapsed {
-		.dashicons {
-			float: left;
-			margin-right: 6px;
-		}
-	}
-	li.wpeo-task-time-history {
-		padding: 0;
-		font-size: 16px;
-		color: rgba(0,0,0,0.4);
-		transition: all 0.2s ease-out;
-		&:hover {
-			cursor: pointer;
-			color: rgba(0,0,0,0.6);
+	li.point-type-display-buttons {
+		button {
+			background: #ddd;
+			&.active {
+				background: $main-color;
+				color: #fff;
+				&:hover {
+					background: lighten($main-color, 10%);
+				}
+			}
 		}
 	}
 	li.display-method-buttons {
