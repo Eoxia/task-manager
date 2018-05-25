@@ -24,6 +24,8 @@ class Point_Filter {
 	 */
 	public function __construct() {
 		add_filter( 'task_points_mail', array( $this, 'callback_task_points_mail' ), 10, 2 );
+
+		add_filter( 'tm_task_header', array( $this, 'callback_display_points_type_buttons' ), 9, 2);
 	}
 
 	/**
@@ -74,6 +76,25 @@ class Point_Filter {
 
 		return $string;
 	}
+
+	/**
+	 * Filtre permettant d'afficher les boutons de choix des types de points (complets/incomplets) à afficher dans une tâche.
+	 *
+	 * @param  string     $current_content Le contenu actuel du filtre.
+	 * @param  Task_Model $task            La définition complète de la tâche.
+	 *
+	 * @return string                      La chaine a afficher.
+	 */
+	public function callback_display_points_type_buttons( $current_content, $task ) {
+		ob_start();
+		\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/task-header', array(
+			'task' => $task,
+		) );
+		$current_content .= ob_get_clean();
+
+		return $current_content;
+	}
+
 }
 
 new Point_Filter();
