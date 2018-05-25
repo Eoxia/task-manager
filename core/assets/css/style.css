@@ -79,6 +79,7 @@ readers do not read off random characters that represent icons */
   /** Import des modules */
   /*	Version 1.8.0 */
   /* Version 1.7.0 */
+  /*	Décalage de l'affichage des tâches a cause du bandeau. */
   /** Bouton pour ouvrir la modal */
   /**
  * Modal d'ajout rapide
@@ -3927,7 +3928,11 @@ readers do not read off random characters that represent icons */
   clear: both;
   top: 70px; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-header {
+.wpeo-project-wrap .wpeo-task-selected .task-marker {
+  opacity: 1;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"; }
+
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -3940,34 +3945,35 @@ readers do not read off random characters that represent icons */
      -moz-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  margin: 5px; }
+  margin: 5px;
+  width: 100%; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-header:after {
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header:after {
   display: block;
   content: '';
   clear: both; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-author {
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-author {
   width: 10%;
   position: relative;
   text-align: center; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-author div.wpeo-dropdown {
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-author div.wpeo-dropdown {
   margin: 15px 0 0 0; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-author .user {
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-author .user {
   -webkit-border-radius: 50%;
           border-radius: 50%;
   overflow: hidden; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-author .user img {
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-author .user img {
   -webkit-border-radius: 50%;
           border-radius: 50%; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-author .user:hover {
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-author .user:hover {
   cursor: pointer; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-author .toggle .content {
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-author .toggle .content {
   max-width: 150px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -3978,18 +3984,18 @@ readers do not read off random characters that represent icons */
       -ms-flex-wrap: wrap;
           flex-wrap: wrap; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-author .toggle .content li {
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-author .toggle .content li {
   width: 50px; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-info {
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-main-info {
   width: 100%; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-info .wpeo-task-title input {
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-main-info .wpeo-task-title input {
   font-weight: 300;
   width: 100%;
   font-size: 20px; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-info ul {
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-main-info .wpeo-task-summary {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -4005,20 +4011,20 @@ readers do not read off random characters that represent icons */
   width: 100%;
   margin: 5px 0 0 0; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-info ul:after {
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-main-info .wpeo-task-summary:after {
   display: block;
   content: '';
   clear: both; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-info ul li {
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-main-info .wpeo-task-summary li {
   padding: 4px; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-setting {
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-setting {
   width: 8%;
   position: relative;
   text-align: center; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-setting span.wpeo-button {
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-setting span.wpeo-button {
   margin: 10px 0 0 0; }
 
 @-webkit-keyframes taskOptionAnimation {
@@ -4041,7 +4047,7 @@ readers do not read off random characters that represent icons */
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
     top: 40px; } }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-filter {
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter {
   background: rgba(0, 0, 0, 0.05);
   padding: 10px 14px;
   display: -webkit-box;
@@ -4058,27 +4064,27 @@ readers do not read off random characters that represent icons */
           flex-direction: row;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2); }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-filter li {
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li {
   padding: 0 8px 0 0;
   margin: auto 0; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-filter li span {
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li span {
   margin: auto 0; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-filter li.point-type-display-buttons button {
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li.point-type-display-buttons button {
   background: #ddd; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-filter li.point-type-display-buttons button.active {
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li.point-type-display-buttons button.active {
   background: #389af6;
   color: #fff; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-filter li.point-type-display-buttons button.active:hover {
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li.point-type-display-buttons button.active:hover {
   background: #69b3f8; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-filter li.display-method-buttons {
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li.display-method-buttons {
   margin-left: auto; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-filter li.display-method-buttons .list-display, .wpeo-project-wrap .wpeo-project-task .wpeo-task-filter li.display-method-buttons .grid-display {
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li.display-method-buttons .list-display, .wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li.display-method-buttons .grid-display {
   width: 26px;
   height: 26px;
   line-height: 26px;
@@ -4088,20 +4094,16 @@ readers do not read off random characters that represent icons */
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-filter li.display-method-buttons .list-display:hover, .wpeo-project-wrap .wpeo-project-task .wpeo-task-filter li.display-method-buttons .grid-display:hover {
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li.display-method-buttons .list-display:hover, .wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li.display-method-buttons .grid-display:hover {
   cursor: pointer;
   background: rgba(0, 0, 0, 0.2); }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-filter li.display-method-buttons .list-display.active, .wpeo-project-wrap .wpeo-project-task .wpeo-task-filter li.display-method-buttons .grid-display.active {
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li.display-method-buttons .list-display.active, .wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li.display-method-buttons .grid-display.active {
   background: #389af6;
   color: #fff; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-filter li.display-method-buttons .list-display.active:hover, .wpeo-project-wrap .wpeo-project-task .wpeo-task-filter li.display-method-buttons .grid-display.active:hover {
+.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li.display-method-buttons .list-display.active:hover, .wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li.display-method-buttons .grid-display.active:hover {
   background: #69b3f8; }
-
-.wpeo-project-wrap .wpeo-task-selected .task-marker {
-  opacity: 1;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"; }
 
 .wpeo-project-wrap .task-header-action, .wpeo-project-wrap .point-header-action {
   text-align: left;
@@ -4389,9 +4391,6 @@ readers do not read off random characters that represent icons */
       -ms-flex-direction: row;
           flex-direction: row; }
 
-.wpeo-project-wrap .points .point-container .point-valid {
-  min-width: 36px; }
-
 .wpeo-project-wrap .points .point-container .point-valid .completed-point, .wpeo-project-wrap .points .point-container .point-valid .wpeo-sort-point {
   margin: auto 0; }
 
@@ -4420,8 +4419,54 @@ readers do not read off random characters that represent icons */
   -webkit-border-radius: 3px;
           border-radius: 3px; }
 
+.wpeo-project-wrap .points .point-container .point-content {
+  width: 100%;
+  padding: 0 0.4em; }
+
+.wpeo-project-wrap .points .point-container .point-content .wpeo-point-summary {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+     -moz-box-orient: horizontal;
+     -moz-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row; }
+
+.wpeo-project-wrap .points .point-container .point-content .wpeo-point-summary:after {
+  display: block;
+  content: '';
+  clear: both; }
+
+.wpeo-project-wrap .points .point-container .point-content .wpeo-point-summary li {
+  padding: 4px; }
+
+.wpeo-project-wrap .points .point-container .point-content .wpeo-point-new-contenteditable {
+  margin: auto 0; }
+
+.wpeo-project-wrap .points .point-container .point-content .wpeo-point-new-contenteditable {
+  min-height: 24px;
+  -webkit-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+  padding-bottom: 6px;
+  font-family: 'kalamregular', 'open sans', sans-serif;
+  width: 100%; }
+
+.wpeo-project-wrap .points .point-container .point-content .wpeo-point-new-contenteditable:hover {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4); }
+
+.wpeo-project-wrap .points .point-container .point-content .wpeo-point-new-placeholder {
+  color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  left: 6px;
+  bottom: 6px;
+  pointer-events: none; }
+
 .wpeo-project-wrap .points .point-container .point-action {
-  min-width: 70px;
   margin-right: auto;
   display: -webkit-box;
   display: -webkit-flex;
@@ -4493,37 +4538,10 @@ readers do not read off random characters that represent icons */
 .wpeo-project-wrap .points .point-container .point-action .wpeo-point-new-btn:hover {
   cursor: pointer; }
 
-.wpeo-project-wrap .points .point-container .point-toggle .action-attribute, .wpeo-project-wrap .points .point-container .point-toggle .wpeo-block-id {
-  margin: auto 0; }
-
-.wpeo-project-wrap .points .point-container .point-toggle .wpeo-block-id {
-  font-weight: 700; }
-
-.wpeo-project-wrap .points .point-container .point-content {
-  width: 100%;
-  padding: 0 0.4em; }
-
-.wpeo-project-wrap .points .point-container .point-content .wpeo-point-new-contenteditable {
-  margin: auto 0; }
-
-.wpeo-project-wrap .points .point-container .point-content .wpeo-point-new-contenteditable {
-  min-height: 24px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  -webkit-transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out;
-  padding-bottom: 6px;
-  font-family: 'kalamregular', 'open sans', sans-serif;
-  width: 100%; }
-
-.wpeo-project-wrap .points .point-container .point-content .wpeo-point-new-contenteditable:hover {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.4); }
-
-.wpeo-project-wrap .points .point-container .point-content .wpeo-point-new-placeholder {
-  color: rgba(0, 0, 0, 0.4);
-  position: absolute;
-  left: 6px;
-  bottom: 6px;
-  pointer-events: none; }
+.wpeo-project-wrap .points .point {
+  margin: 5px;
+  -webkit-border-radius: 5px;
+          border-radius: 5px; }
 
 .wpeo-project-wrap .points .point.edit:first-child {
   padding-top: 10px; }

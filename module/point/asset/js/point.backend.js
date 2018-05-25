@@ -149,7 +149,7 @@ window.eoxiaJS.taskManager.point.addedPointSuccess = function( triggeredElement,
 	}
 
 	if ( response.data.point && true != response.data.point.data.completed ) {
-		task.find( '.points.sortable .point:last' ).before( response.data.view );
+		task.find( '.points.sortable .point:not(.point-edit)' ).after( response.data.view );
 	}
 
 	window.eoxiaJS.taskManager.point.initAutoComplete();
@@ -367,7 +367,7 @@ window.eoxiaJS.taskManager.point.movedPointTo = function( triggeredElement, resp
 	if ( toTask.length ) {
 		toTask.find( '.wpeo-task-time-manage .elapsed' ).text( response.data.to_task_elapsed_time );
 
-		toTask.find( '.point.edit[data-id=' + response.data.point.data.id + '] .point-toggle .action-attribute' ).attr( 'data-task-id', response.data.to_task.data.id );
+		toTask.find( '.point.edit[data-id=' + response.data.point.data.id + '] .wpeo-point-summary .action-attribute' ).attr( 'data-task-id', response.data.to_task.data.id );
 		toTask.find( '.point.edit[data-id=' + response.data.point.data.id + '] .point-header-action .form-fields .action-input' ).removeClass( 'active' );
 		toTask.find( '.point.edit[data-id=' + response.data.point.data.id + '] .point-header-action .form-fields .search-task' ).val( '' );
 		toTask.find( '.point.edit[data-id=' + response.data.point.data.id + '] .point-header-action .move-to input[name="task_id"]' ).val( response.data.to_task.data.id );

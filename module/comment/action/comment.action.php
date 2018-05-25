@@ -81,7 +81,6 @@ class Task_Comment_Action {
 		$content       = ! empty( $_POST['content'] ) ? trim( $_POST['content'] ) : '';
 		$time          = ! empty( $_POST['time'] ) ? (int) $_POST['time'] : 0;
 		$value_changed = ! empty( $_POST['value_changed'] ) ? (bool) $_POST['value_changed'] : 0;
-		$new           = 0 === $comment_id ? true : false;
 
 		$content = str_replace( '<div>', '<br>', trim( $content ) );
 		$content = wp_kses( $content, array(
@@ -118,16 +117,6 @@ class Task_Comment_Action {
 		$comment->data['status']               = '1';
 
 		$comment = Task_Comment_Class::g()->update( $comment->data, true );
-
-		if ( $new ) {
-			$point = Point_Class::g()->get( array(
-				'id' => $parent_id,
-			), true );
-
-			$point->data['count_comments']++;
-
-			Point_Class::g()->update( $point->data, true );
-		}
 
 		$comments       = Task_Comment_Class::g()->get_comments( $parent_id );
 		$comment_schema = Task_Comment_Class::g()->get( array(

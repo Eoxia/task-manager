@@ -27,6 +27,7 @@ class Comment_Filter {
 		add_filter( "eo_model_{$current_type}_after_get", array( $this, 'calcul_elapsed_time' ), 10, 2 );
 		add_filter( "eo_model_{$current_type}_after_put", array( $this, 'compile_time' ), 10, 2 );
 		add_filter( "eo_model_{$current_type}_after_post", array( $this, 'compile_time' ), 10, 2 );
+		add_filter( "eo_model_{$current_type}_after_post", array( $this, 'callback_after_save_comments' ), 10, 2 );
 	}
 
 	/**
@@ -140,6 +141,27 @@ class Comment_Filter {
 
 		return $object;
 	}
+
+	/**
+	 * Callback appelé après l'insertion d'un nouveau commentaire.
+	 *
+	 * @param  Task_Comment_Model $object La définition complète du commentaire avant passage dans le filtre.
+	 * @param  array              $args   Des données complémentaires permettant d'effectuer le traitement du filtre.
+	 *
+	 * @return Task_Comment_Model         La définition du commentaire après passage du filtre.
+	 */
+	public function callback_after_save_comments( $object, $args ) {
+		$point = Point_Class::g()->get( array(
+			'id' => $object->data['parent_id'],
+		), true );
+
+		$point->data['count_comments']++;
+
+		Point_Class::g()->update( $point->data );
+
+		return $object;
+	}
+
 }
 
 new Comment_Filter();

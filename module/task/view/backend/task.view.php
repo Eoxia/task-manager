@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="wpeo-project-task-container">
 
 		<!-- En tête de la tâche -->
-		<?php \eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task-header', array( 'task' => $task, ) ); ?>
+		<?php \eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task-header', array( 'task' => $task ) ); ?>
 		<!-- Fin en tête de la tâche -->
 
 		<!-- Historique de la tâche -->
