@@ -15,7 +15,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 		<tr>
-			<td><?php echo esc_html( '#' . $task->data['id'] ); ?> - <?php echo esc_html( $task->data['title'] ); ?></td>
+			<td>
+				<a href="<?php echo esc_url( admin_url( 'admin.php?page=wpeomtm-dashboard&term=' . $task->data['id'] ) ); ?>" target="wptm_view_activity_element" >
+					<?php echo esc_html( '#' . $task->data['id'] ); ?> - <?php echo esc_html( $task->data['title'] ); ?>
+				</a>
+			</td>
 			<td>
 				<?php if ( ! empty( $task->data['task_parent']->ID ) ) : ?>
 					<a target="_blank" href="<?php echo esc_attr( admin_url( 'post.php?post=' . $task->data['task_parent']->ID . '&action=edit' ) ); ?>">
