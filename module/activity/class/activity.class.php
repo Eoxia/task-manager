@@ -35,8 +35,10 @@ class Activity_Class extends \eoxia\Singleton_Util {
 	 * @since 1.5.0
 	 * @version 1.6.0
 	 *
-	 * @param array   $tasks_id L'ID des tâches parents.
-	 * @param integer $offset   Le nombre de résultat à passer.
+	 * @param array   $tasks_id    L'ID des tâches parents.
+	 * @param integer $offset      Le nombre de résultat à passer.
+	 * @param integer $nb_per_page Le nombre d'élément à afficher par page.
+	 *
 	 * @return array            La liste des commentaires et points.
 	 */
 	public function get_activity( $tasks_id, $offset, $nb_per_page = 0, $activities_type = array( 'created-point', 'completed-point', 'created-comment' ) ) {

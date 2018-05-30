@@ -14,14 +14,13 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
-<table style="width: 100%;">
+<table class="tm-indicator-time-exceed" >
 	<thead>
 		<tr>
-			<th><?php esc_html_e( 'ID', 'task-manager' ); ?></th>
-			<th><?php esc_html_e( 'Title', 'task-manager' ); ?></th>
+			<th>#<?php esc_html_e( 'ID', 'task-manager' ); ?> - <?php esc_html_e( 'Title', 'task-manager' ); ?></th>
 			<th><?php esc_html_e( 'Parent task', 'task-manager' ); ?></th>
 			<th><?php esc_html_e( 'Time', 'task-manager' ); ?></th>
-			<th><?php esc_html_e( 'Time exceeded', 'task-manager' ); ?></th>
+			<th><?php esc_html_e( 'Total time exceeded', 'task-manager' ); ?></th>
 		</tr>
 	</thead>
 
@@ -30,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php foreach ( $tasks_exceed_time as $task ) : ?>
 			<?php \eoxia\View_Util::exec( 'task-manager', 'time-exceeded', 'backend/item', array( 'task' => $task ) ); ?>
 		<?php endforeach; ?>
-	<?php else: ?>
+	<?php else : ?>
 		<tr><td colspan="5" ><?php esc_html_e( 'There is no task with exceeded time corresponding to your search.', 'task-manager' ); ?></td></tr>
 	<?php endif; ?>
 	</tbody>
