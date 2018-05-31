@@ -232,8 +232,6 @@ class Point_Class extends \eoxia\Comment_Class {
 
 		$point->data['content'] = stripslashes( $point->data['content'] );
 
-		do_action( 'tm_edit_point', $point, $task );
-
 		return array(
 			'point' => $point,
 			'task'  => $task,

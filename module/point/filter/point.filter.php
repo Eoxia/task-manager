@@ -24,6 +24,10 @@ class Point_Filter {
 	 */
 	public function __construct() {
 		add_filter( 'task_points_mail', array( $this, 'callback_task_points_mail' ), 10, 2 );
+
+		$current_type = Point_Class::g()->get_type();
+		// add_filter( "eo_model_{$current_type}_after_put", array( $this, 'add_point_to_index' ), 10, 2 );
+		// add_filter( "eo_model_{$current_type}_after_post", array( $this, 'add_point_to_index' ), 10, 2 );
 	}
 
 	/**
@@ -73,6 +77,10 @@ class Point_Filter {
 		endif;
 
 		return $string;
+	}
+
+	public function add_point_to_index( $object, $args ) {
+	
 	}
 }
 
