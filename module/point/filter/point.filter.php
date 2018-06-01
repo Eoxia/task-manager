@@ -3,7 +3,7 @@
  * Gestion des filtres relatives aux points
  *
  * @since 1.3.4
- * @version 1.6.0
+ * @version 1.8.0
  * @package Task_Manager
  */
 

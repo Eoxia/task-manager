@@ -4,8 +4,8 @@
  *
  * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
- * @version 1.6.0
- * @copyright 2015-2018 Eoxia
+ * @version 1.8.0
+ * @copyright 2018 Eoxia.
  * @package Task_Manager
  */
 
@@ -33,6 +33,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<li class="wpeo-comment-content">
 			<input type="hidden" name="content" value="<?php echo esc_attr( $comment->data['content'] ); ?>" />
 			<div class="content" contenteditable="true"><?php echo trim( $comment->data['content'] ); ?></div>
+			<div class="wpeo-dropdown suggest dropdown-large">
+				<ul class="dropdown-content">
+				</ul>
+			</div>
 			<?php if ( empty( $comment->data['id'] ) ) : ?>
 				<span class="wpeo-point-new-placeholder"><?php esc_html_e( 'Your comment here...', 'task-manager' ); ?></span>
 			<?php endif; ?>

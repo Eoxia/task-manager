@@ -3973,6 +3973,7 @@ readers do not read off random characters that represent icons */
 -----------------------------------*/
 .wpeo-project-wrap {
   /* Page indicateurs */
+  /* Temps dépassé dans les indicateurs */
   /* Activity dans les posts */ }
 
 .wpeo-project-wrap .activities {
@@ -4141,6 +4142,49 @@ readers do not read off random characters that represent icons */
 .wpeo-project-wrap .daily-activity .event-header [class*="event"] i {
   margin-right: 0.4em;
   color: rgba(0, 0, 0, 0.3); }
+
+.wpeo-project-wrap #tm-indicator-time-exceeded .inside {
+  margin: 0;
+  padding: 0; }
+
+.wpeo-project-wrap #tm-indicator-time-exceeded .filter-exceeded-time {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 0.6em; }
+
+.wpeo-project-wrap #tm-indicator-time-exceeded .filter-exceeded-time ul {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+     -moz-box-orient: horizontal;
+     -moz-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 100%; }
+
+.wpeo-project-wrap #tm-indicator-time-exceeded .filter-exceeded-time ul:after {
+  display: block;
+  content: '';
+  clear: both; }
+
+.wpeo-project-wrap #tm-indicator-time-exceeded .filter-exceeded-time #min_exceeded_time {
+  width: 50px; }
+
+.wpeo-project-wrap #tm-indicator-time-exceeded label {
+  color: rgba(0, 0, 0, 0.5); }
+
+.wpeo-project-wrap #tm-indicator-time-exceeded label i {
+  margin-right: 0.4em; }
+
+.wpeo-project-wrap #tm-indicator-time-exceeded .tm-indicator-time-exceed {
+  width: 100%; }
+
+.wpeo-project-wrap #tm-indicator-time-exceeded .tm-indicator-time-exceed th {
+  text-align: left; }
 
 .wpeo-project-wrap .post-last-activity {
   margin-left: 20px;

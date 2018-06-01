@@ -2677,31 +2677,6 @@ Popup
 }
 
 /* ----------------------------------
-		Metabox "quick time".
------------------------------------*/
-#tm-indicator-time-exceeded {
-	.inside {
-		margin: 0;
-		padding: 0;
-	}
-	.filter-exceeded-time {
-		background: rgba(0,0,0,0.1);
-		padding: 0.6em;
-
-		#min_exceeded_time {
-			width: 50px;
-		}
-	}
-	label {
-		color: rgba(0,0,0,0.5);
-
-		i {
-			margin-right: 0.4em;
-		}
-	}
-}
-
-/* ----------------------------------
 		Module WPEO Form fix
 -----------------------------------*/
 .wpeo-form {
