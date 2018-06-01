@@ -3,9 +3,9 @@
  * Les filtres relatives aux modèles des tâches.
  *
  * @author Eoxia <dev@eoxia.com>
- * @since 1.6.0
+ * @since 1.0.0
  * @version 1.6.0
- * @copyright 2015-2018 Eoxia
+ * @copyright 2018 Eoxia.
  * @package Task_Manager
  */
 
@@ -82,7 +82,6 @@ class Task_Model_Filter {
 
 		return $object;
 	}
-
 }
 
 new Task_Model_Filter();

@@ -2,8 +2,10 @@
 /**
  * Gestion des filtres relatives aux commentaires
  *
+ * @author Eoxia <dev@eoxia.com>
+ * @copyright 2018 Eoxia.
  * @since 1.6.0
- * @version 1.6.0
+ * @version 1.8.0
  * @package Task-Manager
  */
 
@@ -21,10 +23,14 @@ class Comment_Filter {
 
 	/**
 	 * Le constructeur
+	 *
+	 * @since 1.6.0
+	 * @version 1.8.0
 	 */
 	public function __construct() {
 		$current_type = Task_Comment_Class::g()->get_type();
 		add_filter( "eo_model_{$current_type}_after_get", array( $this, 'calcul_elapsed_time' ), 10, 2 );
+		add_filter( "eo_model_{$current_type}_after_get", array( $this, 'parse_content' ), 10, 2 );
 		add_filter( "eo_model_{$current_type}_after_put", array( $this, 'compile_time' ), 10, 2 );
 		add_filter( "eo_model_{$current_type}_after_post", array( $this, 'compile_time' ), 10, 2 );
 	}
@@ -133,6 +139,57 @@ class Comment_Filter {
 							$the_interval += $time_components[1];
 						}
 						$object->data['time_info']['calculed_elapsed'] = $the_interval;
+					}
+				}
+			}
+		}
+
+		return $object;
+	}
+
+	/**
+	 * Parsage du contenu du commentaire afin de retrouver les ID correspondant à des tâches, points ou d'autres commentaires.
+	 * Permet de rajouter une balise avec une infobulle contenant les 100 premiers caractères de l'élément trouvé dans le contenu.
+	 *
+	 * @since 1.8.0
+	 * @version 1.8.0
+	 *
+	 * @param  Task_Comment_Model $object Les données du commentaire.
+	 * @param  array              $args   Les données lors de la création de l'objet.
+	 *
+	 * @return Task_Comment_Model         Les données du commentaire modifiée par cette méthode.
+	 */
+	public function parse_content( $object, $args ) {
+		$object->data['rendered'] = $object->data['content'];
+
+		$prefixes_to_parse = array(
+			'T' => '\task_manager\Task_Class',
+			'P' => '\task_manager\Point_Class',
+			'C' => '\task_manager\Task_Comment_Class',
+		);
+
+		if ( ! empty( $prefixes_to_parse ) ) {
+			foreach ( $prefixes_to_parse as $prefix_to_parse => $model_to_use ) {
+				preg_match_all( '/#' . $prefix_to_parse . '(\d*)/', $object->data['content'], $matches );
+
+				if ( ! empty( $matches[1] ) ) {
+					foreach ( $matches[1] as $matched ) {
+						$parsed_object = $model_to_use::g()->get( array( 'id' => $matched ), true );
+
+						if ( ! empty( $parsed_object->data['id'] ) ) {
+							$prefix_id = $prefix_to_parse . $parsed_object->data['id'];
+							$content   = $parsed_object->data['content'];
+							if ( empty( $content ) ) {
+								$content = $parsed_object->data['title'];
+							}
+
+							$content = htmlspecialchars( substr( $content, 0, 100 ) );
+
+							// Le contenu en entier.
+							$html = "<b class='wpeo-tooltip-event' aria-label='" . $content . "'>#" . $prefix_id . "</b>";
+
+							$object->data['rendered'] = preg_replace( '/#' . $prefix_id . '/', $html, $object->data['rendered'] );
+						}
 					}
 				}
 			}

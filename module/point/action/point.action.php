@@ -4,9 +4,9 @@
  *
  * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
- * @version 1.7.0
- * @copyright 2015-2018 Eoxia
- * @package Task Manager
+ * @version 1.8.0
+ * @copyright 2018 Eoxia.
+ * @package Task_Manager
  */
 
 namespace task_manager;
@@ -57,6 +57,8 @@ class Point_Action {
 		$data  = Point_Class::g()->edit_point( $point_id, $parent_id, $content, $completed );
 		$point = $data['point'];
 		$task  = $data['task'];
+
+		do_action( 'tm_edit_point', $point, $task );
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(

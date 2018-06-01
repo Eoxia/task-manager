@@ -2,10 +2,10 @@
 /**
  * Un commentaire dans le backend.
  *
- * @author Eoxia <dev@gmail.com>
+ * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
- * @version 1.6.0
- * @copyright 2015-2018 Eoxia
+ * @version 1.8.0
+ * @copyright 2018 Eoxia.
  * @package Task_Manager
  */
 
@@ -50,6 +50,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</ul>
 			</div>
 		</li>
-		<li class="wpeo-comment-content"><?php echo nl2br( $comment->data['content'] ); ?></li>
+		<li class="wpeo-comment-content"><?php echo nl2br( $comment->data['rendered'] ); ?></li>
 	</ul>
 </li>
