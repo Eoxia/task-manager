@@ -3,7 +3,7 @@
  * Gestion des filtres relatives aux points
  *
  * @since 1.3.4
- * @version 1.6.0
+ * @version 1.8.0
  * @package Task_Manager
  */
 
@@ -25,9 +25,7 @@ class Point_Filter {
 	public function __construct() {
 		add_filter( 'task_points_mail', array( $this, 'callback_task_points_mail' ), 10, 2 );
 
-		$current_type = Point_Class::g()->get_type();
-		// add_filter( "eo_model_{$current_type}_after_put", array( $this, 'add_point_to_index' ), 10, 2 );
-		// add_filter( "eo_model_{$current_type}_after_post", array( $this, 'add_point_to_index' ), 10, 2 );
+		add_filter( 'tm_task_header', array( $this, 'callback_display_points_type_buttons' ), 9, 2);
 	}
 
 	/**
@@ -79,9 +77,24 @@ class Point_Filter {
 		return $string;
 	}
 
-	public function add_point_to_index( $object, $args ) {
-	
+	/**
+	 * Filtre permettant d'afficher les boutons de choix des types de points (complets/incomplets) à afficher dans une tâche.
+	 *
+	 * @param  string     $current_content Le contenu actuel du filtre.
+	 * @param  Task_Model $task            La définition complète de la tâche.
+	 *
+	 * @return string                      La chaine a afficher.
+	 */
+	public function callback_display_points_type_buttons( $current_content, $task ) {
+		ob_start();
+		\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/task-header', array(
+			'task' => $task,
+		) );
+		$current_content .= ob_get_clean();
+
+		return $current_content;
 	}
+
 }
 
 new Point_Filter();

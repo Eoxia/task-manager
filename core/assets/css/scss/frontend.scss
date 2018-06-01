@@ -136,7 +136,7 @@ $green: #47e58e;
 			display: flex;
 			flex-direction: row;
 			padding: 8px 14px 0 14px;
-			.point-action, .point-toggle, .point-content {
+			.point-action, .wpeo-point-summary, .point-content {
 				display: flex;
 				flex-direction: row;
 			}
@@ -160,7 +160,7 @@ $green: #47e58e;
 					}
 				}
 			}
-			.point-toggle {
+			.wpeo-point-summary {
 				min-width: 80px;
 				max-width: 80px;
 				width: 100%;

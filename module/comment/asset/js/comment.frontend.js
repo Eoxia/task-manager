@@ -14,19 +14,19 @@ window.eoxiaJS.taskManagerFrontend.comment.beforeLoadComment = function( trigger
 	}
 
 	if ( triggeredElement.closest( 'div.point' ).find( '.comments' ).is( ':visible'  ) ) {
-		triggeredElement.closest( '.point' ).find( '.point-toggle .fa' ).toggleClass( 'fa-angle-down fa-angle-right' );
+		triggeredElement.closest( '.point' ).find( '.wpeo-point-summary .fa' ).toggleClass( 'fa-angle-down fa-angle-right' );
 		triggeredElement.closest( 'div.point' ).find( '.comments' ).slideUp();
 
 		return false;
 	}
 
-	jQuery( '.wpeo-project-task .point .point-toggle .fa.fa-angle-down' ).toggleClass( 'fa-angle-right fa-angle-down' );
+	jQuery( '.wpeo-project-task .point .wpeo-point-summary .fa.fa-angle-down' ).toggleClass( 'fa-angle-right fa-angle-down' );
 
 	return true;
 };
 
 window.eoxiaJS.taskManagerFrontend.comment.loadedFrontComments = function( triggeredElement, response ) {
-	triggeredElement.closest( '.point' ).find( '.point-toggle .fa' ).toggleClass( 'fa-angle-right fa-angle-down' );
+	triggeredElement.closest( '.point' ).find( '.wpeo-point-summary .fa' ).toggleClass( 'fa-angle-right fa-angle-down' );
 	triggeredElement.closest( '.point' ).find( '.comments' ).html( response.data.view );
 	triggeredElement.closest( 'div.point' ).find( '.comments' ).slideDown();
 };

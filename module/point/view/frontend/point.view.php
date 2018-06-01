@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="point <?php echo ! empty( $point->data['id'] ) ? esc_attr( 'edit' ) : ''; ?>" data-id="<?php echo esc_attr( $point->data['id'] ); ?>">
 	<ul class="point-container">
-		<li class="point-toggle action-attribute"
+		<li class="wpeo-point-summary action-attribute"
 				data-namespace="taskManagerFrontend"
 				data-module="comment"
 				data-before-method="beforeLoadComment"
