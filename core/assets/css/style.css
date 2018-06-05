@@ -378,12 +378,10 @@ readers do not read off random characters that represent icons */
 
 .wpeo-project-wrap .fa-spin {
   -webkit-animation: fa-spin 2s infinite linear;
-       -o-animation: fa-spin 2s infinite linear;
           animation: fa-spin 2s infinite linear; }
 
 .wpeo-project-wrap .fa-pulse {
   -webkit-animation: fa-spin 1s infinite steps(8);
-       -o-animation: fa-spin 1s infinite steps(8);
           animation: fa-spin 1s infinite steps(8); }
 
 @-webkit-keyframes fa-spin {
@@ -394,64 +392,48 @@ readers do not read off random characters that represent icons */
     -webkit-transform: rotate(360deg);
             transform: rotate(360deg); } }
 
-@-o-keyframes fa-spin {
-  0% {
-    -o-transform: rotate(0deg);
-       transform: rotate(0deg); }
-  100% {
-    -o-transform: rotate(360deg);
-       transform: rotate(360deg); } }
-
 @keyframes fa-spin {
   0% {
     -webkit-transform: rotate(0deg);
-         -o-transform: rotate(0deg);
             transform: rotate(0deg); }
   100% {
     -webkit-transform: rotate(360deg);
-         -o-transform: rotate(360deg);
             transform: rotate(360deg); } }
 
 .wpeo-project-wrap .fa-rotate-90 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
   -webkit-transform: rotate(90deg);
       -ms-transform: rotate(90deg);
-       -o-transform: rotate(90deg);
           transform: rotate(90deg); }
 
 .wpeo-project-wrap .fa-rotate-180 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
   -webkit-transform: rotate(180deg);
       -ms-transform: rotate(180deg);
-       -o-transform: rotate(180deg);
           transform: rotate(180deg); }
 
 .wpeo-project-wrap .fa-rotate-270 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
   -webkit-transform: rotate(270deg);
       -ms-transform: rotate(270deg);
-       -o-transform: rotate(270deg);
           transform: rotate(270deg); }
 
 .wpeo-project-wrap .fa-flip-horizontal {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
   -webkit-transform: scale(-1, 1);
       -ms-transform: scale(-1, 1);
-       -o-transform: scale(-1, 1);
           transform: scale(-1, 1); }
 
 .wpeo-project-wrap .fa-flip-vertical {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
   -webkit-transform: scale(1, -1);
       -ms-transform: scale(1, -1);
-       -o-transform: scale(1, -1);
           transform: scale(1, -1); }
 
 .wpeo-project-wrap .fa-flip-horizontal.fa-flip-vertical {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
   -webkit-transform: scale(-1, -1);
       -ms-transform: scale(-1, -1);
-       -o-transform: scale(-1, -1);
           transform: scale(-1, -1); }
 
 .wpeo-project-wrap :root .fa-rotate-90,
@@ -3534,7 +3516,6 @@ readers do not read off random characters that represent icons */
   -webkit-box-shadow: none;
           box-shadow: none;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .wpeo-project-wrap input[type="text"]:hover {
@@ -3551,7 +3532,6 @@ readers do not read off random characters that represent icons */
   color: #fff;
   height: auto;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .wpeo-project-wrap input[type="button"]:hover {
@@ -3605,7 +3585,6 @@ readers do not read off random characters that represent icons */
 
 .wpeo-project-wrap .list-task .task-header-action .task-color .color-element > * {
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .wpeo-project-wrap .list-task .task-header-action .task-color .color-element > *:hover {
@@ -3723,7 +3702,6 @@ readers do not read off random characters that represent icons */
   color: rgba(0, 0, 0, 0.5);
   border-bottom: 2px solid #fff;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
   float: left;
   height: 40px; }
@@ -3760,7 +3738,6 @@ readers do not read off random characters that represent icons */
 
 .wpeo-project-wrap .wpeo-header-bar > ul > li.wpeo-general-search .open-search-filter {
   -webkit-transition: 0.2s ease-out;
-  -o-transition: 0.2s ease-out;
   transition: 0.2s ease-out; }
 
 .wpeo-project-wrap .wpeo-header-bar > ul > li.wpeo-general-search .open-search-filter:hover {
@@ -3770,7 +3747,6 @@ readers do not read off random characters that represent icons */
   background: #404A53;
   padding: 10px;
   -webkit-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   pointer-events: none; }
 
@@ -3850,7 +3826,6 @@ readers do not read off random characters that represent icons */
   padding: 8px 16px;
   margin-left: 10px;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .wpeo-project-wrap .wpeo-header-search .tag-search ul .wpeo-tag-search:hover {
@@ -3903,7 +3878,6 @@ readers do not read off random characters that represent icons */
           box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.2);
   position: relative;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .wpeo-project-wrap .wpeo-project-task .wpeo-project-task-container:before {
@@ -3919,7 +3893,6 @@ readers do not read off random characters that represent icons */
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   pointer-events: none;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
   z-index: 80; }
 
@@ -4009,7 +3982,6 @@ readers do not read off random characters that represent icons */
   padding: 0 6px;
   color: rgba(0, 0, 0, 0.2);
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-setting .wpeo-task-open-action:hover {
@@ -4017,16 +3989,6 @@ readers do not read off random characters that represent icons */
   color: rgba(0, 0, 0, 0.4); }
 
 @-webkit-keyframes taskOptionAnimation {
-  from {
-    opacity: 0;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-    top: 26px; }
-  to {
-    opacity: 1;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-    top: 30px; } }
-
-@-o-keyframes taskOptionAnimation {
   from {
     opacity: 0;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
@@ -4079,7 +4041,6 @@ readers do not read off random characters that represent icons */
   font-size: 16px;
   color: rgba(0, 0, 0, 0.4);
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .wpeo-project-wrap .wpeo-project-task .wpeo-task-time-manage li.wpeo-task-time-history:hover {
@@ -4097,7 +4058,6 @@ readers do not read off random characters that represent icons */
   background: rgba(0, 0, 0, 0.1);
   color: rgba(0, 0, 0, 0.4);
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .wpeo-project-wrap .wpeo-project-task .wpeo-task-time-manage li.display-method-buttons .list-display:hover, .wpeo-project-wrap .wpeo-project-task .wpeo-task-time-manage li.display-method-buttons .grid-display:hover {
@@ -4125,7 +4085,6 @@ readers do not read off random characters that represent icons */
   top: 20px;
   z-index: 500;
   -webkit-transition: all 0.2s east-out;
-  -o-transition: all 0.2s east-out;
   transition: all 0.2s east-out;
   opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
@@ -4149,16 +4108,13 @@ readers do not read off random characters that represent icons */
   z-index: 99999;
   -webkit-transform: translateY(-100%);
       -ms-transform: translateY(-100%);
-       -o-transform: translateY(-100%);
           transform: translateY(-100%);
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .wpeo-project-wrap .task-header-action .success.active, .wpeo-project-wrap .point-header-action .success.active {
   -webkit-transform: translateY(0%);
       -ms-transform: translateY(0%);
-       -o-transform: translateY(0%);
           transform: translateY(0%); }
 
 .wpeo-project-wrap .task-header-action .success .content, .wpeo-project-wrap .point-header-action .success .content {
@@ -4169,7 +4125,6 @@ readers do not read off random characters that represent icons */
   background: none;
   -webkit-transform: translateY(-50%);
       -ms-transform: translateY(-50%);
-       -o-transform: translateY(-50%);
           transform: translateY(-50%);
   display: block;
   left: 0; }
@@ -4187,7 +4142,6 @@ readers do not read off random characters that represent icons */
   background-color: #3495f0;
   border: none;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .wpeo-project-wrap .task-header-action .success .content span:hover, .wpeo-project-wrap .point-header-action .success .content span:hover {
@@ -4335,7 +4289,6 @@ readers do not read off random characters that represent icons */
   margin-left: 14px;
   color: #389af6;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .wpeo-project-wrap .history-time-new .add-history-time:hover {
@@ -4344,7 +4297,6 @@ readers do not read off random characters that represent icons */
 
 .wpeo-project-wrap .history-time-list > li {
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .wpeo-project-wrap .history-time-list > li ul {
@@ -4368,7 +4320,6 @@ readers do not read off random characters that represent icons */
   -webkit-border-radius: 50%;
           border-radius: 50%;
   -webkit-transition: all .2s ease-out;
-  -o-transition: all .2s ease-out;
   transition: all .2s ease-out; }
 
 .wpeo-project-wrap .history-time-list .delete span {
@@ -4419,7 +4370,6 @@ readers do not read off random characters that represent icons */
 .wpeo-project-wrap .points .point-container .point-valid .wpeo-sort-point {
   color: rgba(0, 0, 0, 0.4);
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
   opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
@@ -4486,7 +4436,6 @@ readers do not read off random characters that represent icons */
   margin-left: auto;
   text-align: center;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .wpeo-project-wrap .points .point-container .point-action .wpeo-task-setting .wpeo-task-open-action > i {
@@ -4496,7 +4445,6 @@ readers do not read off random characters that represent icons */
   -webkit-border-radius: 50%;
           border-radius: 50%;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
   opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
@@ -4511,7 +4459,6 @@ readers do not read off random characters that represent icons */
 .wpeo-project-wrap .points .point-container .point-action .wpeo-point-new-btn {
   margin: auto 0 auto auto;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
   display: block; }
 
@@ -4535,7 +4482,6 @@ readers do not read off random characters that represent icons */
   min-height: 24px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
   padding-bottom: 6px;
   font-family: 'kalamregular', 'open sans', sans-serif;
@@ -4572,7 +4518,6 @@ readers do not read off random characters that represent icons */
   position: relative;
   top: -13px;
   -webkit-transition: all 0.2s ease-out 0s;
-  -o-transition: all 0.2s ease-out 0s;
   transition: all 0.2s ease-out 0s;
   background: #fff; }
 
@@ -4605,7 +4550,6 @@ readers do not read off random characters that represent icons */
   opacity: 0.4;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .wpeo-project-wrap .wpeo-project-task .wpeo-task-time-manage .quick-point-event .fa-plus {
@@ -4636,7 +4580,6 @@ readers do not read off random characters that represent icons */
   min-height: 24px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   -webkit-transition: all .2s ease-out;
-  -o-transition: all .2s ease-out;
   transition: all .2s ease-out;
   padding-bottom: 6px;
   font-family: "kalamregular", open sans, sans-serif;
@@ -4720,7 +4663,6 @@ readers do not read off random characters that represent icons */
           border-radius: 50%;
   font-size: 20px;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .wpeo-project-wrap .points .point .comments .comment .wpeo-comment-date .date-time:hover {
@@ -4750,7 +4692,6 @@ readers do not read off random characters that represent icons */
   margin: auto 6px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   -webkit-transition: all .2s ease-out;
-  -o-transition: all .2s ease-out;
   transition: all .2s ease-out;
   padding-bottom: 2px; }
 
@@ -4776,7 +4717,6 @@ readers do not read off random characters that represent icons */
   width: 100%;
   max-width: 26px;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
   margin: auto 0 auto auto; }
 
@@ -4796,7 +4736,6 @@ readers do not read off random characters that represent icons */
 .wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-save-point .save-icon .fa-circle {
   color: #3495f0;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-save-point .save-icon:hover .fa-circle {
@@ -5006,7 +4945,6 @@ readers do not read off random characters that represent icons */
 .wpeo-project-wrap .activities .activity .content .event-title a, .wpeo-project-wrap .activities .activity .content .event-client a, .wpeo-project-wrap .activities .activity .content .event-task a, .wpeo-project-wrap .activities .activity .content .event-point a {
   color: rgba(0, 0, 0, 0.5);
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
   text-decoration: none; }
 
@@ -5041,7 +4979,6 @@ readers do not read off random characters that represent icons */
   color: #fff;
   padding: 0.6em;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .wpeo-project-wrap .activities .load-more-history:hover {
@@ -5099,7 +5036,6 @@ readers do not read off random characters that represent icons */
   color: rgba(0, 0, 0, 0.6);
   font-size: 12px;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .wpeo-project-wrap .wpeo-tag-wrap .wpeo-tag.active {
@@ -5122,7 +5058,6 @@ readers do not read off random characters that represent icons */
           border-radius: 30px;
   -webkit-transform: scale(0.8);
       -ms-transform: scale(0.8);
-       -o-transform: scale(0.8);
           transform: scale(0.8);
   font-size: 14px; }
 
@@ -5211,7 +5146,6 @@ readers do not read off random characters that represent icons */
   color: #fff;
   padding: .6em;
   -webkit-transition: all .2s ease-out;
-  -o-transition: all .2s ease-out;
   transition: all .2s ease-out; }
 
 .popup-notification .send-notification:hover {
@@ -5269,7 +5203,6 @@ readers do not read off random characters that represent icons */
 
 .follower img, .follower .wpeo-avatar-initial {
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .follower img {
@@ -5304,7 +5237,6 @@ readers do not read off random characters that represent icons */
   text-align: center;
   line-height: 1.5;
   -webkit-transition: all 0.32s ease-out;
-  -o-transition: all 0.32s ease-out;
   transition: all 0.32s ease-out; }
 
 .follower.edit span {
@@ -5320,7 +5252,6 @@ readers do not read off random characters that represent icons */
           border-radius: 30px;
   -webkit-transform: scale(0.8);
       -ms-transform: scale(0.8);
-       -o-transform: scale(0.8);
           transform: scale(0.8);
   font-size: 14px;
   background: rgba(0, 0, 0, 0.1);
@@ -5328,7 +5259,6 @@ readers do not read off random characters that represent icons */
   color: rgba(0, 0, 0, 0.6);
   margin: auto 0;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .follower.add:hover {
@@ -5351,7 +5281,6 @@ readers do not read off random characters that represent icons */
   color: #fff;
   position: relative;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .user img {
@@ -5407,7 +5336,6 @@ readers do not read off random characters that represent icons */
   -webkit-box-shadow: none;
           box-shadow: none;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 #tm-indicator-quick-task .setting-quick-time-button {

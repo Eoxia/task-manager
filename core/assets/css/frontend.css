@@ -107,12 +107,10 @@
 
 .fa-spin {
   -webkit-animation: fa-spin 2s infinite linear;
-       -o-animation: fa-spin 2s infinite linear;
           animation: fa-spin 2s infinite linear; }
 
 .fa-pulse {
   -webkit-animation: fa-spin 1s infinite steps(8);
-       -o-animation: fa-spin 1s infinite steps(8);
           animation: fa-spin 1s infinite steps(8); }
 
 @-webkit-keyframes fa-spin {
@@ -123,64 +121,48 @@
     -webkit-transform: rotate(360deg);
             transform: rotate(360deg); } }
 
-@-o-keyframes fa-spin {
-  0% {
-    -o-transform: rotate(0deg);
-       transform: rotate(0deg); }
-  100% {
-    -o-transform: rotate(360deg);
-       transform: rotate(360deg); } }
-
 @keyframes fa-spin {
   0% {
     -webkit-transform: rotate(0deg);
-         -o-transform: rotate(0deg);
             transform: rotate(0deg); }
   100% {
     -webkit-transform: rotate(360deg);
-         -o-transform: rotate(360deg);
             transform: rotate(360deg); } }
 
 .fa-rotate-90 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
   -webkit-transform: rotate(90deg);
       -ms-transform: rotate(90deg);
-       -o-transform: rotate(90deg);
           transform: rotate(90deg); }
 
 .fa-rotate-180 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
   -webkit-transform: rotate(180deg);
       -ms-transform: rotate(180deg);
-       -o-transform: rotate(180deg);
           transform: rotate(180deg); }
 
 .fa-rotate-270 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
   -webkit-transform: rotate(270deg);
       -ms-transform: rotate(270deg);
-       -o-transform: rotate(270deg);
           transform: rotate(270deg); }
 
 .fa-flip-horizontal {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
   -webkit-transform: scale(-1, 1);
       -ms-transform: scale(-1, 1);
-       -o-transform: scale(-1, 1);
           transform: scale(-1, 1); }
 
 .fa-flip-vertical {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
   -webkit-transform: scale(1, -1);
       -ms-transform: scale(1, -1);
-       -o-transform: scale(1, -1);
           transform: scale(1, -1); }
 
 .fa-flip-horizontal.fa-flip-vertical {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
   -webkit-transform: scale(-1, -1);
       -ms-transform: scale(-1, -1);
-       -o-transform: scale(-1, -1);
           transform: scale(-1, -1); }
 
 :root .fa-rotate-90,
@@ -3270,7 +3252,6 @@ readers do not read off random characters that represent icons */
 
 .list-task .task-header-action .task-color .color-element > * {
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .list-task .task-header-action .task-color .color-element > *:hover {
@@ -3408,7 +3389,6 @@ readers do not read off random characters that represent icons */
           box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.2);
   position: relative;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 /* ----------------------------------
@@ -3466,7 +3446,6 @@ readers do not read off random characters that represent icons */
   padding: 0 6px;
   color: rgba(0, 0, 0, 0.2);
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-elapsed .wpeo-task-open-action:hover {
@@ -3538,7 +3517,6 @@ readers do not read off random characters that represent icons */
   font-size: 16px;
   color: rgba(0, 0, 0, 0.6);
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
   line-height: 1.2; }
 
@@ -3546,17 +3524,14 @@ readers do not read off random characters that represent icons */
   cursor: pointer;
   color: rgba(0, 0, 0, 0.9);
   -webkit-animation-duration: 0.6s;
-       -o-animation-duration: 0.6s;
           animation-duration: 0.6s; }
 
 .wpeo-project-wrap .points .point-container .point-toggle .icon-toggle:hover.fa-angle-right {
   -webkit-animation-name: bounceLeft;
-       -o-animation-name: bounceLeft;
           animation-name: bounceLeft; }
 
 .wpeo-project-wrap .points .point-container .point-toggle .icon-toggle:hover.fa-angle-down {
   -webkit-animation-name: bounceTop;
-       -o-animation-name: bounceTop;
           animation-name: bounceTop; }
 
 .wpeo-project-wrap .points .point-container .point-toggle .wpeo-block-id {
@@ -3593,7 +3568,6 @@ readers do not read off random characters that represent icons */
   position: relative;
   top: -13px;
   -webkit-transition: all 0.2s ease-out 0s;
-  -o-transition: all 0.2s ease-out 0s;
   transition: all 0.2s ease-out 0s;
   background: #fff; }
 
@@ -3675,7 +3649,6 @@ readers do not read off random characters that represent icons */
   margin: auto 6px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   -webkit-transition: all .2s ease-out;
-  -o-transition: all .2s ease-out;
   transition: all .2s ease-out;
   padding-bottom: 2px; }
 
@@ -3707,7 +3680,6 @@ readers do not read off random characters that represent icons */
   width: 100%;
   max-width: 5%;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
   margin: auto 0 auto auto;
   color: #389af6; }
@@ -3748,7 +3720,6 @@ readers do not read off random characters that represent icons */
   color: #fff;
   margin-left: auto;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
   display: inline-block; }
 
@@ -3789,7 +3760,6 @@ readers do not read off random characters that represent icons */
 .wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-action .wpeo-comment-setting i, .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-action .wpeo-comment-setting i {
   color: rgba(0, 0, 0, 0.2);
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-action .wpeo-comment-setting:hover, .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-action .wpeo-comment-setting:hover {
@@ -3815,7 +3785,6 @@ readers do not read off random characters that represent icons */
   color: #fff;
   position: relative;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .user img {
@@ -3871,7 +3840,6 @@ readers do not read off random characters that represent icons */
   -webkit-box-shadow: none;
           box-shadow: none;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .wpeo-window-ask-task-container {
@@ -3893,7 +3861,6 @@ readers do not read off random characters that represent icons */
   text-align: center;
   margin: auto 0;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .wpeo-window-ask-task-container a:hover, .wpeo-window-ask-task-container a:focus, .wpeo-window-ask-task-container a:active {
@@ -3945,7 +3912,6 @@ readers do not read off random characters that represent icons */
   border: 0;
   margin-left: 10px !important;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .wpeo-window-ask-task-container form input[type="button"]:hover {
@@ -3983,7 +3949,6 @@ readers do not read off random characters that represent icons */
   color: #fff;
   display: inline-block;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
   border: 0;
   min-width: 36px;
@@ -4130,7 +4095,6 @@ readers do not read off random characters that represent icons */
 .wpeo-project-wrap .activities .activity .content .event-title a, .wpeo-project-wrap .activities .activity .content .event-client a, .wpeo-project-wrap .activities .activity .content .event-task a, .wpeo-project-wrap .activities .activity .content .event-point a {
   color: rgba(0, 0, 0, 0.5);
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
   text-decoration: none; }
 
@@ -4165,7 +4129,6 @@ readers do not read off random characters that represent icons */
   color: #fff;
   padding: 0.6em;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
 .wpeo-project-wrap .activities .load-more-history:hover {
