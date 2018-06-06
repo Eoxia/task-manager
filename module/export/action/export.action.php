@@ -84,17 +84,18 @@ class Export_Action {
 				WHERE P.comment_parent = %d
 					AND T.post_type = %s
 					AND P.comment_post_ID = %d
-					AND ( ( P.comment_date >= %s
-					AND P.comment_date <= %s ) OR ( C.comment_date >= %s
-					AND C.comment_date <= %s ) )", 0, Task_Class::g()->get_type(), $task->data['id'], $date_from, $date_to, $date_from, $date_to
+					AND ( ( P.comment_date >= %s AND P.comment_date <= %s )
+						OR ( C.comment_date >= %s AND C.comment_date <= %s ) )",
+				0, Task_Class::g()->get_type(), $task->data['id'], $date_from . ' 00:00:00', $date_to . ' 23:59:59', $date_from . ' 00:00:00', $date_to . ' 23:59:59'
 			);
 
 			$get_args['comment__in'] = explode( ',', $GLOBALS['wpdb']->get_var( $query ) );
 
+			$build_args['date_query'] = array(
+				'inclusive' => true,
+			);
 			if ( null !== $date_from && null !== $date_to ) {
-				$build_args['date_query'] = array(
-					'relation' => 'AND',
-				);
+				$build_args['date_query']['relation'] = 'AND';
 			}
 			if ( null !== $date_from ) {
 				$build_args['date_query']['after'] = array(

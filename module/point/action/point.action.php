@@ -4,9 +4,9 @@
  *
  * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
- * @version 1.7.0
- * @copyright 2015-2018 Eoxia
- * @package Task Manager
+ * @version 1.8.0
+ * @copyright 2018 Eoxia.
+ * @package Task_Manager
  */
 
 namespace task_manager;
@@ -44,7 +44,7 @@ class Point_Action {
 	 * @return void
 	 *
 	 * @since 1.0.0
-	 * @version 1.7.0
+	 * @version 1.8.0
 	 */
 	public function ajax_edit_point() {
 		check_ajax_referer( 'edit_point' );
@@ -54,36 +54,9 @@ class Point_Action {
 		$parent_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
 		$content   = ! empty( $_POST['content'] ) ? $_POST['content'] : '';
 
-		$content = str_replace( '<div>', '<br>', trim( $content ) );
-		$content = wp_kses( $content, array(
-			'br' => array(),
-			'tooltip' => array(
-				'class' => array(),
-			)
-		) );
-
-		if ( empty( $parent_id ) ) {
-			wp_send_json_error();
-		}
-
-		$point_args = array(
-			'id'      => $point_id,
-			'post_id' => $parent_id,
-			'content' => $content,
-		);
-
-		$task = null;
-
-		$point = Point_Class::g()->update( $point_args, true );
-
-		// Dans le cas ou c'est un nouveau point.
-		if ( 0 === $point_id ) {
-			$point = Point_Class::g()->complete_point( $point->data['id'], $completed, true );
-
-			$task = Task_Class::g()->get( array( 'id' => $parent_id ), true );
-		}
-
-		$point->data['content'] = stripslashes( $point->data['content'] );
+		$data  = Point_Class::g()->edit_point( $point_id, $parent_id, $content, $completed );
+		$point = $data['point'];
+		$task  = $data['task'];
 
 		do_action( 'tm_edit_point', $point, $task );
 

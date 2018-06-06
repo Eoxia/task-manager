@@ -66,11 +66,11 @@ class Export_Class extends \eoxia\Singleton_Util {
 		$points_to_export = array(
 			'uncompleted' => array(
 				'label' => __( 'Uncompleted', 'task-manager' ),
-				'items'  => array(),
+				'items' => array(),
 			),
 			'completed'   => array(
 				'label' => __( 'Completed', 'task-manager' ),
-				'items'  => array(),
+				'items' => array(),
 			),
 		);
 
@@ -82,7 +82,7 @@ class Export_Class extends \eoxia\Singleton_Util {
 			return false === $point->data['completed'];
 		} );
 
-		$export_data  = $task->data['id'] . ' - ' . $task->data['title'] . "\r\n\r\n";
+		$export_data = $task->data['id'] . ' - ' . $task->data['title'] . "\r\n\r\n";
 
 		if ( ! empty( $points_to_export ) ) {
 			foreach ( $points_to_export as $point_type => $point_type_def ) {
@@ -94,7 +94,7 @@ class Export_Class extends \eoxia\Singleton_Util {
 						if ( ! empty( $point_comments ) ) {
 							foreach ( $point_comments as $comment ) {
 								// Récupération de la longeur du titre du point + ce qui précéde : identifiant ou simple fleche pour aligner l'affichage.
-								$spacer = str_repeat( ' ', ( strlen( ( $args['with_id'] ? $comment->data['id'] . ' - ' : ' > ' ) ) + 3 ) );
+								$spacer       = str_repeat( ' ', ( strlen( ( $args['with_id'] ? $comment->data['id'] . ' - ' : ' > ' ) ) + 3 ) );
 								$export_data .= '	' . ( $args['with_id'] ? $comment->data['id'] . ' - ' : ' > ' ) . trim( str_replace( '<br>', "\r\n	" . $spacer, $comment->data['content'] ) ) . "\r\n\r\n";
 							}
 						}
