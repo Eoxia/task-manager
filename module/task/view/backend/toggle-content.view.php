@@ -78,7 +78,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			data-class="popup-notification"
 			data-action="load_notify_popup"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_notify_popup' ) ); ?>"
-			data-title="<?php echo sprintf( __( '#%1$s Notify popup', 'task-manager' ), esc_attr( $task->data['id'] ) ); ?>"
+			data-title="<?php /* Translators: 1. The task ID. */ echo esc_attr( sprintf( __( '#%1$s Notify popup', 'task-manager' ), esc_attr( $task->data['id'] ) ) ); ?>"
 			data-id="<?php echo esc_attr( $task->data['id'] ); ?>">
 		<span><i class="fas fa-bell"></i></span>
 	</li>
@@ -89,7 +89,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			data-class="popup-export"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_export_popup' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->data['id'] ); ?>"
-			data-loader="task-header-action">
+			data-loader="task-header-action"
+			data-title="<?php /* Translators: 1. The task ID. */ echo esc_attr( sprintf( __( '#%1$s Export task data', 'task-manager' ), esc_attr( $task->data['id'] ) ) ); ?>">
 		<span><i class="fas fa-upload"></i></span>
 	</li>
 

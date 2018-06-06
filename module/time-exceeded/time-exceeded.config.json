@@ -8,6 +8,6 @@
 		"action": {},
 		"class": {}
 	},
-	"default_time_exceeded": 30,
-	"default_filter_type": "history_time"
+	"default_time_exceeded": 60,
+	"state": false
 }

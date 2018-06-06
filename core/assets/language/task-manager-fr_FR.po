@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2018-05-30 11:26+0200\n"
-"PO-Revision-Date: 2018-05-30 11:28+0200\n"
+"POT-Creation-Date: 2018-06-06 14:39+0200\n"
+"PO-Revision-Date: 2018-06-06 14:40+0200\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -238,7 +238,7 @@ msgstr "( %smin )"
 
 #: module/history-time/view/backend/history-time.view.php:39
 msgid "Confirm deletion"
-msgstr "Êtes vous sûr de vouloir supprimer de prévisionnel ?"
+msgstr "Etes vous sûr de vouloir supprimer cet élément?"
 
 #: module/history-time/view/backend/main.view.php:27
 msgid "Event historic"
@@ -287,12 +287,12 @@ msgid "My daily activity"
 msgstr "Mon activité de la journée"
 
 #: module/indicator/view/backend/daily-activity.view.php:30
-#: module/time-exceeded/view/backend/main.view.php:24
+#: module/time-exceeded/view/backend/main.view.php:22
 msgid "Start date"
 msgstr "Date de début"
 
 #: module/indicator/view/backend/daily-activity.view.php:34
-#: module/time-exceeded/view/backend/main.view.php:30
+#: module/time-exceeded/view/backend/main.view.php:27
 msgid "End date"
 msgstr "Date de fin"
 
@@ -420,7 +420,7 @@ msgid "Move the point to"
 msgstr "Déplacer le point vers"
 
 #: module/point/view/backend/toggle-content.view.php:53
-#: module/task/view/backend/toggle-content.view.php:108
+#: module/task/view/backend/toggle-content.view.php:109
 msgid "OK"
 msgstr "OK"
 
@@ -675,57 +675,55 @@ msgstr "Notifier l'équipe"
 msgid "#%1$s Notify popup"
 msgstr "#%1$s Notification"
 
-#: module/task/view/backend/toggle-content.view.php:104
+#: module/task/view/backend/toggle-content.view.php:93
+#, php-format
+msgid "#%1$s Export task data"
+msgstr "#%1$s Export des données de la tâche"
+
+#: module/task/view/backend/toggle-content.view.php:105
 msgid "Move the task to"
 msgstr "Déplacer la tâche vers"
 
 #: module/time-exceeded/action/class-time-exceeded-action.php:43
+#: module/time-exceeded/view/backend/list.view.php:24
 msgid "Time exceeded"
 msgstr "Afficher les tâches avec un temps supérieur aux prévisions"
 
-#: module/time-exceeded/class/time-exceeded.class.php:124
+#: module/time-exceeded/class/time-exceeded.class.php:120
 msgid "No parent"
 msgstr "Pas de parent"
 
-#: module/time-exceeded/view/backend/list.view.php:20
+#: module/time-exceeded/view/backend/list.view.php:21
 msgid "Title"
 msgstr "Titre"
 
-#: module/time-exceeded/view/backend/list.view.php:21
+#: module/time-exceeded/view/backend/list.view.php:22
 msgid "Parent task"
 msgstr "Tâche parent"
 
-#: module/time-exceeded/view/backend/list.view.php:22
+#: module/time-exceeded/view/backend/list.view.php:23
 msgid "Time"
 msgstr "Temps"
 
-#: module/time-exceeded/view/backend/list.view.php:23
-msgid "Total time exceeded"
-msgstr "Temps supplémentaire passé"
-
-#: module/time-exceeded/view/backend/list.view.php:33
+#: module/time-exceeded/view/backend/list.view.php:34
 msgid "There is no task with exceeded time corresponding to your search."
 msgstr ""
 "Il n'y a pas de tâche dont le temps est dépassé qui correspondent à votre "
 "recherche"
 
+#: module/time-exceeded/view/backend/main.view.php:31
+msgid "Display task with time over"
+msgstr "Temps de référence (en minute)"
+
+#: module/time-exceeded/view/backend/main.view.php:34
+msgid "Require time history"
+msgstr "Uniquement avec prévisionnel"
+
 #: module/time-exceeded/view/backend/main.view.php:37
-msgid "Tasks with an exceeded forecast"
-msgstr "Tâches dépassant le prévisionnel"
-
-#: module/time-exceeded/view/backend/main.view.php:43
-msgid "Tasks without forecast over time beyound"
-msgstr "Tâches sans prévisionnel dépassant"
-
-#: module/time-exceeded/view/backend/main.view.php:46
-msgid "minutes"
-msgstr "minutes"
-
-#: module/time-exceeded/view/backend/main.view.php:49
 msgid "Display exceeded tasks"
 msgstr "Rechercher"
 
-#: module/time-exceeded/view/backend/main.view.php:56
+#: module/time-exceeded/view/backend/main.view.php:41
 msgid "Please use form above in order to view task where time is exceeded"
 msgstr ""
 "Merci d'utiliser le formulaire ci-dessus pour chercher et voir les tâches "
@@ -900,12 +898,6 @@ msgstr "Une erreur est survenu lors de la modification de la tâche %d"
 #, php-format
 msgid "%1$d tasks have been marked as archived on %2$d"
 msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
-
-#~ msgid "Display task with time over"
-#~ msgstr "Temps de référence (en minute)"
-
-#~ msgid "Require time history"
-#~ msgstr "Uniquement avec prévisionnel"
 
 #~ msgid "Import points from text file"
 #~ msgstr "Import de points depuis un fichier texte dans la tâche"
