@@ -15,18 +15,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="wrap wpeo-wrap wpeo-project-wrap">
+<div class="wrap wpeo-wrap tm-wrap">
 	<input type="hidden" class="user-id" value="<?php echo esc_attr( get_current_user_id() ); ?>" />
 
-	<div class="wpeo-project-dashboard">
-		<h2>
-			<?php	esc_html_e( 'Tasks', 'task-manager' ); ?>
-			<a 	href="#"
-					class="action-attribute add-new-h2"
-					data-action="create_task"
-					data-nonce="<?php echo esc_attr( wp_create_nonce( 'create_task' ) ); ?>"><?php esc_html_e( 'New task', 'task-manager' ); ?></a>
-		</h2>
-		<?php echo do_shortcode( '[task_manager_search_bar term="' . $term . '" categories_id_selected="' . $categories_id_selected . '" follower_id_selected="' . $follower_id_selected . '"]' ); ?>
+	<div class="tm-dashboard-header">
+		<div>
+			<h2>
+				<?php	esc_html_e( 'Tasks', 'task-manager' ); ?>
+				<a 	href="#"
+						class="action-attribute add-new-h2"
+						data-action="create_task"
+						data-nonce="<?php echo esc_attr( wp_create_nonce( 'create_task' ) ); ?>"><?php esc_html_e( 'New task', 'task-manager' ); ?></a>
+			</h2>
+			<?php echo apply_filters( 'tm_dashboard_header', '' ); // WPCS XSS ok; ?>
+		</div>
+		<div class="tm-dashboard-subheader" >
+			<?php echo apply_filters( 'tm_dashboard_subheader', '' ); // WPCS XSS ok; ?>
+		</div>
 	</div>
 
 

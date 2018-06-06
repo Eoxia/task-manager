@@ -42,7 +42,7 @@ $purple: #7c41c7;
 
 	// Original
 	.wpeo-project-task.white {
-		.wpeo-project-task-container, .wpeo-task-point-use-toggle p, .points .point {
+		.wpeo-project-task-container, .points .point {
 			background: #fff;
 		}
 		.wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-main-user li:last-child a {
@@ -61,7 +61,7 @@ $purple: #7c41c7;
 
 	// Red
 	.wpeo-project-task.red {
-		.wpeo-project-task-container, .wpeo-task-point-use-toggle p, .points .point {
+		.wpeo-project-task-container, .points .point {
 			background: $red-background;
 		}
 		.wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-main-user li:last-child a {
@@ -80,7 +80,7 @@ $purple: #7c41c7;
 
 	// Yellow
 	.wpeo-project-task.yellow {
-		.wpeo-project-task-container, .wpeo-task-point-use-toggle p, .points .point {
+		.wpeo-project-task-container, .points .point {
 			background: $yellow-background;
 		}
 		.wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-main-user li:last-child a {
@@ -99,7 +99,7 @@ $purple: #7c41c7;
 
 	// green
 	.wpeo-project-task.green {
-		.wpeo-project-task-container, .wpeo-task-point-use-toggle p, .points .point {
+		.wpeo-project-task-container, .points .point {
 			background: $green-background;
 		}
 		.wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-main-user li:last-child a {
@@ -118,7 +118,7 @@ $purple: #7c41c7;
 
 	// blue
 	.wpeo-project-task.blue {
-		.wpeo-project-task-container, .wpeo-task-point-use-toggle p, .points .point {
+		.wpeo-project-task-container, .points .point {
 			background: $blue-background;
 		}
 		.wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-main-user li:last-child a {
@@ -137,7 +137,7 @@ $purple: #7c41c7;
 
 	// purple
 	.wpeo-project-task.purple {
-		.wpeo-project-task-container, .wpeo-task-point-use-toggle p, .points .point {
+		.wpeo-project-task-container, .points .point {
 			background: $purple-background;
 		}
 		.wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-main-user li:last-child a {

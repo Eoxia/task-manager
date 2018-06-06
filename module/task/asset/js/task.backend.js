@@ -23,11 +23,10 @@ window.eoxiaJS.taskManager.task.refresh = function() {
 };
 
 window.eoxiaJS.taskManager.task.event = function() {
-	jQuery( '.wpeo-project-wrap' ).on( 'keypress', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.keyEnterEditTitle );
-	jQuery( '.wpeo-project-wrap' ).on( 'blur', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.editTitle );
-	jQuery( '.wpeo-project-wrap' ).on( 'click', '.wpeo-task-time-manage .list-display', window.eoxiaJS.taskManager.task.switchViewToLine );
+	jQuery( '.tm-wrap' ).on( 'keypress', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.keyEnterEditTitle );
+	jQuery( '.tm-wrap' ).on( 'blur', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.editTitle );
 	jQuery( window ).scroll( window.eoxiaJS.taskManager.task.onScrollLoadMore );
-	jQuery( '.wpeo-project-wrap' ).on( 'click', '.task-header-action .success span', window.eoxiaJS.taskManager.task.closeSuccess );
+	jQuery( '.tm-wrap' ).on( 'click', '.task-header-action .success span', window.eoxiaJS.taskManager.task.closeSuccess );
 	jQuery( '#poststuff' ).on( 'click', '#wpeo-task-metabox', window.eoxiaJS.taskManager.task.refresh );
 };
 
@@ -122,24 +121,6 @@ window.eoxiaJS.taskManager.task.editTitle = function( event, element ) {
 };
 
 /**
- * Réaffiches les points lors du clic.
- *
- * @since 1.5.0
- * @version 1.5.0
- *
- * @param  {ClickEvent} event         L'état de l'évènement lors du 'click'.
- * @return {void}
- */
-window.eoxiaJS.taskManager.task.switchViewToLine = function( event ) {
-	jQuery( this ).addClass( 'active' );
-	jQuery( this ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .dashicons-editor-ul.active' ).removeClass( 'active' );
-	jQuery( this ).closest( '.wpeo-project-task' ).find( '.activities' ).hide();
-	jQuery( this ).closest( '.wpeo-project-task' ).find( '.points.sortable' ).show();
-	jQuery( this ).closest( '.wpeo-project-task' ).find( '.wpeo-task-point-use-toggle' ).show();
-	window.eoxiaJS.refresh();
-};
-
-/**
  * Appel la méthode 'editTitle' pour modifier le titre lors de l'appuie de la touche entré.
  *
  * @since 1.0.0
@@ -216,7 +197,7 @@ window.eoxiaJS.taskManager.task.beforeChangeColor = function( triggeredElement, 
  * @version 1.3.6.0
  */
 window.eoxiaJS.taskManager.task.loadedAllTask = function( triggeredElement, response ) {
-	jQuery( '.wpeo-project-wrap .load-more' ).remove();
+	jQuery( '.tm-wrap .load-more' ).remove();
 
 	jQuery( '.list-task' ).masonry( 'remove', jQuery( '.wpeo-project-task' ) );
 	jQuery( '.list-task' ).replaceWith( response.data.view );
@@ -252,7 +233,7 @@ window.eoxiaJS.taskManager.task.loadedCorretiveTaskSuccess = function( triggered
 	jQuery( '.list-task' ).masonry();
 	window.eoxiaJS.taskManager.task.offset = 0;
 	window.eoxiaJS.taskManager.task.canLoadMore = true;
-	jQuery( '.wpeo-project-wrap .load-more' ).remove();
+	jQuery( '.tm-wrap .load-more' ).remove();
 
 	jQuery( '.wpeo-header-bar li.active' ).removeClass( 'active' );
 	jQuery( triggeredElement ).addClass( 'active' );

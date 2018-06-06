@@ -87,7 +87,7 @@ window.eoxiaJS.taskManager.navigation.checkDataBeforeSearch = function( triggere
  * @version 1.6.0
  */
 window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredElement, response ) {
-	jQuery( '.wpeo-project-wrap .load-more' ).remove();
+	jQuery( '.tm-wrap .load-more' ).remove();
 	window.eoxiaJS.loader.remove( jQuery( '.wpeo-general-search' ) );
 
 	jQuery( '.list-task' ).masonry( 'remove', jQuery( '.wpeo-project-task' ) );

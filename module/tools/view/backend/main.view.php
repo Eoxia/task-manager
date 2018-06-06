@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="wrap">
 	<h1><?php esc_html_e( 'Task Manager Tools', 'task-manager' ); ?></h1>
 
-	<div class="wpeo-project-wrap">
+	<div class="tm-wrap">
 		<table style="width: 100%; border-collapse: collapse;">
 			<tr style="text-align: left;">
 				<th style="padding: 2px; border: solid black 1px; width: 10%">Task ID</th>

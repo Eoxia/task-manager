@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="wrap wpeo-wrap">
 	<h1><?php esc_html_e( 'Task Manager settings', 'task-manager' ); ?></h1>
 
-	<div class="wpeo-project-wrap">
+	<div class="tm-wrap">
 
 		<div class="wpeo-tab">
 			<ul class="tab-list">

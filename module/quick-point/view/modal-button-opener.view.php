@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		data-task-id="<?php echo esc_attr( $task->data['id'] ); ?>"
 		data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_modal_quick_point' ) ); ?>"
 		data-quick="true"
-		data-class="wpeo-project-wrap quick-point">
+		data-class="tm-wrap quick-point">
 	<span class="fa-layers fa-fw">
 		<i class="fas fa-list-ul"></i>
 		<i class="fas fa-circle" data-fa-transform="up-6 right-8"></i>

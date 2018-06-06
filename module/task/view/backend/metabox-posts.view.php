@@ -14,8 +14,8 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
-<div class="wrap wpeo-project-wrap wpeo-wrap">
-	<div class="wpeo-project-dashboard">
+<div class="wrap tm-wrap wpeo-wrap">
+	<div class="tm-dashboard-header">
 		<?php echo apply_filters( 'tm_posts_metabox_project_dashboard', '', $post, $tasks ); // WPCS: XSS ok. ?>
 		<p class="alignright"><?php esc_html_e( 'Total time past', 'task-manager' ); ?> : <?php echo esc_html( $total_time_elapsed ); ?> / <?php echo esc_html( $total_time_estimated ); ?></p>
 	</div>

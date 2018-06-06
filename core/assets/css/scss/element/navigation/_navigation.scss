@@ -1,8 +1,8 @@
 /*	Version 1.8.0 */
-.wpeo-project-dashboard {
+.tm-dashboard-header {
 	position: fixed;
 	top: 32px;
-	height: 70px;
+	height: 110px;
 	background-color: #3495F0;
 	width: 98%;
 	margin: 0 0 0 -22px;
@@ -14,6 +14,20 @@
 		color: #FFF !important;
 		float: left;
 		margin: 15px 20px 0 0;
+		width: 13%;
+	}
+
+	div {
+		&::after {
+			clear: both;
+			content: "";
+			display: flex;
+		}
+		&.tm-dashboard-subheader {
+			ul {
+				margin: 0 0 0 13%;
+			}
+		}
 	}
 }
 

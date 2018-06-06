@@ -36,7 +36,7 @@ endif;
 			<ul class="wpeo-task-summary" >
 				<li class="wpeo-task-id">#<?php echo esc_html( $task->data['id'] ); ?></li>
 				<li class="wpeo-task-time-history wpeo-modal-event"
-						data-class="history-time wpeo-wrap wpeo-project-wrap"
+						data-class="history-time wpeo-wrap tm-wrap"
 						data-action="load_time_history"
 						data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_time_history' ) ); ?>"
 						data-title="<?php /* Translators: 1. The task ID. */ echo esc_attr( sprintf( __( '#%1$s Time history', 'task-manager' ), $task->data['id'] ) ); ?>"
@@ -69,16 +69,5 @@ endif;
 
 	<ul class="wpeo-task-filter" >
 		<?php echo apply_filters( 'tm_task_header', '', $task ); // WPCS: XSS ok. ?>
-
-		<li class="display-method-buttons">
-			<span class="dashicons dashicons-screenoptions list-display active wpeo-tooltip-event"
-				aria-label="<?php echo esc_attr_e( 'Edit display', 'task-manager' ); ?>"></span>
-
-			<span class="action-attribute dashicons dashicons-editor-ul grid-display wpeo-tooltip-event"
-						data-action="load_last_activity"
-						aria-label="<?php echo esc_attr_e( 'Activity display', 'task-manager' ); ?>"
-						data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_last_activity' ) ); ?>"
-						data-tasks-id="<?php echo esc_attr( $task->data['id'] ); ?>"></span>
-		</li>
 	</ul>
 </div>

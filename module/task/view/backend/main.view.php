@@ -14,7 +14,7 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
 
-<?php if ( $with_wrapper ) : ?><div class="wpeo-project-wrap"><?php endif; ?>
+<?php if ( $with_wrapper ) : ?><div class="tm-wrap"><?php endif; ?>
 	<div class="list-task">
 		<?php Task_Class::g()->display_tasks( $tasks ); ?>
 	</div>

@@ -3257,7 +3257,7 @@ readers do not read off random characters that represent icons */
 .list-task .task-header-action .task-color .color-element > *:hover {
   border: 1px solid rgba(0, 0, 0, 0.6); }
 
-.list-task .wpeo-project-task.white .wpeo-project-task-container, .list-task .wpeo-project-task.white .wpeo-task-point-use-toggle p, .list-task .wpeo-project-task.white .points .point {
+.list-task .wpeo-project-task.white .wpeo-project-task-container, .list-task .wpeo-project-task.white .points .point {
   background: #fff; }
 
 .list-task .wpeo-project-task.white .wpeo-tag-wrap li.wpeo-tag-tag-selected, .list-task .wpeo-project-task.white .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .list-task .wpeo-project-task.white .wpeo-main-user li:last-child a {
@@ -3272,7 +3272,7 @@ readers do not read off random characters that represent icons */
 .list-task .wpeo-project-task.white .wpeo-point-new-btn:hover {
   color: #0967bf; }
 
-.list-task .wpeo-project-task.red .wpeo-project-task-container, .list-task .wpeo-project-task.red .wpeo-task-point-use-toggle p, .list-task .wpeo-project-task.red .points .point {
+.list-task .wpeo-project-task.red .wpeo-project-task-container, .list-task .wpeo-project-task.red .points .point {
   background: #ffc9ca; }
 
 .list-task .wpeo-project-task.red .wpeo-tag-wrap li.wpeo-tag-tag-selected, .list-task .wpeo-project-task.red .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .list-task .wpeo-project-task.red .wpeo-main-user li:last-child a {
@@ -3287,7 +3287,7 @@ readers do not read off random characters that represent icons */
 .list-task .wpeo-project-task.red .wpeo-point-new-btn:hover {
   color: #db0005; }
 
-.list-task .wpeo-project-task.yellow .wpeo-project-task-container, .list-task .wpeo-project-task.yellow .wpeo-task-point-use-toggle p, .list-task .wpeo-project-task.yellow .points .point {
+.list-task .wpeo-project-task.yellow .wpeo-project-task-container, .list-task .wpeo-project-task.yellow .points .point {
   background: #fff1bd; }
 
 .list-task .wpeo-project-task.yellow .wpeo-tag-wrap li.wpeo-tag-tag-selected, .list-task .wpeo-project-task.yellow .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .list-task .wpeo-project-task.yellow .wpeo-main-user li:last-child a {
@@ -3302,7 +3302,7 @@ readers do not read off random characters that represent icons */
 .list-task .wpeo-project-task.yellow .wpeo-point-new-btn:hover {
   color: #da8e00; }
 
-.list-task .wpeo-project-task.green .wpeo-project-task-container, .list-task .wpeo-project-task.green .wpeo-task-point-use-toggle p, .list-task .wpeo-project-task.green .points .point {
+.list-task .wpeo-project-task.green .wpeo-project-task-container, .list-task .wpeo-project-task.green .points .point {
   background: #dfffd8; }
 
 .list-task .wpeo-project-task.green .wpeo-tag-wrap li.wpeo-tag-tag-selected, .list-task .wpeo-project-task.green .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .list-task .wpeo-project-task.green .wpeo-main-user li:last-child a {
@@ -3317,7 +3317,7 @@ readers do not read off random characters that represent icons */
 .list-task .wpeo-project-task.green .wpeo-point-new-btn:hover {
   color: #1f752e; }
 
-.list-task .wpeo-project-task.blue .wpeo-project-task-container, .list-task .wpeo-project-task.blue .wpeo-task-point-use-toggle p, .list-task .wpeo-project-task.blue .points .point {
+.list-task .wpeo-project-task.blue .wpeo-project-task-container, .list-task .wpeo-project-task.blue .points .point {
   background: #d5eaff; }
 
 .list-task .wpeo-project-task.blue .wpeo-tag-wrap li.wpeo-tag-tag-selected, .list-task .wpeo-project-task.blue .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .list-task .wpeo-project-task.blue .wpeo-main-user li:last-child a {
@@ -3332,7 +3332,7 @@ readers do not read off random characters that represent icons */
 .list-task .wpeo-project-task.blue .wpeo-point-new-btn:hover {
   color: #0967bf; }
 
-.list-task .wpeo-project-task.purple .wpeo-project-task-container, .list-task .wpeo-project-task.purple .wpeo-task-point-use-toggle p, .list-task .wpeo-project-task.purple .points .point {
+.list-task .wpeo-project-task.purple .wpeo-project-task-container, .list-task .wpeo-project-task.purple .points .point {
   background: #e6d2ff; }
 
 .list-task .wpeo-project-task.purple .wpeo-tag-wrap li.wpeo-tag-tag-selected, .list-task .wpeo-project-task.purple .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .list-task .wpeo-project-task.purple .wpeo-main-user li:last-child a {
@@ -3361,29 +3361,29 @@ readers do not read off random characters that represent icons */
 /* ----------------------------------
 		Task general settings
 -----------------------------------*/
-.wpeo-project-wrap ul, .wpeo-project-wrap li {
+.tm-wrap ul, .tm-wrap li {
   list-style: none;
   margin: 0; }
 
-.wpeo-project-wrap p, .wpeo-project-wrap ul, .wpeo-project-wrap li, .wpeo-project-wrap h2 {
+.tm-wrap p, .tm-wrap ul, .tm-wrap li, .tm-wrap h2 {
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box; }
 
-.wpeo-project-wrap .hidden {
+.tm-wrap .hidden {
   display: none; }
 
 /* ----------------------------------
 		Task Container
 -----------------------------------*/
-.wpeo-project-wrap .wpeo-project-task {
+.tm-wrap .wpeo-project-task {
   width: 100%;
   padding: 10px;
   font-size: 14px; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-project-task-container {
+.tm-wrap .wpeo-project-task .wpeo-project-task-container {
   background: #fff;
   -webkit-box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.2);
           box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.2);
@@ -3394,7 +3394,7 @@ readers do not read off random characters that represent icons */
 /* ----------------------------------
 		Task header
 -----------------------------------*/
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-header {
+.tm-wrap .wpeo-project-task .wpeo-task-header {
   padding: 14px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -3410,31 +3410,31 @@ readers do not read off random characters that represent icons */
           flex-direction: row;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2); }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-header:after {
+.tm-wrap .wpeo-project-task .wpeo-task-header:after {
   display: block;
   clear: both; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-header li {
+.tm-wrap .wpeo-project-task .wpeo-task-header li {
   margin: auto 0; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-id {
+.tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-id {
   font-weight: 800;
   min-width: 80px;
   max-width: 80px;
   width: 100%; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-title {
+.tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-title {
   width: 100%;
   padding: 0 0 0 8px; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-title h2 {
+.tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-title h2 {
   font-weight: 300;
   width: 100%;
   font-size: 20px;
   margin: 0;
   padding: 0; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-elapsed {
+.tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-elapsed {
   min-width: 200px;
   max-width: 200px;
   width: 100%;
@@ -3442,23 +3442,23 @@ readers do not read off random characters that represent icons */
   text-align: right;
   margin-left: auto; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-elapsed .wpeo-task-open-action {
+.tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-elapsed .wpeo-task-open-action {
   padding: 0 6px;
   color: rgba(0, 0, 0, 0.2);
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
-.wpeo-project-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-elapsed .wpeo-task-open-action:hover {
+.tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-elapsed .wpeo-task-open-action:hover {
   cursor: pointer;
   color: rgba(0, 0, 0, 0.4); }
 
 /* ----------------------------------
 		Task points
 -----------------------------------*/
-.wpeo-project-wrap .points {
+.tm-wrap .points {
   background: #fff; }
 
-.wpeo-project-wrap .points .point-container {
+.tm-wrap .points .point-container {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -3473,7 +3473,7 @@ readers do not read off random characters that represent icons */
           flex-direction: row;
   padding: 8px 14px 0 14px; }
 
-.wpeo-project-wrap .points .point-container .point-action, .wpeo-project-wrap .points .point-container .wpeo-point-summary, .wpeo-project-wrap .points .point-container .point-content {
+.tm-wrap .points .point-container .point-action, .tm-wrap .points .point-container .wpeo-point-summary, .tm-wrap .points .point-container .point-content {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -3487,118 +3487,80 @@ readers do not read off random characters that represent icons */
       -ms-flex-direction: row;
           flex-direction: row; }
 
-.wpeo-project-wrap .points .point-container .point-action {
+.tm-wrap .points .point-container .point-action {
   min-width: 120px;
   max-width: 120px;
   width: 100%;
   margin-left: auto; }
 
-.wpeo-project-wrap .points .point-container .point-action .wpeo-point-time, .wpeo-project-wrap .points .point-container .point-action .wpeo-point-comment {
+.tm-wrap .points .point-container .point-action .wpeo-point-time, .tm-wrap .points .point-container .point-action .wpeo-point-comment {
   margin-left: auto; }
 
-.wpeo-project-wrap .points .point-container .point-action .wpeo-point-time .dashicons-clock, .wpeo-project-wrap .points .point-container .point-action .wpeo-point-time span {
+.tm-wrap .points .point-container .point-action .wpeo-point-time .dashicons-clock, .tm-wrap .points .point-container .point-action .wpeo-point-time span {
   float: left; }
 
-.wpeo-project-wrap .points .point-container .point-action .wpeo-point-time .dashicons-clock {
+.tm-wrap .points .point-container .point-action .wpeo-point-time .dashicons-clock {
   margin-right: 4px; }
 
-.wpeo-project-wrap .points .point-container .point-action .wpeo-point-time span {
+.tm-wrap .points .point-container .point-action .wpeo-point-time span {
   margin: auto 0; }
 
-.wpeo-project-wrap .points .point-container .wpeo-point-summary {
+.tm-wrap .points .point-container .wpeo-point-summary {
   min-width: 80px;
   max-width: 80px;
   width: 100%; }
 
-.wpeo-project-wrap .points .point-container .wpeo-point-summary .action-attribute, .wpeo-project-wrap .points .point-container .wpeo-point-summary .wpeo-block-id {
+.tm-wrap .points .point-container .wpeo-point-summary .action-attribute, .tm-wrap .points .point-container .wpeo-point-summary .wpeo-block-id {
   margin: auto 0; }
 
-.wpeo-project-wrap .points .point-container .wpeo-point-summary .icon-toggle {
+.tm-wrap .points .point-container .wpeo-point-summary .icon-toggle {
   font-size: 16px;
   color: rgba(0, 0, 0, 0.6);
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
   line-height: 1.2; }
 
-.wpeo-project-wrap .points .point-container .wpeo-point-summary .icon-toggle:hover {
+.tm-wrap .points .point-container .wpeo-point-summary .icon-toggle:hover {
   cursor: pointer;
   color: rgba(0, 0, 0, 0.9);
   -webkit-animation-duration: 0.6s;
           animation-duration: 0.6s; }
 
-.wpeo-project-wrap .points .point-container .wpeo-point-summary .icon-toggle:hover.fa-angle-right {
+.tm-wrap .points .point-container .wpeo-point-summary .icon-toggle:hover.fa-angle-right {
   -webkit-animation-name: bounceLeft;
           animation-name: bounceLeft; }
 
-.wpeo-project-wrap .points .point-container .wpeo-point-summary .icon-toggle:hover.fa-angle-down {
+.tm-wrap .points .point-container .wpeo-point-summary .icon-toggle:hover.fa-angle-down {
   -webkit-animation-name: bounceTop;
           animation-name: bounceTop; }
 
-.wpeo-project-wrap .points .point-container .wpeo-point-summary .wpeo-block-id {
+.tm-wrap .points .point-container .wpeo-point-summary .wpeo-block-id {
   font-weight: 800; }
 
-.wpeo-project-wrap .points .point-container .point-content {
+.tm-wrap .points .point-container .point-content {
   width: 100%; }
 
-.wpeo-project-wrap .points .point-container .point-action .dashicons {
+.tm-wrap .points .point-container .point-action .dashicons {
   color: rgba(0, 0, 0, 0.8); }
 
-.wpeo-project-wrap .points .point.edit:first-child {
+.tm-wrap .points .point.edit:first-child {
   padding-top: 10px; }
 
-.wpeo-project-wrap .points .point:not(.edit) .point-content {
+.tm-wrap .points .point:not(.edit) .point-content {
   position: relative; }
 
-.wpeo-project-wrap .points .point:hover .wpeo-sort-point, .wpeo-project-wrap .points .point:hover .wpeo-task-setting i, .wpeo-project-wrap .points .point:hover .action-delete {
+.tm-wrap .points .point:hover .wpeo-sort-point, .tm-wrap .points .point:hover .wpeo-task-setting i, .tm-wrap .points .point:hover .action-delete {
   opacity: 1;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"; }
 
 /* ----------------------------------
-		Task completed points
------------------------------------*/
-.wpeo-project-wrap .wpeo-task-point-use-toggle {
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
-  margin-top: 24px;
-  padding-bottom: 16px;
-  text-align: center; }
-
-.wpeo-project-wrap .wpeo-task-point-use-toggle p {
-  display: inline-block;
-  padding: 0 20px;
-  position: relative;
-  top: -13px;
-  -webkit-transition: all 0.2s ease-out 0s;
-  transition: all 0.2s ease-out 0s;
-  background: #fff; }
-
-.wpeo-project-wrap .wpeo-task-point-use-toggle p:hover {
-  cursor: pointer; }
-
-.wpeo-project-wrap .wpeo-task-point-use-toggle .wpeo-point-toggle-arrow {
-  background: rgba(0, 0, 0, 0.3) none repeat scroll 0 0;
-  -webkit-border-radius: 50%;
-          border-radius: 50%;
-  color: #fff;
-  font-size: 14px;
-  margin-right: 4px;
-  padding: 4px 0; }
-
-.wpeo-project-wrap .wpeo-task-point-use-toggle .wpeo-point-toggle-a {
-  color: #000;
-  font-weight: bold;
-  text-decoration: none; }
-
-.wpeo-project-wrap .wpeo-task-point-use-toggle .points {
-  text-align: left; }
-
-/* ----------------------------------
 		Commentaires
 -----------------------------------*/
-.wpeo-project-wrap .points .point .comments {
+.tm-wrap .points .point .comments {
   background: rgba(0, 0, 0, 0.05);
   padding: 4px 0 10px 0; }
 
-.wpeo-project-wrap .points .point .comments .comment .wpeo-comment-container {
+.tm-wrap .points .point .comments .comment .wpeo-comment-container {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -3615,33 +3577,33 @@ readers do not read off random characters that represent icons */
   margin-left: 15%;
   width: 85%; }
 
-.wpeo-project-wrap .points .point .comments .comment .wpeo-comment-container .user {
+.tm-wrap .points .point .comments .comment .wpeo-comment-container .user {
   -webkit-border-radius: 50%;
           border-radius: 50%; }
 
-.wpeo-project-wrap .points .point .comments .comment.new ul input {
+.tm-wrap .points .point .comments .comment.new ul input {
   width: 100%;
   font-size: 13px;
   margin: 0;
   padding: 2px; }
 
-.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-date, .wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-time {
+.tm-wrap .points .point .comments .comment.new ul .wpeo-comment-date, .tm-wrap .points .point .comments .comment.new ul .wpeo-comment-time {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
   display: -ms-flexbox;
   display: flex; }
 
-.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-date span, .wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-time span {
+.tm-wrap .points .point .comments .comment.new ul .wpeo-comment-date span, .tm-wrap .points .point .comments .comment.new ul .wpeo-comment-time span {
   margin: auto;
   font-size: 14px;
   color: rgba(0, 0, 0, 0.4); }
 
-.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-date {
+.tm-wrap .points .point .comments .comment.new ul .wpeo-comment-date {
   width: 100%;
   max-width: 20%; }
 
-.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-content {
+.tm-wrap .points .point .comments .comment.new ul .wpeo-comment-content {
   position: relative;
   margin: 0 16px;
   width: 100%;
@@ -3652,30 +3614,30 @@ readers do not read off random characters that represent icons */
   transition: all .2s ease-out;
   padding-bottom: 2px; }
 
-.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-content:hover {
+.tm-wrap .points .point .comments .comment.new ul .wpeo-comment-content:hover {
   border-bottom: 1px solid rgba(0, 0, 0, 0.4); }
 
-.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-content:focus, .wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-content .content:focus {
+.tm-wrap .points .point .comments .comment.new ul .wpeo-comment-content:focus, .tm-wrap .points .point .comments .comment.new ul .wpeo-comment-content .content:focus {
   outline: none; }
 
-.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-content .content {
+.tm-wrap .points .point .comments .comment.new ul .wpeo-comment-content .content {
   min-height: 22px; }
 
-.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-content .wpeo-point-new-placeholder {
+.tm-wrap .points .point .comments .comment.new ul .wpeo-comment-content .wpeo-point-new-placeholder {
   color: rgba(0, 0, 0, 0.4);
   position: absolute;
   left: 6px;
   bottom: 2px;
   pointer-events: none; }
 
-.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-time {
+.tm-wrap .points .point .comments .comment.new ul .wpeo-comment-time {
   width: 100%;
   max-width: 12%; }
 
-.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-comment-time input {
+.tm-wrap .points .point .comments .comment.new ul .wpeo-comment-time input {
   padding: 2px; }
 
-.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-point-new-btn {
+.tm-wrap .points .point .comments .comment.new ul .wpeo-point-new-btn {
   text-align: right;
   width: 100%;
   max-width: 5%;
@@ -3684,32 +3646,32 @@ readers do not read off random characters that represent icons */
   margin: auto 0 auto auto;
   color: #389af6; }
 
-.wpeo-project-wrap .points .point .comments .comment.new ul .wpeo-point-new-btn:hover {
+.tm-wrap .points .point .comments .comment.new ul .wpeo-point-new-btn:hover {
   cursor: pointer;
   color: #69b3f8; }
 
-.wpeo-project-wrap .points .point .comments .comment.view ul, .wpeo-project-wrap .points .point .comments .comment.edit ul {
+.tm-wrap .points .point .comments .comment.view ul, .tm-wrap .points .point .comments .comment.edit ul {
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap; }
 
-.wpeo-project-wrap .points .point .comments .comment.view ul > .avatar, .wpeo-project-wrap .points .point .comments .comment.edit ul > .avatar {
+.tm-wrap .points .point .comments .comment.view ul > .avatar, .tm-wrap .points .point .comments .comment.edit ul > .avatar {
   width: 100%;
   max-width: 5%; }
 
-.wpeo-project-wrap .points .point .comments .comment.view ul > .avatar .user span, .wpeo-project-wrap .points .point .comments .comment.edit ul > .avatar .user span {
+.tm-wrap .points .point .comments .comment.view ul > .avatar .user span, .tm-wrap .points .point .comments .comment.edit ul > .avatar .user span {
   font-size: 12px; }
 
-.wpeo-project-wrap .points .point .comments .comment.view ul > .avatar .user img, .wpeo-project-wrap .points .point .comments .comment.view ul > .avatar .user .wpeo-avatar-initial, .wpeo-project-wrap .points .point .comments .comment.view ul > .avatar .user .wpeo-avatar-initial span, .wpeo-project-wrap .points .point .comments .comment.edit ul > .avatar .user img, .wpeo-project-wrap .points .point .comments .comment.edit ul > .avatar .user .wpeo-avatar-initial, .wpeo-project-wrap .points .point .comments .comment.edit ul > .avatar .user .wpeo-avatar-initial span {
+.tm-wrap .points .point .comments .comment.view ul > .avatar .user img, .tm-wrap .points .point .comments .comment.view ul > .avatar .user .wpeo-avatar-initial, .tm-wrap .points .point .comments .comment.view ul > .avatar .user .wpeo-avatar-initial span, .tm-wrap .points .point .comments .comment.edit ul > .avatar .user img, .tm-wrap .points .point .comments .comment.edit ul > .avatar .user .wpeo-avatar-initial, .tm-wrap .points .point .comments .comment.edit ul > .avatar .user .wpeo-avatar-initial span {
   -webkit-border-radius: 50%;
           border-radius: 50%; }
 
-.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-save-point, .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-save-point {
+.tm-wrap .points .point .comments .comment.view ul .wpeo-save-point, .tm-wrap .points .point .comments .comment.edit ul .wpeo-save-point {
   width: 100%;
   max-width: 5%;
   text-align: right; }
 
-.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-save-point i, .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-save-point i {
+.tm-wrap .points .point .comments .comment.view ul .wpeo-save-point i, .tm-wrap .points .point .comments .comment.edit ul .wpeo-save-point i {
   background: #3495f0;
   -webkit-border-radius: 50%;
           border-radius: 50%;
@@ -3723,23 +3685,23 @@ readers do not read off random characters that represent icons */
   transition: all 0.2s ease-out;
   display: inline-block; }
 
-.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-save-point i:hover, .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-save-point i:hover {
+.tm-wrap .points .point .comments .comment.view ul .wpeo-save-point i:hover, .tm-wrap .points .point .comments .comment.edit ul .wpeo-save-point i:hover {
   background: #1360c8;
   cursor: pointer; }
 
-.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-date, .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-date {
+.tm-wrap .points .point .comments .comment.view ul .wpeo-comment-date, .tm-wrap .points .point .comments .comment.edit ul .wpeo-comment-date {
   font-size: 12px;
   color: rgba(0, 0, 0, 0.4);
   width: 100%;
   max-width: 78%; }
 
-.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-content, .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-content {
+.tm-wrap .points .point .comments .comment.view ul .wpeo-comment-content, .tm-wrap .points .point .comments .comment.edit ul .wpeo-comment-content {
   width: 100%; }
 
-.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-content input, .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-content input {
+.tm-wrap .points .point .comments .comment.view ul .wpeo-comment-content input, .tm-wrap .points .point .comments .comment.edit ul .wpeo-comment-content input {
   width: 100%; }
 
-.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-time, .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-time {
+.tm-wrap .points .point .comments .comment.view ul .wpeo-comment-time, .tm-wrap .points .point .comments .comment.edit ul .wpeo-comment-time {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -3748,33 +3710,33 @@ readers do not read off random characters that represent icons */
   width: 100%;
   max-width: 10%; }
 
-.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-time span, .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-time span {
+.tm-wrap .points .point .comments .comment.view ul .wpeo-comment-time span, .tm-wrap .points .point .comments .comment.edit ul .wpeo-comment-time span {
   padding: 4px 4px 0 0; }
 
-.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-action, .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-action {
+.tm-wrap .points .point .comments .comment.view ul .wpeo-comment-action, .tm-wrap .points .point .comments .comment.edit ul .wpeo-comment-action {
   margin-left: auto; }
 
-.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-action .wpeo-comment-setting, .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-action .wpeo-comment-setting {
+.tm-wrap .points .point .comments .comment.view ul .wpeo-comment-action .wpeo-comment-setting, .tm-wrap .points .point .comments .comment.edit ul .wpeo-comment-action .wpeo-comment-setting {
   padding: 0 10px; }
 
-.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-action .wpeo-comment-setting i, .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-action .wpeo-comment-setting i {
+.tm-wrap .points .point .comments .comment.view ul .wpeo-comment-action .wpeo-comment-setting i, .tm-wrap .points .point .comments .comment.edit ul .wpeo-comment-action .wpeo-comment-setting i {
   color: rgba(0, 0, 0, 0.2);
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
-.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-action .wpeo-comment-setting:hover, .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-action .wpeo-comment-setting:hover {
+.tm-wrap .points .point .comments .comment.view ul .wpeo-comment-action .wpeo-comment-setting:hover, .tm-wrap .points .point .comments .comment.edit ul .wpeo-comment-action .wpeo-comment-setting:hover {
   cursor: pointer; }
 
-.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-comment-action .wpeo-comment-setting:hover i, .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-action .wpeo-comment-setting:hover i {
+.tm-wrap .points .point .comments .comment.view ul .wpeo-comment-action .wpeo-comment-setting:hover i, .tm-wrap .points .point .comments .comment.edit ul .wpeo-comment-action .wpeo-comment-setting:hover i {
   color: rgba(0, 0, 0, 0.4); }
 
-.wpeo-project-wrap .points .point .comments .comment.view ul .wpeo-save-point, .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-save-point {
+.tm-wrap .points .point .comments .comment.view ul .wpeo-save-point, .tm-wrap .points .point .comments .comment.edit ul .wpeo-save-point {
   margin-left: auto; }
 
-.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-time input {
+.tm-wrap .points .point .comments .comment.edit ul .wpeo-comment-time input {
   width: 100%; }
 
-.wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-date input, .wpeo-project-wrap .points .point .comments .comment.edit ul .wpeo-comment-time input {
+.tm-wrap .points .point .comments .comment.edit ul .wpeo-comment-date input, .tm-wrap .points .point .comments .comment.edit ul .wpeo-comment-time input {
   font-size: 12px; }
 
 /* ----------------------------------
@@ -3971,23 +3933,24 @@ readers do not read off random characters that represent icons */
 /* ----------------------------------
 		Affichage historique
 -----------------------------------*/
-.wpeo-project-wrap {
+.tm-wrap {
   /* Page indicateurs */
   /* Activity dans les posts */ }
 
-.wpeo-project-wrap .activities {
+.tm-wrap .activities {
   /* Jour */
-  /* Activity single */ }
+  /* Activity single */
+  /* bouton load more */ }
 
-.wpeo-project-wrap .activities > .content {
+.tm-wrap .activities > .content {
   padding: 1em; }
 
-.wpeo-project-wrap .activities .day {
+.tm-wrap .activities .day {
   position: relative;
   padding: 0.6em 0;
   clear: both; }
 
-.wpeo-project-wrap .activities .day .label {
+.tm-wrap .activities .day .label {
   font-size: 12px;
   font-weight: 900;
   color: #000;
@@ -3998,7 +3961,7 @@ readers do not read off random characters that represent icons */
   z-index: 50;
   padding-right: 1em; }
 
-.wpeo-project-wrap .activities .day:after {
+.tm-wrap .activities .day:after {
   display: block;
   content: '';
   height: 1px;
@@ -4008,7 +3971,7 @@ readers do not read off random characters that represent icons */
   left: 0;
   background: rgba(0, 0, 0, 0.05); }
 
-.wpeo-project-wrap .activities .activity {
+.tm-wrap .activities .activity {
   padding: 0.6em 0 1.6em 0;
   display: -webkit-box;
   display: -webkit-flex;
@@ -4026,22 +3989,22 @@ readers do not read off random characters that represent icons */
   /* Commentaire crée */
   /* Point validé */ }
 
-.wpeo-project-wrap .activities .activity .information {
+.tm-wrap .activities .activity .information {
   width: 100%;
   max-width: 50px;
   position: relative; }
 
-.wpeo-project-wrap .activities .activity .information .user {
+.tm-wrap .activities .activity .information .user {
   -webkit-border-radius: 50%;
           border-radius: 50%;
   border: 2px solid #fff;
   z-index: 50; }
 
-.wpeo-project-wrap .activities .activity .information .user img, .wpeo-project-wrap .activities .activity .information .user .wpeo-avatar-initial {
+.tm-wrap .activities .activity .information .user img, .tm-wrap .activities .activity .information .user .wpeo-avatar-initial {
   -webkit-border-radius: 50%;
           border-radius: 50%; }
 
-.wpeo-project-wrap .activities .activity .information .type {
+.tm-wrap .activities .activity .information .type {
   display: block;
   width: 22px;
   height: 22px;
@@ -4056,70 +4019,67 @@ readers do not read off random characters that represent icons */
   -webkit-border-radius: 4px;
           border-radius: 4px; }
 
-.wpeo-project-wrap .activities .activity .information .type:before {
+.tm-wrap .activities .activity .information .type:before {
   font-family: FontAwesome; }
 
-.wpeo-project-wrap .activities .activity .content {
+.tm-wrap .activities .activity .content {
   width: 100%;
   padding-left: 1em;
   margin: auto 0; }
 
-.wpeo-project-wrap .activities .activity .content .event-header {
+.tm-wrap .activities .activity .content .event-header {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
   display: -ms-flexbox;
   display: flex; }
 
-.wpeo-project-wrap .activities .activity .content .event-header .dashicons {
+.tm-wrap .activities .activity .content .event-header .dashicons {
   font-size: 16px;
   line-height: 1;
   width: 14px;
   height: 14px;
   vertical-align: top !important; }
 
-.wpeo-project-wrap .activities .activity .content .event-header .event-time {
+.tm-wrap .activities .activity .content .event-header .event-time {
   margin-left: auto;
   text-align: right; }
 
-.wpeo-project-wrap .activities .activity .content .event-header .event-time i {
+.tm-wrap .activities .activity .content .event-header .event-time i {
   color: rgba(0, 0, 0, 0.7); }
 
-.wpeo-project-wrap .activities .activity .content .event-title, .wpeo-project-wrap .activities .activity .content .event-client, .wpeo-project-wrap .activities .activity .content .event-task, .wpeo-project-wrap .activities .activity .content .event-point {
+.tm-wrap .activities .activity .content .event-title, .tm-wrap .activities .activity .content .event-client, .tm-wrap .activities .activity .content .event-task, .tm-wrap .activities .activity .content .event-point {
   font-weight: 700;
   display: block;
   margin-bottom: 0.4em;
   padding-right: 0.2em;
   color: rgba(0, 0, 0, 0.8); }
 
-.wpeo-project-wrap .activities .activity .content .event-title a, .wpeo-project-wrap .activities .activity .content .event-client a, .wpeo-project-wrap .activities .activity .content .event-task a, .wpeo-project-wrap .activities .activity .content .event-point a {
+.tm-wrap .activities .activity .content .event-title a, .tm-wrap .activities .activity .content .event-client a, .tm-wrap .activities .activity .content .event-task a, .tm-wrap .activities .activity .content .event-point a {
   color: rgba(0, 0, 0, 0.5);
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
   text-decoration: none; }
 
-.wpeo-project-wrap .activities .activity .content .event-title a:hover, .wpeo-project-wrap .activities .activity .content .event-client a:hover, .wpeo-project-wrap .activities .activity .content .event-task a:hover, .wpeo-project-wrap .activities .activity .content .event-point a:hover {
+.tm-wrap .activities .activity .content .event-title a:hover, .tm-wrap .activities .activity .content .event-client a:hover, .tm-wrap .activities .activity .content .event-task a:hover, .tm-wrap .activities .activity .content .event-point a:hover {
   color: rgba(0, 0, 0, 0.8); }
 
-.wpeo-project-wrap .activities .activity .content .event-content {
+.tm-wrap .activities .activity .content .event-content {
   font-family: 'kalamregular';
   color: rgba(0, 0, 0, 0.9); }
 
-.wpeo-project-wrap .activities .activity .content .event-content a {
+.tm-wrap .activities .activity .content .event-content a {
   color: rgba(0, 0, 0, 0.9);
   text-decoration: none; }
 
-.wpeo-project-wrap .activities .activity.completed-point .information .type {
+.tm-wrap .activities .activity.completed-point .information .type {
   background: #35c54e;
   color: #fff; }
 
-.wpeo-project-wrap .activities .activity.completed-point .content .event-title {
+.tm-wrap .activities .activity.completed-point .content .event-title {
   text-decoration: line-through; }
 
-.wpeo-project-wrap .activities {
-  /* bouton load more */ }
-
-.wpeo-project-wrap .activities .load-more-history {
+.tm-wrap .activities .load-more-history {
   background: #389af6;
   border: 0;
   -webkit-box-shadow: none;
@@ -4131,22 +4091,22 @@ readers do not read off random characters that represent icons */
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
-.wpeo-project-wrap .activities .load-more-history:hover {
+.tm-wrap .activities .load-more-history:hover {
   cursor: pointer;
   background: #69b3f8; }
 
-.wpeo-project-wrap .daily-activity .event-header [class*="event"] {
+.tm-wrap .daily-activity .event-header [class*="event"] {
   width: 25%; }
 
-.wpeo-project-wrap .daily-activity .event-header [class*="event"] i {
+.tm-wrap .daily-activity .event-header [class*="event"] i {
   margin-right: 0.4em;
   color: rgba(0, 0, 0, 0.3); }
 
-.wpeo-project-wrap .post-last-activity {
+.tm-wrap .post-last-activity {
   margin-left: 20px;
   float: left;
   width: 40%; }
 
-.wpeo-project-wrap .post-last-activity li:first-child {
+.tm-wrap .post-last-activity li:first-child {
   text-align: center;
   cursor: pointer; }

@@ -39,7 +39,7 @@ $green: #47e58e;
 /* ----------------------------------
 		Task general settings
 -----------------------------------*/
-.wpeo-project-wrap {
+.tm-wrap {
 	ul, li {
 		list-style: none;
 		margin: 0;
@@ -58,7 +58,7 @@ $green: #47e58e;
 /* ----------------------------------
 		Task Container
 -----------------------------------*/
-.wpeo-project-wrap {
+.tm-wrap {
 	.wpeo-project-task {
 		width: 100%;
 		padding: 10px;
@@ -75,7 +75,7 @@ $green: #47e58e;
 /* ----------------------------------
 		Task header
 -----------------------------------*/
-.wpeo-project-wrap {
+.tm-wrap {
 	.wpeo-project-task .wpeo-task-header {
 		padding: 14px;
 		display: flex;
@@ -129,7 +129,7 @@ $green: #47e58e;
 /* ----------------------------------
 		Task points
 -----------------------------------*/
-.wpeo-project-wrap {
+.tm-wrap {
 	.points {
 		background: #fff;
 		.point-container {
@@ -221,48 +221,9 @@ $green: #47e58e;
 }
 
 /* ----------------------------------
-		Task completed points
------------------------------------*/
-.wpeo-project-wrap {
-	.wpeo-task-point-use-toggle {
-		border-top: 1px solid rgba(0, 0, 0, 0.2);
-		margin-top: 24px;
-		padding-bottom: 16px;
-		text-align: center;
-		p {
-			display: inline-block;
-			padding: 0 20px;
-			position: relative;
-			top: -13px;
-			transition: all 0.2s ease-out 0s;
-			background: #fff;
-			&:hover {
-				cursor: pointer;
-			}
-		}
-		.wpeo-point-toggle-arrow {
-			background: rgba(0, 0, 0, 0.3) none repeat scroll 0 0;
-			border-radius: 50%;
-			color: #fff;
-			font-size: 14px;
-			margin-right: 4px;
-			padding: 4px 0;
-		}
-		.wpeo-point-toggle-a {
-			color: #000;
-			font-weight: bold;
-			text-decoration: none;
-		}
-		.points {
-			text-align: left;
-		}
-	}
-}
-
-/* ----------------------------------
 		Commentaires
 -----------------------------------*/
-.wpeo-project-wrap {
+.tm-wrap {
 	.points .point .comments {
 		background: rgba(0,0,0,0.05);
 		padding: 4px 0 10px 0;
@@ -601,6 +562,6 @@ $green: #47e58e;
 /* ----------------------------------
 		Affichage historique
 -----------------------------------*/
-.wpeo-project-wrap {
+.tm-wrap {
 	@import "element/activity/activity";
 }

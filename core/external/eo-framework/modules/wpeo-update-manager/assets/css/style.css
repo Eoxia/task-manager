@@ -15,9 +15,9 @@
 .fa,
 .fas,
 .far,
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item.wpeo-update-done-item .icon:before,
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item.wpeo-update-done-item .icon:before,
 .fal,
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-spin .icon:before,
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-spin .icon:before,
 .fab {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -102,29 +102,27 @@
 .fa.fa-pull-left,
 .fas.fa-pull-left,
 .far.fa-pull-left,
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item.wpeo-update-done-item .fa-pull-left.icon:before,
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item.wpeo-update-done-item .fa-pull-left.icon:before,
 .fal.fa-pull-left,
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-spin .fa-pull-left.icon:before,
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-spin .fa-pull-left.icon:before,
 .fab.fa-pull-left {
   margin-right: .3em; }
 
 .fa.fa-pull-right,
 .fas.fa-pull-right,
 .far.fa-pull-right,
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item.wpeo-update-done-item .fa-pull-right.icon:before,
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item.wpeo-update-done-item .fa-pull-right.icon:before,
 .fal.fa-pull-right,
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-spin .fa-pull-right.icon:before,
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-spin .fa-pull-right.icon:before,
 .fab.fa-pull-right {
   margin-left: .3em; }
 
 .fa-spin {
   -webkit-animation: fa-spin 2s infinite linear;
-       -o-animation: fa-spin 2s infinite linear;
           animation: fa-spin 2s infinite linear; }
 
 .fa-pulse {
   -webkit-animation: fa-spin 1s infinite steps(8);
-       -o-animation: fa-spin 1s infinite steps(8);
           animation: fa-spin 1s infinite steps(8); }
 
 @-webkit-keyframes fa-spin {
@@ -135,64 +133,48 @@
     -webkit-transform: rotate(360deg);
             transform: rotate(360deg); } }
 
-@-o-keyframes fa-spin {
-  0% {
-    -o-transform: rotate(0deg);
-       transform: rotate(0deg); }
-  100% {
-    -o-transform: rotate(360deg);
-       transform: rotate(360deg); } }
-
 @keyframes fa-spin {
   0% {
     -webkit-transform: rotate(0deg);
-         -o-transform: rotate(0deg);
             transform: rotate(0deg); }
   100% {
     -webkit-transform: rotate(360deg);
-         -o-transform: rotate(360deg);
             transform: rotate(360deg); } }
 
 .fa-rotate-90 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
   -webkit-transform: rotate(90deg);
       -ms-transform: rotate(90deg);
-       -o-transform: rotate(90deg);
           transform: rotate(90deg); }
 
 .fa-rotate-180 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
   -webkit-transform: rotate(180deg);
       -ms-transform: rotate(180deg);
-       -o-transform: rotate(180deg);
           transform: rotate(180deg); }
 
 .fa-rotate-270 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
   -webkit-transform: rotate(270deg);
       -ms-transform: rotate(270deg);
-       -o-transform: rotate(270deg);
           transform: rotate(270deg); }
 
 .fa-flip-horizontal {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
   -webkit-transform: scale(-1, 1);
       -ms-transform: scale(-1, 1);
-       -o-transform: scale(-1, 1);
           transform: scale(-1, 1); }
 
 .fa-flip-vertical {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
   -webkit-transform: scale(1, -1);
       -ms-transform: scale(1, -1);
-       -o-transform: scale(1, -1);
           transform: scale(1, -1); }
 
 .fa-flip-horizontal.fa-flip-vertical {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
   -webkit-transform: scale(-1, -1);
       -ms-transform: scale(-1, -1);
-       -o-transform: scale(-1, -1);
           transform: scale(-1, -1); }
 
 :root .fa-rotate-90,
@@ -3248,7 +3230,8 @@ readers do not read off random characters that represent icons */
   src: url("../../../../core/assets/css/font/fa-light-300.eot");
   src: url("../../../../core/assets/css/font/fa-light-300.eot?#iefix") format("embedded-opentype"), url("../../../../core/assets/css/font/fa-light-300.woff2") format("woff2"), url("../../../../core/assets/css/font/fa-light-300.woff") format("woff"), url("../../../../core/assets/css/font/fa-light-300.ttf") format("truetype"), url("../../../../core/assets/css/font/fa-light-300.svg#fontawesome") format("svg"); }
 
-.fal, .wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-spin .icon:before {
+.fal,
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-spin .icon:before {
   font-family: 'Font Awesome 5 Pro';
   font-weight: 300; }
 
@@ -3263,7 +3246,8 @@ readers do not read off random characters that represent icons */
   src: url("../../../../core/assets/css/font/fa-regular-400.eot");
   src: url("../../../../core/assets/css/font/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("../../../../core/assets/css/font/fa-regular-400.woff2") format("woff2"), url("../../../../core/assets/css/font/fa-regular-400.woff") format("woff"), url("../../../../core/assets/css/font/fa-regular-400.ttf") format("truetype"), url("../../../../core/assets/css/font/fa-regular-400.svg#fontawesome") format("svg"); }
 
-.far, .wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item.wpeo-update-done-item .icon:before {
+.far,
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item.wpeo-update-done-item .icon:before {
   font-family: 'Font Awesome 5 Pro';
   font-weight: 400; }
 
@@ -3289,13 +3273,13 @@ readers do not read off random characters that represent icons */
 /**
  * Interface de mise à jour des données
  */
-.wpeo-project-wrap .notice {
+.tm-wrap .notice {
   margin-left: 0; }
 
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-grid {
+.tm-wrap .wpeo-project-update-manager .wpeo-grid {
   width: 100%; }
 
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item {
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item {
   display: block;
   background-color: #fff;
   font-size: 14px;
@@ -3306,20 +3290,19 @@ readers do not read off random characters that represent icons */
   display: flex;
   height: 100%;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item:after {
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item:after {
   display: block;
   content: '';
   clear: both; }
 
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-spin {
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-spin {
   width: 80px;
   position: relative;
   border-left: 6px solid #4c4c4c; }
 
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-spin .wpeo-update-spinner, .wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-spin .icon {
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-spin .wpeo-update-spinner, .tm-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-spin .icon {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -3327,18 +3310,16 @@ readers do not read off random characters that represent icons */
   padding: 0;
   font-size: 20px; }
 
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-spin .wpeo-update-spinner {
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-spin .wpeo-update-spinner {
   opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   -webkit-transform: translate(-50%, -120%);
       -ms-transform: translate(-50%, -120%);
-       -o-transform: translate(-50%, -120%);
           transform: translate(-50%, -120%);
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-spin .icon {
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-spin .icon {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: inline-block;
@@ -3349,32 +3330,30 @@ readers do not read off random characters that represent icons */
   vertical-align: -.125em;
   -webkit-transform: translate(-50%, -50%);
       -ms-transform: translate(-50%, -50%);
-       -o-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-spin .icon:before {
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-spin .icon:before {
   content: "\f30d"; }
 
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-container {
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-container {
   width: 100%;
   margin: auto 0;
   padding: 2em 2em 2em 0em; }
 
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-content .wpeo-update-item-title {
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-content .wpeo-update-item-title {
   font-size: 12px;
   text-transform: uppercase;
   color: rgba(0, 0, 0, 0.8);
   font-weight: 900;
   margin-bottom: 0.4em; }
 
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-content .wpeo-update-item-description {
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-content .wpeo-update-item-description {
   font-size: 14px;
   color: rgba(0, 0, 0, 0.5); }
 
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-progress {
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-progress {
   background: rgba(0, 0, 0, 0.1);
   position: relative;
   display: block;
@@ -3386,7 +3365,7 @@ readers do not read off random characters that represent icons */
   overflow: hidden;
   margin-top: 2em; }
 
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-progress .wpeo-update-item-progression {
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-progress .wpeo-update-item-progression {
   position: absolute;
   background-color: #47e58e;
   top: 0;
@@ -3394,49 +3373,45 @@ readers do not read off random characters that represent icons */
   width: 0%;
   height: 100%;
   -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out; }
 
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-progress .wpeo-update-item-stats {
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item .wpeo-update-item-progress .wpeo-update-item-stats {
   position: relative;
   font-size: 12px; }
 
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item.wpeo-update-in-progress-item {
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item.wpeo-update-in-progress-item {
   -webkit-transform: translateX(-10px);
       -ms-transform: translateX(-10px);
-       -o-transform: translateX(-10px);
           transform: translateX(-10px); }
 
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item.wpeo-update-in-progress-item .wpeo-update-item-spin {
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item.wpeo-update-in-progress-item .wpeo-update-item-spin {
   border-left: 6px solid #0d8aff; }
 
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item.wpeo-update-in-progress-item .wpeo-update-item-spin .fa-spin {
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item.wpeo-update-in-progress-item .wpeo-update-item-spin .fa-spin {
   color: #0d8aff; }
 
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item.wpeo-update-in-progress-item .wpeo-update-spinner {
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item.wpeo-update-in-progress-item .wpeo-update-spinner {
   opacity: 1;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
   -webkit-transform: translate(-50%, -50%);
       -ms-transform: translate(-50%, -50%);
-       -o-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%); }
 
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item.wpeo-update-in-progress-item .icon {
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item.wpeo-update-in-progress-item .icon {
   -webkit-transform: translate(-50%, 0%);
       -ms-transform: translate(-50%, 0%);
-       -o-transform: translate(-50%, 0%);
           transform: translate(-50%, 0%);
   opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; }
 
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item.wpeo-update-done-item .wpeo-update-item-spin {
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item.wpeo-update-done-item .wpeo-update-item-spin {
   border-left: 6px solid #47e58e; }
 
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-item.wpeo-update-done-item .icon:before {
+.tm-wrap .wpeo-project-update-manager .wpeo-update-item.wpeo-update-done-item .icon:before {
   content: "\f00c";
   color: #47e58e; }
 
-.wpeo-project-wrap .wpeo-project-update-manager .wpeo-update-general-message {
+.tm-wrap .wpeo-project-update-manager .wpeo-update-general-message {
   width: 80%;
   margin: 0 auto;
   font-size: 14px;

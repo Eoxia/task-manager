@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="wpeo-wrap wpeo-project-wrap">
+<div class="wpeo-wrap tm-wrap">
 	<input type="hidden" class="user-id" value="<?php echo esc_attr( get_current_user_id() ); ?>" />
 	<input type="hidden" name="action_when_update_finished" value="tm_redirect_to_dashboard" />
 

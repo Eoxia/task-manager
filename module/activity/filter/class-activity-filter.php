@@ -25,6 +25,7 @@ class Activity_Filter {
 	 */
 	public function __construct() {
 		add_filter( 'tm_posts_metabox_project_dashboard', array( $this, 'post_last_activity' ), 10, 3 );
+		add_filter( 'tm_task_header', array( $this, 'task_display_type_choice' ), 10, 2 );
 	}
 
 	/**
@@ -65,6 +66,24 @@ class Activity_Filter {
 			) );
 			$current_output .= ob_get_clean();
 		}
+
+		return $current_output;
+	}
+
+	/**
+	 * Ajoute les boutons permettant de choisir le mode d'affichage dans la tâche: mode normale ou en mode "activité"
+	 *
+	 * @param  string     $current_output Le contenu actuel du filtre que l'on va modifier.
+	 * @param  Task_Model $task           La tâche sur laquelle on se trouve.
+	 *
+	 * @return string                     Le contenu modifié.
+	 */
+	public function task_display_type_choice( $current_output, $task ) {
+		ob_start();
+		\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/task-header-button', array(
+			'task' => $task,
+		) );
+		$current_output .= ob_get_clean();
 
 		return $current_output;
 	}

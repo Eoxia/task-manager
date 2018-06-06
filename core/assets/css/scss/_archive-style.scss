@@ -56,7 +56,7 @@ $color__green: #47e58e;
 }
 
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-.wpeo-project-wrap {
+.tm-wrap {
 	.list-task {
 		.wpeo-project-task {
 			}
@@ -64,7 +64,7 @@ $color__green: #47e58e;
 	}
 }
 
-.wpeo-project-wrap .wpeo-project-task-container {
+.tm-wrap .wpeo-project-task-container {
 	input[type="text"], textarea {
 		background-color: transparent;
 	}
@@ -77,7 +77,7 @@ $color__green: #47e58e;
 /* ----------------------------------
 		Global
 -----------------------------------*/
-.wpeo-project-wrap {
+.tm-wrap {
 
 	input[type="text"] {
 		border: 0;
@@ -129,7 +129,7 @@ $color__green: #47e58e;
 /* ----------------------------------
 		Barre de navigation
 -----------------------------------*/
-.wpeo-project-wrap {
+.tm-wrap {
 
 	.wpeo-no-display {
 		display: none;
@@ -326,7 +326,7 @@ $color__green: #47e58e;
 		Les derniers commentaires
 -----------------------------------*/
 
-.wpeo-project-wrap {
+.tm-wrap {
 	.wpeo-project-last-comment {
 		position: relative;
 		background-color: #ffffff;
@@ -386,7 +386,7 @@ $color__green: #47e58e;
 /* ----------------------------------
 		Header affichage tâche
 -----------------------------------*/
-.wpeo-project-wrap {
+.tm-wrap {
 	.wpeo-archive {
 		display: none
 	}
@@ -544,7 +544,7 @@ $color__green: #47e58e;
 						color: rgba(0,0,0,0.6);
 					}
 				}
-				li.display-method-buttons {
+				li.tm-task-display-method-buttons {
 					margin-left: auto;
 					.list-display, .grid-display {
 						width: 26px;
@@ -581,7 +581,7 @@ $color__green: #47e58e;
 }
 
 
-.wpeo-project-wrap {
+.tm-wrap {
 /* -------------
 Popup
 ------------- */
@@ -755,7 +755,7 @@ Popup
 /* ----------------------------------
 		Content affichage tâche
 -----------------------------------*/
-.wpeo-project-wrap {
+.tm-wrap {
 	.points {
 		background: rgba(0,0,0,.05);
 		.point-container {
@@ -913,7 +913,7 @@ Popup
 /* ----------------------------------
 		Commentaires
 -----------------------------------*/
-.wpeo-project-wrap {
+.tm-wrap {
 	.points .point .comments {
 		background: rgba(0,0,0,0.05);
 		padding: 4px 0 10px 0;
@@ -1089,49 +1089,10 @@ Popup
 
 
 /* ----------------------------------
-		Points terminés
------------------------------------*/
-.wpeo-project-wrap {
-	.wpeo-task-point-use-toggle {
-		border-top: 1px solid rgba(0, 0, 0, 0.2);
-		margin: 24px 0 16px;
-		text-align: center;
-		p {
-			display: inline-block;
-			padding: 0 20px;
-			position: relative;
-			top: -13px;
-			transition: all 0.2s ease-out 0s;
-			background: #fff;
-			&:hover {
-				cursor: pointer;
-			}
-		}
-		.wpeo-point-toggle-arrow {
-			background: rgba(0, 0, 0, 0.3) none repeat scroll 0 0;
-			border-radius: 50%;
-			color: #fff;
-			font-size: 14px;
-			margin-right: 4px;
-			padding: 4px 0;
-		}
-		.wpeo-point-toggle-a {
-			color: #000;
-			font-weight: bold;
-			text-decoration: none;
-		}
-		.points {
-			text-align: left;
-		}
-	}
-}
-
-
-/* ----------------------------------
 		Footer affichage tags
 -----------------------------------*/
 
-.wpeo-project-wrap {
+.tm-wrap {
 	.wpeo-tag-wrap {
 		display: flex;
 		flex-wrap: wrap;
@@ -1192,7 +1153,7 @@ Popup
 /* ----------------------------------
 		Affichage historique
 -----------------------------------*/
-.wpeo-project-wrap {
+.tm-wrap {
 	.activities {
 		> .content {
 			padding: 1em;
@@ -1371,7 +1332,7 @@ Popup
 /* ----------------------------------
 		Footer affichage utilisateurs
 -----------------------------------*/
-.wpeo-project-wrap {
+.tm-wrap {
 	.wpeo-ul-users {
 		display: flex;
 		flex-wrap: wrap;
@@ -1527,7 +1488,7 @@ Popup
 		Dashboard
 -----------------------------------*/
 
-.wpeo-project-wrap {
+.tm-wrap {
 	.wpeo-window-dashboard {
 		margin: 10px 10px 0 0;
 		padding-top: 10px;
@@ -2401,7 +2362,7 @@ Popup
 /* ----------------------------------
 		More task loader
 -----------------------------------*/
-.wpeo-project-wrap {
+.tm-wrap {
 	.load-more {
 		text-align: center;
 		display: none;
@@ -2723,7 +2684,7 @@ Popup
 /* ----------------------------------
 		Temporaire pour le blink
 -----------------------------------*/
-body .wpeo-project-wrap {
+body .tm-wrap {
 	.blink {
 		display: block;
 		width: 100%;
@@ -2736,7 +2697,7 @@ body .wpeo-project-wrap {
 		Responsive
 -----------------------------------*/
 @media ( max-width: 1000px ) {
-	.wpeo-project-wrap {
+	.tm-wrap {
 		.list-task {
 			.wpeo-project-task {
 				width: 100%;

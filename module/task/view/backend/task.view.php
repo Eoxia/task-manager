@@ -22,9 +22,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php \eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task-header', array( 'task' => $task ) ); ?>
 		<!-- Fin en tête de la tâche -->
 
-		<!-- Historique de la tâche -->
-		<?php \eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/main', array() ); ?>
-
 		<!-- Corps de la tâche -->
 		<?php Point_Class::g()->display( $task->data['id'] ); ?>
 		<!-- Fin corps de la tâche -->

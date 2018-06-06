@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="wrap wpeo-project-wrap page-indicator">
+<div class="wrap tm-wrap page-indicator">
 	<h2><?php esc_html_e( 'Indicator', 'task-manager' ); ?></h2>
 
 	<form name="my_form" method="post">

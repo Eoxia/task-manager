@@ -81,7 +81,7 @@ window.eoxiaJS.taskManager.point.activePoint = function( event ) {
  * @version 1.4.0
  */
 window.eoxiaJS.taskManager.point.refresh = function() {
-	jQuery( '.wpeo-project-wrap .points.sortable' ).sortable( {
+	jQuery( '.tm-wrap .points.sortable' ).sortable( {
 		handle: '.wpeo-sort-point',
 		items: 'div.point.edit',
 		update: window.eoxiaJS.taskManager.point.editOrder

@@ -32,7 +32,7 @@ module.exports.goToApp = function(nightmare, cb) {
 		it('It should go to TheEPI main page', function( done ) {
 			nightmare
 				.goto('http://127.0.0.1/wordpress/wp-admin/admin.php?page=wpeomtm-dashboard')
-				.wait('.wpeo-project-wrap')
+				.wait('.tm-wrap')
 				.evaluate(function() {
 					return;
 				})

@@ -51,6 +51,7 @@ class Activity_Action {
 		$follower_id_selected   = ! empty( $_POST['follower_id_selected'] ) ? (int) $_POST['follower_id_selected'] : 0;
 		$frontend               = ! empty( $_POST['frontend'] ) ? true : false;
 
+		// On récupère les éléments pour lesquels il faut afficher l'historique.
 		if ( empty( $tasks_id ) ) {
 			$tasks = Task_Class::g()->get_tasks( array(
 				'posts_per_page' => \eoxia\Config_Util::$init['task-manager']->task->posts_per_page,
@@ -66,6 +67,7 @@ class Activity_Action {
 			$tasks_id = explode( ',', $tasks_id );
 		}
 
+		// Récupération de l'historique.
 		$datas = Activity_Class::g()->get_activity( $tasks_id, $offset );
 
 		if ( ! empty( $offset ) ) {
@@ -83,21 +85,14 @@ class Activity_Action {
 			'last_date' => $last_date,
 			'offset'    => $offset,
 		) );
-		$view = '<div class="wpeo-project-wrap" ><div class="activities" >' . ob_get_clean() . '</div></div>';
+		$history_list = ob_get_clean();
 
-		$data_search = Navigation_Class::g()->get_search_result( $term, 'any', $categories_id_selected, $follower_id_selected );
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/title', array(
-			'term'                => $data_search['term'],
-			'categories_searched' => $data_search['categories_searched'],
-			'follower_searched'   => $data_search['follower_searched'],
-			'have_search'         => $data_search['have_search'],
+		\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/main', array(
+			'history'        => $history_list,
+			'has_pagination' => ( \eoxia\Config_Util::$init['task-manager']->activity->activity_per_page !== $datas['count'] ) ? true : false,
 		) );
-		$title_popup = ob_get_clean();
-
-		if ( ! empty( $title_popup ) ) {
-			$title_popup = ':' . $title_popup;
-		}
+		$view = ob_get_clean();
 
 		wp_send_json_success( array(
 			'namespace'        => ! $frontend ? 'taskManager' : 'taskManagerFrontendWPShop',
@@ -107,7 +102,6 @@ class Activity_Action {
 			'offset'           => $offset,
 			'last_date'        => $last_date,
 			'buttons_view'     => '',
-			'end'              => ( \eoxia\Config_Util::$init['task-manager']->activity->activity_per_page !== $datas['count'] ) ? true : false,
 		) );
 	}
 

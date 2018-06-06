@@ -28,6 +28,26 @@ window.eoxiaJS.taskManager.activity.init = function() {
  */
 window.eoxiaJS.taskManager.activity.event = function() {
 	jQuery( document ).on( 'click', '.activities .load-more-history', window.eoxiaJS.taskManager.activity.loadMoreHistory );
+
+	jQuery( '.tm-wrap' ).on( 'click', '.tm-task-display-method-buttons .list-display', window.eoxiaJS.taskManager.activity.switchViewToLine );
+};
+
+/**
+ * Réaffiches les points lors du clic.
+ *
+ * @since 1.5.0
+ * @version 1.5.0
+ *
+ * @param  {ClickEvent} event         L'état de l'évènement lors du 'click'.
+ * @return {void}
+ */
+window.eoxiaJS.taskManager.activity.switchViewToLine = function( event ) {
+	var taskElement = jQuery( this ).closest( '.wpeo-project-task' );
+	taskElement.find( '.tm-task-display-method-buttons span.active' ).removeClass( 'active' );
+	jQuery( this ).addClass( 'active' );
+	taskElement.find( '.activities' ).remove();
+	taskElement.find( '.points.sortable' ).show();
+	window.eoxiaJS.refresh();
 };
 
 /**
@@ -40,16 +60,14 @@ window.eoxiaJS.taskManager.activity.event = function() {
  */
 window.eoxiaJS.taskManager.activity.loadMoreHistory = function( event ) {
 	var element = jQuery( this );
-	window.eoxiaJS.loader.display( element );
-
-
 	var data = {
 		action: 'load_last_activity',
-		// _wpnonce: element.closest( '.wpeo-project-task' ).find( '.dashicons-screenoptions' ).data( 'nonce' ),
+		_wpnonce: element.closest( '.wpeo-project-task' ).find( '.dashicons-screenoptions' ).data( 'nonce' ),
 		tasks_id: element.closest( '.wpeo-project-task' ).data( 'id' ),
 		offset: element.closest( '.activities' ).find( '.offset-event' ).val(),
 		last_date: element.closest( '.activities' ).find( '.last-date' ).val()
 	};
+	window.eoxiaJS.loader.display( element );
 
 	if ( element.closest( '.popup.last-activity' ).length ) {
 		data.term = jQuery( '.wpeo-general-search input[type="text"]' ).val();
@@ -61,7 +79,6 @@ window.eoxiaJS.taskManager.activity.loadMoreHistory = function( event ) {
 		element.closest( '.activities' ).find( '.offset-event' ).val( response.data.offset );
 		element.closest( '.activities' ).find( '.content:first' ).append( response.data.view );
 		element.closest( '.activities' ).find( '.last-date' ).val( response.data.last_date );
-
 
 		if ( response.data.end ) {
 			element.closest( '.activities' ).find( '.load-more-history' ).hide();
@@ -103,20 +120,12 @@ window.eoxiaJS.taskManager.activity.getDataBeforeOpenPopup = function( element )
  */
 window.eoxiaJS.taskManager.activity.loadedLastActivity = function( triggeredElement, response ) {
 	if ( triggeredElement.closest( '.wpeo-project-task' ).length ) {
+		var taskElement = triggeredElement.closest( '.wpeo-project-task' );
 		triggeredElement.addClass( 'active' );
+		triggeredElement.closest( '.tm-task-display-method-buttons' ).find( '.list-display.active' ).removeClass( 'active' );
 
-		if ( response.data.end ) {
-			triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .load-more-history' ).hide();
-		} else {
-			triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .load-more-history' ).show();
-		}
-
-		triggeredElement.closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .list-display.active' ).removeClass( 'active' );
-		triggeredElement.closest( '.wpeo-project-task' ).find( '.points.sortable, .wpeo-task-point-use-toggle' ).hide();
-		triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .offset-event' ).val( response.data.offset );
-		triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .last-date' ).val( response.data.last_date );
-		triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .content' ).html( response.data.view );
-		triggeredElement.closest( '.wpeo-project-task' ).find( '.activities' ).show();
+		taskElement.find( '.points.sortable, .wpeo-task-point-use-toggle' ).hide();
+		taskElement.find( '.points.sortable' ).before( response.data.view );
 	} else {
 		jQuery( '.popup.last-activity .content' ).html( response.data.view );
 		jQuery( '.popup.last-activity .container' ).removeClass( 'loading' );

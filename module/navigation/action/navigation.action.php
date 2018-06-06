@@ -41,17 +41,24 @@ class Navigation_Action {
 	 * @todo nonce
 	 */
 	public function callback_search() {
-		$term                   = ! empty( $_POST['term'] ) ? sanitize_text_field( $_POST['term'] ) : '';
-		$status                 = ! empty( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : '';
-		$categories_id_selected = ! empty( $_POST['categories_id_selected'] ) ? sanitize_text_field( $_POST['categories_id_selected'] ) : '';
-		$follower_id_selected   = ! empty( $_POST['follower_id_selected' ] ) ? (int) $_POST['follower_id_selected'] : '';
+		$term                          = ! empty( $_POST['term'] ) ? sanitize_text_field( $_POST['term'] ) : '';
+		$categories_id_selected        = ! empty( $_POST['categories_id_selected'] ) ? sanitize_text_field( $_POST['categories_id_selected'] ) : '';
+		$follower_id_selected          = ! empty( $_POST['follower_id_selected' ] ) ? (int) $_POST['follower_id_selected'] : '';
+		$tm_dashboard_archives_include = ! empty( $_POST['tm-dashboard-archives-include' ] ) ? (bool) $_POST['tm-dashboard-archives-include'] : false;
+		if ( $tm_dashboard_archives_include ) {
+			add_filter( 'task_manager_get_tasks_args', function( $args ){
+				$args['status'] .= ',"archive"';
+
+				return $args;
+			} );
+		}
 
 		ob_start();
 		Navigation_Class::g()->display_search_result( $term, $status, $categories_id_selected, $follower_id_selected );
 		$search_result_view = ob_get_clean();
 
 		ob_start();
-		echo do_shortcode( '[task users_id="' . $follower_id_selected . '" status="' . $status . '" categories_id="' . $categories_id_selected . '" term="' . $term . '" posts_per_page="' . \eoxia\Config_Util::$init['task-manager']->task->posts_per_page . '" with_wrapper="0"]' );
+		echo do_shortcode( '[task users_id="' . $follower_id_selected . '" categories_id="' . $categories_id_selected . '" term="' . $term . '" posts_per_page="' . \eoxia\Config_Util::$init['task-manager']->task->posts_per_page . '" with_wrapper="0"]' );
 		$tasks_view = ob_get_clean();
 
 		wp_send_json_success( array(

@@ -1,7 +1,7 @@
 /*	Décalage de l'affichage des tâches a cause du bandeau. */
 .list-task {
 	clear: both;
-	top: 70px;
+	top: 110px;
 }
 
 .wpeo-task-selected {
@@ -117,7 +117,7 @@
 				}
 			}
 		}
-		li.display-method-buttons {
+		li.tm-task-display-method-buttons {
 			margin-left: auto;
 			.list-display, .grid-display {
 				width: 26px;

@@ -14,13 +14,17 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
-
-<div class="activities hidden">
+<div class="activities">
 	<input type="hidden" class="offset-event" value="<?php echo esc_attr( \eoxia\Config_Util::$init['task-manager']->activity->activity_per_page ); ?>" />
 	<input type="hidden" class="last-date" value="" />
 
 	<div class="content">
+		<div class="tm-wrap" >
+			<div class="activities" ><?php echo $history; //WPCS: XSS ok. ?></div>
+		</div>
 	</div>
 
-	<span class="load-more-history"><?php esc_html_e( 'Load more', 'task-manager' ); ?></span>
+	<?php if ( $has_pagination ) : ?>
+		<span class="load-more-history"><?php esc_html_e( 'Load more', 'task-manager' ); ?></span>
+	<?php endif; ?>
 </div>

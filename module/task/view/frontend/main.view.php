@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="wpeo-project-wrap">
+<div class="tm-wrap">
 	<?php
 	\eoxia\View_Util::exec( 'task-manager', 'task', 'frontend/tasks', array(
 		'tasks' => $tasks,
