@@ -112,7 +112,7 @@ class Quick_Time_Action {
 		) );
 		$view = ob_get_clean();
 		wp_send_json_success( array(
-			'view' => $view,
+			'view'         => $view,
 			'buttons_view' => '',
 		) );
 	}
@@ -152,7 +152,7 @@ class Quick_Time_Action {
 		) );
 
 		wp_send_json_success( array(
-			'namespace'        => 'taskManager',
+			'namespace'        => 'taskManagerGlobal',
 			'module'           => 'quickTime',
 			'callback_success' => 'settingRefreshedPoint',
 			'view'             => ob_get_clean(),
@@ -208,7 +208,7 @@ class Quick_Time_Action {
 		Quick_Time_Class::g()->display();
 		$metabox_view = ob_get_clean();
 		wp_send_json_success( array(
-			'namespace'        => 'taskManager',
+			'namespace'        => 'taskManagerGlobal',
 			'module'           => 'quickTime',
 			'callback_success' => 'addedConfigQuickTime',
 			'new_item_view'    => $new_item_view,
@@ -251,7 +251,7 @@ class Quick_Time_Action {
 		Quick_Time_Class::g()->display();
 		$metabox_view = ob_get_clean();
 		wp_send_json_success( array(
-			'namespace'        => 'taskManager',
+			'namespace'        => 'taskManagerGlobal',
 			'module'           => 'quickTime',
 			'callback_success' => 'deletedConfigQuickTime',
 			'metabox_view'     => $metabox_view,

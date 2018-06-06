@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2018-05-16 14:38+0200\n"
-"PO-Revision-Date: 2018-05-16 14:39+0200\n"
+"POT-Creation-Date: 2018-06-06 14:39+0200\n"
+"PO-Revision-Date: 2018-06-06 14:40+0200\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Poedit-SearchPath-1: core\n"
 "X-Poedit-SearchPathExcluded-0: core/external\n"
 
-#: core/action/task_manager.action.php:102
+#: core/action/task_manager.action.php:75
 msgid ""
 "Your data are being updated. If you confirm that you want to leave this "
 "page, your data could be corrupted"
@@ -26,23 +26,23 @@ msgstr ""
 "Vos données sont en cours de mise à jour. Si vous confirmez que vous "
 "souhaitez quitter cette page vos données risquent d'être corrompues"
 
-#: core/action/task_manager.action.php:105
+#: core/action/task_manager.action.php:78
 #, php-format
 msgid "Update %s in progress"
 msgstr "Mise à jour %s en cours"
 
-#: core/action/task_manager.action.php:107
+#: core/action/task_manager.action.php:80
 #, php-format
 msgid "An error occured. Please take a look at %s logs"
 msgstr "Une erreur est survenue. Merci de vérifier les logs de la version %s"
 
-#: core/action/task_manager.action.php:133
+#: core/action/task_manager.action.php:108
 #: module/comment/view/backend/comment.view.php:44
 msgid "Delete this comment ?"
 msgstr "Voulez vous supprimer ce commentaire ?"
 
-#: core/action/task_manager.action.php:176
-#: core/action/task_manager.action.php:180 core/view/main.view.php:23
+#: core/action/task_manager.action.php:151
+#: core/action/task_manager.action.php:155 core/view/main.view.php:23
 #: module/import/view/backend/import-textarea.view.php:20
 #: module/task/action/task.action.php:455
 msgid "Task"
@@ -236,6 +236,10 @@ msgstr "Répéter tous les mois"
 msgid "( %smin )"
 msgstr "( %smin )"
 
+#: module/history-time/view/backend/history-time.view.php:39
+msgid "Confirm deletion"
+msgstr "Etes vous sûr de vouloir supprimer cet élément?"
+
 #: module/history-time/view/backend/main.view.php:27
 msgid "Event historic"
 msgstr "Les historiques de temps"
@@ -375,8 +379,8 @@ msgstr "Envoyer la notification"
 msgid "Teams"
 msgstr "Équipe"
 
-#: module/point/action/point.action.php:352
-#: module/point/action/point.action.php:353
+#: module/point/action/point.action.php:323
+#: module/point/action/point.action.php:324
 msgid "No task found"
 msgstr "Aucune tâche trouvé"
 
@@ -416,7 +420,7 @@ msgid "Move the point to"
 msgstr "Déplacer le point vers"
 
 #: module/point/view/backend/toggle-content.view.php:53
-#: module/task/view/backend/toggle-content.view.php:108
+#: module/task/view/backend/toggle-content.view.php:109
 msgid "OK"
 msgstr "OK"
 
@@ -428,6 +432,22 @@ msgstr "Point rapide"
 #: module/quick-point/view/modal-input-valid.view.php:22
 msgid "Confirm"
 msgstr "Ajouter"
+
+#: module/quick-point/view/modal-success-buttons.view.php:23
+msgid "Add another quick point"
+msgstr "Ajouter un nouveau point rapide"
+
+#: module/quick-point/view/modal-success-buttons.view.php:27
+msgid "Close modal"
+msgstr "Fermer la fenêtre"
+
+#: module/quick-point/view/modal-success.view.php:20
+msgid "completed"
+msgstr "complété"
+
+#: module/quick-point/view/modal-success.view.php:20
+msgid "uncompleted"
+msgstr "incomplet"
 
 #: module/quick_time/view/backend/button-setting.view.php:21
 msgid "Setting of the add quick time list"
@@ -655,7 +675,12 @@ msgstr "Notifier l'équipe"
 msgid "#%1$s Notify popup"
 msgstr "#%1$s Notification"
 
-#: module/task/view/backend/toggle-content.view.php:104
+#: module/task/view/backend/toggle-content.view.php:93
+#, php-format
+msgid "#%1$s Export task data"
+msgstr "#%1$s Export des données de la tâche"
+
+#: module/task/view/backend/toggle-content.view.php:105
 msgid "Move the task to"
 msgstr "Déplacer la tâche vers"
 
