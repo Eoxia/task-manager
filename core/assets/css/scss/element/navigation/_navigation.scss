@@ -17,6 +17,10 @@
 		width: 13%;
 	}
 
+	select, input[type="text"] {
+		color: #000;
+	}
+
 	div {
 		&::after {
 			clear: both;

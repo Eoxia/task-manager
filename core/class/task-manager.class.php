@@ -32,17 +32,26 @@ class Task_Manager_Class extends \eoxia\Singleton_Util {
 	 * La méthode qui permet d'afficher la page
 	 *
 	 * @since 0.1.0
-	 * @version 1.5.0
+	 * @version 1.8.0
 	 *
 	 * @return void
 	 */
 	public function display() {
-		$term = ! empty( $_GET['term'] ) ? sanitize_text_field( $_GET['term'] ) : ''; // WPCS: CSRF ok.
-		$id = (int) $term;
+		$term                   = ! empty( $_GET['term'] ) ? sanitize_text_field( $_GET['term'] ) : ''; // WPCS: CSRF ok.
 		$categories_id_selected = ! empty( $_GET['categories_id_selected'] ) ? sanitize_text_field( $_GET['categories_id_selected'] ) : ''; // WPCS: CSRF ok.
-		$follower_id_selected = ! empty( $_GET['follower_id_selected'] ) ? sanitize_text_field( $_GET['follower_id_selected'] ) : ''; // WPCS: CSRF ok.
+		$follower_id_selected   = ! empty( $_GET['follower_id_selected'] ) ? sanitize_text_field( $_GET['follower_id_selected'] ) : ''; // WPCS: CSRF ok.
 
-		require( PLUGIN_TASK_MANAGER_PATH . '/core/view/main.view.php' );
+		$search_args = array(
+			'status'                 => 'any',
+			// 'post_parent'            => 0,
+			'with_wrapper'           => 0,
+			'term'                   => $term,
+			'task_id'                => (int) $term,
+			'categories_id_selected' => $categories_id_selected,
+			'follower_id_selected'   => $follower_id_selected,
+		);
+
+		require_once PLUGIN_TASK_MANAGER_PATH . '/core/view/main.view.php';
 	}
 
 	/**
@@ -54,8 +63,8 @@ class Task_Manager_Class extends \eoxia\Singleton_Util {
 	 * @return string|object
 	 */
 	public function get_patch_note() {
-		$patch_note_url = 'https://www.evarisk.com/wp-json/wp/v2/posts/33101';
-		$json = wp_remote_get( $patch_note_url, array(
+		$patch_note_url = 'https://www.task-manager.fr/wp-json/wp/v2/posts/1';
+		$json           = wp_remote_get( $patch_note_url, array(
 			'headers' => array(
 				'Content-Type' => 'application/json',
 			),
@@ -91,6 +100,7 @@ class Task_Manager_Class extends \eoxia\Singleton_Util {
 			update_option( \eoxia\Config_Util::$init['task-manager']->key_last_update_version, $version );
 		}
 	}
+
 }
 
 new Task_Manager_Class();

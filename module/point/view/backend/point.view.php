@@ -14,7 +14,8 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
-<div class="point <?php echo ! empty( $point->data['id'] ) ? esc_attr( 'edit' ) : ''; ?>" data-id="<?php echo esc_attr( $point->data['id'] ); ?>">
+<div class="point <?php echo ! empty( $point->data['id'] ) ? esc_attr( 'edit' ) : ''; ?>" data-id="<?php echo esc_attr( $point->data['id'] ); ?>"
+		data-point-state="<?php echo esc_attr( ! empty( $point->data['completed'] ) ? 'completed' : 'uncompleted' ); ?>" >
 	<div class="form">
 		<input type="hidden" name="id" value="<?php echo esc_attr( $point->data['id'] ); ?>" />
 		<input type="hidden" name="parent_id" value="<?php echo esc_attr( $parent_id ); ?>" />

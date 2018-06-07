@@ -134,7 +134,7 @@ class Task_Class extends \eoxia\Post_Class {
 		$param['users_id']       = ! empty( $param['users_id'] ) ? (array) $param['users_id'] : array();
 		$param['categories_id']  = ! empty( $param['categories_id'] ) ? (array) $param['categories_id'] : array();
 		$param['status']         = ! empty( $param['status'] ) ? sanitize_text_field( $param['status'] ) : 'any';
-		$param['post_parent']    = ! empty( $param['post_parent'] ) ? (array) $param['post_parent'] : array( 0 );
+		$param['post_parent']    = ! empty( $param['post_parent'] ) ? (array) $param['post_parent'] : null;
 		$param['term']           = ! empty( $param['term'] ) ? sanitize_text_field( $param['term'] ) : '';
 
 		$tasks    = array();
@@ -179,7 +179,7 @@ class Task_Class extends \eoxia\Post_Class {
 						COMMENT.comment_parent != 0 AND (COMMENT.comment_id LIKE '%" . $param['term'] . "%' OR COMMENT.comment_content LIKE '%" . $param['term'] . "%')
 					) )";
 
-			if ( isset( $param['post_parent'] ) ) {
+			if ( ! is_null( $param['post_parent'] ) ) {
 				$query .= 'AND TASK.post_parent IN (' . implode( $param['post_parent'], ',' ) . ')';
 			}
 

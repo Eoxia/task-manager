@@ -58,6 +58,7 @@ endif;
 						<span class="elapsed" ><?php echo esc_html( $task_time_info ); ?></span>
 					</span>
 				</li>
+				<?php echo apply_filters( 'tm_task_header_summary', '', $task ); // WPCS: XSS ok. ?>
 			</ul>
 		</div>
 

@@ -19,6 +19,11 @@
 }
 
 .tm-wrap {
+	&::after {
+		display: block;
+		content: "";
+		clear: both;
+	}
 	box-sizing: border-box;
 	padding-right: 20px;
 	*,

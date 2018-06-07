@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="content">
 		<div class="tm-wrap" >
-			<div class="activities" ><?php echo $history; //WPCS: XSS ok. ?></div>
+			<div class="activities" ><?php echo $history; // WPCS: XSS ok. ?></div>
 		</div>
 	</div>
 </div>

@@ -43,10 +43,10 @@ class Navigation_Action {
 	public function callback_search() {
 		$term                          = ! empty( $_POST['term'] ) ? sanitize_text_field( $_POST['term'] ) : '';
 		$categories_id_selected        = ! empty( $_POST['categories_id_selected'] ) ? sanitize_text_field( $_POST['categories_id_selected'] ) : '';
-		$follower_id_selected          = ! empty( $_POST['follower_id_selected' ] ) ? (int) $_POST['follower_id_selected'] : '';
-		$tm_dashboard_archives_include = ! empty( $_POST['tm-dashboard-archives-include' ] ) ? (bool) $_POST['tm-dashboard-archives-include'] : false;
+		$follower_id_selected          = ! empty( $_POST['follower_id_selected'] ) ? (int) $_POST['follower_id_selected'] : '';
+		$tm_dashboard_archives_include = ! empty( $_POST['tm-dashboard-archives-include'] ) ? (bool) $_POST['tm-dashboard-archives-include'] : false;
 		if ( $tm_dashboard_archives_include ) {
-			add_filter( 'task_manager_get_tasks_args', function( $args ){
+			add_filter( 'task_manager_get_tasks_args', function( $args ) {
 				$args['status'] .= ',"archive"';
 
 				return $args;

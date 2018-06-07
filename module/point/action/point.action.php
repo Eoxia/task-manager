@@ -214,7 +214,7 @@ class Point_Action {
 	public function ajax_load_completed_point() {
 		check_ajax_referer( 'load_completed_point' );
 
-		$task_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+		$task_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
 
 		if ( empty( $task_id ) ) {
 			wp_send_json_error();

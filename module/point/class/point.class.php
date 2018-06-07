@@ -160,8 +160,6 @@ class Point_Class extends \eoxia\Comment_Class {
 		$point->data['completed'] = $completed;
 
 		if ( $completed ) {
-			$point->data['order'] = $task->data['count_completed_points'];
-
 			$task->data['count_completed_points']++;
 
 			if ( ! $is_new_point ) {
@@ -169,8 +167,6 @@ class Point_Class extends \eoxia\Comment_Class {
 			}
 			$point->data['time_info']['completed_point'][ get_current_user_id() ][] = current_time( 'mysql' );
 		} else {
-			$point->data['order'] = $task->data['count_uncompleted_points'];
-
 			if ( ! $is_new_point ) {
 				$task->data['count_completed_points']--;
 			}
@@ -237,6 +233,7 @@ class Point_Class extends \eoxia\Comment_Class {
 			'task'  => $task,
 		);
 	}
+
 }
 
 Point_Class::g();

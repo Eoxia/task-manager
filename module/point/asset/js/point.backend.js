@@ -137,7 +137,7 @@ window.eoxiaJS.taskManager.point.updateHiddenInput = function( event ) {
 window.eoxiaJS.taskManager.point.addedPointSuccess = function( triggeredElement, response ) {
 	var task = jQuery( "div.wpeo-project-task[data-id='" + response.data.task_id + "']" );
 
-	task.find( '.total-point' ).text( response.data.task.data.count_all_points );
+	task.find( '.point-uncompleted' ).text( response.data.task.data.count_uncompleted_points );
 	task.find( '.point-completed' ).text( response.data.task.data.count_completed_points );
 
 	if ( triggeredElement.closest( '.point' ).length ) {
@@ -149,7 +149,7 @@ window.eoxiaJS.taskManager.point.addedPointSuccess = function( triggeredElement,
 	}
 
 	if ( response.data.point && true != response.data.point.data.completed ) {
-		task.find( '.points.sortable .point:not(.point-edit)' ).after( response.data.view );
+		task.find( '.points.sortable .point:not(.edit)' ).after( response.data.view );
 	}
 
 	window.eoxiaJS.taskManager.point.initAutoComplete();
@@ -248,37 +248,6 @@ window.eoxiaJS.taskManager.point.completePoint = function() {
 
 	window.eoxiaJS.refresh();
 	window.eoxiaJS.request.send( jQuery( this ), data );
-};
-
-/**
- * Avant de charger les points complétés, toggle la classe de la dashicons.
- *
- * @param  {HTMLSpanElement} triggeredElement L'élément HTML déclenchant l'action.
- * @return {void}
- *
- * @since 1.0.0
- * @version 1.3.6.0
- */
-window.eoxiaJS.taskManager.point.beforeLoadCompletedPoint = function( triggeredElement ) {
-	jQuery( triggeredElement ).closest( '.wpeo-task-point-use-toggle' ).find( '.dashicons' ).toggleClass( 'dashicons-minus dashicons-plus' );
-	jQuery( triggeredElement ).closest( '.wpeo-task-point-use-toggle' ).find( '.points.completed' ).toggleClass( 'hidden' );
-	window.eoxiaJS.refresh();
-	return true;
-};
-
-/**
- * Le callback en cas de réussite à la requête Ajax "load_completed_point".
- *
- * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
- * @param  {Object}         response          Les données renvoyées par la requête Ajax.
- * @return {void}
- *
- * @since 1.0.0
- * @version 1.6.0
- */
-window.eoxiaJS.taskManager.point.loadedCompletedPoint = function( triggeredElement, response ) {
-	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.points.completed' ).html( response.data.view );
-	window.eoxiaJS.refresh();
 };
 
 /**
@@ -406,6 +375,25 @@ window.eoxiaJS.taskManager.point.afterTriggerChangeDate = function( triggeredEle
 	window.eoxiaJS.request.send( triggeredElement, data );
 };
 
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "load_completed_point".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.0.0
+ * @version 1.6.0
+ */
+window.eoxiaJS.taskManager.point.loadedCompletedPoint = function( triggeredElement, response ) {
+	jQuery( triggeredElement ).removeClass( 'action-input' );
+	jQuery( triggeredElement ).addClass( 'active' );
+	jQuery( triggeredElement ).attr( 'data-points-loaded', true );
+	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.points .point:not(.edit)' ).after( response.data.view );
+	window.eoxiaJS.refresh();
+};
+
 /**
  * Méthode appelée lors du clic sur les boutons de hoix du type de points affichés dans une tâche.
  *
@@ -416,22 +404,30 @@ window.eoxiaJS.taskManager.point.afterTriggerChangeDate = function( triggeredEle
  *
  * @return {void}
  */
-window.eoxiaJS.taskManager.displayPointPerType = function( event ) {
+window.eoxiaJS.taskManager.point.displayPointPerType = function( event ) {
+	var display = false;
+	var pointStateToDisplay = jQuery( this ).attr( 'data-point-state' );
 	event.preventDefault();
 
 	// Si les types de points sont déjà chargés, on les masques ou on les affiche sans requetes supplémentaires.
 	if ( 'true' == jQuery( this ).attr( 'data-points-loaded' ) ) {
-		var display = false;
+
 		// Si le bouton possède la classe "active" c'est que les points sont affichés et qu'il faut les cacher.
 		if ( jQuery( this ).hasClass( 'active' ) ) {
-
+			jQuery( this ).removeClass( 'active' );
 		} else {
-
+			jQuery( this ).addClass( 'active' );
+			display = true;
 		}
-		jQuery( this ).next( '.points' ).find( '.point-container' ).each( function() {
-			console.log( jQuery( this ).closest( '.point' ).attr( 'data-id' ) );
+
+		jQuery( this ).closest( '.wpeo-project-task-container' ).find( '.points .point.edit' ).each( function() {
+			if ( pointStateToDisplay === jQuery( this ).attr( 'data-point-state' ) ) {
+				if ( display ) {
+					jQuery( this ).show();
+				} else if ( ! display ) {
+					jQuery( this ).hide();
+				}
+			}
 		} );
-	} else {
-		console.log( 'request required' );
 	}
 };
