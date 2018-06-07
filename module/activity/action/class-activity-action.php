@@ -42,9 +42,8 @@ class Activity_Action {
 	public function callback_load_last_activity() {
 		check_ajax_referer( 'load_last_activity' );
 
-		$title                  = ! empty( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : '';
 		$tasks_id               = ! empty( $_POST['tasks_id'] ) ? sanitize_text_field( $_POST['tasks_id'] ) : '';
-		$offset                 = ! empty( $_POST['offset'] ) ? (int) $_POST['offset'] : 0;
+		$offset                 = ! empty( $_POST['offset'] ) ? ( (int) $_POST['offset'] + \eoxia\Config_Util::$init['task-manager']->activity->activity_per_page ) : 0;
 		$last_date              = ! empty( $_POST['last_date'] ) ? sanitize_text_field( $_POST['last_date'] ) : '';
 		$term                   = ! empty( $_POST['term'] ) ? sanitize_text_field( $_POST['term'] ) : '';
 		$categories_id_selected = ! empty( $_POST['categories_id_selected'] ) ? sanitize_text_field( $_POST['categories_id_selected'] ) : '';
@@ -70,12 +69,6 @@ class Activity_Action {
 		// Récupération de l'historique.
 		$datas = Activity_Class::g()->get_activity( $tasks_id, $offset );
 
-		if ( ! empty( $offset ) ) {
-			$offset += \eoxia\Config_Util::$init['task-manager']->activity->activity_per_page;
-		} else {
-			$offset = \eoxia\Config_Util::$init['task-manager']->activity->activity_per_page;
-		}
-
 		$last_date = $datas['last_date'];
 		unset( $datas['last_date'] );
 
@@ -87,9 +80,14 @@ class Activity_Action {
 		) );
 		$history_list = ob_get_clean();
 
+		$date_start = date( 'Y-m-d', strtotime( '-1 month', strtotime( $last_date ) ) );
+		$date_end   = substr( $last_date, 0, 10 );
+
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/main', array(
 			'history'        => $history_list,
+			'date_start'     => $date_start,
+			'date_end'       => $date_end,
 			'has_pagination' => ( \eoxia\Config_Util::$init['task-manager']->activity->activity_per_page !== $datas['count'] ) ? true : false,
 		) );
 		$view = ob_get_clean();
