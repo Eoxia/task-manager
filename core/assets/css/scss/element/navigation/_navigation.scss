@@ -1,3 +1,10 @@
+/*	Décalage de l'affichage des tâches a cause du bandeau. */
+.tm-dashboard-wrap {
+	.list-task {
+		margin-top: 110px;
+	}
+}
+
 /*	Version 1.8.0 */
 .tm-dashboard-header {
 	position: fixed;

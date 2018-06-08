@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="wrap wpeo-wrap tm-wrap">
+<div class="wpeo-wrap tm-wrap">
 	<input type="hidden" class="user-id" value="<?php echo esc_attr( get_current_user_id() ); ?>" />
 
 	<div class="tm-dashboard-header">
@@ -34,6 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div>
 
+	<div class="tm-dashboard-wrap" >
 	<?php
 	$waiting_updates = get_option( '_tm_waited_updates', array() );
 	if ( ! empty( $waiting_updates ) && strpos( $_SERVER['REQUEST_URI'], 'admin.php' ) && ! strpos( $_SERVER['REQUEST_URI'], 'admin.php?page=' . \eoxia\Config_Util::$init['task-manager']->update_page_url ) ) :
@@ -46,4 +47,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 		echo do_shortcode( '[task ' . $shortcode_final_args . ']' );
 	endif;
 	?>
+	</div>
 </div>

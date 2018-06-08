@@ -14,18 +14,20 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
-<div class="wrap tm-wrap wpeo-wrap">
-	<div class="tm-dashboard-header">
+<div class="tm-wrap wpeo-wrap">
+	<div class="tm-post-dashboard">
 		<?php echo apply_filters( 'tm_posts_metabox_project_dashboard', '', $post, $tasks ); // WPCS: XSS ok. ?>
 		<p class="alignright"><?php esc_html_e( 'Total time past', 'task-manager' ); ?> : <?php echo esc_html( $total_time_elapsed ); ?> / <?php echo esc_html( $total_time_estimated ); ?></p>
 	</div>
 
 	<?php	if ( ! empty( $tasks ) ) : ?>
+		<div class="list-task">
 		<?php foreach ( $tasks as $key => $data ) : ?>
 			<?php if ( ! empty( $data['title'] ) ) : ?>
 				<hr/><h2><?php echo esc_html( $data['title'] ); ?></h2>
 			<?php endif; ?>
-			<div class="list-task"><?php \task_manager\Task_Class::g()->display_tasks( $data['data'] ); ?></div>
+			<?php \task_manager\Task_Class::g()->display_tasks( $data['data'] ); ?>
 		<?php endforeach; ?>
+		</div>
 	<?php endif; ?>
 </div>
