@@ -1,5 +1,5 @@
 ﻿=== Task Manager ===
-Contributors: Eoxia
+Contributors: Eoxi
 Donate link:
 Tags: task, tasks, management, manager, collaboration, dashboard, organizer, project management, project manager, projects, task lists, task management, task manager, Time Tracking, to do, to do list, todo, todo list
 Requires at least: 4.4.0
