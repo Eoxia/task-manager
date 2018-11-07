@@ -87,7 +87,7 @@ window.eoxiaJS.taskManager.comment.updateHiddenInput = function( event ) {
 		window.eoxiaJS.taskManager.core.initSafeExit( false );
 	}
 
-	jQuery( this ).closest( '.comment' ).find( '.wpeo-comment-content input[name="content"]' ).val( jQuery( this ).html() );
+	jQuery( this ).closest( '.comment' ).find( 'input[name="content"]' ).val( jQuery( this ).html() );
 
 	window.eoxiaJS.refresh();
 };
