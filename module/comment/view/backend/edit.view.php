@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<li class="comment new">
+<li class="comment <?php echo ! empty( $comment->data['id'] ) ? 'edit' : 'new'; ?>">
 	<input type="hidden" name="comment_id" value="<?php echo esc_attr( $comment->data['id'] ); ?>" />
 	<input type="hidden" name="post_id" value="<?php echo esc_attr( $task_id ); ?>" />
 	<input type="hidden" name="parent_id" value="<?php echo esc_attr( $point_id ); ?>" />
@@ -26,26 +26,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="comment-content">
 
 			<div class="comment-content-text">
-				<input type="hidden" name="content" value="<?php echo esc_attr( $comment->data['content'] ); ?>" />
-				<div contenteditable="true" class="content"></div>
+				<input type="hidden" name="content" value="<?php echo esc_attr( trim( $comment->data['content'] ) ); ?>" />
+				<div contenteditable="true" class="content"><?php echo trim( $comment->data['content'] ); ?></div>
 				<?php if ( empty( $comment->data['id'] ) ) : ?>
 					<span class="placeholder"><i class="far fa-plus"></i> <?php esc_html_e( 'Your comment here...', 'task-manager' ); ?></span>
 				<?php endif; ?>
 			</div>
 
 			<div class="comment-meta wpeo-form">
-				<div class="form-element group-date">
+				<div class="form-element group-date" data-time="true">
 					<label class="form-field-container">
-						<input type="hidden" class="mysql-date" name="mysql_date" value="<?php echo current_time( 'mysql' ); ?>" />
+						<input type="hidden" class="mysql-date" name="mysql_date" value="<?php echo $comment->data['date']['raw'] ?>" />
 						<span class="form-field-icon-prev"><i class="fal fa-calendar-alt"></i></span>
-						<input type="text" class="form-field date" value="<?php echo current_time( 'd/m/Y' ); ?>" />
+						<input type="text" class="form-field date" value="<?php echo $comment->data['date']['rendered']['date_time']; ?>" />
 					</label>
 				</div>
 
 				<div class="form-element">
 					<label class="form-field-container">
 						<span class="form-field-icon-prev"><i class="fas fa-clock"></i></span>
-						<input type="text" name="time" class="form-field" />
+						<input type="text" name="time" value="<?php echo esc_attr( $comment->data['time_info']['elapsed'] ); ?>" class="form-field" />
 					</label>
 				</div>
 			</div>
