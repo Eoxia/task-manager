@@ -12,6 +12,7 @@ window.eoxiaJS.taskManager.navigation.init = function() {
 
 window.eoxiaJS.taskManager.navigation.event = function() {
 	jQuery( document ).on( 'keyup', '.wpeo-header-bar input[name="term"]', window.eoxiaJS.taskManager.navigation.triggerSearch );
+	jQuery( document ).on( 'change', '.wpeo-header-bar .wpeo-autocomplete', window.eoxiaJS.taskManager.navigation.closeResults );
 
 	jQuery( document ).on( 'click', '.wpeo-header-bar .more-search-options', window.eoxiaJS.taskManager.navigation.toggleMoreOptions );
 	jQuery( document ).on( 'click', '.wpeo-tag-search', window.eoxiaJS.taskManager.navigation.selectTag );
@@ -21,6 +22,10 @@ window.eoxiaJS.taskManager.navigation.triggerSearch = function( event ) {
 	if ( 13 === event.keyCode ) {
 		jQuery( '.wpeo-header-search .action-input' ).click();
 	}
+};
+
+window.eoxiaJS.taskManager.navigation.closeResults = function( event ) {
+	jQuery( this ).removeClass( 'autocomplete-active' );
 };
 
 /**
