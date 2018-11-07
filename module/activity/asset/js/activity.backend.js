@@ -43,7 +43,7 @@ window.eoxiaJS.taskManager.activity.event = function() {
  */
 window.eoxiaJS.taskManager.activity.switchViewToLine = function( event ) {
 	var taskElement = jQuery( this ).closest( '.wpeo-project-task' );
-	taskElement.find( '.tm-task-display-method-buttons span.active' ).removeClass( 'active' );
+	taskElement.find( '.tm-task-display-method-buttons .wpeo-button.active' ).removeClass( 'active' );
 	jQuery( this ).addClass( 'active' );
 	taskElement.find( '.activities' ).remove();
 	taskElement.find( '.points.sortable' ).show();

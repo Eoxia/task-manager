@@ -34,7 +34,7 @@ endif;
 				<input type="text" name="task[title]" data-nonce="<?php echo esc_attr( wp_create_nonce( 'edit_title' ) ); ?>" class="wpeo-project-task-title" value="<?php echo esc_html( $task->data['title'] ); ?>" />
 			</div>
 			<ul class="wpeo-task-summary" >
-				<li class="wpeo-task-id">#<?php echo esc_html( $task->data['id'] ); ?></li>
+				<li class="wpeo-task-id"><i class="far fa-hashtag"></i> <?php echo esc_html( $task->data['id'] ); ?></li>
 				<li class="wpeo-task-time-history wpeo-modal-event"
 						data-class="history-time wpeo-wrap tm-wrap"
 						data-action="load_time_history"
@@ -47,14 +47,14 @@ endif;
 							<span><?php esc_html_e( 'Repeated', 'task-manager' ); ?>
 						<?php else : ?>
 							<span class="wpeo-task-date tooltip hover" aria-label="<?php echo esc_html_e( 'Dead line', 'task-manager' ); ?>">
-								<i class="dashicons dashicons-calendar-alt"></i>
+								<i class="far fa-calendar-alt"></i>
 								<span><?php echo esc_html( $task->data['last_history_time']->data['due_date']['rendered']['date'] ); ?></span>
 							</span>
 						<?php endif; ?>
 					<?php endif; ?>
 
 					<span class="wpeo-task-time-info wpeo-tooltip-event" aria-label="<?php echo esc_attr( $task_time_info_human_readable ); ?>">
-						<i class="dashicons dashicons-clock"></i>
+						<i class="far fa-clock"></i>
 						<span class="elapsed" ><?php echo esc_html( $task_time_info ); ?></span>
 					</span>
 				</li>

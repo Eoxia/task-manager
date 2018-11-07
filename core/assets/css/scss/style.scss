@@ -19,22 +19,18 @@
 }
 
 .tm-wrap {
+  box-sizing: border-box;
+  padding-right: 20px;
+
+  @media ( max-width: $media__small ) {
+    padding-right: 0;
+  }
+
 	&::after {
 		display: block;
 		content: "";
 		clear: both;
 	}
-	box-sizing: border-box;
-	padding-right: 20px;
-	*,
-	*:before,
-	*:after { /* Inherit box-sizing to make it easier to change the property for components that leverage other behavior; see http://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
-	 box-sizing: inherit;
-	}
-	@media ( max-width: $media__small ) {
-	 padding-right: 0;
-	}
-
 
 	/*--------------------------------------------------------------
 	# Normalize
@@ -82,4 +78,3 @@ span[data-text="true"] {
     padding: 2px;
     border: solid black 1px;
 }
-

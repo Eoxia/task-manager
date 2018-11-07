@@ -4,134 +4,130 @@
 	}
 }
 
-.wpeo-project-task .wpeo-task-header {
-	.wpeo-task-main-header {
-		display: flex;
-		flex-direction: row;
-		margin: 5px;
-		width: 100%;
+.wpeo-project-task .wpeo-task-main-header {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	border-bottom: 1px solid rgba(0,0,0,0.2);
 
-		&::after {
-			display: block;
-			content: '';
-			clear: both;
+	&::after {
+		display: block;
+		content: '';
+		clear: both;
+	}
+}
+
+/** Author */
+.wpeo-project-task .wpeo-task-main-header .wpeo-task-author {
+	position: relative;
+	text-align: center;
+	margin: auto 0;
+	padding: 0.8em;
+
+	.user {
+		border-radius: 50%;
+		overflow: hidden;
+		img {
+			border-radius: 50%;
 		}
-
-		.wpeo-task-author {
-			width: 10%;
-			position: relative;
-			text-align: center;
-			div.wpeo-dropdown {
-				margin: 15px 0 0 0;
-			}
-			.user {
-				border-radius: 50%;
-				overflow: hidden;
-				img {
-					border-radius: 50%;
-				}
-				&:hover {
-					cursor: pointer;
-				}
-			}
-			.toggle .content {
-				max-width: 150px;
-				display: flex;
-				flex-wrap: wrap;
-				li {
-					width: 50px;
-				}
-			}
-		}
-
-		.wpeo-task-main-info {
-			width: 100%;
-			.wpeo-task-title {
-				input {
-					font-weight: 300;
-					width: 100%;
-					font-size: 20px;
-				}
-			}
-
-			.wpeo-task-summary {
-				display: flex;
-				flex-direction: row;
-				width: 100%;
-				margin: 5px 0 0 0;
-
-				&::after {
-					display: block;
-					content: '';
-					clear: both;
-				}
-
-				li {
-					padding: 4px;
-				}
-			}
-		}
-
-		.wpeo-task-setting {
-			width: 8%;
-			position: relative;
-			text-align: center;
-			span.wpeo-button {
-				margin: 10px 0 0 0;
-			}
-			@keyframes taskOptionAnimation {
-				from { opacity: 0; top: 36px; }
-				to { opacity: 1; top: 40px; }
-			}
+		&:hover {
+			cursor: pointer;
 		}
 	}
 
-	.wpeo-task-filter {
-		background: rgba(0,0,0,0.05);
-		padding: 10px 14px;
+	.toggle .content {
+		max-width: 150px;
+		display: flex;
+		flex-wrap: wrap;
+		li {
+			width: 50px;
+		}
+	}
+}
+
+/** Task title */
+.wpeo-project-task .wpeo-task-main-header .wpeo-task-main-info {
+	width: 100%;
+	margin: auto 0;
+
+	.wpeo-project-task-title {
+		font-weight: 300;
+		width: 100%;
+		font-size: 20px;
+		padding: 0;
+		border: 0;
+
+		&:hover {
+			color: rgba(0,0,0,0.5);
+		}
+	}
+
+	.wpeo-task-summary {
 		display: flex;
 		flex-direction: row;
-		border-bottom: 1px solid rgba(0,0,0,0.2);
+		width: 100%;
+
 		li {
-			padding: 0 8px 0 0;
+			padding: 4px;
+			font-size: 12px;
+			color: rgba(0,0,0,0.4);
+			line-height: 1;
+		}
+		[data-icon] {
+			color: rgba(0,0,0,0.6);
+		}
+	}
+}
+
+/** Settings */
+.wpeo-project-task .wpeo-task-main-header .wpeo-task-setting {
+	position: relative;
+	text-align: center;
+	margin: auto 0 auto auto;
+
+	@keyframes taskOptionAnimation {
+		from { opacity: 0; top: 36px; }
+		to { opacity: 1; top: 40px; }
+	}
+}
+
+/** Filters */
+.wpeo-project-task .wpeo-task-filter {
+	background: rgba(0,0,0,0.05);
+	padding: 0.4em;
+	display: flex;
+	flex-direction: row;
+
+	li {
+		margin: auto 0;
+		span {
 			margin: auto 0;
-			span {
-				margin: auto 0;
-			}
 		}
-		li.point-type-display-buttons {
-			button {
-				background: #ddd;
-				&.active {
-					background: $main-color;
-					color: #fff;
-					&:hover {
-						background: lighten($main-color, 10%);
-					}
-				}
-			}
+	}
+
+	.wpeo-button {
+		background: rgba(0,0,0,0.1);
+		border: 0;
+		color: rgba(0,0,0,0.6);
+
+		&.active {
+			background: $main-color;
+			color: #fff;
 		}
-		li.tm-task-display-method-buttons {
-			margin-left: auto;
-			.list-display, .grid-display {
-				width: 26px;
-				height: 26px;
-				line-height: 26px;
-				text-align: center;
-				background: rgba(0,0,0,0.1);
-				color: rgba(0,0,0,0.4);
-				transition: all 0.2s ease-out;
-				&:hover {
-					cursor: pointer;
-					background: rgba(0,0,0,0.2);
-				}
-				&.active {
-					background: $main-color;
-					color: #fff;
-					&:hover {
-						background: lighten($main-color, 10%);
-					}
-				}
+	}
+
+	li.tm-task-display-method-buttons {
+		margin-left: auto;
+		display: flex;
+
+		.wpeo-button {
+			&:first-child {
+				border-top-right-radius: 0;
+				border-bottom-right-radius: 0;
+			}
+			&:last-child {
+				border-top-left-radius: 0;
+				border-bottom-left-radius: 0;
 			}
 		}
 	}

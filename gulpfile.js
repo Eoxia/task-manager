@@ -15,7 +15,7 @@ var paths = {
 
 // SCSS Plugin
 gulp.task( 'build_scss_plugin', function() {
-	gulp.src( paths.scss_plugin[0] )
+	return gulp.src( paths.scss_plugin[0] )
 		.pipe( sass().on( 'error', sass.logError ) )
 		.pipe( gulp.dest( paths.scss_plugin[1] ) )
 		.pipe( sass({outputStyle: 'compressed'}).on( 'error', sass.logError ) )

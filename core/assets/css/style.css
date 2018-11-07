@@ -51,22 +51,6 @@
  */
   /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
 readers do not read off random characters that represent icons */
-  /*!
- * Font Awesome Pro 5.0.6 by @fontawesome - http://fontawesome.com
- * License - http://fontawesome.com/license (Commercial License)
- */
-  /*!
- * Font Awesome Pro 5.0.6 by @fontawesome - http://fontawesome.com
- * License - http://fontawesome.com/license (Commercial License)
- */
-  /*!
- * Font Awesome Pro 5.0.6 by @fontawesome - http://fontawesome.com
- * License - http://fontawesome.com/license (Commercial License)
- */
-  /*!
- * Font Awesome Pro 5.0.6 by @fontawesome - http://fontawesome.com
- * License - http://fontawesome.com/license (Commercial License)
- */
   /*--------------------------------------------------------------
 	# Modules
 	--------------------------------------------------------------*/
@@ -78,6 +62,10 @@ readers do not read off random characters that represent icons */
   /*	Décalage de l'affichage des tâches a cause du bandeau. */
   /*	Version 1.8.0 */
   /* Version 1.7.0 */
+  /** Author */
+  /** Task title */
+  /** Settings */
+  /** Filters */
   /** Bouton pour ouvrir la modal */
   /**
  * Modal d'ajout rapide
@@ -92,18 +80,13 @@ readers do not read off random characters that represent icons */
   /* Bouton d'import dans les posts: deplacement vers la barre de la metabox */
   /* Modal d'import */
   /** Import des éléments simples */ }
+  @media (max-width: 480px) {
+    .tm-wrap {
+      padding-right: 0; } }
   .tm-wrap::after {
     display: block;
     content: "";
     clear: both; }
-  .tm-wrap *,
-  .tm-wrap *:before,
-  .tm-wrap *:after {
-    /* Inherit box-sizing to make it easier to change the property for components that leverage other behavior; see http://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
-    box-sizing: inherit; }
-  @media (max-width: 480px) {
-    .tm-wrap {
-      padding-right: 0; } }
   .tm-wrap p,
   .tm-wrap blockquote,
   .tm-wrap pre,
@@ -2711,57 +2694,59 @@ readers do not read off random characters that represent icons */
       width: 100%; } }
   .tm-wrap .wpeo-task-selected .task-marker {
     opacity: 1; }
-  .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header {
+  .tm-wrap .wpeo-project-task .wpeo-task-main-header {
     display: flex;
     flex-direction: row;
-    margin: 5px;
-    width: 100%; }
-    .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header::after {
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2); }
+    .tm-wrap .wpeo-project-task .wpeo-task-main-header::after {
       display: block;
       content: '';
       clear: both; }
-    .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-author {
-      width: 10%;
-      position: relative;
-      text-align: center; }
-      .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-author div.wpeo-dropdown {
-        margin: 15px 0 0 0; }
-      .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-author .user {
-        border-radius: 50%;
-        overflow: hidden; }
-        .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-author .user img {
-          border-radius: 50%; }
-        .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-author .user:hover {
-          cursor: pointer; }
-      .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-author .toggle .content {
-        max-width: 150px;
-        display: flex;
-        flex-wrap: wrap; }
-        .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-author .toggle .content li {
-          width: 50px; }
-    .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-main-info {
+  .tm-wrap .wpeo-project-task .wpeo-task-main-header .wpeo-task-author {
+    position: relative;
+    text-align: center;
+    margin: auto 0;
+    padding: 0.8em; }
+    .tm-wrap .wpeo-project-task .wpeo-task-main-header .wpeo-task-author .user {
+      border-radius: 50%;
+      overflow: hidden; }
+      .tm-wrap .wpeo-project-task .wpeo-task-main-header .wpeo-task-author .user img {
+        border-radius: 50%; }
+      .tm-wrap .wpeo-project-task .wpeo-task-main-header .wpeo-task-author .user:hover {
+        cursor: pointer; }
+    .tm-wrap .wpeo-project-task .wpeo-task-main-header .wpeo-task-author .toggle .content {
+      max-width: 150px;
+      display: flex;
+      flex-wrap: wrap; }
+      .tm-wrap .wpeo-project-task .wpeo-task-main-header .wpeo-task-author .toggle .content li {
+        width: 50px; }
+  .tm-wrap .wpeo-project-task .wpeo-task-main-header .wpeo-task-main-info {
+    width: 100%;
+    margin: auto 0; }
+    .tm-wrap .wpeo-project-task .wpeo-task-main-header .wpeo-task-main-info .wpeo-project-task-title {
+      font-weight: 300;
+      width: 100%;
+      font-size: 20px;
+      padding: 0;
+      border: 0; }
+      .tm-wrap .wpeo-project-task .wpeo-task-main-header .wpeo-task-main-info .wpeo-project-task-title:hover {
+        color: rgba(0, 0, 0, 0.5); }
+    .tm-wrap .wpeo-project-task .wpeo-task-main-header .wpeo-task-main-info .wpeo-task-summary {
+      display: flex;
+      flex-direction: row;
       width: 100%; }
-      .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-main-info .wpeo-task-title input {
-        font-weight: 300;
-        width: 100%;
-        font-size: 20px; }
-      .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-main-info .wpeo-task-summary {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        margin: 5px 0 0 0; }
-        .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-main-info .wpeo-task-summary::after {
-          display: block;
-          content: '';
-          clear: both; }
-        .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-main-info .wpeo-task-summary li {
-          padding: 4px; }
-    .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-setting {
-      width: 8%;
-      position: relative;
-      text-align: center; }
-      .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-main-header .wpeo-task-setting span.wpeo-button {
-        margin: 10px 0 0 0; }
+      .tm-wrap .wpeo-project-task .wpeo-task-main-header .wpeo-task-main-info .wpeo-task-summary li {
+        padding: 4px;
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.4);
+        line-height: 1; }
+      .tm-wrap .wpeo-project-task .wpeo-task-main-header .wpeo-task-main-info .wpeo-task-summary [data-icon] {
+        color: rgba(0, 0, 0, 0.6); }
+  .tm-wrap .wpeo-project-task .wpeo-task-main-header .wpeo-task-setting {
+    position: relative;
+    text-align: center;
+    margin: auto 0 auto auto; }
 
 @keyframes taskOptionAnimation {
   from {
@@ -2770,42 +2755,31 @@ readers do not read off random characters that represent icons */
   to {
     opacity: 1;
     top: 40px; } }
-  .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter {
+  .tm-wrap .wpeo-project-task .wpeo-task-filter {
     background: rgba(0, 0, 0, 0.05);
-    padding: 10px 14px;
+    padding: 0.4em;
     display: flex;
-    flex-direction: row;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2); }
-    .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li {
-      padding: 0 8px 0 0;
+    flex-direction: row; }
+    .tm-wrap .wpeo-project-task .wpeo-task-filter li {
       margin: auto 0; }
-      .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li span {
+      .tm-wrap .wpeo-project-task .wpeo-task-filter li span {
         margin: auto 0; }
-    .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li.point-type-display-buttons button {
-      background: #ddd; }
-      .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li.point-type-display-buttons button.active {
+    .tm-wrap .wpeo-project-task .wpeo-task-filter .wpeo-button {
+      background: rgba(0, 0, 0, 0.1);
+      border: 0;
+      color: rgba(0, 0, 0, 0.6); }
+      .tm-wrap .wpeo-project-task .wpeo-task-filter .wpeo-button.active {
         background: #389af6;
         color: #fff; }
-        .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li.point-type-display-buttons button.active:hover {
-          background: #69b3f8; }
-    .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li.tm-task-display-method-buttons {
-      margin-left: auto; }
-      .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li.tm-task-display-method-buttons .list-display, .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li.tm-task-display-method-buttons .grid-display {
-        width: 26px;
-        height: 26px;
-        line-height: 26px;
-        text-align: center;
-        background: rgba(0, 0, 0, 0.1);
-        color: rgba(0, 0, 0, 0.4);
-        transition: all 0.2s ease-out; }
-        .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li.tm-task-display-method-buttons .list-display:hover, .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li.tm-task-display-method-buttons .grid-display:hover {
-          cursor: pointer;
-          background: rgba(0, 0, 0, 0.2); }
-        .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li.tm-task-display-method-buttons .list-display.active, .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li.tm-task-display-method-buttons .grid-display.active {
-          background: #389af6;
-          color: #fff; }
-          .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li.tm-task-display-method-buttons .list-display.active:hover, .tm-wrap .wpeo-project-task .wpeo-task-header .wpeo-task-filter li.tm-task-display-method-buttons .grid-display.active:hover {
-            background: #69b3f8; }
+    .tm-wrap .wpeo-project-task .wpeo-task-filter li.tm-task-display-method-buttons {
+      margin-left: auto;
+      display: flex; }
+      .tm-wrap .wpeo-project-task .wpeo-task-filter li.tm-task-display-method-buttons .wpeo-button:first-child {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0; }
+      .tm-wrap .wpeo-project-task .wpeo-task-filter li.tm-task-display-method-buttons .wpeo-button:last-child {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0; }
   .tm-wrap .task-header-action, .tm-wrap .point-header-action {
     text-align: left;
     position: absolute;
@@ -3416,6 +3390,15 @@ readers do not read off random characters that represent icons */
     height: 330px; }
   .tm-wrap .tm-import-tasks .tm-import-add-keyword {
     margin: 0 0 20px 0; }
+  .tm-wrap *,
+  .tm-wrap *:before,
+  .tm-wrap *:after {
+    /* Inherit box-sizing to make it easier to change the property for components that leverage other behavior; see http://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
+    box-sizing: inherit; }
+  .tm-wrap .tm-dashboard-wrap {
+    max-width: 1280px;
+    width: 100%;
+    margin: auto; }
   .tm-wrap .tm-post-dashboard::after {
     display: block;
     content: "";
