@@ -47,7 +47,7 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 	 *         @type bool   $have_search         Si une recherche à eu lieu ou pas.
 	 * }
 	 */
-	public function get_search_result( $term, $status, $categories_id_selected, $follower_id_selected ) {
+	public function get_search_result( $term, $status, $task_id, $categories_id_selected, $follower_id_selected ) {
 		$have_search = false;
 
 		$categories_selected = array();
@@ -83,6 +83,7 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 
 		return array(
 			'term'                => $term,
+			'task_id'             => $task_id,
 			'status'              => $status,
 			'categories_searched' => $categories_searched,
 			'follower_searched'   => $follower_searched,
@@ -102,11 +103,12 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 	 * @param  string $follower_id_selected   L'ID des utilisateurs séléctionnés. Ex: x,y,i.
 	 * @return void
 	 */
-	public function display_search_result( $term, $status, $categories_id_selected, $follower_id_selected ) {
-		$data = $this->get_search_result( $term, $status, $categories_id_selected, $follower_id_selected );
+	public function display_search_result( $term, $status, $task_id, $categories_id_selected, $follower_id_selected ) {
+		$data = $this->get_search_result( $term, $status, $task_id, $categories_id_selected, $follower_id_selected );
 
 		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/search-results', array(
 			'term'                => $data['term'],
+			'task_id'             => $data['task_id'],
 			'status'              => $data['status'],
 			'categories_searched' => $data['categories_searched'],
 			'follower_searched'   => $data['follower_searched'],

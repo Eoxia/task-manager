@@ -14,64 +14,52 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="form alignleft" action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>" method="POST" >
+<div class="form" action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>" method="POST" >
 	<header class="wpeo-header-bar wpeo-general-search">
 		<input type="hidden" name="action" value="search" />
 		<label for="general-search">
 			<i class="dashicons dashicons-search"></i>
 			<input type="text" name="term" value="<?php echo esc_attr( $param['term'] ); ?>" placeholder="<?php esc_attr_e( 'Search...', 'task-manager' ); ?>" />
 		</label>
-		<span class="wpeo-button button-light more-search-options"><?php esc_html_e( 'More options', 'task-manager' ); ?></span>
 		
-		<div class="wpeo-header-search wpeo-form wpeo-gridlayout grid-2 active">
-			<div class="form-element">
-				<span class="form-label">Champs texte</span>
-				<label class="form-field-container">
-					<input type="text" class="form-field" />
-				</label>
-			</div>
-			
-			<div class="form-element">
-				<span class="form-label">Champs texte</span>
-				<label class="form-field-container">
-					<input type="text" class="form-field" />
-				</label>
-			</div>
-			
-			<div class="form-element">
-				<span class="form-label">Champs texte</span>
-				<label class="form-field-container">
-					<input type="text" class="form-field" />
-				</label>
-			</div>
-			
-			<div class="form-element">
-				<span class="form-label">Champs texte</span>
-				<label class="form-field-container">
-					<input type="text" class="form-field" />
-				</label>
-			</div>
-			
-			<div class="form-element">
-				<span class="form-label">Champs texte</span>
-				<label class="form-field-container">
-					<input type="text" class="form-field" />
-				</label>
-			</div>
-			
-			<ul>
-				<li>Tag 1</li>
-				<li>Tag 2</li>
-				<li>Tag 3</li>
+		<div class="wpeo-dropdown">
+			<div class="dropdown-toggle wpeo-button button-main"><span><?php esc_html_e( 'Advanced search', 'task-manager' ); ?></span><i class="button-icon fas fa-caret-down"></i></div>
+			<ul class="dropdown-content wpeo-grid grid-2">
+				<li class="dropdown-item">
+					<div class="form-element">
+						<span class="form-label"><?php esc_html_e( 'ID Task', 'task-manager' ); ?></span>
+						<label class="form-field-container">
+							<input type="text" class="form-field" name="task_id" />
+						</label>
+					</div>
+				</li>
+				<li class="dropdown-item">
+					<div class="form-element">
+						<span class="form-label"><?php esc_html_e( 'ID Task', 'task-manager' ); ?></span>
+						<label class="form-field-container">
+							<input type="text" class="form-field" name="task_id" />
+						</label>
+					</div>
+				</li>
+				<li class="dropdown-item">
+					<div class="form-element">
+						<span class="form-label"><?php esc_html_e( 'ID Task', 'task-manager' ); ?></span>
+						<label class="form-field-container">
+							<input type="text" class="form-field" name="task_id" />
+						</label>
+					</div>
+				</li>
+				<li class="dropdown-item">
+					<a class="action-input search-button"
+						data-loader="form"
+						data-namespace="taskManager"
+						data-module="navigation"
+						data-before-method="checkDataBeforeSearch"
+						data-parent="form"><?php esc_html_e( 'Search', 'task-manager' ); ?></a>
+				</li>
 			</ul>
-
-			<a class="action-input search-button"
-				data-loader="form"
-				data-namespace="taskManager"
-				data-module="navigation"
-				data-before-method="checkDataBeforeSearch"
-				data-parent="form"><?php esc_html_e( 'Search', 'task-manager' ); ?></a>
 		</div>
 	</header>
 </div>
-<?php //Navigation_Class::g()->display_search_result( $param['term'], $param['status'], $param['categories_id_selected'], $param['follower_id_selected'] );
+
+<?php Navigation_Class::g()->display_search_result( $param['term'], $param['status'], $param['task_id'], $param['categories_id_selected'], $param['follower_id_selected'] );

@@ -42,14 +42,25 @@ class Navigation_Action {
 	 */
 	public function callback_search() {
 		$term                          = ! empty( $_POST['term'] ) ? sanitize_text_field( $_POST['term'] ) : '';
-		$data                          = Task_Helper::parse_term( $term );
+		$task_id                       = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+		$categories_id_selected        = ! empty( $_POST['categories_id_selected'] ) ? sanitize_text_field( $_POST['categories_id_selected'] ) : '';
+		$follower_id_selected          = ! empty( $_POST['follower_id_selected'] ) ? (int) $_POST['follower_id_selected'] : '';
+		$tm_dashboard_archives_include = ! empty( $_POST['tm-dashboard-archives-include'] ) ? (bool) $_POST['tm-dashboard-archives-include'] : false;
+		$status                        = 'any';
+		if ( $tm_dashboard_archives_include ) {
+			add_filter( 'task_manager_get_tasks_args', function( $args ) {
+				$args['status'] .= ',"archive"';
+
+				return $args;
+			} );
+		}
 
 		ob_start();
-		Navigation_Class::g()->display_search_result( '', 'any', $data['categories_id'], $data['users_id'] );
+		Navigation_Class::g()->display_search_result( $term, $status, $task_id, $categories_id_selected, $follower_id_selected );
 		$search_result_view = ob_get_clean();
 
 		ob_start();
-		echo do_shortcode( '[task id="' . $data['id'] . '" users_id="' . $data['users_id'] . '" categories_id="' . $data['categories_id'] . '" posts_per_page="' . \eoxia\Config_Util::$init['task-manager']->task->posts_per_page . '" with_wrapper="0"]' );
+		echo do_shortcode( '[task users_id="' . $follower_id_selected . '" categories_id="' . $categories_id_selected . '" term="' . $term . '" posts_per_page="' . \eoxia\Config_Util::$init['task-manager']->task->posts_per_page . '" with_wrapper="0"]' );
 		$tasks_view = ob_get_clean();
 
 		wp_send_json_success( array(
