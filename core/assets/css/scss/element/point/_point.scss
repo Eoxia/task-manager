@@ -50,6 +50,7 @@
 	/** Content */
 	.point-content {
 		width: 100%;
+		max-width: 90%;
 		margin: auto 0;
 		padding: 0 1em;
 
@@ -93,6 +94,7 @@
 	/** Settings */
 	.point-action {
 		margin: auto 0 auto auto;
+		min-width: 10%;
 	}
 }
 

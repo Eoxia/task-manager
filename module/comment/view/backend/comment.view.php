@@ -16,12 +16,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <li class="comment view <?php echo ( $comment_selected_id === $comment->data['id'] ) ? 'blink' : ''; ?>">
-	<ul class="wpeo-comment-container">
-		<li class="avatar"><?php echo do_shortcode( '[task_avatar ids="' . $comment->data['author_id'] . '" size="20"]' ); ?></li>
-		<li class="wpeo-comment-date"><?php echo esc_html( $comment->data['date']['rendered']['date_human_readable'] ); ?></li>
-		<li class="wpeo-comment-time"><span class="dashicons dashicons-clock"></span> <?php echo esc_html( $comment->data['time_info']['elapsed'] ); ?></li>
-		<li class="wpeo-comment-action">
 
+	<?php echo do_shortcode( '[task_avatar ids="' . $comment->data['author_id'] . '" size="40"]' ); ?>
+
+	<div class="comment-container">
+
+		<div class="comment-content">
+			<div class="comment-content-text">
+				<?php echo nl2br( $comment->data['rendered'] ); ?>
+			</div>
+
+			<div class="comment-meta wpeo-form">
+				<div class="group-date">
+					<i class="far fa-calendar-alt"></i> <?php echo esc_html( $comment->data['date']['rendered']['date_human_readable'] ); ?>
+				</div>
+
+				<div class="wpeo-comment-time">
+					<i class="far fa-clock"></i> <?php echo esc_html( $comment->data['time_info']['elapsed'] ); ?>
+				</div>
+			</div>
+		</div><!-- .comment-content -->
+
+		<div class="comment-action">
 			<div class="wpeo-dropdown wpeo-comment-setting"
 					data-parent="toggle"
 					data-target="content"
@@ -49,7 +65,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php echo apply_filters( 'tm_comment_toggle_after', '', $comment ); ?>
 				</ul>
 			</div>
-		</li>
-		<li class="wpeo-comment-content"><?php echo nl2br( $comment->data['rendered'] ); ?></li>
-	</ul>
+		</div>
+
+	</div>
 </li>

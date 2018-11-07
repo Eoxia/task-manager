@@ -50,6 +50,7 @@
 /** Comment content */
 .points .point .comment .comment-content {
 	width: 100%;
+	max-width: 90%;
 
 	/** Text */
 	.comment-content-text {
@@ -91,9 +92,13 @@
 		font-size: 12px;
 		border-bottom: 0;
 	}
+	.group-date, .wpeo-comment-time, [data-icon] {
+		color: rgba(0,0,0,0.4);
+		font-size: 12px;
+	}
 	/** Date */
 	.group-date {
-		max-width: 150px;
+		max-width: 230px;
 		margin-right: 0.4em;
 	}
 }
@@ -101,6 +106,8 @@
 /** Comment action */
 .points .point .comment .comment-action {
 	margin: auto 0 auto 0.4em;
+	min-width: 10%;
+	text-align: right;
 
 	.save-icon {
 		font-size: 20px;
@@ -123,6 +130,18 @@
 	.comment-content-text .content {
 		background: #fff;
 	}
+	.comment-action .save-icon {
+		opacity: 1;
+	}
+	.comment-meta {
+		opacity: 1;
+		height: auto;
+		pointer-events: all;
+	}
+}
+
+/** View */
+.points .point .comment.view {
 	.comment-action .save-icon {
 		opacity: 1;
 	}
