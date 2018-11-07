@@ -32,7 +32,7 @@ class Point_Action {
 		add_action( 'wp_ajax_delete_point', array( $this, 'ajax_delete_point' ) );
 		add_action( 'wp_ajax_edit_order_point', array( $this, 'ajax_edit_order_point' ) );
 		add_action( 'wp_ajax_complete_point', array( $this, 'ajax_complete_point' ) );
-		add_action( 'wp_ajax_load_completed_point', array( $this, 'ajax_load_completed_point' ) );
+		add_action( 'wp_ajax_load_point', array( $this, 'ajax_load_point' ) );
 
 		add_action( 'wp_ajax_search_task', array( $this, 'ajax_search_task' ) );
 		add_action( 'wp_ajax_move_point_to', array( $this, 'ajax_move_point_to' ) );
@@ -209,12 +209,13 @@ class Point_Action {
 	 * @return void
 	 *
 	 * @since 1.3.6
-	 * @version 1.6.0
 	 */
-	public function ajax_load_completed_point() {
-		check_ajax_referer( 'load_completed_point' );
+	public function ajax_load_point() {
+		check_ajax_referer( 'load_point' );
 
-		$task_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+		$task_id   = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+		$completed = ! empty( $_POST['point_state'] ) ? sanitize_text_field( $_POST['point_state'] ) : 'uncompleted';
+		$completed = ( 'completed' === $completed ) ? true : false;
 
 		if ( empty( $task_id ) ) {
 			wp_send_json_error();
@@ -224,7 +225,7 @@ class Point_Action {
 			'post_id'    => $task_id,
 			'type'       => Point_Class::g()->get_type(),
 			'meta_key'   => '_tm_completed',
-			'meta_value' => true,
+			'meta_value' => $completed,
 		) );
 
 		ob_start();
@@ -237,7 +238,7 @@ class Point_Action {
 		wp_send_json_success( array(
 			'namespace'        => 'taskManager',
 			'module'           => 'point',
-			'callback_success' => 'loadedCompletedPoint',
+			'callback_success' => 'loadedPoint',
 			'view'             => ob_get_clean(),
 		) );
 	}

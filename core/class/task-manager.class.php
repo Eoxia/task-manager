@@ -100,7 +100,6 @@ class Task_Manager_Class extends \eoxia\Singleton_Util {
 			update_option( \eoxia\Config_Util::$init['task-manager']->key_last_update_version, $version );
 		}
 	}
-
 }
 
 new Task_Manager_Class();

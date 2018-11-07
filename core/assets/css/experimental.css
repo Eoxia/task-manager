@@ -1,12 +1,10 @@
 .suggest {
   pointer-events: all;
   position: absolute; }
-
-.suggest:before {
-  display: none; }
-
-.suggest li.focus {
-  background: rgba(0, 0, 0, 0.1); }
+  .suggest::before {
+    display: none; }
+  .suggest li.focus {
+    background: rgba(0, 0, 0, 0.1); }
 
 .test {
   position: absolute;

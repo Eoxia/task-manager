@@ -36,7 +36,7 @@ window.eoxiaJS.taskManager.point.event = function() {
 	jQuery( document ).on( 'blur paste', '.wpeo-project-task .point.edit .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.editPoint );
 	jQuery( document ).on( 'click', '.wpeo-project-task .form .completed-point', window.eoxiaJS.taskManager.point.completePoint );
 
-	jQuery( document ).on( 'click', '.point-type-display-buttons button', window.eoxiaJS.taskManager.point.displayPointPerType );
+	jQuery( document ).on( 'click', '.point-type-display-buttons button.active', window.eoxiaJS.taskManager.point.undisplayPoint );
 };
 
 /**
@@ -221,13 +221,12 @@ window.eoxiaJS.taskManager.point.deletedPointSuccess = function( triggeredElemen
  * Envoie une requête pour passer le point en compléter ou décompléter.
  * Déplace le point vers la liste à puce "compléter" ou "décompléter".
  *
- * @return void
- *
  * @since 1.0.0
- * @version 1.0.0
  */
 window.eoxiaJS.taskManager.point.completePoint = function() {
 	var totalCompletedPoint = jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text();
+	var completedButton     = jQuery( '.point-type-display-buttons button[data-point-state="completed"]' );
+	var uncompletedButton   = jQuery( '.point-type-display-buttons button[data-point-state="uncompleted"]' );
 
 	var data = {
 		action: 'complete_point',
@@ -235,15 +234,26 @@ window.eoxiaJS.taskManager.point.completePoint = function() {
 		point_id: jQuery( this ).closest( '.form' ).find( 'input[name="id"]' ).val(),
 		complete: jQuery( this ).is( ':checked' )
 	};
-
+	
 	if ( jQuery( this ).is( ':checked' ) ) {
+		if ( completedButton.hasClass( 'active' ) ) {
+			jQuery( this ).closest( '.point' ).attr( 'data-point-state', 'completed' );
+		} else {
+			jQuery( this ).closest( '.point' ).remove();
+		}
+		
 		totalCompletedPoint++;
-		jQuery( this ).closest( '.wpeo-project-task' ).find( '.points.completed' ).append( jQuery( this ).closest( 'div.point' ) );
 	} else {
+		if ( uncompletedButton.hasClass( 'active' ) ) {
+			jQuery( this ).closest( '.point' ).attr( 'data-point-state', 'uncompleted' );
+		} else {
+			jQuery( this ).closest( '.point' ).remove();
+		}
+		
 		totalCompletedPoint--;
-		jQuery( this ).closest( '.wpeo-project-task' ).find( '.points.sortable div.point:last' ).before( jQuery( this ).closest( 'div.point' ) );
 	}
 
+	
 	jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text( totalCompletedPoint );
 
 	window.eoxiaJS.refresh();
@@ -386,10 +396,8 @@ window.eoxiaJS.taskManager.point.afterTriggerChangeDate = function( triggeredEle
  * @since 1.0.0
  * @version 1.6.0
  */
-window.eoxiaJS.taskManager.point.loadedCompletedPoint = function( triggeredElement, response ) {
-	jQuery( triggeredElement ).removeClass( 'action-input' );
-	jQuery( triggeredElement ).addClass( 'active' );
-	jQuery( triggeredElement ).attr( 'data-points-loaded', true );
+window.eoxiaJS.taskManager.point.loadedPoint = function( triggeredElement, response ) {
+	jQuery( triggeredElement ).addClass( 'active' ).removeClass( 'action-input' );
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.points .point:not(.edit)' ).after( response.data.view );
 	window.eoxiaJS.refresh();
 };
@@ -398,36 +406,14 @@ window.eoxiaJS.taskManager.point.loadedCompletedPoint = function( triggeredEleme
  * Méthode appelée lors du clic sur les boutons de hoix du type de points affichés dans une tâche.
  *
  * @since 1.8.0
- * @version 1.8.0
  *
  * @param  {type} event  L'événement lancé lors de l'action.
- *
- * @return {void}
  */
-window.eoxiaJS.taskManager.point.displayPointPerType = function( event ) {
-	var display = false;
-	var pointStateToDisplay = jQuery( this ).attr( 'data-point-state' );
+window.eoxiaJS.taskManager.point.undisplayPoint = function( event ) {
+	var pointState = jQuery( this ).attr( 'data-point-state' );
 	event.preventDefault();
-
-	// Si les types de points sont déjà chargés, on les masques ou on les affiche sans requetes supplémentaires.
-	if ( 'true' == jQuery( this ).attr( 'data-points-loaded' ) ) {
-
-		// Si le bouton possède la classe "active" c'est que les points sont affichés et qu'il faut les cacher.
-		if ( jQuery( this ).hasClass( 'active' ) ) {
-			jQuery( this ).removeClass( 'active' );
-		} else {
-			jQuery( this ).addClass( 'active' );
-			display = true;
-		}
-
-		jQuery( this ).closest( '.wpeo-project-task-container' ).find( '.points .point.edit' ).each( function() {
-			if ( pointStateToDisplay === jQuery( this ).attr( 'data-point-state' ) ) {
-				if ( display ) {
-					jQuery( this ).show();
-				} else if ( ! display ) {
-					jQuery( this ).hide();
-				}
-			}
-		} );
-	}
+	jQuery( this ).removeClass( 'active' ).addClass( 'action-input' );
+	jQuery( this ).closest( '.wpeo-project-task-container' ).find( '.points .point.edit[data-point-state="' + pointState + '"]' ).remove();
+	
+	window.eoxiaJS.refresh();
 };

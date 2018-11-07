@@ -148,7 +148,7 @@ class Point_Class extends \eoxia\Comment_Class {
 	 *
 	 * @return boolean               True ou false.
 	 */
-	public function complete_point( $point_id, $completed, $is_new_point ) {
+	public function complete_point( $point_id, $completed, $is_new_point = false ) {
 		$point = $this->get( array(
 			'id' => $point_id,
 		), true );

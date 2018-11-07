@@ -13,12 +13,6 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?><ul>
-	<li class="action-input change-status active"
-		data-namespace="taskManager"
-		data-module="navigation"
-		data-before-method="checkDataBeforeSearch"
-		data-parent="form"><?php esc_html_e( 'All tasks', 'task-manager' ); ?></li>
-
 	<li class="action-input"
 		data-before=
 		data-filter-args="follower_id_selected=<?php echo esc_attr( get_current_user_id() ); ?>"

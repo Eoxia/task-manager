@@ -27,7 +27,7 @@ window.eoxiaJS.taskManager.comment.init = function() {
  * @version 1.5.0
  */
 window.eoxiaJS.taskManager.comment.event = function() {
-	jQuery( document ).on( 'keyup', '.wpeo-comment-container div.content[contenteditable="true"], .wpeo-comment-container input[name="time"]', window.eoxiaJS.taskManager.comment.triggerCreate );
+	jQuery( document ).on( 'keyup', '.comment div[contenteditable="true"], .comment input[name="time"]', window.eoxiaJS.taskManager.comment.triggerCreate );
 	jQuery( document ).on( 'blur keyup paste keydown click', '.comments .comment .content', window.eoxiaJS.taskManager.comment.updateHiddenInput );
 	jQuery( document ).on( 'click', '.point.edit div[contenteditable="true"].wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.comment.loadComments );
 };
@@ -78,14 +78,10 @@ window.eoxiaJS.taskManager.comment.triggerCreate = function( event ) {
  */
 window.eoxiaJS.taskManager.comment.updateHiddenInput = function( event ) {
 	if ( 0 < jQuery( this ).text().length ) {
-		jQuery( this ).closest( '.comment' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 1 );
-		jQuery( this ).closest( '.comment' ).find( '.wpeo-point-new-placeholder' ).addClass( 'hidden' );
-		jQuery( this ).closest( '.comment' ).find( '.wpeo-point-new-btn ').removeClass( 'no-action' );
+		jQuery( this ).closest( '.comment' ).find( '.placeholder' ).addClass( 'hidden' );
 		window.eoxiaJS.taskManager.core.initSafeExit( true );
 	} else {
-		jQuery( this ).closest( '.comment' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 0.4 );
-		jQuery( this ).closest( '.comment' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
-		jQuery( this ).closest( '.comment' ).find( '.wpeo-point-new-btn ').addClass( 'no-action' );
+		jQuery( this ).closest( '.comment' ).find( '.placeholder' ).removeClass( 'hidden' );
 		window.eoxiaJS.taskManager.core.initSafeExit( false );
 	}
 

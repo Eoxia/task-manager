@@ -80,6 +80,7 @@ class Task_Manager_Action {
 						// Translators: %s is the version number with strong markup.
 						'updateManagerErrorOccured' => sprintf( __( 'An error occured. Please take a look at %s logs', 'task-manager' ), '<strong>{{ versionNumber }}</strong>' ),
 						'data'                      => \eoxia\JSON_Util::g()->open_and_decode( PLUGIN_TASK_MANAGER_PATH . 'core/assets/json/data.json' ),
+						'search'                    => \eoxia\JSON_Util::g()->open_and_decode( PLUGIN_TASK_MANAGER_PATH . 'core/assets/json/search.json' ),
 					) );
 					wp_enqueue_script( 'task-manager-datetimepicker-script', PLUGIN_TASK_MANAGER_URL . 'core/assets/js/jquery.datetimepicker.full.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
 					break;

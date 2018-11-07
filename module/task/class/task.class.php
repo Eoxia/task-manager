@@ -216,7 +216,7 @@ class Task_Class extends \eoxia\Post_Class {
 			if ( -1 !== $param['posts_per_page'] ) {
 				$query .= "LIMIT " . $param['offset'] . "," . $param['posts_per_page'];
 			}
-
+			
 			$tasks_id = $wpdb->get_col( $query );
 
 			if ( ! empty( $tasks_id ) ) {

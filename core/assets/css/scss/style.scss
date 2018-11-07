@@ -70,3 +70,16 @@
 # Modules externes du Framework
 --------------------------------------------------------------*/
 @import "external/external.scss";
+
+span[data-text="true"] {
+    display: inline-block;
+    min-width: 10px;
+    min-height: 10px;
+    background-color: blue !important;
+}
+.bg-red {
+    background-color: red !important;
+    padding: 2px;
+    border: solid black 1px;
+}
+
