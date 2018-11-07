@@ -2514,8 +2514,6 @@ readers do not read off random characters that represent icons */
   .tm-wrap .tm-dashboard-wrap .list-task {
     margin-top: 110px; }
   .tm-wrap .tm-dashboard-header {
-    position: fixed;
-    top: 32px;
     height: 110px;
     background-color: #3495F0;
     width: 98%;

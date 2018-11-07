@@ -14,10 +14,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="search-results">
-	<?php if ( ! empty( $have_search ) ) : ?>
-		<ul>
-			<li><?php echo esc_attr( $task_id ); ?></li>
-		</ul>
+<ul class="search-results">
+	<?php if ( ! empty( $task_id ) ) : ?>
+		<li><?php echo esc_attr( $task_id ); ?></li>
 	<?php endif; ?>
-</div>
+	
+	<?php if ( ! empty( $point_id ) ) : ?>
+		<li><?php echo esc_attr( $point_id ); ?></li>
+	<?php endif; ?>
+	
+	<?php if ( ! empty( $follower_searched ) ) : ?>
+		<li><?php echo esc_attr( $follower_searched ); ?></li>
+	<?php endif; ?>
+	
+	<?php if ( ! empty( $post_parent_searched ) ) : ?>
+		<li><?php echo esc_attr( $post_parent_searched ); ?></li>
+	<?php endif; ?>
+</ul>

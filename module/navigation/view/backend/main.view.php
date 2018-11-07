@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<input type="text" name="term" value="<?php echo esc_attr( $param['term'] ); ?>" placeholder="<?php esc_attr_e( 'Search...', 'task-manager' ); ?>" />
 		</label>
 		
-		<div class="wpeo-dropdown">
+		<div class="wpeo-dropdown dropdown-force-display">
 			<div class="dropdown-toggle wpeo-button button-main"><span><?php esc_html_e( 'Advanced search', 'task-manager' ); ?></span><i class="button-icon fas fa-caret-down"></i></div>
 			<ul class="dropdown-content wpeo-grid grid-2">
 				<li class="dropdown-item">
@@ -35,31 +35,40 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</li>
 				<li class="dropdown-item">
 					<div class="form-element">
-						<span class="form-label"><?php esc_html_e( 'ID Task', 'task-manager' ); ?></span>
+						<span class="form-label"><?php esc_html_e( 'ID Point', 'task-manager' ); ?></span>
 						<label class="form-field-container">
-							<input type="text" class="form-field" name="task_id" />
+							<input type="text" class="form-field" name="point_id" />
 						</label>
 					</div>
 				</li>
+		
 				<li class="dropdown-item">
-					<div class="form-element">
-						<span class="form-label"><?php esc_html_e( 'ID Task', 'task-manager' ); ?></span>
-						<label class="form-field-container">
-							<input type="text" class="form-field" name="task_id" />
-						</label>
-					</div>
+					<?php $eo_search->display( 'tm_search_admin' ); ?>
 				</li>
+				
+				<li class="dropdown-item">
+					<?php $eo_search->display( 'tm_search_customer' ); ?>
+				</li>
+				
 				<li class="dropdown-item">
 					<a class="action-input search-button"
-						data-loader="form"
-						data-namespace="taskManager"
-						data-module="navigation"
-						data-before-method="checkDataBeforeSearch"
-						data-parent="form"><?php esc_html_e( 'Search', 'task-manager' ); ?></a>
+					data-loader="form"
+					data-namespace="taskManager"
+					data-module="navigation"
+					data-before-method="checkDataBeforeSearch"
+					data-parent="form"><?php esc_html_e( 'Search', 'task-manager' ); ?></a>
 				</li>
+				
 			</ul>
 		</div>
 	</header>
 </div>
 
-<?php Navigation_Class::g()->display_search_result( $param['term'], $param['status'], $param['task_id'], $param['categories_id_selected'], $param['follower_id_selected'] );
+<?php Navigation_Class::g()->display_search_result( 
+	$param['term'],
+	$param['status'],
+	$param['task_id'],
+	$param['point_id'],
+	$param['post_parent'],
+	$param['categories_id_selected'],
+	$param['follower_id_selected'] );

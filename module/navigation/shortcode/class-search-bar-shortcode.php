@@ -43,6 +43,8 @@ class Search_Bar_Shortcode {
 	 * @return HTML Le code HTML permettant d'afficher la zone de recherche
 	 */
 	public function callback_task_manager_search_bar( $param ) {
+		global $eo_search;
+		
 		$categories = Tag_Class::g()->get( array() );
 		$followers  = Follower_Class::g()->get( array(
 			'role' => 'administrator',
@@ -54,15 +56,43 @@ class Search_Bar_Shortcode {
 			'term'                   => '',
 			'status'                 => 'any',
 			'task_id'                => 0,
+			'point_id'               => 0,
+			'post_parent'            => 0,
 			'categories_id_selected' => array(),
 			'follower_id_selected'   => array(),
 		), $param, 'task_manager_search_bar' );
+		
+		$eo_search->register_search( 'tm_search_admin', array(
+			'label'        => 'Administrateur',
+			'icon'         => 'fa-search',
+			'type'         => 'user',
+			'name'         => 'follower_id_selected',
+			'value'        => '',
+			'hidden_value' => 0,
+			'args' => array(
+				'role' => 'administrator',
+			)
+		) );
+		
+		$eo_search->register_search( 'tm_search_customer', array(
+			'label'        => 'Client',
+			'icon'         => 'fa-search',
+			'type'         => 'post',
+			'name'         => 'post_parent',
+			'value'        => '',
+			'hidden_value' => 0,
+			'args' => array(
+				'post_type'   => 'wpshop_customers',
+				'post_status' => array( 'publish', 'inherit', 'draft' ),
+			)
+		) );
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/main', array(
 			'categories' => $categories,
 			'followers'  => $followers,
 			'param'      => $param,
+			'eo_search'  => $eo_search,
 		) );
 
 		return ob_get_clean();
