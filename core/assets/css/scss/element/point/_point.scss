@@ -1,81 +1,137 @@
+/** Point structure */
 .points {
 	background: rgba(0,0,0,.05);
+	padding: 0.4em 0.4em 0.4em;
+}
+.points .point {
+	margin: 0.2em 0;
+	border-radius: 8px;
+	border: 1px solid rgba(0,0,0,0.1);
 
-	.point-container {
+	&:hover {
+		.wpeo-sort-point, .wpeo-task-setting .wpeo-task-open-action > i, .action-delete {
+			opacity: 1 !important;
+		}
+	}
+}
+
+/** Points */
+.points .point .point-container {
+	display: flex;
+	flex-direction: row;
+	padding: 0.6em 0;
+
+	/** Check */
+	.point-valid {
+		margin: auto 0;
+		padding-left: 0.2em;
 		display: flex;
 		flex-direction: row;
-		padding: 8px 6px 0 6px;
 
-		.point-valid, .point-action {
+		.wpeo-sort-point {
+			color: rgba(0,0,0,0.4);
+			transition: all 0.2s ease-out;
+			opacity: 0;
+			display: flex;
+
+			&:hover {
+				cursor: pointer;
+				color: rgba(0,0,0,0.8);
+			}
+		}
+
+		.completed-point {
+			margin-left: 4px;
+			background: #fff !important;
+			border-radius: 3px;
+		}
+	}
+
+	/** Content */
+	.point-content {
+		width: 100%;
+		margin: auto 0;
+		padding: 0 1em;
+
+		.wpeo-point-summary {
 			display: flex;
 			flex-direction: row;
-		}
 
-		.point-valid {
-			.completed-point, .wpeo-sort-point {
-				margin: auto 0;
-			}
-			.wpeo-sort-point {
+			li {
+				padding: 4px;
+				font-size: 12px;
 				color: rgba(0,0,0,0.4);
-				transition: all 0.2s ease-out;
-				opacity: 0;
-				display: flex;
-
-				.fa {
-					padding: 0 1px;
-				}
-				&:hover {
-					cursor: pointer;
-					color: rgba(0,0,0,0.8);
-				}
+				line-height: 1;
 			}
-			.completed-point {
-				margin-left: 4px;
-				background: #fff !important;
-				border-radius: 3px;
+			[data-icon] {
+				color: rgba(0,0,0,0.6);
 			}
 		}
+
+		.wpeo-point-new-contenteditable {
+			min-height: 20px;
+			transition: all 0.2s ease-out;
+			font-family: 'Roboto Slab', 'Open sans', serif;
+			width: 100%;
+			font-size: 14px;
+		}
+		.wpeo-point-new-placeholder {
+			color: rgba(0,0,0,0.4);
+			position: absolute;
+			left: 0em;
+			top: 0em;
+			pointer-events: none;
+			font-family: 'Roboto Slab', 'Open sans', serif;
+			font-style: italic;
+
+			[data-icon] {
+				margin-right: 0.4em;
+			}
+		}
+	}
+
+	/** Settings */
+	.point-action {
+		margin: auto 0 auto auto;
+	}
+}
+
+/** Nouveau point */
+.points .point.new .point-container {
+	padding: 1.4em 1.4em 1.4em 3.4em;
+
+	.point-content {
+		padding: 0;
+	}
+	.point-action {
+		.wpeo-point-new-btn {
+			background: $main-color;
+			border-color: $main-color;
+			color: #fff;
+			width: 20px;
+			height: 20px;
+			line-height: 12px;
+		}
+	}
+}
+
+/** Point en édition */
+.points .point.edit .point-container {
+
+}
+
+.points {
+
+	.point-container {
 
 		.point-content {
-			width: 100%;
-			padding: 0 0.4em;
 
-			.wpeo-point-summary {
-				display: flex;
-				flex-direction: row;
 
-				&::after {
-					display: block;
-					content: '';
-					clear: both;
-				}
-
-				li {
-					padding: 4px;
-				}
-			}
 
 			.wpeo-point-new-contenteditable {
 				margin: auto 0;
 			}
-			.wpeo-point-new-contenteditable {
-				min-height: 24px;
-				// border-bottom: 1px solid rgba(0,0,0,0.1);
-				transition: all 0.2s ease-out;
-				padding-bottom: 6px;
-				font-family: 'kalamregular', 'open sans', sans-serif;
-				width: 100%;
-				&:hover {
-					border-bottom: 1px solid rgba(0,0,0,0.4);
-				}
-			}
-			.wpeo-point-new-placeholder {
-				color: rgba(0,0,0,0.4);
-				position: absolute;
-				left: 6px;
-				bottom: 6px;
-				pointer-events: none;
-			}
+
 		}
 
 		.point-action {
@@ -126,26 +182,6 @@
 			}
 		}
 
-	}
-
-	.point {
-		margin: 5px;
-		border-radius: 5px;
-		&.edit:first-child {
-			padding-top: 10px;
-		}
-		&:not(.edit) {
-			.point-content {
-				position: relative;
-				.wpeo-point-new-placeholder {
-				}
-			}
-		}
-		&:hover {
-			.wpeo-sort-point, .wpeo-task-setting .wpeo-task-open-action > i, .action-delete {
-				opacity: 1;
-			}
-		}
 	}
 }
 

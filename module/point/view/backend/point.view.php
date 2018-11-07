@@ -14,7 +14,7 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
-<div class="point <?php echo ! empty( $point->data['id'] ) ? esc_attr( 'edit' ) : ''; ?>" data-id="<?php echo esc_attr( $point->data['id'] ); ?>"
+<div class="point <?php echo ! empty( $point->data['id'] ) ? esc_attr( 'edit' ) : esc_attr( 'new' ); ?>" data-id="<?php echo esc_attr( $point->data['id'] ); ?>"
 		data-point-state="<?php echo esc_attr( ! empty( $point->data['completed'] ) ? 'completed' : 'uncompleted' ); ?>" >
 	<div class="form">
 		<input type="hidden" name="id" value="<?php echo esc_attr( $point->data['id'] ); ?>" />
@@ -35,17 +35,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<input type="hidden" name="content" value="<?php echo esc_attr( trim( $point->data['content'] ) ); ?>" />
 				<div class="wpeo-point-new-contenteditable" contenteditable="true"><?php echo trim( $point->data['content'] ); ?></div>
 				<?php if ( empty( $point->data['id'] ) ) : ?>
-					<span class="wpeo-point-new-placeholder"><?php esc_html_e( 'Write your point here...', 'task-manager' ); ?></span>
+					<span class="wpeo-point-new-placeholder"><i class="far fa-plus"></i> <?php esc_html_e( 'Write your point here...', 'task-manager' ); ?></span>
 				<?php endif; ?>
 				<?php if ( ! empty( $point->data['id'] ) ) : ?>
 					<ul class="wpeo-point-summary">
-						<li class="wpeo-block-id">#<?php echo esc_attr( $point->data['id'] ); ?></li>
+						<li class="wpeo-block-id"><i class="far fa-hashtag"></i> <?php echo esc_attr( $point->data['id'] ); ?></li>
 						<li class="wpeo-point-time">
-							<span class="dashicons dashicons-clock"></span>
+							<i class="far fa-clock"></i>
 							<span class="wpeo-time-in-point"><?php echo esc_attr( $point->data['time_info']['elapsed'] ); ?></span>
 						</li>
 						<li>
-							<i class="fal fa-comment-dots" ></i>
+							<i class="far fa-comment-dots"></i>
 							<?php echo esc_html( $point->data['count_comments'] ); ?>
 						</li>
 					</ul>
@@ -57,14 +57,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php echo apply_filters( 'tm_point_after', '', $point ); // WPCS: XSS  ok. ?><!-- / filter for point last column -->
 
 				<?php	if ( empty( $point->data['id'] ) ) : ?>
-					<div 	class="wpeo-point-new-btn action-input animated no-action"
+					<div 	class="wpeo-point-new-btn wpeo-button button-main button-square-30 button-rounded action-input animated no-action"
 								data-parent="form"
 								data-loader="point"
 								data-action="edit_point"
 								data-nonce="<?php echo esc_attr( wp_create_nonce( 'edit_point' ) ); ?>"
-								style="opacity: 0.4;"
+								style="opacity: 0;"
 								title="<?php esc_attr( 'Add this point', 'task-manager' ); ?>">
-						<i class="dashicons dashicons-plus-alt"></i>
+						<i class="button-icon fas fa-plus"></i>
 					</div>
 				<?php else : ?>
 					<div class="hidden action-input update"
