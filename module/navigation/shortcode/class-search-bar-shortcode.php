@@ -46,12 +46,7 @@ class Search_Bar_Shortcode {
 		global $eo_search;
 		
 		$categories = Tag_Class::g()->get( array() );
-		$followers  = Follower_Class::g()->get( array(
-			'role' => 'administrator',
-		) );
 
-		$empty_user = Follower_Class::g()->get( array( 'schema' => true ), true );
-		array_unshift( $followers, $empty_user );
 		$param = shortcode_atts( array(
 			'term'                   => '',
 			'status'                 => 'any',
@@ -86,11 +81,23 @@ class Search_Bar_Shortcode {
 				'post_status' => array( 'publish', 'inherit', 'draft' ),
 			)
 		) );
+		
+		$eo_search->register_search( 'tm_search_order', array(
+			'label'        => 'Commande',
+			'icon'         => 'fa-search',
+			'type'         => 'post',
+			'name'         => 'post_parent_order',
+			'value'        => '',
+			'hidden_value' => 0,
+			'args' => array(
+				'post_type'   => 'wpshop_shop_order',
+				'post_status' => array( 'publish', 'inherit', 'draft' ),
+			)
+		) );
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/main', array(
 			'categories' => $categories,
-			'followers'  => $followers,
 			'param'      => $param,
 			'eo_search'  => $eo_search,
 		) );

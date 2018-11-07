@@ -51,6 +51,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</li>
 				
 				<li class="dropdown-item">
+					<?php $eo_search->display( 'tm_search_order' ); ?>
+				</li>
+				
+				<li class="dropdown-item tag-search">
+					<?php
+					\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/tags', array(
+						'categories' => $categories,
+					) );
+					?>
+				</li>
+				
+				<li class="dropdown-item">
 					<a class="action-input search-button"
 					data-loader="form"
 					data-namespace="taskManager"

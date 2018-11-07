@@ -71,6 +71,10 @@ window.eoxiaJS.taskManager.navigation.checkDataBeforeSearch = function( triggere
 	} else if ( triggeredElement && triggeredElement.hasClass( 'change-status' ) ) {
 		jQuery( '.wpeo-header-bar input[name="status"]' ).val( triggeredElement.data( 'status' ) );
 	}
+	
+	if ( jQuery( '.wpeo-header-bar input[name="post_parent_order"]' ).val() ) {
+		jQuery( '.wpeo-header-bar input[name="post_parent"]' ).val( jQuery( '.wpeo-header-bar input[name="post_parent_order"]' ).val() );
+	}
 
 	return true;
 };

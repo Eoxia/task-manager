@@ -137,7 +137,7 @@ class Task_Class extends \eoxia\Post_Class {
 		$param['status']         = ! empty( $param['status'] ) ? sanitize_text_field( $param['status'] ) : 'any';
 		$param['post_parent']    = ! empty( $param['post_parent'] ) ? (array) $param['post_parent'] : null;
 		$param['term']           = ! empty( $param['term'] ) ? sanitize_text_field( $param['term'] ) : '';
-
+		
 		$tasks    = array();
 		$tasks_id = array();
 
@@ -170,7 +170,7 @@ class Task_Class extends \eoxia\Post_Class {
 				
 		$sub_where = '';
 			
-		if ( ! empty( $term ) ) {
+		if ( ! empty( $param['term'] ) ) {
 			$sub_where = "
 				(
 					TASK.ID LIKE '%" . $param['term'] . "%' OR TASK.post_title LIKE '%" . $param['term'] . "%'

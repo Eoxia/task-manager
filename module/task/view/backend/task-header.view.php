@@ -35,6 +35,7 @@ endif;
 			</div>
 			<ul class="wpeo-task-summary" >
 				<li class="wpeo-task-id"><i class="far fa-hashtag"></i> <?php echo esc_html( $task->data['id'] ); ?></li>
+				
 				<li class="wpeo-task-time-history wpeo-modal-event"
 						data-class="history-time wpeo-wrap tm-wrap"
 						data-action="load_time_history"
@@ -58,6 +59,16 @@ endif;
 						<span class="elapsed" ><?php echo esc_html( $task_time_info ); ?></span>
 					</span>
 				</li>
+				
+				<?php if ( $task->data['parent'] ) : ?>
+					<li class="wpeo-task-parent">
+						<i class="far fa-link"></i>
+						<a target="_blank" href="<?php echo admin_url( 'post.php?post=' . $task->data['parent_id'] . '&action=edit' ); ?>">
+							<?php echo esc_html( $task->data['parent']->post_title ); ?>
+						</a>
+					</li>
+				<?php endif; ?>
+				
 				<?php echo apply_filters( 'tm_task_header_summary', '', $task ); // WPCS: XSS ok. ?>
 			</ul>
 		</div>

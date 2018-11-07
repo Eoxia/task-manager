@@ -75,7 +75,7 @@ class Task_Shortcode {
 		if ( 1 === $param['with_wrapper'] ) {
 			$with_wrapper = true;
 		}
-
+		
 		$tasks = Task_Class::g()->get_tasks( $param );
 
 		ob_start();

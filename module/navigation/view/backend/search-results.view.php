@@ -15,6 +15,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <ul class="search-results">
+	<?php if ( ! empty( $term ) ) : ?>
+		<li><?php echo esc_attr( $term ); ?></li>
+	<?php endif; ?>
+	
 	<?php if ( ! empty( $task_id ) ) : ?>
 		<li><?php echo esc_attr( $task_id ); ?></li>
 	<?php endif; ?>
@@ -25,6 +29,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	
 	<?php if ( ! empty( $follower_searched ) ) : ?>
 		<li><?php echo esc_attr( $follower_searched ); ?></li>
+	<?php endif; ?>
+	
+	<?php if ( ! empty( $categories_searched ) ) : ?>
+		<li><?php echo esc_attr( $categories_searched ); ?></li>
 	<?php endif; ?>
 	
 	<?php if ( ! empty( $post_parent_searched ) ) : ?>
