@@ -79,9 +79,11 @@ window.eoxiaJS.taskManager.comment.triggerCreate = function( event ) {
 window.eoxiaJS.taskManager.comment.updateHiddenInput = function( event ) {
 	if ( 0 < jQuery( this ).text().length ) {
 		jQuery( this ).closest( '.comment' ).find( '.placeholder' ).addClass( 'hidden' );
+		jQuery( this ).closest( '.comment' ).removeClass( 'add' ).addClass( 'edit' );
 		window.eoxiaJS.taskManager.core.initSafeExit( true );
 	} else {
 		jQuery( this ).closest( '.comment' ).find( '.placeholder' ).removeClass( 'hidden' );
+		jQuery( this ).closest( '.comment' ).removeClass( 'edit' ).addClass( 'add' );
 		window.eoxiaJS.taskManager.core.initSafeExit( false );
 	}
 

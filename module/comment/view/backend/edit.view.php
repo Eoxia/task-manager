@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="comment-content">
 
 			<div class="comment-content-text">
-				<input type="hidden" name="content" value="je suis la veleur par défaut <?php echo esc_attr( $comment->data['content'] ); ?>" />
+				<input type="hidden" name="content" value="<?php echo esc_attr( $comment->data['content'] ); ?>" />
 				<div contenteditable="true" class="content"></div>
 				<?php if ( empty( $comment->data['id'] ) ) : ?>
 					<span class="placeholder"><i class="far fa-plus"></i> <?php esc_html_e( 'Your comment here...', 'task-manager' ); ?></span>
