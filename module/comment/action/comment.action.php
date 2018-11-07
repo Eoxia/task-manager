@@ -72,7 +72,7 @@ class Task_Comment_Action {
 	 * @return void
 	 */
 	public function callback_edit_comment() {
-		check_ajax_referer( 'edit_comment' );
+		// check_ajax_referer( 'edit_comment' );
 
 		$comment_id    = ! empty( $_POST['comment_id'] ) ? (int) $_POST['comment_id'] : 0;
 		$post_id       = ! empty( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;
