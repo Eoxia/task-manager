@@ -53,15 +53,15 @@ class Search_Bar_Shortcode {
 			'task_id'                => 0,
 			'point_id'               => 0,
 			'post_parent'            => 0,
-			'categories_id_selected' => array(),
-			'follower_id_selected'   => array(),
+			'categories_id' => array(),
+			'user_id'       => array(),
 		), $param, 'task_manager_search_bar' );
 		
 		$eo_search->register_search( 'tm_search_admin', array(
 			'label'        => 'Administrateur',
 			'icon'         => 'fa-search',
 			'type'         => 'user',
-			'name'         => 'follower_id_selected',
+			'name'         => 'user_id',
 			'value'        => '',
 			'hidden_value' => 0,
 			'args' => array(
@@ -89,6 +89,7 @@ class Search_Bar_Shortcode {
 			'name'         => 'post_parent_order',
 			'value'        => '',
 			'hidden_value' => 0,
+			'next_action'  => 'search_order',
 			'args' => array(
 				'post_type'   => 'wpshop_shop_order',
 				'post_status' => array( 'publish', 'inherit', 'draft' ),

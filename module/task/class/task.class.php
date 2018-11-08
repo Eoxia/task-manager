@@ -140,7 +140,7 @@ class Task_Class extends \eoxia\Post_Class {
 		
 		$tasks    = array();
 		$tasks_id = array();
-
+		
 		if ( ! empty( $param['status'] ) ) {
 			if ( 'any' === $param['status'] ) {
 				$param['status'] = '"publish","pending","draft","future","private","inherit"';
@@ -167,6 +167,38 @@ class Task_Class extends \eoxia\Post_Class {
 		WHERE TASK.post_type='wpeo-task'
 
 			AND TASK.post_status IN (" . $param['status'] . ") ";
+			
+		if ( ! is_null( $param['post_parent'] ) ) {
+			$query .= 'AND TASK.post_parent IN (' . implode( $param['post_parent'], ',' ) . ')';
+		}
+		
+		if ( ! empty( $param['users_id'] ) ) {
+			$query .= "AND (
+				(
+					TASK_META.meta_value REGEXP '{\"user_info\":{\"owner_id\":" . implode( $param['users_id'], '|' ) . ",'
+				) OR (
+					TASK_META.meta_value LIKE '%affected_id\":[" . implode( $param['users_id'], '|' ) . "]%'
+				) OR (
+					TASK_META.meta_value LIKE '%affected_id\":[" . implode( $param['users_id'], '|' ) . ",%'
+				) OR (
+					TASK_META.meta_value REGEXP 'affected_id\":\\[[0-9,]+" . implode( $param['users_id'], '|' ) . "\\]'
+				) OR (
+					TASK_META.meta_value REGEXP 'affected_id\":\\[[0-9,]+" . implode( $param['users_id'], '|' ) . "[0-9,]+\\]'
+				)
+			)";
+		}
+
+		if ( ! empty( $param['categories_id'] ) ) {
+			$sub_query = '   ';
+			foreach ( $param['categories_id'] as $cat_id ) {
+				$sub_query .= '(CAT.term_taxonomy_id=' . $cat_id . ') OR';
+			}
+
+			$sub_query = substr( $sub_query, 0, -3 );
+			if ( ! empty( $sub_query ) ) {
+				$query .= "AND ({$sub_query})";
+			}
+		}
 				
 		$sub_where = '';
 			
@@ -197,46 +229,10 @@ class Task_Class extends \eoxia\Post_Class {
 			}
 		}
 		
-		if ( ! is_null( $param['post_parent'] ) ) {
-			if ( ! empty( $sub_where ) ) {
-				$sub_where .= 'AND TASK.post_parent IN (' . implode( $param['post_parent'], ',' ) . ')';
-			} else {
-				$sub_where .= ' TASK.post_parent IN (' . implode( $param['post_parent'], ',' ) . ')';
-			}
-		}
-		
 		if ( ! empty( $sub_where ) ) {
 			$query .= ' AND (' . $sub_where . ')';
 		}
 		
-		if ( ! empty( $param['users_id'] ) ) {
-			$query .= "AND (
-				(
-					TASK_META.meta_value REGEXP '{\"user_info\":{\"owner_id\":" . implode( $param['users_id'], '|' ) . ",'
-				) OR (
-					TASK_META.meta_value LIKE '%affected_id\":[" . implode( $param['users_id'], '|' ) . "]%'
-				) OR (
-					TASK_META.meta_value LIKE '%affected_id\":[" . implode( $param['users_id'], '|' ) . ",%'
-				) OR (
-					TASK_META.meta_value REGEXP 'affected_id\":\\[[0-9,]+" . implode( $param['users_id'], '|' ) . "\\]'
-				) OR (
-					TASK_META.meta_value REGEXP 'affected_id\":\\[[0-9,]+" . implode( $param['users_id'], '|' ) . "[0-9,]+\\]'
-				)
-			)";
-		}
-
-		if ( ! empty( $param['categories_id'] ) ) {
-			$sub_query = '   ';
-			foreach ( $param['categories_id'] as $cat_id ) {
-				$sub_query .= '(CAT.term_taxonomy_id=' . $cat_id . ') OR';
-			}
-
-			$sub_query = substr( $sub_query, 0, -3 );
-			if ( ! empty( $sub_query ) ) {
-				$query .= "AND ({$sub_query})";
-			}
-		}
-
 		$query .= " ORDER BY TASK.post_date DESC ";
 
 		if ( -1 !== $param['posts_per_page'] ) {

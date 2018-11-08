@@ -82,5 +82,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 	$param['task_id'],
 	$param['point_id'],
 	$param['post_parent'],
-	$param['categories_id_selected'],
-	$param['follower_id_selected'] );
+	$param['categories_id'],
+	$param['user_id'] );

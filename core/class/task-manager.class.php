@@ -37,18 +37,19 @@ class Task_Manager_Class extends \eoxia\Singleton_Util {
 	 * @return void
 	 */
 	public function display() {
-		$term                   = ! empty( $_GET['term'] ) ? sanitize_text_field( $_GET['term'] ) : ''; // WPCS: CSRF ok.
-		$categories_id_selected = ! empty( $_GET['categories_id_selected'] ) ? sanitize_text_field( $_GET['categories_id_selected'] ) : ''; // WPCS: CSRF ok.
-		$follower_id_selected   = ! empty( $_GET['follower_id_selected'] ) ? sanitize_text_field( $_GET['follower_id_selected'] ) : ''; // WPCS: CSRF ok.
+		$term          = ! empty( $_GET['term'] ) ? sanitize_text_field( $_GET['term'] ) : ''; // WPCS: CSRF ok.
+		$categories_id = ! empty( $_GET['categories_id'] ) ? sanitize_text_field( $_GET['categories_id'] ) : ''; // WPCS: CSRF ok.
+		$user_id       = ! empty( $_GET['user_id'] ) ? sanitize_text_field( $_GET['user_id'] ) : ''; // WPCS: CSRF ok.
+		$post_parent   = ! empty( $_GET['post_parent'] ) ? (int) $_GET['post_parent'] : 0; // WPCS: CSRF ok.
 
 		$search_args = array(
-			'status'                 => 'any',
-			// 'post_parent'            => 0,
-			'with_wrapper'           => 0,
-			'term'                   => $term,
-			'task_id'                => (int) $term,
-			'categories_id_selected' => $categories_id_selected,
-			'follower_id_selected'   => $follower_id_selected,
+			'status'        => 'any',
+			'post_parent'   => $post_parent,
+			'with_wrapper'  => 0,
+			'term'          => $term,
+			'task_id'       => (int) $term,
+			'categories_id' => $categories_id,
+			'users_id'      => $user_id,
 		);
 
 		require_once PLUGIN_TASK_MANAGER_PATH . '/core/view/main.view.php';

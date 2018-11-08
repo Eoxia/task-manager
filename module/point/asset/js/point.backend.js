@@ -224,9 +224,10 @@ window.eoxiaJS.taskManager.point.deletedPointSuccess = function( triggeredElemen
  * @since 1.0.0
  */
 window.eoxiaJS.taskManager.point.completePoint = function() {
-	var totalCompletedPoint = jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text();
-	var completedButton     = jQuery( '.point-type-display-buttons button[data-point-state="completed"]' );
-	var uncompletedButton   = jQuery( '.point-type-display-buttons button[data-point-state="uncompleted"]' );
+	var totalCompletedPoint   = jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text();
+	var totalUncompletedPoint = jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-uncompleted' ).text();
+	var completedButton       = jQuery( '.point-type-display-buttons button[data-point-state="completed"]' );
+	var uncompletedButton     = jQuery( '.point-type-display-buttons button[data-point-state="uncompleted"]' );
 
 	var data = {
 		action: 'complete_point',
@@ -236,26 +237,30 @@ window.eoxiaJS.taskManager.point.completePoint = function() {
 	};
 
 	if ( jQuery( this ).is( ':checked' ) ) {
+		totalCompletedPoint++;
+		totalUncompletedPoint--;
+		jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text( totalCompletedPoint );
+		jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-uncompleted' ).text( totalUncompletedPoint );
+		
 		if ( completedButton.hasClass( 'active' ) ) {
 			jQuery( this ).closest( '.point' ).attr( 'data-point-state', 'completed' );
 		} else {
 			jQuery( this ).closest( '.point' ).remove();
 		}
 
-		totalCompletedPoint++;
 	} else {
+		totalCompletedPoint--;
+		totalUncompletedPoint++;
+		jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text( totalCompletedPoint );
+		jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-uncompleted' ).text( totalUncompletedPoint );
+		
 		if ( uncompletedButton.hasClass( 'active' ) ) {
 			jQuery( this ).closest( '.point' ).attr( 'data-point-state', 'uncompleted' );
 		} else {
 			jQuery( this ).closest( '.point' ).remove();
 		}
-
-		totalCompletedPoint--;
 	}
-
-
-	jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text( totalCompletedPoint );
-
+	
 	window.eoxiaJS.refresh();
 	window.eoxiaJS.request.send( jQuery( this ), data );
 };
