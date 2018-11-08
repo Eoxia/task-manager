@@ -8,4 +8,15 @@
 	max-width: 1280px;
 	width: 100%;
 	margin: auto;
+	display: flex;
+	flex-wrap: nowrap;
+
+	.tm-dashboard-primary {
+		width: 75%;
+		flex-grow: 1;
+	}
+	.tm-dashboard-secondary {
+		min-width: 25%;
+		width: 25%;
+	}
 }

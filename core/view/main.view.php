@@ -35,17 +35,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 
 	<div class="tm-dashboard-wrap">
-		<?php
-		$waiting_updates = get_option( '_tm_waited_updates', array() );
-		if ( ! empty( $waiting_updates ) && strpos( $_SERVER['REQUEST_URI'], 'admin.php' ) && ! strpos( $_SERVER['REQUEST_URI'], 'admin.php?page=' . \eoxia\Config_Util::$init['task-manager']->update_page_url ) ) :
-			\eoxia\Update_Manager_Class::g()->display_say_to_update( 'task-manager', __( 'Need to update Task Manager data', 'task-manager' ) );
-		else :
-			$shortcode_final_args = '';
-			foreach ( $search_args as $shortcode_params_key => $shortcode_params_value ) {
-				$shortcode_final_args .= $shortcode_params_key . '="' . $shortcode_params_value . '" ';
-			}
-			echo do_shortcode( '[task ' . $shortcode_final_args . ']' );
-		endif;
-		?>
+		<div class="tm-dashboard-primary">
+
+
+			<?php
+			$waiting_updates = get_option( '_tm_waited_updates', array() );
+			if ( ! empty( $waiting_updates ) && strpos( $_SERVER['REQUEST_URI'], 'admin.php' ) && ! strpos( $_SERVER['REQUEST_URI'], 'admin.php?page=' . \eoxia\Config_Util::$init['task-manager']->update_page_url ) ) :
+				\eoxia\Update_Manager_Class::g()->display_say_to_update( 'task-manager', __( 'Need to update Task Manager data', 'task-manager' ) );
+			else :
+				$shortcode_final_args = '';
+				foreach ( $search_args as $shortcode_params_key => $shortcode_params_value ) {
+					$shortcode_final_args .= $shortcode_params_key . '="' . $shortcode_params_value . '" ';
+				}
+				echo do_shortcode( '[task ' . $shortcode_final_args . ']' );
+			endif;
+			?>
+		</div>
+		<div class="tm-dashboard-secondary">
+			Sidebar
+		</div>
 	</div>
 </div>
