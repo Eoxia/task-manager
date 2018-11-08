@@ -57,7 +57,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			?>
 		</div>
 		<div class="tm-dashboard-secondary">
-			Sidebar
+			<?php do_meta_boxes( 'wpeomtm-dashboard', 'normal', '' ); ?>
 		</div>
 	</div>
 </div>

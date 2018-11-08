@@ -25,13 +25,13 @@ class Task_Manager_Filter {
 	 */
 	public function __construct() {
 		add_filter( 'heartbeat_send', array( $this, 'callback_heartbeat_send' ), 10, 2 );
-
-		add_filter( 'eo_model_wpeo_point_after_put', array( $this, 'add_to_index' ), 10, 2 );
-		add_filter( 'eo_model_wpeo_point_after_post', array( $this, 'add_to_index' ), 10, 2 );
-		add_filter( 'eo_model_wpeo_time_after_put', array( $this, 'add_to_index' ), 10, 2 );
-		add_filter( 'eo_model_wpeo_time_after_post', array( $this, 'add_to_index' ), 10, 2 );
-		add_filter( 'eo_model_wpeo-task_after_put', array( $this, 'add_to_index' ), 10, 2 );
-		add_filter( 'eo_model_wpeo-task_after_post', array( $this, 'add_to_index' ), 10, 2 );
+		// 
+		// add_filter( 'eo_model_wpeo_point_after_put', array( $this, 'add_to_index' ), 10, 2 );
+		// add_filter( 'eo_model_wpeo_point_after_post', array( $this, 'add_to_index' ), 10, 2 );
+		// add_filter( 'eo_model_wpeo_time_after_put', array( $this, 'add_to_index' ), 10, 2 );
+		// add_filter( 'eo_model_wpeo_time_after_post', array( $this, 'add_to_index' ), 10, 2 );
+		// add_filter( 'eo_model_wpeo-task_after_put', array( $this, 'add_to_index' ), 10, 2 );
+		// add_filter( 'eo_model_wpeo-task_after_post', array( $this, 'add_to_index' ), 10, 2 );
 	}
 
 	/**

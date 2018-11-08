@@ -21,13 +21,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 
 	<?php	if ( ! empty( $tasks ) ) : ?>
-		<div class="list-task">
-		<?php foreach ( $tasks as $key => $data ) : ?>
-			<?php if ( ! empty( $data['title'] ) ) : ?>
-				<hr/><h2><?php echo esc_html( $data['title'] ); ?></h2>
-			<?php endif; ?>
-			<?php \task_manager\Task_Class::g()->display_tasks( $data['data'] ); ?>
-		<?php endforeach; ?>
+		<div class="wpeo-project-wrap">
+			<div class="list-task">
+			<?php foreach ( $tasks as $key => $data ) : ?>
+				<?php if ( ! empty( $data['title'] ) ) : ?>
+					<hr/><h2><?php echo esc_html( $data['title'] ); ?></h2>
+				<?php endif; ?>
+				<?php \task_manager\Task_Class::g()->display_tasks( $data['data'] ); ?>
+			<?php endforeach; ?>
+			</div>
 		</div>
 	<?php endif; ?>
 </div>

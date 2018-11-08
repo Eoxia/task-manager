@@ -46,6 +46,10 @@ class Indicator_Class extends \eoxia\Singleton_Util {
 			'datas' => $datas,
 		) );
 	}
+	
+	public function callback_customer() {
+			echo 'yo';
+	}
 }
 
 new Indicator_Class();

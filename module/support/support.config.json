@@ -1,0 +1,12 @@
+{
+    "name": "Le support de la tâche",
+    "slug": "support",
+    "version": "1.2.0",
+    "description": "Le module gérant le support de WPShop",
+    "path": "module/support/",
+    "dependencies": {
+        "action": { },
+        "filter": { },
+        "class": { }
+    }
+}
