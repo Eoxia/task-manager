@@ -38,4 +38,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php if ( ! empty( $post_parent_searched ) ) : ?>
 		<li><?php echo esc_attr( $post_parent_searched ); ?></li>
 	<?php endif; ?>
+	
+	<?php if ( $have_search ) : ?>
+		<a class="wpeo-button button-main wpeo-modal-event"
+			data-action="load_modal_create_shortcut"
+			data-title="<?php esc_html_e( 'Create shortcut', 'task-manager' ); ?>"
+			data-args="<?php echo json_encode( $args ); ?>"
+			data-target="wpeo-modal"><i class="button-icon fal fa-hand-pointer"></i> <span><?php esc_html_e( 'Create shortcut', 'task-manager' ); ?></span></a>
+				
+	<?php endif; ?>
 </ul>

@@ -41,7 +41,7 @@ class Navigation_Filter {
 		foreach ( $current_search_args as $shortcode_params_key => $shortcode_params_value ) {
 			$shortcode_final_args .= $shortcode_params_key . '="' . $shortcode_params_value . '" ';
 		}
-
+		
 		$content .= do_shortcode( '[task_manager_search_bar ' . $shortcode_final_args . ']' );
 
 		return $content;

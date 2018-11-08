@@ -16,4 +16,11 @@ namespace task_manager;
 
 defined( 'ABSPATH' ) || exit; ?>
 
-<a class="wpeo-button button-grey button-uppercase modal-close"><span><?php esc_attr_e( 'Close', 'task-manager' ); ?></span></a>
+<div class="wpeo-form">
+	<div class="form-element">
+		<span class="form-label"><?php esc_html_e( 'Shortcut name', 'task-manager' ); ?></span>
+		<label class="form-field-container">
+			<input type="text" class="form-field" name="shortcut-name" />
+		</label>
+	</div>
+</div>

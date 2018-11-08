@@ -16,4 +16,4 @@ namespace task_manager;
 
 defined( 'ABSPATH' ) || exit; ?>
 
-<?php esc_html_e( 'The shortcut is successfully created, yes, good job!', 'task-manager' ); ?>
+<p><?php esc_html_e( 'The shortcut is successfully created, yes, good job!', 'task-manager' ); ?></p>

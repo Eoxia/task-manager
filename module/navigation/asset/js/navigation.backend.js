@@ -72,7 +72,7 @@ window.eoxiaJS.taskManager.navigation.checkDataBeforeSearch = function( triggere
 	jQuery( 'input[name="categories_id_selected"]' ).val( categoriesIdSelected.join( ',' ) );
 
 	if ( triggeredElement && ! triggeredElement.hasClass( 'change-status' ) ) {
-		window.eoxiaJS.loader.display( jQuery( '.wpeo-general-search' ) );
+		// window.eoxiaJS.loader.display( jQuery( '.wpeo-general-search' ) );
 	} else if ( triggeredElement && triggeredElement.hasClass( 'change-status' ) ) {
 		jQuery( '.wpeo-header-bar input[name="status"]' ).val( triggeredElement.data( 'status' ) );
 	}
@@ -116,6 +116,6 @@ window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredEleme
 };
 
 window.eoxiaJS.taskManager.navigation.createdShortcutSuccess = function( triggeredElement, response ) {
-	jQuery( this ).closest( '.wpeo-modal' ).find( '.modal-content' ).html( response.data.view_content );
-	jQuery( this ).closest( '.wpeo-modal' ).find( '.modal-footer' ).html( response.data.view_button );
+	triggeredElement.closest( '.wpeo-modal' ).find( '.modal-content' ).html( response.data.view_content );
+	triggeredElement.closest( '.wpeo-modal' ).find( '.modal-footer' ).html( response.data.view_button );
 }

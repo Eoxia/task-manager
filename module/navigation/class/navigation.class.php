@@ -94,8 +94,11 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 			'task_id'              => $task_id,
 			'point_id'             => $point_id,
 			'status'               => $status,
+			'categories_id'        => $categories_id,
 			'categories_searched'  => $categories_searched,
+			'user_id'              => $user_id,
 			'follower_searched'    => $follower_searched,
+			'post_parent'          => $post_parent,
 			'post_parent_searched' => $post_parent_searched,
 			'have_search'          => $have_search,
 		);
@@ -125,6 +128,7 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 			'categories_searched'  => $data['categories_searched'],
 			'follower_searched'    => $data['follower_searched'],
 			'have_search'          => $data['have_search'],
+			'data'                 => $data,
 		) );
 	}
 }

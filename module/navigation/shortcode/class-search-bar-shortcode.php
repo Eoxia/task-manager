@@ -54,7 +54,7 @@ class Search_Bar_Shortcode {
 			'point_id'               => 0,
 			'post_parent'            => 0,
 			'categories_id' => array(),
-			'user_id'       => array(),
+			'users_id'       => array(),
 		), $param, 'task_manager_search_bar' );
 		
 		$eo_search->register_search( 'tm_search_admin', array(

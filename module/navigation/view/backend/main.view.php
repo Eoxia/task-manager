@@ -60,14 +60,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					) );
 					?>
 				</li>
-				
-				<li class="dropdown-item">
-					<a class="wpeo-button button-main wpeo-modal-event"
-						data-parent="form"
-						data-target="wpeo-modal"><i class="button-icon fal fa-hand-pointer"></i> <span><?php esc_html_e( 'Create shortcut', 'task-manager' ); ?></span></a>
-						
-				</li>
-				
+								
 				<li class="dropdown-item">
 					<a class="action-input search-button"
 					data-loader="form"
@@ -80,8 +73,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 				
 			</ul>
 		</div>
-		
-		<?php \eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/modal-create-shortcut' ); ?>
 	</header>
 	
 </div>
@@ -93,4 +84,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 	$param['point_id'],
 	$param['post_parent'],
 	$param['categories_id'],
-	$param['user_id'] );
+	$param['users_id'] );

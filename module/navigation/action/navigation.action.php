@@ -28,6 +28,7 @@ class Navigation_Action {
 	public function __construct() {
 		add_action( 'wp_ajax_search', array( $this, 'callback_search' ) );
 		add_action( 'search_order', array( $this, 'callback_search_order' ) );
+		add_action( 'wp_ajax_load_modal_create_shortcut', array( $this, 'callback_load_modal_create_shortcut' ) );
 		add_action( 'wp_ajax_create_shortcut', array( $this, 'callback_create_shortcut' ) );
 	}
 
@@ -111,6 +112,22 @@ class Navigation_Action {
 		) );
 	}
 	
+	public function callback_load_modal_create_shortcut() {
+		
+		ob_start();
+		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/modal-create-shortcut-content' );
+		$content = ob_get_clean();
+		
+		ob_start();
+		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/modal-create-shortcut-buttons' );
+		$buttons = ob_get_clean();
+		
+		wp_send_json_success( array(
+			'view'         => $content,
+			'buttons_view' => $buttons,
+		) );
+	}
+	
 	public function callback_create_shortcut() {
 		
 		ob_start();
@@ -129,6 +146,7 @@ class Navigation_Action {
 			'view_content'     => $content_success,
 		) );
 	}
+	
 }
 
 new Navigation_Action();
