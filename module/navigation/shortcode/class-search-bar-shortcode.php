@@ -57,38 +57,63 @@ class Search_Bar_Shortcode {
 			'users_id'       => array(),
 		), $param, 'task_manager_search_bar' );
 		
+		$user_display = '';
+		if ( ! empty( $param['users_id'] ) ) {
+			$user         = get_userdata( $param['users_id'] );
+			$user_display = $user->display_name;
+		}
+		
 		$eo_search->register_search( 'tm_search_admin', array(
 			'label'        => 'Administrateur',
 			'icon'         => 'fa-search',
 			'type'         => 'user',
 			'name'         => 'user_id',
-			'value'        => '',
-			'hidden_value' => 0,
+			'value'        => $user_display,
+			'hidden_value' => $param['users_id'],
 			'args' => array(
 				'role' => 'administrator',
 			)
 		) );
+		
+		$parent_display = '';
+		$parent_id      = 0;
+		
+		if ( ! empty( $param['post_parent'] ) ) {
+			$parent = get_post( $param['post_parent'] );
+		}
+		
+		if ( ! empty( $parent ) && $parent->post_type == 'wpshop_customers' ) {
+			$parent_display = $parent->post_title;
+			$parent_id      = $parent->ID;
+		}
 		
 		$eo_search->register_search( 'tm_search_customer', array(
 			'label'        => 'Client',
 			'icon'         => 'fa-search',
 			'type'         => 'post',
 			'name'         => 'post_parent',
-			'value'        => '',
-			'hidden_value' => 0,
+			'value'        => $parent_display,
+			'hidden_value' => $parent_id,
 			'args' => array(
 				'post_type'   => 'wpshop_customers',
 				'post_status' => array( 'publish', 'inherit', 'draft' ),
 			)
 		) );
 		
+		$parent_display = '';
+		$parent_id      = 0;
+		if ( ! empty( $parent ) && $parent->post_type == 'wpshop_shop_order' ) {
+			$parent_display = $parent->post_title;
+			$parent_id      = $parent->ID;
+		}
+		
 		$eo_search->register_search( 'tm_search_order', array(
 			'label'        => 'Commande',
 			'icon'         => 'fa-search',
 			'type'         => 'post',
 			'name'         => 'post_parent_order',
-			'value'        => '',
-			'hidden_value' => 0,
+			'value'        => $parent_display,
+			'hidden_value' => $parent_id,
 			'next_action'  => 'search_order',
 			'args' => array(
 				'post_type'   => 'wpshop_shop_order',

@@ -47,7 +47,7 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 	 *         @type bool   $have_search         Si une recherche à eu lieu ou pas.
 	 * }
 	 */
-	public function get_search_result( $term, $status, $task_id, $point_id, $post_parent, $categories_id, $user_id ) {
+	public function get_search_result( $term, $status, $task_id, $point_id, $post_parent_id, $categories_id, $user_id ) {
 		$have_search = false;
 
 		$categories_selected = array();
@@ -84,7 +84,7 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 		$post_parent_searched = '';
 		
 		if ( ! empty( $post_parent ) ) {
-			$post_parent = get_post( $post_parent );
+			$post_parent = get_post( $post_parent_id );
 			
 			$post_parent_searched = $post_parent->post_title;
 		}
@@ -98,7 +98,7 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 			'categories_searched'  => $categories_searched,
 			'user_id'              => $user_id,
 			'follower_searched'    => $follower_searched,
-			'post_parent'          => $post_parent,
+			'post_parent'          => $post_parent_id,
 			'post_parent_searched' => $post_parent_searched,
 			'have_search'          => $have_search,
 		);
