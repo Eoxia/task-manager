@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<li class="wpeo-tag action-attribute <?php echo in_array( $tag->data['id'], $task->data['taxonomy'][ Tag_Class::g()->get_type() ], true ) ? 'active' : ''; ?>"
+<li class="wpeo-tag action-attribute wpeo-button button-grey button-radius-3 <?php echo in_array( $tag->data['id'], $task->data['taxonomy'][ Tag_Class::g()->get_type() ], true ) ? 'active' : ''; ?>"
 	data-id="<?php echo esc_attr( $tag->data['id'] ); ?>"
 	data-parent-id="<?php echo esc_attr( $task->data['id'] ); ?>"
 	data-action="<?php echo in_array( $tag->data['id'], $task->data['taxonomy'][ Tag_Class::g()->get_type() ], true ) ? 'tag_unaffectation' : 'tag_affectation'; ?>"
@@ -21,5 +21,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	data-namespace="taskManager"
 	data-module="tag"
 	data-before-method="<?php echo in_array( $tag->data['id'], $task->data['taxonomy'][ Tag_Class::g()->get_type() ], true ) ? 'beforeUnaffectTag' : 'beforeAffectTag'; ?>">
+
 	<?php echo esc_html( $tag->data['name'] ); ?>
 </li>
