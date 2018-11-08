@@ -43,7 +43,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<a class="wpeo-button button-main wpeo-modal-event"
 			data-action="load_modal_create_shortcut"
 			data-title="<?php esc_html_e( 'Create shortcut', 'task-manager' ); ?>"
-			data-args="<?php echo json_encode( $args ); ?>"
+			data-term="<?php echo ! empty( $term ) ? esc_attr( $term ) : ''; ?>"
+			data-task-id="<?php echo ! empty( $task_id ) ? esc_attr( $task_id ) : ''; ?>"
+			data-point-id="<?php echo ! empty( $point_id ) ? esc_attr( $point_id ) : ''; ?>"
+			data-user-id="<?php echo ! empty( $data['user_id'] ) ? esc_attr( $data['user_id'] ) : ''; ?>"
+			data-categories-id="<?php echo ! empty( $data['categories_id'] ) ? esc_attr( $data['categories_id'] ) : ''; ?>"
+			data-post-parent="<?php echo ! empty( $data['post_parent'] ) ? esc_attr( $data['post_parent'] ) : ''; ?>"
 			data-target="wpeo-modal"><i class="button-icon fal fa-hand-pointer"></i> <span><?php esc_html_e( 'Create shortcut', 'task-manager' ); ?></span></a>
 				
 	<?php endif; ?>

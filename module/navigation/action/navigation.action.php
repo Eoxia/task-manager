@@ -113,9 +113,22 @@ class Navigation_Action {
 	}
 	
 	public function callback_load_modal_create_shortcut() {
+		$term          = ! empty( $_POST['term'] ) ? sanitize_text_field( $_POST['term'] ) : '';
+		$task_id       = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+		$point_id      = ! empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
+		$post_parent   = ! empty( $_POST['post_parent'] ) ? (int) $_POST['post_parent'] : 0;
+		$categories_id = ! empty( $_POST['categories_id'] ) ? sanitize_text_field( $_POST['categories_id'] ) : '';
+		$user_id       = ! empty( $_POST['user_id'] ) ? (int) $_POST['user_id'] : '';
 		
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/modal-create-shortcut-content' );
+		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/modal-create-shortcut-content', array(
+			'term'          => $term,
+			'task_id'       => $task_id,
+			'point_id'      => $point_id,
+			'post_parent'   => $post_parent,
+			'categories_id' => $categories_id,
+			'user_id'       => $user_id,
+		) );
 		$content = ob_get_clean();
 		
 		ob_start();
@@ -123,12 +136,44 @@ class Navigation_Action {
 		$buttons = ob_get_clean();
 		
 		wp_send_json_success( array(
-			'view'         => $content,
-			'buttons_view' => $buttons,
+			'view'          => $content,
+			'buttons_view'  => $buttons,
 		) );
 	}
 	
 	public function callback_create_shortcut() {
+		$name = ! empty( $_POST['shortcut_name'] ) ? sanitize_text_field( $_POST['shortcut_name'] ) : '';
+		$data = array();
+		$data['term']          = ! empty( $_POST['term'] ) ? sanitize_text_field( $_POST['term'] ) : '';
+		$data['task_id']       = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+		$data['point_id']      = ! empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
+		$data['post_parent']   = ! empty( $_POST['post_parent'] ) ? (int) $_POST['post_parent'] : 0;
+		$data['categories_id'] = ! empty( $_POST['categories_id'] ) ? sanitize_text_field( $_POST['categories_id'] ) : '';
+		$data['user_id']       = ! empty( $_POST['user_id'] ) ? (int) $_POST['user_id'] : '';
+	
+		$construct_args = '';
+		
+		if ( ! empty( $data ) ) {
+			foreach ( $data as $key => $value ) {
+				if ( ! empty( $value ) ) {
+					$construct_args .= '&' . $key . '=' . $value;
+				}
+			}
+		}
+		
+		if ( empty( $name ) || empty( $construct_args ) ) {
+			wp_send_json_error();
+		}
+		
+		$shortcuts = get_user_meta( get_current_user_id(), '_tm_shortcuts', true );
+	
+		$shortcuts['wpeomtm-dashboard'][] = array(
+			'label' => $name,
+			'page' => 'admin.php',
+			'link' => '?page=wpeomtm-dashboard' . $construct_args,
+		);
+		
+		update_user_meta( get_current_user_id(), '_tm_shortcuts', $shortcuts );
 		
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/modal-create-shortcut-content-success' );
