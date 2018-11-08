@@ -234,7 +234,7 @@ $green: #47e58e;
 				padding: 8px 14px 0;
 				margin-left: 15%;
 				width: 85%;
-				.user {
+				.tm-avatar {
 					border-radius: 50%;
 				}
 			}
@@ -308,7 +308,7 @@ $green: #47e58e;
 				> .avatar {
 					width: 100%;
 					max-width: 5%;
-					.user {
+					.tm-avatar {
 						span {
 							font-size: 12px;
 						}
@@ -394,7 +394,7 @@ $green: #47e58e;
 		Avatar
 -----------------------------------*/
 
-.user {
+.tm-avatar {
 	background: $main-color;
 	color: #fff;
 	position: relative;

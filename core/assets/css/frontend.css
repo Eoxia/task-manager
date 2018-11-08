@@ -3452,7 +3452,7 @@ readers do not read off random characters that represent icons */
     padding: 8px 14px 0;
     margin-left: 15%;
     width: 85%; }
-    .tm-wrap .points .point .comments .comment .wpeo-comment-container .user {
+    .tm-wrap .points .point .comments .comment .wpeo-comment-container .tm-avatar {
       border-radius: 50%; }
   .tm-wrap .points .point .comments .comment.new ul input {
     width: 100%;
@@ -3509,9 +3509,9 @@ readers do not read off random characters that represent icons */
     .tm-wrap .points .point .comments .comment.view ul > .avatar, .tm-wrap .points .point .comments .comment.edit ul > .avatar {
       width: 100%;
       max-width: 5%; }
-      .tm-wrap .points .point .comments .comment.view ul > .avatar .user span, .tm-wrap .points .point .comments .comment.edit ul > .avatar .user span {
+      .tm-wrap .points .point .comments .comment.view ul > .avatar .tm-avatar span, .tm-wrap .points .point .comments .comment.edit ul > .avatar .tm-avatar span {
         font-size: 12px; }
-      .tm-wrap .points .point .comments .comment.view ul > .avatar .user img, .tm-wrap .points .point .comments .comment.view ul > .avatar .user .wpeo-avatar-initial, .tm-wrap .points .point .comments .comment.view ul > .avatar .user .wpeo-avatar-initial span, .tm-wrap .points .point .comments .comment.edit ul > .avatar .user img, .tm-wrap .points .point .comments .comment.edit ul > .avatar .user .wpeo-avatar-initial, .tm-wrap .points .point .comments .comment.edit ul > .avatar .user .wpeo-avatar-initial span {
+      .tm-wrap .points .point .comments .comment.view ul > .avatar .tm-avatar img, .tm-wrap .points .point .comments .comment.view ul > .avatar .tm-avatar .wpeo-avatar-initial, .tm-wrap .points .point .comments .comment.view ul > .avatar .tm-avatar .wpeo-avatar-initial span, .tm-wrap .points .point .comments .comment.edit ul > .avatar .tm-avatar img, .tm-wrap .points .point .comments .comment.edit ul > .avatar .tm-avatar .wpeo-avatar-initial, .tm-wrap .points .point .comments .comment.edit ul > .avatar .tm-avatar .wpeo-avatar-initial span {
         border-radius: 50%; }
     .tm-wrap .points .point .comments .comment.view ul .wpeo-save-point, .tm-wrap .points .point .comments .comment.edit ul .wpeo-save-point {
       width: 100%;
@@ -3567,27 +3567,27 @@ readers do not read off random characters that represent icons */
 /* ----------------------------------
 		Avatar
 -----------------------------------*/
-.user {
+.tm-avatar {
   background: #389af6;
   color: #fff;
   position: relative;
   transition: all 0.2s ease-out; }
-  .user img {
+  .tm-avatar img {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%; }
-  .user .wpeo-avatar-initial {
+  .tm-avatar .wpeo-avatar-initial {
     display: flex;
     height: 100%; }
-  .user span {
+  .tm-avatar span {
     font-size: 16px;
     text-align: center;
     margin: auto;
     display: inline-block;
     width: 100%; }
-  .user:hover {
+  .tm-avatar:hover {
     cursor: pointer; }
 
 .wpeo-main-user {
@@ -3741,11 +3741,11 @@ readers do not read off random characters that represent icons */
         width: 100%;
         max-width: 50px;
         position: relative; }
-        .tm-wrap .activities .activity .information .user {
+        .tm-wrap .activities .activity .information .tm-avatar {
           border-radius: 50%;
           border: 2px solid #fff;
           z-index: 50; }
-          .tm-wrap .activities .activity .information .user img, .tm-wrap .activities .activity .information .user .wpeo-avatar-initial {
+          .tm-wrap .activities .activity .information .tm-avatar img, .tm-wrap .activities .activity .information .tm-avatar .wpeo-avatar-initial {
             border-radius: 50%; }
         .tm-wrap .activities .activity .information .type {
           display: block;

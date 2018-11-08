@@ -5,7 +5,7 @@
 		display: flex;
 		margin: 0.8em 0;
 
-		.user {
+		.tm-avatar {
 			min-width: 40px;
 		}
 		.comment-container {
@@ -15,7 +15,7 @@
 }
 
 /** Avatar */
-.points .point .comment .user {
+.points .point .comment .tm-avatar {
 	margin-top: auto;
 	margin-right: 4px;
 	margin-bottom: 3px;

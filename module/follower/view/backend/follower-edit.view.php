@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<li class="action-attribute follower <?php echo in_array( $user->data['id'], $task->data['user_info']['affected_id'], true ) ? 'active' : ''; ?>" style="width: 50px; height: 50px;"
+<li class="action-attribute follower <?php echo in_array( $user->data['id'], $task->data['user_info']['affected_id'], true ) ? 'active' : ''; ?>" style="width: 35px; height: 35px;"
 	data-id="<?php echo esc_attr( $user->data['id'] ); ?>"
 	data-parent-id="<?php echo esc_attr( $task->data['id'] ); ?>"
 	data-action="<?php echo in_array( $user->data['id'], $task->data['user_info']['affected_id'], true ) ? 'follower_unaffectation' : 'follower_affectation'; ?>"
@@ -23,5 +23,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 	data-module="follower"
 	data-before-method="<?php echo in_array( $user->data['id'], $task->data['user_info']['affected_id'], true ) ? 'beforeUnaffectFollower' : 'beforeAffectFollower'; ?>">
 
-	<?php echo do_shortcode( '[task_avatar ids="' . $user->data['id'] . '" "size="50"]' ); ?>
+	<?php echo do_shortcode( '[task_avatar ids="' . $user->data['id'] . '" size="35"]' ); ?>
 </li>

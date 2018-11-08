@@ -26,11 +26,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	endif;
 	?>
 
-	<li class="action-attribute follower add"
+	<li class="action-attribute follower add wpeo-button button-grey button-square-40 button-rounded"
 			data-action="load_followers"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_followers' ) ); ?>"
 			data-id="<?php echo esc_attr( $task->data['id'] ); ?>">
-		<span class="dashicons dashicons-plus-alt"></span>
-		<?php esc_html_e( 'Followers', 'task-manager' ); ?>
+
+		<i class="fas fa-user-plus"></i>
 	</li>
 </ul>
