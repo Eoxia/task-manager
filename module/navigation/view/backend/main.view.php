@@ -73,15 +73,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 				
 			</ul>
 		</div>
-	</header>
-	
+	</header>	
 </div>
-
-<?php Navigation_Class::g()->display_search_result( 
-	$param['term'],
-	$param['status'],
-	$param['task_id'],
-	$param['point_id'],
-	$param['post_parent'],
-	$param['categories_id'],
-	$param['users_id'] );

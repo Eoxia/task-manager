@@ -48,6 +48,7 @@ class Task_Manager_Class extends \eoxia\Singleton_Util {
 			'with_wrapper'  => 0,
 			'term'          => $term,
 			'task_id'       => (int) $term,
+			'point_id'      => (int) $term,
 			'categories_id' => $categories_id,
 			'users_id'      => $user_id,
 		);
