@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	if ( ! empty( $shortcuts ) ) :
 		foreach ( $shortcuts as $shortcut ) :
 			?>
-			<li><a href="<?php echo admin_url( $shortcut['page'] . $shortcut['link'] ); ?>"><?php echo esc_html( $shortcut['label'] ); ?></li>
+			<li><a href="<?php echo admin_url( $shortcut['page'] . $shortcut['link'] ); ?>"><?php echo esc_html( $shortcut['label'] ); ?></a></li>
 			<?php
 		endforeach;
 	endif;
