@@ -130,6 +130,7 @@ class Task_Manager_Action {
 		}
 
 		Task_Manager_Class::g()->init_default_data();
+		Follower_Class::g()->init_default_data();
 	}
 
 	/**

@@ -16,7 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="form" action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>" method="POST" >
 	<header class="wpeo-header-bar wpeo-general-search">
-		<input type="hidden" name="action" value="search" />
 		<label for="general-search">
 			<i class="dashicons dashicons-search"></i>
 			<input type="text" name="term" value="<?php echo esc_attr( $param['term'] ); ?>" placeholder="<?php esc_attr_e( 'Search...', 'task-manager' ); ?>" />
@@ -63,17 +62,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</li>
 				
 				<li class="dropdown-item">
+					<a class="wpeo-button button-main wpeo-modal-event"
+						data-parent="form"
+						data-target="wpeo-modal"><i class="button-icon fal fa-hand-pointer"></i> <span><?php esc_html_e( 'Create shortcut', 'task-manager' ); ?></span></a>
+						
+				</li>
+				
+				<li class="dropdown-item">
 					<a class="action-input search-button"
 					data-loader="form"
 					data-namespace="taskManager"
 					data-module="navigation"
 					data-before-method="checkDataBeforeSearch"
+					data-action="search"
 					data-parent="form"><?php esc_html_e( 'Search', 'task-manager' ); ?></a>
 				</li>
 				
 			</ul>
 		</div>
+		
+		<?php \eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/modal-create-shortcut' ); ?>
 	</header>
+	
 </div>
 
 <?php Navigation_Class::g()->display_search_result( 

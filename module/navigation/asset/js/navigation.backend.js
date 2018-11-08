@@ -114,3 +114,8 @@ window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredEleme
 
 	window.eoxiaJS.refresh();
 };
+
+window.eoxiaJS.taskManager.navigation.createdShortcutSuccess = function( triggeredElement, response ) {
+	jQuery( this ).closest( '.wpeo-modal' ).find( '.modal-content' ).html( response.data.view_content );
+	jQuery( this ).closest( '.wpeo-modal' ).find( '.modal-footer' ).html( response.data.view_button );
+}
