@@ -37,10 +37,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	endif;
 	?>
 
-	<li class="follower edit action-attribute"
+	<li class="follower edit action-attribute wpeo-button button-grey button-square-40 button-rounded"
 				data-action="close_followers_edit_mode"
 				data-nonce="<?php echo esc_attr( wp_create_nonce( 'close_followers_edit_mode' ) ); ?>"
 				data-id="<?php echo esc_attr( $task->data['id'] ); ?>">
-		<i class="far fa-save" ></i>
+
+		<i class="fas fa-save" ></i>
 	</li>
 </ul>

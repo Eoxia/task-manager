@@ -10,14 +10,14 @@
 	.follower {
 		float: left;
 		margin: 0.4em;
-		.user:hover {
+		.tm-avatar:hover {
 			cursor: pointer !important;
 			box-shadow: 0 0 0 1px $a;
 		}
 		img {
 			filter: grayscale(100%);
 		}
-		&.active .user {
+		&.active .tm-avatar {
 			box-shadow: 0 0 0 3px $a;
 			img {
 				filter: grayscale(0);
