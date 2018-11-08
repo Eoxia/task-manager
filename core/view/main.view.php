@@ -19,14 +19,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<input type="hidden" class="user-id" value="<?php echo esc_attr( get_current_user_id() ); ?>" />
 
 	<div class="tm-dashboard-header">
-		<div>
-			<h2>
-				<?php	esc_html_e( 'Tasks', 'task-manager' ); ?>
-				<a 	href="#"
-					class="action-attribute add-new-h2"
-					data-action="create_task"
-					data-nonce="<?php echo esc_attr( wp_create_nonce( 'create_task' ) ); ?>"><?php esc_html_e( 'New task', 'task-manager' ); ?></a>
-			</h2>
+		<div class="tm-dashboard-surheader">
+			<h1><?php	esc_html_e( 'Tasks', 'task-manager' ); ?></h1>
+			<a 	href="#"
+				class="action-attribute add-new-h2 wpeo-button button-size-small button-radius-2"
+				data-action="create_task"
+				data-nonce="<?php echo esc_attr( wp_create_nonce( 'create_task' ) ); ?>"><?php esc_html_e( 'New task', 'task-manager' ); ?></a>
+
 			<?php echo apply_filters( 'tm_dashboard_header', '', $search_args ); // WPCS: XSS ok. ?>
 		</div>
 		<div class="tm-dashboard-subheader">
@@ -36,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="tm-dashboard-wrap">
 		<div class="tm-dashboard-primary">
-			<?php Navigation_Class::g()->display_search_result( 
+			<?php Navigation_Class::g()->display_search_result(
 				$search_args['term'],
 				$search_args['status'],
 				$search_args['task_id'],
