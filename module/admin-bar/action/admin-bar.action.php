@@ -63,8 +63,8 @@ class Admin_Bar_Action {
 		if ( current_user_can( 'administrator' ) ) {
 			Admin_Bar_Class::g()->init_quick_time( $wp_admin_bar );
 			Admin_Bar_Class::g()->init_search( $wp_admin_bar );
-			Admin_Bar_Class::g()->init_customer_link( $wp_admin_bar );
 		}
+
 	}
 
 	/**
