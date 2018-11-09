@@ -48,7 +48,53 @@ class Indicator_Class extends \eoxia\Singleton_Util {
 	}
 	
 	public function callback_customer() {
-			echo 'yo';
+		$ids = get_option( \eoxia\Config_Util::$init['task-manager']->key_customer_ask, array() );
+
+		$datas    = array();
+		$comments = array();
+
+		if ( ! empty( $ids ) ) {
+			foreach ( $ids as $task_id => $points ) {
+				if ( ! empty( $points ) ) {
+					foreach ( $points as $point_id => $id ) {
+						if ( ! empty( $id ) ) {
+							$comments = array_merge( $comments, Task_Comment_Class::g()->get( array(
+								'comment__in' => $id,
+							) ) );
+						}
+					}
+				}
+			}
+		}
+
+		if ( ! empty( $comments ) ) {
+			foreach ( $comments as $comment ) {
+				$comment->data['point'] = Point_Class::g()->get( array(
+					'id' => $comment->data['parent_id'],
+				), true );
+
+				$comment->data['task'] = Task_Class::g()->get( array(
+					'id' => $comment->data['post_id'],
+				), true );
+
+				$comment->data['post_parent'] = null;
+
+				if ( ! empty( $comment->data['task']->data['parent_id'] ) ) {
+					$comment->data['post_parent'] = get_post( $comment->data['task']->data['parent_id'] );
+				}
+
+				// Organisé par date pour la lecture dans le template.
+				$sql_date                      = substr( $comment->data['date']['raw'], 0, strlen( $comment->data['date']['raw'] ) - 9 );
+				$time                          = substr( $comment->data['date']['raw'], 11, strlen( $comment->data['date']['raw'] ) );
+				$datas[ $sql_date ][ $time ][] = $comment;
+			}
+		}
+
+		krsort( $datas );
+
+		\eoxia\View_Util::exec( 'task-manager', 'indicator', 'backend/request', array(
+			'datas' => $datas,
+		) );
 	}
 }
 
