@@ -54,15 +54,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<span><i class="fas fa-archive"></i></span>
 	</li>
 
-	<li class="action-delete wpeo-tooltip-event" data-direction="top"
-			aria-label="<?php esc_html_e( 'Delete', 'task-manager' ); ?>"
-			data-action="delete_task"
-			data-message-delete="<?php echo esc_attr_e( 'Delete this task ?', 'task-manager' ); ?>"
-			data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_task' ) ); ?>"
-			data-id="<?php echo esc_attr( $task->data['id'] ); ?>"
-			data-loader="task-header-action">
-		<span><i class="fas fa-trash"></i></span>
-	</li>
 
 	<li class="action-attribute wpeo-tooltip-event" data-direction="top"
 			aria-label="<?php echo esc_html_e( 'Recompile task', 'task-manager' ); ?>"
@@ -93,9 +84,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 			data-title="<?php /* Translators: 1. The task ID. */ echo esc_attr( sprintf( __( '#%1$s Export task data', 'task-manager' ), esc_attr( $task->data['id'] ) ) ); ?>">
 		<span><i class="fas fa-upload"></i></span>
 	</li>
+	
+	<li class="wpeo-task-time-history wpeo-modal-event wpeo-tooltip-event"
+		data-class="history-time wpeo-wrap tm-wrap"
+		aria-label="<?php esc_html_e( 'Handle time', 'task-manager' ); ?>"
+		data-action="load_time_history"
+		data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_time_history' ) ); ?>"
+		data-title="<?php /* Translators: 1. The task ID. */ echo esc_attr( sprintf( __( '#%1$s Time history', 'task-manager' ), $task->data['id'] ) ); ?>"
+		data-task-id="<?php echo esc_attr( $task->data['id'] ); ?>">
+		<span><i class="far fa-calendar-alt"></i></span>
+	</li>
 
 	<?php apply_filters( 'task_manager_task_header_actions_after', $task->data['id'], $task ); ?>
 
+	<li class="action-delete wpeo-tooltip-event" data-direction="top"
+		aria-label="<?php esc_html_e( 'Delete', 'task-manager' ); ?>"
+		data-action="delete_task"
+		data-message-delete="<?php echo esc_attr_e( 'Delete this task ?', 'task-manager' ); ?>"
+		data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_task' ) ); ?>"
+		data-id="<?php echo esc_attr( $task->data['id'] ); ?>"
+		data-loader="task-header-action">
+		<span><i class="fas fa-trash"></i></span>
+	</li>
 </ul>
 
 <div class="move-to">

@@ -75,18 +75,14 @@ class Import_Class extends \eoxia\Singleton_Util {
 				}
 
 				if ( ! empty( $line ) && $line_type_is_task ) {
-					if ( ! empty( $post_id ) ) {
-						$created_task = Task_Class::g()->create( array(
-							'title'     => $line,
-							'parent_id' => $post_id,
-						) );
-						// On vérifie que la création ce soit bien passée.
-						if ( ! empty( $created_task ) && ! empty( $created_task->data['id'] ) ) {
-							$task_id                            = $created_task->data['id'];
-							$element_list['created']['tasks'][] = $created_task;
-						}
-					} else {
-						$element_list['not_created']['tasks'][] = $line;
+					$created_task = Task_Class::g()->create( array(
+						'title'     => $line,
+						'parent_id' => $post_id,
+					) );
+					// On vérifie que la création ce soit bien passée.
+					if ( ! empty( $created_task ) && ! empty( $created_task->data['id'] ) ) {
+						$task_id                            = $created_task->data['id'];
+						$element_list['created']['tasks'][] = $created_task;
 					}
 				} elseif ( ! empty( $line ) && $line_type_is_point ) {
 					if ( ! empty( $task_id ) ) {

@@ -77,10 +77,9 @@ class Task_Comment_Action {
 		$comment_id    = ! empty( $_POST['comment_id'] ) ? (int) $_POST['comment_id'] : 0;
 		$post_id       = ! empty( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;
 		$parent_id     = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
-		$date          = ! empty( $_POST['date'] ) ? sanitize_text_field( $_POST['date'] ) : '';
+		$date          = ! empty( $_POST['mysql_date'] ) ? sanitize_text_field( $_POST['mysql_date'] ) : current_time( 'mysql' );
 		$content       = ! empty( $_POST['content'] ) ? trim( $_POST['content'] ) : '';
 		$time          = ! empty( $_POST['time'] ) ? (int) $_POST['time'] : 0;
-		$value_changed = ! empty( $_POST['value_changed'] ) ? (bool) $_POST['value_changed'] : 0;
 
 		$content = str_replace( '<div>', '<br>', trim( $content ) );
 		$content = wp_kses( $content, array(
@@ -89,10 +88,6 @@ class Task_Comment_Action {
 				'class' => array(),
 			)
 		) );
-
-		if ( empty( $value_changed ) ) {
-			$date = current_time( 'mysql' );
-		}
 
 		$old_elapsed = 0;
 
@@ -107,7 +102,6 @@ class Task_Comment_Action {
 				'schema' => $comment_id,
 			), true );
 		}
-
 
 		$comment->data['post_id']              = $post_id;
 		$comment->data['parent_id']            = $parent_id;

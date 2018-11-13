@@ -75,9 +75,9 @@ class Import_Action {
 
 		$post_id = ! empty( $_POST ) && ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
 		$task_id = ! empty( $_POST ) && ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
-		if ( empty( $post_id ) && empty( $task_id ) ) {
-			wp_send_json_error( array( 'message' => __( 'No element have been given for import data for', 'task-manager' ) ) );
-		}
+		// if ( empty( $post_id ) && empty( $task_id ) ) {
+		// 	wp_send_json_error( array( 'message' => __( 'No element have been given for import data for', 'task-manager' ) ) );
+		// }
 
 		$content = ! empty( $_POST ) && ! empty( $_POST['content'] ) ? trim( $_POST['content'] ) : null;
 		if ( null === $content ) {

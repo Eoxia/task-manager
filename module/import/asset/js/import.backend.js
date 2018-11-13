@@ -41,8 +41,6 @@ window.eoxiaJS.taskManager.import.importSuccess = function( element, response ) 
  */
 window.eoxiaJS.taskManager.import.addKeywordToTextarea = function( event ) {
 	var importContent = jQuery( this ).closest( '.tm-import-tasks.modal-active' ).find( 'textarea' );
-	var keyword = '%' + jQuery( this ).attr( 'data-type' ) + '%';
-	event.preventDefault();
-
-	importContent.append( '\r\n' + keyword );
+	var keyword       = '%' + jQuery( this ).attr( 'data-type' ) + '%';
+	importContent.val( importContent.val() + '\r\n' + keyword );
 };

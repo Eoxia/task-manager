@@ -48,7 +48,7 @@ class Navigation_Action {
 		$post_parent                   = ! empty( $_POST['post_parent'] ) ? (int) $_POST['post_parent'] : 0;
 		$categories_id                 = ! empty( $_POST['categories_id'] ) ? sanitize_text_field( $_POST['categories_id'] ) : '';
 		$user_id                       = ! empty( $_POST['user_id'] ) ? (int) $_POST['user_id'] : '';
-		$tm_dashboard_archives_include = ! empty( $_POST['tm-dashboard-archives-include'] ) ? (bool) $_POST['tm-dashboard-archives-include'] : false;
+		$tm_dashboard_archives_include = ! empty( $_POST['tm_dashboard_archives_include'] ) ? (bool) $_POST['tm_dashboard_archives_include'] : false;
 		$status                        = 'any';
 		if ( $tm_dashboard_archives_include ) {
 			add_filter( 'task_manager_get_tasks_args', function( $args ) {
