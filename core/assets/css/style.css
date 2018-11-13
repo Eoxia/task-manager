@@ -61,16 +61,27 @@ readers do not read off random characters that represent icons */
   /** Import des modules */
   /*	Décalage de l'affichage des tâches a cause du bandeau. */
   /*	Version 1.8.0 */
+  /** Barre de recherche */
   /* Version 1.7.0 */
   /** Author */
   /** Task title */
   /** Settings */
   /** Filters */
+  /** Point structure */
+  /** Points */
+  /** Nouveau point */
+  /** Point en édition */
   /** Bouton pour ouvrir la modal */
   /**
  * Modal d'ajout rapide
  * Classe parente : tm-wrap
  */
+  /** Avatar */
+  /** Comment container */
+  /** Comment content */
+  /** Comment action */
+  /** Edit and new */
+  /** View */
   /* ----------------------------------
 		Temporaire pour le blink
 -----------------------------------*/
@@ -79,7 +90,10 @@ readers do not read off random characters that represent icons */
   /* Activity dans les posts */
   /* Bouton d'import dans les posts: deplacement vers la barre de la metabox */
   /* Modal d'import */
-  /** Import des éléments simples */ }
+  /** Import des éléments simples */
+  /** Bouton d'ajout */
+  /** Bouton sauvegarde */
+  /** Tags actifs */ }
   @media (max-width: 480px) {
     .tm-wrap {
       padding-right: 0; } }
@@ -2511,158 +2525,37 @@ readers do not read off random characters that represent icons */
     color: #7c41c7; }
   .tm-wrap .list-task .wpeo-project-task.purple .wpeo-point-new-btn:hover {
     color: #4c257d; }
-  .tm-wrap .tm-dashboard-wrap .list-task {
-    margin-top: 110px; }
   .tm-wrap .tm-dashboard-header {
-    height: 110px;
-    background-color: #3495F0;
-    width: 98%;
-    margin: 0 0 0 -22px;
-    padding: 0 10px;
+    position: fixed;
+    left: 160px;
+    top: 30px;
+    right: 0;
+    background-color: #389af6;
+    padding: 1em 0.5em;
     z-index: 1;
     color: #FFF; }
-    .tm-wrap .tm-dashboard-header h2 {
-      color: #FFF !important;
-      float: left;
-      margin: 15px 20px 0 0;
-      width: 13%; }
-    .tm-wrap .tm-dashboard-header select, .tm-wrap .tm-dashboard-header input[type="text"] {
-      color: #000; }
-    .tm-wrap .tm-dashboard-header div::after {
-      clear: both;
-      content: "";
-      display: flex; }
-    .tm-wrap .tm-dashboard-header div.tm-dashboard-subheader ul {
-      margin: 0 0 0 13%; }
+  .tm-wrap .tm-dashboard-surheader {
+    display: flex;
+    width: 100%; }
+    .tm-wrap .tm-dashboard-surheader h1 {
+      color: #FFF !important; }
+    .tm-wrap .tm-dashboard-surheader > * {
+      margin: auto 0.5em !important; }
+    .tm-wrap .tm-dashboard-surheader .wpeo-form {
+      width: 100%; }
+  .tm-wrap .tm-dashboard-surheader .wpeo-form {
+    position: relative; }
+    .tm-wrap .tm-dashboard-surheader .wpeo-form .wpeo-dropdown {
+      position: absolute;
+      right: 1em;
+      top: 50%;
+      transform: translateY(-50%);
+      width: auto;
+      height: auto; }
+      .tm-wrap .tm-dashboard-surheader .wpeo-form .wpeo-dropdown .dropdown-content {
+        width: 800px; }
   .tm-wrap .wpeo-no-display {
     display: none; }
-  .tm-wrap .wpeo-header-bar > ul {
-    width: 100%;
-    display: block;
-    background-color: #fff;
-    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.2);
-    min-height: 40px; }
-    .tm-wrap .wpeo-header-bar > ul::after {
-      display: block;
-      content: '';
-      clear: both; }
-    .tm-wrap .wpeo-header-bar > ul > li {
-      display: block;
-      padding: 10px 20px;
-      color: rgba(0, 0, 0, 0.5);
-      border-bottom: 2px solid #fff;
-      transition: all 0.2s ease-out;
-      float: left;
-      height: 40px; }
-      .tm-wrap .wpeo-header-bar > ul > li:hover, .tm-wrap .wpeo-header-bar > ul > li.wpeo-button:hover {
-        cursor: pointer; }
-    .tm-wrap .wpeo-header-bar > ul > li.active {
-      border-bottom: 2px solid #389af6; }
-    .tm-wrap .wpeo-header-bar > ul > li.wpeo-general-search {
-      float: right;
-      padding: 0; }
-      .tm-wrap .wpeo-header-bar > ul > li.wpeo-general-search .general-search {
-        padding: 6px 20px; }
-      .tm-wrap .wpeo-header-bar > ul > li.wpeo-general-search label {
-        background: #fff;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-        padding: 6px 8px; }
-      .tm-wrap .wpeo-header-bar > ul > li.wpeo-general-search input {
-        border: 0;
-        color: rgba(0, 0, 0, 0.6);
-        padding: 4px 0; }
-      .tm-wrap .wpeo-header-bar > ul > li.wpeo-general-search .dashicons-search {
-        color: rgba(0, 0, 0, 0.2);
-        line-height: 2em;
-        font-size: 18px; }
-      .tm-wrap .wpeo-header-bar > ul > li.wpeo-general-search .open-search-filter {
-        transition: 0.2s ease-out; }
-        .tm-wrap .wpeo-header-bar > ul > li.wpeo-general-search .open-search-filter:hover {
-          color: rgba(0, 0, 0, 0.8); }
-  .tm-wrap .wpeo-header-search {
-    background: #404A53;
-    padding: 10px;
-    transition: all 0.2s ease-in-out;
-    pointer-events: none; }
-    .tm-wrap .wpeo-header-search.active {
-      opacity: 1;
-      z-index: 999;
-      height: auto;
-      pointer-events: all; }
-    .tm-wrap .wpeo-header-search .user-search, .tm-wrap .wpeo-header-search .wpshop-search {
-      float: left; }
-    .tm-wrap .wpeo-header-search .user-search .chosen-choices {
-      border: 0;
-      box-shadow: none; }
-    .tm-wrap .wpeo-header-search .wpshop-search {
-      margin-left: 10px;
-      background: #fff; }
-      .tm-wrap .wpeo-header-search .wpshop-search input[type="text"] {
-        width: 300px;
-        border: 0; }
-      .tm-wrap .wpeo-header-search .wpshop-search .dashicons {
-        color: rgba(0, 0, 0, 0.4);
-        text-decoration: none; }
-    .tm-wrap .wpeo-header-search .wpeo-follower-search {
-      display: flex;
-      flex-wrap: wrap; }
-      .tm-wrap .wpeo-header-search .wpeo-follower-search > * {
-        margin: 5px; }
-      .tm-wrap .wpeo-header-search .wpeo-follower-search .wpeo-follower-title {
-        color: #fff;
-        text-transform: uppercase;
-        font-size: 14px; }
-      .tm-wrap .wpeo-header-search .wpeo-follower-search select {
-        width: 180px; }
-    .tm-wrap .wpeo-header-search .tag-search {
-      clear: both;
-      padding-top: 10px; }
-      .tm-wrap .wpeo-header-search .tag-search .wpeo-tag-title {
-        color: #fff;
-        text-transform: uppercase;
-        font-size: 14px; }
-      .tm-wrap .wpeo-header-search .tag-search ul {
-        display: flex;
-        flex-wrap: wrap; }
-        .tm-wrap .wpeo-header-search .tag-search ul > * {
-          margin: 5px 0; }
-        .tm-wrap .wpeo-header-search .tag-search ul .wpeo-tag-search {
-          background: #adadad;
-          color: #fff;
-          padding: 8px 16px;
-          margin-left: 10px;
-          transition: all 0.2s ease-out; }
-          .tm-wrap .wpeo-header-search .tag-search ul .wpeo-tag-search:hover {
-            background: #939393;
-            cursor: pointer; }
-          .tm-wrap .wpeo-header-search .tag-search ul .wpeo-tag-search.active {
-            background: #389af6; }
-            .tm-wrap .wpeo-header-search .tag-search ul .wpeo-tag-search.active:hover {
-              background: #2e7dd5; }
-        .tm-wrap .wpeo-header-search .tag-search ul .wpeo-new-tag-search {
-          margin-left: 10px; }
-          .tm-wrap .wpeo-header-search .tag-search ul .wpeo-new-tag-search .wpeo-new-tag-search-btn {
-            color: #389af6;
-            margin-left: 10px; }
-            .tm-wrap .wpeo-header-search .tag-search ul .wpeo-new-tag-search .wpeo-new-tag-search-btn:hover {
-              cursor: pointer;
-              color: #55b6ed; }
-            .tm-wrap .wpeo-header-search .tag-search ul .wpeo-new-tag-search .wpeo-new-tag-search-btn:active {
-              margin-bottom: -1px; }
-    .tm-wrap .wpeo-header-search .search-button {
-      background: #389af6;
-      color: #fff;
-      display: inline-block;
-      padding: 10px 14px;
-      margin-top: 10px; }
-      .tm-wrap .wpeo-header-search .search-button:hover {
-        cursor: pointer;
-        background: #55b6ed; }
-    .tm-wrap .wpeo-header-search:after {
-      display: block;
-      content: '';
-      clear: both; }
   .tm-wrap .wpeo-project-task {
     position: relative;
     width: 50%;
@@ -2706,12 +2599,12 @@ readers do not read off random characters that represent icons */
     text-align: center;
     margin: auto 0;
     padding: 0.8em; }
-    .tm-wrap .wpeo-project-task .wpeo-task-main-header .wpeo-task-author .user {
+    .tm-wrap .wpeo-project-task .wpeo-task-main-header .wpeo-task-author .tm-avatar {
       border-radius: 50%;
       overflow: hidden; }
-      .tm-wrap .wpeo-project-task .wpeo-task-main-header .wpeo-task-author .user img {
+      .tm-wrap .wpeo-project-task .wpeo-task-main-header .wpeo-task-author .tm-avatar img {
         border-radius: 50%; }
-      .tm-wrap .wpeo-project-task .wpeo-task-main-header .wpeo-task-author .user:hover {
+      .tm-wrap .wpeo-project-task .wpeo-task-main-header .wpeo-task-author .tm-avatar:hover {
         cursor: pointer; }
     .tm-wrap .wpeo-project-task .wpeo-task-main-header .wpeo-task-author .toggle .content {
       max-width: 150px;
@@ -2755,7 +2648,7 @@ readers do not read off random characters that represent icons */
     top: 40px; } }
   .tm-wrap .wpeo-project-task .wpeo-task-filter {
     background: rgba(0, 0, 0, 0.05);
-    padding: 0.4em;
+    padding: 0.4em 0.4em 0 0.4em;
     display: flex;
     flex-direction: row; }
     .tm-wrap .wpeo-project-task .wpeo-task-filter li {
@@ -2863,7 +2756,7 @@ readers do not read off random characters that represent icons */
         cursor: default; }
     .tm-wrap .task-header-action .task-informations, .tm-wrap .point-header-action .task-informations {
       text-align: center; }
-      .tm-wrap .task-header-action .task-informations .user, .tm-wrap .point-header-action .task-informations .user {
+      .tm-wrap .task-header-action .task-informations .tm-avatar, .tm-wrap .point-header-action .task-informations .tm-avatar {
         margin: auto; }
       .tm-wrap .task-header-action .task-informations .time, .tm-wrap .point-header-action .task-informations .time {
         font-size: 12px;
@@ -2943,108 +2836,124 @@ readers do not read off random characters that represent icons */
     .tm-wrap .history-time-list .delete:hover {
       cursor: pointer; }
   .tm-wrap .points {
-    background: rgba(0, 0, 0, 0.05); }
-    .tm-wrap .points .point-container {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 0.4em 0.4em 0.4em; }
+  .tm-wrap .points .point {
+    margin: 0.2em 0;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1); }
+    .tm-wrap .points .point:hover .wpeo-sort-point, .tm-wrap .points .point:hover .wpeo-task-setting .wpeo-task-open-action > i, .tm-wrap .points .point:hover .action-delete {
+      opacity: 1 !important; }
+  .tm-wrap .points .point .point-container {
+    display: flex;
+    flex-direction: row;
+    padding: 0.6em 0;
+    /** Check */
+    /** Content */
+    /** Settings */ }
+    .tm-wrap .points .point .point-container .point-valid {
+      margin: auto 0;
+      padding-left: 0.2em;
       display: flex;
-      flex-direction: row;
-      padding: 8px 6px 0 6px; }
-      .tm-wrap .points .point-container .point-valid, .tm-wrap .points .point-container .point-action {
-        display: flex;
-        flex-direction: row; }
-      .tm-wrap .points .point-container .point-valid .completed-point, .tm-wrap .points .point-container .point-valid .wpeo-sort-point {
-        margin: auto 0; }
-      .tm-wrap .points .point-container .point-valid .wpeo-sort-point {
+      flex-direction: row; }
+      .tm-wrap .points .point .point-container .point-valid .wpeo-sort-point {
         color: rgba(0, 0, 0, 0.4);
         transition: all 0.2s ease-out;
         opacity: 0;
         display: flex; }
-        .tm-wrap .points .point-container .point-valid .wpeo-sort-point .fa {
-          padding: 0 1px; }
-        .tm-wrap .points .point-container .point-valid .wpeo-sort-point:hover {
+        .tm-wrap .points .point .point-container .point-valid .wpeo-sort-point:hover {
           cursor: pointer;
           color: rgba(0, 0, 0, 0.8); }
-      .tm-wrap .points .point-container .point-valid .completed-point {
+      .tm-wrap .points .point .point-container .point-valid .completed-point {
         margin-left: 4px;
         background: #fff !important;
         border-radius: 3px; }
-      .tm-wrap .points .point-container .point-content {
-        width: 100%;
-        padding: 0 0.4em; }
-        .tm-wrap .points .point-container .point-content .wpeo-point-summary {
-          display: flex;
-          flex-direction: row; }
-          .tm-wrap .points .point-container .point-content .wpeo-point-summary::after {
-            display: block;
-            content: '';
-            clear: both; }
-          .tm-wrap .points .point-container .point-content .wpeo-point-summary li {
-            padding: 4px; }
-        .tm-wrap .points .point-container .point-content .wpeo-point-new-contenteditable {
-          margin: auto 0; }
-        .tm-wrap .points .point-container .point-content .wpeo-point-new-contenteditable {
-          min-height: 24px;
-          transition: all 0.2s ease-out;
-          padding-bottom: 6px;
-          font-family: 'kalamregular', 'open sans', sans-serif;
-          width: 100%; }
-          .tm-wrap .points .point-container .point-content .wpeo-point-new-contenteditable:hover {
-            border-bottom: 1px solid rgba(0, 0, 0, 0.4); }
-        .tm-wrap .points .point-container .point-content .wpeo-point-new-placeholder {
-          color: rgba(0, 0, 0, 0.4);
-          position: absolute;
-          left: 6px;
-          bottom: 6px;
-          pointer-events: none; }
-      .tm-wrap .points .point-container .point-action {
-        margin-right: auto;
+    .tm-wrap .points .point .point-container .point-content {
+      width: 100%;
+      max-width: 90%;
+      margin: auto 0;
+      padding: 0 1em; }
+      .tm-wrap .points .point .point-container .point-content .wpeo-point-summary {
         display: flex;
         flex-direction: row; }
-        .tm-wrap .points .point-container .point-action .wpeo-point-time, .tm-wrap .points .point-container .point-action .wpeo-task-setting, .tm-wrap .points .point-container .point-action .action-delete {
-          margin: auto 0; }
-        .tm-wrap .points .point-container .point-action .wpeo-point-time {
-          display: flex;
-          flex-direction: row;
-          width: 50%; }
-          .tm-wrap .points .point-container .point-action .wpeo-point-time .dashicons-clock {
-            margin-right: 4px; }
-          .tm-wrap .points .point-container .point-action .wpeo-point-time span {
-            margin: auto 0; }
-        .tm-wrap .points .point-container .point-action .wpeo-task-setting {
-          margin-left: auto;
-          text-align: center;
-          transition: all 0.2s ease-out; }
-          .tm-wrap .points .point-container .point-action .wpeo-task-setting .wpeo-task-open-action > i {
-            min-width: 20px;
-            font-size: 14px;
-            line-height: 20px;
-            border-radius: 50%;
-            transition: all 0.2s ease-out;
-            opacity: 0;
-            color: rgba(0, 0, 0, 0.2); }
-          .tm-wrap .points .point-container .point-action .wpeo-task-setting:hover {
-            cursor: pointer; }
-            .tm-wrap .points .point-container .point-action .wpeo-task-setting:hover .wpeo-task-open-action > i {
-              color: rgba(0, 0, 0, 0.4); }
-        .tm-wrap .points .point-container .point-action .wpeo-point-new-btn {
-          margin: auto 0 auto auto;
-          transition: all 0.2s ease-out;
-          display: block; }
-          .tm-wrap .points .point-container .point-action .wpeo-point-new-btn:hover {
-            cursor: pointer; }
-    .tm-wrap .points .point {
-      margin: 5px;
-      border-radius: 5px; }
-      .tm-wrap .points .point.edit:first-child {
-        padding-top: 10px; }
-      .tm-wrap .points .point:not(.edit) .point-content {
-        position: relative; }
-      .tm-wrap .points .point:hover .wpeo-sort-point, .tm-wrap .points .point:hover .wpeo-task-setting .wpeo-task-open-action > i, .tm-wrap .points .point:hover .action-delete {
-        opacity: 1; }
-  .tm-wrap .points .point[data-point-state="completed"] {
-    background-color: lightgray !important;
-    background: repeating-linear-gradient(45deg, lightgray, lightgray 10px, #DDD 10px, #DDD 20px) !important; }
-    .tm-wrap .points .point[data-point-state="completed"] div.wpeo-point-new-contenteditable {
-      text-decoration: line-through; }
+        .tm-wrap .points .point .point-container .point-content .wpeo-point-summary li {
+          padding: 4px;
+          font-size: 12px;
+          color: rgba(0, 0, 0, 0.4);
+          line-height: 1; }
+        .tm-wrap .points .point .point-container .point-content .wpeo-point-summary [data-icon] {
+          color: rgba(0, 0, 0, 0.6); }
+      .tm-wrap .points .point .point-container .point-content .wpeo-point-new-contenteditable {
+        min-height: 20px;
+        transition: all 0.2s ease-out;
+        font-family: 'Roboto Slab', 'Open sans', serif;
+        width: 100%;
+        font-size: 14px;
+        line-height: 1.5; }
+      .tm-wrap .points .point .point-container .point-content .wpeo-point-new-placeholder {
+        color: rgba(0, 0, 0, 0.4);
+        position: absolute;
+        left: 0em;
+        top: 0em;
+        pointer-events: none;
+        font-family: 'Roboto Slab', 'Open sans', serif;
+        font-style: italic; }
+        .tm-wrap .points .point .point-container .point-content .wpeo-point-new-placeholder [data-icon] {
+          margin-right: 0.4em; }
+    .tm-wrap .points .point .point-container .point-action {
+      margin: auto 0 auto auto;
+      min-width: 10%; }
+  .tm-wrap .points .point.new .point-container {
+    padding: 1.4em 1.4em 1.4em 3.4em; }
+    .tm-wrap .points .point.new .point-container .point-content {
+      padding: 0; }
+    .tm-wrap .points .point.new .point-container .point-action .wpeo-point-new-btn {
+      background: #389af6;
+      border-color: #389af6;
+      color: #fff;
+      width: 20px;
+      height: 20px;
+      line-height: 12px; }
+  .tm-wrap .points .point-container .point-content .wpeo-point-new-contenteditable {
+    margin: auto 0; }
+  .tm-wrap .points .point-container .point-action {
+    margin-right: auto;
+    display: flex;
+    flex-direction: row; }
+    .tm-wrap .points .point-container .point-action .wpeo-point-time, .tm-wrap .points .point-container .point-action .wpeo-task-setting, .tm-wrap .points .point-container .point-action .action-delete {
+      margin: auto 0; }
+    .tm-wrap .points .point-container .point-action .wpeo-point-time {
+      display: flex;
+      flex-direction: row;
+      width: 50%; }
+      .tm-wrap .points .point-container .point-action .wpeo-point-time .dashicons-clock {
+        margin-right: 4px; }
+      .tm-wrap .points .point-container .point-action .wpeo-point-time span {
+        margin: auto 0; }
+    .tm-wrap .points .point-container .point-action .wpeo-task-setting {
+      margin-left: auto;
+      text-align: center;
+      transition: all 0.2s ease-out; }
+      .tm-wrap .points .point-container .point-action .wpeo-task-setting .wpeo-task-open-action > i {
+        min-width: 20px;
+        font-size: 14px;
+        line-height: 20px;
+        border-radius: 50%;
+        transition: all 0.2s ease-out;
+        opacity: 0;
+        color: rgba(0, 0, 0, 0.2); }
+      .tm-wrap .points .point-container .point-action .wpeo-task-setting:hover {
+        cursor: pointer; }
+        .tm-wrap .points .point-container .point-action .wpeo-task-setting:hover .wpeo-task-open-action > i {
+          color: rgba(0, 0, 0, 0.4); }
+    .tm-wrap .points .point-container .point-action .wpeo-point-new-btn {
+      margin: auto 0 auto auto;
+      transition: all 0.2s ease-out;
+      display: block; }
+      .tm-wrap .points .point-container .point-action .wpeo-point-new-btn:hover {
+        cursor: pointer; }
+  .tm-wrap .points .point[data-point-state="completed"] div.wpeo-point-new-contenteditable {
+    text-decoration: line-through; }
   .tm-wrap .wpeo-project-task .wpeo-task-filter .quick-point-event {
     margin: auto 0.4em;
     padding: 0; }
@@ -3091,126 +3000,111 @@ readers do not read off random characters that represent icons */
     .tm-wrap.wpeo-modal.quick-point .point-action .point-time {
       width: 100%; }
   .tm-wrap .points .point .comments {
-    background: rgba(0, 0, 0, 0.05);
-    padding: 4px 0 10px 0; }
-    .tm-wrap .points .point .comments .comment .wpeo-comment-container {
+    padding: 0 1.4em; }
+    .tm-wrap .points .point .comments .comment {
+      display: flex;
+      margin: 0.8em 0; }
+      .tm-wrap .points .point .comments .comment .tm-avatar {
+        min-width: 40px; }
+      .tm-wrap .points .point .comments .comment .comment-container {
+        width: 100%; }
+  .tm-wrap .points .point .comment .tm-avatar {
+    margin-top: auto;
+    margin-right: 4px;
+    margin-bottom: 3px;
+    box-shadow: 0 0 0px 4px #fff;
+    border-radius: 50%;
+    overflow: hidden;
+    z-index: 1; }
+  .tm-wrap .points .point .comment .comment-container {
+    display: flex;
+    flex-direction: row;
+    padding: 1em;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    border-bottom-left-radius: 0;
+    position: relative; }
+    .tm-wrap .points .point .comment .comment-container::after {
+      display: block;
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: -30px;
+      width: 30px;
+      height: 20px;
+      background: rgba(0, 0, 0, 0.1); }
+  .tm-wrap .points .point .comment .comment-content {
+    width: 100%;
+    max-width: 90%;
+    /** Text */
+    /** Meta */
+    /** Date */ }
+    .tm-wrap .points .point .comment .comment-content .comment-content-text {
+      min-height: 20px;
+      transition: all 0.2s ease-out;
+      font-family: 'Roboto Slab', 'Open sans', serif;
+      width: 100%;
+      font-size: 14px;
+      position: relative;
+      line-height: 1.5;
+      color: rgba(0, 0, 0, 0.7); }
+      .tm-wrap .points .point .comment .comment-content .comment-content-text .content {
+        padding: 0.4em; }
+      .tm-wrap .points .point .comment .comment-content .comment-content-text .placeholder {
+        position: absolute;
+        top: 0.4em;
+        left: 0.4em;
+        pointer-events: none;
+        font-style: italic;
+        color: rgba(0, 0, 0, 0.4); }
+    .tm-wrap .points .point .comment .comment-content .comment-meta {
       display: flex;
       flex-direction: row;
-      padding: 8px 6px 0;
-      padding-left: 40px;
-      width: 100%; }
-      .tm-wrap .points .point .comments .comment .wpeo-comment-container .user {
-        border-radius: 50%; }
-    .tm-wrap .points .point .comments .comment .wpeo-comment-date {
-      font-size: 12px;
-      font-weight: 700; }
-      .tm-wrap .points .point .comments .comment .wpeo-comment-date span {
-        margin: auto; }
-      .tm-wrap .points .point .comments .comment .wpeo-comment-date input[type="text"] {
-        height: 0;
-        position: absolute;
-        opacity: 0; }
-      .tm-wrap .points .point .comments .comment .wpeo-comment-date > div {
-        display: inline-block; }
-      .tm-wrap .points .point .comments .comment .wpeo-comment-date .date-time {
-        background: rgba(0, 0, 0, 0.2);
-        color: #fff;
-        display: inline;
-        padding: 4px;
-        border-radius: 50%;
-        font-size: 20px;
-        transition: all 0.2s ease-out; }
-        .tm-wrap .points .point .comments .comment .wpeo-comment-date .date-time:hover {
-          cursor: pointer;
-          background: rgba(0, 0, 0, 0.4); }
-    .tm-wrap .points .point .comments .comment.new ul input {
-      width: 100%;
-      font-size: 13px;
-      margin: 0;
-      padding: 2px; }
-    .tm-wrap .points .point .comments .comment.new ul .wpeo-comment-date, .tm-wrap .points .point .comments .comment.new ul .wpeo-comment-time {
-      display: flex; }
-    .tm-wrap .points .point .comments .comment.new ul .wpeo-comment-date {
-      max-width: 30px; }
-    .tm-wrap .points .point .comments .comment.new ul .wpeo-comment-content {
-      position: relative;
-      margin: 0 16px;
-      width: 100%;
-      margin: auto 6px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-      transition: all .2s ease-out;
-      padding-bottom: 2px; }
-      .tm-wrap .points .point .comments .comment.new ul .wpeo-comment-content .content {
-        min-height: 22px; }
-      .tm-wrap .points .point .comments .comment.new ul .wpeo-comment-content .wpeo-point-new-placeholder {
-        color: rgba(0, 0, 0, 0.4);
-        position: absolute;
-        left: 6px;
-        bottom: 2px;
-        pointer-events: none; }
-    .tm-wrap .points .point .comments .comment.new ul .wpeo-comment-time {
-      width: 100%;
-      max-width: 40px; }
-      .tm-wrap .points .point .comments .comment.new ul .wpeo-comment-time input {
-        padding: 2px; }
-    .tm-wrap .points .point .comments .comment.new ul .wpeo-point-new-btn {
-      text-align: right;
-      width: 100%;
-      max-width: 26px;
       transition: all 0.2s ease-out;
-      margin: auto 0 auto auto; }
-      .tm-wrap .points .point .comments .comment.new ul .wpeo-point-new-btn:hover {
-        cursor: pointer; }
-    .tm-wrap .points .point .comments .comment.new ul .wpeo-save-point {
-      width: 100%;
-      max-width: 5%;
-      text-align: right;
-      margin: auto 0 auto auto; }
-      .tm-wrap .points .point .comments .comment.new ul .wpeo-save-point .save-icon {
-        font-size: 16px;
-        display: inline-block; }
-        .tm-wrap .points .point .comments .comment.new ul .wpeo-save-point .save-icon .fa-circle {
-          color: #3495f0;
-          transition: all 0.2s ease-out; }
-        .tm-wrap .points .point .comments .comment.new ul .wpeo-save-point .save-icon:hover .fa-circle {
-          color: #1360c8;
-          cursor: pointer; }
-    .tm-wrap .points .point .comments .comment.view ul, .tm-wrap .points .point .comments .comment.edit ul {
-      flex-wrap: wrap; }
-      .tm-wrap .points .point .comments .comment.view ul > .avatar, .tm-wrap .points .point .comments .comment.edit ul > .avatar {
-        width: 100%;
-        max-width: 20px;
-        margin-right: 6px; }
-        .tm-wrap .points .point .comments .comment.view ul > .avatar .user span, .tm-wrap .points .point .comments .comment.edit ul > .avatar .user span {
-          font-size: 12px; }
-        .tm-wrap .points .point .comments .comment.view ul > .avatar .user img, .tm-wrap .points .point .comments .comment.view ul > .avatar .user .wpeo-avatar-initial, .tm-wrap .points .point .comments .comment.view ul > .avatar .user .wpeo-avatar-initial span, .tm-wrap .points .point .comments .comment.edit ul > .avatar .user img, .tm-wrap .points .point .comments .comment.edit ul > .avatar .user .wpeo-avatar-initial, .tm-wrap .points .point .comments .comment.edit ul > .avatar .user .wpeo-avatar-initial span {
-          border-radius: 50%; }
-      .tm-wrap .points .point .comments .comment.view ul .wpeo-comment-content, .tm-wrap .points .point .comments .comment.edit ul .wpeo-comment-content {
-        width: 100%; }
-        .tm-wrap .points .point .comments .comment.view ul .wpeo-comment-content input, .tm-wrap .points .point .comments .comment.edit ul .wpeo-comment-content input {
-          width: 100%; }
-      .tm-wrap .points .point .comments .comment.view ul .wpeo-comment-time, .tm-wrap .points .point .comments .comment.edit ul .wpeo-comment-time {
-        display: flex;
-        margin-left: auto;
-        width: 100%;
-        max-width: 40px; }
-        .tm-wrap .points .point .comments .comment.view ul .wpeo-comment-time span, .tm-wrap .points .point .comments .comment.edit ul .wpeo-comment-time span {
-          padding: 0 4px 0 0;
-          font-size: 14px; }
-      .tm-wrap .points .point .comments .comment.view ul .wpeo-comment-action, .tm-wrap .points .point .comments .comment.edit ul .wpeo-comment-action {
-        max-width: 26px; }
-        .tm-wrap .points .point .comments .comment.view ul .wpeo-comment-action .dropdown-toggle, .tm-wrap .points .point .comments .comment.edit ul .wpeo-comment-action .dropdown-toggle {
-          padding: 0 10px;
-          font-size: 12px;
-          border-top: 0; }
-      .tm-wrap .points .point .comments .comment.view ul .wpeo-save-point, .tm-wrap .points .point .comments .comment.edit ul .wpeo-save-point {
-        margin-left: auto; }
-    .tm-wrap .points .point .comments .comment.edit ul .wpeo-comment-time input {
-      width: 100%; }
-    .tm-wrap .points .point .comments .comment.edit ul .wpeo-comment-date input, .tm-wrap .points .point .comments .comment.edit ul .wpeo-comment-time input {
+      opacity: 0;
+      height: 0px;
+      margin-top: 0.4em;
+      pointer-events: none; }
+    .tm-wrap .points .point .comment .comment-content .form-element .form-field, .tm-wrap .points .point .comment .comment-content .form-element [class*="form-field-icon"] {
+      background: none;
+      padding: 0.4em;
+      color: rgba(0, 0, 0, 0.4);
+      font-size: 12px;
+      border-bottom: 0; }
+    .tm-wrap .points .point .comment .comment-content .group-date, .tm-wrap .points .point .comment .comment-content .wpeo-comment-time, .tm-wrap .points .point .comment .comment-content [data-icon] {
+      color: rgba(0, 0, 0, 0.4);
       font-size: 12px; }
-  .tm-wrap .wpeo-point-comment-edit .wpeo-point-time-elapsed {
-    width: 40px; }
+    .tm-wrap .points .point .comment .comment-content .group-date {
+      max-width: 230px;
+      margin-right: 0.4em; }
+  .tm-wrap .points .point .comment .comment-action {
+    margin: auto 0 auto 0.4em;
+    min-width: 10%;
+    text-align: right; }
+    .tm-wrap .points .point .comment .comment-action .save-icon {
+      font-size: 20px;
+      color: #389af6;
+      transition: all 0.2s ease-out;
+      opacity: 0; }
+      .tm-wrap .points .point .comment .comment-action .save-icon:hover {
+        cursor: pointer;
+        color: #55b6ed; }
+  .tm-wrap .points .point .comment.edit .form-field, .tm-wrap .points .point .comment.edit [class*="form-field-icon"] {
+    background: #fff !important; }
+  .tm-wrap .points .point .comment.edit .comment-content-text .content {
+    background: #fff; }
+  .tm-wrap .points .point .comment.edit .comment-action .save-icon {
+    opacity: 1; }
+  .tm-wrap .points .point .comment.edit .comment-meta {
+    opacity: 1;
+    height: auto;
+    pointer-events: all; }
+  .tm-wrap .points .point .comment.view .comment-action .save-icon {
+    opacity: 1; }
+  .tm-wrap .points .point .comment.view .comment-meta {
+    opacity: 1;
+    height: auto;
+    pointer-events: all; }
   .tm-wrap #tm-indicator-activity .inside {
     margin: 0;
     padding: 0; }
@@ -3270,11 +3164,11 @@ readers do not read off random characters that represent icons */
         width: 100%;
         max-width: 50px;
         position: relative; }
-        .tm-wrap .activities .activity .information .user {
+        .tm-wrap .activities .activity .information .tm-avatar {
           border-radius: 50%;
           border: 2px solid #fff;
           z-index: 50; }
-          .tm-wrap .activities .activity .information .user img, .tm-wrap .activities .activity .information .user .wpeo-avatar-initial {
+          .tm-wrap .activities .activity .information .tm-avatar img, .tm-wrap .activities .activity .information .tm-avatar .wpeo-avatar-initial {
             border-radius: 50%; }
         .tm-wrap .activities .activity .information .type {
           display: block;
@@ -3388,6 +3282,32 @@ readers do not read off random characters that represent icons */
     height: 330px; }
   .tm-wrap .tm-import-tasks .tm-import-add-keyword {
     margin: 0 0 20px 0; }
+  .tm-wrap .wpeo-ul-users {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 0.4em 0.4em 0.4em; }
+    .tm-wrap .wpeo-ul-users .follower {
+      font-size: 14px;
+      margin: 0.2em;
+      filter: grayscale(100%); }
+      .tm-wrap .wpeo-ul-users .follower.active {
+        filter: grayscale(0%); }
+      .tm-wrap .wpeo-ul-users .follower .tm-avatar {
+        border-radius: 50%;
+        overflow: hidden; }
+    .tm-wrap .wpeo-ul-users .add, .tm-wrap .wpeo-ul-users .edit {
+      background: rgba(0, 0, 0, 0.1);
+      width: 35px;
+      height: 35px;
+      line-height: 24px;
+      border: 0;
+      color: rgba(0, 0, 0, 0.5);
+      padding: 0.4em 0.6em;
+      filter: grayscale(0%); }
+    .tm-wrap .wpeo-ul-users .edit {
+      background: #389af6;
+      color: #fff;
+      margin-left: auto; }
   .tm-wrap *,
   .tm-wrap *:before,
   .tm-wrap *:after {
@@ -3396,7 +3316,16 @@ readers do not read off random characters that represent icons */
   .tm-wrap .tm-dashboard-wrap {
     max-width: 1280px;
     width: 100%;
-    margin: auto; }
+    margin: auto;
+    margin-top: 130px;
+    display: flex;
+    flex-wrap: nowrap; }
+    .tm-wrap .tm-dashboard-wrap .tm-dashboard-primary {
+      width: 75%;
+      flex-grow: 1; }
+    .tm-wrap .tm-dashboard-wrap .tm-dashboard-secondary {
+      min-width: 25%;
+      width: 25%; }
   .tm-wrap .tm-post-dashboard::after {
     display: block;
     content: "";
@@ -3404,43 +3333,26 @@ readers do not read off random characters that represent icons */
   .tm-wrap .wpeo-tag-wrap {
     display: flex;
     flex-wrap: wrap;
-    background: rgba(0, 0, 0, 0.05);
+    padding: 0.4em 0.4em 0 0.4em;
     border-top: 1px solid rgba(0, 0, 0, 0.2); }
-    .tm-wrap .wpeo-tag-wrap::after {
-      display: block;
-      content: '';
-      clear: both; }
     .tm-wrap .wpeo-tag-wrap .wpeo-tag {
-      background: rgba(0, 0, 0, 0.1);
-      padding: 8px 16px;
-      color: rgba(0, 0, 0, 0.6);
-      font-size: 12px;
-      transition: all 0.2s ease-out; }
-      .tm-wrap .wpeo-tag-wrap .wpeo-tag.active {
-        background: #3495f0;
-        color: #fff; }
-      .tm-wrap .wpeo-tag-wrap .wpeo-tag.edit {
-        margin-left: auto;
-        margin-right: 0;
-        background: #3495f0;
-        color: #fff;
-        height: auto;
-        width: auto;
-        padding: 8px;
-        text-align: center;
-        line-height: 1.5; }
-      .tm-wrap .wpeo-tag-wrap .wpeo-tag.add {
-        border-radius: 30px;
-        transform: scale(0.8);
-        font-size: 14px; }
-        .tm-wrap .wpeo-tag-wrap .wpeo-tag.add:hover {
-          cursor: pointer;
-          background: rgba(0, 0, 0, 0.2); }
-    .tm-wrap .wpeo-tag-wrap.edit .wpeo-tag:hover {
-      cursor: pointer;
-      background: rgba(0, 0, 0, 0.2); }
-    .tm-wrap .wpeo-tag-wrap.edit .wpeo-tag.active:hover, .tm-wrap .wpeo-tag-wrap.edit .wpeo-tag.edit:hover {
-      background: #1360c8; }
+      font-size: 14px;
+      padding: 0.4em 0.6em;
+      color: rgba(0, 0, 0, 0.5);
+      border: 0;
+      margin: 0.2em;
+      border-radius: 5px;
+      background: rgba(0, 0, 0, 0.1); }
+  .tm-wrap .wpeo-tag-wrap .wpeo-tag.add [data-icon="plus"] {
+    vertical-align: super;
+    font-size: 8px; }
+  .tm-wrap .wpeo-tag-wrap .wpeo-tag.edit {
+    background: #389af6;
+    color: #fff;
+    margin-left: auto; }
+  .tm-wrap .wpeo-tag-wrap .wpeo-tag.active {
+    background: #389af6;
+    color: #fff; }
   .tm-wrap .load-more {
     text-align: center;
     display: none;
@@ -3482,14 +3394,14 @@ readers do not read off random characters that represent icons */
 .popup-notification .follower {
   float: left;
   margin: 0.4em; }
-  .popup-notification .follower .user:hover {
+  .popup-notification .follower .tm-avatar:hover {
     cursor: pointer !important;
     box-shadow: 0 0 0 1px #3495f0; }
   .popup-notification .follower img {
     filter: grayscale(100%); }
-  .popup-notification .follower.active .user {
+  .popup-notification .follower.active .tm-avatar {
     box-shadow: 0 0 0 3px #3495f0; }
-    .popup-notification .follower.active .user img {
+    .popup-notification .follower.active .tm-avatar img {
       filter: grayscale(0); }
 
 .popup-notification .notify-label {
@@ -3543,120 +3455,28 @@ readers do not read off random characters that represent icons */
     width: 100%;
     height: 400px; }
 
-.wpeo-ul-users {
-  display: flex;
-  flex-wrap: wrap;
-  background: rgba(0, 0, 0, 0.05); }
-  .wpeo-ul-users::after {
-    display: block;
-    content: '';
-    clear: both; }
-
-.follower:hover {
-  cursor: pointer; }
-
-.follower img, .follower .wpeo-avatar-initial {
-  transition: all 0.2s ease-out; }
-
-.follower img {
-  -webkit-filter: grayscale(100%);
-  -moz-filter: grayscale(100%);
-  -ms-filter: grayscale(100%);
-  -o-filter: grayscale(100%);
-  filter: grayscale(100%); }
-
-.follower .wpeo-avatar-initial {
-  background: #d6d6d6; }
-
-.follower.active img {
-  -webkit-filter: grayscale(0%);
-  -moz-filter: grayscale(0%);
-  -ms-filter: grayscale(0%);
-  -o-filter: grayscale(0%);
-  filter: grayscale(0%); }
-
-.follower.active .wpeo-avatar-initial {
-  background: #3495f0; }
-
-.follower.edit {
-  margin: auto 0 auto auto;
-  background: #3495f0;
-  color: #fff;
-  height: auto;
-  width: auto;
-  padding: 8px;
-  text-align: center;
-  line-height: 1.5;
-  transition: all 0.32s ease-out; }
-  .follower.edit span {
-    font-size: 12px;
-    line-height: 22px; }
-  .follower.edit:hover {
-    background: #1360c8;
-    cursor: pointer; }
-
-.follower.add {
-  border-radius: 30px;
-  transform: scale(0.8);
-  font-size: 14px;
-  background: rgba(0, 0, 0, 0.1);
-  padding: 8px 16px;
-  color: rgba(0, 0, 0, 0.6);
-  margin: auto 0;
-  transition: all 0.2s ease-out; }
-  .follower.add:hover {
-    cursor: pointer;
-    background: rgba(0, 0, 0, 0.2); }
-
-.follower:not(.active):hover .wpeo-avatar-initial {
-  background: #bdbdbd; }
-
-.follower:not(.active):hover img {
-  -webkit-filter: grayscale(60%);
-  -moz-filter: grayscale(60%);
-  -ms-filter: grayscale(60%);
-  -o-filter: grayscale(60%);
-  filter: grayscale(60%); }
-
-.user {
+.tm-avatar {
   background: #389af6;
   color: #fff;
   position: relative;
   transition: all 0.2s ease-out; }
-  .user img {
+  .tm-avatar img {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%; }
-  .user .wpeo-avatar-initial {
+  .tm-avatar .wpeo-avatar-initial {
     display: flex;
     height: 100%; }
-  .user span {
+  .tm-avatar span {
     font-size: 16px;
     text-align: center;
     margin: auto;
     display: inline-block;
     width: 100%; }
-  .user:hover {
+  .tm-avatar:hover {
     cursor: pointer; }
-
-.wpeo-main-user {
-  background: #404a53;
-  display: flex;
-  justify-content: flex-end;
-  height: 50px; }
-  .wpeo-main-user .wpeo-user-owner li {
-    float: left; }
-  .wpeo-main-user li:first-child {
-    margin-right: auto; }
-  .wpeo-main-user li:last-child a {
-    width: 50px !important;
-    height: 50px !important;
-    padding: 16px;
-    color: #fff;
-    box-shadow: none;
-    transition: all 0.2s ease-out; }
 
 #tm-indicator-quick-task .setting-quick-time-button {
   position: absolute;

@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</label>
 		</div>
 
-		<div class="wpeo-dropdown dropdown-force-display">
+		<div class="wpeo-dropdown dropdown-force-display dropdown-right tm-advanced-search">
 			<div class="dropdown-toggle wpeo-button button-main"><span><?php esc_html_e( 'Advanced search', 'task-manager' ); ?></span><i class="button-icon fas fa-caret-down"></i></div>
 			<ul class="dropdown-content wpeo-grid grid-2">
 				<li class="dropdown-item">

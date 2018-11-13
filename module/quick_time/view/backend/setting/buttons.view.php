@@ -1,6 +1,6 @@
 <?php
 /**
- * Le bouton pour créer un temps rapide.
+ * Le bouton "retour aux temps rapide".
  *
  * @author Eoxia <dev@eoxia.com>
  * @since 1.6.0
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<span class="wpeo-modal-event"
+<span class="wpeo-modal-event wpeo-button"
 			data-action="load_popup_quick_time"
 			data-class="popup-quick-time"
-			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_popup_quick_time' ) ); ?>"><?php esc_html_e( 'Quick time', 'task-manager' ); ?></span>
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_popup_quick_time' ) ); ?>"><?php esc_html_e( 'Back', 'task-manager' ); ?></span>

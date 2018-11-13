@@ -71,17 +71,21 @@ class Admin_Bar_Action {
 	 * Appel la méthode "display" de Quick_Time_Class.
 	 *
 	 * @since 1.6.0
-	 * @version 1.6.0
-	 *
-	 * @return void
 	 */
 	public function ajax_load_popup_quick_time() {
 		check_ajax_referer( 'load_popup_quick_time' );
+		
+		ob_start();
+		_e( 'Quick time', 'task-manager' );
+		Quick_Time_Class::g()->display_setting_button();
+		$modal_title = ob_get_clean();
 
 		ob_start();
 		Quick_Time_Class::g()->display_list();
+		$view = ob_get_clean();
 		wp_send_json_success( array(
-			'view'         => ob_get_clean(),
+			'modal_title'  => $modal_title,
+			'view'         => $view,
 			'buttons_view' => '&nbsp;',
 		) );
 	}

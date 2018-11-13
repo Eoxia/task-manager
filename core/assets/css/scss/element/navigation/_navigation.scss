@@ -9,11 +9,11 @@
 .tm-dashboard-header {
 	position: fixed;
 	left: 160px;
-	top: 0;
+	top: 30px;
 	right: 0;
 	background-color: $main-color;
 	padding: 1em 0.5em;
-	z-index: 999999;
+	z-index: 1;
 	color: #FFF;
 }
 
@@ -43,6 +43,10 @@
 		transform: translateY(-50%);
 		width: auto;
 		height: auto;
+		
+		.dropdown-content {
+			width: 800px;
+		}
 	}
 }
 

@@ -33,17 +33,19 @@ class Indicator_Class extends \eoxia\Singleton_Util {
 	}
 
 	public function callback_my_daily_activity() {
-		$customer_id = get_current_user_id();
-		$date_start = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_start'] ) ? $_POST['tm_abu_date_start'] : current_time( 'Y-m-d' );
-		$date_end = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_end'] ) ? $_POST['tm_abu_date_end'] : current_time( 'Y-m-d' );
-		$first_load = ! empty( $_GET ) && ! empty( $_GET['first_load'] ) ? $_GET['first_load'] : false;
+		$user_id     = ! empty( $_POST['user_id_selected'] ) ? (int) $_POST['user_id_selected'] : 0;
+		$date_start  = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_start'] ) ? $_POST['tm_abu_date_start'] : current_time( 'Y-m-d' );
+		$date_end    = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_end'] ) ? $_POST['tm_abu_date_end'] : current_time( 'Y-m-d' );
+		$first_load  = ! empty( $_GET ) && ! empty( $_GET['first_load'] ) ? $_GET['first_load'] : false;
 
-		$datas = Activity_Class::g()->display_user_activity_by_date( $customer_id, $date_start, $date_end );
+		$datas = Activity_Class::g()->display_user_activity_by_date( $user_id, $date_start, $date_end );
 
 		\eoxia\View_Util::exec( 'task-manager', 'indicator', 'backend/daily-activity', array(
-			'date_start' => $date_start,
-			'date_end' => $date_end,
-			'datas' => $datas,
+			'user_id'     => $user_id,
+			'customer_id' => 0,
+			'date_start'  => $date_start,
+			'date_end'    => $date_end,
+			'datas'       => $datas,
 		) );
 	}
 	
@@ -95,6 +97,46 @@ class Indicator_Class extends \eoxia\Singleton_Util {
 		\eoxia\View_Util::exec( 'task-manager', 'indicator', 'backend/request', array(
 			'datas' => $datas,
 		) );
+	}
+	
+	/**
+	 * Supprimes l'ID d'un point ou d'un commentaire dans le tableau de la meta key_customer_ask.
+	 *
+	 * @since 1.3.0
+	 * @version 1.3.0
+	 *
+	 * @param integer $id L'ID du commentaire.
+	 */
+	public function remove_entry_customer_ask( $id ) {
+		\eoxia\LOG_Util::log( '------------------------------------------------------------------------------------------------', 'task-manager' );
+		$ids = get_option( \eoxia\Config_Util::$init['task-manager']->key_customer_ask, array() );
+		$comment = Task_Comment_Class::g()->get( array(
+			'id' => $id,
+		), true );
+		if ( 0 === $comment->data['id'] ) {
+			return false;
+		}
+		$comment_found_in = array(
+			'task_id'  => 0,
+			'point_id' => 0,
+		);
+		
+		\eoxia\LOG_Util::log( sprintf( __( 'Current support request list: %s', 'task-manager' ), wp_json_encode( $ids ) ), 'task-manager' );
+		\eoxia\LOG_Util::log( sprintf( __( 'Comment for removing in request %s', 'task-manager' ), wp_json_encode( $comment ) ), 'task-manager' );
+		
+		if ( ! empty( $ids ) ) {
+			foreach ( $ids as $task_id => $points_ids ) {
+				if ( ! empty( $points_ids ) ) {
+					foreach ( $points_ids as $point_id => $comments_ids ) {
+						$key = array_search( $comment->data['id'], $comments_ids, true );
+						if ( false !== $key ) {
+							array_splice( $ids[ $task_id ][ $point_id ], $key, 1 );
+						}
+					}
+				}
+			}
+		}
+		update_option( \eoxia\Config_Util::$init['task-manager']->key_customer_ask, $ids );
 	}
 }
 

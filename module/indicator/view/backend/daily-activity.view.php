@@ -33,10 +33,12 @@ ob_start();
 	<label>
 		<i class="fa fa-calendar"></i><?php esc_html_e( 'End date', 'task-manager' ); ?>
 		<input type="date" value="<?php echo esc_attr( $date_end ); ?>" name="tm_abu_date_end" />
-		<input type="hidden" value="open_popup_user_activity" name="action" />
 		<input type="hidden" value="<?php echo esc_attr( wp_create_nonce( 'load_user_activity' ) ); ?>" name="_wpnonce" />
 	</label>
-	<button class="button-primary action-input" data-parent="filter-activity" id="tm-user-activity-load-by-date" ><?php esc_html_e( 'View activity', 'task-manager' ); ?></button>
+	
+	<?php echo apply_filters( 'tm_filter_activity', '', $user_id, $customer_id ); // WPCS: XSS ok. ?>
+	
+	<button class="button-primary action-input" data-parent="filter-activity" data-action="open_popup_user_activity" id="tm-user-activity-load-by-date" ><?php esc_html_e( 'View activity', 'task-manager' ); ?></button>
 </div>
 
 <!-- Liste des tâches effectuées -->
@@ -123,6 +125,7 @@ echo wp_kses( str_replace( '{{ total_time }}', \eoxia\Date_Util::g()->convert_to
 	'button' => array(
 		'class'       => array(),
 		'data-parent' => array(),
+		'data-action' => array(),
 	),
 	'a'      => array(
 		'href'   => array(),
@@ -149,4 +152,17 @@ echo wp_kses( str_replace( '{{ total_time }}', \eoxia\Date_Util::g()->convert_to
 		'class' => array(),
 		'src'   => array(),
 	),
+	'select' => array(
+		'name'             => array(),
+		'id'               => array(),
+		'data-placeholder' => array(),
+		'class'            => array(),
+	),
+	'option' => array(
+		'value'    => array(),
+		'selected' => array(),
+	),
+	'h2' => array(
+		'style' => array(),
+	)
 ) );

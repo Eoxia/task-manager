@@ -28,7 +28,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<i class="fa fa-calendar"></i><?php esc_html_e( 'End date', 'task-manager' ); ?>
 			<input type="date" placeholder="<?php esc_html_e( 'End date', 'task-manager' ); ?>" value="<?php echo esc_attr( $date_end ); ?>" name="tm_abu_date_end" />
 		</label>
-		<button class="button-primary action-input" data-parent="filter-activity" id="tm-user-activity-load-by-date" ><?php esc_html_e( 'View activity', 'task-manager' ); ?></button>
+		<button class="button-primary action-input" 
+			data-tasks-id="<?php echo esc_attr( $task_id ); ?>"
+			data-action="load_last_activity"
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_last_activity' ) ); ?>"
+			data-parent="filter-activity"
+			id="tm-user-activity-load-by-date" ><?php esc_html_e( 'View activity', 'task-manager' ); ?></button>
 	</div>
 
 	<div class="content">

@@ -125,7 +125,11 @@ window.eoxiaJS.taskManager.activity.loadedLastActivity = function( triggeredElem
 		triggeredElement.closest( '.tm-task-display-method-buttons' ).find( '.list-display.active' ).removeClass( 'active' );
 
 		taskElement.find( '.points.sortable, .wpeo-task-point-use-toggle' ).hide();
-		taskElement.find( '.points.sortable' ).before( response.data.view );
+		if ( taskElement.find( '.activities' ).length ) {
+			taskElement.find( '.activities' ).replaceWith( response.data.view );
+		} else {
+			taskElement.find( '.points.sortable' ).before( response.data.view );
+		}
 	} else {
 		jQuery( '.popup.last-activity .content' ).html( response.data.view );
 		jQuery( '.popup.last-activity .container' ).removeClass( 'loading' );
@@ -136,4 +140,16 @@ window.eoxiaJS.taskManager.activity.loadedLastActivity = function( triggeredElem
 	}
 
 	window.eoxiaJS.refresh();
+};
+
+/**
+ * Le callback de la requête ajax "export_activity".
+ * 
+ * @param  {HTMLButtonElement} triggeredElement L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object} response                    Les données renvoyées par la requête Ajax.
+ *
+ * @since 1.7.1
+ */
+window.eoxiaJS.taskManager.activity.exportedActivity = function( triggeredElement, response ) {
+	window.eoxiaJS.global.downloadFile( response.data.url_to_file, response.data.filename );
 };
