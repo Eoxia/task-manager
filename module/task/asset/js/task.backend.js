@@ -114,7 +114,7 @@ window.eoxiaJS.taskManager.task.editTitle = function( event, element ) {
 	data.action = 'edit_title';
 	data._wpnonce = element.data( 'nonce' );
 	data.task_id = element.closest( '.wpeo-project-task' ).data( 'id' );
-	data.title = element.val();
+	data.title = element.text();
 
 	window.eoxiaJS.loader.display( element.closest( '.wpeo-task-header' ) );
 	window.eoxiaJS.request.send( element, data );

@@ -24,6 +24,7 @@
 		"module/avatar/avatar.config.json",
 		"module/notify/notify.config.json",
 		"module/task/task.config.json",
+		"module/sticky-note/sticky-note.config.json",
 		"module/point/point.config.json",
 		"module/history-time/history-time.config.json",
 		"module/navigation/navigation.config.json",

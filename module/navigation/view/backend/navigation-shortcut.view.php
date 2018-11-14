@@ -18,8 +18,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php
 	if ( ! empty( $shortcuts ) ) :
 		foreach ( $shortcuts as $shortcut ) :
+			$active = '';
+			
+			if ( $shortcut['link'] == $url ) :
+				$active = ' active ';
+			endif; 
 			?>
-			<li><a href="<?php echo admin_url( $shortcut['page'] . $shortcut['link'] ); ?>"><?php echo esc_html( $shortcut['label'] ); ?></a></li>
+			<li><a class="<?php echo esc_attr( $active ); ?>" href="<?php echo admin_url( $shortcut['page'] . $shortcut['link'] ); ?>"><?php echo esc_html( $shortcut['label'] ); ?></a></li>
 			<?php
 		endforeach;
 	endif;

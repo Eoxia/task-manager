@@ -69,7 +69,7 @@ window.eoxiaJS.taskManager.navigation.checkDataBeforeSearch = function( triggere
 		categoriesIdSelected.push( parseInt( jQuery( item ).attr( 'data-tag-id' ) ) );
 	} );
 
-	jQuery( 'input[name="categories_id_selected"]' ).val( categoriesIdSelected.join( ',' ) );
+	jQuery( 'input[name="categories_id"]' ).val( categoriesIdSelected.join( ',' ) );
 
 	if ( triggeredElement && ! triggeredElement.hasClass( 'change-status' ) ) {
 		// window.eoxiaJS.loader.display( jQuery( '.wpeo-general-search' ) );
