@@ -31,7 +31,7 @@ endif;
 
 		<div class="wpeo-task-main-info" >
 			<div class="wpeo-task-title">
-				<input type="text" name="task[title]" data-nonce="<?php echo esc_attr( wp_create_nonce( 'edit_title' ) ); ?>" class="wpeo-project-task-title" value="<?php echo esc_html( $task->data['title'] ); ?>" />
+				<div contenteditable="true" data-nonce="<?php echo esc_attr( wp_create_nonce( 'edit_title' ) ); ?>" class="wpeo-project-task-title"><?php echo trim( $task->data['title'] ); ?></div>
 			</div>
 			<ul class="wpeo-task-summary" >
 				<li class="wpeo-task-id"><i class="far fa-hashtag"></i> <?php echo esc_html( $task->data['id'] ); ?></li>
@@ -56,15 +56,17 @@ endif;
 
 					<span class="wpeo-task-time-info wpeo-tooltip-event" aria-label="<?php echo esc_attr( $task_time_info_human_readable ); ?>">
 						<i class="far fa-clock"></i>
-						<span class="elapsed" ><?php echo esc_html( $task_time_info_human_readable ); ?></span>
+						<span class="elapsed" ><?php echo esc_html( $task_time_info ); ?></span>min
 					</span>
 				</li>
 				
 				<?php if ( $task->data['parent'] ) : ?>
 					<li class="wpeo-task-parent">
 						<i class="far fa-link"></i>
-						<a target="_blank" href="<?php echo admin_url( 'post.php?post=' . $task->data['parent_id'] . '&action=edit' ); ?>">
-							<?php echo esc_html( $task->data['parent']->post_title ); ?>
+						<a class="wpeo-tooltip-event"
+							aria-label="<?php echo esc_attr( $task->data['parent']->post_title ); ?>"
+							target="_blank" href="<?php echo admin_url( 'post.php?post=' . $task->data['parent_id'] . '&action=edit' ); ?>">
+							<?php echo esc_html( $task->data['parent']->displayed_post_title ); ?>
 						</a>
 					</li>
 				<?php endif; ?>

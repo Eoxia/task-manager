@@ -57,7 +57,7 @@ ob_start();
 
 				<div class="activity">
 					<div class="information">
-						<?php echo do_shortcode( '[task_avatar ids="1" size="30"]' ); ?>
+						<?php echo do_shortcode( '[task_avatar ids="' . $activity->COM_author_id . '" size="30"]' ); ?>
 						<span class="time-posted"><?php echo esc_html( mysql2date( 'H\hi', $activity->COM_DATE, true ) ); ?></span>
 					</div>
 

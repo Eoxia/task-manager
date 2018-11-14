@@ -136,7 +136,7 @@ class Task_Comment_Action {
 		wp_send_json_success( array(
 			'time' => array(
 				'point' => $comment->data['point']->data['time_info']['elapsed'],
-				'task'  => \eoxia\Date_Util::g()->convert_to_custom_hours( $task->data['time_info']['elapsed'] ),
+				'task'  => $task->data['time_info']['elapsed'],
 			),
 			'view'             => $view,
 			'namespace'        => 'taskManager',
@@ -215,7 +215,7 @@ class Task_Comment_Action {
 		wp_send_json_success( array(
 			'time' => array(
 				'point' => $comment->data['point']->data['time_info']['elapsed'],
-				'task'  => \eoxia\Date_Util::g()->convert_to_custom_hours( $comment->data['task']->data['time_info']['elapsed'] ),
+				'task'  => $comment->data['task']->data['time_info']['elapsed'],
 			),
 			'namespace'        => 'taskManager',
 			'module'           => 'comment',

@@ -146,7 +146,7 @@ class Point_Action {
 		do_action( 'tm_delete_point', $point );
 
 		wp_send_json_success( array(
-			'time'             => \eoxia\Date_Util::g()->convert_to_custom_hours( $task->data['time_info']['elapsed'] ),
+			'time'             => $task->data['time_info']['elapsed'],
 			'namespace'        => 'taskManager',
 			'module'           => 'point',
 			'callback_success' => 'deletedPointSuccess',
@@ -378,8 +378,8 @@ class Point_Action {
 			'point'                     => $point,
 			'current_task'              => $current_task,
 			'to_task'                   => $to_task,
-			'current_task_elapsed_time' => \eoxia\Date_Util::g()->convert_to_custom_hours( $current_task->data['time_info']['elapsed'] ),
-			'to_task_elapsed_time'      => \eoxia\Date_Util::g()->convert_to_custom_hours( $to_task->data['time_info']['elapsed'] ),
+			'current_task_elapsed_time' => $current_task->data['time_info']['elapsed'],
+			'to_task_elapsed_time'      => $to_task->data['time_info']['elapsed'],
 		) );
 	}
 }
