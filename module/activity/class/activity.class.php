@@ -119,9 +119,7 @@ class Activity_Class extends \eoxia\Singleton_Util {
 						}
 						
 						if ( empty( $datas['last_date'] ) || ( ! empty( $datas['last_date'] ) && strtotime( $datas['last_date'] ) < $point->data['date']['raw'] ) ) {
-							if ( $date_start >= $sql_date && $date_end <= $sql_date ) {
-								$datas['last_date'] = $comment->data['date']['raw'];
-							}
+							$datas['last_date'] = $comment->data['date']['raw'];
 						}
 						$sql_date           = substr( $comment->data['date']['raw'], 0, strlen( $comment->data['date']['raw'] ) - 9 );
 						$time               = substr( $comment->data['date']['raw'], 11, strlen( $comment->data['date']['raw'] ) );

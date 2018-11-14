@@ -208,7 +208,7 @@ window.eoxiaJS.taskManager.point.deletedPointSuccess = function( triggeredElemen
 		jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text( totalCompletedPoint );
 	}
 
-	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.time );
+	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-info .elapsed' ).text( response.data.time );
 
 	jQuery( triggeredElement ).closest( '.wpeo-project-task.mask' ).removeClass( 'mask' );
 
@@ -322,7 +322,7 @@ window.eoxiaJS.taskManager.point.movedPointTo = function( triggeredElement, resp
 
 	// Met à jour le temps et le nombre de point sur la tâche.
 	if ( currentTask.length ) {
-		currentTask.find( '.wpeo-task-time-manage' ).find( '.elapsed' ).html( response.data.current_task_elapsed_time );
+		currentTask.find( '.wpeo-task-time-info' ).find( '.elapsed' ).html( response.data.current_task_elapsed_time );
 		currentTask.find( '.wpeo-point-toggle-a' ).find( '.total-point' ).html( response.data.current_task.data.count_completed_points + response.data.current_task.data.count_uncompleted_points );
 
 		if ( response.data.point.data.completed ) {
@@ -349,7 +349,7 @@ window.eoxiaJS.taskManager.point.movedPointTo = function( triggeredElement, resp
 	triggeredElement.closest( '.wpeo-dropdown' ).removeClass( 'dropdown-active' );
 
 	if ( toTask.length ) {
-		toTask.find( '.wpeo-task-time-manage .elapsed' ).text( response.data.to_task_elapsed_time );
+		toTask.find( '.wpeo-task-time-info .elapsed' ).text( response.data.to_task_elapsed_time );
 
 		toTask.find( '.point.edit[data-id=' + response.data.point.data.id + '] .wpeo-point-summary .action-attribute' ).attr( 'data-task-id', response.data.to_task.data.id );
 		toTask.find( '.point.edit[data-id=' + response.data.point.data.id + '] .point-header-action .form-fields .action-input' ).removeClass( 'active' );

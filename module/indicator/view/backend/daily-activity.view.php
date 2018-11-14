@@ -25,20 +25,28 @@ ob_start();
 </div>
 
 <!-- Filtre de temps pour les activités -->
-<div class="filter-activity">
-	<label>
-		<i class="fa fa-calendar"></i><?php esc_html_e( 'Start date', 'task-manager' ); ?>
-		<input type="date" placeholder="Date de début" value="<?php echo esc_attr( $date_start ); ?>" name="tm_abu_date_start" />
-	</label>
-	<label>
-		<i class="fa fa-calendar"></i><?php esc_html_e( 'End date', 'task-manager' ); ?>
-		<input type="date" value="<?php echo esc_attr( $date_end ); ?>" name="tm_abu_date_end" />
-		<input type="hidden" value="<?php echo esc_attr( wp_create_nonce( 'load_user_activity' ) ); ?>" name="_wpnonce" />
-	</label>
-	
-	<?php echo apply_filters( 'tm_filter_activity', '', $user_id, $customer_id ); // WPCS: XSS ok. ?>
-	
-	<button class="button-primary action-input" data-parent="filter-activity" data-action="open_popup_user_activity" id="tm-user-activity-load-by-date" ><?php esc_html_e( 'View activity', 'task-manager' ); ?></button>
+<div class="wpeo-dropdown">
+    <div class="dropdown-toggle wpeo-button button-main">
+        <i class="fas fa-cog"></i>
+    </div>
+    
+    <div class="dropdown-content">
+		<div class="filter-activity">
+			<label>
+				<i class="fa fa-calendar"></i><?php esc_html_e( 'Start date', 'task-manager' ); ?>
+				<input type="date" placeholder="Date de début" value="<?php echo esc_attr( $date_start ); ?>" name="tm_abu_date_start" />
+			</label>
+			<label>
+				<i class="fa fa-calendar"></i><?php esc_html_e( 'End date', 'task-manager' ); ?>
+				<input type="date" value="<?php echo esc_attr( $date_end ); ?>" name="tm_abu_date_end" />
+				<input type="hidden" value="<?php echo esc_attr( wp_create_nonce( 'load_user_activity' ) ); ?>" name="_wpnonce" />
+			</label>
+			
+			<?php echo apply_filters( 'tm_filter_activity', '', $user_id, $customer_id ); // WPCS: XSS ok. ?>
+			
+			<button class="button-primary action-input" data-parent="filter-activity" data-action="open_popup_user_activity" id="tm-user-activity-load-by-date" ><?php esc_html_e( 'View activity', 'task-manager' ); ?></button>
+		</div>
+	</div>
 </div>
 
 <!-- Liste des tâches effectuées -->

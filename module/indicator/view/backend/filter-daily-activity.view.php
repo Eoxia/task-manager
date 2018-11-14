@@ -41,6 +41,6 @@ defined( 'ABSPATH' ) || exit; ?>
     <i class="fa fa-user"></i>
     <?php esc_html_e( 'Which customer', 'task-manager' ); ?>
     <?php $customer_ctr->customer_select( $selected_customer_id ); ?>
-</label> 
+</label>
 
 <button class="button-primary action-input" data-action="export_activity" data-parent="filter-activity"><?php esc_html_e( 'Export', 'task-manager' ); ?></button>

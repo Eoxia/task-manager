@@ -56,7 +56,7 @@ endif;
 
 					<span class="wpeo-task-time-info wpeo-tooltip-event" aria-label="<?php echo esc_attr( $task_time_info_human_readable ); ?>">
 						<i class="far fa-clock"></i>
-						<span class="elapsed" ><?php echo esc_html( $task_time_info ); ?></span>
+						<span class="elapsed" ><?php echo esc_html( $task_time_info_human_readable ); ?></span>
 					</span>
 				</li>
 				

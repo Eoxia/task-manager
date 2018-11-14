@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="form-element">
 					<label class="form-field-container">
 						<span class="form-field-icon-prev"><i class="fas fa-clock"></i></span>
-						<input type="text" name="time" value="<?php echo esc_attr( $comment->data['time_info']['elapsed'] ); ?>" class="form-field" />
+						<input type="text" name="time" value="<?php echo esc_attr( empty( $comment->data['id'] ) && isset( $comment->data['time_info']['calculed_elapsed'] ) ) ? $comment->data['time_info']['calculed_elapsed'] : $comment->data['time_info']['elapsed']; ?>" class="form-field" />
 					</label>
 				</div>
 			</div>

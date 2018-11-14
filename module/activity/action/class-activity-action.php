@@ -41,7 +41,7 @@ class Activity_Action {
 	 * @return void
 	 */
 	public function callback_load_last_activity() {
-		check_ajax_referer( 'load_last_activity' );
+		// check_ajax_referer( 'load_last_activity' );
 
 		$tasks_id               = ! empty( $_POST['tasks_id'] ) ? sanitize_text_field( $_POST['tasks_id'] ) : '';
 		$task_id                = $tasks_id;

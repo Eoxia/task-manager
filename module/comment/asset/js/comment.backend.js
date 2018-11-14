@@ -153,7 +153,7 @@ window.eoxiaJS.taskManager.comment.loadedCommentsSuccess = function( triggeredEl
 window.eoxiaJS.taskManager.comment.addedCommentSuccess = function( triggeredElement, response ) {
 	triggeredElement.closest( '.comment' ).find( 'div.content' ).html( '' );
 
-	triggeredElement.closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.time.task );
+	triggeredElement.closest( '.wpeo-project-task' ).find( '.wpeo-task-time-info .elapsed' ).text( response.data.time.task );
 	triggeredElement.closest( '.comments' ).prev( '.form' ).find( '.wpeo-time-in-point' ).text( response.data.time.point );
 
 	triggeredElement.closest( 'div.point' ).find( '.comments' ).html( response.data.view );
@@ -179,7 +179,7 @@ window.eoxiaJS.taskManager.comment.deletedCommentSuccess = function( triggeredEl
 	triggeredElement.closest( '.comment' ).fadeOut();
 
 	triggeredElement.closest( '.wpeo-project-task.mask' ).removeClass( 'mask' );
-	triggeredElement.closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.time.task );
+	triggeredElement.closest( '.wpeo-project-task' ).find( '.wpeo-task-time-info .elapsed' ).text( response.data.time.task );
 	triggeredElement.closest( '.comments' ).prev( 'form' ).find( '.wpeo-time-in-point' ).text( response.data.time.point );
 
 	window.eoxiaJS.refresh();
