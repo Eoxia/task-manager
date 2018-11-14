@@ -21,12 +21,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="tm-dashboard-header">
 		<div class="tm-dashboard-surheader">
 			<h1><?php	esc_html_e( 'Tasks', 'task-manager' ); ?></h1>
-			<a 	href="#"
-				class="action-attribute add-new-h2 wpeo-button button-size-small button-radius-2"
-				data-action="create_task"
-				data-nonce="<?php echo esc_attr( wp_create_nonce( 'create_task' ) ); ?>"><?php esc_html_e( 'New task', 'task-manager' ); ?></a>
-				
-			<?php require_once PLUGIN_TASK_MANAGER_PATH . '/core/view/modal-import.view.php'; ?>
+
+			<div class="tm-dashboard-surheader-buttons">
+				<a 	href="#"
+					class="action-attribute add-new-h2 wpeo-button button-size-small button-radius-2"
+					data-action="create_task"
+					data-nonce="<?php echo esc_attr( wp_create_nonce( 'create_task' ) ); ?>"><?php esc_html_e( 'New task', 'task-manager' ); ?></a>
+
+				<?php require_once PLUGIN_TASK_MANAGER_PATH . '/core/view/modal-import.view.php'; ?>
+			</div>
 
 			<?php echo apply_filters( 'tm_dashboard_header', '', $search_args ); // WPCS: XSS ok. ?>
 		</div>
@@ -62,7 +65,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php
 			wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false );
 			wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false );
-			do_meta_boxes( 'wpeomtm-dashboard', 'normal', '' ); 
+			do_meta_boxes( 'wpeomtm-dashboard', 'normal', '' );
 			?>
 		</div>
 	</div>
