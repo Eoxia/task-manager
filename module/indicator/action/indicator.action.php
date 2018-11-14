@@ -29,8 +29,8 @@ class Indicator_Action {
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 30 );
 
-		add_action( 'load-tache_page_task-manager-indicator', array( $this, 'callback_load' ) );
-		add_action( 'admin_footer-tache_page_task-manager-indicator', array( $this, 'callback_admin_footer' ) );
+		add_action( 'load-toplevel_page_wpeomtm-dashboard', array( $this, 'callback_load' ) );
+		add_action( 'admin_footer-toplevel_page_wpeomtm-dashboard', array( $this, 'callback_admin_footer' ) );
 		
 		add_action( 'wp_ajax_mark_as_read', array( $this, 'callback_mark_as_read' ) );
 		add_action( 'tm_delete_task', array( $this, 'callback_tm_delete_task' ) );
@@ -47,15 +47,8 @@ class Indicator_Action {
 	 * Ajoutes la page 'Indicator' dans le sous menu de Task Manager.
 	 *
 	 * @since 1.5.0
-	 * @version 1.5.0
-	 *
-	 * @return void
 	 */
 	public function callback_admin_menu() {
-		$title = __( 'Indicator', 'task-manager' );
-		$title = apply_filters( 'tm_indicator_menu_title', $title );
-
-		// add_submenu_page( 'wpeomtm-dashboard', $title, $title, 'manage_task_manager', 'task-manager-indicator', array( Indicator_Class::g(), 'callback_submenu_page' ) );
 		add_meta_box( 'tm-indicator-activity', __( 'Daily activity', 'task-manager' ), array( Indicator_Class::g(), 'callback_my_daily_activity' ), 'wpeomtm-dashboard', 'normal' );
 	}
 
@@ -63,11 +56,6 @@ class Indicator_Action {
 		wp_enqueue_script( 'common' );
 		wp_enqueue_script( 'wp-lists' );
 		wp_enqueue_script( 'postbox' );
-
-		add_screen_option( 'layout_columns', array(
-			'max'     => 2,
-			'default' => 2,
-		) );
 	}
 
 	public function callback_admin_footer() {
@@ -75,7 +63,7 @@ class Indicator_Action {
 		<script type="text/javascript">
 			jQuery(document).ready(function($){
 				$(".if-js-closed").removeClass("if-js-closed").addClass("closed");
-				postboxes.add_postbox_toggles( 'task-manager-indicator' );
+				postboxes.add_postbox_toggles( 'wpeomtm-dashboard' );
 			});
 		</script>
 		<?php
