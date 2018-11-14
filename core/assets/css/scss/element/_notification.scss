@@ -12,13 +12,13 @@
 		margin: 0.4em;
 		.tm-avatar:hover {
 			cursor: pointer !important;
-			box-shadow: 0 0 0 1px $a;
+			box-shadow: 0 0 0 1px $color__primary;
 		}
 		img {
 			filter: grayscale(100%);
 		}
 		&.active .tm-avatar {
-			box-shadow: 0 0 0 3px $a;
+			box-shadow: 0 0 0 3px $color__primary;
 			img {
 				filter: grayscale(0);
 			}

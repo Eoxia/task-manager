@@ -1,5 +1,5 @@
 .tm-avatar {
-	background: $main-color;
+	background: $color__primary;
 	color: #fff;
 	position: relative;
 	transition: all 0.2s ease-out;
@@ -63,12 +63,12 @@
 // 			filter: grayscale(0%);
 // 		}
 // 		.wpeo-avatar-initial {
-// 			background: $a;
+// 			background: $color__primary;
 // 		}
 // 	}
 // 	&.edit {
 // 		margin: auto 0 auto auto;
-// 		background: $a;
+// 		background: $color__primary;
 // 		color: #fff;
 // 		height: auto;
 // 		width: auto;
@@ -81,7 +81,7 @@
 // 			line-height: 22px;
 // 		}
 // 		&:hover {
-// 			background: $dark_a;
+// 			background: $color__primary-dark;
 // 			cursor: pointer;
 // 		}
 // 	}

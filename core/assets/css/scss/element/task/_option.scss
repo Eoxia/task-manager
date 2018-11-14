@@ -44,7 +44,7 @@
 			left: 0;
 			p {
 				font-size: 1.5em;
-				color: $a;
+				color: $color__primary;
 				margin-bottom: 20px;
 			}
 			span {
@@ -52,11 +52,11 @@
 				padding: 8px;
 				text-align: center;
 				line-height: 1.5;
-				background-color: $a;
+				background-color: $color__primary;
 				border: none;
 				transition: all 0.2s ease-out;
 				&:hover {
-					background-color: $dark_a;
+					background-color: $color__primary-dark;
 					cursor: pointer;
 				}
 			}
@@ -121,7 +121,7 @@
 			font-size: 24px;
 			color: rgba(0,0,0,0.5);
 			&:hover {
-				color: $main-color;
+				color: $color__primary;
 				background: none;
 			}
 		}
@@ -146,7 +146,7 @@
 				margin-left: 8px;
 				&.active {
 					pointer-events: all;
-					background: $main-color;
+					background: $color__primary;
 				}
 			}
 		}

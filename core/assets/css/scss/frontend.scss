@@ -1,9 +1,9 @@
-$main-color: #389af6;
-$main-color-light: #55b6ed;
-$second-color: rgba(0,0,0,0.6);
+$color__primary: #389af6;
+$color__primary-light: #55b6ed;
+$second__color: rgba(0,0,0,0.6);
 
-$a: #3495f0;
-$dark_a: #1360c8;
+$color__primary: #3495f0;
+$color__primary-dark: #1360c8;
 $grey: #d6d6d6;
 $green: #47e58e;
 
@@ -296,10 +296,10 @@ $green: #47e58e;
 					max-width: 5%;
 					transition: all 0.2s ease-out;
 					margin: auto 0 auto auto;
-					color: $main-color;
+					color: $color__primary;
 					&:hover {
 						cursor: pointer;
-						color: lighten($main-color, 10%);
+						color: lighten($color__primary, 10%);
 					}
 				}
 			}
@@ -322,7 +322,7 @@ $green: #47e58e;
 					max-width: 5%;
 					text-align: right;
 					i {
-						background: $a;
+						background: $color__primary;
 						border-radius: 50%;
 						font-size: 12px;
 						width: 20px;
@@ -333,7 +333,7 @@ $green: #47e58e;
 						transition: all 0.2s ease-out;
 						display: inline-block;
 						&:hover {
-							background: $dark_a;
+							background: $color__primary-dark;
 							cursor: pointer;
 						}
 					}
@@ -395,7 +395,7 @@ $green: #47e58e;
 -----------------------------------*/
 
 .tm-avatar {
-	background: $main-color;
+	background: $color__primary;
 	color: #fff;
 	position: relative;
 	transition: all 0.2s ease-out;
@@ -440,12 +440,12 @@ $green: #47e58e;
 		width: 50px !important;
 		height: 50px !important;
 		padding: 16px;
-		// background: $main-color;
+		// background: $color__primary;
 		color: #fff;
 		box-shadow: none;
 		transition: all 0.2s ease-out;
 		&:hover {
-			// background: $main-color-light;
+			// background: $color__primary-light;
 		}
 	}
 }
@@ -454,7 +454,7 @@ $green: #47e58e;
 .wpeo-window-ask-task-container {
 	display: flex;
   a {
-	  background: $main-color;
+	  background: $color__primary;
 	  color: #fff;
 	  font-size: 14px;
 	  display: inline-block;
@@ -534,7 +534,7 @@ $green: #47e58e;
 		padding: 6px 12px;
 	}
 	.search-button {
-		background: $main-color;
+		background: $color__primary;
 		color: #fff;
 		display: inline-block;
 		transition: all 0.2s ease-out;

@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <input type="hidden" name="categories_id" />
 <ul class="tags">
-	<li class="wpeo-tag-title"><?php esc_html_e( 'Categories', 'task-manager' ); ?></li>
+	<li class="wpeo-tag-title"><i class="fas fa-tag"></i> <?php esc_html_e( 'Categories', 'task-manager' ); ?></li>
 	<?php
 	if ( ! empty( $categories ) ) :
 		foreach ( $categories as $category ) :
