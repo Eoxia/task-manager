@@ -9,6 +9,7 @@
 	flex-direction: row;
 	width: 100%;
 	border-bottom: 1px solid rgba(0,0,0,0.2);
+	padding: 0.8em 0;
 
 	&::after {
 		display: block;
@@ -22,7 +23,7 @@
 	position: relative;
 	text-align: center;
 	margin: auto 0;
-	padding: 0.8em;
+	padding: 0 0.8em;
 
 	.tm-avatar {
 		border-radius: 50%;
@@ -56,6 +57,7 @@
 		font-size: 20px;
 		padding: 0;
 		border: 0;
+		line-height: 1;
 
 		&:hover {
 			color: rgba(0,0,0,0.5);

@@ -6,6 +6,12 @@
 @import "mixins/mixins-master";
 @import "variable/variable";
 
+body.toplevel_page_wpeomtm-dashboard {
+	#wpwrap {
+		margin-top: 120px;
+	}
+}
+
 .tm-wrap {
   box-sizing: border-box;
   padding-right: 20px;
