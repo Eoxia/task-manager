@@ -1,25 +1,15 @@
-/* Different colors define by classname for the tasks */
-
-$main-color:#389af6;
-$dark_main-color: #1360c8;
-
-// $red-background: #ff989a;
-$red-background: #ffc9ca;
+$red_background: #ffc9ca;
 $red: #ff4246;
 
-// $yellow-background: #ffeca4;
-$yellow-background: #fff1bd;
+$yellow_background: #fff1bd;
 $yellow: #ffbd41;
 
-// $green-background: #b6ffa4;
-$green-background: #dfffd8;
+$green_background: #dfffd8;
 $green: #35c54e;
 
-// $blue-background: #a4d0ff;
-$blue-background: #d5eaff;
+$blue_background: #d5eaff;
 
-// $purple-background: #cca4ff;
-$purple-background: #e6d2ff;
+$purple_background: #e6d2ff;
 $purple: #7c41c7;
 
 .list-task {
@@ -27,11 +17,11 @@ $purple: #7c41c7;
 	// CHANGE COLOR
 	.task-header-action .task-color {
 		.white { background: #fff; border: 1px solid rgba(0,0,0,0.2); }
-		.red { background: $red-background; border: 1px solid $red; }
-		.yellow { background: $yellow-background; border: 1px solid $yellow; }
-		.green { background: $green-background; border: 1px solid $green; }
-		.blue { background: $blue-background; border: 1px solid $main-color; }
-		.purple { background: $purple-background; border: 1px solid $purple; }
+		.red { background: $red_background; border: 1px solid $red; }
+		.yellow { background: $yellow_background; border: 1px solid $yellow; }
+		.green { background: $green_background; border: 1px solid $green; }
+		.blue { background: $blue_background; border: 1px solid $color__primary; }
+		.purple { background: $purple_background; border: 1px solid $purple; }
 		.color-element > * {
 			transition: all 0.2s ease-out;
 			&:hover {
@@ -46,23 +36,23 @@ $purple: #7c41c7;
 			background: #fff;
 		}
 		.wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-main-user li:last-child a {
-			background: $main-color;
+			background: $color__primary;
 		}
 		.wpeo-main-user li:last-child a:hover {
-			background: lighten($main-color, 10%);
+			background: lighten($color__primary, 10%);
 		}
 		.wpeo-point-new-btn, textarea:focus, textarea.active, .wpeo-task-point-completed input[type=checkbox]:checked:before, .wpeo-tag-add-tag {
-			color: $main-color;
+			color: $color__primary;
 		}
 		.wpeo-point-new-btn:hover {
-			color: darken($main-color, 20%);
+			color: darken($color__primary, 20%);
 		}
 	}
 
 	// Red
 	.wpeo-project-task.red {
 		.wpeo-project-task-container, .points .point {
-			background: $red-background;
+			background: $red_background;
 		}
 		.wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-main-user li:last-child a {
 			background: $red;
@@ -81,7 +71,7 @@ $purple: #7c41c7;
 	// Yellow
 	.wpeo-project-task.yellow {
 		.wpeo-project-task-container, .points .point {
-			background: $yellow-background;
+			background: $yellow_background;
 		}
 		.wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-main-user li:last-child a {
 			background: $yellow;
@@ -100,7 +90,7 @@ $purple: #7c41c7;
 	// green
 	.wpeo-project-task.green {
 		.wpeo-project-task-container, .points .point {
-			background: $green-background;
+			background: $green_background;
 		}
 		.wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-main-user li:last-child a {
 			background: $green;
@@ -119,26 +109,26 @@ $purple: #7c41c7;
 	// blue
 	.wpeo-project-task.blue {
 		.wpeo-project-task-container, .points .point {
-			background: $blue-background;
+			background: $blue_background;
 		}
 		.wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-main-user li:last-child a {
-			background: $main-color;
+			background: $color__primary;
 		}
 		.wpeo-main-user li:last-child a:hover {
-			background: lighten($main-color, 10%);
+			background: lighten($color__primary, 10%);
 		}
 		.wpeo-point-new-btn, textarea:focus, textarea.active, .wpeo-task-point-completed input[type=checkbox]:checked:before, .wpeo-tag-add-tag {
-			color: $main-color;
+			color: $color__primary;
 		}
 		.wpeo-point-new-btn:hover {
-			color: darken($main-color, 20%);
+			color: darken($color__primary, 20%);
 		}
 	}
 
 	// purple
 	.wpeo-project-task.purple {
 		.wpeo-project-task-container, .points .point {
-			background: $purple-background;
+			background: $purple_background;
 		}
 		.wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-main-user li:last-child a {
 			background: $purple;

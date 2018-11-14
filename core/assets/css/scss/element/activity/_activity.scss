@@ -106,7 +106,7 @@
 				}
 			}
 			.event-content {
-				font-family: 'kalamregular';
+				// font-family: 'kalamregular';
 				color: rgba(0,0,0,0.9);
 				a {
 					color: rgba(0,0,0,0.9);
@@ -144,7 +144,7 @@
 
 	/* bouton load more */
 	.load-more-history {
-		background: $main-color;
+		background: $color__primary;
 		border: 0;
 		box-shadow: none;
 		display: block;
@@ -154,7 +154,7 @@
 		transition: all 0.2s ease-out;
 		&:hover {
 			cursor: pointer;
-			background: lighten($main-color, 10%);
+			background: lighten($color__primary, 10%);
 		}
 	}
 }

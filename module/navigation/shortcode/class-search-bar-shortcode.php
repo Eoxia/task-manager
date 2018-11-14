@@ -44,7 +44,7 @@ class Search_Bar_Shortcode {
 	 */
 	public function callback_task_manager_search_bar( $param ) {
 		global $eo_search;
-		
+
 		$categories = Tag_Class::g()->get( array() );
 
 		$param = shortcode_atts( array(
@@ -56,13 +56,13 @@ class Search_Bar_Shortcode {
 			'categories_id' => array(),
 			'users_id'       => array(),
 		), $param, 'task_manager_search_bar' );
-		
+
 		$user_display = '';
 		if ( ! empty( $param['users_id'] ) ) {
 			$user         = get_userdata( $param['users_id'] );
 			$user_display = $user->display_name;
 		}
-		
+
 		$eo_search->register_search( 'tm_search_admin', array(
 			'label'        => 'Administrateur',
 			'icon'         => 'fa-search',
@@ -74,19 +74,19 @@ class Search_Bar_Shortcode {
 				'role' => 'administrator',
 			)
 		) );
-		
+
 		$parent_display = '';
 		$parent_id      = 0;
-		
+
 		if ( ! empty( $param['post_parent'] ) ) {
 			$parent = get_post( $param['post_parent'] );
 		}
-		
+
 		if ( ! empty( $parent ) && $parent->post_type == 'wpshop_customers' ) {
 			$parent_display = $parent->post_title;
 			$parent_id      = $parent->ID;
 		}
-		
+
 		$eo_search->register_search( 'tm_search_customer', array(
 			'label'        => 'Client',
 			'icon'         => 'fa-search',
@@ -99,14 +99,14 @@ class Search_Bar_Shortcode {
 				'post_status' => array( 'publish', 'inherit', 'draft' ),
 			)
 		) );
-		
+
 		$parent_display = '';
 		$parent_id      = 0;
 		if ( ! empty( $parent ) && $parent->post_type == 'wpshop_shop_order' ) {
 			$parent_display = $parent->post_title;
 			$parent_id      = $parent->ID;
 		}
-		
+
 		$eo_search->register_search( 'tm_search_order', array(
 			'label'        => 'Commande',
 			'icon'         => 'fa-search',

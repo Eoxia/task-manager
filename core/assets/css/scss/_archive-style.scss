@@ -1,14 +1,14 @@
-$main-color: #389af6;
-$main-color-light: #55b6ed;
-$second-color: rgba(0,0,0,0.6);
+$color__primary: #389af6;
+$color__primary-light: #55b6ed;
+$second__color: rgba(0,0,0,0.6);
 
 /**
  * Variables de l'application
  */
 
 /* Bleu ciel, couleur principale */
-$a: #3495f0;
-$dark_a: #1360c8;
+$color__primary: #3495f0;
+$color__primary-dark: #1360c8;
 
 /* Bleu fonce, couleur de l'interface */
 $b: #272a35;
@@ -85,14 +85,14 @@ $color__green: #47e58e;
 		box-shadow: none;
 		transition: all 0.2s ease-out;
 		&:hover {
-			border-bottom: 1px solid $second-color;
+			border-bottom: 1px solid $second__color;
 		}
 	}
 	textarea {
 		box-shadow: none;
 	}
 	textarea:hover {
-		border-bottom: 1px solid $second-color;
+		border-bottom: 1px solid $second__color;
 	}
 	a[disabled="disabled"] {
 		pointer-events: none;
@@ -109,7 +109,7 @@ $color__green: #47e58e;
 		opacity: 0.4;
 	}
 	input[type="button"] {
-		// background: $main-color;
+		// background: $color__primary;
 		font-family: 'Open Sans';
 		border: 0;
 		border-radius: 0;
@@ -160,7 +160,7 @@ $color__green: #47e58e;
 			}
 		}
 		> li.active {
-			border-bottom: 2px solid $main-color;
+			border-bottom: 2px solid $color__primary;
 		}
 		> li.wpeo-general-search {
 			float: right;
@@ -200,10 +200,10 @@ $color__green: #47e58e;
 		// }
 		// > li:nth-of-type(5) {
 		// 	padding: 12px;
-		// 	background: $main-color;
+		// 	background: $color__primary;
 		// 	color: #fff;
 		// 	&:hover:not(.disabled) {
-		// 		background: $main-color-light;
+		// 		background: $color__primary-light;
 		// 	}
 		// }
 	}
@@ -279,7 +279,7 @@ $color__green: #47e58e;
 						cursor: pointer;
 					}
 					&.active {
-						background: $main-color;
+						background: $color__primary;
 						&:hover {
 							background: #2e7dd5;
 						}
@@ -288,11 +288,11 @@ $color__green: #47e58e;
 				.wpeo-new-tag-search {
 					margin-left: 10px;
 					.wpeo-new-tag-search-btn {
-						color: $main-color;
+						color: $color__primary;
 						margin-left: 10px;
 						&:hover {
 							cursor: pointer;
-							color: $main-color-light;
+							color: $color__primary-light;
 						}
 						&:active {
 							margin-bottom: -1px;
@@ -302,14 +302,14 @@ $color__green: #47e58e;
 			}
 		}
 		.search-button {
-			background: $main-color;
+			background: $color__primary;
 			color: #fff;
 			display: inline-block;
 			padding: 10px 14px;
 			margin-top: 10px;
 			&:hover {
 				cursor: pointer;
-				background: $main-color-light;
+				background: $color__primary-light;
 			}
 		}
 		&:after {
@@ -341,7 +341,7 @@ $color__green: #47e58e;
 					line-height: 2;
 				}
 				&:nth-of-type(2) {
-					color: $second-color;
+					color: $second__color;
 					font-size: 13px;
 				}
 				&:nth-of-type(3) {
@@ -361,7 +361,7 @@ $color__green: #47e58e;
 				line-height: 1.3;
 			}
 			.wpeo-point-time-edit-btn {
-				// color: $main-color;
+				// color: $color__primary;
 			}
 			.wpeo-send-point-time-to-trash {
 				color: rgba(0,0,0,0.4);
@@ -559,10 +559,10 @@ $color__green: #47e58e;
 							background: rgba(0,0,0,0.2);
 						}
 						&.active {
-							background: $main-color;
+							background: $color__primary;
 							color: #fff;
 							&:hover {
-								background: lighten($main-color, 10%);
+								background: lighten($color__primary, 10%);
 							}
 						}
 					}
@@ -631,7 +631,7 @@ Popup
 				left: 0;
 				p {
 					font-size: 1.5em;
-					color: $a;
+					color: $color__primary;
 					margin-bottom: 20px;
 				}
 				span {
@@ -639,11 +639,11 @@ Popup
 					padding: 8px;
 					text-align: center;
 					line-height: 1.5;
-					background-color: $a;
+					background-color: $color__primary;
 					border: none;
 					transition: all 0.2s ease-out;
 					&:hover {
-						background-color: $dark_a;
+						background-color: $color__primary-dark;
 						cursor: pointer;
 					}
 				}
@@ -708,7 +708,7 @@ Popup
 				font-size: 24px;
 				color: rgba(0,0,0,0.5);
 				&:hover {
-					color: $main-color;
+					color: $color__primary;
 					background: none;
 				}
 			}
@@ -733,7 +733,7 @@ Popup
 					margin-left: 8px;
 					&.active {
 						pointer-events: all;
-						background: $main-color;
+						background: $color__primary;
 					}
 				}
 			}
@@ -1017,11 +1017,11 @@ Popup
 						display: inline-block;
 
 						.fa-circle {
-							color: $a;
+							color: $color__primary;
 							transition: all 0.2s ease-out;
 						}
 						&:hover .fa-circle {
-							color: $dark_a;
+							color: $color__primary-dark;
 							cursor: pointer;
 						}
 					}
@@ -1110,14 +1110,14 @@ Popup
 			font-size: 12px;
 			transition: all 0.2s ease-out;
 			&.active {
-				background: $a;
+				background: $color__primary;
 				color: #fff;
 			}
 			// Icon save edition of tag
 			&.edit {
 				margin-left: auto;
 				margin-right: 0;
-				background: $a;
+				background: $color__primary;
 				color: #fff;
 				height: auto;
 				width: auto;
@@ -1143,7 +1143,7 @@ Popup
 					background: rgba(0,0,0,0.2);
 				}
 				&.active:hover, &.edit:hover {
-					background: $dark_a;
+					background: $color__primary-dark;
 				}
 			}
 		}
@@ -1302,7 +1302,7 @@ Popup
 	.activities {
 		/* bouton load more */
 		.load-more-history {
-			background: $main-color;
+			background: $color__primary;
 			border: 0;
 			box-shadow: none;
 			display: block;
@@ -1312,7 +1312,7 @@ Popup
 			transition: all 0.2s ease-out;
 			&:hover {
 				cursor: pointer;
-				background: lighten($main-color, 10%);
+				background: lighten($color__primary, 10%);
 			}
 		}
 	}
@@ -1368,12 +1368,12 @@ Popup
 					filter: grayscale(0%);
 				}
 				.wpeo-avatar-initial {
-					background: $a;
+					background: $color__primary;
 				}
 			}
 			&.edit {
 				margin: auto 0 auto auto;
-				background: $a;
+				background: $color__primary;
 				color: #fff;
 				height: auto;
 				width: auto;
@@ -1386,7 +1386,7 @@ Popup
 					line-height: 22px;
 				}
 				&:hover {
-					background: $dark_a;
+					background: $color__primary-dark;
 					cursor: pointer;
 				}
 			}
@@ -1428,7 +1428,7 @@ Popup
 -----------------------------------*/
 
 .user {
-	background: $main-color;
+	background: $color__primary;
 	color: #fff;
 	position: relative;
 	transition: all 0.2s ease-out;
@@ -1473,12 +1473,12 @@ Popup
 		width: 50px !important;
 		height: 50px !important;
 		padding: 16px;
-		// background: $main-color;
+		// background: $color__primary;
 		color: #fff;
 		box-shadow: none;
 		transition: all 0.2s ease-out;
 		&:hover {
-			// background: $main-color-light;
+			// background: $color__primary-light;
 		}
 	}
 }
@@ -1536,7 +1536,7 @@ Popup
 				position: absolute;
 				top: 16px;
 				right: 10px;
-				color: $second-color;
+				color: $second__color;
 				&:hover {
 					cursor: pointer;
 				}
@@ -1564,8 +1564,8 @@ Popup
 						height: auto;
 						&:hover {
 							cursor: pointer;
-							border: 1px solid $main-color;
-							color: $main-color;
+							border: 1px solid $color__primary;
+							color: $color__primary;
 						}
 					}
 				}
@@ -1599,7 +1599,7 @@ Popup
 			.wpeo-point-title {
 				clear: both;
 				font-family: 'kalamregular';
-				color: $main-color;
+				color: $color__primary;
 				padding: 10px 60px 0 60px;
 			}
 			.dashicons {
@@ -1708,7 +1708,7 @@ Popup
 						line-height: 2;
 					}
 					&:nth-of-type(2) {
-						color: $second-color;
+						color: $second__color;
 						font-size: 13px;
 					}
 					&:last-child {
@@ -1724,7 +1724,7 @@ Popup
 					line-height: 1.3;
 				}
 				.wpeo-point-time-edit-btn {
-					// color: $main-color;
+					// color: $color__primary;
 				}
 				.wpeo-send-point-time-to-trash {
 					color: rgba(0,0,0,0.4);
@@ -2011,7 +2011,7 @@ Popup
 
 			header {
 				position: relative;
-				background: $main-color;
+				background: $color__primary;
 
 				&:before {
 					content: '';
@@ -2020,7 +2020,7 @@ Popup
 					height: 0;
 					border-style: solid;
 					border-width: 0 12px 10px 12px;
-					border-color: transparent transparent $main-color transparent;
+					border-color: transparent transparent $color__primary transparent;
 					position: absolute;
 					left: 50%;
 					top: -10px;
@@ -2053,7 +2053,7 @@ Popup
 				display: block;
 				width: 10px;
 				height: 10px;
-				background: $main-color;
+				background: $color__primary;
 				margin: 0 auto 16px auto;
 				border: 4px solid #f1f1f1;
 				border-radius: 50%;
@@ -2151,10 +2151,10 @@ Popup
 
 		.add-history-time {
 			margin-left: 14px;
-			color: $main-color;
+			color: $color__primary;
 			transition: all 0.2s ease-out;
 			&:hover {
-				color: darken($main-color, 10%);
+				color: darken($color__primary, 10%);
 				cursor: pointer;
 			}
 		}
@@ -2392,13 +2392,13 @@ Popup
 		margin: 0.4em;
 		.user:hover {
 			cursor: pointer !important;
-			box-shadow: 0 0 0 1px $a;
+			box-shadow: 0 0 0 1px $color__primary;
 		}
 		img {
 			filter: grayscale(100%);
 		}
 		&.active .user {
-			box-shadow: 0 0 0 3px $a;
+			box-shadow: 0 0 0 3px $color__primary;
 			img {
 				filter: grayscale(0);
 			}
@@ -2663,7 +2663,7 @@ body .tm-wrap {
 	.blink {
 		display: block;
 		width: 100%;
-		background-color: $main-color-light;
+		background-color: $color__primary-light;
 		opacity: 1;
 	}
 }

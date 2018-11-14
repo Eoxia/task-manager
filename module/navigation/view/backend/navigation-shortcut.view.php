@@ -14,20 +14,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<ul>
+<ul class="tm-dashboard-shortcuts">
+	<li class="dashboard-shortcut shortcut-title"><?php esc_html_e( 'Shortcuts', 'task-manager' ); ?></li>
 	<?php
 	if ( ! empty( $shortcuts ) ) :
 		foreach ( $shortcuts as $shortcut ) :
 			$active = '';
-			
+
 			if ( $shortcut['link'] == $url ) :
 				$active = ' active ';
-			endif; 
+			endif;
 			?>
-			<li><a class="<?php echo esc_attr( $active ); ?>" href="<?php echo admin_url( $shortcut['page'] . $shortcut['link'] ); ?>"><?php echo esc_html( $shortcut['label'] ); ?></a></li>
+			<li class="dashboard-shortcut <?php echo esc_attr( $active ); ?>">
+				<a class="wpeo-button button-size-small button-transparent" href="<?php echo admin_url( $shortcut['page'] . $shortcut['link'] ); ?>">
+					<?php echo esc_html( $shortcut['label'] ); ?>
+				</a>
+			</li>
 			<?php
 		endforeach;
 	endif;
-	
+
 	echo apply_filters( 'task_manager_navigation_after', '' ); // WPCS: XSS ok. ?>
 </ul>

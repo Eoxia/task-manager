@@ -1,3 +1,6 @@
+@import "search";
+@import "shortcuts";
+
 /*	Décalage de l'affichage des tâches a cause du bandeau. */
 .tm-dashboard-wrap {
 	.list-task {
@@ -11,10 +14,13 @@
 	left: 160px;
 	top: 30px;
 	right: 0;
-	background-color: $main-color;
-	padding: 1em 0.5em;
+	background-color: $color__primary;
+	padding: 1em 0.5em 0 0.5em;
 	z-index: 1;
-	color: #FFF;
+
+	h1 {
+		color: #FFF;
+	}
 }
 
 .tm-dashboard-surheader {
@@ -27,26 +33,21 @@
 	> * {
 		margin: auto 0.5em !important;
 	}
+	.tm-dashboard-surheader-buttons {
+		min-width: 230px;
+	}
 	.wpeo-form {
 		width: 100%;
 	}
 }
 
-/** Barre de recherche */
-.tm-dashboard-surheader .wpeo-form {
-	position: relative;
-
-	.wpeo-dropdown {
-		position: absolute;
-		right: 1em;
-		top: 50%;
-		transform: translateY(-50%);
-		width: auto;
-		height: auto;
-		
-		.dropdown-content {
-			width: 800px;
-		}
+/** Boutons d'ajouts */
+.tm-dashboard-surheader .tm-dashboard-surheader-buttons {
+	.wpeo-button {
+		display: inline-block;
+		border: 0;
+		background: rgba(255,255,255,0.2);
+		color: rgba(255,255,255,0.8);
 	}
 }
 
@@ -105,7 +106,7 @@
 // 		}
 // 	}
 // 	> li.active {
-// 		border-bottom: 2px solid $main-color;
+// 		border-bottom: 2px solid $color__primary;
 // 	}
 // 	> li.wpeo-general-search {
 // 		float: right;
@@ -214,7 +215,7 @@
 // 					cursor: pointer;
 // 				}
 // 				&.active {
-// 					background: $main-color;
+// 					background: $color__primary;
 // 					&:hover {
 // 						background: #2e7dd5;
 // 					}
@@ -223,11 +224,11 @@
 // 			.wpeo-new-tag-search {
 // 				margin-left: 10px;
 // 				.wpeo-new-tag-search-btn {
-// 					color: $main-color;
+// 					color: $color__primary;
 // 					margin-left: 10px;
 // 					&:hover {
 // 						cursor: pointer;
-// 						color: $main-color-light;
+// 						color: $color__primary-light;
 // 					}
 // 					&:active {
 // 						margin-bottom: -1px;
@@ -237,14 +238,14 @@
 // 		}
 // 	}
 // 	.search-button {
-// 		background: $main-color;
+// 		background: $color__primary;
 // 		color: #fff;
 // 		display: inline-block;
 // 		padding: 10px 14px;
 // 		margin-top: 10px;
 // 		&:hover {
 // 			cursor: pointer;
-// 			background: $main-color-light;
+// 			background: $color__primary-light;
 // 		}
 // 	}
 // 	&:after {

@@ -4,7 +4,7 @@ input[type="text"] {
 	box-shadow: none;
 	transition: all 0.2s ease-out;
 	&:hover {
-		border-bottom: 1px solid $second-color;
+		border-bottom: 1px solid $second__color;
 	}
 }
 input[type="button"] {
@@ -24,7 +24,7 @@ textarea {
 	box-shadow: none;
 
 	&:hover {
-		border-bottom: 1px solid $second-color;
+		border-bottom: 1px solid $second__color;
 	}
 }
 

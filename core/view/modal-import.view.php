@@ -15,10 +15,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <!-- Bouton d'ouverture de la modal pour l'import de tâches -->
-<a href="#" class="page-title-action wpeo-modal-event"
+<a href="#" class="page-title-action wpeo-modal-event wpeo-button button-radius-2 button-size-small"
 	data-target="tm-import-tasks"
 	data-parent="tm-dashboard-header"
-	data-title="<?php esc_attr_e( 'Import task and point', 'task-manager' ); ?>"><i class="fas fa-download" ></i>&nbsp;<?php esc_html_e( 'Import', 'task-manager' ); ?></a>
+	data-title="<?php esc_attr_e( 'Import task and point', 'task-manager' ); ?>"><i class="button-icon fas fa-arrow-to-bottom" ></i>&nbsp;<?php esc_html_e( 'Import', 'task-manager' ); ?></a>
 
 <!-- Structure de la modal pour l'import de tâches -->
 <div class="wpeo-modal tm-import-tasks">

@@ -113,13 +113,13 @@
 
 	.save-icon {
 		font-size: 20px;
-		color: $main-color;
+		color: $color__primary;
 		@include transition();
 		opacity: 0;
 
 		&:hover {
 			cursor: pointer;
-			color: $main-color-light;
+			color: $color__primary-light;
 		}
 	}
 }
