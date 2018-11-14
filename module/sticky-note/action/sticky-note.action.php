@@ -28,6 +28,7 @@ class Sticky_Note_Action {
 		add_action( 'load-toplevel_page_wpeomtm-dashboard', array( $this, 'callback_load' ) );
 		
 		add_action( 'wp_ajax_edit_note', array( $this, 'callback_edit_note' ) );
+		add_action( 'wp_ajax_add_note', array( $this, 'callback_add_note' ) );
 		add_action( 'wp_ajax_delete_note', array( $this, 'callback_delete_note' ) );
 	}
 	
@@ -47,15 +48,18 @@ class Sticky_Note_Action {
 		}
 		
 		if ( ! empty( $notes ) ) {
-			foreach ( $notes as $note ) {
+			foreach ( $notes as $i => $note ) {
 				add_meta_box( 
-					'tm-indicator-notes', 
+					'tm-indicator-notes-' . $note->data['id'], 
 					'&nbsp;',
 					array( Sticky_Note_Class::g(), 'display' ),
 					'wpeomtm-dashboard',
 					'normal',
 					'default',
-					array( 'note' => $note, )
+					array( 
+						'note' => $note,
+						'last' => ( $i == count( $note ) )
+					)
 				);
 			}
 		}
@@ -77,6 +81,30 @@ class Sticky_Note_Action {
 
 		Sticky_Note_Class::g()->update( $note->data );
 		wp_send_json_success();
+	}
+	
+	public function callback_add_note() {
+		$note = Sticky_Note_Class::g()->create();
+		
+		ob_start();
+		add_meta_box( 
+			'tm-indicator-notes-' . $note->data['id'], 
+			'&nbsp;',
+			array( Sticky_Note_Class::g(), 'display' ),
+			'wpeomtm-dashboard',
+			'normal',
+			'default',
+			array( 
+				'note' => $note,
+				'last' => true,
+			)
+		);
+		wp_send_json_success( array(
+			'namespace'        => 'taskManager',
+			'module'           => 'stickyNote',
+			'callback_success' => 'addedNote',
+			'view'             => ob_get_clean(),
+		) );
 	}
 	
 	/**
