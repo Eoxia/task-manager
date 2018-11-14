@@ -13,8 +13,8 @@
 .point-container .point-content {
   position: relative; }
 
-#tm-indicator-notes .hndle {
+[id^='tm-indicator-notes-'] .hndle {
   border-bottom: 0; }
 
-#tm-indicator-notes .hndle span {
+[id^='tm-indicator-notes-'] .hndle span {
   display: none; }

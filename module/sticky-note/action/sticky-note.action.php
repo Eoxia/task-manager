@@ -84,21 +84,12 @@ class Sticky_Note_Action {
 	}
 	
 	public function callback_add_note() {
-		$note = Sticky_Note_Class::g()->create();
+		$note = Sticky_Note_Class::g()->update( array() );
 		
 		ob_start();
-		add_meta_box( 
-			'tm-indicator-notes-' . $note->data['id'], 
-			'&nbsp;',
-			array( Sticky_Note_Class::g(), 'display' ),
-			'wpeomtm-dashboard',
-			'normal',
-			'default',
-			array( 
-				'note' => $note,
-				'last' => true,
-			)
-		);
+		\eoxia\View_Util::exec( 'task-manager', 'sticky-note', 'backend/sticky-note', array(
+			'note' => $note,
+		) );
 		wp_send_json_success( array(
 			'namespace'        => 'taskManager',
 			'module'           => 'stickyNote',
