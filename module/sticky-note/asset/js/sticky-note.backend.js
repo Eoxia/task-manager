@@ -49,3 +49,15 @@ window.eoxiaJS.taskManager.stickyNote.updatePlaceholder = function( event ) {
 window.eoxiaJS.taskManager.stickyNote.deletedNoteSuccess = function( element, response ) {
 	element.closest( '.postbox' ).fadeOut();
 };
+/**
+ * Le callback en cas de réussite à la requête Ajax "add_note".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.8.0
+ */
+window.eoxiaJS.taskManager.stickyNote.addedNote = function( element, response ) {
+	jQuery( '.postbox:last' ).after( response.data.view );
+};
