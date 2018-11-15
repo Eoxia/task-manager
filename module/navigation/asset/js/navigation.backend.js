@@ -20,7 +20,7 @@ window.eoxiaJS.taskManager.navigation.event = function() {
 
 window.eoxiaJS.taskManager.navigation.triggerSearch = function( event ) {
 	if ( 13 === event.keyCode ) {
-		jQuery( '.wpeo-header-search .action-input' ).click();
+		jQuery( '.tm-advanced-search .action-input' ).click();
 	}
 };
 
@@ -65,7 +65,7 @@ window.eoxiaJS.taskManager.navigation.selectTag = function() {
 window.eoxiaJS.taskManager.navigation.checkDataBeforeSearch = function( triggeredElement ) {
 	var categoriesIdSelected = [];
 
-	jQuery( '.tag-search .tags li.active' ).each( function( key, item ) {
+	jQuery( '.dropdown-content .tags li.active' ).each( function( key, item ) {
 		categoriesIdSelected.push( parseInt( jQuery( item ).attr( 'data-tag-id' ) ) );
 	} );
 
@@ -111,6 +111,8 @@ window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredEleme
 		jQuery( '.wpeo-header-bar .change-status.active' ).removeClass( 'active' );
 		jQuery( triggeredElement ).addClass( 'active' );
 	}
+	
+	triggeredElement.closest( '.wpeo-dropdown' ).removeClass( 'dropdown-active' );
 
 	window.eoxiaJS.refresh();
 };
