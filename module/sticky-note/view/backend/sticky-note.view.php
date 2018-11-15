@@ -18,12 +18,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<button type="button" class="handlediv" aria-expanded="true"><span class="screen-reader-text">Ouvrir/fermer la section &nbsp;</span><span class="toggle-indicator" aria-hidden="true"></span></button><h2 class="hndle ui-sortable-handle"><span>&nbsp;</span></h2>
 	<div class="inside">
 
-		<div class="action-delete" data-direction="top" data-action="delete_note" data-message-delete="Are you sure you want to delete this note ?" data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_note' ) ); ?>" data-id="<?php esc_attr( $note->data['id'] ); ?>" data-loader="postbox">
-			<span><i class="fas fa-trash"></i></span>
+		<div class="action-delete wpeo-button button-square-30 button-rounded button-grey"
+			data-direction="top"
+			data-action="delete_note"
+			data-message-delete="Are you sure you want to delete this note ?"
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_note' ) ); ?>"
+			data-id="<?php esc_attr( $note->data['id'] ); ?>"
+			data-loader="postbox">
+
+			<i class="button-icon fas fa-trash"></i>
 		</div>
 
-		<input type="hidden" name="note_id" value="<?php echo esc_attr( $note->data['id'] ); ?>">
-		<div contenteditable="true"><?php trim( $note->data['content'] ); ?></div>
-		<span class="placeholder <?php echo empty( $note->data['content'] ) ? '': 'hidden'; ?>"><?php esc_html_e( 'Write your note here', 'task-manager' ); ?></span>
+		<div class="note-content">
+			<input type="hidden" name="note_id" value="<?php echo esc_attr( $note->data['id'] ); ?>">
+			<div contenteditable="true"><?php trim( $note->data['content'] ); ?></div>
+			<span class="placeholder <?php echo empty( $note->data['content'] ) ? '': 'hidden'; ?>"><i class="far fa-plus fa-fw"></i> <?php esc_html_e( 'Write your note here', 'task-manager' ); ?></span>
+		</div>
 	</div>
 </div>

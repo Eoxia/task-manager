@@ -23,18 +23,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 <?php endif; ?>
 
-<div class="action-delete" data-direction="top"
+<div class="action-delete wpeo-button button-square-30 button-rounded button-grey"
+	data-direction="top"
 	data-action="delete_note"
 	data-message-delete="<?php echo esc_attr_e( 'Are you sure you want to delete this note ?', 'task-manager' ); ?>"
 	data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_note' ) ); ?>"
 	data-id="<?php echo esc_attr( $note->data['id'] ); ?>"
 	data-loader="postbox">
-	<span><i class="fas fa-trash"></i></span>
+
+	<i class="button-icon fas fa-trash"></i>
 </div>
 
 <input type="hidden" name="note_id" value="<?php echo esc_attr( $note->data['id'] ); ?>" />
 <div contenteditable="true"><?php echo trim( $note->data['content'] ); ?></div>
 
 <?php if ( empty( $note->data['content'] ) ) : ?>
-	<span class="placeholder <?php echo empty( $note->data['content'] ) ? '': 'hidden'; ?>"><?php esc_html_e( 'Write your note here', 'task-manager' ); ?></span>
+	<span class="placeholder <?php echo empty( $note->data['content'] ) ? '': 'hidden'; ?>"><i class="far fa-plus fa-fw"></i> <?php esc_html_e( 'Write your note here', 'task-manager' ); ?></span>
 <?php endif; ?>
