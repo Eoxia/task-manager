@@ -68,7 +68,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<i class="button-icon fas fa-plus"></i>
 					</div>
 
-					<div class="wpeo-modal-event wpeo-tooltip-event quick-point-event"
+					<div class="wpeo-modal-event wpeo-tooltip-event wpeo-button button-grey button-square-30 button-rounded quick-point-event"
 							data-action="load_modal_quick_point"
 							data-title="<?php echo esc_attr_e( 'Quick point add', 'task-manager' ); ?>"
 							aria-label="<?php echo esc_attr_e( 'Quick point add', 'task-manager' ); ?>"
@@ -76,7 +76,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 							data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_modal_quick_point' ) ); ?>"
 							data-quick="true"
 							data-class="tm-wrap quick-point">
-						<span class="fa-layers fa-fw">
+
+						<span class="fa-layers fa-fw button-icon">
 							<i class="fas fa-list-ul"></i>
 							<i class="fas fa-circle" data-fa-transform="up-6 right-8"></i>
 							<i class="fas fa-plus" data-fa-transform="shrink-6 up-6 right-8"></i>
