@@ -35,14 +35,22 @@ defined( 'ABSPATH' ) || exit; ?>
                 ?>
                 <tr>
                     <td><?php echo esc_html( $shortcut['label'] ); ?></td>
-                    <td>Terme</td>
-                    <td>Utilisateur</td>
-                    <td>Catégories</td>
-                    <td>Client</td>
-                    <td>Commande</td>
+                    <td><?php echo esc_html( $shortcut['info']['term'] ); ?></td>
+                    <td><?php echo esc_html( $shortcut['info']['follower_searched'] ); ?></td>
+                    <td><?php echo esc_html( $shortcut['info']['categories_searched'] ); ?></td>
+                    <td>
+                        <?php if ( 'wpshop_shop_order' != $shortcut['info']['post_parent'] ) : ?>
+                            <?php echo esc_html( $shortcut['info']['post_parent_searched'] ); ?>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php if ( 'wpshop_shop_order' == $shortcut['info']['post_parent'] ) : ?>
+                            <?php echo esc_html( $shortcut['info']['post_parent_searched'] ); ?>
+                        <?php endif; ?>
+                    </td>
                     <td>
                         <?php if ( $shortcut['label'] != 'My tasks' && $shortcut['label'] != 'Mes tâches' ) : ?>
-                            <div class="action-delete wpeo-button button-progress button-grey button-square-20 button-rounded"
+                            <div class="action-delete wpeo-button button-progress button-grey button-square-30 button-rounded"
                     			data-action="delete_shortcut"
                     			data-message-delete="<?php echo esc_attr_e( 'Are you sure to delete this shorcut ?', 'task-manager' ); ?>"
                     			data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_shortcut' ) ); ?>"
@@ -50,7 +58,7 @@ defined( 'ABSPATH' ) || exit; ?>
                     			<span class="button-icon fa fa-times" aria-hidden="true"></span>
                     		</div>
                         <?php else: ?>
-                            <div class="button-disable button-event wpeo-tooltip-event wpeo-button button-progress button-grey button-square-20 button-rounded"
+                            <div class="button-disable button-event wpeo-tooltip-event wpeo-button button-progress button-grey button-square-30 button-rounded"
                     			aria-label="<?php esc_attr_e( 'Canno\'t be deleted', 'task-manager' ); ?>">
                     			<span class="button-icon fa fa-times" aria-hidden="true"></span>
                     		</div>
