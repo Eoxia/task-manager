@@ -29,8 +29,6 @@ class Quick_Point_Filter {
 	 */
 	public function __construct() {
 		add_filter( 'eo_model_wpeo_point_after_post', array( $this, 'callback_after_save_point' ), 10, 2 );
-
-		add_filter( 'tm_task_header', array( $this, 'callback_display_task_header' ), 10, 2 );
 	}
 
 	/**
@@ -114,24 +112,6 @@ class Quick_Point_Filter {
 			\eoxia\View_Util::exec( 'task-manager', 'quick-point', 'modal-input-text' );
 			$current_content .= ob_get_clean();
 		}
-
-		return $current_content;
-	}
-
-	/**
-	 * Ajoute le bouton permettant d'ouvrir la modal pour l'ajout d'un point/temps rapide sur une tâche.
-	 *
-	 * @param  string     $current_content Le contenu actuel qu'il faut modifier pour l'affichage du bouton d'ajout de point/temps rapide.
-	 * @param  Task_Model $task            La tâche sur laquelle il faut ajouter le bouton.
-	 *
-	 * @return string                      Le contenu modifié par le filtre actuel en vue de l'affichage.
-	 */
-	public function callback_display_task_header( $current_content, $task ) {
-		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'quick-point', 'modal-button-opener', array(
-			'task' => $task,
-		) );
-		$current_content .= ob_get_clean();
 
 		return $current_content;
 	}
