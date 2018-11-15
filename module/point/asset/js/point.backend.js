@@ -102,13 +102,13 @@ window.eoxiaJS.taskManager.point.refresh = function() {
 window.eoxiaJS.taskManager.point.updateHiddenInput = function( event ) {
 	if ( ! jQuery( this ).closest( '.point' ).hasClass( 'edit' ) ) {
 		if ( 0 < jQuery( this ).text().length ) {
-			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 1 );
+			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).show();
 			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).removeClass( 'no-action' );
 			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-placeholder' ).addClass( 'hidden' );
 			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'pointerEvents', 'auto' );
 			window.eoxiaJS.taskManager.core.initSafeExit( true );
 		} else {
-			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 0 );
+			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).hide();
 			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).addClass( 'no-action' );
 			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
 			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'pointerEvents', 'none' );

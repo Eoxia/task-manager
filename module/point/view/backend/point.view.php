@@ -58,30 +58,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php echo apply_filters( 'tm_point_after', '', $point ); // WPCS: XSS  ok. ?><!-- / filter for point last column -->
 
 				<?php	if ( empty( $point->data['id'] ) ) : ?>
-					<div 	class="wpeo-point-new-btn wpeo-button button-main button-square-30 button-rounded action-input animated no-action"
+					<div 	class="wpeo-point-new-btn wpeo-button button-main button-square-30 button-rounded action-input animated no-action wpeo-util-hidden"
 								data-parent="form"
 								data-loader="point"
 								data-action="edit_point"
 								data-nonce="<?php echo esc_attr( wp_create_nonce( 'edit_point' ) ); ?>"
-								style="opacity: 0;"
 								title="<?php esc_attr( 'Add this point', 'task-manager' ); ?>">
 						<i class="button-icon fas fa-plus"></i>
-					</div>
-
-					<div class="wpeo-modal-event wpeo-tooltip-event wpeo-button button-grey button-square-30 button-rounded quick-point-event"
-							data-action="load_modal_quick_point"
-							data-title="<?php echo esc_attr_e( 'Quick point add', 'task-manager' ); ?>"
-							aria-label="<?php echo esc_attr_e( 'Quick point add', 'task-manager' ); ?>"
-							data-task-id="<?php echo esc_attr( $parent_id ); ?>"
-							data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_modal_quick_point' ) ); ?>"
-							data-quick="true"
-							data-class="tm-wrap quick-point">
-
-						<span class="fa-layers fa-fw button-icon">
-							<i class="fas fa-list-ul"></i>
-							<i class="fas fa-circle" data-fa-transform="up-6 right-8"></i>
-							<i class="fas fa-plus" data-fa-transform="shrink-6 up-6 right-8"></i>
-						</span>
 					</div>
 
 				<?php else : ?>

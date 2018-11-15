@@ -16,9 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 \eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
-	'point'      => $point,
-	'parent_id'  => $task_id,
-	'comment_id' => 0,
-	'point_id'   => $point->data['id'],
+	'point'       => $point,
+	'parent_id'   => $task_id,
+	'comment_id'  => 0,
+	'point_id'    => $point->data['id'],
+	'quick_point' => true,
 ) ); ?>
 <input type="hidden" name="tm_point_is_quick_point" value="true" />

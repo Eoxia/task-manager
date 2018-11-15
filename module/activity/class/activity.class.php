@@ -66,7 +66,7 @@ class Activity_Class extends \eoxia\Singleton_Util {
 						$point->data['userdata']            = get_userdata( $point->data['author_id'] );
 						$point->data['displayed_username']  = $point->data['userdata']->display_name;
 
-						if ( $point->data['point_info']['completed'] ) {
+						if ( $point->data['point_info']['completed'] && ! empty( $point->data['time_info']['last_completed'] ) ) {
 							$cloned_point                              = clone $point;
 							$cloned_point->data['view']                = 'completed-point';
 							$cloned_point->data['displayed_author_id'] = $cloned_point->data['time_info']['last_completed']['user_id'];
