@@ -98,7 +98,8 @@ window.eoxiaJS.taskManager.navigation.checkDataBeforeSearch = function( triggere
 window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredElement, response ) {
 	jQuery( '.tm-wrap .load-more' ).remove();
 	window.eoxiaJS.loader.remove( jQuery( '.wpeo-general-search' ) );
-
+	
+	jQuery( '.tm-dashboard-shortcuts .active' ).removeClass( 'active' );
 	jQuery( '.list-task' ).masonry( 'remove', jQuery( '.wpeo-project-task' ) );
 	jQuery( '.list-task' ).replaceWith( response.data.view.tasks );
 	jQuery( '.list-task' ).masonry();
