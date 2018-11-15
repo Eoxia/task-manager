@@ -16,15 +16,17 @@ namespace task_manager;
 
 defined( 'ABSPATH' ) || exit; ?>
 
-<label>
-    <?php esc_html_e( 'Which user', 'task-manager' ); ?>
-    <select name="user_id_selected">
+
+<div class="form-element">
+  <span class="form-label"><i class="fas fa-user"></i> <?php esc_html_e( 'Which user', 'task-manager' ); ?>
+  <label class="form-field-container">
+    <select name="user_id_selected" class="form-field">
         <option value="0"><?php esc_html_e( 'All', 'task-manager' ); ?><option>
         <?php
         if ( ! empty( $users ) ) :
             foreach ( $users as $user ) :
                 $selected = '';
-                
+
                 if ( $user->data['id'] === $selected_user_id ) :
                     $selected = 'selected="selected"';
                 endif;
@@ -35,12 +37,14 @@ defined( 'ABSPATH' ) || exit; ?>
         endif;
         ?>
     </select>
-</label>
+  </label>
+</div>
 
-<label>
-    <i class="fa fa-user"></i>
-    <?php esc_html_e( 'Which customer', 'task-manager' ); ?>
+<div class="form-element">
+  <span class="form-label"><i class="fas fa-shopping-basket"></i> <?php esc_html_e( 'Which customer', 'task-manager' ); ?></span>
+  <label class="form-field-container">
     <?php $customer_ctr->customer_select( $selected_customer_id ); ?>
-</label>
+  </label>
+</div>
 
 <button class="button-primary action-input" data-action="export_activity" data-parent="filter-activity"><?php esc_html_e( 'Export', 'task-manager' ); ?></button>
