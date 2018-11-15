@@ -83,7 +83,9 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 		
 		$post_parent_searched = '';
 		
-		if ( ! empty( $post_parent ) ) {
+		$post_parent = null;
+		
+		if ( ! empty( $post_parent_id ) ) {
 			$post_parent = get_post( $post_parent_id );
 			
 			$post_parent_searched = $post_parent->post_title;
@@ -98,7 +100,8 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 			'categories_searched'  => $categories_searched,
 			'user_id'              => $user_id,
 			'follower_searched'    => $follower_searched,
-			'post_parent'          => $post_parent_id,
+			'post_parent'          => $post_parent,
+			'post_parent_id'       => $post_parent_id,
 			'post_parent_searched' => $post_parent_searched,
 			'have_search'          => $have_search,
 		);

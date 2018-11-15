@@ -12,7 +12,7 @@ window.eoxiaJS.taskManager.navigation.init = function() {
 
 window.eoxiaJS.taskManager.navigation.event = function() {
 	jQuery( document ).on( 'keyup', '.wpeo-header-bar input[name="term"]', window.eoxiaJS.taskManager.navigation.triggerSearch );
-	jQuery( document ).on( 'change', '.wpeo-header-bar .wpeo-autocomplete', window.eoxiaJS.taskManager.navigation.closeResults );
+	// jQuery( document ).on( 'change', '.wpeo-header-bar .wpeo-autocomplete', window.eoxiaJS.taskManager.navigation.closeResults );
 
 	jQuery( document ).on( 'click', '.wpeo-header-bar .more-search-options', window.eoxiaJS.taskManager.navigation.toggleMoreOptions );
 	jQuery( document ).on( 'click', '.wpeo-tag-search', window.eoxiaJS.taskManager.navigation.selectTag );
@@ -77,7 +77,7 @@ window.eoxiaJS.taskManager.navigation.checkDataBeforeSearch = function( triggere
 		jQuery( '.wpeo-header-bar input[name="status"]' ).val( triggeredElement.data( 'status' ) );
 	}
 	
-	if ( jQuery( '.wpeo-header-bar input[name="post_parent_order"]' ).val() ) {
+	if ( jQuery( '.wpeo-header-bar input[name="post_parent_order"]' ).val() != 0 ) {
 		jQuery( '.wpeo-header-bar input[name="post_parent"]' ).val( jQuery( '.wpeo-header-bar input[name="post_parent_order"]' ).val() );
 	}
 

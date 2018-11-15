@@ -39,7 +39,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php endif; ?>
 
 		<?php if ( ! empty( $post_parent_searched ) ) : ?>
-			<li class="result-tag"><?php echo esc_attr( $post_parent_searched ); ?></li>
+			<li class="result-tag">
+				<?php if ( 'wpshop_shop_order' === $data['post_parent'] ) : ?>
+					<i>Icone commande</i>
+				<?php else: ?>
+					<i>Icone client</i>
+				<?php endif; ?>
+				<?php echo esc_attr( $post_parent_searched ); ?>
+			</li>
 		<?php endif; ?>
 	</ul>
 
@@ -52,7 +59,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			data-point-id="<?php echo ! empty( $point_id ) ? esc_attr( $point_id ) : ''; ?>"
 			data-user-id="<?php echo ! empty( $data['user_id'] ) ? esc_attr( $data['user_id'] ) : ''; ?>"
 			data-categories-id="<?php echo ! empty( $data['categories_id'] ) ? esc_attr( $data['categories_id'] ) : ''; ?>"
-			data-post-parent="<?php echo ! empty( $data['post_parent'] ) ? esc_attr( $data['post_parent'] ) : ''; ?>"
+			data-post-parent="<?php echo ! empty( $data['post_parent_id'] ) ? esc_attr( $data['post_parent_id'] ) : ''; ?>"
 			data-target="wpeo-modal"><i class="button-icon fal fa-hand-pointer"></i> <span><?php esc_html_e( 'Create shortcut', 'task-manager' ); ?></span></a>
 
 	<?php endif; ?>
