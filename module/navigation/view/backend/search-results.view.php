@@ -14,31 +14,35 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<ul class="search-results">
-	<?php if ( ! empty( $term ) ) : ?>
-		<li><?php echo esc_attr( $term ); ?></li>
-	<?php endif; ?>
-	
-	<?php if ( ! empty( $task_id ) ) : ?>
-		<li><?php echo esc_attr( $task_id ); ?></li>
-	<?php endif; ?>
-	
-	<?php if ( ! empty( $point_id ) ) : ?>
-		<li><?php echo esc_attr( $point_id ); ?></li>
-	<?php endif; ?>
-	
-	<?php if ( ! empty( $follower_searched ) ) : ?>
-		<li><?php echo esc_attr( $follower_searched ); ?></li>
-	<?php endif; ?>
-	
-	<?php if ( ! empty( $categories_searched ) ) : ?>
-		<li><?php echo esc_attr( $categories_searched ); ?></li>
-	<?php endif; ?>
-	
-	<?php if ( ! empty( $post_parent_searched ) ) : ?>
-		<li><?php echo esc_attr( $post_parent_searched ); ?></li>
-	<?php endif; ?>
-	
+<div class="search-results">
+	<span class="result-title"><?php esc_html_e( 'Critères de recherche', 'task-manager' ); ?></span>
+
+	<ul class="result-list-tags">
+		<?php if ( ! empty( $term ) ) : ?>
+			<li class="result-tag"><i class="fas fa-search fa-fw"></i> <?php echo esc_attr( $term ); ?></li>
+		<?php endif; ?>
+
+		<?php if ( ! empty( $task_id ) ) : ?>
+			<li class="result-tag"><i class="fas fa-th-large fa-fw"></i> <?php echo esc_attr( $task_id ); ?></li>
+		<?php endif; ?>
+
+		<?php if ( ! empty( $point_id ) ) : ?>
+			<li class="result-tag"><i class="fas fa-list-ul fa-fw"></i> <?php echo esc_attr( $point_id ); ?></li>
+		<?php endif; ?>
+
+		<?php if ( ! empty( $follower_searched ) ) : ?>
+			<li class="result-tag"><i class="fas fa-list-ul fa-fw"></i> <?php echo esc_attr( $follower_searched ); ?></li>
+		<?php endif; ?>
+
+		<?php if ( ! empty( $categories_searched ) ) : ?>
+			<li class="result-tag"><?php echo esc_attr( $categories_searched ); ?></li>
+		<?php endif; ?>
+
+		<?php if ( ! empty( $post_parent_searched ) ) : ?>
+			<li class="result-tag"><?php echo esc_attr( $post_parent_searched ); ?></li>
+		<?php endif; ?>
+	</ul>
+
 	<?php if ( $have_search ) : ?>
 		<a class="wpeo-button button-main wpeo-modal-event"
 			data-action="load_modal_create_shortcut"
@@ -50,6 +54,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 			data-categories-id="<?php echo ! empty( $data['categories_id'] ) ? esc_attr( $data['categories_id'] ) : ''; ?>"
 			data-post-parent="<?php echo ! empty( $data['post_parent'] ) ? esc_attr( $data['post_parent'] ) : ''; ?>"
 			data-target="wpeo-modal"><i class="button-icon fal fa-hand-pointer"></i> <span><?php esc_html_e( 'Create shortcut', 'task-manager' ); ?></span></a>
-				
+
 	<?php endif; ?>
-</ul>
+</div>

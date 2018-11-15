@@ -1,0 +1,29 @@
+.search-results {
+	display: flex;
+	flex-direction: row;
+	padding: 10px 10px 0 10px;
+
+	> * {
+		margin: auto 0;
+	}
+}
+
+.search-results .result-title {
+	font-size: 18px;
+}
+
+.search-results .result-list-tags {
+	padding: 0 0.4em;
+
+	.result-tag {
+		display: inline-block;
+		margin: 0 0.5em;
+	}
+	[data-icon] {
+		color: rgba(0,0,0,0.4)
+	}
+}
+
+.search-results .wpeo-button {
+	margin-left: auto;
+}
