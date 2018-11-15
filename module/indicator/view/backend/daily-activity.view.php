@@ -70,7 +70,7 @@ ob_start();
 							<span class="time-posted"><i class="fas fa-calendar"></i> <?php echo esc_html( mysql2date( 'H\hi', $activity->COM_DATE, true ) ); ?></span>
 							<!-- Client -->
 							<span class="event-client">
-								<i class="fa fa-user"></i>
+								<i class="fas fa-user"></i>
 								<?php if ( ! empty( $activity->PT_ID ) ) : ?>
 								<a href="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' . $activity->PT_ID ) ); ?>" target="wptm_view_activity_element" >
 									<?php echo esc_html( '#' . $activity->PT_ID . ' ' . $activity->PT_title ); ?>
@@ -85,7 +85,7 @@ ob_start();
 							</span>
 							<!-- Point -->
 							<span class="event-point wpeo-tooltip-event" aria-label="<?php echo esc_html( '#' . $activity->POINT_ID . ' ' . $activity->POINT_title ); ?>">
-								<i class="fa fa-list-ul"></i> <?php echo esc_html( '#' . $activity->POINT_ID ); ?>
+								<i class="fas fa-list-ul"></i> <?php echo esc_html( '#' . $activity->POINT_ID ); ?>
 							</span>
 							<!-- Temps passé -->
 							<?php
@@ -160,6 +160,7 @@ echo wp_kses( str_replace( '{{ total_time }}', \eoxia\Date_Util::g()->convert_to
 	),
 	'span'   => array(
 		'class' => array(),
+		'aria-label' => array(),
 	),
 	'img'    => array(
 		'class' => array(),
