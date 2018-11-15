@@ -18,21 +18,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<li class="dashboard-shortcut shortcut-title"><?php esc_html_e( 'Shortcuts', 'task-manager' ); ?></li>
 	<?php
 	if ( ! empty( $shortcuts ) ) :
-		foreach ( $shortcuts as $shortcut ) :
-			$active = '';
-
-			if ( $shortcut['link'] == $url ) :
-				$active = ' active ';
-			endif;
-			?>
-			<li class="dashboard-shortcut <?php echo esc_attr( $active ); ?>">
-				<a class="wpeo-button button-size-small button-transparent" href="<?php echo admin_url( $shortcut['page'] . $shortcut['link'] ); ?>">
-					<?php echo esc_html( $shortcut['label'] ); ?>
-				</a>
-			</li>
-			<?php
+		foreach ( $shortcuts as $key => $shortcut ) :
+			\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/shortcut', array(
+				'shortcut' => $shortcut,
+				'url'      => $url,
+				'new'      => false,
+				'key'      => $key,
+			) );
 		endforeach;
 	endif;
-
-	echo apply_filters( 'task_manager_navigation_after', '' ); // WPCS: XSS ok. ?>
+	?>
+	<li class="wpeo-button button-blue wpeo-modal-event handle-shortcut"
+		data-action="load_handle_shortcut"><i class="button-icon fas fa-cog"></i></i>
+	
+	<?php echo apply_filters( 'task_manager_navigation_after', '' ); // WPCS: XSS ok. ?>
 </ul>

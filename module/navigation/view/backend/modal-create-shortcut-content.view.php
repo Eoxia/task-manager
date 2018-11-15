@@ -25,6 +25,8 @@ defined( 'ABSPATH' ) || exit; ?>
 	<input type="hidden" name="categories_id" value="<?php echo ! empty( $categories_id ) ? esc_attr( $categories_id ) : ''; ?>" />
 	<input type="hidden" name="post_parent" value="<?php echo ! empty( $post_parent ) ? esc_attr( $post_parent ) : ''; ?>" />
 	
+	<?php Navigation_Class::g()->display_search_result( $term, 'any', $task_id, $point_id, $post_parent, $categories_id, $user_id, false ); ?>
+	
 	<div class="form-element">
 		<span class="form-label"><?php esc_html_e( 'Shortcut name', 'task-manager' ); ?></span>
 		<label class="form-field-container">

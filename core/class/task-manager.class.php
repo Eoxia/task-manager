@@ -39,7 +39,7 @@ class Task_Manager_Class extends \eoxia\Singleton_Util {
 	public function display() {
 		$term          = ! empty( $_GET['term'] ) ? sanitize_text_field( $_GET['term'] ) : ''; // WPCS: CSRF ok.
 		$categories_id = ! empty( $_GET['categories_id'] ) ? sanitize_text_field( $_GET['categories_id'] ) : ''; // WPCS: CSRF ok.
-		$user_id       = ! empty( $_GET['user_id'] ) ? sanitize_text_field( $_GET['user_id'] ) : ''; // WPCS: CSRF ok.
+		$user_id       = ! empty( $_GET['user_id'] ) ? sanitize_text_field( $_GET['user_id'] ) : 0; // WPCS: CSRF ok.
 		$post_parent   = ! empty( $_GET['post_parent'] ) ? (int) $_GET['post_parent'] : 0; // WPCS: CSRF ok.
 
 		$search_args = array(

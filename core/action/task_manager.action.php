@@ -35,6 +35,13 @@ class Task_Manager_Action {
 		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 12 );
 
 		add_action( 'wp_ajax_close_tm_change_log', array( $this, 'callback_close_change_log' ) );
+		
+		add_action( 'load-toplevel_page_wpeomtm-dashboard', function() {
+			if ( strpos( $_SERVER['REQUEST_URI'], 'page=wpeomtm-dashboard' ) != FALSE && strpos( $_SERVER['REQUEST_URI'], 'page=wpeomtm-dashboard&' ) == FALSE ) {
+				wp_redirect( admin_url( 'admin.php?page=wpeomtm-dashboard&user_id=' . get_current_user_id() ) );
+				exit;
+			}
+		});
 	}
 
 	/**
@@ -155,7 +162,6 @@ class Task_Manager_Action {
 	 */
 	public function callback_admin_menu() {
 		add_menu_page( __( 'Task', 'task-manager' ), __( 'Task', 'task-manager' ), 'manage_task_manager', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ), PLUGIN_TASK_MANAGER_URL . 'core/assets/icon-16x16.png' );
-		add_submenu_page( 'wpeomtm-dashboard', __( 'Task', 'task-manager' ), __( 'Task', 'task-manager' ), 'manage_task_manager', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ) );
 		add_meta_box( 'tm-dashboard-indicator-customer', __( 'Customer', 'task-manager' ), array( Indicator_Class::g(), 'callback_customer' ), 'wpeomtm-dashboard', 'normal' );
 	}
 

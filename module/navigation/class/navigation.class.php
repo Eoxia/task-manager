@@ -119,7 +119,7 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 	 * @param  string $user_id   L'ID des utilisateurs séléctionnés. Ex: x,y,i.
 	 * @return void
 	 */
-	public function display_search_result( $term, $status, $task_id, $point_id, $post_parent, $categories_id, $user_id ) {
+	public function display_search_result( $term, $status, $task_id, $point_id, $post_parent, $categories_id, $user_id, $display_button = true ) {
 		$data = $this->get_search_result( $term, $status, $task_id, $point_id, $post_parent, $categories_id, $user_id );
 		
 		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/search-results', array(
@@ -131,6 +131,7 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 			'categories_searched'  => $data['categories_searched'],
 			'follower_searched'    => $data['follower_searched'],
 			'have_search'          => $data['have_search'],
+			'display_button'       => $display_button,
 			'data'                 => $data,
 		) );
 	}

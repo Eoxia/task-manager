@@ -30,6 +30,8 @@ class Navigation_Action {
 		add_action( 'search_order', array( $this, 'callback_search_order' ) );
 		add_action( 'wp_ajax_load_modal_create_shortcut', array( $this, 'callback_load_modal_create_shortcut' ) );
 		add_action( 'wp_ajax_create_shortcut', array( $this, 'callback_create_shortcut' ) );
+		add_action( 'wp_ajax_load_handle_shortcut', array( $this, 'callback_load_handle_shortcut' ) );
+		add_action( 'wp_ajax_delete_shortcut', array( $this, 'callback_delete_shortcut' ) );
 	}
 
 	/**
@@ -166,12 +168,14 @@ class Navigation_Action {
 		}
 		
 		$shortcuts = get_user_meta( get_current_user_id(), '_tm_shortcuts', true );
-	
-		$shortcuts['wpeomtm-dashboard'][] = array(
+		
+		$shortcut = array(
 			'label' => $name,
 			'page' => 'admin.php',
 			'link' => '?page=wpeomtm-dashboard' . $construct_args,
 		);
+	
+		$shortcuts['wpeomtm-dashboard'][] = $shortcut;
 		
 		update_user_meta( get_current_user_id(), '_tm_shortcuts', $shortcuts );
 		
@@ -183,15 +187,57 @@ class Navigation_Action {
 		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/modal-create-shortcut-button-success' );
 		$button_success = ob_get_clean();
 		
+		ob_start();
+		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/shortcut', array(
+			'url'      => '',
+			'shortcut' => $shortcut,
+			'new'      => true,
+			'key'      => count( $shortcuts['wpeomtm-dashboard'] ),
+		) );
+		$view_shortcut = ob_get_clean();
+		
 		wp_send_json_success( array(
 			'namespace'        => 'taskManager',
 			'module'           => 'navigation',
 			'callback_success' => 'createdShortcutSuccess',
 			'view_button'      => $button_success,
 			'view_content'     => $content_success,
+			'view_shortcut'    => $view_shortcut,
 		) );
 	}
 	
+	
+	public function callback_load_handle_shortcut() {
+		$shortcuts = get_user_meta( get_current_user_id(), '_tm_shortcuts', true );
+		
+		ob_start();
+		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/modal-handle-shortcut', array(
+			'shortcuts' => $shortcuts,
+		) );
+		wp_send_json_success( array(
+			'view'        => ob_get_clean(),
+			'modal_title' => __( 'Handle shorcuts', 'task-manager' ),
+		) );
+	}
+	
+	public function callback_delete_shortcut() {
+		$key = ! empty( $_POST['key'] ) ? (int) $_POST['key'] : -1;
+		
+		if ( $key == -1 ) {
+			wp_send_json_error();
+		}
+		
+		$shortcuts = get_user_meta( get_current_user_id(), '_tm_shortcuts', true );
+		array_splice( $shortcuts['wpeomtm-dashboard'], $key, 1 );
+		update_user_meta( get_current_user_id(), '_tm_shortcuts', $shortcuts );
+		
+		wp_send_json_success( array(
+			'namespace'        => 'taskManager',
+			'module'           => 'navigation',
+			'callback_success' => 'deletedShortcutSuccess',
+			'key'              => $key,
+		) );
+	}
 }
 
 new Navigation_Action();

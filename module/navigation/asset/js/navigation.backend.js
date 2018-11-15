@@ -118,6 +118,13 @@ window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredEleme
 };
 
 window.eoxiaJS.taskManager.navigation.createdShortcutSuccess = function( triggeredElement, response ) {
+	jQuery( '.tm-dashboard-shortcuts .active' ).removeClass( 'active' );
+	jQuery( '.tm-dashboard-shortcuts .handle-shortcut' ).before( response.data.view_shortcut );
 	triggeredElement.closest( '.wpeo-modal' ).find( '.modal-content' ).html( response.data.view_content );
 	triggeredElement.closest( '.wpeo-modal' ).find( '.modal-footer' ).html( response.data.view_button );
-}
+};
+
+window.eoxiaJS.taskManager.navigation.deletedShortcutSuccess = function( triggeredElement, response ) {
+	triggeredElement.closest( 'tr' ).fadeOut();
+	jQuery( '.tm-dashboard-shortcuts li[data-key="' + response.data.key + '"]' ).fadeOut();	
+};
