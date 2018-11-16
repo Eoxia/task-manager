@@ -14,7 +14,7 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
-<div class="wpeo-project-wrap">
+<div class="wpeo-project-wrap tm-wrap">
 
 	<div class="open-ticket">
 		<i class="fa fa-question"></i>

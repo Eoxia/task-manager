@@ -19,20 +19,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="wpeo-project-task-container">
 
 		<!-- En tête de la tâche -->
-		<ul class="wpeo-task-header">
-			<li class="wpeo-task-id">#<?php echo esc_html( $task->data['id'] ); ?></li>
+		<div class="wpeo-task-header">
+			<div class="wpeo-task-main-header">
+				<div class="wpeo-task-main-info" >
+					<div class="wpeo-task-title">
+						<div contenteditable="false" class="wpeo-project-task-title"><?php echo esc_html( $task->data['title'] ); ?></div>
+					</div>
+					<ul class="wpeo-task-summary" >
+						<li class="wpeo-task-id"><i class="far fa-hashtag"></i> <?php echo esc_html( $task->data['id'] ); ?></li>
 
-			<li class="wpeo-task-title">
-				<h2><?php echo esc_html( $task->data['title'] ); ?></h2>
-			</li>
+						<li class="wpeo-task-time-history">
+							<i class="far fa-clock"></i>
+							<span class="elapsed"><?php echo esc_html( \eoxia\Date_Util::g()->convert_to_custom_hours( $task->data['time_info']['elapsed'], false ) ); ?></span> /
+							<span class="estimated"><?php echo esc_html( \eoxia\Date_Util::g()->convert_to_custom_hours( $task->data['last_history_time']->data['estimated_time'], false ) ); ?></span>
+						</li>
 
-			<li class="wpeo-task-elapsed">
-				<i class="dashicons dashicons-clock"></i>
-				<span class="elapsed"><?php echo esc_html( \eoxia\Date_Util::g()->convert_to_custom_hours( $task->data['time_info']['elapsed'], false ) ); ?></span>/
-				<span class="estimated"><?php echo esc_html( \eoxia\Date_Util::g()->convert_to_custom_hours( $task->data['last_history_time']->data['estimated_time'], false ) ); ?></span>
-			</li>
-		</ul>
-		<!-- Fin en tête de la tâche -->
+						<?php echo apply_filters( 'tm_task_header_summary', '', $task ); // WPCS: XSS ok. ?>
+					</ul>
+				</div>
+			</div>
+			<ul class="wpeo-task-filter" >
+				<?php echo apply_filters( 'tm_task_header', '', $task ); // WPCS: XSS ok. ?>
+			</ul>
+		</div>
 
 		<!-- Corps de la tâche -->
 		<?php Point_Class::g()->display( $task->data['id'], true ); ?>
