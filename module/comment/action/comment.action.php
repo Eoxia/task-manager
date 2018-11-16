@@ -44,21 +44,19 @@ class Task_Comment_Action {
 	 * Utilises la méthode "display" pour récupérer la vue puis l'envoie à la réponse ajax.
 	 *
 	 * @since 1.3.6
-	 * @version 1.5.0
 	 *
-	 * @return void
-	 * @todo nonce
 	 */
 	public function callback_load_comments() {
-		$task_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+		$task_id  = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
 		$point_id = ! empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
+		$frontend = ( isset( $_POST['frontend'] ) && 'true' == $_POST['frontend'] ) ? true : false;
 
 		ob_start();
 		Task_Comment_Class::g()->display( $task_id, $point_id );
 		wp_send_json_success( array(
-			'view' => ob_get_clean(),
-			'namespace' => 'taskManager',
-			'module' => 'comment',
+			'view'             => ob_get_clean(),
+			'namespace'        => $frontend ? 'taskManagerFrontend' : 'taskManager',
+			'module'           => 'comment',
 			'callback_success' => 'loadedCommentsSuccess',
 		) );
 	}

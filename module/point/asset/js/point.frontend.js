@@ -1,26 +1,49 @@
+/**
+ * Initialise l'objet "point" ainsi que la méthode "init" obligatoire pour la bibliothèque EoxiaJS.
+ *
+ * @since 1.0.0
+ * @version 1.7.0
+ */
 window.eoxiaJS.taskManagerFrontend.point = {};
-
+/**
+ * La méthode obligatoire pour la biblotèque EoxiaJS.
+ *
+ * @return {void}
+ *
+ * @since 1.0.0
+ * @version 1.0.0
+ */
 window.eoxiaJS.taskManagerFrontend.point.init = function() {
 	window.eoxiaJS.taskManagerFrontend.point.event();
 };
 
+/**
+ * Initialise tous les évènements liés au point de Task Manager.
+ *
+ * @return {void}
+ *
+ * @since 1.0.0
+ * @version 1.0.0
+ */
 window.eoxiaJS.taskManagerFrontend.point.event = function() {
-	jQuery( document ).on( 'click', '.wpeo-task-point-use-toggle', window.eoxiaJS.taskManagerFrontend.point.togglePoint );
-	jQuery( document ).on( 'click', '.wpeo-task-point-use-toggle .points.completed', function( e ) { event.preventDefault(); return false; } );
-	jQuery( document ).on( 'click', '.point-content', window.eoxiaJS.taskManagerFrontend.point.setPointActive );
-
 	jQuery( document ).on( 'click', '.point-type-display-buttons button.active', window.eoxiaJS.taskManagerFrontend.point.undisplayPoint );
+	
 };
 
-window.eoxiaJS.taskManagerFrontend.point.togglePoint = function( event ) {
-	event.preventDefault();
-	jQuery( this ).find( '.wpeo-point-toggle-arrow' ).toggleClass( 'dashicons-plus dashicons-minus' );
-	jQuery( this ).closest( '.wpeo-task-point-use-toggle' ).find( '.points.completed' ).toggleClass( 'hidden' );
-};
-
-window.eoxiaJS.taskManagerFrontend.point.setPointActive = function( event ) {
-	jQuery( '.point-content.active' ).removeClass( 'active' );
-	jQuery( this ).addClass( 'active' );
+/**
+ * Le callback en cas de réussite à la requête Ajax "load_completed_point".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.0.0
+ * @version 1.6.0
+ */
+window.eoxiaJS.taskManagerFrontend.point.loadedPoint = function( triggeredElement, response ) {
+	jQuery( triggeredElement ).addClass( 'active' ).removeClass( 'action-input' );
+	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.points' ).append( response.data.view );
+	window.eoxiaJS.refresh();
 };
 
 /**

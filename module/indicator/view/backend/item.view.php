@@ -73,7 +73,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			data-action="mark_as_read"
 			data-loader="activities"
 			data-id="<?php echo esc_attr( $comment->data['id'] ); ?>"
-			data-nonce="<?php echo esc_attr( wp_create_nonce( 'mark_as_read' ) ); ?>"><?php esc_html_e( 'Mark as READ', 'task-manager-wpshop' ); ?></a>
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'mark_as_read' ) ); ?>"><?php esc_html_e( 'Mark as READ', 'task-manager' ); ?></a>
 		</span>
 
 	</div><!-- .content -->

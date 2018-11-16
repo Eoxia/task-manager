@@ -227,7 +227,7 @@ class Comment_Filter {
 		
 		if ( $user->data['_tm_advanced_display'] ) {
 			ob_start();
-			\eoxia\View_Util::exec( 'task-manager', 'comment', 'edit-advanced', array(
+			\eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/edit-advanced', array(
 				'comment' => $comment,
 			) );
 			$output .= ob_get_clean();
@@ -241,7 +241,7 @@ class Comment_Filter {
 		
 		if ( $user->data['_tm_advanced_display'] ) {
 			ob_start();
-			\eoxia\View_Util::exec( 'task-manager', 'comment', 'comment-advanced', array(
+			\eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/comment-advanced', array(
 				'comment' => $comment,
 			) );
 			$output .= ob_get_clean();

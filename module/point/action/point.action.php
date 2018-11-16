@@ -214,6 +214,7 @@ class Point_Action {
 		check_ajax_referer( 'load_point' );
 
 		$task_id   = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+		$frontend  = ( isset( $_POST['frontend'] ) && 'true' == $_POST['frontend'] ) ? true : false;
 		$completed = ! empty( $_POST['point_state'] ) ? sanitize_text_field( $_POST['point_state'] ) : 'uncompleted';
 		$completed = ( 'completed' === $completed ) ? true : false;
 
@@ -236,7 +237,7 @@ class Point_Action {
 			'points'     => $points,
 		) );
 		wp_send_json_success( array(
-			'namespace'        => 'taskManager',
+			'namespace'        => $frontend ? 'taskManagerFrontend' : 'taskManager',
 			'module'           => 'point',
 			'callback_success' => 'loadedPoint',
 			'view'             => ob_get_clean(),

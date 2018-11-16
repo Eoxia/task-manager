@@ -39,13 +39,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</li>
 	</ul>
 
-	<ul class="comments hidden" data-id="<?php echo esc_attr( $point->data['id'] ); ?>"></ul>
-
-	<ul class="comments <?php echo ( Task_Comment_Class::g()->is_parent( $point->data['id'], $comment_id ) || ( $point->data['id'] === $point_id && 0 !== $point->data['id'] ) ) ? '' : 'hidden'; ?>" data-id="<?php echo esc_attr( $point->data['id'] ); ?>">
-		<?php
-		if ( Task_Comment_Class::g()->is_parent( $point->data['id'], $comment_id ) || ( $point->data['id'] === $point_id && 0 !== $point->data['id'] ) ) :
-			Task_Comment_Class::g()->display( $point->data['post_id'], $point->data['id'] );
-		endif;
-		?>
-	</ul>
+	<ul class="comments" style="display: none;" data-id="<?php echo esc_attr( $point->data['id'] ); ?>"></ul>
 </div>

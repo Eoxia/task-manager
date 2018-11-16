@@ -33,13 +33,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<span class="elapsed"><?php echo esc_html( \eoxia\Date_Util::g()->convert_to_custom_hours( $task->data['time_info']['elapsed'], false ) ); ?></span> /
 							<span class="estimated"><?php echo esc_html( \eoxia\Date_Util::g()->convert_to_custom_hours( $task->data['last_history_time']->data['estimated_time'], false ) ); ?></span>
 						</li>
-
-						<?php echo apply_filters( 'tm_task_header_summary', '', $task ); // WPCS: XSS ok. ?>
 					</ul>
 				</div>
 			</div>
 			<ul class="wpeo-task-filter" >
-				<?php echo apply_filters( 'tm_task_header', '', $task ); // WPCS: XSS ok. ?>
+				<li class="point-type-display-buttons" >
+					<button class="wpeo-button button-grey active button-radius-3" data-point-state="uncompleted" 
+						data-action="load_point"
+						data-frontend="true"
+						data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_point' ) ); ?>"
+						data-task-id="<?php echo esc_attr( $task->data['id'] ); ?>">
+						<i class="button-icon fal fa-square"></i>
+						<span><?php /* Translators: %s stands for uncompleted points number. */ echo sprintf( __( 'Uncompleted (%s)', 'task-manager' ), '<span class="point-uncompleted" >' . $task->data['count_uncompleted_points'] . '</span>' ); ?></span>
+					</button>
+					<button class="wpeo-button button-grey button-radius-3 action-input" data-point-state="completed"
+						data-action="load_point"
+						data-frontend="true"
+						data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_point' ) ); ?>"
+						data-task-id="<?php echo esc_attr( $task->data['id'] ); ?>" >
+						<i class="button-icon fal fa-check-square"></i>
+						<span><?php /* Translators: %s stands for completed points number. */ echo sprintf( __( 'Completed (%s)', 'task-manager' ), '<span class="point-completed" >' . $task->data['count_completed_points'] . '</span>' ); ?></span>
+					</button>
+				</li>
+
 			</ul>
 		</div>
 
