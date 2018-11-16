@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
 "POT-Creation-Date: 2018-11-16 13:17+0100\n"
-"PO-Revision-Date: 2018-11-16 13:34+0100\n"
+"PO-Revision-Date: 2018-11-16 16:25+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -763,8 +763,8 @@ msgstr "Une demande ?"
 #: module/support/view/frontend/main.view.php:23
 msgid "Ask your question. We will answer you on the opened ticket"
 msgstr ""
-"Posez votre question. Nous répondrons sur directement sur votre ticket "
-"ouvert."
+"Posez votre question. Nous vous répondrons directement sur votre ticket "
+"ouvert"
 
 #: module/support/view/frontend/main.view.php:25
 msgid "Ask your question"
@@ -843,7 +843,7 @@ msgstr "Date limite"
 
 #: module/task/view/backend/task-header-summary.view.php:47
 msgid "Archived task"
-msgstr "Tâches archivés"
+msgstr "Tâche archivé"
 
 #: module/task/view/backend/toggle-content.view.php:49
 msgid "Recompile task"
