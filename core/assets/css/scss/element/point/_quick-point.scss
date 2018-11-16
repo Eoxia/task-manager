@@ -5,10 +5,14 @@
 	}
 	.quick-point-event {
 		padding: 0;
-		min-width: 30px;
+		min-width: 20px;
+		width: 20px;
+		height: 20px;
+		line-height: 20px;
 		background: rgba(0,0,0,0.1);
 		border: 0;
-		line-height: 30px;
+		overflow: visible;
+		margin-left: auto;
 		@include transition();
 
 		.fa-list-ul, .fa-circle {
