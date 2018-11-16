@@ -28,6 +28,11 @@
 		opacity: 1;
 		pointer-events: all;
 	}
+
+	.wpeo-task-footer {
+		padding: 0.4em 0.4em 0 0.4em;
+		border-top: 1px solid rgba(0,0,0,0.2);
+	}
 }
 
 @media ( max-width: 1000px ) {
@@ -45,3 +50,4 @@
 @import "option";
 @import "estimated-time";
 @import "activity-view";
+@import "post-type-link";
