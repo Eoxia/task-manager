@@ -26,14 +26,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php Point_Class::g()->display( $task->data['id'] ); ?>
 		<!-- Fin corps de la tâche -->
 
-		<!-- Les tags -->
-		<?php echo do_shortcode( '[task_manager_task_tag task_id=' . $task->data['id'] . ']' ); ?>
-		<!-- Fin des tags -->
+		<div class="wpeo-task-footer">
+			<!-- Les tags -->
+			<?php echo do_shortcode( '[task_manager_task_tag task_id=' . $task->data['id'] . ']' ); ?>
+			<!-- Fin des tags -->
 
-		<!-- Les followers -->
-		<?php echo do_shortcode( '[task_manager_task_follower task_id=' . $task->data['id'] . ']' ); ?>
-		<!-- Fin des followers -->
+			<!-- Les followers -->
+			<?php echo do_shortcode( '[task_manager_task_follower task_id=' . $task->data['id'] . ']' ); ?>
+			<!-- Fin des followers -->
 
-		<?php echo apply_filters( 'tm_task_footer', '', $task ); ?>
+			<?php echo apply_filters( 'tm_task_footer', '', $task ); ?>
+		</div>
 	</div>
 </div>

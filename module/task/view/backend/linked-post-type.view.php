@@ -18,7 +18,9 @@ defined( 'ABSPATH' ) || exit; ?>
 
 <ul class="wpeo-ul-parent">
     <li class="wpeo-task-parent">
-        <i class="far fa-link"></i>
+				<span class="wpeo-task-link">
+					<i class="far fa-link"></i>
+				</span>
         <a class="wpeo-tooltip-event"
             aria-label="<?php echo esc_attr( $task->data['parent']->post_title ); ?>"
             target="_blank" href="<?php echo admin_url( 'post.php?post=' . $task->data['parent_id'] . '&action=edit' ); ?>">

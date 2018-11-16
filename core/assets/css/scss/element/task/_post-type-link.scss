@@ -1,0 +1,21 @@
+.wpeo-project-task .wpeo-task-footer .wpeo-ul-parent {
+	padding: 0 0 0.4em 0;
+
+	a {
+		color: rgba(0,0,0,0.5);
+		text-decoration: none;
+		@include transition();
+
+		&:hover {
+			color: rgba(0,0,0,0.9);
+		}
+	}
+
+	.wpeo-task-link {
+		background: rgba(0,0,0,0.1);
+		padding: 0.4em;
+		border-radius: 6px;
+		display: inline-block;
+		margin-right: 0.4em;
+	}
+}

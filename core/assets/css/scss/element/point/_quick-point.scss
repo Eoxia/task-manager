@@ -6,6 +6,9 @@
 	.quick-point-event {
 		padding: 0;
 		min-width: 30px;
+		background: rgba(0,0,0,0.1);
+		border: 0;
+		line-height: 30px;
 		@include transition();
 
 		.fa-list-ul, .fa-circle {
