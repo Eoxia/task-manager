@@ -228,9 +228,14 @@ class Point_Action {
 			'meta_key'   => '_tm_completed',
 			'meta_value' => $completed,
 		) );
+		
+		$view = 'backend';
+		if ( $frontend ) {
+			$view = 'frontend';
+		}
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/points', array(
+		\eoxia\View_Util::exec( 'task-manager', 'point', $view . '/points', array(
 			'comment_id' => 0,
 			'point_id'   => 0,
 			'parent_id'  => $task_id,
