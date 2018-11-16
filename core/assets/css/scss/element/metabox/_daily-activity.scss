@@ -13,6 +13,9 @@
 }
 
 .daily-activity {
+	> .content {
+		padding: 0 !important;
+	}
 	.activity {
 		margin-bottom: 1em;
 		padding-bottom: 1em;
@@ -39,6 +42,9 @@
 		.tm-avatar {
 			border-radius: 50%;
 			overflow: hidden;
+		}
+		.event-time {
+			margin: auto 0.4em !important;
 		}
 	}
 

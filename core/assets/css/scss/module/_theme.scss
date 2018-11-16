@@ -31,7 +31,7 @@ $purple: #7c41c7;
 
 /** Original */
 .wpeo-project-task.white {
-	.wpeo-project-task-container, .points .point, .filter-activity .content .activity {
+	.wpeo-project-task-container, .points .point, .activities .content .activity {
 		background: #fff;
 	}
 	.points .point .comment .tm-avatar {
@@ -59,7 +59,7 @@ $purple: #7c41c7;
 
 /** Red */
 .wpeo-project-task.red {
-	.wpeo-project-task-container, .points .point, .filter-activity .content .activity {
+	.wpeo-project-task-container, .points .point, .activities .content .activity {
 		background: $red_background;
 	}
 	.points .point .comment .tm-avatar {
@@ -87,7 +87,7 @@ $purple: #7c41c7;
 
 /** Yellow */
 .wpeo-project-task.yellow {
-	.wpeo-project-task-container, .points .point, .filter-activity .content .activity {
+	.wpeo-project-task-container, .points .point, .activities .content .activity {
 		background: $yellow_background;
 	}
 	.points .point .comment .tm-avatar {
@@ -115,7 +115,7 @@ $purple: #7c41c7;
 
 /** Green */
 .wpeo-project-task.green {
-	.wpeo-project-task-container, .points .point, .filter-activity .content .activity {
+	.wpeo-project-task-container, .points .point, .activities .content .activity {
 		background: $green_background;
 	}
 	.points .point .comment .tm-avatar {
@@ -143,7 +143,7 @@ $purple: #7c41c7;
 
 /** Blue */
 .wpeo-project-task.blue {
-	.wpeo-project-task-container, .points .point, .filter-activity .content .activity {
+	.wpeo-project-task-container, .points .point, .activities .content .activity {
 		background: $blue_background;
 	}
 	.points .point .comment .tm-avatar {
@@ -171,7 +171,7 @@ $purple: #7c41c7;
 
 /** Purple */
 .wpeo-project-task.purple {
-	.wpeo-project-task-container, .points .point, .filter-activity .content .activity {
+	.wpeo-project-task-container, .points .point, .activities .content .activity {
 		background: $purple_background;
 	}
 	.points .point .comment .tm-avatar {

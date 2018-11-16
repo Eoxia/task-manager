@@ -43,11 +43,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 				id="tm-user-activity-load-by-date" >
 
 				<i class="far fa-search"></i></button>
-	</div><!-- .filter-fields -->
+		</div><!-- .filter-fields -->
+	</div><!-- .filter-activity -->
 
-	<div class="content">
-		<div class="tm-wrap" >
-			<div class="activities" ><?php echo $history; // WPCS: XSS ok. ?></div>
-		</div>
+<div class="content">
+	<div class="tm-wrap" >
+		<div class="activities" ><?php echo $history; // WPCS: XSS ok. ?></div>
 	</div>
 </div>

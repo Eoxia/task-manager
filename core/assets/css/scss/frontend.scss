@@ -2,6 +2,7 @@
 
 @import "mixins/mixins-master";
 @import "variable/variable";
+@import "element/activity/activity";
 
 .tm-wrap {
 
@@ -9,6 +10,7 @@
 	@import "module/theme";
 	@import "element/task/task";
 	@import "element/point/point";
+	@import "element/user/avatar";
 
 }
 

@@ -1,4 +1,4 @@
-.wpeo-project-task .activities {
+ .activities {
 	> .content {
 		padding: 1em;
 	}
@@ -38,9 +38,11 @@
 				}
 			}
 		}
+    .information + .content {
+      padding-left: 1em;
+    }
 		.content {
 			width: 100%;
-			padding-left: 1em;
 			margin: auto 0;
 
 			.event-header {
@@ -55,14 +57,18 @@
 				}
 
 				.event-time {
-					margin-left: auto;
-					text-align: right;
+          margin: auto 0 auto auto;
+          min-width: 40px;
+
+          [data-icon] {
+            color: rgba(0,0,0,0.7);
+          }
 					i {
 						color: rgba(0,0,0,0.7);
 					}
 				}
 			}
-			.event-title, .event-client, .event-task, .event-point {
+			.event-title {
 				font-weight: 700;
 				display: block;
 				margin-bottom: 0.4em;
