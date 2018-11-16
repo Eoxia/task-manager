@@ -34,6 +34,9 @@ class Comment_Filter {
 		add_filter( "eo_model_{$current_type}_after_put", array( $this, 'compile_time' ), 10, 2 );
 		add_filter( "eo_model_{$current_type}_after_post", array( $this, 'compile_time' ), 10, 2 );
 		add_filter( "eo_model_{$current_type}_after_post", array( $this, 'callback_after_save_comments' ), 10, 2 );
+		
+		add_filter( 'tm_comment_edit_after', array( $this, 'callback_tm_comment_edit_after' ), 10, 2 );
+		add_filter( 'tm_comment_advanced_view', array( $this, 'callback_tm_comment_advanced_view' ), 10, 2 );
 	}
 
 	/**
@@ -217,6 +220,34 @@ class Comment_Filter {
 		Point_Class::g()->update( $point->data );
 
 		return $object;
+	}
+	
+	public function callback_tm_comment_edit_after( $output, $comment ) {
+		$user = Follower_Class::g()->get( array( 'id' => get_current_user_id() ), true );
+		
+		if ( $user->data['_tm_advanced_display'] ) {
+			ob_start();
+			\eoxia\View_Util::exec( 'task-manager', 'comment', 'edit-advanced', array(
+				'comment' => $comment,
+			) );
+			$output .= ob_get_clean();
+		}
+		
+		return $output;
+	}
+	
+	public function callback_tm_comment_advanced_view( $output, $comment ) {
+		$user = Follower_Class::g()->get( array( 'id' => get_current_user_id() ), true );
+		
+		if ( $user->data['_tm_advanced_display'] ) {
+			ob_start();
+			\eoxia\View_Util::exec( 'task-manager', 'comment', 'comment-advanced', array(
+				'comment' => $comment,
+			) );
+			$output .= ob_get_clean();
+		}
+		
+		return $output;
 	}
 }
 

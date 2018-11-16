@@ -60,6 +60,7 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 			$categories_selected = Tag_Class::g()->get( array(
 				'term_taxonomy_id' => explode( ',', $categories_id ),
 			) );
+			$have_search = true;
 		}
 
 		$categories_searched = '';
@@ -79,6 +80,7 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 			), true );
 
 			$follower_searched = $follower->data['displayname'];
+			$have_search = true;
 		}
 		
 		$post_parent_searched = '';
@@ -89,6 +91,7 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 			$post_parent = get_post( $post_parent_id );
 			
 			$post_parent_searched = $post_parent->post_title;
+			$have_search = true;
 		}
 
 		return array(

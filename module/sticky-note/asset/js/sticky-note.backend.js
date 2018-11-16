@@ -21,7 +21,7 @@ window.eoxiaJS.taskManager.stickyNote.editContent = function() {
 
 	data.action  = 'edit_note';
 	data.note_id = element.closest( '.postbox' ).find( 'input[type="hidden"]' ).val();
-	data.content = element.text();
+	data.content = element.html();
 
 	window.eoxiaJS.loader.display( element.closest( '.postbox' ) );
 	window.eoxiaJS.request.send( element, data );
@@ -59,5 +59,6 @@ window.eoxiaJS.taskManager.stickyNote.deletedNoteSuccess = function( element, re
  * @since 1.8.0
  */
 window.eoxiaJS.taskManager.stickyNote.addedNote = function( element, response ) {
-	jQuery( '.postbox:last' ).after( response.data.view );
+	jQuery( '#tm-indicator-note-add' ).before( response.data.view );
+	window.eoxiaJS.taskManager.core.initSafeExit( false );
 };

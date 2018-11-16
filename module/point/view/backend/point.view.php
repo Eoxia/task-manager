@@ -40,15 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php endif; ?>
 				<?php if ( ! empty( $point->data['id'] ) ) : ?>
 					<ul class="wpeo-point-summary">
-						<li class="wpeo-block-id"><i class="far fa-hashtag"></i> <?php echo esc_attr( $point->data['id'] ); ?></li>
-						<li class="wpeo-point-time">
-							<i class="far fa-clock"></i>
-							<span class="wpeo-time-in-point"><?php echo esc_attr( $point->data['time_info']['elapsed'] ); ?></span>
-						</li>
-						<li>
-							<i class="far fa-comment-dots"></i>
-							<?php echo esc_html( $point->data['count_comments'] ); ?>
-						</li>
+						<?php echo apply_filters( 'tm_point_summary', '', $point ); ?>
 					</ul>
 				<?php endif; ?>
 			</li>
@@ -57,7 +49,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 				<?php echo apply_filters( 'tm_point_after', '', $point ); // WPCS: XSS  ok. ?><!-- / filter for point last column -->
 
-				<?php	if ( empty( $point->data['id'] ) ) : ?>
+				<?php if ( empty( $point->data['id'] ) ) : ?>
 					<div 	class="wpeo-point-new-btn wpeo-button button-main button-square-30 button-rounded action-input animated no-action wpeo-util-hidden"
 								data-parent="form"
 								data-loader="point"
@@ -66,7 +58,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 								title="<?php esc_attr( 'Add this point', 'task-manager' ); ?>">
 						<i class="button-icon fas fa-plus"></i>
 					</div>
-
 				<?php else : ?>
 					<div class="hidden action-input update"
 								data-parent="form"
@@ -85,6 +76,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 						</div>
 					</div>
 				<?php	endif; ?>
+				
+				<?php echo apply_filters( 'tm_point_action', '', $point, $parent_id ); ?>
 			</li>
 		</ul>
 	</div>

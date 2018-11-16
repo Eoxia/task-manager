@@ -66,8 +66,8 @@ class Task_Model_Filter {
 			if ( ! empty( $object->data['parent']->post_title ) ) {
 				$object->data['parent']->displayed_post_title = $object->data['parent']->post_title;
 				
-				if ( 15 <= strlen( $object->data['parent']->displayed_post_title ) ) {
-					$object->data['parent']->displayed_post_title = substr( $object->data['parent']->displayed_post_title, 0, 15 ) . '...';
+				if ( 50 <= strlen( $object->data['parent']->displayed_post_title ) ) {
+					$object->data['parent']->displayed_post_title = substr( $object->data['parent']->displayed_post_title, 0, 50 ) . '...';
 				}
 			}
 		}

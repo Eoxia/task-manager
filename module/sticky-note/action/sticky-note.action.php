@@ -36,17 +36,7 @@ class Sticky_Note_Action {
 		$notes = Sticky_Note_Class::g()->get( array(
 			'author_id' => get_current_user_id(),
 		) );
-		
-		if ( empty( $notes ) ) {
-			$note = Sticky_Note_Class::g()->update( array(
-				'author_id' => get_current_user_id(),
-			) );
-			
-			$notes = array(
-				$note,
-			);
-		}
-		
+				
 		if ( ! empty( $notes ) ) {
 			foreach ( $notes as $i => $note ) {
 				add_meta_box( 
@@ -58,16 +48,32 @@ class Sticky_Note_Action {
 					'default',
 					array( 
 						'note' => $note,
-						'last' => ( $i == count( $note ) )
 					)
 				);
 			}
 		}
+		
+		add_meta_box(
+			'tm-indicator-note-add',
+			__( 'Add new sticky note', 'task-manager'),
+			array( Sticky_Note_Class::g(), 'display_add_new' ),
+			'wpeomtm-dashboard',
+			'normal',
+			'default'
+		);
 	}
 	
 	public function callback_edit_note() {
 		$note_id = ! empty( $_POST['note_id'] ) ? (int) $_POST['note_id'] : 0;
-		$content = ! empty( $_POST['content'] ) ? sanitize_text_field( $_POST['content'] ) : '';
+		$content = ! empty( $_POST['content'] ) ? $_POST['content'] : '';
+		
+		$content = str_replace( '<div>', '<br>', trim( $content ) );
+		$content = wp_kses( $content, array(
+			'br'      => array(),
+			'tooltip' => array(
+				'class' => array(),
+			),
+		) );
 
 		if ( empty( $note_id ) ) {
 			wp_send_json_error();

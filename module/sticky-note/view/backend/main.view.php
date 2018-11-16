@@ -14,15 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<?php if ( $last ) : ?>
-	<div class="action-attribute" data-direction="top"
-		data-action="add_note"
-		data-nonce="<?php echo esc_attr( wp_create_nonce( 'add_note' ) ); ?>"
-		data-loader="postbox">
-		<span><i class="fas fa-plus"></i></span>
-	</div>
-<?php endif; ?>
-
 <div class="action-delete wpeo-button button-square-30 button-rounded button-grey"
 	data-direction="top"
 	data-action="delete_note"

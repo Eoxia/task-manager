@@ -34,5 +34,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php echo do_shortcode( '[task_manager_task_follower task_id=' . $task->data['id'] . ']' ); ?>
 		<!-- Fin des followers -->
 
+		<?php echo apply_filters( 'tm_task_footer', '', $task ); ?>
 	</div>
 </div>

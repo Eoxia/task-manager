@@ -26,15 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php echo nl2br( $comment->data['rendered'] ); ?>
 			</div>
 
-			<div class="comment-meta wpeo-form">
-				<div class="group-date">
-					<i class="far fa-calendar-alt"></i> <?php echo esc_html( $comment->data['date']['rendered']['date_human_readable'] ); ?>
-				</div>
-
-				<div class="wpeo-comment-time">
-					<i class="far fa-clock"></i> <?php echo esc_html( $comment->data['time_info']['elapsed'] ); ?>
-				</div>
-			</div>
+			<?php echo apply_filters( 'tm_comment_advanced_view', '', $comment ); ?>
 		</div><!-- .comment-content -->
 
 		<div class="comment-action">

@@ -10,5 +10,6 @@
 		"action": {},
 		"class": {}
 	},
-	"key_use_search_in_admin_bar": "_tm_use_search_in_admin_bar"
+	"key_use_search_in_admin_bar": "_tm_use_search_in_admin_bar",
+	"key_advanced_settings": "_tm_advanced_settings"
 }

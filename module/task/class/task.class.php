@@ -300,6 +300,7 @@ class Task_Class extends \eoxia\Post_Class {
 		$tasks[ $post->ID ]['title'] = '';
 		$tasks[ $post->ID ]['data']  = self::g()->get_tasks( array(
 			'post_parent' => $post->ID,
+			'status'      => '"any","archive"';
 		) );
 
 		if ( ! empty( $tasks[ $post->ID ]['data'] ) ) {
@@ -331,6 +332,7 @@ class Task_Class extends \eoxia\Post_Class {
 				$tasks[ $child->ID ]['title'] = sprintf( __( 'Task for %1$s', 'task-manager' ), $child->post_title );
 				$tasks[ $child->ID ]['data']  = self::g()->get_tasks( array(
 					'post_parent' => $child->ID,
+					'status'      => '"any","archive"';
 				) );
 
 				if ( empty( $tasks[ $child->ID ]['data'] ) ) {

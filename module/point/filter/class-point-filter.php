@@ -26,6 +26,7 @@ class Point_Filter {
 		add_filter( 'task_points_mail', array( $this, 'callback_task_points_mail' ), 10, 2 );
 
 		add_filter( 'tm_task_header', array( $this, 'callback_display_points_type_buttons' ), 9, 2 );
+		add_filter( 'tm_point_summary', array( $this, 'callback_tm_point_summary' ), 10, 2 );
 	}
 
 	/**
@@ -93,6 +94,20 @@ class Point_Filter {
 		$current_content .= ob_get_clean();
 
 		return $current_content;
+	}
+	
+	public function callback_tm_point_summary( $output, $point ) {
+		$user = Follower_Class::g()->get( array( 'id' => get_current_user_id() ), true );
+		
+		if ( $user->data['_tm_advanced_display' ] ) {
+			ob_start();
+			\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point-summary', array(
+				'point' => $point,
+			) );
+			$output .= ob_get_clean();
+		}
+		
+		return $output;
 	}
 
 }

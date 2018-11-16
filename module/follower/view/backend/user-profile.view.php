@@ -25,5 +25,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<p class="description" ><?php esc_html_e( 'Get the time of last comment you enter and fill elapsed time from this time. (You don\'t need to make hard calcul to get your elapsed time ;) ', 'task-manager' ); ?></p>
 			</td>
 		</tr>
+		<tr>
+			<th><label for="_tm_advanced_display"><?php esc_html_e( 'Advanced display', 'task-manager' ); ?></label></th>
+			<td>
+				<input type="checkbox" name="_tm_advanced_display" id="_tm_advanced_display" value="1" <?php checked( $user->data['_tm_advanced_display'], true, true ); ?>>
+				<p class="description" ><?php esc_html_e( 'Display advanced: time, task informations, task link)', 'task-manager' ); ?></p>
+			</td>
+		</tr>
+		<tr>
+			<th><label for="_tm_quick_point"><?php esc_html_e( 'Quick point', 'task-manager' ); ?></label></th>
+			<td>
+				<input type="checkbox" name="_tm_quick_point" id="_tm_quick_point" value="1" <?php checked( $user->data['_tm_quick_point'], true, true ); ?>>
+				<p class="description" ><?php esc_html_e( 'Display quick point button', 'task-manager' ); ?></p>
+			</td>
+		</tr>
+		<tr>
+			<th><label for="_tm_display_indicator"><?php esc_html_e( 'Display indicator', 'task-manager' ); ?></label></th>
+			<td>
+				<input type="checkbox" name="_tm_display_indicator" id="_tm_display_indicator" value="1" <?php checked( $user->data['_tm_display_indicator'], true, true ); ?>>
+				<p class="description" ><?php esc_html_e( 'Display indicator box', 'task-manager' ); ?></p>
+			</td>
+		</tr>
 	</tbody>
 </table>
