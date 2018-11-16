@@ -3182,124 +3182,172 @@ readers do not read off random characters that represent icons */
   font-family: 'Font Awesome 5 Pro';
   font-weight: 900; }
 
-.list-task .task-header-action .task-color .white {
+.wpeo-project-task .task-color .white {
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.2); }
 
-.list-task .task-header-action .task-color .red {
-  background: #ffc9ca;
+.wpeo-project-task .task-color .red {
+  background: #ffa4a6;
   border: 1px solid #ff4246; }
 
-.list-task .task-header-action .task-color .yellow {
-  background: #fff1bd;
-  border: 1px solid #ffbd41; }
+.wpeo-project-task .task-color .yellow {
+  background: #ffe68c;
+  border: 1px solid #ffb200; }
 
-.list-task .task-header-action .task-color .green {
-  background: #dfffd8;
+.wpeo-project-task .task-color .green {
+  background: #a2ffc8;
   border: 1px solid #35c54e; }
 
-.list-task .task-header-action .task-color .blue {
-  background: #d5eaff;
+.wpeo-project-task .task-color .blue {
+  background: #9bcdff;
   border: 1px solid #3495f0; }
 
-.list-task .task-header-action .task-color .purple {
-  background: #e6d2ff;
+.wpeo-project-task .task-color .purple {
+  background: #cca4ff;
   border: 1px solid #7c41c7; }
 
-.list-task .task-header-action .task-color .color-element > * {
+.wpeo-project-task .task-color .color-element > * {
   transition: all 0.2s ease-out; }
-  .list-task .task-header-action .task-color .color-element > *:hover {
+  .wpeo-project-task .task-color .color-element > *:hover {
     border: 1px solid rgba(0, 0, 0, 0.6); }
 
-.list-task .wpeo-project-task.white .wpeo-project-task-container, .list-task .wpeo-project-task.white .points .point {
+/** Original */
+.wpeo-project-task.white .wpeo-project-task-container, .wpeo-project-task.white .points .point {
   background: #fff; }
 
-.list-task .wpeo-project-task.white .wpeo-tag-wrap li.wpeo-tag-tag-selected, .list-task .wpeo-project-task.white .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .list-task .wpeo-project-task.white .wpeo-main-user li:last-child a {
+.wpeo-project-task.white .points .point .comment .tm-avatar {
+  box-shadow: 0 0 0px 4px #fff; }
+
+.wpeo-project-task.white .tm-avatar,
+.wpeo-project-task.white .wpeo-task-filter .wpeo-button.active,
+.wpeo-project-task.white .wpeo-tag-wrap .wpeo-tag.active,
+.wpeo-project-task.white .wpeo-tag-wrap .wpeo-tag.edit,
+.wpeo-project-task.white .wpeo-ul-users .edit {
   background: #3495f0; }
 
-.list-task .wpeo-project-task.white .wpeo-main-user li:last-child a:hover {
-  background: #63aef4; }
+.wpeo-project-task.white .points .point.new .point-container .point-action .wpeo-point-new-btn {
+  background: #3495f0;
+  border-color: #3495f0; }
 
-.list-task .wpeo-project-task.white .wpeo-point-new-btn, .list-task .wpeo-project-task.white textarea:focus, .list-task .wpeo-project-task.white textarea.active, .list-task .wpeo-project-task.white .wpeo-task-point-completed input[type=checkbox]:checked:before, .list-task .wpeo-project-task.white .wpeo-tag-add-tag {
+.wpeo-project-task.white .points .point .comment .comment-action .save-icon {
   color: #3495f0; }
+  .wpeo-project-task.white .points .point .comment .comment-action .save-icon:hover {
+    color: #6db3f4; }
 
-.list-task .wpeo-project-task.white .wpeo-point-new-btn:hover {
-  color: #0d62b1; }
+/** Red */
+.wpeo-project-task.red .wpeo-project-task-container, .wpeo-project-task.red .points .point {
+  background: #ffa4a6; }
 
-.list-task .wpeo-project-task.red .wpeo-project-task-container, .list-task .wpeo-project-task.red .points .point {
-  background: #ffc9ca; }
+.wpeo-project-task.red .points .point .comment .tm-avatar {
+  box-shadow: 0 0 0px 4px #ffa4a6; }
 
-.list-task .wpeo-project-task.red .wpeo-tag-wrap li.wpeo-tag-tag-selected, .list-task .wpeo-project-task.red .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .list-task .wpeo-project-task.red .wpeo-main-user li:last-child a {
+.wpeo-project-task.red .tm-avatar,
+.wpeo-project-task.red .wpeo-task-filter .wpeo-button.active,
+.wpeo-project-task.red .wpeo-tag-wrap .wpeo-tag.active,
+.wpeo-project-task.red .wpeo-tag-wrap .wpeo-tag.edit,
+.wpeo-project-task.red .wpeo-ul-users .edit {
   background: #ff4246; }
 
-.list-task .wpeo-project-task.red .wpeo-main-user li:last-child a:hover {
-  background: #ff7578; }
+.wpeo-project-task.red .points .point.new .point-container .point-action .wpeo-point-new-btn {
+  background: #ff4246;
+  border-color: #ff4246; }
 
-.list-task .wpeo-project-task.red .wpeo-point-new-btn, .list-task .wpeo-project-task.red textarea:focus, .list-task .wpeo-project-task.red textarea.active, .list-task .wpeo-project-task.red .wpeo-task-point-completed input[type=checkbox]:checked:before, .list-task .wpeo-project-task.red .wpeo-tag-add-tag {
+.wpeo-project-task.red .points .point .comment .comment-action .save-icon {
   color: #ff4246; }
+  .wpeo-project-task.red .points .point .comment .comment-action .save-icon:hover {
+    color: #ff7f82; }
 
-.list-task .wpeo-project-task.red .wpeo-point-new-btn:hover {
-  color: #db0005; }
+/** Yellow */
+.wpeo-project-task.yellow .wpeo-project-task-container, .wpeo-project-task.yellow .points .point {
+  background: #ffe68c; }
 
-.list-task .wpeo-project-task.yellow .wpeo-project-task-container, .list-task .wpeo-project-task.yellow .points .point {
-  background: #fff1bd; }
+.wpeo-project-task.yellow .points .point .comment .tm-avatar {
+  box-shadow: 0 0 0px 4px #ffe68c; }
 
-.list-task .wpeo-project-task.yellow .wpeo-tag-wrap li.wpeo-tag-tag-selected, .list-task .wpeo-project-task.yellow .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .list-task .wpeo-project-task.yellow .wpeo-main-user li:last-child a {
-  background: #ffbd41; }
+.wpeo-project-task.yellow .tm-avatar,
+.wpeo-project-task.yellow .wpeo-task-filter .wpeo-button.active,
+.wpeo-project-task.yellow .wpeo-tag-wrap .wpeo-tag.active,
+.wpeo-project-task.yellow .wpeo-tag-wrap .wpeo-tag.edit,
+.wpeo-project-task.yellow .wpeo-ul-users .edit {
+  background: #ffb200; }
 
-.list-task .wpeo-project-task.yellow .wpeo-main-user li:last-child a:hover {
-  background: #ffcf74; }
+.wpeo-project-task.yellow .points .point.new .point-container .point-action .wpeo-point-new-btn {
+  background: #ffb200;
+  border-color: #ffb200; }
 
-.list-task .wpeo-project-task.yellow .wpeo-point-new-btn, .list-task .wpeo-project-task.yellow textarea:focus, .list-task .wpeo-project-task.yellow textarea.active, .list-task .wpeo-project-task.yellow .wpeo-task-point-completed input[type=checkbox]:checked:before, .list-task .wpeo-project-task.yellow .wpeo-tag-add-tag {
-  color: #ffbd41; }
+.wpeo-project-task.yellow .points .point .comment .comment-action .save-icon {
+  color: #ffb200; }
+  .wpeo-project-task.yellow .points .point .comment .comment-action .save-icon:hover {
+    color: #ffc43d; }
 
-.list-task .wpeo-project-task.yellow .wpeo-point-new-btn:hover {
-  color: #da8e00; }
+/** Green */
+.wpeo-project-task.green .wpeo-project-task-container, .wpeo-project-task.green .points .point {
+  background: #a2ffc8; }
 
-.list-task .wpeo-project-task.green .wpeo-project-task-container, .list-task .wpeo-project-task.green .points .point {
-  background: #dfffd8; }
+.wpeo-project-task.green .points .point .comment .tm-avatar {
+  box-shadow: 0 0 0px 4px #a2ffc8; }
 
-.list-task .wpeo-project-task.green .wpeo-tag-wrap li.wpeo-tag-tag-selected, .list-task .wpeo-project-task.green .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .list-task .wpeo-project-task.green .wpeo-main-user li:last-child a {
+.wpeo-project-task.green .tm-avatar,
+.wpeo-project-task.green .wpeo-task-filter .wpeo-button.active,
+.wpeo-project-task.green .wpeo-tag-wrap .wpeo-tag.active,
+.wpeo-project-task.green .wpeo-tag-wrap .wpeo-tag.edit,
+.wpeo-project-task.green .wpeo-ul-users .edit {
   background: #35c54e; }
 
-.list-task .wpeo-project-task.green .wpeo-main-user li:last-child a:hover {
-  background: #5ad36f; }
+.wpeo-project-task.green .points .point.new .point-container .point-action .wpeo-point-new-btn {
+  background: #35c54e;
+  border-color: #35c54e; }
 
-.list-task .wpeo-project-task.green .wpeo-point-new-btn, .list-task .wpeo-project-task.green textarea:focus, .list-task .wpeo-project-task.green textarea.active, .list-task .wpeo-project-task.green .wpeo-task-point-completed input[type=checkbox]:checked:before, .list-task .wpeo-project-task.green .wpeo-tag-add-tag {
+.wpeo-project-task.green .points .point .comment .comment-action .save-icon {
   color: #35c54e; }
+  .wpeo-project-task.green .points .point .comment .comment-action .save-icon:hover {
+    color: #62d576; }
 
-.list-task .wpeo-project-task.green .wpeo-point-new-btn:hover {
-  color: #1f752e; }
+/** Blue */
+.wpeo-project-task.blue .wpeo-project-task-container, .wpeo-project-task.blue .points .point {
+  background: #9bcdff; }
 
-.list-task .wpeo-project-task.blue .wpeo-project-task-container, .list-task .wpeo-project-task.blue .points .point {
-  background: #d5eaff; }
+.wpeo-project-task.blue .points .point .comment .tm-avatar {
+  box-shadow: 0 0 0px 4px #9bcdff; }
 
-.list-task .wpeo-project-task.blue .wpeo-tag-wrap li.wpeo-tag-tag-selected, .list-task .wpeo-project-task.blue .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .list-task .wpeo-project-task.blue .wpeo-main-user li:last-child a {
+.wpeo-project-task.blue .tm-avatar,
+.wpeo-project-task.blue .wpeo-task-filter .wpeo-button.active,
+.wpeo-project-task.blue .wpeo-tag-wrap .wpeo-tag.active,
+.wpeo-project-task.blue .wpeo-tag-wrap .wpeo-tag.edit,
+.wpeo-project-task.blue .wpeo-ul-users .edit {
   background: #3495f0; }
 
-.list-task .wpeo-project-task.blue .wpeo-main-user li:last-child a:hover {
-  background: #63aef4; }
+.wpeo-project-task.blue .points .point.new .point-container .point-action .wpeo-point-new-btn {
+  background: #3495f0;
+  border-color: #3495f0; }
 
-.list-task .wpeo-project-task.blue .wpeo-point-new-btn, .list-task .wpeo-project-task.blue textarea:focus, .list-task .wpeo-project-task.blue textarea.active, .list-task .wpeo-project-task.blue .wpeo-task-point-completed input[type=checkbox]:checked:before, .list-task .wpeo-project-task.blue .wpeo-tag-add-tag {
+.wpeo-project-task.blue .points .point .comment .comment-action .save-icon {
   color: #3495f0; }
+  .wpeo-project-task.blue .points .point .comment .comment-action .save-icon:hover {
+    color: #6db3f4; }
 
-.list-task .wpeo-project-task.blue .wpeo-point-new-btn:hover {
-  color: #0d62b1; }
+/** Purple */
+.wpeo-project-task.purple .wpeo-project-task-container, .wpeo-project-task.purple .points .point {
+  background: #cca4ff; }
 
-.list-task .wpeo-project-task.purple .wpeo-project-task-container, .list-task .wpeo-project-task.purple .points .point {
-  background: #e6d2ff; }
+.wpeo-project-task.purple .points .point .comment .tm-avatar {
+  box-shadow: 0 0 0px 4px #cca4ff; }
 
-.list-task .wpeo-project-task.purple .wpeo-tag-wrap li.wpeo-tag-tag-selected, .list-task .wpeo-project-task.purple .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .list-task .wpeo-project-task.purple .wpeo-main-user li:last-child a {
+.wpeo-project-task.purple .tm-avatar,
+.wpeo-project-task.purple .wpeo-task-filter .wpeo-button.active,
+.wpeo-project-task.purple .wpeo-tag-wrap .wpeo-tag.active,
+.wpeo-project-task.purple .wpeo-tag-wrap .wpeo-tag.edit,
+.wpeo-project-task.purple .wpeo-ul-users .edit {
   background: #7c41c7; }
 
-.list-task .wpeo-project-task.purple .wpeo-main-user li:last-child a:hover {
-  background: #9768d3; }
+.wpeo-project-task.purple .points .point.new .point-container .point-action .wpeo-point-new-btn {
+  background: #7c41c7;
+  border-color: #7c41c7; }
 
-.list-task .wpeo-project-task.purple .wpeo-point-new-btn, .list-task .wpeo-project-task.purple textarea:focus, .list-task .wpeo-project-task.purple textarea.active, .list-task .wpeo-project-task.purple .wpeo-task-point-completed input[type=checkbox]:checked:before, .list-task .wpeo-project-task.purple .wpeo-tag-add-tag {
+.wpeo-project-task.purple .points .point .comment .comment-action .save-icon {
   color: #7c41c7; }
-
-.list-task .wpeo-project-task.purple .wpeo-point-new-btn:hover {
-  color: #4c257d; }
+  .wpeo-project-task.purple .points .point .comment .comment-action .save-icon:hover {
+    color: #9d70d5; }
 
 @font-face {
   font-family: 'kalamregular';
