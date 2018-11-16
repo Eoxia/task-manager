@@ -99,8 +99,8 @@ class Activity_Action {
 		$view = ob_get_clean();
 
 		wp_send_json_success( array(
-			'namespace'        => ! $frontend ? 'taskManager' : 'taskManagerFrontendWPShop',
-			'module'           => ! $frontend ? 'activity' : 'frontendSupport',
+			'namespace'        => ! $frontend ? 'taskManager' : 'taskManagerFrontend',
+			'module'           => 'activity',
 			'callback_success' => 'loadedLastActivity',
 			'view'             => $view,
 			'offset'           => $offset,

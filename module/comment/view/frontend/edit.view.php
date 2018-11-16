@@ -19,6 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<input type="hidden" name="comment_id" value="<?php echo esc_attr( $comment->data['id'] ); ?>" />
 	<input type="hidden" name="post_id" value="<?php echo esc_attr( $task_id ); ?>" />
 	<input type="hidden" name="parent_id" value="<?php echo esc_attr( $point_id ); ?>" />
+	<input type="hidden" name="frontend" value="true" />
 
 	<?php echo do_shortcode( '[task_avatar ids="' . $comment->data['author_id'] . '" size="40"]' ); ?>
 
@@ -32,8 +33,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<span class="placeholder"><i class="far fa-plus"></i> <?php esc_html_e( 'Your comment here...', 'task-manager' ); ?></span>
 				<?php endif; ?>
 			</div>
-
-			<?php echo apply_filters( 'tm_comment_edit_after', '', $comment ); ?>
 
 		</div><!-- .comment-content -->
 		<div class="comment-action">

@@ -55,6 +55,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<span><?php /* Translators: %s stands for completed points number. */ echo sprintf( __( 'Completed (%s)', 'task-manager' ), '<span class="point-completed" >' . $task->data['count_completed_points'] . '</span>' ); ?></span>
 					</button>
 				</li>
+				
+				<li class="tm-task-display-method-buttons">
+					<button class="wpeo-button button-grey button-radius-3 list-display active wpeo-tooltip-event"
+						aria-label="<?php echo esc_attr_e( 'Edit display', 'task-manager' ); ?>">
+
+						<i class="button-icon far fa-list"></i>
+					</button>
+
+					<button class="wpeo-button button-grey button-radius-3 action-attribute grid-display wpeo-tooltip-event"
+						data-action="load_last_activity"
+						data-frontend="true"
+						aria-label="<?php echo esc_attr_e( 'Activity display', 'task-manager' ); ?>"
+						data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_last_activity' ) ); ?>"
+						data-tasks-id="<?php echo esc_attr( $task->data['id'] ); ?>">
+
+						<i class="button-icon far fa-align-left"></i>
+					</button>
+				</li>
 
 			</ul>
 		</div>

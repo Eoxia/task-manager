@@ -98,7 +98,7 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 	 * @return void
 	 * @todo: Faire passer le paramètre comment_id et le renommé en selected_comment_id.
 	 */
-	public function display( $task_id, $point_id ) {
+	public function display( $task_id, $point_id, $frontend = false ) {
 		$comment_id = ! empty( $_GET['comment_id'] ) ? (int) $_GET['comment_id'] : 0;
 
 		$comments = self::g()->get_comments( $point_id );
@@ -106,8 +106,13 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 		$comment_schema = self::g()->get( array(
 			'schema' => true,
 		), true );
+		
+		$view = "backend";
+		if ( $frontend ) {
+			$view = "frontend";
+		}
 
-		\eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/main', array(
+		\eoxia\View_Util::exec( 'task-manager', 'comment', $view . '/main', array(
 			'task_id'             => $task_id,
 			'point_id'            => $point_id,
 			'comments'            => $comments,

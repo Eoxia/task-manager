@@ -52,7 +52,7 @@ class Task_Comment_Action {
 		$frontend = ( isset( $_POST['frontend'] ) && 'true' == $_POST['frontend'] ) ? true : false;
 
 		ob_start();
-		Task_Comment_Class::g()->display( $task_id, $point_id );
+		Task_Comment_Class::g()->display( $task_id, $point_id, $frontend );
 		wp_send_json_success( array(
 			'view'             => ob_get_clean(),
 			'namespace'        => $frontend ? 'taskManagerFrontend' : 'taskManager',
@@ -78,6 +78,7 @@ class Task_Comment_Action {
 		$date          = ! empty( $_POST['mysql_date'] ) ? sanitize_text_field( $_POST['mysql_date'] ) : current_time( 'mysql' );
 		$content       = ! empty( $_POST['content'] ) ? trim( $_POST['content'] ) : '';
 		$time          = ! empty( $_POST['time'] ) ? (int) $_POST['time'] : 0;
+		$frontend      = ( isset( $_POST['frontend'] ) && 'true' == $_POST['frontend'] ) ? true : false;
 
 		$content = str_replace( '<div>', '<br>', trim( $content ) );
 		$content = wp_kses( $content, array(
@@ -115,8 +116,12 @@ class Task_Comment_Action {
 			'schema' => true,
 		), true );
 
+		$view = 'backend';
+		if ( $frontend ) {
+			$view = 'frontend';
+		}
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/main', array(
+		\eoxia\View_Util::exec( 'task-manager', 'comment', $view . '/main', array(
 			'task_id'             => $post_id,
 			'point_id'            => $parent_id,
 			'comments'            => $comments,
@@ -137,7 +142,7 @@ class Task_Comment_Action {
 				'task'  => $task->data['time_info']['elapsed'],
 			),
 			'view'             => $view,
-			'namespace'        => 'taskManager',
+			'namespace'        => $frontend ? 'taskManagerFrontend' : 'taskManager',
 			'module'           => 'comment',
 			'callback_success' => 'addedCommentSuccess',
 			'comment'          => $comment,
