@@ -3,6 +3,11 @@
 	flex-direction: row;
 	padding: 10px 10px 0 10px;
 
+	@media ( max-width: $media__medium ) {
+		padding: 10px;
+		flex-wrap: wrap;
+	}
+
 	> * {
 		margin: auto 0;
 	}

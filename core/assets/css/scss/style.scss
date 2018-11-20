@@ -9,6 +9,11 @@
 body.toplevel_page_wpeomtm-dashboard {
 	#wpcontent {
 		padding-top: 130px;
+
+		@media ( max-width: $media__medium ) {
+			padding-top: 0;
+			padding-left: 0;
+		}
 	}
 }
 
@@ -16,7 +21,7 @@ body.toplevel_page_wpeomtm-dashboard {
   box-sizing: border-box;
   padding-right: 20px;
 
-  @media ( max-width: $media__small ) {
+  @media ( max-width: $media__medium ) {
     padding-right: 0;
   }
 

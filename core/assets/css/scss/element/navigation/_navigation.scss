@@ -19,6 +19,13 @@
 	padding: 1em 0.5em 0 0.5em;
 	z-index: 900;
 
+	@media ( max-width: 960px ) {
+		left: 36px;
+	}
+	@media ( max-width: $media__medium ) {
+		position: static;
+	}
+
 	h1 {
 		color: #FFF;
 	}
@@ -28,8 +35,16 @@
 	display: flex;
 	width: 100%;
 
+	@media ( max-width: $media__medium ) {
+		flex-wrap: wrap;
+	}
+
 	h1 {
 		color: #FFF !important;
+
+		@media ( max-width: $media__medium ) {
+			padding: 0.5em 0;
+		}
 	}
 	> * {
 		margin: auto 0.5em !important;
