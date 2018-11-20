@@ -65,7 +65,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div>
 			<div class="wpeo-button wpeo-modal-event button-blue"
 					data-action="load_last_activity"
-					data-class="wpeo-project-wrap last-activity activities"
+					data-class="wpeo-project-wrap last-activity activities tm-wrap"
 					data-title="<?php echo esc_attr_e( 'Last activities', 'task-manager' ); ?>"
 					data-tasks-id="<?php echo esc_attr( $tasks_id ); ?>"
 					data-frontend="1">

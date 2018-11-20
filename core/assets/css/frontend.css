@@ -85,6 +85,30 @@
     text-align: center;
     cursor: pointer; }
 
+.ui-autocomplete {
+  z-index: 99999 !important; }
+
+.xdsoft_datetimepicker {
+  z-index: 100000 !important; }
+
+.wpeo-button.button-main {
+  background: #0084ff;
+  border-color: #0084ff; }
+
+.wpeo-modal .modal-container .modal-header {
+  border: 0;
+  padding: 0; }
+
+.wpeo-modal .modal-container .modal-content {
+  box-shadow: none;
+  border: 0;
+  border-radius: 0; }
+
+.wpeo-modal .modal-container .modal-footer {
+  margin: 0;
+  padding: 1em 0 0 0;
+  border: 0; }
+
 .tm-wrap {
   /*--------------------------------------------------------------
 ## Fonticon
@@ -2391,6 +2415,10 @@ readers do not read off random characters that represent icons */
     position: relative;
     width: 50%;
     padding: 10px; }
+    @media (max-width: 780px) {
+      .tm-wrap .wpeo-project-task {
+        width: 100%;
+        padding: 0 0 10px 0; } }
     .tm-wrap .wpeo-project-task .wpeo-project-task-container {
       background: #fff;
       box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.2);
@@ -3098,3 +3126,18 @@ readers do not read off random characters that represent icons */
 
 .tm-wrap .points .point .point-container .point-content {
   max-width: none; }
+
+/** Activity resume */
+.toolbox-activity {
+  display: flex; }
+  .toolbox-activity > * {
+    margin: auto 0;
+    padding: 0 0.4em; }
+  .toolbox-activity .total-time .time-exceeded .time-exceeded-explanation {
+    color: rgba(0, 0, 0, 0.4); }
+  .toolbox-activity .total-time .time-exceeded {
+    color: red; }
+  .toolbox-activity .update-activity {
+    font-style: italic;
+    color: rgba(0, 0, 0, 0.4);
+    display: block; }

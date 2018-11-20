@@ -365,7 +365,60 @@ class Task_Class extends \eoxia\Post_Class {
 			'total_time_estimated' => $total_time_estimated,
 		) );
 	}
+	
+	public function callback_render_history_metabox( $post ) {
+		$tasks_id = array();
+		
+		$tasks = self::g()->get_tasks( array(
+			'post_parent' => $post->ID,
+			'status'      => 'publish,pending,draft,future,private,inherit,archive',
+		) );
+		
+		if ( ! empty( $tasks ) ) {
+			foreach ( $tasks as $task ) {
+				$tasks_id[] = $task->data['id'];
+			}
+		}
+		
+		$args = array(
+			'post_parent' => $post->ID,
+			'post_type'   => \eoxia\Config_Util::$init['task-manager']->associate_post_type,
+			'numberposts' => -1,
+			'post_status' => 'any',
+		);
+		$children = get_posts( $args );
 
+		if ( ! empty( $children ) ) {
+			foreach ( $children as $child ) {
+				$tasks[ $child->ID ]['data']  = self::g()->get_tasks( array(
+					'post_parent' => $child->ID,
+					'status'      => 'publish,pending,draft,future,private,inherit,archive',
+				) );
+				
+				if ( empty( $tasks[ $child->ID ]['data'] ) ) {
+					unset( $tasks[ $child->ID ] );
+				}
+				
+				foreach ( $tasks[ $post->ID ]['data'] as $task ) {
+					$tasks_id[] = $task->data['id'];
+				}
+			}
+		}
+		
+		$date_end   = current_time( 'Y-m-d' );
+		$date_start = date( 'Y-m-d', strtotime( '-1 month', strtotime( $date_end ) ) );
+
+		$datas = Activity_Class::g()->get_activity( $tasks_id, 0, $date_start, $date_end );
+
+		if ( ! empty( $tasks_id ) ) {
+			\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/post-last-activity', array(
+				'datas'      => $datas,
+				'date_start' => $date_start,
+				'date_end'   => $date_end,
+				'tasks_id'   => implode( ',', $tasks_id ),
+			) );
+		}
+	}
 }
 
 Task_Class::g();

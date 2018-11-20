@@ -20,18 +20,18 @@ $wp_kses_args = array(
 	),
 );
 ?><li class="point-type-display-buttons" >
-	<button class="wpeo-button button-grey active button-radius-3" data-point-state="uncompleted"
+	<div class="wpeo-button button-grey active button-radius-3" data-point-state="uncompleted"
 		data-action="load_point"
 		data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_point' ) ); ?>"
 		data-task-id="<?php echo esc_attr( $task->data['id'] ); ?>">
 		<i class="button-icon fal fa-square"></i>
 		<span><?php /* Translators: %s stands for uncompleted points number. */ echo wp_kses( sprintf( __( 'Uncompleted (%s)', 'task-manager' ), '<span class="point-uncompleted" >' . $task->data['count_uncompleted_points'] . '</span>' ), $wp_kses_args ); ?></span>
-	</button>
-	<button class="wpeo-button button-grey button-radius-3 action-input" data-point-state="completed"
+	</div>
+	<div class="wpeo-button button-grey button-radius-3 action-input" data-point-state="completed"
 		data-action="load_point"
 		data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_point' ) ); ?>"
 		data-task-id="<?php echo esc_attr( $task->data['id'] ); ?>" >
 		<i class="button-icon fal fa-check-square"></i>
 		<span><?php /* Translators: %s stands for completed points number. */ echo wp_kses( sprintf( __( 'Completed (%s)', 'task-manager' ), '<span class="point-completed" >' . $task->data['count_completed_points'] . '</span>' ), $wp_kses_args ); ?></span>
-	</button>
+	</div>
 </li>

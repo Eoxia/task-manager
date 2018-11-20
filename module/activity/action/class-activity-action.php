@@ -51,10 +51,14 @@ class Activity_Action {
 		$categories_id_selected = ! empty( $_POST['categories_id_selected'] ) ? sanitize_text_field( $_POST['categories_id_selected'] ) : '';
 		$follower_id_selected   = ! empty( $_POST['follower_id_selected'] ) ? (int) $_POST['follower_id_selected'] : 0;
 		$frontend               = ! empty( $_POST['frontend'] ) ? true : false;
-		$date_end             = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_end'] ) ? $_POST['tm_abu_date_end'] : current_time( 'Y-m-d' );
-		$date_start               = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_start'] ) ? $_POST['tm_abu_date_start'] : current_time( 'Y-m-d' );
+		$date_end               = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_end'] ) ? $_POST['tm_abu_date_end'] : current_time( 'Y-m-d' );
+		$date_start             = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_start'] ) ? $_POST['tm_abu_date_start'] : current_time( 'Y-m-d' );
 
 		if ( empty( $_POST['tm_abu_date_end'] ) ) {
+			$date_end = current_time( 'Y-m-d' );
+		}
+		
+		if ( empty( $_POST['tm_abu_date_start'] ) ) {
 			$date_start = date( 'Y-m-d', strtotime( '-1 month', strtotime( $date_end ) ) );
 		}
 
@@ -73,29 +77,18 @@ class Activity_Action {
 		} else {
 			$tasks_id = explode( ',', $tasks_id );
 		}
-
-		// Récupération de l'historique.
-		$datas = Activity_Class::g()->get_activity( $tasks_id, $offset, $date_end, $date_start );
-
-		$last_date = $datas['last_date'];
-		unset( $datas['last_date'] );
+		
+		$datas = Activity_Class::g()->get_activity( $tasks_id, 0, $date_start, $date_end );
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/list', array(
-			'datas'     => $datas,
-			'last_date' => $last_date,
-			'offset'    => $offset,
-		) );
-		$history_list = ob_get_clean();
-
-		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/main', array(
-			'history'        => $history_list,
-			'date_start'     => $date_start,
-			'date_end'       => $date_end,
-			'task_id'        => $task_id,
-			'has_pagination' => ( \eoxia\Config_Util::$init['task-manager']->activity->activity_per_page !== $datas['count'] ) ? true : false,
-		) );
+		if ( ! empty( $tasks_id ) ) {
+			\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/post-last-activity', array(
+				'tasks_id'   => implode( ',', $tasks_id ),
+				'datas'      => $datas,
+				'date_start' => $date_start,
+				'date_end'   => $date_end,
+			) );
+		}
 		$view = ob_get_clean();
 
 		wp_send_json_success( array(

@@ -14,18 +14,18 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?><li class="tm-task-display-method-buttons">
-	<button class="wpeo-button button-grey button-radius-3 list-display active wpeo-tooltip-event"
+	<div class="wpeo-button button-grey button-radius-3 list-display active wpeo-tooltip-event"
 		aria-label="<?php echo esc_attr_e( 'Edit display', 'task-manager' ); ?>">
 
 		<i class="button-icon far fa-list"></i>
-	</button>
+	</div>
 
-	<button class="wpeo-button button-grey button-radius-3 action-attribute grid-display wpeo-tooltip-event"
+	<div class="wpeo-button button-grey button-radius-3 action-attribute grid-display wpeo-tooltip-event"
 		data-action="load_last_activity"
 		aria-label="<?php echo esc_attr_e( 'Activity display', 'task-manager' ); ?>"
 		data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_last_activity' ) ); ?>"
 		data-tasks-id="<?php echo esc_attr( $task->data['id'] ); ?>">
 
 		<i class="button-icon far fa-align-left"></i>
-	</button>
+	</div>
 </li>

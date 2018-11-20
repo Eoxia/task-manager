@@ -76,6 +76,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			</ul>
 		</div>
+		
+		<div class="bloc-activities"></div>
 
 		<!-- Corps de la tâche -->
 		<?php Point_Class::g()->display( $task->data['id'], true ); ?>

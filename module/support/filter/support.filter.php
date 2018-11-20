@@ -26,6 +26,7 @@ class Support_Filter {
 		add_filter( 'wps_my_account_extra_part_menu', array( $this, 'callback_my_account_menu' ) );
 		add_filter( 'wps_my_account_extra_panel_content', array( $this, 'callback_my_account_content' ), 10, 2 );
 		add_filter( 'wp_redirect', array( $this, 'callback_wp_redirect' ), 10, 2 );
+		add_filter( 'tm_activity_filter_input', array( $this, 'callback_tm_activity_filter_input' ), 10, 1 );
 
 	}
 
@@ -129,6 +130,13 @@ class Support_Filter {
 			$location = get_option( 'tl_login_redirect_url' );
 		}
 		return $location;
+	}
+	
+	public function callback_tm_activity_filter_input( $output ) {
+		if ( ! is_admin() ) {
+			$output .= '<input type="hidden" name="frontend" value="true" />';
+		}
+		return $output;
 	}
 }
 

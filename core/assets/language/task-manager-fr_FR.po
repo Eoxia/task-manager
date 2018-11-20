@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
 "POT-Creation-Date: 2018-11-16 13:17+0100\n"
-"PO-Revision-Date: 2018-11-16 16:25+0100\n"
+"PO-Revision-Date: 2018-11-20 16:59+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -762,9 +762,7 @@ msgstr "Une demande ?"
 
 #: module/support/view/frontend/main.view.php:23
 msgid "Ask your question. We will answer you on the opened ticket"
-msgstr ""
-"Posez votre question. Nous vous répondrons directement sur votre ticket "
-"ouvert"
+msgstr "Posez votre question. Nous vous répondrons dans les plus brefs délais"
 
 #: module/support/view/frontend/main.view.php:25
 msgid "Ask your question"
@@ -787,11 +785,11 @@ msgstr "Total du temps passé"
 #: module/support/view/frontend/main.view.php:47
 #, php-format
 msgid "All your time has been spent. We spent %s longer than expected."
-msgstr ""
+msgstr "Le temps imparti a été utilisé. Nous avons passé %s de plus que prévu."
 
 #: module/support/view/frontend/main.view.php:60
 msgid "Total expected time"
-msgstr ""
+msgstr "Temps total prévu"
 
 #: module/support/view/frontend/main.view.php:71
 msgid "Latest activities"

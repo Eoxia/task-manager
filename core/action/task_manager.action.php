@@ -70,6 +70,11 @@ class Task_Manager_Action {
 		if ( ! empty( \eoxia\Config_Util::$init['task-manager']->insert_scripts_pages ) ) {
 			foreach ( \eoxia\Config_Util::$init['task-manager']->insert_scripts_pages as $insert_script_page ) {
 				if ( false !== strpos( $screen->id, $insert_script_page ) ) {
+					
+					if ( 'toplevel_page_wpeomtm-dashboard' != $screen->id ) {
+						add_filter('admin_body_class', array( $this, 'callback_body_class' ) );
+					}
+
 					wp_register_style( 'task-manager-style', PLUGIN_TASK_MANAGER_URL . 'core/assets/css/style.min.css', array(), \eoxia\config_util::$init['task-manager']->version );
 					wp_enqueue_style( 'task-manager-style' );
 
@@ -197,6 +202,10 @@ class Task_Manager_Action {
 		wp_send_json_success( array() );
 	}
 
+	public function callback_body_class( $classes ) {
+		$classes .= ' tm-wrap ';
+		return $classes;
+	}
 }
 
 new Task_Manager_Action();
