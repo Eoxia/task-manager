@@ -44,3 +44,24 @@
 .tm-wrap .points .point .point-container .point-content {
 	max-width: none;
 }
+
+/** Activity resume */
+.toolbox-activity {
+	display: flex;
+
+	> * {
+		margin: auto 0;
+		padding: 0 0.4em;
+	}
+	.total-time .time-exceeded .time-exceeded-explanation {
+		color: rgba(0,0,0,0.4);
+	}
+	.total-time .time-exceeded {
+		color: red;
+	}
+	.update-activity {
+		font-style: italic;
+		color: rgba(0,0,0,0.4);
+		display: block;
+	}
+}

@@ -33,7 +33,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<h2><?php esc_html_e( 'Support', 'task-manager' ); ?></h2>
 
 	<div class="toolbox-activity">
-		<i class="far fa-clock"></i>
+		<div>
+			<i class="far fa-clock"></i>
+		</div>
 		<div class="total-time">
 			<?php esc_html_e( 'Total time past', 'task-manager' ); ?> :
 		<?php if ( $total_time_elapsed > $total_time_estimated ) : ?>
@@ -61,20 +63,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php echo esc_html( \eoxia\Date_Util::g()->convert_to_custom_hours( $total_time_estimated, false ) ); ?>
 		</div>
 
-		<div class="wpeo-button wpeo-modal-event button-blue"
-				data-action="load_last_activity"
-				data-class="wpeo-project-wrap last-activity activities"
-				data-title="<?php echo esc_attr_e( 'Last activities', 'task-manager' ); ?>"
-				data-tasks-id="<?php echo esc_attr( $tasks_id ); ?>"
-				data-frontend="1">
-			<i class="fa fa-list" aria-hidden="true"></i>
-			<span><?php esc_html_e( 'Latest activities', 'task-manager' ); ?></span>
-		</div>
-	</div>
+		<div>
+			<div class="wpeo-button wpeo-modal-event button-blue"
+					data-action="load_last_activity"
+					data-class="wpeo-project-wrap last-activity activities"
+					data-title="<?php echo esc_attr_e( 'Last activities', 'task-manager' ); ?>"
+					data-tasks-id="<?php echo esc_attr( $tasks_id ); ?>"
+					data-frontend="1">
+				<i class="fa fa-list" aria-hidden="true"></i>
+				<span><?php esc_html_e( 'Latest activities', 'task-manager' ); ?></span>
+			</div>
 
-	<div class="update-activity">
-		<span><?php esc_html_e( 'Last activity the : ', 'task-manager' ); ?></span>
-		<span><?php echo esc_html( $last_modification_date ); ?></span>
+			<div class="update-activity">
+				<span><?php esc_html_e( 'Last activity the : ', 'task-manager' ); ?></span>
+				<span><?php echo esc_html( $last_modification_date ); ?></span>
+			</div>
+		</div>
 	</div>
 
 	<?php \task_manager\Task_Class::g()->display_tasks( $tasks, true ); ?>
