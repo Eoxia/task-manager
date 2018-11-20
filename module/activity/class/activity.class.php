@@ -125,7 +125,7 @@ class Activity_Class extends \eoxia\Singleton_Util {
 
 		$query_string .= "ORDER BY COMMENT.comment_date DESC";
 
-		$query = $GLOBALS['wpdb']->prepare( $query_string, $date_end . ' 23:59:59', $date_start . ' 00:00:00', 'wpeo_time' );
+		$query = $GLOBALS['wpdb']->prepare( $query_string, $date_start . ' 00:00:00', $date_end . ' 23:59:59', 'wpeo_time' );
 		$datas = $GLOBALS['wpdb']->get_results( $query );
 		return $datas;
 	}

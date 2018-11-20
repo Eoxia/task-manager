@@ -38,7 +38,7 @@ class Indicator_Class extends \eoxia\Singleton_Util {
 		$date_end    = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_end'] ) ? $_POST['tm_abu_date_end'] : current_time( 'Y-m-d' );
 		$first_load  = ! empty( $_GET ) && ! empty( $_GET['first_load'] ) ? $_GET['first_load'] : false;
 
-		$datas = Activity_Class::g()->display_user_activity_by_date( $user_id, $date_start, $date_end );
+		$datas = Activity_Class::g()->display_user_activity_by_date( $user_id, $date_end, $date_start );
 
 		\eoxia\View_Util::exec( 'task-manager', 'indicator', 'backend/daily-activity', array(
 			'user_id'     => $user_id,
