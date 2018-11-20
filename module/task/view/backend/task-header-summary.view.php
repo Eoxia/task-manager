@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) || exit; ?>
 
     <?php if ( 0 !== $task->data['last_history_time']->data['id'] ) : ?>
         <?php if ( 'recursive' === $task->data['last_history_time']->data['custom'] ) : ?>
-            <span><?php esc_html_e( 'Repeated', 'task-manager' ); ?>
+            <i class="far fa-repeat wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Repeated time', 'task-manager' ); ?>"></i>
         <?php else : ?>
             <span class="wpeo-task-date tooltip hover" aria-label="<?php echo esc_html_e( 'Dead line', 'task-manager' ); ?>">
                 <i class="far fa-calendar-alt"></i>
@@ -44,6 +44,7 @@ defined( 'ABSPATH' ) || exit; ?>
 
 <?php if ( 'archive' === $task->data['status'] ) : ?>
     <li>
+        <i class="fas fa-archive"></i>
         <?php esc_html_e( 'Archived task' ,'task-manager' ); ?>
     </li>
 <?php endif; ?>

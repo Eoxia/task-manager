@@ -1,6 +1,90 @@
 @charset "UTF-8";
 /** Imports */
 /* Autres couleurs */
+.filter-activity .filter-fields {
+  background: rgba(0, 0, 0, 0.05);
+  padding: 0.4em; }
+  .filter-activity .filter-fields input, .filter-activity .filter-fields textarea, .filter-activity .filter-fields select {
+    padding: 0.4em; }
+  .filter-activity .filter-fields .wpeo-button {
+    margin: auto 0 0 auto !important; }
+
+.wpeo-project-task .activities > .content {
+  background: rgba(0, 0, 0, 0.05);
+  padding: 0.4em; }
+  .wpeo-project-task .activities > .content .tm-wrap {
+    padding: 0; }
+  .wpeo-project-task .activities > .content .activity {
+    margin: 0.2em 0;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 1em !important; }
+
+/** Affichage du jour */
+.activities .day {
+  position: relative;
+  padding: 0.6em 0;
+  clear: both;
+  display: flex;
+  flex-direction: row;
+  text-align: center; }
+  .activities .day .label {
+    font-size: 12px;
+    font-weight: 900;
+    color: #000;
+    text-transform: uppercase;
+    display: inline-block;
+    position: relative;
+    margin: auto 0;
+    padding: 0 1em; }
+  .activities .day::before, .activities .day:after {
+    display: block;
+    content: '';
+    height: 1px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    margin: auto 0; }
+
+/* bouton load more */
+/* Page indicateurs */
+/* Temps dépassé dans les indicateurs */
+#tm-indicator-time-exceeded .inside {
+  margin: 0;
+  padding: 0; }
+
+#tm-indicator-time-exceeded .filter-exceeded-time {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 0.6em; }
+  #tm-indicator-time-exceeded .filter-exceeded-time ul {
+    display: flex;
+    flex-direction: row;
+    width: 100%; }
+    #tm-indicator-time-exceeded .filter-exceeded-time ul::after {
+      display: block;
+      content: '';
+      clear: both; }
+  #tm-indicator-time-exceeded .filter-exceeded-time #min_exceeded_time {
+    width: 50px; }
+
+#tm-indicator-time-exceeded label {
+  color: rgba(0, 0, 0, 0.5); }
+  #tm-indicator-time-exceeded label i {
+    margin-right: 0.4em; }
+
+#tm-indicator-time-exceeded .tm-indicator-time-exceed {
+  width: 100%; }
+  #tm-indicator-time-exceeded .tm-indicator-time-exceed th {
+    text-align: left; }
+
+/* Activity dans les posts */
+.post-last-activity {
+  margin-left: 20px;
+  float: left;
+  width: 40%; }
+  .post-last-activity li:first-child {
+    text-align: center;
+    cursor: pointer; }
+
 .tm-wrap {
   /*--------------------------------------------------------------
 ## Fonticon
@@ -29,7 +113,16 @@ readers do not read off random characters that represent icons */
   /**
  * Modal d'ajout rapide
  * Classe parente : tm-wrap
- */ }
+ */
+  /** Avatar */
+  /** Comment container */
+  /** Comment content */
+  /** Comment action */
+  /** Edit and new */
+  /** View */
+  /* ----------------------------------
+		Temporaire pour le blink
+-----------------------------------*/ }
   .tm-wrap .fa,
   .tm-wrap .fas,
   .tm-wrap .far,
@@ -2192,7 +2285,7 @@ readers do not read off random characters that represent icons */
     transition: all 0.2s ease-out; }
     .tm-wrap .wpeo-project-task .task-color .color-element > *:hover {
       border: 1px solid rgba(0, 0, 0, 0.6); }
-  .tm-wrap .wpeo-project-task.white .wpeo-project-task-container, .tm-wrap .wpeo-project-task.white .points .point, .tm-wrap .wpeo-project-task.white .filter-activity .content .activity {
+  .tm-wrap .wpeo-project-task.white .wpeo-project-task-container, .tm-wrap .wpeo-project-task.white .points .point, .tm-wrap .wpeo-project-task.white .activities .content .activity {
     background: #fff; }
   .tm-wrap .wpeo-project-task.white .points .point .comment .tm-avatar {
     box-shadow: 0 0 0px 4px #fff; }
@@ -2209,7 +2302,7 @@ readers do not read off random characters that represent icons */
     color: #0084ff; }
     .tm-wrap .wpeo-project-task.white .points .point .comment .comment-action .save-icon:hover {
       color: #3da2ff; }
-  .tm-wrap .wpeo-project-task.red .wpeo-project-task-container, .tm-wrap .wpeo-project-task.red .points .point, .tm-wrap .wpeo-project-task.red .filter-activity .content .activity {
+  .tm-wrap .wpeo-project-task.red .wpeo-project-task-container, .tm-wrap .wpeo-project-task.red .points .point, .tm-wrap .wpeo-project-task.red .activities .content .activity {
     background: #ffa4a6; }
   .tm-wrap .wpeo-project-task.red .points .point .comment .tm-avatar {
     box-shadow: 0 0 0px 4px #ffa4a6; }
@@ -2226,7 +2319,7 @@ readers do not read off random characters that represent icons */
     color: #ff4246; }
     .tm-wrap .wpeo-project-task.red .points .point .comment .comment-action .save-icon:hover {
       color: #ff7f82; }
-  .tm-wrap .wpeo-project-task.yellow .wpeo-project-task-container, .tm-wrap .wpeo-project-task.yellow .points .point, .tm-wrap .wpeo-project-task.yellow .filter-activity .content .activity {
+  .tm-wrap .wpeo-project-task.yellow .wpeo-project-task-container, .tm-wrap .wpeo-project-task.yellow .points .point, .tm-wrap .wpeo-project-task.yellow .activities .content .activity {
     background: #ffe68c; }
   .tm-wrap .wpeo-project-task.yellow .points .point .comment .tm-avatar {
     box-shadow: 0 0 0px 4px #ffe68c; }
@@ -2243,7 +2336,7 @@ readers do not read off random characters that represent icons */
     color: #ffb200; }
     .tm-wrap .wpeo-project-task.yellow .points .point .comment .comment-action .save-icon:hover {
       color: #ffc43d; }
-  .tm-wrap .wpeo-project-task.green .wpeo-project-task-container, .tm-wrap .wpeo-project-task.green .points .point, .tm-wrap .wpeo-project-task.green .filter-activity .content .activity {
+  .tm-wrap .wpeo-project-task.green .wpeo-project-task-container, .tm-wrap .wpeo-project-task.green .points .point, .tm-wrap .wpeo-project-task.green .activities .content .activity {
     background: #a2ffc8; }
   .tm-wrap .wpeo-project-task.green .points .point .comment .tm-avatar {
     box-shadow: 0 0 0px 4px #a2ffc8; }
@@ -2260,7 +2353,7 @@ readers do not read off random characters that represent icons */
     color: #35c54e; }
     .tm-wrap .wpeo-project-task.green .points .point .comment .comment-action .save-icon:hover {
       color: #62d576; }
-  .tm-wrap .wpeo-project-task.blue .wpeo-project-task-container, .tm-wrap .wpeo-project-task.blue .points .point, .tm-wrap .wpeo-project-task.blue .filter-activity .content .activity {
+  .tm-wrap .wpeo-project-task.blue .wpeo-project-task-container, .tm-wrap .wpeo-project-task.blue .points .point, .tm-wrap .wpeo-project-task.blue .activities .content .activity {
     background: #9bcdff; }
   .tm-wrap .wpeo-project-task.blue .points .point .comment .tm-avatar {
     box-shadow: 0 0 0px 4px #9bcdff; }
@@ -2277,7 +2370,7 @@ readers do not read off random characters that represent icons */
     color: #0084ff; }
     .tm-wrap .wpeo-project-task.blue .points .point .comment .comment-action .save-icon:hover {
       color: #3da2ff; }
-  .tm-wrap .wpeo-project-task.purple .wpeo-project-task-container, .tm-wrap .wpeo-project-task.purple .points .point, .tm-wrap .wpeo-project-task.purple .filter-activity .content .activity {
+  .tm-wrap .wpeo-project-task.purple .wpeo-project-task-container, .tm-wrap .wpeo-project-task.purple .points .point, .tm-wrap .wpeo-project-task.purple .activities .content .activity {
     background: #cca4ff; }
   .tm-wrap .wpeo-project-task.purple .points .point .comment .tm-avatar {
     box-shadow: 0 0 0px 4px #cca4ff; }
@@ -2299,6 +2392,7 @@ readers do not read off random characters that represent icons */
     width: 50%;
     padding: 10px; }
     .tm-wrap .wpeo-project-task .wpeo-project-task-container {
+      background: #fff;
       box-shadow: 1px 1px 5px 0 rgba(0, 0, 0, 0.2);
       position: relative;
       transition: all 0.2s ease-out; }
@@ -2581,26 +2675,27 @@ readers do not read off random characters that represent icons */
       line-height: 1.4; }
     .tm-wrap .history-time-list .delete:hover {
       cursor: pointer; }
-  .tm-wrap .wpeo-project-task .activities {
+  .tm-wrap .activities {
     /* Activity single */ }
-    .tm-wrap .wpeo-project-task .activities > .content {
+    .tm-wrap .activities > .content {
       padding: 1em; }
-    .tm-wrap .wpeo-project-task .activities .activity {
+    .tm-wrap .activities .activity {
       padding: 0.6em 0 1.6em 0;
       display: flex;
       flex-direction: row;
+      background: #fff;
       /* Point validé */ }
-      .tm-wrap .wpeo-project-task .activities .activity .information {
+      .tm-wrap .activities .activity .information {
         width: 100%;
         max-width: 50px;
         position: relative; }
-        .tm-wrap .wpeo-project-task .activities .activity .information .tm-avatar {
+        .tm-wrap .activities .activity .information .tm-avatar {
           border-radius: 50%;
           border: 2px solid #fff;
           z-index: 50; }
-          .tm-wrap .wpeo-project-task .activities .activity .information .tm-avatar img, .tm-wrap .wpeo-project-task .activities .activity .information .tm-avatar .wpeo-avatar-initial {
+          .tm-wrap .activities .activity .information .tm-avatar img, .tm-wrap .activities .activity .information .tm-avatar .wpeo-avatar-initial {
             border-radius: 50%; }
-        .tm-wrap .wpeo-project-task .activities .activity .information .type {
+        .tm-wrap .activities .activity .information .type {
           display: block;
           width: 22px;
           height: 22px;
@@ -2613,47 +2708,50 @@ readers do not read off random characters that represent icons */
           top: 0;
           right: 4px;
           border-radius: 4px; }
-          .tm-wrap .wpeo-project-task .activities .activity .information .type:before {
+          .tm-wrap .activities .activity .information .type:before {
             font-family: FontAwesome; }
-      .tm-wrap .wpeo-project-task .activities .activity .content {
+      .tm-wrap .activities .activity .information + .content {
+        padding-left: 1em; }
+      .tm-wrap .activities .activity .content {
         width: 100%;
-        padding-left: 1em;
         margin: auto 0; }
-        .tm-wrap .wpeo-project-task .activities .activity .content .event-header {
+        .tm-wrap .activities .activity .content .event-header {
           display: flex; }
-          .tm-wrap .wpeo-project-task .activities .activity .content .event-header .dashicons {
+          .tm-wrap .activities .activity .content .event-header .dashicons {
             font-size: 16px;
             line-height: 1;
             width: 14px;
             height: 14px;
             vertical-align: top !important; }
-          .tm-wrap .wpeo-project-task .activities .activity .content .event-header .event-time {
-            margin-left: auto;
-            text-align: right; }
-            .tm-wrap .wpeo-project-task .activities .activity .content .event-header .event-time i {
+          .tm-wrap .activities .activity .content .event-header .event-time {
+            margin: auto 0 auto auto;
+            min-width: 40px; }
+            .tm-wrap .activities .activity .content .event-header .event-time [data-icon] {
               color: rgba(0, 0, 0, 0.7); }
-        .tm-wrap .wpeo-project-task .activities .activity .content .event-title, .tm-wrap .wpeo-project-task .activities .activity .content .event-client, .tm-wrap .wpeo-project-task .activities .activity .content .event-task, .tm-wrap .wpeo-project-task .activities .activity .content .event-point {
+            .tm-wrap .activities .activity .content .event-header .event-time i {
+              color: rgba(0, 0, 0, 0.7); }
+        .tm-wrap .activities .activity .content .event-title {
           font-weight: 700;
           display: block;
           margin-bottom: 0.4em;
           padding-right: 0.2em;
           color: rgba(0, 0, 0, 0.8); }
-          .tm-wrap .wpeo-project-task .activities .activity .content .event-title a, .tm-wrap .wpeo-project-task .activities .activity .content .event-client a, .tm-wrap .wpeo-project-task .activities .activity .content .event-task a, .tm-wrap .wpeo-project-task .activities .activity .content .event-point a {
+          .tm-wrap .activities .activity .content .event-title a {
             color: rgba(0, 0, 0, 0.5);
             transition: all 0.2s ease-out;
             text-decoration: none; }
-            .tm-wrap .wpeo-project-task .activities .activity .content .event-title a:hover, .tm-wrap .wpeo-project-task .activities .activity .content .event-client a:hover, .tm-wrap .wpeo-project-task .activities .activity .content .event-task a:hover, .tm-wrap .wpeo-project-task .activities .activity .content .event-point a:hover {
+            .tm-wrap .activities .activity .content .event-title a:hover {
               color: rgba(0, 0, 0, 0.8); }
-        .tm-wrap .wpeo-project-task .activities .activity .content .event-content {
+        .tm-wrap .activities .activity .content .event-content {
           font-family: 'Roboto Slab', 'Open sans', serif;
           color: rgba(0, 0, 0, 0.9); }
-          .tm-wrap .wpeo-project-task .activities .activity .content .event-content a {
+          .tm-wrap .activities .activity .content .event-content a {
             color: rgba(0, 0, 0, 0.9);
             text-decoration: none; }
-      .tm-wrap .wpeo-project-task .activities .activity.completed-point .information .type {
+      .tm-wrap .activities .activity.completed-point .information .type {
         background: #35c54e;
         color: #fff; }
-      .tm-wrap .wpeo-project-task .activities .activity.completed-point .content .event-title {
+      .tm-wrap .activities .activity.completed-point .content .event-title {
         text-decoration: line-through; }
   .tm-wrap .wpeo-project-task .wpeo-task-footer .wpeo-ul-parent {
     padding: 0 0 0.4em 0; }
@@ -2675,7 +2773,8 @@ readers do not read off random characters that represent icons */
   .tm-wrap .points .point {
     margin: 0.2em 0;
     border-radius: 8px;
-    border: 1px solid rgba(0, 0, 0, 0.1); }
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: #fff; }
     .tm-wrap .points .point:hover .wpeo-sort-point, .tm-wrap .points .point:hover .wpeo-task-setting .wpeo-task-open-action > i, .tm-wrap .points .point:hover .action-delete {
       opacity: 1 !important; }
   .tm-wrap .points .point .point-container {
@@ -2791,10 +2890,14 @@ readers do not read off random characters that represent icons */
     overflow: visible !important; }
   .tm-wrap .points .point.new .quick-point-event {
     padding: 0;
-    min-width: 30px;
+    min-width: 20px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
     background: rgba(0, 0, 0, 0.1);
     border: 0;
-    line-height: 30px;
+    overflow: visible;
+    margin-left: auto;
     transition: all 0.2s ease-out; }
     .tm-wrap .points .point.new .quick-point-event .fa-list-ul, .tm-wrap .points .point.new .quick-point-event .fa-circle {
       color: #000;
@@ -2837,6 +2940,139 @@ readers do not read off random characters that represent icons */
       display: none; }
     .tm-wrap.wpeo-modal.quick-point .point-action .point-time {
       width: 100%; }
+  .tm-wrap .tm-avatar {
+    background: #0084ff;
+    color: #fff;
+    position: relative;
+    transition: all 0.2s ease-out; }
+    .tm-wrap .tm-avatar img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%; }
+    .tm-wrap .tm-avatar .wpeo-avatar-initial {
+      display: flex;
+      height: 100%; }
+    .tm-wrap .tm-avatar span {
+      font-size: 16px;
+      text-align: center;
+      margin: auto;
+      display: inline-block;
+      width: 100%; }
+    .tm-wrap .tm-avatar:hover {
+      cursor: pointer; }
+  .tm-wrap .points .point .comments {
+    padding: 0 1.4em; }
+    .tm-wrap .points .point .comments .comment {
+      display: flex;
+      margin: 0.8em 0; }
+      .tm-wrap .points .point .comments .comment .tm-avatar {
+        min-width: 40px; }
+      .tm-wrap .points .point .comments .comment .comment-container {
+        width: 100%; }
+  .tm-wrap .points .point .comment .tm-avatar {
+    margin-top: auto;
+    margin-right: 4px;
+    margin-bottom: 3px;
+    box-shadow: 0 0 0px 4px #fff;
+    border-radius: 50%;
+    overflow: hidden;
+    z-index: 1; }
+  .tm-wrap .points .point .comment .comment-container {
+    display: flex;
+    flex-direction: row;
+    padding: 1em;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    border-bottom-left-radius: 0;
+    position: relative; }
+    .tm-wrap .points .point .comment .comment-container::after {
+      display: block;
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: -30px;
+      width: 30px;
+      height: 20px;
+      background: rgba(0, 0, 0, 0.1); }
+  .tm-wrap .points .point .comment .comment-content {
+    width: 100%;
+    max-width: 90%;
+    /** Text */
+    /** Meta */
+    /** Date */ }
+    .tm-wrap .points .point .comment .comment-content .comment-content-text {
+      transition: all 0.2s ease-out;
+      font-family: 'Roboto Slab', 'Open sans', serif;
+      width: 100%;
+      font-size: 14px;
+      position: relative;
+      line-height: 1.5;
+      color: rgba(0, 0, 0, 0.7); }
+      .tm-wrap .points .point .comment .comment-content .comment-content-text .content {
+        padding: 0.4em;
+        min-height: 30px; }
+      .tm-wrap .points .point .comment .comment-content .comment-content-text .placeholder {
+        position: absolute;
+        top: 0.4em;
+        left: 0.4em;
+        pointer-events: none;
+        font-style: italic;
+        color: rgba(0, 0, 0, 0.4); }
+    .tm-wrap .points .point .comment .comment-content .comment-meta {
+      display: flex;
+      flex-direction: row;
+      transition: all 0.2s ease-out;
+      opacity: 0;
+      height: 0px;
+      margin-top: 0.4em;
+      pointer-events: none; }
+    .tm-wrap .points .point .comment .comment-content .form-element .form-field, .tm-wrap .points .point .comment .comment-content .form-element [class*="form-field-icon"] {
+      background: none;
+      padding: 0.4em;
+      color: rgba(0, 0, 0, 0.4);
+      font-size: 12px;
+      border-bottom: 0; }
+    .tm-wrap .points .point .comment .comment-content .group-date, .tm-wrap .points .point .comment .comment-content .wpeo-comment-time, .tm-wrap .points .point .comment .comment-content [data-icon] {
+      color: rgba(0, 0, 0, 0.4);
+      font-size: 12px; }
+    .tm-wrap .points .point .comment .comment-content .group-date {
+      max-width: 230px;
+      margin-right: 0.4em; }
+  .tm-wrap .points .point .comment .comment-action {
+    margin: auto 0 auto 0.4em;
+    min-width: 10%;
+    text-align: right; }
+    .tm-wrap .points .point .comment .comment-action .save-icon {
+      font-size: 20px;
+      color: #0084ff;
+      transition: all 0.2s ease-out;
+      opacity: 0; }
+      .tm-wrap .points .point .comment .comment-action .save-icon:hover {
+        cursor: pointer;
+        color: #55b6ed; }
+  .tm-wrap .points .point .comment.edit .form-field, .tm-wrap .points .point .comment.edit [class*="form-field-icon"] {
+    background: #fff !important; }
+  .tm-wrap .points .point .comment.edit .comment-content-text .content {
+    background: #fff; }
+  .tm-wrap .points .point .comment.edit .comment-action .save-icon {
+    opacity: 1; }
+  .tm-wrap .points .point .comment.edit .comment-meta {
+    opacity: 1;
+    height: auto;
+    pointer-events: all; }
+  .tm-wrap .points .point .comment.view .comment-action .save-icon {
+    opacity: 1; }
+  .tm-wrap .points .point .comment.view .comment-meta {
+    opacity: 1;
+    height: auto;
+    pointer-events: all; }
+  .tm-wrap body .tm-wrap .blink {
+    display: block;
+    width: 100%;
+    background-color: #55b6ed;
+    opacity: 1; }
 
 /** Settings */
 .tm-wrap ul, .tm-wrap li {
