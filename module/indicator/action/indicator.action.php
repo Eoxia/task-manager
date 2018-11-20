@@ -31,7 +31,7 @@ class Indicator_Action {
 
 		add_action( 'load-toplevel_page_wpeomtm-dashboard', array( $this, 'callback_load' ) );
 		add_action( 'admin_footer-toplevel_page_wpeomtm-dashboard', array( $this, 'callback_admin_footer' ) );
-		
+
 		add_action( 'wp_ajax_mark_as_read', array( $this, 'callback_mark_as_read' ) );
 		add_action( 'tm_delete_task', array( $this, 'callback_tm_delete_task' ) );
 		add_action( 'tm_archive_task', array( $this, 'callback_tm_archive_task' ) );
@@ -68,7 +68,7 @@ class Indicator_Action {
 		</script>
 		<?php
 	}
-	
+
 	/**
 	 * Lors de la suppresion d'une tâche, enlève les ID des commentaires se trouvant dans le tableau "key_customer_ask" et dans cette tâche.
 	 *
@@ -90,7 +90,7 @@ class Indicator_Action {
 			}
 		}
 	}
-	
+
 	/**
 	 * Lorsqu'on archive une tâche, enlève les ID des commentaires se trouvant dans le tableau "key_customer_ask" et dans cette tâche.
 	 *
@@ -112,7 +112,7 @@ class Indicator_Action {
 			}
 		}
 	}
-	
+
 	/**
 	 * Lorsqu'on complète un point, enlève les ID des commentaires se trouvant dans le tableau "key_customer_ask" et correspondant à ce point.
 	 *
@@ -134,7 +134,7 @@ class Indicator_Action {
 			}
 		}
 	}
-	
+
 	/**
 	 * Lorsqu'on supprime un point, enlève les ID des commentaires se trouvant dans le tableau "key_customer_ask" et correspondant à ce point.
 	 *
@@ -156,7 +156,7 @@ class Indicator_Action {
 			}
 		}
 	}
-	
+
 	/**
 	 * Lorsqu'on écrit un commentaire, enlève les ID des commentaires se trouvant dans le tableau "key_customer_ask" et contenu dans le point de ce commentaire.
 	 *
@@ -192,7 +192,7 @@ class Indicator_Action {
 			}
 		}
 	}
-	
+
 	/**
 	 * Ajoutes l'ID d'un point ou d'un commentaire dans le tableau de la meta key_customer_ask.
 	 *
@@ -241,7 +241,7 @@ class Indicator_Action {
 		\eoxia\LOG_Util::log( sprintf( __( 'New support ticket list: %s', 'task-manager' ), wp_json_encode( $ids ) ), 'task-manager' );
 		return true;
 	}
-	
+
 	/**
 	 * Appelle la méthode remove_entry_customer_ask.
 	 *
@@ -255,7 +255,7 @@ class Indicator_Action {
 	public function callback_tm_remove_entry_customer_ask( $id ) {
 		Indicator_Class::g()->remove_entry_customer_ask( $id );
 	}
-	
+
 	/**
 	 * Met à jour le tableau des demandes des clients de WPShop.
 	 *
@@ -279,16 +279,18 @@ class Indicator_Action {
 		}
 		update_option( \eoxia\Config_Util::$init['task-manager']->key_customer_ask, $ids );
 	}
-	
+
 	public function callback_mark_as_read() {
+
 		check_ajax_referer( 'mark_as_read' );
 		$id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 		if ( empty( $id ) ) {
 			wp_send_json_error();
 		}
+
 		Indicator_Class::g()->remove_entry_customer_ask( $id );
 		wp_send_json_success( array(
-			'namespace'        => 'taskManagerBackendWPShop',
+			'namespace'        => 'taskManager',
 			'module'           => 'indicator',
 			'callback_success' => 'markedAsReadSuccess',
 		) );

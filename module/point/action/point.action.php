@@ -228,7 +228,7 @@ class Point_Action {
 			'meta_key'   => '_tm_completed',
 			'meta_value' => $completed,
 		) );
-		
+
 		$view = 'backend';
 		if ( $frontend ) {
 			$view = 'frontend';

@@ -243,7 +243,7 @@ window.eoxiaJS.taskManager.point.completePoint = function() {
 		totalUncompletedPoint--;
 		jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text( totalCompletedPoint );
 		jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-uncompleted' ).text( totalUncompletedPoint );
-		
+
 		if ( completedButton.hasClass( 'active' ) ) {
 			jQuery( this ).closest( '.point' ).attr( 'data-point-state', 'completed' );
 		} else {
@@ -255,14 +255,14 @@ window.eoxiaJS.taskManager.point.completePoint = function() {
 		totalUncompletedPoint++;
 		jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text( totalCompletedPoint );
 		jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-uncompleted' ).text( totalUncompletedPoint );
-		
+
 		if ( uncompletedButton.hasClass( 'active' ) ) {
 			jQuery( this ).closest( '.point' ).attr( 'data-point-state', 'uncompleted' );
 		} else {
 			jQuery( this ).closest( '.point' ).remove();
 		}
 	}
-	
+
 	window.eoxiaJS.refresh();
 	window.eoxiaJS.request.send( jQuery( this ), data );
 };
@@ -325,10 +325,12 @@ window.eoxiaJS.taskManager.point.movedPointTo = function( triggeredElement, resp
 	// Met à jour le temps et le nombre de point sur la tâche.
 	if ( currentTask.length ) {
 		currentTask.find( '.wpeo-task-time-info' ).find( '.elapsed' ).html( response.data.current_task_elapsed_time );
-		currentTask.find( '.wpeo-point-toggle-a' ).find( '.total-point' ).html( response.data.current_task.data.count_completed_points + response.data.current_task.data.count_uncompleted_points );
+		//currentTask.find( '.wpeo-point-toggle-a' ).find( '.total-point' ).html( response.data.current_task.data.count_completed_points + response.data.current_task.data.count_uncompleted_points );
 
 		if ( response.data.point.data.completed ) {
-			currentTask.find( '.wpeo-point-toggle-a .point-completed' ).html( response.data.current_task.data.count_completed_points );
+			currentTask.find( '.wpeo-task-filter .point-completed' ).html( response.data.current_task.data.count_completed_points );
+		}else{
+			currentTask.find( '.wpeo-task-filter .point-uncompleted' ).html( response.data.current_task.data.count_uncompleted_points );
 		}
 
 		if ( toTask.length ) {
@@ -361,11 +363,13 @@ window.eoxiaJS.taskManager.point.movedPointTo = function( triggeredElement, resp
 		toTask.find( '.point.edit[data-id=' + response.data.point.data.id + '] .point-header-action.active' ).removeClass( 'active' );
 
 		if ( response.data.point.data.point_info.completed ) {
-			toTask.find( '.wpeo-point-toggle-a .point-completed' ).html( response.data.to_task.data.count_completed_points );
+			toTask.find( '.wpeo-task-filter .point-completed' ).html( response.data.to_task.data.count_completed_points );
+		}else{
+			toTask.find( '.wpeo-task-filter .point-uncompleted' ).html( response.data.to_task.data.count_uncompleted_points );
 		}
 
 		// Met à jour le nombre de point sur la tâche reçevant le point.
-		toTask.find( '.wpeo-point-toggle-a' ).find( '.total-point' ).html( response.data.to_task.data.count_completed_points + response.data.to_task.data.count_uncompleted_points );
+		//toTask.find( '.wpeo-point-toggle-a' ).find( '.total-point' ).html( response.data.to_task.data.count_completed_points + response.data.to_task.data.count_uncompleted_points );
 	}
 
 	window.eoxiaJS.refresh();
