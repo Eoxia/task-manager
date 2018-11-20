@@ -58,9 +58,17 @@ ob_start();
 <!-- Liste des tâches effectuées -->
 <div class="daily-activity activities">
 	<div class="content">
-		<?php if ( ! empty( $datas ) ) : ?>
+		<?php if ( ! empty( $datas ) ) :
+			$last_date = null; ?>
 			<?php foreach ( $datas as $activity ) : ?>
-
+				<?php if ( mysql2date( 'd/m/Y', $activity->COM_DATE ) != $last_date ) : ?>
+					<div class="day">
+						<span class="label"><?php echo esc_html( ucfirst( mysql2date( 'l', $activity->COM_DATE ) ) . ' ' . mysql2date( 'd/m/Y', $activity->COM_DATE ) ); ?></span>
+					</div>
+				<?php endif; 
+				
+				$last_date = mysql2date( 'd/m/Y', $activity->COM_DATE ); ?>
+				
 				<div class="activity">
 					<div class="content">
 						<div class="event-header">

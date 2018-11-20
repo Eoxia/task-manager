@@ -152,7 +152,7 @@ class Task_Class extends \eoxia\Post_Class {
 				$param['status'] = str_replace( ',', '","', $param['status'] );
 			}
 		}
-
+		
 		$param = apply_filters( 'task_manager_get_tasks_args', $param );
 
 		$point_type = Point_Class::g()->get_type();
@@ -300,7 +300,7 @@ class Task_Class extends \eoxia\Post_Class {
 		$tasks[ $post->ID ]['title'] = '';
 		$tasks[ $post->ID ]['data']  = self::g()->get_tasks( array(
 			'post_parent' => $post->ID,
-			'status'      => '"any","archive"',
+			'status'      => 'publish,pending,draft,future,private,inherit,archive',
 		) );
 
 		if ( ! empty( $tasks[ $post->ID ]['data'] ) ) {
@@ -332,7 +332,7 @@ class Task_Class extends \eoxia\Post_Class {
 				$tasks[ $child->ID ]['title'] = sprintf( __( 'Task for %1$s', 'task-manager' ), $child->post_title );
 				$tasks[ $child->ID ]['data']  = self::g()->get_tasks( array(
 					'post_parent' => $child->ID,
-					'status'      => '"any","archive"',
+					'status'      => 'publish,pending,draft,future,private,inherit,archive',
 				) );
 
 				if ( empty( $tasks[ $child->ID ]['data'] ) ) {
