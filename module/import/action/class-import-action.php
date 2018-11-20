@@ -102,6 +102,10 @@ class Import_Action {
 			$response['task']    = Task_Class::g()->get( array(
 				'id' => $task_id,
 			), true );
+
+			$response['task']->data['count_uncompleted_points'] +=  count($created_elements['created']['points']);
+			Task_Class::g()->update( $response['task']->data, true );
+
 			foreach ( $created_elements['created']['points'] as $point ) {
 				ob_start();
 				\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(

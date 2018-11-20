@@ -20,7 +20,7 @@ $wp_kses_args = array(
 	),
 );
 ?><li class="point-type-display-buttons" >
-	<button class="wpeo-button button-grey active button-radius-3" data-point-state="uncompleted" 
+	<button class="wpeo-button button-grey active button-radius-3" data-point-state="uncompleted"
 		data-action="load_point"
 		data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_point' ) ); ?>"
 		data-task-id="<?php echo esc_attr( $task->data['id'] ); ?>">

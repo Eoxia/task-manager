@@ -31,7 +31,11 @@ window.eoxiaJS.taskManager.import.importSuccess = function( element, response ) 
 		window.eoxiaJS.taskManager.point.initAutoComplete();
 		window.eoxiaJS.refresh();
 		window.eoxiaJS.taskManager.core.initSafeExit( false );
+
+		task.find( '.wpeo-task-filter .point-uncompleted' ).html( response.data.task.data.count_uncompleted_points );
 	}
+
+
 
 	window.eoxiaJS.modal.close();
 };

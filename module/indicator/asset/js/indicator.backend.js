@@ -40,3 +40,7 @@ window.eoxiaJS.taskManager.indicator.toggleMetabox = function( event ) {
 window.eoxiaJS.taskManager.indicator.loadedCustomerActivity = function( triggeredElement, response ) {
 	jQuery( '#tm-indicator-activity .inside' ).html( response.data.view );
 };
+
+window.eoxiaJS.taskManager.indicator.markedAsReadSuccess = function ( triggeredElement, response ) {
+	triggeredElement.closest( '.activity' ).hide();
+}

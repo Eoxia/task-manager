@@ -82,14 +82,14 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 			$follower_searched = $follower->data['displayname'];
 			$have_search = true;
 		}
-		
+
 		$post_parent_searched = '';
-		
+
 		$post_parent = null;
-		
+
 		if ( ! empty( $post_parent_id ) ) {
 			$post_parent = get_post( $post_parent_id );
-			
+
 			$post_parent_searched = $post_parent->post_title;
 			$have_search = true;
 		}
@@ -124,7 +124,7 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 	 */
 	public function display_search_result( $term, $status, $task_id, $point_id, $post_parent, $categories_id, $user_id, $display_button = true ) {
 		$data = $this->get_search_result( $term, $status, $task_id, $point_id, $post_parent, $categories_id, $user_id );
-		
+
 		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/search-results', array(
 			'term'                 => $data['term'],
 			'task_id'              => $data['task_id'],
