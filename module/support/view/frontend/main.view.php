@@ -17,7 +17,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="wpeo-project-wrap tm-wrap">
 
 	<div class="open-ticket">
-		<i class="fa fa-question"></i>
 		<h2><?php esc_html_e( 'A request ?', 'task-manager' ); ?></h2>
 		<p>
 			<?php esc_html_e( 'Ask your question. We will answer you on the opened ticket', 'task-manager' ); ?>
