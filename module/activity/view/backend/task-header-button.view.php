@@ -26,6 +26,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_last_activity' ) ); ?>"
 		data-tasks-id="<?php echo esc_attr( $task->data['id'] ); ?>">
 
-		<i class="button-icon far fa-align-left"></i>a
+		<i class="button-icon far fa-align-left"></i>
 	</div>
 </li>

@@ -88,8 +88,6 @@ window.eoxiaJS.taskManager.comment.updateHiddenInput = function( event ) {
 	}
 
 	jQuery( this ).closest( '.comment' ).find( 'input[name="content"]' ).val( jQuery( this ).html() );
-
-	window.eoxiaJS.refresh();
 };
 
 /**

@@ -45,9 +45,8 @@ window.eoxiaJS.taskManager.activity.switchViewToLine = function( event ) {
 	var taskElement = jQuery( this ).closest( '.wpeo-project-task' );
 	taskElement.find( '.tm-task-display-method-buttons .wpeo-button.active' ).removeClass( 'active' );
 	jQuery( this ).addClass( 'active' );
-	taskElement.find( '.bloc-activities' ).hide();
-	taskElement.find( '.points.sortable' ).show();
-	window.eoxiaJS.refresh();
+	taskElement[0].querySelector( '.bloc-activities' ).style.display = 'none';
+	this.closest( '.wpeo-project-task' ).querySelector( '.points.sortable' ).style.display = 'block';
 };
 
 /**
@@ -87,7 +86,6 @@ window.eoxiaJS.taskManager.activity.loadMoreHistory = function( event ) {
 		}
 
 		window.eoxiaJS.loader.remove( element.closest( '.activities' ).find( '.load-more-history' ) );
-		window.eoxiaJS.refresh();
 	} );
 };
 
@@ -123,13 +121,11 @@ window.eoxiaJS.taskManager.activity.loadedLastActivity = function( triggeredElem
 		var taskElement = triggeredElement.closest( '.wpeo-project-task' );
 		triggeredElement.addClass( 'active' );
 		triggeredElement.closest( '.tm-task-display-method-buttons' ).find( '.list-display.active' ).removeClass( 'active' );
-		taskElement.find( '.points' ).hide();
+		triggeredElement[0].closest( '.wpeo-project-task' ).querySelector( '.points' ).style.display = 'none';
 		taskElement.find( '.bloc-activities' ).html( response.data.view ).show();
 	} else {
 		jQuery( '#wpeo-task-history-metabox .inside' ).html( response.data.view );
 	}
-
-	window.eoxiaJS.refresh();
 };
 
 /**

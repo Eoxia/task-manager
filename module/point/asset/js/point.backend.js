@@ -421,5 +421,10 @@ window.eoxiaJS.taskManager.point.undisplayPoint = function( event ) {
 	// event.preventDefault();
 	
 	jQuery( this ).removeClass( 'active' ).addClass( 'action-input' );
-	jQuery( this ).closest( '.wpeo-project-task-container' ).find( '.points .point.edit[data-point-state="' + pointState + '"]' ).remove();
+	
+	var points = this.closest( '.wpeo-project-task-container' ).querySelectorAll( '.points .point.edit[data-point-state="' + pointState + '"]' );
+	for (var key in points) {
+		points[key].remove();
+	}
+	// jQuery( this ).closest( '.wpeo-project-task-container' ).find( '.points .point.edit[data-point-state="' + pointState + '"]' ).remove();
 };
