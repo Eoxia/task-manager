@@ -135,12 +135,15 @@ class Task_Comment_Action {
 		), true );
 
 		do_action( 'tm_edit_comment', $task, $comment->data['point'], $comment );
+		
+		$point = Point_Class::g()->get( array( 'id' => $comment->data['parent_id'] ), true );
 
 		wp_send_json_success( array(
 			'time' => array(
 				'point' => $comment->data['point']->data['time_info']['elapsed'],
 				'task'  => $task->data['time_info']['elapsed'],
 			),
+			'point'            => $point,
 			'view'             => $view,
 			'namespace'        => $frontend ? 'taskManagerFrontend' : 'taskManager',
 			'module'           => 'comment',

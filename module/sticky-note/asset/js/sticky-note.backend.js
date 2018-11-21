@@ -11,7 +11,7 @@ window.eoxiaJS.taskManager.stickyNote.init = function() {
 };
 
 window.eoxiaJS.taskManager.stickyNote.event = function() {
-	jQuery( document ).on( 'blur', '.postbox div[contenteditable="true"]', window.eoxiaJS.taskManager.stickyNote.editContent );
+	jQuery( document ).on( 'blur', '.postbox.sticky-note div[contenteditable="true"]', window.eoxiaJS.taskManager.stickyNote.editContent );
 	jQuery( document ).on( 'blur keyup paste keydown click', '.postbox div[contenteditable="true"]', window.eoxiaJS.taskManager.stickyNote.updatePlaceholder );
 };
 

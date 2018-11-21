@@ -157,8 +157,8 @@ window.eoxiaJS.taskManager.comment.addedCommentSuccess = function( triggeredElem
 	triggeredElement.closest( '.comments' ).prev( '.form' ).find( '.wpeo-time-in-point' ).text( response.data.time.point );
 
 	triggeredElement.closest( 'div.point' ).find( '.comments' ).html( response.data.view );
-
-	jQuery( '.wpeo-project-task[data-id="' + response.data.comment.post_id + '"] .point[data-id="' + response.data.comment.parent_id + '"] .comment.new div.content' ).focus();
+	jQuery( '.wpeo-project-task[data-id="' + response.data.comment.data.post_id + '"] .point[data-id="' + response.data.comment.data.parent_id + '"] .comment.new div.content' ).focus();
+	jQuery( '.wpeo-project-task[data-id="' + response.data.comment.data.post_id + '"] .point[data-id="' + response.data.comment.data.parent_id + '"] .wpeo-point-summary .number-comments' ).html( response.data.point.data.count_comments );
 
 	window.eoxiaJS.refresh();
 	window.eoxiaJS.taskManager.core.initSafeExit( false );

@@ -264,10 +264,8 @@ window.eoxiaJS.taskManager.task.notifiedByMail = function( triggeredElement, res
  * @version 1.6.0
  */
 window.eoxiaJS.taskManager.task.recompiledTask = function( triggeredElement, response ) {
-	var currentStyle = triggeredElement.closest( '.wpeo-project-task' ).attr( 'style' );
-	var view         = jQuery( response.data.view );
-	view.attr( 'style', currentStyle );
-	triggeredElement.closest( '.wpeo-project-task' ).replaceWith( view );
+	triggeredElement.closest( '.wpeo-project-task' ).html( response.data.view );
+	window.eoxiaJS.refresh();
 };
 
 

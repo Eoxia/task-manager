@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div id="tm-indicator-notes-<?php echo esc_attr( $note->data['id'] ); ?>" class="postbox ">
+<div id="tm-indicator-notes-<?php echo esc_attr( $note->data['id'] ); ?>" class="postbox sticky-note">
 	<button type="button" class="handlediv" aria-expanded="true"><span class="screen-reader-text">Ouvrir/fermer la section &nbsp;</span><span class="toggle-indicator" aria-hidden="true"></span></button><h2 class="hndle ui-sortable-handle"><span>&nbsp;</span></h2>
 	<div class="inside">
 

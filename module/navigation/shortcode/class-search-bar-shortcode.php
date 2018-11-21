@@ -68,8 +68,6 @@ class Search_Bar_Shortcode {
 			'icon'         => 'fa-search',
 			'type'         => 'user',
 			'name'         => 'user_id',
-			'value'        => $user_display,
-			'hidden_value' => $param['users_id'],
 			'args' => array(
 				'role' => 'administrator',
 			)
@@ -92,8 +90,6 @@ class Search_Bar_Shortcode {
 			'icon'         => 'fa-search',
 			'type'         => 'post',
 			'name'         => 'post_parent',
-			'value'        => $parent_display,
-			'hidden_value' => $parent_id,
 			'args' => array(
 				'post_type'   => 'wpshop_customers',
 				'post_status' => array( 'publish', 'inherit', 'draft' ),
@@ -112,8 +108,6 @@ class Search_Bar_Shortcode {
 			'icon'         => 'fa-search',
 			'type'         => 'post',
 			'name'         => 'post_parent_order',
-			'value'        => $parent_display,
-			'hidden_value' => $parent_id,
 			'next_action'  => 'search_order',
 			'args' => array(
 				'post_type'   => 'wpshop_shop_order',

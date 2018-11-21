@@ -36,7 +36,7 @@ window.eoxiaJS.taskManager.point.event = function() {
 	jQuery( document ).on( 'blur paste', '.wpeo-project-task .point.edit .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.editPoint );
 	jQuery( document ).on( 'click', '.wpeo-project-task .form .completed-point', window.eoxiaJS.taskManager.point.completePoint );
 
-	jQuery( document ).on( 'click', '.point-type-display-buttons button.active', window.eoxiaJS.taskManager.point.undisplayPoint );
+	jQuery( document ).on( 'click', '.point-type-display-buttons div.active', window.eoxiaJS.taskManager.point.undisplayPoint );
 };
 
 /**
@@ -145,9 +145,11 @@ window.eoxiaJS.taskManager.point.addedPointSuccess = function( triggeredElement,
 	if ( triggeredElement.closest( '.point' ).length ) {
 		triggeredElement.closest( '.point' ).find( '.wpeo-point-new-contenteditable' ).text( '' );
 		triggeredElement.closest( '.point' ).find( 'input[name="content"]' ).val( '' );
-		triggeredElement.closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 0 );
+		triggeredElement.closest( '.point' ).find( '.quick-point-event' ).hide();
+		triggeredElement.closest( '.point' ).find( '.wpeo-point-new-btn' ).hide();
 		triggeredElement.closest( '.point' ).find( '.wpeo-point-new-btn' ).addClass( 'no-action' );
 		triggeredElement.closest( '.point' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
+		triggeredElement.closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'pointerEvents', 'auto' )
 	}
 
 	if ( response.data.point && true != response.data.point.data.completed ) {
@@ -172,7 +174,7 @@ window.eoxiaJS.taskManager.point.addedPointSuccess = function( triggeredElement,
  * @version 1.6.0
  */
 window.eoxiaJS.taskManager.point.editedPointSuccess = function( triggeredElement, response ) {
-	triggeredElement.closest( '.form' ).removeClass( 'loading' );
+	window.eoxiaJS.loader.remove( triggeredElement.closest( '.form' ) );
 };
 
 /**
@@ -185,7 +187,7 @@ window.eoxiaJS.taskManager.point.editedPointSuccess = function( triggeredElement
  */
 window.eoxiaJS.taskManager.point.editPoint = function() {
 	if ( window.eoxiaJS.taskManager.point.lastContent !== jQuery( this ).closest( '.form' ).find( '.point-content input[name="content"]' ).val() ) {
-		jQuery( this ).closest( '.form' ).addClass( 'loading' );
+		window.eoxiaJS.loader.display( jQuery( this ).closest( '.form' ) );
 		jQuery( this ).closest( '.form' ).find( '.action-input.update' ).click();
 	}
 };

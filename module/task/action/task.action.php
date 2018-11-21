@@ -427,7 +427,7 @@ class Task_Action {
 		Task_Class::g()->update( $task->data, true );
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task', array(
+		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task-only-content', array(
 			'task' => $task,
 		) );
 		wp_send_json_success( array(

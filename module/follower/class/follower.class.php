@@ -48,7 +48,7 @@ class Follower_Class extends \eoxia\User_Class {
 							array(
 								'label' => __( 'My tasks', 'task-manager' ),
 								'page'  => 'admin.php',
-								'link'  => '?page=wpeomtm-dashboard&user_id=' . get_current_user_id(),
+								'link'  => '?page=wpeomtm-dashboard&user_id=' . $user->ID(),
 							),
 						),
 					);

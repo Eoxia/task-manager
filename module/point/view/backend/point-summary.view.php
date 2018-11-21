@@ -23,5 +23,5 @@ defined( 'ABSPATH' ) || exit; ?>
 </li>
 <li>
     <i class="far fa-comment-dots"></i>
-    <?php echo esc_html( $point->data['count_comments'] ); ?>
+    <span class="number-comments"><?php echo esc_html( $point->data['count_comments'] ); ?></span>
 </li>
