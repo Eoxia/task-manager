@@ -34,7 +34,7 @@ class Sticky_Note_Action {
 	
 	public function callback_load() {
 		$notes = Sticky_Note_Class::g()->get( array(
-			'author_id' => get_current_user_id(),
+			'author' => get_current_user_id(),
 		) );
 				
 		if ( ! empty( $notes ) ) {

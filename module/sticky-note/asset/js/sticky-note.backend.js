@@ -11,8 +11,8 @@ window.eoxiaJS.taskManager.stickyNote.init = function() {
 };
 
 window.eoxiaJS.taskManager.stickyNote.event = function() {
-	jQuery( document ).on( 'blur', '.postbox.sticky-note div[contenteditable="true"]', window.eoxiaJS.taskManager.stickyNote.editContent );
-	jQuery( document ).on( 'blur keyup paste keydown click', '.postbox div[contenteditable="true"]', window.eoxiaJS.taskManager.stickyNote.updatePlaceholder );
+	jQuery( document ).on( 'blur', '.toplevel_page_wpeomtm-dashboard .postbox div[contenteditable="true"]', window.eoxiaJS.taskManager.stickyNote.editContent );
+	jQuery( document ).on( 'blur keyup paste keydown click', '.toplevel_page_wpeomtm-dashboard .postbox div[contenteditable="true"]', window.eoxiaJS.taskManager.stickyNote.updatePlaceholder );
 };
 
 window.eoxiaJS.taskManager.stickyNote.editContent = function() {
