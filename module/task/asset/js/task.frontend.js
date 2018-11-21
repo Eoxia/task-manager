@@ -7,11 +7,11 @@
 window.eoxiaJS.taskManagerFrontend.task = {};
 
 window.eoxiaJS.taskManagerFrontend.task.init = function() {
-	jQuery( '.list-task' ).masonry( {
-		itemSelector: '.wpeo-project-task'
+	jQuery( '.list-task' ).colcade( {
+		items: '.wpeo-project-task',
+		columns: '.grid-col'
 	} );
 };
 
 window.eoxiaJS.taskManagerFrontend.task.refresh = function() {
-	jQuery( '.list-task' ).masonry( 'layout' );
 };

@@ -39,7 +39,7 @@ body.toplevel_page_wpeomtm-dashboard {
 	/*--------------------------------------------------------------
 	# Font
 	--------------------------------------------------------------*/
-	@import "font/font";
+	// @import "font/font";
 
 	/*--------------------------------------------------------------
 	# Modules
@@ -65,3 +65,8 @@ body.toplevel_page_wpeomtm-dashboard {
 # Modules externes du Framework
 --------------------------------------------------------------*/
 @import "external/external.scss";
+
+.grid-col {
+	float: left;
+	width: 50%;
+}

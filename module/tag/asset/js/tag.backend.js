@@ -37,9 +37,6 @@ window.eoxiaJS.taskManager.tag.before_load_tags = function( element ) {
 window.eoxiaJS.taskManager.tag.archivedTaskSuccess = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).remove();
 
-	if ( jQuery().masonry ) {
-		jQuery( '.list-task' ).masonry( 'remove', triggeredElement.closest( '.wpeo-project-task' ) );
-	}
 	window.eoxiaJS.refresh();
 };
 
@@ -57,9 +54,6 @@ window.eoxiaJS.taskManager.tag.archivedTaskSuccess = function( triggeredElement,
 window.eoxiaJS.taskManager.tag.unarchivedTaskSuccess = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).remove();
 
-	if ( jQuery().masonry ) {
-		jQuery( '.list-task' ).masonry( 'remove', triggeredElement.closest( '.wpeo-project-task' ) );
-	}
 	window.eoxiaJS.refresh();
 };
 
@@ -93,35 +87,6 @@ window.eoxiaJS.taskManager.tag.loadedTagSuccess = function( element, response ) 
 window.eoxiaJS.taskManager.tag.closedTagEditMode = function( element, response ) {
 	element.closest( '.wpeo-tag-wrap' ).replaceWith( response.data.view );
 	window.eoxiaJS.refresh();
-};
-
-/**
- * Le callback en cas de réussite à la requête Ajax "load_archived_task".
- * Remplaces le contenu de list-task.
- *
- * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
- * @param  {Object}         response          Les données renvoyées par la requête Ajax.
- * @return {void}
- *
- * @since 1.0.0
- * @version 1.0.0
- */
-window.eoxiaJS.taskManager.tag.loadedArchivedTask = function( triggeredElement, response ) {
-	jQuery( '.tm-wrap .load-more' ).remove();
-
-	if ( jQuery().masonry ) {
-		jQuery( '.list-task' ).masonry( 'remove', jQuery( '.wpeo-project-task' ) );
-	}
-	jQuery( '.list-task' ).replaceWith( response.data.view );
-
-	if ( jQuery().masonry ) {
-		jQuery( '.list-task' ).masonry();
-	}
-	window.eoxiaJS.taskManager.task.offset = 0;
-	window.eoxiaJS.taskManager.task.canLoadMore = true;
-
-	jQuery( '.wpeo-header-bar li.active' ).removeClass( 'active' );
-	jQuery( triggeredElement ).addClass( 'active' );
 };
 
 /**
@@ -185,11 +150,7 @@ window.eoxiaJS.taskManager.tag.affectedTagSuccess = function( element, response 
 	element.attr( 'data-nonce', response.data.nonce );
 
 	if ( response.data.go_to_archive ) {
-		element.closest( '.wpeo-project-task' ).remove();
-
-		if ( jQuery().masonry ) {
-			jQuery( '.list-task' ).masonry( 'remove', element.closest( '.wpeo-project-task' ) );
-		}
+		element.closest( '.wpeo-project-task' ).hide();
 
 		window.eoxiaJS.refresh();
 	}
@@ -213,9 +174,6 @@ window.eoxiaJS.taskManager.tag.unaffectedTagSuccess = function( element, respons
 	if ( response.data.go_to_all_task ) {
 		element.closest( '.wpeo-project-task' ).remove();
 
-		if ( jQuery().masonry ) {
-			jQuery( '.list-task' ).masonry( 'remove', element.closest( '.wpeo-project-task' ) );
-		}
 		window.eoxiaJS.refresh();
 	}
 };

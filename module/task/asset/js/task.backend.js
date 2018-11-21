@@ -10,22 +10,22 @@ window.eoxiaJS.taskManager.task.canLoadMore = true;
 
 window.eoxiaJS.taskManager.task.init = function() {
 	window.eoxiaJS.taskManager.task.event();
-	jQuery( '.list-task' ).masonry( {
-		itemSelector: '.wpeo-project-task'
+	jQuery( '.list-task' ).colcade( {
+		items: '.wpeo-project-task',
+		columns: '.grid-col'
 	} );
 
 	window.eoxiaJS.taskManager.task.initAutoComplete();
 };
 
 window.eoxiaJS.taskManager.task.refresh = function() {
-	jQuery( '.list-task' ).masonry( 'layout' );
 	window.eoxiaJS.taskManager.task.initAutoComplete();
 };
 
 window.eoxiaJS.taskManager.task.event = function() {
 	// jQuery( '.tm-wrap' ).on( 'keypress', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.keyEnterEditTitle );
 	jQuery( '.tm-wrap' ).on( 'blur', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.editTitle );
-	jQuery( window ).scroll( window.eoxiaJS.taskManager.task.onScrollLoadMore );
+	// jQuery( window ).scroll( window.eoxiaJS.taskManager.task.onScrollLoadMore );
 	jQuery( '.tm-wrap' ).on( 'click', '.task-header-action .success span', window.eoxiaJS.taskManager.task.closeSuccess );
 	jQuery( '#poststuff' ).on( 'click', '#wpeo-task-metabox', window.eoxiaJS.taskManager.task.refresh );
 };
@@ -74,24 +74,6 @@ window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
 			window.eoxiaJS.request.send( jQuery( '.load-more' ), data );
 		}
 	}
-};
-
-/**
- * Le callback en cas de réussite à la requête Ajax "load_more_task".
- *
- * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
- * @param  {Object}         response          Les données renvoyées par la requête Ajax.
- * @return {void}
- *
- * @since 1.0.0.0
- * @version 1.3.6.0
- */
-window.eoxiaJS.taskManager.task.loadedMoreTask = function( triggeredElement, response ) {
-	var element = jQuery( response.data.view );
-	jQuery( '.load-more' ).hide();
-	jQuery( '.list-task' ).append( element ).masonry( 'appended', element );
-	window.eoxiaJS.taskManager.task.canLoadMore = response.data.can_load_more;
-	window.eoxiaJS.refresh();
 };
 
 /**
@@ -148,8 +130,7 @@ window.eoxiaJS.taskManager.task.keyEnterEditTitle = function( event ) {
 window.eoxiaJS.taskManager.task.createdTaskSuccess = function( element, response ) {
 	var element = jQuery( response.data.view );
 	window.eoxiaJS.taskManager.task.offset++;
-	jQuery( '.list-task' ).prepend( element ).masonry( 'prepended', element );
-	window.eoxiaJS.refresh();
+	jQuery( '.list-task' ).colcade( 'prepend', element );
 };
 
 /**
@@ -163,10 +144,7 @@ window.eoxiaJS.taskManager.task.createdTaskSuccess = function( element, response
  * @version 1.3.6.0
  */
 window.eoxiaJS.taskManager.task.deletedTaskSuccess = function( element, response ) {
-	jQuery( '.list-task' ).masonry( 'remove', element.closest( '.wpeo-project-task' ) );
-	jQuery( element ).closest( '.wpeo-project-task' ).remove();
-
-	window.eoxiaJS.refresh();
+	element.closest( '.wpeo-project-task' ).hide();
 };
 
 /**
@@ -187,30 +165,6 @@ window.eoxiaJS.taskManager.task.beforeChangeColor = function( triggeredElement, 
 };
 
 /**
- * Le callback en cas de réussite à la requête Ajax "load_all_task".
- *
- * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
- * @param  {Object}         response          Les données renvoyées par la requête Ajax.
- * @return {void}
- *
- * @since 1.0.0.0
- * @version 1.3.6.0
- */
-window.eoxiaJS.taskManager.task.loadedAllTask = function( triggeredElement, response ) {
-	jQuery( '.tm-wrap .load-more' ).remove();
-
-	jQuery( '.list-task' ).masonry( 'remove', jQuery( '.wpeo-project-task' ) );
-	jQuery( '.list-task' ).replaceWith( response.data.view );
-	jQuery( '.list-task' ).masonry();
-	window.eoxiaJS.taskManager.task.offset = 0;
-	window.eoxiaJS.taskManager.task.canLoadMore = true;
-
-	jQuery( '.wpeo-header-bar li.active' ).removeClass( 'active' );
-	jQuery( triggeredElement ).addClass( 'active' );
-	window.eoxiaJS.refresh();
-};
-
-/**
  * Le callback en cas de réussite à la requête Ajax "move_task_to".
  *
  * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
@@ -221,23 +175,7 @@ window.eoxiaJS.taskManager.task.loadedAllTask = function( triggeredElement, resp
  * @version 1.3.6.0
  */
 window.eoxiaJS.taskManager.task.movedTaskTo = function( triggeredElement, response ) {
-	jQuery( '.list-task' ).masonry( 'remove', triggeredElement.closest( '.wpeo-project-task' ) );
-	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).remove();
-	window.eoxiaJS.refresh();
-};
-
-window.eoxiaJS.taskManager.task.loadedCorretiveTaskSuccess = function( triggeredElement, response ) {
-
-	jQuery( '.list-task' ).masonry( 'remove', jQuery( '.wpeo-project-task' ) );
-	jQuery( '.list-task' ).replaceWith( response.data.view );
-	jQuery( '.list-task' ).masonry();
-	window.eoxiaJS.taskManager.task.offset = 0;
-	window.eoxiaJS.taskManager.task.canLoadMore = true;
-	jQuery( '.tm-wrap .load-more' ).remove();
-
-	jQuery( '.wpeo-header-bar li.active' ).removeClass( 'active' );
-	jQuery( triggeredElement ).addClass( 'active' );
-	window.eoxiaJS.refresh();
+	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).hide();
 };
 
 /**
@@ -265,7 +203,6 @@ window.eoxiaJS.taskManager.task.notifiedByMail = function( triggeredElement, res
  */
 window.eoxiaJS.taskManager.task.recompiledTask = function( triggeredElement, response ) {
 	triggeredElement.closest( '.wpeo-project-task' ).html( response.data.view );
-	window.eoxiaJS.refresh();
 };
 
 

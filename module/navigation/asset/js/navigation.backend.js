@@ -100,9 +100,11 @@ window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredEleme
 	window.eoxiaJS.loader.remove( jQuery( '.wpeo-general-search' ) );
 	
 	jQuery( '.tm-dashboard-shortcuts .active' ).removeClass( 'active' );
-	jQuery( '.list-task' ).masonry( 'remove', jQuery( '.wpeo-project-task' ) );
 	jQuery( '.list-task' ).replaceWith( response.data.view.tasks );
-	jQuery( '.list-task' ).masonry();
+	jQuery( '.list-task' ).colcade( {
+		items: '.wpeo-project-task',
+		columns: '.grid-col'
+	} );
 	jQuery( '.search-results' ).replaceWith( response.data.view.search_result );
 	window.eoxiaJS.taskManager.task.offset = 0;
 	window.eoxiaJS.taskManager.task.canLoadMore = true;
@@ -114,8 +116,6 @@ window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredEleme
 	}
 	
 	triggeredElement.closest( '.wpeo-dropdown' ).removeClass( 'dropdown-active' );
-
-	window.eoxiaJS.refresh();
 };
 
 window.eoxiaJS.taskManager.navigation.createdShortcutSuccess = function( triggeredElement, response ) {

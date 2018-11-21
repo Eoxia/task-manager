@@ -22,6 +22,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php	if ( ! empty( $tasks ) ) : ?>
 		<div class="wpeo-project-wrap">
 			<div class="list-task">
+			<div class="grid-col grid-col--1"></div>
+			<div class="grid-col grid-col--2"></div>
 			<?php foreach ( $tasks as $key => $data ) : ?>
 				<?php if ( ! empty( $data['title'] ) ) : ?>
 					<hr/><h2><?php echo esc_html( $data['title'] ); ?></h2>

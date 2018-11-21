@@ -157,7 +157,6 @@ window.eoxiaJS.taskManager.point.addedPointSuccess = function( triggeredElement,
 	}
 
 	window.eoxiaJS.taskManager.point.initAutoComplete();
-	window.eoxiaJS.refresh();
 	triggeredElement.trigger( 'addedPointSuccess' );
 	window.eoxiaJS.taskManager.core.initSafeExit( false );
 };
@@ -217,7 +216,6 @@ window.eoxiaJS.taskManager.point.deletedPointSuccess = function( triggeredElemen
 	jQuery( triggeredElement ).closest( '.wpeo-project-task.mask' ).removeClass( 'mask' );
 
 	jQuery( triggeredElement ).closest( 'div.point.edit' ).fadeOut( 400, function() {
-		window.eoxiaJS.refresh();
 	} );
 };
 
@@ -265,7 +263,6 @@ window.eoxiaJS.taskManager.point.completePoint = function() {
 		}
 	}
 
-	window.eoxiaJS.refresh();
 	window.eoxiaJS.request.send( jQuery( this ), data );
 };
 
@@ -373,8 +370,6 @@ window.eoxiaJS.taskManager.point.movedPointTo = function( triggeredElement, resp
 		// Met à jour le nombre de point sur la tâche reçevant le point.
 		//toTask.find( '.wpeo-point-toggle-a' ).find( '.total-point' ).html( response.data.to_task.data.count_completed_points + response.data.to_task.data.count_uncompleted_points );
 	}
-
-	window.eoxiaJS.refresh();
 };
 
 /**
@@ -412,7 +407,6 @@ window.eoxiaJS.taskManager.point.afterTriggerChangeDate = function( triggeredEle
 window.eoxiaJS.taskManager.point.loadedPoint = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).addClass( 'active' ).removeClass( 'action-input' );
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.points .point:not(.edit)' ).after( response.data.view );
-	window.eoxiaJS.refresh();
 };
 
 /**
@@ -424,9 +418,8 @@ window.eoxiaJS.taskManager.point.loadedPoint = function( triggeredElement, respo
  */
 window.eoxiaJS.taskManager.point.undisplayPoint = function( event ) {
 	var pointState = jQuery( this ).attr( 'data-point-state' );
-	event.preventDefault();
+	// event.preventDefault();
+	
 	jQuery( this ).removeClass( 'active' ).addClass( 'action-input' );
 	jQuery( this ).closest( '.wpeo-project-task-container' ).find( '.points .point.edit[data-point-state="' + pointState + '"]' ).remove();
-
-	window.eoxiaJS.refresh();
 };

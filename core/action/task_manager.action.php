@@ -83,7 +83,7 @@ class Task_Manager_Action {
 
 					wp_enqueue_style( 'task-manager-roboto-font', 'https://fonts.googleapis.com/css?family=Roboto+Slab' );
 
-					wp_enqueue_script( 'task-manager-masonry', PLUGIN_TASK_MANAGER_URL . 'core/assets/js/masonry.min.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
+					wp_enqueue_script( 'task-manager-colcade', PLUGIN_TASK_MANAGER_URL . 'core/assets/js/colcade.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
 					wp_enqueue_script( 'task-manager-script', PLUGIN_TASK_MANAGER_URL . 'core/assets/js/backend.min.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
 					wp_localize_script( 'task-manager-script', 'taskManager', array(
 						'updateManagerUrlPage'      => 'admin_page_' . \eoxia\Config_Util::$init['task-manager']->update_page_url,
@@ -117,7 +117,7 @@ class Task_Manager_Action {
 			wp_enqueue_style( 'task-manager-datepicker', PLUGIN_TASK_MANAGER_URL . 'core/assets/css/datepicker.min.css', array(), \eoxia\Config_Util::$init['task-manager']->version );
 		}
 		
-		wp_enqueue_script( 'task-manager-masonry', PLUGIN_TASK_MANAGER_URL . 'core/assets/js/masonry.min.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
+		wp_enqueue_script( 'task-manager-colcade', PLUGIN_TASK_MANAGER_URL . 'core/assets/js/colcade.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
 
 		wp_register_style( 'task-manager-frontend-style', PLUGIN_TASK_MANAGER_URL . 'core/assets/css/frontend.css', array(), \eoxia\Config_Util::$init['task-manager']->version );
 		wp_enqueue_style( 'task-manager-frontend-style' );

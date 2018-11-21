@@ -16,6 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <div class="list-task">
+	<div class="grid-col grid-col--1"></div>
+	<div class="grid-col grid-col--2"></div>
+	
 	<?php if ( ! empty( $tasks ) && ! empty( $tasks[0] ) ) : ?>
 			<?php
 			foreach ( $tasks as $task ) :
