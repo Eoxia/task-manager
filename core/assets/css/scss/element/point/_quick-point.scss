@@ -4,29 +4,33 @@
 		overflow: visible !important
 	}
 	.quick-point-event {
+		position: relative;
 		padding: 0;
 		min-width: 20px;
 		width: 20px;
 		height: 20px;
-		line-height: 20px;
+		line-height: 18px;
 		background: rgba(0,0,0,0.1);
 		border: 0;
 		overflow: visible;
 		margin-left: auto;
 		@include transition();
 
-		.fa-list-ul, .fa-circle {
+		.fa-plus-circle {
+			position: absolute;
+			top: -2px;
+			right: -4px;
+		}
+
+		.fa-list-ul, .fa-plus-circle {
 			color: #000;
 			opacity: 0.4;
 			@include transition();
 		}
-		.fa-plus {
-			color: #fff;
-		}
 		&:hover {
 			cursor: pointer;
 
-			.fa-list-ul, .fa-circle {
+			.fa-list-ul, .fa-plus-circle {
 				opacity: 0.7;
 			}
 		}

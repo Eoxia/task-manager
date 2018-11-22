@@ -112,14 +112,15 @@
 	text-align: right;
 
 	.save-icon {
-		font-size: 20px;
-		color: $color__primary;
+		background: $color__primary;
 		@include transition();
+		border: 0;
 		opacity: 0;
+		line-height: 26px;
 
 		&:hover {
 			cursor: pointer;
-			color: $color__primary-light;
+			background: $color__primary-light;
 		}
 	}
 }

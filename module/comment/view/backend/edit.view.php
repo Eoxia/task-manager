@@ -37,12 +37,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		</div><!-- .comment-content -->
 		<div class="comment-action">
-			<div class="fa-layers fa-fw save-icon action-input"
+			<div class="fa-layers fa-fw save-icon action-input wpeo-button button-rounded button-square-30"
 				data-parent="comment"
 				data-action="edit_comment">
 
-				<i class="fas fa-circle"></i>
-				<i class="fa-inverse fas fa-save" data-fa-transform="shrink-6"></i>
+				<i class="button-icon fas fa-save"></i>
 			</div>
 		</div>
 	</div>

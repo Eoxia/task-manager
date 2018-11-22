@@ -49,10 +49,10 @@ $purple: #7c41c7;
 		border-color: $color__primary;
 	}
 	.points .point .comment .comment-action .save-icon {
-		color: $color__primary;
+		background: $color__primary;
 
 		&:hover {
-			color: lighten( $color__primary, 12% );
+			background: lighten( $color__primary, 12% );
 		}
 	}
 }
@@ -77,10 +77,10 @@ $purple: #7c41c7;
 		border-color: $red;
 	}
 	.points .point .comment .comment-action .save-icon {
-		color: $red;
+		background: $red;
 
 		&:hover {
-			color: lighten( $red, 12% );
+			background: lighten( $red, 12% );
 		}
 	}
 }
@@ -105,10 +105,10 @@ $purple: #7c41c7;
 		border-color: $yellow;
 	}
 	.points .point .comment .comment-action .save-icon {
-		color: $yellow;
+		background: $yellow;
 
 		&:hover {
-			color: lighten( $yellow, 12% );
+			background: lighten( $yellow, 12% );
 		}
 	}
 }
@@ -133,10 +133,10 @@ $purple: #7c41c7;
 		border-color: $green;
 	}
 	.points .point .comment .comment-action .save-icon {
-		color: $green;
+		background: $green;
 
 		&:hover {
-			color: lighten( $green, 12% );
+			background: lighten( $green, 12% );
 		}
 	}
 }
@@ -161,10 +161,10 @@ $purple: #7c41c7;
 		border-color: $blue;
 	}
 	.points .point .comment .comment-action .save-icon {
-		color: $blue;
+		background: $blue;
 
 		&:hover {
-			color: lighten( $blue, 12% );
+			background: lighten( $blue, 12% );
 		}
 	}
 }
@@ -189,10 +189,10 @@ $purple: #7c41c7;
 		border-color: $purple;
 	}
 	.points .point .comment .comment-action .save-icon {
-		color: $purple;
+		background: $purple;
 
 		&:hover {
-			color: lighten( $purple, 12% );
+			background: lighten( $purple, 12% );
 		}
 	}
 }

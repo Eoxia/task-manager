@@ -331,9 +331,9 @@ body.toplevel_page_wpeomtm-dashboard #wpcontent {
     background: #0084ff;
     border-color: #0084ff; }
   .tm-wrap .wpeo-project-task.white .points .point .comment .comment-action .save-icon {
-    color: #0084ff; }
+    background: #0084ff; }
     .tm-wrap .wpeo-project-task.white .points .point .comment .comment-action .save-icon:hover {
-      color: #3da2ff; }
+      background: #3da2ff; }
   .tm-wrap .wpeo-project-task.red .wpeo-project-task-container, .tm-wrap .wpeo-project-task.red .points .point, .tm-wrap .wpeo-project-task.red .activities .content .activity {
     background: #ffa4a6; }
   .tm-wrap .wpeo-project-task.red .points .point .comment .tm-avatar {
@@ -348,9 +348,9 @@ body.toplevel_page_wpeomtm-dashboard #wpcontent {
     background: #ff4246;
     border-color: #ff4246; }
   .tm-wrap .wpeo-project-task.red .points .point .comment .comment-action .save-icon {
-    color: #ff4246; }
+    background: #ff4246; }
     .tm-wrap .wpeo-project-task.red .points .point .comment .comment-action .save-icon:hover {
-      color: #ff7f82; }
+      background: #ff7f82; }
   .tm-wrap .wpeo-project-task.yellow .wpeo-project-task-container, .tm-wrap .wpeo-project-task.yellow .points .point, .tm-wrap .wpeo-project-task.yellow .activities .content .activity {
     background: #ffe68c; }
   .tm-wrap .wpeo-project-task.yellow .points .point .comment .tm-avatar {
@@ -365,9 +365,9 @@ body.toplevel_page_wpeomtm-dashboard #wpcontent {
     background: #ffb200;
     border-color: #ffb200; }
   .tm-wrap .wpeo-project-task.yellow .points .point .comment .comment-action .save-icon {
-    color: #ffb200; }
+    background: #ffb200; }
     .tm-wrap .wpeo-project-task.yellow .points .point .comment .comment-action .save-icon:hover {
-      color: #ffc43d; }
+      background: #ffc43d; }
   .tm-wrap .wpeo-project-task.green .wpeo-project-task-container, .tm-wrap .wpeo-project-task.green .points .point, .tm-wrap .wpeo-project-task.green .activities .content .activity {
     background: #a2ffc8; }
   .tm-wrap .wpeo-project-task.green .points .point .comment .tm-avatar {
@@ -382,9 +382,9 @@ body.toplevel_page_wpeomtm-dashboard #wpcontent {
     background: #35c54e;
     border-color: #35c54e; }
   .tm-wrap .wpeo-project-task.green .points .point .comment .comment-action .save-icon {
-    color: #35c54e; }
+    background: #35c54e; }
     .tm-wrap .wpeo-project-task.green .points .point .comment .comment-action .save-icon:hover {
-      color: #62d576; }
+      background: #62d576; }
   .tm-wrap .wpeo-project-task.blue .wpeo-project-task-container, .tm-wrap .wpeo-project-task.blue .points .point, .tm-wrap .wpeo-project-task.blue .activities .content .activity {
     background: #9bcdff; }
   .tm-wrap .wpeo-project-task.blue .points .point .comment .tm-avatar {
@@ -399,9 +399,9 @@ body.toplevel_page_wpeomtm-dashboard #wpcontent {
     background: #0084ff;
     border-color: #0084ff; }
   .tm-wrap .wpeo-project-task.blue .points .point .comment .comment-action .save-icon {
-    color: #0084ff; }
+    background: #0084ff; }
     .tm-wrap .wpeo-project-task.blue .points .point .comment .comment-action .save-icon:hover {
-      color: #3da2ff; }
+      background: #3da2ff; }
   .tm-wrap .wpeo-project-task.purple .wpeo-project-task-container, .tm-wrap .wpeo-project-task.purple .points .point, .tm-wrap .wpeo-project-task.purple .activities .content .activity {
     background: #cca4ff; }
   .tm-wrap .wpeo-project-task.purple .points .point .comment .tm-avatar {
@@ -416,9 +416,9 @@ body.toplevel_page_wpeomtm-dashboard #wpcontent {
     background: #7c41c7;
     border-color: #7c41c7; }
   .tm-wrap .wpeo-project-task.purple .points .point .comment .comment-action .save-icon {
-    color: #7c41c7; }
+    background: #7c41c7; }
     .tm-wrap .wpeo-project-task.purple .points .point .comment .comment-action .save-icon:hover {
-      color: #9d70d5; }
+      background: #9d70d5; }
   .tm-wrap .tm-dashboard-surheader .wpeo-form {
     position: relative;
     /** Dropdown */ }
@@ -1075,25 +1075,28 @@ body.toplevel_page_wpeomtm-dashboard #wpcontent {
   .tm-wrap .points .point.new svg {
     overflow: visible !important; }
   .tm-wrap .points .point.new .quick-point-event {
+    position: relative;
     padding: 0;
     min-width: 20px;
     width: 20px;
     height: 20px;
-    line-height: 20px;
+    line-height: 18px;
     background: rgba(0, 0, 0, 0.1);
     border: 0;
     overflow: visible;
     margin-left: auto;
     transition: all 0.2s ease-out; }
-    .tm-wrap .points .point.new .quick-point-event .fa-list-ul, .tm-wrap .points .point.new .quick-point-event .fa-circle {
+    .tm-wrap .points .point.new .quick-point-event .fa-plus-circle {
+      position: absolute;
+      top: -2px;
+      right: -4px; }
+    .tm-wrap .points .point.new .quick-point-event .fa-list-ul, .tm-wrap .points .point.new .quick-point-event .fa-plus-circle {
       color: #000;
       opacity: 0.4;
       transition: all 0.2s ease-out; }
-    .tm-wrap .points .point.new .quick-point-event .fa-plus {
-      color: #fff; }
     .tm-wrap .points .point.new .quick-point-event:hover {
       cursor: pointer; }
-      .tm-wrap .points .point.new .quick-point-event:hover .fa-list-ul, .tm-wrap .points .point.new .quick-point-event:hover .fa-circle {
+      .tm-wrap .points .point.new .quick-point-event:hover .fa-list-ul, .tm-wrap .points .point.new .quick-point-event:hover .fa-plus-circle {
         opacity: 0.7; }
   .tm-wrap.wpeo-modal.quick-point .point-container {
     display: flex; }
@@ -1209,13 +1212,14 @@ body.toplevel_page_wpeomtm-dashboard #wpcontent {
     min-width: 10%;
     text-align: right; }
     .tm-wrap .points .point .comment .comment-action .save-icon {
-      font-size: 20px;
-      color: #0084ff;
+      background: #0084ff;
       transition: all 0.2s ease-out;
-      opacity: 0; }
+      border: 0;
+      opacity: 0;
+      line-height: 26px; }
       .tm-wrap .points .point .comment .comment-action .save-icon:hover {
         cursor: pointer;
-        color: #55b6ed; }
+        background: #55b6ed; }
   .tm-wrap .points .point .comment.edit .form-field, .tm-wrap .points .point .comment.edit [class*="form-field-icon"] {
     background: #fff !important; }
   .tm-wrap .points .point .comment.edit .comment-content-text .content {
@@ -1237,6 +1241,8 @@ body.toplevel_page_wpeomtm-dashboard #wpcontent {
     width: 100%;
     background-color: #55b6ed;
     opacity: 1; }
+  .tm-wrap .wpeo-project-task .bloc-activities .activities-filter {
+    margin: 0.6em 0 0em 0; }
   .tm-wrap .filter-activity .filter-fields {
     background: rgba(0, 0, 0, 0.05);
     padding: 0.4em; }
@@ -1244,9 +1250,12 @@ body.toplevel_page_wpeomtm-dashboard #wpcontent {
       padding: 0.4em; }
     .tm-wrap .filter-activity .filter-fields .wpeo-button {
       margin: auto 0 0 auto !important; }
-  .tm-wrap .wpeo-project-task .activities > .content {
+  .tm-wrap .wpeo-project-task .bloc-activities {
     background: rgba(0, 0, 0, 0.05);
-    padding: 0.4em; }
+    text-align: center; }
+  .tm-wrap .wpeo-project-task .activities > .content {
+    padding: 0.4em;
+    text-align: left; }
     .tm-wrap .wpeo-project-task .activities > .content .tm-wrap {
       padding: 0; }
     .tm-wrap .wpeo-project-task .activities > .content .activity {
@@ -1352,7 +1361,7 @@ body.toplevel_page_wpeomtm-dashboard #wpcontent {
     left: 100px;
     top: -45px; }
   .tm-wrap .daily-activity > .content {
-    padding: 0 !important; }
+    padding: 0; }
   .tm-wrap .daily-activity .activity {
     margin-bottom: 1em;
     padding-bottom: 1em;
