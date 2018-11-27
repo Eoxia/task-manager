@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <div style="width: 100%;text-align:center;">
-	<a style="text-decoration: none; background: #389af6;border: 0;-webkit-box-shadow: none;box-shadow: none;display: inline-block;margin: .4em auto;color: #fff;padding: 1em;"href="<?php echo esc_attr( $permalink . '?account_dashboard_part=support' ); ?>"><?php esc_html_e( 'Access my full support', 'task-manager' ); ?></a>
+	<a style="text-decoration: none; background: #389af6;border: 0;-webkit-box-shadow: none;box-shadow: none;display: inline-block;margin: .4em auto;color: #fff;padding: 1em;" href="<?php echo esc_attr( $permalink . '?account_dashboard_part=support' ); ?>"><?php esc_html_e( 'Access my full support', 'task-manager' ); ?></a>
 </div>
 
 <div>
@@ -24,37 +24,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php
 	if ( ! empty( $datas ) ) :
-		foreach ( $datas as $date => $data ) :
-			if ( ! empty( $data ) && is_array( $data ) ) :
-				foreach ( $data as $time => $elements ) :
-					if ( ! empty( $elements ) ) :
-						foreach ( $elements as $element ) :
-							?>
-							<div style="display: block; margin: 2em 0; border-bottom: 1px solid rgba(0,0,0,0.1);">
-								<p style="font-weight: 700;">
-									<span><?php echo esc_html( ucfirst( mysql2date( 'l', $date ) ) . ' ' . mysql2date( 'd/m/Y', $date ) ); ?></span>
-									<span><?php echo esc_html( ' ' . substr( $time, 0, -3 ) ); echo esc_html( ', ' . $element->data['displayed_username'] ); ?></span>
-									<span><?php \eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/mail/action-' . $element->data['view'], array(
-										'element' => $element,
-									) ); ?></span>
-								</p>
-								<div>
-									<?php
-									\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/mail/' . $element->data['view'], array(
-										'element' => $element,
-									) );
-									?>
-								</div>
-							</div>
-							<?php
-
-						endforeach;
-					endif;
-				endforeach;
-			endif;
+		$last_date = null;
+		foreach ( $datas as $activity ) :
+			?>
+			<div style="display: block; margin: 2em 0; border-bottom: 1px solid rgba(0,0,0,0.1);">
+				<p style="font-weight: 700;">
+					<span>
+						<?php echo esc_html( ucfirst( mysql2date( 'l', $activity->COM_DATE ) ) . ' ' . mysql2date( 'd/m/Y', $activity->COM_DATE ) ); ?>
+						&nbsp;à <?php echo esc_html( mysql2date( 'H\hi', $activity->COM_DATE, true ) ); ?> sur le point
+						<?php echo '#' . $activity->POINT_ID . ' ' .  $activity->POINT_title; ?>
+					</span>
+				</p>
+				<div>
+					<?php echo $activity->COM_title; ?>
+				</div>
+			</div>
+			<?php
+			$last_date = mysql2date( 'd/m/Y', $activity->COM_DATE );
 		endforeach;
 	else :
-		echo esc_html_e( 'End of history', 'task-manager' );
+		echo esc_html_e( 'No activity for now', 'task-manager' );
 	endif;
 	?>
 </div>

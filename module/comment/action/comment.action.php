@@ -137,6 +137,10 @@ class Task_Comment_Action {
 		do_action( 'tm_edit_comment', $task, $comment->data['point'], $comment );
 		
 		$point = Point_Class::g()->get( array( 'id' => $comment->data['parent_id'] ), true );
+		
+		if ( $frontend ) {
+			do_action( 'tm_action_after_comment_update', $comment->data['id'] );
+		}
 
 		wp_send_json_success( array(
 			'time' => array(

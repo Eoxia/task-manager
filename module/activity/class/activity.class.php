@@ -43,11 +43,13 @@ class Activity_Class extends \eoxia\Singleton_Util {
 	 * @return array            La liste des commentaires et points.
 	 */
 	public function get_activity( $tasks_id, $offset, $date_end = '', $date_start = '', $nb_per_page = 0, $activities_type = array( 'created-point', 'completed-point', 'created-comment' ) ) {
+
 		if ( empty( $date_start ) ) {
 			$date_start = current_time( 'Y-m-d' );
 		}
+		
 		if ( empty( $date_end ) ) {
-			$date_end = current_time( 'Y-m-d' );
+			$date_end = date( 'Y-m-d', strtotime( '-1 month', strtotime( $date_start ) ) );
 		}
 		
 		$query_string = 

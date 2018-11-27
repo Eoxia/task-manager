@@ -399,8 +399,10 @@ class Task_Class extends \eoxia\Post_Class {
 					unset( $tasks[ $child->ID ] );
 				}
 				
-				foreach ( $tasks[ $post->ID ]['data'] as $task ) {
-					$tasks_id[] = $task->data['id'];
+				if ( ! empty( $tasks[ $post->ID ] ) ) {
+					foreach ( $tasks[ $post->ID ]['data'] as $task ) {
+						$tasks_id[] = $task->data['id'];
+					}
 				}
 			}
 		}
