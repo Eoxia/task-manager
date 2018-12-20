@@ -47,12 +47,12 @@ class Activity_Class extends \eoxia\Singleton_Util {
 		if ( empty( $date_start ) ) {
 			$date_start = current_time( 'Y-m-d' );
 		}
-		
+
 		if ( empty( $date_end ) ) {
 			$date_end = date( 'Y-m-d', strtotime( '-1 month', strtotime( $date_start ) ) );
 		}
-		
-		$query_string = 
+
+		$query_string =
 		"SELECT TASK.post_title AS T_title, TASK.ID as T_ID,
 			POINT.comment_content AS POINT_title, POINT.comment_ID AS POINT_ID,
 			CREATED_COMMENT.comment_content AS COM_title, CREATED_COMMENT.comment_ID as COM_ID,
@@ -65,11 +65,12 @@ class Activity_Class extends \eoxia\Singleton_Util {
 		WHERE CREATED_COMMENT.comment_date >= %s
 			AND CREATED_COMMENT.comment_date <= %s
 			AND CREATED_COMMENT.comment_approved != 'trash'
-			AND TASK.ID IN( " . implode( ',', $tasks_id ) . " ) 
+			AND TASK.ID IN( " . implode( ',', $tasks_id ) . " )
 			AND TASK.post_status IN ( 'archive', 'publish', 'inherit' )";
-			
+
 		$query_string .= "ORDER BY CREATED_COMMENT.comment_date DESC";
-		
+
+
 		$query = $GLOBALS['wpdb']->prepare( $query_string, $date_end . ' 00:00:00', $date_start . ' 23:59:59' );
 		$datas = $GLOBALS['wpdb']->get_results( $query );
 		return $datas;
@@ -132,6 +133,103 @@ class Activity_Class extends \eoxia\Singleton_Util {
 		return $datas;
 	}
 
+	public function get_data_chart( $datas, $date_end = '', $date_start = '', $time = '') {
+
+		$datatime = [];
+		$datatime_estimated = [];
+		$datatime_reel = [];
+
+		if ( empty( $date_end ) ) {
+			$date_end = current_time( 'Y-m-d' );
+		}
+		if ( empty( $date_start ) ) {
+			$date_start = current_time( 'Y-m-d' );
+		}
+
+		$date_start_strtotime = strtotime( $date_start ); // Debut 0 à 1:00
+		$date_end_strtotime   = strtotime( $date_end ) + 86400; // Debut à 1:00 + 24h -> Jour suivant
+
+		//86 400 = Une journée en seconde
+		$date_gap = ( $date_end_strtotime - $date_start_strtotime ) / 86400; // Recupere le nombre jour d'ecart
+		$datatime = [];
+
+		$time = date( "D", $date_start_strtotime );
+
+		for( $p = 0; $p < $date_gap; $p++ ){ // BOUCLE FOR | Pour chaque jours (intervalle choisi)
+			$strtotime_int = $p * 86400;
+
+			$time_timestamp = $date_start_strtotime + $strtotime_int;
+			$time = date("D", $date_start_strtotime + $strtotime_int);
+
+			if( $time == 'Sat' || $time == 'Sun' ){
+				continue;
+			}else{
+				$datatime_length = count( $datatime );
+				//$datatime[ $datatime_length ][ 'jour' ] = strftime( '%A %d/%m', $date_start_strtotime + $strtotime_int );
+
+				// -----
+
+				$temp_day = strftime( '%d-%m-%Y', $date_start_strtotime + $strtotime_int );
+
+				$locale = get_locale();
+				$date   = new \DateTime( $temp_day );
+
+				$data['mysql']   = $current_time;
+				$data['iso8601'] = mysql_to_rfc3339( $current_time );
+
+				if ( class_exists( '\IntlDateFormatter' ) ) {
+					$formatter    = new \IntlDateFormatter( $locale, \IntlDateFormatter::FULL, \IntlDateFormatter::NONE );
+					$data['date'] = $formatter->format( $date );
+				}
+
+				$datatime[ $datatime_length ][ 'jour' ] = $data['date'];
+
+				$datatime[ $datatime_length ][ 'strtotime' ] = $date_start_strtotime + $strtotime_int;
+				$datatime[ $datatime_length ][ 'duree_journée' ] = 7 * 60;// Nombre de journée de travail * la durée d'une journée de travail
+				$datatime[ $datatime_length ][ 'duree_travail' ] = 0;
+
+				foreach ($datas as $i => $data_user) { // BOUCLE FOR EACH | Pour chaque tache effectué par l'utilisateur
+
+					if( strtotime( strftime( '%Y-%m-%d', strtotime( $data_user->COM_DATE ) ) ) == $time_timestamp ){
+
+						$data_comdetails = json_decode( $data_user->COM_DETAILS );
+						$datatime[ $datatime_length ][ 'duree_travail' ] += $data_comdetails->time_info->elapsed;
+						$datatime[ $datatime_length ][ 'date' ]          = $data_user->COM_DATE;
+
+
+						if( count( $datatime[ $datatime_length ][ 'tache_effectue' ] ) == 0 ){
+							$temp = count( $datatime[ $datatime_length ][ 'tache_effectue' ] );
+							$datatime[ $datatime_length ][ 'tache_effectue' ][ $temp ]['point_id'] = $data_user->POINT_ID;
+							$datatime[ $datatime_length ][ 'tache_effectue' ][ $temp ]['duree'] = $data_comdetails->time_info->elapsed;
+						}else{
+							$datatime_tacheeffectue_length = count( $datatime[ $datatime_length ][ 'tache_effectue' ] );
+							$tache_already_exist = false;
+
+							for( $u = 0; $u < $datatime_tacheeffectue_length; $u ++ ) { // BOUCLE FOR | Pour chaque tache effectué un jours précis
+
+								if( $datatime[ $datatime_length ][ 'tache_effectue' ][ $u ]['point_id'] == $data_user->POINT_ID ){
+									$tache_already_exist = true;
+									$datatime[ $datatime_length ][ 'tache_effectue' ][ $u ]['duree'] += $data_comdetails->time_info->elapsed;
+								}
+							}
+							if( !$tache_already_exist ){
+								$temp = count( $datatime[ $datatime_length ][ 'tache_effectue' ] );
+								$datatime[ $datatime_length ][ 'tache_effectue' ][ $temp ]['point_id'] = $data_user->POINT_ID;
+								$datatime[ $datatime_length ][ 'tache_effectue' ][ $temp ]['duree'] = $data_comdetails->time_info->elapsed;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		$date_return['datatime']   = $datatime;
+    $date_return['date_gap']   = $date_gap;
+		$data_return['date_start'] = $date_start;
+		$date_return['date_end']   = $date_end;
+
+		return $date_return;
+	}
 }
 
 Activity_Class::g();

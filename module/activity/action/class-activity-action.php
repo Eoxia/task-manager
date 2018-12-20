@@ -29,7 +29,9 @@ class Activity_Action {
 	public function __construct() {
 		add_action( 'wp_ajax_load_last_activity', array( $this, 'callback_load_last_activity' ) );
 		add_action( 'wp_ajax_open_popup_user_activity', array( $this, 'load_customer_activity' ) );
+		add_action( 'wp_ajax_open_popup_user_chart', array( $this, 'callback_open_popup_user_chart' ) );
 		add_action( 'wp_ajax_export_activity', array( $this, 'callback_export_activity' ) );
+		add_action( 'wp_ajax_validate_indicator', array( $this, 'callback_validate_indicator' ) );
 	}
 
 	/**
@@ -57,7 +59,7 @@ class Activity_Action {
 		if ( empty( $_POST['tm_abu_date_end'] ) ) {
 			$date_end = current_time( 'Y-m-d' );
 		}
-		
+
 		if ( empty( $_POST['tm_abu_date_start'] ) ) {
 			$date_start = date( 'Y-m-d', strtotime( '-1 month', strtotime( $date_end ) ) );
 		}
@@ -77,7 +79,6 @@ class Activity_Action {
 		} else {
 			$tasks_id = explode( ',', $tasks_id );
 		}
-		
 		$datas = Activity_Class::g()->get_activity( $tasks_id, 0, $date_start, $date_end );
 
 		ob_start();
@@ -113,27 +114,31 @@ class Activity_Action {
 
 		$user_id     = ! empty( $_POST['user_id_selected'] ) ? (int) $_POST['user_id_selected'] : 0;
 		$customer_id = ! empty( $_POST['user']['customer_id'] ) ? (int) $_POST['user']['customer_id'] : 0;
-		$date_end  = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_end'] ) ? $_POST['tm_abu_date_end'] : current_time( 'Y-m-d' );
-		$date_start    = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_start'] ) ? $_POST['tm_abu_date_start'] : current_time( 'Y-m-d' );
-
+		$date_end    = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_end'] ) ? $_POST['tm_abu_date_end'] : current_time( 'Y-m-d' );
+		$date_start  = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_start'] ) ? $_POST['tm_abu_date_start'] : current_time( 'Y-m-d' );
 		$datas = Activity_Class::g()->display_user_activity_by_date( $user_id, $date_end, $date_start, $customer_id );
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'indicator', 'backend/daily-activity', array(
-			'date_start'  => $date_end,
-			'date_end'    => $date_start,
+			'date_end'    => $date_end,
+			'date_start'  => $date_start,
 			'user_id'     => $user_id,
 			'customer_id' => $customer_id,
-			'datas'       => $datas,
+			'datas'       => $datas
 		) );
+		$view = ob_get_clean();
 
 		wp_send_json_success( array(
-			'namespace'        => 'taskManager',
-			'module'           => 'indicator',
-			'callback_success' => 'loadedCustomerActivity',
-			'view'             => ob_get_clean(),
+			'namespace'        => ! $frontend ? 'taskManager' : 'taskManagerFrontend',
+			'module'           => 'activity',
+			'callback_success' => 'loadedLastActivity',
+			'view'             => $view,
+			'offset'           => $offset,
+			'last_date'        => $last_date,
+			'buttons_view'     => '',
 		) );
 	}
+
 
 	/**
 	 * Export au format CSV les activités d'une personne.
@@ -201,6 +206,69 @@ class Activity_Action {
 			'url_to_file'      => $url_to_file,
 			'filename'         => $current_time . '_activity.csv',
 		) );
+	}
+
+	public function callback_validate_indicator(){
+		check_ajax_referer( 'validate_indicator' );
+
+		$list_follower = ! empty( $_POST['list_follower'] ) ? sanitize_text_field( $_POST['list_follower'] ) : '';
+		$date_end      = ! empty( $_POST['tm_indicator_date_end'] ) ? $_POST['tm_indicator_date_end'] : current_time( 'Y-m-d' );
+		$date_start    = ! empty( $_POST['tm_indicator_date_start'] ) ? $_POST['tm_indicator_date_start'] : current_time( 'Y-m-d' );
+		$time           = ! empty( $_POST['time'] ) ? $_POST['time'] : '';
+		$customer_id = 0;
+
+		$arraylistfollower = explode(',', $list_follower);
+		$datatime  = '';
+		$date_gap  = '';
+		$joursaffichagedonut = 0;
+		$error = '';
+
+		ob_start();
+
+		if( $arraylistfollower[0] ){
+
+			if( $time == 'day' ){ // Jour actuel
+				$date_start = current_time( 'Y-m-d' );
+				$date_end = current_time( 'Y-m-d' );
+			}else if( $time == 'week' ){ // Semaine actuelle
+				$date_start = date( 'Y-m-d', strtotime( 'monday this week' ) );
+				$date_end = current_time( 'Y-m-d' );
+			}else if( $time == 'month' ){ // Mois actuelle
+				$date_start = date('Y-m-01');
+				$date_end = current_time( 'Y-m-d' );
+			}else{
+
+			}
+
+			$datas = Activity_Class::g()->display_user_activity_by_date( $arraylistfollower[0], $date_end, $date_start );
+			$data_charset = Activity_Class::g()->get_data_chart( $datas, $date_end, $date_start, $time );
+
+			$datatime   = $data_charset['datatime'];
+			$date_gap   = $data_charset['date_gap'];
+			$date_start = $data_return['date_start'];
+			$date_end   = $date_return['date_end'];
+
+
+			if( $date_gap == 0 ){
+				$error = 'date_error';
+			}
+		}else{
+			$error = 'person_error';
+		}
+
+		wp_send_json_success( array(
+			'namespace'        => 'taskManager',
+			'module'           => 'indicator',
+			'callback_success' => 'loadedCustomerActivity',
+			'view'             => ob_get_clean(),
+			'object'           => $datatime,
+			'date_gap'         => $date_gap,
+			'date_start'       => $date_start,
+			'date_end'         => $date_end,
+			'jourdonut' 			 => $joursaffichagedonut,
+			'error'            => $error
+		) );
+
 	}
 }
 
