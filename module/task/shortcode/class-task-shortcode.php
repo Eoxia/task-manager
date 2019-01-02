@@ -78,7 +78,6 @@ class Task_Shortcode {
 		
 		$tasks = Task_Class::g()->get_tasks( $param );
 
-		ob_start();
 		if ( ! is_admin() ) {
 			\eoxia\View_Util::exec( 'task-manager', 'task', 'frontend/main', array(
 				'tasks'        => $tasks,
@@ -90,8 +89,6 @@ class Task_Shortcode {
 				'with_wrapper' => $with_wrapper,
 			) );
 		}
-
-		return ob_get_clean();
 	}
 }
 

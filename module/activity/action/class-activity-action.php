@@ -143,8 +143,8 @@ class Activity_Action {
 	public function callback_export_activity() {
 		$user_id     = ! empty( $_POST['user_id_selected'] ) ? (int) $_POST['user_id_selected'] : 0;
 		$customer_id = ! empty( $_POST['user']['customer_id'] ) ? (int) $_POST['user']['customer_id'] : 0;
-		$date_end  = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_start'] ) ? $_POST['tm_abu_date_start'] : current_time( 'Y-m-d' );
-		$date_start    = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_end'] ) ? $_POST['tm_abu_date_end'] : current_time( 'Y-m-d' );
+		$date_end    = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_start'] ) ? $_POST['tm_abu_date_start'] : current_time( 'Y-m-d' );
+		$date_start  = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_end'] ) ? $_POST['tm_abu_date_end'] : current_time( 'Y-m-d' );
 
 		$datas = Activity_Class::g()->display_user_activity_by_date( $user_id, $date_end, $date_start, $customer_id );
 
@@ -171,11 +171,11 @@ class Activity_Action {
 
 		if ( ! empty( $datas ) ) {
 			foreach ( $datas as $data ) {
-				$date = \eoxia\Date_Util::g()->fill_date( $data->COM_DATE );
+				$date        = \eoxia\Date_Util::g()->fill_date( $data->COM_DATE );
 				$com_details = ( ! empty( $data->COM_DETAILS ) ? json_decode( $data->COM_DETAILS ) : '' );
 				$user_data   = get_userdata( $data->COM_author_id );
 
-				$search = array( '<br>', '&nbsp;', '&gt;', '&quot;', '&amp;', '&#039;' );
+				$search  = array( '<br>', '&nbsp;', '&gt;', '&quot;', '&amp;', '&#039;' );
 				$replace = array( PHP_EOL, ' ', '>', '"', 'é', '\'' );
 
 				$data_to_export = array(
