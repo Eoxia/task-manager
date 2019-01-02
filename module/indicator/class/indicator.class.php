@@ -48,7 +48,7 @@ class Indicator_Class extends \eoxia\Singleton_Util {
 			'datas'       => $datas,
 		) );
 	}
-	
+
 	public function callback_customer() {
 		$ids = get_option( \eoxia\Config_Util::$init['task-manager']->key_customer_ask, array() );
 
@@ -98,7 +98,7 @@ class Indicator_Class extends \eoxia\Singleton_Util {
 			'datas' => $datas,
 		) );
 	}
-	
+
 	/**
 	 * Supprimes l'ID d'un point ou d'un commentaire dans le tableau de la meta key_customer_ask.
 	 *
@@ -120,10 +120,10 @@ class Indicator_Class extends \eoxia\Singleton_Util {
 			'task_id'  => 0,
 			'point_id' => 0,
 		);
-		
+
 		\eoxia\LOG_Util::log( sprintf( __( 'Current support request list: %s', 'task-manager' ), wp_json_encode( $ids ) ), 'task-manager' );
 		\eoxia\LOG_Util::log( sprintf( __( 'Comment for removing in request %s', 'task-manager' ), wp_json_encode( $comment ) ), 'task-manager' );
-		
+
 		if ( ! empty( $ids ) ) {
 			foreach ( $ids as $task_id => $points_ids ) {
 				if ( ! empty( $points_ids ) ) {
@@ -138,6 +138,56 @@ class Indicator_Class extends \eoxia\Singleton_Util {
 		}
 		update_option( \eoxia\Config_Util::$init['task-manager']->key_customer_ask, $ids );
 	}
+
+	// ------------ INDICATOR PAGE --------------------------
+
+  /**
+   * [callable_indicator_page description]
+   * @return [type] [description]
+   */
+	public function callable_indicator_page(){
+
+		\eoxia\View_Util::exec( 'task-manager', 'indicator', 'backend-indicator/indicator-main', array(
+
+		) );
+	}
+
+	/**
+	 * [callable_indicator_page description]
+	 * @return [type] [description]
+	 */
+	public function callback_load_indicator_page(){
+
+		$date_start = date( 'Y-m-d' );
+		$date_end = date( 'Y-m-d' );
+
+		$followers = $this->ajax_load_followers();
+		$selected_followers = [];
+
+		\eoxia\View_Util::exec( 'task-manager', 'indicator', 'backend-indicator/indicator-metabox-main', array(
+			'followers' => $followers,
+			'date_start' => $date_start,
+			'date_end' => $date_end,
+		) );
+
+	}
+
+	/**
+	 * [ajax_load_followers description]
+	 * @return [type] [description]
+ 	*/
+	public function ajax_load_followers() {
+
+		$followers = Follower_Class::g()->get( array(
+			'role' => array(
+				'administrator',
+			),
+		) );
+
+		return $followers;
+	}
+
+
 }
 
 new Indicator_Class();

@@ -43,13 +43,20 @@ class Indicator_Action {
 		add_action( 'tm_after_move_point_to', array( $this, 'callback_tm_after_move_point_to' ), 10, 2 );
 	}
 
+
+//	add_submenu_page( 'wpeomtm-dashboard', __( 'Categories', 'task-manager' ), __( 'Categories', 'task-manager' ), 'manage_task_manager', 'edit-tags.php?taxonomy=wpeo_tag' );
+
 	/**
 	 * Ajoutes la page 'Indicator' dans le sous menu de Task Manager.
 	 *
 	 * @since 1.5.0
 	 */
 	public function callback_admin_menu() {
+
+		add_submenu_page( 'wpeomtm-dashboard', __( 'Categories', 'task-manager' ), __( 'Indicator', 'task-manager' ), 'manage_task_manager', 'indicator-page', array( Indicator_Class::g(), 'callable_indicator_page' ) );
 		add_meta_box( 'tm-indicator-activity', __( 'Daily activity', 'task-manager' ), array( Indicator_Class::g(), 'callback_my_daily_activity' ), 'wpeomtm-dashboard', 'normal' );
+		add_meta_box( 'indicator-page-id', __( 'Indicator', 'task-manager' ), array( Indicator_Class::g(), 'callback_load_indicator_page' ), 'indicator-page', 'normal' );
+
 	}
 
 	public function callback_load() {

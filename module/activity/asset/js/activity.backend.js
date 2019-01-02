@@ -124,13 +124,13 @@ window.eoxiaJS.taskManager.activity.loadedLastActivity = function( triggeredElem
 		triggeredElement[0].closest( '.wpeo-project-task' ).querySelector( '.points' ).style.display = 'none';
 		taskElement.find( '.bloc-activities' ).html( response.data.view ).show();
 	} else {
-		jQuery( '#wpeo-task-history-metabox .inside' ).html( response.data.view );
+		jQuery( '#tm-indicator-activity .inside' ).html( response.data.view );
 	}
 };
 
 /**
  * Le callback de la requête ajax "export_activity".
- * 
+ *
  * @param  {HTMLButtonElement} triggeredElement L'élement HTML déclenchant la requête Ajax.
  * @param  {Object} response                    Les données renvoyées par la requête Ajax.
  *

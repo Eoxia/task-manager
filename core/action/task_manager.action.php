@@ -35,7 +35,7 @@ class Task_Manager_Action {
 		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 12 );
 
 		add_action( 'wp_ajax_close_tm_change_log', array( $this, 'callback_close_change_log' ) );
-		
+
 		add_action( 'load-toplevel_page_wpeomtm-dashboard', function() {
 			if ( strpos( $_SERVER['REQUEST_URI'], 'page=wpeomtm-dashboard' ) != FALSE && strpos( $_SERVER['REQUEST_URI'], 'page=wpeomtm-dashboard&' ) == FALSE ) {
 				wp_redirect( admin_url( 'admin.php?page=wpeomtm-dashboard&user_id=' . get_current_user_id() ) );
@@ -66,11 +66,10 @@ class Task_Manager_Action {
 		wp_enqueue_script( 'heartbeat' );
 		wp_enqueue_media();
 		add_thickbox();
-
 		if ( ! empty( \eoxia\Config_Util::$init['task-manager']->insert_scripts_pages ) ) {
 			foreach ( \eoxia\Config_Util::$init['task-manager']->insert_scripts_pages as $insert_script_page ) {
 				if ( false !== strpos( $screen->id, $insert_script_page ) ) {
-					
+
 					if ( 'toplevel_page_wpeomtm-dashboard' != $screen->id ) {
 						add_filter('admin_body_class', array( $this, 'callback_body_class' ) );
 					}
@@ -83,6 +82,7 @@ class Task_Manager_Action {
 
 					wp_enqueue_style( 'task-manager-roboto-font', 'https://fonts.googleapis.com/css?family=Roboto+Slab' );
 
+					wp_enqueue_script( 'task-manager-chart', 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js' );
 					wp_enqueue_script( 'task-manager-colcade', PLUGIN_TASK_MANAGER_URL . 'core/assets/js/colcade.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
 					wp_enqueue_script( 'task-manager-script', PLUGIN_TASK_MANAGER_URL . 'core/assets/js/backend.min.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
 					wp_localize_script( 'task-manager-script', 'taskManager', array(
@@ -97,6 +97,15 @@ class Task_Manager_Action {
 						'search'                    => \eoxia\JSON_Util::g()->open_and_decode( PLUGIN_TASK_MANAGER_PATH . 'core/assets/json/search.json' ),
 					) );
 					wp_enqueue_script( 'task-manager-datetimepicker-script', PLUGIN_TASK_MANAGER_URL . 'core/assets/js/jquery.datetimepicker.full.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
+
+					wp_localize_script( 'task-manager-script', 'indicatorString', array(
+						'time_work'    => __( 'Time work', 'task-manager' ),
+						'time_day'     => __( 'Time Day', 'task-manager' ),
+						'minute'       => __( 'minute(s)', 'task-manager' ),
+						'planning'     => __( 'Planning', 'task-manager' ),
+						'date_error'   => __( 'Invalid date' , 'task-manager' ),
+						'person_error' => __( 'Choose a user' , 'task-manager' )
+					));
 					break;
 				}
 			}
@@ -116,7 +125,7 @@ class Task_Manager_Action {
 		if ( in_array( $pagename, \eoxia\Config_Util::$init['task-manager']->insert_scripts_pages, true ) ) {
 			wp_enqueue_style( 'task-manager-datepicker', PLUGIN_TASK_MANAGER_URL . 'core/assets/css/datepicker.min.css', array(), \eoxia\Config_Util::$init['task-manager']->version );
 		}
-		
+
 		wp_enqueue_script( 'task-manager-colcade', PLUGIN_TASK_MANAGER_URL . 'core/assets/js/colcade.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
 
 		wp_register_style( 'task-manager-frontend-style', PLUGIN_TASK_MANAGER_URL . 'core/assets/css/frontend.css', array(), \eoxia\Config_Util::$init['task-manager']->version );
