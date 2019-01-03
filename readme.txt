@@ -1,16 +1,16 @@
-﻿=== Task Manager ===
+=== Task Manager ===
 Contributors: Eoxia
 Donate link:
 Tags: task, tasks, management, manager, collaboration, dashboard, organizer, project management, project manager, projects, task lists, task management, task manager, Time Tracking, to do, to do list, todo, todo list
 Requires at least: 4.4.0
 Tested up to: 4.9.6
 Stable tag: 1.8.0
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License: GPLv3 or later
+License URI: https://www.gnu.org/licenses/gpl-3.0.fr.html
 
 Quick and easy to use, manage all your tasks and your time with the Task Manager plugin.
 
-== Description ==
+== Describe ==
 
 = The communication, differently
 In its modern and intuitive interface, Task Manager will allow you to manage your time through orderly lists. So, the teamwork is facilitated, with a follow-up of the tasks and of made time. Organize your work, and offer the possibility to your customers to follow progress of their projects, through a community platform.
