@@ -14,37 +14,54 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="search-results">
-	<?php if ( ! empty( $have_search ) ) : ?>
-		<h3>
-			<?php esc_html_e( 'Search criteria: ', 'task-manager' ); ?>
+<?php if ( $have_search ) : ?>
+	<div class="search-results">
+		<span class="result-title"><?php esc_html_e( 'Critères de recherche :', 'task-manager' ); ?></span>
 
-			<?php
-			if ( 'any' === $status ) :
-				esc_html_e( ' all tasks ', 'task-manager' );
-			elseif ( 'archive' === $status ) :
-				esc_html_e( ' archived tasks', 'task-manager' );
-			endif;
-			?>
+		<ul class="result-list-tags">
+			<?php if ( ! empty( $term ) ) : ?>
+				<li class="result-tag"><i class="fas fa-search fa-fw"></i> <?php echo esc_attr( $term ); ?></li>
+			<?php endif; ?>
 
-			<?php
-			if ( ! empty( $term ) ) :
-				esc_html_e( ' with the term ', 'task-manager' );
-				?>"<?php echo esc_html( $term ); ?>"<?php
-			endif;
+			<?php if ( ! empty( $task_id ) ) : ?>
+				<li class="result-tag"><i class="fas fa-th-large fa-fw"></i> <?php echo esc_attr( $task_id ); ?></li>
+			<?php endif; ?>
 
-			if ( ! empty( $categories_searched ) ) :
-				esc_html_e( ' in the categories: ', 'task-manager' );
-				?>"<?php echo esc_html( $categories_searched ); ?>"<?php
-			endif;
+			<?php if ( ! empty( $point_id ) ) : ?>
+				<li class="result-tag"><i class="fas fa-list-ul fa-fw"></i> <?php echo esc_attr( $point_id ); ?></li>
+			<?php endif; ?>
 
-			if ( ! empty( $follower_searched ) ) :
-				esc_html_e( ' for the followers: ', 'task-manager' );
-				?>"<?php echo esc_html( $follower_searched ); ?>"<?php
-			endif;
-			?>
+			<?php if ( ! empty( $follower_searched ) ) : ?>
+				<li class="result-tag"><i class="fas fa-user-circle fa-fw"></i> <?php echo esc_attr( $follower_searched ); ?></li>
+			<?php endif; ?>
 
-			<a href="<?php echo esc_attr( admin_url( 'admin.php' ) ); ?>?page=wpeomtm-dashboard"><span class="dashicons dashicons-no-alt"></span></a>
-		</h3>
-	<?php endif; ?>
-</div>
+			<?php if ( ! empty( $categories_searched ) ) : ?>
+				<li class="result-tag"><i class="fas fa-tag fa-fw"></i> <?php echo esc_attr( $categories_searched ); ?></li>
+			<?php endif; ?>
+
+			<?php if ( ! empty( $post_parent_searched ) ) : ?>
+				<li class="result-tag">
+					<?php if ( 'wpshop_shop_order' === $data['post_parent'] ) : ?>
+						<i class="fas fa-shopping-cart fa-fw"></i>
+					<?php else: ?>
+						<i class="fas fa-user fa-fw"></i>
+					<?php endif; ?>
+					<?php echo esc_attr( $post_parent_searched ); ?>
+				</li>
+			<?php endif; ?>
+		</ul>
+
+		<?php if ( $display_button ) : ?>
+			<a class="wpeo-button button-main button-radius-2 button-size-small wpeo-modal-event"
+				data-action="load_modal_create_shortcut"
+				data-title="<?php esc_html_e( 'Create shortcut', 'task-manager' ); ?>"
+				data-term="<?php echo ! empty( $term ) ? esc_attr( $term ) : ''; ?>"
+				data-task-id="<?php echo ! empty( $task_id ) ? esc_attr( $task_id ) : ''; ?>"
+				data-point-id="<?php echo ! empty( $point_id ) ? esc_attr( $point_id ) : ''; ?>"
+				data-user-id="<?php echo ! empty( $data['user_id'] ) ? esc_attr( $data['user_id'] ) : ''; ?>"
+				data-categories-id="<?php echo ! empty( $data['categories_id'] ) ? esc_attr( $data['categories_id'] ) : ''; ?>"
+				data-post-parent="<?php echo ! empty( $data['post_parent_id'] ) ? esc_attr( $data['post_parent_id'] ) : ''; ?>"
+				data-target="wpeo-modal"><i class="button-icon fal fa-plus"></i> <span><?php esc_html_e( 'Shortcut', 'task-manager' ); ?></span></a>
+			<?php endif; ?>
+	</div>
+<?php endif; ?>

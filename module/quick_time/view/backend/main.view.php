@@ -15,5 +15,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-Quick_Time_Class::g()->display_setting_button();
 Quick_Time_Class::g()->display_list();

@@ -75,9 +75,9 @@ class Import_Action {
 
 		$post_id = ! empty( $_POST ) && ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
 		$task_id = ! empty( $_POST ) && ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
-		if ( empty( $post_id ) && empty( $task_id ) ) {
-			wp_send_json_error( array( 'message' => __( 'No element have been given for import data for', 'task-manager' ) ) );
-		}
+		// if ( empty( $post_id ) && empty( $task_id ) ) {
+		// 	wp_send_json_error( array( 'message' => __( 'No element have been given for import data for', 'task-manager' ) ) );
+		// }
 
 		$content = ! empty( $_POST ) && ! empty( $_POST['content'] ) ? trim( $_POST['content'] ) : null;
 		if ( null === $content ) {
@@ -102,6 +102,10 @@ class Import_Action {
 			$response['task']    = Task_Class::g()->get( array(
 				'id' => $task_id,
 			), true );
+
+			$response['task']->data['count_uncompleted_points'] +=  count($created_elements['created']['points']);
+			Task_Class::g()->update( $response['task']->data, true );
+
 			foreach ( $created_elements['created']['points'] as $point ) {
 				ob_start();
 				\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(

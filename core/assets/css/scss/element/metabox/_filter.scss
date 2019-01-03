@@ -1,0 +1,12 @@
+#tm-indicator-activity, #tm-dashboard-indicator-customer {
+	.filter-activity {
+		input, select, .form-field {
+			background: #ececec;
+			padding: 0.6em;
+		}
+		select {
+			height: 100%;
+			font-weight: 400;
+		}
+	}
+}

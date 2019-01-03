@@ -15,8 +15,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 		<tr>
-			<td><?php echo esc_html( $task->data['id'] ); ?></td>
-			<td><?php echo esc_html( $task->data['title'] ); ?></td>
+			<td>
+				<a href="<?php echo esc_url( admin_url( 'admin.php?page=wpeomtm-dashboard&term=' . $task->data['id'] ) ); ?>" target="wptm_view_activity_element" >
+					<?php echo esc_html( '#' . $task->data['id'] ); ?> - <?php echo esc_html( $task->data['title'] ); ?>
+				</a>
+			</td>
 			<td>
 				<?php if ( ! empty( $task->data['task_parent']->ID ) ) : ?>
 					<a target="_blank" href="<?php echo esc_attr( admin_url( 'post.php?post=' . $task->data['task_parent']->ID . '&action=edit' ) ); ?>">
@@ -24,9 +27,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</a>
 				<?php else : ?>
 					<?php echo esc_html( $task->data['task_parent'] ); ?>
-				<?php endif ; ?>
+				<?php endif; ?>
 			</td>
 
 			<td><?php echo esc_html( $task->data['time_displayed'] ); ?></td>
-			<td><?php echo esc_html( $task->data['time_exceeded_displayed'] ); ?></td>
+			<td><?php echo esc_html( $task->data['diff_time'] ); ?></td>
 		</tr>

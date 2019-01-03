@@ -27,9 +27,9 @@ window.eoxiaJS.taskManager.comment.init = function() {
  * @version 1.5.0
  */
 window.eoxiaJS.taskManager.comment.event = function() {
-	jQuery( document ).on( 'keyup', '.wpeo-comment-container div.content[contenteditable="true"], .wpeo-comment-container input[name="time"]', window.eoxiaJS.taskManager.comment.triggerCreate );
+	jQuery( document ).on( 'keyup', '.comment div[contenteditable="true"], .comment input[name="time"]', window.eoxiaJS.taskManager.comment.triggerCreate );
 	jQuery( document ).on( 'blur keyup paste keydown click', '.comments .comment .content', window.eoxiaJS.taskManager.comment.updateHiddenInput );
-	jQuery( document ).on( 'click', '.point.edit div[contenteditable="true"].wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.comment.loadComments );
+	jQuery( document ).on( 'click', '.point.edit .point-container', window.eoxiaJS.taskManager.comment.loadComments );
 };
 
 /**
@@ -78,20 +78,16 @@ window.eoxiaJS.taskManager.comment.triggerCreate = function( event ) {
  */
 window.eoxiaJS.taskManager.comment.updateHiddenInput = function( event ) {
 	if ( 0 < jQuery( this ).text().length ) {
-		jQuery( this ).closest( '.comment' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 1 );
-		jQuery( this ).closest( '.comment' ).find( '.wpeo-point-new-placeholder' ).addClass( 'hidden' );
-		jQuery( this ).closest( '.comment' ).find( '.wpeo-point-new-btn ').removeClass( 'no-action' );
+		jQuery( this ).closest( '.comment' ).find( '.placeholder' ).addClass( 'hidden' );
+		jQuery( this ).closest( '.comment' ).removeClass( 'add' ).addClass( 'edit' );
 		window.eoxiaJS.taskManager.core.initSafeExit( true );
 	} else {
-		jQuery( this ).closest( '.comment' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 0.4 );
-		jQuery( this ).closest( '.comment' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
-		jQuery( this ).closest( '.comment' ).find( '.wpeo-point-new-btn ').addClass( 'no-action' );
+		jQuery( this ).closest( '.comment' ).find( '.placeholder' ).removeClass( 'hidden' );
+		jQuery( this ).closest( '.comment' ).removeClass( 'edit' ).addClass( 'add' );
 		window.eoxiaJS.taskManager.core.initSafeExit( false );
 	}
 
-	jQuery( this ).closest( '.comment' ).find( '.wpeo-comment-content input[name="content"]' ).val( jQuery( this ).html() );
-
-	window.eoxiaJS.refresh();
+	jQuery( this ).closest( '.comment' ).find( 'input[name="content"]' ).val( jQuery( this ).html() );
 };
 
 /**
@@ -155,12 +151,12 @@ window.eoxiaJS.taskManager.comment.loadedCommentsSuccess = function( triggeredEl
 window.eoxiaJS.taskManager.comment.addedCommentSuccess = function( triggeredElement, response ) {
 	triggeredElement.closest( '.comment' ).find( 'div.content' ).html( '' );
 
-	triggeredElement.closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.time.task );
+	triggeredElement.closest( '.wpeo-project-task' ).find( '.wpeo-task-time-info .elapsed' ).text( response.data.time.task );
 	triggeredElement.closest( '.comments' ).prev( '.form' ).find( '.wpeo-time-in-point' ).text( response.data.time.point );
 
 	triggeredElement.closest( 'div.point' ).find( '.comments' ).html( response.data.view );
-
-	jQuery( '.wpeo-project-task[data-id="' + response.data.comment.post_id + '"] .point[data-id="' + response.data.comment.parent_id + '"] .comment.new div.content' ).focus();
+	jQuery( '.wpeo-project-task[data-id="' + response.data.comment.data.post_id + '"] .point[data-id="' + response.data.comment.data.parent_id + '"] .comment.new div.content' ).focus();
+	jQuery( '.wpeo-project-task[data-id="' + response.data.comment.data.post_id + '"] .point[data-id="' + response.data.comment.data.parent_id + '"] .wpeo-point-summary .number-comments' ).html( response.data.point.data.count_comments );
 
 	window.eoxiaJS.refresh();
 	window.eoxiaJS.taskManager.core.initSafeExit( false );
@@ -181,7 +177,7 @@ window.eoxiaJS.taskManager.comment.deletedCommentSuccess = function( triggeredEl
 	triggeredElement.closest( '.comment' ).fadeOut();
 
 	triggeredElement.closest( '.wpeo-project-task.mask' ).removeClass( 'mask' );
-	triggeredElement.closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.time.task );
+	triggeredElement.closest( '.wpeo-project-task' ).find( '.wpeo-task-time-info .elapsed' ).text( response.data.time.task );
 	triggeredElement.closest( '.comments' ).prev( 'form' ).find( '.wpeo-time-in-point' ).text( response.data.time.point );
 
 	window.eoxiaJS.refresh();

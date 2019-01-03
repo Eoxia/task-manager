@@ -1,7 +1,7 @@
 {
 	"name": "Task Manager",
 	"slug": "task-manager",
-	"version": "1.7.0",
+	"version": "1.8.0",
 	"description": "L'application Task Manager",
 	"insert_scripts_pages": [
 		"wpeomtm-dashboard",
@@ -9,7 +9,10 @@
 		"task-manager-time-exceeded",
 		"task-manager-indicator",
 		"task-manager-setting",
-		"task-manager-update"
+		"task-manager-update",
+		"wpshop_customers",
+		"wpshop_shop_orders",
+		"tache_page_indicator-page"
 	],
 	"externals": [],
 	"modules": [
@@ -22,6 +25,7 @@
 		"module/avatar/avatar.config.json",
 		"module/notify/notify.config.json",
 		"module/task/task.config.json",
+		"module/sticky-note/sticky-note.config.json",
 		"module/point/point.config.json",
 		"module/history-time/history-time.config.json",
 		"module/navigation/navigation.config.json",
@@ -34,6 +38,7 @@
 		"module/activity/activity.config.json",
 		"module/indicator/indicator.config.json",
 		"module/setting/setting.config.json",
+		"module/support/support.config.json",
 		"module/quick_time/quick_time.config.json",
 		"module/export/export.config.json",
 		"module/import/import.config.json",
@@ -45,5 +50,11 @@
 	"key_waiting_updates": "_tm_waited_updates",
 	"dashboard_page_url": "wpeomtm-dashboard",
 	"update_page_url": "task-manager-update",
-	"associate_post_type": []
+	"associate_post_type": ["wpshop_customers", "wpshop_shop_order"],
+	"quick_task_tags": [
+		""
+	],
+	"id_mail_support": 0,
+	"id_quick_task": 0,
+	"key_customer_ask" : "_tm_wpshop_ask_ids"
 }

@@ -4,7 +4,7 @@
  *
  * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
- * @version 1.7.0
+ * @version 1.8.0
  * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
@@ -15,10 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="point <?php echo ! empty( $point->data['id'] ) ? esc_attr( 'edit' ) : ''; ?>" data-id="<?php echo esc_attr( $point->data['id'] ); ?>">
-
+<div class="point <?php echo ! empty( $point->data['id'] ) ? esc_attr( 'edit' ) : esc_attr( 'new' ); ?>" data-id="<?php echo esc_attr( $point->data['id'] ); ?>"
+		data-point-state="<?php echo esc_attr( ! empty( $point->data['completed'] ) ? 'completed' : 'uncompleted' ); ?>" >
 	<div class="form">
-
 		<input type="hidden" name="id" value="<?php echo esc_attr( $point->data['id'] ); ?>" />
 		<input type="hidden" name="parent_id" value="<?php echo esc_attr( $parent_id ); ?>" />
 		<ul class="point-container">
@@ -29,40 +28,35 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<i class="fa fa-ellipsis-v"></i>
 					</span>
 					<input type="checkbox" <?php echo ! empty( $point->data['completed'] ) ? 'checked' : ''; ?> class="completed-point" data-nonce="<?php echo esc_attr( wp_create_nonce( 'complete_point' ) ); ?>" />
-					<!-- filter start -->
-					<?php
-					endif;
-					echo apply_filters( 'tm_point_before', '', $point ); // WPCS: XSS  ok.
-					?>
-					<!-- filter end -->
+				<?php endif; ?>
+				<?php echo apply_filters( 'tm_point_before', '', $point ); // WPCS: XSS  ok. ?><!-- / filter for point first column -->
 			</li>
 
 			<li class="point-content content">
 				<input type="hidden" name="content" value="<?php echo esc_attr( trim( $point->data['content'] ) ); ?>" />
-				<div class="point-toggle">
-					<?php if ( ! empty( $point->data['id'] ) ) : ?>
-						<span class="wpeo-block-id">#<?php echo esc_attr( $point->data['id'] ); ?></span>
-					<?php endif; ?>
-				</div>
 				<div class="wpeo-point-new-contenteditable" contenteditable="true"><?php echo trim( $point->data['content'] ); ?></div>
 				<?php if ( empty( $point->data['id'] ) ) : ?>
-					<span class="wpeo-point-new-placeholder"><?php esc_html_e( 'Write your point here...', 'task-manager' ); ?></span>
+					<span class="wpeo-point-new-placeholder"><i class="far fa-plus"></i> <?php esc_html_e( 'Write your point here...', 'task-manager' ); ?></span>
+				<?php endif; ?>
+				<?php if ( ! empty( $point->data['id'] ) ) : ?>
+					<ul class="wpeo-point-summary">
+						<?php echo apply_filters( 'tm_point_summary', '', $point ); ?>
+					</ul>
 				<?php endif; ?>
 			</li>
 
 			<li class="point-action">
 
-				<?php echo apply_filters( 'tm_point_after', '', $point ); // WPCS: XSS  ok. ?>
+				<?php echo apply_filters( 'tm_point_after', '', $point ); // WPCS: XSS  ok. ?><!-- / filter for point last column -->
 
-				<?php	if ( empty( $point->data['id'] ) ) : ?>
-					<div 	class="wpeo-point-new-btn action-input animated no-action"
+				<?php if ( empty( $point->data['id'] ) ) : ?>
+					<div 	class="wpeo-point-new-btn wpeo-button button-main button-square-30 button-rounded action-input animated no-action wpeo-util-hidden"
 								data-parent="form"
 								data-loader="point"
 								data-action="edit_point"
 								data-nonce="<?php echo esc_attr( wp_create_nonce( 'edit_point' ) ); ?>"
-								style="opacity: 0.4;"
 								title="<?php esc_attr( 'Add this point', 'task-manager' ); ?>">
-						<i class="dashicons dashicons-plus-alt"></i>
+						<i class="button-icon fas fa-plus"></i>
 					</div>
 				<?php else : ?>
 					<div class="hidden action-input update"
@@ -70,33 +64,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 								data-action="edit_point"
 								data-nonce="<?php echo esc_attr( wp_create_nonce( 'edit_point' ) ); ?>"></div>
 
-					<div class="wpeo-point-time">
-						<span class="dashicons dashicons-clock"></span>
-						<span class="wpeo-time-in-point"><?php echo esc_attr( $point->data['time_info']['elapsed'] ); ?></span>
-					</div>
-
 					<div class="wpeo-dropdown wpeo-task-setting"
 							data-parent="toggle"
 							data-target="content"
 							data-mask="wpeo-project-task">
 
-						<span class="wpeo-button button-transparent dropdown-toggle"
-							><i class="fa fa-ellipsis-v"></i></span>
+						<span class="wpeo-button button-transparent dropdown-toggle" ><i class="fa fa-ellipsis-v"></i></span>
 
 						<div class="dropdown-content point-header-action">
-							<?php
-							\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/toggle-content', array(
-								'point' => $point,
-							) );
-							?>
+							<?php \eoxia\View_Util::exec( 'task-manager', 'point', 'backend/toggle-content', array( 'point' => $point ) ); ?>
 						</div>
 					</div>
 				<?php	endif; ?>
+				
+				<?php echo apply_filters( 'tm_point_action', '', $point, $parent_id ); ?>
 			</li>
 		</ul>
 	</div>
 
-	<ul class="comments <?php echo ( Task_Comment_Class::g()->is_parent( $point->data['id'], $comment_id ) || ( $point->data['id'] === $point_id && 0 !== $point->data['id'] )  ) ? '' : 'hidden'; ?>" data-id="<?php echo esc_attr( $point->data['id'] ); ?>">
+	<ul class="comments <?php echo ( Task_Comment_Class::g()->is_parent( $point->data['id'], $comment_id ) || ( $point->data['id'] === $point_id && 0 !== $point->data['id'] ) ) ? '' : 'hidden'; ?>" data-id="<?php echo esc_attr( $point->data['id'] ); ?>">
 		<?php
 		if ( Task_Comment_Class::g()->is_parent( $point->data['id'], $comment_id ) || ( $point->data['id'] === $point_id && 0 !== $point->data['id'] ) ) :
 			Task_Comment_Class::g()->display( $point->data['post_id'], $point->data['id'] );

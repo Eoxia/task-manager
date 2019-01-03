@@ -38,7 +38,7 @@ class Setting_Class extends \eoxia\Singleton_Util {
 	 * @version 1.5.0
 	 */
 	protected function construct() {}
-
+		
 	/**
 	 * Récupère le role "subscriber" et appel la vue "capability/has-cap".
 	 *

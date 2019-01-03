@@ -1,0 +1,108 @@
+ .activities {
+	> .content {
+		padding: 1em;
+	}
+	/* Activity single */
+	.activity {
+		padding: 0.6em 0 1.6em 0;
+		display: flex;
+		flex-direction: row;
+    background: #fff;
+
+		.information {
+			width: 100%;
+			max-width: 50px;
+			position: relative;
+			.tm-avatar {
+				border-radius: 50%;
+				border: 2px solid #fff;
+				z-index: 50;
+				img, .wpeo-avatar-initial {
+					border-radius: 50%;
+				}
+			}
+			.type {
+				display: block;
+				width: 22px;
+				height: 22px;
+				background: rgba(0,0,0,0.1);
+				color: rgba(0,0,0,0.5);
+				line-height: 22px;
+				text-align: center;
+				font-size: 14px;
+				position: absolute;
+				top: 0;
+				right: 4px;
+				border-radius: 4px;
+				&:before {
+					font-family: FontAwesome;
+				}
+			}
+		}
+    .information + .content {
+      padding-left: 1em;
+    }
+		.content {
+			width: 100%;
+			margin: auto 0;
+
+			.event-header {
+				display: flex;
+
+				.dashicons {
+					font-size: 16px;
+					line-height: 1;
+					width: 14px;
+					height: 14px;
+					vertical-align: top !important;
+				}
+
+				.event-time {
+          margin: auto 0 auto auto;
+          min-width: 40px;
+
+          [data-icon] {
+            color: rgba(0,0,0,0.7);
+          }
+					i {
+						color: rgba(0,0,0,0.7);
+					}
+				}
+			}
+			.event-title {
+				font-weight: 700;
+				display: block;
+				margin-bottom: 0.4em;
+				padding-right: 0.2em;
+				color: rgba(0,0,0,0.8);
+				a {
+					color: rgba(0,0,0,0.5);
+					transition: all 0.2s ease-out;
+					text-decoration: none;
+					&:hover {
+						color: rgba(0,0,0,0.8);
+					}
+				}
+			}
+			.event-content {
+				font-family: 'Roboto Slab', 'Open sans', serif;
+				color: rgba(0,0,0,0.9);
+				a {
+					color: rgba(0,0,0,0.9);
+					text-decoration: none;
+				}
+			}
+		}
+
+		/* Point validé */
+		&.completed-point {
+			.information .type {
+				background: $green;
+				color: #fff;
+			}
+			.content .event-title {
+				text-decoration: line-through;
+			}
+		}
+	}
+}

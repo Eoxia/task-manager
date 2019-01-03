@@ -28,6 +28,25 @@ window.eoxiaJS.taskManager.activity.init = function() {
  */
 window.eoxiaJS.taskManager.activity.event = function() {
 	jQuery( document ).on( 'click', '.activities .load-more-history', window.eoxiaJS.taskManager.activity.loadMoreHistory );
+
+	jQuery( '.tm-wrap' ).on( 'click', '.tm-task-display-method-buttons .list-display', window.eoxiaJS.taskManager.activity.switchViewToLine );
+};
+
+/**
+ * Réaffiches les points lors du clic.
+ *
+ * @since 1.5.0
+ * @version 1.5.0
+ *
+ * @param  {ClickEvent} event         L'état de l'évènement lors du 'click'.
+ * @return {void}
+ */
+window.eoxiaJS.taskManager.activity.switchViewToLine = function( event ) {
+	var taskElement = jQuery( this ).closest( '.wpeo-project-task' );
+	taskElement.find( '.tm-task-display-method-buttons .wpeo-button.active' ).removeClass( 'active' );
+	jQuery( this ).addClass( 'active' );
+	taskElement[0].querySelector( '.bloc-activities' ).style.display = 'none';
+	this.closest( '.wpeo-project-task' ).querySelector( '.points.sortable' ).style.display = 'block';
 };
 
 /**
@@ -40,16 +59,14 @@ window.eoxiaJS.taskManager.activity.event = function() {
  */
 window.eoxiaJS.taskManager.activity.loadMoreHistory = function( event ) {
 	var element = jQuery( this );
-	window.eoxiaJS.loader.display( element );
-
-
 	var data = {
 		action: 'load_last_activity',
-		// _wpnonce: element.closest( '.wpeo-project-task' ).find( '.dashicons-screenoptions' ).data( 'nonce' ),
+		_wpnonce: element.closest( '.wpeo-project-task' ).find( '.dashicons-screenoptions' ).data( 'nonce' ),
 		tasks_id: element.closest( '.wpeo-project-task' ).data( 'id' ),
 		offset: element.closest( '.activities' ).find( '.offset-event' ).val(),
 		last_date: element.closest( '.activities' ).find( '.last-date' ).val()
 	};
+	window.eoxiaJS.loader.display( element );
 
 	if ( element.closest( '.popup.last-activity' ).length ) {
 		data.term = jQuery( '.wpeo-general-search input[type="text"]' ).val();
@@ -62,7 +79,6 @@ window.eoxiaJS.taskManager.activity.loadMoreHistory = function( event ) {
 		element.closest( '.activities' ).find( '.content:first' ).append( response.data.view );
 		element.closest( '.activities' ).find( '.last-date' ).val( response.data.last_date );
 
-
 		if ( response.data.end ) {
 			element.closest( '.activities' ).find( '.load-more-history' ).hide();
 		} else {
@@ -70,7 +86,6 @@ window.eoxiaJS.taskManager.activity.loadMoreHistory = function( event ) {
 		}
 
 		window.eoxiaJS.loader.remove( element.closest( '.activities' ).find( '.load-more-history' ) );
-		window.eoxiaJS.refresh();
 	} );
 };
 
@@ -103,28 +118,24 @@ window.eoxiaJS.taskManager.activity.getDataBeforeOpenPopup = function( element )
  */
 window.eoxiaJS.taskManager.activity.loadedLastActivity = function( triggeredElement, response ) {
 	if ( triggeredElement.closest( '.wpeo-project-task' ).length ) {
+		var taskElement = triggeredElement.closest( '.wpeo-project-task' );
 		triggeredElement.addClass( 'active' );
-
-		if ( response.data.end ) {
-			triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .load-more-history' ).hide();
-		} else {
-			triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .load-more-history' ).show();
-		}
-
-		triggeredElement.closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .list-display.active' ).removeClass( 'active' );
-		triggeredElement.closest( '.wpeo-project-task' ).find( '.points.sortable, .wpeo-task-point-use-toggle' ).hide();
-		triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .offset-event' ).val( response.data.offset );
-		triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .last-date' ).val( response.data.last_date );
-		triggeredElement.closest( '.wpeo-project-task' ).find( '.activities .content' ).html( response.data.view );
-		triggeredElement.closest( '.wpeo-project-task' ).find( '.activities' ).show();
+		triggeredElement.closest( '.tm-task-display-method-buttons' ).find( '.list-display.active' ).removeClass( 'active' );
+		triggeredElement[0].closest( '.wpeo-project-task' ).querySelector( '.points' ).style.display = 'none';
+		taskElement.find( '.bloc-activities' ).html( response.data.view ).show();
 	} else {
-		jQuery( '.popup.last-activity .content' ).html( response.data.view );
-		jQuery( '.popup.last-activity .container' ).removeClass( 'loading' );
-		jQuery( '.popup.last-activity .title' ).html( response.data.title_popup );
-		jQuery( '.popup.last-activity .load-more-history' ).show();
-		jQuery( '.popup.last-activity .offset-event' ).val( response.data.offset );
-		jQuery( '.popup.last-activity .last-date' ).val( response.data.last_date );
+		jQuery( '#tm-indicator-activity .inside' ).html( response.data.view );
 	}
+};
 
-	window.eoxiaJS.refresh();
+/**
+ * Le callback de la requête ajax "export_activity".
+ *
+ * @param  {HTMLButtonElement} triggeredElement L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object} response                    Les données renvoyées par la requête Ajax.
+ *
+ * @since 1.7.1
+ */
+window.eoxiaJS.taskManager.activity.exportedActivity = function( triggeredElement, response ) {
+	window.eoxiaJS.global.downloadFile( response.data.url_to_file, response.data.filename );
 };

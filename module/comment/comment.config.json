@@ -2,7 +2,7 @@
 	"name": "Les commentaires",
 	"slug": "comment",
 	"since": "1.6.0",
-	"version": "1.6.1",
+	"version": "1.8.0",
 	"description": "Le module gérant les commentaires",
 	"path": "module/comment/",
 	"dependencies": {

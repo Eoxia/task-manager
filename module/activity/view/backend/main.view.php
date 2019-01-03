@@ -14,13 +14,40 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
-
-<div class="activities hidden">
+<div class="activities">
 	<input type="hidden" class="offset-event" value="<?php echo esc_attr( \eoxia\Config_Util::$init['task-manager']->activity->activity_per_page ); ?>" />
 	<input type="hidden" class="last-date" value="" />
 
-	<div class="content">
-	</div>
+	<!-- Filtre de temps pour les activités -->
+	<div class="filter-activity wpeo-form form-light">
+		<div class="filter-fields wpeo-gridlayout grid-5">
+			<div class="form-element gridw-2">
+				<span class="form-label"><i class="far fa-calendar-alt fa-fw"></i> <?php esc_html_e( 'Start date', 'task-manager' ); ?></span>
+				<label class="form-field-container">
+					<input type="date" class="form-field" placeholder="<?php esc_html_e( 'Start date', 'task-manager' ); ?>" value="<?php echo esc_attr( $date_start ); ?>" name="tm_abu_date_start" />
+				</label>
+			</div>
 
-	<span class="load-more-history"><?php esc_html_e( 'Load more', 'task-manager' ); ?></span>
+			<div class="form-element gridw-2">
+				<span class="form-label"><i class="far fa-calendar-alt fa-fw"></i> <?php esc_html_e( 'End date', 'task-manager' ); ?></span>
+				<label class="form-field-container">
+					<input type="date" class="form-field" placeholder="<?php esc_html_e( 'End date', 'task-manager' ); ?>" value="<?php echo esc_attr( $date_end ); ?>" name="tm_abu_date_end" />
+				</label>
+			</div>
+
+			<button class="wpeo-button button-main button-square-40 action-input"
+				data-tasks-id="<?php echo esc_attr( $task_id ); ?>"
+				data-action="load_last_activity"
+				data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_last_activity' ) ); ?>"
+				data-parent="filter-activity"
+				id="tm-user-activity-load-by-date" >
+
+				<i class="far fa-search"></i></button>
+		</div><!-- .filter-fields -->
+	</div><!-- .filter-activity -->
+
+<div class="content">
+	<div class="tm-wrap" >
+		<div class="activities" ><?php echo $history; // WPCS: XSS ok. ?></div>
+	</div>
 </div>

@@ -1,0 +1,7 @@
+.tm-post-dashboard {
+	&::after {
+		display: block;
+		content: "";
+		clear: both;
+	}
+}

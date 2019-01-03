@@ -31,7 +31,11 @@ window.eoxiaJS.taskManager.import.importSuccess = function( element, response ) 
 		window.eoxiaJS.taskManager.point.initAutoComplete();
 		window.eoxiaJS.refresh();
 		window.eoxiaJS.taskManager.core.initSafeExit( false );
+
+		task.find( '.wpeo-task-filter .point-uncompleted' ).html( response.data.task.data.count_uncompleted_points );
 	}
+
+
 
 	window.eoxiaJS.modal.close();
 };
@@ -41,8 +45,6 @@ window.eoxiaJS.taskManager.import.importSuccess = function( element, response ) 
  */
 window.eoxiaJS.taskManager.import.addKeywordToTextarea = function( event ) {
 	var importContent = jQuery( this ).closest( '.tm-import-tasks.modal-active' ).find( 'textarea' );
-	var keyword = '%' + jQuery( this ).attr( 'data-type' ) + '%';
-	event.preventDefault();
-
-	importContent.append( '\r\n' + keyword );
+	var keyword       = '%' + jQuery( this ).attr( 'data-type' ) + '%';
+	importContent.val( importContent.val() + '\r\n' + keyword );
 };

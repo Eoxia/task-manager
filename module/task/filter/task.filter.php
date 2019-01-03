@@ -28,6 +28,7 @@ class Task_Filter {
 	 */
 	public function __construct() {
 		add_filter( 'task_manager_dashboard_title', array( $this, 'callback_dashboard_title' ) );
+		add_filter( 'tm_task_header_summary', array( $this, 'callback_task_header_summary' ), 10, 2 );
 		add_filter( 'task_manager_dashboard_filter', array( $this, 'callback_dashboard_filter' ), 12 );
 		add_filter( 'task', array( $this, 'callback_dashboard_content' ), 10, 2 );
 
@@ -35,11 +36,7 @@ class Task_Filter {
 		add_filter( 'task_header_information', array( $this, 'callback_task_header_information_elapsed' ), 11, 2 );
 		add_filter( 'task_header_information', array( $this, 'callback_task_header_information_button' ), 20, 2 );
 
-		/** Window */
-		add_filter( 'task_window_sub_header_task_controller', array( $this, 'callback_task_window_sub_header' ), 10, 2 );
-		add_filter( 'task_window_information_task_controller', array( $this, 'callback_task_window_information' ), 10, 2 );
-		add_filter( 'task_window_action_task_controller', array( $this, 'callback_task_window_action' ), 10, 2 );
-		add_filter( 'task_window_footer_task_controller', array( $this, 'callback_task_window_footer' ), 10, 2 );
+		add_filter( 'tm_task_footer', array( $this, 'callback_tm_task_footer'), 10, 2 );
 	}
 
 	public function callback_dashboard_title( $string ) {
@@ -52,6 +49,32 @@ class Task_Filter {
 		$string .= ob_get_clean();
 
 		return $string;
+	}
+	
+	public function callback_task_header_summary( $output, $task ) {
+		$user = Follower_Class::g()->get( array( 'id' => get_current_user_id() ), true );
+		
+		if ( $user->data['_tm_advanced_display'] ) {
+			// Construction de l'affichage du temps passé.
+			$task_time_info                = $task->data['time_info']['elapsed'];
+			$task_time_info_human_readable = \eoxia\Date_Util::g()->convert_to_custom_hours( $task->data['time_info']['elapsed'] );
+
+			// Construction de l'affichage du temps prévu.
+			if ( ! empty( $task->data['last_history_time']->data['estimated_time'] ) ) {
+				$task_time_info                .= ' / ' . $task->data['last_history_time']->data['estimated_time'];
+				$task_time_info_human_readable .= ' / ' . \eoxia\Date_Util::g()->convert_to_custom_hours( $task->data['last_history_time']->data['estimated_time'] );
+			}
+			
+			ob_start();
+			\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task-header-summary', array(
+				'task'                          => $task,
+				'task_time_info'                => $task_time_info,
+				'task_time_info_human_readable' => $task_time_info_human_readable,
+			) );
+			$output .= ob_get_clean();
+		}
+		
+		return $output;
 	}
 
 	public function callback_dashboard_filter( $string ) {
@@ -113,6 +136,20 @@ class Task_Filter {
 		) );
 		$string .= ob_get_clean();
 		return $string;
+	}
+	
+	public function callback_tm_task_footer( $output, $task ) {
+		$user = Follower_Class::g()->get( array( 'id' => get_current_user_id() ), true );
+
+		if ( ! empty( $task->data['parent_id'] ) &&  $user->data['_tm_advanced_display'] ) {
+			ob_start();
+			\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/linked-post-type', array(
+				'task' => $task, 
+			) );
+			$output .= ob_get_clean();
+		}
+		
+		return $output;
 	}
 }
 

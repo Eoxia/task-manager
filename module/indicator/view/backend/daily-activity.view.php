@@ -21,63 +21,86 @@ ob_start();
 ?>
 <!-- Temps total travaillé -->
 <div class="total-time wpeo-tooltip-event" aria-label="<?php echo esc_attr( mysql2date( 'd M Y H:i', current_time( 'mysql' ), true ) ); ?>" >
-	<i class="dashicons dashicons-clock"></i> {{ total_time }}
+	<i class="far fa-clock"></i> {{ total_time }}
 </div>
 
 <!-- Filtre de temps pour les activités -->
-<div class="filter-activity">
-	<label>
-		<i class="fa fa-calendar"></i><?php esc_html_e( 'Start date', 'task-manager' ); ?>
-		<input type="date" placeholder="Date de début" value="<?php echo esc_attr( $date_start ); ?>" name="tm_abu_date_start" />
-	</label>
-	<label>
-		<i class="fa fa-calendar"></i><?php esc_html_e( 'End date', 'task-manager' ); ?>
-		<input type="date" value="<?php echo esc_attr( $date_end ); ?>" name="tm_abu_date_end" />
-		<input type="hidden" value="open_popup_user_activity" name="action" />
-		<input type="hidden" value="<?php echo esc_attr( wp_create_nonce( 'load_user_activity' ) ); ?>" name="_wpnonce" />
-	</label>
-	<button class="button-primary action-input" data-parent="filter-activity" id="tm-user-activity-load-by-date" ><?php esc_html_e( 'View activity', 'task-manager' ); ?></button>
+<div class="wpeo-dropdown activities-filter">
+    <div class="dropdown-toggle wpeo-button button-main button-size-small button-square-30 button-rounded">
+        <i class="button-icon fas fa-search"></i>
+    </div>
+
+    <div class="dropdown-content">
+		<div class="filter-activity wpeo-form">
+
+			<div class="form-element">
+				<span class="form-label"><i class="fas fa-calendar"></i> <?php esc_html_e( 'Start date', 'task-manager' ); ?></span>
+				<label class="form-field-container">
+					<input type="date" class="form-field" placeholder="Date de début" value="<?php echo esc_attr( $date_start ); ?>" name="tm_abu_date_start" />
+				</label>
+			</div>
+
+			<div class="form-element">
+				<span class="form-label"><i class="fas fa-calendar"></i> <?php esc_html_e( 'End date', 'task-manager' ); ?></span>
+				<label class="form-field-container">
+					<input type="date" class="form-field" value="<?php echo esc_attr( $date_end ); ?>" name="tm_abu_date_end" />
+					<input type="hidden" value="<?php echo esc_attr( wp_create_nonce( 'load_user_activity' ) ); ?>" name="_wpnonce" />
+				</label>
+			</div>
+
+			<?php echo apply_filters( 'tm_filter_activity', '', $user_id, $customer_id ); // WPCS: XSS ok. ?>
+
+			<button class="button-primary action-input" data-parent="filter-activity" data-action="open_popup_user_activity" id="tm-user-activity-load-by-date" ><?php esc_html_e( 'View activity', 'task-manager' ); ?></button>
+		</div>
+	</div>
 </div>
 
 <!-- Liste des tâches effectuées -->
 <div class="daily-activity activities">
 	<div class="content">
-		<?php if ( ! empty( $datas ) ) : ?>
+		<?php if ( ! empty( $datas ) ) :
+			$last_date = null; ?>
 			<?php foreach ( $datas as $activity ) : ?>
-
-				<div class="activity">
-					<div class="information">
-						<?php echo do_shortcode( '[task_avatar ids="1" size="30"]' ); ?>
-						<span class="time-posted"><?php echo esc_html( mysql2date( 'H\hi', $activity->COM_DATE, true ) ); ?></span>
+				<?php if ( mysql2date( 'd/m/Y', $activity->COM_DATE ) != $last_date ) : ?>
+					<div class="day">
+						<span class="label"><?php echo esc_html( ucfirst( mysql2date( 'l', $activity->COM_DATE ) ) . ' ' . mysql2date( 'd/m/Y', $activity->COM_DATE ) ); ?></span>
 					</div>
-
+				<?php endif; 
+				
+				$last_date = mysql2date( 'd/m/Y', $activity->COM_DATE ); ?>
+				
+				<div class="activity">
 					<div class="content">
 						<div class="event-header">
+							<!-- Utilisateur affecté -->
+							<?php echo do_shortcode( '[task_avatar ids="' . $activity->COM_author_id . '" size="30"]' ); ?>
+							<!-- Heure de l'action -->
+							<span class="time-posted"><i class="fas fa-calendar"></i> <?php echo esc_html( mysql2date( 'H\hi', $activity->COM_DATE, true ) ); ?></span>
 							<!-- Client -->
-								<span class="event-client">
-									<i class="fa fa-user"></i>
-									<?php if ( ! empty( $activity->PT_ID ) ) : ?>
-									<a href="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' . $activity->PT_ID ) ); ?>" target="wptm_view_activity_element" >
-										<?php echo esc_html( '#' . $activity->PT_ID . ' ' . $activity->PT_title ); ?>
-									</a>
-								<?php else : ?>
-									<?php echo esc_html( '-' ); ?>
-								<?php endif; ?>
-								</span>
+							<span class="event-client">
+								<i class="fas fa-user"></i>
+								<?php if ( ! empty( $activity->PT_ID ) ) : ?>
+								<a href="<?php echo esc_url( admin_url( 'post.php?action=edit&post=' . $activity->PT_ID ) ); ?>" target="wptm_view_activity_element" >
+									<?php echo esc_html( '#' . $activity->PT_ID . ' ' . $activity->PT_title ); ?>
+								</a>
+							<?php else : ?>
+								<?php echo esc_html( '-' ); ?>
+							<?php endif; ?>
+							</span>
 							<!-- Tâche -->
-							<span class="event-task">
-								<i class="dashicons dashicons-layout"></i> <?php echo esc_html( '#' . $activity->T_ID . ' ' . $activity->T_title ); ?>
+							<span class="event-task wpeo-tooltip-event" aria-label="<?php echo esc_html( '#' . $activity->T_ID . ' ' . $activity->T_title ); ?>">
+								<i class="fas fa-th-large"></i> <?php echo esc_html( '#' . $activity->T_ID ); ?>
 							</span>
 							<!-- Point -->
-							<span class="event-point">
-								<i class="fa fa-list-ul"></i> <?php echo esc_html( '#' . $activity->POINT_ID . ' ' . $activity->POINT_title ); ?>
+							<span class="event-point wpeo-tooltip-event" aria-label="<?php echo esc_html( '#' . $activity->POINT_ID . ' ' . $activity->POINT_title ); ?>">
+								<i class="fas fa-list-ul"></i> <?php echo esc_html( '#' . $activity->POINT_ID ); ?>
 							</span>
 							<!-- Temps passé -->
 							<?php
 							$com_details = ( ! empty( $activity->COM_DETAILS ) ? json_decode( $activity->COM_DETAILS ) : '' );
 							$total_time += $com_details->time_info->elapsed;
 							?>
-							<span class="event-time"><i class="dashicons dashicons-clock"></i><?php echo ! empty( $com_details->time_info->elapsed ) ? esc_html( $com_details->time_info->elapsed ) : 0; ?></span>
+							<span class="event-time"><i class="far fa-clock"></i> <?php echo ! empty( $com_details->time_info->elapsed ) ? esc_html( $com_details->time_info->elapsed ) : 0; ?></span>
 						</div>
 
 						<span class="event-content">
@@ -123,6 +146,7 @@ echo wp_kses( str_replace( '{{ total_time }}', \eoxia\Date_Util::g()->convert_to
 	'button' => array(
 		'class'       => array(),
 		'data-parent' => array(),
+		'data-action' => array(),
 	),
 	'a'      => array(
 		'href'   => array(),
@@ -144,9 +168,23 @@ echo wp_kses( str_replace( '{{ total_time }}', \eoxia\Date_Util::g()->convert_to
 	),
 	'span'   => array(
 		'class' => array(),
+		'aria-label' => array(),
 	),
 	'img'    => array(
 		'class' => array(),
 		'src'   => array(),
 	),
+	'select' => array(
+		'name'             => array(),
+		'id'               => array(),
+		'data-placeholder' => array(),
+		'class'            => array(),
+	),
+	'option' => array(
+		'value'    => array(),
+		'selected' => array(),
+	),
+	'h2' => array(
+		'style' => array(),
+	)
 ) );

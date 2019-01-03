@@ -35,6 +35,8 @@ window.eoxiaJS.taskManager.point.event = function() {
 	jQuery( document ).on( 'blur keyup paste keydown click', '.point .point-content .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.updateHiddenInput );
 	jQuery( document ).on( 'blur paste', '.wpeo-project-task .point.edit .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.editPoint );
 	jQuery( document ).on( 'click', '.wpeo-project-task .form .completed-point', window.eoxiaJS.taskManager.point.completePoint );
+
+	jQuery( document ).on( 'click', '.point-type-display-buttons div.active', window.eoxiaJS.taskManager.point.undisplayPoint );
 };
 
 /**
@@ -79,7 +81,7 @@ window.eoxiaJS.taskManager.point.activePoint = function( event ) {
  * @version 1.4.0
  */
 window.eoxiaJS.taskManager.point.refresh = function() {
-	jQuery( '.wpeo-project-wrap .points.sortable' ).sortable( {
+	jQuery( '.tm-wrap .points.sortable' ).sortable( {
 		handle: '.wpeo-sort-point',
 		items: 'div.point.edit',
 		update: window.eoxiaJS.taskManager.point.editOrder
@@ -100,13 +102,15 @@ window.eoxiaJS.taskManager.point.refresh = function() {
 window.eoxiaJS.taskManager.point.updateHiddenInput = function( event ) {
 	if ( ! jQuery( this ).closest( '.point' ).hasClass( 'edit' ) ) {
 		if ( 0 < jQuery( this ).text().length ) {
-			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 1 );
+			jQuery( this ).closest( '.point' ).find( '.quick-point-event' ).hide();
+			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).show();
 			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).removeClass( 'no-action' );
 			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-placeholder' ).addClass( 'hidden' );
 			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'pointerEvents', 'auto' );
 			window.eoxiaJS.taskManager.core.initSafeExit( true );
 		} else {
-			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 0.4 );
+			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).hide();
+			jQuery( this ).closest( '.point' ).find( '.quick-point-event' ).show();
 			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).addClass( 'no-action' );
 			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
 			jQuery( this ).closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'pointerEvents', 'none' );
@@ -135,23 +139,24 @@ window.eoxiaJS.taskManager.point.updateHiddenInput = function( event ) {
 window.eoxiaJS.taskManager.point.addedPointSuccess = function( triggeredElement, response ) {
 	var task = jQuery( "div.wpeo-project-task[data-id='" + response.data.task_id + "']" );
 
-	task.find( '.total-point' ).text( response.data.task.data.count_all_points );
+	task.find( '.point-uncompleted' ).text( response.data.task.data.count_uncompleted_points );
 	task.find( '.point-completed' ).text( response.data.task.data.count_completed_points );
 
 	if ( triggeredElement.closest( '.point' ).length ) {
 		triggeredElement.closest( '.point' ).find( '.wpeo-point-new-contenteditable' ).text( '' );
 		triggeredElement.closest( '.point' ).find( 'input[name="content"]' ).val( '' );
-		triggeredElement.closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'opacity', 0.4 );
+		triggeredElement.closest( '.point' ).find( '.quick-point-event' ).hide();
+		triggeredElement.closest( '.point' ).find( '.wpeo-point-new-btn' ).hide();
 		triggeredElement.closest( '.point' ).find( '.wpeo-point-new-btn' ).addClass( 'no-action' );
 		triggeredElement.closest( '.point' ).find( '.wpeo-point-new-placeholder' ).removeClass( 'hidden' );
+		triggeredElement.closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'pointerEvents', 'auto' )
 	}
 
 	if ( response.data.point && true != response.data.point.data.completed ) {
-		task.find( '.points.sortable .point:last' ).before( response.data.view );
+		task.find( '.points.sortable .point:not(.edit)' ).after( response.data.view );
 	}
 
 	window.eoxiaJS.taskManager.point.initAutoComplete();
-	window.eoxiaJS.refresh();
 	triggeredElement.trigger( 'addedPointSuccess' );
 	window.eoxiaJS.taskManager.core.initSafeExit( false );
 };
@@ -168,7 +173,7 @@ window.eoxiaJS.taskManager.point.addedPointSuccess = function( triggeredElement,
  * @version 1.6.0
  */
 window.eoxiaJS.taskManager.point.editedPointSuccess = function( triggeredElement, response ) {
-	triggeredElement.closest( '.form' ).removeClass( 'loading' );
+	window.eoxiaJS.loader.remove( triggeredElement.closest( '.form' ) );
 };
 
 /**
@@ -181,7 +186,7 @@ window.eoxiaJS.taskManager.point.editedPointSuccess = function( triggeredElement
  */
 window.eoxiaJS.taskManager.point.editPoint = function() {
 	if ( window.eoxiaJS.taskManager.point.lastContent !== jQuery( this ).closest( '.form' ).find( '.point-content input[name="content"]' ).val() ) {
-		jQuery( this ).closest( '.form' ).addClass( 'loading' );
+		window.eoxiaJS.loader.display( jQuery( this ).closest( '.form' ) );
 		jQuery( this ).closest( '.form' ).find( '.action-input.update' ).click();
 	}
 };
@@ -206,12 +211,11 @@ window.eoxiaJS.taskManager.point.deletedPointSuccess = function( triggeredElemen
 		jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text( totalCompletedPoint );
 	}
 
-	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-manage .elapsed' ).text( response.data.time );
+	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-info .elapsed' ).text( response.data.time );
 
 	jQuery( triggeredElement ).closest( '.wpeo-project-task.mask' ).removeClass( 'mask' );
 
 	jQuery( triggeredElement ).closest( 'div.point.edit' ).fadeOut( 400, function() {
-		window.eoxiaJS.refresh();
 	} );
 };
 
@@ -219,13 +223,13 @@ window.eoxiaJS.taskManager.point.deletedPointSuccess = function( triggeredElemen
  * Envoie une requête pour passer le point en compléter ou décompléter.
  * Déplace le point vers la liste à puce "compléter" ou "décompléter".
  *
- * @return void
- *
  * @since 1.0.0
- * @version 1.0.0
  */
 window.eoxiaJS.taskManager.point.completePoint = function() {
-	var totalCompletedPoint = jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text();
+	var totalCompletedPoint   = jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text();
+	var totalUncompletedPoint = jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-uncompleted' ).text();
+	var completedButton       = jQuery( '.point-type-display-buttons button[data-point-state="completed"]' );
+	var uncompletedButton     = jQuery( '.point-type-display-buttons button[data-point-state="uncompleted"]' );
 
 	var data = {
 		action: 'complete_point',
@@ -236,47 +240,30 @@ window.eoxiaJS.taskManager.point.completePoint = function() {
 
 	if ( jQuery( this ).is( ':checked' ) ) {
 		totalCompletedPoint++;
-		jQuery( this ).closest( '.wpeo-project-task' ).find( '.points.completed' ).append( jQuery( this ).closest( 'div.point' ) );
+		totalUncompletedPoint--;
+		jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text( totalCompletedPoint );
+		jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-uncompleted' ).text( totalUncompletedPoint );
+
+		if ( completedButton.hasClass( 'active' ) ) {
+			jQuery( this ).closest( '.point' ).attr( 'data-point-state', 'completed' );
+		} else {
+			jQuery( this ).closest( '.point' ).remove();
+		}
+
 	} else {
 		totalCompletedPoint--;
-		jQuery( this ).closest( '.wpeo-project-task' ).find( '.points.sortable div.point:last' ).before( jQuery( this ).closest( 'div.point' ) );
+		totalUncompletedPoint++;
+		jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text( totalCompletedPoint );
+		jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-uncompleted' ).text( totalUncompletedPoint );
+
+		if ( uncompletedButton.hasClass( 'active' ) ) {
+			jQuery( this ).closest( '.point' ).attr( 'data-point-state', 'uncompleted' );
+		} else {
+			jQuery( this ).closest( '.point' ).remove();
+		}
 	}
 
-	jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text( totalCompletedPoint );
-
-	window.eoxiaJS.refresh();
 	window.eoxiaJS.request.send( jQuery( this ), data );
-};
-
-/**
- * Avant de charger les points complétés, toggle la classe de la dashicons.
- *
- * @param  {HTMLSpanElement} triggeredElement L'élément HTML déclenchant l'action.
- * @return {void}
- *
- * @since 1.0.0
- * @version 1.3.6.0
- */
-window.eoxiaJS.taskManager.point.beforeLoadCompletedPoint = function( triggeredElement ) {
-	jQuery( triggeredElement ).closest( '.wpeo-task-point-use-toggle' ).find( '.dashicons' ).toggleClass( 'dashicons-minus dashicons-plus' );
-	jQuery( triggeredElement ).closest( '.wpeo-task-point-use-toggle' ).find( '.points.completed' ).toggleClass( 'hidden' );
-	window.eoxiaJS.refresh();
-	return true;
-};
-
-/**
- * Le callback en cas de réussite à la requête Ajax "load_completed_point".
- *
- * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
- * @param  {Object}         response          Les données renvoyées par la requête Ajax.
- * @return {void}
- *
- * @since 1.0.0
- * @version 1.6.0
- */
-window.eoxiaJS.taskManager.point.loadedCompletedPoint = function( triggeredElement, response ) {
-	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.points.completed' ).html( response.data.view );
-	window.eoxiaJS.refresh();
 };
 
 /**
@@ -336,11 +323,13 @@ window.eoxiaJS.taskManager.point.movedPointTo = function( triggeredElement, resp
 
 	// Met à jour le temps et le nombre de point sur la tâche.
 	if ( currentTask.length ) {
-		currentTask.find( '.wpeo-task-time-manage' ).find( '.elapsed' ).html( response.data.current_task_elapsed_time );
-		currentTask.find( '.wpeo-point-toggle-a' ).find( '.total-point' ).html( response.data.current_task.data.count_completed_points + response.data.current_task.data.count_uncompleted_points );
+		currentTask.find( '.wpeo-task-time-info' ).find( '.elapsed' ).html( response.data.current_task_elapsed_time );
+		//currentTask.find( '.wpeo-point-toggle-a' ).find( '.total-point' ).html( response.data.current_task.data.count_completed_points + response.data.current_task.data.count_uncompleted_points );
 
 		if ( response.data.point.data.completed ) {
-			currentTask.find( '.wpeo-point-toggle-a .point-completed' ).html( response.data.current_task.data.count_completed_points );
+			currentTask.find( '.wpeo-task-filter .point-completed' ).html( response.data.current_task.data.count_completed_points );
+		}else{
+			currentTask.find( '.wpeo-task-filter .point-uncompleted' ).html( response.data.current_task.data.count_uncompleted_points );
 		}
 
 		if ( toTask.length ) {
@@ -363,9 +352,9 @@ window.eoxiaJS.taskManager.point.movedPointTo = function( triggeredElement, resp
 	triggeredElement.closest( '.wpeo-dropdown' ).removeClass( 'dropdown-active' );
 
 	if ( toTask.length ) {
-		toTask.find( '.wpeo-task-time-manage .elapsed' ).text( response.data.to_task_elapsed_time );
+		toTask.find( '.wpeo-task-time-info .elapsed' ).text( response.data.to_task_elapsed_time );
 
-		toTask.find( '.point.edit[data-id=' + response.data.point.data.id + '] .point-toggle .action-attribute' ).attr( 'data-task-id', response.data.to_task.data.id );
+		toTask.find( '.point.edit[data-id=' + response.data.point.data.id + '] .wpeo-point-summary .action-attribute' ).attr( 'data-task-id', response.data.to_task.data.id );
 		toTask.find( '.point.edit[data-id=' + response.data.point.data.id + '] .point-header-action .form-fields .action-input' ).removeClass( 'active' );
 		toTask.find( '.point.edit[data-id=' + response.data.point.data.id + '] .point-header-action .form-fields .search-task' ).val( '' );
 		toTask.find( '.point.edit[data-id=' + response.data.point.data.id + '] .point-header-action .move-to input[name="task_id"]' ).val( response.data.to_task.data.id );
@@ -373,14 +362,14 @@ window.eoxiaJS.taskManager.point.movedPointTo = function( triggeredElement, resp
 		toTask.find( '.point.edit[data-id=' + response.data.point.data.id + '] .point-header-action.active' ).removeClass( 'active' );
 
 		if ( response.data.point.data.point_info.completed ) {
-			toTask.find( '.wpeo-point-toggle-a .point-completed' ).html( response.data.to_task.data.count_completed_points );
+			toTask.find( '.wpeo-task-filter .point-completed' ).html( response.data.to_task.data.count_completed_points );
+		}else{
+			toTask.find( '.wpeo-task-filter .point-uncompleted' ).html( response.data.to_task.data.count_uncompleted_points );
 		}
 
 		// Met à jour le nombre de point sur la tâche reçevant le point.
-		toTask.find( '.wpeo-point-toggle-a' ).find( '.total-point' ).html( response.data.to_task.data.count_completed_points + response.data.to_task.data.count_uncompleted_points );
+		//toTask.find( '.wpeo-point-toggle-a' ).find( '.total-point' ).html( response.data.to_task.data.count_completed_points + response.data.to_task.data.count_uncompleted_points );
 	}
-
-	window.eoxiaJS.refresh();
 };
 
 /**
@@ -402,4 +391,40 @@ window.eoxiaJS.taskManager.point.afterTriggerChangeDate = function( triggeredEle
 	};
 
 	window.eoxiaJS.request.send( triggeredElement, data );
+};
+
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "load_completed_point".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.0.0
+ * @version 1.6.0
+ */
+window.eoxiaJS.taskManager.point.loadedPoint = function( triggeredElement, response ) {
+	jQuery( triggeredElement ).addClass( 'active' ).removeClass( 'action-input' );
+	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.points .point:not(.edit)' ).after( response.data.view );
+};
+
+/**
+ * Méthode appelée lors du clic sur les boutons de hoix du type de points affichés dans une tâche.
+ *
+ * @since 1.8.0
+ *
+ * @param  {type} event  L'événement lancé lors de l'action.
+ */
+window.eoxiaJS.taskManager.point.undisplayPoint = function( event ) {
+	var pointState = jQuery( this ).attr( 'data-point-state' );
+	// event.preventDefault();
+	
+	jQuery( this ).removeClass( 'active' ).addClass( 'action-input' );
+	
+	var points = this.closest( '.wpeo-project-task-container' ).querySelectorAll( '.points .point.edit[data-point-state="' + pointState + '"]' );
+	for (var key in points) {
+		points[key].remove();
+	}
+	// jQuery( this ).closest( '.wpeo-project-task-container' ).find( '.points .point.edit[data-point-state="' + pointState + '"]' ).remove();
 };

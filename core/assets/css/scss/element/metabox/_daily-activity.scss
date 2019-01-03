@@ -1,0 +1,61 @@
+#tm-indicator-activity, #tm-dashboard-indicator-customer, #wpeo-task-history-metabox {
+	.total-time {
+		position: absolute;
+		top: -40px;
+		right: 40px;
+	}
+
+	.activities-filter {
+		position: absolute;
+		left: 100px;
+		top: -45px;
+	}
+}
+
+.daily-activity {
+	> .content {
+		padding: 0;
+	}
+	.activity {
+		margin-bottom: 1em;
+		padding-bottom: 1em;
+		border-bottom: 1px solid rgba(0,0,0,0.1);
+
+		&:last-child {
+			border-bottom: 0;
+			margin-bottom: 0;
+			padding-bottom: 0;
+		}
+	}
+
+	.event-header {
+		font-weight: 700;
+		display: flex;
+		flex-wrap: wrap;
+
+		> * {
+			margin: auto 0.4em;
+		}
+		[data-icon] {
+			color: rgba(0,0,0,0.5);
+		}
+		.tm-avatar {
+			border-radius: 50%;
+			overflow: hidden;
+		}
+		.event-time {
+			margin: auto 0.4em !important;
+		}
+	}
+
+	.event-content {
+		margin: 0.4em 0;
+		font-family: 'Roboto Slab', 'Open sans', serif;
+		color: rgba(0,0,0,0.8);
+
+		a {
+			color: rgba(0,0,0,0.8);
+			text-decoration: none;
+		}
+	}
+}

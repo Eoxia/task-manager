@@ -5,7 +5,7 @@ window.eoxiaJS.taskManager.input.init = function() {
 };
 
 window.eoxiaJS.taskManager.input.event = function() {
-  jQuery( document ).on( 'keyup', '.wpeo-project-wrap .form-element input, .wpeo-project-wrap .form-element textarea', window.eoxiaJS.taskManager.input.keyUp );
+  jQuery( document ).on( 'keyup', '.tm-wrap .form-element input, .tm-wrap .form-element textarea', window.eoxiaJS.taskManager.input.keyUp );
 };
 
 window.eoxiaJS.taskManager.input.keyUp = function( event ) {

@@ -15,46 +15,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="point <?php echo ! empty( $point->data['id'] ) ? esc_attr( 'edit' ) : ''; ?>" data-id="<?php echo esc_attr( $point->data['id'] ); ?>">
+<div class="point <?php echo ! empty( $point->data['id'] ) ? esc_attr( 'edit' ) : ''; ?>"
+	data-id="<?php echo esc_attr( $point->data['id'] ); ?>"
+	data-point-state="<?php echo esc_attr( ! empty( $point->data['completed'] ) ? 'completed' : 'uncompleted' ); ?>" >
+
 	<ul class="point-container">
-		<li class="point-toggle action-attribute"
-				data-namespace="taskManagerFrontend"
-				data-module="comment"
-				data-before-method="beforeLoadComment"
-				data-action="load_front_comments"
-				data-loader="point"
-				data-task-id="<?php echo esc_attr( $point->data['post_id'] ); ?>"
-				data-point-id="<?php echo esc_attr( $point->data['id'] ); ?>">
+		<li class="point-content content">
 
-				<i class="icon-toggle far fa-angle-right" aria-hidden="true"></i>
+			<div class="wpeo-point-new-contenteditable" contenteditable="false"><?php echo trim( $point->data['content'] ); ?></div>
 
-			<?php if ( ! empty( $point->data['id'] ) ) : ?>
-				<span class="wpeo-block-id">#<?php echo esc_attr( $point->data['id'] ); ?></span>
-			<?php endif; ?>
-		</li>
+			<ul class="wpeo-point-summary">
+				<li class="wpeo-block-id"><i class="far fa-hashtag"></i> <?php echo esc_attr( $point->data['id'] ); ?></li>
+				<li class="wpeo-point-time">
+					<i class="far fa-clock"></i>
+					<span class="wpeo-time-in-point"><?php echo esc_attr( $point->data['time_info']['elapsed'] ); ?></span>
+				</li>
+				<li>
+					<i class="far fa-comment-dots"></i>
+					<?php echo esc_html( $point->data['count_comments'] ); ?>
+				</li>
+			</ul>
 
-		<li class="point-content content action-attribute"
-				data-namespace="taskManagerFrontend"
-				data-module="comment"
-				data-before-method="beforeLoadComment"
-				data-action="load_front_comments"
-				data-loader="point"
-				data-task-id="<?php echo esc_attr( $point->data['post_id'] ); ?>"
-				data-point-id="<?php echo esc_attr( $point->data['id'] ); ?>">
-			<span><?php echo $point->data['content']; ?></span>
-		</li>
-
-		<li class="point-action">
-			<div class="wpeo-point-time">
-				<span class="dashicons dashicons-clock"></span>
-				<span class="wpeo-time-in-point"><?php echo esc_attr( $point->data['time_info']['elapsed'] ); ?></span>
-			</div>
-			<div class="wpeo-point-comment">
-				<span class="dashicons dashicons-admin-comments"></span>
-				<span><?php echo esc_html( $point->data['count_comments'] ); ?></span>
-			</div>
 		</li>
 	</ul>
 
-	<ul class="comments hidden" data-id="<?php echo esc_attr( $point->data['id'] ); ?>"></ul>
+	<ul class="comments" style="display: none;" data-id="<?php echo esc_attr( $point->data['id'] ); ?>"></ul>
 </div>

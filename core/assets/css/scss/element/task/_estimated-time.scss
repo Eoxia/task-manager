@@ -14,10 +14,10 @@
 
 	.add-history-time {
 		margin-left: 14px;
-		color: $main-color;
+		color: $color__primary;
 		transition: all 0.2s ease-out;
 		&:hover {
-			color: darken($main-color, 10%);
+			color: darken($color__primary, 10%);
 			cursor: pointer;
 		}
 	}

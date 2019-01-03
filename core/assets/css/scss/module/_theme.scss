@@ -1,157 +1,198 @@
-/* Different colors define by classname for the tasks */
-
-$main-color:#389af6;
-$dark_main-color: #1360c8;
-
-// $red-background: #ff989a;
-$red-background: #ffc9ca;
+$red_background: #ffa4a6;
 $red: #ff4246;
 
-// $yellow-background: #ffeca4;
-$yellow-background: #fff1bd;
-$yellow: #ffbd41;
+$yellow_background: #ffe68c;
+$yellow: #ffb200;
 
-// $green-background: #b6ffa4;
-$green-background: #dfffd8;
+$green_background: #a2ffc8;
 $green: #35c54e;
 
-// $blue-background: #a4d0ff;
-$blue-background: #d5eaff;
+$blue_background: #9bcdff;
+$blue: $color__primary;
 
-// $purple-background: #cca4ff;
-$purple-background: #e6d2ff;
+$purple_background: #cca4ff;
 $purple: #7c41c7;
 
-.list-task {
 
-	// CHANGE COLOR
-	.task-header-action .task-color {
-		.white { background: #fff; border: 1px solid rgba(0,0,0,0.2); }
-		.red { background: $red-background; border: 1px solid $red; }
-		.yellow { background: $yellow-background; border: 1px solid $yellow; }
-		.green { background: $green-background; border: 1px solid $green; }
-		.blue { background: $blue-background; border: 1px solid $main-color; }
-		.purple { background: $purple-background; border: 1px solid $purple; }
-		.color-element > * {
-			transition: all 0.2s ease-out;
-			&:hover {
-				border: 1px solid rgba(0,0,0,0.6);
-			}
+.wpeo-project-task .task-color {
+	.white { background: #fff; border: 1px solid rgba(0,0,0,0.2); }
+	.red { background: $red_background; border: 1px solid $red; }
+	.yellow { background: $yellow_background; border: 1px solid $yellow; }
+	.green { background: $green_background; border: 1px solid $green; }
+	.blue { background: $blue_background; border: 1px solid $color__primary; }
+	.purple { background: $purple_background; border: 1px solid $purple; }
+	.color-element > * {
+		transition: all 0.2s ease-out;
+		&:hover {
+			border: 1px solid rgba(0,0,0,0.6);
 		}
 	}
+}
 
-	// Original
-	.wpeo-project-task.white {
-		.wpeo-project-task-container, .wpeo-task-point-use-toggle p, .points .point {
-			background: #fff;
-		}
-		.wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-main-user li:last-child a {
-			background: $main-color;
-		}
-		.wpeo-main-user li:last-child a:hover {
-			background: lighten($main-color, 10%);
-		}
-		.wpeo-point-new-btn, textarea:focus, textarea.active, .wpeo-task-point-completed input[type=checkbox]:checked:before, .wpeo-tag-add-tag {
-			color: $main-color;
-		}
-		.wpeo-point-new-btn:hover {
-			color: darken($main-color, 20%);
+/** Original */
+.wpeo-project-task.white {
+	.wpeo-project-task-container, .points .point, .activities .content .activity {
+		background: #fff;
+	}
+	.points .point .comment .tm-avatar {
+		box-shadow: 0 0 0px 4px #fff;
+	}
+	.tm-avatar,
+	.wpeo-task-filter .wpeo-button.active,
+	.wpeo-tag-wrap .wpeo-tag.active,
+	.wpeo-tag-wrap .wpeo-tag.edit,
+	.wpeo-ul-users .edit {
+		background: $color__primary;
+	}
+	.points .point.new .point-container .point-action .wpeo-point-new-btn {
+		background: $color__primary;
+		border-color: $color__primary;
+	}
+	.points .point .comment .comment-action .save-icon {
+		background: $color__primary;
+
+		&:hover {
+			background: lighten( $color__primary, 12% );
 		}
 	}
+}
 
-	// Red
-	.wpeo-project-task.red {
-		.wpeo-project-task-container, .wpeo-task-point-use-toggle p, .points .point {
-			background: $red-background;
-		}
-		.wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-main-user li:last-child a {
-			background: $red;
-		}
-		.wpeo-main-user li:last-child a:hover {
-			background: lighten($red, 10%);
-		}
-		.wpeo-point-new-btn, textarea:focus, textarea.active, .wpeo-task-point-completed input[type=checkbox]:checked:before, .wpeo-tag-add-tag {
-			color: $red;
-		}
-		.wpeo-point-new-btn:hover {
-			color: darken($red, 20%);
+/** Red */
+.wpeo-project-task.red {
+	.wpeo-project-task-container, .points .point, .activities .content .activity {
+		background: $red_background;
+	}
+	.points .point .comment .tm-avatar {
+		box-shadow: 0 0 0px 4px $red_background;
+	}
+	.tm-avatar,
+	.wpeo-task-filter .wpeo-button.active,
+	.wpeo-tag-wrap .wpeo-tag.active,
+	.wpeo-tag-wrap .wpeo-tag.edit,
+	.wpeo-ul-users .edit {
+		background: $red;
+	}
+	.points .point.new .point-container .point-action .wpeo-point-new-btn {
+		background: $red;
+		border-color: $red;
+	}
+	.points .point .comment .comment-action .save-icon {
+		background: $red;
+
+		&:hover {
+			background: lighten( $red, 12% );
 		}
 	}
+}
 
-	// Yellow
-	.wpeo-project-task.yellow {
-		.wpeo-project-task-container, .wpeo-task-point-use-toggle p, .points .point {
-			background: $yellow-background;
-		}
-		.wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-main-user li:last-child a {
-			background: $yellow;
-		}
-		.wpeo-main-user li:last-child a:hover {
-			background: lighten($yellow, 10%);
-		}
-		.wpeo-point-new-btn, textarea:focus, textarea.active, .wpeo-task-point-completed input[type=checkbox]:checked:before, .wpeo-tag-add-tag {
-			color: $yellow;
-		}
-		.wpeo-point-new-btn:hover {
-			color: darken($yellow, 20%);
+/** Yellow */
+.wpeo-project-task.yellow {
+	.wpeo-project-task-container, .points .point, .activities .content .activity {
+		background: $yellow_background;
+	}
+	.points .point .comment .tm-avatar {
+		box-shadow: 0 0 0px 4px $yellow_background;
+	}
+	.tm-avatar,
+	.wpeo-task-filter .wpeo-button.active,
+	.wpeo-tag-wrap .wpeo-tag.active,
+	.wpeo-tag-wrap .wpeo-tag.edit,
+	.wpeo-ul-users .edit {
+		background: $yellow;
+	}
+	.points .point.new .point-container .point-action .wpeo-point-new-btn {
+		background: $yellow;
+		border-color: $yellow;
+	}
+	.points .point .comment .comment-action .save-icon {
+		background: $yellow;
+
+		&:hover {
+			background: lighten( $yellow, 12% );
 		}
 	}
+}
 
-	// green
-	.wpeo-project-task.green {
-		.wpeo-project-task-container, .wpeo-task-point-use-toggle p, .points .point {
-			background: $green-background;
-		}
-		.wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-main-user li:last-child a {
-			background: $green;
-		}
-		.wpeo-main-user li:last-child a:hover {
-			background: lighten($green, 10%);
-		}
-		.wpeo-point-new-btn, textarea:focus, textarea.active, .wpeo-task-point-completed input[type=checkbox]:checked:before, .wpeo-tag-add-tag {
-			color: $green;
-		}
-		.wpeo-point-new-btn:hover {
-			color: darken($green, 20%);
+/** Green */
+.wpeo-project-task.green {
+	.wpeo-project-task-container, .points .point, .activities .content .activity {
+		background: $green_background;
+	}
+	.points .point .comment .tm-avatar {
+		box-shadow: 0 0 0px 4px $green_background;
+	}
+	.tm-avatar,
+	.wpeo-task-filter .wpeo-button.active,
+	.wpeo-tag-wrap .wpeo-tag.active,
+	.wpeo-tag-wrap .wpeo-tag.edit,
+	.wpeo-ul-users .edit {
+		background: $green;
+	}
+	.points .point.new .point-container .point-action .wpeo-point-new-btn {
+		background: $green;
+		border-color: $green;
+	}
+	.points .point .comment .comment-action .save-icon {
+		background: $green;
+
+		&:hover {
+			background: lighten( $green, 12% );
 		}
 	}
+}
 
-	// blue
-	.wpeo-project-task.blue {
-		.wpeo-project-task-container, .wpeo-task-point-use-toggle p, .points .point {
-			background: $blue-background;
-		}
-		.wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-main-user li:last-child a {
-			background: $main-color;
-		}
-		.wpeo-main-user li:last-child a:hover {
-			background: lighten($main-color, 10%);
-		}
-		.wpeo-point-new-btn, textarea:focus, textarea.active, .wpeo-task-point-completed input[type=checkbox]:checked:before, .wpeo-tag-add-tag {
-			color: $main-color;
-		}
-		.wpeo-point-new-btn:hover {
-			color: darken($main-color, 20%);
+/** Blue */
+.wpeo-project-task.blue {
+	.wpeo-project-task-container, .points .point, .activities .content .activity {
+		background: $blue_background;
+	}
+	.points .point .comment .tm-avatar {
+		box-shadow: 0 0 0px 4px $blue_background;
+	}
+	.tm-avatar,
+	.wpeo-task-filter .wpeo-button.active,
+	.wpeo-tag-wrap .wpeo-tag.active,
+	.wpeo-tag-wrap .wpeo-tag.edit,
+	.wpeo-ul-users .edit {
+		background: $blue;
+	}
+	.points .point.new .point-container .point-action .wpeo-point-new-btn {
+		background: $blue;
+		border-color: $blue;
+	}
+	.points .point .comment .comment-action .save-icon {
+		background: $blue;
+
+		&:hover {
+			background: lighten( $blue, 12% );
 		}
 	}
+}
 
-	// purple
-	.wpeo-project-task.purple {
-		.wpeo-project-task-container, .wpeo-task-point-use-toggle p, .points .point {
-			background: $purple-background;
-		}
-		.wpeo-tag-wrap li.wpeo-tag-tag-selected, .wpeo-tag-wrap li.wpeo-tag-edit-tag-btn, .wpeo-main-user li:last-child a {
-			background: $purple;
-		}
-		.wpeo-main-user li:last-child a:hover {
-			background: lighten($purple, 10%);
-		}
-		.wpeo-point-new-btn, textarea:focus, textarea.active, .wpeo-task-point-completed input[type=checkbox]:checked:before, .wpeo-tag-add-tag {
-			color: $purple;
-		}
-		.wpeo-point-new-btn:hover {
-			color: darken($purple, 20%);
+/** Purple */
+.wpeo-project-task.purple {
+	.wpeo-project-task-container, .points .point, .activities .content .activity {
+		background: $purple_background;
+	}
+	.points .point .comment .tm-avatar {
+		box-shadow: 0 0 0px 4px $purple_background;
+	}
+	.tm-avatar,
+	.wpeo-task-filter .wpeo-button.active,
+	.wpeo-tag-wrap .wpeo-tag.active,
+	.wpeo-tag-wrap .wpeo-tag.edit,
+	.wpeo-ul-users .edit {
+		background: $purple;
+	}
+	.points .point.new .point-container .point-action .wpeo-point-new-btn {
+		background: $purple;
+		border-color: $purple;
+	}
+	.points .point .comment .comment-action .save-icon {
+		background: $purple;
+
+		&:hover {
+			background: lighten( $purple, 12% );
 		}
 	}
-
 }

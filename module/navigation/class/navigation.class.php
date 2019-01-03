@@ -37,8 +37,8 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 	 *
 	 * @param  string $term                   Le terme de la recherche.
 	 * @param  string $status                 Peut être any ou archive.
-	 * @param  string $categories_id_selected L'ID des catégories sélectionnées. Ex: x,y,i.
-	 * @param  string $follower_id_selected   L'ID des utilisateurs séléctionnés. Ex: x,y,i.
+	 * @param  string $categories_id L'ID des catégories sélectionnées. Ex: x,y,i.
+	 * @param  string $user_id   L'ID des utilisateurs séléctionnés. Ex: x,y,i.
 	 * @return array {
 	 *         Les propriétés du tableau.
 	 *         @type string $term Le terme de la recherche.
@@ -47,19 +47,20 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 	 *         @type bool   $have_search         Si une recherche à eu lieu ou pas.
 	 * }
 	 */
-	public function get_search_result( $term, $status, $categories_id_selected, $follower_id_selected ) {
+	public function get_search_result( $term, $status, $task_id, $point_id, $post_parent_id, $categories_id, $user_id ) {
 		$have_search = false;
 
 		$categories_selected = array();
 
-		if ( ! empty( $term ) || ! empty( $categories_id_selected ) || ! empty( $follower_id_selected ) ) {
+		if ( ! empty( $term ) || ! empty( $categories_id ) || ! empty( $user_id ) ) {
 			$have_search = true;
 		}
 
-		if ( ! empty( $categories_id_selected ) ) {
+		if ( ! empty( $categories_id ) ) {
 			$categories_selected = Tag_Class::g()->get( array(
-				'term_taxonomy_id' => explode( ',', $categories_id_selected ),
+				'term_taxonomy_id' => explode( ',', $categories_id ),
 			) );
+			$have_search = true;
 		}
 
 		$categories_searched = '';
@@ -73,20 +74,39 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 
 		$categories_searched = substr( $categories_searched, 0, -2 );
 
-		if ( ! empty( $follower_id_selected ) ) {
+		if ( ! empty( $user_id ) ) {
 			$follower = Follower_Class::g()->get( array(
-				'include' => $follower_id_selected,
+				'include' => $user_id,
 			), true );
 
 			$follower_searched = $follower->data['displayname'];
+			$have_search = true;
+		}
+
+		$post_parent_searched = '';
+
+		$post_parent = null;
+
+		if ( ! empty( $post_parent_id ) ) {
+			$post_parent = get_post( $post_parent_id );
+
+			$post_parent_searched = $post_parent->post_title;
+			$have_search = true;
 		}
 
 		return array(
-			'term'                => $term,
-			'status'              => $status,
-			'categories_searched' => $categories_searched,
-			'follower_searched'   => $follower_searched,
-			'have_search'         => $have_search,
+			'term'                 => $term,
+			'task_id'              => $task_id,
+			'point_id'             => $point_id,
+			'status'               => $status,
+			'categories_id'        => $categories_id,
+			'categories_searched'  => $categories_searched,
+			'user_id'              => $user_id,
+			'follower_searched'    => $follower_searched,
+			'post_parent'          => $post_parent,
+			'post_parent_id'       => $post_parent_id,
+			'post_parent_searched' => $post_parent_searched,
+			'have_search'          => $have_search,
 		);
 	}
 
@@ -98,19 +118,24 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 	 *
 	 * @param  string $term                   Le terme de la recherche.
 	 * @param  string $status                 Peut être any ou archive.
-	 * @param  string $categories_id_selected L'ID des catégories sélectionnées. Ex: x,y,i.
-	 * @param  string $follower_id_selected   L'ID des utilisateurs séléctionnés. Ex: x,y,i.
+	 * @param  string $categories_id L'ID des catégories sélectionnées. Ex: x,y,i.
+	 * @param  string $user_id   L'ID des utilisateurs séléctionnés. Ex: x,y,i.
 	 * @return void
 	 */
-	public function display_search_result( $term, $status, $categories_id_selected, $follower_id_selected ) {
-		$data = $this->get_search_result( $term, $status, $categories_id_selected, $follower_id_selected );
+	public function display_search_result( $term, $status, $task_id, $point_id, $post_parent, $categories_id, $user_id, $display_button = true ) {
+		$data = $this->get_search_result( $term, $status, $task_id, $point_id, $post_parent, $categories_id, $user_id );
 
 		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/search-results', array(
-			'term'                => $data['term'],
-			'status'              => $data['status'],
-			'categories_searched' => $data['categories_searched'],
-			'follower_searched'   => $data['follower_searched'],
-			'have_search'         => $data['have_search'],
+			'term'                 => $data['term'],
+			'task_id'              => $data['task_id'],
+			'point_id'             => $data['point_id'],
+			'post_parent_searched' => $data['post_parent_searched'],
+			'status'               => $data['status'],
+			'categories_searched'  => $data['categories_searched'],
+			'follower_searched'    => $data['follower_searched'],
+			'have_search'          => $data['have_search'],
+			'display_button'       => $display_button,
+			'data'                 => $data,
 		) );
 	}
 }

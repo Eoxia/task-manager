@@ -34,10 +34,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	endif;
 	?>
 
-	<li class="wpeo-tag edit action-attribute"
+	<li class="wpeo-tag wpeo-button edit action-attribute button-grey button-radius-3"
 		data-action="close_tag_edit_mode"
 		data-nonce="<?php echo esc_attr( wp_create_nonce( 'close_tag_edit_mode' ) ); ?>"
 		data-task-id="<?php echo esc_attr( $task->data['id'] ); ?>">
-		<i class="far fa-save" ></i>
+
+			<i class="fas fa-save"></i>
 	</li>
 </ul>

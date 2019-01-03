@@ -1,0 +1,13 @@
+{
+	"name": "Les notes",
+	"slug": "sticky-note",
+	"version": "1.8.0",
+	"description": "Le module gérant les notes",
+	"path": "module/sticky-note/",
+	"state": true,
+	"dependencies": {
+		"action": {},
+		"model": {},
+		"class": {}
+	}
+}

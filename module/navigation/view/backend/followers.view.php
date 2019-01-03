@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <ul class="wpeo-follower-search">
 	<li><span class="wpeo-follower-title"><?php esc_html_e( 'Followers', 'task-manager' ); ?></span></li>
 	<li>
-		<select name="follower_id_selected">
+		<select name="user_id">
 			<?php
 			if ( ! empty( $followers ) ) :
 				foreach ( $followers as $follower ) :

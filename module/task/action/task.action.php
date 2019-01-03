@@ -427,7 +427,7 @@ class Task_Action {
 		Task_Class::g()->update( $task->data, true );
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task', array(
+		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task-only-content', array(
 			'task' => $task,
 		) );
 		wp_send_json_success( array(
@@ -453,6 +453,7 @@ class Task_Action {
 			\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/metabox-create-buttons', array( 'parent_id' => $post->ID ) );
 			$buttons = ob_get_clean();
 			add_meta_box( 'wpeo-task-metabox', __( 'Task', 'task-manager' ) . apply_filters( 'tm_posts_metabox_buttons', $buttons ), array( Task_Class::g(), 'callback_render_metabox' ), $post_type, 'normal', 'default' );
+			add_meta_box( 'wpeo-task-history-metabox', __( 'History task', 'task-manager' ), array( Task_Class::g(), 'callback_render_history_metabox' ), $post_type, 'side', 'default' );
 		}
 	}
 

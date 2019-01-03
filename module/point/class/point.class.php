@@ -148,7 +148,7 @@ class Point_Class extends \eoxia\Comment_Class {
 	 *
 	 * @return boolean               True ou false.
 	 */
-	public function complete_point( $point_id, $completed, $is_new_point ) {
+	public function complete_point( $point_id, $completed, $is_new_point = false ) {
 		$point = $this->get( array(
 			'id' => $point_id,
 		), true );
@@ -160,8 +160,6 @@ class Point_Class extends \eoxia\Comment_Class {
 		$point->data['completed'] = $completed;
 
 		if ( $completed ) {
-			$point->data['order'] = $task->data['count_completed_points'];
-
 			$task->data['count_completed_points']++;
 
 			if ( ! $is_new_point ) {
@@ -169,8 +167,6 @@ class Point_Class extends \eoxia\Comment_Class {
 			}
 			$point->data['time_info']['completed_point'][ get_current_user_id() ][] = current_time( 'mysql' );
 		} else {
-			$point->data['order'] = $task->data['count_uncompleted_points'];
-
 			if ( ! $is_new_point ) {
 				$task->data['count_completed_points']--;
 			}
@@ -186,6 +182,58 @@ class Point_Class extends \eoxia\Comment_Class {
 
 		return $point;
 	}
+
+	/**
+	 * Mise à jour d'un point.
+	 *
+	 * @since 1.8.0
+	 * @version 1.8.0
+	 *
+	 * @param integer $point_id  L'ID du point.
+	 * @param integer $parent_id L'ID du parent.
+	 * @param string  $content   Le contenu du point.
+	 * @param boolean $completed Complete le point si true.
+	 *
+	 * @return Point_Model Les données du point.
+	 */
+	public function edit_point( $point_id, $parent_id, $content, $completed ) {
+		$content = str_replace( '<div>', '<br>', trim( $content ) );
+		$content = wp_kses( $content, array(
+			'br'      => array(),
+			'tooltip' => array(
+				'class' => array(),
+			),
+		) );
+
+		if ( empty( $parent_id ) ) {
+			wp_send_json_error();
+		}
+
+		$point_args = array(
+			'id'      => $point_id,
+			'post_id' => $parent_id,
+			'content' => $content,
+		);
+
+		$task = null;
+
+		$point = $this->update( $point_args, true );
+
+		// Dans le cas ou c'est un nouveau point.
+		if ( 0 === $point_id ) {
+			$point = $this->complete_point( $point->data['id'], $completed, true );
+
+			$task = Task_Class::g()->get( array( 'id' => $parent_id ), true );
+		}
+
+		$point->data['content'] = stripslashes( $point->data['content'] );
+
+		return array(
+			'point' => $point,
+			'task'  => $task,
+		);
+	}
+
 }
 
 Point_Class::g();

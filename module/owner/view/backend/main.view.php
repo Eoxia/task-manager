@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		data-action="load_edit_mode_owner"
 		data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_edit_mode_owner' ) ); ?>"
 		data-task-id="<?php echo esc_attr( $task_id ); ?>">
-		<?php echo do_shortcode( '[task_avatar ids="' . $owner_id . '" size="32"]' ); ?>
+		<?php echo do_shortcode( '[task_avatar ids="' . $owner_id . '" size="40"]' ); ?>
 	</div>
 
 	<ul class="dropdown-content right"></ul>

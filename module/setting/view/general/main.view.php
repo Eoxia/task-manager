@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<label class="form-field-container">
 			<div class="form-field-inline">
 				<input type="checkbox" id="search-bar" class="form-field" name="display_search_bar" <?php echo $use_search_in_admin_bar ? esc_attr( 'checked="checked"' ) : ''; ?>>
-				<label for="search-bar"><?php esc_html_e( 'Use search task in admin bar' ); ?></label>
+				<label for="search-bar"><?php esc_html_e( 'Use search task in admin bar', 'task-manager' ); ?></label>
 			</div>
 		</label>
 	</div>

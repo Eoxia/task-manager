@@ -43,25 +43,83 @@ class Search_Bar_Shortcode {
 	 * @return HTML Le code HTML permettant d'afficher la zone de recherche
 	 */
 	public function callback_task_manager_search_bar( $param ) {
-		$categories = Tag_Class::g()->get( array() );
-		$followers  = Follower_Class::g()->get( array(
-			'role' => 'administrator',
-		) );
+		global $eo_search;
 
-		$empty_user = Follower_Class::g()->get( array( 'schema' => true ), true );
-		array_unshift( $followers, $empty_user );
+		$categories = Tag_Class::g()->get( array() );
+
 		$param = shortcode_atts( array(
 			'term'                   => '',
 			'status'                 => 'any',
-			'categories_id_selected' => array(),
-			'follower_id_selected'   => array(),
+			'task_id'                => 0,
+			'point_id'               => 0,
+			'post_parent'            => 0,
+			'categories_id' => array(),
+			'users_id'       => array(),
 		), $param, 'task_manager_search_bar' );
+
+		$user_display = '';
+		if ( ! empty( $param['users_id'] ) ) {
+			$user         = get_userdata( $param['users_id'] );
+			$user_display = $user->display_name;
+		}
+
+		$eo_search->register_search( 'tm_search_admin', array(
+			'label'        => 'Administrateur',
+			'icon'         => 'fa-search',
+			'type'         => 'user',
+			'name'         => 'user_id',
+			'args' => array(
+				'role' => 'administrator',
+			)
+		) );
+
+		$parent_display = '';
+		$parent_id      = 0;
+
+		if ( ! empty( $param['post_parent'] ) ) {
+			$parent = get_post( $param['post_parent'] );
+		}
+
+		if ( ! empty( $parent ) && $parent->post_type == 'wpshop_customers' ) {
+			$parent_display = $parent->post_title;
+			$parent_id      = $parent->ID;
+		}
+
+		$eo_search->register_search( 'tm_search_customer', array(
+			'label'        => 'Client',
+			'icon'         => 'fa-search',
+			'type'         => 'post',
+			'name'         => 'post_parent',
+			'args' => array(
+				'post_type'   => 'wpshop_customers',
+				'post_status' => array( 'publish', 'inherit', 'draft' ),
+			)
+		) );
+
+		$parent_display = '';
+		$parent_id      = 0;
+		if ( ! empty( $parent ) && $parent->post_type == 'wpshop_shop_order' ) {
+			$parent_display = $parent->post_title;
+			$parent_id      = $parent->ID;
+		}
+
+		$eo_search->register_search( 'tm_search_order', array(
+			'label'        => 'Commande',
+			'icon'         => 'fa-search',
+			'type'         => 'post',
+			'name'         => 'post_parent_order',
+			'next_action'  => 'search_order',
+			'args' => array(
+				'post_type'   => 'wpshop_shop_order',
+				'post_status' => array( 'publish', 'inherit', 'draft' ),
+			)
+		) );
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/main', array(
 			'categories' => $categories,
-			'followers'  => $followers,
 			'param'      => $param,
+			'eo_search'  => $eo_search,
 		) );
 
 		return ob_get_clean();

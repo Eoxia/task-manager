@@ -14,6 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<li class="follower active" style="width: 50px; height: 50px;">
-	<?php echo do_shortcode( '[task_avatar ids="' . $user->data['id'] . '" "size="50"]' ); ?>
+<li class="follower active" style="width: 35px; height: 35px;">
+	<?php echo do_shortcode( '[task_avatar ids="' . $user->data['id'] . '" size="35"]' ); ?>
 </li>

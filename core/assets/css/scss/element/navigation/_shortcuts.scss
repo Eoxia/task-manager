@@ -1,0 +1,39 @@
+.tm-dashboard-subheader .tm-dashboard-shortcuts {
+	display: flex;
+	flex-direction: row;
+	padding: 0.6em 0 0.6em 1em;
+
+	.dashboard-shortcut {
+		margin: auto 0;
+		padding: 0 1em 0 0;
+
+		.wpeo-button {
+			color: rgba(255,255,255,0.6);
+			border-radius: 6px;
+			padding: 0.2em 0.4em;
+
+			&:hover {
+				color: #fff;
+			}
+		}
+		&.active .wpeo-button {
+			background: #fff;
+			color: $color__primary;
+			font-weight: 600;
+		}
+	}
+	.dashboard-shortcut.shortcut-title {
+		text-transform: uppercase;
+		color: #fff;
+		font-size: 11px;
+		font-weight: 700;
+	}
+
+	.handle-shortcut {
+		color: rgba(255,255,255,0.6);
+
+		&:hover {
+			color: #fff;
+		}
+	}
+}

@@ -13,9 +13,7 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} ?>
-
-<?php
+}
 if ( ! empty( $datas ) ) :
 	foreach ( $datas as $date => $data ) :
 		if ( ! empty( $data ) && is_array( $data ) ) :

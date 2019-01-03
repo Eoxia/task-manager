@@ -5,7 +5,11 @@
 @import "comment/comment";
 @import "activity/activity";
 @import "import/import";
+@import "user/user";
+@import "metabox/metabox";
 
 /** Import des éléments simples */
+@import "structure";
+@import "post";
 @import "tag";
 @import "load-more";

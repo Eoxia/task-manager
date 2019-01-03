@@ -6,6 +6,7 @@
 	"path": "module/indicator/",
 	"dependencies": {
 		"action": {},
-		"class": {}
+		"class": {},
+		"filter": {}
 	}
 }

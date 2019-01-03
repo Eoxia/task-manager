@@ -1,10 +1,10 @@
-﻿=== Task Manager ===
+=== Task Manager ===
 Contributors: Eoxia
 Donate link:
 Tags: task, tasks, management, manager, collaboration, dashboard, organizer, project management, project manager, projects, task lists, task management, task manager, Time Tracking, to do, to do list, todo, todo list
 Requires at least: 4.4.0
 Tested up to: 4.9.6
-Stable tag: 1.7.0
+Stable tag: 1.8.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.fr.html
 
@@ -36,43 +36,10 @@ Attribute the time which you crossed to make every tasks. Task manager, intellig
 Export your tasks in size text, to pass on or to integrate into your reports.
 
 = Customers followed =
-With the shortcode [ task ], you can post your tasks wherever, in your pages or articles.
+With the shortcode [task], you can post your tasks wherever, in your pages or articles.
 
 = To contribute =
 We encourage you to contribute to our project, to give us your return, go back to us bugs or to submit us an idea …
-
-== Description ==
-= La communication, différemment. 
-A l'interface moderne et intuitive, Task Manager vous permettra de gérer votre temps à travers des listes ordonnées. Ainsi, le travail en équipe est facilité, avec un suivi des tâches et du temps effectué. Organisez votre travail, et offrez la possibilité à vos clients de suivre la progressions de leurs projets, à travers une plateforme communautaire. 
-
-= Tâches =
-Sur chacune des tâches, vous pourrez attribuer un thème spécifique, les personnes concernées et le temps passé. 
-
-= Catégories =
-Catégorisez vos tâches à souhait et trouvez-les plus facilement. Une fois terminées, vous pourrez les archiver. 
-
-= Notifications =
-Envoyez des notifications par mails aux membres de votre équipe, afin de les tenir informés de la progression de votre travail.
-
-= Commentaires = 
-Chaque utilisateur peut ajouter un commentaire au sujet de sa tâche, y ajouter la date d’édition et le temps ayant été consacré.
-
-= Temps =
-Attribuez le temps que vous avez passé à effectuer chaque tâches. Task manager, intelligent, peut aussi calculer pour vous votre temps. Il vous suffira simplement de compléter votre première tâche.
-
-= Rapidité =
-Task Manager vous fera gagner du temps ! En un clic, retrouvez votre tâche par utilisateur ou par catégorie.
-
-= Export =
-Exportez vos tâches en format texte, à transmettre ou intégrer dans vos rapports.
-
-= Suivi client =
-Avec le shortcode [task], vous pourrez afficher vos tâches n’importe où, dans vos pages ou articles.
-
-= Pour contribuer =
-Nous vous encourageons à contribuer à notre projet, pour nous donner votre retour, nous remonter les bugs ou pour nous soumettre une idée …
-
-Nous espérons que ce plugin vous plaira, découvrez nos autres travaux en vous rendant sur notre site internet !
 
 == Installation ==
 
@@ -93,6 +60,14 @@ No questions asked yet.
 5. See the history
 
 == Changelog ==
+
+= 1.8.0 =
+
+= Improvment =
+
+* 23284 - Update search functionnality
+* 23825 - Add options to user (on profile page) to show/hide some widgets on dashboard: Activity, Sticky Note and customer activity with WPShop.
+* 23555 - Task Manager interface get new design.
 
 = 1.7.0 =
 

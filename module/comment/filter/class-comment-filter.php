@@ -2,8 +2,10 @@
 /**
  * Gestion des filtres relatives aux commentaires
  *
+ * @author Eoxia <dev@eoxia.com>
+ * @copyright 2018 Eoxia.
  * @since 1.6.0
- * @version 1.6.0
+ * @version 1.8.0
  * @package Task-Manager
  */
 
@@ -21,12 +23,20 @@ class Comment_Filter {
 
 	/**
 	 * Le constructeur
+	 *
+	 * @since 1.6.0
+	 * @version 1.8.0
 	 */
 	public function __construct() {
 		$current_type = Task_Comment_Class::g()->get_type();
 		add_filter( "eo_model_{$current_type}_after_get", array( $this, 'calcul_elapsed_time' ), 10, 2 );
+		add_filter( "eo_model_{$current_type}_after_get", array( $this, 'parse_content' ), 10, 2 );
 		add_filter( "eo_model_{$current_type}_after_put", array( $this, 'compile_time' ), 10, 2 );
 		add_filter( "eo_model_{$current_type}_after_post", array( $this, 'compile_time' ), 10, 2 );
+		add_filter( "eo_model_{$current_type}_after_post", array( $this, 'callback_after_save_comments' ), 10, 2 );
+		
+		add_filter( 'tm_comment_edit_after', array( $this, 'callback_tm_comment_edit_after' ), 10, 2 );
+		add_filter( 'tm_comment_advanced_view', array( $this, 'callback_tm_comment_advanced_view' ), 10, 2 );
 	}
 
 	/**
@@ -139,6 +149,105 @@ class Comment_Filter {
 		}
 
 		return $object;
+	}
+
+	/**
+	 * Parsage du contenu du commentaire afin de retrouver les ID correspondant à des tâches, points ou d'autres commentaires.
+	 * Permet de rajouter une balise avec une infobulle contenant les 100 premiers caractères de l'élément trouvé dans le contenu.
+	 *
+	 * @since 1.8.0
+	 * @version 1.8.0
+	 *
+	 * @param  Task_Comment_Model $object Les données du commentaire.
+	 * @param  array              $args   Les données lors de la création de l'objet.
+	 *
+	 * @return Task_Comment_Model         Les données du commentaire modifiée par cette méthode.
+	 */
+	public function parse_content( $object, $args ) {
+		$object->data['rendered'] = $object->data['content'];
+
+		$prefixes_to_parse = array(
+			'T' => '\task_manager\Task_Class',
+			'P' => '\task_manager\Point_Class',
+			'C' => '\task_manager\Task_Comment_Class',
+		);
+
+		if ( ! empty( $prefixes_to_parse ) ) {
+			foreach ( $prefixes_to_parse as $prefix_to_parse => $model_to_use ) {
+				preg_match_all( '/#' . $prefix_to_parse . '(\d*)/', $object->data['content'], $matches );
+
+				if ( ! empty( $matches[1] ) ) {
+					foreach ( $matches[1] as $matched ) {
+						$parsed_object = $model_to_use::g()->get( array( 'id' => $matched ), true );
+
+						if ( ! empty( $parsed_object->data['id'] ) ) {
+							$prefix_id = $prefix_to_parse . $parsed_object->data['id'];
+							$content   = $parsed_object->data['content'];
+							if ( empty( $content ) ) {
+								$content = $parsed_object->data['title'];
+							}
+
+							$content = htmlspecialchars( substr( $content, 0, 100 ) );
+
+							// Le contenu en entier.
+							$html = "<b class='wpeo-tooltip-event' aria-label='" . $content . "'>#" . $prefix_id . "</b>";
+
+							$object->data['rendered'] = preg_replace( '/#' . $prefix_id . '/', $html, $object->data['rendered'] );
+						}
+					}
+				}
+			}
+		}
+
+		return $object;
+	}
+
+  /**
+	 * Callback appelé après l'insertion d'un nouveau commentaire.
+	 *
+	 * @param  Task_Comment_Model $object La définition complète du commentaire avant passage dans le filtre.
+	 * @param  array              $args   Des données complémentaires permettant d'effectuer le traitement du filtre.
+	 *
+	 * @return Task_Comment_Model         La définition du commentaire après passage du filtre.
+	 */
+	public function callback_after_save_comments( $object, $args ) {
+		$point = Point_Class::g()->get( array(
+			'id' => $object->data['parent_id'],
+		), true );
+
+		$point->data['count_comments']++;
+
+		Point_Class::g()->update( $point->data );
+
+		return $object;
+	}
+	
+	public function callback_tm_comment_edit_after( $output, $comment ) {
+		$user = Follower_Class::g()->get( array( 'id' => get_current_user_id() ), true );
+		
+		if ( $user->data['_tm_advanced_display'] ) {
+			ob_start();
+			\eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/edit-advanced', array(
+				'comment' => $comment,
+			) );
+			$output .= ob_get_clean();
+		}
+		
+		return $output;
+	}
+	
+	public function callback_tm_comment_advanced_view( $output, $comment ) {
+		$user = Follower_Class::g()->get( array( 'id' => get_current_user_id() ), true );
+		
+		if ( $user->data['_tm_advanced_display'] ) {
+			ob_start();
+			\eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/comment-advanced', array(
+				'comment' => $comment,
+			) );
+			$output .= ob_get_clean();
+		}
+		
+		return $output;
 	}
 }
 

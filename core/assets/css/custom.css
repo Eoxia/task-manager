@@ -1,9 +1,9 @@
 /*@CHARSET "ISO-8859-1";
 
-.wpeo-project-wrap .grid-sizer {
+.tm-wrap .grid-sizer {
 	width: 100% !important;
 }
-.wpeo-project-wrap .grid-item {
+.tm-wrap .grid-item {
 	width: 100% !important;
 	float: left;
 	padding: 10px;

@@ -3,9 +3,9 @@
  * Les filtres relatives aux modèles des tâches.
  *
  * @author Eoxia <dev@eoxia.com>
- * @since 1.6.0
+ * @since 1.0.0
  * @version 1.6.0
- * @copyright 2015-2018 Eoxia
+ * @copyright 2018 Eoxia.
  * @package Task_Manager
  */
 
@@ -47,6 +47,30 @@ class Task_Model_Filter {
 			'post_id' => $object->data['id'],
 			'number'  => 1,
 		), true );
+		
+		$object->data['parent'] = null;
+		
+		if ( ! empty( $object->data['parent_id'] ) ) {
+			$object->data['parent'] = get_post( $object->data['parent_id'] );
+			
+			$tmp_meta = get_post_meta( $object->data['parent']->ID, '_order_postmeta', true );
+			
+			if ( ! empty( $tmp_meta ) ) {
+				$object->data['parent']->post_title = $tmp_meta['order_key'];
+				
+				if ( empty( $post->meta['tm_key'] ) && ! empty( $tmp_meta['order_temporary_key'] ) ) {
+					$object->data['parent']->post_title = $tmp_meta['order_temporary_key'];
+				}
+			}
+			
+			if ( ! empty( $object->data['parent']->post_title ) ) {
+				$object->data['parent']->displayed_post_title = $object->data['parent']->post_title;
+				
+				if ( 50 <= strlen( $object->data['parent']->displayed_post_title ) ) {
+					$object->data['parent']->displayed_post_title = substr( $object->data['parent']->displayed_post_title, 0, 50 ) . '...';
+				}
+			}
+		}
 
 		if ( empty( $object->data['last_history_time']->data['id'] ) ) {
 			$object->data['last_history_time'] = History_Time_Class::g()->get( array(
@@ -82,7 +106,6 @@ class Task_Model_Filter {
 
 		return $object;
 	}
-
 }
 
 new Task_Model_Filter();

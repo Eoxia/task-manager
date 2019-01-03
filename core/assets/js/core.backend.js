@@ -28,8 +28,8 @@ window.eoxiaJS.taskManager.core.init = function() {
  * @return {void}
  */
 window.eoxiaJS.taskManager.core.event = function() {
-	jQuery( document ).on( 'click', '.wpeo-project-wrap .notification.patch-note.active', window.eoxiaJS.taskManager.core.openPopup );
-	jQuery( document ).on( 'click', '.wpeo-project-wrap .notification.patch-note .close', window.eoxiaJS.taskManager.core.closeNotification );
+	jQuery( document ).on( 'click', '.tm-wrap .notification.patch-note.active', window.eoxiaJS.taskManager.core.openPopup );
+	jQuery( document ).on( 'click', '.tm-wrap .notification.patch-note .close', window.eoxiaJS.taskManager.core.closeNotification );
 };
 
 /**
@@ -43,7 +43,7 @@ window.eoxiaJS.taskManager.core.event = function() {
  */
 window.eoxiaJS.taskManager.core.openPopup = function( event ) {
 	event.stopPropagation();
-	jQuery( '.wpeo-project-wrap .popup.patch-note' ).addClass( 'active' );
+	jQuery( '.tm-wrap .popup.patch-note' ).addClass( 'active' );
 };
 
 /**

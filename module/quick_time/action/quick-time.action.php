@@ -111,9 +111,14 @@ class Quick_Time_Action {
 			'quicktimes' => $quicktimes,
 		) );
 		$view = ob_get_clean();
+		
+		ob_start();
+		\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/setting/buttons' );
+		$buttons_view = ob_get_clean();
+		
 		wp_send_json_success( array(
 			'view'         => $view,
-			'buttons_view' => '',
+			'buttons_view' => $buttons_view,
 		) );
 	}
 

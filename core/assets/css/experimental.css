@@ -1,0 +1,20 @@
+.suggest {
+  pointer-events: all;
+  position: absolute; }
+  .suggest::before {
+    display: none; }
+  .suggest li.focus {
+    background: rgba(0, 0, 0, 0.1); }
+
+.test {
+  position: absolute;
+  top: 15px; }
+
+.point-container .point-content {
+  position: relative; }
+
+[id^='tm-indicator-notes-'] .hndle {
+  border-bottom: 0; }
+
+[id^='tm-indicator-notes-'] .hndle span {
+  display: none; }

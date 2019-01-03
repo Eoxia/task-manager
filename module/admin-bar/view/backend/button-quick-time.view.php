@@ -18,5 +18,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 <span class="wpeo-modal-event"
 			data-action="load_popup_quick_time"
 			data-class="popup-quick-time"
-			data-title="<?php esc_html_e( 'Quick time', 'task-manager-wpshop' ); ?>"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_popup_quick_time' ) ); ?>"><?php esc_html_e( 'Quick time', 'task-manager' ); ?></span>

@@ -37,6 +37,12 @@ class Task_Helper {
 			'post_id' => $object->data['id'],
 			'number'  => 1,
 		), true );
+		
+		$object->data['parent'] = null;
+		
+		if ( ! empty( $object->data['parent_id'] ) ) {
+			$object->data['parent'] = get_post( $object->data['parent_id'] );
+		}
 
 		if ( empty( $object->data['last_history_time']->data['id'] ) ) {
 			$object->data['last_history_time'] = History_Time_Class::g()->get( array(

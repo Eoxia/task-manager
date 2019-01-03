@@ -15,11 +15,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
+
 <li class="comment view">
-	<ul class="wpeo-comment-container">
-		<li class="avatar"><?php echo do_shortcode( '[task_avatar ids="' . $comment->data['author_id'] . '" size="20"]' ); ?></li>
-		<li class="wpeo-comment-date"><?php echo esc_html( $comment->data['date']['rendered']['date_human_readable'] ); ?></li>
-		<li class="wpeo-comment-time"><span class="dashicons dashicons-clock"></span> <?php echo esc_html( $comment->data['time_info']['elapsed'] ); ?></li>
-		<li class="wpeo-comment-content"><?php echo nl2br( $comment->data['content'] ); ?></li>
-	</ul>
+
+	<?php echo do_shortcode( '[task_avatar ids="' . $comment->data['author_id'] . '" size="40"]' ); ?>
+
+	<div class="comment-container">
+
+		<div class="comment-content">
+			<div class="comment-content-text">
+				<?php echo nl2br( $comment->data['rendered'] ); ?>
+			</div>
+
+			<?php echo apply_filters( 'tm_comment_advanced_view', '', $comment ); ?>
+		</div><!-- .comment-content -->
+	</div>
 </li>

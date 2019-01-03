@@ -15,32 +15,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<li class="comment new">
-	<form action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>" method="POST">
-		<ul class="wpeo-comment-container">
+<li class="comment <?php echo ! empty( $comment->data['id'] ) ? 'edit' : 'new'; ?>">
+	<input type="hidden" name="comment_id" value="<?php echo esc_attr( $comment->data['id'] ); ?>" />
+	<input type="hidden" name="post_id" value="<?php echo esc_attr( $task_id ); ?>" />
+	<input type="hidden" name="parent_id" value="<?php echo esc_attr( $point_id ); ?>" />
+	<input type="hidden" name="frontend" value="true" />
 
-			<input type="hidden" name="action" value="edit_comment_front" />
-			<?php wp_nonce_field( 'edit_comment_front' ); ?>
-			<input type="hidden" name="comment_id" value="<?php echo esc_attr( $comment->data['id'] ); ?>" />
-			<input type="hidden" name="post_id" value="<?php echo esc_attr( $task_id ); ?>" />
-			<input type="hidden" name="parent_id" value="<?php echo esc_attr( $point_id ); ?>" />
+	<?php echo do_shortcode( '[task_avatar ids="' . $comment->data['author_id'] . '" size="40"]' ); ?>
 
-			<li class="wpeo-comment-content">
-				<input type="hidden" name="content" value="<?php esc_attr( $comment->data['content'] ); ?>" />
-				<div class="content" contenteditable="true">
-					<?php echo $comment->data['content']; ?>
-				</div>
+	<div class="comment-container">
+		<div class="comment-content">
+
+			<div class="comment-content-text">
+				<input type="hidden" name="content" value="<?php echo esc_attr( trim( $comment->data['content'] ) ); ?>" />
+				<div contenteditable="true" class="content"><?php echo trim( $comment->data['content'] ); ?></div>
 				<?php if ( empty( $comment->data['id'] ) ) : ?>
-					<span class="wpeo-point-new-placeholder"><?php esc_html_e( 'Your comment here...', 'task-manager' ); ?></span>
+					<span class="placeholder"><i class="far fa-plus"></i> <?php esc_html_e( 'Your comment here...', 'task-manager' ); ?></span>
 				<?php endif; ?>
-			</li>
+			</div>
 
-			<?php if ( ! empty( $comment->data['id'] ) ) : ?>
-				<li class="wpeo-save-point"><i data-parent="edit" class="action-input far fa-save" aria-hidden="true"></i></li>
-			<?php else : ?>
-				<span data-parent="edit" class="wpeo-point-new-btn action-input dashicons dashicons-plus-alt"></span>
-			<?php endif; ?>
+		</div><!-- .comment-content -->
+		<div class="comment-action">
+			<div class="fa-layers fa-fw save-icon action-input"
+				data-parent="comment"
+				data-action="edit_comment">
 
-		</ul>
-	</form>
+				<i class="fas fa-circle"></i>
+				<i class="fa-inverse fas fa-save" data-fa-transform="shrink-6"></i>
+			</div>
+		</div>
+	</div>
 </li>

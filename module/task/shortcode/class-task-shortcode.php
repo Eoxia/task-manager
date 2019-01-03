@@ -43,14 +43,16 @@ class Task_Shortcode {
 	public function callback_task( $param ) {
 		$param = shortcode_atts( array(
 			'id'             => 0,
+			'point_id'       => 0,
 			'categories_id'  => array(),
 			'users_id'       => array(),
 			'term'           => '',
 			'status'         => 'any',
 			'offset'         => 0,
 			'post_parent'    => 0,
+			// 'post_parent'    => 0,
 			'posts_per_page' => \eoxia\Config_Util::$init['task-manager']->task->posts_per_page,
-			'with_wrapper'   => true,
+			'with_wrapper'   => 1,
 		), $param, 'task' );
 
 		if ( ! is_array( $param['categories_id'] ) && ! empty( $param['categories_id'] ) ) {
@@ -69,22 +71,24 @@ class Task_Shortcode {
 			$param['users_id'] = array();
 		}
 
+		$with_wrapper = false;
+		if ( 1 === $param['with_wrapper'] ) {
+			$with_wrapper = true;
+		}
+		
 		$tasks = Task_Class::g()->get_tasks( $param );
 
-		ob_start();
 		if ( ! is_admin() ) {
 			\eoxia\View_Util::exec( 'task-manager', 'task', 'frontend/main', array(
 				'tasks'        => $tasks,
-				'with_wrapper' => $param['with_wrapper'],
+				'with_wrapper' => $with_wrapper,
 			) );
 		} else {
 			\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/main', array(
 				'tasks'        => $tasks,
-				'with_wrapper' => $param['with_wrapper'],
+				'with_wrapper' => $with_wrapper,
 			) );
 		}
-
-		return ob_get_clean();
 	}
 }
 
