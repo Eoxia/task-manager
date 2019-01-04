@@ -57,7 +57,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				foreach ( $search_args as $shortcode_params_key => $shortcode_params_value ) {
 					$shortcode_final_args .= $shortcode_params_key . '="' . $shortcode_params_value . '" ';
 				}
-				do_shortcode( '[task ' . $shortcode_final_args . ']' );
+				echo do_shortcode( '[task ' . $shortcode_final_args . ']' );
 			endif;
 			?>
 		</div>

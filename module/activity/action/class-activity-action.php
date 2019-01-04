@@ -32,6 +32,8 @@ class Activity_Action {
 		add_action( 'wp_ajax_open_popup_user_chart', array( $this, 'callback_open_popup_user_chart' ) );
 		add_action( 'wp_ajax_export_activity', array( $this, 'callback_export_activity' ) );
 		add_action( 'wp_ajax_validate_indicator', array( $this, 'callback_validate_indicator' ) );
+
+		//add_action( 'admin_init', array( $this, 'callback_update_db_planning' ) );
 	}
 
 	/**
@@ -148,8 +150,8 @@ class Activity_Action {
 	public function callback_export_activity() {
 		$user_id     = ! empty( $_POST['user_id_selected'] ) ? (int) $_POST['user_id_selected'] : 0;
 		$customer_id = ! empty( $_POST['user']['customer_id'] ) ? (int) $_POST['user']['customer_id'] : 0;
-		$date_end    = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_start'] ) ? $_POST['tm_abu_date_start'] : current_time( 'Y-m-d' );
-		$date_start  = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_end'] ) ? $_POST['tm_abu_date_end'] : current_time( 'Y-m-d' );
+		$date_end  = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_start'] ) ? $_POST['tm_abu_date_start'] : current_time( 'Y-m-d' );
+		$date_start    = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_end'] ) ? $_POST['tm_abu_date_end'] : current_time( 'Y-m-d' );
 
 		$datas = Activity_Class::g()->display_user_activity_by_date( $user_id, $date_end, $date_start, $customer_id );
 
@@ -176,11 +178,11 @@ class Activity_Action {
 
 		if ( ! empty( $datas ) ) {
 			foreach ( $datas as $data ) {
-				$date        = \eoxia\Date_Util::g()->fill_date( $data->COM_DATE );
+				$date = \eoxia\Date_Util::g()->fill_date( $data->COM_DATE );
 				$com_details = ( ! empty( $data->COM_DETAILS ) ? json_decode( $data->COM_DETAILS ) : '' );
 				$user_data   = get_userdata( $data->COM_author_id );
 
-				$search  = array( '<br>', '&nbsp;', '&gt;', '&quot;', '&amp;', '&#039;' );
+				$search = array( '<br>', '&nbsp;', '&gt;', '&quot;', '&amp;', '&#039;' );
 				$replace = array( PHP_EOL, ' ', '>', '"', 'é', '\'' );
 
 				$data_to_export = array(
@@ -208,6 +210,11 @@ class Activity_Action {
 		) );
 	}
 
+/**
+ * [Récupere les données utilisateurs | Affiche les canvas]
+ * @since 1.8.0
+ * @author Corentin Eoxia
+ **/
 	public function callback_validate_indicator(){
 		check_ajax_referer( 'validate_indicator' );
 
@@ -222,6 +229,8 @@ class Activity_Action {
 		$date_gap  = '';
 		$joursaffichagedonut = 0;
 		$error = '';
+
+
 
 		ob_start();
 
@@ -241,13 +250,14 @@ class Activity_Action {
 			}
 
 			$datas = Activity_Class::g()->display_user_activity_by_date( $arraylistfollower[0], $date_end, $date_start );
-			$data_charset = Activity_Class::g()->get_data_chart( $datas, $date_end, $date_start, $time );
+
+			$data_charset = Activity_Class::g()->get_data_chart( $datas, $date_end, $date_start, $time, $arraylistfollower[0] );
+
 
 			$datatime   = $data_charset['datatime'];
 			$date_gap   = $data_charset['date_gap'];
-			$date_start = $data_return['date_start'];
-			$date_end   = $date_return['date_end'];
-
+			$date_start = $data_charset['date_start'];
+			$date_end   = $data_charset['date_end'];
 
 			if( $date_gap == 0 ){
 				$error = 'date_error';
@@ -268,7 +278,6 @@ class Activity_Action {
 			'jourdonut' 			 => $joursaffichagedonut,
 			'error'            => $error
 		) );
-
 	}
 }
 

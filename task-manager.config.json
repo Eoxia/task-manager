@@ -12,7 +12,8 @@
 		"task-manager-update",
 		"wpshop_customers",
 		"wpshop_shop_orders",
-		"tache_page_indicator-page"
+		"tache_page_indicator-page",
+		"profile"
 	],
 	"externals": [],
 	"modules": [

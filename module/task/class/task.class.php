@@ -168,7 +168,7 @@ class Task_Class extends \eoxia\Post_Class {
 
 			AND TASK.post_status IN (" . $param['status'] . ") ";
 			
-		if ( isset( $param['post_parent'] ) && ! is_null( $param['post_parent'] ) ) {
+		if ( ! is_null( $param['post_parent'] ) ) {
 			$query .= 'AND TASK.post_parent IN (' . implode( $param['post_parent'], ',' ) . ')';
 		}
 		

@@ -89,6 +89,7 @@ class Activity_Class extends \eoxia\Singleton_Util {
 	 * @return array
 	 */
 	public function display_user_activity_by_date( $user_id, $date_end = '', $date_start = '', $customer_id = 0 ) {
+
 		if ( empty( $date_end ) ) {
 			$date_end = current_time( 'Y-m-d' );
 		}
@@ -133,7 +134,7 @@ class Activity_Class extends \eoxia\Singleton_Util {
 		return $datas;
 	}
 
-	public function get_data_chart( $datas, $date_end = '', $date_start = '', $time = '') {
+	public function get_data_chart( $datas, $date_end = '', $date_start = '', $time = '', $user_id ) {
 
 		$datatime = [];
 		$datatime_estimated = [];
@@ -151,23 +152,70 @@ class Activity_Class extends \eoxia\Singleton_Util {
 
 		//86 400 = Une journée en seconde
 		$date_gap = ( $date_end_strtotime - $date_start_strtotime ) / 86400; // Recupere le nombre jour d'ecart
-		$datatime = [];
 
-		$time = date( "D", $date_start_strtotime );
+		$data_full_planning = get_user_meta( $user_id, '_tm_planning_users', true );
+
+		$dates = array();
+    $current = strtotime( $date_start );
+    $last = strtotime( $date_end );
+
+		$temp_year = '';
+		$temp_month = '';
+
+		$data_monthyear_db = array();
+
+    while( $current <= $last ) {
+			if( date( 'm', $current ) != $temp_month ){
+
+				$temp_month = date( 'm', $current );
+
+				$data_monthyear_db[ count( $data_monthyear_db ) ] = array(
+					'month' => date( 'm', $current ),
+ 					'year' => date( 'Y', $current )
+				);
+			}
+
+      $dates[] = date( 'd/m/Y', $current );
+      $current = strtotime( '+1 day', $current );
+    }
+
+		foreach ( $data_monthyear_db  as $nbr => $month ) { // Recupere dans la db, le planning de la période ciblée
+
+			$data_planningeachmonth_user[ count( $data_planningeachmonth_user ) ] = get_user_meta( $user_id, '_tm_planning_' . $month['year'] . '_' . $month['month'], true );
+		}
 
 		for( $p = 0; $p < $date_gap; $p++ ){ // BOUCLE FOR | Pour chaque jours (intervalle choisi)
 			$strtotime_int = $p * 86400;
 
 			$time_timestamp = $date_start_strtotime + $strtotime_int;
-			$time = date("D", $date_start_strtotime + $strtotime_int);
+			$time = date("l", $date_start_strtotime + $strtotime_int);
 
-			if( $time == 'Sat' || $time == 'Sun' ){
+			$worktoday = false;
+			$default_value = 0;
+
+			foreach( $data_planningeachmonth_user as $keyyear => $valueyear ){
+				$day_found = false;
+				foreach ( $valueyear as $key => $value) {
+					if( $time_timestamp == strtotime( $value['date'] ) ){
+						if( $value['default'] > 0 ){ // On verifie que la personne travaille ce jour la
+							$worktoday = true;
+							$default_value = $value['default'];
+						}
+						$day_found = true;
+						break;
+					}
+				}
+
+				if( $day_found ){
+					break;
+				}
+			}
+
+			if( ! $worktoday ){
 				continue;
 			}else{
-				$datatime_length = count( $datatime );
-				//$datatime[ $datatime_length ][ 'jour' ] = strftime( '%A %d/%m', $date_start_strtotime + $strtotime_int );
 
-				// -----
+				$datatime_length = count( $datatime );
 
 				$temp_day = strftime( '%d-%m-%Y', $date_start_strtotime + $strtotime_int );
 
@@ -185,7 +233,7 @@ class Activity_Class extends \eoxia\Singleton_Util {
 				$datatime[ $datatime_length ][ 'jour' ] = $data['date'];
 
 				$datatime[ $datatime_length ][ 'strtotime' ] = $date_start_strtotime + $strtotime_int;
-				$datatime[ $datatime_length ][ 'duree_journée' ] = 7 * 60;// Nombre de journée de travail * la durée d'une journée de travail
+				$datatime[ $datatime_length ][ 'duree_journée' ] = $default_value;// Nombre de journée de travail * la durée d'une journée de travail
 				$datatime[ $datatime_length ][ 'duree_travail' ] = 0;
 
 				foreach ($datas as $i => $data_user) { // BOUCLE FOR EACH | Pour chaque tache effectué par l'utilisateur
@@ -225,7 +273,7 @@ class Activity_Class extends \eoxia\Singleton_Util {
 
 		$date_return['datatime']   = $datatime;
     $date_return['date_gap']   = $date_gap;
-		$data_return['date_start'] = $date_start;
+		$date_return['date_start'] = $date_start;
 		$date_return['date_end']   = $date_end;
 
 		return $date_return;

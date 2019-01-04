@@ -91,4 +91,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 
-<div id='information_canvas' style='display : none'><?php esc_html_e( 'Invalid !', 'task-manager' ); ?></div>
+<div id='information_canvas' style='display : none'><?php esc_html_e( 'I don\' found any data ! :(', 'task-manager' ); ?></div>

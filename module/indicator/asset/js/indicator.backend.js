@@ -30,12 +30,10 @@ window.eoxiaJS.taskManager.indicator.toggleMetabox = function( event ) {
 /**
  * Le callback en cas de réussite à la requête Ajax "load_customer_activity".
  *
- * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
- * @param  {Object}         response          Les données renvoyées par la requête Ajax.
- * @return {void}
+ * Affiche les canvas
  *
- * @since 1.5.0
- * @version 1.5.0
+ * @author Corentin Eoxia
+ * @since 1.8.0
  */
 window.eoxiaJS.taskManager.indicator.loadedCustomerActivity = function( triggeredElement, response ) {
 	jQuery( '#tm-indicator-activity .inside' ).html( response.data.view );
@@ -128,10 +126,16 @@ window.eoxiaJS.taskManager.indicator.loadedCustomerActivity = function( triggere
 		$( '#information_canvas' ).css('display', 'none');
 	}else{
 
-		if( response.data.error == 'date_error' ){
+		if( response.data.error == 'date_error' ){ // Date invalid
+
 			$( '#information_canvas' ).html( window.indicatorString.date_error );
-		}else if( response.data.error == 'person_error' ){
+
+		}else if( response.data.error == 'person_error' ){ // User don't choose person
+
 			$( '#information_canvas' ).html( window.indicatorString.person_error );
+
+		}else{ // No data found
+
 		}
 
 		$( '#information_canvas' ).css('display', 'block');
