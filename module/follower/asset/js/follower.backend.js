@@ -109,9 +109,9 @@ window.eoxiaJS.taskManager.follower.unaffectedFollowerSuccess = function( elemen
 };
 
 window.eoxiaJS.taskManager.follower.showfullplanning = function( event ){
-	$( '.showfullplanning' ).css( 'display', 'none' );
+	jQuery( '.showfullplanning' ).css( 'display', 'none' );
 }
 
 window.eoxiaJS.taskManager.follower.reloadPlanningUser = function( element, response ){
-	$( '.planninguser' ).replaceWith( response.data.view );
+	jQuery( '.planninguser' ).replaceWith( response.data.view );
 }

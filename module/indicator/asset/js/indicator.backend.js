@@ -37,16 +37,16 @@ window.eoxiaJS.taskManager.indicator.toggleMetabox = function( event ) {
  */
 window.eoxiaJS.taskManager.indicator.loadedCustomerActivity = function( triggeredElement, response ) {
 	jQuery( '#tm-indicator-activity .inside' ).html( response.data.view );
-	$( '#displaycanvas' ).html( '' );
+	jQuery( '#displaycanvas' ).html( '' );
 	var data = response.data.object;
 
 	if( data.length != 0 ){
-		$("#horizontalChart").css('display','block');
-		$("#doghnutChart").css('display','block');
+		jQuery("#horizontalChart").css('display','block');
+		jQuery("#doghnutChart").css('display','block');
 
 			for ( var i = 0; i < data.length ; i++ ){
 
-				$( "#displaycanvas" ).append( '<div class="wpeo-grid grid-2"><div class="grid-1"><canvas id="canvasHorizontalBar' + i + '"></canvas></div><div class="grid-1"><canvas id="canvasDoghnutChart' + i + '" width="400" height="225"></canvas></div></div>' );
+				jQuery( "#displaycanvas" ).append( '<div class="wpeo-grid grid-2"><div class="grid-1"><canvas id="canvasHorizontalBar' + i + '"></canvas></div><div class="grid-1"><canvas id="canvasDoghnutChart' + i + '" width="400" height="225"></canvas></div></div>' );
 				var canvasHorizontal = document.getElementById( "canvasHorizontalBar" + i ).getContext('2d');
 
 				new Chart(canvasHorizontal, {
@@ -123,22 +123,22 @@ window.eoxiaJS.taskManager.indicator.loadedCustomerActivity = function( triggere
 				}
 			}
 
-		$( '#information_canvas' ).css('display', 'none');
+		jQuery( '#information_canvas' ).css('display', 'none');
 	}else{
 
 		if( response.data.error == 'date_error' ){ // Date invalid
 
-			$( '#information_canvas' ).html( window.indicatorString.date_error );
+			jQuery( '#information_canvas' ).html( window.indicatorString.date_error );
 
 		}else if( response.data.error == 'person_error' ){ // User don't choose person
 
-			$( '#information_canvas' ).html( window.indicatorString.person_error );
+			jQuery( '#information_canvas' ).html( window.indicatorString.person_error );
 
 		}else{ // No data found
 
 		}
 
-		$( '#information_canvas' ).css('display', 'block');
+		jQuery( '#information_canvas' ).css('display', 'block');
 	}
 };
 
@@ -147,7 +147,7 @@ window.eoxiaJS.taskManager.indicator.event = function( event ) {
 };
 
 window.eoxiaJS.taskManager.indicator.addFollower = function( event) {
-	var addFollower = $( this ).attr( "data-user-id" );
+	var addFollower = jQuery( this ).attr( "data-user-id" );
 
 	var value_input = document.getElementById( "tm_indicator_list_followers" ).value;
 	var list_follower = value_input.toString() ? value_input.toString() : '';
@@ -158,18 +158,18 @@ window.eoxiaJS.taskManager.indicator.addFollower = function( event) {
 		var arrayFollowers = list_follower.split( ',' );
 	}
 
-	if( $( this ).attr( "data-user-choose" ) === 'false' ){ // On ajoute une personne
-		$( this ).attr( "data-user-choose", "true" );
+	if( jQuery( this ).attr( "data-user-choose" ) === 'false' ){ // On ajoute une personne
+		jQuery( this ).attr( "data-user-choose", "true" );
 		arrayFollowers.push( addFollower );
 
 
-		$( this ).animate({
+		jQuery( this ).animate({
 	    top: "+=10",
 	  }, 0, "linear", function() {
 
 	 });
 	}else{ // on retire la personne
-		$( this ).attr( "data-user-choose", "false" );
+		jQuery( this ).attr( "data-user-choose", "false" );
 
 		for( var i = 0; i < arrayFollowers.length ; i++ ){
 			if( addFollower == arrayFollowers[i] ){
@@ -177,7 +177,7 @@ window.eoxiaJS.taskManager.indicator.addFollower = function( event) {
 			}
 		}
 
-		$( this ).animate({
+		jQuery( this ).animate({
 	    top: "-=10",
 	  }, 0, "linear", function() {
 
