@@ -88,6 +88,17 @@ class Follower_Class extends \eoxia\User_Class {
 		$data_plan = get_user_meta( $user['id'], '_tm_planning_users', true );
 
 		if( empty( $data_plan[0] )  ){
+			$minuteupdate = false;
+			foreach( $minuraty_duration as $key => $value ){
+				if( $value != 0 ){
+					$minuteupdate = true;
+				}
+			}
+
+			if( $minuteupdate == false ){
+				return;
+			}
+
 			$this->callback_update_db_planning( $user['id'], 0, strtotime( $date_en ), 0, $minuraty_duration);
 
 			$data_plan = 	array(
@@ -102,9 +113,11 @@ class Follower_Class extends \eoxia\User_Class {
 
 		}else{
 			$temp = count( $data_plan );
-			if( $data_plan[ $temp - 1 ]['minutary_duration'] === $minuraty_duration ){ // on verifie si le changement actuel est différent du dernier
+			if( $data_plan[ 0 ]['minutary_duration'] === $minuraty_duration ){ // on verifie si le changement actuel est différent du dernier
 				return;
 			}
+
+
 
 			$data_plan = $this->array_sort( $data_plan, 'date_en', SORT_DESC ); // Objet trié par 'date'
 
@@ -235,7 +248,7 @@ class Follower_Class extends \eoxia\User_Class {
 		foreach( $every_day_between_les_deux_dates as $key => $value ){
 
 			$length = 0;
-			if( $full_data[ date( 'Y', strtotime( $value ) ) ][ date( 'm', strtotime( $value ) ) ] != null ){
+			if( ! empty( $full_data[ date( 'Y', strtotime( $value ) ) ][ date( 'm', strtotime( $value ) ) ] ) ){
 				$length = count( $full_data[ date( 'Y', strtotime( $value ) ) ][ date( 'm', strtotime( $value ) ) ] );
 			}
 

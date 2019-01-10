@@ -123,7 +123,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<?php foreach ($data_planning as $day => $value) :?>
 								<tr>
 									<td>
-										<?php if( $value[ 'lastdate' ] != null && $value[ 'lastdate' ] != '' ): ?>
+										<?php if( ! empty ( $value[ 'lastdate' ] ) && $value[ 'lastdate' ] != '' ): ?>
 											<?php esc_html_e( 'To', 'task-manager' ); ?> <?= $value[ 'lastdate' ] ?><br>
 											<?php esc_html_e( 'From', 'task-manager' ); ?> <?= $value[ 'date' ] ?>
 										<?php else: ?>
@@ -185,7 +185,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<!-- Entête -->
 			<div class="modal-header">
-				<h2 class="modal-title"><?php esc_html_e( 'All archive', 'task-manager' ); ?></h2>
+				<h2><?php esc_html_e( 'List of archives', 'task-manager' ); ?></h2>
 				<div class="modal-close"><i class="fal fa-times"></i></div>
 			</div>
 

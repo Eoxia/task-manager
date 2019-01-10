@@ -136,6 +136,7 @@ class Activity_Class extends \eoxia\Singleton_Util {
 
 	public function get_data_chart( $datas, $date_end = '', $date_start = '', $time = '', $user_id ) {
 
+
 		$datatime = [];
 		$datatime_estimated = [];
 		$datatime_reel = [];
@@ -187,11 +188,13 @@ class Activity_Class extends \eoxia\Singleton_Util {
 		for( $p = 0; $p < $date_gap; $p++ ){ // BOUCLE FOR | Pour chaque jours (intervalle choisi)
 			$strtotime_int = $p * 86400;
 
+
 			$time_timestamp = $date_start_strtotime + $strtotime_int;
 			$time = date("l", $date_start_strtotime + $strtotime_int);
 
 			$worktoday = false;
 			$default_value = 0;
+
 
 			foreach( $data_planningeachmonth_user as $keyyear => $valueyear ){
 				$day_found = false;
@@ -236,9 +239,12 @@ class Activity_Class extends \eoxia\Singleton_Util {
 				$datatime[ $datatime_length ][ 'duree_journée' ] = $default_value;// Nombre de journée de travail * la durée d'une journée de travail
 				$datatime[ $datatime_length ][ 'duree_travail' ] = 0;
 
+				$work_ = false;
+
 				foreach ($datas as $i => $data_user) { // BOUCLE FOR EACH | Pour chaque tache effectué par l'utilisateur
 
 					if( strtotime( strftime( '%Y-%m-%d', strtotime( $data_user->COM_DATE ) ) ) == $time_timestamp ){
+						$work_ = true;
 
 						$data_comdetails = json_decode( $data_user->COM_DETAILS );
 						$datatime[ $datatime_length ][ 'duree_travail' ] += $data_comdetails->time_info->elapsed;
@@ -267,6 +273,11 @@ class Activity_Class extends \eoxia\Singleton_Util {
 							}
 						}
 					}
+				}
+
+				if( $work_ == false ){
+					$datatime[ $datatime_length ][ 'duree_travail' ] = 0;
+					$datatime[ $datatime_length ][ 'date' ]          = '';
 				}
 			}
 		}

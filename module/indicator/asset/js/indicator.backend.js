@@ -135,7 +135,7 @@ window.eoxiaJS.taskManager.indicator.loadedCustomerActivity = function( triggere
 			jQuery( '#information_canvas' ).html( window.indicatorString.person_error );
 
 		}else{ // No data found
-
+			jQuery( '#information_canvas' ).html( window.indicatorString.nodata );
 		}
 
 		jQuery( '#information_canvas' ).css('display', 'block');

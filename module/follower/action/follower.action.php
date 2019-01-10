@@ -217,9 +217,9 @@ class Follower_Action {
 	 *
 	 * @param  WP_User $user L'objet contenant la définition complète de l'utilisateur.
 	 */
-	public function callback_edit_user_profile( $user_id  ) {
+	public function callback_edit_user_profile( $user  ) {
 		$user = Follower_Class::g()->get( array(
-			'id' => $user_id,
+			'id' => $user->ID,
 		), true );
 
 		$data_planning = array();
@@ -229,7 +229,7 @@ class Follower_Action {
 		if( ! empty( $data_planning_array )  ){
 
 			$data_planning = $data_planning_array[ 0 ];
-					
+
 			foreach ($data_planning_array as $key => $value) {
 				if( $datebefore != '' ){
 					$data_planning_array[ $key ][ 'lastdate' ] = $datebefore;
@@ -250,6 +250,22 @@ class Follower_Action {
 
 		$current_time    = current_time( 'd/m/Y' );
 		$current_time_en = current_time( 'Y-m-d' );
+
+
+
+		if( empty( $data_planning ) ){
+			$data_planning['minutary_duration'] = array(
+				'Monday'    => '0',
+				'Tuesday'   => '0',
+				'Wednesday' => '0',
+				'Thursday'  => '0',
+				'Friday'    => '0',
+				'Saturday'  => '0',
+				'Sunday'    => '0'
+			);
+
+			$data_planning['date'] = '';
+		}
 
 		\eoxia\View_Util::exec( 'task-manager', 'follower', 'backend/user-profile-planning', array(
 			'data'          => $data_planning['minutary_duration'],

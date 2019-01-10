@@ -104,7 +104,8 @@ class Task_Manager_Action {
 						'minute'       => __( 'minute(s)', 'task-manager' ),
 						'planning'     => __( 'Planning', 'task-manager' ),
 						'date_error'   => __( 'Invalid date' , 'task-manager' ),
-						'person_error' => __( 'Choose a user' , 'task-manager' )
+						'person_error' => __( 'Choose a user' , 'task-manager' ),
+						'nodata'			 => __( 'I don\'t found data', 'task-manager' )
 					));
 					break;
 				}
