@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2018-12-19 17:44+0100\n"
-"PO-Revision-Date: 2018-12-19 17:59+0100\n"
+"POT-Creation-Date: 2019-01-10 17:58+0100\n"
+"PO-Revision-Date: 2019-01-10 18:03+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -60,18 +60,24 @@ msgstr "Date invalide"
 msgid "Choose a user"
 msgstr "Choisissez un utilisateur"
 
-#: core/action/task_manager.action.php:136
+#: core/action/task_manager.action.php:108
+msgid "No data, please configure your planning settings !"
+msgstr ""
+"Aucune données, configurer votre emplois du temps dans vos réglages "
+"utilisateur"
+
+#: core/action/task_manager.action.php:137
 #: module/comment/view/backend/comment.view.php:52
 msgid "Delete this comment ?"
 msgstr "Voulez vous supprimer ce commentaire ?"
 
-#: core/action/task_manager.action.php:180
+#: core/action/task_manager.action.php:181
 #: module/import/view/backend/import-textarea.view.php:20
 #: module/task/action/task.action.php:455
 msgid "Task"
 msgstr "Tâche"
 
-#: core/action/task_manager.action.php:181
+#: core/action/task_manager.action.php:182
 msgid "Customer"
 msgstr "Client"
 
@@ -111,39 +117,30 @@ msgid "Cancel"
 msgstr "Annuler"
 
 #: module/activity/view/backend/list.view.php:64
-#: module/notify/asset/js/activity/view/backend/list.view.php:64
 msgid "End of history"
 msgstr "Fin de l'historique"
 
 #: module/activity/view/backend/mail/action-completed-point.view.php:16
-#: module/notify/asset/js/activity/view/backend/mail/action-completed-point.view.php:16
 msgid "completed a point"
 msgstr "a complété le point"
 
 #: module/activity/view/backend/mail/action-created-comment.view.php:16
-#: module/notify/asset/js/activity/view/backend/mail/action-created-comment.view.php:16
 msgid "added a new comment on the point"
 msgstr "a ajouté un nouveau commentaire sur le point"
 
 #: module/activity/view/backend/mail/action-created-point.view.php:16
-#: module/notify/asset/js/activity/view/backend/mail/action-created-point.view.php:16
 msgid "added a new point"
 msgstr "a ajouté un nouveau point"
 
 #: module/activity/view/backend/mail/list.view.php:19
-#: module/notify/asset/js/activity/view/backend/mail/list.view.php:19
 msgid "Access my full support"
 msgstr "Accéder à mon support complet"
 
 #: module/activity/view/backend/mail/list.view.php:23
-#: module/notify/asset/js/activity/view/backend/mail/list.view.php:23
 msgid "Last activities on your support"
 msgstr "Dernières activités sur votre support"
 
 #: module/activity/view/backend/mail/list.view.php:46
-#: module/notify/asset/js/activity/view/backend/mail/list.view.php:46
-#, fuzzy
-#| msgid "No activity found for now"
 msgid "No activity for now"
 msgstr "Pas d'activité trouvé pour le moment."
 
@@ -152,9 +149,6 @@ msgstr "Pas d'activité trouvé pour le moment."
 #: module/activity/view/backend/post-last-activity.view.php:27
 #: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:25
 #: module/indicator/view/backend/daily-activity.view.php:37
-#: module/notify/asset/js/activity/view/backend/main.view.php:25
-#: module/notify/asset/js/activity/view/backend/main.view.php:27
-#: module/notify/asset/js/activity/view/backend/post-last-activity.view.php:27
 #: module/time-exceeded/view/backend/main.view.php:24
 msgid "Start date"
 msgstr "Date de début"
@@ -164,54 +158,43 @@ msgstr "Date de début"
 #: module/activity/view/backend/post-last-activity.view.php:34
 #: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:32
 #: module/indicator/view/backend/daily-activity.view.php:44
-#: module/notify/asset/js/activity/view/backend/main.view.php:32
-#: module/notify/asset/js/activity/view/backend/main.view.php:34
-#: module/notify/asset/js/activity/view/backend/post-last-activity.view.php:34
 #: module/time-exceeded/view/backend/main.view.php:30
 msgid "End date"
 msgstr "Date de fin"
 
 #: module/activity/view/backend/post-last-activity.view.php:43
 #: module/indicator/view/backend/daily-activity.view.php:53
-#: module/notify/asset/js/activity/view/backend/post-last-activity.view.php:43
 msgid "View activity"
 msgstr "Voir l'activité"
 
 #: module/activity/view/backend/post-last-activity.view.php:110
 #: module/indicator/view/backend/daily-activity.view.php:120
-#: module/notify/asset/js/activity/view/backend/post-last-activity.view.php:110
 msgid "No activity found for now"
 msgstr "Pas d'activité trouvé pour le moment."
 
 #: module/activity/view/backend/task-header-button.view.php:18
-#: module/notify/asset/js/activity/view/backend/task-header-button.view.php:18
 #: module/task/view/frontend/task.view.php:61
 msgid "Edit display"
 msgstr "Affichage édition"
 
 #: module/activity/view/backend/task-header-button.view.php:25
-#: module/notify/asset/js/activity/view/backend/task-header-button.view.php:25
 #: module/task/view/frontend/task.view.php:69
 msgid "Activity display"
 msgstr "Affichage activité"
 
 #: module/activity/view/backend/title.view.php:19
-#: module/notify/asset/js/activity/view/backend/title.view.php:19
 msgid "Results"
 msgstr "Résultats"
 
 #: module/activity/view/backend/title.view.php:23
-#: module/notify/asset/js/activity/view/backend/title.view.php:23
 msgid " with the term "
 msgstr " avec le terme "
 
 #: module/activity/view/backend/title.view.php:30
-#: module/notify/asset/js/activity/view/backend/title.view.php:30
 msgid " in the categories: "
 msgstr "dans les catégories:"
 
 #: module/activity/view/backend/title.view.php:37
-#: module/notify/asset/js/activity/view/backend/title.view.php:37
 msgid " for the followers: "
 msgstr "pour les abonnés:"
 
@@ -283,6 +266,78 @@ msgstr "Votre export"
 #: module/follower/class/follower.class.php:49
 msgid "My tasks"
 msgstr "Mes tâches"
+
+#: module/follower/view/backend/user-profile-planning.view.php:22
+msgid "Planning TIME (minute)"
+msgstr "Emplois du temps (minute)"
+
+#: module/follower/view/backend/user-profile-planning.view.php:27
+msgid "Update"
+msgstr "Enregistrer les modifications"
+
+#: module/follower/view/backend/user-profile-planning.view.php:28
+#: module/follower/view/backend/user-profile-planning.view.php:201
+msgid "Monday"
+msgstr "Lundi"
+
+#: module/follower/view/backend/user-profile-planning.view.php:29
+#: module/follower/view/backend/user-profile-planning.view.php:202
+msgid "Tuesday"
+msgstr "Mardi"
+
+#: module/follower/view/backend/user-profile-planning.view.php:30
+#: module/follower/view/backend/user-profile-planning.view.php:203
+msgid "Wednesday"
+msgstr "Mercredi"
+
+#: module/follower/view/backend/user-profile-planning.view.php:31
+#: module/follower/view/backend/user-profile-planning.view.php:204
+msgid "Thursday"
+msgstr "Jeudi"
+
+#: module/follower/view/backend/user-profile-planning.view.php:32
+#: module/follower/view/backend/user-profile-planning.view.php:205
+msgid "Friday"
+msgstr "Vendredi"
+
+#: module/follower/view/backend/user-profile-planning.view.php:33
+#: module/follower/view/backend/user-profile-planning.view.php:206
+msgid "Saturday"
+msgstr "Samedi"
+
+#: module/follower/view/backend/user-profile-planning.view.php:34
+#: module/follower/view/backend/user-profile-planning.view.php:207
+msgid "Sunday"
+msgstr "Dimanche"
+
+#: module/follower/view/backend/user-profile-planning.view.php:127
+msgid "To"
+msgstr "jusqu'à"
+
+#: module/follower/view/backend/user-profile-planning.view.php:128
+#: module/follower/view/backend/user-profile-planning.view.php:131
+msgid "From"
+msgstr "A partir de"
+
+#: module/follower/view/backend/user-profile-planning.view.php:130
+msgid "To now"
+msgstr "jusqu'à aujourd'hui"
+
+#: module/follower/view/backend/user-profile-planning.view.php:180
+msgid "Open archive"
+msgstr "Ouvrir les archives"
+
+#: module/follower/view/backend/user-profile-planning.view.php:188
+msgid "List of archives"
+msgstr "Liste des archives"
+
+#: module/follower/view/backend/user-profile-planning.view.php:199
+msgid "Day delete"
+msgstr "Jour de suppression"
+
+#: module/follower/view/backend/user-profile-planning.view.php:200
+msgid "Date"
+msgstr "Date"
 
 #: module/follower/view/backend/user-profile.view.php:17
 #: module/setting/view/main.view.php:19
@@ -385,12 +440,6 @@ msgid "Point"
 msgstr "Point"
 
 #: module/indicator/action/indicator.action.php:56
-#: module/navigation/view/backend/tags.view.php:20
-#: module/tag/action/tag.action.php:51
-msgid "Categories"
-msgstr "Catégories"
-
-#: module/indicator/action/indicator.action.php:56
 #: module/indicator/action/indicator.action.php:58
 #: module/indicator/view/backend/main.view.php:19
 msgid "Indicator"
@@ -452,9 +501,9 @@ msgstr "Semaine"
 msgid "Month"
 msgstr "Mois"
 
-#: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:94
-msgid "Invalid !"
-msgstr "Invalide"
+#: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:97
+msgid "Change your settings here"
+msgstr "Modifié vos paramètres ici"
 
 #: module/indicator/view/backend/filter-daily-activity.view.php:21
 msgid "Which user"
@@ -545,6 +594,11 @@ msgstr ""
 msgid "Shortcut"
 msgstr "Raccourci"
 
+#: module/navigation/view/backend/tags.view.php:20
+#: module/tag/action/tag.action.php:51
+msgid "Categories"
+msgstr "Catégories"
+
 #: module/navigation/view/backend/tags.view.php:30
 msgid "Create categories"
 msgstr "Créer des catégories"
@@ -588,16 +642,12 @@ msgid "You have been notified by"
 msgstr ""
 
 #: module/notify/view/backend/support/body-admin.view.php:24
-#, fuzzy
-#| msgid "to the task"
 msgid "for the task"
-msgstr "pour la tâche"
+msgstr "Pour la tache"
 
 #: module/notify/view/backend/support/body-admin.view.php:26
-#, fuzzy
-#| msgid "Which customer"
 msgid "for the customer"
-msgstr "Quel client"
+msgstr "Pour l'utilisateur"
 
 #: module/notify/view/backend/support/body-admin.view.php:30
 msgid "This message above is only visible by you"
@@ -608,16 +658,12 @@ msgid "Contacts"
 msgstr ""
 
 #: module/notify/view/backend/support/main.view.php:41
-#, fuzzy
-#| msgid "Send notification"
 msgid "Preview of notification"
-msgstr "Envoyer la notification"
+msgstr "Accéder à la notification"
 
 #: module/notify/view/backend/support/main.view.php:47
-#, fuzzy
-#| msgid "No post found"
 msgid "No support post defined"
-msgstr "Aucun post trouvé"
+msgstr "Aucun post définit"
 
 #: module/point/action/point.action.php:303
 #: module/point/action/point.action.php:304
@@ -851,8 +897,6 @@ msgid "Ask"
 msgstr "Demande"
 
 #: module/support/filter/support.filter.php:171
-#, fuzzy
-#| msgid "No post found"
 msgid "No support post found"
 msgstr "Aucun post trouvé"
 
@@ -1244,6 +1288,9 @@ msgstr "Une erreur est survenu lors de la modification de la tâche %d"
 msgid "%1$d tasks have been marked as archived on %2$d"
 msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
 
+#~ msgid "Invalid !"
+#~ msgstr "Invalide"
+
 #~ msgid "Estimate"
 #~ msgstr "Estimé"
 
@@ -1435,9 +1482,6 @@ msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
 
 #~ msgid "Errors"
 #~ msgstr "Erreurs"
-
-#~ msgid "Date"
-#~ msgstr "Date"
 
 #~ msgid "View"
 #~ msgstr "Voir"
@@ -1750,9 +1794,6 @@ msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
 #~ msgid "Send the task to element <strong>#</strong>"
 #~ msgstr "Envoyer la tâche vers l'élément <strong>#</strong>"
 
-#~ msgid "Update"
-#~ msgstr "Enregistrer les modifications"
-
 #~ msgid "Created "
 #~ msgstr "Créé le "
 
@@ -1934,9 +1975,6 @@ msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
 
 #~ msgid "Settings"
 #~ msgstr "Réglages"
-
-#~ msgid "Move to archive"
-#~ msgstr "Déplacer vers Archive"
 
 #~ msgid "An error occured while dissociating file"
 #~ msgstr "Une erreur est survenue lors de la dissociation du fichier"

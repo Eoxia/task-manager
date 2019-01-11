@@ -38,11 +38,20 @@ window.eoxiaJS.taskManager.indicator.toggleMetabox = function( event ) {
 window.eoxiaJS.taskManager.indicator.loadedCustomerActivity = function( triggeredElement, response ) {
 	jQuery( '#tm-indicator-activity .inside' ).html( response.data.view );
 	jQuery( '#displaycanvas' ).html( '' );
+
 	var data = response.data.object;
 
+	jQuery( '#tm_redirect_settings_user' ).css('display', 'none');
+	jQuery( '#tm_indicator_chart_display' ).css( 'display', 'none' );
+
 	if( data.length != 0 ){
-		jQuery("#horizontalChart").css('display','block');
-		jQuery("#doghnutChart").css('display','block');
+
+		if( response.data.display_specific_week == true ){
+			window.eoxiaJS.taskManager.indicator.displaySpecificChartForWeek( response );
+		}else{
+			jQuery("#horizontalChart").css('display','block');
+			jQuery("#doghnutChart").css('display','block');
+		}
 
 			for ( var i = 0; i < data.length ; i++ ){
 
@@ -108,7 +117,7 @@ window.eoxiaJS.taskManager.indicator.loadedCustomerActivity = function( triggere
 				      datasets: [
 				        {
 				          label: window.indicatorString.planning,
-				          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+				          backgroundColor: ["#800000", "#9A6324","#808000","#469990","#000075", "#e6194B", "#f58231", "#ffe119", "#bfef45", "#3cb44b", "#42d4f4", "#4363d8", "#911eb4", "#f032e6", "#a9a9a9", "#fabebe", "#ffd8b1", "#fffac8", "#aaffc3", "#e6beff"],
 				          data: donutduree,
 				        }
 				      ]
@@ -136,6 +145,7 @@ window.eoxiaJS.taskManager.indicator.loadedCustomerActivity = function( triggere
 
 		}else{ // No data found
 			jQuery( '#information_canvas' ).html( window.indicatorString.nodata );
+			jQuery( '#tm_redirect_settings_user' ).css('display', 'block');
 		}
 
 		jQuery( '#information_canvas' ).css('display', 'block');
@@ -144,6 +154,7 @@ window.eoxiaJS.taskManager.indicator.loadedCustomerActivity = function( triggere
 
 window.eoxiaJS.taskManager.indicator.event = function( event ) {
 	jQuery( document ).on( 'click', '.clickonfollower', window.eoxiaJS.taskManager.indicator.addFollower );
+	jQuery( document ).on( 'click', '.clickontypechart', window.eoxiaJS.taskManager.indicator.modifyTypeChart );
 };
 
 window.eoxiaJS.taskManager.indicator.addFollower = function( event) {
@@ -153,48 +164,63 @@ window.eoxiaJS.taskManager.indicator.addFollower = function( event) {
 	var list_follower = value_input.toString() ? value_input.toString() : '';
 
 	if( list_follower == '' ){
-		var arrayFollowers = [];
+		var arrayFollowers = addFollower;
+		if( document.getElementById( 'tm_user_indicator_' + addFollower ) ){
+			jQuery( '#tm_user_indicator_' + addFollower ).addClass( 'active' );
+		}
+		// active addFollower
 	}else{
-		var arrayFollowers = list_follower.split( ',' );
-	}
+		if( list_follower == addFollower ){ // Desactive list
+			var arrayFollowers = '';
+			if( document.getElementById( 'tm_user_indicator_' + list_follower ) ){ // Desactive list
+				jQuery( '#tm_user_indicator_' + list_follower ).removeClass( 'active' );
+			}
+		}else{
 
-	if( jQuery( this ).attr( "data-user-choose" ) === 'false' ){ // On ajoute une personne
-		jQuery( this ).attr( "data-user-choose", "true" );
-		arrayFollowers.push( addFollower );
+			var arrayFollowers = addFollower;
+			if( document.getElementById( 'tm_user_indicator_' + addFollower ) ){ // active add
+				jQuery( '#tm_user_indicator_' + addFollower ).addClass( 'active' );
+			}
 
-
-		jQuery( this ).animate({
-	    top: "+=10",
-	  }, 0, "linear", function() {
-
-	 });
-	}else{ // on retire la personne
-		jQuery( this ).attr( "data-user-choose", "false" );
-
-		for( var i = 0; i < arrayFollowers.length ; i++ ){
-			if( addFollower == arrayFollowers[i] ){
-				arrayFollowers.splice( i, 1 );
+			if( document.getElementById( 'tm_user_indicator_' + list_follower ) ){ // Desactive list
+				jQuery( '#tm_user_indicator_' + list_follower ).removeClass( 'active' );
 			}
 		}
-
-		jQuery( this ).animate({
-	    top: "-=10",
-	  }, 0, "linear", function() {
-
-	 });
 	}
 
-
-
-
-
-	document.getElementById( "tm_indicator_list_followers" ).value = arrayFollowers.join();
+	document.getElementById( "tm_indicator_list_followers" ).value = arrayFollowers;
 };
 
+
 window.eoxiaJS.taskManager.indicator.createCanvas = function( triggeredElement, response ) {
-	console.log( 'Create Canvas' );
+
 };
 
 window.eoxiaJS.taskManager.indicator.markedAsReadSuccess = function ( triggeredElement, response ) {
 	triggeredElement.closest( '.activity' ).hide();
+};
+
+window.eoxiaJS.taskManager.indicator.displaySpecificChartForWeek = function( response ){
+	jQuery( '#tm_indicator_chart_display' ).css( 'display', 'block' );
+	console.log( response.data );
+}
+
+
+window.eoxiaJS.taskManager.indicator.modifyTypeChart = function( triggeredElement, response ) {
+
+	var chart_selected = jQuery( this ).attr( "data-chart-type" );
+	var data_chart_display = jQuery( '#tm_indicator_chart_display' ).attr( "data-chart-display" );
+
+	if( chart_selected != data_chart_display ){ // on change d'affichage
+		if( chart_selected == 'bar' ){
+			jQuery( '#tm_indicator_chart_bar' ).addClass( 'button-disabled' );
+			jQuery( '#tm_indicator_chart_horizontalBar' ).removeClass( 'button-disabled' );
+			jQuery( '#tm_indicator_chart_display' ).attr( "data-chart-display", "bar" );
+		}else{
+			jQuery( '#tm_indicator_chart_horizontalBar' ).addClass( 'button-disabled' );
+			jQuery( '#tm_indicator_chart_bar' ).removeClass( 'button-disabled' );
+			jQuery( '#tm_indicator_chart_display' ).attr( "data-chart-display", "horizontalBar" );
+		}
+	}
+
 };

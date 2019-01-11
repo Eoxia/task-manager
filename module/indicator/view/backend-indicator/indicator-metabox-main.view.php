@@ -80,15 +80,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php esc_html_e( 'Month', 'task-manager' ); ?>
 			</button>
 			<input type="hidden" name="list_follower" id="tm_indicator_list_followers" value="">
-			<?php /*<input type="hidden" name="users_id" value="<?php echo esc_attr( implode( ',', $selected_followers ) ); ?>" /> */?>
+
+			<div id="tm_indicator_chart_display" style="float : right; display : none" data-chart-display="horizontalBar">
+				<div id="tm_indicator_chart_bar" class="wpeo-button button-dark button-square-40 button-rounded clickontypechart" data-chart-type='bar'>
+					<i class="far fa-chart-bar"></i>
+				</div>
+				<div id="tm_indicator_chart_horizontalBar" class="wpeo-button button-disabled button-dark button-square-40 button-rounded clickontypechart"  data-chart-type='horizontalBar'>
+					<i class="far fa-align-left"></i>
+				</div>
+			</div>
+
 		</div>
 	</div>
 </form>
+<br>
+
 
 <div id='displaycanvas'>
+
+</div>
+<div id='displaycanvas_specific_week'>
 
 </div>
 
 
 
-<div id='information_canvas' style='display : none'><?php esc_html_e( 'I don\'t found any data ! :(', 'task-manager' ); ?></div>
+<div id='information_canvas' style='display : none'></div>
+<div id='tm_redirect_settings_user' style='display : none'>
+	<a target="_blank" href="<?php echo esc_attr( admin_url( 'profile.php' ) ); ?>">
+		<?php esc_html_e( 'Change your settings here', 'task-manager'); ?>
+	</a>
+</div>

@@ -105,7 +105,7 @@ class Task_Manager_Action {
 						'planning'     => __( 'Planning', 'task-manager' ),
 						'date_error'   => __( 'Invalid date' , 'task-manager' ),
 						'person_error' => __( 'Choose a user' , 'task-manager' ),
-						'nodata'			 => __( 'I don\'t found data', 'task-manager' )
+						'nodata'			 => __( 'No data, please configure your planning settings !', 'task-manager' )
 					));
 					break;
 				}

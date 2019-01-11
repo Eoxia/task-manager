@@ -22,9 +22,9 @@ if ( ! defined( 'ABSPATH' ) ) {
    foreach ( $followers as $follower ):
      ?>
     <li class="wpeo-tag add wpeo-button button-grey button-radius-3 tm_indicator_avatar clickonfollower"
-      data-user-id="<?= $follower->data['id'] ?>"
-			data-user-choose="false">
-			<span class="">
+		id="tm_user_indicator_<?= $follower->data['id'] ?>"
+      data-user-id="<?= $follower->data['id'] ?>">
+			<span>
         <?= do_shortcode( '[task_avatar ids="' . $follower->data['id'] . '" size="40"]' ); ?>
 			</span>
     </li>

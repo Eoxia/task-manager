@@ -134,7 +134,7 @@ class Activity_Class extends \eoxia\Singleton_Util {
 		return $datas;
 	}
 
-	public function get_data_chart( $datas, $date_end = '', $date_start = '', $time = '', $user_id ) {
+	public function get_data_chart( $datas, $date_end = '', $date_start = '', $time = '', $user_id, $display_specific_week ) {
 
 
 		$datatime = [];

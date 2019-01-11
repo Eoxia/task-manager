@@ -224,17 +224,15 @@ class Activity_Action {
 		$time           = ! empty( $_POST['time'] ) ? $_POST['time'] : '';
 		$customer_id = 0;
 
-		$arraylistfollower = explode(',', $list_follower);
 		$datatime  = '';
 		$date_gap  = '';
 		$joursaffichagedonut = 0;
 		$error = '';
-
-
+		$display_specific_week = false;
 
 		ob_start();
 
-		if( $arraylistfollower[0] ){
+		if( $list_follower ){
 
 			if( $time == 'day' ){ // Jour actuel
 				$date_start = current_time( 'Y-m-d' );
@@ -242,6 +240,7 @@ class Activity_Action {
 			}else if( $time == 'week' ){ // Semaine actuelle
 				$date_start = date( 'Y-m-d', strtotime( 'monday this week' ) );
 				$date_end = current_time( 'Y-m-d' );
+				$display_specific_week = true;
 			}else if( $time == 'month' ){ // Mois actuelle
 				$date_start = date('Y-m-01');
 				$date_end = current_time( 'Y-m-d' );
@@ -249,10 +248,9 @@ class Activity_Action {
 
 			}
 
-			$datas = Activity_Class::g()->display_user_activity_by_date( $arraylistfollower[0], $date_end, $date_start );
+			$datas = Activity_Class::g()->display_user_activity_by_date( $list_follower, $date_end, $date_start );
 
-			$data_charset = Activity_Class::g()->get_data_chart( $datas, $date_end, $date_start, $time, $arraylistfollower[0] );
-
+			$data_charset = Activity_Class::g()->get_data_chart( $datas, $date_end, $date_start, $time, $list_follower, $display_specific_week );
 
 			$datatime   = $data_charset['datatime'];
 			$date_gap   = $data_charset['date_gap'];
@@ -267,16 +265,17 @@ class Activity_Action {
 		}
 
 		wp_send_json_success( array(
-			'namespace'        => 'taskManager',
-			'module'           => 'indicator',
-			'callback_success' => 'loadedCustomerActivity',
-			'view'             => ob_get_clean(),
-			'object'           => $datatime,
-			'date_gap'         => $date_gap,
-			'date_start'       => $date_start,
-			'date_end'         => $date_end,
-			'jourdonut' 			 => $joursaffichagedonut,
-			'error'            => $error
+			'namespace'             => 'taskManager',
+			'module'                => 'indicator',
+			'callback_success'      => 'loadedCustomerActivity',
+			'view'                  => ob_get_clean(),
+			'object'                => $datatime,
+			'date_gap'              => $date_gap,
+			'date_start'            => $date_start,
+			'date_end'              => $date_end,
+			'jourdonut' 			      => $joursaffichagedonut,
+			'error'                 => $error,
+			'display_specific_week' => $display_specific_week
 		) );
 	}
 }
