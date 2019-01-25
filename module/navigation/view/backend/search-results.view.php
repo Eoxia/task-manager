@@ -43,7 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<li class="result-tag">
 					<?php if ( 'wpshop_shop_order' === $data['post_parent'] ) : ?>
 						<i class="fas fa-shopping-cart fa-fw"></i>
-					<?php else: ?>
+					<?php else : ?>
 						<i class="fas fa-user fa-fw"></i>
 					<?php endif; ?>
 					<?php echo esc_attr( $post_parent_searched ); ?>

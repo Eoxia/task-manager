@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2019-01-10 17:58+0100\n"
-"PO-Revision-Date: 2019-01-10 18:03+0100\n"
+"POT-Creation-Date: 2019-01-24 17:03+0100\n"
+"PO-Revision-Date: 2019-01-24 17:03+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -66,18 +66,32 @@ msgstr ""
 "Aucune données, configurer votre emplois du temps dans vos réglages "
 "utilisateur"
 
-#: core/action/task_manager.action.php:137
+#: core/action/task_manager.action.php:109
+#: module/follower/view/backend/user-profile-planning.view.php:128
+#: module/follower/view/backend/user-profile-planning.view.php:131
+msgid "From"
+msgstr "A partir de"
+
+#: core/action/task_manager.action.php:110
+msgid "to"
+msgstr "au"
+
+#: core/action/task_manager.action.php:111
+msgid "Stats of the week"
+msgstr "Recap de la semaine"
+
+#: core/action/task_manager.action.php:140
 #: module/comment/view/backend/comment.view.php:52
 msgid "Delete this comment ?"
 msgstr "Voulez vous supprimer ce commentaire ?"
 
-#: core/action/task_manager.action.php:181
+#: core/action/task_manager.action.php:184
 #: module/import/view/backend/import-textarea.view.php:20
 #: module/task/action/task.action.php:455
 msgid "Task"
 msgstr "Tâche"
 
-#: core/action/task_manager.action.php:182
+#: core/action/task_manager.action.php:185
 msgid "Customer"
 msgstr "Client"
 
@@ -116,7 +130,7 @@ msgstr "Importer"
 msgid "Cancel"
 msgstr "Annuler"
 
-#: module/activity/view/backend/list.view.php:64
+#: module/activity/view/backend/list.view.php:72
 msgid "End of history"
 msgstr "Fin de l'historique"
 
@@ -156,6 +170,7 @@ msgstr "Date de début"
 #: module/activity/view/backend/main.view.php:32
 #: module/activity/view/backend/main.view.php:34
 #: module/activity/view/backend/post-last-activity.view.php:34
+#: module/indicator/view/backend-indicator/indicator-main.view.php:22
 #: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:32
 #: module/indicator/view/backend/daily-activity.view.php:44
 #: module/time-exceeded/view/backend/main.view.php:30
@@ -167,8 +182,8 @@ msgstr "Date de fin"
 msgid "View activity"
 msgstr "Voir l'activité"
 
-#: module/activity/view/backend/post-last-activity.view.php:110
-#: module/indicator/view/backend/daily-activity.view.php:120
+#: module/activity/view/backend/post-last-activity.view.php:114
+#: module/indicator/view/backend/daily-activity.view.php:124
 msgid "No activity found for now"
 msgstr "Pas d'activité trouvé pour le moment."
 
@@ -263,7 +278,7 @@ msgstr "Exporter"
 msgid "Export content"
 msgstr "Votre export"
 
-#: module/follower/class/follower.class.php:49
+#: module/follower/class/follower.class.php:59
 msgid "My tasks"
 msgstr "Mes tâches"
 
@@ -313,11 +328,6 @@ msgstr "Dimanche"
 #: module/follower/view/backend/user-profile-planning.view.php:127
 msgid "To"
 msgstr "jusqu'à"
-
-#: module/follower/view/backend/user-profile-planning.view.php:128
-#: module/follower/view/backend/user-profile-planning.view.php:131
-msgid "From"
-msgstr "A partir de"
 
 #: module/follower/view/backend/user-profile-planning.view.php:130
 msgid "To now"
@@ -439,47 +449,47 @@ msgstr "Import de points depuis un fichier texte dans la tâche : %s"
 msgid "Point"
 msgstr "Point"
 
-#: module/indicator/action/indicator.action.php:56
-#: module/indicator/action/indicator.action.php:58
+#: module/indicator/action/indicator.action.php:57
+#: module/indicator/action/indicator.action.php:59
 #: module/indicator/view/backend/main.view.php:19
 msgid "Indicator"
 msgstr "Indicateur"
 
-#: module/indicator/action/indicator.action.php:57
+#: module/indicator/action/indicator.action.php:58
 msgid "Daily activity"
 msgstr "Activité"
 
-#: module/indicator/action/indicator.action.php:219
+#: module/indicator/action/indicator.action.php:239
 #, php-format
 msgid ""
 "Given comment identifier does not correspond to a comment in task manager. "
 "Request id: %s"
 msgstr ""
 
-#: module/indicator/action/indicator.action.php:225
+#: module/indicator/action/indicator.action.php:246
 #, php-format
 msgid ""
 "The comment author role does not allowed support request. Request customer "
 "id: %d1$. Customer roles: %2$s"
 msgstr ""
 
-#: module/indicator/action/indicator.action.php:230
-#: module/indicator/class/indicator.class.php:124
+#: module/indicator/action/indicator.action.php:252
+#: module/indicator/class/indicator.class.php:174
 #, php-format
 msgid "Current support request list: %s"
 msgstr ""
 
-#: module/indicator/action/indicator.action.php:231
+#: module/indicator/action/indicator.action.php:255
 #, php-format
 msgid "Comment for adding in request %s"
 msgstr ""
 
-#: module/indicator/action/indicator.action.php:248
+#: module/indicator/action/indicator.action.php:273
 #, php-format
 msgid "New support ticket list: %s"
 msgstr ""
 
-#: module/indicator/class/indicator.class.php:125
+#: module/indicator/class/indicator.class.php:177
 #, php-format
 msgid "Comment for removing in request %s"
 msgstr ""
@@ -488,20 +498,24 @@ msgstr ""
 msgid "Validate"
 msgstr "Valider"
 
-#: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:64
+#: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:69
 msgid "Day"
 msgstr "Jour"
 
-#: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:72
+#: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:77
 #: module/timeline/view/backend/week.view.php:12
 msgid "Week"
 msgstr "Semaine"
 
-#: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:80
+#: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:85
 msgid "Month"
 msgstr "Mois"
 
-#: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:97
+#: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:117
+msgid "Liste des points"
+msgstr "Liste des points"
+
+#: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:140
 msgid "Change your settings here"
 msgstr "Modifié vos paramètres ici"
 
@@ -517,11 +531,11 @@ msgstr "Toutes"
 msgid "Which customer"
 msgstr "Quel client"
 
-#: module/indicator/view/backend/item.view.php:76
+#: module/indicator/view/backend/item.view.php:79
 msgid "Mark as READ"
 msgstr "Marquer comme lu"
 
-#: module/indicator/view/backend/request.view.php:45
+#: module/indicator/view/backend/request.view.php:50
 msgid "No pending requests"
 msgstr "Pas de demande en attente"
 
@@ -1324,9 +1338,6 @@ msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
 #~ msgid " archived tasks"
 #~ msgstr "Tâches archivées"
 
-#~ msgid "Completed points"
-#~ msgstr "Points completés"
-
 #~ msgid "New task%1$s"
 #~ msgstr "Nouvelle tâche%1$s"
 
@@ -1542,9 +1553,6 @@ msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
 
 #~ msgid "Move"
 #~ msgstr "Déplacer"
-
-#~ msgid "Creator of the task"
-#~ msgstr "Créateur de la tâche"
 
 #~ msgid "Task properties: #"
 #~ msgstr "Propriété de la tâche: #"

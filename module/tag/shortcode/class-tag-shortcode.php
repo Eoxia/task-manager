@@ -45,22 +45,32 @@ class Tag_Shortcode {
 	public function callback_task_manager_task_tag( $param ) {
 		$task_id = ! empty( $param['task_id'] ) ? (int) $param['task_id'] : 0;
 
-		$task = Task_Class::g()->get( array(
-			'p' => $task_id,
-		), true );
+		$task = Task_Class::g()->get(
+			array(
+				'p' => $task_id,
+			),
+			true
+		);
 
 		$tags = array();
 		if ( ! empty( $task->data['taxonomy'][ Tag_Class::g()->get_type() ] ) ) {
-			$tags = Tag_Class::g()->get( array(
-				'include' => $task->data['taxonomy'][ Tag_Class::g()->get_type() ],
-			) );
+			$tags = Tag_Class::g()->get(
+				array(
+					'include' => $task->data['taxonomy'][ Tag_Class::g()->get_type() ],
+				)
+			);
 		}
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'tag', 'backend/main', array(
-			'task' => $task,
-			'tags' => $tags,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'tag',
+			'backend/main',
+			array(
+				'task' => $task,
+				'tags' => $tags,
+			)
+		);
 
 		return ob_get_clean();
 	}

@@ -24,6 +24,7 @@ defined( 'ABSPATH' ) || exit; ?>
 		data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_modal_quick_point' ) ); ?>"
 		data-quick="true"
 		data-class="tm-wrap quick-point">
+		
 
 		<i class="button-icon far fa-list-ul"></i>
 		<i class="button-icon fas fa-plus-circle"></i>

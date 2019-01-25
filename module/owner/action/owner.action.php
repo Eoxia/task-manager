@@ -42,23 +42,32 @@ class Owner_Action {
 			wp_send_json_error();
 		}
 
-		$users = Follower_Class::g()->get( array(
-			'role' => 'administrator',
-		) );
+		$users = Follower_Class::g()->get(
+			array(
+				'role' => 'administrator',
+			)
+		);
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'owner', 'backend/dropdown-main', array(
-			'users'   => $users,
-			'task_id' => $task_id,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'owner',
+			'backend/dropdown-main',
+			array(
+				'users'   => $users,
+				'task_id' => $task_id,
+			)
+		);
 		$view = ob_get_clean();
 
-		wp_send_json_success( array(
-			'namespace'        => 'taskManager',
-			'module'           => 'owner',
-			'callback_success' => 'loadedEditModeOwnerSuccess',
-			'view'             => $view,
-		) );
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'owner',
+				'callback_success' => 'loadedEditModeOwnerSuccess',
+				'view'             => $view,
+			)
+		);
 	}
 
 	/**
@@ -79,9 +88,12 @@ class Owner_Action {
 			wp_send_json_error();
 		}
 
-		$task = Task_Class::g()->get( array(
-			'p' => $task_id,
-		), true );
+		$task = Task_Class::g()->get(
+			array(
+				'p' => $task_id,
+			),
+			true
+		);
 
 		$task->data['user_info']['owner_id'] = $owner_id;
 
@@ -89,12 +101,14 @@ class Owner_Action {
 
 		ob_start();
 		echo do_shortcode( '[task_manager_owner_task task_id=' . $task->data['id'] . ' owner_id=' . $owner_id . ']' );
-		wp_send_json_success( array(
-			'namespace'        => 'taskManager',
-			'module'           => 'owner',
-			'callback_success' => 'switchedOwnerSuccess',
-			'view'             => ob_get_clean(),
-		) );
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'owner',
+				'callback_success' => 'switchedOwnerSuccess',
+				'view'             => ob_get_clean(),
+			)
+		);
 	}
 }
 

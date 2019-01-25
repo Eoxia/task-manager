@@ -51,20 +51,26 @@ class Point_Filter {
 
 		$list_point = Point_Class::g()->get( $get_args );
 
-		$list_point_completed = array_filter( $list_point, function( $point ) {
-			if ( empty( $point->data['id'] ) ) {
-				return false;
+		$list_point_completed = array_filter(
+			$list_point,
+			function( $point ) {
+				if ( empty( $point->data['id'] ) ) {
+					return false;
+				}
+				return true === $point->data['completed'];
 			}
-			return true === $point->data['completed'];
-		} );
+		);
 
-		$list_point_uncompleted = array_filter( $list_point, function( $point ) {
-			if ( empty( $point->data['id'] ) ) {
-				return false;
+		$list_point_uncompleted = array_filter(
+			$list_point,
+			function( $point ) {
+				if ( empty( $point->data['id'] ) ) {
+					return false;
+				}
+
+				return false === $point->data['completed'];
 			}
-
-			return false === $point->data['completed'];
-		} );
+		);
 
 		$string .= '<h3>' . __( 'Incompleted', 'task-manager' ) . '</h3>';
 		if ( ! empty( $list_point_uncompleted ) ) :
@@ -88,25 +94,42 @@ class Point_Filter {
 	 */
 	public function callback_display_points_type_buttons( $current_content, $task ) {
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/task-header', array(
-			'task' => $task,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'point',
+			'backend/task-header',
+			array(
+				'task' => $task,
+			)
+		);
 		$current_content .= ob_get_clean();
 
 		return $current_content;
 	}
-	
+
+	/**
+	 * Résumé du point
+	 *
+	 * @param  [type] $output [vue].
+	 * @param  [type] $point  [point].
+	 * @return [type] $output [vue]
+	 */
 	public function callback_tm_point_summary( $output, $point ) {
 		$user = Follower_Class::g()->get( array( 'id' => get_current_user_id() ), true );
-		
-		if ( $user->data['_tm_advanced_display' ] ) {
+
+		if ( $user->data['_tm_advanced_display'] ) {
 			ob_start();
-			\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point-summary', array(
-				'point' => $point,
-			) );
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'point',
+				'backend/point-summary',
+				array(
+					'point' => $point,
+				)
+			);
 			$output .= ob_get_clean();
 		}
-		
+
 		return $output;
 	}
 

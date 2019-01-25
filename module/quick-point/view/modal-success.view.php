@@ -15,7 +15,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<p><?php esc_html_e(  sprintf( 'Your quick point was added on the task #%d: %s', $task->data['id'], $task->data['title'] ), 'task-manager' ); ?></p>
+<p>
+<?php
+/* translators : */
+esc_html_e( sprintf( 'Your quick point was added on the task #%d: %s', $task->data['id'], $task->data['title'] ), 'task-manager' );
+?>
+ </p>
 
 <p><?php esc_html_e( sprintf( 'You added the %s point #%d: %s', $point->data['completed'] ? __( 'completed', 'task-manager' ) : __( 'uncompleted', 'task-manager' ), $point->data['id'], $point->data['content'] ), 'task-manager' ); ?></p>
 <p><?php esc_html_e( sprintf( 'With the comment #%d: %s with the elapsed time: %d', $comment->data['id'], $comment->data['content'], $comment->data['time_info']['elapsed'] ), 'task-manager' ); ?></p>

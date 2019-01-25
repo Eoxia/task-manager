@@ -12,7 +12,8 @@
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; } ?>
 
 <li class="<?php echo ! empty( $_GET['account_dashboard_part'] ) && 'support' === $_GET['account_dashboard_part'] ? 'wps-activ' : ''; ?>">
 	<a data-target="menu1" href='?account_dashboard_part=support'>

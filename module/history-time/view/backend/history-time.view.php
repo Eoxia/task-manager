@@ -33,7 +33,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php echo esc_html( $history_time->data['estimated_time'] ); ?>
 		</li>
 		<li class="time">
-			<?php echo esc_html( sprintf( __( '( %smin )', 'task-manager' ), $history_time->data['estimated_time'] ) ); ?>
+			<?php
+				/* translators: */
+				echo esc_html( sprintf( __( '( %smin )', 'task-manager' ), $history_time->data['estimated_time'] ) );
+			?>
 		</li>
 		<li class="delete action-delete"
 				data-message-delete="<?php esc_attr_e( 'Confirm deletion', 'task-manager' ); ?>"

@@ -57,7 +57,6 @@ class Follower_Model extends \eoxia\User_Model {
 			'field'     => '_tm_display_indicator',
 			'default'   => false,
 		);
-		
 
 		parent::__construct( $object, $req_method );
 	}
@@ -65,4 +64,4 @@ class Follower_Model extends \eoxia\User_Model {
 
 }
 
-?>
+

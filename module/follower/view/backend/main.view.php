@@ -19,9 +19,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php
 	if ( ! empty( $followers ) ) :
 		foreach ( $followers as $follower ) :
-			\eoxia\View_Util::exec( 'task-manager', 'follower', 'backend/follower', array(
-				'user' => $follower,
-			) );
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'follower',
+				'backend/follower',
+				array(
+					'user' => $follower,
+				)
+			);
 		endforeach;
 	endif;
 	?>

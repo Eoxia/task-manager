@@ -34,18 +34,27 @@ class Avatar_Shortcode {
 	 * @return string       L'affichage de l'avater correspondant aux paramètres demandés.
 	 */
 	public function callback_task_avatar( $param ) {
-		$param = shortcode_atts( array(
-			'size' => 50,
-			'ids'  => '',
-		), $param, 'task_avatar' );
+		$param = shortcode_atts(
+			array(
+				'size' => 50,
+				'ids'  => '',
+			),
+			$param,
+			'task_avatar'
+		);
 
 		$users = Avatar_Class::g()->get_avatars( $param );
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'avatar', 'avatar', array(
-			'users' => $users,
-			'size'  => $param['size'],
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'avatar',
+			'avatar',
+			array(
+				'users' => $users,
+				'size'  => $param['size'],
+			)
+		);
 
 		return ob_get_clean();
 	}

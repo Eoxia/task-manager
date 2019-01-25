@@ -1,10 +1,10 @@
 <?php
 /**
- * La définition du schéma des données de l'historique du temps.
+ * Les actions relatives à l'historique de temps.
  *
  * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
- * @version 1.6.0
+ * @version 1.7.0
  * @copyright 2015-2018 Eoxia
  * @package Task_Manager
  */
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * La définition du schéma des données de l'hitorique du temps.
+ * La définition du schéma des données de l'hitorique du temps .
  */
 class History_Time_Model extends \eoxia\Comment_Model {
 
@@ -27,7 +27,7 @@ class History_Time_Model extends \eoxia\Comment_Model {
 	 * @version 1.6.0
 	 *
 	 * @param History_Time_Model $object     L'objet.
-	 * @param string             $req_method La méthode
+	 * @param string             $req_method La méthode.
 	 */
 	public function __construct( $object, $req_method = null ) {
 		$this->schema['due_date'] = array(

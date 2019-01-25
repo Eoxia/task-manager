@@ -52,16 +52,24 @@ class Setting_Action {
 	 */
 	public function add_option_page() {
 		$use_search_in_admin_bar = get_option( \eoxia\Config_Util::$init['task-manager']->setting->key_use_search_in_admin_bar, true );
-		$advanced_settings       = get_option( \eoxia\Config_Util::$init['task-manager']->setting->key_advanced_settings, array(
-			'advanced_display'  => false,
-			'quick_point'       => false,
-			'display_indicator' => false,
-		) );
+		$advanced_settings       = get_option(
+			\eoxia\Config_Util::$init['task-manager']->setting->key_advanced_settings,
+			array(
+				'advanced_display'  => false,
+				'quick_point'       => false,
+				'display_indicator' => false,
+			)
+		);
 
-		\eoxia\View_Util::exec( 'task-manager', 'setting', 'main', array(
-			'use_search_in_admin_bar' => $use_search_in_admin_bar,
-			'advanced_settings'       => $advanced_settings,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'setting',
+			'main',
+			array(
+				'use_search_in_admin_bar' => $use_search_in_admin_bar,
+				'advanced_settings'       => $advanced_settings,
+			)
+		);
 	}
 
 	/**
@@ -84,11 +92,13 @@ class Setting_Action {
 			}
 		}
 
-		wp_send_json_success( array(
-			'namespace' => 'taskManager',
-			'module' => 'setting',
-			'callback_success' => 'savedCapability',
-		) );
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'setting',
+				'callback_success' => 'savedCapability',
+			)
+		);
 	}
 
 	/**
@@ -100,7 +110,7 @@ class Setting_Action {
 		check_ajax_referer( 'save_general_settings' );
 
 		$display_search_bar = ( ! empty( $_POST['display_search_bar'] ) && 'true' === $_POST['display_search_bar'] ) ? true : false;
-		
+
 		update_option( \eoxia\Config_Util::$init['task-manager']->setting->key_use_search_in_admin_bar, $display_search_bar );
 
 		wp_send_json_success();
@@ -114,8 +124,8 @@ class Setting_Action {
 	public function callback_save_preferences() {
 		check_ajax_referer( 'save_preferences' );
 
-		$advanced_settings  = ! empty( $_POST['advanced_settings'] ) ? (array) $_POST['advanced_settings'] : array();
-		
+		$advanced_settings = ! empty( $_POST['advanced_settings'] ) ? (array) $_POST['advanced_settings'] : array();
+
 		if ( ! empty( $advanced_settings ) ) {
 			foreach ( $advanced_settings as &$advanced_setting ) {
 				$advanced_setting = ( ! empty( $advanced_setting ) && 'true' === $advanced_setting ) ? true : false;
@@ -139,9 +149,11 @@ class Setting_Action {
 		ob_start();
 		Setting_Class::g()->display_user_list_capacity( $list_user_id );
 
-		wp_send_json_success( array(
-			'template' => ob_get_clean(),
-		) );
+		wp_send_json_success(
+			array(
+				'template' => ob_get_clean(),
+			)
+		);
 	}
 
 	/**

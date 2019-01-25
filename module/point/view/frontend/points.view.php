@@ -17,11 +17,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! empty( $points ) ) :
 	foreach ( $points as $point ) :
-		\eoxia\View_Util::exec( 'task-manager', 'point', 'frontend/point', array(
-			'point'      => $point,
-			'comment_id' => $comment_id,
-			'point_id'   => $point_id,
-			'parent_id'  => $point->data['post_id'],
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'point',
+			'frontend/point',
+			array(
+				'point'      => $point,
+				'comment_id' => $comment_id,
+				'point_id'   => $point_id,
+				'parent_id'  => $point->data['post_id'],
+			)
+		);
 	endforeach;
 endif;

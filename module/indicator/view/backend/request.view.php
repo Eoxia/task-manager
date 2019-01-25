@@ -31,10 +31,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 						foreach ( $data as $time => $comments ) :
 							if ( ! empty( $comments ) ) :
 								foreach ( $comments as $comment ) :
-									\eoxia\View_Util::exec( 'task-manager', 'indicator', 'backend/item', array(
-										'time'    => $time,
-										'comment' => $comment,
-									) );
+									\eoxia\View_Util::exec(
+										'task-manager',
+										'indicator',
+										'backend/item',
+										array(
+											'time'    => $time,
+											'comment' => $comment,
+										)
+									);
 								endforeach;
 							endif;
 						endforeach;
@@ -44,6 +49,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 			else :
 				esc_html_e( 'No pending requests', 'task-manager' );
 			endif;
-		?>
+			?>
 	</div><!-- .content -->
 </div>

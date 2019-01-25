@@ -18,10 +18,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="history-time-container">
 	<?php
-	\eoxia\View_Util::exec( 'task-manager', 'history-time', 'backend/form', array(
-		'history_time_schema' => $history_time_schema,
-		'task_id'             => $task_id,
-	) );
+	\eoxia\View_Util::exec(
+		'task-manager',
+		'history-time',
+		'backend/form',
+		array(
+			'history_time_schema' => $history_time_schema,
+			'task_id'             => $task_id,
+		)
+	);
 	?>
 
 	<h2><?php esc_html_e( 'Event historic', 'task-manager' ); ?></h2>
@@ -31,9 +36,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 		if ( ! empty( $history_times ) ) :
 			foreach ( $history_times as $history_time ) :
 				if ( ! empty( $history_time->data['id'] ) ) :
-					\eoxia\View_Util::exec( 'task-manager', 'history-time', 'backend/history-time', array(
-						'history_time' => $history_time,
-					) );
+					\eoxia\View_Util::exec(
+						'task-manager',
+						'history-time',
+						'backend/history-time',
+						array(
+							'history_time' => $history_time,
+						)
+					);
 				endif;
 			endforeach;
 		else :

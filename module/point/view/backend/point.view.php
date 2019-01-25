@@ -76,7 +76,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 						</div>
 					</div>
 				<?php	endif; ?>
-				
 				<?php echo apply_filters( 'tm_point_action', '', $point, $parent_id ); ?>
 			</li>
 		</ul>

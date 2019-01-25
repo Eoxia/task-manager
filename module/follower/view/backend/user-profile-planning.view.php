@@ -37,9 +37,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</thead>
 					<tbody>
 						<tr>
-							<?php if( $time != null ) : ?>
+							<?php if ( null != $time ) : ?>
 								<th data-title="Update">
-									<input type='date' name='_tm_planning_date' value='<?= $time_en ?>' min="2010-01-01" max="<?= $time_en ?>">
+									<input type='date' name='_tm_planning_date' value='<?php echo $time_en; ?>' min="2010-01-01" max="<?php echo $time_en; ?>">
 								</th>
 							<?php else : ?>
 								<th data-title="Update">
@@ -49,8 +49,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 							<td data-title="Monday">
 								<label class="form-field-container">
-									<?php if( $data['Monday'] != null ): ?>
-										<input type="number" name="_tm_planning_monday" class="form-field" value="<?= $data['Monday'] ?>"/>
+									<?php if ( null != $data['Monday'] ) : ?>
+										<input type="number" name="_tm_planning_monday" class="form-field" value="<?php echo $data['Monday']; ?>"/>
 									<?php else : ?>
 										<input type="number" name="_tm_planning_monday" class="form-field" placeholder="0"/>
 									<?php endif; ?>
@@ -59,8 +59,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 							<td data-title="Tuesday">
 								<label class="form-field-container">
-									<?php if( $data['Tuesday'] != null ): ?>
-										<input type="number" name="_tm_planning_tuesday" class="form-field" value="<?= $data['Tuesday'] ?>"/>
+									<?php if ( null != $data['Tuesday'] ) : ?>
+										<input type="number" name="_tm_planning_tuesday" class="form-field" value="<?php echo $data['Tuesday']; ?>"/>
 									<?php else : ?>
 										<input type="number" name="_tm_planning_tuesday" class="form-field" placeholder="0"/>
 									<?php endif; ?>
@@ -69,8 +69,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 							<td data-title="Wednesday">
 								<label class="form-field-container">
-									<?php if( $data['Wednesday'] != null ): ?>
-										<input type="number" name="_tm_planning_wednesday" class="form-field" value="<?= $data['Wednesday'] ?>"/>
+									<?php if ( null != $data['Wednesday'] ) : ?>
+										<input type="number" name="_tm_planning_wednesday" class="form-field" value="<?php echo $data['Wednesday']; ?>"/>
 									<?php else : ?>
 										<input type="number" name="_tm_planning_wednesday" class="form-field" placeholder="0"/>
 									<?php endif; ?>
@@ -79,8 +79,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 							<td data-title="Thursday">
 								<label class="form-field-container">
-									<?php if( $data['Thursday'] != null ): ?>
-										<input type="number" name="_tm_planning_thursday" class="form-field" value="<?= $data['Thursday'] ?>"/>
+									<?php if ( null != $data['Thursday'] ) : ?>
+										<input type="number" name="_tm_planning_thursday" class="form-field" value="<?php echo $data['Thursday']; ?>"/>
 									<?php else : ?>
 										<input type="number" name="_tm_planning_thursday" class="form-field" placeholder="0"/>
 									<?php endif; ?>
@@ -89,8 +89,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 							<td data-title="Friday">
 								<label class="form-field-container">
-									<?php if( $data['Friday'] != null ): ?>
-										<input type="number" name="_tm_planning_friday" class="form-field" value="<?= $data['Friday'] ?>"/>
+									<?php if ( null != $data['Friday'] ) : ?>
+										<input type="number" name="_tm_planning_friday" class="form-field" value="<?php echo $data['Friday']; ?>"/>
 									<?php else : ?>
 										<input type="number" name="_tm_planning_friday" class="form-field" placeholder="0"/>
 									<?php endif; ?>
@@ -99,8 +99,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 							<td data-title="Saturday">
 								<label class="form-field-container">
-									<?php if( $data['Saturday'] != null ): ?>
-										<input type="number" name="_tm_planning_saturday" class="form-field" value="<?= $data['Saturday'] ?>"/>
+									<?php if ( null != $data['Saturday'] ) : ?>
+										<input type="number" name="_tm_planning_saturday" class="form-field" value="<?php echo $data['Saturday']; ?>"/>
 									<?php else : ?>
 										<input type="number" name="_tm_planning_saturday" class="form-field" placeholder="0"/>
 									<?php endif; ?>
@@ -109,8 +109,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 							<td data-title="Sunday">
 								<label class="form-field-container">
-									<?php if( $data['Sunday'] != null ): ?>
-										<input type="number" name="_tm_planning_sunday" class="form-field" value="<?= $data['Sunday'] ?>"/>
+									<?php if ( null != $data['Sunday'] ) : ?>
+										<input type="number" name="_tm_planning_sunday" class="form-field" value="<?php echo $data['Sunday']; ?>"/>
 									<?php else : ?>
 										<input type="number" name="_tm_planning_sunday" class="form-field" placeholder="0"/>
 									<?php endif; ?>
@@ -119,56 +119,56 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<td></td>
 
 						</tr>
-						<?php if( ! empty( $data_planning ) ) : ?>
-							<?php foreach ($data_planning as $day => $value) :?>
+						<?php if ( ! empty( $data_planning ) ) : ?>
+							<?php foreach ( $data_planning as $day => $value ) : ?>
 								<tr>
 									<td>
-										<?php if( ! empty ( $value[ 'lastdate' ] ) && $value[ 'lastdate' ] != '' ): ?>
-											<?php esc_html_e( 'To', 'task-manager' ); ?> <?= $value[ 'lastdate' ] ?><br>
-											<?php esc_html_e( 'From', 'task-manager' ); ?> <?= $value[ 'date' ] ?>
-										<?php else: ?>
+										<?php if ( ! empty( $value['lastdate'] ) && '' != $value['lastdate'] ) : ?>
+											<?php esc_html_e( 'To', 'task-manager' ); ?> <?php echo $value['lastdate']; ?><br>
+											<?php esc_html_e( 'From', 'task-manager' ); ?> <?php echo $value['date']; ?>
+										<?php else : ?>
 											<?php esc_html_e( 'To now', 'task-manager' ); ?><br>
-											<?php esc_html_e( 'From', 'task-manager' ); ?> <?= $value[ 'date' ] ?>
+											<?php esc_html_e( 'From', 'task-manager' ); ?> <?php echo $value['date']; ?>
 										<?php endif ?>
 									</td>
 
 									<td>
-										<?= $value['minutary_duration']['Monday'] ?>
+										<?php echo $value['minutary_duration']['Monday']; ?>
 									</td>
 
 									<td>
-										<?= $value['minutary_duration']['Tuesday'] ?>
+										<?php echo $value['minutary_duration']['Tuesday']; ?>
 									</td>
 
 									<td>
-										<?= $value['minutary_duration']['Wednesday'] ?>
+										<?php echo $value['minutary_duration']['Wednesday']; ?>
 									</td>
 
 									<td>
-										<?= $value['minutary_duration']['Thursday'] ?>
+										<?php echo $value['minutary_duration']['Thursday']; ?>
 									</td>
 
 									<td>
-										<?= $value['minutary_duration']['Friday'] ?>
+										<?php echo $value['minutary_duration']['Friday']; ?>
 									</td>
 
 									<td>
-										<?= $value['minutary_duration']['Saturday'] ?>
+										<?php echo $value['minutary_duration']['Saturday']; ?>
 									</td>
 
 									<td>
-										<?= $value['minutary_duration']['Sunday'] ?>
+										<?php echo $value['minutary_duration']['Sunday']; ?>
 									</td>
 									<td class="action-input wpeo-button" style='cursor : pointer'
-									data-posarray='<?= $day + 1 ?>'
-									data-id='<?= $id ?>'
+									data-posarray='<?php echo $day + 1; ?>'
+									data-id='<?php echo $id; ?>'
 									data-nonce="<?php echo esc_attr( wp_create_nonce( 'deleteplan' ) ); ?>"
 									data-action="deleteplan">
 										<i class="fas fa-trash-alt"></i>
 									</td>
 								</tr>
 							<?php endforeach; ?>
-						<?php endif;?>
+						<?php endif; ?>
 					</tbody>
 				</table>
 
@@ -198,7 +198,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<tr>
 							<th data-title="date_delete"><?php esc_html_e( 'Day delete', 'task-manager' ); ?></th>
 							<th data-title="date"><?php esc_html_e( 'Date', 'task-manager' ); ?></th>
-              <th data-title="Monday"><?php esc_html_e( 'Monday', 'task-manager' ); ?></th>
+							<th data-title="Monday"><?php esc_html_e( 'Monday', 'task-manager' ); ?></th>
 							<th data-title="Tuesday"><?php esc_html_e( 'Tuesday', 'task-manager' ); ?></th>
 							<th data-title="Wednesday"><?php esc_html_e( 'Wednesday', 'task-manager' ); ?></th>
 							<th data-title="Thursday"><?php esc_html_e( 'Thursday', 'task-manager' ); ?></th>
@@ -208,50 +208,50 @@ if ( ! defined( 'ABSPATH' ) ) {
 						</tr>
 					</thead>
 					<tbody>
-						<?php if( $list_archive != '' ):?>
-								<?php foreach( $list_archive as $key => $value ): ?>
+						<?php if ( '' != $list_archive ) : ?>
+								<?php foreach ( $list_archive as $key => $value ) : ?>
 
 
 						<tr>
 							<td data-title="date_delete">
-                <?= $value[ 'day_delete' ] ?>
-              </td>
+									<?php echo $value['day_delete']; ?>
+							</td>
 
-              <td data-title="date">
-                <?= $value[ 'date' ] ?>
-              </td>
+							<td data-title="date">
+									<?php echo $value['date']; ?>
+							</td>
 
 							<td data-title="Monday">
-								<?= $value[ 'minutary_duration' ][ 'Monday' ] ?>
+									<?php echo $value['minutary_duration']['Monday']; ?>
 							</td>
 
 							<td data-title="Tuesday">
-								<?= $value[ 'minutary_duration' ][ 'Tuesday' ] ?>
+									<?php echo $value['minutary_duration']['Tuesday']; ?>
 							</td>
 
 							<td data-title="Wednesday">
-								<?= $value[ 'minutary_duration' ][ 'Wednesday' ] ?>
+									<?php echo $value['minutary_duration']['Wednesday']; ?>
 							</td>
 
 							<td data-title="Thursday">
-								<?= $value[ 'minutary_duration' ][ 'Thursday' ] ?>
+									<?php echo $value['minutary_duration']['Thursday']; ?>
 							</td>
 
 							<td data-title="Friday">
-								<?= $value[ 'minutary_duration' ][ 'Friday' ] ?>
+									<?php echo $value['minutary_duration']['Friday']; ?>
 							</td>
 
 							<td data-title="Saturday">
-								<?= $value[ 'minutary_duration' ][ 'Saturday' ] ?>
+									<?php echo $value['minutary_duration']['Saturday']; ?>
 							</td>
 
 							<td data-title="Sunday">
-								<?= $value[ 'minutary_duration' ][ 'Sunday' ] ?>
+									<?php echo $value['minutary_duration']['Sunday']; ?>
 							</td>
 
 						</tr>
 
-						<?php
+									<?php
 							endforeach;
 						endif;
 						?>

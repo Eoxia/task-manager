@@ -15,13 +15,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-\eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/edit', array(
-	'task_id'  => $task_id,
-	'point_id' => $point_id,
-	'comment'  => $comment_schema,
-) );
+\eoxia\View_Util::exec(
+	'task-manager',
+	'comment',
+	'backend/edit',
+	array(
+		'task_id'  => $task_id,
+		'point_id' => $point_id,
+		'comment'  => $comment_schema,
+	)
+);
 
-\eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/list-comment', array(
-	'comments'            => $comments,
-	'comment_selected_id' => $comment_selected_id,
-) );
+\eoxia\View_Util::exec(
+	'task-manager',
+	'comment',
+	'backend/list-comment',
+	array(
+		'comments'            => $comments,
+		'comment_selected_id' => $comment_selected_id,
+	)
+);

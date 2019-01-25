@@ -38,7 +38,7 @@ class Setting_Class extends \eoxia\Singleton_Util {
 	 * @version 1.5.0
 	 */
 	protected function construct() {}
-		
+
 	/**
 	 * Récupère le role "subscriber" et appel la vue "capability/has-cap".
 	 *
@@ -50,9 +50,14 @@ class Setting_Class extends \eoxia\Singleton_Util {
 	public function display_role_has_cap() {
 		$role_subscriber = get_role( 'subscriber' );
 
-		\eoxia\View_Util::exec( 'task-manager', 'setting', 'capability/has-cap', array(
-			'role_subscriber' => $role_subscriber,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'setting',
+			'capability/has-cap',
+			array(
+				'role_subscriber' => $role_subscriber,
+			)
+		);
 	}
 
 	/**
@@ -67,7 +72,7 @@ class Setting_Class extends \eoxia\Singleton_Util {
 	 */
 	public function display_user_list_capacity( $list_user_id = array() ) {
 		$current_page = ! empty( $_POST['next_page'] ) ? (int) $_POST['next_page'] : 1;
-		$args_user = array(
+		$args_user    = array(
 			'exclude' => array( 1 ),
 			'offset'  => ( $current_page - 1 ) * $this->limit_user,
 			'number'  => $this->limit_user,
@@ -96,13 +101,18 @@ class Setting_Class extends \eoxia\Singleton_Util {
 			}
 		}
 
-		\eoxia\View_Util::exec( 'task-manager', 'setting', 'capability/list', array(
-			'users'                => $users,
-			'has_capacity_in_role' => $has_capacity_in_role,
-			'number_page'          => $number_page,
-			'count_user'           => $count_user,
-			'current_page'         => $current_page,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'setting',
+			'capability/list',
+			array(
+				'users'                => $users,
+				'has_capacity_in_role' => $has_capacity_in_role,
+				'number_page'          => $number_page,
+				'count_user'           => $count_user,
+				'current_page'         => $current_page,
+			)
+		);
 	}
 }
 

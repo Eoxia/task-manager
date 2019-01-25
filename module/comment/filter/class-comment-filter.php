@@ -34,7 +34,7 @@ class Comment_Filter {
 		add_filter( "eo_model_{$current_type}_after_put", array( $this, 'compile_time' ), 10, 2 );
 		add_filter( "eo_model_{$current_type}_after_post", array( $this, 'compile_time' ), 10, 2 );
 		add_filter( "eo_model_{$current_type}_after_post", array( $this, 'callback_after_save_comments' ), 10, 2 );
-		
+
 		add_filter( 'tm_comment_edit_after', array( $this, 'callback_tm_comment_edit_after' ), 10, 2 );
 		add_filter( 'tm_comment_advanced_view', array( $this, 'callback_tm_comment_advanced_view' ), 10, 2 );
 	}
@@ -51,19 +51,25 @@ class Comment_Filter {
 	 * @return Comment_Object        Les données de la tâche avec les données complémentaires.
 	 */
 	public function compile_time( $object, $args ) {
-		$point = Point_Class::g()->get( array(
-			'id'     => $object->data['parent_id'],
-			'status' => array( '1', 'trash' ),
-		), true );
-
-		$task = Task_Class::g()->get( array(
-			'id'          => $object->data['post_id'],
-			'post_status' => array(
-				'any',
-				'archive',
-				'trash',
+		$point = Point_Class::g()->get(
+			array(
+				'id'     => $object->data['parent_id'],
+				'status' => array( '1', 'trash' ),
 			),
-		), true );
+			true
+		);
+
+		$task = Task_Class::g()->get(
+			array(
+				'id'          => $object->data['post_id'],
+				'post_status' => array(
+					'any',
+					'archive',
+					'trash',
+				),
+			),
+			true
+		);
 
 		$point_updated_elapsed = $point->data['time_info']['elapsed'];
 		$task_updated_elapsed  = $task->data['time_info']['elapsed'];
@@ -110,9 +116,12 @@ class Comment_Filter {
 		if ( 0 === $object->data['id'] ) {
 			$current_user = get_current_user_id();
 			if ( ! empty( $current_user ) ) {
-				$user = Follower_Class::g()->get( array(
-					'include' => $current_user,
-				), true );
+				$user = Follower_Class::g()->get(
+					array(
+						'include' => $current_user,
+					),
+					true
+				);
 				if ( true === $user->data['_tm_auto_elapsed_time'] ) {
 					// Récupération du dernier commentaire ajouté dans la base.
 					$query                   = $GLOBALS['wpdb']->prepare(
@@ -129,7 +138,10 @@ class Comment_Filter {
 							AND TASK.post_status IN ( 'archive', 'publish', 'inherit' )
 						ORDER BY COMMENT.comment_date DESC
 						LIMIT 1",
-						current_time( 'mysql' ), $current_user, current_time( 'Y-m-d 00:00:00' ), 'wpeo_time'
+						current_time( 'mysql' ),
+						$current_user,
+						current_time( 'Y-m-d 00:00:00' ),
+						'wpeo_time'
 					);
 					$time_since_last_comment = $GLOBALS['wpdb']->get_var( $query );
 					if ( ! empty( $time_since_last_comment ) ) {
@@ -190,7 +202,7 @@ class Comment_Filter {
 							$content = htmlspecialchars( substr( $content, 0, 100 ) );
 
 							// Le contenu en entier.
-							$html = "<b class='wpeo-tooltip-event' aria-label='" . $content . "'>#" . $prefix_id . "</b>";
+							$html = "<b class='wpeo-tooltip-event' aria-label='" . $content . "'>#" . $prefix_id . '</b>';
 
 							$object->data['rendered'] = preg_replace( '/#' . $prefix_id . '/', $html, $object->data['rendered'] );
 						}
@@ -202,7 +214,7 @@ class Comment_Filter {
 		return $object;
 	}
 
-  /**
+	/**
 	 * Callback appelé après l'insertion d'un nouveau commentaire.
 	 *
 	 * @param  Task_Comment_Model $object La définition complète du commentaire avant passage dans le filtre.
@@ -211,9 +223,12 @@ class Comment_Filter {
 	 * @return Task_Comment_Model         La définition du commentaire après passage du filtre.
 	 */
 	public function callback_after_save_comments( $object, $args ) {
-		$point = Point_Class::g()->get( array(
-			'id' => $object->data['parent_id'],
-		), true );
+		$point = Point_Class::g()->get(
+			array(
+				'id' => $object->data['parent_id'],
+			),
+			true
+		);
 
 		$point->data['count_comments']++;
 
@@ -221,32 +236,56 @@ class Comment_Filter {
 
 		return $object;
 	}
-	
+
+	/**
+	 * Renvois la vue du commentaire
+	 *
+	 * @param  [type] $output  [vue].
+	 * @param  [type] $comment [commentaire].
+	 * @return [type] $output [contient la vue à afficher].
+	 */
 	public function callback_tm_comment_edit_after( $output, $comment ) {
 		$user = Follower_Class::g()->get( array( 'id' => get_current_user_id() ), true );
-		
+
 		if ( $user->data['_tm_advanced_display'] ) {
 			ob_start();
-			\eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/edit-advanced', array(
-				'comment' => $comment,
-			) );
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'comment',
+				'backend/edit-advanced',
+				array(
+					'comment' => $comment,
+				)
+			);
 			$output .= ob_get_clean();
 		}
-		
+
 		return $output;
 	}
-	
+
+	/**
+	 * Affiche la vue
+	 *
+	 * @param  [type] $output  [vue].
+	 * @param  [type] $comment [commentaire].
+	 * @return [type] $output [contient la vue à afficher].
+	 */
 	public function callback_tm_comment_advanced_view( $output, $comment ) {
 		$user = Follower_Class::g()->get( array( 'id' => get_current_user_id() ), true );
-		
+
 		if ( $user->data['_tm_advanced_display'] ) {
 			ob_start();
-			\eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/comment-advanced', array(
-				'comment' => $comment,
-			) );
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'comment',
+				'backend/comment-advanced',
+				array(
+					'comment' => $comment,
+				)
+			);
 			$output .= ob_get_clean();
 		}
-		
+
 		return $output;
 	}
 }

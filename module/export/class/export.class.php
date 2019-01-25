@@ -74,13 +74,19 @@ class Export_Class extends \eoxia\Singleton_Util {
 			),
 		);
 
-		$points_to_export['completed']['items'] = array_filter( $datas, function( $point ) {
-			return true === $point->data['completed'];
-		} );
+		$points_to_export['completed']['items'] = array_filter(
+			$datas,
+			function( $point ) {
+				return true === $point->data['completed'];
+			}
+		);
 
-		$points_to_export['uncompleted']['items'] = array_filter( $datas, function( $point ) {
-			return false === $point->data['completed'];
-		} );
+		$points_to_export['uncompleted']['items'] = array_filter(
+			$datas,
+			function( $point ) {
+				return false === $point->data['completed'];
+			}
+		);
 
 		$export_data = $task->data['id'] . ' - ' . $task->data['title'] . "\r\n\r\n";
 

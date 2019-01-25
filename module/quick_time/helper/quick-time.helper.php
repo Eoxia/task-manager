@@ -27,12 +27,18 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function quicktime_format_data( $data ) {
 	$data['displayed'] = array(
-		'task'               => Task_Class::g()->get( array(
-			'id' => $data['task_id'],
-		), true ),
-		'point'              => Point_Class::g()->get( array(
-			'id' => $data['point_id'],
-		), true ),
+		'task'               => Task_Class::g()->get(
+			array(
+				'id' => $data['task_id'],
+			),
+			true
+		),
+		'point'              => Point_Class::g()->get(
+			array(
+				'id' => $data['point_id'],
+			),
+			true
+		),
 		'point_fake_content' => '',
 	);
 

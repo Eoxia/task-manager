@@ -45,7 +45,7 @@
 		"module/import/import.config.json",
 		"module/tools/tools.config.json"
 	],
-	"debug": false,
+	"debug": true,
 	"key_last_update_version" : "_tm_last_update_version",
 	"core_option": "_tm_core_option",
 	"key_waiting_updates": "_tm_waited_updates",

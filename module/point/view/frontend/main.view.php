@@ -19,11 +19,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php
 	if ( ! empty( $points_uncompleted ) ) :
 		foreach ( $points_uncompleted as $point ) :
-			\eoxia\View_Util::exec( 'task-manager', 'point', 'frontend/point', array(
-				'comment_id' => $comment_id,
-				'point'      => $point,
-				'parent_id'  => $point->data['post_id'],
-			) );
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'point',
+				'frontend/point',
+				array(
+					'comment_id' => $comment_id,
+					'point'      => $point,
+					'parent_id'  => $point->data['post_id'],
+				)
+			);
 		endforeach;
 	endif;
 	?>

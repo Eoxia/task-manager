@@ -29,10 +29,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php
 		if ( ! empty( $users ) ) :
 			foreach ( $users as $user ) :
-				\eoxia\View_Util::exec( 'task-manager', 'setting', 'capability/list-item', array(
-					'user'                 => $user,
-					'has_capacity_in_role' => $has_capacity_in_role,
-				) );
+				\eoxia\View_Util::exec(
+					'task-manager',
+					'setting',
+					'capability/list-item',
+					array(
+						'user'                 => $user,
+						'has_capacity_in_role' => $has_capacity_in_role,
+					)
+				);
 			endforeach;
 		endif;
 		?>
@@ -43,16 +48,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="wp-digi-pagination">
 			<?php
 			$big = 999999999;
-			echo paginate_links( array(
-				'base'               => admin_url( 'admin-ajax.php?action=task-manager-setting&current_page=%_%' ),
-				'format'             => '%#%',
-				'current'            => $current_page,
-				'total'              => $number_page,
-				'before_page_number' => '<span class="screen-reader-text">' . __( 'Page', 'task-manager' ) . ' </span>',
-				'type'               => 'plain',
-				'next_text'          => '<i class="dashicons dashicons-arrow-right"></i>',
-				'prev_text'          => '<i class="dashicons dashicons-arrow-left"></i>',
-			) );
+			echo paginate_links(
+				array(
+					'base'               => admin_url( 'admin-ajax.php?action=task-manager-setting&current_page=%_%' ),
+					'format'             => '%#%',
+					'current'            => $current_page,
+					'total'              => $number_page,
+					'before_page_number' => '<span class="screen-reader-text">' . __( 'Page', 'task-manager' ) . ' </span>',
+					'type'               => 'plain',
+					'next_text'          => '<i class="dashicons dashicons-arrow-right"></i>',
+					'prev_text'          => '<i class="dashicons dashicons-arrow-left"></i>',
+				)
+			);
 			?>
 		</div>
 	<?php endif; ?>

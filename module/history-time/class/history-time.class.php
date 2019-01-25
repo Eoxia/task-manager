@@ -81,15 +81,20 @@ class History_Time_Class extends \eoxia\Comment_Class {
 	 * @return void
 	 */
 	public function display_histories_time( $task_id ) {
-		$history_time_schema = self::g()->get( array(
-			'schema' => true,
-		), true );
+		$history_time_schema = self::g()->get(
+			array(
+				'schema' => true,
+			),
+			true
+		);
 
-		$history_times = self::g()->get( array(
-			'post_id' => $task_id,
-			'orderby' => 'ASC',
-			'type'    => self::g()->get_type(),
-		) );
+		$history_times = self::g()->get(
+			array(
+				'post_id' => $task_id,
+				'orderby' => 'ASC',
+				'type'    => self::g()->get_type(),
+			)
+		);
 
 		if ( ! empty( $history_times ) ) {
 			foreach ( $history_times as $key => $history_time ) {
@@ -97,12 +102,17 @@ class History_Time_Class extends \eoxia\Comment_Class {
 			}
 		}
 
-		\eoxia\View_Util::exec( 'task-manager', 'history-time', 'backend/main', array(
-			'task_id'             => $task_id,
-			'last_history_time'   => ! empty( $history_times[0] ) ? $history_times[0] : null,
-			'history_times'       => $history_times,
-			'history_time_schema' => $history_time_schema,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'history-time',
+			'backend/main',
+			array(
+				'task_id'             => $task_id,
+				'last_history_time'   => ! empty( $history_times[0] ) ? $history_times[0] : null,
+				'history_times'       => $history_times,
+				'history_time_schema' => $history_time_schema,
+			)
+		);
 	}
 }
 

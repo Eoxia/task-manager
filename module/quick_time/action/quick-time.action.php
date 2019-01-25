@@ -73,9 +73,12 @@ class Quick_Time_Action {
 
 					Task_Comment_Class::g()->update( $comment );
 
-					$point = Point_Class::g()->get( array(
-						'id' => $comment['parent_id'],
-					), true );
+					$point = Point_Class::g()->get(
+						array(
+							'id' => $comment['parent_id'],
+						),
+						true
+					);
 
 					$point->data['count_comments']++;
 
@@ -86,12 +89,14 @@ class Quick_Time_Action {
 
 		ob_start();
 		Quick_Time_Class::g()->display_list();
-		wp_send_json_success( array(
-			'namespace'        => 'taskManager',
-			'module'           => 'adminBar',
-			'callback_success' => 'quickTimeAddedComment',
-			'view'             => ob_get_clean(),
-		) );
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'adminBar',
+				'callback_success' => 'quickTimeAddedComment',
+				'view'             => ob_get_clean(),
+			)
+		);
 	}
 
 	/**
@@ -107,19 +112,26 @@ class Quick_Time_Action {
 		$quicktimes = Quick_Time_Class::g()->get_quicktimes();
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/setting/main', array(
-			'quicktimes' => $quicktimes,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'quick_time',
+			'backend/setting/main',
+			array(
+				'quicktimes' => $quicktimes,
+			)
+		);
 		$view = ob_get_clean();
-		
+
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/setting/buttons' );
 		$buttons_view = ob_get_clean();
-		
-		wp_send_json_success( array(
-			'view'         => $view,
-			'buttons_view' => $buttons_view,
-		) );
+
+		wp_send_json_success(
+			array(
+				'view'         => $view,
+				'buttons_view' => $buttons_view,
+			)
+		);
 	}
 
 	/**
@@ -139,29 +151,41 @@ class Quick_Time_Action {
 			wp_send_json_error();
 		}
 
-		$task = Task_Class::g()->get( array(
-			'id' => $task_id,
-		), true );
+		$task = Task_Class::g()->get(
+			array(
+				'id' => $task_id,
+			),
+			true
+		);
 
 		if ( empty( $task ) ) {
 			wp_send_json_error();
 		}
 
-		$points = Point_Class::g()->get( array(
-			'post_id' => $task->data['id'],
-		) );
+		$points = Point_Class::g()->get(
+			array(
+				'post_id' => $task->data['id'],
+			)
+		);
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/setting/points', array(
-			'points' => $points,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'quick_time',
+			'backend/setting/points',
+			array(
+				'points' => $points,
+			)
+		);
 
-		wp_send_json_success( array(
-			'namespace'        => 'taskManagerGlobal',
-			'module'           => 'quickTime',
-			'callback_success' => 'settingRefreshedPoint',
-			'view'             => ob_get_clean(),
-		) );
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManagerGlobal',
+				'module'           => 'quickTime',
+				'callback_success' => 'settingRefreshedPoint',
+				'view'             => ob_get_clean(),
+			)
+		);
 	}
 
 	/**
@@ -199,10 +223,15 @@ class Quick_Time_Action {
 		$data = quicktime_format_data( $data );
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/setting/item', array(
-			'key'        => key( end( $meta ) ),
-			'quick_time' => $data,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'quick_time',
+			'backend/setting/item',
+			array(
+				'key'        => key( end( $meta ) ),
+				'quick_time' => $data,
+			)
+		);
 		$new_item_view = ob_get_clean();
 
 		ob_start();
@@ -212,14 +241,16 @@ class Quick_Time_Action {
 		ob_start();
 		Quick_Time_Class::g()->display();
 		$metabox_view = ob_get_clean();
-		wp_send_json_success( array(
-			'namespace'        => 'taskManagerGlobal',
-			'module'           => 'quickTime',
-			'callback_success' => 'addedConfigQuickTime',
-			'new_item_view'    => $new_item_view,
-			'form_view'        => $form_view,
-			'metabox_view'     => $metabox_view,
-		) );
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManagerGlobal',
+				'module'           => 'quickTime',
+				'callback_success' => 'addedConfigQuickTime',
+				'new_item_view'    => $new_item_view,
+				'form_view'        => $form_view,
+				'metabox_view'     => $metabox_view,
+			)
+		);
 	}
 
 	/**
@@ -255,12 +286,14 @@ class Quick_Time_Action {
 		ob_start();
 		Quick_Time_Class::g()->display();
 		$metabox_view = ob_get_clean();
-		wp_send_json_success( array(
-			'namespace'        => 'taskManagerGlobal',
-			'module'           => 'quickTime',
-			'callback_success' => 'deletedConfigQuickTime',
-			'metabox_view'     => $metabox_view,
-		) );
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManagerGlobal',
+				'module'           => 'quickTime',
+				'callback_success' => 'deletedConfigQuickTime',
+				'metabox_view'     => $metabox_view,
+			)
+		);
 	}
 }
 

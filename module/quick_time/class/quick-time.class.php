@@ -65,14 +65,22 @@ class Quick_Time_Class extends \eoxia\Singleton_Util {
 	public function display_list() {
 		$quicktimes = $this->get_quicktimes();
 
-		$comment_schema = Task_Comment_Class::g()->get( array(
-			'schema' => true,
-		), true );
+		$comment_schema = Task_Comment_Class::g()->get(
+			array(
+				'schema' => true,
+			),
+			true
+		);
 
-		\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/list', array(
-			'quicktimes'     => $quicktimes,
-			'comment_schema' => $comment_schema,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'quick_time',
+			'backend/list',
+			array(
+				'quicktimes'     => $quicktimes,
+				'comment_schema' => $comment_schema,
+			)
+		);
 	}
 
 	/**
@@ -90,7 +98,7 @@ class Quick_Time_Class extends \eoxia\Singleton_Util {
 			foreach ( $quicktimes as $key => $quicktime ) {
 				$quicktimes[ $key ] = quicktime_format_data( $quicktime );
 			}
-			// sort( $quicktimes );
+			// @comment sort( $quicktimes );
 		}
 
 		return $quicktimes;

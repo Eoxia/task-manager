@@ -31,9 +31,14 @@ class Import_Class extends \eoxia\Singleton_Util {
 	 * @return void
 	 */
 	public function display_textarea() {
-		\eoxia\View_Util::exec( 'task-manager', 'import', 'backend/import-textarea', array(
-			'default_content' => '',
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'import',
+			'backend/import-textarea',
+			array(
+				'default_content' => '',
+			)
+		);
 	}
 
 	/**
@@ -75,10 +80,12 @@ class Import_Class extends \eoxia\Singleton_Util {
 				}
 
 				if ( ! empty( $line ) && $line_type_is_task ) {
-					$created_task = Task_Class::g()->create( array(
-						'title'     => $line,
-						'parent_id' => $post_id,
-					) );
+					$created_task = Task_Class::g()->create(
+						array(
+							'title'     => $line,
+							'parent_id' => $post_id,
+						)
+					);
 					// On vérifie que la création ce soit bien passée.
 					if ( ! empty( $created_task ) && ! empty( $created_task->data['id'] ) ) {
 						$task_id                            = $created_task->data['id'];

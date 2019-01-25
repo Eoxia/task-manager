@@ -61,34 +61,41 @@ class Point_Action {
 		do_action( 'tm_edit_point', $point, $task );
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
-			'point'      => $point,
-			'parent_id'  => $parent_id,
-			'point_id'   => 0,
-			'comment_id' => 0,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'point',
+			'backend/point',
+			array(
+				'point'      => $point,
+				'parent_id'  => $parent_id,
+				'point_id'   => 0,
+				'comment_id' => 0,
+			)
+		);
 
-		wp_send_json_success( array(
-			'view'             => ob_get_clean(),
-			'namespace'        => 'taskManager',
-			'module'           => 'point',
-			'callback_success' => ! empty( $point_id ) ? 'editedPointSuccess' : 'addedPointSuccess',
-			'task_id'          => $parent_id,
-			'task'             => $task,
-			'point'            => $point,
-		) );
+		wp_send_json_success(
+			array(
+				'view'             => ob_get_clean(),
+				'namespace'        => 'taskManager',
+				'module'           => 'point',
+				'callback_success' => ! empty( $point_id ) ? 'editedPointSuccess' : 'addedPointSuccess',
+				'task_id'          => $parent_id,
+				'task'             => $task,
+				'point'            => $point,
+			)
+		);
 	}
 
 	/**
-	* Change la date du point
-	*
-	* @since 1.5.0
-	* @version 1.5.0
-	*
-	* @return void
-	*
-	* @todo: nonce
-	*/
+	 * Change la date du point
+	 *
+	 * @since 1.5.0
+	 * @version 1.5.0
+	 *
+	 * @return void
+	 *
+	 * @todo: nonce
+	 */
 	public function ajax_change_date_point() {
 		$point_id   = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 		$mysql_date = ! empty( $_POST['date'] ) ? sanitize_text_field( $_POST['date'] ) : '';
@@ -97,9 +104,12 @@ class Point_Action {
 			wp_send_json_error();
 		}
 
-		$point = Point_Class::g()->get( array(
-			'id' => $point_id,
-		), true );
+		$point = Point_Class::g()->get(
+			array(
+				'id' => $point_id,
+			),
+			true
+		);
 
 		$point->date = $mysql_date;
 
@@ -121,17 +131,23 @@ class Point_Action {
 
 		$point_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 
-		$point = Point_Class::g()->get( array(
-			'id' => $point_id,
-		), true );
+		$point = Point_Class::g()->get(
+			array(
+				'id' => $point_id,
+			),
+			true
+		);
 
 		$point->data['status'] = 'trash';
 
 		Point_Class::g()->update( $point->data );
 
-		$task = Task_Class::g()->get( array(
-			'id' => $point->data['post_id'],
-		), true );
+		$task = Task_Class::g()->get(
+			array(
+				'id' => $point->data['post_id'],
+			),
+			true
+		);
 
 		$task->data['time_info']['elapsed'] = $task->data['time_info']['elapsed'] - $point->data['time_info']['elapsed'];
 
@@ -145,12 +161,14 @@ class Point_Action {
 
 		do_action( 'tm_delete_point', $point );
 
-		wp_send_json_success( array(
-			'time'             => $task->data['time_info']['elapsed'],
-			'namespace'        => 'taskManager',
-			'module'           => 'point',
-			'callback_success' => 'deletedPointSuccess',
-		) );
+		wp_send_json_success(
+			array(
+				'time'             => $task->data['time_info']['elapsed'],
+				'namespace'        => 'taskManager',
+				'module'           => 'point',
+				'callback_success' => 'deletedPointSuccess',
+			)
+		);
 	}
 
 	/**
@@ -172,9 +190,12 @@ class Point_Action {
 
 		if ( ! empty( $order_point_id ) ) {
 			foreach ( $order_point_id as $key => $point_id ) {
-				$point = Point_Class::g()->get( array(
-					'id' => $point_id,
-				), true );
+				$point = Point_Class::g()->get(
+					array(
+						'id' => $point_id,
+					),
+					true
+				);
 
 				$point->data['order'] = (int) $key;
 				Point_Class::g()->update( $point->data );
@@ -222,12 +243,14 @@ class Point_Action {
 			wp_send_json_error();
 		}
 
-		$points = Point_Class::g()->get( array(
-			'post_id'    => $task_id,
-			'type'       => Point_Class::g()->get_type(),
-			'meta_key'   => '_tm_completed',
-			'meta_value' => $completed,
-		) );
+		$points = Point_Class::g()->get(
+			array(
+				'post_id'    => $task_id,
+				'type'       => Point_Class::g()->get_type(),
+				'meta_key'   => '_tm_completed',
+				'meta_value' => $completed,
+			)
+		);
 
 		$view = 'backend';
 		if ( $frontend ) {
@@ -235,18 +258,25 @@ class Point_Action {
 		}
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'point', $view . '/points', array(
-			'comment_id' => 0,
-			'point_id'   => 0,
-			'parent_id'  => $task_id,
-			'points'     => $points,
-		) );
-		wp_send_json_success( array(
-			'namespace'        => $frontend ? 'taskManagerFrontend' : 'taskManager',
-			'module'           => 'point',
-			'callback_success' => 'loadedPoint',
-			'view'             => ob_get_clean(),
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'point',
+			$view . '/points',
+			array(
+				'comment_id' => 0,
+				'point_id'   => 0,
+				'parent_id'  => $task_id,
+				'points'     => $points,
+			)
+		);
+		wp_send_json_success(
+			array(
+				'namespace'        => $frontend ? 'taskManagerFrontend' : 'taskManager',
+				'module'           => 'point',
+				'callback_success' => 'loadedPoint',
+				'view'             => ob_get_clean(),
+			)
+		);
 	}
 
 	/**
@@ -261,11 +291,13 @@ class Point_Action {
 		$term          = sanitize_text_field( $_GET['term'] );
 		$founded_by_id = false;
 
-		$query = new \WP_Query( array(
-			'post_type'   => 'wpeo-task',
-			's'           => $term,
-			'post_status' => array( 'publish', 'draft', 'archive' ),
-		) );
+		$query = new \WP_Query(
+			array(
+				'post_type'   => 'wpeo-task',
+				's'           => $term,
+				'post_status' => array( 'publish', 'draft', 'archive' ),
+			)
+		);
 
 		$tasks_founded = array();
 
@@ -328,17 +360,26 @@ class Point_Action {
 			wp_send_json_error();
 		}
 
-		$current_task = Task_Class::g()->get( array(
-			'id' => $task_id,
-		), true );
+		$current_task = Task_Class::g()->get(
+			array(
+				'id' => $task_id,
+			),
+			true
+		);
 
-		$to_task = Task_Class::g()->get( array(
-			'id' => $to_task_id,
-		), true );
+		$to_task = Task_Class::g()->get(
+			array(
+				'id' => $to_task_id,
+			),
+			true
+		);
 
-		$point = Point_Class::g()->get( array(
-			'id' => $point_id,
-		), true );
+		$point = Point_Class::g()->get(
+			array(
+				'id' => $point_id,
+			),
+			true
+		);
 
 		$current_task->data['time_info']['elapsed'] = $current_task->data['time_info']['elapsed'] - $point->data['time_info']['elapsed'];
 		$to_task->data['time_info']['elapsed']      = $to_task->data['time_info']['elapsed'] + $point->data['time_info']['elapsed'];
@@ -359,11 +400,13 @@ class Point_Action {
 		$point->data['post_id'] = $to_task_id;
 		$point                  = Point_Class::g()->update( $point->data );
 
-		$comments = Task_Comment_Class::g()->get( array(
-			'post_id' => $task_id,
-			'parent'  => $point_id,
-			'status'  => 1,
-		) );
+		$comments = Task_Comment_Class::g()->get(
+			array(
+				'post_id' => $task_id,
+				'parent'  => $point_id,
+				'status'  => 1,
+			)
+		);
 
 		if ( ! empty( $comments ) ) {
 			foreach ( $comments as $comment ) {
@@ -377,16 +420,18 @@ class Point_Action {
 
 		do_action( 'tm_after_move_point_to', $point, $current_task );
 
-		wp_send_json_success( array(
-			'namespace'                 => 'taskManager',
-			'module'                    => 'point',
-			'callback_success'          => 'movedPointTo',
-			'point'                     => $point,
-			'current_task'              => $current_task,
-			'to_task'                   => $to_task,
-			'current_task_elapsed_time' => $current_task->data['time_info']['elapsed'],
-			'to_task_elapsed_time'      => $to_task->data['time_info']['elapsed'],
-		) );
+		wp_send_json_success(
+			array(
+				'namespace'                 => 'taskManager',
+				'module'                    => 'point',
+				'callback_success'          => 'movedPointTo',
+				'point'                     => $point,
+				'current_task'              => $current_task,
+				'to_task'                   => $to_task,
+				'current_task_elapsed_time' => $current_task->data['time_info']['elapsed'],
+				'to_task_elapsed_time'      => $to_task->data['time_info']['elapsed'],
+			)
+		);
 	}
 }
 

@@ -39,11 +39,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 			$i = 0;
 			if ( ! empty( $quicktimes ) ) :
 				foreach ( $quicktimes as $key => $quicktime ) :
-					\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/item', array(
-						'key'       => $key,
-						'quicktime' => $quicktime,
-						'i'         => $i,
-					) );
+					\eoxia\View_Util::exec(
+						'task-manager',
+						'quick_time',
+						'backend/item',
+						array(
+							'key'       => $key,
+							'quicktime' => $quicktime,
+							'i'         => $i,
+						)
+					);
 					$i++;
 				endforeach;
 			endif;
@@ -71,14 +76,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php
 		// $i = 0;
 		// if ( ! empty( $quicktimes ) ) :
-		// 	foreach ( $quicktimes as $key => $quicktime ) :
-		// 		\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/item', array(
-		// 			'key'       => $key,
-		// 			'quicktime' => $quicktime,
-		// 			'i'         => $i,
-		// 		) );
-		// 		$i++;
-		// 	endforeach;
+		// foreach ( $quicktimes as $key => $quicktime ) :
+		// \eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/item', array(
+		// 'key'       => $key,
+		// 'quicktime' => $quicktime,
+		// 'i'         => $i,
+		// ) );
+		// $i++;
+		// endforeach;
 		// endif;
 		?>
 

@@ -105,7 +105,10 @@ class Task_Manager_Action {
 						'planning'     => __( 'Planning', 'task-manager' ),
 						'date_error'   => __( 'Invalid date' , 'task-manager' ),
 						'person_error' => __( 'Choose a user' , 'task-manager' ),
-						'nodata'			 => __( 'No data, please configure your planning settings !', 'task-manager' )
+						'nodata'			 => __( 'No data, please configure your planning settings !', 'task-manager' ),
+						'from'         => __( 'From', 'task-manager' ),
+						'to'           => __( 'to', 'task-manager' ),
+						'plan_week'    => __( 'Stats of the week', 'task-manager' ),
 					));
 					break;
 				}

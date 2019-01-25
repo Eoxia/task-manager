@@ -68,9 +68,12 @@ class Tag_Action {
 			wp_send_json_error();
 		}
 
-		$task = Task_Class::g()->get( array(
-			'p' => $task_id,
-		), true );
+		$task = Task_Class::g()->get(
+			array(
+				'p' => $task_id,
+			),
+			true
+		);
 
 		$task->data['status'] = 'archive';
 
@@ -84,11 +87,13 @@ class Tag_Action {
 
 		do_action( 'tm_archive_task', $task );
 
-		wp_send_json_success( array(
-			'namespace'        => 'taskManager',
-			'module'           => 'tag',
-			'callback_success' => 'archivedTaskSuccess',
-		) );
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'tag',
+				'callback_success' => 'archivedTaskSuccess',
+			)
+		);
 	}
 
 	/**
@@ -108,9 +113,12 @@ class Tag_Action {
 			wp_send_json_error();
 		}
 
-		$task = Task_Class::g()->get( array(
-			'p' => $task_id,
-		), true );
+		$task = Task_Class::g()->get(
+			array(
+				'p' => $task_id,
+			),
+			true
+		);
 
 		$task->data['status'] = 'publish';
 
@@ -127,11 +135,13 @@ class Tag_Action {
 
 		Task_Class::g()->update( $task->data, true );
 
-		wp_send_json_success( array(
-			'namespace'        => 'taskManager',
-			'module'           => 'tag',
-			'callback_success' => 'unarchivedTaskSuccess',
-		) );
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'tag',
+				'callback_success' => 'unarchivedTaskSuccess',
+			)
+		);
 	}
 
 	/**
@@ -146,22 +156,32 @@ class Tag_Action {
 		$tags    = Tag_Class::g()->get();
 		$task_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 
-		$task = Task_Class::g()->get( array(
-			'p' => $task_id,
-		), true );
+		$task = Task_Class::g()->get(
+			array(
+				'p' => $task_id,
+			),
+			true
+		);
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'tag', 'backend/main-edit', array(
-			'tags' => $tags,
-			'task' => $task,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'tag',
+			'backend/main-edit',
+			array(
+				'tags' => $tags,
+				'task' => $task,
+			)
+		);
 
-		wp_send_json_success( array(
-			'namespace'        => 'taskManager',
-			'module'           => 'tag',
-			'callback_success' => 'loadedTagSuccess',
-			'view'             => ob_get_clean(),
-		) );
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'tag',
+				'callback_success' => 'loadedTagSuccess',
+				'view'             => ob_get_clean(),
+			)
+		);
 	}
 
 	/**
@@ -183,12 +203,14 @@ class Tag_Action {
 
 		ob_start();
 		echo do_shortcode( '[task_manager_task_tag task_id=' . $task_id . ']' );
-		wp_send_json_success( array(
-			'namespace' => 'taskManager',
-			'module' => 'tag',
-			'callback_success' => 'closedTagEditMode',
-			'view' => ob_get_clean(),
-		) );
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'tag',
+				'callback_success' => 'closedTagEditMode',
+				'view'             => ob_get_clean(),
+			)
+		);
 	}
 
 	/**
@@ -208,9 +230,12 @@ class Tag_Action {
 		$archive_term  = get_term_by( 'slug', 'archive', Tag_Class::g()->get_type() );
 		$go_to_archive = false;
 
-		$task = Task_Class::g()->get( array(
-			'p' => $task_id,
-		), true );
+		$task = Task_Class::g()->get(
+			array(
+				'p' => $task_id,
+			),
+			true
+		);
 
 		if ( empty( $tag_id ) || empty( $task_id ) || empty( $task ) ) {
 			wp_send_json_error();
@@ -225,13 +250,15 @@ class Tag_Action {
 
 		Task_Class::g()->update( $task->data, true );
 
-		wp_send_json_success( array(
-			'namespace'        => 'taskManager',
-			'module'           => 'tag',
-			'callback_success' => 'affectedTagSuccess',
-			'nonce'            => wp_create_nonce( 'tag_unaffectation' ),
-			'go_to_archive'    => $go_to_archive,
-		) );
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'tag',
+				'callback_success' => 'affectedTagSuccess',
+				'nonce'            => wp_create_nonce( 'tag_unaffectation' ),
+				'go_to_archive'    => $go_to_archive,
+			)
+		);
 	}
 
 	/**
@@ -250,9 +277,12 @@ class Tag_Action {
 			wp_send_json_error();
 		}
 
-		$task = Task_Class::g()->get( array(
-			'p' => $task_id,
-		), true );
+		$task = Task_Class::g()->get(
+			array(
+				'p' => $task_id,
+			),
+			true
+		);
 
 		$go_to_all_task = false;
 		$archive_term   = get_term_by( 'slug', 'archive', Tag_Class::g()->get_type() );
@@ -266,13 +296,15 @@ class Tag_Action {
 
 		wp_remove_object_terms( $task_id, $tag_id, Tag_Class::g()->get_type() );
 
-		wp_send_json_success( array(
-			'namespace'        => 'taskManager',
-			'module'           => 'tag',
-			'callback_success' => 'unaffectedTagSuccess',
-			'nonce'            => wp_create_nonce( 'tag_affectation' ),
-			'go_to_all_task'   => $go_to_all_task,
-		) );
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'tag',
+				'callback_success' => 'unaffectedTagSuccess',
+				'nonce'            => wp_create_nonce( 'tag_affectation' ),
+				'go_to_all_task'   => $go_to_all_task,
+			)
+		);
 	}
 
 	/**
@@ -292,21 +324,31 @@ class Tag_Action {
 			wp_send_json_error();
 		}
 
-		$term = wp_create_term( $tag_name, Tag_Class::g()->get_type() );
-		$category = Tag_Class::g()->get( array(
-			'include' => array( $term['term_id'] ),
-		), true );
+		$term     = wp_create_term( $tag_name, Tag_Class::g()->get_type() );
+		$category = Tag_Class::g()->get(
+			array(
+				'include' => array( $term['term_id'] ),
+			),
+			true
+		);
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/tag', array(
-			'category' => $category,
-		) );
-		wp_send_json_success( array(
-			'namespace' => 'taskManager',
-			'module' => 'tag',
-			'callback_success' => 'createdTagSuccess',
-			'view' => ob_get_clean(),
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'navigation',
+			'backend/tag',
+			array(
+				'category' => $category,
+			)
+		);
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'tag',
+				'callback_success' => 'createdTagSuccess',
+				'view'             => ob_get_clean(),
+			)
+		);
 	}
 
 }

@@ -21,9 +21,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php
 	if ( ! empty( $categories ) ) :
 		foreach ( $categories as $category ) :
-			\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/tag', array(
-				'category' => $category,
-			) );
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'navigation',
+				'backend/tag',
+				array(
+					'category' => $category,
+				)
+			);
 		endforeach;
 	else :
 		?>

@@ -57,9 +57,14 @@ class Tag_Filter {
 		$list_tag = Tag_Class::g()->get();
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'tag', 'backend/filter-search', array(
-			'list_tag' => $list_tag,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'tag',
+			'backend/filter-search',
+			array(
+				'list_tag' => $list_tag,
+			)
+		);
 		$current_search_html .= ob_get_clean();
 
 		return $current_search_html;
@@ -74,15 +79,22 @@ class Tag_Filter {
 	 * @return string                              Le footer de la tâche auquel les tags ont été ajoutés
 	 */
 	public function callback_task_footer( $current_task_footer_html, $task ) {
-		$list_tag = Tag_Class::g()->get( array(
-			'post_id' => $task->data['id'],
-		) );
+		$list_tag = Tag_Class::g()->get(
+			array(
+				'post_id' => $task->data['id'],
+			)
+		);
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'tag', 'backend/tags-wrapper', array(
-			'object'   => $task,
-			'list_tag' => $list_tag,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'tag',
+			'backend/tags-wrapper',
+			array(
+				'object'   => $task,
+				'list_tag' => $list_tag,
+			)
+		);
 		$current_task_footer_html .= ob_get_clean();
 
 		return $current_task_footer_html;
