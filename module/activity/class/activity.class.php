@@ -282,13 +282,14 @@ class Activity_Class extends \eoxia\Singleton_Util {
 				foreach ( $datas as $i => $data_user ) { // @info BOUCLE FOR EACH | Pour chaque tache effectué par l'utilisateur
 
 					if ( strtotime( strftime( '%Y-%m-%d', strtotime( $data_user->com_date ) ) ) == $time_timestamp ) {
-
 							$work_           = true;
 							$data_comdetails = json_decode( $data_user->com_details );
 							$datatime[ $datatime_length ]['duree_travail'] += $data_comdetails->time_info->elapsed;
 							$datatime[ $datatime_length ]['date']           = $data_user->com_date;
 
 						if ( empty( $datatime[ $datatime_length ]['tache_effectue'] ) || count( $datatime[ $datatime_length ]['tache_effectue'] ) == 0 ) { // @info premiere tache effectué
+							$datatime[ $datatime_length ]['tache_effectue'][0]['pt_title']                   = $data_user->pt_title;
+							$datatime[ $datatime_length ]['tache_effectue'][0]['pt_id']                      = $data_user->pt_id;
 							$datatime[ $datatime_length ]['tache_effectue'][0]['tache_title']                = $data_user->t_title;
 							$datatime[ $datatime_length ]['tache_effectue'][0]['tache_id']                   = $data_user->t_id;
 							$datatime[ $datatime_length ]['tache_effectue'][0]['point_title']                = $data_user->point_title;
@@ -318,6 +319,8 @@ class Activity_Class extends \eoxia\Singleton_Util {
 							}
 							if ( ! $tache_already_exist ) {
 								$temp = count( $datatime[ $datatime_length ]['tache_effectue'] );
+								$datatime[ $datatime_length ]['tache_effectue'][ $temp ]['pt_title']                   = $data_user->pt_title;
+								$datatime[ $datatime_length ]['tache_effectue'][ $temp ]['pt_id']                      = $data_user->pt_id;
 								$datatime[ $datatime_length ]['tache_effectue'][ $temp ]['tache_title']                = $data_user->t_title;
 								$datatime[ $datatime_length ]['tache_effectue'][ $temp ]['tache_id']                   = $data_user->t_id;
 								$datatime[ $datatime_length ]['tache_effectue'][ $temp ]['point_title']                = $data_user->point_title;

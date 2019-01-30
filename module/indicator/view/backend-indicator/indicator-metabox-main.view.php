@@ -24,14 +24,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="form-element grid-1">
 				<span class="form-label"><i class="fas fa-calendar"></i> <?php esc_html_e( 'Start date', 'task-manager' ); ?></span>
 				<label class="form-field-container">
-					<input type="date" class="form-field" placeholder="Date de début" value="<?php echo esc_attr( $date_start ); ?>" name="tm_indicator_date_start" />
+					<input id="tm_indicator_date_start_id" type="date" class="form-field" placeholder="Date de début" value="<?php echo esc_attr( $date_start ); ?>" name="tm_indicator_date_start" />
 				</label>
 			</div>
 
 			<div class="form-element grid-1">
 				<span class="form-label"><i class="fas fa-calendar"></i> <?php esc_html_e( 'End date', 'task-manager' ); ?></span>
 				<label class="form-field-container">
-					<input type="date" class="form-field" value="<?php echo esc_attr( $date_end ); ?>" name="tm_indicator_date_end" />
+					<input id="tm_indicator_date_end_id" type="date" class="form-field" value="<?php echo esc_attr( $date_end ); ?>" name="tm_indicator_date_end" />
 				</label>
 			</div>
 			<div class="form-element grid-1" style='margin-top : 41px'>

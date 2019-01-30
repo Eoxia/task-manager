@@ -40,6 +40,7 @@ window.eoxiaJS.taskManager.indicator.toggleMetabox = function( event ) {
 
 window.eoxiaJS.taskManager.indicator.loadedCustomerActivity = function( triggeredElement, response ) {
 	window.eoxiaJS.taskManager.indicator.isSelectOneUser( response.data.user_select, response.data.user_id );
+	window.eoxiaJS.taskManager.indicator.updateTimeChoose( response.data.time_choose, response.data.date_start, response.data.date_end );
 	jQuery( '#tm-indicator-activity .inside' ).html( response.data.view );
 	jQuery( '#displaycanvas' ).html( '' ); // reset les affichages de Canvas
 	jQuery( '#displaycanvas_specific_week' ).html( '' ); // reset le second affichage de la semaine
@@ -191,6 +192,11 @@ window.eoxiaJS.taskManager.indicator.generateCanvasDynamic = function( elementby
     data: data,
     options: option
 	});
+}
+
+window.eoxiaJS.taskManager.indicator.updateTimeChoose = function( time = '', day_start = '', day_end = '' ){
+	$( '#tm_indicator_date_start_id' ).val( day_start );
+	$( '#tm_indicator_date_end_id' ).val( day_end );
 }
 
 window.eoxiaJS.taskManager.indicator.event = function( event ) {
@@ -460,7 +466,7 @@ window.eoxiaJS.taskManager.indicator.generateModalContent = function ( num_modal
 
 
 		var block_task_date = '<h2 style="float : left" title="Date"><i>' + data[ 'tache_effectue' ][ i ][ 'com_date' ] + '</i></h2>';
-		var block_task_time = '<h2  style="float : right" title="Time spend"><i>' + data[ 'tache_effectue' ][ i ][ 'duree' ] + '</i> minutes </h2>';
+		var block_task_time = '<h2  style="float : right" title="Time spend"><i>' + data[ 'tache_effectue' ][ i ][ 'duree' ] + '</i> minutes </h2>' + data[ 'tache_effectue' ][ i ][ 'pt_title' ];
 		var block_task_title =  '<h1 title="Task TITLE" style="text-align : center">' + data[ 'tache_effectue' ][ i ][ 'tache_title' ] +'<br></h1><span title="Task ID"><i>( #' + data[ 'tache_effectue' ][ i ][ 'tache_id' ] + ' )</i></span>';
 		var block_text_point =  '<h3 title="Point TITLE">' + data[ 'tache_effectue' ][ i ][ 'point_title' ] +'</h3><br><span title="Point ID"><i>( #' + data[ 'tache_effectue' ][ i ][ 'point_id' ] + ' )</i></span>';
 
@@ -469,9 +475,6 @@ window.eoxiaJS.taskManager.indicator.generateModalContent = function ( num_modal
 		for( var t = data[ 'tache_effectue' ][ i ][ 'commentary' ].length - 1; t > -1 ; t-- ){
 			var num_commentary = num_commentary + 1;
 			var block_text_com = block_text_com + '<div style="margin-bottom : 10px; border : 2px solid #0d262c; margin-left: 14%; width : 72%; border-radius: 5px; padding : 5px;  padding-bottom : 25px;"><h4 title="Com TITLE"><span style="font-size : 15px"><b> ' + num_commentary + '.</b></span><div style="float : right"><h2><i>' + data[ 'tache_effectue' ][ i ][ 'commentary' ][ t ][ 'com_time' ] +'</i> minutes</h2></div> <br> ' + data[ 'tache_effectue' ][ i ][ 'commentary' ][ t ][ 'com_title' ] +'</h4><span style="float : right "title="com ID"><i>( #' + data[ 'tache_effectue' ][ i ][ 'commentary' ][ t ][ 'com_id' ] + ' )</i></span></div>';
-			if( num_commentary > 10 ){
-				return;
-			}
 		}
 
 		var block_text_content = '<div style="border : 2px solid #6f2e2e; margin-left : 15%; width : 70%; border-radius: 10px;"></div><br><div style="border : 2px solid #6f2e2e; border-radius: 5px; margin-bottom : 20px; padding : 8px; margin-left: 10%; width : 80%;">' + block_task_date + block_task_time + block_task_title + '</div>' + '<div style="border : 2px solid #0d262c; border-radius: 5px; margin-bottom : 20px; margin-left: 12%; width : 76%; padding : 8px">' + block_text_point + '</div>'+ block_text_com;
