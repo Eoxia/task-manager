@@ -307,7 +307,6 @@ class Activity_Class extends \eoxia\Singleton_Util {
 							for ( $u = 0; $u < $datatime_tacheeffectue_length; $u ++ ) { // @info BOUCLE FOR | Pour chaque tache effectué un jours précis
 
 								if ( $datatime[ $datatime_length ]['tache_effectue'][ $u ]['point_id'] == $data_user->point_id ) {
-									echo '<pre>'; print_r( $data_user ); echo '</pre>'; exit;
 									$tache_already_exist               = true;
 									$length_nbrcommentary_forthispoint = count( $datatime[ $datatime_length ]['tache_effectue'][ $u ]['commentary'] );
 
