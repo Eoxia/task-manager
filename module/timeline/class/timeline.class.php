@@ -105,10 +105,10 @@ class Timeline_Class extends \eoxia\Singleton_Util {
 		// Récupères le temps travaillé (par l'user)
 		global $wpdb;
 
-		$query = "SELECT task.ID as task_id, task.post_date as task_create_date, point.comment_ID as point_id, point.comment_date as point_create_date, comment.comment_ID as comment_id, comment.comment_date as comment_create_date
+		$query = "SELECT task.ID as task_id, task.post_date as task_create_date, point.comment_id as point_id, point.comment_date as point_create_date, comment.comment_id as comment_id, comment.comment_date as comment_create_date
 								FROM {$wpdb->posts} as task
-									LEFT JOIN {$wpdb->comments} AS point ON task.ID=point.comment_post_ID
-									LEFT JOIN {$wpdb->comments} AS comment ON task.ID=comment.comment_post_ID AND point.comment_ID=comment.comment_parent
+									LEFT JOIN {$wpdb->comments} AS point ON task.ID=point.comment_post_id
+									LEFT JOIN {$wpdb->comments} AS comment ON task.ID=comment.comment_post_id AND point.comment_id=comment.comment_parent
 								WHERE task.post_type='wpeo-task'
 								ORDER BY task.post_date, point.comment_date, comment.comment_date";
 

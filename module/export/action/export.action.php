@@ -80,13 +80,13 @@ class Export_Action {
 
 		if ( 'by_date' === $export_type && ( null !== $date_from || null !== $date_to ) ) {
 			$query = $GLOBALS['wpdb']->prepare(
-				"SELECT GROUP_CONCAT( DISTINCT( P.comment_ID ) ) AS pointsID
+				"SELECT GROUP_CONCAT( DISTINCT( P.comment_id ) ) AS pointsID
 				FROM {$GLOBALS['wpdb']->comments} AS P
-					JOIN {$GLOBALS['wpdb']->posts} AS T ON ( T.ID=P.comment_post_ID )
-					LEFT JOIN {$GLOBALS['wpdb']->comments} AS C ON ( C.comment_parent = P.comment_ID )
+					JOIN {$GLOBALS['wpdb']->posts} AS T ON ( T.ID=P.comment_post_id )
+					LEFT JOIN {$GLOBALS['wpdb']->comments} AS C ON ( C.comment_parent = P.comment_id )
 				WHERE P.comment_parent = %d
 					AND T.post_type = %s
-					AND P.comment_post_ID = %d
+					AND P.comment_post_id = %d
 					AND ( ( P.comment_date >= %s AND P.comment_date <= %s )
 						OR ( C.comment_date >= %s AND C.comment_date <= %s ) )",
 				0,

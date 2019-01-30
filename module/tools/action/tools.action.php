@@ -61,8 +61,8 @@ class Tools_Action {
 		);
 
 		$tasks    = $wpdb->get_results( "SELECT ID, post_title FROM {$wpdb->posts} WHERE post_type='wpeo-task'" );
-		$points   = $wpdb->get_results( "SELECT comment_ID, comment_content FROM {$wpdb->comments} WHERE comment_type='wpeo_point'" );
-		$comments = $wpdb->get_results( "SELECT comment_ID, comment_content FROM {$wpdb->comments} WHERE comment_type='wpeo_time'" );
+		$points   = $wpdb->get_results( "SELECT comment_id, comment_content FROM {$wpdb->comments} WHERE comment_type='wpeo_point'" );
+		$comments = $wpdb->get_results( "SELECT comment_id, comment_content FROM {$wpdb->comments} WHERE comment_type='wpeo_time'" );
 
 		if ( ! empty( $tasks ) ) {
 			foreach ( $tasks as $task ) {
@@ -76,8 +76,8 @@ class Tools_Action {
 
 		if ( ! empty( $points ) ) {
 			foreach ( $points as $point ) {
-				$data_to_compile['list'][ 'P' . $point->comment_ID ] = array(
-					'id'      => $point->comment_ID,
+				$data_to_compile['list'][ 'P' . $point->comment_id ] = array(
+					'id'      => $point->comment_id,
 					'content' => $point->comment_content,
 					'type'    => 'point',
 				);
@@ -86,8 +86,8 @@ class Tools_Action {
 
 		if ( ! empty( $comments ) ) {
 			foreach ( $comments as $comment ) {
-				$data_to_compile['list'][ 'C' . $comment->comment_ID ] = array(
-					'id'      => $comment->comment_ID,
+				$data_to_compile['list'][ 'C' . $comment->comment_id ] = array(
+					'id'      => $comment->comment_id,
 					'content' => $comment->comment_content,
 					'type'    => 'comment',
 				);

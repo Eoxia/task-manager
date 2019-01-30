@@ -58,15 +58,15 @@ class Activity_Class extends \eoxia\Singleton_Util {
  		}
 
  		$query_string =
- 		"SELECT TASK.post_title AS T_title, TASK.ID as T_ID,
- 			POINT.comment_content AS POINT_title, POINT.comment_ID AS POINT_ID,
- 			CREATED_COMMENT.comment_content AS COM_title, CREATED_COMMENT.comment_ID as COM_ID,
- 			COMMENTMETA.meta_value AS COM_DETAILS, CREATED_COMMENT.comment_date AS COM_DATE,
- 			CREATED_COMMENT.user_id AS COM_author_id
+ 		"SELECT TASK.post_title AS t_title, TASK.ID as t_id,
+ 			POINT.comment_content AS point_title, POINT.comment_id AS point_id,
+ 			CREATED_COMMENT.comment_content AS com_title, CREATED_COMMENT.comment_id as com_id,
+ 			COMMENTMETA.meta_value AS com_details, CREATED_COMMENT.comment_date AS com_date,
+ 			CREATED_COMMENT.user_id AS com_author_id
  		FROM {$GLOBALS['wpdb']->comments} AS CREATED_COMMENT
- 			INNER JOIN {$GLOBALS['wpdb']->commentmeta} AS COMMENTMETA ON COMMENTMETA.comment_id = CREATED_COMMENT.comment_ID
- 			INNER JOIN {$GLOBALS['wpdb']->comments} AS POINT ON POINT.comment_ID = CREATED_COMMENT.comment_parent
- 			INNER JOIN {$GLOBALS['wpdb']->posts} AS TASK ON TASK.ID = POINT.comment_post_ID
+ 			INNER JOIN {$GLOBALS['wpdb']->commentmeta} AS COMMENTMETA ON COMMENTMETA.comment_id = CREATED_COMMENT.comment_id
+ 			INNER JOIN {$GLOBALS['wpdb']->comments} AS POINT ON POINT.comment_id = CREATED_COMMENT.comment_parent
+ 			INNER JOIN {$GLOBALS['wpdb']->posts} AS TASK ON TASK.ID = POINT.comment_post_id
  		WHERE CREATED_COMMENT.comment_date >= %s
  			AND CREATED_COMMENT.comment_date <= %s
  			AND CREATED_COMMENT.comment_approved != 'trash'
@@ -105,18 +105,18 @@ class Activity_Class extends \eoxia\Singleton_Util {
  		}
 
  		$query_string =
- 		"SELECT TASK_PARENT.post_title as PT_title, TASK_PARENT.ID as PT_ID,
- 			TASK.post_title AS T_title, TASK.ID as T_ID,
- 			POINT.comment_content AS POINT_title, POINT.comment_ID AS POINT_ID,
- 			COMMENT.comment_content AS COM_title, COMMENT.comment_ID as COM_ID,
- 			COMMENTMETA.meta_value AS COM_DETAILS, COMMENT.comment_date AS COM_DATE,
- 			COMMENT.user_id AS COM_author_id
+ 		"SELECT TASK_PARENT.post_title as pt_title, TASK_PARENT.ID as pt_id,
+ 			TASK.post_title AS t_title, TASK.ID as t_id,
+ 			POINT.comment_content AS point_title, POINT.comment_id AS point_id,
+ 			COMMENT.comment_content AS com_title, COMMENT.comment_id as com_id,
+ 			COMMENTMETA.meta_value AS com_details, COMMENT.comment_date AS com_date,
+ 			COMMENT.user_id AS com_author_id
  		FROM {$GLOBALS['wpdb']->comments} AS COMMENT
- 			INNER JOIN {$GLOBALS['wpdb']->commentmeta} AS COMMENTMETA ON COMMENTMETA.comment_id = COMMENT.comment_ID
+ 			INNER JOIN {$GLOBALS['wpdb']->commentmeta} AS COMMENTMETA ON COMMENTMETA.comment_id = COMMENT.comment_id
  			INNER JOIN {$GLOBALS['wpdb']->users} AS USER ON COMMENT.user_id = USER.ID
  			INNER JOIN {$GLOBALS['wpdb']->usermeta} AS USERMETA ON USER.ID = USERMETA.user_id AND USERMETA.meta_key = 'wp_user_level'
- 			INNER JOIN {$GLOBALS['wpdb']->comments} AS POINT ON POINT.comment_ID = COMMENT.comment_parent
- 			INNER JOIN {$GLOBALS['wpdb']->posts} AS TASK ON TASK.ID = POINT.comment_post_ID
+ 			INNER JOIN {$GLOBALS['wpdb']->comments} AS POINT ON POINT.comment_id = COMMENT.comment_parent
+ 			INNER JOIN {$GLOBALS['wpdb']->posts} AS TASK ON TASK.ID = POINT.comment_post_id
  				LEFT JOIN {$GLOBALS['wpdb']->posts} AS TASK_PARENT ON TASK_PARENT.ID = TASK.post_parent
  		WHERE COMMENT.comment_date >= %s
  			AND USERMETA.meta_value = 10
@@ -306,6 +306,7 @@ class Activity_Class extends \eoxia\Singleton_Util {
 							for ( $u = 0; $u < $datatime_tacheeffectue_length; $u ++ ) { // @info BOUCLE FOR | Pour chaque tache effectué un jours précis
 
 								if ( $datatime[ $datatime_length ]['tache_effectue'][ $u ]['point_id'] == $data_user->point_id ) {
+									echo '<pre>'; print_r( $data_user ); echo '</pre>'; exit;
 									$tache_already_exist               = true;
 									$length_nbrcommentary_forthispoint = count( $datatime[ $datatime_length ]['tache_effectue'][ $u ]['commentary'] );
 

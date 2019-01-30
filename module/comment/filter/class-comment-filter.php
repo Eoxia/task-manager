@@ -127,9 +127,9 @@ class Comment_Filter {
 					$query                   = $GLOBALS['wpdb']->prepare(
 						"SELECT TIMEDIFF( %s, COMMENT.comment_date ) AS DIFF_DATE
 						FROM {$GLOBALS['wpdb']->comments} AS COMMENT
-							INNER JOIN {$GLOBALS['wpdb']->commentmeta} AS COMMENTMETA ON COMMENTMETA.comment_id = COMMENT.comment_ID
-							INNER JOIN {$GLOBALS['wpdb']->comments} AS POINT ON POINT.comment_ID = COMMENT.comment_parent
-							INNER JOIN {$GLOBALS['wpdb']->posts} AS TASK ON TASK.ID = POINT.comment_post_ID
+							INNER JOIN {$GLOBALS['wpdb']->commentmeta} AS COMMENTMETA ON COMMENTMETA.comment_id = COMMENT.comment_id
+							INNER JOIN {$GLOBALS['wpdb']->comments} AS POINT ON POINT.comment_id = COMMENT.comment_parent
+							INNER JOIN {$GLOBALS['wpdb']->posts} AS TASK ON TASK.ID = POINT.comment_post_id
 						WHERE COMMENT.user_id = %d
 							AND COMMENT.comment_date >= %s
 							AND COMMENTMETA.meta_key = %s

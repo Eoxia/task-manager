@@ -160,8 +160,8 @@ class Task_Class extends \eoxia\Post_Class {
 		$comment_type = Task_Comment_Class::g()->get_type();
 
 		$query = "SELECT DISTINCT TASK.ID FROM {$wpdb->posts} AS TASK
-			LEFT JOIN {$wpdb->comments} AS POINT ON POINT.comment_post_ID=TASK.ID AND POINT.comment_approved = 1 AND POINT.comment_type = '{$point_type}'
-			LEFT JOIN {$wpdb->comments} AS COMMENT ON COMMENT.comment_parent=POINT.comment_ID AND COMMENT.comment_approved = 1 AND POINT.comment_approved = 1 AND COMMENT.comment_type = '{$comment_type}'
+			LEFT JOIN {$wpdb->comments} AS POINT ON POINT.comment_post_id=TASK.ID AND POINT.comment_approved = 1 AND POINT.comment_type = '{$point_type}'
+			LEFT JOIN {$wpdb->comments} AS COMMENT ON COMMENT.comment_parent=POINT.comment_id AND COMMENT.comment_approved = 1 AND POINT.comment_approved = 1 AND COMMENT.comment_type = '{$comment_type}'
 			LEFT JOIN {$wpdb->postmeta} AS TASK_META ON TASK_META.post_id=TASK.ID AND TASK_META.meta_key='wpeo_task'
 			LEFT JOIN {$wpdb->term_relationships} AS CAT ON CAT.object_id=TASK.ID
 		WHERE TASK.post_type='wpeo-task'
@@ -207,7 +207,7 @@ class Task_Class extends \eoxia\Post_Class {
 				(
 					TASK.ID LIKE '%" . $param['term'] . "%' OR TASK.post_title LIKE '%" . $param['term'] . "%'
 				) OR (
-					POINT.comment_ID LIKE '%" . $param['term'] . "%' OR POINT.comment_content LIKE '%" . $param['term'] . "%'
+					POINT.comment_id LIKE '%" . $param['term'] . "%' OR POINT.comment_content LIKE '%" . $param['term'] . "%'
 				) OR (
 					COMMENT.comment_parent != 0 AND (COMMENT.comment_id LIKE '%" . $param['term'] . "%' OR COMMENT.comment_content LIKE '%" . $param['term'] . "%')
 				)";
@@ -223,9 +223,9 @@ class Task_Class extends \eoxia\Post_Class {
 
 		if ( $param['point_id'] ) {
 			if ( ! empty( $sub_where ) ) {
-				$sub_where .= ' OR (POINT.comment_ID = ' . $param['point_id'] . ')';
+				$sub_where .= ' OR (POINT.comment_id = ' . $param['point_id'] . ')';
 			} else {
-				$sub_where .= ' (POINT.comment_ID = ' . $param['point_id'] . ')';
+				$sub_where .= ' (POINT.comment_id = ' . $param['point_id'] . ')';
 			}
 		}
 
