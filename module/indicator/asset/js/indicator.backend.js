@@ -461,12 +461,17 @@ window.eoxiaJS.taskManager.indicator.generateModalContent = function ( num_modal
 		}
 		point_title = point_title.replace(/(<br ?\/?>)*/g,"");
 
+		client_name = '';
+		if( data[ 'tache_effectue' ][ i ][ 'pt_title' ] != null ){
+			client_name = data[ 'tache_effectue' ][ i ][ 'pt_title' ];
+		} 
+
 
 		var array_content = array_content + '<tr id="tm_indicator_task_' + num_modal + '_' + i + '" class="display_this_point" data-tmindicatorpointid="' + data[ 'tache_effectue' ][ i ][ 'point_id' ] + '" style="cursor : pointer"><th data-title="point_id">' + data['tache_effectue'][ i ]['point_id'] + '</th><th data-title="tache_title">' + task_title + '</th><th data-title="point_title">' + point_title + '</th><th data-title="time">' + data['tache_effectue'][ i ]['duree'] + '</th></tr>';
 
 
 		var block_task_date = '<h2 style="float : left" title="Date"><i>' + data[ 'tache_effectue' ][ i ][ 'com_date' ] + '</i></h2>';
-		var block_task_time = '<h2  style="float : right" title="Time spend"><i>' + data[ 'tache_effectue' ][ i ][ 'duree' ] + '</i> minutes </h2>' + data[ 'tache_effectue' ][ i ][ 'pt_title' ];
+		var block_task_time = '<h2  style="float : right" title="Time spend"><i>' + data[ 'tache_effectue' ][ i ][ 'duree' ] + '</i> minutes </h2>' + client_name;
 		var block_task_title =  '<h1 title="Task TITLE" style="text-align : center">' + data[ 'tache_effectue' ][ i ][ 'tache_title' ] +'<br></h1><span title="Task ID"><i>( #' + data[ 'tache_effectue' ][ i ][ 'tache_id' ] + ' )</i></span>';
 		var block_text_point =  '<h3 title="Point TITLE">' + data[ 'tache_effectue' ][ i ][ 'point_title' ] +'</h3><br><span title="Point ID"><i>( #' + data[ 'tache_effectue' ][ i ][ 'point_id' ] + ' )</i></span>';
 
