@@ -435,7 +435,9 @@ class Task_Class extends \eoxia\Post_Class {
 		$date_end   = current_time( 'Y-m-d' );
 		$date_start = date( 'Y-m-d', strtotime( '-1 month', strtotime( $date_end ) ) );
 
-		$datas = Activity_Class::g()->get_activity( $tasks_id, 0, $date_start, $date_end );
+		if( ! empty( $tasks_id ) ){
+			$datas = Activity_Class::g()->get_activity( $tasks_id, 0, $date_start, $date_end );
+		}
 
 		if ( ! empty( $tasks_id ) ) {
 			\eoxia\View_Util::exec(
