@@ -41,7 +41,7 @@ class Task_Manager_Class extends \eoxia\Singleton_Util {
 		$categories_id = ! empty( $_GET['categories_id'] ) ? sanitize_text_field( $_GET['categories_id'] ) : ''; // WPCS: CSRF ok.
 		$user_id       = ! empty( $_GET['user_id'] ) ? sanitize_text_field( $_GET['user_id'] ) : 0; // WPCS: CSRF ok.
 		$post_parent   = ! empty( $_GET['post_parent'] ) ? (int) $_GET['post_parent'] : 0; // WPCS: CSRF ok.
-		
+
 		$user = Follower_Class::g()->get( array( 'id' => get_current_user_id() ), true );
 
 		$search_args = array(
@@ -68,11 +68,14 @@ class Task_Manager_Class extends \eoxia\Singleton_Util {
 	 */
 	public function get_patch_note() {
 		$patch_note_url = 'https://www.task-manager.fr/wp-json/wp/v2/posts/1';
-		$json           = wp_remote_get( $patch_note_url, array(
-			'headers' => array(
-				'Content-Type' => 'application/json',
-			),
-		) );
+		$json           = wp_remote_get(
+			$patch_note_url,
+			array(
+				'headers' => array(
+					'Content-Type' => 'application/json',
+				),
+			)
+		);
 
 		$result = __( 'No change log for this version.', 'task-manager' );
 

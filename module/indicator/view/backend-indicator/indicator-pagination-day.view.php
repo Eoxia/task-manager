@@ -2,7 +2,7 @@
 /**
  * Affichage des charts des utilisateurs selon un lapse de temps préfédini
  *
- * @author
+ * @author anonymous
  * @since Before 1.9.0 - BETA
  * @copyright 2015-2019 Eoxia
  * @package Task_Manager

@@ -29,25 +29,40 @@ class Indicator_Filter {
 	public function __construct() {
 		add_filter( 'tm_filter_activity', array( $this, 'callback_tm_filter_activity' ), 10, 3 );
 	}
-	
+
+	/**
+	 * Filtre l'activité
+	 *
+	 * @param  [type]  $content              [description].
+	 * @param  integer $selected_user_id     [description].
+	 * @param  integer $selected_customer_id [description].
+	 * @return $content                      [la vue].
+	 */
 	public function callback_tm_filter_activity( $content, $selected_user_id = 0, $selected_customer_id = 0 ) {
 		if ( class_exists( '\wps_customer_ctr' ) ) {
 			$customer_ctr = new \wps_customer_ctr();
-			
-			$users = Follower_Class::g()->get( array(
-				'role' => 'administrator',
-			) );
-			
+
+			$users = Follower_Class::g()->get(
+				array(
+					'role' => 'administrator',
+				)
+			);
+
 			ob_start();
-			\eoxia\View_Util::exec( 'task-manager', 'indicator', 'backend/filter-daily-activity', array(
-				'customer_ctr'         => $customer_ctr,
-				'users'                => $users,
-				'selected_user_id'     => $selected_user_id,
-				'selected_customer_id' => $selected_customer_id,
-			) );
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'indicator',
+				'backend/filter-daily-activity',
+				array(
+					'customer_ctr'         => $customer_ctr,
+					'users'                => $users,
+					'selected_user_id'     => $selected_user_id,
+					'selected_customer_id' => $selected_customer_id,
+				)
+			);
 			$content = ob_get_clean();
 		}
-		
+
 		return $content;
 	}
 }

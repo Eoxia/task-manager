@@ -337,6 +337,8 @@ class Activity_Class extends \eoxia\Singleton_Util {
 					$datatime[ $datatime_length ]['duree_travail'] = 0;
 					$datatime[ $datatime_length ]['date']          = '';
 				}
+
+				$datatime[ $datatime_length ]['date_fr'] = date( 'd/m/Y', $time_timestamp );
 			}
 		}
 

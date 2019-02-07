@@ -56,5 +56,5 @@ $result = Task_Manager_Class::g()->get_patch_note(); ?>
 			</div>
 		</div>
 	</div>
-<?php
+	<?php
 endif;

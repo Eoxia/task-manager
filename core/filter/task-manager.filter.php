@@ -25,13 +25,13 @@ class Task_Manager_Filter {
 	 */
 	public function __construct() {
 		add_filter( 'heartbeat_send', array( $this, 'callback_heartbeat_send' ), 10, 2 );
-		// 
+		//
 		// add_filter( 'eo_model_wpeo_point_after_put', array( $this, 'add_to_index' ), 10, 2 );
 		// add_filter( 'eo_model_wpeo_point_after_post', array( $this, 'add_to_index' ), 10, 2 );
 		// add_filter( 'eo_model_wpeo_time_after_put', array( $this, 'add_to_index' ), 10, 2 );
 		// add_filter( 'eo_model_wpeo_time_after_post', array( $this, 'add_to_index' ), 10, 2 );
 		// add_filter( 'eo_model_wpeo-task_after_put', array( $this, 'add_to_index' ), 10, 2 );
-		// add_filter( 'eo_model_wpeo-task_after_post', array( $this, 'add_to_index' ), 10, 2 );
+		// add_filter( 'eo_model_wpeo-task_after_post', array( $this, 'add_to_index' ), 10, 2 );.
 	}
 
 	/**
@@ -109,10 +109,14 @@ class Task_Manager_Filter {
 		}
 
 		$data = json_encode( $data );
-		$data = preg_replace_callback( '/\\\\u([0-9a-f]{4})/i', function ( $matches ) {
-			$sym = mb_convert_encoding( pack( 'H*', $matches[1] ), 'UTF-8', 'UTF-16' );
-			return $sym;
-		}, $data );
+		$data = preg_replace_callback(
+			'/\\\\u([0-9a-f]{4})/i',
+			function ( $matches ) {
+				$sym = mb_convert_encoding( pack( 'H*', $matches[1] ), 'UTF-8', 'UTF-16' );
+				return $sym;
+			},
+			$data
+		);
 
 		$file = fopen( PLUGIN_TASK_MANAGER_PATH . 'core/assets/json/data.json', 'w+' );
 		fwrite( $file, $data );

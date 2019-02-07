@@ -43,23 +43,33 @@ class Follower_Shortcode {
 	public function callback_task_manager_task_follower( $param ) {
 		$task_id = ! empty( $param['task_id'] ) ? (int) $param['task_id'] : 0;
 
-		$task = Task_Class::g()->get( array(
-			'p' => $task_id,
-		), true );
+		$task = Task_Class::g()->get(
+			array(
+				'p' => $task_id,
+			),
+			true
+		);
 
 		$followers = array();
 
 		if ( ! empty( $task->data['user_info']['affected_id'] ) ) {
-			$followers = Follower_Class::g()->get( array(
-				'include' => $task->data['user_info']['affected_id'],
-			) );
+			$followers = Follower_Class::g()->get(
+				array(
+					'include' => $task->data['user_info']['affected_id'],
+				)
+			);
 		}
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'follower', 'backend/main', array(
-			'task'      => $task,
-			'followers' => $followers,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'follower',
+			'backend/main',
+			array(
+				'task'      => $task,
+				'followers' => $followers,
+			)
+		);
 
 		return ob_get_clean();
 	}
