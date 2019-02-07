@@ -119,6 +119,7 @@ window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredEleme
 	triggeredElement.closest( '.wpeo-dropdown' ).removeClass( 'dropdown-active' );
 
 	window.eoxiaJS.taskManager.task.initAutoComplete();
+	window.eoxiaJS.taskManager.point.init();
 };
 
 window.eoxiaJS.taskManager.navigation.createdShortcutSuccess = function( triggeredElement, response ) {
