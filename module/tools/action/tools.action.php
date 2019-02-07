@@ -95,10 +95,14 @@ class Tools_Action {
 		}
 
 		$data_to_compile = json_encode( $data_to_compile );
-		$data_to_compile = preg_replace_callback( '/\\\\u([0-9a-f]{4})/i', function ( $matches ) {
-			$sym = mb_convert_encoding( pack( 'H*', $matches[1] ), 'UTF-8', 'UTF-16' );
-			return $sym;
-		}, $data_to_compile );
+		$data_to_compile = preg_replace_callback(
+			'/\\\\u([0-9a-f]{4})/i',
+			function ( $matches ) {
+				$sym = mb_convert_encoding( pack( 'H*', $matches[1] ), 'UTF-8', 'UTF-16' );
+				return $sym;
+			},
+			$data_to_compile
+		);
 
 		$file = fopen( PLUGIN_TASK_MANAGER_PATH . 'core/assets/json/data.json', 'w+' );
 		fwrite( $file, $data_to_compile );

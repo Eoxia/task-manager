@@ -435,7 +435,7 @@ window.eoxiaJS.taskManager.indicator.generateModalContent = function ( num_modal
 
 		jQuery( '#tm_indicator_modal_active_canvas .modal-container' ).css('max-width', oldwidth + 'px' );
 		jQuery( '#tm_indicator_modal_active_canvas .modal-container' ).css('max-height', oldheight + 'px' );
-
+		jQuery( '#tm_indicator_modal_active_canvas .modal-container .modal-content' ).css('height', '86%' );
 	}
 
 
@@ -464,7 +464,7 @@ window.eoxiaJS.taskManager.indicator.generateModalContent = function ( num_modal
 		client_name = '';
 		if( data[ 'tache_effectue' ][ i ][ 'pt_title' ] != null ){
 			client_name = data[ 'tache_effectue' ][ i ][ 'pt_title' ];
-		} 
+		}
 
 
 		var array_content = array_content + '<tr id="tm_indicator_task_' + num_modal + '_' + i + '" class="display_this_point" data-tmindicatorpointid="' + data[ 'tache_effectue' ][ i ][ 'point_id' ] + '" style="cursor : pointer"><th data-title="point_id">' + data['tache_effectue'][ i ]['point_id'] + '</th><th data-title="tache_title">' + task_title + '</th><th data-title="point_title">' + point_title + '</th><th data-title="time">' + data['tache_effectue'][ i ]['duree'] + '</th></tr>';

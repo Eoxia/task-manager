@@ -243,7 +243,7 @@ class Indicator_Action {
 		$comment->data['author'] = get_userdata( $comment->data['author_id'] );
 		if ( in_array( 'administrator', $comment->data['author']->roles, true ) ) {
 			/* translators: %d1$, %2$s */
-			\eoxia\LOG_Util::log( sprintf( __( 'The comment author role does not allowed support request. Request customer id: %d1$. Customer roles: %2$s', 'task-manager' ), $comment->data['author_id'], wp_json_encode( $comment->data['author']->roles ) ), 'task-manager' );
+			\eoxia\LOG_Util::log( sprintf( __( 'The comment author role does not allowed support request. Request customer id: %1$d. Customer roles: %2$s', 'task-manager' ), $comment->data['author_id'], wp_json_encode( $comment->data['author']->roles ) ), 'task-manager' );
 			return false;
 		}
 		// If the code continue from here it means that we have to set a new support request.

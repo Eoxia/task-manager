@@ -149,7 +149,7 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 				'status'               => $data['status'],
 				'categories_searched'  => $data['categories_searched'],
 				'follower_searched'    => $data['follower_searched'],
-				'have_search'          => $data['have_search'],
+				'have_search'          => 1, // @update 01/02/2019 $data['have_search'],
 				'display_button'       => $display_button,
 				'data'                 => $data,
 			)

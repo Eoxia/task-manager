@@ -46,19 +46,18 @@ class Activity_Class extends \eoxia\Singleton_Util {
 	 *
 	 * @return array            La liste des commentaires et points.
 	 */
-	 public function get_activity( $tasks_id, $offset, $date_end = '', $date_start = '', $nb_per_page = 0, $activities_type = array( 'created-point', 'completed-point', 'created-comment' ) ) {
+	public function get_activity( $tasks_id, $offset, $date_end = '', $date_start = '', $nb_per_page = 0, $activities_type = array( 'created-point', 'completed-point', 'created-comment' ) ) {
 
+		if ( empty( $date_start ) ) {
+			$date_start = current_time( 'Y-m-d' );
+		}
 
- 		if ( empty( $date_start ) ) {
- 			$date_start = current_time( 'Y-m-d' );
- 		}
+		if ( empty( $date_end ) ) {
+			$date_end = date( 'Y-m-d', strtotime( '-1 month', strtotime( $date_start ) ) );
+		}
 
- 		if ( empty( $date_end ) ) {
- 			$date_end = date( 'Y-m-d', strtotime( '-1 month', strtotime( $date_start ) ) );
- 		}
-
- 		$query_string =
- 		"SELECT TASK.post_title AS t_title, TASK.ID as t_id,
+		$query_string =
+		"SELECT TASK.post_title AS t_title, TASK.ID as t_id,
  			POINT.comment_content AS point_title, POINT.comment_id AS point_id,
  			CREATED_COMMENT.comment_content AS com_title, CREATED_COMMENT.comment_id as com_id,
  			COMMENTMETA.meta_value AS com_details, CREATED_COMMENT.comment_date AS com_date,
@@ -73,13 +72,12 @@ class Activity_Class extends \eoxia\Singleton_Util {
  			AND TASK.ID IN( " . implode( ',', $tasks_id ) . " )
  			AND TASK.post_status IN ( 'archive', 'publish', 'inherit' )";
 
- 		$query_string .= ' ORDER BY CREATED_COMMENT.comment_date DESC';
+		$query_string .= ' ORDER BY CREATED_COMMENT.comment_date DESC';
 
-
- 		$query = $GLOBALS['wpdb']->prepare( $query_string, $date_end . ' 00:00:00', $date_start . ' 23:59:59' );
- 		$datas = $GLOBALS['wpdb']->get_results( $query );
- 		return $datas;
- 	}
+		$query = $GLOBALS['wpdb']->prepare( $query_string, $date_end . ' 00:00:00', $date_start . ' 23:59:59' );
+		$datas = $GLOBALS['wpdb']->get_results( $query );
+		return $datas;
+	}
 
 	/**
 	 * Récupères l'activité d'un utilisateur entre deux dates.
@@ -95,17 +93,17 @@ class Activity_Class extends \eoxia\Singleton_Util {
 	 *
 	 * @return array
 	 */
-	 public function display_user_activity_by_date( $user_id, $date_end = '', $date_start = '', $customer_id = 0 ) {
+	public function display_user_activity_by_date( $user_id, $date_end = '', $date_start = '', $customer_id = 0 ) {
 
- 		if ( empty( $date_end ) ) {
- 			$date_end = current_time( 'Y-m-d' );
- 		}
- 		if ( empty( $date_start ) ) {
- 			$date_start = current_time( 'Y-m-d' );
- 		}
+		if ( empty( $date_end ) ) {
+			$date_end = current_time( 'Y-m-d' );
+		}
+		if ( empty( $date_start ) ) {
+			$date_start = current_time( 'Y-m-d' );
+		}
 
- 		$query_string =
- 		"SELECT TASK_PARENT.post_title as pt_title, TASK_PARENT.ID as pt_id,
+		$query_string =
+		"SELECT TASK_PARENT.post_title as pt_title, TASK_PARENT.ID as pt_id,
  			TASK.post_title AS t_title, TASK.ID as t_id,
  			POINT.comment_content AS point_title, POINT.comment_id AS point_id,
  			COMMENT.comment_content AS com_title, COMMENT.comment_id as com_id,
@@ -126,20 +124,20 @@ class Activity_Class extends \eoxia\Singleton_Util {
  			AND POINT.comment_approved != 'trash'
  			AND TASK.post_status IN ( 'archive', 'publish', 'inherit' ) ";
 
- 		if ( ! empty( $user_id ) ) {
- 			$query_string .= "AND COMMENT.user_id = " . $user_id . " ";
- 		}
+		if ( ! empty( $user_id ) ) {
+			$query_string .= 'AND COMMENT.user_id = ' . $user_id . ' ';
+		}
 
- 		if ( ! empty( $customer_id ) ) {
- 			$query_string .= "AND TASK.post_parent = " . $customer_id . " ";
- 		}
+		if ( ! empty( $customer_id ) ) {
+			$query_string .= 'AND TASK.post_parent = ' . $customer_id . ' ';
+		}
 
- 		$query_string .= "ORDER BY COMMENT.comment_date DESC";
+		$query_string .= 'ORDER BY COMMENT.comment_date DESC';
 
- 		$query = $GLOBALS['wpdb']->prepare( $query_string, $date_start . ' 00:00:00', $date_end . ' 23:59:59', 'wpeo_time' );
- 		$datas = $GLOBALS['wpdb']->get_results( $query );
- 		return $datas;
- 	}
+		$query = $GLOBALS['wpdb']->prepare( $query_string, $date_start . ' 00:00:00', $date_end . ' 23:59:59', 'wpeo_time' );
+		$datas = $GLOBALS['wpdb']->get_results( $query );
+		return $datas;
+	}
 
 	/**
 	 * Recupere les données principales de chaque utilisateur, et les classe par jour / taches effectuées sur une période prédéfinie

@@ -164,9 +164,9 @@ class Task_Class extends \eoxia\Post_Class {
 			LEFT JOIN {$wpdb->comments} AS COMMENT ON COMMENT.comment_parent=POINT.comment_id AND COMMENT.comment_approved = 1 AND POINT.comment_approved = 1 AND COMMENT.comment_type = '{$comment_type}'
 			LEFT JOIN {$wpdb->postmeta} AS TASK_META ON TASK_META.post_id=TASK.ID AND TASK_META.meta_key='wpeo_task'
 			LEFT JOIN {$wpdb->term_relationships} AS CAT ON CAT.object_id=TASK.ID
-		WHERE TASK.post_type='wpeo-task'
+		WHERE TASK.post_type='wpeo-task'";
 
-			AND TASK.post_status IN (" . $param['status'] . ")";
+		$query .= 'AND TASK.post_status IN (' . $param['status'] . ')';
 
 		if ( ! is_null( $param['post_parent'] ) ) {
 			$query .= 'AND TASK.post_parent IN (' . implode( $param['post_parent'], ',' ) . ')';
@@ -239,7 +239,7 @@ class Task_Class extends \eoxia\Post_Class {
 			$query .= 'LIMIT ' . $param['offset'] . ',' . $param['posts_per_page'];
 		}
 
-		$tasks_id = $wpdb->get_col( $query );
+		$tasks_id = $wpdb->get_col( $query ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
 		if ( ! empty( $tasks_id ) ) {
 			$tasks = self::g()->get(
@@ -387,6 +387,12 @@ class Task_Class extends \eoxia\Post_Class {
 		);
 	}
 
+	/**
+	 * Historique de la metabox
+	 *
+	 * @param  [type] $post [description].
+	 * @return void
+	 */
 	public function callback_render_history_metabox( $post ) {
 		$tasks_id = array();
 
@@ -435,7 +441,7 @@ class Task_Class extends \eoxia\Post_Class {
 		$date_end   = current_time( 'Y-m-d' );
 		$date_start = date( 'Y-m-d', strtotime( '-1 month', strtotime( $date_end ) ) );
 
-		if( ! empty( $tasks_id ) ){
+		if ( ! empty( $tasks_id ) ) {
 			$datas = Activity_Class::g()->get_activity( $tasks_id, 0, $date_start, $date_end );
 		}
 

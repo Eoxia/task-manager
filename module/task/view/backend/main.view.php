@@ -12,12 +12,13 @@
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; } ?>
 
 <div class="list-task">
 	<div class="grid-col grid-col--1"></div>
 	<div class="grid-col grid-col--2"></div>
-	
+
 	<?php Task_Class::g()->display_tasks( $tasks ); ?>
 </div>
 

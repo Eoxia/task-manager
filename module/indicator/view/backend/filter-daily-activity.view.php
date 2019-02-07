@@ -31,7 +31,9 @@ defined( 'ABSPATH' ) || exit; ?>
 								$selected = 'selected="selected"';
 							endif;
 							?>
-				<option <?php esc_attr_e( $selected ); ?> value="<?php echo esc_attr( $user->data['id'] ); ?>"><?php echo esc_html( $user->data['displayname'] ); ?></option>
+				<option <?php echo sprintf( '%s', $selected ); ?> value="<?php echo esc_attr( $user->data['id'] ); ?>">
+							<?php echo sprintf( '%s', $user->data['displayname'] ); ?>
+				</option>
 							<?php
 		endforeach;
 		endif;

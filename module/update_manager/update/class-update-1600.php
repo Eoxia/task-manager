@@ -62,14 +62,20 @@ class Update_1600 {
 		$done_comments = 0;
 		$todo_comments = 0;
 
-		$query          = $GLOBALS['wpdb']->prepare( "
+		$query          = $GLOBALS['wpdb']->prepare(
+			"
 			SELECT C.comment_id, P.comment_post_id
 			FROM {$GLOBALS['wpdb']->comments} AS C
 				INNER JOIN {$GLOBALS['wpdb']->comments} AS P ON P.comment_id = C.comment_parent
 			WHERE C.comment_approved = %s
 			AND C.comment_type = %s
 			AND C.comment_parent != %d
-			AND C.comment_post_id = %d", '-34070', '', 0, 0 );
+			AND C.comment_post_id = %d",
+			'-34070',
+			'',
+			0,
+			0
+		);
 		$orphelan_lines = $GLOBALS['wpdb']->get_results( $query );
 		if ( ! empty( $orphelan_lines ) ) {
 			$todo_comments = count( $orphelan_lines );
@@ -78,15 +84,17 @@ class Update_1600 {
 			}
 		}
 
-		wp_send_json_success( array(
-			'updateComplete'    => false,
-			'done'              => true,
-			'progression'       => '',
-			// Translators: 1. Number of treated comments 2. Previsionnal number of comments to treat.
-			'doneDescription'   => sprintf( __( '%1$s lines have been treated on %2$s', 'task-manager' ), $done_comments, $todo_comments ),
-			'doneElementNumber' => $done_comments,
-			'errors'            => null,
-		) );
+		wp_send_json_success(
+			array(
+				'updateComplete'    => false,
+				'done'              => true,
+				'progression'       => '',
+				// Translators: 1. Number of treated comments 2. Previsionnal number of comments to treat.
+				'doneDescription'   => sprintf( __( '%1$s lines have been treated on %2$s', 'task-manager' ), $done_comments, $todo_comments ),
+				'doneElementNumber' => $done_comments,
+				'errors'            => null,
+			)
+		);
 	}
 
 	/**
@@ -143,11 +151,13 @@ class Update_1600 {
 				// Nombre de commentaires.
 				$tm_count_comment = 0;
 				if ( ! empty( $point->comment_post_id ) ) {
-					$comments = Task_Comment_Class::g()->get( array(
-						'post_id' => $point->comment_post_id,
-						'parent'  => (int) $point->comment_id,
-						'status'  => '-34070',
-					) );
+					$comments = Task_Comment_Class::g()->get(
+						array(
+							'post_id' => $point->comment_post_id,
+							'parent'  => (int) $point->comment_id,
+							'status'  => '-34070',
+						)
+					);
 
 					if ( ! empty( $comments ) ) {
 						$tm_count_comment = count( $comments );
@@ -187,16 +197,18 @@ class Update_1600 {
 		$difference_ms = $timestamp_fin - $timestamp_debut;
 		\eoxia\LOG_Util::log( $difference_ms, 'task-manager' );
 
-		wp_send_json_success( array(
-			'updateComplete'     => false,
-			'done'               => $done,
-			'progression'        => $count_point_updated . '/' . $total_number,
-			'progressionPerCent' => 0 !== $count_point_updated ? ( ( $count_point_updated * 100 ) / $total_number ) : 0,
-			// Translators: 1. Number of treated points 2. Previsionnal number of points to treat.
-			'doneDescription'    => sprintf( __( '%1$s points ( type, status ) updated on %2$s', 'task-manager' ), $count_point_updated, $total_number ),
-			'doneElementNumber'  => $count_point_updated,
-			'errors'             => null,
-		) );
+		wp_send_json_success(
+			array(
+				'updateComplete'     => false,
+				'done'               => $done,
+				'progression'        => $count_point_updated . '/' . $total_number,
+				'progressionPerCent' => 0 !== $count_point_updated ? ( ( $count_point_updated * 100 ) / $total_number ) : 0,
+				// Translators: 1. Number of treated points 2. Previsionnal number of points to treat.
+				'doneDescription'    => sprintf( __( '%1$s points ( type, status ) updated on %2$s', 'task-manager' ), $count_point_updated, $total_number ),
+				'doneElementNumber'  => $count_point_updated,
+				'errors'             => null,
+			)
+		);
 	}
 
 	/**
@@ -252,16 +264,18 @@ class Update_1600 {
 			$done  = true;
 		}
 
-		wp_send_json_success( array(
-			'updateComplete'     => false,
-			'done'               => $done,
-			'progression'        => $index . '/' . $count_comment,
-			'progressionPerCent' => 0 !== $count_comment ? ( ( $index * 100 ) / $count_comment ) : 0,
-			// Translators: 1. Number of treated comments 2. Previsionnal number of comments to treat.
-			'doneDescription'    => sprintf( __( '%1$s comments ( type, status ) updated on %2$s', 'task-manager' ), $index, $count_comment ),
-			'doneElementNumber'  => $index,
-			'errors'             => null,
-		) );
+		wp_send_json_success(
+			array(
+				'updateComplete'     => false,
+				'done'               => $done,
+				'progression'        => $index . '/' . $count_comment,
+				'progressionPerCent' => 0 !== $count_comment ? ( ( $index * 100 ) / $count_comment ) : 0,
+				// Translators: 1. Number of treated comments 2. Previsionnal number of comments to treat.
+				'doneDescription'    => sprintf( __( '%1$s comments ( type, status ) updated on %2$s', 'task-manager' ), $index, $count_comment ),
+				'doneElementNumber'  => $index,
+				'errors'             => null,
+			)
+		);
 	}
 
 	/**
@@ -291,16 +305,18 @@ class Update_1600 {
 			}
 		}
 
-		wp_send_json_success( array(
-			'updateComplete'     => false,
-			'done'               => true,
-			'progression'        => $done_history_time . '/' . $history_time_todo,
-			'progressionPerCent' => 100,
-			// Translators: 1. Number of treated history time 2. Previsonnal number of history time to treat.
-			'doneDescription'    => sprintf( __( '%1$s history_time have been treated on %2$s', 'task-manager' ), $done_history_time, $history_time_todo ),
-			'doneElementNumber'  => $done_history_time,
-			'errors'             => null,
-		) );
+		wp_send_json_success(
+			array(
+				'updateComplete'     => false,
+				'done'               => true,
+				'progression'        => $done_history_time . '/' . $history_time_todo,
+				'progressionPerCent' => 100,
+				// Translators: 1. Number of treated history time 2. Previsonnal number of history time to treat.
+				'doneDescription'    => sprintf( __( '%1$s history_time have been treated on %2$s', 'task-manager' ), $done_history_time, $history_time_todo ),
+				'doneElementNumber'  => $done_history_time,
+				'errors'             => null,
+			)
+		);
 	}
 
 	/**
@@ -316,43 +332,69 @@ class Update_1600 {
 		$history_time_updated = 0;
 
 		// Mise à jour des -34070 en 1.
-		$comment_updated      += $GLOBALS['wpdb']->update( $GLOBALS['wpdb']->comments, array( 'comment_approved' => 1 ), array(
-			'comment_approved' => -34070,
-			'comment_type'     => Task_Comment_Class::g()->get_type(),
-		) );
-		$point_updated        += $GLOBALS['wpdb']->update( $GLOBALS['wpdb']->comments, array( 'comment_approved' => 1 ), array(
-			'comment_approved' => -34070,
-			'comment_type'     => Point_Class::g()->get_type(),
-		) );
-		$history_time_updated += $GLOBALS['wpdb']->update( $GLOBALS['wpdb']->comments, array( 'comment_approved' => 1 ), array(
-			'comment_approved' => -34070,
-			'comment_type'     => History_Time_Class::g()->get_type(),
-		) );
+		$comment_updated      += $GLOBALS['wpdb']->update(
+			$GLOBALS['wpdb']->comments,
+			array( 'comment_approved' => 1 ),
+			array(
+				'comment_approved' => -34070,
+				'comment_type'     => Task_Comment_Class::g()->get_type(),
+			)
+		);
+		$point_updated        += $GLOBALS['wpdb']->update(
+			$GLOBALS['wpdb']->comments,
+			array( 'comment_approved' => 1 ),
+			array(
+				'comment_approved' => -34070,
+				'comment_type'     => Point_Class::g()->get_type(),
+			)
+		);
+		$history_time_updated += $GLOBALS['wpdb']->update(
+			$GLOBALS['wpdb']->comments,
+			array( 'comment_approved' => 1 ),
+			array(
+				'comment_approved' => -34070,
+				'comment_type'     => History_Time_Class::g()->get_type(),
+			)
+		);
 
 		// Mise à jour des -34071 en trash.
-		$comment_updated      += $GLOBALS['wpdb']->update( $GLOBALS['wpdb']->comments, array( 'comment_approved' => 'trash' ), array(
-			'comment_approved' => -34071,
-			'comment_type'     => Task_Comment_Class::g()->get_type(),
-		) );
-		$point_updated        += $GLOBALS['wpdb']->update( $GLOBALS['wpdb']->comments, array( 'comment_approved' => 'trash' ), array(
-			'comment_approved' => -34071,
-			'comment_type'     => Point_Class::g()->get_type(),
-		) );
-		$history_time_updated += $GLOBALS['wpdb']->update( $GLOBALS['wpdb']->comments, array( 'comment_approved' => 'trash' ), array(
-			'comment_approved' => -34071,
-			'comment_type'     => History_Time_Class::g()->get_type(),
-		) );
+		$comment_updated      += $GLOBALS['wpdb']->update(
+			$GLOBALS['wpdb']->comments,
+			array( 'comment_approved' => 'trash' ),
+			array(
+				'comment_approved' => -34071,
+				'comment_type'     => Task_Comment_Class::g()->get_type(),
+			)
+		);
+		$point_updated        += $GLOBALS['wpdb']->update(
+			$GLOBALS['wpdb']->comments,
+			array( 'comment_approved' => 'trash' ),
+			array(
+				'comment_approved' => -34071,
+				'comment_type'     => Point_Class::g()->get_type(),
+			)
+		);
+		$history_time_updated += $GLOBALS['wpdb']->update(
+			$GLOBALS['wpdb']->comments,
+			array( 'comment_approved' => 'trash' ),
+			array(
+				'comment_approved' => -34071,
+				'comment_type'     => History_Time_Class::g()->get_type(),
+			)
+		);
 
-		wp_send_json_success( array(
-			'updateComplete'     => false,
-			'done'               => true,
-			'progression'        => '',
-			'progressionPerCent' => 100,
-			// Translators: 1. Number of points treated 2. Number of comments treated 3. Number o history time treated.
-			'doneDescription'    => sprintf( __( '%1$s points, %2$s comments, %3$s history_time have been treated', 'task-manager' ), $point_updated, $comment_updated, $history_time_updated ),
-			'doneElementNumber'  => ( $point_updated + $comment_updated + $history_time_updated ),
-			'errors'             => null,
-		) );
+		wp_send_json_success(
+			array(
+				'updateComplete'     => false,
+				'done'               => true,
+				'progression'        => '',
+				'progressionPerCent' => 100,
+				// Translators: 1. Number of points treated 2. Number of comments treated 3. Number o history time treated.
+				'doneDescription'    => sprintf( __( '%1$s points, %2$s comments, %3$s history_time have been treated', 'task-manager' ), $point_updated, $comment_updated, $history_time_updated ),
+				'doneElementNumber'  => ( $point_updated + $comment_updated + $history_time_updated ),
+				'errors'             => null,
+			)
+		);
 	}
 
 	/**
@@ -368,7 +410,8 @@ class Update_1600 {
 		$archive_id = 0;
 		$errors     = array();
 
-		$query                = $GLOBALS['wpdb']->prepare( "
+		$query                = $GLOBALS['wpdb']->prepare(
+			"
 			SELECT TR.object_id AS ID, P.post_status, T.term_id
 			FROM {$GLOBALS['wpdb']->term_relationships} AS TR
 				INNER JOIN {$GLOBALS['wpdb']->term_taxonomy} AS TT ON TT.term_taxonomy_id = TR.term_taxonomy_id
@@ -376,7 +419,11 @@ class Update_1600 {
 				INNER JOIN {$GLOBALS['wpdb']->posts} AS P ON ( P.ID = TR.object_id )
 			WHERE T.slug = %s
 				AND TT.taxonomy = %s
-				AND P.post_type = %s", 'archive', 'wpeo_tag', Task_Class::g()->get_type() );
+				AND P.post_type = %s",
+			'archive',
+			'wpeo_tag',
+			Task_Class::g()->get_type()
+		);
 		$archived_task_by_tag = $GLOBALS['wpdb']->get_results( $query );
 		if ( ! empty( $archived_task_by_tag ) ) {
 			foreach ( $archived_task_by_tag as $task ) {
@@ -417,16 +464,18 @@ class Update_1600 {
 			}
 		}
 
-		wp_send_json_success( array(
-			'updateComplete'     => false,
-			'done'               => true,
-			'progression'        => '',
-			'progressionPerCent' => 100,
-			// Translators: 1. Number of treated tasks 2. Number of tasks to treat.
-			'doneDescription'    => sprintf( __( '%1$d tasks have been marked as archived on %2$d', 'task-manager' ), $done_tasks, $todo_tasks ),
-			'doneElementNumber'  => $done_tasks,
-			'errors'             => $errors,
-		) );
+		wp_send_json_success(
+			array(
+				'updateComplete'     => false,
+				'done'               => true,
+				'progression'        => '',
+				'progressionPerCent' => 100,
+				// Translators: 1. Number of treated tasks 2. Number of tasks to treat.
+				'doneDescription'    => sprintf( __( '%1$d tasks have been marked as archived on %2$d', 'task-manager' ), $done_tasks, $todo_tasks ),
+				'doneElementNumber'  => $done_tasks,
+				'errors'             => $errors,
+			)
+		);
 	}
 
 	/**
@@ -482,7 +531,7 @@ class Update_1600 {
 		$query = $GLOBALS['wpdb']->prepare( $query_string, $prepare_args ); // WPCS: unprepared sql.
 
 		if ( Point_Class::g()->get_type() === $type ) {
-			// echo __LINE__ . " - " . $query . "<hr/>";exit;
+			// @temp_code echo __LINE__ . " - " . $query . "<hr/>";exit;
 		}
 
 		return $query;
@@ -494,15 +543,20 @@ class Update_1600 {
 	 * @since 1.6.0
 	 * @version 1.6.0
 	 *
-	 * @param  Point_Model $point Les données du point.
+	 * @param_  Point_Model $point Les données du point.
+	 * @param [type] $point_id [id du point].
+	 * @param [type] $task_id  [id de la tache].
 	 * @return integer            La position du point.
 	 */
 	public function search_position( $point_id, $task_id ) {
 		$position = false;
 
-		$task = Task_Class::g()->get( array(
-			'id' => $task_id,
-		), true );
+		$task = Task_Class::g()->get(
+			array(
+				'id' => $task_id,
+			),
+			true
+		);
 
 		if ( empty( $task ) ) {
 			$position = false;

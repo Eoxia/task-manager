@@ -35,7 +35,6 @@
 		"module/follower/follower.config.json",
 		"module/admin-bar/admin-bar.config.json",
 		"module/time-exceeded/time-exceeded.config.json",
-		"module/timeline/timeline.config.json",
 		"module/activity/activity.config.json",
 		"module/indicator/indicator.config.json",
 		"module/setting/setting.config.json",

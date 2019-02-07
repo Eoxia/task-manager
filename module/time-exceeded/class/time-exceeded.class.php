@@ -46,12 +46,17 @@ class Time_Exceeded_Class extends \eoxia\Singleton_Util {
 		$min_exceeded_time = \eoxia\Config_Util::$init['task-manager']->$module_name->default_time_exceeded;
 		$filter_type       = \eoxia\Config_Util::$init['task-manager']->$module_name->default_filter_type;
 
-		\eoxia\View_Util::exec( 'task-manager', 'time-exceeded', 'backend/main', array(
-			'start_date'        => $start_date,
-			'end_date'          => $end_date,
-			'min_exceeded_time' => $min_exceeded_time,
-			'filter_type'       => $filter_type,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'time-exceeded',
+			'backend/main',
+			array(
+				'start_date'        => $start_date,
+				'end_date'          => $end_date,
+				'min_exceeded_time' => $min_exceeded_time,
+				'filter_type'       => $filter_type,
+			)
+		);
 	}
 
 	/**
@@ -69,21 +74,23 @@ class Time_Exceeded_Class extends \eoxia\Singleton_Util {
 	 */
 	public function display_exceeded_elements( $start_date, $end_date, $min_time_exceeded, $differential_type = '' ) {
 		$tasks_exceed_time = array();
-		$tasks             = Task_Class::g()->get( array(
-			'date_query'     => array(
-				array(
-					'column'    => 'post_date_gmt',
-					'after'     => $start_date,
-					'inclusive' => true,
+		$tasks             = Task_Class::g()->get(
+			array(
+				'date_query'     => array(
+					array(
+						'column'    => 'post_date_gmt',
+						'after'     => $start_date,
+						'inclusive' => true,
+					),
+					array(
+						'column'    => 'post_modified_gmt',
+						'before'    => $end_date,
+						'inclusive' => true,
+					),
 				),
-				array(
-					'column'    => 'post_modified_gmt',
-					'before'    => $end_date,
-					'inclusive' => true,
-				),
-			),
-			'posts_per_page' => -1,
-		) );
+				'posts_per_page' => -1,
+			)
+		);
 
 		if ( empty( $differential_type ) ) {
 			$differential_type = \eoxia\Config_Util::$init['task-manager']->$module_name->default_filter_type;
@@ -132,17 +139,25 @@ class Time_Exceeded_Class extends \eoxia\Singleton_Util {
 			}
 		}
 
-		usort( $tasks_exceed_time, function( $a, $b ) {
-			if ( $a->diff_time === $b->diff_time ) {
-				return 0;
+		usort(
+			$tasks_exceed_time,
+			function( $a, $b ) {
+				if ( $a->diff_time === $b->diff_time ) {
+					return 0;
+				}
+
+				return ( $a->diff_time > $b->diff_time ) ? -1 : 1;
 			}
+		);
 
-			return ( $a->diff_time > $b->diff_time ) ? -1 : 1;
-		} );
-
-		\eoxia\View_Util::exec( 'task-manager', 'time-exceeded', 'backend/list', array(
-			'tasks_exceed_time' => $tasks_exceed_time,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'time-exceeded',
+			'backend/list',
+			array(
+				'tasks_exceed_time' => $tasks_exceed_time,
+			)
+		);
 	}
 
 }

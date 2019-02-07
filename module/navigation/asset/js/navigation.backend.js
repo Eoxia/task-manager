@@ -76,7 +76,7 @@ window.eoxiaJS.taskManager.navigation.checkDataBeforeSearch = function( triggere
 	} else if ( triggeredElement && triggeredElement.hasClass( 'change-status' ) ) {
 		jQuery( '.wpeo-header-bar input[name="status"]' ).val( triggeredElement.data( 'status' ) );
 	}
-	
+
 	if ( jQuery( '.wpeo-header-bar input[name="post_parent_order"]' ).val() != 0 ) {
 		jQuery( '.wpeo-header-bar input[name="post_parent"]' ).val( jQuery( '.wpeo-header-bar input[name="post_parent_order"]' ).val() );
 	}
@@ -98,7 +98,8 @@ window.eoxiaJS.taskManager.navigation.checkDataBeforeSearch = function( triggere
 window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredElement, response ) {
 	jQuery( '.tm-wrap .load-more' ).remove();
 	window.eoxiaJS.loader.remove( jQuery( '.wpeo-general-search' ) );
-	
+	jQuery( '.eo-search-value' ).val( '' );
+
 	jQuery( '.tm-dashboard-shortcuts .active' ).removeClass( 'active' );
 	jQuery( '.list-task' ).replaceWith( response.data.view.tasks );
 	jQuery( '.list-task' ).colcade( {
@@ -114,8 +115,10 @@ window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredEleme
 		jQuery( '.wpeo-header-bar .change-status.active' ).removeClass( 'active' );
 		jQuery( triggeredElement ).addClass( 'active' );
 	}
-	
+
 	triggeredElement.closest( '.wpeo-dropdown' ).removeClass( 'dropdown-active' );
+
+	window.eoxiaJS.taskManager.task.initAutoComplete();
 };
 
 window.eoxiaJS.taskManager.navigation.createdShortcutSuccess = function( triggeredElement, response ) {
@@ -127,5 +130,5 @@ window.eoxiaJS.taskManager.navigation.createdShortcutSuccess = function( trigger
 
 window.eoxiaJS.taskManager.navigation.deletedShortcutSuccess = function( triggeredElement, response ) {
 	triggeredElement.closest( 'tr' ).fadeOut();
-	jQuery( '.tm-dashboard-shortcuts li[data-key="' + response.data.key + '"]' ).fadeOut();	
+	jQuery( '.tm-dashboard-shortcuts li[data-key="' + response.data.key + '"]' ).fadeOut();
 };

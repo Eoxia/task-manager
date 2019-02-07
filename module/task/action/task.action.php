@@ -247,9 +247,18 @@ class Task_Action {
 		$posts_founded = array();
 		$ids_founded   = array();
 
+		/** [comment dev test pour adapter au phpcs - 07/02/2019]
+			* $implode_posts_type = implode( $posts_type, '\',\'' );
+			*
+			* $query_string = apply_filters( 'task_manager_search_parent_query', "SELECT ID, post_title FROM {$wpdb->posts} WHERE ID LIKE '% " . '%1$s' . " %' AND post_type IN('" . '%2$s' . "')" );
+			*
+			* $query = $wpdb->query( $wpdb->prepare( $query_string, $term, $implode_posts_type ) ); // WPCS: unprepared SQL OK.
+			*/
+
 		$query = apply_filters( 'task_manager_search_parent_query', "SELECT ID, post_title FROM {$wpdb->posts} WHERE ID LIKE '%" . $term . "%' AND post_type IN('" . implode( $posts_type, '\',\'' ) . "')", $term );
 
-		$results = $wpdb->get_results( $query );
+		// WPCS: PreparedSQLPlaceholders replacement count ok.
+		$results = $wpdb->get_results( $query ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
 		if ( ! empty( $results ) ) {
 			foreach ( $results as $post ) {
