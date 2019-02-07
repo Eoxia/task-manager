@@ -11,6 +11,9 @@
 		</properties>
 	</rule>
 
+<exclude-pattern>/core/external/eo-framework/modules/wpeo-model/class/save_meta.class.php</exclude-pattern> <!-- @update 07/02/2019 : phpcs -->
+<exclude-pattern>/core/action/task_manager.action.php</exclude-pattern> <!-- @update 07/02/2019 : phpcs -->
+
 	<!-- Check all PHP files in directory tree by default. -->
 	<arg name="extensions" value="php"/>
 	<file>.</file>

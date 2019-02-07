@@ -36,12 +36,15 @@ class Task_Manager_Action {
 
 		add_action( 'wp_ajax_close_tm_change_log', array( $this, 'callback_close_change_log' ) );
 
-		add_action( 'load-toplevel_page_wpeomtm-dashboard', function() {
-			if ( strpos( $_SERVER['REQUEST_URI'], 'page=wpeomtm-dashboard' ) != FALSE && strpos( $_SERVER['REQUEST_URI'], 'page=wpeomtm-dashboard&' ) == FALSE ) {
-				wp_redirect( admin_url( 'admin.php?page=wpeomtm-dashboard&user_id=' . get_current_user_id() ) );
-				exit;
+		add_action(
+			'load-toplevel_page_wpeomtm-dashboard',
+			function() {
+				if ( strpos( $_SERVER['REQUEST_URI'], 'page=wpeomtm-dashboard' ) != false && strpos( $_SERVER['REQUEST_URI'], 'page=wpeomtm-dashboard&' ) == false ) {
+					wp_redirect( admin_url( 'admin.php?page=wpeomtm-dashboard&user_id=' . get_current_user_id() ) );
+					exit;
+				}
 			}
-		});
+		);
 	}
 
 	/**
@@ -71,7 +74,7 @@ class Task_Manager_Action {
 				if ( false !== strpos( $screen->id, $insert_script_page ) ) {
 
 					if ( 'toplevel_page_wpeomtm-dashboard' != $screen->id ) {
-						add_filter('admin_body_class', array( $this, 'callback_body_class' ) );
+						add_filter( 'admin_body_class', array( $this, 'callback_body_class' ) );
 					}
 
 					wp_register_style( 'task-manager-style', PLUGIN_TASK_MANAGER_URL . 'core/assets/css/style.min.css', array(), \eoxia\config_util::$init['task-manager']->version );
@@ -85,31 +88,39 @@ class Task_Manager_Action {
 					wp_enqueue_script( 'task-manager-chart', 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js' );
 					wp_enqueue_script( 'task-manager-colcade', PLUGIN_TASK_MANAGER_URL . 'core/assets/js/colcade.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
 					wp_enqueue_script( 'task-manager-script', PLUGIN_TASK_MANAGER_URL . 'core/assets/js/backend.min.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
-					wp_localize_script( 'task-manager-script', 'taskManager', array(
-						'updateManagerUrlPage'      => 'admin_page_' . \eoxia\Config_Util::$init['task-manager']->update_page_url,
-						'updateManagerconfirmExit'  => __( 'Your data are being updated. If you confirm that you want to leave this page, your data could be corrupted', 'task-manager' ),
-						'updateManagerloader'       => '<img src=' . admin_url( '/images/loading.gif' ) . ' />',
-						// Translators: %s is the version number with strong markup.
-						'updateManagerInProgress'   => sprintf( __( 'Update %s in progress', 'task-manager' ), '<strong>{{ versionNumber }}</strong>' ),
-						// Translators: %s is the version number with strong markup.
-						'updateManagerErrorOccured' => sprintf( __( 'An error occured. Please take a look at %s logs', 'task-manager' ), '<strong>{{ versionNumber }}</strong>' ),
-						'data'                      => \eoxia\JSON_Util::g()->open_and_decode( PLUGIN_TASK_MANAGER_PATH . 'core/assets/json/data.json' ),
-						'search'                    => \eoxia\JSON_Util::g()->open_and_decode( PLUGIN_TASK_MANAGER_PATH . 'core/assets/json/search.json' ),
-					) );
+					wp_localize_script(
+						'task-manager-script',
+						'taskManager',
+						array(
+							'updateManagerUrlPage'      => 'admin_page_' . \eoxia\Config_Util::$init['task-manager']->update_page_url,
+							'updateManagerconfirmExit'  => __( 'Your data are being updated. If you confirm that you want to leave this page, your data could be corrupted', 'task-manager' ),
+							'updateManagerloader'       => '<img src=' . admin_url( '/images/loading.gif' ) . ' />',
+							// Translators: %s is the version number with strong markup.
+							'updateManagerInProgress'   => sprintf( __( 'Update %s in progress', 'task-manager' ), '<strong>{{ versionNumber }}</strong>' ),
+							// Translators: %s is the version number with strong markup.
+							'updateManagerErrorOccured' => sprintf( __( 'An error occured. Please take a look at %s logs', 'task-manager' ), '<strong>{{ versionNumber }}</strong>' ),
+							'data'                      => \eoxia\JSON_Util::g()->open_and_decode( PLUGIN_TASK_MANAGER_PATH . 'core/assets/json/data.json' ),
+							'search'                    => \eoxia\JSON_Util::g()->open_and_decode( PLUGIN_TASK_MANAGER_PATH . 'core/assets/json/search.json' ),
+						)
+					);
 					wp_enqueue_script( 'task-manager-datetimepicker-script', PLUGIN_TASK_MANAGER_URL . 'core/assets/js/jquery.datetimepicker.full.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
 
-					wp_localize_script( 'task-manager-script', 'indicatorString', array(
-						'time_work'    => __( 'Time work', 'task-manager' ),
-						'time_day'     => __( 'Time Day', 'task-manager' ),
-						'minute'       => __( 'minute(s)', 'task-manager' ),
-						'planning'     => __( 'Planning', 'task-manager' ),
-						'date_error'   => __( 'Invalid date' , 'task-manager' ),
-						'person_error' => __( 'Choose a user' , 'task-manager' ),
-						'nodata'			 => __( 'No data, please configure your planning settings !', 'task-manager' ),
-						'from'         => __( 'From', 'task-manager' ),
-						'to'           => __( 'to', 'task-manager' ),
-						'plan_week'    => __( 'Stats of the week', 'task-manager' ),
-					));
+					wp_localize_script(
+						'task-manager-script',
+						'indicatorString',
+						array(
+							'time_work'    => __( 'Time work', 'task-manager' ),
+							'time_day'     => __( 'Time Day', 'task-manager' ),
+							'minute'       => __( 'minute(s)', 'task-manager' ),
+							'planning'     => __( 'Planning', 'task-manager' ),
+							'date_error'   => __( 'Invalid date', 'task-manager' ),
+							'person_error' => __( 'Choose a user', 'task-manager' ),
+							'nodata'       => __( 'No data, please configure your planning settings !', 'task-manager' ),
+							'from'         => __( 'From', 'task-manager' ),
+							'to'           => __( 'to', 'task-manager' ),
+							'plan_week'    => __( 'Stats of the week', 'task-manager' ),
+						)
+					);
 					break;
 				}
 			}
@@ -136,9 +147,13 @@ class Task_Manager_Action {
 		wp_enqueue_style( 'task-manager-frontend-style' );
 
 		wp_enqueue_script( 'task-manager-frontend-script', PLUGIN_TASK_MANAGER_URL . 'core/assets/js/frontend.min.js', array(), \eoxia\Config_Util::$init['task-manager']->version, false );
-		wp_localize_script( 'task-manager-frontend-script', 'taskManagerFrontend', array(
-			'wpeo_project_delete_comment_time' => __( 'Delete this comment ?', 'task-manager' ),
-		) );
+		wp_localize_script(
+			'task-manager-frontend-script',
+			'taskManagerFrontend',
+			array(
+				'wpeo_project_delete_comment_time' => __( 'Delete this comment ?', 'task-manager' ),
+			)
+		);
 	}
 
 	/**
@@ -215,6 +230,12 @@ class Task_Manager_Action {
 		wp_send_json_success( array() );
 	}
 
+	/**
+	 * Renvois le corps de la class
+	 *
+	 * @param  [type] $classes [description].
+	 * @return [type]          [description]
+	 */
 	public function callback_body_class( $classes ) {
 		$classes .= ' tm-wrap ';
 		return $classes;

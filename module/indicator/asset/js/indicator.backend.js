@@ -278,7 +278,7 @@ window.eoxiaJS.taskManager.indicator.displaySpecificChartForWeek = function( dat
 		for( var i = 0; i < data.length; i++ ){
 			data_work_time.push( data[i]['duree_travail'] );
 			data_day_time.push( data[i]['duree_journée'] );
-			data_day.push( new Date( data[ i ][ 'jour' ] ).toLocaleDateString() );
+			data_day.push( data[ i ][ 'date_fr' ] );
 
 			if( data[ i ][ 'tache_effectue' ] != undefined && data[ i ][ 'tache_effectue' ].length > 0 ){
 				for (var v = 0; v < data[ i ][ 'tache_effectue' ].length; v++) {

@@ -13,7 +13,6 @@
  * @package TaskManager\Plugin
  */
 
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
