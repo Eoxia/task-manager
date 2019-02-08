@@ -11,8 +11,8 @@
 		</properties>
 	</rule>
 
-<exclude-pattern>/core/external/eo-framework/modules/wpeo-model/class/save_meta.class.php</exclude-pattern> <!-- @update 07/02/2019 : phpcs -->
-<exclude-pattern>/core/action/task_manager.action.php</exclude-pattern> <!-- @update 07/02/2019 : phpcs -->
+<exclude-pattern>/core/action/task_manager.action.php</exclude-pattern> <!-- @update 07/02/2019 : phpcs => Nom du fichier invalide -->
+<exclude-pattern>/core/external/eo-framework/</exclude-pattern> <!-- @update 07/02/2019 : phpcs => Fichier indépendant de task-manager -->
 
 	<!-- Check all PHP files in directory tree by default. -->
 	<arg name="extensions" value="php"/>
