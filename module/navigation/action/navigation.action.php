@@ -265,8 +265,8 @@ class Navigation_Action {
 
 				$data                   = array();
 				$query['term']          = ! empty( $query['term'] ) ? sanitize_text_field( $query['term'] ) : '';
-				$query['task_id']       = ! empty( $query['task_id'] ) ? (int) $query['task_id'] : 0;
-				$query['point_id']      = ! empty( $query['point_id'] ) ? (int) $query['point_id'] : 0;
+				$query['task_id']       = ! empty( $query['task_id'] ) ? (int) $query['task_id'] : '';
+				$query['point_id']      = ! empty( $query['point_id'] ) ? (int) $query['point_id'] : '';
 				$query['post_parent']   = ! empty( $query['post_parent'] ) ? (int) $query['post_parent'] : 0;
 				$query['categories_id'] = ! empty( $query['categories_id'] ) ? sanitize_text_field( $query['categories_id'] ) : '';
 				$query['user_id']       = ! empty( $query['user_id'] ) ? (int) $query['user_id'] : '';

@@ -20,6 +20,8 @@ defined( 'ABSPATH' ) || exit; ?>
 	<thead>
 		<tr>
 			<th data-title="Nom">Nom</th>
+			<th data-title="Task">Task ID</th>
+			<th data-title="Point">Point ID</th>
 			<th data-title="Terme">Terme</th>
 			<th data-title="Utilisateur">Utilisateur</th>
 			<th data-title="Catégories">Catégories</th>
@@ -35,6 +37,8 @@ defined( 'ABSPATH' ) || exit; ?>
 				?>
 				<tr>
 					<td><?php echo esc_html( $shortcut['label'] ); ?></td>
+					<td><?php echo esc_html( $shortcut['info']['task_id'] ); ?></td>
+					<td><?php echo esc_html( $shortcut['info']['point_id'] ); ?></td>
 					<td><?php echo esc_html( $shortcut['info']['term'] ); ?></td>
 					<td><?php echo esc_html( $shortcut['info']['follower_searched'] ); ?></td>
 					<td><?php echo esc_html( $shortcut['info']['categories_searched'] ); ?></td>

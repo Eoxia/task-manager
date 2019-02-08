@@ -41,10 +41,12 @@ class Task_Shortcode {
 	 * @return HTML Le code HTML permettant d'afficher une tâche.
 	 */
 	public function callback_task( $param ) {
+
 		$param = shortcode_atts(
 			array(
 				'id'             => 0,
 				'point_id'       => 0,
+				'task_id'				 => 0,
 				'categories_id'  => array(),
 				'users_id'       => array(),
 				'term'           => '',
@@ -73,6 +75,14 @@ class Task_Shortcode {
 
 		if ( ! is_array( $param['users_id'] ) ) {
 			$param['users_id'] = array();
+		}
+
+		if ( ! is_array( $param['id'] ) && ! empty( $param['id'] ) ) {
+			$param['task_id'] = $param['id'];
+		}
+
+		if ( ! is_array( $param['point_id'] ) && ! empty( $param['point_id'] ) ) {
+			$param['point_id'] = $param['point_id'];
 		}
 
 		$with_wrapper = false;

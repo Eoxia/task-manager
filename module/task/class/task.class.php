@@ -129,6 +129,7 @@ class Task_Class extends \eoxia\Post_Class {
 		global $wpdb;
 
 		$param['id']             = isset( $param['id'] ) ? (int) $param['id'] : 0;
+		$param['task_id']       = isset( $param['task_id'] ) ? (int) $param['task_id'] : 0;
 		$param['point_id']       = isset( $param['point_id'] ) ? (int) $param['point_id'] : 0;
 		$param['offset']         = ! empty( $param['offset'] ) ? (int) $param['offset'] : 0;
 		$param['posts_per_page'] = ! empty( $param['posts_per_page'] ) ? (int) $param['posts_per_page'] : -1;
@@ -213,11 +214,11 @@ class Task_Class extends \eoxia\Post_Class {
 				)";
 		}
 
-		if ( $param['id'] ) {
+		if ( $param['task_id'] ) {
 			if ( ! empty( $sub_where ) ) {
-				$sub_where .= ' OR (TASK.ID = ' . $param['id'] . ')';
+				$sub_where .= ' OR (TASK.ID = ' . $param['task_id'] . ')';
 			} else {
-				$sub_where .= ' (TASK.ID = ' . $param['id'] . ')';
+				$sub_where .= ' (TASK.ID = ' . $param['task_id'] . ')';
 			}
 		}
 
