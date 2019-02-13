@@ -76,10 +76,11 @@ class Admin_Bar_Action {
 	public function ajax_load_popup_quick_time() {
 		check_ajax_referer( 'load_popup_quick_time' );
 
-		ob_start();
+		/*ob_start();
 		_e( 'Quick time', 'task-manager' );
 		Quick_Time_Class::g()->display_setting_button();
-		$modal_title = ob_get_clean();
+		$modal_title = ob_get_clean();*/
+		$modal_title = '';
 
 		ob_start();
 		Quick_Time_Class::g()->display_list();

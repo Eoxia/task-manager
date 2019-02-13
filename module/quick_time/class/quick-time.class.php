@@ -62,7 +62,7 @@ class Quick_Time_Class extends \eoxia\Singleton_Util {
 	 *
 	 * @return void
 	 */
-	public function display_list() {
+	public function display_list( $createnewline = false, $editline = false ) {
 		$quicktimes = $this->get_quicktimes();
 
 		$comment_schema = Task_Comment_Class::g()->get(
@@ -79,6 +79,8 @@ class Quick_Time_Class extends \eoxia\Singleton_Util {
 			array(
 				'quicktimes'     => $quicktimes,
 				'comment_schema' => $comment_schema,
+				'createnewline'  => $createnewline,
+				'editline'    => $editline
 			)
 		);
 	}

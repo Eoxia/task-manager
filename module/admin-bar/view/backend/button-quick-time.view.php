@@ -16,6 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <span class="wpeo-modal-event"
-			data-action="load_popup_quick_time"
-			data-class="popup-quick-time"
-			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_popup_quick_time' ) ); ?>"><?php esc_html_e( 'Quick time', 'task-manager' ); ?></span>
+	style='cursor : pointer'
+	data-action="load_popup_quick_time"
+	data-class="popup-quick-time"
+	data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_popup_quick_time' ) ); ?>">
+	<?php esc_html_e( 'Quick time', 'task-manager' ); ?>
+</span>

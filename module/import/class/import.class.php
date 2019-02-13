@@ -65,6 +65,7 @@ class Import_Class extends \eoxia\Singleton_Util {
 		);
 
 		$content_by_lines = preg_split( '/\r\n|\r|\n/', $content );
+
 		if ( ! empty( $content_by_lines ) ) {
 			foreach ( $content_by_lines as $index => $line ) {
 				// On vérifier le type de la ligne que l'on est sur le point de traiter.
@@ -73,11 +74,20 @@ class Import_Class extends \eoxia\Singleton_Util {
 					$line_type_is_task = true;
 					$line              = str_replace( '%task%', '', $line );
 				}
+
 				$line_type_is_point = false;
 				if ( false !== strpos( $line, '%point%' ) ) {
 					$line_type_is_point = true;
 					$line               = str_replace( '%point%', '', $line );
 				}
+
+				$line_type_is_comment = false;
+				if ( false !== strpos( $line, '%comment%' ) ) {
+					$line_type_is_comment = true;
+					$line               = str_replace( '%comment%', '', $line );
+				}
+
+				// - - - -
 
 				if ( ! empty( $line ) && $line_type_is_task ) {
 					$created_task = Task_Class::g()->create(
@@ -86,6 +96,7 @@ class Import_Class extends \eoxia\Singleton_Util {
 							'parent_id' => $post_id,
 						)
 					);
+
 					// On vérifie que la création ce soit bien passée.
 					if ( ! empty( $created_task ) && ! empty( $created_task->data['id'] ) ) {
 						$task_id                            = $created_task->data['id'];
@@ -102,12 +113,32 @@ class Import_Class extends \eoxia\Singleton_Util {
 
 						// On vérifie que la création ce soit bien passée.
 						if ( ! empty( $created_point ) && ! empty( $created_point->data['id'] ) ) {
+							$point_id                            = $created_point->data['id'];
 							$element_list['created']['points'][] = $created_point;
 						}
 					} else {
 						$element_list['not_created']['points'][] = $line;
 					}
-				} else {
+				} elseif ( ! empty( $line ) && $line_type_is_comment ) {
+					if ( ! empty( $task_id ) && ! empty ( $point_id ) ) {
+						$comment_args    = array(
+							'post_id' => $task_id,
+							'parent_id' => $point_id,
+							'content' => $line,
+							'time_info' => array(
+								'elapsed' => 0
+							)
+						);
+						$created_comment = Task_Comment_Class::g()->create( $comment_args );
+
+						// On vérifie que la création ce soit bien passée.
+						if ( ! empty( $created_task ) && ! empty( $created_point ) && ! empty( $created_comment->data['id'] ) ) {
+							$element_list['created']['comments'][] = $created_point;
+						}
+					} else {
+						$element_list['not_created']['comments'][] = $line;
+					}
+				}else {
 					$element_list['not_created']['unknown'][] = $line;
 				}
 			}

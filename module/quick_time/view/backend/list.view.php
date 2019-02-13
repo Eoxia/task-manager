@@ -15,9 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="content quick-time-content">
+<div class="content quick-time-content form-quicktime">
 	<input type="hidden" name="action" value="quick_time_add_comment" />
-	<?php wp_nonce_field( 'quick_time_add_comment' ); ?>
 
 	<table class="list wpeo-table">
 		<thead>
@@ -31,6 +30,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<span><?php esc_html_e( 'min.', 'task-manager' ); ?></span>
 				</th>
 				<th class="action"><input type="checkbox" /></th>
+				<th></th>
+				<th></th>
 			</tr>
 		</thead>
 
@@ -47,18 +48,56 @@ if ( ! defined( 'ABSPATH' ) ) {
 							'key'       => $key,
 							'quicktime' => $quicktime,
 							'i'         => $i,
+							'editline' => $editline
 						)
 					);
 					$i++;
 				endforeach;
 			endif;
 			?>
+
+			<?php
+				if ( $createnewline ) :
+					\eoxia\View_Util::exec(
+						'task-manager',
+						'quick_time',
+						'backend/list-newline'
+					);
+				endif;
+			?>
+
 		</tbody>
 
 	</table>
 
-	<span class="wpeo-button button-main button-progress action-input"
-		data-parent="content"><?php esc_html_e( 'Add time', 'task-manager' ); ?></span>
+	<?php
+		if ( $createnewline ) :
+			?>
+
+			<span class="wpeo-button button-blue button-progress action-input" id="tm_validate_quicktime_line"
+				data-nonce="<?php echo esc_attr( wp_create_nonce( 'add_config_quick_time' ) ); ?>"
+				data-action="add_config_quick_time"
+				data-parent="form-quicktime">
+				<?php esc_html_e( 'Add', 'task-manager' ); ?>
+			</span>
+	<?php
+		else :
+			?>
+
+			<span class="wpeo-button button-main button-progress action-attribute" id="tm_create_quicktime_line"
+				data-nonce="<?php echo esc_attr( wp_create_nonce( 'show_new_line_quicktime' ) ); ?>"
+				data-action="showNewLineQuicktime">
+				<?php esc_html_e( 'New', 'task-manager' ); ?>
+			</span>
+
+	<?php
+		endif;
+	?>
+
+	<div class="" id='tm_quicktime_information_add_time'>
+		<span id="tm_quicktime_information_add_time_text"></span>
+	</div>
+
 
 	<!-- <div class="list">
 		<ul class="header">

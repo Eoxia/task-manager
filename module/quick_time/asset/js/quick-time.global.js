@@ -35,6 +35,7 @@ window.eoxiaJS.taskManagerGlobal.quickTime.event = function() {
 	jQuery( document ).on( 'click', '.quick-time-content .item .set_time', window.eoxiaJS.taskManagerGlobal.quickTime.onChecked );
 	jQuery( document ).on( 'keyup', '.quick-time-content .item .min .displayed', window.eoxiaJS.taskManagerGlobal.quickTime.onKeyUp );
 	jQuery( document ).on( 'keyup', '.setting-quick-time textarea', window.eoxiaJS.taskManagerGlobal.quickTime.triggerCreate );
+
 };
 
 /**
@@ -90,11 +91,11 @@ window.eoxiaJS.taskManagerGlobal.quickTime.settingRefreshedPoint = function( tri
  * @version 1.6.0
  */
 window.eoxiaJS.taskManagerGlobal.quickTime.addedConfigQuickTime = function( triggeredElement, response ) {
-	var el = jQuery( response.data.new_item_view ).hide();
+	/*var el = jQuery( response.data.new_item_view ).hide();
 	jQuery( '.setting-quick-time .list .form' ).after( el );
 	el.fadeIn();
 
-	triggeredElement.closest( '.form' ).replaceWith( response.data.form_view );
+	triggeredElement.closest( '.form' ).replaceWith( response.data.form_view );*/
 
 	jQuery( "#tm-indicator-quick-task .inside" ).html( response.data.metabox_view );
 };
@@ -126,7 +127,9 @@ window.eoxiaJS.taskManagerGlobal.quickTime.deletedConfigQuickTime = function( tr
  * @version 1.6.0
  */
 window.eoxiaJS.taskManagerGlobal.quickTime.quickTimeAddedComment = function( triggeredElement, response ) {
+
 	jQuery( '.quick-time-content' ).replaceWith( response.data.view );
+
 };
 
 /**
@@ -139,12 +142,19 @@ window.eoxiaJS.taskManagerGlobal.quickTime.quickTimeAddedComment = function( tri
  * @return {void}
  */
 window.eoxiaJS.taskManagerGlobal.quickTime.onCheckedCheckAll = function( event ) {
+
+
+		console.log( '123' );
+
 	if ( jQuery( this ).is( ':checked' ) ) {
 		jQuery( this ).closest( '.quick-time-content' ).find( '.item input[type="checkbox"]' ).attr( 'checked', true );
+		jQuery( this ).closest( '.quick-time-content' ).find( '.tm_quickpoint_add_time' ).css( 'visibility', 'visible' );
+
 	} else {
 		jQuery( this ).closest( '.quick-time-content' ).find( '.item input[type="checkbox"]' ).attr( 'checked', false );
 		jQuery( this ).closest( '.quick-time-content' ).find( '.item .displayed' ).val( '' );
 		jQuery( this ).closest( '.quick-time-content' ).find( '.item input.time' ).val( '' );
+		jQuery( this ).closest( '.quick-time-content' ).find( '.tm_quickpoint_add_time' ).css( 'visibility', 'hidden' );
 	}
 
 	window.eoxiaJS.taskManagerGlobal.quickTime.updateTime( jQuery( this ) );
@@ -164,6 +174,9 @@ window.eoxiaJS.taskManagerGlobal.quickTime.onChecked = function( event ) {
 	if ( ! jQuery( this ).is( ':checked' ) ) {
 		jQuery( this ).closest( '.item' ).find( '.displayed' ).val( '' );
 		jQuery( this ).closest( '.item' ).find( 'input.time' ).val( '' );
+		jQuery( this ).closest( '.item' ).find( '.tm_quickpoint_add_time' ).css( 'visibility', 'hidden' );
+	}else{
+		jQuery( this ).closest( '.item' ).find( '.tm_quickpoint_add_time' ).css( 'visibility', 'visible' );
 	}
 
 	window.eoxiaJS.taskManagerGlobal.quickTime.updateTime( jQuery( this ) );
@@ -179,14 +192,35 @@ window.eoxiaJS.taskManagerGlobal.quickTime.onChecked = function( event ) {
  * @return {void}
  */
 window.eoxiaJS.taskManagerGlobal.quickTime.onKeyUp = function( event ) {
+
 	if ( '' !== jQuery( this ).val() ) {
 		jQuery( this ).closest( '.item' ).find( 'input[type="checkbox"]' ).attr( 'checked', true );
+		window.eoxiaJS.taskManagerGlobal.quickTime.ajaxRequestEditLineQuickTime();
+		jQuery( this ).closest( '.item' ).find( '.tm_quickpoint_add_time' ).css( 'visibility', 'visible' );
+
 	} else {
 		jQuery( this ).closest( '.item' ).find( 'input[type="checkbox"]' ).attr( 'checked', false );
+		window.eoxiaJS.taskManagerGlobal.quickTime.ajaxRequestEditLineQuickTime();
+		jQuery( this ).closest( '.item' ).find( '.tm_quickpoint_add_time' ).css( 'visibility', 'hidden' );
 	}
 
 	window.eoxiaJS.taskManagerGlobal.quickTime.updateTime( jQuery( this ) );
 };
+
+window.eoxiaJS.taskManagerGlobal.quickTime.ajaxRequestEditLineQuickTime = function( event, contentcomment ){
+	jQuery( '.quick-time-edit-time' ).autocomplete( {
+		source: 'admin-ajax.php?action=quick_task_edit_time',
+		delay: 0,
+		select: function( event, ui ) {
+			var data = {
+				action: 'quick_task_edit_time',
+				data_type: contentcomment
+			};
+
+			event.stopPropagation();
+		}
+	} );
+}
 
 /**
  * Créer un réglage d'un temps rapide lors de la pression des touches CTRL + Entrer.
@@ -249,4 +283,9 @@ window.eoxiaJS.taskManagerGlobal.quickTime.updateTime = function( element ) {
 			container.find( 'input.time' ).val( '' );
 		}
 	} );
+}
+
+window.eoxiaJS.taskManagerGlobal.quickTime.showNewLineQuicktime = function( element, response ){
+	jQuery( '.quick-time-content' ).replaceWith( response.data.view );
+	window.eoxiaJS.taskManagerGlobal.quickTime.initAutoComplete();
 }

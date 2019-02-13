@@ -32,8 +32,10 @@ class Quick_Time_Action {
 		add_action( 'wp_ajax_quick_time_add_comment', array( $this, 'ajax_quick_time_add_comment' ) );
 
 		add_action( 'wp_ajax_open_setting_quick_time', array( $this, 'ajax_open_setting_quick_time' ) );
+		add_action( 'wp_ajax_quick_task_edit_time', array( $this, 'ajax_quick_task_edit_time' ) );
 		add_action( 'wp_ajax_quick_task_setting_refresh_point', array( $this, 'ajax_quick_task_setting_refresh_point' ) );
 		add_action( 'wp_ajax_add_config_quick_time', array( $this, 'ajax_add_config_quick_time' ) );
+		add_action( 'wp_ajax_showNewLineQuicktime', array( $this, 'ajax_showNewLineQuicktime' ) );
 		add_action( 'wp_ajax_remove_config_quick_time', array( $this, 'ajax_remove_config_quick_time' ) );
 	}
 
@@ -61,7 +63,7 @@ class Quick_Time_Action {
 		$comments = ! empty( $_POST['comments'] ) ? (array) $_POST['comments'] : array();
 
 		if ( ! empty( $comments ) ) {
-			foreach ( $comments as $comment ) {
+			foreach ( $comments as $key => $comment ) {
 				$comment['post_id']              = (int) $comment['task_id'];
 				$comment['parent_id']            = (int) $comment['point_id'];
 				$comment['content']              = sanitize_text_field( $comment['content'] );
@@ -83,6 +85,15 @@ class Quick_Time_Action {
 					$point->data['count_comments']++;
 
 					Point_Class::g()->update( $point->data );
+					$data_return_js = array(
+            'success'  => true,
+            'text' => esc_html__( 'Added', 'task-manager' ) .  ' ' . $comment['time'] . ' ' . esc_html__( 'minutes to Task :', 'task-manager' ) .  ' ' . $comment['task_id'] . ' ' .esc_html__( '& Point :', 'task-manager' ) . ' ' . $comment['point_id'] .  ' ' . esc_html__( '& comment : ', 'task-manager' ) . ' ' . $comment['content'],
+        );
+				}else{
+					$data_return_js = array(
+						'success'  => false,
+						'text' => esc_html__( 'Task', 'task-manager' ) . ' ' .  $comment['task_id'] . ' ' . esc_html__( ' \'ve a error', 'task-manager' ),
+					);
 				}
 			}
 		}
@@ -94,7 +105,8 @@ class Quick_Time_Action {
 				'namespace'        => 'taskManager',
 				'module'           => 'adminBar',
 				'callback_success' => 'quickTimeAddedComment',
-				'view'             => ob_get_clean(),
+				'info'             => $data_return_js,
+				'view'             => ob_get_clean()
 			)
 		);
 	}
@@ -132,6 +144,10 @@ class Quick_Time_Action {
 				'buttons_view' => $buttons_view,
 			)
 		);
+	}
+
+	public function ajax_quick_task_edit_time() {
+		echo '<pre>'; print_r( $_SERVER['QUERY_STRING'] ); echo '</pre>'; //<!-- <-- -->
 	}
 
 	/**
@@ -204,7 +220,8 @@ class Quick_Time_Action {
 		$content  = ! empty( $_POST['content'] ) ? sanitize_text_field( $_POST['content'] ) : '';
 
 		if ( empty( $task_id ) || empty( $point_id ) ) {
-			wp_send_json_error();
+			status_header( 503, 'Need more data' );
+			wp_send_json_error( '-1' );
 		}
 
 		$meta = get_user_meta( get_current_user_id(), \eoxia\Config_Util::$init['task-manager']->quick_time->meta_quick_time, true );
@@ -213,14 +230,14 @@ class Quick_Time_Action {
 			'task_id'   => $task_id,
 			'point_id'  => $point_id,
 			'content'   => $content,
-			'displayed' => array(),
+			'displayed' => array()
 		);
 
 		$meta[] = $data;
 
 		update_user_meta( get_current_user_id(), \eoxia\Config_Util::$init['task-manager']->quick_time->meta_quick_time, $meta );
 
-		$data = quicktime_format_data( $data );
+		/*$data = quicktime_format_data( $data );
 
 		ob_start();
 		\eoxia\View_Util::exec(
@@ -241,16 +258,29 @@ class Quick_Time_Action {
 		ob_start();
 		Quick_Time_Class::g()->display();
 		$metabox_view = ob_get_clean();
+
 		wp_send_json_success(
 			array(
 				'namespace'        => 'taskManagerGlobal',
 				'module'           => 'quickTime',
-				'callback_success' => 'addedConfigQuickTime',
+				'callback_success' => 'showNewLineQuicktime',
 				'new_item_view'    => $new_item_view,
 				'form_view'        => $form_view,
 				'metabox_view'     => $metabox_view,
 			)
+		);*/
+
+		ob_start();
+		Quick_Time_Class::g()->display_list();
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManagerGlobal',
+				'module'           => 'quickTime',
+				'callback_success' => 'showNewLineQuicktime',
+				'view'             => ob_get_clean(),
+			)
 		);
+
 	}
 
 	/**
@@ -295,6 +325,22 @@ class Quick_Time_Action {
 			)
 		);
 	}
+
+	public function ajax_showNewLineQuicktime() {
+		check_ajax_referer( 'show_new_line_quicktime' );
+
+		ob_start();
+		Quick_Time_Class::g()->display_list( true );
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManagerGlobal',
+				'module'           => 'quickTime',
+				'callback_success' => 'showNewLineQuicktime',
+				'view'             => ob_get_clean(),
+			)
+		);
+	}
+
 }
 
 new Quick_Time_Action();
