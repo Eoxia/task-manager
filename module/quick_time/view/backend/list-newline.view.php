@@ -27,8 +27,8 @@ if ( ! defined( 'ABSPATH' ) ) {
     <div class="list-posts">
     </div>
   </td>
-  <td class="point wpeo-tooltip-event">
-    <select name="point_id" id="tm_quicktime_select_point_id" data-default = '<?php echo esc_html_e( 'Choose point', 'task-manager' ); ?>' >
+  <td class="point wpeo-tooltip-event" style='max-width : 150px'>
+		<select name="point_id" id="tm_quicktime_select_point_id" data-default = '<?php echo esc_html_e( 'Choose point', 'task-manager' ); ?>' style='max-width : 100px'>
       <option value="0"><?php echo esc_html_e( 'Choose point', 'task-manager' ); ?></option>
     </select>
   </td>

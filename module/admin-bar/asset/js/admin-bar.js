@@ -142,7 +142,6 @@ window.eoxiaJS.taskManager.adminBar.quickTimeAddedComment = function( triggeredE
 		text += response.data.info[ i ][ 'text' ] + '<br>';
 	}
 
-	console.log( text );
 	jQuery( '#tm_quicktime_information_add_time' ).css( 'display' , 'block' );
 	jQuery( '#tm_quicktime_information_add_time_text' ).replaceWith( text );
 };
@@ -260,9 +259,7 @@ window.eoxiaJS.taskManager.adminBar.checkIfNewLineCanBeSend = function( element 
 		jQuery( '#tm_validate_quicktime_line' ).removeClass( 'button-disable');
 		jQuery( '#tm_validate_quicktime_line' ).addClass( 'button-green');
 
-		console.log( '0' );
 	}else{
-		console.log( '1' );
 
 		jQuery( '#tm_validate_quicktime_line' ).removeClass( 'button-green');
 		jQuery( '#tm_validate_quicktime_line' ).addClass( 'button-disable');
