@@ -112,7 +112,7 @@ class Comment_Filter {
 	 *
 	 * @return Comment_Object        Les données de la tâche avec les données complémentaires.
 	 */
-	public function calcul_elapsed_time( $object, $args ) {
+	public function calcul_elapsed_time( $object, $args = array() ) {
 		if ( 0 === $object->data['id'] ) {
 			$current_user = get_current_user_id();
 			if ( ! empty( $current_user ) ) {

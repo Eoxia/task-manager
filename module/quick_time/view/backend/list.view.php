@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<span><?php esc_html_e( 'min.', 'task-manager' ); ?></span>
 				</th>
 				<th class="action"><input type="checkbox" /></th>
-				<th></th>
+				<th><?php echo esc_attr( 'copy to clipboard', 'task-manager' ); ?></th>
 				<th></th>
 			</tr>
 		</thead>
@@ -57,47 +57,35 @@ if ( ! defined( 'ABSPATH' ) ) {
 			?>
 
 			<?php
-				if ( $createnewline ) :
 					\eoxia\View_Util::exec(
 						'task-manager',
 						'quick_time',
 						'backend/list-newline'
 					);
-				endif;
 			?>
 
 		</tbody>
 
 	</table>
 
-	<?php
-		if ( $createnewline ) :
-			?>
-
-			<span class="wpeo-button button-blue button-progress action-input" id="tm_validate_quicktime_line"
-				data-nonce="<?php echo esc_attr( wp_create_nonce( 'add_config_quick_time' ) ); ?>"
-				data-action="add_config_quick_time"
-				data-parent="form-quicktime">
-				<?php esc_html_e( 'Add', 'task-manager' ); ?>
-			</span>
-	<?php
-		else :
-			?>
-
-			<span class="wpeo-button button-main button-progress action-attribute" id="tm_create_quicktime_line"
+			<!--<span class="wpeo-button button-main button-progress action-attribute" id="tm_create_quicktime_line"
 				data-nonce="<?php echo esc_attr( wp_create_nonce( 'show_new_line_quicktime' ) ); ?>"
 				data-action="showNewLineQuicktime">
 				<?php esc_html_e( 'New', 'task-manager' ); ?>
-			</span>
+			</span>-->
 
-	<?php
-		endif;
-	?>
+			<td>
+				<div class="wpeo-button button-main button-progress action-input tm_quickpoint_add_time"
+					data-parent="content"
+					data-action="quick_time_add_comment">
+					<span class="button-icon fa fa-save" aria-hidden="true"></span>
+				</div>
+			</td>
+
 
 	<div class="" id='tm_quicktime_information_add_time'>
 		<span id="tm_quicktime_information_add_time_text"></span>
 	</div>
-
 
 	<!-- <div class="list">
 		<ul class="header">

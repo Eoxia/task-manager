@@ -65,6 +65,8 @@ class Quick_Time_Class extends \eoxia\Singleton_Util {
 	public function display_list( $createnewline = false, $editline = false ) {
 		$quicktimes = $this->get_quicktimes();
 
+		//echo '<pre>'; print_r( $quicktimes ); echo '</pre>'; exit;
+
 		$comment_schema = Task_Comment_Class::g()->get(
 			array(
 				'schema' => true,
@@ -94,6 +96,7 @@ class Quick_Time_Class extends \eoxia\Singleton_Util {
 	 * @return array (Voir au dessus)
 	 */
 	public function get_quicktimes() {
+
 		$quicktimes = get_user_meta( get_current_user_id(), \eoxia\Config_Util::$init['task-manager']->quick_time->meta_quick_time, true );
 
 		if ( ! empty( $quicktimes ) ) {
@@ -103,9 +106,55 @@ class Quick_Time_Class extends \eoxia\Singleton_Util {
 			// @comment sort( $quicktimes );
 		}
 
+		//echo '<pre>'; print_r( $quicktimes ); echo '</pre>';
 		return $quicktimes;
 	}
 
+	public function update_quicktimes( $quicktimes, $key, $content ){
+		$commentsfromdb = $this->get_quicktimes();
+
+		$commentsfromdb[ $key ][ 'content' ] = $content;
+
+		$quicktimes = update_user_meta( get_current_user_id(), \eoxia\Config_Util::$init['task-manager']->quick_time->meta_quick_time, $commentsfromdb );
+
+	}
+
+	public function display_this_task_and_point( $index ){
+
+		$quicktimes = self::get_quicktimes();
+
+		if( ! array_key_exists( $index, $quicktimes ) || $index == -1 ){
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'quick_time',
+				'backend/quicktimemode/error-view',
+				array(
+					'index' => $index + 1
+				)
+			);
+			return;
+		}
+
+		$content = $quicktimes[ $index ][ 'content' ];
+
+		$param = array(
+			'task_id' => $quicktimes[ $index ][ 'task_id' ],
+			'point_id' => $quicktimes[ $index ][ 'point_id' ],
+		);
+
+
+		$task = Task_Class::g()->get_tasks( $param );
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'quick_time',
+			'backend/quicktimemode/task-quicktime',
+			array(
+				'task' => $task[0],
+				'point_id' => $quicktimes[ $index ][ 'point_id' ],
+			)
+		);
+	}
 }
 
 Quick_Time_Class::g();

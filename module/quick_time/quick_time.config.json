@@ -6,6 +6,7 @@
 	"description": "Le module gérant les temps rapides",
 	"path": "module/quick_time/",
 	"dependencies": {
+		"filter": {},
 		"action": {},
 		"class": {},
 		"helper": {}

@@ -63,6 +63,7 @@ class Quick_Time_Action {
 		$comments = ! empty( $_POST['comments'] ) ? (array) $_POST['comments'] : array();
 
 		if ( ! empty( $comments ) ) {
+			$data_return_js = array();
 			foreach ( $comments as $key => $comment ) {
 				$comment['post_id']              = (int) $comment['task_id'];
 				$comment['parent_id']            = (int) $comment['point_id'];
@@ -71,9 +72,10 @@ class Quick_Time_Action {
 				$comment['can_add']              = 'true' == $comment['can_add'] ? true : false;
 				$comment['status']               = '1';
 
-				if ( $comment['can_add'] ) {
+				if ( $comment['can_add'] || $comment['content'] != $comment['content_old'] ) {
 
 					Task_Comment_Class::g()->update( $comment );
+					Quick_Time_Class::g()->update_quicktimes( $comment, $key, $comment['content'] );
 
 					$point = Point_Class::g()->get(
 						array(
@@ -85,15 +87,17 @@ class Quick_Time_Action {
 					$point->data['count_comments']++;
 
 					Point_Class::g()->update( $point->data );
-					$data_return_js = array(
-            'success'  => true,
-            'text' => esc_html__( 'Added', 'task-manager' ) .  ' ' . $comment['time'] . ' ' . esc_html__( 'minutes to Task :', 'task-manager' ) .  ' ' . $comment['task_id'] . ' ' .esc_html__( '& Point :', 'task-manager' ) . ' ' . $comment['point_id'] .  ' ' . esc_html__( '& comment : ', 'task-manager' ) . ' ' . $comment['content'],
-        );
-				}else{
-					$data_return_js = array(
-						'success'  => false,
-						'text' => esc_html__( 'Task', 'task-manager' ) . ' ' .  $comment['task_id'] . ' ' . esc_html__( ' \'ve a error', 'task-manager' ),
-					);
+					if( $comment['can_add'] ){
+						$data_return_js[ count( $data_return_js ) ] = array(
+	            'success'  => true,
+	            'text' => $comment['time'] . ' ' . esc_html__( 'minutes', 'task-manager' ) .  ', ' . esc_html__( 'Task id : ', 'task-manager' ) . $comment['task_id'] . ', ' .esc_html__( 'Point id : ', 'task-manager' ) . $comment['point_id'] .  ', ' . esc_html__( 'comment : ', 'task-manager' ) . $comment['content'],
+		        );
+					}else{
+						$data_return_js[ count( $data_return_js ) ] = array(
+	            'success'  => true,
+	            'text' => esc_html__( 'Task id : ', 'task-manager' ) . $comment['task_id'] . ', ' .esc_html__( 'Point id : ', 'task-manager' ) . $comment['point_id'] .  ', ' . esc_html__( 'update comment : ', 'task-manager' ) . $comment['content_old'] . '=>' . $comment['content'],
+		        );
+					}
 				}
 			}
 		}
@@ -340,7 +344,6 @@ class Quick_Time_Action {
 			)
 		);
 	}
-
 }
 
 new Quick_Time_Action();

@@ -116,6 +116,7 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 			$view = 'frontend';
 		}
 
+
 		\eoxia\View_Util::exec(
 			'task-manager',
 			'comment',

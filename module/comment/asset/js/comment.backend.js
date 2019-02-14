@@ -77,6 +77,7 @@ window.eoxiaJS.taskManager.comment.triggerCreate = function( event ) {
  * @version 1.6.0
  */
 window.eoxiaJS.taskManager.comment.updateHiddenInput = function( event ) {
+	
 	if ( 0 < jQuery( this ).text().length ) {
 		jQuery( this ).closest( '.comment' ).find( '.placeholder' ).addClass( 'hidden' );
 		jQuery( this ).closest( '.comment' ).removeClass( 'add' ).addClass( 'edit' );

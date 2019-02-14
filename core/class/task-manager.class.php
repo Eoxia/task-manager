@@ -43,6 +43,9 @@ class Task_Manager_Class extends \eoxia\Singleton_Util {
 		$post_parent   = ! empty( $_GET['post_parent'] ) ? (int) $_GET['post_parent'] : 0; // WPCS: CSRF ok.
 		$task_id = ! empty( $_GET['task_id'] ) ? (int) $_GET['task_id'] : 0; // WPCS: CSRF ok.
 		$point_id = ! empty( $_GET['point_id'] ) ? (int) $_GET['point_id'] : 0; // WPCS: CSRF ok.
+		$quicktimes = ! empty( $_GET['quicktimemode'] ) ? (int) $_GET['quicktimemode'] : 0; // WPCS: CSRF ok.
+
+		//echo '<pre>'; print_r( $_GET['quicktimemode']  ); echo '</pre>'; exit;
 
 		$user = Follower_Class::g()->get( array( 'id' => get_current_user_id() ), true );
 
@@ -57,7 +60,15 @@ class Task_Manager_Class extends \eoxia\Singleton_Util {
 			'users_id'      => $user_id,
 		);
 
+		if ( isset( $_GET['quicktimemode'] ) ) {
+
+				$quicktimes_real_number = $quicktimes - 1;
+
+				Quick_Time_Class::g()->display_this_task_and_point( $quicktimes_real_number );
+
+		} else {
 		require_once PLUGIN_TASK_MANAGER_PATH . '/core/view/main.view.php';
+		}
 	}
 
 	/**

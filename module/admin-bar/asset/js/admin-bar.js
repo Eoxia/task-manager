@@ -46,6 +46,8 @@ window.eoxiaJS.taskManager.adminBar.event = function() {
 	jQuery( document ).on( 'click', '.quick-time-content .header input[type="checkbox"]', window.eoxiaJS.taskManager.adminBar.onCheckedCheckAll );
 	jQuery( document ).on( 'click', '.quick-time-content .item .set_time', window.eoxiaJS.taskManager.adminBar.onChecked );
 	jQuery( document ).on( 'keyup', '.quick-time-content .item .min .displayed', window.eoxiaJS.taskManager.adminBar.onKeyUp );
+	jQuery( document ).on( 'click', '#tm_quicktime_create_new', window.eoxiaJS.taskManager.adminBar.checkIfNewLineCanBeSend );
+	jQuery( document ).on( 'keyup', '#tm_quicktime_create_new', window.eoxiaJS.taskManager.adminBar.checkIfNewLineCanBeSend );
 };
 
 /**
@@ -72,7 +74,7 @@ window.eoxiaJS.taskManager.adminBar.initAutoComplete = function() {
 				event.stopPropagation();
 
 				window.eoxiaJS.loader.display( jQuery( this ).closest( '.form' ) );
-				window.eoxiaJS.request.send( jQuery( this ).closest( '.form' ), data );
+				window.eoxiaJS.request.send( jQuery( this ).closest( '.form' ), data);
 			}
 		} );
 	}
@@ -135,8 +137,14 @@ window.eoxiaJS.taskManager.adminBar.deletedConfigQuickTime = function( triggered
 window.eoxiaJS.taskManager.adminBar.quickTimeAddedComment = function( triggeredElement, response ) {
 	jQuery( '.quick-time-content' ).replaceWith( response.data.view );
 
+	var text =  '';
+	for( var i = 0; i < response.data.info.length; i++){
+		text += response.data.info[ i ][ 'text' ] + '<br>';
+	}
+
+	console.log( text );
 	jQuery( '#tm_quicktime_information_add_time' ).css( 'display' , 'block' );
-	jQuery( '#tm_quicktime_information_add_time_text' ).replaceWith( response.data.info[ 'text' ] )
+	jQuery( '#tm_quicktime_information_add_time_text' ).replaceWith( text );
 };
 
 /**
@@ -244,4 +252,20 @@ window.eoxiaJS.taskManager.adminBar.updateTime = function( element ) {
 			container.find( 'input.time' ).val( '' );
 		}
 	} );
+}
+
+
+window.eoxiaJS.taskManager.adminBar.checkIfNewLineCanBeSend = function( element ){
+	if( jQuery('#tm_quicktime_select_point_id').find(":selected").text() != jQuery('#tm_quicktime_select_point_id').data( "default" ) && jQuery( '#tm_quicktime_stack_taskid_secretely' ).val() != '' && jQuery( '#tm_quicktime_textarea_' ).val() != '' ){
+		jQuery( '#tm_validate_quicktime_line' ).removeClass( 'button-disable');
+		jQuery( '#tm_validate_quicktime_line' ).addClass( 'button-green');
+
+		console.log( '0' );
+	}else{
+		console.log( '1' );
+
+		jQuery( '#tm_validate_quicktime_line' ).removeClass( 'button-green');
+		jQuery( '#tm_validate_quicktime_line' ).addClass( 'button-disable');
+	}
+
 }
