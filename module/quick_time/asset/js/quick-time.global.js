@@ -33,7 +33,7 @@ window.eoxiaJS.taskManagerGlobal.quickTime.refresh = function() {
 window.eoxiaJS.taskManagerGlobal.quickTime.event = function() {
 	jQuery( document ).on( 'click', '.quick-time-content thead input[type="checkbox"]', window.eoxiaJS.taskManagerGlobal.quickTime.onCheckedCheckAll );
 	jQuery( document ).on( 'click', '.quick-time-content .item .set_time', window.eoxiaJS.taskManagerGlobal.quickTime.onChecked );
-	//jQuery( document ).on( 'keyup', '.quick-time-content .item .min .displayed', window.eoxiaJS.taskManagerGlobal.quickTime.onKeyUp );
+	jQuery( document ).on( 'keyup', '.quick-time-content .item .min .displayed', window.eoxiaJS.taskManagerGlobal.quickTime.onKeyUp );
 	jQuery( document ).on( 'keyup', '.setting-quick-time textarea', window.eoxiaJS.taskManagerGlobal.quickTime.triggerCreate );
 	jQuery( document ).on( 'click', '#tm_quicktime_copytoclipboard', window.eoxiaJS.taskManagerGlobal.quickTime.copyToClipboard );
 
@@ -189,15 +189,14 @@ window.eoxiaJS.taskManagerGlobal.quickTime.onChecked = function( event ) {
  */
 window.eoxiaJS.taskManagerGlobal.quickTime.onKeyUp = function( event ) {
 
+console.log( 'oui' );
 	if ( '' !== jQuery( this ).val() ) {
 		jQuery( this ).closest( '.item' ).find( 'input[type="checkbox"]' ).attr( 'checked', true );
-		window.eoxiaJS.taskManagerGlobal.quickTime.ajaxRequestEditLineQuickTime();
-		jQuery( this ).closest( '.item' ).find( '.tm_quickpoint_add_time' ).css( 'visibility', 'visible' );
+		//window.eoxiaJS.taskManagerGlobal.quickTime.ajaxRequestEditLineQuickTime();
 
 	} else {
 		jQuery( this ).closest( '.item' ).find( 'input[type="checkbox"]' ).attr( 'checked', false );
-		window.eoxiaJS.taskManagerGlobal.quickTime.ajaxRequestEditLineQuickTime();
-		jQuery( this ).closest( '.item' ).find( '.tm_quickpoint_add_time' ).css( 'visibility', 'hidden' );
+		//window.eoxiaJS.taskManagerGlobal.quickTime.ajaxRequestEditLineQuickTime();
 	}
 
 	window.eoxiaJS.taskManagerGlobal.quickTime.updateTime( jQuery( this ) );
