@@ -231,10 +231,10 @@ class Quick_Time_Action {
 		$meta = get_user_meta( get_current_user_id(), \eoxia\Config_Util::$init['task-manager']->quick_time->meta_quick_time, true );
 
 		$data = array(
-			'task_id'   => $task_id,
-			'point_id'  => $point_id,
-			'content'   => $content,
-			'displayed' => array()
+			'task_id'       => $task_id,
+			'point_id'      => $point_id,
+			'content'       => $content,
+			'displayed'     => array()
 		);
 
 		$meta[] = $data;
@@ -310,7 +310,8 @@ class Quick_Time_Action {
 		if ( ! empty( $quicktimes ) ) {
 			foreach ( $quicktimes as $key => $quicktime ) {
 				if ( $chosen_key === $key && $quicktime['task_id'] === $task_id && $quicktime['point_id'] === $point_id ) {
-					array_splice( $quicktimes, $key, 1 );
+					//array_splice( $quicktimes, $key, 1 );
+					$quicktimes[ $key ] = '';
 				}
 			}
 		}

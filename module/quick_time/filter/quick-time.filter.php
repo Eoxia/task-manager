@@ -38,8 +38,10 @@ class Quick_Time_Filter {
 		$quicktime_index = ! empty( $_GET['quicktimemode'] ) ? (int) $_GET['quicktimemode'] : -1; // WPCS: CSRF ok.
 
 		if ( $quicktime_index != -1 ) {
+
+			$quicktime = $quicktime_index - 1;
 			$quicktimes = Quick_Time_Class::g()->get_quicktimes();
-			$content = $quicktimes[ $quicktime_index ][ 'content' ];
+			$content = $quicktimes[ $quicktime ][ 'content' ];
 
 			$comment->data['content'] = $content;
 

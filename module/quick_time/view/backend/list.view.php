@@ -40,18 +40,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 			$i = 0;
 			if ( ! empty( $quicktimes ) ) :
 				foreach ( $quicktimes as $key => $quicktime ) :
-					\eoxia\View_Util::exec(
-						'task-manager',
-						'quick_time',
-						'backend/item',
-						array(
-							'key'       => $key,
-							'quicktime' => $quicktime,
-							'i'         => $i,
-							'editline' => $editline
-						)
-					);
-					$i++;
+					if( $quicktime != '' ):
+						\eoxia\View_Util::exec(
+							'task-manager',
+							'quick_time',
+							'backend/item',
+							array(
+								'key'       => $key,
+								'quicktime' => $quicktime,
+								'i'         => $i,
+								'editline' => $editline
+							)
+						);
+						$i++;
+					endif;
 				endforeach;
 			endif;
 			?>

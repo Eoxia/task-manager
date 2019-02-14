@@ -101,7 +101,10 @@ class Quick_Time_Class extends \eoxia\Singleton_Util {
 
 		if ( ! empty( $quicktimes ) ) {
 			foreach ( $quicktimes as $key => $quicktime ) {
-				$quicktimes[ $key ] = quicktime_format_data( $quicktime );
+				if( $quicktime != '' ){
+					$quicktimes[ $key ] = quicktime_format_data( $quicktime );
+
+				}
 			}
 			// @comment sort( $quicktimes );
 		}
@@ -123,7 +126,7 @@ class Quick_Time_Class extends \eoxia\Singleton_Util {
 
 		$quicktimes = self::get_quicktimes();
 
-		if( ! array_key_exists( $index, $quicktimes ) || $index == -1 ){
+		if( ! array_key_exists( $index, $quicktimes ) || $index == -1 || $quicktimes[ $index ] == '' ){
 			\eoxia\View_Util::exec(
 				'task-manager',
 				'quick_time',
