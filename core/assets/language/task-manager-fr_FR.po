@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2019-02-15 15:19+0100\n"
-"PO-Revision-Date: 2019-02-15 15:20+0100\n"
+"POT-Creation-Date: 2019-02-15 16:10+0100\n"
+"PO-Revision-Date: 2019-02-15 16:10+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -729,6 +729,7 @@ msgid "Create "
 msgstr "Créé "
 
 #: module/point/view/backend/toggle-content.view.php:34
+#: module/quick_time/view/backend/list.view.php:35
 #: module/task/view/backend/toggle-content.view.php:100
 msgid "Delete"
 msgstr "Supprimer"
@@ -832,6 +833,11 @@ msgstr "ID Point"
 #: module/quick_time/view/backend/list.view.php:95
 msgid "min."
 msgstr "min."
+
+#: module/quick_time/view/backend/item.view.php:43
+#: module/quick_time/view/backend/list.view.php:34
+msgid "Copy to clipboard"
+msgstr "copier dans le presse-papier"
 
 #: module/quick_time/view/backend/item.view.php:53
 #: module/quick_time/view/backend/setting/item.view.php:26
