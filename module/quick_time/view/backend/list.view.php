@@ -31,8 +31,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<span><?php esc_html_e( 'min.', 'task-manager' ); ?></span>
 				</th>
 				<th class="action"><input type="checkbox" /></th>
-				<th><?php echo esc_attr( 'Copy to clipboard', 'task-manager' ); ?></th>
-				<th><?php echo esc_attr( 'Delete', 'task-manager' ); ?></th>
+				<th><?php esc_html_e( 'Copy to clipboard', 'task-manager' ); ?></th>
+				<th><?php esc_html_e( 'Delete', 'task-manager' ); ?></th>
 			</tr>
 		</thead>
 

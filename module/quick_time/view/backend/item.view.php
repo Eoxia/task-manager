@@ -39,8 +39,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<td class="action"><input type="checkbox" class="set_time" name="comments[<?php echo esc_attr( $i ); ?>][can_add]" /></td>
 	<td>
 		<input type='text' class="tm_quicktime_focus_url" value='<?= admin_url() . 'admin.php?page=wpeomtm-dashboard&quicktimemode=' . esc_attr( $key + 1 ); ?>' />
-		<div class="wpeo-button button-progress button-yellow tm_quicktime_buttoncopytoclipboard" id="tm_quicktime_copytoclipboard"
-			aria-label="#2 avec un point"
+		<div class="wpeo-button button-progress button-yellow tm_quicktime_buttoncopytoclipboard wpeo-tooltip-event" id="tm_quicktime_copytoclipboard"
+			aria-label="<?php esc_html_e( 'Copy to clipboard', 'task-manager' ); ?>"
 			data-path="<?= admin_url() . 'admin.php?page=wpeomtm-dashboard&quicktimemode=' . esc_attr( $key + 1 ); ?>"
 			data-key="<?php echo esc_attr( $key ); ?>">
 			<span class="button-icon fa fa-copy" aria-hidden="true"></span>
