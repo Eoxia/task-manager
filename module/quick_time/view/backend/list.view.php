@@ -17,6 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="content quick-time-content form-quicktime">
 	<input type="hidden" name="action" value="quick_time_add_comment" />
+	<input type="hidden" value="0" id="tm_quicktime_count_modification"/>
 
 	<table class="list wpeo-table">
 		<thead>
@@ -30,8 +31,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<span><?php esc_html_e( 'min.', 'task-manager' ); ?></span>
 				</th>
 				<th class="action"><input type="checkbox" /></th>
-				<th><?php echo esc_attr( 'copy to clipboard', 'task-manager' ); ?></th>
-				<th></th>
+				<th><?php echo esc_attr( 'Copy to clipboard', 'task-manager' ); ?></th>
+				<th><?php echo esc_attr( 'Delete', 'task-manager' ); ?></th>
 			</tr>
 		</thead>
 
@@ -76,13 +77,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php esc_html_e( 'New', 'task-manager' ); ?>
 			</span>-->
 
-			<td>
-				<div class="wpeo-button button-main button-progress action-input tm_quickpoint_add_time"
-					data-parent="content"
-					data-action="quick_time_add_comment">
-					<span class="button-icon fa fa-save" aria-hidden="true"></span>
-				</div>
-			</td>
+
 
 
 	<div class="" id='tm_quicktime_information_add_time'>

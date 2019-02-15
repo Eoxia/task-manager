@@ -63,7 +63,7 @@ defined( 'ABSPATH' ) || exit; ?>
 							</div>
 						<?php else : ?>
 							<div class="button-disable button-event wpeo-tooltip-event wpeo-button button-progress button-grey button-square-30 button-rounded"
-								aria-label="<?php esc_attr_e( 'Canno\'t be deleted', 'task-manager' ); ?>">
+								aria-label="<?php esc_attr_e( 'Can\'t be deleted', 'task-manager' ); ?>">
 								<span class="button-icon fa fa-times" aria-hidden="true"></span>
 							</div>
 						<?php endif; ?>

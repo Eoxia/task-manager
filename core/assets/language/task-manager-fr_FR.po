@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2019-02-13 11:20+0100\n"
-"PO-Revision-Date: 2019-02-13 11:22+0100\n"
+"POT-Creation-Date: 2019-02-15 15:19+0100\n"
+"PO-Revision-Date: 2019-02-15 15:20+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -64,7 +64,7 @@ msgstr "Choisissez un utilisateur"
 msgid "No data, please configure your planning settings !"
 msgstr ""
 "Aucune données, configurer votre emplois du temps dans vos réglages "
-"utilisateur"
+"utilisateur !"
 
 #: core/action/task_manager.action.php:119
 #: module/follower/view/backend/user-profile-planning.view.php:128
@@ -87,7 +87,6 @@ msgstr "Voulez vous supprimer ce commentaire ?"
 
 #: core/action/task_manager.action.php:199
 #: module/import/view/backend/import-textarea.view.php:20
-#: module/quick_time/action/quick-time.action.php:95
 #: module/task/action/task.action.php:507
 msgid "Task"
 msgstr "Tâche"
@@ -96,7 +95,7 @@ msgstr "Tâche"
 msgid "Customer"
 msgstr "Client"
 
-#: core/class/task-manager.class.php:82
+#: core/class/task-manager.class.php:93
 msgid "No change log for this version."
 msgstr "Pas de note de mise à jour pour cette version."
 
@@ -157,7 +156,7 @@ msgstr "Dernières activités sur votre support"
 
 #: module/activity/view/backend/mail/list.view.php:46
 msgid "No activity for now"
-msgstr "Pas d'activité trouvé pour le moment."
+msgstr "Pas d'activité trouvé pour le moment"
 
 #: module/activity/view/backend/main.view.php:25
 #: module/activity/view/backend/main.view.php:27
@@ -186,7 +185,7 @@ msgstr "Voir l'activité"
 #: module/activity/view/backend/post-last-activity.view.php:114
 #: module/indicator/view/backend/daily-activity.view.php:124
 msgid "No activity found for now"
-msgstr "Pas d'activité trouvé pour le moment."
+msgstr "Pas d'activité trouvé pour le moment"
 
 #: module/activity/view/backend/task-header-button.view.php:18
 #: module/task/view/frontend/task.view.php:61
@@ -208,11 +207,15 @@ msgstr " avec le terme "
 
 #: module/activity/view/backend/title.view.php:30
 msgid " in the categories: "
-msgstr "dans les catégories:"
+msgstr " dans les catégories: "
 
 #: module/activity/view/backend/title.view.php:37
 msgid " for the followers: "
-msgstr "pour les abonnés:"
+msgstr " pour les abonnés: "
+
+#: module/admin-bar/action/admin-bar.action.php:83
+msgid "Quicktime PAGE"
+msgstr "Page des temps rapides"
 
 #: module/admin-bar/view/backend/button-quick-time.view.php:23
 #: module/quick_time/action/quick-time.action.php:51
@@ -227,7 +230,8 @@ msgstr "Editer ce commentaire"
 msgid "Delete this comment"
 msgstr "Supprimer ce commentaire"
 
-#: module/comment/view/backend/edit.view.php:32
+#: module/comment/view/backend/edit.view.php:33
+#: module/comment/view/backend/edit.view.php:35
 #: module/comment/view/frontend/edit.view.php:33
 msgid "Your comment here..."
 msgstr "Écrire ce commentaire ici..."
@@ -327,11 +331,11 @@ msgstr "Dimanche"
 
 #: module/follower/view/backend/user-profile-planning.view.php:127
 msgid "To"
-msgstr "jusqu'à"
+msgstr "Jusqu'à"
 
 #: module/follower/view/backend/user-profile-planning.view.php:130
 msgid "To now"
-msgstr "jusqu'à aujourd'hui"
+msgstr "Jusqu'à aujourd'hui"
 
 #: module/follower/view/backend/user-profile-planning.view.php:180
 msgid "Open archive"
@@ -363,9 +367,9 @@ msgid ""
 "Get the time of last comment you enter and fill elapsed time from this time. "
 "(You don't need to make hard calcul to get your elapsed time ;) "
 msgstr ""
-"Récupère l'heure du dernier commentaire que vous avez entré et rempli le "
-"temps passé automatiquement dans le commentaire que vous souhaitez ajouter. "
-"(Plus besoin de calcul compliqué ;) )"
+"Récupère l'heure du dernier commentaire que vous avez entré et rempli "
+"automatiquement le temps passé dans le commentaire que vous souhaitez "
+"ajouter. (Plus besoin de calcul compliqué ;) ) "
 
 #: module/follower/view/backend/user-profile.view.php:29
 msgid "Advanced display"
@@ -425,8 +429,8 @@ msgid "( %smin )"
 msgstr "( %smin )"
 
 #: module/history-time/view/backend/history-time.view.php:42
-msgid "Confirm deletion"
-msgstr "Etes vous sûr de vouloir supprimer cet élément?"
+msgid "Are you sure you want to delete this element ?"
+msgstr "Etes vous sûr de vouloir supprimer cet élément ?"
 
 #: module/history-time/view/backend/main.view.php:32
 msgid "Event historic"
@@ -452,8 +456,8 @@ msgstr "Point"
 #: module/import/view/backend/import-textarea.view.php:28
 #: module/quick_time/view/backend/item.view.php:28
 #: module/quick_time/view/backend/list-newline.view.php:35
-#: module/quick_time/view/backend/list.view.php:26
-#: module/quick_time/view/backend/list.view.php:106
+#: module/quick_time/view/backend/list.view.php:27
+#: module/quick_time/view/backend/list.view.php:91
 msgid "Comment"
 msgstr "Commentaire"
 
@@ -473,6 +477,8 @@ msgid ""
 "Given comment identifier does not correspond to a comment in task manager. "
 "Request id: %s"
 msgstr ""
+"L'identifiant de commentaire donnée ne correspond pas au commentaire dans "
+"Task Manager. ID de la requete : %s"
 
 #: module/indicator/action/indicator.action.php:246
 #, php-format
@@ -480,27 +486,29 @@ msgid ""
 "The comment author role does not allowed support request. Request customer "
 "id: %1$d. Customer roles: %2$s"
 msgstr ""
+"Le rôle d'auteur de commentaire n'autorise pas la création de requête "
+"support. Requete du clint : %1$d. Rôles du client: %2$s"
 
 #: module/indicator/action/indicator.action.php:252
 #: module/indicator/class/indicator.class.php:174
 #, php-format
 msgid "Current support request list: %s"
-msgstr ""
+msgstr "Liste actuelle des demandes d'assistance: %s"
 
 #: module/indicator/action/indicator.action.php:255
 #, php-format
 msgid "Comment for adding in request %s"
-msgstr ""
+msgstr "Commentaire à ajouter pour la requete : %s"
 
 #: module/indicator/action/indicator.action.php:273
 #, php-format
 msgid "New support ticket list: %s"
-msgstr ""
+msgstr "Nouvelle liste de tickets de support: %s"
 
 #: module/indicator/class/indicator.class.php:177
 #, php-format
 msgid "Comment for removing in request %s"
-msgstr ""
+msgstr "Commentaire pour la suppression de la requête %s"
 
 #: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:44
 msgid "Validate"
@@ -589,7 +597,7 @@ msgstr "Créer le raccourci"
 
 #: module/navigation/view/backend/modal-create-shortcut-content-success.view.php:19
 msgid "The shortcut is successfully created, yes, good job!"
-msgstr "Le raccourci à été crée avec succès."
+msgstr "Le raccourci à été crée avec succès, bien joué !"
 
 #: module/navigation/view/backend/modal-create-shortcut-content.view.php:31
 msgid "Shortcut name"
@@ -600,16 +608,16 @@ msgid "Are you sure to delete this shorcut ?"
 msgstr "Êtes vous sur(e) de vouloir supprimer ce raccourci ?"
 
 #: module/navigation/view/backend/modal-handle-shortcut.view.php:66
-msgid "Canno't be deleted"
-msgstr "Impossible à supprimer"
+msgid "Can't be deleted"
+msgstr "Ne peut pas être supprimer"
 
 #: module/navigation/view/backend/navigation-shortcut.view.php:18
 msgid "Shortcuts"
 msgstr "Raccourcis"
 
 #: module/navigation/view/backend/search-results.view.php:19
-msgid "Critères de recherche :"
-msgstr ""
+msgid "The search criteria : "
+msgstr "Critères de recherche : "
 
 #: module/navigation/view/backend/search-results.view.php:64
 msgid "Shortcut"
@@ -656,27 +664,27 @@ msgstr "Équipe"
 
 #: module/notify/view/backend/support/body-admin.view.php:19
 msgid "This message below is only visible by you"
-msgstr ""
+msgstr "Ce message ci-dessous est seulement visible par vous"
 
 #: module/notify/view/backend/support/body-admin.view.php:22
 msgid "You have been notified by"
-msgstr ""
+msgstr "Vous avez était notifié par"
 
 #: module/notify/view/backend/support/body-admin.view.php:24
 msgid "for the task"
-msgstr "Pour la tache"
+msgstr "pour la tache"
 
 #: module/notify/view/backend/support/body-admin.view.php:26
 msgid "for the customer"
-msgstr "Pour l'utilisateur"
+msgstr "pour l'utilisateur"
 
 #: module/notify/view/backend/support/body-admin.view.php:30
 msgid "This message above is only visible by you"
-msgstr ""
+msgstr "Ce message ci-dessus n'est visible que par vous"
 
 #: module/notify/view/backend/support/main.view.php:20
 msgid "Contacts"
-msgstr ""
+msgstr "Contact"
 
 #: module/notify/view/backend/support/main.view.php:41
 msgid "Preview of notification"
@@ -758,12 +766,12 @@ msgstr "Fermer la fenêtre"
 #: module/quick-point/view/modal-success.view.php:21
 #, php-format
 msgid "Your quick point was added on the task #%1$d: %2$s"
-msgstr ""
+msgstr "Votre point rapide a était ajouté sur la tache #%1$d: %2$s"
 
 #: module/quick-point/view/modal-success.view.php:28
 #, php-format
 msgid "You added the %1$s point #%2$d: %3$s"
-msgstr ""
+msgstr "Vous avez ajouté le point %1$s point #%2$d: %3$s"
 
 #: module/quick-point/view/modal-success.view.php:28
 msgid "completed"
@@ -776,45 +784,56 @@ msgstr "incomplet"
 #: module/quick-point/view/modal-success.view.php:34
 #, php-format
 msgid "With the comment #%1$d: %2$s with the elapsed time: %3$d"
-msgstr ""
+msgstr "Avec le commentaire : #%1$d: %2$s avec le temps passé : %3$d"
 
-#: module/quick_time/action/quick-time.action.php:90
-msgid "Added"
-msgstr ""
+#: module/quick_time/action/quick-time.action.php:93
+#: module/time-exceeded/view/backend/main.view.php:46
+msgid "minutes"
+msgstr "minutes"
 
-#: module/quick_time/action/quick-time.action.php:90
-msgid "minutes to Task"
-msgstr ""
+#: module/quick_time/action/quick-time.action.php:93
+#: module/quick_time/action/quick-time.action.php:98
+msgid "Task id : "
+msgstr "ID tache : "
 
-#: module/quick_time/action/quick-time.action.php:95
-msgid " 've a error"
-msgstr ""
+#: module/quick_time/action/quick-time.action.php:93
+#: module/quick_time/action/quick-time.action.php:98
+msgid "Point id : "
+msgstr "ID Point : "
+
+#: module/quick_time/action/quick-time.action.php:93
+msgid "comment : "
+msgstr "commentaire : "
+
+#: module/quick_time/action/quick-time.action.php:98
+msgid "update comment : "
+msgstr "modifier le commentaire : "
 
 #: module/quick_time/view/backend/button-setting.view.php:21
 msgid "Setting of the add quick time list"
 msgstr "Réglages des temps rapides"
 
 #: module/quick_time/view/backend/item.view.php:20
-#: module/quick_time/view/backend/list.view.php:24
-#: module/quick_time/view/backend/list.view.php:104
+#: module/quick_time/view/backend/list.view.php:25
+#: module/quick_time/view/backend/list.view.php:89
 msgid "Task ID"
 msgstr "ID Tâche"
 
 #: module/quick_time/view/backend/item.view.php:24
-#: module/quick_time/view/backend/list.view.php:25
-#: module/quick_time/view/backend/list.view.php:105
+#: module/quick_time/view/backend/list.view.php:26
+#: module/quick_time/view/backend/list.view.php:90
 msgid "Point ID"
 msgstr "ID Point"
 
-#: module/quick_time/view/backend/item.view.php:31
+#: module/quick_time/view/backend/item.view.php:32
 #: module/quick_time/view/backend/list-newline.view.php:38
-#: module/quick_time/view/backend/list.view.php:27
-#: module/quick_time/view/backend/list.view.php:30
-#: module/quick_time/view/backend/list.view.php:110
+#: module/quick_time/view/backend/list.view.php:28
+#: module/quick_time/view/backend/list.view.php:31
+#: module/quick_time/view/backend/list.view.php:95
 msgid "min."
 msgstr "min."
 
-#: module/quick_time/view/backend/item.view.php:43
+#: module/quick_time/view/backend/item.view.php:53
 #: module/quick_time/view/backend/setting/item.view.php:26
 msgid "Delete this preset ?"
 msgstr "Supprimer cet éléments?"
@@ -824,6 +843,7 @@ msgstr "Supprimer cet éléments?"
 msgid "Name/ID Task"
 msgstr "Nom/ID Tâche"
 
+#: module/quick_time/view/backend/list-newline.view.php:31
 #: module/quick_time/view/backend/list-newline.view.php:32
 #: module/quick_time/view/backend/setting/form.view.php:32
 msgid "Choose point"
@@ -834,13 +854,14 @@ msgstr "Choisir point"
 msgid "Default comment"
 msgstr "Commentaire par défaut"
 
-#: module/quick_time/view/backend/list.view.php:81
-msgid "Add"
-msgstr "Ajouter"
-
-#: module/quick_time/view/backend/list.view.php:90
+#: module/quick_time/view/backend/list.view.php:77
 msgid "New"
 msgstr "Nouveau"
+
+#: module/quick_time/view/backend/quicktimemode/error-view.view.php:22
+#, php-format
+msgid "The index %s send in URL isn't in range"
+msgstr "L'index %s envoyé dans l'url renvois vers une page inexistante"
 
 #: module/quick_time/view/backend/setting/buttons.view.php:21
 #: module/say-to-update.view.php:32
@@ -867,15 +888,18 @@ msgstr "Lancer la mise à jour"
 
 #: module/setting/view/capability/has-cap.view.php:20
 msgid ""
+"The \"manage_task_manager\" capability is applied to all users whse role is "
+"subsribed. You must delete the \"manage_task_manager\" ability on this one "
+"to be able to manually manage this right per user"
+msgstr ""
 "La capacité \"manage_task_manager\" est appliqué sur tous les utilisateurs "
 "dont le rôle est abonnés. Vous devez supprimer la capacité "
 "\"manage_task_manager\" sur celui-ci pour pouvoir gérer manuellement ce "
 "droit par utilisateur"
-msgstr ""
 
 #: module/setting/view/capability/list-item.view.php:24
-msgid "Droit à Task Manager"
-msgstr ""
+msgid "Right for Task Manager"
+msgstr "Droit à Task Manager"
 
 #: module/setting/view/capability/list.view.php:23
 #: module/time-exceeded/view/backend/list.view.php:20
@@ -887,28 +911,28 @@ msgid "Email"
 msgstr "E-mail"
 
 #: module/setting/view/capability/list.view.php:25
-msgid "Rôle"
-msgstr ""
+msgid "Role"
+msgstr "Rôle"
 
 #: module/setting/view/capability/list.view.php:26
-msgid "A les droit sur Task Manager"
-msgstr ""
+msgid "Right on Task Manager"
+msgstr "A les droits sur Task Manager"
 
 #: module/setting/view/capability/list.view.php:57
 msgid "Page"
-msgstr ""
+msgstr "Page"
 
 #: module/setting/view/capability/main.view.php:22
-msgid "Gestion des droits de Task Manager"
-msgstr ""
+msgid "Task Manager Rights Management"
+msgstr "Gestion des droits de Task Manager"
 
 #: module/setting/view/capability/main.view.php:24
-msgid "Définissez les droits d'accés à l'application Task Manager"
-msgstr ""
+msgid "Set access rights to the Task Manager application"
+msgstr "Définissez les droits d'accès à l'application Task Manager"
 
 #: module/setting/view/capability/main.view.php:31
-msgid "Enregistrer"
-msgstr ""
+msgid "Save"
+msgstr "Enregistrer"
 
 #: module/setting/view/general/main.view.php:26
 msgid "Use search task in admin bar"
@@ -940,8 +964,8 @@ msgstr "Êtes-vous sur(e) de vouloir supprimer ce raccourci ?"
 
 #: module/sticky-note/view/backend/main.view.php:32
 #: module/sticky-note/view/backend/sticky-note.view.php:35
-msgid "Write your note here"
-msgstr "Écrivez votre note ici..."
+msgid "Write your note here ..."
+msgstr "Écrivez votre note ici …"
 
 #: module/support/action/class-support.action.php:84
 msgid "Ask"
@@ -957,7 +981,7 @@ msgstr "Votre demande vas être prise en considération"
 
 #: module/support/view/frontend/created-ticket-success.view.php:21
 msgid "We will get back to you as soon as possible."
-msgstr "Nous reviendrons vers vous le plus vite possible"
+msgstr "Nous reviendrons vers vous le plus vite possible."
 
 #: module/support/view/frontend/form-create-ticket.view.php:23
 msgid "Subject for your request"
@@ -1016,7 +1040,7 @@ msgstr "Dernière activité"
 
 #: module/support/view/frontend/main.view.php:78
 msgid "Last activity the : "
-msgstr "Dernière activité le :"
+msgstr "Dernière activité le : "
 
 #: module/tag/view/backend/main-edit.view.php:34
 msgid "Create categories "
@@ -1130,25 +1154,21 @@ msgstr "Temps"
 
 #: module/time-exceeded/view/backend/list.view.php:23
 msgid "Total time exceeded"
-msgstr ""
+msgstr "Temps total dépassé"
 
 #: module/time-exceeded/view/backend/list.view.php:33
 msgid "There is no task with exceeded time corresponding to your search."
 msgstr ""
 "Il n'y a pas de tâche dont le temps est dépassé qui correspondent à votre "
-"recherche"
+"recherche."
 
 #: module/time-exceeded/view/backend/main.view.php:37
 msgid "Tasks with an exceeded forecast"
-msgstr ""
+msgstr "Les taches avec une prévision dépassée"
 
 #: module/time-exceeded/view/backend/main.view.php:43
-msgid "Tasks without forecast over time beyound"
-msgstr ""
-
-#: module/time-exceeded/view/backend/main.view.php:46
-msgid "minutes"
-msgstr ""
+msgid "Tasks without forecast over time beyond"
+msgstr "Les taches sans prévision de temps"
 
 #: module/time-exceeded/view/backend/main.view.php:49
 msgid "Display exceeded tasks"
@@ -1166,16 +1186,16 @@ msgstr "Task Manager Outils"
 
 #: module/tools/view/backend/main.view.php:23
 msgid "Compile tasks, points, comments"
-msgstr ""
+msgstr "Compiler les taches, les points et les commentaires"
 
 #: module/tools/view/backend/main.view.php:25
 #: module/tools/view/backend/main.view.php:32
 msgid "Compile"
-msgstr ""
+msgstr "Compiler"
 
 #: module/tools/view/backend/main.view.php:30
 msgid "Compile users"
-msgstr ""
+msgstr "Compiler les utilisateurs"
 
 #: module/update_manager/action/class-update-manager-action.php:54
 #, php-format
@@ -1287,6 +1307,23 @@ msgstr "Une erreur est survenu lors de la modification de la tâche %d"
 msgid "%1$d tasks have been marked as archived on %2$d"
 msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
 
+#~ msgid "Droit à Task Manager"
+#~ msgstr "Right for Task Manager"
+
+#, fuzzy
+#~| msgid "Are you sure you want to delete this note ?"
+#~ msgid "Are you sure you want to delete this one ?"
+#~ msgstr "Êtes-vous sur(e) de vouloir supprimer ce raccourci ?"
+
+#~ msgid "Confirm deletion"
+#~ msgstr "Etes vous sûr de vouloir supprimer cet élément ?"
+
+#~ msgid "Rôle"
+#~ msgstr "Role"
+
+#~ msgid "Add"
+#~ msgstr "Ajouter"
+
 #~ msgid "Add time"
 #~ msgstr "Ajouter du temps"
 
@@ -1350,9 +1387,6 @@ msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
 #~ msgid "More options"
 #~ msgstr "Plus d'options"
 
-#~ msgid "Search criteria: "
-#~ msgstr "Critère de recherche : "
-
 #~ msgid " all tasks "
 #~ msgstr "Toutes les tâches"
 
@@ -1415,9 +1449,6 @@ msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
 
 #~ msgid "Task Manager Update"
 #~ msgstr "Mise à jour Task Manager"
-
-#~ msgid "Redirect to Task Manager"
-#~ msgstr "Redirection vers Task Manager"
 
 #~ msgid "New due time"
 #~ msgstr "Nouvelle date de fin"
@@ -1902,9 +1933,6 @@ msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
 
 #~ msgid "Click here to add a tag"
 #~ msgstr "Cliquez ici pour ajouter un tag"
-
-#~ msgid "Add the comment #"
-#~ msgstr "Ajouter le commentaire #"
 
 #~ msgid "Completed the point #"
 #~ msgstr "Compléter le point #"

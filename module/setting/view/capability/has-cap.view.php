@@ -17,6 +17,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! empty( $role_subscriber->capabilities['manage_task_manager'] ) ) :
 	?>
-	<p class="red"><?php esc_html_e( 'La capacité "manage_task_manager" est appliqué sur tous les utilisateurs dont le rôle est abonnés. Vous devez supprimer la capacité "manage_task_manager" sur celui-ci pour pouvoir gérer manuellement ce droit par utilisateur', 'task-manager' ); ?></p>
+	<p class="red"><?php esc_html_e( 'The "manage_task_manager" capability is applied to all users whse role is subsribed. You must delete the "manage_task_manager" ability on this one to be able to manually manage this right per user', 'task-manager' ); ?></p>
 	<?php
 endif;

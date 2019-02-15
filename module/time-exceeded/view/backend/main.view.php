@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<li>
 			<label for="min_exceeded_time">
 				<input type="radio" id="min_exceeded_time" name="tm_filter_exceed_type" value="custom_time" <?php checked( 'custom_time', $filter_type, true ); ?>/>
-				<?php esc_html_e( 'Tasks without forecast over time beyound', 'task-manager' ); ?>
+				<?php esc_html_e( 'Tasks without forecast over time beyond', 'task-manager' ); ?>
 			</label>
 			<input type="text" name="min_exceeded_time" value="<?php echo esc_attr( $min_exceeded_time ); ?>" />
 			<?php esc_html_e( 'minutes', 'task-manager' ); ?>

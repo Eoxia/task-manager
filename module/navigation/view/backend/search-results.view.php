@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php if ( $have_search ) : ?>
 	<div class="search-results">
-		<span class="result-title"><?php esc_html_e( 'Critères de recherche :', 'task-manager' ); ?></span>
+		<span class="result-title"><?php esc_html_e( 'The search criteria : ', 'task-manager' ); ?></span>
 
 		<ul class="result-list-tags">
 			<?php if ( ! empty( $term ) ) : ?>

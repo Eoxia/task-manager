@@ -52,7 +52,12 @@ class Quick_Time_Filter {
 				true
 			);
 
-			$comment->data['time_info']['calculed_elapsed'] = $time_elapsed->data[ 'time_info' ][ 'calculed_elapsed' ];
+			if( ! isset( $comment->data['time_info']['calculed_elapsed'] ) ){
+				$comment->data['time_info']['calculed_elapsed'] = $time_elapsed->data[ 'time_info' ][ 'elapsed' ];
+			}else{
+
+				$comment->data['time_info']['calculed_elapsed'] = $time_elapsed->data[ 'time_info' ][ 'calculed_elapsed' ];
+			}
 		}
 		return $comment;
 	}

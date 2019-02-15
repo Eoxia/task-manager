@@ -29,5 +29,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div contenteditable="true"><?php echo trim( $note->data['content'] ); ?></div>
 
 <?php if ( empty( $note->data['content'] ) ) : ?>
-	<span class="placeholder <?php echo empty( $note->data['content'] ) ? '' : 'hidden'; ?>"><i class="far fa-plus fa-fw"></i> <?php esc_html_e( 'Write your note here', 'task-manager' ); ?></span>
+	<span class="placeholder <?php echo empty( $note->data['content'] ) ? '' : 'hidden'; ?>"><i class="far fa-plus fa-fw"></i> <?php esc_html_e( 'Write your note here ...', 'task-manager' ); ?></span>
 <?php endif; ?>

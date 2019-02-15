@@ -22,8 +22,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<td class="w50"></td>
 				<td class="w50 padding"><?php esc_html_e( 'ID', 'task-manager' ); ?></td>
 				<td class="padding"><?php esc_html_e( 'Email', 'task-manager' ); ?></td>
-				<td class="padding"><?php esc_html_e( 'Rôle', 'task-manager' ); ?></td>
-				<td class="padding"><?php esc_html_e( 'A les droit sur Task Manager', 'task-manager' ); ?></td>
+				<td class="padding"><?php esc_html_e( 'Role', 'task-manager' ); ?></td>
+				<td class="padding"><?php esc_html_e( 'Right on Task Manager', 'task-manager' ); ?></td>
 			</tr>
 		</thead>
 		<?php

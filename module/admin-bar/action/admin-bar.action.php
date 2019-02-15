@@ -80,19 +80,28 @@ class Admin_Bar_Action {
 		_e( 'Quick time', 'task-manager' );
 		Quick_Time_Class::g()->display_setting_button();
 		$modal_title = ob_get_clean();*/
-		$modal_title = '';
+		$modal_title = esc_html__( 'Quicktime PAGE', 'task-manager' );
+
+		ob_start();
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'quick_time',
+			'backend/buttons-save'
+		);
+		$viewbutton = ob_get_clean();
 
 		ob_start();
 		Quick_Time_Class::g()->display_list();
 		$view = ob_get_clean();
 		wp_send_json_success(
 			array(
-				'modal_title'  => $modal_title,
-				'view'         => $view,
-				'buttons_view' => '&nbsp;',
+				'modal_title'      => $modal_title,
+				'view'             => $view,
+				'buttons_view'     => $viewbutton,
 			)
 		);
 	}
+
 
 	/**
 	 * [callback_search_task description]

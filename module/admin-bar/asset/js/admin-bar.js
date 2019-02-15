@@ -48,6 +48,10 @@ window.eoxiaJS.taskManager.adminBar.event = function() {
 	jQuery( document ).on( 'keyup', '.quick-time-content .item .min .displayed', window.eoxiaJS.taskManager.adminBar.onKeyUp );
 	jQuery( document ).on( 'click', '#tm_quicktime_create_new', window.eoxiaJS.taskManager.adminBar.checkIfNewLineCanBeSend );
 	jQuery( document ).on( 'keyup', '#tm_quicktime_create_new', window.eoxiaJS.taskManager.adminBar.checkIfNewLineCanBeSend );
+
+	jQuery( document ).on( 'keyup', '.quick-time-content .item .min :text', window.eoxiaJS.taskManager.adminBar.updateButtonSave  );
+	jQuery( document ).on( 'keyup', '.quick-time-content .item .content :input', window.eoxiaJS.taskManager.adminBar.updateButtonSave  );
+	//jQuery( document ).on( 'click', '.quick-time-content .action input[type="checkbox"]', window.eoxiaJS.taskManager.adminBar.updateButtonSave );
 };
 
 /**
@@ -144,6 +148,8 @@ window.eoxiaJS.taskManager.adminBar.quickTimeAddedComment = function( triggeredE
 
 	jQuery( '#tm_quicktime_information_add_time' ).css( 'display' , 'block' );
 	jQuery( '#tm_quicktime_information_add_time_text' ).replaceWith( text );
+	window.eoxiaJS.taskManager.adminBar.updateButtonSave();
+
 };
 
 /**
@@ -165,6 +171,7 @@ window.eoxiaJS.taskManager.adminBar.onCheckedCheckAll = function( event ) {
 	}
 
 	window.eoxiaJS.taskManager.adminBar.updateTime( jQuery( this ) );
+	window.eoxiaJS.taskManager.adminBar.updateButtonSave();
 };
 
 /**
@@ -184,6 +191,8 @@ window.eoxiaJS.taskManager.adminBar.onChecked = function( event ) {
 	}
 
 	window.eoxiaJS.taskManager.adminBar.updateTime( jQuery( this ) );
+	window.eoxiaJS.taskManager.adminBar.updateButtonSave();
+
 };
 
 /**
@@ -251,6 +260,8 @@ window.eoxiaJS.taskManager.adminBar.updateTime = function( element ) {
 			container.find( 'input.time' ).val( '' );
 		}
 	} );
+
+ //window.eoxiaJS.taskManager.adminBar.updateButtonSave( 'updateTime' );
 }
 
 
@@ -265,4 +276,34 @@ window.eoxiaJS.taskManager.adminBar.checkIfNewLineCanBeSend = function( element 
 		jQuery( '#tm_validate_quicktime_line' ).addClass( 'button-disable');
 	}
 
+}
+
+window.eoxiaJS.taskManager.adminBar.updateButtonSave = function( element ){
+
+	var data_was_change = false;
+
+	jQuery( '.quick-time-content .item .min :text' ).each( function( ){
+		var temp_placeholder = jQuery( this ).attr('placeholder');
+		if( jQuery( this ).val() != '' ){
+			data_was_change = true;
+		}
+
+		if( temp_placeholder != '' && temp_placeholder != null && ! isNaN( temp_placeholder ) ){
+			data_was_change = true;
+		}
+	});
+
+	jQuery( '.quick-time-content .item .content textarea' ).each( function( ){
+		if( jQuery( this ).val() != jQuery( this ).parent().find( 'input[type=hidden]' ).val() && this.id != 'tm_quicktime_textarea_' ){
+			data_was_change = true;
+		}
+	});
+
+	if( data_was_change ){
+		//jQuery( this ).closest( '.item' ).find( 'input[type="checkbox"]' ).attr( 'checked', true );
+		jQuery( '.tm_quickpoint_add_time' ).removeClass( 'button-disable' ).addClass( 'button-main' );
+	}else{
+		//jQuery( this ).closest( '.item' ).find( 'input[type="checkbox"]' ).attr( 'checked', false );
+		jQuery( '.tm_quickpoint_add_time' ).removeClass( 'button-main' ).addClass( 'button-disable' );
+	}
 }

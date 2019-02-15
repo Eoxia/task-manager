@@ -39,7 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			?>
 		</li>
 		<li class="delete action-delete"
-				data-message-delete="<?php esc_attr_e( 'Confirm deletion', 'task-manager' ); ?>"
+				data-message-delete="<?php esc_attr_e( 'Are you sure you want to delete this element ?', 'task-manager' ); ?>"
 				data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_history_time' ) ); ?>"
 				data-action="delete_history_time"
 				data-id="<?php echo esc_attr( $history_time->data['id'] ); ?>">

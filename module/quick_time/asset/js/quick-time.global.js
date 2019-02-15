@@ -154,6 +154,7 @@ window.eoxiaJS.taskManagerGlobal.quickTime.onCheckedCheckAll = function( event )
 	}
 
 	window.eoxiaJS.taskManagerGlobal.quickTime.updateTime( jQuery( this ) );
+	window.eoxiaJS.taskManager.adminBar.updateButtonSave();
 };
 
 /**
@@ -189,7 +190,6 @@ window.eoxiaJS.taskManagerGlobal.quickTime.onChecked = function( event ) {
  */
 window.eoxiaJS.taskManagerGlobal.quickTime.onKeyUp = function( event ) {
 
-console.log( 'oui' );
 	if ( '' !== jQuery( this ).val() ) {
 		jQuery( this ).closest( '.item' ).find( 'input[type="checkbox"]' ).attr( 'checked', true );
 		//window.eoxiaJS.taskManagerGlobal.quickTime.ajaxRequestEditLineQuickTime();
@@ -296,4 +296,6 @@ window.eoxiaJS.taskManagerGlobal.quickTime.copyToClipboard = function( element )
   temp_element_clipboard.select();
   document.execCommand( 'copy' );
   document.body.removeChild( temp_element_clipboard );
+
+	jQuery( this ).parent().find( '.tm_quicktime_focus_url' ).select();
 }

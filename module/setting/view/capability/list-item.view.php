@@ -21,6 +21,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<td class="padding"><span><?php echo esc_html( $user->data['email'] ); ?></span></td>
 	<td class="padding"><span><?php echo esc_html( implode( ', ', $user->wordpress_user->roles ) ); ?></span></td>
 	<td>
-		<input <?php echo ( $has_capacity_in_role ) ? 'disabled' : ''; ?> <?php echo ( $user->wordpress_user->has_cap( 'manage_task_manager' ) ) ? 'checked' : ''; ?> name="users[<?php echo esc_attr( $user->data['id'] ); ?>][capability]" id="have_capability_<?php echo esc_attr( $user->data['id'] ); ?>" type="checkbox" /><label for="have_capability_<?php echo esc_attr( $user->data['id'] ); ?>"><?php esc_html_e( 'Droit à Task Manager', 'task-manager' ); ?></label>
+		<input <?php echo ( $has_capacity_in_role ) ? 'disabled' : ''; ?> <?php echo ( $user->wordpress_user->has_cap( 'manage_task_manager' ) ) ? 'checked' : ''; ?> name="users[<?php echo esc_attr( $user->data['id'] ); ?>][capability]" id="have_capability_<?php echo esc_attr( $user->data['id'] ); ?>" type="checkbox" /><label for="have_capability_<?php echo esc_attr( $user->data['id'] ); ?>"><?php esc_html_e( 'Right for Task Manager', 'task-manager' ); ?></label>
 	</td>
 </tr>
