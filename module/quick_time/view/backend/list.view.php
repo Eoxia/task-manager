@@ -15,9 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="content quick-time-content">
+<div class="content quick-time-content form-quicktime">
 	<input type="hidden" name="action" value="quick_time_add_comment" />
-	<?php wp_nonce_field( 'quick_time_add_comment' ); ?>
+	<input type="hidden" value="0" id="tm_quicktime_count_modification"/>
 
 	<table class="list wpeo-table">
 		<thead>
@@ -31,6 +31,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<span><?php esc_html_e( 'min.', 'task-manager' ); ?></span>
 				</th>
 				<th class="action"><input type="checkbox" /></th>
+				<th><?php esc_html_e( 'Copy to clipboard', 'task-manager' ); ?></th>
+				<th><?php esc_html_e( 'Delete', 'task-manager' ); ?></th>
 			</tr>
 		</thead>
 
@@ -39,21 +41,48 @@ if ( ! defined( 'ABSPATH' ) ) {
 			$i = 0;
 			if ( ! empty( $quicktimes ) ) :
 				foreach ( $quicktimes as $key => $quicktime ) :
-					\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/item', array(
-						'key'       => $key,
-						'quicktime' => $quicktime,
-						'i'         => $i,
-					) );
-					$i++;
+					if( $quicktime != '' ):
+						\eoxia\View_Util::exec(
+							'task-manager',
+							'quick_time',
+							'backend/item',
+							array(
+								'key'       => $key,
+								'quicktime' => $quicktime,
+								'i'         => $i,
+								'editline' => $editline
+							)
+						);
+						$i++;
+					endif;
 				endforeach;
 			endif;
 			?>
+
+			<?php
+					\eoxia\View_Util::exec(
+						'task-manager',
+						'quick_time',
+						'backend/list-newline'
+					);
+			?>
+
 		</tbody>
 
 	</table>
 
-	<span class="wpeo-button button-main button-progress action-input"
-		data-parent="content"><?php esc_html_e( 'Add time', 'task-manager' ); ?></span>
+			<!--<span class="wpeo-button button-main button-progress action-attribute" id="tm_create_quicktime_line"
+				data-nonce="<?php echo esc_attr( wp_create_nonce( 'show_new_line_quicktime' ) ); ?>"
+				data-action="showNewLineQuicktime">
+				<?php esc_html_e( 'New', 'task-manager' ); ?>
+			</span>-->
+
+
+
+
+	<div class="" id='tm_quicktime_information_add_time'>
+		<span id="tm_quicktime_information_add_time_text"></span>
+	</div>
 
 	<!-- <div class="list">
 		<ul class="header">
@@ -71,14 +100,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php
 		// $i = 0;
 		// if ( ! empty( $quicktimes ) ) :
-		// 	foreach ( $quicktimes as $key => $quicktime ) :
-		// 		\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/item', array(
-		// 			'key'       => $key,
-		// 			'quicktime' => $quicktime,
-		// 			'i'         => $i,
-		// 		) );
-		// 		$i++;
-		// 	endforeach;
+		// foreach ( $quicktimes as $key => $quicktime ) :
+		// \eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/item', array(
+		// 'key'       => $key,
+		// 'quicktime' => $quicktime,
+		// 'i'         => $i,
+		// ) );
+		// $i++;
+		// endforeach;
 		// endif;
 		?>
 

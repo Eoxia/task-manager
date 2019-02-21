@@ -36,24 +36,41 @@ class Task_Filter {
 		add_filter( 'task_header_information', array( $this, 'callback_task_header_information_elapsed' ), 11, 2 );
 		add_filter( 'task_header_information', array( $this, 'callback_task_header_information_button' ), 20, 2 );
 
-		add_filter( 'tm_task_footer', array( $this, 'callback_tm_task_footer'), 10, 2 );
+		add_filter( 'tm_task_footer', array( $this, 'callback_tm_task_footer' ), 10, 2 );
 	}
-
+	/**
+	 * Tableau titre et description
+	 *
+	 * @param  [type] $string [description].
+	 * @return [type] $string [description]
+	 */
 	public function callback_dashboard_title( $string ) {
 		$url = wp_nonce_url( add_query_arg( array( 'action' => 'create_task' ), admin_url( 'admin-post.php' ) ), 'wpeo_nonce_create_task' );
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/button-add', array(
-			'url' => $url,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'task',
+			'backend/button-add',
+			array(
+				'url' => $url,
+			)
+		);
 		$string .= ob_get_clean();
 
 		return $string;
 	}
-	
+
+	/**
+	 * Tache header résumé
+	 *
+	 * @param  [type] $output [Affichage].
+	 * @param  [type] $task   [Tache].
+	 * @return [type] $output [Affichage]
+	 */
 	public function callback_task_header_summary( $output, $task ) {
 		$user = Follower_Class::g()->get( array( 'id' => get_current_user_id() ), true );
-		
+
 		if ( $user->data['_tm_advanced_display'] ) {
 			// Construction de l'affichage du temps passé.
 			$task_time_info                = $task->data['time_info']['elapsed'];
@@ -64,19 +81,30 @@ class Task_Filter {
 				$task_time_info                .= ' / ' . $task->data['last_history_time']->data['estimated_time'];
 				$task_time_info_human_readable .= ' / ' . \eoxia\Date_Util::g()->convert_to_custom_hours( $task->data['last_history_time']->data['estimated_time'] );
 			}
-			
+
 			ob_start();
-			\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task-header-summary', array(
-				'task'                          => $task,
-				'task_time_info'                => $task_time_info,
-				'task_time_info_human_readable' => $task_time_info_human_readable,
-			) );
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'task',
+				'backend/task-header-summary',
+				array(
+					'task'                          => $task,
+					'task_time_info'                => $task_time_info,
+					'task_time_info_human_readable' => $task_time_info_human_readable,
+				)
+			);
 			$output .= ob_get_clean();
 		}
-		
+
 		return $output;
 	}
 
+	/**
+	 * Tableau Filtre
+	 *
+	 * @param  [type] $string [description].
+	 * @return [type] $string [description]
+	 */
 	public function callback_dashboard_filter( $string ) {
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/filter-tab' );
@@ -85,70 +113,131 @@ class Task_Filter {
 		return $string;
 	}
 
+	/**
+	 * Contenu du dashboard
+	 *
+	 * @param  [type] $string      [description].
+	 * @param  [type] $post_parent [description].
+	 * @return [type] $string      [description]
+	 */
 	public function callback_dashboard_content( $string, $post_parent ) {
-		if ( $post_parent == 0 ) {
-			$list_task = Task_Class::g()->get( array( 'post_parent' => 0,
-			'meta_query' => array(
+		if ( 0 == $post_parent ) {
+			$list_task = Task_Class::g()->get(
 				array(
-					'key' => 'wpeo_task',
-					'value' => '{"user_info":{"owner_id":' . get_current_user_id(),
-						'compare' => 'like',
-					)
-				)
+					'post_parent' => 0,
+					'meta_query'  => array(
+						array(
+							'key'     => 'wpeo_task',
+							'value'   => '{"user_info":{"owner_id":' . get_current_user_id(),
+							'compare' => 'like',
+						),
+					),
 				)
 			);
-		}
-		else {
+		} else {
 			$list_task = Task_Class::g()->get( array( 'post_parent' => $post_parent ) );
 		}
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/list-task', array(
-			'list_task' => $list_task,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'task',
+			'backend/list-task',
+			array(
+				'list_task' => $list_task,
+			)
+		);
 		$string .= ob_get_clean();
 
 		return $string;
 	}
 
+	/**
+	 * Tache action header
+	 *
+	 * @param  [type] $string [description].
+	 * @param  [type] $task   [description].
+	 * @return [type] $string [description]
+	 */
 	public function callback_task_header_action( $string, $task ) {
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task-header-button', array(
-			'task' => $task,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'task',
+			'backend/task-header-button',
+			array(
+				'task' => $task,
+			)
+		);
 		$string .= ob_get_clean();
 		return $string;
 	}
 
+	/**
+	 * Tache headers information
+	 *
+	 * @param  [type] $string [description].
+	 * @param  [type] $task   [description].
+	 * @return [type] $string
+	 */
 	public function callback_task_header_information_elapsed( $string, $task ) {
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/time-elapsed', array(
-			'task' => $task,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'task',
+			'backend/time-elapsed',
+			array(
+				'task' => $task,
+			)
+		);
 		$string .= ob_get_clean();
 		return $string;
 	}
 
+	/**
+	 * Header information du bouton
+	 *
+	 * @param  [type] $string [description].
+	 * @param  [type] $task   [description].
+	 * @return [type] $string [description]
+	 */
 	public function callback_task_header_information_button( $string, $task ) {
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/information-button', array(
-			'task' => $task,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'task',
+			'backend/information-button',
+			array(
+				'task' => $task,
+			)
+		);
 		$string .= ob_get_clean();
 		return $string;
 	}
-	
+
+	/**
+	 * Tache footer
+	 *
+	 * @param  [type] $output [view].
+	 * @param  [type] $task   [description].
+	 * @return [type] $output [view]
+	 */
 	public function callback_tm_task_footer( $output, $task ) {
 		$user = Follower_Class::g()->get( array( 'id' => get_current_user_id() ), true );
 
-		if ( ! empty( $task->data['parent_id'] ) &&  $user->data['_tm_advanced_display'] ) {
+		if ( ! empty( $task->data['parent_id'] ) && $user->data['_tm_advanced_display'] ) {
 			ob_start();
-			\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/linked-post-type', array(
-				'task' => $task, 
-			) );
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'task',
+				'backend/linked-post-type',
+				array(
+					'task' => $task,
+				)
+			);
 			$output .= ob_get_clean();
 		}
-		
+
 		return $output;
 	}
 }

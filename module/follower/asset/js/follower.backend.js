@@ -10,7 +10,9 @@ window.eoxiaJS.taskManager.follower.init = function() {
 	window.eoxiaJS.taskManager.follower.event();
 };
 
-window.eoxiaJS.taskManager.follower.event = function() { };
+window.eoxiaJS.taskManager.follower.event = function() {
+	jQuery( document ).on( 'click', '.showfullplanning', window.eoxiaJS.taskManager.follower.showfullplanning );
+ };
 
 /**
  * Le callback en cas de réussite à la requête Ajax "load_followers".
@@ -105,3 +107,11 @@ window.eoxiaJS.taskManager.follower.unaffectedFollowerSuccess = function( elemen
 	element.attr( 'data-before-method', 'beforeAffectFollower' );
 	element.attr( 'data-nonce', response.data.nonce );
 };
+
+window.eoxiaJS.taskManager.follower.showfullplanning = function( event ){
+	jQuery( '.showfullplanning' ).css( 'display', 'none' );
+}
+
+window.eoxiaJS.taskManager.follower.reloadPlanningUser = function( element, response ){
+	jQuery( '.planninguser' ).replaceWith( response.data.view );
+}

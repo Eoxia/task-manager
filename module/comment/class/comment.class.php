@@ -94,6 +94,7 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 	 *
 	 * @param  integer $task_id L'ID de la tâche.
 	 * @param  integer $point_id L'ID du point.
+	 * @param boolean $frontend Ou se trouve la view.
 	 *
 	 * @return void
 	 * @todo: Faire passer le paramètre comment_id et le renommé en selected_comment_id.
@@ -103,22 +104,31 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 
 		$comments = self::g()->get_comments( $point_id );
 
-		$comment_schema = self::g()->get( array(
-			'schema' => true,
-		), true );
-		
-		$view = "backend";
+		$comment_schema = self::g()->get(
+			array(
+				'schema' => true,
+			),
+			true
+		);
+
+		$view = 'backend';
 		if ( $frontend ) {
-			$view = "frontend";
+			$view = 'frontend';
 		}
 
-		\eoxia\View_Util::exec( 'task-manager', 'comment', $view . '/main', array(
-			'task_id'             => $task_id,
-			'point_id'            => $point_id,
-			'comments'            => $comments,
-			'comment_selected_id' => $comment_id,
-			'comment_schema'      => $comment_schema,
-		) );
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'comment',
+			$view . '/main',
+			array(
+				'task_id'             => $task_id,
+				'point_id'            => $point_id,
+				'comments'            => $comments,
+				'comment_selected_id' => $comment_id,
+				'comment_schema'      => $comment_schema,
+			)
+		);
 	}
 
 	/**
@@ -137,9 +147,12 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 			return false;
 		}
 
-		$comment = self::g()->get( array(
-			'id' => $comment_id,
-		), true );
+		$comment = self::g()->get(
+			array(
+				'id' => $comment_id,
+			),
+			true
+		);
 
 		if ( $comment->data['parent_id'] === $point_id ) {
 			return true;

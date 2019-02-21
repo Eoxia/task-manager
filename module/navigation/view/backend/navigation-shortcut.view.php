@@ -19,12 +19,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php
 	if ( ! empty( $shortcuts ) ) :
 		foreach ( $shortcuts as $key => $shortcut ) :
-			\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/shortcut', array(
-				'shortcut' => $shortcut,
-				'url'      => $url,
-				'new'      => false,
-				'key'      => $key,
-			) );
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'navigation',
+				'backend/shortcut',
+				array(
+					'shortcut' => $shortcut,
+					'url'      => $url,
+					'new'      => false,
+					'key'      => $key,
+				)
+			);
 		endforeach;
 	endif;
 	?>

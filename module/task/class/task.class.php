@@ -129,6 +129,7 @@ class Task_Class extends \eoxia\Post_Class {
 		global $wpdb;
 
 		$param['id']             = isset( $param['id'] ) ? (int) $param['id'] : 0;
+		$param['task_id']       = isset( $param['task_id'] ) ? (int) $param['task_id'] : 0;
 		$param['point_id']       = isset( $param['point_id'] ) ? (int) $param['point_id'] : 0;
 		$param['offset']         = ! empty( $param['offset'] ) ? (int) $param['offset'] : 0;
 		$param['posts_per_page'] = ! empty( $param['posts_per_page'] ) ? (int) $param['posts_per_page'] : -1;
@@ -137,10 +138,10 @@ class Task_Class extends \eoxia\Post_Class {
 		$param['status']         = ! empty( $param['status'] ) ? sanitize_text_field( $param['status'] ) : 'any';
 		$param['post_parent']    = ! empty( $param['post_parent'] ) ? (array) $param['post_parent'] : null;
 		$param['term']           = ! empty( $param['term'] ) ? sanitize_text_field( $param['term'] ) : '';
-		
+
 		$tasks    = array();
 		$tasks_id = array();
-		
+
 		if ( ! empty( $param['status'] ) ) {
 			if ( 'any' === $param['status'] ) {
 				$param['status'] = '"publish","pending","draft","future","private","inherit"';
@@ -152,7 +153,7 @@ class Task_Class extends \eoxia\Post_Class {
 				$param['status'] = str_replace( ',', '","', $param['status'] );
 			}
 		}
-		
+
 		$param = apply_filters( 'task_manager_get_tasks_args', $param );
 
 		$point_type = Point_Class::g()->get_type();
@@ -160,18 +161,18 @@ class Task_Class extends \eoxia\Post_Class {
 		$comment_type = Task_Comment_Class::g()->get_type();
 
 		$query = "SELECT DISTINCT TASK.ID FROM {$wpdb->posts} AS TASK
-			LEFT JOIN {$wpdb->comments} AS POINT ON POINT.comment_post_ID=TASK.ID AND POINT.comment_approved = 1 AND POINT.comment_type = '{$point_type}'
-			LEFT JOIN {$wpdb->comments} AS COMMENT ON COMMENT.comment_parent=POINT.comment_ID AND COMMENT.comment_approved = 1 AND POINT.comment_approved = 1 AND COMMENT.comment_type = '{$comment_type}'
+			LEFT JOIN {$wpdb->comments} AS POINT ON POINT.comment_post_id=TASK.ID AND POINT.comment_approved = 1 AND POINT.comment_type = '{$point_type}'
+			LEFT JOIN {$wpdb->comments} AS COMMENT ON COMMENT.comment_parent=POINT.comment_id AND COMMENT.comment_approved = 1 AND POINT.comment_approved = 1 AND COMMENT.comment_type = '{$comment_type}'
 			LEFT JOIN {$wpdb->postmeta} AS TASK_META ON TASK_META.post_id=TASK.ID AND TASK_META.meta_key='wpeo_task'
 			LEFT JOIN {$wpdb->term_relationships} AS CAT ON CAT.object_id=TASK.ID
-		WHERE TASK.post_type='wpeo-task'
+		WHERE TASK.post_type='wpeo-task'";
 
-			AND TASK.post_status IN (" . $param['status'] . ") ";
-			
-		if ( isset( $param['post_parent'] ) && ! is_null( $param['post_parent'] ) ) {
+		$query .= 'AND TASK.post_status IN (' . $param['status'] . ')';
+
+		if ( ! is_null( $param['post_parent'] ) ) {
 			$query .= 'AND TASK.post_parent IN (' . implode( $param['post_parent'], ',' ) . ')';
 		}
-		
+
 		if ( ! empty( $param['users_id'] ) ) {
 			$query .= "AND (
 				(
@@ -199,53 +200,55 @@ class Task_Class extends \eoxia\Post_Class {
 				$query .= "AND ({$sub_query})";
 			}
 		}
-				
+
 		$sub_where = '';
-			
+
 		if ( ! empty( $param['term'] ) ) {
 			$sub_where = "
 				(
 					TASK.ID LIKE '%" . $param['term'] . "%' OR TASK.post_title LIKE '%" . $param['term'] . "%'
 				) OR (
-					POINT.comment_ID LIKE '%" . $param['term'] . "%' OR POINT.comment_content LIKE '%" . $param['term'] . "%'
+					POINT.comment_id LIKE '%" . $param['term'] . "%' OR POINT.comment_content LIKE '%" . $param['term'] . "%'
 				) OR (
 					COMMENT.comment_parent != 0 AND (COMMENT.comment_id LIKE '%" . $param['term'] . "%' OR COMMENT.comment_content LIKE '%" . $param['term'] . "%')
 				)";
 		}
 
-		if ( $param['id'] ) {
+		if ( $param['task_id'] ) {
 			if ( ! empty( $sub_where ) ) {
-				$sub_where .= " OR (TASK.ID = " . $param['id'] . ")";
+				$sub_where .= ' OR (TASK.ID = ' . $param['task_id'] . ')';
 			} else {
-				$sub_where .= " (TASK.ID = " . $param['id'] . ")";
+				$sub_where .= ' (TASK.ID = ' . $param['task_id'] . ')';
 			}
 		}
-		
+
 		if ( $param['point_id'] ) {
 			if ( ! empty( $sub_where ) ) {
-				$sub_where .= " OR (POINT.comment_ID = " . $param['point_id'] . ")";
+				$sub_where .= ' OR (POINT.comment_id = ' . $param['point_id'] . ')';
 			} else {
-				$sub_where .= " (POINT.comment_ID = " . $param['point_id'] . ")";
+				$sub_where .= ' (POINT.comment_id = ' . $param['point_id'] . ')';
 			}
 		}
-		
+
 		if ( ! empty( $sub_where ) ) {
 			$query .= ' AND (' . $sub_where . ')';
 		}
-		
-		$query .= " ORDER BY TASK.post_date DESC ";
+
+		$query .= ' ORDER BY TASK.post_date DESC ';
 
 		if ( -1 !== $param['posts_per_page'] ) {
-			$query .= "LIMIT " . $param['offset'] . "," . $param['posts_per_page'];
+			$query .= 'LIMIT ' . $param['offset'] . ',' . $param['posts_per_page'];
 		}
-		
-		$tasks_id = $wpdb->get_col( $query );
+
+		$tasks_id = $wpdb->get_col( $query ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
 		if ( ! empty( $tasks_id ) ) {
-			$tasks = self::g()->get( array(
-				'post__in'    => $tasks_id,
-				'post_status' => $param['status'],
-			) );
+			$tasks = self::g()->get(
+				array(
+					'post__in'    => $tasks_id,
+					'post_status' => $param['status'],
+				)
+			);
 		} // End if().
 
 		return $tasks;
@@ -266,15 +269,25 @@ class Task_Class extends \eoxia\Post_Class {
 	 */
 	public function display_tasks( $tasks, $frontend = false ) {
 		if ( $frontend ) {
-			\eoxia\View_Util::exec( 'task-manager', 'task', 'frontend/tasks', array(
-				'tasks'        => $tasks,
-				'with_wrapper' => false,
-			) );
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'task',
+				'frontend/tasks',
+				array(
+					'tasks'        => $tasks,
+					'with_wrapper' => false,
+				)
+			);
 		} else {
-			\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/tasks', array(
-				'tasks'        => $tasks,
-				'with_wrapper' => false,
-			) );
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'task',
+				'backend/tasks',
+				array(
+					'tasks'        => $tasks,
+					'with_wrapper' => false,
+				)
+			);
 		}
 	}
 
@@ -298,10 +311,12 @@ class Task_Class extends \eoxia\Post_Class {
 
 		// Affichage des tâches de l'élément sur lequel on se trouve.
 		$tasks[ $post->ID ]['title'] = '';
-		$tasks[ $post->ID ]['data']  = self::g()->get_tasks( array(
-			'post_parent' => $post->ID,
-			'status'      => 'publish,pending,draft,future,private,inherit,archive',
-		) );
+		$tasks[ $post->ID ]['data']  = self::g()->get_tasks(
+			array(
+				'post_parent' => $post->ID,
+				'status'      => 'publish,pending,draft,future,private,inherit,archive',
+			)
+		);
 
 		if ( ! empty( $tasks[ $post->ID ]['data'] ) ) {
 			foreach ( $tasks[ $post->ID ]['data'] as $task ) {
@@ -330,10 +345,12 @@ class Task_Class extends \eoxia\Post_Class {
 			foreach ( $children as $child ) {
 				/* Translators: Titre du post sur lequel on veut afficher les tâches. */
 				$tasks[ $child->ID ]['title'] = sprintf( __( 'Task for %1$s', 'task-manager' ), $child->post_title );
-				$tasks[ $child->ID ]['data']  = self::g()->get_tasks( array(
-					'post_parent' => $child->ID,
-					'status'      => 'publish,pending,draft,future,private,inherit,archive',
-				) );
+				$tasks[ $child->ID ]['data']  = self::g()->get_tasks(
+					array(
+						'post_parent' => $child->ID,
+						'status'      => 'publish,pending,draft,future,private,inherit,archive',
+					)
+				);
 
 				if ( empty( $tasks[ $child->ID ]['data'] ) ) {
 					unset( $tasks[ $child->ID ] );
@@ -357,30 +374,43 @@ class Task_Class extends \eoxia\Post_Class {
 		$total_time_elapsed   = \eoxia\Date_Util::g()->convert_to_custom_hours( $total_time_elapsed );
 		$total_time_estimated = \eoxia\Date_Util::g()->convert_to_custom_hours( $total_time_estimated );
 
-		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/metabox-posts', array(
-			'post'                 => $post,
-			'tasks'                => $tasks,
-			'task_ids_for_history' => implode( ',', $task_ids_for_history ),
-			'total_time_elapsed'   => $total_time_elapsed,
-			'total_time_estimated' => $total_time_estimated,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'task',
+			'backend/metabox-posts',
+			array(
+				'post'                 => $post,
+				'tasks'                => $tasks,
+				'task_ids_for_history' => implode( ',', $task_ids_for_history ),
+				'total_time_elapsed'   => $total_time_elapsed,
+				'total_time_estimated' => $total_time_estimated,
+			)
+		);
 	}
-	
+
+	/**
+	 * Historique de la metabox
+	 *
+	 * @param  [type] $post [description].
+	 * @return void
+	 */
 	public function callback_render_history_metabox( $post ) {
 		$tasks_id = array();
-		
-		$tasks = self::g()->get_tasks( array(
-			'post_parent' => $post->ID,
-			'status'      => 'publish,pending,draft,future,private,inherit,archive',
-		) );
-		
+
+		$tasks = self::g()->get_tasks(
+			array(
+				'post_parent' => $post->ID,
+				'status'      => 'publish,pending,draft,future,private,inherit,archive',
+			)
+		);
+
 		if ( ! empty( $tasks ) ) {
 			foreach ( $tasks as $task ) {
 				$tasks_id[] = $task->data['id'];
 			}
 		}
-		
-		$args = array(
+
+		$args     = array(
 			'post_parent' => $post->ID,
 			'post_type'   => \eoxia\Config_Util::$init['task-manager']->associate_post_type,
 			'numberposts' => -1,
@@ -390,15 +420,17 @@ class Task_Class extends \eoxia\Post_Class {
 
 		if ( ! empty( $children ) ) {
 			foreach ( $children as $child ) {
-				$tasks[ $child->ID ]['data']  = self::g()->get_tasks( array(
-					'post_parent' => $child->ID,
-					'status'      => 'publish,pending,draft,future,private,inherit,archive',
-				) );
-				
+				$tasks[ $child->ID ]['data'] = self::g()->get_tasks(
+					array(
+						'post_parent' => $child->ID,
+						'status'      => 'publish,pending,draft,future,private,inherit,archive',
+					)
+				);
+
 				if ( empty( $tasks[ $child->ID ]['data'] ) ) {
 					unset( $tasks[ $child->ID ] );
 				}
-				
+
 				if ( ! empty( $tasks[ $post->ID ] ) ) {
 					foreach ( $tasks[ $post->ID ]['data'] as $task ) {
 						$tasks_id[] = $task->data['id'];
@@ -406,19 +438,26 @@ class Task_Class extends \eoxia\Post_Class {
 				}
 			}
 		}
-		
+
 		$date_end   = current_time( 'Y-m-d' );
 		$date_start = date( 'Y-m-d', strtotime( '-1 month', strtotime( $date_end ) ) );
 
-		$datas = Activity_Class::g()->get_activity( $tasks_id, 0, $date_start, $date_end );
+		if ( ! empty( $tasks_id ) ) {
+			$datas = Activity_Class::g()->get_activity( $tasks_id, 0, $date_start, $date_end );
+		}
 
 		if ( ! empty( $tasks_id ) ) {
-			\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/post-last-activity', array(
-				'datas'      => $datas,
-				'date_start' => $date_start,
-				'date_end'   => $date_end,
-				'tasks_id'   => implode( ',', $tasks_id ),
-			) );
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'activity',
+				'backend/post-last-activity',
+				array(
+					'datas'      => $datas,
+					'date_start' => $date_start,
+					'date_end'   => $date_end,
+					'tasks_id'   => implode( ',', $tasks_id ),
+				)
+			);
 		}
 	}
 }

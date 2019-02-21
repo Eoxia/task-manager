@@ -2,11 +2,11 @@
 /**
  * Les actions relatives aux indications.
  *
- * @author Eoxia <dev@eoxia.com>
- * @since 1.5.0
- * @version 1.6.1
+ * @author    Eoxia <dev@eoxia.com>
+ * @since     1.5.0
+ * @version   1.6.1
  * @copyright 2015-2017 Eoxia
- * @package Task_Manager
+ * @package   Task_Manager
  */
 
 namespace task_manager;
@@ -20,10 +20,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Indicator_Action {
 
+
 	/**
 	 * Initialise les actions liées au indications.
 	 *
-	 * @since 1.5.0
+	 * @since   1.5.0
 	 * @version 1.5.0
 	 */
 	public function __construct() {
@@ -32,7 +33,7 @@ class Indicator_Action {
 		add_action( 'load-toplevel_page_wpeomtm-dashboard', array( $this, 'callback_load' ) );
 		add_action( 'admin_footer-toplevel_page_wpeomtm-dashboard', array( $this, 'callback_admin_footer' ) );
 
-		add_action( 'wp_ajax_mark_as_read', array( $this, 'callback_mark_as_read' ) );
+		add_action( 'wp_ajax_mark_as_read', array( $this, 'callback_mark_as_reak' ) );
 		add_action( 'tm_delete_task', array( $this, 'callback_tm_delete_task' ) );
 		add_action( 'tm_archive_task', array( $this, 'callback_tm_archive_task' ) );
 		add_action( 'tm_complete_point', array( $this, 'callback_tm_complete_point' ) );
@@ -44,7 +45,7 @@ class Indicator_Action {
 	}
 
 
-//	add_submenu_page( 'wpeomtm-dashboard', __( 'Categories', 'task-manager' ), __( 'Categories', 'task-manager' ), 'manage_task_manager', 'edit-tags.php?taxonomy=wpeo_tag' );
+	// @temp add_submenu_page( 'wpeomtm-dashboard', __( 'Categories', 'task-manager' ), __( 'Categories', 'task-manager' ), 'manage_task_manager', 'edit-tags.php?taxonomy=wpeo_tag' );
 
 	/**
 	 * Ajoutes la page 'Indicator' dans le sous menu de Task Manager.
@@ -59,12 +60,24 @@ class Indicator_Action {
 
 	}
 
+	/**
+	 * Charge les scripts
+	 *
+	 * @return void
+	 */
 	public function callback_load() {
 		wp_enqueue_script( 'common' );
 		wp_enqueue_script( 'wp-lists' );
 		wp_enqueue_script( 'postbox' );
 	}
 
+	/**
+	 * Renvois le footer admin
+	 *
+	 * @return void
+	 *
+	 * @since ? Before 1.9.0 - BETA
+	 */
 	public function callback_admin_footer() {
 		?>
 		<script type="text/javascript">
@@ -79,7 +92,7 @@ class Indicator_Action {
 	/**
 	 * Lors de la suppresion d'une tâche, enlève les ID des commentaires se trouvant dans le tableau "key_customer_ask" et dans cette tâche.
 	 *
-	 * @since 1.2.0
+	 * @since   1.2.0
 	 * @version 1.2.0
 	 *
 	 * @param  Task_Model $task La tâche.
@@ -101,7 +114,7 @@ class Indicator_Action {
 	/**
 	 * Lorsqu'on archive une tâche, enlève les ID des commentaires se trouvant dans le tableau "key_customer_ask" et dans cette tâche.
 	 *
-	 * @since 1.2.0
+	 * @since   1.2.0
 	 * @version 1.2.0
 	 *
 	 * @param  Task_Model $task La tâche.
@@ -123,7 +136,7 @@ class Indicator_Action {
 	/**
 	 * Lorsqu'on complète un point, enlève les ID des commentaires se trouvant dans le tableau "key_customer_ask" et correspondant à ce point.
 	 *
-	 * @since 1.2.0
+	 * @since   1.2.0
 	 * @version 1.2.0
 	 *
 	 * @param  Point_Model $point Le point.
@@ -145,7 +158,7 @@ class Indicator_Action {
 	/**
 	 * Lorsqu'on supprime un point, enlève les ID des commentaires se trouvant dans le tableau "key_customer_ask" et correspondant à ce point.
 	 *
-	 * @since 1.2.0
+	 * @since   1.2.0
 	 * @version 1.2.0
 	 *
 	 * @param  Point_Model $point Le point.
@@ -167,12 +180,13 @@ class Indicator_Action {
 	/**
 	 * Lorsqu'on écrit un commentaire, enlève les ID des commentaires se trouvant dans le tableau "key_customer_ask" et contenu dans le point de ce commentaire.
 	 *
-	 * @since 1.2.0
+	 * @since   1.2.0
 	 * @version 1.2.0
 	 *
-	 * @param  Task_Model    $task La tâche.
-	 * @param  Point_Model   $point Le point.
-	 * @param  Comment_Model $comment Le commentaire.
+	 * @param Task_Model    $task    La
+	 *                               tâche.
+	 * @param Point_Model   $point   Le point.
+	 * @param Comment_Model $comment Le commentaire.
 	 *
 	 * @return boolean
 	 */
@@ -188,9 +202,11 @@ class Indicator_Action {
 		if ( empty( $ids[ $task->data['id'] ][ $point->data['id'] ] ) ) {
 			return false;
 		}
-		$comments_customer = Task_Comment_Class::g()->get( array(
-			'comment__in' => $ids[ $task->data['id'] ][ $point->data['id'] ],
-		) );
+		$comments_customer = Task_Comment_Class::g()->get(
+			array(
+				'comment__in' => $ids[ $task->data['id'] ][ $point->data['id'] ],
+			)
+		);
 		if ( ! empty( $comments_customer ) ) {
 			foreach ( $comments_customer as $comment_customer ) {
 				if ( strtotime( $comment_customer->data['date']['raw'] ) < strtotime( $comment->data['date']['raw'] ) ) {
@@ -203,31 +219,39 @@ class Indicator_Action {
 	/**
 	 * Ajoutes l'ID d'un point ou d'un commentaire dans le tableau de la meta key_customer_ask.
 	 *
-	 * @since 1.2.0
+	 * @since   1.2.0
 	 * @version 1.2.0
 	 *
-	 * @param integer $id   L'ID du commentaire.
+	 * @param integer $id L'ID du commentaire.
 	 *
 	 * @return bool
 	 */
 	public function callback_tm_add_entry_customer_ask( $id ) {
 		\eoxia\LOG_Util::log( '------------------------------------------------------------------------------------------------', 'task-manager' );
-		$comment = Task_Comment_Class::g()->get( array(
-			'id' => $id,
-		), true );
+		$comment = Task_Comment_Class::g()->get(
+			array(
+				'id' => $id,
+			),
+			true
+		);
 		if ( 0 === $comment->data['id'] ) {
+			/* translators: */
 			\eoxia\LOG_Util::log( sprintf( __( 'Given comment identifier does not correspond to a comment in task manager. Request id: %s', 'task-manager' ), $id ), 'task-manager' );
 			return false;
 		}
-		// Check if the comment must be added to current ticket .
+		// @info Check if the comment must be added to current ticket .
 		$comment->data['author'] = get_userdata( $comment->data['author_id'] );
 		if ( in_array( 'administrator', $comment->data['author']->roles, true ) ) {
-			\eoxia\LOG_Util::log( sprintf( __( 'The comment author role does not allowed support request. Request customer id: %d1$. Customer roles: %2$s', 'task-manager' ), $comment->data['author_id'], wp_json_encode( $comment->data['author']->roles ) ), 'task-manager' );
+			/* translators: %d1$, %2$s */
+			\eoxia\LOG_Util::log( sprintf( __( 'The comment author role does not allowed support request. Request customer id: %1$d. Customer roles: %2$s', 'task-manager' ), $comment->data['author_id'], wp_json_encode( $comment->data['author']->roles ) ), 'task-manager' );
 			return false;
 		}
 		// If the code continue from here it means that we have to set a new support request.
 		$ids = get_option( \eoxia\Config_Util::$init['task-manager']->key_customer_ask, array() );
+		/* translators: */
 		\eoxia\LOG_Util::log( sprintf( __( 'Current support request list: %s', 'task-manager' ), wp_json_encode( $ids ) ), 'task-manager' );
+
+		/* translators: */
 		\eoxia\LOG_Util::log( sprintf( __( 'Comment for adding in request %s', 'task-manager' ), wp_json_encode( $comment ) ), 'task-manager' );
 		if ( empty( $ids[ $comment->data['post_id'] ] ) ) {
 			$ids[ $comment->data['post_id'] ] = array(
@@ -245,6 +269,7 @@ class Indicator_Action {
 			$ids[ $comment->data['post_id'] ][ $comment->data['parent_id'] ][] = (int) $comment->data['id'];
 		}
 		update_option( \eoxia\Config_Util::$init['task-manager']->key_customer_ask, $ids );
+		/* translators: */
 		\eoxia\LOG_Util::log( sprintf( __( 'New support ticket list: %s', 'task-manager' ), wp_json_encode( $ids ) ), 'task-manager' );
 		return true;
 	}
@@ -252,7 +277,7 @@ class Indicator_Action {
 	/**
 	 * Appelle la méthode remove_entry_customer_ask.
 	 *
-	 * @since 1.2.0
+	 * @since   1.2.0
 	 * @version 1.3.0
 	 *
 	 * @param integer $id L'ID du commentaire.
@@ -266,11 +291,11 @@ class Indicator_Action {
 	/**
 	 * Met à jour le tableau des demandes des clients de WPShop.
 	 *
-	 * @since 1.3.0
+	 * @since   1.3.0
 	 * @version 1.3.0
 	 *
-	 * @param  Point_Model $point    Les données du point.
-	 * @param  Task_Model  $old_task Les données de l'ancienne point ou la tâche était rattaché.
+	 * @param Point_Model $point    Les données du point.
+	 * @param Task_Model  $old_task Les données de l'ancienne point ou la tâche était rattaché.
 	 *
 	 * @return void
 	 */
@@ -287,7 +312,14 @@ class Indicator_Action {
 		update_option( \eoxia\Config_Util::$init['task-manager']->key_customer_ask, $ids );
 	}
 
-	public function callback_mark_as_read() {
+	/**
+	 * Fonction développé < 18/01/2019
+	 * sans description - Corentin
+	 * [callback_mark_as_reak description]
+	 *
+	 * @return void
+	 */
+	public function callback_mark_as_reak() {
 
 		check_ajax_referer( 'mark_as_read' );
 		$id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
@@ -296,11 +328,13 @@ class Indicator_Action {
 		}
 
 		Indicator_Class::g()->remove_entry_customer_ask( $id );
-		wp_send_json_success( array(
-			'namespace'        => 'taskManager',
-			'module'           => 'indicator',
-			'callback_success' => 'markedAsReadSuccess',
-		) );
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'indicator',
+				'callback_success' => 'markedAsReadSuccess',
+			)
+		);
 	}
 }
 

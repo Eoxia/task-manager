@@ -33,7 +33,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div id="poststuff">
 			<div id="post-body" class="metabox-holder columns-<?php echo 1 === get_current_screen()->get_columns() ? '1' : '2'; ?>">
 				<div id="postbox-container-2" class="postbox-container">
-					
 					<?php do_meta_boxes( 'task-manager-indicator', 'normal', '' ); ?>
 				</div>
 				<!-- meta box containers here -->

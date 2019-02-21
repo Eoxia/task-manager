@@ -44,8 +44,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php if ( $total_time_elapsed > $total_time_estimated ) : ?>
 			<span class="time-exceeded-explanation" >
 			<?php
-				/* Translators: Time spended on customer. */
-				echo wp_kses( sprintf( __( 'All your time has been spent. We spent %s longer than expected.', 'task-manager' ), '<span style="color: #000;" >' . \eoxia\Date_Util::g()->convert_to_custom_hours( $total_time_elapsed - $total_time_estimated, false ) . '</span>' ),
+				echo wp_kses(
+					/* translators: */
+					sprintf( __( 'All your time has been spent. We spent %s longer than expected.', 'task-manager' ), '<span style="color: #000;" >' . \eoxia\Date_Util::g()->convert_to_custom_hours( $total_time_elapsed - $total_time_estimated, false ) . '</span>' ),
 					array(
 						'span' => array(
 							'style' => array(),

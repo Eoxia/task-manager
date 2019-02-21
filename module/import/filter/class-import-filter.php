@@ -38,9 +38,14 @@ class Import_Filter {
 	 */
 	public function add_import_button( $current_output, $post ) {
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'import', 'backend/inline-modal', array(
-			'post' => $post,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'import',
+			'backend/inline-modal',
+			array(
+				'post' => $post,
+			)
+		);
 		$current_output .= ob_get_clean();
 
 		return $current_output;
@@ -53,10 +58,15 @@ class Import_Filter {
 	 * @param Task_Class $task    La définition complète de la tâche.
 	 */
 	public function add_import_button_task_toogle( $task_id, $task ) {
-		\eoxia\View_Util::exec( 'task-manager', 'import', 'backend/ajax-modal-open-button', array(
-			'task_id' => $task_id,
-			'task'    => $task,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'import',
+			'backend/ajax-modal-open-button',
+			array(
+				'task_id' => $task_id,
+				'task'    => $task,
+			)
+		);
 	}
 
 }

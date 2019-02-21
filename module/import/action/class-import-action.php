@@ -44,15 +44,22 @@ class Import_Action {
 
 		// Récupéreation de la vue des bouttons de la modal.
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'import', 'backend/ajax-modal-save-buttons', array(
-			'task_id' => $task_id,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'import',
+			'backend/ajax-modal-save-buttons',
+			array(
+				'task_id' => $task_id,
+			)
+		);
 		$buttons_view = ob_get_clean();
 
-		wp_send_json_success( array(
-			'view'         => $modal_content,
-			'buttons_view' => $buttons_view,
-		) );
+		wp_send_json_success(
+			array(
+				'view'         => $modal_content,
+				'buttons_view' => $buttons_view,
+			)
+		);
 	}
 
 	/**
@@ -76,9 +83,8 @@ class Import_Action {
 		$post_id = ! empty( $_POST ) && ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
 		$task_id = ! empty( $_POST ) && ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
 		// if ( empty( $post_id ) && empty( $task_id ) ) {
-		// 	wp_send_json_error( array( 'message' => __( 'No element have been given for import data for', 'task-manager' ) ) );
-		// }
-
+		// wp_send_json_error( array( 'message' => __( 'No element have been given for import data for', 'task-manager' ) ) );.
+		// }.
 		$content = ! empty( $_POST ) && ! empty( $_POST['content'] ) ? trim( $_POST['content'] ) : null;
 		if ( null === $content ) {
 			wp_send_json_error( array( 'message' => __( 'No content have been given for import', 'task-manager' ) ) );
@@ -90,30 +96,43 @@ class Import_Action {
 			$response['type'] = 'tasks';
 			foreach ( $created_elements['created']['tasks'] as $task ) {
 				ob_start();
-				\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task', array(
-					'task' => $task,
-				) );
+				\eoxia\View_Util::exec(
+					'task-manager',
+					'task',
+					'backend/task',
+					array(
+						'task' => $task,
+					)
+				);
 				$response['view'] .= ob_get_clean();
 			}
 		} elseif ( ! empty( $created_elements['created']['points'] ) ) {
 			$response['type']    = 'points';
 			$response['point']   = '';
 			$response['task_id'] = $task_id;
-			$response['task']    = Task_Class::g()->get( array(
-				'id' => $task_id,
-			), true );
+			$response['task']    = Task_Class::g()->get(
+				array(
+					'id' => $task_id,
+				),
+				true
+			);
 
-			$response['task']->data['count_uncompleted_points'] +=  count($created_elements['created']['points']);
+			$response['task']->data['count_uncompleted_points'] += count( $created_elements['created']['points'] );
 			Task_Class::g()->update( $response['task']->data, true );
 
 			foreach ( $created_elements['created']['points'] as $point ) {
 				ob_start();
-				\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
-					'point'      => $point,
-					'parent_id'  => $task_id,
-					'comment_id' => 0,
-					'point_id'   => 0,
-				) );
+				\eoxia\View_Util::exec(
+					'task-manager',
+					'point',
+					'backend/point',
+					array(
+						'point'      => $point,
+						'parent_id'  => $task_id,
+						'comment_id' => 0,
+						'point_id'   => 0,
+					)
+				);
 				$response['view'] .= ob_get_clean();
 			}
 		}

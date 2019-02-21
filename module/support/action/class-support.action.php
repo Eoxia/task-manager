@@ -44,13 +44,15 @@ class Support_Action {
 
 		ob_start();
 		\eoxia\View_Util::exec( 'task-manager', 'support', 'frontend/form-create-ticket' );
-		wp_send_json_success( array(
-			'namespace'        => 'taskManagerFrontend',
-			'module'           => 'frontendSupport',
-			'callback_success' => 'openedPopupCreateTicket',
-			'buttons_view'     => '',
-			'view'             => ob_get_clean(),
-		) );
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManagerFrontend',
+				'module'           => 'frontendSupport',
+				'callback_success' => 'openedPopupCreateTicket',
+				'buttons_view'     => '',
+				'view'             => ob_get_clean(),
+			)
+		);
 	}
 
 	/**
@@ -89,9 +91,12 @@ class Support_Action {
 			$edit    = true;
 			$task_id = $list_task[0]->ID;
 		}
-		$task = \task_manager\Task_Class::g()->get( array(
-			'id' => $task_id,
-		), true );
+		$task = \task_manager\Task_Class::g()->get(
+			array(
+				'id' => $task_id,
+			),
+			true
+		);
 
 		$point_data = array(
 			'content' => $subject,
@@ -100,7 +105,7 @@ class Support_Action {
 		);
 
 		$point = \task_manager\Point_Class::g()->update( $point_data );
-		
+
 		// Ajoutes une demande dans la donnée compilé.
 		do_action( 'tm_action_after_comment_update', $comment->data['id'] );
 
@@ -123,15 +128,17 @@ class Support_Action {
 		\eoxia\View_Util::exec( 'task-manager', 'support', 'frontend/created-ticket-success' );
 		$success_view = ob_get_clean();
 
-		wp_send_json_success( array(
-			'task_id'          => $task_id,
-			'edit'             => $edit,
-			'namespace'        => 'taskManagerFrontend',
-			'module'           => 'frontendSupport',
-			'callback_success' => 'createdTicket',
-			'task_view'        => $task_view,
-			'success_view'     => $success_view,
-		) );
+		wp_send_json_success(
+			array(
+				'task_id'          => $task_id,
+				'edit'             => $edit,
+				'namespace'        => 'taskManagerFrontend',
+				'module'           => 'frontendSupport',
+				'callback_success' => 'createdTicket',
+				'task_view'        => $task_view,
+				'success_view'     => $success_view,
+			)
+		);
 	}
 
 	/**

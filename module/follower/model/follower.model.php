@@ -36,21 +36,21 @@ class Follower_Model extends \eoxia\User_Model {
 			'field'     => '_tm_auto_elapsed_time',
 			'default'   => false,
 		);
-		
+
 		$this->schema['_tm_advanced_display'] = array(
 			'type'      => 'boolean',
 			'meta_type' => 'single',
 			'field'     => '_tm_advanced_display',
 			'default'   => false,
 		);
-		
+
 		$this->schema['_tm_quick_point'] = array(
 			'type'      => 'boolean',
 			'meta_type' => 'single',
 			'field'     => '_tm_quick_point',
 			'default'   => false,
 		);
-		
+
 		$this->schema['_tm_display_indicator'] = array(
 			'type'      => 'boolean',
 			'meta_type' => 'single',
@@ -64,4 +64,4 @@ class Follower_Model extends \eoxia\User_Model {
 
 }
 
-?>
+

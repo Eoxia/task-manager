@@ -61,12 +61,14 @@ class Time_Exceeded_Action {
 
 		ob_start();
 		Time_Exceeded_Class::g()->display_exceeded_elements( $start_date, $end_date, $min_exceeded_time, $tm_filter_exceed_type );
-		wp_send_json_success( array(
-			'namespace'        => 'taskManager',
-			'module'           => 'timeExceeded',
-			'callback_success' => 'loadedTimeExceeded',
-			'view'             => ob_get_clean(),
-		) );
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'timeExceeded',
+				'callback_success' => 'loadedTimeExceeded',
+				'view'             => ob_get_clean(),
+			)
+		);
 	}
 
 }

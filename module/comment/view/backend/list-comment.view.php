@@ -17,9 +17,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! empty( $comments ) ) :
 	foreach ( $comments as $comment ) :
-		\eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/comment', array(
-			'comment'             => $comment,
-			'comment_selected_id' => $comment_selected_id,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'comment',
+			'backend/comment',
+			array(
+				'comment'             => $comment,
+				'comment_selected_id' => $comment_selected_id,
+			)
+		);
 	endforeach;
 endif;

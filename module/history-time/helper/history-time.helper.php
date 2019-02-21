@@ -12,7 +12,8 @@
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; }
 
 /**
  * Convertie la date au format français dd/mm/yy en format SQL
@@ -33,7 +34,7 @@ function convert_history_time_due_date_to_sql( $data ) {
 /**
  * Agit sur les données retournées lors de la récupération de l'historique de temps d'une tache
  *
- * @param  object $data Les donnnées du modèle.
+ * @param  object $object Les donnnées du modèle.
  *
  * @return object       Les donnnées du modèle avec la date au format SQL
  *

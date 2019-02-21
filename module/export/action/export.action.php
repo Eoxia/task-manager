@@ -63,9 +63,12 @@ class Export_Action {
 			'with_id'       => $display_id,
 		);
 
-		$task = Task_Class::g()->get( array(
-			'id' => $task_id,
-		), true );
+		$task = Task_Class::g()->get(
+			array(
+				'id' => $task_id,
+			),
+			true
+		);
 
 		$get_args = array(
 			'post_id'  => $task->data['id'],
@@ -76,17 +79,23 @@ class Export_Action {
 		);
 
 		if ( 'by_date' === $export_type && ( null !== $date_from || null !== $date_to ) ) {
-			$query         = $GLOBALS['wpdb']->prepare(
-				"SELECT GROUP_CONCAT( DISTINCT( P.comment_ID ) ) AS pointsID
+			$query = $GLOBALS['wpdb']->prepare(
+				"SELECT GROUP_CONCAT( DISTINCT( P.comment_id ) ) AS pointsID
 				FROM {$GLOBALS['wpdb']->comments} AS P
-					JOIN {$GLOBALS['wpdb']->posts} AS T ON ( T.ID=P.comment_post_ID )
-					LEFT JOIN {$GLOBALS['wpdb']->comments} AS C ON ( C.comment_parent = P.comment_ID )
+					JOIN {$GLOBALS['wpdb']->posts} AS T ON ( T.ID=P.comment_post_id )
+					LEFT JOIN {$GLOBALS['wpdb']->comments} AS C ON ( C.comment_parent = P.comment_id )
 				WHERE P.comment_parent = %d
 					AND T.post_type = %s
-					AND P.comment_post_ID = %d
+					AND P.comment_post_id = %d
 					AND ( ( P.comment_date >= %s AND P.comment_date <= %s )
 						OR ( C.comment_date >= %s AND C.comment_date <= %s ) )",
-				0, Task_Class::g()->get_type(), $task->data['id'], $date_from . ' 00:00:00', $date_to . ' 23:59:59', $date_from . ' 00:00:00', $date_to . ' 23:59:59'
+				0,
+				Task_Class::g()->get_type(),
+				$task->data['id'],
+				$date_from . ' 00:00:00',
+				$date_to . ' 23:59:59',
+				$date_from . ' 00:00:00',
+				$date_to . ' 23:59:59'
 			);
 
 			$get_args['comment__in'] = explode( ',', $GLOBALS['wpdb']->get_var( $query ) );
@@ -145,19 +154,26 @@ class Export_Action {
 		}
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'export', 'main', array(
-			'task_id'   => $id,
-			'from_date' => \eoxia\Date_Util::g()->fill_date( date( 'Y-m-d H:i:s', strtotime( 'first day of this month' ) ) ),
-			'to_date'   => \eoxia\Date_Util::g()->fill_date( date( 'Y-m-d H:i:s', strtotime( 'last day of this month' ) ) ),
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'export',
+			'main',
+			array(
+				'task_id'   => $id,
+				'from_date' => \eoxia\Date_Util::g()->fill_date( date( 'Y-m-d H:i:s', strtotime( 'first day of this month' ) ) ),
+				'to_date'   => \eoxia\Date_Util::g()->fill_date( date( 'Y-m-d H:i:s', strtotime( 'last day of this month' ) ) ),
+			)
+		);
 
-		wp_send_json_success( array(
-			'namespace'        => 'taskManager',
-			'module'           => 'taskExport',
-			'callback_success' => 'loadedExportPopup',
-			'view'             => ob_get_clean(),
-			'buttons_view'     => '',
-		) );
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'taskExport',
+				'callback_success' => 'loadedExportPopup',
+				'view'             => ob_get_clean(),
+				'buttons_view'     => '',
+			)
+		);
 	}
 
 }

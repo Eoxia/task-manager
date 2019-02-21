@@ -29,9 +29,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="tab-container">
 				<div id="general-setting" class="tab-content tab-active">
 					<?php
-					\eoxia\View_Util::exec( 'task-manager', 'setting', 'general/main', array(
-						'use_search_in_admin_bar' => $use_search_in_admin_bar,
-					) );
+					\eoxia\View_Util::exec(
+						'task-manager',
+						'setting',
+						'general/main',
+						array(
+							'use_search_in_admin_bar' => $use_search_in_admin_bar,
+						)
+					);
 					?>
 				</div>
 				<div id="right-management" class="tab-content"><?php \eoxia\View_Util::exec( 'task-manager', 'setting', 'capability/main' ); ?></div>

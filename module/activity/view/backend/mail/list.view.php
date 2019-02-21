@@ -30,17 +30,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div style="display: block; margin: 2em 0; border-bottom: 1px solid rgba(0,0,0,0.1);">
 				<p style="font-weight: 700;">
 					<span>
-						<?php echo esc_html( ucfirst( mysql2date( 'l', $activity->COM_DATE ) ) . ' ' . mysql2date( 'd/m/Y', $activity->COM_DATE ) ); ?>
-						&nbsp;à <?php echo esc_html( mysql2date( 'H\hi', $activity->COM_DATE, true ) ); ?> sur le point
-						<?php echo '#' . $activity->POINT_ID . ' ' .  $activity->POINT_title; ?>
+						<?php echo esc_html( ucfirst( mysql2date( 'l', $activity->com_date ) ) . ' ' . mysql2date( 'd/m/Y', $activity->com_date ) ); ?>
+						&nbsp;à <?php echo esc_html( mysql2date( 'H\hi', $activity->com_date, true ) ); ?> sur le point
+						<?php echo '#' . $activity->point_id . ' ' . $activity->point_title; ?>
 					</span>
 				</p>
 				<div>
-					<?php echo $activity->COM_title; ?>
+					<?php echo $activity->com_title; ?>
 				</div>
 			</div>
 			<?php
-			$last_date = mysql2date( 'd/m/Y', $activity->COM_DATE );
+			$last_date = mysql2date( 'd/m/Y', $activity->com_date );
 		endforeach;
 	else :
 		echo esc_html_e( 'No activity for now', 'task-manager' );

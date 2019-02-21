@@ -2,11 +2,11 @@
 /**
  * Gestion des actions liées à la barre d'administration de WordPress.
  *
- * @author Eoxia <dev@eoxia.com>
- * @since 1.0.0
- * @version 1.6.0
+ * @author    Eoxia <dev@eoxia.com>
+ * @since     1.0.0
+ * @version   1.6.0
  * @copyright 2015-2017 Eoxia
- * @package Task_Manager
+ * @package   Task_Manager
  */
 
 namespace task_manager;
@@ -20,10 +20,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Admin_Bar_Action {
 
+
 	/**
 	 * Le constructeur
 	 *
-	 * @since 1.0.0
+	 * @since   1.0.0
 	 * @version 1.6.0
 	 */
 	public function __construct() {
@@ -38,7 +39,7 @@ class Admin_Bar_Action {
 	/**
 	 * Initialise le fichier style.min.css et backend.min.js du plugin DigiRisk.
 	 *
-	 * @since 1.0.0
+	 * @since   1.0.0
 	 * @version 1.6.0
 	 *
 	 * @return void
@@ -52,7 +53,7 @@ class Admin_Bar_Action {
 	 * Permet d'afficher le champ de recherche.
 	 * Permet d'ajouter le bouton "Temps rapides" dans le menu "Créer" de WordPress.
 	 *
-	 * @since 1.0.0
+	 * @since   1.0.0
 	 * @version 1.2.0
 	 *
 	 * @param mixed $wp_admin_bar L'objet de WordPress pour gérer les noeuds.
@@ -74,25 +75,38 @@ class Admin_Bar_Action {
 	 */
 	public function ajax_load_popup_quick_time() {
 		check_ajax_referer( 'load_popup_quick_time' );
-		
-		ob_start();
+
+		/*ob_start();
 		_e( 'Quick time', 'task-manager' );
 		Quick_Time_Class::g()->display_setting_button();
-		$modal_title = ob_get_clean();
+		$modal_title = ob_get_clean();*/
+		$modal_title = esc_html__( 'Quicktime PAGE', 'task-manager' );
+
+		ob_start();
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'quick_time',
+			'backend/buttons-save'
+		);
+		$viewbutton = ob_get_clean();
 
 		ob_start();
 		Quick_Time_Class::g()->display_list();
 		$view = ob_get_clean();
-		wp_send_json_success( array(
-			'modal_title'  => $modal_title,
-			'view'         => $view,
-			'buttons_view' => '&nbsp;',
-		) );
+		wp_send_json_success(
+			array(
+				'modal_title'      => $modal_title,
+				'view'             => $view,
+				'buttons_view'     => $viewbutton,
+			)
+		);
 	}
+
 
 	/**
 	 * [callback_search_task description]
-	 * @return [type] [description]
+	 *
+	 * @return void
 	 */
 	public function callback_search_task() {
 		check_ajax_referer( 'search_task' );

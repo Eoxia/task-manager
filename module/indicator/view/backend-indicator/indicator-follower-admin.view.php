@@ -16,21 +16,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 <ul class="wpeo-tag-wrap">
- <?php
+	<?php
 
- if ( ! empty( $followers ) ) :
-   foreach ( $followers as $follower ):
-     ?>
-    <li class="wpeo-tag add wpeo-button button-grey button-radius-3 tm_indicator_avatar clickonfollower"
-      data-user-id="<?= $follower->data['id'] ?>"
-			data-user-choose="false">
-			<span class="">
-        <?= do_shortcode( '[task_avatar ids="' . $follower->data['id'] . '" size="40"]' ); ?>
+	if ( ! empty( $followers ) ) :
+		foreach ( $followers as $follower ) :
+			?>
+	<li class="wpeo-tag add wpeo-button button-grey button-radius-3 tm_indicator_avatar clickonfollower"
+		id="tm_user_indicator_<?php echo $follower->data['id']; ?>"
+data-user-id="<?php echo $follower->data['id']; ?>">
+			<span>
+			<?php echo do_shortcode( '[task_avatar ids="' . $follower->data['id'] . '" size="40"]' ); ?>
 			</span>
-    </li>
+	</li>
 
-     <?php
-   endforeach;
- endif;
- ?>
+			<?php
+endforeach;
+endif;
+	?>
 </ul>

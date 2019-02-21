@@ -73,33 +73,23 @@ class Point_Class extends \eoxia\Comment_Class {
 	 *
 	 * @todo Ajouter "comment_id" et "point_id" en paramètre. Et renommer en selected_*
 	 */
-	public function display( $task_id, $frontend = false ) {
+	public function display( $task_id, $frontend = false, $point_id_quicktime = 0 ) {
 		$comment_id = ! empty( $_GET['comment_id'] ) ? (int) $_GET['comment_id'] : 0;
 		$point_id   = ! empty( $_GET['point_id'] ) ? (int) $_GET['point_id'] : 0;
 
-		$task = Task_Class::g()->get( array(
-			'id' => $task_id,
-		), true );
+		if( $point_id_quicktime != 0 ){
+			$point_id = (int) $point_id_quicktime;
+		}
 
-		$points = self::g()->get( array(
-			'post_id'    => $task->data['id'],
-			'type'       => self::g()->get_type(),
-			'meta_key'   => '_tm_order',
-			'orderby'    => 'meta_value_num',
-			'order'      => 'ASC',
-			'meta_query' => array(
-				array(
-					'key'     => '_tm_completed',
-					'value'   => false,
-					'compare' => '=',
-				),
+		$task = Task_Class::g()->get(
+			array(
+				'id' => $task_id,
 			),
-		) );
+			true
+		);
 
-		$points_completed = array();
-		// Dans le frontend, les points complétés sont affichées directement.
-		if ( $frontend ) {
-			$points_completed = self::g()->get( array(
+		$points = self::g()->get(
+			array(
 				'post_id'    => $task->data['id'],
 				'type'       => self::g()->get_type(),
 				'meta_key'   => '_tm_order',
@@ -108,16 +98,40 @@ class Point_Class extends \eoxia\Comment_Class {
 				'meta_query' => array(
 					array(
 						'key'     => '_tm_completed',
-						'value'   => true,
+						'value'   => false,
 						'compare' => '=',
 					),
 				),
-			) );
+			)
+		);
+
+		$points_completed = array();
+		// Dans le frontend, les points complétés sont affichées directement.
+		if ( $frontend ) {
+			$points_completed = self::g()->get(
+				array(
+					'post_id'    => $task->data['id'],
+					'type'       => self::g()->get_type(),
+					'meta_key'   => '_tm_order',
+					'orderby'    => 'meta_value_num',
+					'order'      => 'ASC',
+					'meta_query' => array(
+						array(
+							'key'     => '_tm_completed',
+							'value'   => true,
+							'compare' => '=',
+						),
+					),
+				)
+			);
 		}
 
-		$point_schema = self::g()->get( array(
-			'schema' => true,
-		), true );
+		$point_schema = self::g()->get(
+			array(
+				'schema' => true,
+			),
+			true
+		);
 
 		$args = array(
 			'task'               => $task,
@@ -149,13 +163,19 @@ class Point_Class extends \eoxia\Comment_Class {
 	 * @return boolean               True ou false.
 	 */
 	public function complete_point( $point_id, $completed, $is_new_point = false ) {
-		$point = $this->get( array(
-			'id' => $point_id,
-		), true );
+		$point = $this->get(
+			array(
+				'id' => $point_id,
+			),
+			true
+		);
 
-		$task = Task_Class::g()->get( array(
-			'id' => $point->data['post_id'],
-		), true );
+		$task = Task_Class::g()->get(
+			array(
+				'id' => $point->data['post_id'],
+			),
+			true
+		);
 
 		$point->data['completed'] = $completed;
 
@@ -198,12 +218,15 @@ class Point_Class extends \eoxia\Comment_Class {
 	 */
 	public function edit_point( $point_id, $parent_id, $content, $completed ) {
 		$content = str_replace( '<div>', '<br>', trim( $content ) );
-		$content = wp_kses( $content, array(
-			'br'      => array(),
-			'tooltip' => array(
-				'class' => array(),
-			),
-		) );
+		$content = wp_kses(
+			$content,
+			array(
+				'br'      => array(),
+				'tooltip' => array(
+					'class' => array(),
+				),
+			)
+		);
 
 		if ( empty( $parent_id ) ) {
 			wp_send_json_error();

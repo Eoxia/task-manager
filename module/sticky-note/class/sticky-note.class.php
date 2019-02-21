@@ -54,12 +54,29 @@ class Sticky_Note_Class extends \eoxia\Post_Class {
 	 */
 	protected $version = '0.1';
 
+	/**
+	 * Affichage
+	 *
+	 * @param  [type] $post    [description].
+	 * @param  [type] $metabox [description].
+	 * @return void
+	 */
 	public function display( $post, $metabox ) {
-		\eoxia\View_Util::exec( 'task-manager', 'sticky-note', 'backend/main', array(
-			'note' => $metabox['args']['note'],
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'sticky-note',
+			'backend/main',
+			array(
+				'note' => $metabox['args']['note'],
+			)
+		);
 	}
-	
+
+	/**
+	 * Ajout d'un nouveau
+	 *
+	 * @return void
+	 */
 	public function display_add_new() {
 		\eoxia\View_Util::exec( 'task-manager', 'sticky-note', 'backend/add' );
 	}

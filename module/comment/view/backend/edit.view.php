@@ -15,7 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<li class="comment <?php echo ! empty( $comment->data['id'] ) ? 'edit' : 'new'; ?>">
+<li class="comment <?php echo apply_filters( 'tm_comment_edit_class', ! empty( $comment->data['id'] ) ? 'edit' : 'new' ); ?>">
+	<?php $comment = apply_filters( 'tm_comment_edit_before', $comment ); ?>
 	<input type="hidden" name="comment_id" value="<?php echo esc_attr( $comment->data['id'] ); ?>" />
 	<input type="hidden" name="post_id" value="<?php echo esc_attr( $task_id ); ?>" />
 	<input type="hidden" name="parent_id" value="<?php echo esc_attr( $point_id ); ?>" />
@@ -28,8 +29,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="comment-content-text">
 				<input type="hidden" name="content" value="<?php echo esc_attr( trim( $comment->data['content'] ) ); ?>" />
 				<div contenteditable="true" class="content"><?php echo trim( $comment->data['content'] ); ?></div>
-				<?php if ( empty( $comment->data['id'] ) ) : ?>
+				<?php if ( empty( $comment->data['id'] ) && ! apply_filters( 'tm_comment_edit_quicktimemode', '' ) ) : ?>
 					<span class="placeholder"><i class="far fa-plus"></i> <?php esc_html_e( 'Your comment here...', 'task-manager' ); ?></span>
+				<?php else : ?>
+					<span class="placeholder hidden"><i class="far fa-plus"></i> <?php esc_html_e( 'Your comment here...', 'task-manager' ); ?></span>
 				<?php endif; ?>
 			</div>
 

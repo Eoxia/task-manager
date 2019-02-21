@@ -53,15 +53,23 @@ class Quick_Point_Action {
 		add_filter( 'tm_point_before', array( $quick_point_filter, 'callback_tm_point_before' ), 10, 2 );
 		add_filter( 'tm_point_after', array( $quick_point_filter, 'callback_point_after' ), 10, 2 );
 
-		$point = Point_Class::g()->get(array(
-			'id' => '0',
-		), true );
+		$point = Point_Class::g()->get(
+			array(
+				'id' => '0',
+			),
+			true
+		);
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'quick-point', 'modal-content', array(
-			'task_id' => $task_id,
-			'point'   => $point,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'quick-point',
+			'modal-content',
+			array(
+				'task_id' => $task_id,
+				'point'   => $point,
+			)
+		);
 		$modal_content_view = ob_get_clean();
 
 		ob_start();
@@ -98,45 +106,65 @@ class Quick_Point_Action {
 		$tm_point_is_quick_point = ( isset( $_POST['tm_point_is_quick_point'] ) && 'true' == $_POST['tm_point_is_quick_point'] ) ? true : false;
 
 		if ( $tm_point_is_quick_point ) {
-			$comment = Task_Comment_Class::g()->get( array(
-				'parent' => $point->data['id'],
-				'number' => 1,
-			), true );
+			$comment = Task_Comment_Class::g()->get(
+				array(
+					'parent' => $point->data['id'],
+					'number' => 1,
+				),
+				true
+			);
 
 			ob_start();
-			\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
-				'point'      => $point,
-				'parent_id'  => $task->data['id'],
-				'point_id'   => 0,
-				'comment_id' => 0,
-			) );
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'point',
+				'backend/point',
+				array(
+					'point'      => $point,
+					'parent_id'  => $task->data['id'],
+					'point_id'   => 0,
+					'comment_id' => 0,
+				)
+			);
 			$point_view = ob_get_clean();
 
 			ob_start();
-			\eoxia\View_Util::exec( 'task-manager', 'quick-point', 'modal-success', array(
-				'task'    => $task,
-				'point'   => $point,
-				'comment' => $comment,
-			) );
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'quick-point',
+				'modal-success',
+				array(
+					'task'    => $task,
+					'point'   => $point,
+					'comment' => $comment,
+				)
+			);
 			$modal_view = ob_get_clean();
 
 			ob_start();
-			\eoxia\View_Util::exec( 'task-manager', 'quick-point', 'modal-success-buttons', array(
-				'task' => $task,
-			) );
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'quick-point',
+				'modal-success-buttons',
+				array(
+					'task' => $task,
+				)
+			);
 			$modal_buttons_view = ob_get_clean();
 
-			wp_send_json_success( array(
-				'view'               => $point_view,
-				'modal_view'         => $modal_view,
-				'modal_buttons_view' => $modal_buttons_view,
-				'namespace'          => 'taskManager',
-				'module'             => 'quickPoint',
-				'callback_success'   => 'addedPointSuccess',
-				'task_id'            => $task->data['id'],
-				'task'               => $task,
-				'point'              => $point,
-			) );
+			wp_send_json_success(
+				array(
+					'view'               => $point_view,
+					'modal_view'         => $modal_view,
+					'modal_buttons_view' => $modal_buttons_view,
+					'namespace'          => 'taskManager',
+					'module'             => 'quickPoint',
+					'callback_success'   => 'addedPointSuccess',
+					'task_id'            => $task->data['id'],
+					'task'               => $task,
+					'point'              => $point,
+				)
+			);
 		}
 	}
 

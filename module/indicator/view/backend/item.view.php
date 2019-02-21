@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<!-- Point -->
 			<a  href="<?php echo esc_attr( 'admin.php?page=wpeomtm-dashboard&term=' . $comment->data['task']->data['id'] . '&point_id=' . $comment->data['point']->data['id'] ); ?>"
 				class="event-point wpeo-tooltip-event"
-				aria-label="<?php echo esc_html( '#' . $comment->data['point']->data['id'] . ' - ' .$comment->data['point']->data['content'] ); ?>">
+				aria-label="<?php echo esc_html( '#' . $comment->data['point']->data['id'] . ' - ' . $comment->data['point']->data['content'] ); ?>">
 
 				<i class="fas fa-list-ul"></i> <?php echo esc_html( '#' . $comment->data['point']->data['id'] ); ?>
 			</a>
@@ -60,10 +60,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 			?>
 			<a target="wptm_view_activity_element" href="<?php echo esc_url( admin_url( $link ) ); ?>" >
 				<?php
-				echo wp_kses( $comment->data['content'], array(
-					'br' => array(),
-					'p'  => array(),
-				) );
+				echo wp_kses(
+					$comment->data['content'],
+					array(
+						'br' => array(),
+						'p'  => array(),
+					)
+				);
 				?>
 			</a>
 		</span>

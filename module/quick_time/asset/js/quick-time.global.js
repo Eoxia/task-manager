@@ -16,6 +16,7 @@ window.eoxiaJS.taskManagerGlobal.quickTime = {};
 window.eoxiaJS.taskManagerGlobal.quickTime.init = function() {
 	window.eoxiaJS.taskManagerGlobal.quickTime.initAutoComplete();
 	window.eoxiaJS.taskManagerGlobal.quickTime.event();
+	window.eoxiaJS.taskManagerGlobal.quickTime.focusElementWhenPageLoad();
 };
 
 window.eoxiaJS.taskManagerGlobal.quickTime.refresh = function() {
@@ -35,6 +36,8 @@ window.eoxiaJS.taskManagerGlobal.quickTime.event = function() {
 	jQuery( document ).on( 'click', '.quick-time-content .item .set_time', window.eoxiaJS.taskManagerGlobal.quickTime.onChecked );
 	jQuery( document ).on( 'keyup', '.quick-time-content .item .min .displayed', window.eoxiaJS.taskManagerGlobal.quickTime.onKeyUp );
 	jQuery( document ).on( 'keyup', '.setting-quick-time textarea', window.eoxiaJS.taskManagerGlobal.quickTime.triggerCreate );
+	jQuery( document ).on( 'click', '#tm_quicktime_copytoclipboard', window.eoxiaJS.taskManagerGlobal.quickTime.copyToClipboard );
+
 };
 
 /**
@@ -77,6 +80,7 @@ window.eoxiaJS.taskManagerGlobal.quickTime.initAutoComplete = function() {
  */
 window.eoxiaJS.taskManagerGlobal.quickTime.settingRefreshedPoint = function( triggeredElement, response ) {
 	triggeredElement.closest( '.form' ).find( 'select' ).html( response.data.view );
+	window.eoxiaJS.taskManager.adminBar.checkIfNewLineCanBeSend();
 };
 
 /**
@@ -90,11 +94,11 @@ window.eoxiaJS.taskManagerGlobal.quickTime.settingRefreshedPoint = function( tri
  * @version 1.6.0
  */
 window.eoxiaJS.taskManagerGlobal.quickTime.addedConfigQuickTime = function( triggeredElement, response ) {
-	var el = jQuery( response.data.new_item_view ).hide();
+	/*var el = jQuery( response.data.new_item_view ).hide();
 	jQuery( '.setting-quick-time .list .form' ).after( el );
 	el.fadeIn();
 
-	triggeredElement.closest( '.form' ).replaceWith( response.data.form_view );
+	triggeredElement.closest( '.form' ).replaceWith( response.data.form_view );*/
 
 	jQuery( "#tm-indicator-quick-task .inside" ).html( response.data.metabox_view );
 };
@@ -126,7 +130,9 @@ window.eoxiaJS.taskManagerGlobal.quickTime.deletedConfigQuickTime = function( tr
  * @version 1.6.0
  */
 window.eoxiaJS.taskManagerGlobal.quickTime.quickTimeAddedComment = function( triggeredElement, response ) {
+
 	jQuery( '.quick-time-content' ).replaceWith( response.data.view );
+
 };
 
 /**
@@ -139,6 +145,7 @@ window.eoxiaJS.taskManagerGlobal.quickTime.quickTimeAddedComment = function( tri
  * @return {void}
  */
 window.eoxiaJS.taskManagerGlobal.quickTime.onCheckedCheckAll = function( event ) {
+
 	if ( jQuery( this ).is( ':checked' ) ) {
 		jQuery( this ).closest( '.quick-time-content' ).find( '.item input[type="checkbox"]' ).attr( 'checked', true );
 	} else {
@@ -148,6 +155,7 @@ window.eoxiaJS.taskManagerGlobal.quickTime.onCheckedCheckAll = function( event )
 	}
 
 	window.eoxiaJS.taskManagerGlobal.quickTime.updateTime( jQuery( this ) );
+	window.eoxiaJS.taskManager.adminBar.updateButtonSave();
 };
 
 /**
@@ -164,6 +172,9 @@ window.eoxiaJS.taskManagerGlobal.quickTime.onChecked = function( event ) {
 	if ( ! jQuery( this ).is( ':checked' ) ) {
 		jQuery( this ).closest( '.item' ).find( '.displayed' ).val( '' );
 		jQuery( this ).closest( '.item' ).find( 'input.time' ).val( '' );
+		jQuery( this ).closest( '.item' ).find( '.tm_quickpoint_add_time' ).css( 'visibility', 'hidden' );
+	}else{
+		jQuery( this ).closest( '.item' ).find( '.tm_quickpoint_add_time' ).css( 'visibility', 'visible' );
 	}
 
 	window.eoxiaJS.taskManagerGlobal.quickTime.updateTime( jQuery( this ) );
@@ -179,14 +190,33 @@ window.eoxiaJS.taskManagerGlobal.quickTime.onChecked = function( event ) {
  * @return {void}
  */
 window.eoxiaJS.taskManagerGlobal.quickTime.onKeyUp = function( event ) {
+
 	if ( '' !== jQuery( this ).val() ) {
 		jQuery( this ).closest( '.item' ).find( 'input[type="checkbox"]' ).attr( 'checked', true );
+		//window.eoxiaJS.taskManagerGlobal.quickTime.ajaxRequestEditLineQuickTime();
+
 	} else {
 		jQuery( this ).closest( '.item' ).find( 'input[type="checkbox"]' ).attr( 'checked', false );
+		//window.eoxiaJS.taskManagerGlobal.quickTime.ajaxRequestEditLineQuickTime();
 	}
 
 	window.eoxiaJS.taskManagerGlobal.quickTime.updateTime( jQuery( this ) );
 };
+
+window.eoxiaJS.taskManagerGlobal.quickTime.ajaxRequestEditLineQuickTime = function( event, contentcomment ){
+	jQuery( '.quick-time-edit-time' ).autocomplete( {
+		source: 'admin-ajax.php?action=quick_task_edit_time',
+		delay: 0,
+		select: function( event, ui ) {
+			var data = {
+				action: 'quick_task_edit_time',
+				data_type: contentcomment
+			};
+
+			event.stopPropagation();
+		}
+	} );
+}
 
 /**
  * Créer un réglage d'un temps rapide lors de la pression des touches CTRL + Entrer.
@@ -249,4 +279,52 @@ window.eoxiaJS.taskManagerGlobal.quickTime.updateTime = function( element ) {
 			container.find( 'input.time' ).val( '' );
 		}
 	} );
+}
+
+window.eoxiaJS.taskManagerGlobal.quickTime.showNewLineQuicktime = function( element, response ){
+	jQuery( '.quick-time-content' ).replaceWith( response.data.view );
+	window.eoxiaJS.taskManagerGlobal.quickTime.initAutoComplete();
+}
+
+window.eoxiaJS.taskManagerGlobal.quickTime.copyToClipboard = function( element ){
+
+	jQuery( '.tm_quicktime_buttoncopytoclipboard' ).removeClass( 'button-green' ).addClass( 'button-yellow' ); // Reset all color
+	jQuery( this ).removeClass( 'button-yellow' ).addClass( 'button-green' ); // Update this color to inform user
+
+  var temp_element_clipboard = document.createElement( 'textarea' );
+  temp_element_clipboard.value = jQuery( this ).data( 'path' );
+  document.body.appendChild( temp_element_clipboard );
+  temp_element_clipboard.select();
+  document.execCommand( 'copy' );
+  document.body.removeChild( temp_element_clipboard );
+
+	jQuery( this ).parent().find( '.tm_quicktime_focus_url' ).select();
+}
+
+window.eoxiaJS.taskManagerGlobal.quickTime.focusElementWhenPageLoad = function( element ){
+	if( jQuery( '.wpeo-project-task-container .points  .comment-content-text .content' ).html() == '' ){
+		jQuery( '.wpeo-project-task-container .points  .comment-content-text .content' ).html( '...' )
+	}
+
+	if( document.querySelector( '.wpeo-project-task-container .points  .comment-content-text .content' ) == null ){
+		return;
+	}
+	
+	var el = document.querySelector( '.wpeo-project-task-container .points  .comment-content-text .content' );
+
+	el.focus();
+
+	if (typeof window.getSelection != "undefined" && typeof document.createRange != "undefined") {
+			var range = document.createRange();
+			range.selectNodeContents(el);
+			range.collapse(false);
+			var sel = window.getSelection();
+			sel.removeAllRanges();
+			sel.addRange(range);
+	} else if (typeof document.body.createTextRange != "undefined") {
+			var textRange = document.body.createTextRange();
+			textRange.moveToElementText(el);
+			textRange.collapse(false);
+			textRange.select();
+	}
 }

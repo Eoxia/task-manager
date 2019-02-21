@@ -33,36 +33,44 @@ class Task_Helper {
 	 * @return Task_Model         Les données de la tâche modifié.
 	 */
 	public function get_full_task( $object ) {
-		$object->data['last_history_time'] = History_Time_Class::g()->get( array(
-			'post_id' => $object->data['id'],
-			'number'  => 1,
-		), true );
-		
+		$object->data['last_history_time'] = History_Time_Class::g()->get(
+			array(
+				'post_id' => $object->data['id'],
+				'number'  => 1,
+			),
+			true
+		);
+
 		$object->data['parent'] = null;
-		
+
 		if ( ! empty( $object->data['parent_id'] ) ) {
 			$object->data['parent'] = get_post( $object->data['parent_id'] );
 		}
 
 		if ( empty( $object->data['last_history_time']->data['id'] ) ) {
-			$object->data['last_history_time'] = History_Time_Class::g()->get( array(
-				'schema' => true,
-			), true );
+			$object->data['last_history_time'] = History_Time_Class::g()->get(
+				array(
+					'schema' => true,
+				),
+				true
+			);
 		} else {
 			// Calcul du temps si on est en mode "répétition" mensuel.
 			if ( 'recursive' === $object->data['last_history_time']->data['custom'] ) {
-				$comments = Task_Comment_Class::g()->get( array(
-					'date_query'   => array(
-						'after' => array(
-							'year'  => current_time( 'Y' ),
-							'month' => current_time( 'm' ),
-							'day'   => '01',
+				$comments = Task_Comment_Class::g()->get(
+					array(
+						'date_query'   => array(
+							'after' => array(
+								'year'  => current_time( 'Y' ),
+								'month' => current_time( 'm' ),
+								'day'   => '01',
+							),
 						),
-					),
-					'status'       => 1,
-					'post_id'      => $object->data['id'],
-					'type__not_in' => array( 'history_time' ),
-				) );
+						'status'       => 1,
+						'post_id'      => $object->data['id'],
+						'type__not_in' => array( 'history_time' ),
+					)
+				);
 
 				$object->data['time_info']['elapsed'] = 0;
 

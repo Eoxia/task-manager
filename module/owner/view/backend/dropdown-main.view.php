@@ -16,9 +16,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="wpeo-grid grid-4">
 	<?php
-	\eoxia\View_Util::exec( 'task-manager', 'owner', 'backend/list', array(
-		'users'   => $users,
-		'task_id' => $task_id,
-	) );
+	\eoxia\View_Util::exec(
+		'task-manager',
+		'owner',
+		'backend/list',
+		array(
+			'users'   => $users,
+			'task_id' => $task_id,
+		)
+	);
 	?>
 </div>

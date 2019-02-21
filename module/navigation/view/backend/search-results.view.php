@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php if ( $have_search ) : ?>
 	<div class="search-results">
-		<span class="result-title"><?php esc_html_e( 'Critères de recherche :', 'task-manager' ); ?></span>
+		<span class="result-title"><?php esc_html_e( 'The search criteria : ', 'task-manager' ); ?></span>
 
 		<ul class="result-list-tags">
 			<?php if ( ! empty( $term ) ) : ?>
@@ -43,7 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<li class="result-tag">
 					<?php if ( 'wpshop_shop_order' === $data['post_parent'] ) : ?>
 						<i class="fas fa-shopping-cart fa-fw"></i>
-					<?php else: ?>
+					<?php else : ?>
 						<i class="fas fa-user fa-fw"></i>
 					<?php endif; ?>
 					<?php echo esc_attr( $post_parent_searched ); ?>

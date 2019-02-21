@@ -44,7 +44,6 @@ class Task_Comment_Action {
 	 * Utilises la méthode "display" pour récupérer la vue puis l'envoie à la réponse ajax.
 	 *
 	 * @since 1.3.6
-	 *
 	 */
 	public function callback_load_comments() {
 		$task_id  = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
@@ -53,12 +52,14 @@ class Task_Comment_Action {
 
 		ob_start();
 		Task_Comment_Class::g()->display( $task_id, $point_id, $frontend );
-		wp_send_json_success( array(
-			'view'             => ob_get_clean(),
-			'namespace'        => $frontend ? 'taskManagerFrontend' : 'taskManager',
-			'module'           => 'comment',
-			'callback_success' => 'loadedCommentsSuccess',
-		) );
+		wp_send_json_success(
+			array(
+				'view'             => ob_get_clean(),
+				'namespace'        => $frontend ? 'taskManagerFrontend' : 'taskManager',
+				'module'           => 'comment',
+				'callback_success' => 'loadedCommentsSuccess',
+			)
+		);
 	}
 
 	/**
@@ -70,36 +71,44 @@ class Task_Comment_Action {
 	 * @return void
 	 */
 	public function callback_edit_comment() {
-		// check_ajax_referer( 'edit_comment' );
-
-		$comment_id    = ! empty( $_POST['comment_id'] ) ? (int) $_POST['comment_id'] : 0;
-		$post_id       = ! empty( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;
-		$parent_id     = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
-		$date          = ! empty( $_POST['mysql_date'] ) ? sanitize_text_field( $_POST['mysql_date'] ) : current_time( 'mysql' );
-		$content       = ! empty( $_POST['content'] ) ? trim( $_POST['content'] ) : '';
-		$time          = ! empty( $_POST['time'] ) ? (int) $_POST['time'] : 0;
-		$frontend      = ( isset( $_POST['frontend'] ) && 'true' == $_POST['frontend'] ) ? true : false;
+		// @info check_ajax_referer( 'edit_comment' );.
+		$comment_id = ! empty( $_POST['comment_id'] ) ? (int) $_POST['comment_id'] : 0;
+		$post_id    = ! empty( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;
+		$parent_id  = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
+		$date       = ! empty( $_POST['mysql_date'] ) ? sanitize_text_field( $_POST['mysql_date'] ) : current_time( 'mysql' );
+		$content    = ! empty( $_POST['content'] ) ? trim( $_POST['content'] ) : '';
+		$time       = ! empty( $_POST['time'] ) ? (int) $_POST['time'] : 0;
+		$frontend   = ( isset( $_POST['frontend'] ) && 'true' == $_POST['frontend'] ) ? true : false;
 
 		$content = str_replace( '<div>', '<br>', trim( $content ) );
-		$content = wp_kses( $content, array(
-			'br' => array(),
-			'tooltip' => array(
-				'class' => array(),
+		$content = wp_kses(
+			$content,
+			array(
+				'br'      => array(),
+				'tooltip' => array(
+					'class' => array(),
+				),
 			)
-		) );
+		);
 
 		$old_elapsed = 0;
 
 		if ( ! empty( $comment_id ) ) {
-			$comment = Task_Comment_Class::g()->get( array(
-				'id' => $comment_id,
-			), true );
+			$comment = Task_Comment_Class::g()->get(
+				array(
+					'id' => $comment_id,
+				),
+				true
+			);
 
 			$comment->data['time_info']['old_elapsed'] = $comment->data['time_info']['elapsed'];
 		} else {
-			$comment = Task_Comment_Class::g()->get( array(
-				'schema' => $comment_id,
-			), true );
+			$comment = Task_Comment_Class::g()->get(
+				array(
+					'schema' => $comment_id,
+				),
+				true
+			);
 		}
 
 		$comment->data['post_id']              = $post_id;
@@ -112,48 +121,61 @@ class Task_Comment_Action {
 		$comment = Task_Comment_Class::g()->update( $comment->data, true );
 
 		$comments       = Task_Comment_Class::g()->get_comments( $parent_id );
-		$comment_schema = Task_Comment_Class::g()->get( array(
-			'schema' => true,
-		), true );
+		$comment_schema = Task_Comment_Class::g()->get(
+			array(
+				'schema' => true,
+			),
+			true
+		);
 
 		$view = 'backend';
 		if ( $frontend ) {
 			$view = 'frontend';
 		}
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'comment', $view . '/main', array(
-			'task_id'             => $post_id,
-			'point_id'            => $parent_id,
-			'comments'            => $comments,
-			'comment_schema'      => $comment_schema,
-			'comment_selected_id' => 0,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'comment',
+			$view . '/main',
+			array(
+				'task_id'             => $post_id,
+				'point_id'            => $parent_id,
+				'comments'            => $comments,
+				'comment_schema'      => $comment_schema,
+				'comment_selected_id' => 0,
+			)
+		);
 		$view = ob_get_clean();
 
-		$task = Task_Class::g()->get( array(
-			'id' => $comment->data['post_id'],
-		), true );
+		$task = Task_Class::g()->get(
+			array(
+				'id' => $comment->data['post_id'],
+			),
+			true
+		);
 
 		do_action( 'tm_edit_comment', $task, $comment->data['point'], $comment );
-		
+
 		$point = Point_Class::g()->get( array( 'id' => $comment->data['parent_id'] ), true );
-		
+
 		if ( $frontend ) {
 			do_action( 'tm_action_after_comment_update', $comment->data['id'] );
 		}
 
-		wp_send_json_success( array(
-			'time' => array(
-				'point' => $comment->data['point']->data['time_info']['elapsed'],
-				'task'  => $task->data['time_info']['elapsed'],
-			),
-			'point'            => $point,
-			'view'             => $view,
-			'namespace'        => $frontend ? 'taskManagerFrontend' : 'taskManager',
-			'module'           => 'comment',
-			'callback_success' => 'addedCommentSuccess',
-			'comment'          => $comment,
-		) );
+		wp_send_json_success(
+			array(
+				'time'             => array(
+					'point' => $comment->data['point']->data['time_info']['elapsed'],
+					'task'  => $task->data['time_info']['elapsed'],
+				),
+				'point'            => $point,
+				'view'             => $view,
+				'namespace'        => $frontend ? 'taskManagerFrontend' : 'taskManager',
+				'module'           => 'comment',
+				'callback_success' => 'addedCommentSuccess',
+				'comment'          => $comment,
+			)
+		);
 	}
 
 	/**
@@ -173,23 +195,33 @@ class Task_Comment_Action {
 			wp_send_json_error();
 		}
 
-		$comment = Task_Comment_Class::g()->get( array(
-			'id' => $comment_id,
-		), true );
+		$comment = Task_Comment_Class::g()->get(
+			array(
+				'id' => $comment_id,
+			),
+			true
+		);
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/edit', array(
-			'task_id' => $comment->data['post_id'],
-			'point_id' => $comment->data['parent_id'],
-			'comment' => $comment,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'comment',
+			'backend/edit',
+			array(
+				'task_id'  => $comment->data['post_id'],
+				'point_id' => $comment->data['parent_id'],
+				'comment'  => $comment,
+			)
+		);
 
-		wp_send_json_success( array(
-			'namespace' => 'taskManager',
-			'module' => 'comment',
-			'callback_success' => 'loadedEditViewComment',
-			'view' => ob_get_clean(),
-		) );
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'comment',
+				'callback_success' => 'loadedEditViewComment',
+				'view'             => ob_get_clean(),
+			)
+		);
 	}
 
 	/**
@@ -209,9 +241,12 @@ class Task_Comment_Action {
 			wp_send_json_error();
 		}
 
-		$comment = Task_Comment_Class::g()->get( array(
-			'id' => $comment_id,
-		), true );
+		$comment = Task_Comment_Class::g()->get(
+			array(
+				'id' => $comment_id,
+			),
+			true
+		);
 
 		$comment->data['status'] = 'trash';
 
@@ -221,16 +256,17 @@ class Task_Comment_Action {
 
 		Point_Class::g()->update( $comment->data['point']->data );
 
-
-		wp_send_json_success( array(
-			'time' => array(
-				'point' => $comment->data['point']->data['time_info']['elapsed'],
-				'task'  => $comment->data['task']->data['time_info']['elapsed'],
-			),
-			'namespace'        => 'taskManager',
-			'module'           => 'comment',
-			'callback_success' => 'deletedCommentSuccess',
-		) );
+		wp_send_json_success(
+			array(
+				'time'             => array(
+					'point' => $comment->data['point']->data['time_info']['elapsed'],
+					'task'  => $comment->data['task']->data['time_info']['elapsed'],
+				),
+				'namespace'        => 'taskManager',
+				'module'           => 'comment',
+				'callback_success' => 'deletedCommentSuccess',
+			)
+		);
 	}
 
 	/**
@@ -242,14 +278,15 @@ class Task_Comment_Action {
 	 * @return void
 	 */
 	public function callback_load_front_comments() {
-		// check_ajax_referer( 'load_front_comments' );
-
-		$task_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+		// @info check_ajax_referer( 'load_front_comments' );.
+		$task_id  = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
 		$point_id = ! empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
 
-		$comments = \task_manager\Task_Comment_Class::g()->get( array(
-			'parent' => $point_id,
-		) );
+		$comments = \task_manager\Task_Comment_Class::g()->get(
+			array(
+				'parent' => $point_id,
+			)
+		);
 
 		if ( ! empty( $comments ) ) {
 			foreach ( $comments as $comment ) {
@@ -257,25 +294,35 @@ class Task_Comment_Action {
 			}
 		}
 
-		$comment_schema = \task_manager\Task_Comment_Class::g()->get( array(
-			'schema' => true,
-		), true );
+		$comment_schema = \task_manager\Task_Comment_Class::g()->get(
+			array(
+				'schema' => true,
+			),
+			true
+		);
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'comment', 'frontend/main', array(
-			'task_id' => $task_id,
-			'point_id' => $point_id,
-			'comments' => $comments,
-			'comment_schema' => $comment_schema,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'comment',
+			'frontend/main',
+			array(
+				'task_id'        => $task_id,
+				'point_id'       => $point_id,
+				'comments'       => $comments,
+				'comment_schema' => $comment_schema,
+			)
+		);
 		$view = ob_get_clean();
 
-		wp_send_json_success( array(
-			'view' => $view,
-			'namespace' => 'taskManagerFrontend',
-			'module' => 'comment',
-			'callback_success' => 'loadedFrontComments',
-		));
+		wp_send_json_success(
+			array(
+				'view'             => $view,
+				'namespace'        => 'taskManagerFrontend',
+				'module'           => 'comment',
+				'callback_success' => 'loadedFrontComments',
+			)
+		);
 	}
 
 	/**
@@ -300,28 +347,37 @@ class Task_Comment_Action {
 		$new        = 0 === $comment_id ? true : false;
 
 		$content = str_replace( '<div>', '<br>', $content );
-		$content = wp_kses( $content, array(
-			'br' => array(),
-			'tooltip' => array(
-				'class' => array(),
+		$content = wp_kses(
+			$content,
+			array(
+				'br'      => array(),
+				'tooltip' => array(
+					'class' => array(),
+				),
 			)
-		) );
+		);
 
-		$comment = \task_manager\Task_Comment_Class::g()->create( array(
-			'id'        => $comment_id,
-			'post_id'   => $post_id,
-			'parent_id' => $parent_id,
-			'date'      => current_time( 'mysql' ),
-			'content'   => $content,
-			'time_info' => array(
-				'elapsed' => $time,
+		$comment = \task_manager\Task_Comment_Class::g()->create(
+			array(
+				'id'        => $comment_id,
+				'post_id'   => $post_id,
+				'parent_id' => $parent_id,
+				'date'      => current_time( 'mysql' ),
+				'content'   => $content,
+				'time_info' => array(
+					'elapsed' => $time,
+				),
 			),
-		), true );
+			true
+		);
 
 		if ( $new ) {
-			$point = Point_Class::g()->get( array(
-				'id' => $parent_id,
-			), true );
+			$point = Point_Class::g()->get(
+				array(
+					'id' => $parent_id,
+				),
+				true
+			);
 
 			$point->data['count_comments']++;
 
@@ -332,17 +388,24 @@ class Task_Comment_Action {
 		do_action( 'tm_action_after_comment_update', $comment->data['id'] );
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'comment', 'frontend/comment', array(
-			'comment' => $comment,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'comment',
+			'frontend/comment',
+			array(
+				'comment' => $comment,
+			)
+		);
 
-		wp_send_json_success( array(
-			'view' => ob_get_clean(),
-			'namespace' => 'taskManagerFrontend',
-			'module' => 'comment',
-			'callback_success' => ! empty( $comment_id ) ? 'editedCommentSuccess' : 'addedCommentSuccess',
-			'comment' => $comment,
-		) );
+		wp_send_json_success(
+			array(
+				'view'             => ob_get_clean(),
+				'namespace'        => 'taskManagerFrontend',
+				'module'           => 'comment',
+				'callback_success' => ! empty( $comment_id ) ? 'editedCommentSuccess' : 'addedCommentSuccess',
+				'comment'          => $comment,
+			)
+		);
 	}
 
 }

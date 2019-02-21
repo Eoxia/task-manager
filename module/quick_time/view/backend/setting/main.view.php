@@ -21,10 +21,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php
 	if ( ! empty( $quicktimes ) ) :
 		foreach ( $quicktimes as $key => $quick_time ) :
-			\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/setting/item', array(
-				'key'        => $key,
-				'quick_time' => $quick_time,
-			) );
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'quick_time',
+				'backend/setting/item',
+				array(
+					'key'        => $key,
+					'quick_time' => $quick_time,
+				)
+			);
 		endforeach;
 	endif;
 	?>

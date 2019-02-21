@@ -29,7 +29,7 @@ class Quick_Point_Filter {
 	public function __construct() {
 		add_filter( 'eo_model_wpeo_point_after_post', array( $this, 'callback_after_save_point' ), 10, 2 );
 		add_filter( 'tm_point_action', array( $this, 'callback_tm_point_action' ), 10, 3 );
-		
+
 	}
 
 	/**
@@ -72,21 +72,26 @@ class Quick_Point_Filter {
 		if ( $tm_point_is_quick_point ) {
 			$time_info = ! empty( $_POST['time_info'] ) ? (int) $_POST['time_info'] : 0; // WPCS: CSRF ok.
 
-			Task_Comment_Class::g()->create(array(
-				'comment_content' => $object->data['content'],
-				'parent_id'       => $object->data['id'],
-				'post_id'         => $object->data['post_id'],
-				'time_info'       => array(
-					'elapsed' => $time_info,
-				),
-			) );
+			Task_Comment_Class::g()->create(
+				array(
+					'comment_content' => $object->data['content'],
+					'parent_id'       => $object->data['id'],
+					'post_id'         => $object->data['post_id'],
+					'time_info'       => array(
+						'elapsed' => $time_info,
+					),
+				)
+			);
 
 			// Mise à jour des données du point après l'ajout du commentaire.
 			$object = Point_Class::g()->get( array( 'id' => $object->data['id'] ), true );
 
-			$task = Task_Class::g()->get( array(
-				'id' => $object->data['post_id'],
-			), true );
+			$task = Task_Class::g()->get(
+				array(
+					'id' => $object->data['post_id'],
+				),
+				true
+			);
 
 			$object->data['parent_task_completed_points'] = $task->data['count_completed_points'];
 		}
@@ -113,19 +118,32 @@ class Quick_Point_Filter {
 
 		return $current_content;
 	}
-	
+
+	/**
+	 * Point d'action
+	 *
+	 * @param  [type] $output    [description].
+	 * @param  [type] $point     [description].
+	 * @param  [type] $parent_id [description].
+	 * @return [type] $output    [vue]
+	 */
 	public function callback_tm_point_action( $output, $point, $parent_id ) {
 		$user = Follower_Class::g()->get( array( 'id' => get_current_user_id() ), true );
-		
+
 		if ( empty( $point->data['id'] ) && $user->data['_tm_quick_point'] ) {
 			ob_start();
-			\eoxia\View_Util::exec( 'task-manager', 'quick-point', 'button', array(
-				'point'     => $point,
-				'parent_id' => $parent_id,
-			) );
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'quick-point',
+				'button',
+				array(
+					'point'     => $point,
+					'parent_id' => $parent_id,
+				)
+			);
 			$output .= ob_get_clean();
 		}
-		
+
 		return $output;
 	}
 

@@ -56,3 +56,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div>
 </div>
+
+<?php
+
+/*
+<div class="dropdown-item action-delete"
+data-action="export_commentary_view"
+data-nonce="<?php echo esc_attr( wp_create_nonce( 'export_commentary_view' ) ); ?>">
+<span><i class="fas fa-upload fa-fw"></i> <?php esc_html_e( 'Export this commentary', 'task-manager' ); ?></span>
+</div>
+
+*/
+?>

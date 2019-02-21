@@ -39,11 +39,16 @@ class Update_Manager extends \Eoxia\Singleton_Util {
 	 * @return void
 	 */
 	public function display() {
-		\eoxia\View_Util::exec( 'eo-framework', 'wpeo_update_manager', 'main', array(
-			'waiting_updates' => get_option( \eoxia\Config_Util::$init['task-manager']->key_waiting_updates, array() ),
-			'redirect_action' => 'tm_redirect_to_dashboard',
-			'dashboard_url'   => \eoxia\Config_Util::$init['task-manager']->dashboard_page_url,
-		) );
+		\eoxia\View_Util::exec(
+			'eo-framework',
+			'wpeo_update_manager',
+			'main',
+			array(
+				'waiting_updates' => get_option( \eoxia\Config_Util::$init['task-manager']->key_waiting_updates, array() ),
+				'redirect_action' => 'tm_redirect_to_dashboard',
+				'dashboard_url'   => \eoxia\Config_Util::$init['task-manager']->dashboard_page_url,
+			)
+		);
 	}
 
 }

@@ -37,9 +37,14 @@ class Activity_Filter {
 	 */
 	public function task_display_type_choice( $current_output, $task ) {
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/task-header-button', array(
-			'task' => $task,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'activity',
+			'backend/task-header-button',
+			array(
+				'task' => $task,
+			)
+		);
 		$current_output .= ob_get_clean();
 
 		return $current_output;

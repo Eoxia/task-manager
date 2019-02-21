@@ -419,12 +419,12 @@ window.eoxiaJS.taskManager.point.loadedPoint = function( triggeredElement, respo
 window.eoxiaJS.taskManager.point.undisplayPoint = function( event ) {
 	var pointState = jQuery( this ).attr( 'data-point-state' );
 	// event.preventDefault();
-	
+
 	jQuery( this ).removeClass( 'active' ).addClass( 'action-input' );
-	
+
 	var points = this.closest( '.wpeo-project-task-container' ).querySelectorAll( '.points .point.edit[data-point-state="' + pointState + '"]' );
-	for (var key in points) {
-		points[key].remove();
+	for( var i = 0; i < points.length; i ++ ){
+		points[i].remove();	
 	}
 	// jQuery( this ).closest( '.wpeo-project-task-container' ).find( '.points .point.edit[data-point-state="' + pointState + '"]' ).remove();
 };

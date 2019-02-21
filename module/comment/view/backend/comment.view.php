@@ -43,7 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<li class="dropdown-item action-attribute"
 							data-action="load_edit_view_comment"
 							data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_edit_view_comment' ) ); ?>"
-							data-id="<?php echo esc_attr( $comment->data['id'] ); ?>"
+							data-id="<?php echo esc_attr( $comment->data['id'] ); ?>">
 						<span><i class="fas fa-pencil fa-fw"></i> <?php esc_html_e( 'Edit this comment', 'task-manager' ); ?></span>
 					</li>
 
@@ -51,7 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							data-action="delete_task_comment"
 							data-message-delete="<?php echo esc_attr_e( 'Delete this comment ?', 'task-manager' ); ?>"
 							data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_task_comment' ) ); ?>"
-							data-id="<?php echo esc_attr( $comment->data['id'] ); ?>"
+							data-id="<?php echo esc_attr( $comment->data['id'] ); ?>">
 						<span><i class="fas fa-trash fa-fw"></i> <?php esc_html_e( 'Delete this comment', 'task-manager' ); ?></span>
 					</li>
 					<?php echo apply_filters( 'tm_comment_toggle_after', '', $comment ); ?>

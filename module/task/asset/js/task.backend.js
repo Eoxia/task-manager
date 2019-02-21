@@ -131,6 +131,7 @@ window.eoxiaJS.taskManager.task.createdTaskSuccess = function( element, response
 	var element = jQuery( response.data.view );
 	window.eoxiaJS.taskManager.task.offset++;
 	jQuery( '.list-task' ).colcade( 'prepend', element );
+	window.eoxiaJS.taskManager.task.initAutoComplete(); 
 };
 
 /**

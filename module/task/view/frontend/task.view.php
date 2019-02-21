@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 			<ul class="wpeo-task-filter" >
 				<li class="point-type-display-buttons" >
-					<button class="wpeo-button button-grey active button-radius-3" data-point-state="uncompleted" 
+					<button class="wpeo-button button-grey active button-radius-3" data-point-state="uncompleted"
 						data-action="load_point"
 						data-frontend="true"
 						data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_point' ) ); ?>"
@@ -55,7 +55,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<span><?php /* Translators: %s stands for completed points number. */ echo sprintf( __( 'Completed (%s)', 'task-manager' ), '<span class="point-completed" >' . $task->data['count_completed_points'] . '</span>' ); ?></span>
 					</button>
 				</li>
-				
+
 				<li class="tm-task-display-method-buttons">
 					<button class="wpeo-button button-grey button-radius-3 list-display active wpeo-tooltip-event"
 						aria-label="<?php echo esc_attr_e( 'Edit display', 'task-manager' ); ?>">
@@ -76,7 +76,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			</ul>
 		</div>
-		
+
 		<div class="bloc-activities"></div>
 
 		<!-- Corps de la tâche -->

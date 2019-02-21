@@ -12,15 +12,21 @@
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) { exit; } ?>
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; } ?>
 
 <?php
 if ( ! empty( $tasks ) ) :
 	foreach ( $tasks as $task ) :
-		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task', array(
-			'task' => $task,
-			'with_wrapper' => $with_wrapper,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'task',
+			'backend/task',
+			array(
+				'task'         => $task,
+				'with_wrapper' => $with_wrapper,
+			)
+		);
 	endforeach;
 endif;
-?>
+

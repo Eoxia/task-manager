@@ -51,13 +51,15 @@ class History_Time_Action {
 
 		ob_start();
 		History_Time_Class::g()->display_histories_time( $task_id );
-		wp_send_json_success( array(
-			'view'             => ob_get_clean(),
-			'buttons_view'     => '',
-			'namespace'        => 'taskManager',
-			'module'           => 'historyTime',
-			'callback_success' => 'loadedTimeHistorySuccess',
-		) );
+		wp_send_json_success(
+			array(
+				'view'             => ob_get_clean(),
+				'buttons_view'     => '',
+				'namespace'        => 'taskManager',
+				'module'           => 'historyTime',
+				'callback_success' => 'loadedTimeHistorySuccess',
+			)
+		);
 	}
 
 	/**
@@ -80,37 +82,50 @@ class History_Time_Action {
 			wp_send_json_error();
 		}
 
-		$history_time_created = History_Time_Class::g()->update( array(
-			'post_id'        => $task_id,
-			'due_date'       => $due_date,
-			'estimated_time' => $estimated_time,
-			'custom'         => $custom,
-		), true );
+		$history_time_created = History_Time_Class::g()->update(
+			array(
+				'post_id'        => $task_id,
+				'due_date'       => $due_date,
+				'estimated_time' => $estimated_time,
+				'custom'         => $custom,
+			),
+			true
+		);
 
 		do_action( 'tm_created_history_time', $history_time_created, $task_id, $due_date, $estimated_time );
 
-		$task = Task_Class::g()->get( array(
-			'p' => $task_id,
-		), true );
+		$task = Task_Class::g()->get(
+			array(
+				'p' => $task_id,
+			),
+			true
+		);
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task-header', array(
-			'task' => $task,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'task',
+			'backend/task-header',
+			array(
+				'task' => $task,
+			)
+		);
 		$task_header_view = ob_get_clean();
 
 		ob_start();
 		History_Time_Class::g()->display_histories_time( $task_id );
 		$history_time_view = ob_get_clean();
 
-		wp_send_json_success( array(
-			'task_id'           => $task_id,
-			'history_time_view' => $history_time_view,
-			'task_header_view'  => $task_header_view,
-			'namespace'         => 'taskManager',
-			'module'            => 'historyTime',
-			'callback_success'  => 'createdHistoryTime',
-		) );
+		wp_send_json_success(
+			array(
+				'task_id'           => $task_id,
+				'history_time_view' => $history_time_view,
+				'task_header_view'  => $task_header_view,
+				'namespace'         => 'taskManager',
+				'module'            => 'historyTime',
+				'callback_success'  => 'createdHistoryTime',
+			)
+		);
 	}
 
 	/**
@@ -130,33 +145,46 @@ class History_Time_Action {
 			wp_send_json_error();
 		}
 
-		$history_time = History_Time_Class::g()->get( array(
-			'id' => $history_time_id,
-		), true );
+		$history_time = History_Time_Class::g()->get(
+			array(
+				'id' => $history_time_id,
+			),
+			true
+		);
 
 		$history_time->data['status'] = 'trash';
 
 		History_Time_Class::g()->update( $history_time->data );
 
-		$task = Task_Class::g()->get( array(
-			'id' => $history_time->data['post_id'],
-		), true );
+		$task = Task_Class::g()->get(
+			array(
+				'id' => $history_time->data['post_id'],
+			),
+			true
+		);
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task-header', array(
-			'task' => $task,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'task',
+			'backend/task-header',
+			array(
+				'task' => $task,
+			)
+		);
 		$task_header_view = ob_get_clean();
 
 		do_action( 'tm_deleted_history_time', $history_time_id );
 
-		wp_send_json_success( array(
-			'task_id'          => $history_time->data['post_id'],
-			'task_header_view' => $task_header_view,
-			'namespace'        => 'taskManager',
-			'module'           => 'historyTime',
-			'callback_success' => 'deletedHistoryTime',
-		) );
+		wp_send_json_success(
+			array(
+				'task_id'          => $history_time->data['post_id'],
+				'task_header_view' => $task_header_view,
+				'namespace'        => 'taskManager',
+				'module'           => 'historyTime',
+				'callback_success' => 'deletedHistoryTime',
+			)
+		);
 	}
 }
 

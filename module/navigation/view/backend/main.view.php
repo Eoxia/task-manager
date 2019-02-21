@@ -49,10 +49,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php $eo_search->display( 'tm_search_order' ); ?>
 
 					<?php
-					\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/tags', array(
-						'categories' => $categories,
-					) );
-						?>
+					\eoxia\View_Util::exec(
+						'task-manager',
+						'navigation',
+						'backend/tags',
+						array(
+							'categories' => $categories,
+						)
+					);
+					?>
 
 					<div class="form-element">
 						<input type="checkbox" id="include_archive" class="form-field" name="tm_dashboard_archives_include" value="include_archive">

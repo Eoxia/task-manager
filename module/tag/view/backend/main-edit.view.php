@@ -18,10 +18,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php
 	if ( ! empty( $tags ) ) :
 		foreach ( $tags as $tag ) :
-			\eoxia\View_Util::exec( 'task-manager', 'tag', 'backend/tag-edit', array(
-				'tag'  => $tag,
-				'task' => $task,
-			) );
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'tag',
+				'backend/tag-edit',
+				array(
+					'tag'  => $tag,
+					'task' => $task,
+				)
+			);
 		endforeach;
 	else :
 		?>

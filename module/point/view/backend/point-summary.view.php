@@ -18,10 +18,10 @@ defined( 'ABSPATH' ) || exit; ?>
 
 <li class="wpeo-block-id"><i class="far fa-hashtag"></i> <?php echo esc_attr( $point->data['id'] ); ?></li>
 <li class="wpeo-point-time">
-    <i class="far fa-clock"></i>
-    <span class="wpeo-time-in-point"><?php echo esc_attr( $point->data['time_info']['elapsed'] ); ?></span>
+	<i class="far fa-clock"></i>
+	<span class="wpeo-time-in-point"><?php echo esc_attr( $point->data['time_info']['elapsed'] ); ?></span>
 </li>
 <li>
-    <i class="far fa-comment-dots"></i>
-    <span class="number-comments"><?php echo esc_html( $point->data['count_comments'] ); ?></span>
+	<i class="far fa-comment-dots"></i>
+	<span class="number-comments"><?php echo esc_html( $point->data['count_comments'] ); ?></span>
 </li>

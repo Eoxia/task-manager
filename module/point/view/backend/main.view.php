@@ -17,18 +17,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="points sortable">
 	<?php
-	\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
-		'point'      => $point_schema,
-		'comment_id' => $comment_id,
-		'point_id'   => $point_id,
-		'parent_id'  => $task_id,
-	) );
+	\eoxia\View_Util::exec(
+		'task-manager',
+		'point',
+		'backend/point',
+		array(
+			'point'      => $point_schema,
+			'comment_id' => $comment_id,
+			'point_id'   => $point_id,
+			'parent_id'  => $task_id,
+		)
+	);
 
-	\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/points', array(
-		'comment_id' => $comment_id,
-		'point_id'   => $point_id,
-		'parent_id'  => $task_id,
-		'points'     => $points_uncompleted,
-	) );
+	\eoxia\View_Util::exec(
+		'task-manager',
+		'point',
+		'backend/points',
+		array(
+			'comment_id' => $comment_id,
+			'point_id'   => $point_id,
+			'parent_id'  => $task_id,
+			'points'     => $points_uncompleted,
+		)
+	);
 	?>
 </div>

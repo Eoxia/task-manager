@@ -17,8 +17,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="tm-wrap">
 	<?php
-	\eoxia\View_Util::exec( 'task-manager', 'task', 'frontend/tasks', array(
-		'tasks' => $tasks,
-	) );
+	\eoxia\View_Util::exec(
+		'task-manager',
+		'task',
+		'frontend/tasks',
+		array(
+			'tasks' => $tasks,
+		)
+	);
 	?>
 </div>

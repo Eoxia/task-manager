@@ -27,7 +27,7 @@ class Support_Filter {
 		add_filter( 'wps_my_account_extra_panel_content', array( $this, 'callback_my_account_content' ), 10, 2 );
 		add_filter( 'wp_redirect', array( $this, 'callback_wp_redirect' ), 10, 2 );
 		add_filter( 'tm_activity_filter_input', array( $this, 'callback_tm_activity_filter_input' ), 10, 1 );
-		
+
 		add_filter( 'task_manager_popup_notify_after', array( $this, 'callback_task_manager_popup_notify_after' ), 10, 2 );
 		add_filter( 'task_manager_notify_send_notification_recipients', array( $this, 'callback_task_manager_notify_send_notification_recipients' ), 10, 3 );
 		add_filter( 'task_manager_notify_send_notification_subject', array( $this, 'callback_task_manager_notify_send_notification_subject' ), 10, 3 );
@@ -70,9 +70,11 @@ class Support_Filter {
 			$last_modification_date       = '';
 			$last_modification_date_mysql = '';
 
-			$tasks = \task_manager\Task_Class::g()->get_tasks( array(
-				'post_parent' => $current_customer_account_to_show,
-			) );
+			$tasks = \task_manager\Task_Class::g()->get_tasks(
+				array(
+					'post_parent' => $current_customer_account_to_show,
+				)
+			);
 
 			$args = array(
 				'post_parent' => $current_customer_account_to_show,
@@ -85,9 +87,14 @@ class Support_Filter {
 
 			if ( ! empty( $children ) ) {
 				foreach ( $children as $child ) {
-					$tasks = array_merge( $tasks, \task_manager\Task_Class::g()->get_tasks( array(
-						'post_parent' => $child->ID,
-					) ) );
+					$tasks = array_merge(
+						$tasks,
+						\task_manager\Task_Class::g()->get_tasks(
+							array(
+								'post_parent' => $child->ID,
+							)
+						)
+					);
 				}
 			}
 
@@ -105,16 +112,21 @@ class Support_Filter {
 			}
 
 			ob_start();
-			\eoxia\View_Util::exec( 'task-manager', 'support', 'frontend/main', array(
-				'last_modification_date' => $last_modification_date,
-				'tasks'                  => $tasks,
-				'tasks_id'               => implode( ',', $tasks_id ),
-				'parent_id'              => $current_customer_account_to_show,
-				'customer_id'            => $current_customer_account_to_show,
-				'user_id'                => get_current_user_id(),
-				'total_time_elapsed'     => $total_time_elapsed,
-				'total_time_estimated'   => $total_time_estimated,
-			) );
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'support',
+				'frontend/main',
+				array(
+					'last_modification_date' => $last_modification_date,
+					'tasks'                  => $tasks,
+					'tasks_id'               => implode( ',', $tasks_id ),
+					'parent_id'              => $current_customer_account_to_show,
+					'customer_id'            => $current_customer_account_to_show,
+					'user_id'                => get_current_user_id(),
+					'total_time_elapsed'     => $total_time_elapsed,
+					'total_time_estimated'   => $total_time_estimated,
+				)
+			);
 			$output = ob_get_clean();
 		}
 
@@ -137,14 +149,20 @@ class Support_Filter {
 		}
 		return $location;
 	}
-	
+
+	/**
+	 * Filtre de l'input d'une activité
+	 *
+	 * @param  [type] $output [vue].
+	 * @return [type] $output [vue]
+	 */
 	public function callback_tm_activity_filter_input( $output ) {
 		if ( ! is_admin() ) {
 			$output .= '<input type="hidden" name="frontend" value="true" />';
 		}
 		return $output;
 	}
-	
+
 	/**
 	 * Ajoutes du contenu de la popup "notification".
 	 *
@@ -177,12 +195,17 @@ class Support_Filter {
 		$page_id   = $GLOBALS['wpdb']->get_var( $query );
 		$permalink = get_permalink( $page_id );
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/mail/list', array(
-			'datas'     => $datas,
-			'last_date' => '',
-			'permalink' => $permalink,
-		) );
-		$body .= ob_get_clean();
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'activity',
+			'backend/mail/list',
+			array(
+				'datas'     => $datas,
+				'last_date' => '',
+				'permalink' => $permalink,
+			)
+		);
+		$body    .= ob_get_clean();
 		$users_id = get_post_meta( $task->data['parent_id'], '_wpscrm_associated_user', true );
 		if ( empty( $users_id ) ) {
 			$users_id = array();
@@ -192,11 +215,16 @@ class Support_Filter {
 			$users_id[] = $customer_post->post_author;
 		}
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'notify', 'backend/support/main', array(
-			'users_id' => $users_id,
-			'post'     => $post,
-			'body'     => $body,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'notify',
+			'backend/support/main',
+			array(
+				'users_id' => $users_id,
+				'post'     => $post,
+				'body'     => $body,
+			)
+		);
 		$content .= ob_get_clean();
 		return $content;
 	}
@@ -292,15 +320,28 @@ class Support_Filter {
 		$page_id   = $GLOBALS['wpdb']->get_var( $query );
 		$permalink = get_permalink( $page_id );
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/mail/list', array(
-			'datas'     => $datas,
-			'last_date' => '',
-			'permalink' => $permalink,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'activity',
+			'backend/mail/list',
+			array(
+				'datas'     => $datas,
+				'last_date' => '',
+				'permalink' => $permalink,
+			)
+		);
 		$body .= ob_get_clean();
 		return $body;
 	}
-	
+
+	/**
+	 * Envois les notifications dans le body administrator
+	 *
+	 * @param  [type] $body      [description].
+	 * @param  [type] $task      [description].
+	 * @param  [type] $form_data [description].
+	 * @return [type]            [description]
+	 */
 	public function callback_task_manager_notify_send_notification_body_administrator( $body, $task, $form_data ) {
 		if ( 0 === $task->data['parent_id'] ) {
 			return $body;
@@ -314,10 +355,15 @@ class Support_Filter {
 		}
 		$current_user = wp_get_current_user();
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'notify', 'backend/support/body-admin', array(
-			'current_user' => $current_user,
-			'task'         => $task,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'notify',
+			'backend/support/body-admin',
+			array(
+				'current_user' => $current_user,
+				'task'         => $task,
+			)
+		);
 		$body = ob_get_clean() . $body;
 		return $body;
 	}

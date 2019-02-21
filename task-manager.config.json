@@ -1,7 +1,7 @@
 {
 	"name": "Task Manager",
 	"slug": "task-manager",
-	"version": "1.8.0",
+	"version": "1.9.0",
 	"description": "L'application Task Manager",
 	"insert_scripts_pages": [
 		"wpeomtm-dashboard",
@@ -11,8 +11,9 @@
 		"task-manager-setting",
 		"task-manager-update",
 		"wpshop_customers",
-		"wpshop_shop_orders",
-		"tache_page_indicator-page"
+		"wpshop_shop_order",
+		"tache_page_indicator-page",
+		"profile"
 	],
 	"externals": [],
 	"modules": [
@@ -34,7 +35,6 @@
 		"module/follower/follower.config.json",
 		"module/admin-bar/admin-bar.config.json",
 		"module/time-exceeded/time-exceeded.config.json",
-		"module/timeline/timeline.config.json",
 		"module/activity/activity.config.json",
 		"module/indicator/indicator.config.json",
 		"module/setting/setting.config.json",
@@ -44,7 +44,7 @@
 		"module/import/import.config.json",
 		"module/tools/tools.config.json"
 	],
-	"debug": false,
+	"debug": true,
 	"key_last_update_version" : "_tm_last_update_version",
 	"core_option": "_tm_core_option",
 	"key_waiting_updates": "_tm_waited_updates",

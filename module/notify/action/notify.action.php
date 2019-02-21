@@ -48,13 +48,18 @@ class Notify_Action {
 			wp_send_json_error();
 		}
 
-		$task = Task_Class::g()->get( array(
-			'p' => $id,
-		), true );
+		$task = Task_Class::g()->get(
+			array(
+				'p' => $id,
+			),
+			true
+		);
 
-		$followers = Follower_Class::g()->get( array(
-			'role' => 'administrator',
-		) );
+		$followers = Follower_Class::g()->get(
+			array(
+				'role' => 'administrator',
+			)
+		);
 
 		$affected_id = $task->data['user_info']['affected_id'];
 
@@ -65,21 +70,33 @@ class Notify_Action {
 		}
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'notify', 'backend/main', array(
-			'followers'   => $followers,
-			'task'        => $task,
-			'affected_id' => $affected_id,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'notify',
+			'backend/main',
+			array(
+				'followers'   => $followers,
+				'task'        => $task,
+				'affected_id' => $affected_id,
+			)
+		);
 		$popup_view = ob_get_clean();
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'notify', 'backend/button', array(
-			'task' => $task,
-		) );
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'notify',
+			'backend/button',
+			array(
+				'task' => $task,
+			)
+		);
 		$buttons_view = ob_get_clean();
-		wp_send_json_success( array(
-			'view'         => $popup_view,
-			'buttons_view' => $buttons_view,
-		) );
+		wp_send_json_success(
+			array(
+				'view'         => $popup_view,
+				'buttons_view' => $buttons_view,
+			)
+		);
 	}
 
 	/**
@@ -103,9 +120,12 @@ class Notify_Action {
 			wp_send_json_error();
 		}
 
-		$task = Task_Class::g()->get( array(
-			'p' => $id,
-		), true );
+		$task = Task_Class::g()->get(
+			array(
+				'p' => $id,
+			),
+			true
+		);
 
 		$sender_data = wp_get_current_user();
 		$admin_email = get_bloginfo( 'admin_email' );
@@ -168,11 +188,13 @@ class Notify_Action {
 			\eoxia\LOG_Util::log( sprintf( 'Send the task %1$d failed', $task->data['id'] ), 'task-manager', 'EO_ERROR' );
 		}
 
-		wp_send_json_success( array(
-			'namespace'        => 'taskManager',
-			'module'           => 'notify',
-			'callback_success' => 'sendedNotification',
-		) );
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'notify',
+				'callback_success' => 'sendedNotification',
+			)
+		);
 	}
 
 }

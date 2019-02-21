@@ -18,10 +18,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php
 	if ( ! empty( $followers ) ) :
 		foreach ( $followers as $follower ) :
-			\eoxia\View_Util::exec( 'task-manager', 'follower', 'backend/follower-edit', array(
-				'user' => $follower,
-				'task' => $task,
-			) );
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'follower',
+				'backend/follower-edit',
+				array(
+					'user' => $follower,
+					'task' => $task,
+				)
+			);
 		endforeach;
 	endif;
 	?>
@@ -29,10 +34,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php
 	if ( ! empty( $followers_no_role ) ) :
 		foreach ( $followers_no_role as $follower ) :
-			\eoxia\View_Util::exec( 'task-manager', 'follower', 'backend/follower-edit', array(
-				'user' => $follower,
-				'task' => $task,
-			) );
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'follower',
+				'backend/follower-edit',
+				array(
+					'user' => $follower,
+					'task' => $task,
+				)
+			);
 		endforeach;
 	endif;
 	?>
