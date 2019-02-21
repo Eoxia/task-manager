@@ -81,11 +81,11 @@ class Import_Class extends \eoxia\Singleton_Util {
 					$line               = str_replace( '%point%', '', $line );
 				}
 
-				$line_type_is_comment = false;
+				$line_type_is_comment = false;/*
 				if ( false !== strpos( $line, '%comment%' ) ) {
 					$line_type_is_comment = true;
 					$line               = str_replace( '%comment%', '', $line );
-				}
+				}*/
 
 				// - - - -
 
@@ -119,7 +119,7 @@ class Import_Class extends \eoxia\Singleton_Util {
 					} else {
 						$element_list['not_created']['points'][] = $line;
 					}
-				} elseif ( ! empty( $line ) && $line_type_is_comment ) {
+				} /*elseif ( ! empty( $line ) && $line_type_is_comment ) {
 					if ( ! empty( $task_id ) && ! empty ( $point_id ) ) {
 						$comment_args    = array(
 							'post_id' => $task_id,
@@ -138,7 +138,7 @@ class Import_Class extends \eoxia\Singleton_Util {
 					} else {
 						$element_list['not_created']['comments'][] = $line;
 					}
-				}else {
+				}*/else {
 					$element_list['not_created']['unknown'][] = $line;
 				}
 			}

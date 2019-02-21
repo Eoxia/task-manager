@@ -23,9 +23,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<i class="button-icon fas fa-plus-circle"></i>
 		<span><?php esc_html_e( 'Point', 'task-manager' ); ?></span>
 	</div>
-	<div class="wpeo-button button-blue" data-type="comment" >
+	<?php /*<div class="wpeo-button button-blue" data-type="comment" >
 		<i class="button-icon fas fa-plus-circle"></i>
 		<span><?php esc_html_e( 'Comment', 'task-manager' ); ?></span>
-	</div>
+	</div>*/ ?>
 </div>
 <textarea name="content" ><?php echo esc_html( $default_content ); ?></textarea>
