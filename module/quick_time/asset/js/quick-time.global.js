@@ -306,9 +306,10 @@ window.eoxiaJS.taskManagerGlobal.quickTime.focusElementWhenPageLoad = function( 
 		jQuery( '.wpeo-project-task-container .points  .comment-content-text .content' ).html( '...' )
 	}
 
-	if( ! document.querySelector( '.wpeo-project-task-container .points  .comment-content-text .content' ) ){
+	if( document.querySelector( '.wpeo-project-task-container .points  .comment-content-text .content' ) == null ){
 		return;
 	}
+	
 	var el = document.querySelector( '.wpeo-project-task-container .points  .comment-content-text .content' );
 
 	el.focus();
