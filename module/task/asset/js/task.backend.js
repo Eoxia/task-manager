@@ -25,7 +25,7 @@ window.eoxiaJS.taskManager.task.refresh = function() {
 window.eoxiaJS.taskManager.task.event = function() {
 	// jQuery( '.tm-wrap' ).on( 'keypress', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.keyEnterEditTitle );
 	jQuery( '.tm-wrap' ).on( 'blur', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.editTitle );
-	// jQuery( window ).scroll( window.eoxiaJS.taskManager.task.onScrollLoadMore );
+	jQuery( window ).scroll( '#poststuff', window.eoxiaJS.taskManager.task.onScrollLoadMore );
 	jQuery( '.tm-wrap' ).on( 'click', '.task-header-action .success span', window.eoxiaJS.taskManager.task.closeSuccess );
 	jQuery( '#poststuff' ).on( 'click', '#wpeo-task-metabox', window.eoxiaJS.taskManager.task.refresh );
 };
@@ -55,6 +55,7 @@ window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
 
 	if ( 1 !== jQuery( '#poststuff' ).length ) {
 		if ( ( jQuery( window ).scrollTop() == jQuery( document ).height() - jQuery( window ).height() ) && window.eoxiaJS.taskManager.task.canLoadMore ) {
+
 			window.eoxiaJS.taskManager.task.offset += parseInt( window.task_manager_posts_per_page );
 			window.eoxiaJS.taskManager.task.canLoadMore = false;
 
@@ -76,6 +77,15 @@ window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
 	}
 };
 
+window.eoxiaJS.taskManager.task.loadedMoreTask = function( element, response ){
+
+	window.eoxiaJS.taskManager.task.canLoadMore = response.data.can_load_more;
+
+	var elements = jQuery( response.data.view );
+	jQuery( '.list-task' ).colcade( 'append', elements );
+
+	jQuery( '.load-more' ).hide();
+}
 /**
  * Envoie une requête pour enregsitrer le nouveau titre de la tâche.
  *
@@ -131,6 +141,7 @@ window.eoxiaJS.taskManager.task.createdTaskSuccess = function( element, response
 	var element = jQuery( response.data.view );
 	window.eoxiaJS.taskManager.task.offset++;
 	jQuery( '.list-task' ).colcade( 'prepend', element );
+	//jQuery( '.tm-dashboard-primary .list-task .grid-col--1').prepend( element );
 	window.eoxiaJS.taskManager.task.initAutoComplete();
 };
 

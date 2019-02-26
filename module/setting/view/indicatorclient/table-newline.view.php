@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
   </td>
 
   <td>
-		<span class="wpeo-button button-disable button-progress action-input"
+		<span class="wpeo-button button-disable button-green button-progress action-input"
 			id="setting-indicator-client-button"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'update_user_settings_indicator_client' ) ); ?>"
 			data-action="update_user_settings_indicator_client"

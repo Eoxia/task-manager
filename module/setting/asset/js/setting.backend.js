@@ -82,7 +82,7 @@ window.eoxiaJS.taskManager.setting.update_form_indicator_client = function( trig
 	}else if( jQuery( "#setting-indicator-client-input" ).val() > 250 ){
 		jQuery( "#setting-indicator-client-input" ).val( 250 );
 	}else if( jQuery( "#setting-indicator-client-input" ).val() < -100 ){
-		jQuery( "#setting-indicator-client-input" ).val( 100 );
+		jQuery( "#setting-indicator-client-input" ).val( -100 );
 	}
 	else{
 

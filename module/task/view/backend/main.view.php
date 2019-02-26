@@ -20,6 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="grid-col grid-col--2"></div>
 
 	<?php Task_Class::g()->display_tasks( $tasks ); ?>
+	<div class="load_more_task_here"></div>
 </div>
 
 <div class="load-more"><?php esc_html_e( 'Load more task...', 'task-manager' ); ?></div>
