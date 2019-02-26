@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2019-02-15 16:19+0100\n"
-"PO-Revision-Date: 2019-02-15 17:02+0100\n"
+"POT-Creation-Date: 2019-02-25 16:44+0100\n"
+"PO-Revision-Date: 2019-02-25 17:23+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -87,7 +87,7 @@ msgstr "Voulez vous supprimer ce commentaire ?"
 
 #: core/action/task_manager.action.php:199
 #: module/import/view/backend/import-textarea.view.php:20
-#: module/task/action/task.action.php:507
+#: module/task/action/task.action.php:521
 msgid "Task"
 msgstr "Tâche"
 
@@ -103,7 +103,7 @@ msgstr "Pas de note de mise à jour pour cette version."
 msgid "Tasks"
 msgstr "Tâches"
 
-#: core/view/main.view.php:29 module/task/action/task.action.php:95
+#: core/view/main.view.php:29 module/task/action/task.action.php:97
 #: module/task/view/backend/metabox-create-buttons.view.php:23
 msgid "New task"
 msgstr "Nouvelle tâche"
@@ -295,37 +295,37 @@ msgid "Update"
 msgstr "Enregistrer les modifications"
 
 #: module/follower/view/backend/user-profile-planning.view.php:28
-#: module/follower/view/backend/user-profile-planning.view.php:201
+#: module/follower/view/backend/user-profile-planning.view.php:203
 msgid "Monday"
 msgstr "Lundi"
 
 #: module/follower/view/backend/user-profile-planning.view.php:29
-#: module/follower/view/backend/user-profile-planning.view.php:202
+#: module/follower/view/backend/user-profile-planning.view.php:204
 msgid "Tuesday"
 msgstr "Mardi"
 
 #: module/follower/view/backend/user-profile-planning.view.php:30
-#: module/follower/view/backend/user-profile-planning.view.php:203
+#: module/follower/view/backend/user-profile-planning.view.php:205
 msgid "Wednesday"
 msgstr "Mercredi"
 
 #: module/follower/view/backend/user-profile-planning.view.php:31
-#: module/follower/view/backend/user-profile-planning.view.php:204
+#: module/follower/view/backend/user-profile-planning.view.php:206
 msgid "Thursday"
 msgstr "Jeudi"
 
 #: module/follower/view/backend/user-profile-planning.view.php:32
-#: module/follower/view/backend/user-profile-planning.view.php:205
+#: module/follower/view/backend/user-profile-planning.view.php:207
 msgid "Friday"
 msgstr "Vendredi"
 
 #: module/follower/view/backend/user-profile-planning.view.php:33
-#: module/follower/view/backend/user-profile-planning.view.php:206
+#: module/follower/view/backend/user-profile-planning.view.php:208
 msgid "Saturday"
 msgstr "Samedi"
 
 #: module/follower/view/backend/user-profile-planning.view.php:34
-#: module/follower/view/backend/user-profile-planning.view.php:207
+#: module/follower/view/backend/user-profile-planning.view.php:209
 msgid "Sunday"
 msgstr "Dimanche"
 
@@ -337,19 +337,19 @@ msgstr "Jusqu'à"
 msgid "To now"
 msgstr "Jusqu'à aujourd'hui"
 
-#: module/follower/view/backend/user-profile-planning.view.php:180
+#: module/follower/view/backend/user-profile-planning.view.php:182
 msgid "Open archive"
 msgstr "Ouvrir les archives"
 
-#: module/follower/view/backend/user-profile-planning.view.php:188
+#: module/follower/view/backend/user-profile-planning.view.php:190
 msgid "List of archives"
 msgstr "Liste des archives"
 
-#: module/follower/view/backend/user-profile-planning.view.php:199
+#: module/follower/view/backend/user-profile-planning.view.php:201
 msgid "Day delete"
 msgstr "Jour de suppression"
 
-#: module/follower/view/backend/user-profile-planning.view.php:200
+#: module/follower/view/backend/user-profile-planning.view.php:202
 msgid "Date"
 msgstr "Date"
 
@@ -453,17 +453,10 @@ msgstr "Import de points depuis un fichier texte dans la tâche : %s"
 msgid "Point"
 msgstr "Point"
 
-#: module/import/view/backend/import-textarea.view.php:28
-#: module/quick_time/view/backend/item.view.php:28
-#: module/quick_time/view/backend/list-newline.view.php:35
-#: module/quick_time/view/backend/list.view.php:27
-#: module/quick_time/view/backend/list.view.php:91
-msgid "Comment"
-msgstr "Commentaire"
-
 #: module/indicator/action/indicator.action.php:57
 #: module/indicator/action/indicator.action.php:59
 #: module/indicator/view/backend/main.view.php:19
+#: module/task/action/task.action.php:520
 msgid "Indicator"
 msgstr "Indicateur"
 
@@ -625,6 +618,7 @@ msgstr "Raccourci"
 
 #: module/navigation/view/backend/tags.view.php:20
 #: module/tag/action/tag.action.php:51
+#: module/task/view/backend/metabox-indicators.view.php:22
 msgid "Categories"
 msgstr "Catégories"
 
@@ -825,6 +819,13 @@ msgstr "ID Tâche"
 #: module/quick_time/view/backend/list.view.php:90
 msgid "Point ID"
 msgstr "ID Point"
+
+#: module/quick_time/view/backend/item.view.php:28
+#: module/quick_time/view/backend/list-newline.view.php:35
+#: module/quick_time/view/backend/list.view.php:27
+#: module/quick_time/view/backend/list.view.php:91
+msgid "Comment"
+msgstr "Commentaire"
 
 #: module/quick_time/view/backend/item.view.php:32
 #: module/quick_time/view/backend/list-newline.view.php:38
@@ -1060,12 +1061,12 @@ msgstr "ici"
 msgid "and refresh this section."
 msgstr "et recharger cette section."
 
-#: module/task/action/task.action.php:297
-#: module/task/action/task.action.php:298
+#: module/task/action/task.action.php:299
+#: module/task/action/task.action.php:300
 msgid "No post found"
 msgstr "Aucun post trouvé"
 
-#: module/task/action/task.action.php:508
+#: module/task/action/task.action.php:522
 msgid "History task"
 msgstr "Historique des tâches"
 
@@ -1077,6 +1078,21 @@ msgstr "Tâche pour %1$s"
 #: module/task/view/backend/main.view.php:25
 msgid "Load more task..."
 msgstr "Chargement de tâche supplémentaire..."
+
+#: module/task/view/backend/metabox-indicators.view.php:32
+#: module/task/view/backend/metabox-indicators.view.php:33
+msgid "Total : "
+msgstr "Total : "
+
+#: module/task/view/backend/metabox-indicators.view.php:43
+#: module/task/view/backend/metabox-indicators.view.php:44
+msgid "Time pasted : "
+msgstr "Temps total :"
+
+#: module/task/view/backend/metabox-indicators.view.php:46
+#: module/task/view/backend/metabox-indicators.view.php:47
+msgid "TimeElapsed /TimeEstimated"
+msgstr "Temps passé/ Temps estimé"
 
 #: module/task/view/backend/task-header-summary.view.php:25
 #: module/task/view/backend/toggle-content.view.php:72
@@ -1963,9 +1979,6 @@ msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
 
 #~ msgid "Elapsed time : "
 #~ msgstr "Temps passé : "
-
-#~ msgid "Time estimated : "
-#~ msgstr "Temps estimé : "
 
 #~ msgid "The task #%d has been exported by the user #%d"
 #~ msgstr "La tâche #%d à été exportées par l'utilisateur #%d"

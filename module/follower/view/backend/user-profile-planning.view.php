@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
+						<tr class="tm_indicator_updateprofile">
 							<?php if ( null != $time ) : ?>
 								<th data-title="Update">
 									<input type='date' name='_tm_planning_date' value='<?php echo $time_en; ?>' min="2010-01-01" max="<?php echo $time_en; ?>">
@@ -159,12 +159,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 									<td>
 										<?php echo $value['minutary_duration']['Sunday']; ?>
 									</td>
-									<td class="action-input wpeo-button" style='cursor : pointer'
+									<td style="text-align : center">
+										<span class="action-input wpeo-button button-red" style='cursor : pointer'
 									data-posarray='<?php echo $day + 1; ?>'
 									data-id='<?php echo $id; ?>'
 									data-nonce="<?php echo esc_attr( wp_create_nonce( 'deleteplan' ) ); ?>"
 									data-action="deleteplan">
-										<i class="fas fa-trash-alt"></i>
+										<span class="fas fa-trash-alt"></span>
+									</span>
 									</td>
 								</tr>
 							<?php endforeach; ?>

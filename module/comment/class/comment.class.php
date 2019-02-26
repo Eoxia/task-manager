@@ -72,9 +72,12 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 	 * @return array             La liste des commentaires du point.
 	 */
 	public function get_comments( $point_id, $args = array() ) {
-		$default_args = array(
-			'parent' => $point_id,
-		);
+		$default_args = array();
+
+		if( $point_id ){
+			$default_args[ 'parent' ] = $point_id;
+		}
+
 
 		$comments = self::g()->get( wp_parse_args( $args, $default_args ) );
 		if ( ! empty( $comments ) ) {

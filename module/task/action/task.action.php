@@ -46,6 +46,8 @@ class Task_Action {
 		add_action( 'wp_ajax_recompile_task', array( $this, 'callback_recompile_task' ) );
 
 		add_action( 'add_meta_boxes', array( $this, 'callback_add_meta_boxes' ), 10, 2 );
+
+		add_action( 'wp_ajax_update_indicator_client', array( $this, 'callback_update_indicator_client' ) );
 	}
 
 	/**
@@ -500,13 +502,67 @@ class Task_Action {
 	 * @version 1.6.2
 	 */
 	public function callback_add_meta_boxes( $post_type, $post ) {
+
+
+
 		if ( in_array( $post_type, \eoxia\Config_Util::$init['task-manager']->associate_post_type, true ) ) {
+
 			ob_start();
 			\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/metabox-create-buttons', array( 'parent_id' => $post->ID ) );
 			$buttons = ob_get_clean();
+
+			$currentyear = date( 'Y', strtotime( 'now' ) );
+
+			ob_start();
+			\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/metabox-head-indicator', array( 'parent_id' => $post->ID, 'year' => $currentyear, 'post_id' => $post->ID, 'post_author' => $post->post_author ) );
+			$button_indicator = ob_get_clean();
+
+			add_meta_box( 'wpeo-task-metaboxtest', __( 'Indicator', 'task-manager' ) . apply_filters( 'tm_posts_metabox_buttons', $button_indicator ), array( Task_Class::g(), 'callback_render_indicator' ), $post_type, 'normal', 'default' );
 			add_meta_box( 'wpeo-task-metabox', __( 'Task', 'task-manager' ) . apply_filters( 'tm_posts_metabox_buttons', $buttons ), array( Task_Class::g(), 'callback_render_metabox' ), $post_type, 'normal', 'default' );
 			add_meta_box( 'wpeo-task-history-metabox', __( 'History task', 'task-manager' ), array( Task_Class::g(), 'callback_render_history_metabox' ), $post_type, 'side', 'default' );
 		}
+	}
+
+	public function callback_update_indicator_client(){
+		check_ajax_referer( 'update_indicator_client' );
+
+		$year = ! empty( $_POST['year'] ) ? (int) $_POST['year'] : 0;
+		$postid    = ! empty( $_POST['postid'] ) ? (int) $_POST['postid'] : 0;
+		$postauthor    = ! empty( $_POST['postauthor'] ) ? (int) $_POST['postauthor'] : 0;
+
+		if( ! $postid || ! $postauthor || ! $year){
+			wp_send_json_error();
+		}
+
+		$alldata = Task_Class::g()->update_client_indicator( $postid, $postauthor, $year );
+
+		$year = $alldata[ 'year' ];
+		$categories = $alldata[ 'categories' ];
+		$everymonth = $alldata[ 'everymonth' ];
+
+		$view = ob_start();
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'task',
+			'backend/metabox-indicators',
+			array(
+				'categories' => $categories,
+				'everymonth' => $everymonth
+			)
+		);
+
+
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'task',
+				'callback_success' => 'updateIndicatorClientSuccess',
+				'view'             => ob_get_clean(),
+				'year'             => $year
+			)
+		);
+
 	}
 
 }
