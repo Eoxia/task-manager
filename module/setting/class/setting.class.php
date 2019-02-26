@@ -114,6 +114,97 @@ class Setting_Class extends \eoxia\Singleton_Util {
 			)
 		);
 	}
+
+	public function get_user_settings_indicator_client(){
+
+		$data = get_user_meta( get_current_user_id(), 'indicator_client_settings', true ); // on récupere les settings de l'utilisateur
+		if( ! isset( $data ) || empty( $data ) ){
+			$data = array();
+		}
+
+		return $data;
+	}
+
+	public function display_user_settings_indicator_client(){
+
+		$data = $this->get_user_settings_indicator_client();
+
+		ob_start();
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'setting',
+			'indicatorclient/table-callline'
+		);
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'setting',
+			'indicatorclient/table-newline'
+		);
+
+		$view = ob_get_clean();
+
+		return $view;
+	}
+
+
+	public function update_settings_user_indicatorclient( $color, $value ){
+
+		$data = $this->get_user_settings_indicator_client();
+		$element = array(
+			'from_number' => $value,
+			'to_number' => 0,
+			'value_color' => $color
+		);
+
+		array_push( $data, $element );
+
+		$data_tried = $this->update_properly_settings_user_indicator_client( $data );
+
+		update_user_meta( get_current_user_id(), 'indicator_client_settings', $data_tried );
+
+		return $this->display_user_settings_indicator_client( $data_tried );
+	}
+
+	public function delete_user_settings_indicator_client( $key ){
+		$data = $this->get_user_settings_indicator_client();
+
+		if( isset( $data[ $key ] ) ){
+			unset( $data[$key] );
+		}
+
+		$data_tried = $this->update_properly_settings_user_indicator_client( $data );
+
+		update_user_meta( get_current_user_id(), 'indicator_client_settings', $data_tried );
+
+		return $this->display_user_settings_indicator_client();
+	}
+
+	public function update_properly_settings_user_indicator_client( $data ){
+
+		$data_tried = Follower_Class::g()->array_sort( $data, 'from_number', SORT_DESC );
+
+		foreach ($data_tried as $key => $value) {
+			if( $key == 0 ){
+				$data_tried[ $key ][ 'to_number' ] = '+++';
+				$data_tried[ $key ][ 'topnumber' ] = true;
+			}else{
+				$data_tried[ $key ][ 'to_number' ] = $data_tried[ $key - 1 ][ 'from_number' ];
+				$data_tried[ $key ][ 'topnumber' ] = false;
+			}
+
+			if( $key == count( $data_tried ) - 1 ){
+				$data_tried[ $key ][ 'lownumber' ] = true;
+			}else{
+				$data_tried[ $key ][ 'lownumber' ] = false;
+			}
+
+		}
+
+
+		return $data_tried;
+	}
 }
 
 Setting_Class::g();

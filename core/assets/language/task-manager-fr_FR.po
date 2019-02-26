@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2019-02-15 16:19+0100\n"
-"PO-Revision-Date: 2019-02-15 17:02+0100\n"
+"POT-Creation-Date: 2019-02-26 15:09+0100\n"
+"PO-Revision-Date: 2019-02-26 15:11+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -69,6 +69,7 @@ msgstr ""
 #: core/action/task_manager.action.php:119
 #: module/follower/view/backend/user-profile-planning.view.php:128
 #: module/follower/view/backend/user-profile-planning.view.php:131
+#: module/setting/view/indicatorclient/table.view.php:25
 msgid "From"
 msgstr "A partir de"
 
@@ -87,7 +88,7 @@ msgstr "Voulez vous supprimer ce commentaire ?"
 
 #: core/action/task_manager.action.php:199
 #: module/import/view/backend/import-textarea.view.php:20
-#: module/task/action/task.action.php:507
+#: module/task/action/task.action.php:521
 msgid "Task"
 msgstr "Tâche"
 
@@ -103,7 +104,7 @@ msgstr "Pas de note de mise à jour pour cette version."
 msgid "Tasks"
 msgstr "Tâches"
 
-#: core/view/main.view.php:29 module/task/action/task.action.php:95
+#: core/view/main.view.php:29 module/task/action/task.action.php:97
 #: module/task/view/backend/metabox-create-buttons.view.php:23
 msgid "New task"
 msgstr "Nouvelle tâche"
@@ -295,41 +296,42 @@ msgid "Update"
 msgstr "Enregistrer les modifications"
 
 #: module/follower/view/backend/user-profile-planning.view.php:28
-#: module/follower/view/backend/user-profile-planning.view.php:201
+#: module/follower/view/backend/user-profile-planning.view.php:203
 msgid "Monday"
 msgstr "Lundi"
 
 #: module/follower/view/backend/user-profile-planning.view.php:29
-#: module/follower/view/backend/user-profile-planning.view.php:202
+#: module/follower/view/backend/user-profile-planning.view.php:204
 msgid "Tuesday"
 msgstr "Mardi"
 
 #: module/follower/view/backend/user-profile-planning.view.php:30
-#: module/follower/view/backend/user-profile-planning.view.php:203
+#: module/follower/view/backend/user-profile-planning.view.php:205
 msgid "Wednesday"
 msgstr "Mercredi"
 
 #: module/follower/view/backend/user-profile-planning.view.php:31
-#: module/follower/view/backend/user-profile-planning.view.php:204
+#: module/follower/view/backend/user-profile-planning.view.php:206
 msgid "Thursday"
 msgstr "Jeudi"
 
 #: module/follower/view/backend/user-profile-planning.view.php:32
-#: module/follower/view/backend/user-profile-planning.view.php:205
+#: module/follower/view/backend/user-profile-planning.view.php:207
 msgid "Friday"
 msgstr "Vendredi"
 
 #: module/follower/view/backend/user-profile-planning.view.php:33
-#: module/follower/view/backend/user-profile-planning.view.php:206
+#: module/follower/view/backend/user-profile-planning.view.php:208
 msgid "Saturday"
 msgstr "Samedi"
 
 #: module/follower/view/backend/user-profile-planning.view.php:34
-#: module/follower/view/backend/user-profile-planning.view.php:207
+#: module/follower/view/backend/user-profile-planning.view.php:209
 msgid "Sunday"
 msgstr "Dimanche"
 
 #: module/follower/view/backend/user-profile-planning.view.php:127
+#: module/setting/view/indicatorclient/table.view.php:26
 msgid "To"
 msgstr "Jusqu'à"
 
@@ -337,19 +339,19 @@ msgstr "Jusqu'à"
 msgid "To now"
 msgstr "Jusqu'à aujourd'hui"
 
-#: module/follower/view/backend/user-profile-planning.view.php:180
+#: module/follower/view/backend/user-profile-planning.view.php:182
 msgid "Open archive"
 msgstr "Ouvrir les archives"
 
-#: module/follower/view/backend/user-profile-planning.view.php:188
+#: module/follower/view/backend/user-profile-planning.view.php:190
 msgid "List of archives"
 msgstr "Liste des archives"
 
-#: module/follower/view/backend/user-profile-planning.view.php:199
+#: module/follower/view/backend/user-profile-planning.view.php:201
 msgid "Day delete"
 msgstr "Jour de suppression"
 
-#: module/follower/view/backend/user-profile-planning.view.php:200
+#: module/follower/view/backend/user-profile-planning.view.php:202
 msgid "Date"
 msgstr "Date"
 
@@ -453,17 +455,10 @@ msgstr "Import de points depuis un fichier texte dans la tâche : %s"
 msgid "Point"
 msgstr "Point"
 
-#: module/import/view/backend/import-textarea.view.php:28
-#: module/quick_time/view/backend/item.view.php:28
-#: module/quick_time/view/backend/list-newline.view.php:35
-#: module/quick_time/view/backend/list.view.php:27
-#: module/quick_time/view/backend/list.view.php:91
-msgid "Comment"
-msgstr "Commentaire"
-
 #: module/indicator/action/indicator.action.php:57
 #: module/indicator/action/indicator.action.php:59
 #: module/indicator/view/backend/main.view.php:19
+#: module/task/action/task.action.php:520
 msgid "Indicator"
 msgstr "Indicateur"
 
@@ -519,6 +514,7 @@ msgid "Day"
 msgstr "Jour"
 
 #: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:77
+#: module/timeline/view/backend/week.view.php:12
 msgid "Week"
 msgstr "Semaine"
 
@@ -625,6 +621,7 @@ msgstr "Raccourci"
 
 #: module/navigation/view/backend/tags.view.php:20
 #: module/tag/action/tag.action.php:51
+#: module/task/view/backend/metabox-indicators.view.php:22
 msgid "Categories"
 msgstr "Catégories"
 
@@ -730,6 +727,8 @@ msgstr "Créé "
 
 #: module/point/view/backend/toggle-content.view.php:34
 #: module/quick_time/view/backend/list.view.php:35
+#: module/setting/view/indicatorclient/table.view.php:27
+#: module/setting/view/indicatorclient/table.view.php:28
 #: module/task/view/backend/toggle-content.view.php:100
 msgid "Delete"
 msgstr "Supprimer"
@@ -826,6 +825,13 @@ msgstr "ID Tâche"
 msgid "Point ID"
 msgstr "ID Point"
 
+#: module/quick_time/view/backend/item.view.php:28
+#: module/quick_time/view/backend/list-newline.view.php:35
+#: module/quick_time/view/backend/list.view.php:27
+#: module/quick_time/view/backend/list.view.php:91
+msgid "Comment"
+msgstr "Commentaire"
+
 #: module/quick_time/view/backend/item.view.php:32
 #: module/quick_time/view/backend/list-newline.view.php:38
 #: module/quick_time/view/backend/list.view.php:28
@@ -837,7 +843,7 @@ msgstr "min."
 #: module/quick_time/view/backend/item.view.php:43
 #: module/quick_time/view/backend/list.view.php:34
 msgid "Copy to clipboard"
-msgstr "copier dans le presse-papier"
+msgstr "Copier dans le presse-papier"
 
 #: module/quick_time/view/backend/item.view.php:53
 #: module/quick_time/view/backend/setting/item.view.php:26
@@ -948,13 +954,29 @@ msgstr "Afficher la barre de recherche dans la barre d'administration"
 msgid "Save changes"
 msgstr "Enregistrer les changements"
 
-#: module/setting/view/main.view.php:25
+#: module/setting/view/indicatorclient/main.view.php:23
+msgid "Settings Indicator Client"
+msgstr ""
+
+#: module/setting/view/indicatorclient/main.view.php:25
+msgid "Set colors and display of the indicator table in the client section"
+msgstr ""
+
+#: module/setting/view/indicatorclient/table.view.php:24
+msgid "Colors"
+msgstr ""
+
+#: module/setting/view/main.view.php:26
 msgid "General settings"
 msgstr "Réglages généraux"
 
-#: module/setting/view/main.view.php:26
+#: module/setting/view/main.view.php:30
 msgid "Rights management"
 msgstr "Gestion des droits"
+
+#: module/setting/view/main.view.php:34
+msgid "Indicator client"
+msgstr "Indicateur (Client )"
 
 #: module/sticky-note/action/sticky-note.action.php:65
 msgid "Add new sticky note"
@@ -1060,12 +1082,12 @@ msgstr "ici"
 msgid "and refresh this section."
 msgstr "et recharger cette section."
 
-#: module/task/action/task.action.php:297
-#: module/task/action/task.action.php:298
+#: module/task/action/task.action.php:299
+#: module/task/action/task.action.php:300
 msgid "No post found"
 msgstr "Aucun post trouvé"
 
-#: module/task/action/task.action.php:508
+#: module/task/action/task.action.php:522
 msgid "History task"
 msgstr "Historique des tâches"
 
@@ -1077,6 +1099,16 @@ msgstr "Tâche pour %1$s"
 #: module/task/view/backend/main.view.php:25
 msgid "Load more task..."
 msgstr "Chargement de tâche supplémentaire..."
+
+#: module/task/view/backend/metabox-indicators.view.php:32
+#: module/task/view/backend/metabox-indicators.view.php:33
+msgid "Total : "
+msgstr "Total : "
+
+#: module/task/view/backend/metabox-indicators.view.php:48
+#: module/task/view/backend/metabox-indicators.view.php:49
+msgid "TimeElapsed /TimeEstimated"
+msgstr "TempsPassé/ TempsEstimé"
 
 #: module/task/view/backend/task-header-summary.view.php:25
 #: module/task/view/backend/toggle-content.view.php:72
@@ -1185,6 +1217,58 @@ msgid "Please use form above in order to view task where time is exceeded"
 msgstr ""
 "Merci d'utiliser le formulaire ci-dessus pour chercher et voir les tâches "
 "ayant dépassées les prévisions"
+
+#: module/timeline/action/timeline.action.php:73
+#: module/timeline/view/backend/main.view.php:4
+msgid "Timeline"
+msgstr "Historique"
+
+#: module/timeline/class/timeline.class.php:128
+msgid "Create the task #"
+msgstr "Créer la tâche #"
+
+#: module/timeline/class/timeline.class.php:132
+msgid "Create the point #"
+msgstr "Créer le point #"
+
+#: module/timeline/class/timeline.class.php:136
+msgid "Create the comment #"
+msgstr "Crée le commentaire #"
+
+#: module/timeline/view/backend/month.view.php:29
+#: module/timeline/view/backend/week.view.php:22
+msgid "Working time"
+msgstr "Temps de travail"
+
+#: module/timeline/view/backend/month.view.php:33
+#: module/timeline/view/backend/week.view.php:26
+msgid "Setup working time"
+msgstr "Configurer le temps de travail"
+
+#: module/timeline/view/backend/month.view.php:38
+#: module/timeline/view/backend/week.view.php:31
+msgid "Worked time"
+msgstr "Temps travaillé"
+
+#: module/timeline/view/backend/month.view.php:42
+#: module/timeline/view/backend/week.view.php:35
+msgid "Task(s) created"
+msgstr "Tâche(s) créé(s)"
+
+#: module/timeline/view/backend/month.view.php:46
+#: module/timeline/view/backend/week.view.php:39
+msgid "Point(s) created"
+msgstr "Point(s) créé(s)"
+
+#: module/timeline/view/backend/month.view.php:50
+#: module/timeline/view/backend/week.view.php:43
+msgid "Completed point(s)"
+msgstr "Point(s) complété(s)"
+
+#: module/timeline/view/backend/month.view.php:55
+#: module/timeline/view/backend/week.view.php:48
+msgid "Waste time"
+msgstr "Temps gaspillé"
 
 #: module/tools/view/backend/main.view.php:19
 msgid "Task Manager Tools"
@@ -1332,39 +1416,6 @@ msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
 
 #~ msgid "Add time"
 #~ msgstr "Ajouter du temps"
-
-#~ msgid "Timeline"
-#~ msgstr "Historique"
-
-#~ msgid "Create the task #"
-#~ msgstr "Créer la tâche #"
-
-#~ msgid "Create the point #"
-#~ msgstr "Créer le point #"
-
-#~ msgid "Create the comment #"
-#~ msgstr "Crée le commentaire #"
-
-#~ msgid "Working time"
-#~ msgstr "Temps de travail"
-
-#~ msgid "Setup working time"
-#~ msgstr "Configurer le temps de travail"
-
-#~ msgid "Worked time"
-#~ msgstr "Temps travaillé"
-
-#~ msgid "Task(s) created"
-#~ msgstr "Tâche(s) créé(s)"
-
-#~ msgid "Point(s) created"
-#~ msgstr "Point(s) créé(s)"
-
-#~ msgid "Completed point(s)"
-#~ msgstr "Point(s) complété(s)"
-
-#~ msgid "Waste time"
-#~ msgstr "Temps gaspillé"
 
 #~ msgid "Invalid !"
 #~ msgstr "Invalide"
@@ -1963,9 +2014,6 @@ msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
 
 #~ msgid "Elapsed time : "
 #~ msgstr "Temps passé : "
-
-#~ msgid "Time estimated : "
-#~ msgstr "Temps estimé : "
 
 #~ msgid "The task #%d has been exported by the user #%d"
 #~ msgstr "La tâche #%d à été exportées par l'utilisateur #%d"

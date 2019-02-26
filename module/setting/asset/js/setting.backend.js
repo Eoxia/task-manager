@@ -12,6 +12,9 @@ window.eoxiaJS.taskManager.setting.init = function() {
 
 window.eoxiaJS.taskManager.setting.event = function() {
 	jQuery( document ).on( 'click', '.settings_page_task-manager-setting .list-users .wp-digi-pagination a', window.eoxiaJS.taskManager.setting.pagination );
+	jQuery( document ).on( 'change', '#setting-indicator-client-update-color', window.eoxiaJS.taskManager.setting.update_color_indicator_client );
+	jQuery( document ).on( 'click', '#setting-indicator-client-input', window.eoxiaJS.taskManager.setting.update_form_indicator_client );
+	jQuery( document ).on( 'keyup', '#setting-indicator-client-input', window.eoxiaJS.taskManager.setting.update_form_indicator_client );
 };
 
 /**
@@ -59,3 +62,31 @@ window.eoxiaJS.taskManager.setting.savedCapability = function( triggeredElement,
 		triggeredElement.removeClass( 'button-success' );
 	}, 1500 );
 };
+
+window.eoxiaJS.taskManager.setting.update_color_indicator_client = function( triggeredElement, response ) {
+	jQuery( '#setting-indicator-client-update-hidden' ).val( jQuery( this ).val() );
+	console.log( jQuery( this ).val() );
+	jQuery( '#div_setting_indicator_client_color' ).css( "background-color", jQuery( this ).val() );
+
+};
+
+
+window.eoxiaJS.taskManager.setting.display_view_settings_indicator_client = function( triggeredElement, response ) {
+	jQuery( ".body-indicator-client-settings" ).html( response.data.view );
+};
+
+window.eoxiaJS.taskManager.setting.update_form_indicator_client = function( triggeredElement, response ){
+	if( jQuery( "#setting-indicator-client-input" ).val() == '' ){
+		jQuery( "#setting-indicator-client-button" ).addClass( 'button-disable' );
+
+	}else if( jQuery( "#setting-indicator-client-input" ).val() > 250 ){
+		jQuery( "#setting-indicator-client-input" ).val( 250 );
+	}else if( jQuery( "#setting-indicator-client-input" ).val() < -100 ){
+		jQuery( "#setting-indicator-client-input" ).val( 100 );
+	}
+	else{
+
+		jQuery( "#setting-indicator-client-button" ).removeClass( 'button-disable' );
+
+	}
+}

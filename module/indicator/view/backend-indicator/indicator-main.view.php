@@ -18,9 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <div>
-	<h1>
-		<?php esc_html_e( 'End date', 'task-manager' ); ?>
-	</h1>
+	<br>
 </div>
 
 <?php do_meta_boxes( 'indicator-page', 'normal', '' ); ?>

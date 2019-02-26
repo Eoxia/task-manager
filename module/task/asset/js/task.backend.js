@@ -131,7 +131,7 @@ window.eoxiaJS.taskManager.task.createdTaskSuccess = function( element, response
 	var element = jQuery( response.data.view );
 	window.eoxiaJS.taskManager.task.offset++;
 	jQuery( '.list-task' ).colcade( 'prepend', element );
-	window.eoxiaJS.taskManager.task.initAutoComplete(); 
+	window.eoxiaJS.taskManager.task.initAutoComplete();
 };
 
 /**
@@ -219,4 +219,12 @@ window.eoxiaJS.taskManager.task.recompiledTask = function( triggeredElement, res
  */
 window.eoxiaJS.taskManager.task.closeSuccess = function( event ) {
 	jQuery( this ).closest( '.success.active' ).removeClass( 'active' );
+};
+
+window.eoxiaJS.taskManager.task.updateIndicatorClientSuccess = function( element, response ) {
+	jQuery( '.tm_client_indicator_update_body' ).replaceWith( response.data.view );
+	jQuery( '.tm_client_indicator_update #tm_client_indicator_header_minus' ).attr( 'data-year', response.data.year - 1 );
+	jQuery( '.tm_client_indicator_update #tm_client_indicator_header_actual' ).attr( 'data-year', response.data.year );
+	jQuery( '.tm_client_indicator_update #tm_client_indicator_header_display' ).html( response.data.year );
+	jQuery( '.tm_client_indicator_update #tm_client_indicator_header_plus' ).attr( 'data-year', response.data.year + 1 );
 };
