@@ -55,8 +55,3 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<span class="button-icon fa fa-plus" aria-hidden="true"></span>
 	</span>
 </span>
-
-<span>
-	<?php esc_html_e( 'Change colors', 'task-manager' ) ?>
-	<span class="button-icon fa fa-plus" aria-hidden="true"></span>
-</span>

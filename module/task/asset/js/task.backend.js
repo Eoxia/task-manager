@@ -28,6 +28,7 @@ window.eoxiaJS.taskManager.task.event = function() {
 	jQuery( window ).scroll( '#poststuff', window.eoxiaJS.taskManager.task.onScrollLoadMore );
 	jQuery( '.tm-wrap' ).on( 'click', '.task-header-action .success span', window.eoxiaJS.taskManager.task.closeSuccess );
 	jQuery( '#poststuff' ).on( 'click', '#wpeo-task-metabox', window.eoxiaJS.taskManager.task.refresh );
+	jQuery( document ).on( 'click', '#tm_include_archive_client', window.eoxiaJS.taskManager.task.showArchiveClient );
 };
 
 /**
@@ -239,3 +240,30 @@ window.eoxiaJS.taskManager.task.updateIndicatorClientSuccess = function( element
 	jQuery( '.tm_client_indicator_update #tm_client_indicator_header_display' ).html( response.data.year );
 	jQuery( '.tm_client_indicator_update #tm_client_indicator_header_plus' ).attr( 'data-year', response.data.year + 1 );
 };
+
+window.eoxiaJS.taskManager.task.showArchiveClient = function( triggeredElement, response ){
+	if( jQuery( '#tm_include_archive_client' ).data('showarchive') ){
+		jQuery( '#tm_include_archive_client' ).data('showarchive', false );
+
+		jQuery( '#tm_show_archive_button_client' ).show();
+		jQuery( '#tm_hide_archive_button_client' ).hide();
+
+		jQuery( '.wpeo-project-wrap .list-task .wpeo-project-task' ).each(function(){
+			if( jQuery( this ).data( 'status' ) == 'archive' ){
+				jQuery( this ).css( 'display', 'none' );
+			}
+		});
+	}else{
+		jQuery( '#tm_include_archive_client' ).data('showarchive', true );
+
+		jQuery( '#tm_show_archive_button_client' ).hide();
+		jQuery( '#tm_hide_archive_button_client' ).show();
+
+		jQuery( '.wpeo-project-wrap .list-task .wpeo-project-task' ).each(function(){
+			if( jQuery( this ).data( 'status' ) == 'archive' ){
+				jQuery( this ).css( 'display', 'block' );
+			}
+		});
+
+	}
+}

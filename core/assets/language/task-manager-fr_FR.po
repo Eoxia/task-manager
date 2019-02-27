@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2019-02-26 15:09+0100\n"
-"PO-Revision-Date: 2019-02-26 15:11+0100\n"
+"POT-Creation-Date: 2019-02-27 09:55+0100\n"
+"PO-Revision-Date: 2019-02-27 09:57+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -171,7 +171,6 @@ msgstr "Date de début"
 #: module/activity/view/backend/main.view.php:32
 #: module/activity/view/backend/main.view.php:34
 #: module/activity/view/backend/post-last-activity.view.php:34
-#: module/indicator/view/backend-indicator/indicator-main.view.php:22
 #: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:32
 #: module/indicator/view/backend/daily-activity.view.php:44
 #: module/time-exceeded/view/backend/main.view.php:30
@@ -1045,7 +1044,7 @@ msgid "Support"
 msgstr "Support"
 
 #: module/support/view/frontend/main.view.php:39
-#: module/task/view/backend/metabox-posts.view.php:19
+#: module/task/view/backend/metabox-posts.view.php:23
 msgid "Total time past"
 msgstr "Total du temps passé"
 
@@ -1091,12 +1090,12 @@ msgstr "Aucun post trouvé"
 msgid "History task"
 msgstr "Historique des tâches"
 
-#: module/task/class/task.class.php:347
+#: module/task/class/task.class.php:348
 #, php-format
 msgid "Task for %1$s"
 msgstr "Tâche pour %1$s"
 
-#: module/task/view/backend/main.view.php:25
+#: module/task/view/backend/main.view.php:26
 msgid "Load more task..."
 msgstr "Chargement de tâche supplémentaire..."
 
@@ -1109,6 +1108,14 @@ msgstr "Total : "
 #: module/task/view/backend/metabox-indicators.view.php:49
 msgid "TimeElapsed /TimeEstimated"
 msgstr "TempsPassé/ TempsEstimé"
+
+#: module/task/view/backend/metabox-posts.view.php:20
+msgid "Show Archives"
+msgstr "Afficher les archives"
+
+#: module/task/view/backend/metabox-posts.view.php:21
+msgid "Hide Archives"
+msgstr "Cacher les archives"
 
 #: module/task/view/backend/task-header-summary.view.php:25
 #: module/task/view/backend/toggle-content.view.php:72

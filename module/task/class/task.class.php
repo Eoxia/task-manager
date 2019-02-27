@@ -311,6 +311,7 @@ class Task_Class extends \eoxia\Post_Class {
 
 		// Affichage des tâches de l'élément sur lequel on se trouve.
 		$tasks[ $post->ID ]['title'] = '';
+
 		$tasks[ $post->ID ]['data']  = self::g()->get_tasks(
 			array(
 				'post_parent' => $post->ID,

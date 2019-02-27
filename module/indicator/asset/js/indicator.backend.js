@@ -64,6 +64,7 @@ window.eoxiaJS.taskManager.indicator.loadedCustomerActivity = function( triggere
 
 			for ( var i = 0; i < data.length ; i++ ){
 
+
 				jQuery( "#displaycanvas" ).append( '<div class="wpeo-grid grid-2"><div class="grid-1"><canvas id="canvasHorizontalBar' + i + '"></canvas></div><div class="grid-1"><canvas id="canvasDoghnutChart' + i + '" width="400" height="225" class="wpeo-modal-event" ></canvas></div></div>' );
 				var canvasHorizontal = document.getElementById( "canvasHorizontalBar" + i ).getContext('2d');
 
@@ -118,11 +119,14 @@ window.eoxiaJS.taskManager.indicator.loadedCustomerActivity = function( triggere
 
 					var donutduree = [];
 					var donutpoint = [];
+					var donutitle  = [];
 					var dayfocus   = '';
 
 					for (var v = 0; v < data[ i ][ 'tache_effectue' ].length; v++) {
 						donutduree[ v ] = data[ i ][ 'tache_effectue' ][ v ][ 'duree' ];
 						donutpoint[ v ] = data[ i ][ 'tache_effectue' ][ v ][ 'point_id' ];
+						donutitle[ v ]  = data[ i ][ 'tache_effectue' ][ v ][ 'tache_title' ];
+
 						dayfocus        = data[ i ][ 'jour' ];
 					}
 
@@ -134,7 +138,8 @@ window.eoxiaJS.taskManager.indicator.loadedCustomerActivity = function( triggere
 				          backgroundColor: ["#800000", "#9A6324","#808000","#469990","#000075", "#e6194B", "#f58231", "#ffe119", "#bfef45", "#3cb44b", "#42d4f4", "#4363d8", "#911eb4", "#f032e6", "#a9a9a9", "#fabebe", "#ffd8b1", "#fffac8", "#aaffc3", "#e6beff"],
 				          data: donutduree,
 				        }
-				      ]
+				      ],
+						dataset : donutitle,
 					};
 
 					var option_canvas_doghnut =  {
@@ -149,6 +154,13 @@ window.eoxiaJS.taskManager.indicator.loadedCustomerActivity = function( triggere
 			        display: true,
 			        text: data[ i ][ 'jour' ]
 			      },
+						tooltips: {
+              callbacks: {
+                title: function( item, data_indicator ) {
+									return data_indicator[ 'dataset' ][ item[ 0 ][ 'index' ] ];
+                },
+              }
+            },
 						legend: {
               onClick: (e) => e.stopPropagation() // Block click
             }
