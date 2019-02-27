@@ -41,6 +41,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</li>
 </ul>
 
+
+<?php \eoxia\View_Util::exec(
+	'task-manager',
+	'point',
+	'backend/config-quicktimes',
+	array(
+		'task_id'  => $point->data[ 'post_id' ],
+		'point_id'   => $point->data[ 'id' ]
+	)
+); ?>
+
 <div class="move-to">
 	<div class="">
 		<input type="hidden" name="task_id" value="<?php echo esc_attr( $point->data['post_id'] ); ?>" />
@@ -56,6 +67,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div>
 </div>
+
+
 
 <?php
 

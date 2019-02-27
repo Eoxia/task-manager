@@ -158,6 +158,25 @@ class Quick_Time_Class extends \eoxia\Singleton_Util {
 			)
 		);
 	}
+
+	public function this_point_is_a_quicktime( $task_id, $point_id ){
+
+		if( $task_id != 0 && $point_id != 0 ){
+			$quicktimes = self::get_quicktimes();
+			if( ! empty ( $quicktimes ) ){
+
+				foreach ($quicktimes as $key => $value) {
+					if( ! empty( $value ) ){
+						if( $value[ 'task_id' ] == $task_id ){
+							return $key;
+						}
+					}
+				}
+			}
+			
+		}
+		return -1;
+	}
 }
 
 Quick_Time_Class::g();

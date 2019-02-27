@@ -121,3 +121,10 @@ z-index: 26; }
       .tm_indicator_updateprofile input{
         width : 100%;
       }
+
+
+      .tm_add_quicktime_point{
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        padding-top : 10px;
+        padding-bottom : 10px
+      }
