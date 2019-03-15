@@ -25,10 +25,12 @@ window.eoxiaJS.taskManager.task.refresh = function() {
 window.eoxiaJS.taskManager.task.event = function() {
 	// jQuery( '.tm-wrap' ).on( 'keypress', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.keyEnterEditTitle );
 	jQuery( '.tm-wrap' ).on( 'blur', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.editTitle );
-	jQuery( window ).scroll( '#poststuff', window.eoxiaJS.taskManager.task.onScrollLoadMore );
+	jQuery( window ).scroll( '.wpeo-wrap .tm-wrap #poststuff', window.eoxiaJS.taskManager.task.onScrollLoadMore );
 	jQuery( '.tm-wrap' ).on( 'click', '.task-header-action .success span', window.eoxiaJS.taskManager.task.closeSuccess );
 	jQuery( '#poststuff' ).on( 'click', '#wpeo-task-metabox', window.eoxiaJS.taskManager.task.refresh );
 	jQuery( document ).on( 'click', '#tm_include_archive_client', window.eoxiaJS.taskManager.task.showArchiveClient );
+
+	jQuery( document ).on( 'click', '.tm_client_indicator_update', window.eoxiaJS.taskManager.audit.preventDefaultHeader );
 };
 
 /**
@@ -52,6 +54,7 @@ window.eoxiaJS.taskManager.task.initAutoComplete = function() {
 };
 
 window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
+	console.log( 'BAH OUI' );
 	var data = {};
 
 	if ( 1 !== jQuery( '#poststuff' ).length ) {

@@ -1,11 +1,11 @@
 <?php
 /**
- * Les filtres relatives aux modèles des tâches.
+ * Les filtres relatives aux modèles des audits.
  *
  * @author Eoxia <dev@eoxia.com>
- * @since 1.0.0
- * @version 1.6.0
- * @copyright 2018 Eoxia.
+ * @since 1.9.0
+ * @version 1.9.0
+ * @copyright 2019 Eoxia.
  * @package Task_Manager
  */
 
@@ -16,15 +16,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Les filtres relatives aux modèles des tâches.
+ * Les filtres relatives aux modèles des audits.
  */
-class Task_Model_Filter {
+class Audit_Model_Filter {
 
 	/**
 	 * Constructeur
 	 *
-	 * @since 1.6.0
-	 * @version 1.6.0
+	 * @since 1.9.0
+	 * @version 1.9.0
 	 */
 	public function __construct() {
 		$current_type = Task_Class::g()->get_type();
@@ -43,6 +43,7 @@ class Task_Model_Filter {
 	 * @return Task_Model        Les données de la tâche avec les données complémentaires.
 	 */
 	public function get_full_task( $object, $args ) {
+
 		$object->data['last_history_time'] = History_Time_Class::g()->get(
 			array(
 				'post_id' => $object->data['id'],
@@ -56,24 +57,21 @@ class Task_Model_Filter {
 		if ( ! empty( $object->data['parent_id'] ) ) {
 			$object->data['parent'] = get_post( $object->data['parent_id'] );
 
-			if ( ! empty( $object->data['parent'] ) ) {
-				$tmp_meta = get_post_meta( $object->data['parent']->ID, '_order_postmeta', true );
+			$tmp_meta = get_post_meta( $object->data['parent_id'], '_order_postmeta', true );
 
-				// Si c'est une commande
-				if ( ! empty( $tmp_meta ) ) {
-					$object->data['parent']->post_title = $tmp_meta['order_key'];
+			if ( ! empty( $tmp_meta ) ) {
+				$object->data['parent']->post_title = $tmp_meta['order_key'];
 
-					if ( empty( $post->meta['tm_key'] ) && ! empty( $tmp_meta['order_temporary_key'] ) ) {
-						$object->data['parent']->post_title = $tmp_meta['order_temporary_key'];
-					}
+				if ( empty( $post->meta['tm_key'] ) && ! empty( $tmp_meta['order_temporary_key'] ) ) {
+					$object->data['parent']->post_title = $tmp_meta['order_temporary_key'];
 				}
+			}
 
-				if ( ! empty( $object->data['parent']->post_title ) ) {
-					$object->data['parent']->displayed_post_title = $object->data['parent']->post_title;
+			if ( ! empty( $object->data['parent']->post_title ) ) {
+				$object->data['parent']->displayed_post_title = $object->data['parent']->post_title;
 
-					if ( 50 <= strlen( $object->data['parent']->displayed_post_title ) ) {
-						$object->data['parent']->displayed_post_title = substr( $object->data['parent']->displayed_post_title, 0, 50 ) . '...';
-					}
+				if ( 50 <= strlen( $object->data['parent']->displayed_post_title ) ) {
+					$object->data['parent']->displayed_post_title = substr( $object->data['parent']->displayed_post_title, 0, 50 ) . '...';
 				}
 			}
 		}
@@ -119,4 +117,4 @@ class Task_Model_Filter {
 	}
 }
 
-new Task_Model_Filter();
+new Audit_Model_Filter();

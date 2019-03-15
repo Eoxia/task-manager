@@ -86,6 +86,16 @@ class Activity_Action {
 		}
 		$datas = Activity_Class::g()->get_activity( $tasks_id, 0, $date_start, $date_end );
 
+		$task_data_indicator = Task_Class::g()->get( array( 'id' => $tasks_id ), true );
+
+		if( ! empty ( $task_data_indicator ) ){
+			$data_indicator = array(
+				'count_completed_points' => $task_data_indicator->data[ 'count_completed_points' ],
+				'count_uncompleted_points' => $task_data_indicator->data[ 'count_uncompleted_points' ],
+				'task_id' => $tasks_id
+			);
+		}
+
 		ob_start();
 		if ( ! empty( $tasks_id ) ) {
 			\eoxia\View_Util::exec(
@@ -111,6 +121,7 @@ class Activity_Action {
 				'offset'           => $offset,
 				'last_date'        => $last_date,
 				'buttons_view'     => '',
+				'data_indicator'   => isset( $data_indicator ) && ! empty( $data_indicator ) ? $data_indicator : ''
 			)
 		);
 	}

@@ -15,35 +15,35 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="wpeo-dropdown activities-filter">
-	<div class="dropdown-toggle wpeo-button button-main button-size-small button-square-30 button-rounded">
-		<i class="button-icon fas fa-search"></i>
-	</div>
 
-	<div class="dropdown-content">
-		<div class="filter-activity wpeo-form">
-
-			<div class="form-element">
+		<div class="filter-activity wpeo-form wpeo-grid grid-5" style="margin-left : 0; margin-right : 0">
+			<div class="form-element grid-2">
 				<span class="form-label"><i class="fas fa-calendar"></i> <?php esc_html_e( 'Start date', 'task-manager' ); ?></span>
 				<label class="form-field-container">
-					<input type="date" class="form-field" placeholder="Date de début" value="<?php echo esc_attr( $date_start ); ?>" name="tm_abu_date_start" />
+					<input type="date" class="form-field" placeholder="Date de début" value="<?php echo esc_attr( $date_start ); ?>" name="tm_abu_date_start" required />
 				</label>
 			</div>
 
-			<div class="form-element">
+			<div class="form-element grid-2">
 				<span class="form-label"><i class="fas fa-calendar"></i> <?php esc_html_e( 'End date', 'task-manager' ); ?></span>
 				<label class="form-field-container">
-					<input type="date" class="form-field" value="<?php echo esc_attr( $date_end ); ?>" name="tm_abu_date_end" />
+					<input type="date" class="form-field" value="<?php echo esc_attr( $date_end ); ?>" name="tm_abu_date_end" required/>
 					<input type="hidden" value="<?php echo esc_attr( wp_create_nonce( 'load_last_activity' ) ); ?>" name="_wpnonce" />
 				</label>
 			</div>
 
-			<?php echo apply_filters( 'tm_activity_filter_input', '' ); ?>
-			<input type="hidden" name="tasks_id" value="<?php echo $tasks_id; ?>" />
-			<button class="button-primary action-input" data-parent="filter-activity" data-action="load_last_activity" id="tm-user-activity-load-by-date" ><?php esc_html_e( 'View activity', 'task-manager' ); ?></button>
+			<div class="form-element grid-1">
+				<?php echo apply_filters( 'tm_activity_filter_input', '' ); ?>
+				<input type="hidden" name="tasks_id" value="<?php echo $tasks_id; ?>" />
+				<span class="form-label" style="visibility : hidden">.</span>
+				<div class="wpeo-button action-input" data-parent="filter-activity" data-action="load_last_activity" id="tm-user-activity-load-by-date" >
+					<i class="fas fa-filter"></i>
+				</div>
+			</div>
 		</div>
-	</div>
-</div>
+
+
+		<?php \eoxia\View_Util::exec( 'task-manager', 'activity', 'backend/activity-post-indicator', array( 'task_id' => $tasks_id ) ); ?>
 
 <!-- Liste des tâches effectuées -->
 <div class="daily-activity activities">
@@ -52,6 +52,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		if ( ! empty( $datas ) ) :
 			$last_date = null;
 			?>
+
 			<?php foreach ( $datas as $activity ) : ?>
 				<?php if ( mysql2date( 'd/m/Y', $activity->com_date ) != $last_date ) : ?>
 					<div class="day">

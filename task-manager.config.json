@@ -36,6 +36,7 @@
 		"module/admin-bar/admin-bar.config.json",
 		"module/time-exceeded/time-exceeded.config.json",
 		"module/activity/activity.config.json",
+		"module/audit/audit.config.json",
 		"module/indicator/indicator.config.json",
 		"module/setting/setting.config.json",
 		"module/support/support.config.json",

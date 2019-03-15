@@ -127,11 +127,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php foreach( $value_indicator[ 0 ][ 'task_list' ] as $key_list_task => $value_list_task ):?>
 				<tr>
 					<td class="wpeo-tooltip-event"
-					data-title="<?= esc_html__( 'Total : ', 'task-manager' ) . $value_list_task[ 'all_time_deadline_readable' ] . ' /' . $value_list_task[ 'all_time_estimated_readable' ] ?>"
-					aria-label="<?= esc_html__( 'Total : ', 'task-manager' ) . $value_list_task[ 'all_time_deadline_readable' ] . ' /' . $value_list_task[ 'all_time_estimated_readable' ] ?>"
-					style="background-color : <?= $value_list_task[ 'all_time_color' ] ?>">
+					data-title="<?= esc_html__( 'Total : ', 'task-manager' ) ?><?= isset( $value_list_task[ 'all_time_deadline_readable' ] ) ? $value_list_task[ 'all_time_deadline_readable' ] : '' ?>/<?= isset( $value_list_task[ 'all_time_estimated_readable' ] ) ? $value_list_task[ 'all_time_estimated_readable' ] : ''; ?>"
+					aria-label="<?= esc_html__( 'Total : ', 'task-manager' )?><?= isset( $value_list_task[ 'all_time_deadline_readable' ] ) ? $value_list_task[ 'all_time_deadline_readable' ] . '/' : '' ?><?= isset( $value_list_task[ 'all_time_estimated_readable' ] ) ? $value_list_task[ 'all_time_estimated_readable' ] : ''; ?>"
+					style="background-color : <?= isset( $value_list_task[ 'all_time_color' ] ) ? $value_list_task[ 'all_time_color' ] : '#DD2C00'; ?>">
 						<b><i><?= ' - ' . $value_list_task[ 'task_title' ] ?></i></b><br>
-						<?= $value_list_task[ 'all_time_deadline' ] . ' /' . $value_list_task[ 'all_time_estimated' ] . ' (' . $value_list_task[ 'all_time_percent' ] . '%)' ?>
+						<?= isset( $value_list_task[ 'all_time_deadline' ] ) ? $value_list_task[ 'all_time_deadline' ] : ''; ?>/<?= isset( $value_list_task[ 'all_time_estimated' ] ) ? $value_list_task[ 'all_time_estimated' ] : ''; ?><?= isset( $value_list_task[ 'all_time_percent' ] ) ? '(' . $value_list_task[ 'all_time_percent' ] . '%)' : ''; ?>
 					</td>
 
 					<?php foreach( $value_indicator as $key_indicator_month => $value_indicator_month ):?>

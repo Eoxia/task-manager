@@ -67,7 +67,9 @@ class Import_Class extends \eoxia\Singleton_Util {
 		$content_by_lines = preg_split( '/\r\n|\r|\n/', $content );
 
 		if ( ! empty( $content_by_lines ) ) {
+			$list_id = array();
 			foreach ( $content_by_lines as $index => $line ) {
+
 				// On vérifier le type de la ligne que l'on est sur le point de traiter.
 				$line_type_is_task = false;
 				if ( false !== strpos( $line, '%task%' ) ) {
@@ -90,12 +92,15 @@ class Import_Class extends \eoxia\Singleton_Util {
 				// - - - -
 
 				if ( ! empty( $line ) && $line_type_is_task ) {
+
 					$created_task = Task_Class::g()->create(
 						array(
 							'title'     => $line,
 							'parent_id' => $post_id,
 						)
 					);
+
+					array_push( $list_id, $created_task->data[ 'id' ] );
 
 					// On vérifie que la création ce soit bien passée.
 					if ( ! empty( $created_task ) && ! empty( $created_task->data['id'] ) ) {
@@ -142,6 +147,11 @@ class Import_Class extends \eoxia\Singleton_Util {
 					$element_list['not_created']['unknown'][] = $line;
 				}
 			}
+
+			foreach( $list_id as $key => $value ){
+				Task_Class::g()->recompile_task( $value );
+			}
+
 		}
 
 		return $element_list;

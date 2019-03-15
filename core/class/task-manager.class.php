@@ -45,8 +45,6 @@ class Task_Manager_Class extends \eoxia\Singleton_Util {
 		$point_id = ! empty( $_GET['point_id'] ) ? (int) $_GET['point_id'] : 0; // WPCS: CSRF ok.
 		$quicktimes = ! empty( $_GET['quicktimemode'] ) ? (int) $_GET['quicktimemode'] : 0; // WPCS: CSRF ok.
 
-		//echo '<pre>'; print_r( $_GET['quicktimemode']  ); echo '</pre>'; exit;
-
 		$user = Follower_Class::g()->get( array( 'id' => get_current_user_id() ), true );
 
 		$search_args = array(

@@ -125,7 +125,33 @@ window.eoxiaJS.taskManager.activity.loadedLastActivity = function( triggeredElem
 		taskElement.find( '.bloc-activities' ).html( response.data.view ).show();
 	} else {
 		jQuery( '#tm-indicator-activity .inside' ).html( response.data.view );
+	};
+
+	if( response.data.data_indicator != "" ){
+		window.eoxiaJS.taskManager.activity.loadIndicatorActivity( response.data.data_indicator );
 	}
+};
+
+window.eoxiaJS.taskManager.activity.loadIndicatorActivity = function( data ){
+
+	jQuery( "#tm_activity_post_indicator_doghnut_" + data[ 'task_id' ] ).html( '<canvas id="tm_activity_post_indicator_doghnut' + data[ 'task_id' ] + '" class="wpeo-modal-event" ></canvas>' );
+	var canvasDonut = document.getElementById( "tm_activity_post_indicator_doghnut" + data[ 'task_id' ] ).getContext('2d');
+
+	var data_canvas_doghnut = {
+		labels : [ window.indicatorString.completed, window.indicatorString.uncompleted ],
+		datasets: [
+				{
+					backgroundColor: [ "#005387", "#ee6123" ],
+					data: [ data[ 'count_completed_points' ], data[ 'count_uncompleted_points' ] ],
+				}
+			],
+	};
+
+	new Chart( canvasDonut, {
+    type: 'doughnut',
+    data: data_canvas_doghnut,
+    options: ''
+	});
 };
 
 /**

@@ -128,3 +128,8 @@ z-index: 26; }
         padding-top : 10px;
         padding-bottom : 10px
       }
+
+      .tm_placeholder_c[contenteditable=true]:empty:before{
+        content: attr(placeholder);
+        display: block; /* For Firefox */
+      }

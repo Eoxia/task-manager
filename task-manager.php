@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Task Manager
+ * Plugin Name: Task Manager actual
  * Description: Quick and easy to use, manage all your tasks and your time with the Task Manager plugin.
  * Version: 1.9.0
  * Author: Eoxia <dev@eoxia.com>

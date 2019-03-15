@@ -28,4 +28,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<span><?php esc_html_e( 'Comment', 'task-manager' ); ?></span>
 	</div>*/ ?>
 </div>
-<textarea name="content" ><?php echo esc_html( $default_content ); ?></textarea>
+<textarea name="content" ><?= isset( $default_content ) ? esc_html( $default_content ) : '' ?></textarea>

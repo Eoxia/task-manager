@@ -1,0 +1,16 @@
+{
+	"name": "Les audits",
+	"slug": "audit",
+	"version": "1.9.0",
+	"description": "Le module gérant les audits",
+	"path": "module/audit/",
+	"dependencies": {
+		"action": {},
+		"class": {},
+		"filter": {},
+		"shortcode": {},
+		"model" : {}
+	},
+	"posts_per_page": 10,
+	"events_per_page": 10
+}

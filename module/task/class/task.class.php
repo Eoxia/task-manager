@@ -884,7 +884,11 @@ class Task_Class extends \eoxia\Post_Class {
 					$array_indicator[ 0 ][ 'task_list' ][ $key ][ 'all_time_deadline' ] = $data[ $key ][ 'all_month_time_deadline' ];
 					$array_indicator[ 0 ][ 'task_list' ][ $key ][ 'all_time_deadline_readable' ] = $this->change_minute_time_to_readabledate( $array_indicator[ 0 ][ 'task_list' ][ $key ][ 'all_time_deadline' ] );
 
-					$array_indicator[ 0 ][ 'task_list' ][ $key ][ 'all_time_percent' ] = intval( $array_indicator[ 0 ][ 'task_list' ][ $key ][ 'all_time_deadline' ] / $array_indicator[ 0 ][ 'task_list' ][ $key ][ 'all_time_estimated' ] * 100 );
+					if( $array_indicator[ 0 ][ 'task_list' ][ $key ][ 'all_time_deadline' ] > 0 && $array_indicator[ 0 ][ 'task_list' ][ $key ][ 'all_time_estimated' ] > 0 ){
+						$array_indicator[ 0 ][ 'task_list' ][ $key ][ 'all_time_percent' ] = intval( $array_indicator[ 0 ][ 'task_list' ][ $key ][ 'all_time_deadline' ] / $array_indicator[ 0 ][ 'task_list' ][ $key ][ 'all_time_estimated' ] * 100 );
+					}else{
+						$array_indicator[ 0 ][ 'task_list' ][ $key ][ 'all_time_percent' ] = 0;
+					}
 
 					$array_indicator[ 0 ][ 'task_list' ][ $key ][ 'all_time_color' ] = $this->return_color_from_pourcent( $array_indicator[ 0 ][ 'task_list' ][ $key ][ 'all_time_percent' ] );
 
@@ -900,6 +904,68 @@ class Task_Class extends \eoxia\Post_Class {
 
 
 		return $array_indicator;
+	}
+
+	public function recompile_task( $id ){
+		$task = Task_Class::g()->get(
+			array(
+				'id' => $id,
+			),
+			true
+		);
+
+		// Recompiles le nombre de point complété et incomplété.
+		// Recompiles le temps.
+		$elapsed_task      = 0;
+		$elapsed_point     = 0;
+		$count_uncompleted = 0;
+		$count_completed   = 0;
+
+		$points = Point_Class::g()->get(
+			array(
+				'post_id' => $task->data['id'],
+				'type'    => Point_Class::g()->get_type(),
+				'status'  => 1,
+			)
+		);
+
+		if ( ! empty( $points ) ) {
+			foreach ( $points as $point ) {
+				$elapsed_point = 0;
+				$comments      = Task_Comment_Class::g()->get(
+					array(
+						'post_id' => $task->data['id'],
+						'parent'  => $point->data['id'],
+						'type'    => Task_Comment_Class::g()->get_type(),
+						'status'  => 1,
+					)
+				);
+
+				if ( ! empty( $comments ) ) {
+					foreach ( $comments as $comment ) {
+						$elapsed_point += $comment->data['time_info']['elapsed'];
+					}
+				}
+
+				if ( $point->data['completed'] ) {
+					$count_completed++;
+				} else {
+					$count_uncompleted++;
+				}
+
+				$point->data['time_info']['elapsed'] = (int) $elapsed_point;
+				$elapsed_task                       += (int) $elapsed_point;
+				Point_Class::g()->update( $point->data, true );
+			}
+		}
+
+		$task->data['time_info']['elapsed']     = $elapsed_task;
+		$task->data['count_completed_points']   = $count_completed;
+		$task->data['count_uncompleted_points'] = $count_uncompleted;
+
+		Task_Class::g()->update( $task->data, true );
+
+		return $task;
 	}
 }
 

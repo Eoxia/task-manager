@@ -415,63 +415,7 @@ class Task_Action {
 
 		$id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 
-		$task = Task_Class::g()->get(
-			array(
-				'id' => $id,
-			),
-			true
-		);
-
-		// Recompiles le nombre de point complété et incomplété.
-		// Recompiles le temps.
-		$elapsed_task      = 0;
-		$elapsed_point     = 0;
-		$count_uncompleted = 0;
-		$count_completed   = 0;
-
-		$points = Point_Class::g()->get(
-			array(
-				'post_id' => $task->data['id'],
-				'type'    => Point_Class::g()->get_type(),
-				'status'  => 1,
-			)
-		);
-
-		if ( ! empty( $points ) ) {
-			foreach ( $points as $point ) {
-				$elapsed_point = 0;
-				$comments      = Task_Comment_Class::g()->get(
-					array(
-						'post_id' => $task->data['id'],
-						'parent'  => $point->data['id'],
-						'type'    => Task_Comment_Class::g()->get_type(),
-						'status'  => 1,
-					)
-				);
-
-				if ( ! empty( $comments ) ) {
-					foreach ( $comments as $comment ) {
-						$elapsed_point += $comment->data['time_info']['elapsed'];
-					}
-				}
-
-				if ( $point->data['completed'] ) {
-					$count_completed++;
-				} else {
-					$count_uncompleted++;
-				}
-
-				$point->data['time_info']['elapsed'] = (int) $elapsed_point;
-				$elapsed_task                       += (int) $elapsed_point;
-				Point_Class::g()->update( $point->data, true );
-			}
-		}
-
-		$task->data['time_info']['elapsed']     = $elapsed_task;
-		$task->data['count_completed_points']   = $count_completed;
-		$task->data['count_uncompleted_points'] = $count_uncompleted;
-
-		Task_Class::g()->update( $task->data, true );
+		$task = Task_Class::g()->recompile_task( $id );
 
 		ob_start();
 		\eoxia\View_Util::exec(
@@ -482,6 +426,7 @@ class Task_Action {
 				'task' => $task,
 			)
 		);
+
 		wp_send_json_success(
 			array(
 				'namespace'        => 'taskManager',
@@ -502,9 +447,6 @@ class Task_Action {
 	 * @version 1.6.2
 	 */
 	public function callback_add_meta_boxes( $post_type, $post ) {
-
-
-
 		if ( in_array( $post_type, \eoxia\Config_Util::$init['task-manager']->associate_post_type, true ) ) {
 
 			ob_start();
@@ -517,8 +459,9 @@ class Task_Action {
 			\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/metabox-head-indicator', array( 'parent_id' => $post->ID, 'year' => $currentyear, 'post_id' => $post->ID, 'post_author' => $post->post_author ) );
 			$button_indicator = ob_get_clean();
 
-			add_meta_box( 'wpeo-task-metaboxtest', __( 'Indicator', 'task-manager' ) . apply_filters( 'tm_posts_metabox_buttons', $button_indicator ), array( Task_Class::g(), 'callback_render_indicator' ), $post_type, 'normal', 'default' );
+
 			add_meta_box( 'wpeo-task-metabox', __( 'Task', 'task-manager' ) . apply_filters( 'tm_posts_metabox_buttons', $buttons ), array( Task_Class::g(), 'callback_render_metabox' ), $post_type, 'normal', 'default' );
+			add_meta_box( 'wpeo-task-metaboxtest', __( 'Indicator', 'task-manager' ) . apply_filters( 'tm_posts_metabox_buttons', $button_indicator ), array( Task_Class::g(), 'callback_render_indicator' ), $post_type, 'normal', 'default' );
 			add_meta_box( 'wpeo-task-history-metabox', __( 'History task', 'task-manager' ), array( Task_Class::g(), 'callback_render_history_metabox' ), $post_type, 'side', 'default' );
 		}
 	}
@@ -551,7 +494,6 @@ class Task_Action {
 				'everymonth' => $everymonth
 			)
 		);
-
 
 		wp_send_json_success(
 			array(
