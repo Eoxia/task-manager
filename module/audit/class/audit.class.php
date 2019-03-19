@@ -164,11 +164,11 @@ class Audit_Class extends \eoxia\Post_Class {
 		$color = "";
 
 		if( $percent < 25 ){
-			$color = '#D50019';
+			$color = '#DF0000';
 		}else if( $percent < 75 ){
-			$color = '#F9CD4A';
+			$color = '#FFCC40';
 		}else{
-			$color = '#88FFC8';
+			$color = '#40FFB7';
 		}
 
 		return $color;

@@ -2,3 +2,17 @@
 	background: $color__primary;
 	border-color: $color__primary;
 }
+
+.wpeo-button.button-square-30 .button-icon {
+	font-size: 12px;
+	line-height: 24px;
+}
+.wpeo-button.button-square-40 .button-icon {
+	line-height: 34px;
+}
+.wpeo-button.button-square-50 .button-icon {
+	line-height: 44px;
+}
+.wpeo-button.button-square-60 .button-icon {
+	line-height: 54px;
+}

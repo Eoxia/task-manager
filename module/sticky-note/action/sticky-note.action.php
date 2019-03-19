@@ -96,7 +96,7 @@ class Sticky_Note_Action {
 
 		$note = Sticky_Note_Class::g()->get(
 			array(
-				'p' => $note_id,
+				'id' => $note_id,
 			),
 			true
 		);

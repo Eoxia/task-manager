@@ -1,0 +1,37 @@
+#tm_client_audit_listauditmain .tm-audit {
+	background: #fff;
+	margin-bottom: 1em;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+#tm_client_audit_listauditmain .tm-audit .audit-container {
+	padding: 1em;
+	display: flex;
+	flex-direction: row;
+
+	.audit-header {
+		min-width: 28%;
+		width: 28%;
+		margin: auto 0;
+	}
+	.audit-chart-container {
+		width: 100%;
+	}
+	.audit-action {
+		margin: auto 0;
+	}
+}
+
+/** Audit container */
+#tm_client_audit_listauditmain .tm-audit .audit-container .audit-chart-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+
+	.audit-chart-item {
+		max-width: 100px;
+	}
+}

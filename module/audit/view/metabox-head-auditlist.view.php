@@ -16,13 +16,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<span>
-	<span class="action-attribute button tm_audit_header_start_audit"
-	id="tm_client_indicator_header_minus"
+<span	id="tm_audit_header_start_audit"
+	class="action-attribute page-title-action tm_audit_header_start_audit"
 	data-action="start_new_audit"
 	data-parent-id="<?php echo esc_attr( $post_id ); ?>"
 	data-nonce="<?php echo esc_attr( wp_create_nonce( 'start_new_audit' ) ); ?>">
-		<?php echo esc_html( sprintf( __( 'Start audit', 'task-manager' ) ) ); ?>
-	</span>
 
-</span>
+		<?php echo esc_html( sprintf( __( 'Start audit', 'task-manager' ) ) ); ?>
+
+	</span>

@@ -15,66 +15,50 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div style="margin-bottom: 5px" class="action-attribute" data-action="reset_main_page" data-parent-id="<?php echo esc_attr( $parent_id ); ?>">
-	<label style="color : blue; font-size : 12px" >
-		< <?= esc_html_e( 'Back to list audit', 'task-manager' ); ?>
+<div class="tm-audit">
+	<div class="audit-container">
 
-	</label>
-</div>
-
-<div class="points sortable ui-sortable" style="background-color: transparent">
-
-	<div class="point new" data-parentid="<?php echo esc_attr( $parent_id ); ?>" data-auditid="<?= $audit->data[ 'id' ] ?>" id="tm_client_audit_data">
-		<div class="form-audit">
-			<ul class="point-container">
-				<li class="wpeo-task-main-info" style="font-size: 22px">
-					<div class="wpeo-task-title">
-
-						<div contenteditable="true" id="tm_client_audit_title_new" class="wpeo-project-audit-title tm_placeholder_c" placeholder="<?= esc_html_e( 'Write audit title ...', 'task-manager' ); ?>"><?= ! empty( $audit->data[ 'title' ] ) ? $audit->data[ 'title' ] : '';  ?></div>
-
-						<input type="hidden" name="title" id="tm_client_audit_title_newhidden" value="<?= ! empty( $audit->data[ 'title' ] ) ? $audit->data[ 'title' ] : 'No name audit';  ?>">
-						<input type="hidden" name="title_old" id="tm_client_audit_title_old" value="<?= ! empty( $audit->data[ 'title' ] ) ? $audit->data[ 'title' ] : '';  ?>">
-					</div>
-
-					<ul class="wpeo-task-summary" style="font-size: 14px; line-height: 2; white-space: nowrap;">
-						<li class="wpeo-task-id"><i class="far fa-hashtag"></i><?= $audit->data[ 'id' ] ?>
-							<span class="wpeo-task-date tooltip hover">
-								<i class="far fa-calendar-alt"></i>
-								<span> <?= $audit->data[ 'date' ][ 'rendered' ][ 'date' ] ?></span> ->
-								<span>
-									<input id="tm_audit_client_date_deadline" name="date_deadline" type="text" onfocus="(this.type='date')" placeholder="<?php esc_html_e( 'Deadline date', 'task-manager' ); ?>"  style="margin-top: 10px;">
-								</span>
-								<?php // echo '<pre>'; print_r( $audit ); echo '</pre>'; ?>
-							</span>
-						</li>
-					</ul>
-
-				</li>
-
-				<li class="point-action" style="min-width : 0%">
-					<button class="wpeo-button button-disable alignright action-input"
-						data-parent="form-audit"
-						data-action="edit_title_audit"
-						data-id="<?= $audit->data[ 'id' ] ?>"
-						data-parent-id="<?php echo esc_attr( $parent_id ); ?>"
-						id="tm_client_audit_buttonsavetitle">
-						 <i class="fas fa-save"></i>
-					 </button>
-				</li>
-
-			</ul>
+		<div class="action-attribute audit-backlink" data-action="reset_main_page" data-parent-id="<?php echo esc_attr( $parent_id ); ?>">
+			<i class="fas fa-angle-left"></i> <?= esc_html_e( 'Back to list audit', 'task-manager' ); ?>
 		</div>
-	</div>
-</div>
 
+		<div class="audit-header">
+			<div class="audit-edit-header">
+				<div class="audit-title-container">
+					<div id="tm_client_audit_title_new" class="audit-title" contenteditable="true" placeholder="<?= esc_html_e( 'Write audit title ...', 'task-manager' ); ?>">
+						<?= ! empty( $audit->data[ 'title' ] ) ? $audit->data[ 'title' ] : '';  ?>
+					</div>
+					<span class="audit-title-edit"><i class="fas fa-pencil"></i></span>
+				</div>
 
-<div>
+				<ul class="audit-summary">
+					<li class="audit-summary-id"><i class="far fa-hashtag"></i><?= $audit->data[ 'id' ] ?></li>
+					<li class="audit-summary-date">
+						<span class="summary-created wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Created date', 'task-manager' ); ?>">
+							<i class="far fa-calendar-alt"></i> <?= $audit->data[ 'date' ][ 'rendered' ][ 'date' ] ?>
+						</span> /
+						<span class="summary-rendered wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Due date', 'task-manager' ); ?>">
+							<i class="far fa-calendar-alt"></i> <input id="tm_audit_client_date_deadline" name="date_deadline" type="text" onfocus="(this.type='date')" placeholder="<?php esc_html_e( 'Deadline date', 'task-manager' ); ?>">
+						</span>
+					</li>
+				</ul>
+			</div>
 
-	<div style="border-bottom: 1px solid rgba(0,0,0,0.1); width: 100%;">
+			<div class="audit-save-container">
+				<div class="wpeo-button button-green button-disable button-square-40 action-input"
+					data-parent="audit-header"
+					data-action="edit_title_audit"
+					data-id="<?= $audit->data[ 'id' ] ?>"
+					data-parent-id="<?php echo esc_attr( $parent_id ); ?>"
+					id="tm_client_audit_buttonsavetitle">
+					 <i class="button-icon fas fa-save"></i></div>
+			</div>
 
-	</div>
+			<input type="hidden" name="title" id="tm_client_audit_title_newhidden" value="<?= ! empty( $audit->data[ 'title' ] ) ? $audit->data[ 'title' ] : 'New Audit';  ?>">
+			<input type="hidden" name="title_old" id="tm_client_audit_title_old" value="<?= ! empty( $audit->data[ 'title' ] ) ? $audit->data[ 'title' ] : '';  ?>">
+		</div><!-- .audit-header -->
 
-
+		<div class="task-button">
 			<?php
 			\eoxia\View_Util::exec(
 				'task-manager',
@@ -84,9 +68,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 					'parent_id' => $audit->data[ 'id' ]
 				)
 			);
-			?>
-
-			<?php
 
 			\eoxia\View_Util::exec(
 				'task-manager',
@@ -97,17 +78,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 					'audit_id' => $audit->data[ 'id' ]
 				)
 			);
-		?>
+			?>
+		</div>
+
+		<div id="tm_audit_client_generate_tasklink" class="task-list">
+			<?php Audit_Class::g()->audit_client_return_task_link( $audit->data[ 'id' ] ); ?>
+		</div>
+
 	</div>
-
-
-
-			<div id="tm_audit_client_tasklink_button">
-				<?php // Audit_Class::g()->audit_client_return_task_linkbutton( $audit->data[ 'id' ] ); ?>
-			</div>
-
-	<div id="tm_audit_client_generate_tasklink">
-		<?php Audit_Class::g()->audit_client_return_task_link( $audit->data[ 'id' ] ); ?>
-	<div>
-
 </div>

@@ -14,10 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="tm-audit-new-task wpeo-button button-green action-attribute"
-data-parent-id="<?php echo esc_attr( $parent_id ); ?>"
-data-action="audit_created_task"
-data-nonce="<?php echo esc_attr( wp_create_nonce( 'audit_created_task' ) ); ?>"
-style="float: left;">
-	<i class="fas fa-plus-square"></i>
-</div>
+<span href="#" class="tm-audit-new-task wpeo-button button-main button-size-small action-attribute"
+	data-parent-id="<?php echo esc_attr( $parent_id ); ?>"
+	data-action="audit_created_task"
+	data-nonce="<?php echo esc_attr( wp_create_nonce( 'audit_created_task' ) ); ?>">
+
+	<i class="button-icon fas fa-plus" ></i><span><?php esc_html_e( 'New task', 'task-manager' ); ?></span></span>

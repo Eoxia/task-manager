@@ -1,0 +1,10 @@
+.wpeo-form input, .wpeo-form textarea, .wpeo-form select {
+	height: auto;
+	box-shadow: none;
+}
+.wpeo-form .form-element [class*="form-field-label"] {
+	padding: 1.5em 1em;
+}
+.wpeo-form.form-light .form-element [class*="form-field-label"] {
+	background: #fff;
+}

@@ -50,7 +50,7 @@ class Notify_Action {
 
 		$task = Task_Class::g()->get(
 			array(
-				'p' => $id,
+				'id' => $id,
 			),
 			true
 		);
@@ -122,7 +122,7 @@ class Notify_Action {
 
 		$task = Task_Class::g()->get(
 			array(
-				'p' => $id,
+				'id' => $id,
 			),
 			true
 		);

@@ -93,9 +93,9 @@ window.eoxiaJS.taskManager.audit.checkIfTitleIsOk = function( event ){ // If tit
 	jQuery( '#tm_client_audit_title_newhidden' ).val( jQuery( this ).html() );
 
 	if( jQuery( this ).html() != jQuery( this ).parent( '.wpeo-task-title' ).find( '#tm_client_audit_title_old' ).val() && jQuery( this ).html() != "" ){
-		jQuery( '#tm_client_audit_buttonsavetitle' ).addClass( 'button-blue' ).removeClass( 'button-disable' );
+		jQuery( '#tm_client_audit_buttonsavetitle' ).removeClass( 'button-disable' );
 	}else{
-		jQuery( '#tm_client_audit_buttonsavetitle' ).addClass( 'button-disable' ).removeClass( 'button-blue' );
+		jQuery( '#tm_client_audit_buttonsavetitle' ).addClass( 'button-disable' );
 	}
 }
 
@@ -122,7 +122,7 @@ window.eoxiaJS.taskManager.audit.viewMainPage = function( element, response ){
 
 window.eoxiaJS.taskManager.audit.generateAuditIndicator = function( task_id, complet_point, uncomplet_point, audit_id ){
 
-	jQuery( "#audit_client_indicator_" + audit_id ).append( '<div class="grid-1"><canvas id="audit_client_indicator_task_' + task_id + '" class="wpeo-modal-event alignright" style=""></canvas></div>' );
+	jQuery( "#audit_client_indicator_" + audit_id ).append( '<div class="audit-chart-item"><canvas id="audit_client_indicator_task_' + task_id + '" class="wpeo-modal-event alignright" style=""></canvas></div>' );
 
 	var canvasDonut = document.getElementById( "audit_client_indicator_task_" + task_id ).getContext('2d');
 
@@ -143,7 +143,7 @@ window.eoxiaJS.taskManager.audit.generateAuditIndicator = function( task_id, com
 			labels : [ window.indicatorString.completed, window.indicatorString.uncompleted ],
 			datasets: [
 					{
-						backgroundColor: [ "#005387", "#ee6123" ],
+						backgroundColor: [ "#0099FF", "#5A5A5A" ],
 						data: [ complet_point, uncomplet_point ],
 					}
 				],

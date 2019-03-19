@@ -191,7 +191,7 @@ class Task_Action {
 
 		$task = Task_Class::g()->get(
 			array(
-				'p' => $task_id,
+				'id' => $task_id,
 			),
 			true
 		);
@@ -219,7 +219,7 @@ class Task_Action {
 
 		$task = Task_Class::g()->get(
 			array(
-				'p' => $id,
+				'id' => $id,
 			),
 			true
 		);

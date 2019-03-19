@@ -1,0 +1,76 @@
+/** Header */
+.tm-audit .audit-container .audit-header {
+	.audit-title {
+		font-size: 22px;
+		margin-bottom: 0.2em;
+		color: rgba(0,0,0,0.9);
+		@include transition();
+
+		&:hover {
+			cursor: pointer;
+			color: rgba(0,0,0,0.6);
+		}
+	}
+	.audit-summary {
+		display: flex;
+
+		li {
+			color: rgba(0,0,0,0.5);
+			margin-right: 0.8em;
+			align-self: center;
+		}
+	}
+}
+
+/** Edition */
+.tm_client_audit_edit {
+	/** Header */
+	.audit-header {
+		display: flex;
+		margin-bottom: 1em;
+
+		.audit-edit-header {
+			width: 100%;
+		}
+		.audit-save-container {
+			margin: auto 0;
+		}
+	}
+
+	/** Backlink */
+	.audit-backlink {
+		color: $color__primary;
+		margin-bottom: 1em;
+		font-weight: 600;
+		@include transition();
+
+		&:hover {
+			cursor: pointer;
+			color: rgba($color__primary, 0.7);
+		}
+	}
+
+	/** Titre */
+	.audit-title-container {
+		display: inline-block;
+		position: relative;
+
+		.audit-title {
+			display: inline-block;
+		}
+		.audit-title-edit {
+			font-size: 14px;
+			color: rgba(0,0,0,0.4);
+		}
+	}
+
+	/** Content editable */
+	[contenteditable=true]:empty::before {
+		content: attr(placeholder);
+		display: block;
+		color: rgba(0,0,0,0.6);
+	}
+	[contenteditable=true]:hover {
+		cursor: text !important;
+	}
+}
