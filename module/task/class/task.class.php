@@ -689,14 +689,16 @@ class Task_Class extends \eoxia\Post_Class {
 			foreach ( $valuecategorie as $keymonth => $valuemonth ) { // Pour chaque mois de cette catégorie
 				$total_estimated += $valuemonth[ 'total_time_estimated' ];
 				$total_elapsed += $valuemonth[ 'total_time_elapsed' ];
-				$categories_indicator[ $keycategorie ][ $keymonth ][ 'purcent_color' ] = '#F1F8E9';
+				// $categories_indicator[ $keycategorie ][ $keymonth ][ 'purcent_color' ] = '#F1F8E9';
+				$categories_indicator[ $keycategorie ][ $keymonth ][ 'purcent_color' ] = false;
 
 				if( ! isset( $valuemonth[ 'total_time_deadline' ] ) ){
 
 					if( $valuemonth[ 'total_time_estimated' ] != 0 && $valuemonth[ 'total_time_elapsed' ] != 0 ){
 						$categories_indicator[ $keycategorie ][ $keymonth ][ 'total_pourcent' ] = intval( $valuemonth[ 'total_time_elapsed' ] / $valuemonth[ 'total_time_estimated' ] * 100 );
 
-						$pourcent_color = $this->return_color_from_pourcent( $categories_indicator[ $keycategorie ][ $keymonth ][ 'total_pourcent' ] );
+						// $pourcent_color = $this->return_color_from_pourcent( $categories_indicator[ $keycategorie ][ $keymonth ][ 'total_pourcent' ] );
+						$pourcent_color = $this->is_time_excedeed( $categories_indicator[ $keycategorie ][ $keymonth ][ 'total_pourcent' ] );
 
 						$categories_indicator[ $keycategorie ][ $keymonth ][ 'purcent_color' ] = $pourcent_color;
 						$categories_indicator[ $keycategorie ][ $keymonth ][ 'total_time_estimated_readable' ] = $this->change_minute_time_to_readabledate( $valuemonth[ 'total_time_estimated' ] );
@@ -709,7 +711,8 @@ class Task_Class extends \eoxia\Post_Class {
 
 						$categories_indicator[ $keycategorie ][ $keymonth ][ 'total_pourcent_deadline' ] = intval( $valuemonth[ 'total_time_deadline' ] / $valuemonth[ 'total_time_estimated' ] * 100 );
 
-						$pourcent_color = $this->return_color_from_pourcent( $categories_indicator[ $keycategorie ][ $keymonth ][ 'total_pourcent_deadline' ] );
+						// $pourcent_color = $this->return_color_from_pourcent( $categories_indicator[ $keycategorie ][ $keymonth ][ 'total_pourcent_deadline' ] );
+						$pourcent_color = $this->is_time_excedeed( $categories_indicator[ $keycategorie ][ $keymonth ][ 'total_pourcent_deadline' ] );
 
 						$categories_indicator[ $keycategorie ][ $keymonth ][ 'purcent_color' ] = $pourcent_color;
 						$categories_indicator[ $keycategorie ][ $keymonth ][ 'total_time_estimated_readable' ] = $this->change_minute_time_to_readabledate( $valuemonth[ 'total_time_estimated' ] );
@@ -739,7 +742,8 @@ class Task_Class extends \eoxia\Post_Class {
 				}else{
 					$categories_indicator[ $keycategorie ][0][ 'all_month_pourcent' ] = 0;
 				}
-				$categories_indicator[ $keycategorie ][0][ 'all_month_pourcent_color' ] = $this->return_color_from_pourcent( $categories_indicator[ $keycategorie ][0][ 'all_month_pourcent' ] );
+				// $categories_indicator[ $keycategorie ][0][ 'all_month_pourcent_color' ] = $this->return_color_from_pourcent( $categories_indicator[ $keycategorie ][0][ 'all_month_pourcent' ] );
+				$categories_indicator[ $keycategorie ][0][ 'all_month_pourcent_color' ] = $this->is_time_excedeed( $categories_indicator[ $keycategorie ][0][ 'all_month_pourcent' ] );
 
 			}else{
 
@@ -752,7 +756,8 @@ class Task_Class extends \eoxia\Post_Class {
 				}else{
 					$categories_indicator[ $keycategorie ][0][ 'all_month_pourcent' ] = 0;
 				}
-				$categories_indicator[ $keycategorie ][0][ 'all_month_pourcent_color' ] = $this->return_color_from_pourcent( $categories_indicator[ $keycategorie ][0][ 'all_month_pourcent' ] );
+				// $categories_indicator[ $keycategorie ][0][ 'all_month_pourcent_color' ] = $this->return_color_from_pourcent( $categories_indicator[ $keycategorie ][0][ 'all_month_pourcent' ] );
+				$categories_indicator[ $keycategorie ][0][ 'all_month_pourcent_color' ] = $this->is_time_excedeed( $categories_indicator[ $keycategorie ][0][ 'all_month_pourcent' ] );
 			}
 		}
 
@@ -831,6 +836,19 @@ class Task_Class extends \eoxia\Post_Class {
 		return $color;
 	}
 
+	public function is_time_excedeed( $pourcent ) {
+		if ( empty( $pourcent ) ) {
+			return false;
+		}
+
+		if ( 100 < $pourcent ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 	public function change_minute_time_to_readabledate( $minute_format ){
 
 		$d = floor ( $minute_format / 1440 );
@@ -890,14 +908,16 @@ class Task_Class extends \eoxia\Post_Class {
 						$array_indicator[ 0 ][ 'task_list' ][ $key ][ 'all_time_percent' ] = 0;
 					}
 
-					$array_indicator[ 0 ][ 'task_list' ][ $key ][ 'all_time_color' ] = $this->return_color_from_pourcent( $array_indicator[ 0 ][ 'task_list' ][ $key ][ 'all_time_percent' ] );
+					// $array_indicator[ 0 ][ 'task_list' ][ $key ][ 'all_time_color' ] = $this->return_color_from_pourcent( $array_indicator[ 0 ][ 'task_list' ][ $key ][ 'all_time_percent' ] );
+					$array_indicator[ 0 ][ 'task_list' ][ $key ][ 'all_time_color' ] = $this->is_time_excedeed( $array_indicator[ 0 ][ 'task_list' ][ $key ][ 'all_time_percent' ] );
 
 				}
 
 				if ( $array_indicator[ $key_month ][ 'task_list' ][ $key ][ 'time_estimated' ] > 0 && $array_indicator[ $key_month ][ 'task_list' ][ $key ][ 'time_deadline' ] > 0 ) {
 					$array_indicator[ $key_month ][ 'task_list' ][ $key ][ 'time_percent' ] = intval( $array_indicator[ $key_month ][ 'task_list' ][ $key ][ 'time_deadline' ] / $array_indicator[ $key_month ][ 'task_list' ][ $key ][ 'time_estimated' ] * 100 );
 
-					$array_indicator[ $key_month ][ 'task_list' ][ $key ][ 'time_color' ] = $this->return_color_from_pourcent( $array_indicator[ $key_month ][ 'task_list' ][ $key ][ 'time_percent' ] );
+					// $array_indicator[ $key_month ][ 'task_list' ][ $key ][ 'time_color' ] = $this->return_color_from_pourcent( $array_indicator[ $key_month ][ 'task_list' ][ $key ][ 'time_percent' ] );
+					$array_indicator[ $key_month ][ 'task_list' ][ $key ][ 'time_color' ] = $this->is_time_excedeed( $array_indicator[ $key_month ][ 'task_list' ][ $key ][ 'time_percent' ] );
 				}
 			}
 		}

@@ -85,6 +85,7 @@ body.toplevel_page_wpeomtm-dashboard #wpcontent {
   /** Audit container */
   /** Header */
   /** Edition */
+  /** Tableau */
   /** Import des éléments simples */
   /** Bouton d'ajout */
   /** Bouton sauvegarde */
@@ -1525,6 +1526,19 @@ body.toplevel_page_wpeomtm-dashboard #wpcontent {
     display: block;
     background: #ececec;
     padding: 0.8em; }
+  .tm-wrap .tm_client_indicator_update_body {
+    padding: 1em; }
+    .tm-wrap .tm_client_indicator_update_body .tag-time.time-excedeed {
+      color: #ff4246; }
+  .tm-wrap .tm_client_indicator_update_body .wpeo-table {
+    border: 0; }
+    .tm-wrap .tm_client_indicator_update_body .wpeo-table > thead, .tm-wrap .tm_client_indicator_update_body .wpeo-table > tfoot {
+      background: none;
+      color: rgba(0, 0, 0, 0.9);
+      font-weight: 900;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.1); }
+    .tm-wrap .tm_client_indicator_update_body .wpeo-table td:first-child {
+      text-align: left; }
   .tm-wrap *,
   .tm-wrap *:before,
   .tm-wrap *:after {
