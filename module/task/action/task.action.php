@@ -479,8 +479,9 @@ class Task_Action {
 
 		$alldata = Task_Class::g()->update_client_indicator( $postid, $postauthor, $year );
 
-		$year = $alldata[ 'year' ];
-		$categories = $alldata[ 'categories' ];
+		$year       = $alldata[ 'year' ];
+		$type       = $alldata[ 'type' ];
+		$info       = $alldata[ 'info' ];
 		$everymonth = $alldata[ 'everymonth' ];
 
 		$view = ob_start();
@@ -490,7 +491,8 @@ class Task_Action {
 			'task',
 			'backend/metabox-indicators',
 			array(
-				'categories' => $categories,
+				'type' => $type,
+				'info' => $info,
 				'everymonth' => $everymonth
 			)
 		);

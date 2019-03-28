@@ -32,7 +32,7 @@ window.eoxiaJS.taskManager.audit.event = function() {
 
 	jQuery( document ).on( 'keyup', '#tm_client_audit_title_new', window.eoxiaJS.taskManager.audit.checkIfTitleIsOk );
 	jQuery( document ).on( 'paste', '#tm_client_audit_title_new', window.eoxiaJS.taskManager.audit.checkIfTitleIsOk );
-	jQuery( document ).on( 'change', '#tm_audit_client_date_deadline', window.eoxiaJS.taskManager.audit.checkIfTitleIsOk );
+	jQuery( document ).on( 'change', '#tm_audit_client_date_deadline', window.eoxiaJS.taskManager.audit.checkIfDateIsOk );
 
 	// jQuery( document ).on( 'click', '#tm_audit_client_button_accesstotask', window.eoxiaJS.taskManager.audit.accessToTaskView );
 
@@ -41,7 +41,6 @@ window.eoxiaJS.taskManager.audit.event = function() {
 	jQuery( document ).on( 'click', '#wpeo-task-metabox-auditlist h2 span .action-attribute', window.eoxiaJS.taskManager.audit.preventDefaultHeader );
 
 	jQuery( document ).on( 'change', '#tm_audit_selector_search', window.eoxiaJS.taskManager.audit.updateSearchSelect );
-
 
 };
 
@@ -90,7 +89,7 @@ window.eoxiaJS.taskManager.audit.clientAuditBackToMain = function ( trigerredEle
 }*/
 
 window.eoxiaJS.taskManager.audit.checkIfTitleIsOk = function( event ){ // If title and date
-	jQuery( '#tm_client_audit_title_newhidden' ).val( jQuery( this ).html() );
+	jQuery( '#tm_client_audit_title_newhidden' ).val( jQuery( '#tm_client_audit_title_new' ).html() );
 
 	if( jQuery( this ).html() != jQuery( this ).parent( '.wpeo-task-title' ).find( '#tm_client_audit_title_old' ).val() && jQuery( this ).html() != "" ){
 		jQuery( '#tm_client_audit_buttonsavetitle' ).removeClass( 'button-disable' );
@@ -99,8 +98,14 @@ window.eoxiaJS.taskManager.audit.checkIfTitleIsOk = function( event ){ // If tit
 	}
 }
 
+window.eoxiaJS.taskManager.audit.checkIfDateIsOk = function( event ){ // If title and date
+	jQuery( '#tm_client_audit_buttonsavetitle' ).removeClass( 'button-disable' );
+
+}
+
 window.eoxiaJS.taskManager.audit.updateTitle = function( element, response ){
 	jQuery( '#tm_client_audit_title_newhidden' ).val( response.data.title );
+	console.log( response.data.deadline );
 	window.eoxiaJS.taskManager.audit.checkIfTitleIsOk();
 
 	// jQuery( '.tm_client_audit_main' ).replaceWith( response.data.view_main );
@@ -120,7 +125,7 @@ window.eoxiaJS.taskManager.audit.viewMainPage = function( element, response ){
 	jQuery( '.tm_client_audit_edit' ).css( 'display', 'none' );
 }
 
-window.eoxiaJS.taskManager.audit.generateAuditIndicator = function( task_id, complet_point, uncomplet_point, audit_id ){
+window.eoxiaJS.taskManager.audit.generateAuditIndicator = function( task_id, complet_point, uncomplet_point, audit_id, audit_title ){
 
 	jQuery( "#audit_client_indicator_" + audit_id ).append( '<div class="audit-chart-item"><canvas id="audit_client_indicator_task_' + task_id + '" class="wpeo-modal-event alignright" style=""></canvas></div>' );
 
@@ -151,11 +156,15 @@ window.eoxiaJS.taskManager.audit.generateAuditIndicator = function( task_id, com
 	}
 
 	var option = {
-
 		title: {
 			display: true,
-			text: '#' + task_id,
-			position: 'bottom'
+			text: audit_title + '(#' + task_id + ')',
+			position: 'bottom',
+		},
+		tooltips: {
+			custom: function(tooltip) {
+		    console.log( ' - - - ' );
+	    }
 		},
 		legend: {
       display: false

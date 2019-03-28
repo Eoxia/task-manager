@@ -44,18 +44,19 @@ class Task_Shortcode {
 
 		$param = shortcode_atts(
 			array(
-				'id'             => 0,
-				'point_id'       => 0,
-				'task_id'				 => 0,
-				'categories_id'  => array(),
-				'users_id'       => array(),
-				'term'           => '',
-				'status'         => 'any',
-				'offset'         => 0,
-				'post_parent'    => 0,
+				'id'              => 0,
+				'point_id'        => 0,
+				'task_id'				  => 0,
+				'categories_id'   => array(),
+				'users_id'        => array(),
+				'term'            => '',
+				'status'          => 'any',
+				'offset'          => 0,
+				'post_parent'     => 0,
+				'not_parent_type' => array(),
 				// 'post_parent'    => 0,
-				'posts_per_page' => \eoxia\Config_Util::$init['task-manager']->task->posts_per_page,
-				'with_wrapper'   => 1,
+				'posts_per_page'  => \eoxia\Config_Util::$init['task-manager']->task->posts_per_page,
+				'with_wrapper'    => 1,
 			),
 			$param,
 			'task'
@@ -83,6 +84,10 @@ class Task_Shortcode {
 
 		if ( ! is_array( $param['point_id'] ) && ! empty( $param['point_id'] ) ) {
 			$param['point_id'] = $param['point_id'];
+		}
+
+		if ( ! is_array( $param['not_parent_type'] ) && ! empty( $param['not_parent_type'] ) ) {
+			$param['not_parent_type'] = explode( ',', $param['not_parent_type'] );
 		}
 
 		$with_wrapper = false;

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2019-03-15 10:57+0100\n"
-"PO-Revision-Date: 2019-03-15 10:59+0100\n"
+"POT-Creation-Date: 2019-03-15 17:18+0100\n"
+"PO-Revision-Date: 2019-03-15 17:18+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -103,7 +103,7 @@ msgstr "Voulez vous supprimer ce commentaire ?"
 #: core/action/task_manager.action.php:206
 #: module/audit/view/audit-import-button.view.php:37
 #: module/import/view/backend/import-textarea.view.php:20
-#: module/task/action/task.action.php:518
+#: module/task/action/task.action.php:463
 msgid "Task"
 msgstr "Tâche"
 
@@ -119,7 +119,7 @@ msgstr "Pas de note de mise à jour pour cette version."
 msgid "Tasks"
 msgstr "Tâches"
 
-#: core/view/main.view.php:29 module/audit/action/audit.action.php:265
+#: core/view/main.view.php:29 module/audit/action/audit.action.php:278
 #: module/task/action/task.action.php:97
 #: module/task/view/backend/metabox-create-buttons.view.php:23
 msgid "New task"
@@ -237,7 +237,7 @@ msgstr "Page des temps rapides"
 msgid "Quick time"
 msgstr "Temps rapide"
 
-#: module/audit/action/audit.action.php:80
+#: module/audit/action/audit.action.php:79
 msgid "Audit"
 msgstr ""
 
@@ -249,6 +249,10 @@ msgstr ""
 msgid "Write audit title ..."
 msgstr "Ecrivez le titre de l'audit ici ..."
 
+#: module/audit/view/audit-createnew.view.php:45
+msgid "Deadline date"
+msgstr "Date limite"
+
 #: module/audit/view/audit-import-button.view.php:41
 #: module/import/view/backend/import-textarea.view.php:24
 msgid "Point"
@@ -258,15 +262,15 @@ msgstr "Point"
 msgid "This audit has no name"
 msgstr ""
 
-#: module/audit/view/audit-item.view.php:73
+#: module/audit/view/audit-item.view.php:74
 msgid "Edit this audit"
 msgstr "Modifier cet audit"
 
-#: module/audit/view/audit-item.view.php:80
+#: module/audit/view/audit-item.view.php:81
 msgid "Delete this audit ?"
 msgstr "Voulez vous supprimer cet audit ?"
 
-#: module/audit/view/audit-item.view.php:82
+#: module/audit/view/audit-item.view.php:83
 msgid "Delete this audit"
 msgstr "Supprimer cet audit"
 
@@ -518,7 +522,7 @@ msgstr "Import de points depuis un fichier texte dans la tâche : %s"
 #: module/indicator/action/indicator.action.php:57
 #: module/indicator/action/indicator.action.php:59
 #: module/indicator/view/backend/main.view.php:19
-#: module/task/action/task.action.php:519
+#: module/task/action/task.action.php:464
 msgid "Indicator"
 msgstr "Indicateur"
 
@@ -1156,7 +1160,7 @@ msgstr "et recharger cette section."
 msgid "No post found"
 msgstr "Aucun post trouvé"
 
-#: module/task/action/task.action.php:520
+#: module/task/action/task.action.php:465
 msgid "History task"
 msgstr "Historique des tâches"
 

@@ -33,6 +33,7 @@ class Audit_Model extends \eoxia\Post_Model {
 
 		$this->schema[ 'deadline' ] = array(
 			'type'      => 'wpeo_date',
+			'meta_type' => 'single',
 			'field'     => 'post_deadline',
 			'since'     => '1.10.0',
 			'version'   => '1.10.0',

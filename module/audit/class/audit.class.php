@@ -67,7 +67,8 @@ class Audit_Class extends \eoxia\Post_Class {
 			return 0;
 		}
 
-		$audits = Audit_Class::g()->get( array( 'parent_id' => $parent_id ) );
+		$audits = Audit_Class::g()->get( array( 'post_parent' => $parent_id ) );
+
 		$tasks = Task_Class::g()->get();
 
 		foreach( $audits as $key_audit => $audit ){
@@ -85,7 +86,8 @@ class Audit_Class extends \eoxia\Post_Class {
 							'task_id' => $task->data[ 'id' ],
 							'count_completed_points' => $task->data[ 'count_completed_points' ],
 						 	'count_uncompleted_points' => $task->data[ 'count_uncompleted_points' ],
-							'percent_uncompleted_points' => $this->audit_client_calcul_percent_uncompletedpoints( $task->data[ 'count_completed_points' ], $task->data[ 'count_uncompleted_points' ])
+							'percent_uncompleted_points' => $this->audit_client_calcul_percent_uncompletedpoints( $task->data[ 'count_completed_points' ], $task->data[ 'count_uncompleted_points' ]),
+							'title' => $task->data[ 'title' ]
 						);
 
 						$total_count_completed_points += $task->data[ 'count_completed_points' ];
@@ -130,8 +132,8 @@ class Audit_Class extends \eoxia\Post_Class {
 		foreach( $audits as $key => $value ){
 			if( ! empty( $value->data[ 'tasklink' ] ) ){
 				foreach( $value->data[ 'tasklink' ] as $key_ => $value_ ){
-					//if( $value_[ 'count_completed_points' ] != 0 || $value_[ 'count_uncompleted_points' ] != 0 )
-					echo '<script>window.eoxiaJS.taskManager.audit.generateAuditIndicator(' . $value_[ 'task_id' ] . ',' . $value_[ 'count_completed_points' ] . ',' . $value_[ 'count_uncompleted_points' ] . ',' . $value->data[ 'id' ] . ')</script>';
+					$title = substr( $value_[ 'title' ], 0, 10 );
+					echo '<script>window.eoxiaJS.taskManager.audit.generateAuditIndicator(' . $value_[ 'task_id' ] . ',' . $value_[ 'count_completed_points' ] . ',' . $value_[ 'count_uncompleted_points' ] . ',' . $value->data[ 'id' ] . ',"' . $title . '")</script>';
 				}
 			}
 		}

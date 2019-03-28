@@ -187,22 +187,13 @@ class Audit_Action {
 		$audit = Audit_Class::g()->get( array( 'id' => $id ), true );
 
 		$audit->data[ 'title' ] = $title;
-		$audit->data[ 'date_modified' ] = '2010-01-01 11:11:11';
-		$audit->data[ 'deadline' ] = '2010-01-01 11:11:11';
+		$audit->data[ 'date_modified' ] = current_time( 'mysql' );
 
-
-		// if( $deadline_str > 0 ){
-			$postdate = 0;
-			// $audit->data[ 'deadline' ] = current_time( 'mysql' );
-			// echo '<pre>'; print_r( 'dzdqd' ); echo '</pre>';
-		// }
-		// echo '<pre>'; print_r( $audit->data ); echo '</pre>';
+		if( $deadline_str > 0 ){
+			$audit->data[ 'deadline' ] = date( 'Y-m-d 00:00:00', $deadline_str );
+		}
 
 		$audit = Audit_Class::g()->update( $audit->data );
-		// echo '<pre>'; print_r( ' - - - - - - - - - - -' ); echo '</pre>';
-		// echo '<pre>'; print_r( $audit->data ); echo '</pre>'; exit;
-
-		// $audits = Audit_Class::g()->get( array( 'parent_id' => $parent_id ) );
 
 		wp_send_json_success(
 			array(

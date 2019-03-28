@@ -25,9 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="audit-header">
 			<div class="audit-edit-header">
 				<div class="audit-title-container">
-					<div id="tm_client_audit_title_new" class="audit-title" contenteditable="true" placeholder="<?= esc_html_e( 'Write audit title ...', 'task-manager' ); ?>">
-						<?= ! empty( $audit->data[ 'title' ] ) ? $audit->data[ 'title' ] : '';  ?>
-					</div>
+					<div id="tm_client_audit_title_new" class="audit-title" contenteditable="true" placeholder="<?php esc_html_e( 'Write audit title ...', 'task-manager' ); ?>"><?php echo empty( $audit->data[ 'title' ] ) ? null : $audit->data[ 'title' ];  ?></div>
 					<span class="audit-title-edit"><i class="fas fa-pencil"></i></span>
 				</div>
 
@@ -38,7 +36,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<i class="far fa-calendar-alt"></i> <?= $audit->data[ 'date' ][ 'rendered' ][ 'date' ] ?>
 						</span> /
 						<span class="summary-rendered wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Due date', 'task-manager' ); ?>">
-							<i class="far fa-calendar-alt"></i> <input id="tm_audit_client_date_deadline" name="date_deadline" type="text" onfocus="(this.type='date')" placeholder="<?php esc_html_e( 'Deadline date', 'task-manager' ); ?>">
+
+							<div class="form-element group-date">
+								<span class="form-label"><i class="far fa-calendar-alt"></i></span>
+								<label class="form-field-container">
+									<input id="tm_audit_client_date_deadline_new" type="hidden" class="mysql-date" name="date_deadline"  value="<?php echo esc_attr( $audit->data[ 'deadline' ]['raw'] ); ?>" />
+									<input id="tm_audit_client_date_deadline" class="date form-field" type="text"
+									value="<?php echo esc_attr( $audit->data[ 'deadline' ][ 'rendered' ][ 'date' ] ); ?>" />
+								</label>
+
+							</div>
+
+
 						</span>
 					</li>
 				</ul>
@@ -54,7 +63,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					 <i class="button-icon fas fa-save"></i></div>
 			</div>
 
-			<input type="hidden" name="title" id="tm_client_audit_title_newhidden" value="<?= ! empty( $audit->data[ 'title' ] ) ? $audit->data[ 'title' ] : 'New Audit';  ?>">
+			<input type="hidden" name="title" id="tm_client_audit_title_newhidden" value="<?= ! empty( $audit->data[ 'title' ] ) ? $audit->data[ 'title' ] : '';  ?>">
 			<input type="hidden" name="title_old" id="tm_client_audit_title_old" value="<?= ! empty( $audit->data[ 'title' ] ) ? $audit->data[ 'title' ] : '';  ?>">
 		</div><!-- .audit-header -->
 

@@ -14,7 +14,7 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
-<div class="tm-audit tm_audit_item_<?= $audit->data[ 'id' ] ?>" data-id="<?= $audit->data[ 'id' ] ?>">
+<div class="tm-audit tm_audit_item_<?php echo esc_html( $audit->data[ 'id' ] ); ?>" data-id="<?= $audit->data[ 'id' ] ?>">
 
 	<div class="audit-progress">
 		<div class="progress-bar" style="width:<?= $audit->data[ 'info' ][ 'percent_uncompleted_points' ] . '%' ?>; background-color :<?=  $audit->data[ 'info' ][ 'color' ] ?>;"></div>

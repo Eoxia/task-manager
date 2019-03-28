@@ -14,7 +14,7 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
-<?php if( ! empty( $categories ) ) : ?>
+<?php if( ! empty( $type ) ) : ?>
 <div class="tm-wrap wpeo-wrap tm_client_indicator_update_body">
 
 	<h3><i class="fas fa-repeat"></i> <?php esc_html_e( 'Recursive', 'task-manager' ); ?></h3>
@@ -29,48 +29,105 @@ if ( ! defined( 'ABSPATH' ) ) {
     </tr>
   </thead>
   <tbody>
-		<?php foreach( $categories as $key_indicator => $value_indicator ): ?>
-			<?php	if( $value_indicator[0][ 'is_recursive' ] ): ?>
-				<tr>
-					<td class="wpeo-tooltip-event"
-					data-title="<?= esc_html__( 'Total : ', 'task-manager' ) . $value_indicator[0][ 'all_month_elapsed_readable' ] . ' /' . $value_indicator[0][ 'all_month_estimated_readable' ] ?>"
-					aria-label="<?= esc_html__( 'Total : ', 'task-manager' ) . $value_indicator[0][ 'all_month_elapsed_readable' ] . ' /' . $value_indicator[0][ 'all_month_estimated_readable' ] ?>">
-						<p class="tag-title"><strong><?= $value_indicator[0][ 'name' ] ?></strong></p>
-						<p class="tag-time <?php echo ( $value_indicator[0][ 'all_month_pourcent_color' ] ) ? 'time-excedeed' : ''; ?>"><?= $value_indicator[0][ 'all_month_elapsed' ] . '/' . $value_indicator[0][ 'all_month_estimated' ] . ' (' . $value_indicator[0][ 'all_month_pourcent' ] . '%)' ?></p>
-					</td>
+		<?php foreach( $type as $key_categorie => $categories ): ?>
+			<?php foreach( $categories as $key_indicator => $value_categorie ):?>
+				<?php	if( $key_categorie == 'recursive' ): ?>
+					<tr>
+						<td class="wpeo-tooltip-event"
+						data-title="<?php echo esc_html__( 'Total : ', 'task-manager' ) . $info[ $key_categorie ][ $key_indicator ][ 'info' ][ 'time_elapsed_readable' ] . ' /' . $info[ $key_categorie ][ $key_indicator ][ 'info' ][ 'time_estimated_readable' ] ?>"
+						aria-label="<?php echo esc_html__( 'Total : ', 'task-manager' ) . $info[ $key_categorie ][ $key_indicator ][ 'info' ][ 'time_elapsed_readable' ] . ' /' . $info[ $key_categorie ][ $key_indicator ][ 'info' ][ 'time_estimated_readable' ] ?>"
+							<p class="tag-title"><strong><?php echo esc_html( $info[ $key_categorie ][ $key_indicator ][ 'info' ][ 'name' ] ) ?></strong></p>
+							<p class="tag-time <?php echo esc_html( $info[ $key_categorie ][ $key_indicator ][ 'info' ][ 'time_percent' ] > 100 ? 'time-excedeed' : '' ); ?>">
+								<?php echo esc_html( $info[ $key_categorie ][ $key_indicator ][ 'info' ][ 'time_elapsed' ] . '/' . $info[ $key_categorie ][ $key_indicator ][ 'info' ][ 'time_estimated' ] . ' (' . $info[ $key_categorie ][ $key_indicator ][ 'info' ][ 'time_percent'] . '%)' ); ?></p>
+						</td>
 
-					<?php foreach( $value_indicator as $key_indicator_month => $value_indicator_month ):?>
-						<?php if( isset( $value_indicator_month[ "total_time_elapsed" ] ) && isset( $value_indicator_month[ "total_time_estimated" ] ) ) : ?>
-							<?php if ( $value_indicator_month[ "total_time_elapsed" ] != 0 || $value_indicator_month[ "total_time_estimated" ] != 0 ) :?>
+						<?php foreach( $value_categorie as $key_month => $value_month ): ?>
+							<?php if( $value_month[ 'month_is_valid' ] ) : ?>
 
 			      		<td class="wpeo-tooltip-event"
 								<?php
-								if( $value_indicator_month[ "total_time_elapsed" ] > 0 && $value_indicator_month[ "total_time_estimated" ] > 0 ) : ?>
-								data-title="<?= $value_indicator_month[ 'total_time_elapsed_readable' ] . ' / ' . $value_indicator_month[ 'total_time_estimated_readable' ] ?>"
-								aria-label="<?= $value_indicator_month[ 'total_time_elapsed_readable' ] . ' / ' . $value_indicator_month[ 'total_time_estimated_readable' ] ?>"
-							<?php else: ?>
-								data-title="<?php esc_html_e( 'TimeElapsed /TimeEstimated', 'task-manager' ) ?>"
-								aria-label="<?php esc_html_e( 'TimeElapsed /TimeEstimated', 'task-manager' ) ?>"
-							<?php endif; ?>>
+								if( $value_month[ "total_time_elapsed" ] > 0 && $value_month[ "total_time_estimated" ] > 0 ) : ?>
+									data-title="<?php echo esc_html( $value_month[ 'total_time_elapsed_readable' ] . ' / ' . $value_month[ 'total_time_estimated_readable' ] ) ?>"
+									aria-label="<?php echo esc_html( $value_month[ 'total_time_elapsed_readable' ] . ' / ' . $value_month[ 'total_time_estimated_readable' ] ) ?>"
+								<?php else: ?>
+									data-title="<?php esc_html_e( 'TimeElapsed /TimeEstimated', 'task-manager' ) ?>"
+									aria-label="<?php esc_html_e( 'TimeElapsed /TimeEstimated', 'task-manager' ) ?>"
+								<?php endif; ?>
+								>
 
-								<p class="tag-time <?php echo ( $value_indicator_month[ 'purcent_color' ] ) ? 'time-excedeed' : ''; ?>">
-									<?= $value_indicator_month[ 'total_time_elapsed' ] . ' /' . $value_indicator_month[ 'total_time_estimated' ];
-									if ( $value_indicator_month[ 'total_time_elapsed' ] > 0 && $value_indicator_month[ 'total_time_estimated' ] > 0 ) :
-										echo ' (' .$value_indicator_month[ 'total_pourcent' ] . '%)';
-										endif;
-									?>
-								</p>
-
+									<p class="tag-time <?php echo esc_html( $value_month[ 'total_time_percent' ] > 100 ? 'time-excedeed' : '' ); ?>">
+										<?php echo esc_html( $value_month[ 'total_time_elapsed' ] . ' /' . $value_month[ 'total_time_estimated' ] ); ?>
+										<?php echo esc_html( $value_month[ 'total_time_percent' ] > 0 ? '(' . $value_month[ 'total_time_percent' ] . '%)' : '' ); ?>
+									</p>
+								</td>
 							<?php else: ?>
 								<td data-title="TimeElapsed">
 									<p class="tag-time"><?= '-' ?></p>
+								</td>
 							<?php endif; ?>
-						</td>
-						<?php endif; ?>
-				<?php endforeach; ?>
-			</tr>
-			<?php endif; ?>
+					<?php endforeach; ?>
+				</tr>
+				<?php if( ! empty( $info[ $key_categorie ][ $key_indicator ][ 'task_list' ] ) ):
+					foreach( $info[ $key_categorie ][ $key_indicator ][ 'task_list' ] as $key_task => $value_task ):
+						?>
+						<tr>
+							<td class="wpeo-tooltip-event"
+							data-title="<?= esc_html__( 'Total : ', 'task-manager' ); ?>
+							<?php echo esc_html( $value_task[ 'time_elapsed_readable' ] ) ?>/
+							<?php echo esc_html( $value_task[ 'time_estimated_readable' ] ) ?>"
+							aria-label="<?= esc_html__( 'Total : ', 'task-manager' ); ?>
+							<?php echo esc_html( $value_task[ 'time_elapsed_readable' ] ) ?>/
+							<?php echo esc_html( $value_task[ 'time_estimated_readable' ] ) ?>">
+
+								<p class="tag-title"><strong>- <?php echo esc_html( $value_task[ 'title' ] . ' (#' . $key_task . ')' ) ?></strong></p>
+
+								<p class="tag-time <?php echo esc_html( $value_task[ 'time_percent' ] > 100 ? 'time-excedeed' : '' ); ?>">
+									<?php echo esc_html( $value_task[ 'time_elapsed' ] ) ?>/
+									<?php echo esc_html( $value_task[ 'time_estimated' ] ) ?>
+									<?php echo esc_html( '(' . $value_task[ 'time_percent' ] . '%)' ); ?></p>
+							</td>
+
+							<?php foreach( $value_categorie as $key_month => $value_month ):
+											if( $value_month[ 'month_is_valid' ] ) : ?>
+									<?php if( $value_month[ 'task_list' ][ $key_task ][ 'month_is_valid' ] ): ?>
+									<td class="wpeo-tooltip-event"
+										<?php if( $value_month[ "total_time_elapsed" ] > 0 && $value_month[ "total_time_estimated" ] > 0 ) : ?>
+											data-title="<?php echo esc_html( $value_month[ 'task_list' ][ $key_task ][ "time_elapsed_readable" ] . ' / ' . $value_month[ 'task_list' ][ $key_task ][ "time_estimated_readable" ] )?>"
+											aria-label="<?php echo esc_html( $value_month[ 'task_list' ][ $key_task ][ "time_elapsed_readable" ] . ' / ' . $value_month[ 'task_list' ][ $key_task ][ "time_estimated_readable" ] )?>"
+										<?php else: ?>
+											data-title="<?php esc_html_e( 'TimeElapsed /TimeEstimated', 'task-manager' ) ?>"
+											aria-label="<?php esc_html_e( 'TimeElapsed /TimeEstimated', 'task-manager' ) ?>"
+										<?php endif; ?>>
+
+
+											<p class="tag-time <?php echo esc_html( $value_month[ 'task_list' ][ $key_task ][ 'time_percent' ] > 100 ? 'time-excedeed' : '' ); ?>">
+												<?php echo esc_html( $value_month[ 'task_list' ][ $key_task ][ "time_elapsed" ] . ' /' . $value_month[ 'task_list' ][ $key_task ][ "time_estimated" ] ) ?>
+												<?php echo esc_html( $value_month[ 'task_list' ][ $key_task ][ 'time_percent' ] > 0 ? '(' . $value_month[ 'task_list' ][ $key_task ][ 'time_percent' ] . '%)' : '' ); ?>
+											</p>
+
+									<?php else: ?>
+										<td data-title="TimeElapsed">
+											<p class="tag-time"><?= '-' ?></p>
+									<?php endif; ?>
+
+									</td>
+								<?php else: ?>
+									<td data-title="TimeElapsed">
+										<p class="tag-time"><?= '-' ?></p>
+									</td>
+								<?php endif ; ?>
+
+
+							<?php endforeach; ?>
+
+						</tr>
+						<?php
+					 endforeach;
+					endif;?>
+				<?php endif; ?>
+			<?php endforeach; ?>
 		<?php endforeach; ?>
+
   </tbody>
 </table>
 
@@ -86,96 +143,103 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</tr>
 </thead>
 <tbody>
-	<?php foreach( $categories as $key_indicator => $value_indicator ): ?>
-		<?php	if( ! $value_indicator[0][ 'is_recursive' ] ):?>
-			<tr>
-				<td class="wpeo-tooltip-event"
-				data-title="<?= esc_html__( 'Total : ', 'task-manager' ) . $value_indicator[0][ 'all_month_deadline_readable' ] . ' /' . $value_indicator[0][ 'all_month_estimated_readable' ] ?>"
-				aria-label="<?= esc_html__( 'Total : ', 'task-manager' ) . $value_indicator[0][ 'all_month_deadline_readable' ] . ' /' . $value_indicator[0][ 'all_month_estimated_readable' ] ?>">
-
-					<p class="tag-title"><strong><?= $value_indicator[0][ 'name' ] ?></strong></p>
-					<p class="tag-time <?php echo ( $value_indicator[0][ 'all_month_pourcent_color' ] ) ? 'time-excedeed' : ''; ?>"><?= $value_indicator[0][ 'all_month_deadline' ]. ' /' . $value_indicator[0][ 'all_month_estimated' ] . ' (' . $value_indicator[0][ 'all_month_pourcent' ] . '%)' ?></p>
-				</td>
-
-
-				<?php foreach( $value_indicator as $key_indicator_month => $value_indicator_month ): ?>
-					<?php
-					if( isset( $value_indicator_month[ "total_time_estimated" ] ) && isset( $value_indicator_month[ "total_time_deadline" ] ) ) : ?>
-						<?php if ( $value_indicator_month[ "total_time_estimated" ] != 0 || $value_indicator_month[ "total_time_deadline" ] != 0 ) : ?>
-
-							<td class="wpeo-tooltip-event"
-							<?php if( $value_indicator_month[ "total_time_deadline" ] > 0 && $value_indicator_month[ "total_time_estimated" ] > 0 ) : ?>
-							data-title="<?= $value_indicator_month[ 'total_time_deadline_readable' ] . ' / ' . $value_indicator_month[ 'total_time_estimated_readable' ] ?>"
-							aria-label="<?= $value_indicator_month[ 'total_time_deadline_readable' ] . ' / ' . $value_indicator_month[ 'total_time_estimated_readable' ] ?>"
-						<?php else: ?>
-							data-title="<?php esc_html_e( 'TimeElapsed /TimeEstimated', 'task-manager' ) ?>"
-							aria-label="<?php esc_html_e( 'TimeElapsed /TimeEstimated', 'task-manager' ) ?>"
-						<?php endif; ?>>
-
-							<p class="tag-time <?php echo ( $value_indicator_month[ 'purcent_color' ] ) ? 'time-excedeed' : ''; ?>">
-								<?= $value_indicator_month[ 'total_time_deadline' ] . ' /' . $value_indicator_month[ 'total_time_estimated' ];
-								if( isset( $value_indicator_month[ 'total_pourcent_deadline' ] ) ) :
-									echo ' (' .$value_indicator_month[ 'total_pourcent_deadline' ] . '%)';
-								endif;
-								?>
-							</p>
-
-						<?php else: ?>
-							<td data-title="TimeElapsed">
-								<p class="tag-time"><?= '-' ?></p>
-						<?php endif; ?>
-					</td>
-
-
-					<?php endif; ?>
-			<?php endforeach; ?>
-		</tr>
-
-		<?php if( $value_indicator[ 0 ][ 'task_list' ] ) : ?>
-			<?php foreach( $value_indicator[ 0 ][ 'task_list' ] as $key_list_task => $value_list_task ):?>
+	<?php foreach( $type as $key_categorie => $categories ): ?>
+		<?php foreach( $categories as $key_indicator => $value_categorie ): ?>
+			<?php	if( $key_categorie == 'deadline' ): ?>
 				<tr>
 					<td class="wpeo-tooltip-event"
-					data-title="<?= esc_html__( 'Total : ', 'task-manager' ); ?><?= isset( $value_list_task[ 'all_time_deadline_readable' ] ) ? $value_list_task[ 'all_time_deadline_readable' ] : ''; ?>/<?= isset( $value_list_task[ 'all_time_estimated_readable' ] ) ? $value_list_task[ 'all_time_estimated_readable' ] : ''; ?>"
-					aria-label="<?= esc_html__( 'Total : ', 'task-manager' ); ?><?= isset( $value_list_task[ 'all_time_deadline_readable' ] ) ? $value_list_task[ 'all_time_deadline_readable' ] . '/' : ''; ?><?= isset( $value_list_task[ 'all_time_estimated_readable' ] ) ? $value_list_task[ 'all_time_estimated_readable' ] : ''; ?>">
-
-						<p class="tag-title"><strong><?= ' - ' . $value_indicator[0][ 'name' ] ?></strong></p>
-						<p class="tag-time <?php echo ( $value_list_task[ 'all_time_color' ] ) ? 'time-excedeed' : ''; ?>"><?= isset( $value_list_task[ 'all_time_deadline' ] ) ? $value_list_task[ 'all_time_deadline' ] : ''; ?>/<?= isset( $value_list_task[ 'all_time_estimated' ] ) ? $value_list_task[ 'all_time_estimated' ] : ''; ?><?= isset( $value_list_task[ 'all_time_percent' ] ) ? '(' . $value_list_task[ 'all_time_percent' ] . '%)' : ''; ?></p>
+					data-title="<?php echo esc_html__( 'Total : ', 'task-manager' ) . $info[ $key_categorie ][ $key_indicator ][ 'info' ][ 'time_elapsed_readable' ] . ' /' . $info[ $key_categorie ][ $key_indicator ][ 'info' ][ 'time_estimated_readable' ] ?>"
+					aria-label="<?php echo esc_html__( 'Total : ', 'task-manager' ) . $info[ $key_categorie ][ $key_indicator ][ 'info' ][ 'time_elapsed_readable' ] . ' /' . $info[ $key_categorie ][ $key_indicator ][ 'info' ][ 'time_estimated_readable' ] ?>"
+						<p class="tag-title"><strong><?php echo esc_html( $info[ $key_categorie ][ $key_indicator ][ 'info' ][ 'name' ] ) ?></strong></p>
+						<p class="tag-time <?php echo esc_html( $info[ $key_categorie ][ $key_indicator ][ 'info' ][ 'time_percent' ] > 100 ? 'time-excedeed' : '' ); ?>">
+							<?php echo esc_html( $info[ $key_categorie ][ $key_indicator ][ 'info' ][ 'time_elapsed' ] . '/' . $info[ $key_categorie ][ $key_indicator ][ 'info' ][ 'time_estimated' ] . ' (' . $info[ $key_categorie ][ $key_indicator ][ 'info' ][ 'time_percent'] . '%)' ); ?></p>
 					</td>
 
 
-					<?php foreach( $value_indicator as $key_indicator_month => $value_indicator_month ):?>
-						<?php if( isset( $value_indicator_month[ 'task_list' ][ $key_list_task ][ "time_elapsed" ] ) ) : ?>
+					<?php foreach( $value_categorie as $key_month => $value_month ):?>
+						<?php if( $value_month[ 'month_is_valid' ] ) : ?>
 
 							<td class="wpeo-tooltip-event"
-								<?php if( $value_indicator_month[ 'task_list' ][ $key_list_task ][ "month_in_range" ] ): ?>
-									data-title="<?= $value_indicator_month[ 'task_list' ][ $key_list_task ][ "time_deadline_readable" ] . ' / ' . $value_indicator_month[ 'task_list' ][ $key_list_task ][ "time_estimated_readable" ] ?>"
-									aria-label="<?= $value_indicator_month[ 'task_list' ][ $key_list_task ][ "time_deadline_readable" ] . ' / ' . $value_indicator_month[ 'task_list' ][ $key_list_task ][ "time_estimated_readable" ] ?>">
-
-									<p class="tag-time <?php echo ( $value_indicator_month[ 'task_list' ][ $key_list_task ][ 'time_color' ] ) ? 'time-excedeed' : ''; ?>">
-										<?= $value_indicator_month[ 'task_list' ][ $key_list_task ][ "time_deadline" ] . ' /' . $value_indicator_month[ 'task_list' ][ $key_list_task ][ "time_estimated" ] ?>
-										<?= ( isset( $value_indicator_month[ 'task_list' ][ $key_list_task ][ 'time_percent' ] ) ) ? '(' . $value_indicator_month[ 'task_list' ][ $key_list_task ][ 'time_percent' ] . '%)': ''; ?>
-									</p>
-
-								<?php else: ?>
-									<td data-title="TimeElapsed">
-										<p class="tag-time"><?= '-' ?></p>
-								<?php endif; ?>
-							</td>
+							<?php
+							if( $value_month[ "total_time_deadline" ] > 0 && $value_month[ "total_time_estimated" ] > 0  ) : ?>
+								data-title="<?php echo esc_html( $value_month[ 'total_time_deadline_readable' ] . ' / ' . $value_month[ 'total_time_estimated_readable' ] ) ?>"
+								aria-label="<?php echo esc_html( $value_month[ 'total_time_deadline_readable' ] . ' / ' . $value_month[ 'total_time_estimated_readable' ] ) ?>"
+							<?php else: ?>
+								data-title="<?php esc_html_e( 'TimeElapsed /TimeEstimated', 'task-manager' ) ?>"
+								aria-label="<?php esc_html_e( 'TimeElapsed /TimeEstimated', 'task-manager' ) ?>"
+							<?php endif; ?>
+							>
+							<p class="tag-time <?php echo esc_html( $value_month[ 'total_time_percent' ] > 100 ? 'time-excedeed' : '' ); ?>">
+								<?php echo esc_html( $value_month[ 'total_time_deadline' ] . ' /' . $value_month[ 'total_time_estimated' ] ); ?>
+								<?php echo esc_html( $value_month[ 'total_time_percent' ] > 0 ? '(' . $value_month[ 'total_time_percent' ] . '%)' : '' ); ?>
+							</p>
+						</td>
+						<?php else: ?>
+						<td data-title="TimeElapsed">
+							<p class="tag-time"><?= '-' ?></p>
+						</td>
 						<?php endif; ?>
-
-
 				<?php endforeach; ?>
 			</tr>
-			<?php endforeach; ?>
-		<?php endif; ?>
-		<?php endif;?>
-	<?php endforeach; ?>
+
+			<?php if( ! empty( $info[ $key_categorie ][ $key_indicator ][ 'task_list' ] ) ):
+				foreach( $info[ $key_categorie ][ $key_indicator ][ 'task_list' ] as $key_task => $value_task ):
+					?>
+					<tr>
+						<td class="wpeo-tooltip-event"
+			      data-title="<?= esc_html__( 'Total : ', 'task-manager' ); ?>
+			      <?php echo esc_html( $value_task[ 'time_elapsed_readable' ] ) ?>/
+			      <?php echo esc_html( $value_task[ 'time_estimated_readable' ] ) ?>"
+			      aria-label="<?= esc_html__( 'Total : ', 'task-manager' ); ?>
+			      <?php echo esc_html( $value_task[ 'time_elapsed_readable' ] ) ?>/
+			      <?php echo esc_html( $value_task[ 'time_estimated_readable' ] ) ?>">
+						<p class="tag-title"><strong>- <?php echo esc_html( $value_task[ 'title' ] . ' (#' . $key_task . ')' ) ?></strong></p>
+
+						<p class="tag-time <?php echo esc_html( $value_task[ 'time_percent' ] > 100 ? 'time-excedeed' : '' ); ?>">
+							<?php echo esc_html( $value_task[ 'time_elapsed' ] ) ?>/
+							<?php echo esc_html( $value_task[ 'time_estimated' ] ) ?>
+							<?php echo esc_html( '(' . $value_task[ 'time_percent' ] . '%)' ); ?></p>
+					</td>
 
 
-	<?php foreach( $categories as $key_indicator => $value_indicator ): ?>
-		<?php	if( ! $value_indicator[0][ 'is_recursive' ] ) : ?>
+						<?php foreach( $value_categorie as $key_month => $value_month ):
+										if( $value_month[ 'month_is_valid' ] ) : ?>
+										<?php if( $value_month[ 'task_list' ][ $key_task ][ 'month_is_valid' ] ): ?>
+								<td class="wpeo-tooltip-event"
+								<?php if( $value_month[ "total_time_deadline" ] > 0 && $value_month[ "total_time_estimated" ] > 0 ) : ?>
+									data-title="<?php echo esc_html( $value_month[ 'task_list' ][ $key_task ][ "time_deadline_readable" ] . ' / ' . $value_month[ 'task_list' ][ $key_task ][ "time_estimated_readable" ] )?>"
+									aria-label="<?php echo esc_html( $value_month[ 'task_list' ][ $key_task ][ "time_deadline_readable" ] . ' / ' . $value_month[ 'task_list' ][ $key_task ][ "time_estimated_readable" ] )?>"
+								<?php else: ?>
+									data-title="<?php esc_html_e( 'TimeElapsed /TimeEstimated', 'task-manager' ) ?>"
+									aria-label="<?php esc_html_e( 'TimeElapsed /TimeEstimated', 'task-manager' ) ?>"
+								<?php endif; ?>>
 
-		<?php endif; ?>
+								<p class="tag-time <?php echo esc_html( $value_month[ 'task_list' ][ $key_task ][ 'time_percent' ] > 100 ? 'time-excedeed' : '' ); ?>">
+									<?php echo esc_html( $value_month[ 'task_list' ][ $key_task ][ "time_deadline" ] . ' /' . $value_month[ 'task_list' ][ $key_task ][ "time_estimated" ] ) ?>
+									<?php echo esc_html( $value_month[ 'task_list' ][ $key_task ][ 'time_percent' ] > 0 ? '(' . $value_month[ 'task_list' ][ $key_task ][ 'time_percent' ] . '%)' : '' ); ?>
+								</p>
+
+									<?php else: ?>
+										<td data-title="TimeElapsed">
+											<p class="tag-time"><?= '-' ?></p>
+									<?php endif; ?>
+
+								</td>
+							<?php else: ?>
+								<td data-title="TimeElapsed">
+									<p class="tag-time"><?= '-' ?></p>
+								</td>
+							<?php endif ; ?>
+
+
+						<?php endforeach; ?>
+
+					</tr>
+					<?php
+				 endforeach;
+				endif;?>
+			<?php endif;?>
+		<?php endforeach; ?>
 	<?php endforeach; ?>
 
 </tbody>
