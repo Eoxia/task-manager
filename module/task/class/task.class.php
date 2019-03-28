@@ -169,6 +169,11 @@ class Task_Class extends \eoxia\Post_Class {
 			LEFT JOIN {$wpdb->term_relationships} AS CAT ON CAT.object_id=TASK.ID
 		WHERE TASK.post_type='wpeo-task'";
 
+
+		if ( ! empty( $param['not_parent_type'] ) ) {
+			$query .= ' AND (PARENT.ID IS NULL OR (PARENT.ID IS NOT NULL AND PARENT.post_type NOT IN ("' . implode( $param['not_parent_type'], ',' ) . '") ) )';
+		}
+
 		$query .= 'AND TASK.post_status IN (' . $param['status'] . ')';
 
 		if ( ! is_null( $param['post_parent'] ) ) {
@@ -236,9 +241,6 @@ class Task_Class extends \eoxia\Post_Class {
 			$query .= ' AND (' . $sub_where . ')';
 		}
 
-		if ( ! empty( $param['not_parent_type'] ) ) {
-			$query .= ' AND PARENT.post_type NOT IN("' . implode( $param['not_parent_type'], ',' ) . '")';
-		}
 
 		$query .= ' ORDER BY TASK.post_date DESC ';
 
