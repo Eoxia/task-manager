@@ -47,8 +47,7 @@ ob_start();
 					<input type="hidden" value="<?php echo esc_attr( wp_create_nonce( 'load_user_activity' ) ); ?>" name="_wpnonce" />
 				</label>
 			</div>
-
-			<?php echo apply_filters( 'tm_filter_activity', '', $user_id, $customer_id ); // WPCS: XSS ok. ?>
+			<?php echo apply_filters( 'tm_filter_activity', '', $user_id, $customer_id, $page ); // WPCS: XSS ok. ?>
 
 			<button class="button-primary action-input" data-parent="filter-activity" data-action="open_popup_user_activity" id="tm-user-activity-load-by-date" ><?php esc_html_e( 'View activity', 'task-manager' ); ?></button>
 		</div>

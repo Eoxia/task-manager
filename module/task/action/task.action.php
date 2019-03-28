@@ -48,6 +48,8 @@ class Task_Action {
 		add_action( 'add_meta_boxes', array( $this, 'callback_add_meta_boxes' ), 10, 2 );
 
 		add_action( 'wp_ajax_update_indicator_client', array( $this, 'callback_update_indicator_client' ) );
+
+		add_action( 'tm_filter_daily_activity_after', array( $this, 'add_filter_customer_client' ), 10, 3 );
 	}
 
 	/**
@@ -462,7 +464,7 @@ class Task_Action {
 
 			add_meta_box( 'wpeo-task-metabox', __( 'Task', 'task-manager' ) . apply_filters( 'tm_posts_metabox_buttons', $buttons ), array( Task_Class::g(), 'callback_render_metabox' ), $post_type, 'normal', 'default' );
 			add_meta_box( 'wpeo-task-metaboxtest', __( 'Indicator', 'task-manager' ) . apply_filters( 'tm_posts_metabox_buttons', $button_indicator ), array( Task_Class::g(), 'callback_render_indicator' ), $post_type, 'normal', 'default' );
-			add_meta_box( 'wpeo-task-history-metabox', __( 'History task', 'task-manager' ), array( Task_Class::g(), 'callback_render_history_metabox' ), $post_type, 'side', 'default' );
+			add_meta_box( 'wpeo-task-history-metabox', __( 'History task', 'task-manager' ), array( Indicator_Class::g(), 'callback_my_daily_activity' ), $post_type, 'side', 'default' );
 		}
 	}
 
@@ -506,6 +508,46 @@ class Task_Action {
 				'year'             => $year
 			)
 		);
+
+	}
+
+	public function add_filter_customer_client( $user_id, $customer_id, $page = '' ){
+		$screen = get_current_screen();
+
+		if( $page == '' ){
+			$page = $screen->id;
+		}
+
+		if( $page == 'toplevel_page_wpeomtm-dashboard' ){
+
+			$customer_ctr = new \wps_customer_ctr();
+
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'indicator',
+				'backend/filter-customer',
+				array(
+					'customer_ctr'         => $customer_ctr,
+					'selected_customer_id' => $customer_id,
+					'page'                 => $page
+				)
+			);
+
+		}else{
+			$customer_ctr = new \wps_customer_ctr();
+
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'indicator',
+				'backend/filter-customerid',
+				array(
+					'client_id' => $customer_id,
+					'page'      => $page
+
+				)
+			);
+
+		}
 
 	}
 

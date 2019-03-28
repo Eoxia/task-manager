@@ -27,7 +27,7 @@ class Indicator_Filter {
 	 * @since 1.7.1
 	 */
 	public function __construct() {
-		add_filter( 'tm_filter_activity', array( $this, 'callback_tm_filter_activity' ), 10, 3 );
+		add_filter( 'tm_filter_activity', array( $this, 'callback_tm_filter_activity' ), 10, 4 );
 	}
 
 	/**
@@ -38,7 +38,7 @@ class Indicator_Filter {
 	 * @param  integer $selected_customer_id [description].
 	 * @return $content                      [la vue].
 	 */
-	public function callback_tm_filter_activity( $content, $selected_user_id = 0, $selected_customer_id = 0 ) {
+	public function callback_tm_filter_activity( $content, $selected_user_id = 0, $selected_customer_id = 0, $page = '' ) {
 		if ( class_exists( '\wps_customer_ctr' ) ) {
 			$customer_ctr = new \wps_customer_ctr();
 
@@ -58,6 +58,7 @@ class Indicator_Filter {
 					'users'                => $users,
 					'selected_user_id'     => $selected_user_id,
 					'selected_customer_id' => $selected_customer_id,
+					'page'                 => $page
 				)
 			);
 			$content = ob_get_clean();

@@ -42,11 +42,7 @@ defined( 'ABSPATH' ) || exit; ?>
 </label>
 </div>
 
-<div class="form-element">
-<span class="form-label"><i class="fas fa-shopping-basket"></i> <?php esc_html_e( 'Which customer', 'task-manager' ); ?></span>
-<label class="form-field-container">
-<?php $customer_ctr->customer_select( $selected_customer_id ); ?>
-</label>
-</div>
+<?php do_action( 'tm_filter_daily_activity_after', $selected_user_id, $selected_customer_id, $page ); ?>
+
 
 <button class="button-primary action-input" data-action="export_activity" data-parent="filter-activity"><?php esc_html_e( 'Export', 'task-manager' ); ?></button>

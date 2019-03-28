@@ -31,6 +31,7 @@ window.eoxiaJS.taskManager.task.event = function() {
 	jQuery( document ).on( 'click', '#tm_include_archive_client', window.eoxiaJS.taskManager.task.showArchiveClient );
 
 	jQuery( document ).on( 'click', '.tm_client_indicator_update', window.eoxiaJS.taskManager.audit.preventDefaultHeader );
+	jQuery( document ).on( 'click', '.tm_client_indicator_update_body table tbody .tm_client_indicator', window.eoxiaJS.taskManager.audit.openTaskRow );
 };
 
 /**
@@ -268,5 +269,17 @@ window.eoxiaJS.taskManager.task.showArchiveClient = function( triggeredElement, 
 			}
 		});
 
+	}
+}
+
+window.eoxiaJS.taskManager.audit.openTaskRow = function( event ){
+	var select = jQuery( this );
+
+	if( select.attr( 'data-show' ) == 'true' ){
+		select.attr( 'data-show', 'false' );
+		jQuery( '.tm_client_indicator_' + select.attr( 'data-id' ) + '_' + select.attr( 'data-type' ) ).hide( '200' );
+	}else{
+		select.attr( 'data-show', 'true' );
+		jQuery( '.tm_client_indicator_' + select.attr( 'data-id' ) + '_' + select.attr( 'data-type' ) ).show( '500' );
 	}
 }

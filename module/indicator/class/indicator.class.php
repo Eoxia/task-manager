@@ -58,7 +58,14 @@ class Indicator_Class extends \eoxia\Singleton_Util {
 		$date_end   = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_end'] ) ? $_POST['tm_abu_date_end'] : current_time( 'Y-m-d' );
 		$first_load = ! empty( $_GET ) && ! empty( $_GET['first_load'] ) ? $_GET['first_load'] : false;
 
+		$page = '';
+
 		$datas = Activity_Class::g()->display_user_activity_by_date( $user_id, $date_end, $date_start );
+
+		$customer_id = get_the_ID();
+		if( ! $user_id ){
+			$user_id = get_current_user_id();
+		}
 
 		\eoxia\View_Util::exec(
 			'task-manager',
@@ -66,10 +73,11 @@ class Indicator_Class extends \eoxia\Singleton_Util {
 			'backend/daily-activity',
 			array(
 				'user_id'     => $user_id,
-				'customer_id' => 0,
+				'customer_id' => $customer_id,
 				'date_start'  => $date_start,
 				'date_end'    => $date_end,
 				'datas'       => $datas,
+				'page'        => $page
 			)
 		);
 	}

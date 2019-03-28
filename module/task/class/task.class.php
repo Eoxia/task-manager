@@ -721,8 +721,8 @@ class Task_Class extends \eoxia\Post_Class {
 		$allmonth_betweendates = $this->all_month_between_two_dates( $indicator_date_start, $indicator_date_end );
 
 		$return = $this->generate_data_indicator_client( $tasks[ $post_id ]['data'], $allmonth_betweendates, $post_id );
-		$categories_indicator = $return[ 'data' ]; // Data principal
-		$categories_info = $return[ 'info' ]; // Info
+		$categories_indicator = isset( $return[ 'data' ] ) ? $return[ 'data' ] : array(); // Data principal
+		$categories_info = isset( $return[ 'info' ] ) ? $return[ 'info' ] : array(); // Info
 
 		$return = $this->update_data_indicator_humanreadable(  $categories_indicator, $categories_info );
 		$categories_indicator = $return[ 'data' ]; // Data principal

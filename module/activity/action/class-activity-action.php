@@ -147,6 +147,9 @@ class Activity_Action {
 		$date_start  = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_start'] ) ? $_POST['tm_abu_date_start'] : current_time( 'Y-m-d' );
 		$datas       = Activity_Class::g()->display_user_activity_by_date( $user_id, $date_end, $date_start, $customer_id );
 
+		$page  = ! empty( $_POST['page'] ) ? $_POST['page'] : '';
+
+
 		ob_start();
 		\eoxia\View_Util::exec(
 			'task-manager',
@@ -158,6 +161,7 @@ class Activity_Action {
 				'user_id'     => $user_id,
 				'customer_id' => $customer_id,
 				'datas'       => $datas,
+				'page'        => $page
 			)
 		);
 		$view = ob_get_clean();

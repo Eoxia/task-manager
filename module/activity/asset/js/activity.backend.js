@@ -117,41 +117,49 @@ window.eoxiaJS.taskManager.activity.getDataBeforeOpenPopup = function( element )
  * @version 1.6.0
  */
 window.eoxiaJS.taskManager.activity.loadedLastActivity = function( triggeredElement, response ) {
+	console.log( triggeredElement );
 	if ( triggeredElement.closest( '.wpeo-project-task' ).length ) {
+		console.log( '1' );
 		var taskElement = triggeredElement.closest( '.wpeo-project-task' );
 		triggeredElement.addClass( 'active' );
 		triggeredElement.closest( '.tm-task-display-method-buttons' ).find( '.list-display.active' ).removeClass( 'active' );
 		triggeredElement[0].closest( '.wpeo-project-task' ).querySelector( '.points' ).style.display = 'none';
 		taskElement.find( '.bloc-activities' ).html( response.data.view ).show();
-	} else {
-		jQuery( '#tm-indicator-activity .inside' ).html( response.data.view );
+	} else{
+		var element = triggeredElement.closest( '.inside' );
+		element.html( response.data.view ).show();
+		// jQuery( '#tm-indicator-activity .inside' ).html( response.data.view ); // 28/03/2019 Inutilisé ?
 	};
 
-	if( response.data.data_indicator != "" ){
+	if( response.data.data_indicator != null && response.data.data_indicator != '' ){
 		window.eoxiaJS.taskManager.activity.loadIndicatorActivity( response.data.data_indicator );
 	}
 };
 
 window.eoxiaJS.taskManager.activity.loadIndicatorActivity = function( data ){
 
-	jQuery( "#tm_activity_post_indicator_doghnut_" + data[ 'task_id' ] ).html( '<canvas id="tm_activity_post_indicator_doghnut' + data[ 'task_id' ] + '" class="wpeo-modal-event" ></canvas>' );
-	var canvasDonut = document.getElementById( "tm_activity_post_indicator_doghnut" + data[ 'task_id' ] ).getContext('2d');
+	if( document.getElementById( "tm_activity_post_indicator_doghnut_" + data[ 'task_id' ][ 0 ] ) !== null  ){
+		jQuery( "#tm_activity_post_indicator_doghnut_" + data[ 'task_id' ][ 0 ] ).html( '<canvas id="tm_activity_post_indicator_doghnut' + data[ 'task_id' ][ 0 ] + '" class="wpeo-modal-event" ></canvas>' );
 
-	var data_canvas_doghnut = {
-		labels : [ window.indicatorString.completed, window.indicatorString.uncompleted ],
-		datasets: [
-				{
-					backgroundColor: [ "#005387", "#ee6123" ],
-					data: [ data[ 'count_completed_points' ], data[ 'count_uncompleted_points' ] ],
-				}
-			],
-	};
+		var canvasDonut = document.getElementById( "tm_activity_post_indicator_doghnut" + data[ 'task_id' ][ 0 ] ).getContext('2d');
 
-	new Chart( canvasDonut, {
-    type: 'doughnut',
-    data: data_canvas_doghnut,
-    options: ''
-	});
+		var data_canvas_doghnut = {
+			labels : [ window.indicatorString.completed, window.indicatorString.uncompleted ],
+			datasets: [
+					{
+						backgroundColor: [ "#005387", "#ee6123" ],
+						data: [ data[ 'count_completed_points' ], data[ 'count_uncompleted_points' ] ],
+					}
+				],
+		};
+
+		new Chart( canvasDonut, {
+	    type: 'doughnut',
+	    data: data_canvas_doghnut,
+	    options: ''
+		});
+	}
+
 };
 
 /**

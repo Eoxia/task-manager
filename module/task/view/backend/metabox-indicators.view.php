@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php foreach( $type as $key_categorie => $categories ): ?>
 			<?php foreach( $categories as $key_indicator => $value_categorie ):?>
 				<?php	if( $key_categorie == 'recursive' ): ?>
-					<tr>
+					<tr class="tm_client_indicator" style="cursor : pointer" data-id="<?php echo esc_html( $key_indicator ); ?>" data-show="true" data-type="<?php echo esc_html( $key_categorie ); ?>" >
 						<td class="wpeo-tooltip-event"
 						data-title="<?php echo esc_html__( 'Total : ', 'task-manager' ) . $info[ $key_categorie ][ $key_indicator ][ 'info' ][ 'time_elapsed_readable' ] . ' /' . $info[ $key_categorie ][ $key_indicator ][ 'info' ][ 'time_estimated_readable' ] ?>"
 						aria-label="<?php echo esc_html__( 'Total : ', 'task-manager' ) . $info[ $key_categorie ][ $key_indicator ][ 'info' ][ 'time_elapsed_readable' ] . ' /' . $info[ $key_categorie ][ $key_indicator ][ 'info' ][ 'time_estimated_readable' ] ?>"
@@ -70,7 +70,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php if( ! empty( $info[ $key_categorie ][ $key_indicator ][ 'task_list' ] ) ):
 					foreach( $info[ $key_categorie ][ $key_indicator ][ 'task_list' ] as $key_task => $value_task ):
 						?>
-						<tr>
+						<tr class="tm_client_indicator_<?php echo esc_html( $key_indicator ) ?>_<?php echo esc_html( $key_categorie ) ?>">
 							<td class="wpeo-tooltip-event"
 							data-title="<?= esc_html__( 'Total : ', 'task-manager' ); ?>
 							<?php echo esc_html( $value_task[ 'time_elapsed_readable' ] ) ?>/
@@ -146,7 +146,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php foreach( $type as $key_categorie => $categories ): ?>
 		<?php foreach( $categories as $key_indicator => $value_categorie ): ?>
 			<?php	if( $key_categorie == 'deadline' ): ?>
-				<tr>
+				<tr class="tm_client_indicator" style="cursor : pointer" data-id="<?php echo esc_html( $key_indicator ); ?>" data-show="true" data-type="<?php echo esc_html( $key_categorie ); ?>">
 					<td class="wpeo-tooltip-event"
 					data-title="<?php echo esc_html__( 'Total : ', 'task-manager' ) . $info[ $key_categorie ][ $key_indicator ][ 'info' ][ 'time_elapsed_readable' ] . ' /' . $info[ $key_categorie ][ $key_indicator ][ 'info' ][ 'time_estimated_readable' ] ?>"
 					aria-label="<?php echo esc_html__( 'Total : ', 'task-manager' ) . $info[ $key_categorie ][ $key_indicator ][ 'info' ][ 'time_elapsed_readable' ] . ' /' . $info[ $key_categorie ][ $key_indicator ][ 'info' ][ 'time_estimated_readable' ] ?>"
@@ -185,7 +185,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php if( ! empty( $info[ $key_categorie ][ $key_indicator ][ 'task_list' ] ) ):
 				foreach( $info[ $key_categorie ][ $key_indicator ][ 'task_list' ] as $key_task => $value_task ):
 					?>
-					<tr>
+					<tr class="tm_client_indicator_<?php echo esc_html( $key_indicator ) ?>_<?php echo esc_html( $key_categorie ) ?>">
 						<td class="wpeo-tooltip-event"
 			      data-title="<?= esc_html__( 'Total : ', 'task-manager' ); ?>
 			      <?php echo esc_html( $value_task[ 'time_elapsed_readable' ] ) ?>/
