@@ -59,10 +59,10 @@ class Indicator_Class extends \eoxia\Singleton_Util {
 		$first_load = ! empty( $_GET ) && ! empty( $_GET['first_load'] ) ? $_GET['first_load'] : false;
 
 		$page = '';
-
-		$datas = Activity_Class::g()->display_user_activity_by_date( $user_id, $date_end, $date_start );
-
 		$customer_id = get_the_ID();
+
+		$datas = Activity_Class::g()->display_user_activity_by_date( $user_id, $date_end, $date_start, $customer_id );
+
 		if( ! $user_id ){
 			$user_id = get_current_user_id();
 		}

@@ -1,5 +1,19 @@
-
 <?php
+/**
+ * Recherche parmis les clients
+ *
+ * @author Eoxia <dev@eoxia.com>
+ * @since 1.10.0
+ * @version 1.10.0
+ * @copyright 2019 Eoxia
+ * @package Task_Manager
+ */
+
+namespace task_manager;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 ?>
 
