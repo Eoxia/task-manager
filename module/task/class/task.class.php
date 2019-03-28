@@ -640,7 +640,7 @@ class Task_Class extends \eoxia\Post_Class {
 							// Si le premier mois est valide, on récupère le temps des commentaires des mois précédents
 							foreach ( $comments as $key => $value_com ) {
 								if( $month[ 'str_month_start' ] > strtotime( $value_com->data[ 'date' ][ 'rendered' ][ 'mysql' ] ) ){
-									$categories_indicator[ $type ][ $id_category ][ $key_month_ ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_previous_months' ] += $value_com->data[ 'time_info' ][ 'elapsed' ];
+									$categories_indicator[ $type ][ $id_category ][ $key_month_ ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_elapsed' ] += $value_com->data[ 'time_info' ][ 'elapsed' ];
 									$categories_indicator[ $type ][ $id_category ][ $key_month_ ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_deadline' ] += $value_com->data[ 'time_info' ][ 'elapsed' ];
 								}
 							}
