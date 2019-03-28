@@ -117,9 +117,8 @@ window.eoxiaJS.taskManager.activity.getDataBeforeOpenPopup = function( element )
  * @version 1.6.0
  */
 window.eoxiaJS.taskManager.activity.loadedLastActivity = function( triggeredElement, response ) {
-	console.log( triggeredElement );
+	
 	if ( triggeredElement.closest( '.wpeo-project-task' ).length ) {
-		console.log( '1' );
 		var taskElement = triggeredElement.closest( '.wpeo-project-task' );
 		triggeredElement.addClass( 'active' );
 		triggeredElement.closest( '.tm-task-display-method-buttons' ).find( '.list-display.active' ).removeClass( 'active' );

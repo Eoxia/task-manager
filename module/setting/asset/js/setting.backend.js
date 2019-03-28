@@ -65,7 +65,6 @@ window.eoxiaJS.taskManager.setting.savedCapability = function( triggeredElement,
 
 window.eoxiaJS.taskManager.setting.update_color_indicator_client = function( triggeredElement, response ) {
 	jQuery( '#setting-indicator-client-update-hidden' ).val( jQuery( this ).val() );
-	console.log( jQuery( this ).val() );
 	jQuery( '#div_setting_indicator_client_color' ).css( "background-color", jQuery( this ).val() );
 
 };

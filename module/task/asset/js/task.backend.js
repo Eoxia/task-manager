@@ -55,7 +55,6 @@ window.eoxiaJS.taskManager.task.initAutoComplete = function() {
 };
 
 window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
-	console.log( '-------' );
 	var data = {};
 
 	if ( 1 !== jQuery( '#poststuff' ).length ) {

@@ -105,7 +105,6 @@ window.eoxiaJS.taskManager.audit.checkIfDateIsOk = function( event ){ // If titl
 
 window.eoxiaJS.taskManager.audit.updateTitle = function( element, response ){
 	jQuery( '#tm_client_audit_title_newhidden' ).val( response.data.title );
-	console.log( response.data.deadline );
 	window.eoxiaJS.taskManager.audit.checkIfTitleIsOk();
 
 	// jQuery( '.tm_client_audit_main' ).replaceWith( response.data.view_main );
@@ -163,7 +162,6 @@ window.eoxiaJS.taskManager.audit.generateAuditIndicator = function( task_id, com
 		},
 		tooltips: {
 			custom: function(tooltip) {
-		    console.log( ' - - - ' );
 	    }
 		},
 		legend: {

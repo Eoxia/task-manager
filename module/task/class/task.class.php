@@ -171,7 +171,7 @@ class Task_Class extends \eoxia\Post_Class {
 
 
 		if ( ! empty( $param['not_parent_type'] ) ) {
-			$query .= ' AND (PARENT.ID IS NULL OR (PARENT.ID IS NOT NULL AND PARENT.post_type NOT IN ("' . implode( $param['not_parent_type'], ',' ) . '") ) )';
+			$query .= ' AND (PARENT.ID IS NULL OR PARENT.post_type NOT IN ("' . implode( $param['not_parent_type'], ',' ) . '" ) )';
 		}
 
 		$query .= 'AND TASK.post_status IN (' . $param['status'] . ')';
