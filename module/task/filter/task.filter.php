@@ -37,6 +37,7 @@ class Task_Filter {
 		add_filter( 'task_header_information', array( $this, 'callback_task_header_information_button' ), 20, 2 );
 
 		add_filter( 'tm_task_footer', array( $this, 'callback_tm_task_footer' ), 10, 2 );
+		add_filter( 'tm_task_client_archive', array( $this, 'callback_tm_task_client_archive' ), 10, 2 );
 	}
 	/**
 	 * Tableau titre et description
@@ -240,6 +241,18 @@ class Task_Filter {
 
 		return $output;
 	}
+
+	public function callback_tm_task_client_archive( $output, $task_statut ){
+		$screen = get_current_screen();
+
+		if( $screen->id == 'wpshop_customers' && $task_statut == 'archive' ){
+			return 'none';
+		}else{
+			return 'block';
+		}
+	}
+
+
 }
 
 new Task_Filter();
