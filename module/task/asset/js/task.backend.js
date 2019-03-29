@@ -245,11 +245,13 @@ window.eoxiaJS.taskManager.task.updateIndicatorClientSuccess = function( element
 };
 
 window.eoxiaJS.taskManager.task.showArchiveClient = function( triggeredElement, response ){
-	if( jQuery( '#tm_include_archive_client' ).data('showarchive') ){
-		jQuery( '#tm_include_archive_client' ).data('showarchive', false );
+	if( jQuery( this ).data( 'showarchive' ) ){
+		console.log( '1' );
+		jQuery( this ).data( 'showarchive', false );
+		jQuery( this ).css( 'background' , 'rgba(0,0,0,0.1)' );
+		jQuery( this ).css( 'color' , 'rgba(0,0,0,0.6)' );
 
-		jQuery( '#tm_show_archive_button_client' ).show();
-		jQuery( '#tm_hide_archive_button_client' ).hide();
+		jQuery( this ).find( '.button-icon' ).removeClass( 'fa-check-square' ).addClass( 'fa-square' );
 
 		jQuery( '.wpeo-project-wrap .list-task .wpeo-project-task' ).each(function(){
 			if( jQuery( this ).data( 'status' ) == 'archive' ){
@@ -257,10 +259,14 @@ window.eoxiaJS.taskManager.task.showArchiveClient = function( triggeredElement, 
 			}
 		});
 	}else{
-		jQuery( '#tm_include_archive_client' ).data('showarchive', true );
+		console.log( '2' );
 
-		jQuery( '#tm_show_archive_button_client' ).hide();
-		jQuery( '#tm_hide_archive_button_client' ).show();
+		jQuery( this ).data('showarchive', true );
+
+		jQuery( this ).css( 'background' , '#0084ff' );
+		jQuery( this ).css( 'color' , '#fff' );
+
+		jQuery( this ).find( '.button-icon' ).removeClass( 'fa-square' ).addClass( 'fa-check-square' );
 
 		jQuery( '.wpeo-project-wrap .list-task .wpeo-project-task' ).each(function(){
 			if( jQuery( this ).data( 'status' ) == 'archive' ){

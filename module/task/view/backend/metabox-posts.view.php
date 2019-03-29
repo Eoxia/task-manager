@@ -16,10 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 <div class="tm-wrap wpeo-wrap">
 	<div class="tm-post-dashboard">
-		<span class="wpeo-button page-title-action" id="tm_include_archive_client" data-showarchive="false" style="top : 5px">
-			<span id="tm_show_archive_button_client" ><?php esc_html_e( 'Show Archives', 'task-manager' ); ?></span>
-			<span id="tm_hide_archive_button_client" style="display : none"><?php esc_html_e( 'Hide Archives', 'task-manager' ); ?></span>
-		</span>
+		<div id="tm_include_archive_client" class="wpeo-button button-grey button-radius-3" data-showarchive="false" style="background : rgba(0,0,0,0.1): color : rgba(0,0,0,0.6); margin: 5px 10px;">
+			<i class="button-icon fal fa-square"></i>
+			<span><?php esc_html_e( 'Show Archives', 'task-manager' ); ?></span>
+		</div>
 		<p class="alignright"><?php esc_html_e( 'Total time past', 'task-manager' ); ?> : <?php echo esc_html( $total_time_elapsed ); ?> / <?php echo esc_html( $total_time_estimated ); ?></p>
 	</div>
 

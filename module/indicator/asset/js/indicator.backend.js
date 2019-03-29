@@ -62,7 +62,16 @@ window.eoxiaJS.taskManager.indicator.loadedCustomerActivity = function( triggere
 		jQuery("#doghnutChart").css('display','block');
 		jQuery("#displaycanvas").css('display','block');
 
+		var total_time_work = 0; // Pour l'affichage
+		var total_time_elapsed = 0; // Du premier Canvas
+		var total_donut_duree = [];
+		var total_donut_point = [];
+		var total_donut_title  = [];
+		jQuery( "#displaycanvas" ).append( '<div class="wpeo-grid grid-2"><div class="grid-1"><canvas id="canvasHorizontalBarAll"></canvas></div><div class="grid-1"><canvas id="canvasDoghnutChartAll" width="400" height="225" class="wpeo-modal-event" ></canvas></div></div>' ); // Qui resume TOUT
+
 			for ( var i = 0; i < data.length ; i++ ){
+				total_time_work += data[i]['duree_travail'];
+				total_time_elapsed += data[i]['duree_journée'];
 
 
 				jQuery( "#displaycanvas" ).append( '<div class="wpeo-grid grid-2"><div class="grid-1"><canvas id="canvasHorizontalBar' + i + '"></canvas></div><div class="grid-1"><canvas id="canvasDoghnutChart' + i + '" width="400" height="225" class="wpeo-modal-event" ></canvas></div></div>' );
@@ -111,8 +120,8 @@ window.eoxiaJS.taskManager.indicator.loadedCustomerActivity = function( triggere
 				var canvasDonut = document.getElementById( "canvasDoghnutChart" + i).getContext('2d');
 
 				if( data[ i ][ 'tache_effectue' ] != undefined && data[ i ][ 'tache_effectue' ].length > 0 ){
-					$( '#canvasDoghnutChart' + i ).css( 'cursor', 'pointer' );
-					$( '#canvasDoghnutChart' + i ).addClass( 'display_all_point' );
+					jQuery( '#canvasDoghnutChart' + i ).css( 'cursor', 'pointer' );
+					jQuery( '#canvasDoghnutChart' + i ).addClass( 'display_all_point' );
 					jQuery( '#canvasDoghnutChart' + i ).attr( "data-canvas-focus", i );
 
 					window.eoxiaJS.taskManager.indicator.generateModalContent( i, data[ i ] );
@@ -128,6 +137,12 @@ window.eoxiaJS.taskManager.indicator.loadedCustomerActivity = function( triggere
 						donutitle[ v ]  = data[ i ][ 'tache_effectue' ][ v ][ 'tache_title' ];
 
 						dayfocus        = data[ i ][ 'jour' ];
+
+
+
+						total_donut_duree[ total_donut_duree.length ]  = data[ i ][ 'tache_effectue' ][ v ][ 'duree' ];
+						total_donut_point[ total_donut_point.length ]  = data[ i ][ 'tache_effectue' ][ v ][ 'point_id' ];
+						total_donut_title[ total_donut_title.length ] = data[ i ][ 'tache_effectue' ][ v ][ 'tache_title' ];
 					}
 
 					var data_canvas_doghnut = {
@@ -169,6 +184,8 @@ window.eoxiaJS.taskManager.indicator.loadedCustomerActivity = function( triggere
 					window.eoxiaJS.taskManager.indicator.generateCanvasDynamic( canvasDonut, 'doughnut', data_canvas_doghnut, option_canvas_doghnut ); // Génération du canvas de type doghnut
 				}
 			}
+
+			window.eoxiaJS.taskManager.indicator.generateSummaryCanvas( total_time_work, total_time_elapsed, total_donut_duree, total_donut_point, total_donut_title )
 
 		jQuery( '#information_canvas' ).css('display', 'none');
 	}else{
@@ -560,4 +577,91 @@ window.eoxiaJS.taskManager.indicator.displayThisPoint = function( event ){
 
  	jQuery( '#tm_indicator_point_' + data_attribute_pointid + '_' + num_modal ).css( 'display', 'block' );
 
+	}
+
+	window.eoxiaJS.taskManager.indicator.generateSummaryCanvas = function( time_work, time_elasped, total_donut_duree, total_donut_point, total_donut_title ){
+
+		var canvasHorizontal = document.getElementById( "canvasHorizontalBarAll" ).getContext('2d');
+
+		var data_canvas_horizontalBar = {
+			labels: [ window.indicatorString.minute ],
+			datasets: [
+			{
+				label: window.indicatorString.time_work,//window.indicator.time_work,
+				backgroundColor: "#3e95cd",
+				data: [ time_work ],
+				borderWidth: 1
+			}, {
+				label: window.indicatorString.time_day,//window.indicator.time_day,
+				backgroundColor: "#8e5ea2",
+				data: [ time_elasped, 0 ],
+				borderWidth: 1
+			}]
+		};
+
+		var option_canvas_horizontalbar = {
+			plugins: {
+				labels: {
+					render: 'label'
+				}
+			},
+			legend: { display: true },
+			title: {
+				display: true,
+				text:  'RESUME HORIZONTAL'
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}]
+			}
+		};
+
+
+		window.eoxiaJS.taskManager.indicator.generateCanvasDynamic( canvasHorizontal, 'horizontalBar', data_canvas_horizontalBar, option_canvas_horizontalbar ); // Génération du canvas de type horizontalBar
+
+		// - - - - -
+
+		var canvasDonut = document.getElementById( "canvasDoghnutChartAll" ).getContext('2d');
+
+		if( time_work > 0 && time_elasped > 0 ){
+			jQuery( 'canvasDoghnutChartAll' ).css( 'cursor', 'pointer' );
+			jQuery( 'canvasDoghnutChartAll' ).addClass( 'display_all_point' );
+			// jQuery( 'canvasDoghnutChartAll' ).attr( "data-canvas-focus", i );
+
+			// window.eoxiaJS.taskManager.indicator.generateModalContent( i, data[ i ] );
+
+			var data_canvas_doghnut = {
+				labels : total_donut_point,
+				datasets: [
+						{
+							label: window.indicatorString.planning,
+							backgroundColor: ["#800000", "#9A6324","#808000","#469990","#000075", "#e6194B", "#f58231", "#ffe119", "#bfef45", "#3cb44b", "#42d4f4", "#4363d8", "#911eb4", "#f032e6", "#a9a9a9", "#fabebe", "#ffd8b1", "#fffac8", "#aaffc3", "#e6beff"],
+							data: total_donut_duree,
+						}
+					],
+				dataset : total_donut_title,
+			};
+
+			var option_canvas_doghnut =  {
+				title: {
+					display: true,
+					text: 'RESUME DOGHNUT'
+				},
+				tooltips: {
+					callbacks: {
+						title: function( item, data_indicator ) {
+							return data_indicator[ 'dataset' ][ item[ 0 ][ 'index' ] ];
+						},
+					}
+				},
+				legend: {
+					// onClick: (e) => e.stopPropagation() // Block click
+				}
+			};
+
+			window.eoxiaJS.taskManager.indicator.generateCanvasDynamic( canvasDonut, 'doughnut', data_canvas_doghnut, option_canvas_doghnut ); // Génération du canvas de type doghnut
+		}
 	}

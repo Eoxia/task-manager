@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		data-target="tm-audit-import"
 		data-parent="tm-import-task-to-audit-container">
 
-		<i class="button-icon fas fa-download" ></i><span><?php esc_html_e( 'Import', 'task-manager' ); ?></span></span>
+		<i class="button-icon fas fa-download" ></i><?php /*<span><?php esc_html_e( 'Import', 'task-manager' ); ?></span>*/ ?></span>
 
 	<!-- Structure de la modal pour l'import de tâches -->
 	<div class="wpeo-modal tm-audit-import">
