@@ -36,6 +36,8 @@ class Point_Action {
 
 		add_action( 'wp_ajax_search_task', array( $this, 'ajax_search_task' ) );
 		add_action( 'wp_ajax_move_point_to', array( $this, 'ajax_move_point_to' ) );
+		add_action( 'wp_ajax_update_statut_task', array( $this, 'update_statut_task' ) );
+
 	}
 
 	/**
@@ -432,6 +434,24 @@ class Point_Action {
 				'to_task_elapsed_time'      => $to_task->data['time_info']['elapsed'],
 			)
 		);
+	}
+
+	public function update_statut_task(){
+		check_ajax_referer( 'update_statut_task' );
+
+		$id     = isset( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : 0;
+		$statut = isset( $_POST[ 'statut' ] ) ? sanitize_text_field( $_POST[ 'statut' ] ) : '';
+
+		if( ! $id || ! $statut ){
+			wp_send_json_error( 'id ou statut invalide' );
+		}
+		$task = Point_Class::g()->update(
+			array(
+				'id'     => $task_id,
+				'status' => $statut
+			)
+		);
+
 	}
 }
 

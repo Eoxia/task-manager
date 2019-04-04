@@ -29,7 +29,8 @@ window.eoxiaJS.taskManager.comment.init = function() {
 window.eoxiaJS.taskManager.comment.event = function() {
 	jQuery( document ).on( 'keyup', '.comment div[contenteditable="true"], .comment input[name="time"]', window.eoxiaJS.taskManager.comment.triggerCreate );
 	jQuery( document ).on( 'blur keyup paste keydown click', '.comments .comment .content', window.eoxiaJS.taskManager.comment.updateHiddenInput );
-	jQuery( document ).on( 'click', '.point.edit .point-container', window.eoxiaJS.taskManager.comment.loadComments );
+	jQuery( document ).on( 'click', '.point.edit .point-container .point-content', window.eoxiaJS.taskManager.comment.loadComments );
+	jQuery( document ).on( 'blur', '.point.edit .point-container .point-content', window.eoxiaJS.taskManager.comment.blurHideComments );
 };
 
 /**
@@ -77,7 +78,7 @@ window.eoxiaJS.taskManager.comment.triggerCreate = function( event ) {
  * @version 1.6.0
  */
 window.eoxiaJS.taskManager.comment.updateHiddenInput = function( event ) {
-	
+
 	if ( 0 < jQuery( this ).text().length ) {
 		jQuery( this ).closest( '.comment' ).find( '.placeholder' ).addClass( 'hidden' );
 		jQuery( this ).closest( '.comment' ).removeClass( 'add' ).addClass( 'edit' );
@@ -116,6 +117,16 @@ window.eoxiaJS.taskManager.comment.loadComments = function( event ) {
 		window.eoxiaJS.request.send( jQuery( this ), data );
 	}
 };
+
+window.eoxiaJS.taskManager.comment.blurHideComments = function( event ){
+
+	if ( jQuery( this ).closest( 'div.point' ).find( '.comments' ).is( ':visible' ) ) {
+		jQuery( 'div.point .comments:visible' ).slideUp( 400, function() {
+			window.eoxiaJS.refresh();
+		} );
+	}
+
+}
 
 /**
  * Le callback en cas de réussite à la requête Ajax "load_comments".
