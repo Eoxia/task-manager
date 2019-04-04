@@ -80,8 +80,11 @@ class Task_Comment_Action {
 		$time       = ! empty( $_POST['time'] ) ? (int) $_POST['time'] : 0;
 		$frontend   = ( isset( $_POST['frontend'] ) && 'true' == $_POST['frontend'] ) ? true : false;
 
-		$content = str_replace( '<div>', '<br>', trim( $content ) );
-		$content = wp_kses(
+		// $elemnt_replace = array( '<div>', '</div>' );
+		// $content = str_replace( $elemnt_replace, '<br>', trim( $content ) );
+
+		$content = trim( $content );
+		/*$content = wp_kses(
 			$content,
 			array(
 				'br'      => array(),
@@ -89,7 +92,7 @@ class Task_Comment_Action {
 					'class' => array(),
 				),
 			)
-		);
+		);*/
 
 		$old_elapsed = 0;
 

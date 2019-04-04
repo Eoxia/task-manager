@@ -29,8 +29,21 @@ window.eoxiaJS.taskManager.comment.init = function() {
 window.eoxiaJS.taskManager.comment.event = function() {
 	jQuery( document ).on( 'keyup', '.comment div[contenteditable="true"], .comment input[name="time"]', window.eoxiaJS.taskManager.comment.triggerCreate );
 	jQuery( document ).on( 'blur keyup paste keydown click', '.comments .comment .content', window.eoxiaJS.taskManager.comment.updateHiddenInput );
-	jQuery( document ).on( 'click', '.point.edit .point-container .point-content', window.eoxiaJS.taskManager.comment.loadComments );
-	jQuery( document ).on( 'blur', '.point.edit .point-container .point-content', window.eoxiaJS.taskManager.comment.blurHideComments );
+	jQuery( document ).on( 'click', '.point.edit', window.eoxiaJS.taskManager.comment.loadComments );
+	//jQuery( document ).on( 'click', '.point.edit', window.eoxiaJS.taskManager.comment.blurHideComments );
+
+	jQuery( document ).on( 'click', function( e ){
+		if ( ! $(event.target).closest( ".wpeo-project-task" ).length) {
+			jQuery( '.point.edit' ).each( function (){
+				if ( jQuery( this ).closest( 'div.point' ).find( '.comments' ).is( ':visible' ) ) {
+					jQuery( 'div.point .comments:visible' ).slideUp( 400, function() {
+						window.eoxiaJS.refresh();
+					});
+				}
+			})
+    }
+	} );
+
 };
 
 /**
@@ -120,6 +133,7 @@ window.eoxiaJS.taskManager.comment.loadComments = function( event ) {
 
 window.eoxiaJS.taskManager.comment.blurHideComments = function( event ){
 
+	console.log( '---' );
 	if ( jQuery( this ).closest( 'div.point' ).find( '.comments' ).is( ':visible' ) ) {
 		jQuery( 'div.point .comments:visible' ).slideUp( 400, function() {
 			window.eoxiaJS.refresh();
