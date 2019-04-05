@@ -30,7 +30,8 @@ window.eoxiaJS.taskManager.comment.event = function() {
 	jQuery( document ).on( 'keyup', '.comment div[contenteditable="true"], .comment input[name="time"]', window.eoxiaJS.taskManager.comment.triggerCreate );
 	jQuery( document ).on( 'blur keyup paste keydown click', '.comments .comment .content', window.eoxiaJS.taskManager.comment.updateHiddenInput );
 	jQuery( document ).on( 'click', '.point.edit', window.eoxiaJS.taskManager.comment.loadComments );
-	//jQuery( document ).on( 'click', '.point.edit', window.eoxiaJS.taskManager.comment.blurHideComments );
+
+	jQuery( document ).on( 'click', '.wpeo-pagination.pagination-comment .pagination-element', window.eoxiaJS.taskManager.comment.paginationUpdateComments );
 
 	jQuery( document ).on( 'click', function( e ){
 		if ( ! $(event.target).closest( ".wpeo-project-task" ).length) {
@@ -229,3 +230,17 @@ window.eoxiaJS.taskManager.comment.afterTriggerChangeDate = function( $input ) {
 	$input.closest( '.group-date' ).find( 'div' ).attr( 'aria-label', $input.val() );
 	$input.closest( '.group-date' ).find( 'span' ).css( 'background', '#389af6' );
 };
+
+window.eoxiaJS.taskManager.comment.paginationUpdateComments = function( event ) {
+	var data = {};
+
+	var pagination_parent = jQuery( this ).parent();
+
+	data.action   = 'pagination_update_commments';
+	data.page     = pagination_parent.data( 'page' );
+	data.point_id = pagination_parent.data( 'point-id' );
+	data.next     = jQuery( this ).data( 'pagination' );
+
+	window.eoxiaJS.loader.display( jQuery( this ).parent() );
+	window.eoxiaJS.request.send( jQuery( this ), data );
+}

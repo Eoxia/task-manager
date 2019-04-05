@@ -361,7 +361,7 @@ class Task_Action {
 		$posts_per_page = ! empty( $_POST['posts_per_page'] ) ? (int) $_POST['posts_per_page'] : 0;
 		$post_parent    = ! empty( $_POST['post_parent'] ) ? (int) $_POST['post_parent'] : 0;
 		$term           = ! empty( $_POST['term'] ) ? sanitize_text_field( $_POST['term'] ) : '';
-		$users_id       = ! empty( $_POST['users_id'] ) ? sanitize_text_field( $_POST['users_id'] ) : array();
+		$user_id       = ! empty( $_POST['user_id'] ) ? sanitize_text_field( $_POST['user_id'] ) : '';
 		$status         = ! empty( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : array();
 		$tab            = ! empty( $_POST['tab'] ) ? sanitize_text_field( $_POST['tab'] ) : array();
 
