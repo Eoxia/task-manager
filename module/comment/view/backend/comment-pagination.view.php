@@ -16,12 +16,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-<?php if( $count_comments ): ?>
+<?php if( $count_comments > 1 ): ?>
 	<ul class="wpeo-pagination pagination-comment" style="margin : 10px; cursor : pointer"
 	data-page="<?php echo esc_html( $offset ) ?>"
 	data-point-id="<?php echo esc_html( $point_id ) ?>">
 		<!-- Bouton précédent -->
-		<li class="pagination-element pagination-prev" data-pagination="<?php echo esc_html( $offset - 1 ); ?>">
+		<li class="pagination-element pagination-prev" data-pagination="<?php echo esc_html( $offset - 1 > 0 ? $offset - 1 : 1 ); ?>">
 			<a>
 				<i class="pagination-icon far fa-long-arrow-alt-left fa-fw"></i>
 				<span><?php echo esc_html( 'Previous' ) ?></span>
@@ -37,7 +37,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php endfor; ?>
 
 		<!-- Bouton suivant -->
-		<li class="pagination-element pagination-next" data-pagination="<?php echo esc_html( $offset + 1 ) ?>">
+		<li class="pagination-element pagination-next"
+		data-pagination="<?php echo esc_html( $offset + 1 < $count_comments ? $offset + 1 : $count_comments ) ?>">
 			<a>
 				<span><?php echo esc_html( 'Next' ) ?></span>
 				<i class="pagination-icon far fa-long-arrow-alt-right fa-fw"  ></i>
