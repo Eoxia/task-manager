@@ -226,12 +226,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 								</td>
 							<?php else: ?>
-								<td data-title="TimeElapsed">
-									<p class="tag-time"><?= '-' ?></p>
-								</td>
+								<?php if( $value_month[ 'task_list' ][ $key_task ][ "time_elapsed" ]  ):?>
+									<td class="wpeo-tooltip-event"
+										data-title="<?php echo esc_html_e( 'Time out of deadline', 'task-manager' ) ?>"
+										aria-label="<?php echo esc_html_e( 'Time out of deadline', 'task-manager' ) ?>" style="color : orange">
+										<p class="tag-time">
+											<?php echo esc_html( $value_month[ 'task_list' ][ $key_task ][ "time_deadline" ] ); ?><?php echo esc_html_e( 'min (out)', 'task-manager' ) ?>
+										</p>
+									</td>
+								<?php else: ?>
+									<td data-title="TimeElapsed">
+										<p class="tag-time"><?= '-' ?></p>
+									</td>
+								<?php endif; ?>
 							<?php endif ; ?>
-
-
 						<?php endforeach; ?>
 
 					</tr>

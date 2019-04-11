@@ -456,7 +456,7 @@ class Task_Comment_Action {
 				'view'             => ob_get_clean(),
 				'namespace'        => $frontend ? 'taskManagerFrontend' : 'taskManager',
 				'module'           => 'comment',
-				'callback_success' => 'loadedCommentsSuccess',
+				'callback_success' => 'loadedTasksSuccess',
 			)
 		);
 

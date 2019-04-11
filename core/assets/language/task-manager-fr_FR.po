@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
 "POT-Creation-Date: 2019-03-15 17:18+0100\n"
-"PO-Revision-Date: 2019-03-15 17:18+0100\n"
+"PO-Revision-Date: 2019-04-11 10:22+0200\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -239,11 +239,11 @@ msgstr "Temps rapide"
 
 #: module/audit/action/audit.action.php:79
 msgid "Audit"
-msgstr ""
+msgstr "Audit"
 
 #: module/audit/view/audit-createnew.view.php:20
 msgid "Back to list audit"
-msgstr ""
+msgstr "Liste des audits"
 
 #: module/audit/view/audit-createnew.view.php:33
 msgid "Write audit title ..."
@@ -260,7 +260,7 @@ msgstr "Point"
 
 #: module/audit/view/audit-item.view.php:35
 msgid "This audit has no name"
-msgstr ""
+msgstr "Cet audit n'a pas de nom"
 
 #: module/audit/view/audit-item.view.php:74
 msgid "Edit this audit"
@@ -280,7 +280,7 @@ msgstr "Filtre"
 
 #: module/audit/view/metabox-auditlist.view.php:40
 msgid "All audit"
-msgstr ""
+msgstr "Tous les audits"
 
 #: module/audit/view/metabox-auditlist.view.php:43
 msgid "Audit completed"
@@ -771,7 +771,7 @@ msgstr "Ajouter au temps rapide"
 
 #: module/point/view/backend/config-quicktimes.view.php:40
 msgid "Remove from quicktimes"
-msgstr ""
+msgstr "Supprimer des temps rapides"
 
 #: module/point/view/backend/point.view.php:26
 msgid "Drag and drop"
@@ -1029,15 +1029,16 @@ msgstr "Enregistrer les changements"
 
 #: module/setting/view/indicatorclient/main.view.php:23
 msgid "Settings Indicator Client"
-msgstr ""
+msgstr "Parametres de l'Indicator client"
 
 #: module/setting/view/indicatorclient/main.view.php:25
 msgid "Set colors and display of the indicator table in the client section"
 msgstr ""
+"Définir la couleur et l'affichage du tableau Indicator, dans la page client"
 
 #: module/setting/view/indicatorclient/table.view.php:24
 msgid "Colors"
-msgstr ""
+msgstr "Couleurs"
 
 #: module/setting/view/main.view.php:26
 msgid "General settings"

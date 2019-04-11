@@ -50,6 +50,9 @@ class Task_Action {
 		add_action( 'wp_ajax_update_indicator_client', array( $this, 'callback_update_indicator_client' ) );
 
 		add_action( 'tm_filter_daily_activity_after', array( $this, 'add_filter_customer_client' ), 10, 3 );
+
+		add_action( 'wp_ajax_pagination_update_tasks', array( $this, 'callback_pagination_update_tasks' ) );
+
 	}
 
 	/**
@@ -549,6 +552,35 @@ class Task_Action {
 
 		}
 
+	}
+
+	public function callback_pagination_update_tasks(){
+
+		$page_actual = isset( $_POST[ 'page' ] ) ? (int) $_POST[ 'page' ] : 0;
+		$post_id = isset( $_POST[ 'post_id' ] ) ? (int) $_POST[ 'post_id' ] : 0;
+		$next = isset( $_POST[ 'next' ] ) ? (int) $_POST[ 'next' ] : 0;
+
+		if( ! $page_actual || ! $post_id || ! $next ){
+			wp_send_json_error();
+		}
+
+		$next = ( $next - 1 ) > 0 ? ( $next - 1 ) * 5 : 0;
+
+		$args_parameter = array(
+			'offset' => $next,
+		);
+
+		ob_start();
+		Task_Class::g()->callback_render_metabox( array(), array(), $args_parameter, $post_id );
+
+		wp_send_json_success(
+			array(
+				'view'             => ob_get_clean(),
+				'namespace'        => 'taskManager',
+				'module'           => 'task',
+				'callback_success' => 'loadedTasksSuccess',
+			)
+		);
 	}
 
 }

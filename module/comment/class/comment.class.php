@@ -78,13 +78,13 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 			$default_args[ 'parent' ] = $point_id;
 		}
 
-
 		$comments = self::g()->get( wp_parse_args( $args, $default_args ) );
-		if ( ! empty( $comments ) ) {
+
+		/*if ( ! empty( $comments ) ) {
 			foreach ( $comments as $comment ) {
 				$comment->data['author'] = get_userdata( $comment->data['author_id'] );
 			}
-		}
+		}*/
 
 		return $comments;
 	}

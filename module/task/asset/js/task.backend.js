@@ -32,6 +32,9 @@ window.eoxiaJS.taskManager.task.event = function() {
 
 	jQuery( document ).on( 'click', '.tm_client_indicator_update', window.eoxiaJS.taskManager.audit.preventDefaultHeader );
 	jQuery( document ).on( 'click', '.tm_client_indicator_update_body table tbody .tm_client_indicator', window.eoxiaJS.taskManager.audit.openTaskRow );
+
+	jQuery( document ).on( 'click', '.wpeo-pagination.pagination-task .pagination-element', window.eoxiaJS.taskManager.comment.paginationUpdateTasks );
+
 };
 
 /**
@@ -75,7 +78,7 @@ window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
 			data.post_parent = button_search.data( 'post-parent' );
 			data.term = button_search.data( 'term' );
 			data.user_id = button_search.data( 'user-id' );
-			
+
 			data.task_id = button_search.data( 'task-id' );
 			data.point_id = button_search.data( 'point-id' );
 			data.categories_id = button_search.data( 'categories-id' );
@@ -259,7 +262,6 @@ window.eoxiaJS.taskManager.task.updateIndicatorClientSuccess = function( element
 
 window.eoxiaJS.taskManager.task.showArchiveClient = function( triggeredElement, response ){
 	if( jQuery( this ).data( 'showarchive' ) ){
-		console.log( '1' );
 		jQuery( this ).data( 'showarchive', false );
 		jQuery( this ).css( 'background' , 'rgba(0,0,0,0.1)' );
 		jQuery( this ).css( 'color' , 'rgba(0,0,0,0.6)' );
@@ -272,7 +274,6 @@ window.eoxiaJS.taskManager.task.showArchiveClient = function( triggeredElement, 
 			}
 		});
 	}else{
-		console.log( '2' );
 
 		jQuery( this ).data('showarchive', true );
 
@@ -300,4 +301,28 @@ window.eoxiaJS.taskManager.audit.openTaskRow = function( event ){
 		select.attr( 'data-show', 'true' );
 		jQuery( '.tm_client_indicator_' + select.attr( 'data-id' ) + '_' + select.attr( 'data-type' ) ).show( '500' );
 	}
+}
+
+window.eoxiaJS.taskManager.comment.paginationUpdateTasks = function( event ) {
+	var data = {};
+
+	var pagination_parent = jQuery( this ).parent();
+
+	data.action   = 'pagination_update_tasks';
+	data.page     = pagination_parent.data( 'page' );
+	data.post_id = pagination_parent.data( 'post-id' );
+	data.next     = jQuery( this ).data( 'pagination' );
+
+	window.eoxiaJS.loader.display( jQuery( this ).parent() );
+	window.eoxiaJS.request.send( jQuery( this ), data );
+}
+
+
+window.eoxiaJS.taskManager.task.loadedTasksSuccess = function( element, response ) {
+	jQuery( '#tm_client_load_task_page' ).replaceWith( response.data.view );
+
+	jQuery( '.list-task' ).colcade( {
+		items: '.wpeo-project-task',
+		columns: '.grid-col'
+	} );
 }

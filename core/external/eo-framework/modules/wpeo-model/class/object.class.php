@@ -161,7 +161,7 @@ if ( ! class_exists( '\eoxia\Object_Class' ) ) {
 		public function prepare_items_for_response( $object_list, $wp_type, $meta_key, $object_id_field ) {
 			$model_name = $this->model_name;
 
-			if ( ! empty( $object_list ) ) {
+			if ( ! empty( $object_list ) && is_array( $object_list ) ) {
 				foreach ( $object_list as $key => $object ) {
 					$object  = (array) $object;
 					$args_cb = array(

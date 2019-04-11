@@ -34,7 +34,7 @@ window.eoxiaJS.taskManager.comment.event = function() {
 	jQuery( document ).on( 'click', '.wpeo-pagination.pagination-comment .pagination-element', window.eoxiaJS.taskManager.comment.paginationUpdateComments );
 
 	jQuery( document ).on( 'click', function( e ){
-		if ( ! $(event.target).closest( ".wpeo-project-task" ).length) {
+		if ( ! jQuery( event.target).closest( ".wpeo-project-task" ).length) {
 			jQuery( '.point.edit' ).each( function (){
 				if ( jQuery( this ).closest( 'div.point' ).find( '.comments' ).is( ':visible' ) ) {
 					jQuery( 'div.point .comments:visible' ).slideUp( 400, function() {

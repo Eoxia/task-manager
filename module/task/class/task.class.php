@@ -308,32 +308,62 @@ class Task_Class extends \eoxia\Post_Class {
 	 * @since 1.0.0
 	 * @version 1.6.0
 	 */
-	public function callback_render_metabox( $post ) {
-		$parent_id = $post->ID;
-		$user_id   = $post->post_author;
+	public function callback_render_metabox( $post, $array = array(), $args_parameter = array(), $post_id = 0 ) {
+
+		if( ! empty( $post ) ){
+			$post_id = $post->ID;
+		}
+
+		$parent_id = $post_id;
+		// $user_id   = $post->post_author;
 
 		$tasks                = array();
 		$task_ids_for_history = array();
 		$total_time_elapsed   = 0;
 		$total_time_estimated = 0;
 
-		// Affichage des tâches de l'élément sur lequel on se trouve.
-		$tasks[ $post->ID ]['title'] = '';
+		$posts_per_page_task = 5; // Définis le nombre de tache / page (client)
 
-		$tasks[ $post->ID ]['data']  = self::g()->get_tasks(
-			array(
-				'post_parent' => $post->ID,
-				'status'      => 'publish,pending,draft,future,private,inherit,archive',
-			)
+		// Affichage des tâches de l'élément sur lequel on se trouve.
+		$tasks[ $post_id ]['title'] = '';
+
+		$args = array(
+			'post_parent' => $post_id,
+			'status'      => 'publish,pending,draft,future,private,inherit,archive'
 		);
 
-		if ( ! empty( $tasks[ $post->ID ]['data'] ) ) {
-			foreach ( $tasks[ $post->ID ]['data'] as $task ) {
-				if ( empty( $tasks[ $post->ID ]['total_time_elapsed'] ) ) {
-					$tasks[ $post->ID ]['total_time_elapsed'] = 0;
+		if( empty( $args_parameter )  ){ // Par défaut on affiche 5 élements / page
+			$args_parameter = array(
+				'offset' => 0
+			);
+		}
+
+		$args_parameter[ 'posts_per_page' ] = $posts_per_page_task;
+
+		$tasks[ $post_id ]['data'] = self::g()->get_tasks( wp_parse_args( $args_parameter, $args ) );
+
+		$number_task = count( self::g()->get_tasks( $args ) );
+
+		$count_tasks = 0;
+		if( $number_task > 0 ){
+			$count_tasks = intval( $number_task / $posts_per_page_task );
+			if( intval( $number_task % $posts_per_page_task ) > 0 ){
+				$count_tasks++;
+			}
+		}
+
+		$offset = 1;
+		if( isset( $args_parameter[ 'offset' ] ) && ! empty( $args_parameter[ 'offset' ] ) ){
+			$offset = intval( $args_parameter[ 'offset' ] / $posts_per_page_task ) +1;
+		}
+
+		if ( ! empty( $tasks[ $post_id ]['data'] ) ) {
+			foreach ( $tasks[ $post_id ]['data'] as $task ) {
+				if ( empty( $tasks[ $post_id ]['total_time_elapsed'] ) ) {
+					$tasks[ $post_id ]['total_time_elapsed'] = 0;
 				}
 
-				$tasks[ $post->ID ]['total_time_elapsed'] += $task->data['time_info']['elapsed'];
+				$tasks[ $post_id ]['total_time_elapsed'] += $task->data['time_info']['elapsed'];
 				$total_time_elapsed                       += $task->data['time_info']['elapsed'];
 				$total_time_estimated                     += $task->data['last_history_time']->data['estimated_time'];
 
@@ -343,7 +373,7 @@ class Task_Class extends \eoxia\Post_Class {
 
 		// Récupération des enfants de l'élément sur lequel on se trouve.
 		$args     = array(
-			'post_parent' => $post->ID,
+			'post_parent' => $post_id,
 			'post_type'   => \eoxia\Config_Util::$init['task-manager']->associate_post_type,
 			'numberposts' => -1,
 			'post_status' => 'any',
@@ -388,11 +418,13 @@ class Task_Class extends \eoxia\Post_Class {
 			'task',
 			'backend/metabox-posts',
 			array(
-				'post'                 => $post,
+				'post_id'              => $post_id,
 				'tasks'                => $tasks,
 				'task_ids_for_history' => implode( ',', $task_ids_for_history ),
 				'total_time_elapsed'   => $total_time_elapsed,
 				'total_time_estimated' => $total_time_estimated,
+				'offset'               => $offset,
+				'count_tasks'          => $count_tasks
 			)
 		);
 	}
@@ -625,7 +657,7 @@ class Task_Class extends \eoxia\Post_Class {
 				}else{
 					// Normalement cette condition ne doit pas etre accessible
 					echo '<pre>'; print_r( 'Bug 1dz654q1d651dq : Task.class' ); echo '</pre>';
-					exit;
+					return array();
 				}
 
 
@@ -637,7 +669,7 @@ class Task_Class extends \eoxia\Post_Class {
 
 				$first_month = true;
 				foreach( $categories_indicator[ $type ][ $id_category ] as $key_month_ => $month ){ // Pour chaque mois de l'année, on va check les commentaires
-					if( $month[ 'task_list' ][ $task->data[ 'id' ] ][ 'month_is_valid' ] ){ // On verifie que le mois soit valide
+					//if( $month[ 'task_list' ][ $task->data[ 'id' ] ][ 'month_is_valid' ] ){ // On verifie que le mois soit valide
 						if( $key_month_ == 0 && $type === 'deadline' ){
 							// Si le premier mois est valide, on récupère le temps des commentaires des mois précédents
 							foreach ( $comments as $key => $value_com ) {
@@ -648,10 +680,12 @@ class Task_Class extends \eoxia\Post_Class {
 							}
 						}
 
-						if( isset( $categories_indicator[ $type ][ $id_category ][ $key_month_ - 1 ][ 'task_list' ][ $task->data[ 'id' ] ][ 'month_is_valid' ] ) && $categories_indicator[ $type ][ $id_category ][ $key_month_ - 1 ][ 'task_list' ][ $task->data[ 'id' ] ][ 'month_is_valid' ] ){
+					//	if( isset( $categories_indicator[ $type ][ $id_category ][ $key_month_ - 1 ][ 'task_list' ][ $task->data[ 'id' ] ][ 'month_is_valid' ] ) && $categories_indicator[ $type ][ $id_category ][ $key_month_ - 1 ][ 'task_list' ][ $task->data[ 'id' ] ][ 'month_is_valid' ] ){
+					if( isset( $categories_indicator[ $type ][ $id_category ][ $key_month_ - 1 ][ 'task_list' ][ $task->data[ 'id' ] ][ 'month_is_valid' ] ) ){
 							// On ajoute le temps du commentaire actuel à celui du mois précédent
 							$categories_indicator[ $type ][ $id_category ][ $key_month_ ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_deadline' ] = $categories_indicator[ $type ][ $id_category ][ $key_month_ - 1 ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_deadline' ];
 						}
+						//}
 
 						foreach ( $comments as $key => $value_com ) { // Pour chaque commentaire
 
@@ -668,7 +702,7 @@ class Task_Class extends \eoxia\Post_Class {
 
 							}
 						}
-					}
+					//}
 				}
 				// $categories_indicator[ $value_task ] = $this->update_property_this_array( $categories_indicator[ $value_task ] );
 				if( ! empty( $category_info ) ){
@@ -846,7 +880,7 @@ class Task_Class extends \eoxia\Post_Class {
 					$task_elapsed = 0;
 					$task_estimated = 0;
 
-					if( $task[ 'month_is_valid' ] ){
+					//if( $task[ 'month_is_valid' ] ){
 						$time_estimated_month += $task[ 'time_estimated' ];
 						$time_deadline_month  += $task[ 'time_deadline' ];
 						$time_elapsed_month   += $task[ 'time_elapsed' ];
@@ -868,7 +902,7 @@ class Task_Class extends \eoxia\Post_Class {
 							$time_elapsed_categorie += $time_elapsed_month;
 
 						}
-					}
+					//}
 				}
 
 				$categories[ $key_categ ][ $key_month ][ 'total_time_elapsed' ]   = $time_elapsed_month;

@@ -138,7 +138,7 @@ class Quick_Time_Class extends \eoxia\Singleton_Util {
 			return;
 		}
 
-		$content = $quicktimes[ $index ][ 'content' ];
+		$content = $quicktimes[ $index ][ 'content' ]; // Peut etre vide ""
 
 		$param = array(
 			'task_id' => $quicktimes[ $index ][ 'task_id' ],
@@ -146,15 +146,18 @@ class Quick_Time_Class extends \eoxia\Singleton_Util {
 		);
 
 
+
 		$task = Task_Class::g()->get_tasks( $param );
+
 
 		\eoxia\View_Util::exec(
 			'task-manager',
 			'quick_time',
 			'backend/quicktimemode/task-quicktime',
 			array(
-				'task' => $task[0],
+				'task'     => $task[0],
 				'point_id' => $quicktimes[ $index ][ 'point_id' ],
+				'content'  => $content
 			)
 		);
 	}
@@ -173,7 +176,7 @@ class Quick_Time_Class extends \eoxia\Singleton_Util {
 					}
 				}
 			}
-			
+
 		}
 		return -1;
 	}
