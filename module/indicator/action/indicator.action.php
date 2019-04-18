@@ -58,6 +58,7 @@ class Indicator_Action {
 		add_meta_box( 'tm-indicator-activity', __( 'Daily activity', 'task-manager' ), array( Indicator_Class::g(), 'callback_my_daily_activity' ), 'wpeomtm-dashboard', 'normal' );
 		add_meta_box( 'indicator-page-id', __( 'Indicator', 'task-manager' ), array( Indicator_Class::g(), 'callback_load_indicator_page' ), 'indicator-page', 'normal' );
 
+
 	}
 
 	/**

@@ -21,4 +21,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<br>
 </div>
 
-<?php do_meta_boxes( 'indicator-page', 'normal', '' ); ?>
+<?php do_meta_boxes( 'audit-page', 'normal', '' ); ?>

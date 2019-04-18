@@ -514,7 +514,7 @@ class Task_Action {
 
 	}
 
-	public function add_filter_customer_client( $user_id, $customer_id, $page = '' ){
+	public function add_filter_customer_client( $user_id, $customer_id = 0, $page = '' ){
 		$screen = get_current_screen();
 
 		if( $page == '' ){
@@ -559,16 +559,25 @@ class Task_Action {
 		$page_actual = isset( $_POST[ 'page' ] ) ? (int) $_POST[ 'page' ] : 0;
 		$post_id = isset( $_POST[ 'post_id' ] ) ? (int) $_POST[ 'post_id' ] : 0;
 		$next = isset( $_POST[ 'next' ] ) ? (int) $_POST[ 'next' ] : 0;
+		$show_archive = isset( $_POST[ 'show' ] ) && $_POST[ 'show' ] == 'true' ? (bool) true : false;
 
-		if( ! $page_actual || ! $post_id || ! $next ){
+		if( ! $post_id ){
 			wp_send_json_error();
 		}
 
 		$next = ( $next - 1 ) > 0 ? ( $next - 1 ) * 5 : 0;
 
-		$args_parameter = array(
-			'offset' => $next,
-		);
+		if( $show_archive ){
+			$args_parameter = array(
+				'offset' => $next,
+				'status'      => 'archive'
+			);
+		}else{
+			$args_parameter = array(
+				'offset' => $next,
+				'status'      => 'publish,pending,draft,future,private,inherit'
+			);
+		}
 
 		ob_start();
 		Task_Class::g()->callback_render_metabox( array(), array(), $args_parameter, $post_id );
@@ -579,6 +588,7 @@ class Task_Action {
 				'namespace'        => 'taskManager',
 				'module'           => 'task',
 				'callback_success' => 'loadedTasksSuccess',
+				'show_archive'     => $show_archive
 			)
 		);
 	}

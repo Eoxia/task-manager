@@ -28,6 +28,7 @@ class Audit_Action {
 	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'callback_init' ) );
+		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 30 );
 
 		add_action( 'add_meta_boxes', array( $this, 'callback_add_metabox' ), 10, 2 );
 
@@ -45,6 +46,7 @@ class Audit_Action {
 		add_action( 'wp_ajax_audit_import_tasks_and_points', array( $this, 'callback_audit_import_tasks_and_points' ) );
 		add_action( 'wp_ajax_search_audit_client', array( $this, 'callback_search_audit_client' ) );
 
+		add_action( 'wp_ajax_search_client_for_audit', array( $this, 'ajax_search_client_for_audit' ) );
 	}
 
 	/**
@@ -56,6 +58,19 @@ class Audit_Action {
 	 * @version 1.9.0
 	 */
 	public function callback_init() {}
+
+	public function callback_admin_menu() {
+
+		add_submenu_page( 'wpeomtm-dashboard', __( 'Audit', 'task-manager' ), __( 'Audit', 'task-manager' ), 'manage_task_manager', 'audit-page', array( Audit_Class::g(), 'callable_audit_page' ) );
+
+		ob_start();
+		\eoxia\View_Util::exec( 'task-manager', 'audit', 'metabox-head-auditlist', array() );
+
+		$view = ob_get_clean();
+
+		add_meta_box( 'tm-indicator-audit', __( 'Audit List', 'task-manager' ) . apply_filters( 'tm_posts_metabox_audit', $view ), array( Audit_Class::g(), 'callback_audit_list_metabox' ), 'audit-page', 'normal' );
+
+	}
 
 	/**
 	 * Fait le contenu de la metabox
@@ -85,18 +100,22 @@ class Audit_Action {
 		check_ajax_referer( 'start_new_audit' );
 
 		$parent_id = isset( $_POST[ 'parent_id' ] ) ? (int) $_POST[ 'parent_id' ] : 0;
+		$page = isset( $_POST[ 'page' ] ) ? sanitize_text_field( $_POST[ 'page' ] ) : 'audit-createnew';
 
-		if( ! $parent_id ){
-			wp_send_json_error();
+		$args = array();
+		if( $parent_id ){
+			$args = array(
+					'parent_id' => $parent_id
+			);
 		}
 
-		$audit = Audit_Class::g()->create( array( 'parent_id' => $parent_id ) );
+		$audit = Audit_Class::g()->create( $args );
 
 		ob_start();
 		\eoxia\View_Util::exec(
 			'task-manager',
 			'audit',
-			'audit-createnew',
+			$page,
 			array(
 			'audit' => $audit,
 			'parent_id' => $parent_id
@@ -114,10 +133,12 @@ class Audit_Action {
 	}
 
 	public function callback_delete_audit( ){
-		$audit_id = isset( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : 0;
+		$audit_id  = isset( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : 0;
 		$parent_id = isset( $_POST[ 'parent_id' ] ) ? (int) $_POST[ 'parent_id' ] : 0;
+		$page      = isset( $_POST[ 'page' ] ) ? sanitize_text_field( $_POST[ 'page' ] ) : '';
 
-		if( ! $audit_id || ! $parent_id ){
+
+		if( ! $audit_id || ( ! $parent_id && ! $page ) ){
 			wp_send_json_error();
 		}
 
@@ -127,14 +148,15 @@ class Audit_Action {
 			'status' => 'trash',
 		));
 
-		$this->callback_reset_main_page( $parent_id );
+		$this->callback_reset_main_page( $parent_id, $page );
 	}
 
 	public function callback_edit_audit( $id = 0 ){
 		check_ajax_referer( 'edit_audit' );
 
-		$audit_id = isset( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : 0;
+		$audit_id  = isset( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : 0;
 		$parent_id = isset( $_POST[ 'parent_id' ] ) ? (int) $_POST[ 'parent_id' ] : 0;
+		$page      = isset( $_POST[ 'page' ] ) ? sanitize_text_field( $_POST[ 'page' ] ) : '';
 
 		if( $id ){
 			$audit_id = $id;
@@ -146,7 +168,9 @@ class Audit_Action {
 
 		$audit = Audit_Class::g()->get( array( 'id' => $audit_id ), true );
 
-		$parent_id = $audit->data[ 'parent_id' ];
+		$parent_id = $audit->data[ 'parent_id' ] ? $audit->data[ 'parent_id' ] : 0;
+
+		$page = $page ? $page : 'audit-createnew';
 
 		ob_start();
 
@@ -154,7 +178,7 @@ class Audit_Action {
 			\eoxia\View_Util::exec(
 				'task-manager',
 				'audit',
-				'audit-createnew',
+				$page,
 				array(
 					'audit' => $audit,
 					'parent_id' => $parent_id
@@ -168,29 +192,37 @@ class Audit_Action {
 				'module'           => 'audit',
 				'callback_success' => 'startNewAudit',
 				'view'             => ob_get_clean(),
+				'page'             => $page
 			)
 		);
 	}
 
 	public function callback_edit_title_audit(){
-		$title = isset( $_POST[ 'title' ] ) ? $_POST[ 'title' ] : '';
-		$id = isset( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : 0;
-		$parent_id = isset( $_POST[ 'parent_id' ] ) ? (int) $_POST[ 'parent_id' ] : 0;
-		$deadline_str = isset( $_POST[ 'date_deadline' ] ) ? strtotime( $_POST[ 'date_deadline' ] ) : 0;
+		$title        = isset( $_POST[ 'title' ] ) ? $_POST[ 'title' ] : '';
+		$id           = isset( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : 0;
+		$deadline_str = isset( $_POST[ 'due_date' ] ) ? strtotime( $_POST[ 'due_date' ] ) : 0;
+		$customer_id  = isset( $_POST[ 'customer_id' ] ) ? (int) $_POST[ 'customer_id' ] : 0;
 
-		if( ! $title || ! $id || ! $parent_id ){
+		if( ! $id ){
 			wp_send_json_error();
 		}
 
-		$title = str_replace( array( '&nbsp;' ), '', $title );
-
-		$audit = Audit_Class::g()->get( array( 'id' => $id ), true );
-
-		$audit->data[ 'title' ] = $title;
 		$audit->data[ 'date_modified' ] = current_time( 'mysql' );
+
+		if( $title ){
+			$title = str_replace( array( '&nbsp;' ), '', $title );
+
+			$audit = Audit_Class::g()->get( array( 'id' => $id ), true );
+
+			$audit->data[ 'title' ] = $title;
+		}
 
 		if( $deadline_str > 0 ){
 			$audit->data[ 'deadline' ] = date( 'Y-m-d 00:00:00', $deadline_str );
+		}
+
+		if( $customer_id ){
+			$audit->data[ 'parent_id' ] = $customer_id;
 		}
 
 		$audit = Audit_Class::g()->update( $audit->data );
@@ -201,7 +233,8 @@ class Audit_Action {
 				'module'           => 'audit',
 				'callback_success' => 'updateTitle',
 				'title'            => $title,
-				'deadline'         => $audit->data[ 'deadline' ]
+				'deadline'         => $audit->data[ 'deadline' ],
+				'customer_id'      => $customer_id
 			)
 		);
 	}
@@ -231,20 +264,30 @@ class Audit_Action {
 		);
 	}
 
-	public function callback_reset_main_page( $id = 0){
+	public function callback_reset_main_page( $id = 0, $page = ''){
 		$parent_id = isset( $_POST[ 'parent_id' ] ) ? $_POST[ 'parent_id' ] : 0;
+
+		if( ! $page ){
+			$page      = isset( $_POST[ 'page' ] ) ? sanitize_text_field( $_POST[ 'page' ] ) : '';
+		}
 
 		if( $id ){
 			$parent_id = $id;
 		}
 
-		if( ! $parent_id ){
+		if( ! $parent_id && ! $page ){
 			wp_send_json_error();
 		}
 
 		ob_start();
 
-		Audit_Class::g()->callback_render_indicator( array(), $parent_id, true );
+		if( $page ){
+			Audit_Class::g()->callback_audit_list_metabox( array(), array(), true );
+		}else if( $parent_id ){
+			Audit_Class::g()->callback_render_indicator( array(), $parent_id, true );
+		}else{
+
+		}
 
 		$view = ob_get_clean();
 
@@ -383,9 +426,10 @@ class Audit_Action {
 	public function callback_search_audit_client(){ // strtotime( "midnight", strtotime( 'now' ) )
 		check_ajax_referer( 'search_audit_client' );
 
-		$date_start_str = isset( $_POST[ 'tm_indicator_date_start' ] ) && $_POST[ 'tm_indicator_date_start' ] != "" ? strtotime( $_POST[ 'tm_indicator_date_start' ] ) : 0;
-		$date_end_str = isset( $_POST[ 'tm_indicator_date_end' ] ) && $_POST[ 'tm_indicator_date_end' ] != "" ? strtotime( $_POST[ 'tm_indicator_date_end' ] ) : 0;
-		$audit_selector = isset( $_POST[ 'tm_audit_selector_search_' ] ) ? $_POST[ 'tm_audit_selector_search_' ] : 'all';
+		$date_start_str        = isset( $_POST[ 'tm_indicator_date_start' ] ) && $_POST[ 'tm_indicator_date_start' ] != "" ? strtotime( $_POST[ 'tm_indicator_date_start' ] ) : 0;
+		$date_end_str          = isset( $_POST[ 'tm_indicator_date_end' ] ) && $_POST[ 'tm_indicator_date_end' ] != "" ? strtotime( $_POST[ 'tm_indicator_date_end' ] ) : 0;
+		$audit_selector        = isset( $_POST[ 'tm_audit_selector_search_' ] ) ? $_POST[ 'tm_audit_selector_search_' ] : 'all';
+		$customer_select       = isset( $_POST[ 'tm_audit_selector_customer' ] ) ? (int) $_POST[ 'tm_audit_selector_customer' ] : 0;
 		$selector_modification = isset( $_POST[ 'modification' ] ) ? $_POST[ 'modification' ] : '';
 
 		$date_modification = false;
@@ -394,6 +438,18 @@ class Audit_Action {
 		}
 
 		$audits = Audit_Class::g()->get();
+
+		if( $customer_select ){
+			$audits_valid = Audit_Class::g()->get( array( 'post_parent' => $customer_select ) );
+
+			foreach( $audits as $key => $audit ){
+				foreach( $audits_valid as $key_valid => $audit_valid ){
+					if( $audit->data[ 'id' ] == $audit_valid->data[ 'id' ] ){
+						$audits[ $key ]->data[ 'valid' ] = true;
+					}
+				}
+			}
+		}
 
 		if( $selector_modification ){
 			if( $audit_selector == "completed" || $audit_selector == "progress" ){ // Si l'audit selector est égal à ALL, on n'a pas besoin de trier
@@ -431,6 +487,60 @@ class Audit_Action {
 			'end_day'          => date( 'Y/m/d', $date_end_str )
 		) );
 	}
+
+	public function ajax_search_client_for_audit() {
+		$term          = sanitize_text_field( $_GET['term'] );
+		$founded_by_id = false;
+
+		$query = new \WP_Query(
+			array(
+				'post_type'   => 'wpshop_customers',
+				's'           => $term,
+			)
+		);
+
+		$customers_founded = array();
+
+		if ( ! empty( $query->posts ) ) {
+			foreach ( $query->posts as $post ) {
+				if ( $post->ID == $term ) {
+					$founded_by_id = true;
+				}
+
+				$customers_founded[] = array(
+					'label' => '#' . $post->ID . ' ' . $post->post_title,
+					'value' => '#' . $post->ID . ' ' . $post->post_title,
+					'id'    => $post->ID,
+				);
+			}
+		}
+
+		$term = (int) $term;
+		if ( ! $founded_by_id && ! empty( $term ) && is_int( $term ) ) {
+			$post = get_post( $term );
+
+			if ( ! empty( $post ) ) {
+				if ( 'wpeo-task' === $post->post_type ) {
+					$customers_founded[] = array(
+						'label' => '#' . $post->ID . ' ' . $post->post_title,
+						'value' => '#' . $post->ID . ' ' . $post->post_title,
+						'id'    => $post->ID,
+					);
+				}
+			}
+		}
+
+		if ( empty( $customers_founded ) ) { // Aucun client trouvé
+			$customers_founded[] = array(
+				'label' => __( 'No client found', 'task-manager' ),
+				'value' => __( 'No client found', 'task-manager' ),
+				'id'    => 0,
+			);
+		}
+
+		wp_die( wp_json_encode( $customers_founded ) );
+	}
+
 }
 
 new Audit_Action();

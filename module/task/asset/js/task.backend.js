@@ -65,7 +65,8 @@ window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
 
 	var data = {};
 
-	if ( 1 !== jQuery( '#poststuff' ).length ) {
+
+	if ( 1 !== jQuery( '#poststuff' ).length && jQuery( '.tm-dashboard-header' )[0] ) {
 		if ( ( jQuery( window ).scrollTop() == jQuery( document ).height() - jQuery( window ).height() ) && window.eoxiaJS.taskManager.task.canLoadMore ) {
 
 			window.eoxiaJS.taskManager.task.offset += parseInt( window.task_manager_posts_per_page );
@@ -261,34 +262,22 @@ window.eoxiaJS.taskManager.task.updateIndicatorClientSuccess = function( element
 };
 
 window.eoxiaJS.taskManager.task.showArchiveClient = function( triggeredElement, response ){
-	if( jQuery( this ).data( 'showarchive' ) ){
-		jQuery( this ).data( 'showarchive', false );
-		jQuery( this ).css( 'background' , 'rgba(0,0,0,0.1)' );
-		jQuery( this ).css( 'color' , 'rgba(0,0,0,0.6)' );
 
-		jQuery( this ).find( '.button-icon' ).removeClass( 'fa-check-square' ).addClass( 'fa-square' );
+  window.eoxiaJS.taskManager.task.editButtonPaginationClient();
 
-		jQuery( '.wpeo-project-wrap .list-task .wpeo-project-task' ).each(function(){
-			if( jQuery( this ).data( 'status' ) == 'archive' ){
-				jQuery( this ).css( 'display', 'none' );
-			}
-		});
-	}else{
+	var pagination_parent = jQuery( this ).parent();
 
-		jQuery( this ).data('showarchive', true );
+	var data = {};
+	data.action    = 'pagination_update_tasks';
+	data.page      = jQuery( this ).parent().find( '.wpeo-pagination' ).data( 'page' );
+	data.post_id  = jQuery( this ).data( 'post-id' );
+	data.next      = jQuery( this ).parent().find( '.wpeo-pagination' ).data( 'page' ); // on récupere la meme page
+	data.show      = jQuery( this ).data( 'showarchive' );
 
-		jQuery( this ).css( 'background' , '#0084ff' );
-		jQuery( this ).css( 'color' , '#fff' );
+	console.log( data );
 
-		jQuery( this ).find( '.button-icon' ).removeClass( 'fa-square' ).addClass( 'fa-check-square' );
-
-		jQuery( '.wpeo-project-wrap .list-task .wpeo-project-task' ).each(function(){
-			if( jQuery( this ).data( 'status' ) == 'archive' ){
-				jQuery( this ).css( 'display', 'block' );
-			}
-		});
-
-	}
+	window.eoxiaJS.loader.display( jQuery( this ).parent() );
+	window.eoxiaJS.request.send( jQuery( this ), data );
 }
 
 window.eoxiaJS.taskManager.audit.openTaskRow = function( event ){
@@ -310,8 +299,9 @@ window.eoxiaJS.taskManager.comment.paginationUpdateTasks = function( event ) {
 
 	data.action   = 'pagination_update_tasks';
 	data.page     = pagination_parent.data( 'page' );
-	data.post_id = pagination_parent.data( 'post-id' );
+	data.post_id  = pagination_parent.data( 'post-id' );
 	data.next     = jQuery( this ).data( 'pagination' );
+	data.show     = jQuery( "#tm_include_archive_client" ).data( 'showarchive' );
 
 	window.eoxiaJS.loader.display( jQuery( this ).parent() );
 	window.eoxiaJS.request.send( jQuery( this ), data );
@@ -325,4 +315,48 @@ window.eoxiaJS.taskManager.task.loadedTasksSuccess = function( element, response
 		items: '.wpeo-project-task',
 		columns: '.grid-col'
 	} );
+
+	console.log( '- .-. -' );
+	console.log( response.data.show_archive);
+	if( response.data.show_archive ){
+		window.eoxiaJS.taskManager.task.editButtonPaginationClient( true, response.data.show_archive );
+	}
+}
+
+window.eoxiaJS.taskManager.task.editButtonPaginationClient = function( dontKnowStatut = true, showArchive = false ){
+
+	console.log( dontKnowStatut );
+	console.log( showArchive );
+	console.log( ' - - - ' );
+
+
+  var button_element = jQuery( '#tm_include_archive_client' );
+
+	if( ! dontKnowStatut ){
+		var checked = dontKnowStatut;
+	}else{
+		var checked = button_element.data( 'showarchive' );
+
+	}
+
+	if( checked ){
+		console.log( 'not checked' );
+		button_element.data( 'showarchive', false );
+
+		button_element.css( 'background' , '#f7f7f7' );
+		button_element.css( 'color' , '#0073aa;' );
+
+		button_element.find( '.button-icon' ).removeClass( 'fa-check-square' ).addClass( 'fa-square' );
+
+	}else{
+		console.log( 'checked' );
+
+		button_element.data('showarchive', true );
+
+		button_element.css( 'background' , '#0084ff' );
+		button_element.css( 'color' , '#fff' );
+
+		button_element.find( '.button-icon' ).removeClass( 'fa-square' ).addClass( 'fa-check-square' );
+
+	}
 }

@@ -16,8 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 <div class="wpeo-project-task <?php echo ! empty( $task->data['front_info']['display_color'] ) ? esc_attr( $task->data['front_info']['display_color'] ) : 'white'; ?>"
 	data-id="<?php echo esc_attr( $task->data['id'] ); ?>"
-	data-status="<?php echo esc_html( $task->data[ 'status' ] ) ?>"
-	style="display : <?php echo apply_filters( 'tm_task_client_archive', '', $task->data[ 'status' ] ); ?>">
+	data-status="<?php echo esc_html( $task->data[ 'status' ] ) ?>">
 
 	<div class="wpeo-project-task-container">
 

@@ -329,12 +329,13 @@ class Task_Class extends \eoxia\Post_Class {
 
 		$args = array(
 			'post_parent' => $post_id,
-			'status'      => 'publish,pending,draft,future,private,inherit,archive'
+			'status'      => 'publish,pending,draft,future,private,inherit'
 		);
 
 		if( empty( $args_parameter )  ){ // Par défaut on affiche 5 élements / page
 			$args_parameter = array(
-				'offset' => 0
+				'offset' => 0,
+				'status' => 'publish,pending,draft,future,private,inherit'
 			);
 		}
 
@@ -342,7 +343,10 @@ class Task_Class extends \eoxia\Post_Class {
 
 		$tasks[ $post_id ]['data'] = self::g()->get_tasks( wp_parse_args( $args_parameter, $args ) );
 
-		$number_task = count( self::g()->get_tasks( $args ) );
+		$number_task = count( self::g()->get_tasks( array( 'status' => $args_parameter[ 'status' ], 'post_parent' => $post_id ) ) );
+
+		// $number_task = count( self::g()->get_tasks( $args_parameter ) );
+
 
 		$count_tasks = 0;
 		if( $number_task > 0 ){

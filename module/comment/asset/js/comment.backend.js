@@ -37,9 +37,22 @@ window.eoxiaJS.taskManager.comment.event = function() {
 		if ( ! jQuery( event.target).closest( ".wpeo-project-task" ).length) {
 			jQuery( '.point.edit' ).each( function (){
 				if ( jQuery( this ).closest( 'div.point' ).find( '.comments' ).is( ':visible' ) ) {
-					jQuery( 'div.point .comments:visible' ).slideUp( 400, function() {
-						window.eoxiaJS.refresh();
-					});
+					if( jQuery( this ).closest( 'div.point' ).find( '.comments .comment-content-text div' ).html() != "" ){ // L'utilisateur est entrain d'écrire
+						if( confirm( 'Do you want to delete your text ?' ) ){
+							jQuery( 'div.point .comments:visible' ).slideUp( 400, function() {
+								window.eoxiaJS.refresh();
+							});
+						}else{
+							var div = jQuery( this ).closest( 'div.point' ).find( '.comments .comment-content-text div' );
+							setTimeout(function() {
+							    div.focus();
+							}, 0);
+						}
+					}else{
+						jQuery( 'div.point .comments:visible' ).slideUp( 400, function() {
+							window.eoxiaJS.refresh();
+						});
+					}
 				}
 			})
     }

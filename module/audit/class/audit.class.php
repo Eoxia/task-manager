@@ -67,7 +67,25 @@ class Audit_Class extends \eoxia\Post_Class {
 			return 0;
 		}
 
-		$audits = Audit_Class::g()->get( array( 'post_parent' => $parent_id ) );
+		$audits = $this->audit_task_link( array( 'post_parent' => $parent_id ) );
+
+	 	\eoxia\View_Util::exec(
+			'task-manager',
+			'audit',
+			'metabox-auditlist',
+			array(
+				'parent_id' => $parent_id,
+				'audits' => $audits,
+				'showedit' => $showedit
+			)
+		);
+
+		$this->audit_create_indicator_javascript( $audits );
+	}
+
+	public function audit_task_link( $args ){
+
+		$audits = Audit_Class::g()->get( $args );
 
 		$tasks = Task_Class::g()->get();
 
@@ -85,7 +103,7 @@ class Audit_Class extends \eoxia\Post_Class {
 						$task_link[ $task->data[ 'id' ] ] = array(
 							'task_id' => $task->data[ 'id' ],
 							'count_completed_points' => $task->data[ 'count_completed_points' ],
-						 	'count_uncompleted_points' => $task->data[ 'count_uncompleted_points' ],
+							'count_uncompleted_points' => $task->data[ 'count_uncompleted_points' ],
 							'percent_uncompleted_points' => $this->audit_client_calcul_percent_uncompletedpoints( $task->data[ 'count_completed_points' ], $task->data[ 'count_uncompleted_points' ]),
 							'title' => $task->data[ 'title' ]
 						);
@@ -112,19 +130,7 @@ class Audit_Class extends \eoxia\Post_Class {
 			);
 		}
 
-
-	 	\eoxia\View_Util::exec(
-			'task-manager',
-			'audit',
-			'metabox-auditlist',
-			array(
-				'parent_id' => $parent_id,
-				'audits' => $audits,
-				'showedit' => $showedit
-			)
-		);
-
-		$this->audit_create_indicator_javascript( $audits );
+		return $audits;
 	}
 
 	public function audit_create_indicator_javascript( $audits ){
@@ -323,6 +329,43 @@ class Audit_Class extends \eoxia\Post_Class {
 		}
 
 		return $audits;
+	}
+
+	public function callable_audit_page(){
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'audit',
+			'audit-page/main',
+			array()
+		);
+	}
+
+	public function callback_audit_list_metabox( $args = array(), $array = array(), $showedit = false ){
+		$audits = $this->audit_task_link( $args );
+
+		foreach( $audits as $key => $audit ){
+			if( $audit->data[ 'parent_id' ] ){
+				$query = new \WP_Query(
+					array(
+						'p' => $audit->data[ 'parent_id' ],
+						'post_type'   => 'wpshop_customers',
+					)
+				);
+				$audit->data[ 'parent_title' ] = $query->post->post_title;
+			}
+		}
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'audit',
+			'audit-page/metabox-main',
+			array(
+				'audits' => $audits,
+				'showedit' => $showedit
+			)
+		);
+		$this->audit_create_indicator_javascript( $audits );
 	}
 }
 

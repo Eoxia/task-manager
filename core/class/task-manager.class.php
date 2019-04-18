@@ -37,13 +37,13 @@ class Task_Manager_Class extends \eoxia\Singleton_Util {
 	 * @return void
 	 */
 	public function display() {
-		$term          = ! empty( $_GET['term'] ) ? sanitize_text_field( $_GET['term'] ) : ''; // WPCS: CSRF ok.
-		$categories_id = ! empty( $_GET['categories_id'] ) ? sanitize_text_field( $_GET['categories_id'] ) : ''; // WPCS: CSRF ok.
-		$user_id       = ! empty( $_GET['user_id'] ) ? sanitize_text_field( $_GET['user_id'] ) : 0; // WPCS: CSRF ok.
-		$post_parent   = ! empty( $_GET['post_parent'] ) ? (int) $_GET['post_parent'] : 0; // WPCS: CSRF ok.
-		$task_id = ! empty( $_GET['task_id'] ) ? (int) $_GET['task_id'] : 0; // WPCS: CSRF ok.
-		$point_id = ! empty( $_GET['point_id'] ) ? (int) $_GET['point_id'] : 0; // WPCS: CSRF ok.
-		$quicktimes = ! empty( $_GET['quicktimemode'] ) ? (int) $_GET['quicktimemode'] : 0; // WPCS: CSRF ok.
+		$term          = ! empty( $_GET[ 'term' ] ) ? sanitize_text_field( $_GET[ 'term' ] ) : ''; // WPCS: CSRF ok.
+		$categories_id = ! empty( $_GET[ 'categories_id' ] ) ? sanitize_text_field( $_GET[ 'categories_id' ] ) : ''; // WPCS: CSRF ok.
+		$user_id       = ! empty( $_GET[ 'user_id' ] ) ? sanitize_text_field( $_GET[ 'user_id' ] ) : 0; // WPCS: CSRF ok.
+		$post_parent   = ! empty( $_GET[ 'post_parent' ] ) ? (int) $_GET[ 'post_parent' ] : 0; // WPCS: CSRF ok.
+		$task_id       = ! empty( $_GET[ 'task_id' ] ) ? (int) $_GET[ 'task_id' ] : 0; // WPCS: CSRF ok.
+		$point_id      = ! empty( $_GET[ 'point_id' ] ) ? (int) $_GET[ 'point_id' ] : 0; // WPCS: CSRF ok.
+		$quicktimes    = ! empty( $_GET[ 'quicktimemode' ] ) ? (int) $_GET[ 'quicktimemode' ] : 0; // WPCS: CSRF ok.
 
 		$user = Follower_Class::g()->get( array( 'id' => get_current_user_id() ), true );
 

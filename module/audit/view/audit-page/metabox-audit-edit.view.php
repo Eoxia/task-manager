@@ -18,7 +18,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="tm-audit">
 	<div class="audit-container">
 
-		<div class="action-attribute audit-backlink" data-action="reset_main_page" data-parent-id="<?php echo esc_attr( $parent_id ); ?>" style="float: left;">
+		<div class="action-attribute audit-backlink"
+			data-action="reset_main_page"
+			data-page="metabox-main"
+			style="float: left;">
 			<i class="fas fa-arrow-left fa-3x" style="color: grey"></i>
 		</div>
 
@@ -35,9 +38,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<ul class="audit-summary">
 						<li class="audit-summary-id"><i class="far fa-hashtag"></i><?= $audit->data[ 'id' ] ?></li>
 						<li class="audit-summary-date">
-							<span class="form-label"><i class="far fa-calendar-alt"></i></span>
-							<span id="tm_audit_client_date_start" class="date form-field">
-								<?php echo esc_attr( $audit->data[ 'date' ][ 'rendered' ][ 'date' ] ); ?>
+
+							<span class="summary-rendered wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Creation date', 'task-manager' ); ?>">
+								<span class="form-label"><i class="far fa-calendar-alt"></i></span>
+								<span id="tm_audit_client_date_start" class="date form-field">
+									<?php echo esc_attr( $audit->data[ 'date' ][ 'rendered' ][ 'date' ] ); ?>
+								</span>
 							</span> /
 
 							<span class="summary-rendered wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Due date', 'task-manager' ); ?>">
@@ -51,6 +57,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 								</div>
 							</span>
 						</li>
+						<li>
+							<?php if( isset( $audit->data[ 'parent_id' ] ) && $audit->data[ 'parent_id' ] ): ?>
+								<span class="summary-rendered wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Audit Parent', 'task-manager' ); ?>">
+									<i class="far fa-clone"></i>
+									<?php echo esc_html( $audit->data[ 'parent_id' ] ); ?>
+								</span>
+							<?php else: ?>
+								<form class="tm-define-customer-to-audit">
+									<div class="form-fields">
+										<input type="hidden" class="audit_search-customers-id" name="customer_id"/>
+								    <input type="text" class="audit-search-customers ui-autocomplete-input" placeholder="Nom/ID Client" autocomplete="off" />
+								  </div>
+								</form>
+
+								<span class="summary-rendered wpeo-tooltip-event tm-define-customer-to-audit-after" aria-label="<?php esc_html_e( 'Audit Parent', 'task-manager' ); ?>" style="display : none">
+									<i class="far fa-clone"></i>
+								</span>
+							<?php endif; ?>
+						</li>
+
 					</ul>
 					<!-- <span class="audit-title-edit"><i class="fas fa-pencil"></i></span> -->
 				</div>
@@ -60,7 +86,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 						data-parent="audit-header"
 						data-action="edit_title_audit"
 						data-id="<?= $audit->data[ 'id' ] ?>"
-						data-parent-id="<?php echo esc_attr( $parent_id ); ?>"
 						id="tm_client_audit_buttonsavetitle">
 						 <i class="button-icon fas fa-save"></i></div>
 				</div>
@@ -81,7 +106,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 						'audit',
 						'audit-import-button',
 						array(
-							'client_id' => $parent_id,
 							'audit_id' => $audit->data[ 'id' ]
 						)
 					);
@@ -89,13 +113,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<div class="wpeo-dropdown wpeo-comment-setting" data-parent="toggle" data-target="content" data-mask="wpeo-project-task">
 						<span class="wpeo-button button-transparent dropdown-toggle"><i class="fa fa-ellipsis-v"></i></span>
 						<ul class="dropdown-content left content point-header-action">
-							<?php /*<li class="dropdown-item action-attribute" data-action="load_edit_view_comment" data-nonce="2f800343ae" data-id="239">
-								<span><i class="fas fa-pencil fa-fw"></i> Editer ce commentaire</span>
-							</li>
 
-							<li class="dropdown-item action-delete" data-action="delete_task_comment" data-message-delete="Voulez vous supprimer ce commentaire ?" data-nonce="33bf025dc1" data-id="239">
-								<span><i class="fas fa-trash fa-fw"></i> Supprimer ce commentaire</span>
-							</li>*/ ?>
 						</ul>
 					</div>
 				</div>
@@ -109,6 +127,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div id="tm_audit_client_generate_tasklink" class="task-list">
 			<?php Audit_Class::g()->audit_client_return_task_link( $audit->data[ 'id' ] ); ?>
 		</div>
-
 	</div>
 </div>
