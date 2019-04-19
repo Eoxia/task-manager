@@ -53,6 +53,13 @@ class Task_Action {
 
 		add_action( 'wp_ajax_pagination_update_tasks', array( $this, 'callback_pagination_update_tasks' ) );
 
+		add_action( 'wp_ajax_search_parent_for_task', array( $this, 'callback_search_parent_for_task' ) );
+
+		add_action( 'wp_ajax_load_all_task_parent_data', array( $this, 'callback_load_all_task_parent_data' ) );
+
+		add_action( 'wp_ajax_link_parent_to_task', array( $this, 'callback_link_parent_to_task' ) ); // TASK GET A PARENT !
+		add_action( 'wp_ajax_delink_parent_to_task', array( $this, 'callback_delink_parent_to_task' ) ); // TASK LEAVE HER PARENT !
+
 	}
 
 	/**
@@ -593,6 +600,165 @@ class Task_Action {
 		);
 	}
 
+	public function callback_load_all_task_parent_data(){
+		check_ajax_referer( 'load_all_task_parent_data' );
+		$customers_founded = array();
+		$commands_founded = array();
+		global $eo_search;
+
+
+		$query = new \WP_Query(
+			array(
+				'post_type'   => 'wpshop_customers',
+				'posts_per_page' => -1
+			)
+		);
+
+
+			if ( ! empty( $query->posts ) ) {
+				$customers_founded[] = array(
+					'label' => __( ' -- Clients -- ', 'task-manager' ),
+					'value' => __( ' -- Clients -- ', 'task-manager' ),
+					'id' => 0
+				);
+				foreach ( $query->posts as $post ) {
+					$customers_founded[] = array(
+						'label' => '#' . $post->ID . ' ' . $post->post_title,
+						'value' => '#' . $post->ID . ' ' . $post->post_title,
+						'id'    => $post->ID,
+					);
+				}
+			}
+
+			if ( empty( $customers_founded ) ) { // Aucun client trouvé
+				$customers_founded[] = array(
+					'label' => __( 'No client found', 'task-manager' ),
+					'value' => __( 'No client found', 'task-manager' ),
+					'id'    => 0,
+				);
+			}
+
+			$query_command = new \WP_Query(
+				array(
+					'post_type'   => 'wpshop_shop_order',
+					'post_status' => array( 'publish', 'inherit', 'draft' ),
+					'posts_per_page' => -1
+				)
+			);
+
+			if ( ! empty( $query_command->posts ) ) {
+				$commands_founded[] = array(
+					'label' => __( ' -- Commands -- ', 'task-manager' ),
+					'value' => __( ' -- Commands -- ', 'task-manager' ),
+					'id' => 0
+				);
+				foreach ( $query_command->posts as $command ) {
+					$comand_meta = get_post_meta( $command->ID, '_order_postmeta', true );
+					$commands_founded[] = array(
+						'label' => '#' . $command->ID . ' ' . $comand_meta[ 'order_temporary_key'],
+						'value' => '#' . $command->ID . ' ' . $comand_meta[ 'order_temporary_key'],
+						'id'    => $command->ID
+					);
+				}
+			}
+
+			if ( empty( $commands_founded ) ) { // Aucun client trouvé
+				$commands_founded[] = array(
+					'label' => __( 'No command found', 'task-manager' ),
+					'value' => __( 'No command found', 'task-manager' ),
+					'id'    => 0,
+				);
+			}
+
+			$data = array();
+			$data = array_merge($customers_founded,$commands_founded );
+
+			ob_start();
+
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'task',
+				'backend/list_parent_element',
+				array(
+					'data' => $data,
+				)
+			);
+
+			wp_send_json_success(
+				array(
+					'view'             => ob_get_clean(),
+					'namespace'        => 'taskManager',
+					'module'           => 'task',
+					'callback_success' => 'loadedAllClientsCommands',
+				)
+			);
+	}
+
+	public function callback_link_parent_to_task(){
+		$task_id = isset( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : 0;
+		$parent_id = isset( $_POST[ 'parent_id' ] ) ? (int) $_POST[ 'parent_id' ] : 0;
+		if( ! $task_id || ! $parent_id ){
+			wp_send_json_error();
+		}
+
+		$task = Task_Class::g()->get(
+			array(
+				'id' => $task_id,
+			),
+			true
+		);
+
+		$task->data['parent_id'] = $parent_id;
+		$task = Task_Class::g()->update( $task->data );
+
+		$this->json_success_display_task_parent_view( $task );
+	}
+
+	public function callback_delink_parent_to_task(){
+		$task_id = isset( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : 0;
+		if( ! $task_id ){
+			wp_send_json_error();
+		}
+
+		$task = Task_Class::g()->get(
+			array(
+				'id' => $task_id,
+			),
+			true
+		);
+
+		$task->data['parent_id'] = 0;
+		$task = Task_Class::g()->update( $task->data );
+
+		$this->json_success_display_task_parent_view( $task );
+	}
+
+	public function json_success_display_task_parent_view( $task = array() ){
+		if( empty( $task ) ){
+			wp_send_json_error();
+		}
+
+		ob_start();
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'task',
+			'backend/linked-post-type',
+			array(
+				'task' => $task,
+			)
+		);
+
+		wp_send_json_success(
+			array(
+				'view'             => ob_get_clean(),
+				'namespace'        => 'taskManager',
+				'module'           => 'task',
+				'callback_success' => 'reloadTaskParentElement',
+			)
+		);
+
+	}
 }
 
 new Task_Action();

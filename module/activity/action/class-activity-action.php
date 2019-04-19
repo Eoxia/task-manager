@@ -135,7 +135,7 @@ class Activity_Action {
 	 * @return void
 	 */
 	public function load_activity_customer() {
-		check_ajax_referer( 'load_user_activity' );
+		//check_ajax_referer( 'load_user_activity' ); 18/04/2019 -> Bloque l'ajout d'un client
 
 		$frontend  = true;
 		$offset    = 0;

@@ -67,7 +67,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<form class="tm-define-customer-to-audit">
 									<div class="form-fields">
 										<input type="hidden" class="audit_search-customers-id" name="customer_id"/>
-								    <input type="text" class="audit-search-customers ui-autocomplete-input" placeholder="Nom/ID Client" autocomplete="off" />
+								    <input type="text" class="audit-search-customers ui-autocomplete-input" placeholder="<?php echo esc_html( 'Nom/ID Client', 'task-manager'); ?>" autocomplete="off" />
 								  </div>
 								</form>
 

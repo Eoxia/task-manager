@@ -14,7 +14,6 @@ window.eoxiaJS.taskManager.task.init = function() {
 		items: '.wpeo-project-task',
 		columns: '.grid-col'
 	} );
-
 	window.eoxiaJS.taskManager.task.initAutoComplete();
 };
 
@@ -34,6 +33,19 @@ window.eoxiaJS.taskManager.task.event = function() {
 	jQuery( document ).on( 'click', '.tm_client_indicator_update_body table tbody .tm_client_indicator', window.eoxiaJS.taskManager.audit.openTaskRow );
 
 	jQuery( document ).on( 'click', '.wpeo-pagination.pagination-task .pagination-element', window.eoxiaJS.taskManager.comment.paginationUpdateTasks );
+
+	jQuery( document ).on( 'click', '.add_parent_to_task', window.eoxiaJS.taskManager.task.displayInputTextParent );
+
+	jQuery( document ).on( 'click change', '.task-search-taxonomy', window.eoxiaJS.taskManager.task.initAutoComplete );
+
+	jQuery( document ).on( 'click', '.tm-task-delink-parent', window.eoxiaJS.taskManager.task.delinkTaskFromParent );
+
+	jQuery( document ).on( 'click', '.wpeo-task-parent-add .wpeo-tag', window.eoxiaJS.taskManager.task.taskShowAutocompleteParent );
+	jQuery( document ).on( 'focusout', '.wpeo-task-parent-add .wpeo-tag ul', window.eoxiaJS.taskManager.task.taskHideAutocompleteParent );
+
+	jQuery( document ).on( 'click', '.wpeo-task-parent-add .tm_list_parent_li_element', window.eoxiaJS.taskManager.task.getValueAutocompleteParent );
+
+	jQuery( document ).on( 'keyup', '.tm_task_autocomplete_parent', window.eoxiaJS.taskManager.task.taskUpdateAutocompleteParent );
 
 };
 
@@ -59,12 +71,7 @@ window.eoxiaJS.taskManager.task.initAutoComplete = function() {
 
 window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
 
-	// jQuery( '.wpeo-modal-event.load_more_result' ).attr( 'data' ).each( function(){
-	// 	console.log( 'oui' );
-	// })
-
 	var data = {};
-
 
 	if ( 1 !== jQuery( '#poststuff' ).length && jQuery( '.tm-dashboard-header' )[0] ) {
 		if ( ( jQuery( window ).scrollTop() == jQuery( document ).height() - jQuery( window ).height() ) && window.eoxiaJS.taskManager.task.canLoadMore ) {
@@ -274,8 +281,6 @@ window.eoxiaJS.taskManager.task.showArchiveClient = function( triggeredElement, 
 	data.next      = jQuery( this ).parent().find( '.wpeo-pagination' ).data( 'page' ); // on récupere la meme page
 	data.show      = jQuery( this ).data( 'showarchive' );
 
-	console.log( data );
-
 	window.eoxiaJS.loader.display( jQuery( this ).parent() );
 	window.eoxiaJS.request.send( jQuery( this ), data );
 }
@@ -316,19 +321,12 @@ window.eoxiaJS.taskManager.task.loadedTasksSuccess = function( element, response
 		columns: '.grid-col'
 	} );
 
-	console.log( '- .-. -' );
-	console.log( response.data.show_archive);
 	if( response.data.show_archive ){
 		window.eoxiaJS.taskManager.task.editButtonPaginationClient( true, response.data.show_archive );
 	}
 }
 
 window.eoxiaJS.taskManager.task.editButtonPaginationClient = function( dontKnowStatut = true, showArchive = false ){
-
-	console.log( dontKnowStatut );
-	console.log( showArchive );
-	console.log( ' - - - ' );
-
 
   var button_element = jQuery( '#tm_include_archive_client' );
 
@@ -340,7 +338,6 @@ window.eoxiaJS.taskManager.task.editButtonPaginationClient = function( dontKnowS
 	}
 
 	if( checked ){
-		console.log( 'not checked' );
 		button_element.data( 'showarchive', false );
 
 		button_element.css( 'background' , '#f7f7f7' );
@@ -349,8 +346,6 @@ window.eoxiaJS.taskManager.task.editButtonPaginationClient = function( dontKnowS
 		button_element.find( '.button-icon' ).removeClass( 'fa-check-square' ).addClass( 'fa-square' );
 
 	}else{
-		console.log( 'checked' );
-
 		button_element.data('showarchive', true );
 
 		button_element.css( 'background' , '#0084ff' );
@@ -359,4 +354,94 @@ window.eoxiaJS.taskManager.task.editButtonPaginationClient = function( dontKnowS
 		button_element.find( '.button-icon' ).removeClass( 'fa-square' ).addClass( 'fa-check-square' );
 
 	}
+}
+
+window.eoxiaJS.taskManager.task.displayInputTextParent = function( event ){
+
+	if( ! jQuery( this ).data( 'request_send' ) ){
+		jQuery( this ).addClass( 'button-disabled' );
+		jQuery( this ).data( 'request_send', "true" );
+		var data = {
+			action: 'load_all_task_parent_data',
+			_wpnonce: jQuery( this ).data( 'nonce' )
+		};
+
+		window.eoxiaJS.loader.display( jQuery( this ).closest( '.wpeo-ul-parent' ) );
+		window.eoxiaJS.request.send( jQuery( this ), data );
+	}else{
+		if( ! jQuery( this ).hasClass( 'button-disabled' ) && jQuery( this ).closest( '.wpeo-ul-parent' ).find( '.task_search-taxonomy' ).val() ){
+
+			var data = {
+				action: 'link_parent_to_task',
+				id : jQuery( this ).data( 'id' ),
+				parent_id: jQuery( this ).closest( '.wpeo-ul-parent' ).find( '.task_search-taxonomy' ).val()
+			};
+
+			window.eoxiaJS.loader.display( jQuery( this ).closest( '.wpeo-ul-parent' ) );
+			window.eoxiaJS.request.send( jQuery( this ), data );
+		}else{
+			// INVALID ID
+		}
+	}
+}
+
+window.eoxiaJS.taskManager.task.delinkTaskFromParent = function( event ){
+	if( confirm( window.indicatorString.delink_parent ) ){
+		var data = {
+			action: 'delink_parent_to_task',
+			id : jQuery( this ).data( 'id' ),
+		};
+
+		window.eoxiaJS.loader.display( jQuery( this ).closest( '.wpeo-ul-parent' ) );
+		window.eoxiaJS.request.send( jQuery( this ), data );
+	}
+}
+
+window.eoxiaJS.taskManager.task.loadedAllClientsCommands = function( element, response ){
+
+	jQuery( element ).parent().find('.wpeo-task-parent-add').html( response.data.view );
+	jQuery( element ).parent().find('.wpeo-task-parent-add').show( '400' );
+	jQuery( element ).parent().find('.wpeo-task-parent-add .tm_task_autocomplete_parent').focus();
+
+}
+
+window.eoxiaJS.taskManager.task.taskShowAutocompleteParent = function( event ){
+	jQuery( this ).find( 'ul' ).show( '200' );
+	var div = jQuery( this ).find( '.tm_task_autocomplete_parent' );
+	setTimeout(function() {
+			div.focus();
+	}, 0);
+}
+
+window.eoxiaJS.taskManager.task.taskHideAutocompleteParent = function( event ){
+	jQuery( this ).find( 'ul' ).hide( '200' );
+}
+
+
+window.eoxiaJS.taskManager.task.taskUpdateAutocompleteParent = function( event ){
+	var value = jQuery( this ).val().toLowerCase();
+
+	var list_parent = jQuery( this ).closest( '.wpeo-tag' ).find( 'ul' );
+
+	list_parent.find( '.tm_list_parent_li_element' ).each(function( element ) {
+		var li_value = jQuery( this ).html().trim().toLowerCase();
+		if( li_value.includes( value ) ){
+			jQuery( this ).show();
+		}else{
+			jQuery( this ).hide();
+		}
+	});
+}
+
+window.eoxiaJS.taskManager.task.getValueAutocompleteParent = function( event ){
+	var value = jQuery( this ).html();
+	var id = jQuery( this ).data( 'id' );
+
+	jQuery( this ).closest( '.wpeo-tag' ).find( 'input[type="text"]' ).val( value.trim() );
+	jQuery( this ).closest( '.wpeo-tag' ).find( 'input[type="hidden"]' ).val( id );
+	jQuery( this ).closest( '.wpeo-ul-parent' ).find( '.add_parent_to_task' ).removeClass( 'button-disabled' );
+}
+
+window.eoxiaJS.taskManager.task.reloadTaskParentElement = function( element, response ){
+	jQuery( element ).closest( '.wpeo-ul-parent' ).replaceWith( response.data.view );
 }

@@ -125,7 +125,8 @@ class Task_Manager_Action {
 							'plan_week'      => __( 'Stats of the week', 'task-manager' ),
 							'completed'      => __( 'Completed', 'task-manager' ),
 							'uncompleted'    => __( 'Uncompleted', 'task-manager' ),
-							'taskempty'      => __( 'No point', 'task-manager' )
+							'taskempty'      => __( 'No point', 'task-manager' ),
+							'delink_parent'  => __( 'Do you really want to delink this task from her parent ?', 'task-manager' )
 						)
 					);
 					break;

@@ -44,7 +44,7 @@ ob_start();
 				<span class="form-label"><i class="fas fa-calendar"></i> <?php esc_html_e( 'End date', 'task-manager' ); ?></span>
 				<label class="form-field-container">
 					<input type="date" class="form-field" value="<?php echo esc_attr( $date_end ); ?>" name="tm_abu_date_end" />
-					<input type="hidden" value="<?php echo esc_attr( wp_create_nonce( 'load_user_activity' ) ); ?>" name="_wpnonce" />
+					<input type="hidden" value="" />
 				</label>
 			</div>
 			<?php echo apply_filters( 'tm_filter_activity', '', $user_id, $customer_id, $page ); // WPCS: XSS ok. ?>

@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<span class="form-label"><i class="fas fa-calendar"></i> <?php esc_html_e( 'End date', 'task-manager' ); ?></span>
 				<label class="form-field-container">
 					<input type="date" class="form-field" value="<?php echo esc_attr( $date_end ); ?>" name="tm_abu_date_end" required/>
-					<input type="hidden" value="<?php echo esc_attr( wp_create_nonce( 'load_last_activity' ) ); ?>" name="_wpnonce" />
+					<input type="hidden" value="" />
 				</label>
 			</div>
 

@@ -133,3 +133,7 @@ z-index: 26; }
         content: attr(placeholder);
         display: block; /* For Firefox */
       }
+
+      .tm_list_parent_li_element:hover{
+        background-color : lightgrey;
+      }

@@ -226,7 +226,7 @@ class Task_Filter {
 	public function callback_tm_task_footer( $output, $task ) {
 		$user = Follower_Class::g()->get( array( 'id' => get_current_user_id() ), true );
 
-		if ( ! empty( $task->data['parent_id'] ) && $user->data['_tm_advanced_display'] ) {
+		if ( $user->data['_tm_advanced_display'] ) {
 			ob_start();
 			\eoxia\View_Util::exec(
 				'task-manager',
@@ -237,6 +237,8 @@ class Task_Filter {
 				)
 			);
 			$output .= ob_get_clean();
+		}else{
+			echo '<pre>'; print_r( $task->data[ 'id' ] ); echo '</pre>';
 		}
 
 		return $output;

@@ -16,7 +16,7 @@ window.eoxiaJS.taskManager.audit.init = function() {
 	} );
 
 	window.eoxiaJS.taskManager.task.initAutoComplete();
-
+  
 };
 
 window.eoxiaJS.taskManager.audit.refresh = function() {
