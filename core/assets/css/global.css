@@ -135,5 +135,5 @@ z-index: 26; }
       }
 
       .tm_list_parent_li_element:hover{
-        background-color : lightgrey;
+        background: rgba(0,0,0,0.05);
       }

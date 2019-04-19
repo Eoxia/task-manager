@@ -40,7 +40,7 @@ window.eoxiaJS.taskManager.task.event = function() {
 
 	jQuery( document ).on( 'click', '.tm-task-delink-parent', window.eoxiaJS.taskManager.task.delinkTaskFromParent );
 
-	jQuery( document ).on( 'click', '.wpeo-task-parent-add .wpeo-tag', window.eoxiaJS.taskManager.task.taskShowAutocompleteParent );
+	jQuery( document ).on( 'click', '.wpeo-task-parent-add .wpeo-tag label', window.eoxiaJS.taskManager.task.taskShowAutocompleteParent );
 	jQuery( document ).on( 'focusout', '.wpeo-task-parent-add .wpeo-tag ul', window.eoxiaJS.taskManager.task.taskHideAutocompleteParent );
 
 	jQuery( document ).on( 'click', '.wpeo-task-parent-add .tm_list_parent_li_element', window.eoxiaJS.taskManager.task.getValueAutocompleteParent );
@@ -359,7 +359,10 @@ window.eoxiaJS.taskManager.task.editButtonPaginationClient = function( dontKnowS
 window.eoxiaJS.taskManager.task.displayInputTextParent = function( event ){
 
 	if( ! jQuery( this ).data( 'request_send' ) ){
+		console.log( '.' );
 		jQuery( this ).addClass( 'button-disabled' );
+		jQuery( this ).css( 'background', '#0084ff' );
+		jQuery( this ).css( 'color', 'white' );
 		jQuery( this ).data( 'request_send', "true" );
 		var data = {
 			action: 'load_all_task_parent_data',
@@ -424,8 +427,7 @@ window.eoxiaJS.taskManager.task.taskUpdateAutocompleteParent = function( event )
 	var list_parent = jQuery( this ).closest( '.wpeo-tag' ).find( 'ul' );
 
 	list_parent.find( '.tm_list_parent_li_element' ).each(function( element ) {
-		var li_value = jQuery( this ).html().trim().toLowerCase();
-		if( li_value.includes( value ) ){
+		if( jQuery( this ).html().trim().toLowerCase().indexOf( value ) >= 0 ){
 			jQuery( this ).show();
 		}else{
 			jQuery( this ).hide();
@@ -440,6 +442,8 @@ window.eoxiaJS.taskManager.task.getValueAutocompleteParent = function( event ){
 	jQuery( this ).closest( '.wpeo-tag' ).find( 'input[type="text"]' ).val( value.trim() );
 	jQuery( this ).closest( '.wpeo-tag' ).find( 'input[type="hidden"]' ).val( id );
 	jQuery( this ).closest( '.wpeo-ul-parent' ).find( '.add_parent_to_task' ).removeClass( 'button-disabled' );
+
+	jQuery( this ).parent().hide( '200' );
 }
 
 window.eoxiaJS.taskManager.task.reloadTaskParentElement = function( element, response ){

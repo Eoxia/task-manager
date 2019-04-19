@@ -473,7 +473,7 @@ class Task_Action {
 
 
 			add_meta_box( 'wpeo-task-metabox', __( 'Task', 'task-manager' ) . apply_filters( 'tm_posts_metabox_buttons', $buttons ), array( Task_Class::g(), 'callback_render_metabox' ), $post_type, 'normal', 'default' );
-			add_meta_box( 'wpeo-task-metaboxtest', __( 'Indicator', 'task-manager' ) . apply_filters( 'tm_posts_metabox_buttons', $button_indicator ), array( Task_Class::g(), 'callback_render_indicator' ), $post_type, 'normal', 'default' );
+			add_meta_box( 'wpeo-task-metabox-indicator', __( 'Indicator', 'task-manager' ) . apply_filters( 'tm_posts_metabox_buttons', $button_indicator ), array( Task_Class::g(), 'callback_render_indicator' ), $post_type, 'normal', 'default' );
 			add_meta_box( 'wpeo-task-history-metabox', __( 'History task', 'task-manager' ), array( Indicator_Class::g(), 'callback_my_daily_activity' ), $post_type, 'side', 'default' );
 		}
 	}
@@ -602,76 +602,48 @@ class Task_Action {
 
 	public function callback_load_all_task_parent_data(){
 		check_ajax_referer( 'load_all_task_parent_data' );
-		$customers_founded = array();
+		$posttype_found = array();
 		$commands_founded = array();
 		global $eo_search;
 
-
 		$query = new \WP_Query(
 			array(
-				'post_type'   => 'wpshop_customers',
+				'post_type'   => \eoxia\Config_Util::$init['task-manager']->associate_post_type,
 				'posts_per_page' => -1
 			)
 		);
 
-
-			if ( ! empty( $query->posts ) ) {
-				$customers_founded[] = array(
-					'label' => __( ' -- Clients -- ', 'task-manager' ),
-					'value' => __( ' -- Clients -- ', 'task-manager' ),
-					'id' => 0
-				);
-				foreach ( $query->posts as $post ) {
-					$customers_founded[] = array(
-						'label' => '#' . $post->ID . ' ' . $post->post_title,
-						'value' => '#' . $post->ID . ' ' . $post->post_title,
-						'id'    => $post->ID,
-					);
-				}
+		if ( ! empty( $query->posts ) ) {
+			foreach( $query->query[ 'post_type' ] as $post_type_title){
+				$posttype_found[ $post_type_title ] = array();
 			}
 
-			if ( empty( $customers_founded ) ) { // Aucun client trouvé
-				$customers_founded[] = array(
-					'label' => __( 'No client found', 'task-manager' ),
-					'value' => __( 'No client found', 'task-manager' ),
-					'id'    => 0,
+			foreach ( $query->posts as $post ) {
+				if( $post->post_type == "wpshop_shop_order" ){ // 19/04/2019 -> Exception car WP SHOP v1 oblige une nouvelle requete
+					$order_meta = get_post_meta( $post->ID, '_order_postmeta', true ); // A supprimer A la sortie de WPSHOP V2
+					$posttype_found[ $post->post_type ][] = array( //
+						'label' => $order_meta[ 'order_temporary_key'] ? $order_meta[ 'order_temporary_key'] : $order_meta[ 'order_key'], //
+						'value' => $order_meta[ 'order_temporary_key'] ? $order_meta[ 'order_temporary_key'] : $order_meta[ 'order_key'], //
+						'id'    => $post->ID //
+					); //
+					continue; //
+				} //
+
+				$posttype_found[ $post->post_type ][] = array(
+					'label' => $post->post_title,
+					'value' => $post->post_title,
+					'id'    => $post->ID
 				);
 			}
+		}
 
-			$query_command = new \WP_Query(
-				array(
-					'post_type'   => 'wpshop_shop_order',
-					'post_status' => array( 'publish', 'inherit', 'draft' ),
-					'posts_per_page' => -1
-				)
+		if ( empty( $posttype_found ) ) { // Aucun post type trouvé
+			$posttype_found[] = array(
+				'label' => __( 'No post type found', 'task-manager' ),
+				'value' => __( 'No post type found', 'task-manager' ),
+				'id'    => 0,
 			);
-
-			if ( ! empty( $query_command->posts ) ) {
-				$commands_founded[] = array(
-					'label' => __( ' -- Commands -- ', 'task-manager' ),
-					'value' => __( ' -- Commands -- ', 'task-manager' ),
-					'id' => 0
-				);
-				foreach ( $query_command->posts as $command ) {
-					$comand_meta = get_post_meta( $command->ID, '_order_postmeta', true );
-					$commands_founded[] = array(
-						'label' => '#' . $command->ID . ' ' . $comand_meta[ 'order_temporary_key'],
-						'value' => '#' . $command->ID . ' ' . $comand_meta[ 'order_temporary_key'],
-						'id'    => $command->ID
-					);
-				}
-			}
-
-			if ( empty( $commands_founded ) ) { // Aucun client trouvé
-				$commands_founded[] = array(
-					'label' => __( 'No command found', 'task-manager' ),
-					'value' => __( 'No command found', 'task-manager' ),
-					'id'    => 0,
-				);
-			}
-
-			$data = array();
-			$data = array_merge($customers_founded,$commands_founded );
+		}
 
 			ob_start();
 
@@ -680,7 +652,7 @@ class Task_Action {
 				'task',
 				'backend/list_parent_element',
 				array(
-					'data' => $data,
+					'data' => $posttype_found,
 				)
 			);
 

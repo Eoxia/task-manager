@@ -22,11 +22,17 @@ defined( 'ABSPATH' ) || exit; ?>
 			<span class="wpeo-task-link">
 				<i class="far fa-link"></i>
 			</span>
+			#<?php echo esc_html( $task->data['parent_id'] ) ?> -
 			<a class="wpeo-tooltip-event"
-				aria-label="<?php echo esc_attr( $task->data['parent']->post_title ); ?>"
-				target="_blank" href="<?php echo admin_url( 'post.php?post=' . $task->data['parent_id'] . '&action=edit' ); ?>">
+			style="font-size: 18px"
+			aria-label="<?php echo esc_attr( $task->data['parent']->displayed_post_title ); ?>"
+			target="_blank" href="<?php echo admin_url( 'post.php?post=' . $task->data['parent_id'] . '&action=edit' ); ?>">
 				<?php echo esc_html( $task->data['parent']->displayed_post_title ); ?>
 			</a>
+			<i>
+				<?php $name_posttype = get_post_type_object( $task->data['parent']->post_type ); ?>
+				<?php echo esc_html( $name_posttype->label ) ?>
+			</i>
 		</li>
 		<li style="float: right; margin-top: -28px; cursor : pointer">
 			<span class="wpeo-task-link tm-task-delink-parent" data-id="<?php echo esc_html( $task->data[ 'id' ] ); ?>">
@@ -47,7 +53,8 @@ defined( 'ABSPATH' ) || exit; ?>
 		<li class="wpeo-tag add_parent_to_task wpeo-button button-grey button-radius-3"
 		data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_all_task_parent_data' ) ); ?>"
 		data-request_send="false"
-		data-id="<?php echo esc_html( $task->data[ 'id' ] ) ?>">
+		data-id="<?php echo esc_html( $task->data[ 'id' ] ) ?>"
+		style="font-size: initial;">
 			<i class="far fa-link"></i>
 			<i class="fas fa-plus"></i>
 		</li>
