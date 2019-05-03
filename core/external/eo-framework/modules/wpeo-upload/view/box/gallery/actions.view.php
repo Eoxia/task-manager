@@ -37,6 +37,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 				data-action="eo_upload_dissociate_file"
 				<?php echo WPEO_Upload_Class::g()->out_all_attributes( $data ); // WPCS: XSS is ok. ?>
 				data-file-id="<?php echo esc_attr( $main_picture_id ); ?>"
-				class="edit-thumbnail-id action-attribute dissociate-thumbnail" ><i class="icon far fa-unlink fa-fw"></i></a>
+				class="edit-thumbnail-id action-attribute dissociate-thumbnail" ><i class="icon fas fa-unlink fa-fw"></i></a>
 	</li>
 </ul>

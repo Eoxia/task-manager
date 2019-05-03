@@ -42,7 +42,7 @@ if ( ! window.eoxiaJS.tab ) {
 	 * @returns {void} [description]
 	 */
 	window.eoxiaJS.tab.event = function() {
-	  jQuery( document ).on( 'click', '.wpeo-tab .tab-element:not(.wpeo-dropdown)', window.eoxiaJS.tab.load );
+	  jQuery( document ).on( 'click', '.wpeo-tab li.tab-element:not(.wpeo-dropdown)', window.eoxiaJS.tab.load );
 	};
 
 	/**

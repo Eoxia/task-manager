@@ -76,6 +76,28 @@ if ( ! class_exists( '\eoxia\WPEO_Upload_Action' ) ) {
 
 			$view          = '';
 			$document_view = '';
+
+			if ( ! empty( $data['file_id'] ) && ! empty( $data['upload_dir'] ) ) {
+				$wp_upload_dir = wp_upload_dir();
+				$path          = str_replace( '\\', '/', $wp_upload_dir['path'] );
+				$basedir       = str_replace( '\\', '/', $wp_upload_dir['basedir'] );
+				$baseurl       = str_replace( '\\', '/', $wp_upload_dir['baseurl'] );
+
+				$file      = get_post( $data['file_id'] );
+				$file_path = str_replace( $wp_upload_dir['url'], $path, $file->guid );
+				$basename  = basename( $file->guid );
+				$new_path  = $basedir . '/' . $data['upload_dir'] . '/' . $basename;
+				$new_url   = $baseurl . '/' . $data['upload_dir'] . '/' . $basename;
+
+				rename( $file_path, $new_path );
+
+				global $wpdb;
+
+				$wpdb->query( $wpdb->prepare("UPDATE {$wpdb->posts} SET guid=%s WHERE ID=%d", array( $new_url, $data['file_id'] ) ) );
+				update_post_meta( $data['file_id'], '_wp_attached_file', $data['upload_dir'] . '/' . $basename );
+				set_post_type( $data['file_id'], 'wps-file' );
+			}
+
 			// If post ID is not empty.
 			if ( ! empty( $data['id'] ) ) {
 				if ( 'true' === $data['single'] ) {
@@ -94,7 +116,7 @@ if ( ! class_exists( '\eoxia\WPEO_Upload_Action' ) ) {
 				}
 			} else {
 				if ( 'application' === $data['mime_type'] ) {
-					$document_view = '<div class="document"><i class="icon far fa-paperclip"></i></div>';
+					$document_view = '<div class="document"><i class="icon fas fa-paperclip"></i></div>';
 				}
 			}
 

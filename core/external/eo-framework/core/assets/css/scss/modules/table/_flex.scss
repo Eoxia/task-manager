@@ -56,7 +56,11 @@
 		$y: $w*$i;
 		&.table-#{$y} {
 		    max-width: #{$y}px;
+		    min-width: #{$y}px;
 		}
+	}
+	&.table-full {
+		width: 100%;
 	}
 }
 

@@ -42,7 +42,7 @@ defined( 'ABSPATH' ) || exit; ?>
 				?>
 
 				<input id="<?php echo esc_attr( $atts['id'] ); ?>" autocomplete="off" placeholder="Recherche..." class="autocomplete-search-input" type="text" value="<?php echo esc_attr( $atts['value'] ); ?>" />
-				<span class="autocomplete-icon-after"><i class="far fa-times"></i></span>
+				<span class="autocomplete-icon-after"><i class="fas fa-times"></i></span>
 			</label>
 			<ul class="autocomplete-search-list" style="overflow-y: scroll; max-height: 300px;"></ul>
 		</div>

@@ -59,6 +59,7 @@ if ( ! class_exists( '\eoxia\WPEO_Upload_Shortcode' ) ) {
 				'single'       => 'true',                              // One media or more.
 				'mime_type'    => 'image',                             // Can be application, image, audio or empty for all mime types. By default "image".
 				'display_type' => 'box',                               // Can be box or list. By default box.
+				'upload_dir'   => '',                                  // Empty for default WordPress upload dir.
 			), $atts );
 
 			// Convert "//" to "\".
