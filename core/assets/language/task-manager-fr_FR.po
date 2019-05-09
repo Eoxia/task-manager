@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2019-04-29 10:07+0200\n"
-"PO-Revision-Date: 2019-04-29 10:09+0200\n"
+"POT-Creation-Date: 2019-05-09 14:48+0200\n"
+"PO-Revision-Date: 2019-05-09 14:49+0200\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -101,22 +101,46 @@ msgstr "Etes vous sûr de vouloir délié cette tache de son parent ?"
 
 #: core/action/task_manager.action.php:130
 msgid "Horizontal summary"
-msgstr ""
+msgstr "Résumé horizontal"
 
 #: core/action/task_manager.action.php:131
 msgid "Doghnut summary"
-msgstr ""
+msgstr "Résumé donut"
 
 #: core/action/task_manager.action.php:132
 msgid "Do you want to delete your text ?"
 msgstr "Êtes-vous sur(e) de vouloir supprimer ce texte ?"
 
-#: core/action/task_manager.action.php:165
+#: core/action/task_manager.action.php:133
+msgid "Error Category"
+msgstr ""
+
+#: core/action/task_manager.action.php:134
+msgid "This category doesn't exist : "
+msgstr "Cette catégorie n'existe pas : "
+
+#: core/action/task_manager.action.php:135
+#, fuzzy
+#| msgid "Do you want to delete your text ?"
+msgid "What do you want to do ?"
+msgstr "Êtes-vous sur(e) de vouloir supprimer ce texte ?"
+
+#: core/action/task_manager.action.php:136
+msgid "Nothing"
+msgstr ""
+
+#: core/action/task_manager.action.php:137
+#, fuzzy
+#| msgid "Create "
+msgid "Create it ?"
+msgstr "Créé "
+
+#: core/action/task_manager.action.php:170
 #: module/comment/view/backend/comment.view.php:52
 msgid "Delete this comment ?"
 msgstr "Voulez vous supprimer ce commentaire ?"
 
-#: core/action/task_manager.action.php:210
+#: core/action/task_manager.action.php:215
 #: module/audit/view/audit-import-button.view.php:39
 #: module/audit/view/audit-page/metabox-importbutton.view.php:39
 #: module/import/view/backend/import-textarea.view.php:20
@@ -124,7 +148,7 @@ msgstr "Voulez vous supprimer ce commentaire ?"
 msgid "Task"
 msgstr "Tâche"
 
-#: core/action/task_manager.action.php:211
+#: core/action/task_manager.action.php:216
 msgid "Customer"
 msgstr "Client"
 
@@ -360,8 +384,8 @@ msgstr "Editer ce commentaire"
 msgid "Delete this comment"
 msgstr "Supprimer ce commentaire"
 
-#: module/comment/view/backend/edit.view.php:33
-#: module/comment/view/backend/edit.view.php:35
+#: module/comment/view/backend/edit.view.php:34
+#: module/comment/view/backend/edit.view.php:36
 #: module/comment/view/frontend/edit.view.php:33
 msgid "Your comment here..."
 msgstr "Écrire ce commentaire ici..."
@@ -559,7 +583,7 @@ msgstr "Les historiques de temps"
 msgid "No history time for now"
 msgstr "Aucun historique de temps pour le moment"
 
-#: module/import/action/class-import-action.php:90
+#: module/import/action/class-import-action.php:92
 msgid "No content have been given for import"
 msgstr "Aucun contenu n'a été fourni pour l'import"
 
@@ -568,11 +592,11 @@ msgstr "Aucun contenu n'a été fourni pour l'import"
 msgid "Import points from text file in : %s"
 msgstr "Import de points depuis un fichier texte dans la tâche : %s"
 
-#: module/import/view/backend/import-textarea.view.php:28
+#: module/import/view/backend/import-textarea.view.php:32
 #, fuzzy
-#| msgid "Tags"
-msgid "Tag"
-msgstr "Mots clés"
+#| msgid "Categories"
+msgid "Categorie"
+msgstr "Catégories"
 
 #: module/indicator/action/indicator.action.php:62
 #: module/indicator/action/indicator.action.php:64
@@ -779,11 +803,13 @@ msgid "Create categories"
 msgstr "Créer des catégories"
 
 #: module/notify/action/notify.action.php:148
+#: module/notify/class/notify.class.php:72
 #, php-format
 msgid "The task #%1$d %2$s"
 msgstr "La tâche #%1$d %2$s"
 
 #: module/notify/action/notify.action.php:150
+#: module/notify/class/notify.class.php:74
 msgid "This mail has been send automaticly"
 msgstr "Ce message à été envoyé automatiquement"
 
@@ -793,12 +819,43 @@ msgid "#%1$d %2$s send by %3$s (%4$s)"
 msgstr "#%1$d %2$s envoyé par %3$s (%4$s)"
 
 #: module/notify/action/notify.action.php:160
+#: module/notify/class/notify.class.php:99
 msgid "Customer link"
 msgstr "Lien vers le client"
 
 #: module/notify/action/notify.action.php:162
 msgid "Task link"
 msgstr "Lien vers la tâche"
+
+#: module/notify/class/notify.class.php:78
+#, fuzzy, php-format
+#| msgid "You have been notified by"
+msgid "You have been notified by %3$s (%4$s)"
+msgstr "Vous avez était notifié par"
+
+#: module/notify/class/notify.class.php:83
+#, fuzzy
+#| msgid "Task"
+msgid "Task "
+msgstr "Tâche"
+
+#: module/notify/class/notify.class.php:84
+#, fuzzy
+#| msgid "Point"
+msgid "Point "
+msgstr "Point"
+
+#: module/notify/class/notify.class.php:85
+#, fuzzy
+#| msgid "Comment"
+msgid "Comment "
+msgstr "Commentaire"
+
+#: module/notify/class/notify.class.php:101
+#, fuzzy
+#| msgid "Point options"
+msgid "Point link"
+msgstr "Options du point"
 
 #: module/notify/view/backend/button.view.php:22
 msgid "Send notification"
@@ -1259,7 +1316,7 @@ msgstr "Aucun post type trouvé"
 msgid "Task for %1$s"
 msgstr "Tâche pour %1$s"
 
-#: module/task/view/backend/main.view.php:26
+#: module/task/view/backend/main.view.php:32
 msgid "Load more task..."
 msgstr "Chargement de tâche supplémentaire..."
 
@@ -1593,6 +1650,11 @@ msgstr "Une erreur est survenu lors de la modification de la tâche %d"
 msgid "%1$d tasks have been marked as archived on %2$d"
 msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
 
+#, fuzzy
+#~| msgid "Tags"
+#~ msgid "Tag"
+#~ msgstr "Mots clés"
+
 #~ msgid "Back to list audit"
 #~ msgstr "Liste des audits"
 
@@ -1693,9 +1755,6 @@ msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
 
 #~ msgid "Update task"
 #~ msgstr "Mettre à jour la tâche"
-
-#~ msgid "Point options"
-#~ msgstr "Options du point"
 
 #~ msgid "Task options"
 #~ msgstr "Options"

@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<!-- Bouton précédent -->
 		<li class="pagination-element pagination-prev" data-pagination="<?php echo esc_html( $offset - 1 > 0 ? $offset - 1 : 1 ); ?>">
 			<a>
-				<i class="pagination-icon far fa-long-arrow-alt-left fa-fw"></i>
+				<i class="pagination-icon fas fa-long-arrow-alt-left fa-fw"></i>
 				<span><?php echo esc_html( 'Previous' ) ?></span>
 			</a>
 		</li>
@@ -42,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		data-pagination="<?php echo esc_html( $offset + 1 < $count_tasks ? $offset + 1 : $count_tasks ) ?>">
 			<a>
 				<span><?php echo esc_html( 'Next' ) ?></span>
-				<i class="pagination-icon far fa-long-arrow-alt-right fa-fw"  ></i>
+				<i class="pagination-icon fas fa-long-arrow-alt-right fa-fw"  ></i>
 			</a>
 		</li>
 	</ul>

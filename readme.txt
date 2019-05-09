@@ -3,8 +3,8 @@ Contributors: Eoxia
 Donate link:
 Tags: task, tasks, management, manager, collaboration, dashboard, organizer, project management, project manager, projects, task lists, task management, task manager, Time Tracking, to do, to do list, todo, todo list
 Requires at least: 4.4.0
-Tested up to: 4.9.6
-Stable tag: 1.8.0
+Tested up to: 5.2.0
+Stable tag: 1.10.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.fr.html
 
@@ -63,6 +63,20 @@ No questions asked yet.
 5. See the history
 
 == Changelog ==
+
+= 1.10.0 =
+
+= Improvment =
+
+* 23284 - Update search functionnality
+* 30182 - AutoComplete : Tag an admin user with the command '@UserName'
+* 30921 - Import Catégorie : Import a TAG link to a task
+* 30465 - Indicator Client : Table show all time elapsed for client (deadline and recursive task)
+* 28906 - Audit Client and PageAudit : Create audit and link task
+* 30465 - Indicator Page : Module client show all time elapsed from actual month
+* 31048 - Indicator Task : In task 'display Activity' mod, show a summary of point (complete / uncomplete )
+* 27612 - Quicktime Mode : New design and new page to display a quicktime task
+* 29841 - Limit display task's client / comment's task des taches clients : Paging task display (> 5) and comment (> 10)
 
 = 1.9.0 =
 
@@ -306,56 +320,56 @@ No questions asked yet.
  * 3725 - Frontend : Javascrit is now enabled.
 
 = 1.3.0.1 =
-= AmÃ©lioration / Improvment =
- * 3435 - Backend : Ajout de la date de fin prÃ©vue.
- * 3436 - Backend : Ajout d'un champ permettant d'associer une tÃ¢che vers un Ã©lÃ©ment.
- * 3454 - Ajout de traduction supplÃ©mentaire.
+= Amélioration / Improvment =
+ * 3435 - Backend : Ajout de la date de fin prévue.
+ * 3436 - Backend : Ajout d'un champ permettant d'associer une tâche vers un élément.
+ * 3454 - Ajout de traduction supplémentaire.
 
  = Correction / Fix =
  * 3433 - Backend : initiales des avatars sont maintenant en majuscules.
- * 3452 - Le plugin est maintenant prÃªt pour la traduction : https://translate.wordpress.org/projects/wp-plugins/task-manager.
+ * 3452 - Le plugin est maintenant prèt pour la traduction : https://translate.wordpress.org/projects/wp-plugins/task-manager.
 
 = 1.3.0.0 =
-= AmÃ©lioration / Improvment =
- * 3094 - Page "Users.php" de WordPress : Le temps de prÃ©sence est maintenant en heure.
+= Amélioration / Improvment =
+ * 3094 - Page "Users.php" de WordPress : Le temps de présence est maintenant en heure.
  * 3097 - Ajout du support pour translate.wordpress.com.
- * 3065 - La demande de tÃ¢che faites par un client ajoutes un point dans une tÃ¢che prÃ©alablement crÃ©e par l'administrateur ou par le script si elle n'existe pas.
- * 3066 - Frontend : Le nombre de point terminÃ© d'une tÃ¢che est maintenant affichÃ©.
- * 3073 - Frontend : Le bouton demande de tÃ¢che est maintenant renommÃ© demande de ticket.
- * 2954 - Chronologie : Historique de date quand on complÃ¨te ou dÃ©-complÃ¨te un point .
- * 2971 - Chronologie : Historique des derniers commentaires ajoutÃ©s.
- * 2972 - Chronologie : Affichages des points crÃ©er par un utilisateur entre une pÃ©riode.
- * 2973 - Chronologie : Affichages des tÃ¢ches crÃ©er entre une pÃ©riode.
- * 2974 - Chronologie : Affichage du temps travaillÃ© entre une pÃ©riode.
- * 2975 - Chronologie : Affichage des points complÃ©tÃ©s entre une pÃ©riode.
- * 2976 - Chronologie : Affichage du temps de prÃ©sence entre une pÃ©riode.
- * 2977 - Chronologie : Affichage du temps passÃ© par projet entre une pÃ©riode.
- * 2978 - Chronologie : RÃ©capitulatif de chaque jour.
+ * 3065 - La demande de tâche faites par un client ajoutes un point dans une tâche préalablement crée par l'administrateur ou par le script si elle n'existe pas.
+ * 3066 - Frontend : Le nombre de point terminé d'une tâche est maintenant affiché.
+ * 3073 - Frontend : Le bouton demande de tâche est maintenant renommé demande de ticket.
+ * 2954 - Chronologie : Historique de date quand on complète ou dé-complète un point .
+ * 2971 - Chronologie : Historique des derniers commentaires ajoutés.
+ * 2972 - Chronologie : Affichages des points créer par un utilisateur entre une période.
+ * 2973 - Chronologie : Affichages des tâches créer entre une période.
+ * 2974 - Chronologie : Affichage du temps travaillé entre une période.
+ * 2975 - Chronologie : Affichage des points complétés entre une période.
+ * 2976 - Chronologie : Affichage du temps de présence entre une période.
+ * 2977 - Chronologie : Affichage du temps passé par projet entre une période.
+ * 2978 - Chronologie : Récapitulatif de chaque jour.
  * 3035 - Chronologie : Voir les autres utilisateurs dans la timeline.
  * 3036 - Chronologie : Traduction de la page.
  * 3037 - Chronologie : Design du menu.
- * 3101 - Chronologie : Ordre d'affichage par date dÃ©croissant.
- * 3084 - Chronologie : Mise Ã  jour des requÃªtes SQL pour rÃ©cupÃ©rer les informations par jour dans la page.
+ * 3101 - Chronologie : Ordre d'affichage par date décroissant.
+ * 3084 - Chronologie : Mise à jour des requètes SQL pour récupérer les informations par jour dans la page.
  * 3319 - WPShop : La liste des clients pour la recherche est plus simple intuitif.
  * 3399 - Backend : Ajouter une option pour exporter les commentaires des points.
  * 3074 - Backend : Ajout de jQuery DatePicker dans les commentaires.
- * 2946 - Backend : Ajout de la fonction "get_task_by_comment_user_id_and_date" permettant de rÃ©cupÃ©rer le temps passÃ© sur une tÃ¢che pour un utilisateur entre deux dates.
- * 2947 - Backend : Ajout de la fonction "get_list_point_by_comment_user_id" permettant de rÃ©cupÃ©rer les points ou un utilisateur Ã  commentÃ©.
- * 2949 - Backend : Ajout de la fonction "get_list_point_by_comment_user_id_and_date" permettant de rÃ©cupÃ©rer les points ou un utilisateur Ã  commentÃ© entre deux dates.
- * 2952 - Backend : Ajout de la fonction "get_created_point_by_user_id_and_date" permettant de rÃ©cupÃ©rer les points crÃ©er par un utilisateur par rapport Ã  une pÃ©riode.
+ * 2946 - Backend : Ajout de la fonction "get_task_by_comment_user_id_and_date" permettant de récupérer le temps passé sur une tâche pour un utilisateur entre deux dates.
+ * 2947 - Backend : Ajout de la fonction "get_list_point_by_comment_user_id" permettant de récupérer les points ou un utilisateur à commenté.
+ * 2949 - Backend : Ajout de la fonction "get_list_point_by_comment_user_id_and_date" permettant de récupérer les points ou un utilisateur à commenté entre deux dates.
+ * 2952 - Backend : Ajout de la fonction "get_created_point_by_user_id_and_date" permettant de récupérer les points créer par un utilisateur par rapport à une période.
 
 = Correction / Fix =
- * 3072 - Frontend : Quand on cliquez sur "Point completÃ©s", les points completÃ©es de chaque tÃ¢che s'ouvrÃ©es.
- * 3095 - Chronologie : Le temps travaillÃ© Ã©tait erronÃ©.
- * 3099 - WPShop : Si aucun message par un client est trouvÃ©, le bloc en dessous de la barre des filtres n'est pas affichÃ©.
- * 3193 - WPShop : Les demandes faites par les clients sont maintenant correctement affichÃ©.
- * 3401 - WPShop : Le slug de la tÃ¢che "ask-task-$client_id" faites par les clients WPShop n'est plus modifiÃ© quand on clique sur le titre de la tÃ¢che.
+ * 3072 - Frontend : Quand on cliquez sur "Point completés", les points completées de chaque tâche s'ouvrées.
+ * 3095 - Chronologie : Le temps travaillé était erroné.
+ * 3099 - WPShop : Si aucun message par un client est trouvé, le bloc en dessous de la barre des filtres n'est pas affiché.
+ * 3193 - WPShop : Les demandes faites par les clients sont maintenant correctement affiché.
+ * 3401 - WPShop : Le slug de la tâche "ask-task-$client_id" faites par les clients WPShop n'est plus modifié quand on clique sur le titre de la tâche.
  * 3277 - Backend : La modification d'un commentaire dans un point est maintenant plus intuitif.
- * 3320 - Backend : AprÃ¨s le dÃ©plaÃ§ement d'un point d'une tÃ¢che Ã  l'autre, on peut maintenant le trier.
+ * 3320 - Backend : Après le déplaÃ§ement d'un point d'une tâche à l'autre, on peut maintenant le trier.
 
 = 1.2.1.6 =
 = Correction / Fix =
- * 2957 - Correction du frontend pour faire une demande de tÃ¢che.
+ * 2957 - Correction du frontend pour faire une demande de tâche.
 
 = 1.2.1.5 =
 = Correction / Fix =
@@ -378,78 +392,78 @@ No questions asked yet.
  * Change log.
 
 = 1.2.1.0 =
-= AmÃ©lioration / Improvment =
- * 2557 - La fenÃªtre de droite n'est plus afficher Ã  l'ouverture la page / The right window isn't displayed on the opening page.
- * 2558 - Le slug de la tÃ¢che s'adapte au titre / The task slug adapt from the title.
- * 2559 - Affiches toutes les tÃ¢ches associÃ©es au client ou Ã  leurs commandes dans le compte client.
- * 2561 - Ajout des nonces de WordPress pour la sÃ©curitÃ©.
- * 2562 - Ne gÃ©nÃ¨re plus 2 caractÃ¨res d'affichage inatendu lors de l'activation.
- * 2569 - Ajout du shortcode [wpeo_task id='n'] pour afficher une tÃ¢che dans le front.
+= Amélioration / Improvment =
+ * 2557 - La fenètre de droite n'est plus afficher à l'ouverture la page / The right window isn't displayed on the opening page.
+ * 2558 - Le slug de la tâche s'adapte au titre / The task slug adapt from the title.
+ * 2559 - Affiches toutes les tâches associées au client ou à leurs commandes dans le compte client.
+ * 2561 - Ajout des nonces de WordPress pour la sécurité.
+ * 2562 - Ne génère plus 2 caractères d'affichage inatendu lors de l'activation.
+ * 2569 - Ajout du shortcode [wpeo_task id='n'] pour afficher une tâche dans le front.
  * 2572 - Affiches les gravatars sur les utilisateurs / Display gravatar on users.
- * 2579 - Le bouton "voir la tÃ¢che" n'est plus disponible.
+ * 2579 - Le bouton "voir la tâche" n'est plus disponible.
  * 2581 - Traduction du texte : Write your point here... en Ã‰crivez votre point ici...
  * 2590 - Animation quand on ajoutes et supprimes un point.
  * 2591 - Animation quand on modifie un utilisateur.
- * 2592 - Animation Ã  la fenÃªtre de droite.
+ * 2592 - Animation à la fenètre de droite.
  * 2604 - On peut maintenant changer le responsable.
- * 2606 - Toutes les rÃ©ponses des requÃªtes AJAX sont maintenant en JSON.
- * 2641 - On peut maintenant filtrer les tÃ¢ches des autres utilisateurs pour les voir.
- * 2643 - Quand l'extension WPShop est activÃ©e, on peut maintenant filtrer les tÃ¢ches par clients/commandes.
- * 2649 - Ajout d'un prÃ©fixe devant les catÃ©gories dans le code HTML.
- * 2654 - Le formulaire pour ajouter un commentaire Ã  un point Ã  Ã©tÃ© dÃ©placÃ© en haut de la liste des commentaires.
+ * 2606 - Toutes les réponses des requètes AJAX sont maintenant en JSON.
+ * 2641 - On peut maintenant filtrer les tâches des autres utilisateurs pour les voir.
+ * 2643 - Quand l'extension WPShop est activée, on peut maintenant filtrer les tâches par clients/commandes.
+ * 2649 - Ajout d'un préfixe devant les catégories dans le code HTML.
+ * 2654 - Le formulaire pour ajouter un commentaire à un point a été déplacé en haut de la liste des commentaires.
  * 2657 - Ajout des couleurs sur les utilisateurs.
- * 2658 - Toutes les mÃ©thodes AJAX laisses maintenant une trace dans le log.
+ * 2658 - Toutes les méthodes AJAX laisses maintenant une trace dans le log.
  * 2665 - Ajout des droits.
- * 2689 - Relancer le calcul du temps des tÃ¢ches manuellement, ajout du bouton "recompiler le temps".
- * 2707 - On peut maintenant transfÃ©rer les points sur une tÃ¢che vers une autre.
- * 2741 - Le bouton "Recompile time" est cachÃ©.
+ * 2689 - Relancer le calcul du temps des tâches manuellement, ajout du bouton "recompiler le temps".
+ * 2707 - On peut maintenant transférer les points sur une tâche vers une autre.
+ * 2741 - Le bouton "Recompile time" est caché.
  * 2742 - Le client WPShop peut ajouter un commentaire sur un point.
- * 2743 - Le client WPShop peut faire une demande de tÃ¢che.
- * 2770 - Manque la date de crÃ©ation de la tache.
- * 2790 - Ajout de CSS pour les nouvelles fonctionnalitÃ©es.
+ * 2743 - Le client WPShop peut faire une demande de tâche.
+ * 2770 - Manque la date de création de la tache.
+ * 2790 - Ajout de CSS pour les nouvelles fonctionnalitées.
  * 2860 - Nouvelle traduction.
- * 2704 - On peut dÃ©placer les points dans une tÃ¢che.
+ * 2704 - On peut déplacer les points dans une tâche.
  * 2870 - Infobulle sur les utilisateurs.
 
 = Correction / Fix =
- * 2676 - Augmenter la taille des gravatar dans les USER (32x32 actuellement) en 50x50 pour Ã©viter la pixellisation.
- * 2722 - Clear filter quand la tÃ¢che est fermÃ©.
+ * 2676 - Augmenter la taille des gravatar dans les USER (32x32 actuellement) en 50x50 pour éviter la pixellisation.
+ * 2722 - Clear filter quand la tâche est fermé.
  * 2724 - Avatar vide responsable.
- * 2831 - Lorsque qu'on appuie entrÃ©e pour envoyer un point vers une autre tÃ¢che, la page admin-ajax.php ne s'affiche plus.
- * 2832 - On ne peut plus envoyer un point vers une tÃ¢che inexistante.
- * 2833 - La croix pour fermer la fenÃªtre de droite est maintenant actif cotÃ© post type.
- * 2834 - RÃ©solution du problÃ¨me de Masonry qui faisait apparaÃ®tre la fenÃªtre de droite en dessous des autres fenÃªtres cotÃ© post type.
- * 2854 - Quand on supprime une tÃ¢che, toutes les tÃ¢ches sont affichÃ©es selon les filtres sÃ©lectionnÃ©.
+ * 2831 - Lorsque qu'on appuie entrée pour envoyer un point vers une autre tâche, la page admin-ajax.php ne s'affiche plus.
+ * 2832 - On ne peut plus envoyer un point vers une tâche inexistante.
+ * 2833 - La croix pour fermer la fenètre de droite est maintenant actif coté post type.
+ * 2834 - Résolution du problème de Masonry qui faisait apparaÃ®tre la fenètre de droite en dessous des autres fenètres coté post type.
+ * 2854 - Quand on supprime une tâche, toutes les tâches sont affichées selon les filtres sélectionné.
 
 = 1.2 =
  * 2021 - Affiches les taches actives pour la personne en premier / Display actives tasks for the user in the first display.
  * 2160 - Traduction / Translate.
- * 2219 - On peut maintenant Ã©diter un commentaire / Now you can edit a comment.
- * 2233 - Ajout des initiales pour l'utilisateur qui est responsable de la tÃ¢che / Add initial for the user who is in charge of the task.
- * 2235 - Supprimes le bouton "Archive" et utilises une catÃ©gorie pour gÃ©rer les archives / Delete the "Archive" button and manage archives with a category.
- * 2437 - Ajoutes la class "active" pour le point ciblÃ© / Add class "active" for the target point.
- * 2438 - Ajoutes une dashicons "close" pour fermer la fenÃªtre Ã  droite / Add dashicons "close" for exit the right window.
- * 2440 - Gravatar dans le header de la fenÃªtre de droite / Gravatar in the header on the right window.
- * 2441 - Lors de l'Ã©dition d'un commentaire ajoutes un loader / When edit comment add a loader.
- * 2443 - Ajoutes l'utilisateur qui Ã  crÃ©e le point / Add the creator of the point.
- * 2491 - Nouveau template pour la fenÃªtre de droite des points / New template for the right window points.
- * 2528 - Voir si le point est completÃ© ou pas dans la fenÃªtre Ã  droite / View if the point is completed or not in the right window.
- * 2529 - Voir le nombre de commentaire sur un point dans la fenÃªtre Ã  droite / View the number of comment on the point in the right window.
- * 2534 - Bouton mes tÃ¢ches affectÃ©es / Button affected task.
+ * 2219 - On peut maintenant éditer un commentaire / Now you can edit a comment.
+ * 2233 - Ajout des initiales pour l'utilisateur qui est responsable de la tâche / Add initial for the user who is in charge of the task.
+ * 2235 - Supprimes le bouton "Archive" et utilises une catégorie pour gérer les archives / Delete the "Archive" button and manage archives with a category.
+ * 2437 - Ajoutes la class "active" pour le point ciblé / Add class "active" for the target point.
+ * 2438 - Ajoutes une dashicons "close" pour fermer la fenètre à droite / Add dashicons "close" for exit the right window.
+ * 2440 - Gravatar dans le header de la fenètre de droite / Gravatar in the header on the right window.
+ * 2441 - Lors de l'édition d'un commentaire ajoutes un loader / When edit comment add a loader.
+ * 2443 - Ajoutes l'utilisateur qui à crée le point / Add the creator of the point.
+ * 2491 - Nouveau template pour la fenètre de droite des points / New template for the right window points.
+ * 2528 - Voir si le point est completé ou pas dans la fenètre à droite / View if the point is completed or not in the right window.
+ * 2529 - Voir le nombre de commentaire sur un point dans la fenètre à droite / View the number of comment on the point in the right window.
+ * 2534 - Bouton mes tâches affectées / Button affected task.
 
 = 1.1 =
  * Archive / Archiver.
- * Add the button "View task" / Ajout du bouton "Voir la tÃ¢che".
- * Use the Heart WordPress to refresh the content of the task / Utilises le cÅ“ur de WordPress pour actualiser le contenu d'une tÃ¢che.
- * Added block "Screen Options" to manage the user's viewing preferences / Ajout du bloc "Options de l'Ã©cran" pour gÃ©rer les prÃ©fÃ©rences d'affichage de l'utilisateur.
- * Manage display for tasks associated to another element / Gestion de l'affichage des tÃ¢ches affectÃ©es Ã  un Ã©lÃ©ment.
- * Create a controller module with the user / CrÃ©er un module avec le controller user.
- * Update some class CSS / Met Ã  jour quelques Ã©lements CSS.
+ * Add the button "View task" / Ajout du bouton "Voir la tâche".
+ * Use the Heart WordPress to refresh the content of the task / Utilises le cÅ“ur de WordPress pour actualiser le contenu d'une tâche.
+ * Added block "Screen Options" to manage the user's viewing preferences / Ajout du bloc "Options de l'écran" pour gérer les préférences d'affichage de l'utilisateur.
+ * Manage display for tasks associated to another element / Gestion de l'affichage des tâches affectées à un élément.
+ * Create a controller module with the user / Créer un module avec le controller user.
+ * Update some class CSS / Met à jour quelques élements CSS.
 
 
 = 1.0 =
- * CrÃ©er une tÃ¢che / Create a task.
- * CrÃ©er un point / Create a point.
- * Organiser vos tÃ¢ches / Organizing your tasks.
+ * Créer une tâche / Create a task.
+ * Créer un point / Create a point.
+ * Organiser vos tâches / Organizing your tasks.
  * Affecter des utilisateurs / Assign users.
- * Exporter une tÃ¢che ou plusieurs tÃ¢ches / Export a task or multiple tasks ( txt ).
+ * Exporter une tâche ou plusieurs tâches / Export a task or multiple tasks ( txt ).

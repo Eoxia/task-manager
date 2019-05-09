@@ -44,6 +44,8 @@ window.eoxiaJS.taskManager.comment.event = function() {
 		if ( ! jQuery( event.target).closest( ".wpeo-project-task" ).length) {
 			jQuery( '.point.edit' ).each( function (){
 				if ( jQuery( this ).closest( 'div.point' ).find( '.comments' ).is( ':visible' ) ) {
+					var element = jQuery( this ).closest( 'div.point' ).find( '.comments .comment-content-text input[type="hidden"]' ).val().trim();
+					element = element.replace(/\s/g,"-");
 					if( jQuery( this ).closest( 'div.point' ).find( '.comments .comment-content-text input[type="hidden"]' ).val().trim() != "" ){ // L'utilisateur est entrain d'écrire
 						if( confirm( window.indicatorString.delete_text ) ){
 							jQuery( 'div.point .comments:visible' ).slideUp( 400, function() {
