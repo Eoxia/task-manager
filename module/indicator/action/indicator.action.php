@@ -42,6 +42,11 @@ class Indicator_Action {
 		add_action( 'tm_action_after_comment_update', array( $this, 'callback_tm_add_entry_customer_ask' ) );
 		add_action( 'tm_customer_remove_entry_customer_ask', array( $this, 'callback_tm_remove_entry_customer_ask' ) );
 		add_action( 'tm_after_move_point_to', array( $this, 'callback_tm_after_move_point_to' ), 10, 2 );
+
+		add_action( 'wp_ajax_load_stats_indicator', array( $this, 'callback_load_stats_indicator' ) );
+		add_action( 'wp_ajax_update_indicator_stats', array( $this, 'callback_update_indicator_stats' ) );
+
+		add_action( 'wp_ajax_update_indicator_stats_deadline', array( $this, 'callback_update_indicator_stats_deadline' ) );
 	}
 
 
@@ -57,8 +62,7 @@ class Indicator_Action {
 		add_submenu_page( 'wpeomtm-dashboard', __( 'Indicator', 'task-manager' ), __( 'Indicator', 'task-manager' ), 'manage_task_manager', 'indicator-page', array( Indicator_Class::g(), 'callable_indicator_page' ) );
 		add_meta_box( 'tm-indicator-activity', __( 'Daily activity', 'task-manager' ), array( Indicator_Class::g(), 'callback_my_daily_activity' ), 'wpeomtm-dashboard', 'normal' );
 		add_meta_box( 'indicator-page-id', __( 'Indicator', 'task-manager' ), array( Indicator_Class::g(), 'callback_load_indicator_page' ), 'indicator-page', 'normal' );
-
-
+		add_meta_box( 'indicator-page-client', __( 'Indicator', 'task-manager' ), array( Indicator_Class::g(), 'callback_load_client_page' ), 'indicator-page', 'normal' );
 	}
 
 	/**
@@ -334,6 +338,135 @@ class Indicator_Action {
 				'namespace'        => 'taskManager',
 				'module'           => 'indicator',
 				'callback_success' => 'markedAsReadSuccess',
+			)
+		);
+	}
+
+	public function callback_load_stats_indicator(){
+		check_ajax_referer( 'load_stats_indicator' );
+
+		$customer_id = isset( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : 0;
+
+		if( ! $customer_id ){
+			wp_send_json_error();
+		}
+
+		$tasks = Task_Class::g()->update_client_indicator( $customer_id );
+
+		$year       = $tasks[ 'year' ];
+		$type       = $tasks[ 'type' ];
+		$info       = $tasks[ 'info' ];
+		$everymonth = $tasks[ 'everymonth' ];
+
+		$view = ob_start();
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'task',
+			'backend/metabox-head-indicator',
+			array(
+				'post_id'     => $customer_id,
+				'post_author' => 0,
+				'year'        => date( 'Y' ),
+				'parent_id'   => 0 //Inutilisé
+			)
+		);
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'task',
+			'backend/metabox-indicators',
+			array(
+				'type'       => $type,
+				'info'       => $info,
+				'everymonth' => $everymonth
+			)
+		);
+
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'indicator',
+				'callback_success' => 'updateIndicatorClientSuccess',
+				'view'             => ob_get_clean(),
+				'year'             => $year
+			)
+		);
+	}
+
+	public function callback_update_indicator_stats(){
+		check_ajax_referer( 'update_indicator_stats' );
+
+		$date = isset( $_POST[ 'month' ] ) ? strtotime( $_POST[ 'month'] ) : strtotime( 'now' );
+
+		$month = array(
+			'value'     => date( 'F', $date ),
+			'start'     => date( 'Y-m-01', $date ), // premier jour du mois actuel
+			'start_str' => strtotime( date( 'Y-m-01', $date ) ), // 00h00min00sec
+			'end'       => date( 'Y-m-t',$date ), // dernier jour du mois actuel
+			'end_str'   => strtotime( date( 'Y-m-t', $date ) ) + 86399 // 23h59min59sec
+		);
+
+		$customers = Indicator_Class::g()->callback_load_client_page( $month );
+
+		ob_start();
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'indicator',
+			'backend-stats/indicator-main',
+			array(
+				'date'  => $month,
+				'customers' => $customers,
+				'element' => 'recursive'
+			)
+		);
+
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'indicator',
+				'callback_success' => 'updateStatsClient',
+				'view'             => ob_get_clean()
+			)
+		);
+	}
+
+	public function callback_update_indicator_stats_deadline(){
+		check_ajax_referer( 'update_indicator_stats_deadline' );
+
+		$date    = isset( $_POST[ 'month' ] ) ? strtotime( $_POST[ 'month'] ) : strtotime( 'now' );
+		$element = isset( $_POST[ 'type' ] ) ? $_POST[ 'type'] : '';
+
+		$month = array(
+			'value'     => date( 'F', $date ),
+			'start'     => date( 'Y-m-01', $date ), // premier jour du mois actuel
+			'start_str' => strtotime( date( 'Y-m-01', $date ) ), // 00h00min00sec
+			'end'       => date( 'Y-m-t',$date ), // dernier jour du mois actuel
+			'end_str'   => strtotime( date( 'Y-m-t', $date ) ) + 86399 // 23h59min59sec
+		);
+
+		$customers = Indicator_Class::g()->callback_load_client_deadline( $month );
+
+		ob_start();
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'indicator',
+			'backend-stats/indicator-main',
+			array(
+				'date'      => $month,
+				'customers' => $customers,
+				'element'   => $element
+			)
+		);
+
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'indicator',
+				'callback_success' => 'updateStatsClient',
+				'view'             => ob_get_clean()
 			)
 		);
 	}

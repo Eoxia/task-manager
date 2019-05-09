@@ -137,3 +137,16 @@ z-index: 26; }
       .tm_list_parent_li_element:hover{
         background: rgba(0,0,0,0.05);
       }
+
+      .tm_list_administrator.active{
+        /*background: rgba(0,0,0,0.05);*/
+        background: rgba(0,0,0,0.05);
+      }
+
+      .tm_list_administrator:hover + .tm_list_administrator.active{
+        background: none;
+      }
+
+      .tm_list_administrator:hover{
+        background: rgba(0,0,0,0.05);
+      }

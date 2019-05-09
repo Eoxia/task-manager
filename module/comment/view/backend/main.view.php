@@ -16,8 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-- - -
-
 \eoxia\View_Util::exec(
 	'task-manager',
 	'comment',
@@ -28,9 +26,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		'comment'  => $comment_schema,
 	)
 );
-
-- - -
-
 
 \eoxia\View_Util::exec(
 	'task-manager',

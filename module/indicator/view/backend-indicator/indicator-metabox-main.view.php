@@ -60,40 +60,43 @@ if ( ! defined( 'ABSPATH' ) ) {
 </div>
 		<div>
 			<br>
-			<button class="wpeo-button button-radius-3 action-input button-red"
-data-time='day'
+			<button class="wpeo-button button-radius-3 action-input"
+				data-time='day'
 				data-parent="wpeo-form"
 				data-nonce="<?php echo esc_attr( wp_create_nonce( 'validate_indicator' ) ); ?>"
-				data-action="validate_indicator">
+				data-action="validate_indicator"
+				style="background : #7ACCF3; border-color : #7ACCF3">
 
 				<?php esc_html_e( 'Day', 'task-manager' ); ?>
 			</button>
-			<button class="wpeo-button button-radius-3 action-input button-blue"
+			<button class="wpeo-button button-radius-3 action-input"
 				data-time='week'
 				data-parent="wpeo-form"
 				data-nonce="<?php echo esc_attr( wp_create_nonce( 'validate_indicator' ) ); ?>"
-				data-action="validate_indicator">
+				data-action="validate_indicator"
+				style="background : #46C8F3; border-color : #46C8F3">
 
 				<?php esc_html_e( 'Week', 'task-manager' ); ?>
 			</button>
-			<button class="wpeo-button button-radius-3 action-input button-yellow"
+			<button class="wpeo-button button-radius-3 action-input"
 				data-time='month'
 				data-parent="wpeo-form"
 				data-nonce="<?php echo esc_attr( wp_create_nonce( 'validate_indicator' ) ); ?>"
-				data-action="validate_indicator">
+				data-action="validate_indicator"
+				style="background : #17A3D2; border-color : #17A3D2">
+
 
 				<?php esc_html_e( 'Month', 'task-manager' ); ?>
 			</button>
 			<input type="hidden" name="list_follower" id="tm_indicator_list_followers" value="">
 
-			<div id="tm_indicator_chart_display" style="float : right; display : none" data-chart-display="horizontalBar">
-				<div id="tm_indicator_chart_horizontalBar" class="wpeo-button button-dark button-square-40 button-rounded clickontypechart"  data-chart-type='horizontalBar'>
-					<i class="far fa-align-left"></i>
-				</div>
-				<div id="tm_indicator_chart_bar" class="wpeo-button button-grey button-dark button-square-40 button-rounded clickontypechart" data-chart-type='bar'>
-					<i class="far fa-chart-bar"></i>
-				</div>
-			</div>
+			<?php
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'indicator',
+				'backend-indicator/indicator-button-display',
+				array()
+			); ?>
 		</div>
 	</div>
 </form>

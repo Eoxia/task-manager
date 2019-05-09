@@ -51,12 +51,33 @@ class Task_Comment_Action {
 		$point_id     = ! empty( $_POST[ 'point_id' ] ) ? (int) $_POST[ 'point_id' ] : 0;
 		$frontend     = ( isset( $_POST[ 'frontend' ] ) && 'true' == $_POST[ 'frontend' ] ) ? true : false;
 		$number = ! empty( $_POST[ 'number' ] && $_POST[ 'number' ] > 0 ) ? (int) $_POST[ 'number' ] : 10; // On affiche 10 Commentaires / point
-		$offset = ! empty( $_POST[ 'offset' ] && $_POST[ 'offset' ] >= 0 ) ? (int) $_POST[ 'offset' ] : 0; // On commence à l'élément 0 ( triè par date par défault )
+		$offset = ! empty( $_POST[ 'offset' ] && $_POST[ 'offset' ] >= 0 ) ? (int) $_POST[ 'offset' ] : 0; // On commence à l'élément 0 (triè par date par défault)
 
 		$args = array(
 			'number' => $number,
 			'offset' => $offset
 		);
+
+		$followers = Follower_Class::g()->get( // Auto complete
+			array(
+				'role' => array(
+					'administrator',
+				),
+			)
+		);
+
+		ob_start();
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'comment',
+			'backend/admin-tag-autocomplete',
+			array(
+				'followers' => $followers,
+			)
+		);
+
+		$follower_view = ob_get_clean(); // - - - - - -
 
 		ob_start();
 		Task_Comment_Class::g()->display( $task_id, $point_id, $frontend, $args );
@@ -66,6 +87,7 @@ class Task_Comment_Action {
 				'namespace'        => $frontend ? 'taskManagerFrontend' : 'taskManager',
 				'module'           => 'comment',
 				'callback_success' => 'loadedCommentsSuccess',
+				'follower_view'    => $follower_view
 			)
 		);
 	}
@@ -87,6 +109,9 @@ class Task_Comment_Action {
 		$content    = ! empty( $_POST['content'] ) ? trim( $_POST['content'] ) : '';
 		$time       = ! empty( $_POST['time'] ) ? (int) $_POST['time'] : 0;
 		$frontend   = ( isset( $_POST['frontend'] ) && 'true' == $_POST['frontend'] ) ? true : false;
+		$notif      = ( isset( $_POST['notif'] ) && ! empty( $_POST['notif'] ) ) ? $_POST['notif']  : array();
+
+
 
 		// $elemnt_replace = array( '<div>', '</div>' );
 		// $content = str_replace( $elemnt_replace, '<br>', trim( $content ) );
@@ -151,6 +176,10 @@ class Task_Comment_Action {
 		$view = 'backend';
 		if ( $frontend ) {
 			$view = 'frontend';
+		}
+
+		if( ! empty( $notif ) ){
+			Notify_Class::g()->send_notification_followers_are_tags( $notif, $post_id, $parent_id, $comment->data[ 'id' ] );
 		}
 
 		ob_start();

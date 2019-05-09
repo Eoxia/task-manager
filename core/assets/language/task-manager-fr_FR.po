@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2019-04-19 14:12+0200\n"
-"PO-Revision-Date: 2019-04-19 14:16+0200\n"
+"POT-Creation-Date: 2019-04-29 10:07+0200\n"
+"PO-Revision-Date: 2019-04-29 10:09+0200\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -99,12 +99,24 @@ msgstr "Aucun point"
 msgid "Do you really want to delink this task from her parent ?"
 msgstr "Etes vous sûr de vouloir délié cette tache de son parent ?"
 
-#: core/action/task_manager.action.php:162
+#: core/action/task_manager.action.php:130
+msgid "Horizontal summary"
+msgstr ""
+
+#: core/action/task_manager.action.php:131
+msgid "Doghnut summary"
+msgstr ""
+
+#: core/action/task_manager.action.php:132
+msgid "Do you want to delete your text ?"
+msgstr "Êtes-vous sur(e) de vouloir supprimer ce texte ?"
+
+#: core/action/task_manager.action.php:165
 #: module/comment/view/backend/comment.view.php:52
 msgid "Delete this comment ?"
 msgstr "Voulez vous supprimer ce commentaire ?"
 
-#: core/action/task_manager.action.php:207
+#: core/action/task_manager.action.php:210
 #: module/audit/view/audit-import-button.view.php:39
 #: module/audit/view/audit-page/metabox-importbutton.view.php:39
 #: module/import/view/backend/import-textarea.view.php:20
@@ -112,7 +124,7 @@ msgstr "Voulez vous supprimer ce commentaire ?"
 msgid "Task"
 msgstr "Tâche"
 
-#: core/action/task_manager.action.php:208
+#: core/action/task_manager.action.php:211
 msgid "Customer"
 msgstr "Client"
 
@@ -257,10 +269,8 @@ msgstr "Liste d'audit"
 
 #: module/audit/action/audit.action.php:535
 #: module/audit/action/audit.action.php:536
-#, fuzzy
-#| msgid "Not found"
 msgid "No client found"
-msgstr "Aucun résultat"
+msgstr "Aucun client trouvé"
 
 #: module/audit/view/audit-createnew.view.php:31
 #: module/audit/view/audit-page/metabox-audit-edit.view.php:34
@@ -558,18 +568,25 @@ msgstr "Aucun contenu n'a été fourni pour l'import"
 msgid "Import points from text file in : %s"
 msgstr "Import de points depuis un fichier texte dans la tâche : %s"
 
-#: module/indicator/action/indicator.action.php:57
-#: module/indicator/action/indicator.action.php:59
+#: module/import/view/backend/import-textarea.view.php:28
+#, fuzzy
+#| msgid "Tags"
+msgid "Tag"
+msgstr "Mots clés"
+
+#: module/indicator/action/indicator.action.php:62
+#: module/indicator/action/indicator.action.php:64
+#: module/indicator/action/indicator.action.php:65
 #: module/indicator/view/backend/main.view.php:19
 #: module/task/action/task.action.php:476
 msgid "Indicator"
 msgstr "Indicateur"
 
-#: module/indicator/action/indicator.action.php:58
+#: module/indicator/action/indicator.action.php:63
 msgid "Daily activity"
 msgstr "Activité"
 
-#: module/indicator/action/indicator.action.php:240
+#: module/indicator/action/indicator.action.php:244
 #, php-format
 msgid ""
 "Given comment identifier does not correspond to a comment in task manager. "
@@ -578,7 +595,7 @@ msgstr ""
 "L'identifiant de commentaire donnée ne correspond pas au commentaire dans "
 "Task Manager. ID de la requete : %s"
 
-#: module/indicator/action/indicator.action.php:247
+#: module/indicator/action/indicator.action.php:251
 #, php-format
 msgid ""
 "The comment author role does not allowed support request. Request customer "
@@ -587,18 +604,18 @@ msgstr ""
 "Le rôle d'auteur de commentaire n'autorise pas la création de requête "
 "support. Requete du clint : %1$d. Rôles du client: %2$s"
 
-#: module/indicator/action/indicator.action.php:253
+#: module/indicator/action/indicator.action.php:257
 #: module/indicator/class/indicator.class.php:182
 #, php-format
 msgid "Current support request list: %s"
 msgstr "Liste actuelle des demandes d'assistance: %s"
 
-#: module/indicator/action/indicator.action.php:256
+#: module/indicator/action/indicator.action.php:260
 #, php-format
 msgid "Comment for adding in request %s"
 msgstr "Commentaire à ajouter pour la requete : %s"
 
-#: module/indicator/action/indicator.action.php:274
+#: module/indicator/action/indicator.action.php:278
 #, php-format
 msgid "New support ticket list: %s"
 msgstr "Nouvelle liste de tickets de support: %s"
@@ -612,26 +629,50 @@ msgstr "Commentaire pour la suppression de la requête %s"
 msgid "Validate"
 msgstr "Valider"
 
-#: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:69
+#: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:70
 msgid "Day"
 msgstr "Jour"
 
-#: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:77
+#: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:79
 #: module/timeline/view/backend/week.view.php:12
 msgid "Week"
 msgstr "Semaine"
 
-#: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:85
+#: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:89
 msgid "Month"
 msgstr "Mois"
 
-#: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:117
+#: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:120
 msgid "Liste des points"
 msgstr "Liste des points"
 
-#: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:140
+#: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:143
 msgid "Change your settings here"
 msgstr "Modifié vos paramètres ici"
+
+#: module/indicator/view/backend-stats/indicator-button.view.php:33
+#: module/indicator/view/backend-stats/indicator-button.view.php:54
+msgid "Recursives tasks"
+msgstr "Recursives Taches"
+
+#: module/indicator/view/backend-stats/indicator-button.view.php:41
+#: module/indicator/view/backend-stats/indicator-button.view.php:62
+msgid "Deadlines tasks"
+msgstr "Deadlines taches"
+
+#: module/indicator/view/backend-stats/indicator-main.view.php:83
+#: module/indicator/view/backend-stats/indicator-main.view.php:106
+msgid "Time elapsed :"
+msgstr ""
+
+#: module/indicator/view/backend-stats/indicator-main.view.php:85
+#: module/indicator/view/backend-stats/indicator-main.view.php:108
+msgid "Time estimated :"
+msgstr "TempsEstimé :"
+
+#: module/indicator/view/backend-stats/indicator-main.view.php:120
+msgid "Generate Stats"
+msgstr "Générer les statistiques"
 
 #: module/indicator/view/backend/daily-activity.view.php:52
 msgid "View activity"
@@ -1896,9 +1937,6 @@ msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
 #~ msgid "Date de création"
 #~ msgstr "Date de création"
 
-#~ msgid "Tags"
-#~ msgstr "Mots clés"
-
 #~ msgid "<p>This mail has been send automatically</p>"
 #~ msgstr "<p>Ce courrier a été envoyé automatiquement</p>"
 
@@ -1907,9 +1945,6 @@ msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
 
 #~ msgid "Notify owner and followers"
 #~ msgstr "Notifier "
-
-#~ msgid "Delete task"
-#~ msgstr "Supprimer la tâche"
 
 #~ msgid "Task management dashboard"
 #~ msgstr "Tableau de bord de la gestion des tâches"

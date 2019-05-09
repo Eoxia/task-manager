@@ -36,11 +36,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 						</label>
 					</div>
 					<ul class="audit-summary">
-						<li class="audit-summary-id"><i class="far fa-hashtag"></i><?= $audit->data[ 'id' ] ?></li>
+						<li class="audit-summary-id"><i class="fas fa-hashtag"></i><?= $audit->data[ 'id' ] ?></li>
 						<li class="audit-summary-date">
 
 							<span class="summary-rendered wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Creation date', 'task-manager' ); ?>">
-								<span class="form-label"><i class="far fa-calendar-alt"></i></span>
+								<span class="form-label"><i class="fas fa-calendar-alt"></i></span>
 								<span id="tm_audit_client_date_start" class="date form-field">
 									<?php echo esc_attr( $audit->data[ 'date' ][ 'rendered' ][ 'date' ] ); ?>
 								</span>
@@ -48,7 +48,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 							<span class="summary-rendered wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Due date', 'task-manager' ); ?>">
 								<div class="form-element group-date">
-									<span class="form-label"><i class="far fa-calendar-alt"></i></span>
+									<span class="form-label"><i class="fas fa-calendar-alt"></i></span>
 									<label class="form-field-container">
 										<input type="hidden" class="mysql-date" name="due_date" value="<?php echo esc_attr( $audit->data[ 'deadline' ][ 'rendered' ][ 'date' ] ); ?>">
 										<input id="tm_audit_client_date_deadline" class="date form-field" type="text"
@@ -60,7 +60,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<li>
 							<?php if( isset( $audit->data[ 'parent_id' ] ) && $audit->data[ 'parent_id' ] ): ?>
 								<span class="summary-rendered wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Audit Parent', 'task-manager' ); ?>">
-									<i class="far fa-clone"></i>
+									<i class="fas fa-clone"></i>
 									<?php echo esc_html( $audit->data[ 'parent_id' ] ); ?>
 								</span>
 							<?php else: ?>
@@ -72,7 +72,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								</form>
 
 								<span class="summary-rendered wpeo-tooltip-event tm-define-customer-to-audit-after" aria-label="<?php esc_html_e( 'Audit Parent', 'task-manager' ); ?>" style="display : none">
-									<i class="far fa-clone"></i>
+									<i class="fas fa-clone"></i>
 								</span>
 							<?php endif; ?>
 						</li>

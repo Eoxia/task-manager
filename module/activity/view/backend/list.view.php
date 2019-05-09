@@ -36,13 +36,13 @@ if ( ! empty( $datas ) ) :
 									<?php
 									switch ( $element->data['view'] ) {
 										case 'created-comment':
-											echo '<i class="far fa-comments"></i>';
+											echo '<i class="fas fa-comments"></i>';
 											break;
 										case 'created-point':
-											echo '<i class="far fa-list-ul"></i>';
+											echo '<i class="fas fa-list-ul"></i>';
 											break;
 										case 'completed-point':
-											echo '<i class="far fa-check"></i>';
+											echo '<i class="fas fa-check"></i>';
 											break;
 									}
 									?>

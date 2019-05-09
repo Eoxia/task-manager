@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="note-content">
 			<input type="hidden" name="note_id" value="<?php echo esc_attr( $note->data['id'] ); ?>">
 			<div contenteditable="true"><?php trim( $note->data['content'] ); ?></div>
-			<span class="placeholder <?php echo empty( $note->data['content'] ) ? '' : 'hidden'; ?>"><i class="far fa-plus fa-fw"></i> <?php esc_html_e( 'Write your note here ...', 'task-manager' ); ?></span>
+			<span class="placeholder <?php echo empty( $note->data['content'] ) ? '' : 'hidden'; ?>"><i class="fas fa-plus fa-fw"></i> <?php esc_html_e( 'Write your note here ...', 'task-manager' ); ?></span>
 		</div>
 	</div>
 </div>

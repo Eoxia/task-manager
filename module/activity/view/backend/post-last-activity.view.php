@@ -95,7 +95,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							$com_details = ( ! empty( $activity->com_details ) ? json_decode( $activity->com_details ) : '' );
 							// $total_time += $com_details->time_info->elapsed;
 							?>
-							<span class="event-time"><i class="far fa-clock"></i> <?php echo ! empty( $com_details->time_info->elapsed ) ? esc_html( $com_details->time_info->elapsed ) : 0; ?></span>
+							<span class="event-time"><i class="fas fa-clock"></i> <?php echo ! empty( $com_details->time_info->elapsed ) ? esc_html( $com_details->time_info->elapsed ) : 0; ?></span>
 						</div>
 
 						<span class="event-content">

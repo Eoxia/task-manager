@@ -21,7 +21,7 @@ ob_start();
 ?>
 <!-- Temps total travaillé -->
 <div class="total-time wpeo-tooltip-event" aria-label="<?php echo esc_attr( mysql2date( 'd M Y H:i', current_time( 'mysql' ), true ) ); ?>" >
-	<i class="far fa-clock"></i> {{ total_time }}
+	<i class="fas fa-clock"></i> {{ total_time }}
 </div>
 
 <!-- Filtre de temps pour les activités -->
@@ -103,7 +103,7 @@ ob_start();
 							$com_details = ( ! empty( $activity->com_details ) ? json_decode( $activity->com_details ) : '' );
 							$total_time += $com_details->time_info->elapsed;
 							?>
-							<span class="event-time"><i class="far fa-clock"></i> <?php echo ! empty( $com_details->time_info->elapsed ) ? esc_html( $com_details->time_info->elapsed ) : 0; ?></span>
+							<span class="event-time"><i class="fas fa-clock"></i> <?php echo ! empty( $com_details->time_info->elapsed ) ? esc_html( $com_details->time_info->elapsed ) : 0; ?></span>
 						</div>
 
 						<span class="event-content">

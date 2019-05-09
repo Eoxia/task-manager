@@ -126,9 +126,18 @@ class Task_Manager_Action {
 							'completed'      => __( 'Completed', 'task-manager' ),
 							'uncompleted'    => __( 'Uncompleted', 'task-manager' ),
 							'taskempty'      => __( 'No point', 'task-manager' ),
-							'delink_parent'  => __( 'Do you really want to delink this task from her parent ?', 'task-manager' )
+							'delink_parent'  => __( 'Do you really want to delink this task from her parent ?', 'task-manager' ),
+							'resume_bar'     => __( 'Horizontal summary', 'task-manager' ),
+							'resume_dog'     => __( 'Doghnut summary', 'task-manager' ),
+							'delete_text'    => __( 'Do you want to delete your text ?', 'task-manager' ),
+							'cat_head'       => __( 'Error Category', 'task-manager' ),
+							'cat_body'       => __( 'No category has the name : ', 'task-manager' ),
+							'cat_question'   => __( 'What do you want to do ?', 'task-manager' ),
+							'cat_nothing'    => __( 'Nothing', 'task-manager' ),
+							'cat_create'     => __( 'Create it', 'task-manager' )
 						)
 					);
+
 					break;
 				}
 			}

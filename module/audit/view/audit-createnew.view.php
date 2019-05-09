@@ -33,16 +33,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 						</label>
 					</div>
 					<ul class="audit-summary">
-						<li class="audit-summary-id"><i class="far fa-hashtag"></i><?= $audit->data[ 'id' ] ?></li>
+						<li class="audit-summary-id"><i class="fas fa-hashtag"></i><?= $audit->data[ 'id' ] ?></li>
 						<li class="audit-summary-date">
-							<span class="form-label"><i class="far fa-calendar-alt"></i></span>
+							<span class="form-label"><i class="fas fa-calendar-alt"></i></span>
 							<span id="tm_audit_client_date_start" class="date form-field">
 								<?php echo esc_attr( $audit->data[ 'date' ][ 'rendered' ][ 'date' ] ); ?>
 							</span> /
 
 							<span class="summary-rendered wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Due date', 'task-manager' ); ?>">
 								<div class="form-element group-date">
-									<span class="form-label"><i class="far fa-calendar-alt"></i></span>
+									<span class="form-label"><i class="fas fa-calendar-alt"></i></span>
 									<label class="form-field-container">
 										<input type="hidden" class="mysql-date" name="due_date" value="<?php echo esc_attr( $audit->data[ 'deadline' ][ 'rendered' ][ 'date' ] ); ?>">
 										<input id="tm_audit_client_date_deadline" class="date form-field" type="text"

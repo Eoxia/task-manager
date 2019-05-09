@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="modal-container">
 			<div class="modal-header">
 				<h2 class="modal-title-header" style="text-transform: uppercase; font-size: 18px; white-space: normal;"><?php echo esc_attr( 'Import audit\'s task', 'task-manager' ); ?></h2>
-				<div class="modal-close"><i class="fal fa-times"></i></div>
+				<div class="modal-close"><i class="fas fa-times"></i></div>
 			</div>
 
 			<div class="modal-content">

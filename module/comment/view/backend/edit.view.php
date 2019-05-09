@@ -28,22 +28,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<div class="comment-content-text">
 				<input type="hidden" name="content" value="<?php echo esc_attr( trim( $comment->data['content'] ) ); ?>" />
-				<div contenteditable="true" class="content"><?php echo trim( $comment->data['content'] ); ?></div>
+				<div contenteditable="true" class="content">
+					<?php echo trim( $comment->data['content'] ) ? $comment->data['content'] : ''; ?></div>
 				<?php if ( empty( $comment->data['id'] ) && ! apply_filters( 'tm_comment_edit_quicktimemode', '' ) ) : ?>
-					<span class="placeholder"><i class="far fa-plus"></i> <?php esc_html_e( 'Your comment here...', 'task-manager' ); ?></span>
+					<span class="placeholder"><i class="fas fa-plus"></i> <?php esc_html_e( 'Your comment here...', 'task-manager' ); ?></span>
 				<?php else : ?>
-					<span class="placeholder hidden"><i class="far fa-plus"></i> <?php esc_html_e( 'Your comment here...', 'task-manager' ); ?></span>
+					<span class="placeholder hidden"><i class="fas fa-plus"></i> <?php esc_html_e( 'Your comment here...', 'task-manager' ); ?></span>
 				<?php endif; ?>
+			</div>
+			<div class="auto-complete-user">
 			</div>
 
 			<?php echo apply_filters( 'tm_comment_edit_after', '', $comment ); ?>
 
 		</div><!-- .comment-content -->
 		<div class="comment-action">
-			<div class="fa-layers fa-fw save-icon action-input wpeo-button button-rounded button-square-30"
-				data-parent="comment"
-				data-action="edit_comment">
-
+			<div class="fa-layers fa-fw save-icon wpeo-button button-rounded button-square-30 tm_register_comment">
 				<i class="button-icon fas fa-save"></i>
 			</div>
 		</div>

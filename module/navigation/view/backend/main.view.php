@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="form-element header-searchbar">
 			<label class="general-search form-field-container">
-				<span class="form-field-icon-prev"><i class="fal fa-search"></i></span>
+				<span class="form-field-icon-prev"><i class="fas fa-search"></i></span>
 				<input type="text" name="term" value="<?php echo esc_attr( $param['term'] ); ?>" class="form-field" placeholder="<?php esc_attr_e( 'Search...', 'task-manager' ); ?>" />
 			</label>
 		</div>

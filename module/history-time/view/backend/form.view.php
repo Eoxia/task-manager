@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 
 			<div class="form-element form-align-horizontal">
-				<span class="form-label"><i class="far fa-redo"></i> <?php esc_html_e( 'Recursion', 'task-manager' ); ?></span>
+				<span class="form-label"><i class="fas fa-redo"></i> <?php esc_html_e( 'Recursion', 'task-manager' ); ?></span>
 				<label class="form-field-container">
 					<div class="form-field-inline">
 						<input type="radio" class="form-field" id="recursive" name="custom" value="recursive">

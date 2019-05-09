@@ -242,7 +242,7 @@ if ( ! window.eoxiaJS.modal  ) {
 	 * @returns {void}       [description]
 	 */
 	window.eoxiaJS.modal.close = function( event ) {
-		jQuery( '.wpeo-modal.modal-active:not(.modal-force-display)' ).each( function() {
+		jQuery( '.wpeo-modal.modal-active:last:not(.modal-force-display)' ).each( function() {
 			var popup = jQuery( this );
 			popup.removeClass( 'modal-active' );
 			if ( popup[0].typeModal && 'default' !== popup[0].typeModal ) {

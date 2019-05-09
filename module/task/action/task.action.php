@@ -375,8 +375,8 @@ class Task_Action {
 		$status         = ! empty( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : array();
 		$tab            = ! empty( $_POST['tab'] ) ? sanitize_text_field( $_POST['tab'] ) : array();
 
-		if ( ! empty( $users_id ) ) {
-			$users_id = explode( ',', $users_id );
+		if ( ! isset( $users_id ) || ! empty( $users_id ) ) {
+			$users_id = explode( ',', $user_id );
 		}
 
 		$categories_id = ! empty( $_POST['categories_id'] ) ? sanitize_text_field( $_POST['categories_id'] ) : array();
@@ -481,11 +481,11 @@ class Task_Action {
 	public function callback_update_indicator_client(){
 		check_ajax_referer( 'update_indicator_client' );
 
-		$year = ! empty( $_POST['year'] ) ? (int) $_POST['year'] : 0;
+		$year = ! empty( $_POST['year'] ) ? (int) $_POST['year'] : date("Y");;
 		$postid    = ! empty( $_POST['postid'] ) ? (int) $_POST['postid'] : 0;
 		$postauthor    = ! empty( $_POST['postauthor'] ) ? (int) $_POST['postauthor'] : 0;
 
-		if( ! $postid || ! $postauthor || ! $year){
+		if( ! $postid || ! $year ){
 			wp_send_json_error();
 		}
 

@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<span class="form-field-label-next"><i class="fas fa-calendar"></i></span>
 
 				<div class="form-element group-date">
-					<!-- <span class="form-label"><i class="far fa-calendar-alt"></i><?php //esc_html_e( 'Due date', 'task-manager' ); ?></span> -->
+					<!-- <span class="form-label"><i class="fas fa-calendar-alt"></i><?php //esc_html_e( 'Due date', 'task-manager' ); ?></span> -->
 					<label class="form-field-container">
 						<input type="hidden" class="mysql-date" name="tm_indicator_date_start" />
 						<input class="date form-field" type="text" placeholder="<?php esc_html_e( 'Start date', 'task-manager' ); ?>" />
@@ -37,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<span class="form-field-label-next"><i class="fas fa-calendar"></i></span>
 
 				<div class="form-element group-date">
-					<!-- <span class="form-label"><i class="far fa-calendar-alt"></i><?php //esc_html_e( 'Due date', 'task-manager' ); ?></span> -->
+					<!-- <span class="form-label"><i class="fas fa-calendar-alt"></i><?php //esc_html_e( 'Due date', 'task-manager' ); ?></span> -->
 					<label class="form-field-container">
 						<input type="hidden" class="mysql-date" name="tm_indicator_date_end" />
 						<input class="date form-field" type="text" placeholder="<?php esc_html_e( 'End date', 'task-manager' ); ?>" />
@@ -61,7 +61,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<?php /*<div class="form-element"> // AFFICHE TOUS LES CUSTOMERS EN OPTION -> SELECT
 			<label class="form-field-container">
-				<span class="form-field-label-next"><i class="far fa-clone"></i></span>
+				<span class="form-field-label-next"><i class="fas fa-clone"></i></span>
 
 				<select id="tm_audit_selector_customer" class="form-field tm_audit_search_update" value="<?php esc_html_e( 'Filter', 'task-manager' ); ?>" name="tm_audit_selector_customer" style="width: 80%">
 					<option value="0"><?php esc_html_e( 'Select a customer', 'task-manager' ); ?></option>

@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit; ?>
 	<ul class="wpeo-ul-parent">
 		<li class="wpeo-task-parent">
 			<span class="wpeo-task-link">
-				<i class="far fa-link"></i>
+				<i class="fas fa-link"></i>
 			</span>
 			#<?php echo esc_html( $task->data['parent_id'] ) ?> -
 			<a class="wpeo-tooltip-event"
@@ -55,7 +55,7 @@ defined( 'ABSPATH' ) || exit; ?>
 		data-request_send="false"
 		data-id="<?php echo esc_html( $task->data[ 'id' ] ) ?>"
 		style="font-size: initial;">
-			<i class="far fa-link"></i>
+			<i class="fas fa-link"></i>
 			<i class="fas fa-plus"></i>
 		</li>
 	</ul>

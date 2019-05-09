@@ -506,7 +506,7 @@ class Task_Class extends \eoxia\Post_Class {
 		}
 	}
 
-	public function all_month_between_two_dates( $date_start, $date_end ){ // premiers mois EXLCUS et denier mois INCLUS
+	public function all_month_between_two_dates( $date_start, $date_end, $delete_first_month = false ){ // premiers mois EXLCUS et denier mois INCLUS
 		$dates   = array();
 		$current = $date_start;
 		$last    = $date_end;
@@ -544,12 +544,14 @@ class Task_Class extends \eoxia\Post_Class {
 			$current = strtotime( '+1 day', $current );
 
 		}
-		$all_month_in_year = array_slice( $all_month_in_year, 1 );
+		if( $delete_first_month ){
+			$all_month_in_year = array_slice( $all_month_in_year, 1 );
+		}
 
 		return $all_month_in_year;
 	}
 
-	public function update_client_indicator( $postid, $postauthor, $year ){
+	public function update_client_indicator( $postid, $postauthor = 0, $year = 0 ){
 		if( ! $year || $year > date("Y") ){
 				$year = date("Y");
 		}
@@ -758,7 +760,7 @@ class Task_Class extends \eoxia\Post_Class {
 		$tasks_indicator = array(); // trie toutes les taches
 		$categories_indicator = array(); // tries toutes les taches selon les catégories
 
-		$allmonth_betweendates = $this->all_month_between_two_dates( $indicator_date_start, $indicator_date_end );
+		$allmonth_betweendates = $this->all_month_between_two_dates( $indicator_date_start, $indicator_date_end, true );
 
 		$return = $this->generate_data_indicator_client( $tasks[ $post_id ]['data'], $allmonth_betweendates, $post_id );
 		$categories_indicator = isset( $return[ 'data' ] ) ? $return[ 'data' ] : array(); // Data principal
@@ -1056,6 +1058,18 @@ class Task_Class extends \eoxia\Post_Class {
 		Task_Class::g()->update( $task->data, true );
 
 		return $task;
+	}
+
+	// 25/04/2019 OPTI PAS OPTI
+	public function get_task_with_history_time( $type = "recursive" ){
+		global $wpdb;
+
+		$results = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT(TASK.ID) FROM {$wpdb->posts} AS TASK
+			INNER JOIN {$wpdb->comments} AS HISTORYTIME ON HISTORYTIME.comment_ID=(SELECT comment_id FROM {$wpdb->comments} WHERE comment_post_ID=TASK.ID AND comment_type='history_time' ORDER BY comment_id DESC LIMIT 0,1 )
+			LEFT JOIN {$wpdb->commentmeta} AS HISTORYMETA ON HISTORYMETA.comment_id=HISTORYTIME.comment_ID AND HISTORYMETA.meta_key='_tm_custom' AND HISTORYMETA.meta_value=%s
+			WHERE TASK.post_type='wpeo-task' AND TASK.post_status IN('publish', 'inherit')", $type ) );
+
+		return $results;
 	}
 }
 

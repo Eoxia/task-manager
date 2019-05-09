@@ -14,7 +14,13 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; } ?>
-
+<?php $comment = Task_Comment_Class::g()->get(
+	array(
+		'parent' => 402,
+	),
+	true
+);
+//echo '<pre>'; print_r( $comment ); echo '</pre>'; exit; ?>
 <div class="list-task">
 	<div class="grid-col grid-col--1"></div>
 	<div class="grid-col grid-col--2"></div>

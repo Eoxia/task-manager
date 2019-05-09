@@ -99,6 +99,7 @@ window.eoxiaJS.upload.openMediaFrame = function() {
 			type: window.eoxiaJS.upload.currentButton.data( 'mime-type' )
 		}
 	}).open();
+	console.log(window.eoxiaJS.upload.mediaFrame );
 	window.eoxiaJS.upload.mediaFrame.on( 'insert', function() { window.eoxiaJS.upload.selectedFile(); } );
 };
 

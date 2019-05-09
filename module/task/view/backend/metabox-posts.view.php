@@ -61,7 +61,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			data-parent="tm-pagination-client-indicator"
 			data-post-id="<?php echo esc_html( $post_id ); ?>"
 			style="margin: 5px 10px;">
-			<i class="button-icon fal fa-square"></i>
+			<i class="button-icon fas fa-square"></i>
 			<span><?php esc_html_e( 'Show Archives', 'task-manager' ); ?></span>
 		</a>
 	</div>

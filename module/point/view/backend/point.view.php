@@ -78,7 +78,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<input type="hidden" name="content" value="<?php echo esc_attr( trim( $point->data['content'] ) ); ?>" />
 				<div class="wpeo-point-new-contenteditable" contenteditable="true"><?php echo trim( $point->data['content'] ); ?></div>
 				<?php if ( empty( $point->data['id'] ) ) : ?>
-					<span class="wpeo-point-new-placeholder"><i class="far fa-plus"></i> <?php esc_html_e( 'Write your point here...', 'task-manager' ); ?></span>
+					<span class="wpeo-point-new-placeholder"><i class="fas fa-plus"></i> <?php esc_html_e( 'Write your point here...', 'task-manager' ); ?></span>
 				<?php endif; ?>
 				<?php if ( ! empty( $point->data['id'] ) ) : ?>
 					<ul class="wpeo-point-summary">

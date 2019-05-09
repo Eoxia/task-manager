@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			data-action="add_config_quick_time"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'add_config_quick_time' ) ); ?>"
 			data-parent="tm_add_quicktime_point">
-			<i class="far fa-clock"></i>
+			<i class="fas fa-clock"></i>
 			<label><b> <?php esc_html_e( 'Add to quicktimes', 'task-manager' ) ?></b></label>
 			<input type="hidden" name="task_id" value="<?php echo esc_attr( $task_id ); ?>" />
 			<input type="hidden" name="point_id" value="<?php echo esc_attr( $point_id ); ?>" />
@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		data-action="remove_config_quick_time"
 		data-nonce="<?php echo esc_attr( wp_create_nonce( 'remove_config_quick_time' ) ); ?>"
 		data-parent="tm_add_quicktime_point">
-		<i class="far fa-clock"></i>
+		<i class="fas fa-clock"></i>
 		<label><b> <?php esc_html_e( 'Remove from quicktimes', 'task-manager' ) ?></b></label>
 		<input type="hidden" name="task_id" value="<?php echo esc_attr( $task_id ); ?>" />
 		<input type="hidden" name="point_id" value="<?php echo esc_attr( $point_id ); ?>" />

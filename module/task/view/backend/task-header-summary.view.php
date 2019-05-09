@@ -16,7 +16,7 @@ namespace task_manager;
 
 defined( 'ABSPATH' ) || exit; ?>
 
-<li class="wpeo-task-id"><i class="far fa-hashtag"></i> <?php echo esc_html( $task->data['id'] ); ?></li>
+<li class="wpeo-task-id"><i class="fas fa-hashtag"></i> <?php echo esc_html( $task->data['id'] ); ?></li>
 
 <li class="wpeo-task-time-history wpeo-modal-event"
 	data-class="history-time wpeo-wrap tm-wrap"
@@ -27,17 +27,17 @@ defined( 'ABSPATH' ) || exit; ?>
 
 	<?php if ( 0 !== $task->data['last_history_time']->data['id'] ) : ?>
 		<?php if ( 'recursive' === $task->data['last_history_time']->data['custom'] ) : ?>
-			<i class="far fa-repeat wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Repeated time', 'task-manager' ); ?>"></i>
+			<i class="fas fa-repeat wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Repeated time', 'task-manager' ); ?>"></i>
 		<?php else : ?>
 			<span class="wpeo-task-date tooltip hover" aria-label="<?php echo esc_html_e( 'Dead line', 'task-manager' ); ?>">
-				<i class="far fa-calendar-alt"></i>
+				<i class="fas fa-calendar-alt"></i>
 				<span><?php echo esc_html( $task->data['last_history_time']->data['due_date']['rendered']['date'] ); ?></span>
 			</span>
 		<?php endif; ?>
 	<?php endif; ?>
 
 	<span class="wpeo-task-time-info wpeo-tooltip-event" aria-label="<?php echo esc_attr( $task_time_info_human_readable ); ?>">
-		<i class="far fa-clock"></i>
+		<i class="fas fa-clock"></i>
 		<span class="elapsed" ><?php echo esc_html( $task_time_info ); ?></span>min
 	</span>
 </li>

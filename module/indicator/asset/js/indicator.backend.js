@@ -10,13 +10,17 @@ window.eoxiaJS.taskManager.indicator.init = function() {
 	window.eoxiaJS.taskManager.indicator.event();
 };
 
-window.eoxiaJS.taskManager.indicator.event = function() {
+window.eoxiaJS.taskManager.indicator.event = function( event ) {
+	jQuery( document ).on( 'click', '.clickonfollower', window.eoxiaJS.taskManager.indicator.addFollower );
+	jQuery( document ).on( 'click', '.clickontypechart', window.eoxiaJS.taskManager.indicator.modifyTypeChart );
+	jQuery( document ).on( 'click', '.display_this_point', window.eoxiaJS.taskManager.indicator.displayThisPoint );
 	jQuery( document ).on( 'click', '.page-indicator button.handlediv', window.eoxiaJS.taskManager.indicator.toggleMetabox );
+	jQuery( document ).on( 'click', '#tm-indicator-stats-client-displaybutton div', window.eoxiaJS.taskManager.indicator.displayDeadlineRecusiveStats );
 };
 
 window.eoxiaJS.taskManager.indicator.toggleMetabox = function( event ) {
 	// var data = {
-	// 	"action": ":closed-postboxes",
+	// 	"action": ":closed-postboxes", 
 	// 	"closed": ":wpeo-task-metabox",
 	// 	"hidden": "slugdiv",
 	// 	"closedpostboxesnonce": "nonce",
@@ -46,10 +50,14 @@ window.eoxiaJS.taskManager.indicator.loadedCustomerActivity = function( triggere
 	jQuery( '#displaycanvas_specific_week' ).html( '' ); // reset le second affichage de la semaine
 	jQuery( '#displaymodal' ).html( '' );
 
+	jQuery( '#tm_indicator_chart_display' ).replaceWith( response.data.view_button );
+	jQuery( '#tm_indicator_chart_display' ).show();
+	jQuery( '#displaycanvas_specific_week' ).hide();
+
 	var data = response.data.object;
 
 	jQuery( '#tm_redirect_settings_user' ).css('display', 'none');
-	jQuery( '#tm_indicator_chart_display' ).css( 'display', 'none' );
+	//jQuery( '#tm_indicator_chart_display' ).css( 'display', 'none' );
 
 	jQuery( '#display_modal' ).html( '' );
 
@@ -67,7 +75,7 @@ window.eoxiaJS.taskManager.indicator.loadedCustomerActivity = function( triggere
 		var total_donut_duree = [];
 		var total_donut_point = [];
 		var total_donut_title  = [];
-		jQuery( "#displaycanvas" ).append( '<div class="wpeo-grid grid-2"><div class="grid-1"><canvas id="canvasHorizontalBarAll"></canvas></div><div class="grid-1"><canvas id="canvasDoghnutChartAll" width="400" height="225" class="wpeo-modal-event" ></canvas></div></div>' ); // Qui resume TOUT
+		jQuery( "#displaycanvas_specific_week" ).append( '<div class="wpeo-grid grid-2"><div class="grid-1"><canvas id="canvasHorizontalBarAll"></canvas></div><div class="grid-1"><canvas id="canvasDoghnutChartAll" width="400" height="225" class="wpeo-modal-event" ></canvas></div></div>' ); // Qui resume TOUT
 
 			for ( var i = 0; i < data.length ; i++ ){
 				total_time_work += data[i]['duree_travail'];
@@ -228,11 +236,7 @@ window.eoxiaJS.taskManager.indicator.updateTimeChoose = function( time = '', day
 	$( '#tm_indicator_date_end_id' ).val( day_end );
 }
 
-window.eoxiaJS.taskManager.indicator.event = function( event ) {
-	jQuery( document ).on( 'click', '.clickonfollower', window.eoxiaJS.taskManager.indicator.addFollower );
-	jQuery( document ).on( 'click', '.clickontypechart', window.eoxiaJS.taskManager.indicator.modifyTypeChart );
-	jQuery( document ).on( 'click', '.display_this_point', window.eoxiaJS.taskManager.indicator.displayThisPoint );
-};
+
 
 /**
  * Modifie le css d'un utilisateur suite à une action utilisateur
@@ -577,7 +581,7 @@ window.eoxiaJS.taskManager.indicator.displayThisPoint = function( event ){
 
  	jQuery( '#tm_indicator_point_' + data_attribute_pointid + '_' + num_modal ).css( 'display', 'block' );
 
-	}
+}
 
 	window.eoxiaJS.taskManager.indicator.generateSummaryCanvas = function( time_work, time_elasped, total_donut_duree, total_donut_point, total_donut_title ){
 
@@ -608,7 +612,7 @@ window.eoxiaJS.taskManager.indicator.displayThisPoint = function( event ){
 			legend: { display: true },
 			title: {
 				display: true,
-				text:  'RESUME HORIZONTAL'
+				text:  window.indicatorString.resume_bar
 			},
 			scales: {
 				yAxes: [{
@@ -648,7 +652,7 @@ window.eoxiaJS.taskManager.indicator.displayThisPoint = function( event ){
 			var option_canvas_doghnut =  {
 				title: {
 					display: true,
-					text: 'RESUME DOGHNUT'
+					text: window.indicatorString.resume_dog
 				},
 				tooltips: {
 					callbacks: {
@@ -665,3 +669,46 @@ window.eoxiaJS.taskManager.indicator.displayThisPoint = function( event ){
 			window.eoxiaJS.taskManager.indicator.generateCanvasDynamic( canvasDonut, 'doughnut', data_canvas_doghnut, option_canvas_doghnut ); // Génération du canvas de type doghnut
 		}
 	}
+
+window.eoxiaJS.taskManager.indicator.updateIndicatorClientSuccess = function( element, response ){
+	if( response.data.view == "" ){
+		jQuery( element ).closest( '.tab-content' ).find( '.tm_indicator_stats' ).html( '<h1>Customer\'s tasks doesn\'t \'ve category</h1>' );
+	}else{
+		jQuery( element ).closest( '.tab-content' ).find( '.tm_indicator_stats' ).replaceWith( response.data.view );
+	}
+	//replaceWith( response.data.view );
+}
+
+window.eoxiaJS.taskManager.indicator.updateStatsClient = function( element, response ){
+	if( response.data.view != "" ){
+		jQuery( '#indicator-page-client .inside' ).html( response.data.view );
+	}
+}
+
+window.eoxiaJS.taskManager.indicator.displayDeadlineRecusiveStats = function( event ){
+	var focus = jQuery( this ).parent().data( 'focus' );
+	var element = jQuery( this ).data( 'element' );
+	if( focus == element ){ // Element actuel deja ok
+
+	}else{
+		var other_button = jQuery( this ).closest( '#tm-indicator-stats-client-displaybutton' ).find( '.button-blue' );
+
+		jQuery( this ).find( 'i' ).removeClass( 'fa-square' ).addClass( 'fa-check-square' ); // Update Button click
+		jQuery( this ).removeClass( 'button-grey' ).addClass( 'button-blue' );
+
+		other_button.find( 'i' ).removeClass( 'fa-check-square' ).addClass( 'fa-square' );
+		other_button.removeClass( 'button-blue' ).addClass( 'button-grey' );
+
+		jQuery( this ).parent().data( 'focus', element );
+		window.eoxiaJS.loader.display( jQuery( this ) );
+		// jQuery( '.load-more' ).show();
+		var data = {};
+
+		data.action   = jQuery( this ).data( 'action' );
+		data.type     = element;
+		data.month    = jQuery( this ).parent().data( 'date' );
+		data._wpnonce = jQuery( this ).data( 'nonce' );
+
+		window.eoxiaJS.request.send( jQuery( this ), data );
+	}
+}

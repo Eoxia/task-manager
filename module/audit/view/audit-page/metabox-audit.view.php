@@ -32,18 +32,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?= ! empty( $audit->data[ 'title' ] ) ? $audit->data[ 'title' ] : esc_html_e( 'New Audit', 'task-manager' );  ?></div>
 
 			<ul class="audit-summary">
-				<li class="audit-summary-id"><i class="far fa-hashtag"></i><?= $audit->data[ 'id' ] ?></li>
+				<li class="audit-summary-id"><i class="fas fa-hashtag"></i><?= $audit->data[ 'id' ] ?></li>
 				<li class="audit-summary-date">
 					<span class="summary-created wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Created date', 'task-manager' ); ?>">
-						<i class="far fa-calendar-alt"></i> <?= $audit->data[ 'date' ][ 'rendered' ][ 'date' ] ?>
+						<i class="fas fa-calendar-alt"></i> <?= $audit->data[ 'date' ][ 'rendered' ][ 'date' ] ?>
 					</span> /
 					<span class="summary-rendered wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Due date', 'task-manager' ); ?>">
-						<i class="far fa-calendar-alt"></i> <?= $audit->data[ 'deadline' ][ 'rendered' ][ 'date' ] ?>
+						<i class="fas fa-calendar-alt"></i> <?= $audit->data[ 'deadline' ][ 'rendered' ][ 'date' ] ?>
 					</span>
 				</li>
 					<?php if( isset( $audit->data[ 'parent_id' ] ) && $audit->data[ 'parent_id' ] ): ?>
 						<span class="summary-rendered wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Audit Parent', 'task-manager' ); ?>">
-							<i class="far fa-clone"></i>
+							<i class="fas fa-clone"></i>
 							#<?php echo esc_html( $audit->data[ 'parent_id' ] ); ?> -
 							<?php echo esc_html( $audit->data[ 'parent_title' ] ); ?>
 						</span>

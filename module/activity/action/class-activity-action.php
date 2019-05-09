@@ -280,7 +280,6 @@ class Activity_Action {
 		$display_specific_week = false;
 		$user_select           = true;
 
-		ob_start();
 
 		if ( ! $list_follower ) { // @info aucun utilisateur sélectionné
 			$list_follower = get_current_user_id();
@@ -303,6 +302,18 @@ class Activity_Action {
 		} else {
 
 		}
+
+		ob_start();
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'indicator',
+			'backend-indicator/indicator-button-display',
+			array()
+		);
+
+		$view_button = ob_get_clean();
+		ob_start();
 
 		$datas = Activity_Class::g()->display_user_activity_by_date( $list_follower, $date_end, $date_start );
 
@@ -332,6 +343,7 @@ class Activity_Action {
 				'display_specific_week' => $display_specific_week,
 				'user_select'           => $user_select,
 				'user_id'               => $list_follower,
+				'view_button'           => $view_button
 			)
 		);
 	}

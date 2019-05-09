@@ -26,6 +26,6 @@ defined( 'ABSPATH' ) || exit; ?>
 		data-class="tm-wrap quick-point">
 
 
-		<i class="button-icon far fa-list-ul"></i>
+		<i class="button-icon fas fa-list-ul"></i>
 		<i class="button-icon fas fa-plus-circle"></i>
 </div>

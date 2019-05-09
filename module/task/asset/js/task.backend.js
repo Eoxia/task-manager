@@ -20,7 +20,7 @@ window.eoxiaJS.taskManager.task.init = function() {
 window.eoxiaJS.taskManager.task.refresh = function() {
 	window.eoxiaJS.taskManager.task.initAutoComplete();
 };
-
+ 
 window.eoxiaJS.taskManager.task.event = function() {
 	// jQuery( '.tm-wrap' ).on( 'keypress', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.keyEnterEditTitle );
 	jQuery( '.tm-wrap' ).on( 'blur', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.editTitle );
@@ -79,6 +79,8 @@ window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
 			window.eoxiaJS.taskManager.task.offset += parseInt( window.task_manager_posts_per_page );
 			window.eoxiaJS.taskManager.task.canLoadMore = false;
 
+			console.log( 'oui' );
+
 			var button_search = jQuery( '.wpeo-modal-event.load_more_result' );
 			data.action = 'load_more_task';
 			data.offset = window.eoxiaJS.taskManager.task.offset;
@@ -95,8 +97,8 @@ window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
 			data.status = jQuery( '.wpeo-header-bar input[name="status"]' ).val();
 
 			window.eoxiaJS.taskManager.navigation.checkDataBeforeSearch( undefined );
-
-			data.categories_id = jQuery( '.wpeo-header-search input[name="categories_id_selected"]' ).val();
+			console.log( data );
+			//data.categories_id = jQuery( '.wpeo-header-search input[name="categories_id_selected"]' ).val();
 
 			window.eoxiaJS.loader.display( jQuery( '.load-more' ) );
 			jQuery( '.load-more' ).show();
@@ -422,12 +424,19 @@ window.eoxiaJS.taskManager.task.taskHideAutocompleteParent = function( event ){
 
 
 window.eoxiaJS.taskManager.task.taskUpdateAutocompleteParent = function( event ){
+	//jQuery( document ).removeEventListener( 'keyup', window.eoxiaJS.taskManager.task.taskUpdateAutocompleteParent, true );
+	event.stopPropagation();
 	var value = jQuery( this ).val().toLowerCase();
 
 	var list_parent = jQuery( this ).closest( '.wpeo-tag' ).find( 'ul' );
-
+	var i = 0;
 	list_parent.find( '.tm_list_parent_li_element' ).each(function( element ) {
-		if( jQuery( this ).html().trim().toLowerCase().indexOf( value ) >= 0 ){
+		if( i > 12 ){
+			return false;
+		}
+		var a = jQuery( this ).html().trim().toLowerCase();
+		if( a.includes( value ) ){
+			i++;
 			jQuery( this ).show();
 		}else{
 			jQuery( this ).hide();
