@@ -42,16 +42,16 @@ if ( ! defined( 'ABSPATH' ) ) {
           <?php echo esc_html( $audit->data[ 'parent_title' ] ); ?>
         </span>
     </li>
-		<?php if( isset( $parentpage ) && $parentpage > 0 ): ?>
-    <li class="tm-display-audit-parent-link">
-      <div class="tm-unlink-audit-parent"
-      data-id="<?php echo esc_html( $audit->data[ 'id' ] ); ?>"
-      data-nonce="<?php echo esc_attr( wp_create_nonce( 'delink_parent_to_audit' ) ); ?>"
-      data-action="delink_parent_to_audit"
-      style="cursor : pointer">
-        <i class="fas fa-unlink"></i>
-      </div>
-    </li>
+		<?php if( ! isset( $parent_page ) || $parent_page == 0 ): ?>
+	    <li class="tm-display-audit-parent-link">
+	      <div class="tm-unlink-audit-parent"
+	      data-id="<?php echo esc_html( $audit->data[ 'id' ] ); ?>"
+	      data-nonce="<?php echo esc_attr( wp_create_nonce( 'delink_parent_to_audit' ) ); ?>"
+	      data-action="delink_parent_to_audit"
+	      style="cursor : pointer">
+	        <i class="fas fa-unlink"></i>
+	      </div>
+	    </li>
 	<?php endif; ?>
 
     <li class="tm-define-customer-to-audit" style="display : none">
@@ -62,7 +62,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         <i class="fas fa-clone"></i>
         <div class="form-fields">
           <input type="hidden" class="audit_search-customers-id" name="customer_id"/>
-          <input type="text" class="audit-search-customers ui-autocomplete-input" placeholder="<?php echo esc_html( 'Nom/ID Client', 'task-manager'); ?>" autocomplete="off" />
+          <input type="text" class="audit-search-customers ui-autocomplete-input" placeholder="<?php echo esc_html( 'Nom/ID Client', 'task-manager'); ?>" autocomplete="new-password" />
         </div>
       </div>
   </li>

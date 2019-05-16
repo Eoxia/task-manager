@@ -592,7 +592,7 @@ class Task_Class extends \eoxia\Post_Class {
 
 		if ( empty( $tasks ) )
 		{
-			return  array();
+			return array();
 		}
 
 		foreach ( $tasks as $key => $task ) { // Pour chaque tache
@@ -619,7 +619,7 @@ class Task_Class extends \eoxia\Post_Class {
 			foreach ( $task->data['taxonomy'][ 'wpeo_tag' ] as $id_category ) { // Si la tache a plusieurs catégories
 				$category_info = array();
 				if( $id_category == 0 ){
-					$name_categories = esc_html( 'No Category', 'task-manager' );
+					$name_categories = __( 'No Category', 'task-manager' );
 				}else{
 					$categories = get_term_by( 'id', $id_category, 'wpeo_tag' );
 					$name_categories = $categories->name;

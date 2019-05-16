@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2019-05-10 16:51+0200\n"
-"PO-Revision-Date: 2019-05-10 16:51+0200\n"
+"POT-Creation-Date: 2019-05-16 14:45+0200\n"
+"PO-Revision-Date: 2019-05-16 14:46+0200\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -141,7 +141,6 @@ msgid "Delete this comment ?"
 msgstr "Voulez vous supprimer ce commentaire ?"
 
 #: core/action/task_manager.action.php:216
-#: module/audit/view/audit-import-button.view.php:39
 #: module/audit/view/audit-page/metabox-importbutton.view.php:37
 #: module/import/view/backend/import-textarea.view.php:20
 #: module/task/action/task.action.php:475
@@ -160,7 +159,7 @@ msgstr "Pas de note de mise à jour pour cette version."
 msgid "Tasks"
 msgstr "Tâches"
 
-#: core/view/main.view.php:29 module/audit/action/audit.action.php:363
+#: core/view/main.view.php:29 module/audit/action/audit.action.php:318
 #: module/task/action/task.action.php:109
 #: module/task/view/backend/metabox-create-buttons.view.php:23
 msgid "New task"
@@ -175,7 +174,6 @@ msgid "Import task and point"
 msgstr "Importer des tâches et des points"
 
 #: core/view/modal-import.view.php:21 core/view/modal-import.view.php:39
-#: module/audit/view/audit-import-button.view.php:61
 #: module/audit/view/audit-page/metabox-importbutton.view.php:73
 #: module/import/view/backend/ajax-modal-open-button.view.php:19
 #: module/import/view/backend/ajax-modal-save-buttons.view.php:22
@@ -185,7 +183,6 @@ msgid "Import"
 msgstr "Importer"
 
 #: core/view/modal-import.view.php:34
-#: module/audit/view/audit-import-button.view.php:56
 #: module/audit/view/audit-page/metabox-importbutton.view.php:68
 #: module/import/view/backend/ajax-modal-save-buttons.view.php:17
 #: module/import/view/backend/inline-modal.view.php:34
@@ -224,7 +221,7 @@ msgstr "Pas d'activité trouvé pour le moment"
 #: module/activity/view/backend/main.view.php:27
 #: module/activity/view/backend/post-last-activity.view.php:21
 #: module/audit/view/audit-page/metabox-main.view.php:28
-#: module/audit/view/metabox-auditlist.view.php:29
+#: module/audit/view/metabox-main.view.php:28
 #: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:25
 #: module/indicator/view/backend/daily-activity.view.php:37
 #: module/time-exceeded/view/backend/main.view.php:24
@@ -235,7 +232,7 @@ msgstr "Date de début"
 #: module/activity/view/backend/main.view.php:34
 #: module/activity/view/backend/post-last-activity.view.php:28
 #: module/audit/view/audit-page/metabox-main.view.php:43
-#: module/audit/view/metabox-auditlist.view.php:44
+#: module/audit/view/metabox-main.view.php:43
 #: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:32
 #: module/indicator/view/backend/daily-activity.view.php:44
 #: module/time-exceeded/view/backend/main.view.php:30
@@ -282,111 +279,85 @@ msgstr "Page des temps rapides"
 msgid "Quick time"
 msgstr "Temps rapide"
 
-#: module/audit/action/audit.action.php:68
-#: module/audit/action/audit.action.php:98
+#: module/audit/action/audit.action.php:66
+#: module/audit/action/audit.action.php:89
 msgid "Audit"
 msgstr "Audit"
 
-#: module/audit/action/audit.action.php:564
-#: module/audit/action/audit.action.php:565
+#: module/audit/action/audit.action.php:519
+#: module/audit/action/audit.action.php:520
 msgid "No client found"
 msgstr "Aucun client trouvé"
 
-#: module/audit/view/audit-createnew.view.php:31
-msgid "Write audit title ..."
-msgstr "Ecrivez le titre de l'audit ici ..."
-
-#: module/audit/view/audit-createnew.view.php:43
-#: module/audit/view/audit-item.view.php:40
-#: module/history-time/view/backend/form.view.php:35
-msgid "Due date"
-msgstr "Date limite"
-
-#: module/audit/view/audit-import-button.view.php:43
-#: module/audit/view/audit-page/metabox-importbutton.view.php:41
-#: module/import/view/backend/import-textarea.view.php:24
-msgid "Point"
-msgstr "Point"
-
-#: module/audit/view/audit-item.view.php:32
-msgid "New Audit"
-msgstr "Nouvelle audit"
-
-#: module/audit/view/audit-item.view.php:37
-#: module/audit/view/audit-page/metabox-audit-edit.view.php:42
-#: module/audit/view/audit-page/metabox-audit-readonly.view.php:29
-msgid "Created date"
-msgstr "Créé le"
-
-#: module/audit/view/audit-item.view.php:61
-msgid "Edit this audit"
-msgstr "Modifier cet audit"
-
-#: module/audit/view/audit-item.view.php:68
-#: module/audit/view/audit-page/metabox-audit-edit.view.php:92
-#: module/audit/view/audit-page/metabox-audit.view.php:94
-msgid "Delete this audit ?"
-msgstr "Voulez vous supprimer cet audit ?"
-
-#: module/audit/view/audit-item.view.php:70
-#: module/audit/view/audit-page/metabox-audit-edit.view.php:93
-#: module/audit/view/audit-page/metabox-audit.view.php:95
-msgid "Delete this audit"
-msgstr "Supprimer cet audit"
-
-#: module/audit/view/audit-page/metabox-audit-edit.view.php:37
+#: module/audit/view/audit-page/metabox-audit-edit.view.php:33
 #: module/audit/view/audit-page/metabox-audit-editmod.view.php:21
-#: module/audit/view/audit-page/metabox-audit-readonly.view.php:24
+#: module/audit/view/audit-page/metabox-audit-readonly.view.php:25
 msgid "No name Audit"
 msgstr "Audit sans nom"
 
-#: module/audit/view/audit-page/metabox-audit-edit.view.php:51
+#: module/audit/view/audit-page/metabox-audit-edit.view.php:38
+#: module/audit/view/audit-page/metabox-audit-readonly.view.php:30
+msgid "Created date"
+msgstr "Créé le"
+
+#: module/audit/view/audit-page/metabox-audit-edit.view.php:47
 #: module/audit/view/audit-page/metabox-audit-editmod.view.php:39
-#: module/audit/view/audit-page/metabox-audit-editmod.view.php:67
-#: module/audit/view/audit-page/metabox-audit-readonly.view.php:38
+#: module/audit/view/audit-page/metabox-audit-editmod.view.php:70
+#: module/audit/view/audit-page/metabox-audit-readonly.view.php:39
 msgid "Audit Parent"
 msgstr "Audit Parent"
+
+#: module/audit/view/audit-page/metabox-audit-edit.view.php:88
+#: module/audit/view/audit-page/metabox-audit.view.php:99
+msgid "Delete this audit ?"
+msgstr "Voulez vous supprimer cet audit ?"
+
+#: module/audit/view/audit-page/metabox-audit-edit.view.php:89
+#: module/audit/view/audit-page/metabox-audit.view.php:101
+msgid "Delete this audit"
+msgstr "Supprimer cet audit"
 
 #: module/audit/view/audit-page/metabox-audit-editmod.view.php:31
 msgid "Creation date"
 msgstr "Date de création"
 
-#: module/audit/view/audit-page/metabox-audit.view.php:86
+#: module/audit/view/audit-page/metabox-audit.view.php:91
 msgid "See audit"
 msgstr "Voir l'audit"
 
-#: module/audit/view/audit-page/metabox-button-create.view.php:23
-#: module/audit/view/metabox-head-auditlist.view.php:26
+#: module/audit/view/audit-page/metabox-button-create.view.php:24
 msgid "Start audit"
 msgstr "Démarrer un audit"
+
+#: module/audit/view/audit-page/metabox-importbutton.view.php:41
+#: module/import/view/backend/import-textarea.view.php:24
+msgid "Point"
+msgstr "Point"
 
 #: module/audit/view/audit-page/metabox-importbutton.view.php:49
 #: module/import/view/backend/import-textarea.view.php:32
 msgid "Categorie"
 msgstr "Catégorie"
 
-#: module/audit/view/audit-page/metabox-main.view.php:68
+#: module/audit/view/audit-page/metabox-main.view.php:54
+#: module/audit/view/metabox-main.view.php:54
 msgid "Audit type"
 msgstr "Type d'audit"
 
-#: module/audit/view/audit-page/metabox-main.view.php:73
-#: module/audit/view/metabox-auditlist.view.php:56
+#: module/audit/view/audit-page/metabox-main.view.php:59
+#: module/audit/view/metabox-main.view.php:59
 msgid "All audit"
 msgstr "Tous les audits"
 
-#: module/audit/view/audit-page/metabox-main.view.php:77
-#: module/audit/view/metabox-auditlist.view.php:57
+#: module/audit/view/audit-page/metabox-main.view.php:63
+#: module/audit/view/metabox-main.view.php:63
 msgid "Audit completed"
 msgstr "Audit complété"
 
-#: module/audit/view/audit-page/metabox-main.view.php:81
-#: module/audit/view/metabox-auditlist.view.php:58
+#: module/audit/view/audit-page/metabox-main.view.php:67
+#: module/audit/view/metabox-main.view.php:67
 msgid "Audit in progress"
 msgstr "Audit en cours"
-
-#: module/audit/view/metabox-auditlist.view.php:55
-msgid "Filter"
-msgstr "Filtre"
 
 #: module/comment/view/backend/comment.view.php:47
 msgid "Edit this comment"
@@ -557,6 +528,10 @@ msgstr "Affiches les boîtes indicateur"
 #: module/history-time/view/backend/form.view.php:26
 msgid "Estimated time (min)"
 msgstr "Temps estimé (min)"
+
+#: module/history-time/view/backend/form.view.php:35
+msgid "Due date"
+msgstr "Date limite"
 
 #: module/history-time/view/backend/form.view.php:43
 msgid "Recursion"
@@ -1303,8 +1278,8 @@ msgstr "Aucun post trouvé"
 msgid "History task"
 msgstr "Historique des tâches"
 
+#: module/task/action/task.action.php:641
 #: module/task/action/task.action.php:642
-#: module/task/action/task.action.php:643
 msgid "No post type found"
 msgstr "Aucun post type trouvé"
 
@@ -1312,6 +1287,10 @@ msgstr "Aucun post type trouvé"
 #, php-format
 msgid "Task for %1$s"
 msgstr "Tâche pour %1$s"
+
+#: module/task/class/task.class.php:622
+msgid "No Category"
+msgstr "Sans Catégorie"
 
 #: module/task/view/backend/main.view.php:32
 msgid "Load more task..."
@@ -1646,6 +1625,18 @@ msgstr "Une erreur est survenu lors de la modification de la tâche %d"
 #, php-format
 msgid "%1$d tasks have been marked as archived on %2$d"
 msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
+
+#~ msgid "Write audit title ..."
+#~ msgstr "Ecrivez le titre de l'audit ici ..."
+
+#~ msgid "New Audit"
+#~ msgstr "Nouvelle audit"
+
+#~ msgid "Edit this audit"
+#~ msgstr "Modifier cet audit"
+
+#~ msgid "Filter"
+#~ msgstr "Filtre"
 
 #, fuzzy
 #~| msgid "Tags"

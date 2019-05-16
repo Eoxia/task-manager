@@ -25,10 +25,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<?php echo do_shortcode( '[task_avatar ids="' . $follower->data['id'] . '" size="40"]' ); ?>
 							</div>
 							<div class="content-text">
-								<?php echo esc_html( $follower->data['displayname'].trim() ); ?>
+								<?php echo esc_html( $follower->data['displayname'] ); ?>
 							</div>
 							<div class="tm-user-data">
-								<input type="hidden" value="<?php echo esc_html( $follower->data['displayname'].trim() . "#" . $follower->data['id'] ); ?>"/>
+								<input type="hidden" value="<?php echo esc_html( $follower->data['displayname'] . "#" . $follower->data['id'] ); ?>"/>
 							</div>
 						</li>
 					<?php endforeach; ?>
