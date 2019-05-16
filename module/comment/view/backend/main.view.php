@@ -15,6 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+
 \eoxia\View_Util::exec(
 	'task-manager',
 	'comment',
@@ -32,6 +33,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	'backend/list-comment',
 	array(
 		'comments'            => $comments,
-		'comment_selected_id' => $comment_selected_id,
+		'comment_selected_id' => $comment_selected_id
+	)
+);
+
+\eoxia\View_Util::exec(
+	'task-manager',
+	'comment',
+	'backend/comment-pagination',
+	array(
+		'point_id'       => $point_id,
+		'count_comments' => $count_comments,
+		'offset'         => $offset
 	)
 );

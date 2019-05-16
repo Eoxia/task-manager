@@ -29,4 +29,3 @@ if ( ! empty( $tasks ) ) :
 		);
 	endforeach;
 endif;
-

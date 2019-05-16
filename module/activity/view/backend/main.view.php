@@ -22,14 +22,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="filter-activity wpeo-form form-light">
 		<div class="filter-fields wpeo-gridlayout grid-5">
 			<div class="form-element gridw-2">
-				<span class="form-label"><i class="far fa-calendar-alt fa-fw"></i> <?php esc_html_e( 'Start date', 'task-manager' ); ?></span>
+				<span class="form-label"><i class="fas fa-calendar-alt fa-fw"></i> <?php esc_html_e( 'Start date', 'task-manager' ); ?></span>
 				<label class="form-field-container">
 					<input type="date" class="form-field" placeholder="<?php esc_html_e( 'Start date', 'task-manager' ); ?>" value="<?php echo esc_attr( $date_start ); ?>" name="tm_abu_date_start" />
 				</label>
 			</div>
 
 			<div class="form-element gridw-2">
-				<span class="form-label"><i class="far fa-calendar-alt fa-fw"></i> <?php esc_html_e( 'End date', 'task-manager' ); ?></span>
+				<span class="form-label"><i class="fas fa-calendar-alt fa-fw"></i> <?php esc_html_e( 'End date', 'task-manager' ); ?></span>
 				<label class="form-field-container">
 					<input type="date" class="form-field" placeholder="<?php esc_html_e( 'End date', 'task-manager' ); ?>" value="<?php echo esc_attr( $date_end ); ?>" name="tm_abu_date_end" />
 				</label>
@@ -42,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				data-parent="filter-activity"
 				id="tm-user-activity-load-by-date" >
 
-				<i class="far fa-search"></i></button>
+				<i class="fas fa-search"></i></button>
 		</div><!-- .filter-fields -->
 	</div><!-- .filter-activity -->
 

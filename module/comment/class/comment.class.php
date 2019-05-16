@@ -78,13 +78,13 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 			$default_args[ 'parent' ] = $point_id;
 		}
 
-
 		$comments = self::g()->get( wp_parse_args( $args, $default_args ) );
-		if ( ! empty( $comments ) ) {
+
+		/*if ( ! empty( $comments ) ) {
 			foreach ( $comments as $comment ) {
 				$comment->data['author'] = get_userdata( $comment->data['author_id'] );
 			}
-		}
+		}*/
 
 		return $comments;
 	}
@@ -102,10 +102,19 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 	 * @return void
 	 * @todo: Faire passer le paramètre comment_id et le renommé en selected_comment_id.
 	 */
-	public function display( $task_id, $point_id, $frontend = false ) {
+	public function display( $task_id, $point_id, $frontend = false, $args = array() ) {
 		$comment_id = ! empty( $_GET['comment_id'] ) ? (int) $_GET['comment_id'] : 0;
 
-		$comments = self::g()->get_comments( $point_id );
+		$number_comments = self::g()->get_comments( $point_id, array( 'count' => true ) );
+		$count_comments = 0;
+		if( $number_comments > 0 ){
+			$count_comments = intval( $number_comments / 10 );
+			if( intval( $number_comments % 10 ) > 0 ){
+				$count_comments++;
+			}
+		}
+
+		$comments = self::g()->get_comments( $point_id, $args );
 
 		$comment_schema = self::g()->get(
 			array(
@@ -119,6 +128,10 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 			$view = 'frontend';
 		}
 
+		$offset = 1;
+		if( isset( $args[ 'offset' ] ) && $args[ 'offset' ] ){
+			$offset = intval( $args[ 'offset' ] / 10 ) +1;
+		}
 
 		\eoxia\View_Util::exec(
 			'task-manager',
@@ -130,7 +143,9 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 				'comments'            => $comments,
 				'comment_selected_id' => $comment_id,
 				'comment_schema'      => $comment_schema,
-			)
+				'count_comments'      => $count_comments,
+				'offset'              => $offset
+	 		)
 		);
 	}
 

@@ -1,0 +1,20 @@
+.tm-audit {
+	.audit-progress {
+		width: 100%;
+		background: rgba(0,0,0,0.05);
+		height: 10px;
+		position: relative;
+
+		.progress-bar {
+			display: block;
+			height: 10px;
+			@include transition();
+		}
+		.progress-text {
+			position: absolute;
+			top: 0;
+			font-size: 10px;
+			line-height: 0.8;
+		}
+	}
+}

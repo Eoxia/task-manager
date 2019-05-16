@@ -90,7 +90,7 @@ class Owner_Action {
 
 		$task = Task_Class::g()->get(
 			array(
-				'p' => $task_id,
+				'id' => $task_id,
 			),
 			true
 		);

@@ -71,7 +71,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_time_history' ) ); ?>"
 		data-title="<?php /* Translators: 1. The task ID. */ echo esc_attr( sprintf( __( '#%1$s Time history', 'task-manager' ), $task->data['id'] ) ); ?>"
 		data-task-id="<?php echo esc_attr( $task->data['id'] ); ?>">
-		<span><i class="far fa-calendar-alt"></i></span>
+		<span><i class="fas fa-calendar-alt"></i></span>
 	</li>
 
 	<li class="wpeo-modal-event wpeo-tooltip-event" data-direction="top"
@@ -121,5 +121,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div>
 </div>
+
 
 <?php echo apply_filters( 'task_manager_task_header_action_end', '', $task->data['id'] ); ?>

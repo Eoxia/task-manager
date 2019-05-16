@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="wpeo-button button-grey button-radius-3 list-display active wpeo-tooltip-event"
 		aria-label="<?php echo esc_attr_e( 'Edit display', 'task-manager' ); ?>">
 
-		<i class="button-icon far fa-list"></i>
+		<i class="button-icon fas fa-list"></i>
 	</div>
 
 	<div class="wpeo-button button-grey button-radius-3 action-attribute grid-display wpeo-tooltip-event"
@@ -26,6 +26,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_last_activity' ) ); ?>"
 		data-tasks-id="<?php echo esc_attr( $task->data['id'] ); ?>">
 
-		<i class="button-icon far fa-align-left"></i>
+		<i class="button-icon fas fa-align-left"></i>
 	</div>
 </li>

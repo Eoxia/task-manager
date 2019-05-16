@@ -3,9 +3,9 @@
  * Affichage des charts des utilisateurs selon un lapse de temps préfédini
  *
  * @author Corentin-Eoxia <dev@eoxia.com>
- * @since 1.5.0
- * @version 1.6.0
- * @copyright 2015-2018 Eoxia
+ * @since 1.9.0
+ * @version 1.9.0
+ * @copyright 2019 Eoxia
  * @package Task_Manager
  */
 
@@ -18,9 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <div>
-	<h1>
-		<?php esc_html_e( 'End date', 'task-manager' ); ?>
-	</h1>
+	<br>
 </div>
 
 <?php do_meta_boxes( 'indicator-page', 'normal', '' ); ?>

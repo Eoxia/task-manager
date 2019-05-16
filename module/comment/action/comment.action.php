@@ -38,6 +38,7 @@ class Task_Comment_Action {
 
 		add_action( 'wp_ajax_edit_comment_front', array( $this, 'callback_edit_comment_front' ) );
 		add_action( 'wp_ajax_nopriv_edit_comment_front', array( $this, 'callback_edit_comment_front' ) );
+		add_action( 'wp_ajax_pagination_update_commments', array( $this, 'callback_pagination_update_commments' ) );
 	}
 
 	/**
@@ -46,18 +47,47 @@ class Task_Comment_Action {
 	 * @since 1.3.6
 	 */
 	public function callback_load_comments() {
-		$task_id  = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
-		$point_id = ! empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
-		$frontend = ( isset( $_POST['frontend'] ) && 'true' == $_POST['frontend'] ) ? true : false;
+		$task_id      = ! empty( $_POST[ 'task_id' ] ) ? (int) $_POST[ 'task_id' ] : 0;
+		$point_id     = ! empty( $_POST[ 'point_id' ] ) ? (int) $_POST[ 'point_id' ] : 0;
+		$frontend     = ( isset( $_POST[ 'frontend' ] ) && 'true' == $_POST[ 'frontend' ] ) ? true : false;
+		$number = ! empty( $_POST[ 'number' ] && $_POST[ 'number' ] > 0 ) ? (int) $_POST[ 'number' ] : 10; // On affiche 10 Commentaires / point
+		$offset = ! empty( $_POST[ 'offset' ] && $_POST[ 'offset' ] >= 0 ) ? (int) $_POST[ 'offset' ] : 0; // On commence à l'élément 0 (triè par date par défault)
+
+		$args = array(
+			'number' => $number,
+			'offset' => $offset
+		);
+
+		$followers = Follower_Class::g()->get( // Auto complete
+			array(
+				'role' => array(
+					'administrator',
+				),
+			)
+		);
 
 		ob_start();
-		Task_Comment_Class::g()->display( $task_id, $point_id, $frontend );
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'comment',
+			'backend/admin-tag-autocomplete',
+			array(
+				'followers' => $followers,
+			)
+		);
+
+		$follower_view = ob_get_clean(); // - - - - - -
+
+		ob_start();
+		Task_Comment_Class::g()->display( $task_id, $point_id, $frontend, $args );
 		wp_send_json_success(
 			array(
 				'view'             => ob_get_clean(),
 				'namespace'        => $frontend ? 'taskManagerFrontend' : 'taskManager',
 				'module'           => 'comment',
 				'callback_success' => 'loadedCommentsSuccess',
+				'follower_view'    => $follower_view
 			)
 		);
 	}
@@ -79,9 +109,15 @@ class Task_Comment_Action {
 		$content    = ! empty( $_POST['content'] ) ? trim( $_POST['content'] ) : '';
 		$time       = ! empty( $_POST['time'] ) ? (int) $_POST['time'] : 0;
 		$frontend   = ( isset( $_POST['frontend'] ) && 'true' == $_POST['frontend'] ) ? true : false;
+		$notif      = ( isset( $_POST['notif'] ) && ! empty( $_POST['notif'] ) ) ? $_POST['notif']  : array();
 
-		$content = str_replace( '<div>', '<br>', trim( $content ) );
-		$content = wp_kses(
+
+
+		// $elemnt_replace = array( '<div>', '</div>' );
+		// $content = str_replace( $elemnt_replace, '<br>', trim( $content ) );
+
+		$content = trim( $content );
+		/*$content = wp_kses(
 			$content,
 			array(
 				'br'      => array(),
@@ -89,7 +125,7 @@ class Task_Comment_Action {
 					'class' => array(),
 				),
 			)
-		);
+		);*/
 
 		$old_elapsed = 0;
 
@@ -120,7 +156,16 @@ class Task_Comment_Action {
 
 		$comment = Task_Comment_Class::g()->update( $comment->data, true );
 
-		$comments       = Task_Comment_Class::g()->get_comments( $parent_id );
+		$number_comments = Task_Comment_Class::g()->get_comments( $parent_id, array( 'count' => true ) );
+		$count_comments = 0;
+		if( $number_comments > 0 ){
+			$count_comments = intval( $number_comments / 10 );
+			if( intval( $number_comments % 10 ) > 0 ){
+				$count_comments++;
+			}
+		}
+
+		$comments       = Task_Comment_Class::g()->get_comments( $parent_id, array( 'number' => 10, 'offset' => 0 ) );
 		$comment_schema = Task_Comment_Class::g()->get(
 			array(
 				'schema' => true,
@@ -132,6 +177,11 @@ class Task_Comment_Action {
 		if ( $frontend ) {
 			$view = 'frontend';
 		}
+
+		if( ! empty( $notif ) ){
+			Notify_Class::g()->send_notification_followers_are_tags( $notif, $post_id, $parent_id, $comment->data[ 'id' ] );
+		}
+
 		ob_start();
 		\eoxia\View_Util::exec(
 			'task-manager',
@@ -143,6 +193,8 @@ class Task_Comment_Action {
 				'comments'            => $comments,
 				'comment_schema'      => $comment_schema,
 				'comment_selected_id' => 0,
+				'count_comments'      => $count_comments,
+				'offset'              => 1
 			)
 		);
 		$view = ob_get_clean();
@@ -406,6 +458,37 @@ class Task_Comment_Action {
 				'comment'          => $comment,
 			)
 		);
+	}
+
+	public function callback_pagination_update_commments(){
+
+		$page_actual = isset( $_POST[ 'page' ] ) ? (int) $_POST[ 'page' ] : 0;
+		$point_id = isset( $_POST[ 'point_id' ] ) ? (int) $_POST[ 'point_id' ] : 0;
+		$next = isset( $_POST[ 'next' ] ) ? (int) $_POST[ 'next' ] : 0;
+
+		if( ! $page_actual || ! $point_id || ! $next ){
+			wp_send_json_error();
+		}
+
+		$next = ( $next - 1 ) > 0 ? ( $next - 1 ) *10 : 0;
+		$number = 10;
+
+		$args = array(
+			'number' => $number,
+			'offset' => $next
+		);
+
+		ob_start();
+		Task_Comment_Class::g()->display( $task_id, $point_id, $frontend, $args );
+		wp_send_json_success(
+			array(
+				'view'             => ob_get_clean(),
+				'namespace'        => $frontend ? 'taskManagerFrontend' : 'taskManager',
+				'module'           => 'comment',
+				'callback_success' => 'loadedCommentsSuccess',
+			)
+		);
+
 	}
 
 }

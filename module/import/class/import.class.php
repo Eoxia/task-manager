@@ -31,12 +31,14 @@ class Import_Class extends \eoxia\Singleton_Util {
 	 * @return void
 	 */
 	public function display_textarea() {
+		$tags    = Tag_Class::g()->get();
 		\eoxia\View_Util::exec(
 			'task-manager',
 			'import',
 			'backend/import-textarea',
 			array(
 				'default_content' => '',
+				'tags'            => $tags
 			)
 		);
 	}
@@ -50,7 +52,7 @@ class Import_Class extends \eoxia\Singleton_Util {
 	 *
 	 * @return array           La liste des éléments créés et non créés.
 	 */
-	public function treat_content( $post_id, $content, $task_id ) {
+	public function treat_content( $post_id, $content = '', $task_id = 0 ) {
 		$element_list = array(
 			'not_created' => array(
 				'tasks'   => array(),
@@ -65,9 +67,11 @@ class Import_Class extends \eoxia\Singleton_Util {
 		);
 
 		$content_by_lines = preg_split( '/\r\n|\r|\n/', $content );
-
+		$list_category_not_found = array();
 		if ( ! empty( $content_by_lines ) ) {
+			$list_id = array();
 			foreach ( $content_by_lines as $index => $line ) {
+
 				// On vérifier le type de la ligne que l'on est sur le point de traiter.
 				$line_type_is_task = false;
 				if ( false !== strpos( $line, '%task%' ) ) {
@@ -87,15 +91,23 @@ class Import_Class extends \eoxia\Singleton_Util {
 					$line               = str_replace( '%comment%', '', $line );
 				}*/
 
+				$line_type_is_category = false;
+				if ( false !== strpos( $line, '%category%' ) ) { // Associer une catégorie (TAG) à une classe
+					$line_type_is_category = true;
+					$line              = str_replace( '%category%', '', $line );
+				}
 				// - - - -
 
 				if ( ! empty( $line ) && $line_type_is_task ) {
+
 					$created_task = Task_Class::g()->create(
 						array(
 							'title'     => $line,
 							'parent_id' => $post_id,
 						)
 					);
+
+					array_push( $list_id, $created_task->data[ 'id' ] );
 
 					// On vérifie que la création ce soit bien passée.
 					if ( ! empty( $created_task ) && ! empty( $created_task->data['id'] ) ) {
@@ -118,6 +130,32 @@ class Import_Class extends \eoxia\Singleton_Util {
 						}
 					} else {
 						$element_list['not_created']['points'][] = $line;
+					}
+				}elseif ( ! empty( $line ) && $line_type_is_category ) {
+					if ( ! empty( $task_id ) ) {
+						$category_args    = array(
+							'tag_id' => $line,
+							'content' => $line,
+							'order'   => $index
+						);
+
+						$category = get_term_by( 'slug', trim( $line ), 'wpeo_tag' );
+
+						$t = Task_Class::g()->get( array( 'id' => 448 ), true );
+
+						if( ! empty( $category ) ){
+							$created_task->data['taxonomy'][ Tag_Class::g()->get_type() ][] = $category->term_id;
+							$task = Task_Class::g()->update( $created_task->data, true );
+						}else{
+							$list_category_not_found[] = array(
+								'line' => trim( $line ),
+								'id' => $created_task->data[ 'id' ]
+							);
+							// Error no category found
+						}
+
+					} else {
+						$element_list['not_created']['tag'][] = $line;
 					}
 				} /*elseif ( ! empty( $line ) && $line_type_is_comment ) {
 					if ( ! empty( $task_id ) && ! empty ( $point_id ) ) {
@@ -142,9 +180,14 @@ class Import_Class extends \eoxia\Singleton_Util {
 					$element_list['not_created']['unknown'][] = $line;
 				}
 			}
+
+			foreach( $list_id as $key => $value ){
+				Task_Class::g()->recompile_task( $value );
+			}
 		}
 
-		return $element_list;
+		$return = [$element_list, $list_category_not_found];
+		return $return;
 	}
 
 }

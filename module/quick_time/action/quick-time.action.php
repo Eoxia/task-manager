@@ -37,6 +37,8 @@ class Quick_Time_Action {
 		add_action( 'wp_ajax_add_config_quick_time', array( $this, 'ajax_add_config_quick_time' ) );
 		add_action( 'wp_ajax_showNewLineQuicktime', array( $this, 'ajax_showNewLineQuicktime' ) );
 		add_action( 'wp_ajax_remove_config_quick_time', array( $this, 'ajax_remove_config_quick_time' ) );
+
+		add_action( 'wp_ajax_tm_add_point_to_quicktime', array( $this, 'ajax_tm_add_point_to_quicktime' ) );
 	}
 
 	/**
@@ -240,39 +242,17 @@ class Quick_Time_Action {
 		$meta[] = $data;
 
 		update_user_meta( get_current_user_id(), \eoxia\Config_Util::$init['task-manager']->quick_time->meta_quick_time, $meta );
-
-		/*$data = quicktime_format_data( $data );
-
 		ob_start();
 		\eoxia\View_Util::exec(
 			'task-manager',
-			'quick_time',
-			'backend/setting/item',
+			'point',
+			'backend/config-quicktimes',
 			array(
-				'key'        => key( end( $meta ) ),
-				'quick_time' => $data,
+				'point_id'   => $point_id,
+				'task_id'  => $task_id,
 			)
 		);
-		$new_item_view = ob_get_clean();
-
-		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'quick_time', 'backend/setting/form', array() );
-		$form_view = ob_get_clean();
-
-		ob_start();
-		Quick_Time_Class::g()->display();
-		$metabox_view = ob_get_clean();
-
-		wp_send_json_success(
-			array(
-				'namespace'        => 'taskManagerGlobal',
-				'module'           => 'quickTime',
-				'callback_success' => 'showNewLineQuicktime',
-				'new_item_view'    => $new_item_view,
-				'form_view'        => $form_view,
-				'metabox_view'     => $metabox_view,
-			)
-		);*/
+		$view_button = ob_get_clean();
 
 		ob_start();
 		Quick_Time_Class::g()->display_list();
@@ -282,6 +262,7 @@ class Quick_Time_Action {
 				'module'           => 'quickTime',
 				'callback_success' => 'showNewLineQuicktime',
 				'view'             => ob_get_clean(),
+				'view_button'      => $view_button,
 			)
 		);
 
@@ -319,6 +300,18 @@ class Quick_Time_Action {
 		update_user_meta( get_current_user_id(), \eoxia\Config_Util::$init['task-manager']->quick_time->meta_quick_time, $quicktimes );
 
 		ob_start();
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'point',
+			'backend/config-quicktimes',
+			array(
+				'point_id'   => $point_id,
+				'task_id'  => $task_id,
+			)
+		);
+		$view_button = ob_get_clean();
+
+		ob_start();
 		Quick_Time_Class::g()->display();
 		$metabox_view = ob_get_clean();
 		wp_send_json_success(
@@ -327,6 +320,7 @@ class Quick_Time_Action {
 				'module'           => 'quickTime',
 				'callback_success' => 'deletedConfigQuickTime',
 				'metabox_view'     => $metabox_view,
+				'view_button'      => $view_button
 			)
 		);
 	}

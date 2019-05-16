@@ -86,6 +86,16 @@ class Activity_Action {
 		}
 		$datas = Activity_Class::g()->get_activity( $tasks_id, 0, $date_start, $date_end );
 
+		$task_data_indicator = Task_Class::g()->get( array( 'id' => $tasks_id ), true );
+
+		if( ! empty ( $task_data_indicator ) ){
+			$data_indicator = array(
+				'count_completed_points' => $task_data_indicator->data[ 'count_completed_points' ],
+				'count_uncompleted_points' => $task_data_indicator->data[ 'count_uncompleted_points' ],
+				'task_id' => $tasks_id
+			);
+		}
+
 		ob_start();
 		if ( ! empty( $tasks_id ) ) {
 			\eoxia\View_Util::exec(
@@ -111,6 +121,7 @@ class Activity_Action {
 				'offset'           => $offset,
 				'last_date'        => $last_date,
 				'buttons_view'     => '',
+				'data_indicator'   => isset( $data_indicator ) && ! empty( $data_indicator ) ? $data_indicator : ''
 			)
 		);
 	}
@@ -124,7 +135,7 @@ class Activity_Action {
 	 * @return void
 	 */
 	public function load_activity_customer() {
-		check_ajax_referer( 'load_user_activity' );
+		//check_ajax_referer( 'load_user_activity' ); 18/04/2019 -> Bloque l'ajout d'un client
 
 		$frontend  = true;
 		$offset    = 0;
@@ -135,6 +146,9 @@ class Activity_Action {
 		$date_end    = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_end'] ) ? $_POST['tm_abu_date_end'] : current_time( 'Y-m-d' );
 		$date_start  = ! empty( $_POST ) && ! empty( $_POST['tm_abu_date_start'] ) ? $_POST['tm_abu_date_start'] : current_time( 'Y-m-d' );
 		$datas       = Activity_Class::g()->display_user_activity_by_date( $user_id, $date_end, $date_start, $customer_id );
+
+		$page  = ! empty( $_POST['page'] ) ? $_POST['page'] : '';
+
 
 		ob_start();
 		\eoxia\View_Util::exec(
@@ -147,6 +161,7 @@ class Activity_Action {
 				'user_id'     => $user_id,
 				'customer_id' => $customer_id,
 				'datas'       => $datas,
+				'page'        => $page
 			)
 		);
 		$view = ob_get_clean();
@@ -265,7 +280,6 @@ class Activity_Action {
 		$display_specific_week = false;
 		$user_select           = true;
 
-		ob_start();
 
 		if ( ! $list_follower ) { // @info aucun utilisateur sélectionné
 			$list_follower = get_current_user_id();
@@ -288,6 +302,18 @@ class Activity_Action {
 		} else {
 
 		}
+
+		ob_start();
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'indicator',
+			'backend-indicator/indicator-button-display',
+			array()
+		);
+
+		$view_button = ob_get_clean();
+		ob_start();
 
 		$datas = Activity_Class::g()->display_user_activity_by_date( $list_follower, $date_end, $date_start );
 
@@ -317,6 +343,7 @@ class Activity_Action {
 				'display_specific_week' => $display_specific_week,
 				'user_select'           => $user_select,
 				'user_id'               => $list_follower,
+				'view_button'           => $view_button
 			)
 		);
 	}

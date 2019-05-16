@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<input type="hidden" name="content" value="<?php echo esc_attr( trim( $comment->data['content'] ) ); ?>" />
 				<div contenteditable="true" class="content"><?php echo trim( $comment->data['content'] ); ?></div>
 				<?php if ( empty( $comment->data['id'] ) ) : ?>
-					<span class="placeholder"><i class="far fa-plus"></i> <?php esc_html_e( 'Your comment here...', 'task-manager' ); ?></span>
+					<span class="placeholder"><i class="fas fa-plus"></i> <?php esc_html_e( 'Your comment here...', 'task-manager' ); ?></span>
 				<?php endif; ?>
 			</div>
 

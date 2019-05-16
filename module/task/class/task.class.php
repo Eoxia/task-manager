@@ -128,19 +128,20 @@ class Task_Class extends \eoxia\Post_Class {
 	public function get_tasks( $param ) {
 		global $wpdb;
 
-		$param['id']             = isset( $param['id'] ) ? (int) $param['id'] : 0;
-		$param['task_id']       = isset( $param['task_id'] ) ? (int) $param['task_id'] : 0;
-		$param['point_id']       = isset( $param['point_id'] ) ? (int) $param['point_id'] : 0;
-		$param['offset']         = ! empty( $param['offset'] ) ? (int) $param['offset'] : 0;
-		$param['posts_per_page'] = ! empty( $param['posts_per_page'] ) ? (int) $param['posts_per_page'] : -1;
-		$param['users_id']       = ! empty( $param['users_id'] ) ? (array) $param['users_id'] : array();
-		$param['categories_id']  = ! empty( $param['categories_id'] ) ? (array) $param['categories_id'] : array();
-		$param['status']         = ! empty( $param['status'] ) ? sanitize_text_field( $param['status'] ) : 'any';
-		$param['post_parent']    = ! empty( $param['post_parent'] ) ? (array) $param['post_parent'] : null;
-		$param['term']           = ! empty( $param['term'] ) ? sanitize_text_field( $param['term'] ) : '';
+		$param['id']              = isset( $param['id'] ) ? (int) $param['id'] : 0;
+		$param['task_id']         = isset( $param['task_id'] ) ? (int) $param['task_id'] : 0;
+		$param['point_id']        = isset( $param['point_id'] ) ? (int) $param['point_id'] : 0;
+		$param['offset']          = ! empty( $param['offset'] ) ? (int) $param['offset'] : 0;
+		$param['posts_per_page']  = ! empty( $param['posts_per_page'] ) ? (int) $param['posts_per_page'] : -1;
+		$param['users_id']        = ! empty( $param['users_id'] ) ? (array) $param['users_id'] : array();
+		$param['categories_id']   = ! empty( $param['categories_id'] ) ? (array) $param['categories_id'] : array();
+		$param['status']          = ! empty( $param['status'] ) ? sanitize_text_field( $param['status'] ) : 'any';
+		$param['post_parent']     = ! empty( $param['post_parent'] ) ? (array) $param['post_parent'] : null;
+		$param['term']            = ! empty( $param['term'] ) ? sanitize_text_field( $param['term'] ) : '';
+		$param['not_parent_type'] = ! empty( $param['not_parent_type'] ) ? (array) $param['not_parent_type'] : null;
 
-		$tasks    = array();
 		$tasks_id = array();
+		$tasks = array();
 
 		if ( ! empty( $param['status'] ) ) {
 			if ( 'any' === $param['status'] ) {
@@ -161,11 +162,17 @@ class Task_Class extends \eoxia\Post_Class {
 		$comment_type = Task_Comment_Class::g()->get_type();
 
 		$query = "SELECT DISTINCT TASK.ID FROM {$wpdb->posts} AS TASK
+			LEFT JOIN {$wpdb->posts} AS PARENT ON PARENT.ID=TASK.post_parent
 			LEFT JOIN {$wpdb->comments} AS POINT ON POINT.comment_post_id=TASK.ID AND POINT.comment_approved = 1 AND POINT.comment_type = '{$point_type}'
 			LEFT JOIN {$wpdb->comments} AS COMMENT ON COMMENT.comment_parent=POINT.comment_id AND COMMENT.comment_approved = 1 AND POINT.comment_approved = 1 AND COMMENT.comment_type = '{$comment_type}'
 			LEFT JOIN {$wpdb->postmeta} AS TASK_META ON TASK_META.post_id=TASK.ID AND TASK_META.meta_key='wpeo_task'
 			LEFT JOIN {$wpdb->term_relationships} AS CAT ON CAT.object_id=TASK.ID
 		WHERE TASK.post_type='wpeo-task'";
+
+
+		if ( ! empty( $param['not_parent_type'] ) ) {
+			$query .= ' AND (PARENT.ID IS NULL OR PARENT.post_type NOT IN ("' . implode( $param['not_parent_type'], ',' ) . '" ) )';
+		}
 
 		$query .= 'AND TASK.post_status IN (' . $param['status'] . ')';
 
@@ -234,6 +241,7 @@ class Task_Class extends \eoxia\Post_Class {
 			$query .= ' AND (' . $sub_where . ')';
 		}
 
+
 		$query .= ' ORDER BY TASK.post_date DESC ';
 
 		if ( -1 !== $param['posts_per_page'] ) {
@@ -300,31 +308,66 @@ class Task_Class extends \eoxia\Post_Class {
 	 * @since 1.0.0
 	 * @version 1.6.0
 	 */
-	public function callback_render_metabox( $post ) {
-		$parent_id = $post->ID;
-		$user_id   = $post->post_author;
+	public function callback_render_metabox( $post, $array = array(), $args_parameter = array(), $post_id = 0 ) {
+
+		if( ! empty( $post ) ){
+			$post_id = $post->ID;
+		}
+
+		$parent_id = $post_id;
+		// $user_id   = $post->post_author;
 
 		$tasks                = array();
 		$task_ids_for_history = array();
 		$total_time_elapsed   = 0;
 		$total_time_estimated = 0;
 
+		$posts_per_page_task = 5; // Définis le nombre de tache / page (client)
+
 		// Affichage des tâches de l'élément sur lequel on se trouve.
-		$tasks[ $post->ID ]['title'] = '';
-		$tasks[ $post->ID ]['data']  = self::g()->get_tasks(
-			array(
-				'post_parent' => $post->ID,
-				'status'      => 'publish,pending,draft,future,private,inherit,archive',
-			)
+		$tasks[ $post_id ]['title'] = '';
+
+		$args = array(
+			'post_parent' => $post_id,
+			'status'      => 'publish,pending,draft,future,private,inherit'
 		);
 
-		if ( ! empty( $tasks[ $post->ID ]['data'] ) ) {
-			foreach ( $tasks[ $post->ID ]['data'] as $task ) {
-				if ( empty( $tasks[ $post->ID ]['total_time_elapsed'] ) ) {
-					$tasks[ $post->ID ]['total_time_elapsed'] = 0;
+		if( empty( $args_parameter )  ){ // Par défaut on affiche 5 élements / page
+			$args_parameter = array(
+				'offset' => 0,
+				'status' => 'publish,pending,draft,future,private,inherit'
+			);
+		}
+
+		$args_parameter[ 'posts_per_page' ] = $posts_per_page_task;
+
+		$tasks[ $post_id ]['data'] = self::g()->get_tasks( wp_parse_args( $args_parameter, $args ) );
+
+		$number_task = count( self::g()->get_tasks( array( 'status' => $args_parameter[ 'status' ], 'post_parent' => $post_id ) ) );
+
+		// $number_task = count( self::g()->get_tasks( $args_parameter ) );
+
+
+		$count_tasks = 0;
+		if( $number_task > 0 ){
+			$count_tasks = intval( $number_task / $posts_per_page_task );
+			if( intval( $number_task % $posts_per_page_task ) > 0 ){
+				$count_tasks++;
+			}
+		}
+
+		$offset = 1;
+		if( isset( $args_parameter[ 'offset' ] ) && ! empty( $args_parameter[ 'offset' ] ) ){
+			$offset = intval( $args_parameter[ 'offset' ] / $posts_per_page_task ) +1;
+		}
+
+		if ( ! empty( $tasks[ $post_id ]['data'] ) ) {
+			foreach ( $tasks[ $post_id ]['data'] as $task ) {
+				if ( empty( $tasks[ $post_id ]['total_time_elapsed'] ) ) {
+					$tasks[ $post_id ]['total_time_elapsed'] = 0;
 				}
 
-				$tasks[ $post->ID ]['total_time_elapsed'] += $task->data['time_info']['elapsed'];
+				$tasks[ $post_id ]['total_time_elapsed'] += $task->data['time_info']['elapsed'];
 				$total_time_elapsed                       += $task->data['time_info']['elapsed'];
 				$total_time_estimated                     += $task->data['last_history_time']->data['estimated_time'];
 
@@ -334,7 +377,7 @@ class Task_Class extends \eoxia\Post_Class {
 
 		// Récupération des enfants de l'élément sur lequel on se trouve.
 		$args     = array(
-			'post_parent' => $post->ID,
+			'post_parent' => $post_id,
 			'post_type'   => \eoxia\Config_Util::$init['task-manager']->associate_post_type,
 			'numberposts' => -1,
 			'post_status' => 'any',
@@ -379,11 +422,13 @@ class Task_Class extends \eoxia\Post_Class {
 			'task',
 			'backend/metabox-posts',
 			array(
-				'post'                 => $post,
+				'post_id'              => $post_id,
 				'tasks'                => $tasks,
 				'task_ids_for_history' => implode( ',', $task_ids_for_history ),
 				'total_time_elapsed'   => $total_time_elapsed,
 				'total_time_estimated' => $total_time_estimated,
+				'offset'               => $offset,
+				'count_tasks'          => $count_tasks
 			)
 		);
 	}
@@ -461,7 +506,7 @@ class Task_Class extends \eoxia\Post_Class {
 		}
 	}
 
-	public function all_month_between_two_dates( $date_start, $date_end ){ // premiers mois EXLCUS et denier mois INCLUS
+	public function all_month_between_two_dates( $date_start, $date_end, $delete_first_month = false ){ // premiers mois EXLCUS et denier mois INCLUS
 		$dates   = array();
 		$current = $date_start;
 		$last    = $date_end;
@@ -481,7 +526,14 @@ class Task_Class extends \eoxia\Post_Class {
 					'str_month_start' => strtotime( date( 'd-m-Y', $current ) ),
 					'str_month_end' => strtotime( date( 't-m-Y', $current ) ) + 86340,
 					'total_time_elapsed' => 0,
-					'total_time_estimated' => 0
+					'total_time_estimated' => 0,
+					'total_time_deadline' => 0,
+					'total_time_percent' => 0,
+					'total_time_elapsed_readable' => 0,
+					'total_time_estimated_readable' => 0,
+					'total_time_deadline_readable' => 0,
+					'month_is_valid'  => 0,
+					'task_list' => array()
 				);
 			}
 
@@ -492,12 +544,14 @@ class Task_Class extends \eoxia\Post_Class {
 			$current = strtotime( '+1 day', $current );
 
 		}
-		$all_month_in_year = array_slice( $all_month_in_year, 1 );
+		if( $delete_first_month ){
+			$all_month_in_year = array_slice( $all_month_in_year, 1 );
+		}
 
 		return $all_month_in_year;
 	}
 
-	public function update_client_indicator( $postid, $postauthor, $year ){
+	public function update_client_indicator( $postid, $postauthor = 0, $year = 0 ){
 		if( ! $year || $year > date("Y") ){
 				$year = date("Y");
 		}
@@ -505,76 +559,183 @@ class Task_Class extends \eoxia\Post_Class {
 		return $this->callback_render_indicator( array(), $postid, $postauthor, $year );
 	}
 
-	public function test_func_indicator_client( $tasks, $allmonth, $post_id )
+
+
+/**
+ * Cette fonction permet de créer un tableau (pour chaque tache)
+ * @param  [type] $task_title      [titre de la tachee].
+ * @param  [type] $categorie_title [titre de la catégorie].
+ * @param  [type] $categorie_id    [id de la catégorie].
+ * @return [array] $data         [data].
+ */
+	public function return_array_indicator_tasklist( ){
+		$data = array(
+			'time_elapsed'           => 0, // Temps passé (cumul des commentaires de temps des commentaires)
+			'time_estimated'         => 0, // Temps estimé (cumul des temps estimé pour chaque taches )
+			'time_estimated_monthly' => 0, // Temps estimé total (Pour une tache monthly, on cumul le temps estimé avec le mois précédent)
+			'time_deadline'          => 0, // Temps passé, cumulé des mois précédents
+			'time_percent'           => 0, // Utilisé seulement pour l'affichage
+			'time_previous_months'   => 0, // Concerne le UNIQUEMENT le premiers mois et le type DEADLINE, cette variable récupère les temps des mois précédents
+			'month_is_valid'         => 0 // Cette variable permet de définir si le mois ciblé est valide => Se trouve entre le début de création du mois et la fin de la deadline
+		);
+
+		return $data;
+	}
+
+	public function generate_data_indicator_client( $tasks, $allmonth, $post_id )
 	{
 		$str_start = $allmonth[ 0 ][ 'str_month_start' ];
 		$str_end = $allmonth[ count( $allmonth ) - 1 ][ 'str_month_end' ];
 
 		$categories_indicator = array();
+		$categories_indicator_info = array();
+
 		if ( empty( $tasks ) )
 		{
-			return  array();
+			return array();
 		}
 
 		foreach ( $tasks as $key => $task ) { // Pour chaque tache
-			$task_recursive = false;
-			$args = array(
-				'post_id' => $task->data[ 'id' ]
-			);
+			$type = '';
+			$args = array( 'post_id' => $task->data[ 'id' ]	);
+
+			// On definie le type pour créer un tableau avec deux élements
+			if( $task->data['last_history_time']->data['custom'] == 'recursive' ){ // Si recursif => $categories_indicator_recursive
+				$type = 'recursive';
+			}else if( $task->data['last_history_time']->data['custom'] == 'due_date' ){ // Si Deadline => $categories_indicator_deadline
+				$type = 'deadline';
+			}else{ // Si aucun type => RIEN
+				continue;
+			}
 
 			if( ! $str_start < strtotime( $task->data['date_modified'][ 'rendered' ][ 'mysql' ] ) && ! $str_end > strtotime( $task->data['date_modified'][ 'rendered' ][ 'mysql' ] ) ){ // On vérifie que la tache est était modifiée dans l'année
 				continue;
 			}
 
-			foreach ( $task->data['taxonomy'][ 'wpeo_tag' ] as $key_task => $value_task ) { // Si la tache a plusieurs catégories
-				if( empty( $categories_indicator[ $value_task ] ) ) { // On créait la catégorie
-					$categories_indicator[ $value_task ] = $allmonth;
-					$name_categories = get_term_by( 'id', $value_task, 'wpeo_tag' );
+			if( empty( $task->data['taxonomy'][ 'wpeo_tag' ] ) ){
+				$task->data[ 'taxonomy' ][ 'wpeo_tag' ][] = 0;
+			}
 
-					$categories_indicator[ $value_task ][0][ 'name' ] = $name_categories->name;
-					$categories_indicator[ $value_task ][0][ 'id' ]   = $name_categories->term_id;
+			foreach ( $task->data['taxonomy'][ 'wpeo_tag' ] as $id_category ) { // Si la tache a plusieurs catégories
+				$category_info = array();
+				if( $id_category == 0 ){
+					$name_categories = __( 'No Category', 'task-manager' );
+				}else{
+					$categories = get_term_by( 'id', $id_category, 'wpeo_tag' );
+					$name_categories = $categories->name;
+				}
+				if( empty( $categories_indicator[ $type ][ $id_category ] ) ) { // On créait la catégorie
+					$categories_indicator[ $type ][ $id_category ] = $allmonth; // tous les mois de l'année
+					$category_info = array(
+						'name'                    => $name_categories, // Info
+						'id'                      => $id_category, // de base
+						'type'                    => $type, // De la catégorie
+						'time_elapsed'            => 0,
+						'time_estimated'          => 0,
+						'time_elapsed_readable'   => '',
+						'time_estimated_readable' => '',
+						'time_percent'            => 0,
+					);
 				}
 
-				if( $task->data['last_history_time']->data['custom'] == 'recursive' ){ // Si la tache est récursive, on ajoute du temps chaque mois
-					$task_recursive = true;
-					foreach( $categories_indicator[ $value_task ] as $key_categorie => $month ){ // Pour chaque tache, Chaque mois de l'année
-						if( strtotime( $task->data['date'][ 'rendered' ][ 'mysql' ] ) < $categories_indicator[ $value_task ][ $key_categorie ][ 'str_month_end' ] ){
-							if( strtotime( 'now' ) >= $month[ 'str_month_start' ] ){
-								$categories_indicator[ $value_task ][ $key_categorie ][ 'total_time_estimated' ] += $task->data['last_history_time']->data['estimated_time'];
+				$deadline_task = $task->data[ 'last_history_time' ]->data[ 'due_date' ][ 'rendered' ][ 'mysql' ];
+				$history_task = $task->data[ 'last_history_time' ]->data;
+				if( $type === 'recursive' ){ // Si la tache est récursive, on ajoute du temps chaque mois
+					foreach( $categories_indicator[ $type ][ $id_category ] as $key_categorie => $month ){ // Pour chaque tache, Chaque mois de l'année
+						$categories_indicator[ $type ][ $id_category ][ $key_categorie ][ 'task_list' ][ $task->data[ 'id' ] ] = $this->return_array_indicator_tasklist();
+
+						if( strtotime( $task->data['date'][ 'rendered' ][ 'mysql' ] ) < $month[ 'str_month_end' ] && strtotime( 'now' ) >= $month[ 'str_month_start' ] ){
+							$categories_indicator[ $type ][ $id_category ][ $key_categorie ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_estimated' ] += $history_task[ 'estimated_time' ];
+							$categories_indicator[ $type ][ $id_category ][ $key_categorie ][ 'task_list' ][ $task->data[ 'id' ] ][ 'month_is_valid' ] = 1;
+							$categories_indicator[ $type ][ $id_category ][ $key_categorie ][ 'month_is_valid' ] = 1;
+
+							$categories_indicator[ $type ][ $id_category ][ $key_categorie ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_estimated_monthly' ] += $history_task[ 'estimated_time' ];
+
+							if( isset( $categories_indicator[ $type ][ $id_category ][ $key_categorie - 1 ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_estimated_monthly' ] ) ){
+								$categories_indicator[ $type ][ $id_category ][ $key_categorie ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_estimated_monthly' ] += $categories_indicator[ $type ][ $id_category ][ $key_categorie - 1 ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_estimated_monthly' ];
 							}
 						}
 					}
-				}else{
-					foreach( $categories_indicator[ $value_task ] as $key_categorie => $month ){ // Pour chaque tache, Chaque mois de l'année
-						if( $month[ 'str_month_start' ] < strtotime( $task->data['date'][ 'rendered' ][ 'mysql' ] ) && $month[ 'str_month_end' ] > strtotime( $task->data['date'][ 'rendered' ][ 'mysql' ] ) ){
-							$categories_indicator[ $value_task ][ $key_categorie ][ 'total_time_elapsed' ] += $task->data['time_info']['elapsed'];
-							$categories_indicator[ $value_task ][ $key_categorie ][ 'total_time_estimated' ] += $task->data['last_history_time']->data['estimated_time'];
-							break;
+
+				}else if( $type === 'deadline' && ( isset( $deadline_task ) || strtotime( $deadline_task ) > 0 ) ){ // Task deadline
+					foreach( $categories_indicator[ $type ][ $id_category ] as $key_categorie => $month ){ // Pour chaque tache, Chaque mois de l'année
+						$categories_indicator[ $type ][ $id_category ][ $key_categorie ][ 'task_list' ][ $task->data[ 'id' ] ] = $this->return_array_indicator_tasklist();
+
+						if( strtotime( $task->data[ 'date' ][ 'rendered' ][ 'mysql' ] ) < $month[ 'str_month_end' ] && strtotime( $deadline_task ) > $month[ 'str_month_start' ] ){ // Mois creer avant la fin du mois et Deadline aprés le debut du mois => Mois valide
+							$categories_indicator[ $type ][ $id_category ][ $key_categorie ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_estimated'] = $history_task['estimated_time'];
+							$categories_indicator[ $type ][ $id_category ][ $key_categorie ][ 'task_list' ][ $task->data[ 'id' ] ][ 'month_is_valid' ] = 1;
+							$categories_indicator[ $type ][ $id_category ][ $key_categorie ][ 'month_is_valid' ] = 1;
 						}
 					}
+
+				}else{
+					// Normalement cette condition ne doit pas etre accessible
+					echo '<pre>'; print_r( 'Bug 1dz654q1d651dq : Task.class' ); echo '</pre>';
+					return array();
 				}
-				if( ! $task_recursive ){
+
+				if( ! empty( $category_info ) ){
+					$categories_indicator_info[ $type ][ $id_category ][ 'info' ] = $category_info;
+				}
+
+				$categories_indicator_info[ $type ][ $id_category ][ 'task_list' ][ $task->data[ 'id' ] ][ 'id' ] = $task->data[ 'id' ];
+				$categories_indicator_info[ $type ][ $id_category ][ 'task_list' ][ $task->data[ 'id' ] ][ 'title' ] = $task->data[ 'title' ];
+				$categories_indicator_info[ $type ][ $id_category ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_elapsed' ] = 0;
+				$categories_indicator_info[ $type ][ $id_category ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_estimated' ] = 0;
+				// On recupere les commentaires et on les ajoute dans leurs mois respectifs
+				$comments = Task_Comment_Class::g()->get_comments( 0, $args );
+				if( empty ( $comments ) ){
 					continue;
 				}
 
-				$comments       = Task_Comment_Class::g()->get_comments( 0, $args );
-
-				foreach ( $comments as $key => $value_com ) { // Pour chaque commentaire de la tache
-
-					foreach( $categories_indicator[ $value_task ] as $key_cat => $month ){ // Pour chaque tache, Chaque mois de l'année
-						if( $month[ 'str_month_start' ] < strtotime( $value_com->data[ 'date' ][ 'rendered' ][ 'mysql' ] ) && $month[ 'str_month_end' ] > strtotime( $value_com->data[ 'date' ][ 'rendered' ][ 'mysql' ] ) ){
-
-							$categories_indicator[ $value_task ][ $key_cat ][ 'total_time_elapsed' ] += $value_com->data[ 'time_info' ][ 'elapsed' ];
-
-							break;
+				$first_month = true;
+				foreach( $categories_indicator[ $type ][ $id_category ] as $key_month_ => $month ){ // Pour chaque mois de l'année, on va check les commentaires
+					//if( $month[ 'task_list' ][ $task->data[ 'id' ] ][ 'month_is_valid' ] ){ // On verifie que le mois soit valide
+						if( $key_month_ == 0 && $type === 'deadline' ){
+							// Si le premier mois est valide, on récupère le temps des commentaires des mois précédents
+							foreach ( $comments as $key => $value_com ) {
+								if( $month[ 'str_month_start' ] > strtotime( $value_com->data[ 'date' ][ 'rendered' ][ 'mysql' ] ) ){
+									$categories_indicator[ $type ][ $id_category ][ $key_month_ ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_elapsed' ] += $value_com->data[ 'time_info' ][ 'elapsed' ];
+									$categories_indicator[ $type ][ $id_category ][ $key_month_ ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_deadline' ] += $value_com->data[ 'time_info' ][ 'elapsed' ];
+								}
+							}
 						}
-					}
-				}
 
+					//	if( isset( $categories_indicator[ $type ][ $id_category ][ $key_month_ - 1 ][ 'task_list' ][ $task->data[ 'id' ] ][ 'month_is_valid' ] ) && $categories_indicator[ $type ][ $id_category ][ $key_month_ - 1 ][ 'task_list' ][ $task->data[ 'id' ] ][ 'month_is_valid' ] ){
+					if( isset( $categories_indicator[ $type ][ $id_category ][ $key_month_ - 1 ][ 'task_list' ][ $task->data[ 'id' ] ][ 'month_is_valid' ] ) ){
+							// On ajoute le temps du commentaire actuel à celui du mois précédent
+							$categories_indicator[ $type ][ $id_category ][ $key_month_ ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_deadline' ] = $categories_indicator[ $type ][ $id_category ][ $key_month_ - 1 ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_deadline' ];
+						}
+						//}
+
+						foreach ( $comments as $key => $value_com ) { // Pour chaque commentaire
+
+							if( $month[ 'str_month_start' ] < strtotime( $value_com->data[ 'date' ][ 'rendered' ][ 'mysql' ] ) && $month[ 'str_month_end' ] > strtotime( $value_com->data[ 'date' ][ 'rendered' ][ 'mysql' ] ) ) // Si le commentaire a était fait dans le mois
+							{
+								$categories_indicator[ $type ][ $id_category ][ $key_month_ ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_elapsed' ] += $value_com->data[ 'time_info' ][ 'elapsed' ];
+								$categories_indicator[ $type ][ $id_category ][ $key_month_ ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_deadline' ] += $value_com->data[ 'time_info' ][ 'elapsed' ];
+
+
+								$categories_indicator_info[ $type ][ $id_category ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_elapsed' ] = 0;
+								$categories_indicator_info[ $type ][ $id_category ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_estimated' ] = 0;
+							}
+						}
+					//}
+				}
+				// $categories_indicator[ $value_task ] = $this->update_property_this_array( $categories_indicator[ $value_task ] );
 			}
 		}
 
-		return $categories_indicator;
+		// Cette function permet de récupérer tout le temps passé sur chaque mois pour chaquee tache, pour l'ajouter aux temps totals du mois
+		if( ! empty( $categories_indicator ) ){
+			foreach( $categories_indicator as $key => $value ){
+				$return = $this->update_indicator_array_tasklist( $categories_indicator[ $key ], $categories_indicator_info[ $key ] );
+				$categories_indicator[ $key ]      = $return[ 'categories' ];
+				$categories_indicator_info[ $key ] = $return[ 'info' ];
+			}
+		}
+
+		return array( 'data' => $categories_indicator, 'info' => $categories_indicator_info );
 	}
 
 	public function callback_render_indicator( $post = array(), $post_id = 0, $post_author = 0, $year = 0 ) {
@@ -608,91 +769,21 @@ class Task_Class extends \eoxia\Post_Class {
 		$tasks_indicator = array(); // trie toutes les taches
 		$categories_indicator = array(); // tries toutes les taches selon les catégories
 
-		$allmonth_betweendates = $this->all_month_between_two_dates( $indicator_date_start, $indicator_date_end );
+		$allmonth_betweendates = $this->all_month_between_two_dates( $indicator_date_start, $indicator_date_end, true );
 
-		$categories_indicator = $this->test_func_indicator_client( $tasks[ $post_id ]['data'], $allmonth_betweendates, $post_id );
-		// echo '<pre>'; print_r( $tasks[ $post_id ] ); echo '</pre>'; exit;
+		$return = $this->generate_data_indicator_client( $tasks[ $post_id ]['data'], $allmonth_betweendates, $post_id );
+		$categories_indicator = isset( $return[ 'data' ] ) ? $return[ 'data' ] : array(); // Data principal
+		$categories_info = isset( $return[ 'info' ] ) ? $return[ 'info' ] : array(); // Info
 
-
-		/*if ( ! empty( $tasks[ $post_id ]['data'] ) ) {
-			foreach ( $tasks[ $post_id ]['data'] as $task ) {
-				if ( empty( $tasks[ $post_id ]['total_time_elapsed'] ) ) {
-					$tasks[ $post_id ]['total_time_elapsed'] = 0;
-				}
-
-				$temp_length = count( $tasks_indicator );
-				$tasks_indicator[ $temp_length ][ 'total_time_elapsed' ]   = $task->data['time_info']['elapsed'];
-				$tasks_indicator[ $temp_length ][ 'estimated_time' ]       =  $task->data['last_history_time']->data['estimated_time'];
-				$tasks_indicator[ $temp_length ][ 'monthly_time' ]         =  $task->data['last_history_time']->data['custom'];
-				$tasks_indicator[ $temp_length ][ 'date_humain_readable' ] = $task->data['date'][ 'rendered' ][ 'date_time' ];
-				$tasks_indicator[ $temp_length ][ 'date_str' ]             = strtotime( $task->data['date'][ 'rendered' ][ 'mysql' ] );
-				$tasks_indicator[ $temp_length ][ 'date_str_modified' ]    = strtotime( $task->data['date_modified'][ 'rendered' ][ 'mysql' ] );
-				$tasks_indicator[ $temp_length ][ 'categorie' ]            = $task->data['taxonomy'][ 'wpeo_tag' ];
-
-				if( ! empty( $tasks_indicator[ $temp_length ][ 'categorie' ] ) ){
-					foreach ($tasks_indicator[ $temp_length ][ 'categorie' ] as $key_task => $value_task ) { // Si la tache a plusieurs catégories
-						if( empty( $categories_indicator[ $value_task ] ) ) {
-							$categories_indicator[ $value_task ] = $allmonth_betweendates;
-							$name_categories = $tag = get_term_by( 'term_taxonomy_id', $value_task, 'wpeo_tag' );
-							$categories_indicator[ $value_task ][0][ 'name' ] = $name_categories->name;
-							$categories_indicator[ $value_task ][0][ 'id' ]   = $name_categories->term_id;
-						}
-
-						foreach( $categories_indicator[ $value_task ] as $key_cat => $month ){ // Pour chaque tache, Chaque mois de l'année
-							if( $month[ 'str_month_start' ] < $tasks_indicator[ $temp_length ][ 'date_str' ] && $month[ 'str_month_end' ] > $tasks_indicator[ $temp_length ][ 'date_str' ] ){
-
-								$categories_indicator[ $value_task ][ $key_cat ][ 'total_time_elapsed' ] += $tasks_indicator[ $temp_length ][ 'total_time_elapsed' ];
-								$categories_indicator[ $value_task ][ $key_cat ][ 'total_time_estimated' ] += $tasks_indicator[ $temp_length ][ 'estimated_time' ];
-
-								break;
-							}
-						}
-					}
-				}
-			}
-		}*/
-
-
-foreach ( $categories_indicator as $keycategorie => $valuecategorie ) { // Pour chaque catégories
-	$total_estimated = 0;
-	$total_elapsed = 0;
-	foreach ( $valuecategorie as $keymonth => $valuemonth ) { // Pour chaque mois de cette catégorie
-		$total_estimated += $valuemonth[ 'total_time_estimated' ];
-		$total_elapsed += $valuemonth[ 'total_time_elapsed' ];
-		$categories_indicator[ $keycategorie ][ $keymonth ][ 'purcent_color' ] = '#F1F8E9';
-
-		if( $valuemonth[ 'total_time_estimated' ] != 0 && $valuemonth[ 'total_time_elapsed' ] != 0 ){
-			$categories_indicator[ $keycategorie ][ $keymonth ][ 'total_pourcent' ] = intval( $valuemonth[ 'total_time_elapsed' ] / $valuemonth[ 'total_time_estimated' ] * 100 );
-
-			$pourcent_color = $this->return_color_from_pourcent( $categories_indicator[ $keycategorie ][ $keymonth ][ 'total_pourcent' ] );
-
-
-
-			$categories_indicator[ $keycategorie ][ $keymonth ][ 'purcent_color' ] = $pourcent_color;
-			$categories_indicator[ $keycategorie ][ $keymonth ][ 'total_time_estimated_readable' ] = $this->change_minute_time_to_readabledate( $valuemonth[ 'total_time_estimated' ] );
-			$categories_indicator[ $keycategorie ][ $keymonth ][ 'total_time_elapsed_readable' ] = $this->change_minute_time_to_readabledate( $valuemonth[ 'total_time_elapsed' ] );
-
-		}
-	}
-
-	$categories_indicator[ $keycategorie ][0][ 'all_month_estimated'] = $total_estimated;
-	$categories_indicator[ $keycategorie ][0][ 'all_month_estimated_readable'] = $this->change_minute_time_to_readabledate( $total_estimated );
-	$categories_indicator[ $keycategorie ][0][ 'all_month_elapsed'] = $total_elapsed;
-	$categories_indicator[ $keycategorie ][0][ 'all_month_elapsed_readable'] = $this->change_minute_time_to_readabledate( $total_elapsed );
-	if( $total_elapsed > 0 && $total_estimated > 0 ){
-		$categories_indicator[ $keycategorie ][0][ 'all_month_pourcent'] = intval( $total_elapsed / $total_estimated * 100 );
-	}else{
-		$categories_indicator[ $keycategorie ][0][ 'all_month_pourcent'] = 0;
-	}
-	$categories_indicator[ $keycategorie ][0][ 'all_month_pourcent_color'] = $this->return_color_from_pourcent( $categories_indicator[ $keycategorie ][0][ 'all_month_pourcent'] );
-
-}
-
+		$return = $this->update_data_indicator_humanreadable(  $categories_indicator, $categories_info );
+		$categories_indicator = $return[ 'data' ]; // Data principal
+		$categories_info = $return[ 'info' ]; // Info
 
 		if( $year ){
 			$data_return = array(
 				'year' => $year,
-				'categories' => $categories_indicator,
+				'type' => $categories_indicator,
+				'info' => $categories_info,
 				'everymonth' => $allmonth_betweendates
 			);
 			return $data_return;
@@ -703,35 +794,79 @@ foreach ( $categories_indicator as $keycategorie => $valuecategorie ) { // Pour 
 			'task',
 			'backend/metabox-indicators',
 			array(
-				'categories' => $categories_indicator,
+				'type' => $categories_indicator,
+				'info' => $categories_info,
 				'everymonth' => $allmonth_betweendates
 			)
 		);
 	}
 
+// Inutilisé depuis 28/03/2019
 	public function return_color_from_pourcent( $pourcent ){
-		switch ( $pourcent ){
-			case $pourcent <= 0:
-				$color = "#F1F8E9";break;
+		if( ! isset( $pourcent ) ){
+			return '#F1F8E9';
+		}
+		$data = Setting_Class::g()->get_user_settings_indicator_client();
 
-			case $pourcent <= 50:
-				$color = "#CCFF90";break;
+		$value_find = false;
+		$color = '#F1F8E9';
 
-			case $pourcent <= 75:
-				$color = "#B2FF59";break;
+		if( ! empty( $data ) ){
+			foreach ($data as $key => $value) {
 
-			case $pourcent <= 100;
-			$color = "#64DD17"; break;
+				if( $value[ 'topnumber' ] ){
+					if( $value[ 'from_number' ] <= $pourcent ){
+						$color = $value[ 'value_color' ];
+						$value_find = true;
+						continue;
+					}
+				}
 
-			case $pourcent <= 150:
-				$color = "#FF5722";break;
+				if( $value[ 'from_number' ] <= $pourcent && $value[ 'to_number' ] > $pourcent ){
+					$color = $value[ 'value_color' ];
+					$value_find = true;
+					continue;
+				}
+			}
+		}
 
-			default :
-				$color = "#DD2C00";
-			break;
+		if( ! $value_find ){ // On prends les valeurs par défault
+			switch ( $pourcent ){
+				case $pourcent <= 0:
+					$color = "#F1F8E9";break;
+
+				case $pourcent <= 50:
+					$color = "#CCFF90";break;
+
+				case $pourcent <= 75:
+					$color = "#B2FF59";break;
+
+				case $pourcent <= 100;
+				$color = "#64DD17"; break;
+
+				case $pourcent <= 150:
+					$color = "#FF5722";break;
+
+				default :
+					$color = "#DD2C00";
+				break;
+			}
 		}
 
 		return $color;
+	}
+
+	public function is_time_excedeed( $pourcent ) {
+		if ( empty( $pourcent ) ) {
+			return false;
+		}
+
+		if ( 100 < $pourcent ) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	public function change_minute_time_to_readabledate( $minute_format ){
@@ -741,6 +876,209 @@ foreach ( $categories_indicator as $keycategorie => $valuecategorie ) { // Pour 
 		$m = $minute_format - ( $d * 1440 ) - ( $h * 60 );
 
 		return $d . 'j ' . $h . 'h ' . $m . 'm';
+	}
+
+	public function update_indicator_array_tasklist( $categories, $info ){
+		foreach( $categories as $key_categ => $category ){
+			$time_elapsed_categorie = 0;
+			$time_estimated_categorie = 0;
+
+	//		echo '<pre>'; print_r( $info ); echo '</pre>';
+//exit;
+			foreach( $category as $key_month => $month ){
+				$time_elapsed_month = 0;
+				$time_estimated_month = 0;
+				$time_deadline_month = 0;
+
+				foreach( $month[ 'task_list' ] as $key_task => $task ){
+					$task_elapsed = 0;
+					$task_estimated = 0;
+
+					//if( $task[ 'month_is_valid' ] ){
+						$time_estimated_month += $task[ 'time_estimated' ];
+						$time_deadline_month  += $task[ 'time_deadline' ];
+						$time_elapsed_month   += $task[ 'time_elapsed' ];
+
+						if( empty( $info[ $key_categ ][ 'task_list' ] ) ){
+							continue;
+						}
+
+						if( $info[ $key_categ ][ 'info' ][ 'type' ] == "deadline" ){
+							$time_estimated_categorie = $time_estimated_month;
+
+							$info[ $key_categ ][ 'task_list' ][ $key_task ][ 'time_elapsed' ] += $task[ 'time_elapsed' ];
+							$info[ $key_categ ][ 'task_list' ][ $key_task ][ 'time_estimated' ] = $task[ 'time_estimated' ];
+							$time_elapsed_categorie = $time_deadline_month;
+						}else{
+
+							$time_estimated_categorie += $time_estimated_month;
+
+							$info[ $key_categ ][ 'task_list' ][ $key_task ][ 'time_elapsed' ] += $task[ 'time_elapsed' ];
+							$info[ $key_categ ][ 'task_list' ][ $key_task ][ 'time_estimated' ] += $task[ 'time_estimated' ];
+							$time_elapsed_categorie += $time_elapsed_month;
+						}
+					//}
+				}
+
+				$categories[ $key_categ ][ $key_month ][ 'total_time_elapsed' ]   = $time_elapsed_month;
+				$categories[ $key_categ ][ $key_month ][ 'total_time_deadline' ]  = $time_deadline_month;
+				$categories[ $key_categ ][ $key_month ][ 'total_time_estimated' ] = $time_estimated_month;
+			}
+
+			$info[ $key_categ ][ 'info' ][ 'time_elapsed' ] = $time_elapsed_categorie;
+			$info[ $key_categ ][ 'info' ][ 'time_estimated' ] = $time_estimated_categorie;
+
+		}
+
+		$return = array(
+			'categories' => $categories,
+			'info' => $info
+		);
+
+		return $return;
+	}
+
+	public function update_data_indicator_humanreadable( $categories, $info ){
+
+		foreach( $categories as $key_type => $value_type ){ // Deadline / recusive
+			foreach( $value_type as $key_cat=> $value_cat ){ // All categories
+				foreach( $value_cat as $key_month => $value_month ){
+					$temp_month = array(
+						'total_time_elapsed_readable'   => $this->change_minute_time_to_readabledate( $value_month[ 'total_time_elapsed' ] ),
+						'total_time_estimated_readable' => $this->change_minute_time_to_readabledate( $value_month[ 'total_time_estimated' ] ),
+						'total_time_deadline_readable'  => $this->change_minute_time_to_readabledate( $value_month[ 'total_time_deadline' ] ),
+						'total_time_percent'            => $this->percent_indicator_client( $value_month[ 'total_time_elapsed' ], $value_month[ 'total_time_estimated' ], $value_month[ 'total_time_deadline' ], $key_type )
+					);
+
+					$categories[ $key_type ][ $key_cat ][ $key_month ] = array_merge( $value_month, $temp_month);
+
+					foreach( $value_month[ 'task_list' ] as $key_task => $value_task ){
+						$temp_task = array(
+							'time_elapsed_readable'   => $this->change_minute_time_to_readabledate( $value_task[ 'time_elapsed' ] ),
+							'time_estimated_readable' => $this->change_minute_time_to_readabledate( $value_task[ 'time_estimated' ] ),
+							'time_deadline_readable'  => $this->change_minute_time_to_readabledate( $value_task[ 'time_deadline' ] ),
+							'time_percent'            => $this->percent_indicator_client( $value_task[ 'time_elapsed' ], $value_task[ 'time_estimated' ], $value_task[ 'time_deadline' ], $key_type )
+						);
+
+						$categories[ $key_type ][ $key_cat ][ $key_month ][ 'task_list' ][ $key_task ] = array_merge( $value_task, $temp_task);
+
+						$info_task = $info[ $key_type ][ $key_cat ][ 'task_list' ][ $key_task ];
+						$temp_task_info = array(
+							'time_elapsed_readable'   => $this->change_minute_time_to_readabledate( $info_task[ 'time_elapsed' ] ),
+							'time_estimated_readable' => $this->change_minute_time_to_readabledate( $info_task[ 'time_estimated' ] ),
+							'time_percent'            => $this->percent_indicator_client( $info_task[ 'time_elapsed' ], $info_task[ 'time_estimated' ], 0, 'recursive' )
+						);
+
+						$info[ $key_type ][ $key_cat ][ 'task_list' ][ $key_task ] = array_merge( $info_task, $temp_task_info);
+					}
+				}
+
+				$temp_info = array(
+					'time_elapsed_readable'   => $this->change_minute_time_to_readabledate( $info[ $key_type ][ $key_cat ][ 'info' ][ 'time_elapsed' ] ),
+					'time_estimated_readable' => $this->change_minute_time_to_readabledate( $info[ $key_type ][ $key_cat ][ 'info' ][ 'time_estimated' ] ),
+					'time_percent'            => $this->percent_indicator_client( $info[ $key_type ][ $key_cat ][ 'info' ][ 'time_elapsed' ], $info[ $key_type ][ $key_cat ][ 'info' ][ 'time_estimated' ], 0, 'recursive' )
+				);
+
+				$info[ $key_type ][ $key_cat ][ 'info' ] = array_merge( $info[ $key_type ][ $key_cat ][ 'info' ], $temp_info );
+
+			}
+		}
+
+		return array( 'data' => $categories, 'info' => $info );
+	}
+
+	public function percent_indicator_client( $elapsed, $estimated, $deadline, $type ){
+
+		if( ( intval( $elapsed ) <= 0 && intval( $deadline ) <= 0 ) || intval( $estimated ) <= 0 ){
+			return 0;
+		}
+
+		if( $type == 'deadline' ){
+			if( $deadline > 0 && $estimated > 0){
+				return intval( $deadline / $estimated * 100 );
+			}
+		}else if( $type == 'recursive' ){
+			if( $elapsed > 0 && $estimated > 0){
+				return intval( $elapsed / $estimated * 100 );
+			}
+		}else{
+
+		}
+		return 0;
+	}
+
+	public function recompile_task( $id ){
+		$task = Task_Class::g()->get(
+			array(
+				'id' => $id,
+			),
+			true
+		);
+
+		// Recompiles le nombre de point complété et incomplété.
+		// Recompiles le temps.
+		$elapsed_task      = 0;
+		$elapsed_point     = 0;
+		$count_uncompleted = 0;
+		$count_completed   = 0;
+
+		$points = Point_Class::g()->get(
+			array(
+				'post_id' => $task->data['id'],
+				'type'    => Point_Class::g()->get_type(),
+				'status'  => 1,
+			)
+		);
+
+		if ( ! empty( $points ) ) {
+			foreach ( $points as $point ) {
+				$elapsed_point = 0;
+				$comments      = Task_Comment_Class::g()->get(
+					array(
+						'post_id' => $task->data['id'],
+						'parent'  => $point->data['id'],
+						'type'    => Task_Comment_Class::g()->get_type(),
+						'status'  => 1,
+					)
+				);
+
+				if ( ! empty( $comments ) ) {
+					foreach ( $comments as $comment ) {
+						$elapsed_point += $comment->data['time_info']['elapsed'];
+					}
+				}
+
+				if ( $point->data['completed'] ) {
+					$count_completed++;
+				} else {
+					$count_uncompleted++;
+				}
+
+				$point->data['time_info']['elapsed'] = (int) $elapsed_point;
+				$elapsed_task                       += (int) $elapsed_point;
+				Point_Class::g()->update( $point->data, true );
+			}
+		}
+
+		$task->data['time_info']['elapsed']     = $elapsed_task;
+		$task->data['count_completed_points']   = $count_completed;
+		$task->data['count_uncompleted_points'] = $count_uncompleted;
+
+		Task_Class::g()->update( $task->data, true );
+
+		return $task;
+	}
+
+	// 25/04/2019 OPTI PAS OPTI
+	public function get_task_with_history_time( $type = "recursive" ){
+		global $wpdb;
+
+		$results = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT(TASK.ID) FROM {$wpdb->posts} AS TASK
+			INNER JOIN {$wpdb->comments} AS HISTORYTIME ON HISTORYTIME.comment_ID=(SELECT comment_id FROM {$wpdb->comments} WHERE comment_post_ID=TASK.ID AND comment_type='history_time' ORDER BY comment_id DESC LIMIT 0,1 )
+			LEFT JOIN {$wpdb->commentmeta} AS HISTORYMETA ON HISTORYMETA.comment_id=HISTORYTIME.comment_ID AND HISTORYMETA.meta_key='_tm_custom' AND HISTORYMETA.meta_value=%s
+			WHERE TASK.post_type='wpeo-task' AND TASK.post_status IN('publish', 'inherit')", $type ) );
+
+		return $results;
 	}
 }
 

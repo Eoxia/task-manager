@@ -29,10 +29,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		endforeach;
 	endif;
 	?>
+	<?php //echo '<pre>'; print_r( $task ); echo '</pre>';exit;?>
 	<li class="wpeo-tag add action-attribute wpeo-button button-grey button-radius-3"
 			data-action="load_tags"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_tags' ) ); ?>"
-			data-id="<?php echo esc_attr( $task->data['id'] ); ?>">
+			data-id="<?= $task->data[ 'id' ] ?>">
 
 			<i class="fas fa-tag"></i> <i class="fas fa-plus"></i>
 	</li>

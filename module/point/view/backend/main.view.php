@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="points sortable">
 	<?php
-	\eoxia\View_Util::exec(
+	\eoxia\View_Util::exec( // Ecrivez votre point ici ...
 		'task-manager',
 		'point',
 		'backend/point',
@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		)
 	);
 
-	\eoxia\View_Util::exec(
+	\eoxia\View_Util::exec( // Chaque point
 		'task-manager',
 		'point',
 		'backend/points',

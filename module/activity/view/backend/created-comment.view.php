@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="event-header">
 	<span class="event-title"><?php echo '#' . $element->data['parent']->data['id'] . ' ' . $element->data['parent']->data['content']; ?></span>
-	<span class="event-time"><i class="far fa-clock"></i> <?php echo ! empty( $element->data['time_info']['elapsed'] ) ? $element->data['time_info']['elapsed'] : 0; ?></span>
+	<span class="event-time"><i class="fas fa-clock"></i> <?php echo ! empty( $element->data['time_info']['elapsed'] ) ? $element->data['time_info']['elapsed'] : 0; ?></span>
 </div>
 
 <span class="event-content"><?php echo $element->data['content']; ?></span>

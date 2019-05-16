@@ -69,6 +69,7 @@ if ( ! class_exists( '\eoxia\WPEO_Upload_Class' ) ) {
 			$data['mime_type']    = ! empty( $_POST['mime_type'] ) ? sanitize_text_field( $_POST['mime_type'] ) : '';
 			$data['display_type'] = ! empty( $_POST['display_type'] ) ? sanitize_text_field( $_POST['display_type'] ) : '';
 			$data['file_id']      = ! empty( $_POST['file_id'] ) ? (int) $_POST['file_id'] : 0;
+			$data['upload_dir']   = ! empty( $_POST['upload_dir'] ) ? sanitize_text_field( $_POST['upload_dir'] ) : '';
 
 			return $data;
 		}

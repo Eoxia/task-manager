@@ -27,7 +27,49 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<i class="fa fa-ellipsis-v"></i>
 						<i class="fa fa-ellipsis-v"></i>
 					</span>
-					<input type="checkbox" <?php echo ! empty( $point->data['completed'] ) ? 'checked' : ''; ?> class="completed-point" data-nonce="<?php echo esc_attr( wp_create_nonce( 'complete_point' ) ); ?>" />
+					<input type="checkbox" <?php echo ! empty( $point->data['completed'] ) ? 'checked' : ''; ?> class="completed-point"
+					data-nonce="<?php echo esc_attr( wp_create_nonce( 'complete_point' ) ); ?>"
+					data-checked="<?php echo ! empty( $point->data['completed'] ) ? 'true' : 'false'; ?>"
+					style="position : relative" />
+
+					<?php // Pour 1.10
+					/*
+					<div class="point-list-element" style="position : absolute; display : none; z-index : 2">
+						<div class="wpeo-button button-blue button-radius-3 button-square-30 button-bordered action-attribute" style="left : 6px; top : -40px"
+						data-statut="completed"
+						data-parent="point-list-element"
+						data-id="<?php echo esc_attr( $parent_id ); ?>"
+						data-nonce="<?php echo esc_attr( wp_create_nonce( 'update_statut_task' ) ); ?>"
+						data-action="update_statut_task">
+							<i class="fas fa-check"></i>
+						</div>
+						<div class="wpeo-button button-yellow button-radius-3 button-square-30 button-bordered action-attribute" style="left: 10px; top: -8px;"
+						data-statut="nc"
+						data-parent="point-list-element"
+						data-id="<?php echo esc_attr( $parent_id ); ?>"
+						data-nonce="<?php echo esc_attr( wp_create_nonce( 'update_statut_task' ) ); ?>"
+						data-action="update_statut_task">
+							<b><?php echo esc_html( 'NC', 'task-manager' ); ?></b>
+						</div>
+						<div class="wpeo-button button-red button-radius-3 button-square-30 button-bordered action-attribute" style="left: -60px; top: 25px;"
+						data-statut="uncompleted"
+						data-parent="point-list-element"
+						data-id="<?php echo esc_attr( $parent_id ); ?>"
+						data-nonce="<?php echo esc_attr( wp_create_nonce( 'update_statut_task' ) ); ?>"
+						data-action="update_statut_task">
+							<i class="fas fa-times"></i>
+						</div>
+						<div class="wpeo-button button-dark button-radius-3 button-square-30 button-bordered action-attribute" style="left: -135px; top: -10px;"
+						data-statut="na"
+						data-parent="point-valid"
+						data-id="<?php echo esc_attr( $parent_id ); ?>"
+						data-nonce="<?php echo esc_attr( wp_create_nonce( 'update_statut_task' ) ); ?>"
+						data-action="update_statut_task">
+							<b><?php echo esc_html( 'NA', 'task-manager' ); ?></b>
+						</div>
+					</div>*/
+
+					?>
 				<?php endif; ?>
 				<?php echo apply_filters( 'tm_point_before', '', $point ); // WPCS: XSS  ok. ?><!-- / filter for point first column -->
 			</li>
@@ -36,7 +78,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<input type="hidden" name="content" value="<?php echo esc_attr( trim( $point->data['content'] ) ); ?>" />
 				<div class="wpeo-point-new-contenteditable" contenteditable="true"><?php echo trim( $point->data['content'] ); ?></div>
 				<?php if ( empty( $point->data['id'] ) ) : ?>
-					<span class="wpeo-point-new-placeholder"><i class="far fa-plus"></i> <?php esc_html_e( 'Write your point here...', 'task-manager' ); ?></span>
+					<span class="wpeo-point-new-placeholder"><i class="fas fa-plus"></i> <?php esc_html_e( 'Write your point here...', 'task-manager' ); ?></span>
 				<?php endif; ?>
 				<?php if ( ! empty( $point->data['id'] ) ) : ?>
 					<ul class="wpeo-point-summary">

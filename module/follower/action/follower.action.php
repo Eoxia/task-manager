@@ -200,6 +200,7 @@ class Follower_Action {
 
 		wp_send_json_success(
 			array(
+				'namespace'        => 'taskManager',
 				'module'           => 'follower',
 				'callback_success' => 'affectedFollowerSuccess',
 				'nonce'            => wp_create_nonce( 'follower_unaffectation' ),
@@ -242,6 +243,7 @@ class Follower_Action {
 
 		wp_send_json_success(
 			array(
+				'namespace'        => 'taskManager',
 				'module'           => 'follower',
 				'callback_success' => 'unaffectedFollowerSuccess',
 				'nonce'            => wp_create_nonce( 'follower_affectation' ),

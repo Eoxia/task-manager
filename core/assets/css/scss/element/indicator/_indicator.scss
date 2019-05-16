@@ -1,0 +1,26 @@
+.tm_client_indicator_update_body {
+	padding: 1em;
+
+	.tag-time.time-excedeed {
+		color: $red;
+	}
+}
+
+/** Tableau */
+.tm_client_indicator_update_body .wpeo-table {
+	border: 0;
+
+	> thead, > tfoot {
+		background: none;
+		color: rgba(0,0,0,0.9);
+		font-weight: 900;
+		border-bottom: 2px solid rgba(0,0,0,0.1);
+	}
+	td {
+		// text-align: center;
+
+		&:first-child {
+			text-align: left;
+		}
+	}
+}

@@ -43,13 +43,12 @@
 					transition: all 0.2s ease-out;
 				}
 				.icon {
-					@include fa-icon;
 					transform: translate(-50%, -50%);
 					transition: all 0.2s ease-out;
 
 					&::before {
-						@extend .fal;
-						content: fa-content( $fa-var-lock-alt );
+						@extend .fas;
+						content: fa-content( $fa-var-unlock-alt );
 					}
 				}
 			}

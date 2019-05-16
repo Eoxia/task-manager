@@ -102,6 +102,19 @@
   background: #0084ff;
   border-color: #0084ff; }
 
+.wpeo-button.button-square-30 .button-icon {
+  font-size: 12px;
+  line-height: 24px; }
+
+.wpeo-button.button-square-40 .button-icon {
+  line-height: 34px; }
+
+.wpeo-button.button-square-50 .button-icon {
+  line-height: 44px; }
+
+.wpeo-button.button-square-60 .button-icon {
+  line-height: 54px; }
+
 .wpeo-modal .modal-container .modal-header {
   border: 0;
   padding: 0; }
@@ -115,6 +128,16 @@
   margin: 0;
   padding: 1em 0 0 0;
   border: 0; }
+
+.wpeo-form input, .wpeo-form textarea, .wpeo-form select {
+  height: auto;
+  box-shadow: none; }
+
+.wpeo-form .form-element [class*="form-field-label"] {
+  padding: 1.5em 1em; }
+
+.wpeo-form.form-light .form-element [class*="form-field-label"] {
+  background: #fff; }
 
 .tm-wrap {
   /*--------------------------------------------------------------

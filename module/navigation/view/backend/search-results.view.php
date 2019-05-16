@@ -52,7 +52,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</ul>
 
 		<?php if ( $display_button ) : ?>
-			<a class="wpeo-button button-main button-radius-2 button-size-small wpeo-modal-event"
+			<a class="wpeo-button button-main button-radius-2 button-size-small wpeo-modal-event load_more_result"
 				data-action="load_modal_create_shortcut"
 				data-title="<?php esc_html_e( 'Create shortcut', 'task-manager' ); ?>"
 				data-term="<?php echo ! empty( $term ) ? esc_attr( $term ) : ''; ?>"
@@ -61,7 +61,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				data-user-id="<?php echo ! empty( $data['user_id'] ) ? esc_attr( $data['user_id'] ) : ''; ?>"
 				data-categories-id="<?php echo ! empty( $data['categories_id'] ) ? esc_attr( $data['categories_id'] ) : ''; ?>"
 				data-post-parent="<?php echo ! empty( $data['post_parent_id'] ) ? esc_attr( $data['post_parent_id'] ) : ''; ?>"
-				data-target="wpeo-modal"><i class="button-icon fal fa-plus"></i> <span><?php esc_html_e( 'Shortcut', 'task-manager' ); ?></span></a>
+				data-target="wpeo-modal"><i class="button-icon fas fa-plus"></i> <span><?php esc_html_e( 'Shortcut', 'task-manager' ); ?></span></a>
 			<?php endif; ?>
 	</div>
 <?php endif; ?>

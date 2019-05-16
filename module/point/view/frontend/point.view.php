@@ -25,13 +25,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="wpeo-point-new-contenteditable" contenteditable="false"><?php echo trim( $point->data['content'] ); ?></div>
 
 			<ul class="wpeo-point-summary">
-				<li class="wpeo-block-id"><i class="far fa-hashtag"></i> <?php echo esc_attr( $point->data['id'] ); ?></li>
+				<li class="wpeo-block-id"><i class="fas fa-hashtag"></i> <?php echo esc_attr( $point->data['id'] ); ?></li>
 				<li class="wpeo-point-time">
-					<i class="far fa-clock"></i>
+					<i class="fas fa-clock"></i>
 					<span class="wpeo-time-in-point"><?php echo esc_attr( $point->data['time_info']['elapsed'] ); ?></span>
 				</li>
 				<li>
-					<i class="far fa-comment-dots"></i>
+					<i class="fas fa-comment-dots"></i>
 					<?php echo esc_html( $point->data['count_comments'] ); ?>
 				</li>
 			</ul>

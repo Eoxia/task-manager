@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<th class="point" data-title="<?php esc_html_e( 'Point ID', 'task-manager' ); ?>"><?php esc_html_e( 'Point ID', 'task-manager' ); ?></th>
 				<th class="content" data-title="<?php esc_html_e( 'Comment', 'task-manager' ); ?>"><?php esc_html_e( 'Comment', 'task-manager' ); ?></th>
 				<th class="min" data-title="<?php esc_html_e( 'min.', 'task-manager' ); ?>">
-					<i class="far fa-clock" aria-hidden="true"></i>
+					<i class="fas fa-clock" aria-hidden="true"></i>
 					<span class="time"><?php echo esc_attr( isset( $comment_schema->data['time_info']['calculed_elapsed'] ) ? $comment_schema->data['time_info']['calculed_elapsed'] : $comment_schema->data['time_info']['elapsed'] ); ?></span>
 					<span><?php esc_html_e( 'min.', 'task-manager' ); ?></span>
 				</th>

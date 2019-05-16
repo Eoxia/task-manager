@@ -29,7 +29,43 @@ window.eoxiaJS.taskManager.comment.init = function() {
 window.eoxiaJS.taskManager.comment.event = function() {
 	jQuery( document ).on( 'keyup', '.comment div[contenteditable="true"], .comment input[name="time"]', window.eoxiaJS.taskManager.comment.triggerCreate );
 	jQuery( document ).on( 'blur keyup paste keydown click', '.comments .comment .content', window.eoxiaJS.taskManager.comment.updateHiddenInput );
-	jQuery( document ).on( 'click', '.point.edit .point-container', window.eoxiaJS.taskManager.comment.loadComments );
+	jQuery( document ).on( 'click', '.point.edit', window.eoxiaJS.taskManager.comment.loadComments );
+
+	jQuery( document ).on( 'click', '.wpeo-pagination.pagination-comment .pagination-element', window.eoxiaJS.taskManager.comment.paginationUpdateComments );
+
+	jQuery( document ).on( 'change keyup input', '.comment .comment-container .comment-content-text div[contenteditable="true"]', window.eoxiaJS.taskManager.comment.autoCompleteWithFollowers );
+
+	jQuery( document ).on( 'keydown', '.comment .comment-container .comment-content-text div[contenteditable="true"]', window.eoxiaJS.taskManager.comment.autoCompleteBlockEnter );
+	jQuery( document ).on( 'click keyup', '.wpeo-tag ul .tm_list_administrator', window.eoxiaJS.taskManager.comment.choseFollowerAdmin );
+
+	jQuery( document ).on( 'click', '.comment-container .comment-action .tm_register_comment', window.eoxiaJS.taskManager.comment.editComment );
+
+	jQuery( document ).on( 'click', function( e ){
+		if ( ! jQuery( event.target).closest( ".wpeo-project-task" ).length) {
+			jQuery( '.point.edit' ).each( function (){
+				if ( jQuery( this ).closest( 'div.point' ).find( '.comments' ).is( ':visible' ) ) {
+					var element = jQuery( this ).closest( 'div.point' ).find( '.comments .comment-content-text input[type="hidden"]' ).val().trim();
+					element = element.replace(/\s/g,"-");
+					if( jQuery( this ).closest( 'div.point' ).find( '.comments .comment-content-text input[type="hidden"]' ).val().trim() != "" ){ // L'utilisateur est entrain d'écrire
+						if( confirm( window.indicatorString.delete_text ) ){
+							jQuery( 'div.point .comments:visible' ).slideUp( 400, function() {
+								window.eoxiaJS.refresh();
+							});
+						}else{
+							var div = jQuery( this ).closest( 'div.point' ).find( '.comments .comment-content-text div' );
+							setTimeout(function() {
+							    div.focus();
+							}, 0);
+						}
+					}else{
+						jQuery( 'div.point .comments:visible' ).slideUp( 400, function() {
+							window.eoxiaJS.refresh();
+						});
+					}
+				}
+			})
+    }
+	} );
 };
 
 /**
@@ -63,7 +99,7 @@ window.eoxiaJS.taskManager.comment.preventClosePoint = function( event ) {
 
 window.eoxiaJS.taskManager.comment.triggerCreate = function( event ) {
 	if ( event.ctrlKey && 13 === event.keyCode ) {
-		jQuery( this ).closest( '.comment' ).find( '.action-input' ).click();
+		jQuery( this ).closest( '.comment' ).find( '.comment-container .comment-action .tm_register_comment' ).trigger( "click" );
 	}
 };
 
@@ -77,7 +113,7 @@ window.eoxiaJS.taskManager.comment.triggerCreate = function( event ) {
  * @version 1.6.0
  */
 window.eoxiaJS.taskManager.comment.updateHiddenInput = function( event ) {
-	
+
 	if ( 0 < jQuery( this ).text().length ) {
 		jQuery( this ).closest( '.comment' ).find( '.placeholder' ).addClass( 'hidden' );
 		jQuery( this ).closest( '.comment' ).removeClass( 'add' ).addClass( 'edit' );
@@ -117,6 +153,15 @@ window.eoxiaJS.taskManager.comment.loadComments = function( event ) {
 	}
 };
 
+window.eoxiaJS.taskManager.comment.blurHideComments = function( event ){
+	if ( jQuery( this ).closest( 'div.point' ).find( '.comments' ).is( ':visible' ) ) {
+		jQuery( 'div.point .comments:visible' ).slideUp( 400, function() {
+			window.eoxiaJS.refresh();
+		} );
+	}
+
+}
+
 /**
  * Le callback en cas de réussite à la requête Ajax "load_comments".
  * Met le contenu dans la div.comments.
@@ -130,6 +175,7 @@ window.eoxiaJS.taskManager.comment.loadComments = function( event ) {
  */
 window.eoxiaJS.taskManager.comment.loadedCommentsSuccess = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( 'div.point' ).find( '.comments' ).html( response.data.view );
+	jQuery( triggeredElement ).closest( 'div.point' ).find( '.comments .comment-container .auto-complete-user' ).html( response.data.follower_view );
 
 	triggeredElement.removeClass( 'loading' );
 	triggeredElement.closest( 'div.point' ).find( '.comments' ).slideDown( 400, function() {
@@ -204,3 +250,251 @@ window.eoxiaJS.taskManager.comment.afterTriggerChangeDate = function( $input ) {
 	$input.closest( '.group-date' ).find( 'div' ).attr( 'aria-label', $input.val() );
 	$input.closest( '.group-date' ).find( 'span' ).css( 'background', '#389af6' );
 };
+
+window.eoxiaJS.taskManager.comment.paginationUpdateComments = function( event ) {
+	var data = {};
+
+	var pagination_parent = jQuery( this ).parent();
+
+	data.action   = 'pagination_update_commments';
+	data.page     = pagination_parent.data( 'page' );
+	data.point_id = pagination_parent.data( 'point-id' );
+	data.next     = jQuery( this ).data( 'pagination' );
+
+	window.eoxiaJS.loader.display( jQuery( this ).parent() );
+	window.eoxiaJS.request.send( jQuery( this ), data );
+}
+
+window.eoxiaJS.taskManager.comment.position_actual = 0;
+window.eoxiaJS.taskManager.comment.autoCompleteWithFollowers = function( event ){
+	if( jQuery( this ).html() != "" ){
+
+
+	 	var position =  window.eoxiaJS.taskManager.comment.caretPositionIndex( event );
+
+		var fullcontent = jQuery( this ).html().trim();
+		var fullcontent_replace = fullcontent.replace(/<\/div>/g, "");
+		fullcontent_replace = fullcontent_replace.replace(/&nbsp;/g, ' ');
+		fullcontent_replace = fullcontent_replace.replace(/<br>/g, '');
+
+		var fullcontent_array = fullcontent_replace.split('<div>');
+
+	 	var mot_focus = window.eoxiaJS.taskManager.comment.getFocusWordContentEditableAutocomplete(fullcontent_array, position);
+		var ashtag = "#";
+		if( mot_focus.substr( 0, 1 ) == "@" && ! ashtag.includes(mot_focus) ){
+
+			window.eoxiaJS.taskManager.comment.position_actual = position;
+			var list = jQuery( this ).closest( '.comment-content' ).find( '.auto-complete-user .wpeo-tag ul' );
+			if( event.keyCode == 13 ){ // Si la personne appuie sur entré
+				if( list.find(".active").find( '.content-text' ) && list.find(".active" ).is(':visible') ){
+					jQuery( list.find(".active") );
+					follower = list.find(".active").find( '.content-text' ).html().trim() + "#" + list.find(".active").attr('data-id');
+					var content = window.eoxiaJS.taskManager.comment.updateContentEditableAutocomplete( follower, fullcontent_array, position );
+
+					window.eoxiaJS.taskManagerGlobal.quickTime.focusElementWhenPageLoad( jQuery( this ).html( content ) );
+					jQuery( this ).closest( '.comment-content' ).find( '.auto-complete-user .wpeo-tag' ).hide();
+					// window.eoxiaJS.taskManager.comment.searchFollowerInContentEditable( jQuery( this ) );
+				}
+				return;
+			}
+
+			jQuery( this ).closest( '.comment-content' ).find( '.auto-complete-user .wpeo-tag' ).show(); // Affiche l'auto complete
+			var mot_focus = mot_focus.substr( 1 ); // Recupere le mot (sans le @)
+			list.find("li:first").focus().addClass("active"); // Premier élement -> update de la couleur
+			mot_focus = mot_focus.toLowerCase();
+
+			var first_element = false;
+			list.find( 'li' ).each( function(e){ // Pour chaque follower
+				var element = jQuery( this ).find( '.content-text' ).html().trim();
+				element = element.toLowerCase();
+				if( element.includes(mot_focus) ){
+					if( ! first_element ){
+						first_element = true;
+						jQuery( this ).addClass( 'active' );
+					}else{
+						jQuery( this ).removeClass( 'active' );
+					}
+					jQuery( this ).show();
+				}else{
+					jQuery( this ).removeClass( 'active' );
+					jQuery( this ).hide();
+				}
+			});
+		}else{
+			jQuery( this ).closest( '.comment-content' ).find( '.auto-complete-user .wpeo-tag' ).hide();
+		}
+	}else{
+		jQuery( this ).closest( '.comment-content' ).find( '.auto-complete-user .wpeo-tag' ).hide();
+	}
+}
+window.eoxiaJS.taskManager.comment.getFocusWordContentEditableAutocomplete = function( fullcontent_array, position){
+	var taille = 0;
+	var mot_focus = "";
+	for( var i = 0; i < fullcontent_array.length; i++){
+	  if( fullcontent_array[i].length + taille >= position){
+			position-= taille;
+	    var mot = fullcontent_array[i].substring(0, position);
+	    var mymot = mot.lastIndexOf(" ");
+	    var mot_focus = mot.substring(mymot + 1);
+	    break;
+	  }else{
+	    taille += fullcontent_array[i].length;
+	  }
+	}
+
+	if( fullcontent_array[0] == ""){
+		fullcontent_array.splice(0,1);
+	}
+	return mot_focus;
+}
+window.eoxiaJS.taskManager.comment.updateContentEditableAutocomplete = function( follower = "", content_array = [], position = 0 ){
+
+	var taille = 0;
+	for( var i = 0; i < content_array.length; i++){
+	  if( content_array[i].length + taille >= position){
+	    position-= taille;
+	    var positionelement  = content_array[i].substring(0, position);
+	    var index = positionelement.lastIndexOf(" ");
+
+	    var preventelement = positionelement.substring(0, index) == "" ? "" : positionelement.substring(0, index) + "&nbsp;";
+	    var nextelement = content_array[i].substring( position );
+
+	    content_array[i] = preventelement + "@" + follower + "&nbsp;" + nextelement;
+	    break;
+	  }else{
+	    taille += content_array[i].length;
+	  }
+	}
+
+ var content = "";
+	for( var i = 0; i < content_array.length; i++){
+	  content += "<div>";
+	  if ( content_array[i].length == "" ){
+	    content += "<br>";
+	  }else{
+	    content += content_array[i];
+	  }
+	  content += "</div>";
+	}
+
+	return content;
+}
+
+
+window.eoxiaJS.taskManager.comment.autoCompleteBlockEnter = function( event ){
+	if( event.keyCode == 13 ){
+		var list = jQuery( this ).closest( '.comment-content' ).find( '.auto-complete-user .wpeo-tag' );
+		if( list.is(':visible') && list.find(".active" ).is(':visible')){
+			console.log( 'visible' );
+			return false;
+		}
+	}
+}
+
+window.eoxiaJS.taskManager.comment.choseFollowerAdmin = function( event ){
+
+	var content_element = jQuery( this ).closest( '.comment-content' ).find( '.comment-content-text div[contenteditable="true"]' );
+
+	position = window.eoxiaJS.taskManager.comment.position_actual;
+
+	var fullcontent = jQuery( content_element ).html().trim();
+	var fullcontent_replace = fullcontent.replace(/<\/div>/g, "");
+	fullcontent_replace = fullcontent_replace.replace(/&nbsp;/g, ' ');
+	fullcontent_replace = fullcontent_replace.replace(/<br>/g, '');
+
+	var fullcontent_array = fullcontent_replace.split('<div>');
+
+	var mot_focus = window.eoxiaJS.taskManager.comment.getFocusWordContentEditableAutocomplete(fullcontent_array, position);
+	mot_focus.substr( 0, 1 );
+
+	if( jQuery( this ).find( '.content-text' ) ){
+		var follower = jQuery( this ).find( '.content-text' ).html().trim() + "#" + jQuery( this ).attr('data-id');
+		var content = window.eoxiaJS.taskManager.comment.updateContentEditableAutocomplete( follower, fullcontent_array, position );
+
+		window.eoxiaJS.taskManagerGlobal.quickTime.focusElementWhenPageLoad( jQuery( content_element ).html( content ) );
+		jQuery( this ).closest( '.wpeo-tag' ).hide(); // Cache l'auto complete
+	}
+}
+
+window.eoxiaJS.taskManager.comment.searchFollowerInContentEditable = function( element ){
+	var content = jQuery( element ).html();
+	var fullcontent_replace = content.replace(/<\/div>/g, "");
+	fullcontent_replace = fullcontent_replace.replace(/&nbsp;/g, ' ');
+	var fullcontent = fullcontent_replace.replace(/<br>/g, '');
+
+	var ul_element = jQuery( element ).closest( '.comment-content' ).find( '.auto-complete-user .wpeo-tag ul' );
+
+	var list_notif = [];
+	jQuery( ul_element.find( 'li' ) ).each( function( index ){
+		var element_content = jQuery( this ).find( '.tm-user-data input[type="hidden"]' ).val().trim();
+		var element_id = jQuery( this ).attr( 'data-id' );
+		if( fullcontent.trim().includes(element_content.trim()) ){
+			list_notif.push( element_id );
+		}
+	})
+	return list_notif;
+}
+
+window.eoxiaJS.taskManager.comment.editComment = function( event ){
+	var data = {
+		'mysql_date' : jQuery( this ).closest( '.comment-container' ).find( '.comment-meta .group-date .form-field-container .mysql-date' ).val(),
+		'content' : jQuery( this ).closest( '.comment-container' ).find( '.comment-content-text input[type="hidden"]' ).val(),
+		'post_id' : jQuery( this ).closest( '.comment' ).find( '[name=post_id]' ).val(),
+		'parent_id' : jQuery( this ).closest( '.comment' ).find( '[name=parent_id]' ).val(),
+		'comment_id' : jQuery( this ).closest( '.comment' ).find( '[name=comment_id]' ).val(),
+		'time' : jQuery( this ).closest( '.comment-container' ).find( '.comment-meta input[name="time"]' ).val(),
+		'parent' : 'comment',
+		'action' : 'edit_comment'
+	}
+
+	var element = jQuery( this ).closest( '.comment-container' ).find( '.comment-content-text .content' );
+	data.notif = window.eoxiaJS.taskManager.comment.searchFollowerInContentEditable( element );
+
+	window.eoxiaJS.loader.display( jQuery( this ).closest( '.comment-container' ) );
+	window.eoxiaJS.request.send( jQuery( this ), data );
+}
+
+window.eoxiaJS.taskManager.comment.caretPositionIndex = function( event ){
+    const range = window.getSelection().getRangeAt(0);
+    const { endContainer, endOffset } = range;
+
+    // get contenteditableDiv from our endContainer node
+    let contenteditableDiv;
+    const contenteditableSelector = "div[contenteditable]";
+    switch (endContainer.nodeType) {
+      case Node.TEXT_NODE:
+        contenteditableDiv = endContainer.parentElement.closest(contenteditableSelector);
+        break;
+      case Node.ELEMENT_NODE:
+        contenteditableDiv = endContainer.closest(contenteditableSelector);
+        break;
+    }
+
+    if (!contenteditableDiv) return '';
+
+    const countBeforeEnd = countUntilEndContainer(contenteditableDiv, endContainer);
+    if (countBeforeEnd.error ) return null;
+    return countBeforeEnd.count + endOffset;
+
+    function countUntilEndContainer(
+    parent,
+     endNode,
+     countingState = {count: 0}
+    ) {
+      for (let node of parent.childNodes) {
+        if (countingState.done) break;
+        if (node === endNode) {
+          countingState.done = true;
+          return countingState;
+        }
+        if (node.nodeType === Node.TEXT_NODE) {
+          countingState.count += node.length;
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+          countUntilEndContainer(node, endNode, countingState);
+        } else {
+          countingState.error = true;
+        }
+      }
+      return countingState;
+    }
+  }

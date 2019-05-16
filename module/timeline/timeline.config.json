@@ -1,0 +1,13 @@
+{
+	"name": "L'historique",
+	"slug": "timeline",
+	"version": "1.3.6.0",
+	"description": "Le module gérant l'historique",
+	"path": "module/timeline/",
+	"state": false,
+	"dependencies": {
+		"action": {},
+		"filter": {},
+		"class": {}
+	}
+}

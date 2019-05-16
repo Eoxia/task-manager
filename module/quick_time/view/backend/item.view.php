@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  	</td>
 	<td class="min" data-title="<?php esc_html_e( 'min.', 'task-manager' ); ?>">
 		<div>
-			<i class="far fa-clock" aria-hidden="true"></i>
+			<i class="fas fa-clock" aria-hidden="true"></i>
 			<input type="hidden" class="time" name="comments[<?php echo esc_attr( $i ); ?>][time]" />
 			<input type="text" class="displayed quick-time-edit-time" style='min-width : 45px' placeholder=''/>
 		</div>

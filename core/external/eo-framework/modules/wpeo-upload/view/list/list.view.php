@@ -18,8 +18,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <ul>
 	<?php
-	if ( ! empty( $element->associated_document_id[ $atts['field_name'] ] ) ) :
-		foreach ( $element->associated_document_id[ $atts['field_name'] ] as $file_id ) :
+	if ( ! empty( $element->data['associated_document_id'][ $atts['field_name'] ] ) ) :
+		foreach ( $element->data['associated_document_id'][ $atts['field_name'] ] as $file_id ) :
 			$filelink = get_attached_file( $file_id );
 			$filename_only = basename( $filelink );
 			$fileurl_only = wp_get_attachment_url( $file_id );

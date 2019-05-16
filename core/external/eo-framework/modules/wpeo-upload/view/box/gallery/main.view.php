@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				) );
 				?>
 			</h2>
-			<div class="modal-close"><i class="fal fa-times"></i></div>
+			<div class="modal-close"><i class="fas fa-times"></i></div>
 		</div>
 
 		<!-- Corps -->

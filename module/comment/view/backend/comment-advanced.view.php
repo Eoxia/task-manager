@@ -18,10 +18,10 @@ defined( 'ABSPATH' ) || exit; ?>
 
 <div class="comment-meta wpeo-form">
 	<div class="group-date">
-		<i class="far fa-calendar-alt"></i> <?php echo esc_html( $comment->data['date']['rendered']['date_human_readable'] ); ?>
+		<i class="fas fa-calendar-alt"></i> <?php echo esc_html( $comment->data['date']['rendered']['date_human_readable'] ); ?>
 	</div>
 
 	<div class="wpeo-comment-time">
-		<i class="far fa-clock"></i> <?php echo esc_html( $comment->data['time_info']['elapsed'] ); ?>
+		<i class="fas fa-clock"></i> <?php echo esc_html( $comment->data['time_info']['elapsed'] ); ?>
 	</div>
 </div>

@@ -1,0 +1,11 @@
+@import "metabox-header";
+@import "progress-bar";
+@import "audit-item";
+@import "audit-header";
+@import "task";
+
+.tm_client_audit_main, .tm_client_audit_edit {
+	display: block;
+	background: #ececec;
+	padding: 0.8em;
+}

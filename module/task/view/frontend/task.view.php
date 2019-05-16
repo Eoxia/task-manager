@@ -26,10 +26,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<div contenteditable="false" class="wpeo-project-task-title"><?php echo esc_html( $task->data['title'] ); ?></div>
 					</div>
 					<ul class="wpeo-task-summary" >
-						<li class="wpeo-task-id"><i class="far fa-hashtag"></i> <?php echo esc_html( $task->data['id'] ); ?></li>
+						<li class="wpeo-task-id"><i class="fas fa-hashtag"></i> <?php echo esc_html( $task->data['id'] ); ?></li>
 
 						<li class="wpeo-task-time-history">
-							<i class="far fa-clock"></i>
+							<i class="fas fa-clock"></i>
 							<span class="elapsed"><?php echo esc_html( \eoxia\Date_Util::g()->convert_to_custom_hours( $task->data['time_info']['elapsed'], false ) ); ?></span> /
 							<span class="estimated"><?php echo esc_html( \eoxia\Date_Util::g()->convert_to_custom_hours( $task->data['last_history_time']->data['estimated_time'], false ) ); ?></span>
 						</li>
@@ -43,7 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						data-frontend="true"
 						data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_point' ) ); ?>"
 						data-task-id="<?php echo esc_attr( $task->data['id'] ); ?>">
-						<i class="button-icon fal fa-square"></i>
+						<i class="button-icon fas fa-square"></i>
 						<span><?php /* Translators: %s stands for uncompleted points number. */ echo sprintf( __( 'Uncompleted (%s)', 'task-manager' ), '<span class="point-uncompleted" >' . $task->data['count_uncompleted_points'] . '</span>' ); ?></span>
 					</button>
 					<button class="wpeo-button button-grey button-radius-3 action-input" data-point-state="completed"
@@ -51,7 +51,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						data-frontend="true"
 						data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_point' ) ); ?>"
 						data-task-id="<?php echo esc_attr( $task->data['id'] ); ?>" >
-						<i class="button-icon fal fa-check-square"></i>
+						<i class="button-icon fas fa-check-square"></i>
 						<span><?php /* Translators: %s stands for completed points number. */ echo sprintf( __( 'Completed (%s)', 'task-manager' ), '<span class="point-completed" >' . $task->data['count_completed_points'] . '</span>' ); ?></span>
 					</button>
 				</li>
@@ -60,7 +60,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<button class="wpeo-button button-grey button-radius-3 list-display active wpeo-tooltip-event"
 						aria-label="<?php echo esc_attr_e( 'Edit display', 'task-manager' ); ?>">
 
-						<i class="button-icon far fa-list"></i>
+						<i class="button-icon fas fa-list"></i>
 					</button>
 
 					<button class="wpeo-button button-grey button-radius-3 action-attribute grid-display wpeo-tooltip-event"
@@ -70,7 +70,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_last_activity' ) ); ?>"
 						data-tasks-id="<?php echo esc_attr( $task->data['id'] ); ?>">
 
-						<i class="button-icon far fa-align-left"></i>
+						<i class="button-icon fas fa-align-left"></i>
 					</button>
 				</li>
 

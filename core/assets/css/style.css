@@ -82,6 +82,10 @@ body.toplevel_page_wpeomtm-dashboard #wpcontent {
   /* Activity dans les posts */
   /* Bouton d'import dans les posts: deplacement vers la barre de la metabox */
   /* Modal d'import */
+  /** Audit container */
+  /** Header */
+  /** Edition */
+  /** Tableau */
   /** Import des éléments simples */
   /** Bouton d'ajout */
   /** Bouton sauvegarde */
@@ -1424,6 +1428,117 @@ body.toplevel_page_wpeomtm-dashboard #wpcontent {
     margin: 0;
     line-height: 1.4;
     font-weight: 600; }
+  .tm-wrap .postbox .page-title-action {
+    top: 0; }
+  .tm-wrap .tm_client_audit_main .tm_audit_search {
+    padding: 0 0 0.8em 0; }
+  .tm-wrap .tm-audit .audit-progress {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.05);
+    height: 10px;
+    position: relative; }
+    .tm-wrap .tm-audit .audit-progress .progress-bar {
+      display: block;
+      height: 10px;
+      transition: all 0.2s ease-out; }
+    .tm-wrap .tm-audit .audit-progress .progress-text {
+      position: absolute;
+      top: 0;
+      font-size: 10px;
+      line-height: 0.8; }
+  .tm-wrap #tm_client_audit_listauditmain .tm-audit {
+    background: #fff;
+    margin-bottom: 1em; }
+    .tm-wrap #tm_client_audit_listauditmain .tm-audit:last-child {
+      margin-bottom: 0; }
+  .tm-wrap #tm_client_audit_listauditmain .tm-audit .audit-container {
+    padding: 1em;
+    display: flex;
+    flex-direction: row; }
+    .tm-wrap #tm_client_audit_listauditmain .tm-audit .audit-container .audit-header {
+      min-width: 28%;
+      width: 28%;
+      margin: auto 0; }
+    .tm-wrap #tm_client_audit_listauditmain .tm-audit .audit-container .audit-chart-container {
+      width: 100%; }
+    .tm-wrap #tm_client_audit_listauditmain .tm-audit .audit-container .audit-action {
+      margin: auto 0; }
+  .tm-wrap #tm_client_audit_listauditmain .tm-audit .audit-container .audit-chart-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end; }
+    .tm-wrap #tm_client_audit_listauditmain .tm-audit .audit-container .audit-chart-container .audit-chart-item {
+      max-width: 100px; }
+  .tm-wrap .tm-audit .audit-container .audit-header .audit-title {
+    font-size: 22px;
+    margin-bottom: 0.2em;
+    color: rgba(0, 0, 0, 0.9);
+    transition: all 0.2s ease-out; }
+    .tm-wrap .tm-audit .audit-container .audit-header .audit-title:hover {
+      cursor: pointer;
+      color: rgba(0, 0, 0, 0.6); }
+  .tm-wrap .tm-audit .audit-container .audit-header .audit-summary {
+    display: flex; }
+    .tm-wrap .tm-audit .audit-container .audit-header .audit-summary li {
+      color: rgba(0, 0, 0, 0.5);
+      margin-right: 0.8em;
+      align-self: center; }
+  .tm-wrap .tm_client_audit_edit {
+    /** Header */
+    /** Backlink */
+    /** Titre */
+    /** Content editable */ }
+    .tm-wrap .tm_client_audit_edit .audit-header {
+      display: flex;
+      margin-bottom: 1em; }
+      .tm-wrap .tm_client_audit_edit .audit-header .audit-edit-header {
+        width: 100%; }
+      .tm-wrap .tm_client_audit_edit .audit-header .audit-save-container {
+        margin: auto 0; }
+    .tm-wrap .tm_client_audit_edit .audit-backlink {
+      color: #0084ff;
+      margin-bottom: 1em;
+      font-weight: 600;
+      transition: all 0.2s ease-out; }
+      .tm-wrap .tm_client_audit_edit .audit-backlink:hover {
+        cursor: pointer;
+        color: rgba(0, 132, 255, 0.7); }
+    .tm-wrap .tm_client_audit_edit .audit-title-container {
+      display: inline-block;
+      position: relative; }
+      .tm-wrap .tm_client_audit_edit .audit-title-container .audit-title {
+        display: inline-block; }
+      .tm-wrap .tm_client_audit_edit .audit-title-container .audit-title-edit {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.4); }
+    .tm-wrap .tm_client_audit_edit [contenteditable=true]:empty::before {
+      content: attr(placeholder);
+      display: block;
+      color: rgba(0, 0, 0, 0.6); }
+    .tm-wrap .tm_client_audit_edit [contenteditable=true]:hover {
+      cursor: text !important; }
+  .tm-wrap .task-button > * {
+    display: inline-block;
+    margin-right: 0.4em; }
+    .tm-wrap .task-button > *:last-child {
+      margin-right: 0; }
+  .tm-wrap .tm_client_audit_main, .tm-wrap .tm_client_audit_edit {
+    display: block;
+    background: #ececec;
+    padding: 0.8em; }
+  .tm-wrap .tm_client_indicator_update_body {
+    padding: 1em; }
+    .tm-wrap .tm_client_indicator_update_body .tag-time.time-excedeed {
+      color: #ff4246; }
+  .tm-wrap .tm_client_indicator_update_body .wpeo-table {
+    border: 0; }
+    .tm-wrap .tm_client_indicator_update_body .wpeo-table > thead, .tm-wrap .tm_client_indicator_update_body .wpeo-table > tfoot {
+      background: none;
+      color: rgba(0, 0, 0, 0.9);
+      font-weight: 900;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.1); }
+    .tm-wrap .tm_client_indicator_update_body .wpeo-table td:first-child {
+      text-align: left; }
   .tm-wrap *,
   .tm-wrap *:before,
   .tm-wrap *:after {
@@ -1736,6 +1851,19 @@ body.toplevel_page_wpeomtm-dashboard #wpcontent {
   background: #0084ff;
   border-color: #0084ff; }
 
+.wpeo-button.button-square-30 .button-icon {
+  font-size: 12px;
+  line-height: 24px; }
+
+.wpeo-button.button-square-40 .button-icon {
+  line-height: 34px; }
+
+.wpeo-button.button-square-50 .button-icon {
+  line-height: 44px; }
+
+.wpeo-button.button-square-60 .button-icon {
+  line-height: 54px; }
+
 .wpeo-modal .modal-container .modal-header {
   border: 0;
   padding: 0; }
@@ -1749,6 +1877,16 @@ body.toplevel_page_wpeomtm-dashboard #wpcontent {
   margin: 0;
   padding: 1em 0 0 0;
   border: 0; }
+
+.wpeo-form input, .wpeo-form textarea, .wpeo-form select {
+  height: auto;
+  box-shadow: none; }
+
+.wpeo-form .form-element [class*="form-field-label"] {
+  padding: 1.5em 1em; }
+
+.wpeo-form.form-light .form-element [class*="form-field-label"] {
+  background: #fff; }
 
 .grid-col {
   float: left;

@@ -219,6 +219,39 @@ window.eoxiaJS.taskManager.point.deletedPointSuccess = function( triggeredElemen
 	} );
 };
 
+var longpress = 500; // Durée par défaut d'un clic => 2 sec
+var start = 0; // Creer un timer au début du clic (pour calculer sa durée)
+
+window.eoxiaJS.taskManager.point.completePointChoices = function( e ){
+
+	if( e.type == "mousedown" ){ // L'utilisateur click sur la checkbox
+		start = new Date().getTime();
+
+	}else if( e.type == "mouseup" ){ // L'utilisateur relache le click sur la metabox
+		if( ! jQuery( this ).data( 'checked' ) ){ // Avec les events mouseup, mousedown, mouseleave, l'utilisateur ne coche pas
+			jQuery( this ).data( 'checked', 'true' ); // La metabox au moment du clic
+			jQuery( this ).prop( "checked", true ); // Donc on le fait manuellement
+		}else{
+			jQuery( this ).data( 'checked', 'false' );
+			jQuery( this ).prop( "checked", false );
+		}
+
+		if( new Date().getTime() >= ( start + longpress ) ){ // Si durée du clic > 2 sec => On affiche les options
+			console.log( ' - LONG' );
+			jQuery( this ).parent().find( '.point-list-element' ).show( '200' );
+
+
+		}else{ // Sinon on coche simplement, la tache est complétée
+			console.log( ' - SHORT' );
+
+			window.eoxiaJS.taskManager.point.completePoint( this );
+		}
+	}else{ // L'utilisateur enleve sa souris de la metabox, on reset le chronometre qui calcul la durée du clic
+		start = 0;
+	}
+}
+
+
 /**
  * Envoie une requête pour passer le point en compléter ou décompléter.
  * Déplace le point vers la liste à puce "compléter" ou "décompléter".
@@ -226,6 +259,7 @@ window.eoxiaJS.taskManager.point.deletedPointSuccess = function( triggeredElemen
  * @since 1.0.0
  */
 window.eoxiaJS.taskManager.point.completePoint = function() {
+
 	var totalCompletedPoint   = jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text();
 	var totalUncompletedPoint = jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-uncompleted' ).text();
 	var completedButton       = jQuery( '.point-type-display-buttons button[data-point-state="completed"]' );
@@ -239,8 +273,8 @@ window.eoxiaJS.taskManager.point.completePoint = function() {
 	};
 
 	if ( jQuery( this ).is( ':checked' ) ) {
-		totalCompletedPoint++;
-		totalUncompletedPoint--;
+		totalCompletedPoint ++;
+		totalUncompletedPoint --;
 		jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text( totalCompletedPoint );
 		jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-uncompleted' ).text( totalUncompletedPoint );
 
@@ -251,8 +285,8 @@ window.eoxiaJS.taskManager.point.completePoint = function() {
 		}
 
 	} else {
-		totalCompletedPoint--;
-		totalUncompletedPoint++;
+		totalCompletedPoint --;
+		totalUncompletedPoint ++;
 		jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text( totalCompletedPoint );
 		jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-uncompleted' ).text( totalUncompletedPoint );
 
@@ -424,7 +458,7 @@ window.eoxiaJS.taskManager.point.undisplayPoint = function( event ) {
 
 	var points = this.closest( '.wpeo-project-task-container' ).querySelectorAll( '.points .point.edit[data-point-state="' + pointState + '"]' );
 	for( var i = 0; i < points.length; i ++ ){
-		points[i].remove();	
+		points[i].remove();
 	}
 	// jQuery( this ).closest( '.wpeo-project-task-container' ).find( '.points .point.edit[data-point-state="' + pointState + '"]' ).remove();
 };

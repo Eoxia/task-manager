@@ -21,7 +21,7 @@ ob_start();
 ?>
 <!-- Temps total travaillé -->
 <div class="total-time wpeo-tooltip-event" aria-label="<?php echo esc_attr( mysql2date( 'd M Y H:i', current_time( 'mysql' ), true ) ); ?>" >
-	<i class="far fa-clock"></i> {{ total_time }}
+	<i class="fas fa-clock"></i> {{ total_time }}
 </div>
 
 <!-- Filtre de temps pour les activités -->
@@ -44,11 +44,10 @@ ob_start();
 				<span class="form-label"><i class="fas fa-calendar"></i> <?php esc_html_e( 'End date', 'task-manager' ); ?></span>
 				<label class="form-field-container">
 					<input type="date" class="form-field" value="<?php echo esc_attr( $date_end ); ?>" name="tm_abu_date_end" />
-					<input type="hidden" value="<?php echo esc_attr( wp_create_nonce( 'load_user_activity' ) ); ?>" name="_wpnonce" />
+					<input type="hidden" value="" />
 				</label>
 			</div>
-
-			<?php echo apply_filters( 'tm_filter_activity', '', $user_id, $customer_id ); // WPCS: XSS ok. ?>
+			<?php echo apply_filters( 'tm_filter_activity', '', $user_id, $customer_id, $page ); // WPCS: XSS ok. ?>
 
 			<button class="button-primary action-input" data-parent="filter-activity" data-action="open_popup_user_activity" id="tm-user-activity-load-by-date" ><?php esc_html_e( 'View activity', 'task-manager' ); ?></button>
 		</div>
@@ -104,7 +103,7 @@ ob_start();
 							$com_details = ( ! empty( $activity->com_details ) ? json_decode( $activity->com_details ) : '' );
 							$total_time += $com_details->time_info->elapsed;
 							?>
-							<span class="event-time"><i class="far fa-clock"></i> <?php echo ! empty( $com_details->time_info->elapsed ) ? esc_html( $com_details->time_info->elapsed ) : 0; ?></span>
+							<span class="event-time"><i class="fas fa-clock"></i> <?php echo ! empty( $com_details->time_info->elapsed ) ? esc_html( $com_details->time_info->elapsed ) : 0; ?></span>
 						</div>
 
 						<span class="event-content">

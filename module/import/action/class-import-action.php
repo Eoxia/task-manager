@@ -27,6 +27,7 @@ class Import_Action {
 		add_action( 'wp_ajax_load_import_modal', array( $this, 'cb_load_import_modal' ) );
 
 		add_action( 'wp_ajax_tm_import_tasks_and_points', array( $this, 'cb_tm_import_tasks_and_points' ) );
+		add_action( 'wp_ajax_category_not_found_so_create_it', array( $this, 'cb_category_not_found_so_create_it' ) );
 	}
 
 	/**
@@ -78,6 +79,7 @@ class Import_Action {
 			'callback_success' => 'importSuccess',
 			'type'             => '',
 			'view'             => '',
+			'category_info'    => array(),
 		);
 
 		$post_id = ! empty( $_POST ) && ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
@@ -90,7 +92,10 @@ class Import_Action {
 			wp_send_json_error( array( 'message' => __( 'No content have been given for import', 'task-manager' ) ) );
 		}
 
-		$created_elements = Import_Class::g()->treat_content( $post_id, $content, $task_id );
+		$return_element = Import_Class::g()->treat_content( $post_id, $content, $task_id );
+
+		$created_elements = $return_element[0];
+		$response[ 'category_info' ] = $return_element[1];
 
 		if ( ! empty( $created_elements['created']['tasks'] ) ) {
 			$response['type'] = 'tasks';
@@ -137,9 +142,53 @@ class Import_Action {
 			}
 		}
 
+		$response['view'] .= ob_get_clean();
+
 		wp_send_json_success( $response );
 	}
 
+	public function cb_category_not_found_so_create_it(){
+		$task_id  = isset( $_POST[ 'task_id' ] ) ? (int) $_POST[ 'task_id' ] : 0;
+		$tag_name = isset( $_POST[ 'category_name' ] ) ? sanitize_text_field( $_POST[ 'category_name' ] ) : '';
+
+		$user = Follower_Class::g()->get( array( 'id' => get_current_user_id() ), true );
+
+
+
+		if( ! $task_id || ! $tag_name ){
+			wp_send_json_error();
+		}
+
+		$term     = wp_create_term( $tag_name, Tag_Class::g()->get_type() );
+		$category = Tag_Class::g()->get(
+			array(
+				'include' => array( $term['term_id'] ),
+			),
+			true
+		);
+
+		$task = Task_Class::g()->get( array( 'id' =>$task_id ), true );
+		if( ! empty( $task ) ){
+			$task->data['taxonomy'][ Tag_Class::g()->get_type() ][] = $category->data[ 'id' ];
+			$task = Task_Class::g()->update( $task->data, true );
+		}
+
+		ob_start();
+
+		echo do_shortcode( '[task_manager_task_tag task_id=' . $task->data['id'] . ']' );
+
+		$footer_task = ob_get_clean();
+
+		wp_send_json_success( 
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'import',
+				'callback_success' => 'update_footer_task_category',
+				'footertask'       => $footer_task,
+				'taskid'           => $task_id
+			)
+		);
+	}
 }
 
 new Import_Action();

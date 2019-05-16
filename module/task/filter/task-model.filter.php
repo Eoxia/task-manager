@@ -56,21 +56,24 @@ class Task_Model_Filter {
 		if ( ! empty( $object->data['parent_id'] ) ) {
 			$object->data['parent'] = get_post( $object->data['parent_id'] );
 
-			$tmp_meta = get_post_meta( $object->data['parent']->ID, '_order_postmeta', true );
+			if ( ! empty( $object->data['parent'] ) ) {
+				$tmp_meta = get_post_meta( $object->data['parent']->ID, '_order_postmeta', true );
 
-			if ( ! empty( $tmp_meta ) ) {
-				$object->data['parent']->post_title = $tmp_meta['order_key'];
+				// Si c'est une commande
+				if ( ! empty( $tmp_meta ) ) {
+					$object->data['parent']->post_title = $tmp_meta['order_key'];
 
-				if ( empty( $post->meta['tm_key'] ) && ! empty( $tmp_meta['order_temporary_key'] ) ) {
-					$object->data['parent']->post_title = $tmp_meta['order_temporary_key'];
+					if ( empty( $post->meta['tm_key'] ) && ! empty( $tmp_meta['order_temporary_key'] ) ) {
+						$object->data['parent']->post_title = $tmp_meta['order_temporary_key'];
+					}
 				}
-			}
 
-			if ( ! empty( $object->data['parent']->post_title ) ) {
-				$object->data['parent']->displayed_post_title = $object->data['parent']->post_title;
+				if ( ! empty( $object->data['parent']->post_title ) ) {
+					$object->data['parent']->displayed_post_title = $object->data['parent']->post_title;
 
-				if ( 50 <= strlen( $object->data['parent']->displayed_post_title ) ) {
-					$object->data['parent']->displayed_post_title = substr( $object->data['parent']->displayed_post_title, 0, 50 ) . '...';
+					if ( 50 <= strlen( $object->data['parent']->displayed_post_title ) ) {
+						$object->data['parent']->displayed_post_title = substr( $object->data['parent']->displayed_post_title, 0, 50 ) . '...';
+					}
 				}
 			}
 		}

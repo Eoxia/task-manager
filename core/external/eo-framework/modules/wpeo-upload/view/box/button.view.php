@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		else :
 			?>
 			<div class="document default-icon-container">
-				<i class="icon far fa-paperclip" aria-hidden="true"></i>
+				<i class="icon fas fa-paperclip" aria-hidden="true"></i>
 			</div>
 			<?php
 		endif;
@@ -43,7 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		else :
 			?>
 			<div class="document default-icon-container">
-				<i class="icon far fa-paperclip" aria-hidden="true"></i>
+				<i class="icon fas fa-paperclip" aria-hidden="true"></i>
 			</div>
 			<?php
 		endif;

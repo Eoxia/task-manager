@@ -48,6 +48,18 @@ class Task_Action {
 		add_action( 'add_meta_boxes', array( $this, 'callback_add_meta_boxes' ), 10, 2 );
 
 		add_action( 'wp_ajax_update_indicator_client', array( $this, 'callback_update_indicator_client' ) );
+
+		add_action( 'tm_filter_daily_activity_after', array( $this, 'add_filter_customer_client' ), 10, 3 );
+
+		add_action( 'wp_ajax_pagination_update_tasks', array( $this, 'callback_pagination_update_tasks' ) );
+
+		add_action( 'wp_ajax_search_parent_for_task', array( $this, 'callback_search_parent_for_task' ) );
+
+		add_action( 'wp_ajax_load_all_task_parent_data', array( $this, 'callback_load_all_task_parent_data' ) );
+
+		add_action( 'wp_ajax_link_parent_to_task', array( $this, 'callback_link_parent_to_task' ) ); // TASK GET A PARENT !
+		add_action( 'wp_ajax_delink_parent_to_task', array( $this, 'callback_delink_parent_to_task' ) ); // TASK LEAVE HER PARENT !
+
 	}
 
 	/**
@@ -191,7 +203,7 @@ class Task_Action {
 
 		$task = Task_Class::g()->get(
 			array(
-				'p' => $task_id,
+				'id' => $task_id,
 			),
 			true
 		);
@@ -219,7 +231,7 @@ class Task_Action {
 
 		$task = Task_Class::g()->get(
 			array(
-				'p' => $id,
+				'id' => $id,
 			),
 			true
 		);
@@ -359,12 +371,12 @@ class Task_Action {
 		$posts_per_page = ! empty( $_POST['posts_per_page'] ) ? (int) $_POST['posts_per_page'] : 0;
 		$post_parent    = ! empty( $_POST['post_parent'] ) ? (int) $_POST['post_parent'] : 0;
 		$term           = ! empty( $_POST['term'] ) ? sanitize_text_field( $_POST['term'] ) : '';
-		$users_id       = ! empty( $_POST['users_id'] ) ? sanitize_text_field( $_POST['users_id'] ) : array();
+		$user_id       = ! empty( $_POST['user_id'] ) ? sanitize_text_field( $_POST['user_id'] ) : '';
 		$status         = ! empty( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : array();
 		$tab            = ! empty( $_POST['tab'] ) ? sanitize_text_field( $_POST['tab'] ) : array();
 
-		if ( ! empty( $users_id ) ) {
-			$users_id = explode( ',', $users_id );
+		if ( ! isset( $users_id ) || ! empty( $users_id ) ) {
+			$users_id = explode( ',', $user_id );
 		}
 
 		$categories_id = ! empty( $_POST['categories_id'] ) ? sanitize_text_field( $_POST['categories_id'] ) : array();
@@ -415,63 +427,7 @@ class Task_Action {
 
 		$id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 
-		$task = Task_Class::g()->get(
-			array(
-				'id' => $id,
-			),
-			true
-		);
-
-		// Recompiles le nombre de point complété et incomplété.
-		// Recompiles le temps.
-		$elapsed_task      = 0;
-		$elapsed_point     = 0;
-		$count_uncompleted = 0;
-		$count_completed   = 0;
-
-		$points = Point_Class::g()->get(
-			array(
-				'post_id' => $task->data['id'],
-				'type'    => Point_Class::g()->get_type(),
-				'status'  => 1,
-			)
-		);
-
-		if ( ! empty( $points ) ) {
-			foreach ( $points as $point ) {
-				$elapsed_point = 0;
-				$comments      = Task_Comment_Class::g()->get(
-					array(
-						'post_id' => $task->data['id'],
-						'parent'  => $point->data['id'],
-						'type'    => Task_Comment_Class::g()->get_type(),
-						'status'  => 1,
-					)
-				);
-
-				if ( ! empty( $comments ) ) {
-					foreach ( $comments as $comment ) {
-						$elapsed_point += $comment->data['time_info']['elapsed'];
-					}
-				}
-
-				if ( $point->data['completed'] ) {
-					$count_completed++;
-				} else {
-					$count_uncompleted++;
-				}
-
-				$point->data['time_info']['elapsed'] = (int) $elapsed_point;
-				$elapsed_task                       += (int) $elapsed_point;
-				Point_Class::g()->update( $point->data, true );
-			}
-		}
-
-		$task->data['time_info']['elapsed']     = $elapsed_task;
-		$task->data['count_completed_points']   = $count_completed;
-		$task->data['count_uncompleted_points'] = $count_uncompleted;
-
-		Task_Class::g()->update( $task->data, true );
+		$task = Task_Class::g()->recompile_task( $id );
 
 		ob_start();
 		\eoxia\View_Util::exec(
@@ -482,6 +438,7 @@ class Task_Action {
 				'task' => $task,
 			)
 		);
+
 		wp_send_json_success(
 			array(
 				'namespace'        => 'taskManager',
@@ -502,9 +459,6 @@ class Task_Action {
 	 * @version 1.6.2
 	 */
 	public function callback_add_meta_boxes( $post_type, $post ) {
-
-
-
 		if ( in_array( $post_type, \eoxia\Config_Util::$init['task-manager']->associate_post_type, true ) ) {
 
 			ob_start();
@@ -517,29 +471,30 @@ class Task_Action {
 			\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/metabox-head-indicator', array( 'parent_id' => $post->ID, 'year' => $currentyear, 'post_id' => $post->ID, 'post_author' => $post->post_author ) );
 			$button_indicator = ob_get_clean();
 
-			add_meta_box( 'wpeo-task-metaboxtest', __( 'Indicator', 'task-manager' ) . apply_filters( 'tm_posts_metabox_buttons', $button_indicator ), array( Task_Class::g(), 'callback_render_indicator' ), $post_type, 'normal', 'default' );
+
 			add_meta_box( 'wpeo-task-metabox', __( 'Task', 'task-manager' ) . apply_filters( 'tm_posts_metabox_buttons', $buttons ), array( Task_Class::g(), 'callback_render_metabox' ), $post_type, 'normal', 'default' );
-			add_meta_box( 'wpeo-task-history-metabox', __( 'History task', 'task-manager' ), array( Task_Class::g(), 'callback_render_history_metabox' ), $post_type, 'side', 'default' );
+			add_meta_box( 'wpeo-task-metabox-indicator', __( 'Indicator', 'task-manager' ) . apply_filters( 'tm_posts_metabox_buttons', $button_indicator ), array( Task_Class::g(), 'callback_render_indicator' ), $post_type, 'normal', 'default' );
+			add_meta_box( 'wpeo-task-history-metabox', __( 'History task', 'task-manager' ), array( Indicator_Class::g(), 'callback_my_daily_activity' ), $post_type, 'side', 'default' );
 		}
 	}
 
 	public function callback_update_indicator_client(){
 		check_ajax_referer( 'update_indicator_client' );
 
-		$year = ! empty( $_POST['year'] ) ? (int) $_POST['year'] : 0;
+		$year = ! empty( $_POST['year'] ) ? (int) $_POST['year'] : date("Y");;
 		$postid    = ! empty( $_POST['postid'] ) ? (int) $_POST['postid'] : 0;
 		$postauthor    = ! empty( $_POST['postauthor'] ) ? (int) $_POST['postauthor'] : 0;
 
-		if( ! $postid || ! $postauthor || ! $year){
+		if( ! $postid || ! $year ){
 			wp_send_json_error();
 		}
 
 		$alldata = Task_Class::g()->update_client_indicator( $postid, $postauthor, $year );
 
-		$year = $alldata[ 'year' ];
-		$categories = $alldata[ 'categories' ];
+		$year       = $alldata[ 'year' ];
+		$type       = $alldata[ 'type' ];
+		$info       = $alldata[ 'info' ];
 		$everymonth = $alldata[ 'everymonth' ];
-
 		$view = ob_start();
 
 		\eoxia\View_Util::exec(
@@ -547,11 +502,11 @@ class Task_Action {
 			'task',
 			'backend/metabox-indicators',
 			array(
-				'categories' => $categories,
+				'type' => $type,
+				'info' => $info,
 				'everymonth' => $everymonth
 			)
 		);
-
 
 		wp_send_json_success(
 			array(
@@ -565,6 +520,216 @@ class Task_Action {
 
 	}
 
+	public function add_filter_customer_client( $user_id, $customer_id = 0, $page = '' ){
+		$screen = get_current_screen();
+
+		if( $page == '' ){
+			$page = $screen->id;
+		}
+
+		if( $page == 'toplevel_page_wpeomtm-dashboard' ){
+
+			$customer_ctr = new \wps_customer_ctr();
+
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'indicator',
+				'backend/filter-customer',
+				array(
+					'customer_ctr'         => $customer_ctr,
+					'selected_customer_id' => $customer_id,
+					'page'                 => $page
+				)
+			);
+
+		}else{
+			$customer_ctr = new \wps_customer_ctr();
+
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'indicator',
+				'backend/filter-customerid',
+				array(
+					'client_id' => $customer_id,
+					'page'      => $page
+
+				)
+			);
+
+		}
+
+	}
+
+	public function callback_pagination_update_tasks(){
+
+		$page_actual = isset( $_POST[ 'page' ] ) ? (int) $_POST[ 'page' ] : 0;
+		$post_id = isset( $_POST[ 'post_id' ] ) ? (int) $_POST[ 'post_id' ] : 0;
+		$next = isset( $_POST[ 'next' ] ) ? (int) $_POST[ 'next' ] : 0;
+		$show_archive = isset( $_POST[ 'show' ] ) && $_POST[ 'show' ] == 'true' ? (bool) true : false;
+
+		if( ! $post_id ){
+			wp_send_json_error();
+		}
+
+		$next = ( $next - 1 ) > 0 ? ( $next - 1 ) * 5 : 0;
+
+		if( $show_archive ){
+			$args_parameter = array(
+				'offset' => $next,
+				'status'      => 'archive'
+			);
+		}else{
+			$args_parameter = array(
+				'offset' => $next,
+				'status'      => 'publish,pending,draft,future,private,inherit'
+			);
+		}
+
+		ob_start();
+		Task_Class::g()->callback_render_metabox( array(), array(), $args_parameter, $post_id );
+
+		wp_send_json_success(
+			array(
+				'view'             => ob_get_clean(),
+				'namespace'        => 'taskManager',
+				'module'           => 'task',
+				'callback_success' => 'loadedTasksSuccess',
+				'show_archive'     => $show_archive
+			)
+		);
+	}
+
+	public function callback_load_all_task_parent_data(){
+		check_ajax_referer( 'load_all_task_parent_data' );
+		$posttype_found = array();
+		$commands_founded = array();
+		global $eo_search;
+
+		$query = new \WP_Query(
+			array(
+				'post_type'   => \eoxia\Config_Util::$init['task-manager']->associate_post_type,
+				'posts_per_page' => -1
+			)
+		);
+
+		if ( ! empty( $query->posts ) ) {
+			foreach( $query->query[ 'post_type' ] as $post_type_title){
+				$posttype_found[ $post_type_title ] = array();
+			}
+
+			foreach ( $query->posts as $post ) {
+				if( $post->post_type == "wpshop_shop_order" ){ // 19/04/2019 -> Exception car WP SHOP v1 oblige une nouvelle requete
+					$order_meta = get_post_meta( $post->ID, '_order_postmeta', true ); // A supprimer A la sortie de WPSHOP V2
+					$posttype_found[ $post->post_type ][] = array( //
+						'label' => $order_meta[ 'order_temporary_key'] ? $order_meta[ 'order_temporary_key'] : $order_meta[ 'order_key'], //
+						'value' => $order_meta[ 'order_temporary_key'] ? $order_meta[ 'order_temporary_key'] : $order_meta[ 'order_key'], //
+						'id'    => $post->ID //
+					); //
+					continue; //
+				} //
+
+				$posttype_found[ $post->post_type ][] = array(
+					'label' => $post->post_title,
+					'value' => $post->post_title,
+					'id'    => $post->ID
+				);
+			}
+		}
+
+		if ( empty( $posttype_found ) ) { // Aucun post type trouvé
+			$posttype_found[] = array(
+				'label' => __( 'No post type found', 'task-manager' ),
+				'value' => __( 'No post type found', 'task-manager' ),
+				'id'    => 0,
+			);
+		}
+
+			ob_start();
+
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'task',
+				'backend/list_parent_element',
+				array(
+					'data' => $posttype_found,
+				)
+			);
+
+			wp_send_json_success(
+				array(
+					'view'             => ob_get_clean(),
+					'namespace'        => 'taskManager',
+					'module'           => 'task',
+					'callback_success' => 'loadedAllClientsCommands',
+				)
+			);
+	}
+
+	public function callback_link_parent_to_task(){
+		$task_id = isset( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : 0;
+		$parent_id = isset( $_POST[ 'parent_id' ] ) ? (int) $_POST[ 'parent_id' ] : 0;
+		if( ! $task_id || ! $parent_id ){
+			wp_send_json_error();
+		}
+
+		$task = Task_Class::g()->get(
+			array(
+				'id' => $task_id,
+			),
+			true
+		);
+
+		$task->data['parent_id'] = $parent_id;
+		$task = Task_Class::g()->update( $task->data );
+
+		$this->json_success_display_task_parent_view( $task );
+	}
+
+	public function callback_delink_parent_to_task(){
+		$task_id = isset( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : 0;
+		if( ! $task_id ){
+			wp_send_json_error();
+		}
+
+		$task = Task_Class::g()->get(
+			array(
+				'id' => $task_id,
+			),
+			true
+		);
+
+		$task->data['parent_id'] = 0;
+		$task = Task_Class::g()->update( $task->data );
+
+		$this->json_success_display_task_parent_view( $task );
+	}
+
+	public function json_success_display_task_parent_view( $task = array() ){
+		if( empty( $task ) ){
+			wp_send_json_error();
+		}
+
+		ob_start();
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'task',
+			'backend/linked-post-type',
+			array(
+				'task' => $task,
+			)
+		);
+
+		wp_send_json_success(
+			array(
+				'view'             => ob_get_clean(),
+				'namespace'        => 'taskManager',
+				'module'           => 'task',
+				'callback_success' => 'reloadTaskParentElement',
+			)
+		);
+
+	}
 }
 
 new Task_Action();

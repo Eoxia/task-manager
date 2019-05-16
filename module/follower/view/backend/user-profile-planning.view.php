@@ -179,7 +179,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<!-- Le bouton déclenchant louverture de la popup -->
 	<a class="wpeo-button button-main wpeo-modal-event"
 		data-parent="parent-container"
-		data-target="wpeo-modal"><i class="button-icon fal fa-hand-pointer"></i> <span><?php esc_html_e( 'Open archive', 'task-manager' ); ?></span></a>
+		data-target="wpeo-modal"><i class="button-icon fas fa-hand-pointer"></i> <span><?php esc_html_e( 'Open archive', 'task-manager' ); ?></span></a>
 
 	<!-- Structure -->
 	<div class="wpeo-modal">
@@ -188,7 +188,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<!-- Entête -->
 			<div class="modal-header">
 				<h2><?php esc_html_e( 'List of archives', 'task-manager' ); ?></h2>
-				<div class="modal-close"><i class="fal fa-times"></i></div>
+				<div class="modal-close"><i class="fas fa-times"></i></div>
 			</div>
 
 			<!-- Corps -->

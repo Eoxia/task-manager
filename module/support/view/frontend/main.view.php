@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="toolbox-activity">
 		<div>
-			<i class="far fa-clock"></i>
+			<i class="fas fa-clock"></i>
 		</div>
 		<div class="total-time">
 			<?php esc_html_e( 'Total time past', 'task-manager' ); ?> :

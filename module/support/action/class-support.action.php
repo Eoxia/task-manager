@@ -106,8 +106,7 @@ class Support_Action {
 
 		$point = \task_manager\Point_Class::g()->update( $point_data );
 
-		// Ajoutes une demande dans la donnée compilé.
-		do_action( 'tm_action_after_comment_update', $comment->data['id'] );
+
 
 		$comment_data = array(
 			'content'        => $description,
@@ -120,6 +119,9 @@ class Support_Action {
 
 		$comment = \task_manager\Task_Comment_Class::g()->update( $comment_data );
 
+		// Ajoutes une demande dans la donnée compilé.
+		do_action( 'tm_action_after_comment_update', $comment->data['id'] );
+		
 		ob_start();
 		require PLUGIN_TASK_MANAGER_PATH . '/module/task/view/frontend/task.view.php';
 		$task_view = ob_get_clean();

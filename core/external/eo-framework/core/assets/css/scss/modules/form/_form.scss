@@ -90,6 +90,10 @@
 		color: rgba(0,0,0,0.4);
 		font-size: 16px;
 		@include transition();
+
+		[class*="fa"] {
+			vertical-align: middle;
+		}
 	}
 	.form-field-icon-prev {
 		padding: 0.8em 0 0.8em 0.8em;
