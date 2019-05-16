@@ -127,6 +127,7 @@ class Task_Manager_Action {
 							'uncompleted'    => __( 'Uncompleted', 'task-manager' ),
 							'taskempty'      => __( 'No point', 'task-manager' ),
 							'delink_parent'  => __( 'Do you really want to delink this task from her parent ?', 'task-manager' ),
+							'delink_audit'  => __( 'Do you really want to delink this audit from her client parent ?', 'task-manager' ),
 							'resume_bar'     => __( 'Horizontal summary', 'task-manager' ),
 							'resume_dog'     => __( 'Doghnut summary', 'task-manager' ),
 							'delete_text'    => __( 'Do you want to delete your text ?', 'task-manager' ),
@@ -134,7 +135,7 @@ class Task_Manager_Action {
 							'cat_body'       => __( 'This category doesn\'t exist : ', 'task-manager' ),
 							'cat_question'   => __( 'What do you want to do ?', 'task-manager' ),
 							'cat_nothing'    => __( 'Nothing', 'task-manager' ),
-							'cat_create'     => __( 'Create it ?', 'task-manager' ),
+							'cat_create'     => __( 'Create it', 'task-manager' ),
 						)
 					);
 					break;

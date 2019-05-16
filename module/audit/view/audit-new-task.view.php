@@ -20,5 +20,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 	data-nonce="<?php echo esc_attr( wp_create_nonce( 'audit_created_task' ) ); ?>">
 
 	<i class="button-icon fas fa-plus" ></i>
-	<?php /* <span><?php esc_html_e( 'New task', 'task-manager' ); ?></span> */ ?> 
-	</span>
+	<?php /* <span><?php esc_html_e( 'New task', 'task-manager' ); ?></span> */ ?>
+</span>

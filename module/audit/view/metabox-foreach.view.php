@@ -16,15 +16,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <?php
-if ( ! empty( $audits ) ) :
+if ( ! empty( $audits ) && $parent_page ) :
 	foreach ( $audits as $audit ) :
 		\eoxia\View_Util::exec(
 			'task-manager',
 			'audit',
-			'audit-item',
+			'audit-page/metabox-audit',
 			array(
-				'audit'     => $audit,
-				'parent_id' => $parent_id
+				'audit' => $audit,
+				'parent_page' => $parent_page
 			)
 		);
 	endforeach;

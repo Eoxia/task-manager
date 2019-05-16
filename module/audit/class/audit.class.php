@@ -69,10 +69,22 @@ class Audit_Class extends \eoxia\Post_Class {
 
 		$audits = $this->audit_task_link( array( 'post_parent' => $parent_id ) );
 
+		foreach( $audits as $key => $audit ){
+			if( $audit->data[ 'parent_id' ] ){
+				$query = new \WP_Query(
+					array(
+						'p' => $audit->data[ 'parent_id' ],
+						'post_type'   => 'wpshop_customers',
+					)
+				);
+				$audit->data[ 'parent_title' ] = $query->post->post_title;
+			}
+		}
+
 	 	\eoxia\View_Util::exec(
 			'task-manager',
 			'audit',
-			'metabox-auditlist',
+			'metabox-main',
 			array(
 				'parent_id' => $parent_id,
 				'audits' => $audits,
@@ -138,8 +150,7 @@ class Audit_Class extends \eoxia\Post_Class {
 		foreach( $audits as $key => $value ){
 			if( ! empty( $value->data[ 'tasklink' ] ) ){
 				foreach( $value->data[ 'tasklink' ] as $key_ => $value_ ){
-					$title = substr( $value_[ 'title' ], 0, 10 );
-					echo '<script>window.eoxiaJS.taskManager.audit.generateAuditIndicator(' . $value_[ 'task_id' ] . ',' . $value_[ 'count_completed_points' ] . ',' . $value_[ 'count_uncompleted_points' ] . ',' . $value->data[ 'id' ] . ',"' . $title . '")</script>';
+					echo '<script>window.eoxiaJS.taskManager.audit.generateAuditIndicator(' . $value_[ 'task_id' ] . ',' . $value_[ 'count_completed_points' ] . ',' . $value_[ 'count_uncompleted_points' ] . ',' . $value->data[ 'id' ] . ',"' . $value_[ 'title' ] . '")</script>';
 				}
 			}
 		}

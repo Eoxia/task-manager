@@ -15,79 +15,45 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="tm-audit">
+<div class="tm-audit" style="padding: 20px;">
 	<div class="audit-container">
-
 		<div class="action-attribute audit-backlink"
 			data-action="reset_main_page"
 			data-page="metabox-main"
-			style="float: left;">
-			<i class="fas fa-arrow-left fa-3x" style="color: grey"></i>
+			data-parentpage="<?php echo isset( $parent_page ) ? esc_attr( $parent_page ) : 0 ?>"
+			style="float: left; width: 40px">
+			<i class="fas fa-arrow-left fa-2x" style="color: blue"></i>
 		</div>
 
 		<div class="audit-header">
 			<div class="audit-edit-header">
-				<div class="audit-title-container" style="float: left;">
-					<div class="form-element">
-						<label class="form-field-container">
-							<input id="tm_client_audit_title_new"	type="text"	class="audit-title form-field" name="title"
-								placeholder="<?php esc_html_e( 'Write audit title ...', 'task-manager' ); ?>" value="<?php echo esc_html( empty( $audit->data[ 'title' ] ) ? null : $audit->data[ 'title' ] );  ?>"
-								style="cursor: text">
-						</label>
-					</div>
-					<ul class="audit-summary">
+				<div style="float :left">
+
+					<div class="audit-title" contenteditable="false" style="font-size: 30px;">
+						<?= ! empty( $audit->data[ 'title' ] ) ? $audit->data[ 'title' ] : esc_html_e( 'No name Audit', 'task-manager' );  ?></div>
+
+					<ul class="audit-summary" style="font-size : 22px; margin-top: 15px">
 						<li class="audit-summary-id"><i class="fas fa-hashtag"></i><?= $audit->data[ 'id' ] ?></li>
 						<li class="audit-summary-date">
-
-							<span class="summary-rendered wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Creation date', 'task-manager' ); ?>">
-								<span class="form-label"><i class="fas fa-calendar-alt"></i></span>
-								<span id="tm_audit_client_date_start" class="date form-field">
-									<?php echo esc_attr( $audit->data[ 'date' ][ 'rendered' ][ 'date' ] ); ?>
-								</span>
-							</span> /
-
-							<span class="summary-rendered wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Due date', 'task-manager' ); ?>">
-								<div class="form-element group-date">
-									<span class="form-label"><i class="fas fa-calendar-alt"></i></span>
-									<label class="form-field-container">
-										<input type="hidden" class="mysql-date" name="due_date" value="<?php echo esc_attr( $audit->data[ 'deadline' ][ 'rendered' ][ 'date' ] ); ?>">
-										<input id="tm_audit_client_date_deadline" class="date form-field" type="text"
-										value="<?php echo esc_attr( $audit->data[ 'deadline' ][ 'rendered' ][ 'date' ] ); ?>" />
-									</label>
-								</div>
+							<span class="summary-created wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Created date', 'task-manager' ); ?>">
+								<i class="fas fa-calendar-alt"></i> <?= $audit->data[ 'date' ][ 'rendered' ][ 'date' ] ?>
 							</span>
+							<?php /*<span class="summary-rendered wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Due date', 'task-manager' ); ?>">
+								<i class="fas fa-calendar-alt"></i> <?= $audit->data[ 'deadline' ][ 'rendered' ][ 'date' ] ?>
+							</span>*/ ?>
 						</li>
-						<li>
 							<?php if( isset( $audit->data[ 'parent_id' ] ) && $audit->data[ 'parent_id' ] ): ?>
-								<span class="summary-rendered wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Audit Parent', 'task-manager' ); ?>">
-									<i class="fas fa-clone"></i>
-									<?php echo esc_html( $audit->data[ 'parent_id' ] ); ?>
-								</span>
-							<?php else: ?>
-								<form class="tm-define-customer-to-audit">
-									<div class="form-fields">
-										<input type="hidden" class="audit_search-customers-id" name="customer_id"/>
-								    <input type="text" class="audit-search-customers ui-autocomplete-input" placeholder="<?php echo esc_html( 'Nom/ID Client', 'task-manager'); ?>" autocomplete="off" />
-								  </div>
-								</form>
-
-								<span class="summary-rendered wpeo-tooltip-event tm-define-customer-to-audit-after" aria-label="<?php esc_html_e( 'Audit Parent', 'task-manager' ); ?>" style="display : none">
-									<i class="fas fa-clone"></i>
+								<span class="summary-rendered">
+									<a class="wpeo-tooltip-event wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Audit Parent', 'task-manager' ); ?>"
+										href="<?php echo admin_url( 'post.php?post=' . $audit->data[ 'parent_id' ] . '&action=edit' ); ?>" style="text-decoration: none;">
+										<i class="fas fa-clone"></i>
+										#<?php echo esc_html( $audit->data[ 'parent_id' ] ); ?> -
+										<?php echo esc_html( $audit->data[ 'parent_title' ] ); ?>
+									</a>
 								</span>
 							<?php endif; ?>
 						</li>
-
 					</ul>
-					<!-- <span class="audit-title-edit"><i class="fas fa-pencil"></i></span> -->
-				</div>
-
-				<div class="audit-save-container" style="float : left">
-					<div class="wpeo-button button-green button-disable button-square-40 action-input"
-						data-parent="audit-header"
-						data-action="edit_title_audit"
-						data-id="<?= $audit->data[ 'id' ] ?>"
-						id="tm_client_audit_buttonsavetitle">
-						 <i class="button-icon fas fa-save"></i></div>
 				</div>
 
 				<div class="task-button alignright">
@@ -104,17 +70,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 					\eoxia\View_Util::exec(
 						'task-manager',
 						'audit',
-						'audit-import-button',
+						'audit-page/metabox-importbutton',
 						array(
-							'audit_id' => $audit->data[ 'id' ]
+							'audit_id' => $audit->data[ 'id' ],
+							'tags'     => $tags
 						)
 					);
 					?>
 					<div class="wpeo-dropdown wpeo-comment-setting" data-parent="toggle" data-target="content" data-mask="wpeo-project-task">
 						<span class="wpeo-button button-transparent dropdown-toggle"><i class="fa fa-ellipsis-v"></i></span>
-						<ul class="dropdown-content left content point-header-action">
-
-						</ul>
+							<ul class="dropdown-content left content point-header-action">
+								<li class="dropdown-item action-delete"
+										data-action="delete_audit"
+										data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_audit' ) ); ?>"
+										data-parentpage="<?php echo isset( $parent_page ) ? esc_attr( $parent_page ) : 0 ?>"
+										data-id="<?= $audit->data[ 'id' ] ?>"
+										data-message-delete="<?php echo esc_attr_e( 'Delete this audit ?', 'task-manager' ); ?>">
+									<span><i class="fas fa-trash fa-fw"></i> <?php esc_html_e( 'Delete this audit', 'task-manager' ); ?></span>
+								</li>
+							</ul>
 					</div>
 				</div>
 			</div>

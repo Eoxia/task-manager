@@ -32,8 +32,6 @@ class Audit_Action {
 
 		add_action( 'add_meta_boxes', array( $this, 'callback_add_metabox' ), 10, 2 );
 
-		add_action( 'wp_ajax_start_new_audit', array( $this, 'callback_start_new_audit' ), 10, 2 );
-
 		add_action( 'wp_ajax_delete_audit', array( $this, 'callback_delete_audit' ) );
 		add_action( 'wp_ajax_edit_audit', array( $this, 'callback_edit_audit' ) );
 		add_action( 'wp_ajax_audit_select_task', array( $this, 'callback_audit_select_task' ) );
@@ -47,6 +45,10 @@ class Audit_Action {
 		add_action( 'wp_ajax_search_audit_client', array( $this, 'callback_search_audit_client' ) );
 
 		add_action( 'wp_ajax_search_client_for_audit', array( $this, 'ajax_search_client_for_audit' ) );
+
+		add_action( 'wp_ajax_delink_parent_to_audit', array( $this, 'ajax_delink_parent_to_audit' ) );
+
+		add_action( 'wp_ajax_create_audit_inpage', array( $this, 'ajax_create_audit_inpage' ) );
 	}
 
 	/**
@@ -62,13 +64,6 @@ class Audit_Action {
 	public function callback_admin_menu() {
 
 		add_submenu_page( 'wpeomtm-dashboard', __( 'Audit', 'task-manager' ), __( 'Audit', 'task-manager' ), 'manage_task_manager', 'audit-page', array( Audit_Class::g(), 'callable_audit_page' ) );
-
-		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'audit', 'metabox-head-auditlist', array() );
-
-		$view = ob_get_clean();
-
-		add_meta_box( 'tm-indicator-audit', __( 'Audit List', 'task-manager' ) . apply_filters( 'tm_posts_metabox_audit', $view ), array( Audit_Class::g(), 'callback_audit_list_metabox' ), 'audit-page', 'normal' );
 
 	}
 
@@ -87,58 +82,21 @@ class Audit_Action {
 				$data = array();
 
 				ob_start();
-				\eoxia\View_Util::exec( 'task-manager', 'audit', 'metabox-head-auditlist', array( 'post_id' => $post->ID ) );
+				\eoxia\View_Util::exec( 'task-manager', 'audit', 'audit-page/metabox-button-create', array( 'id' => $post->ID ) );
 
 				$view = ob_get_clean();
 
 				add_meta_box( 'wpeo-task-metabox-auditlist', __( 'Audit', 'task-manager' ) . apply_filters( 'tm_posts_metabox_audit', $view ), array( Audit_Class::g(), 'callback_render_indicator' ), $post_type, 'normal', 'default' );
-
 			}
-	}
-
-	public function callback_start_new_audit( ){
-		check_ajax_referer( 'start_new_audit' );
-
-		$parent_id = isset( $_POST[ 'parent_id' ] ) ? (int) $_POST[ 'parent_id' ] : 0;
-		$page = isset( $_POST[ 'page' ] ) ? sanitize_text_field( $_POST[ 'page' ] ) : 'audit-createnew';
-
-		$args = array();
-		if( $parent_id ){
-			$args = array(
-					'parent_id' => $parent_id
-			);
-		}
-
-		$audit = Audit_Class::g()->create( $args );
-
-		ob_start();
-		\eoxia\View_Util::exec(
-			'task-manager',
-			'audit',
-			$page,
-			array(
-			'audit' => $audit,
-			'parent_id' => $parent_id
-			)
-		);
-
-		wp_send_json_success(
-			array(
-				'namespace'        => 'taskManager',
-				'module'           => 'audit',
-				'callback_success' => 'startNewAudit',
-				'view'             => ob_get_clean(),
-			)
-		);
 	}
 
 	public function callback_delete_audit( ){
 		$audit_id  = isset( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : 0;
 		$parent_id = isset( $_POST[ 'parent_id' ] ) ? (int) $_POST[ 'parent_id' ] : 0;
-		$page      = isset( $_POST[ 'page' ] ) ? sanitize_text_field( $_POST[ 'page' ] ) : '';
+		$page      = isset( $_POST[ 'parentpage' ] ) ? sanitize_text_field( $_POST[ 'parentpage' ] ) : '';
 
 
-		if( ! $audit_id || ( ! $parent_id && ! $page ) ){
+		if( ! $audit_id ){
 			wp_send_json_error();
 		}
 
@@ -148,7 +106,15 @@ class Audit_Action {
 			'status' => 'trash',
 		));
 
-		$this->callback_reset_main_page( $parent_id, $page );
+		$this->callback_reset_main_page( $parent_id, $parentpage );
+		/*wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'audit',
+				'callback_success' => 'deleteAudit',
+				'id'               => $audit_id
+			)
+		);*/
 	}
 
 	public function callback_edit_audit( $id = 0 ){
@@ -156,7 +122,7 @@ class Audit_Action {
 
 		$audit_id  = isset( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : 0;
 		$parent_id = isset( $_POST[ 'parent_id' ] ) ? (int) $_POST[ 'parent_id' ] : 0;
-		$page      = isset( $_POST[ 'page' ] ) ? sanitize_text_field( $_POST[ 'page' ] ) : '';
+		$parent_page = isset( $_POST[ 'parentpage' ] ) ? sanitize_text_field( $_POST[ 'parentpage' ] ) : 0;
 
 		if( $id ){
 			$audit_id = $id;
@@ -170,18 +136,29 @@ class Audit_Action {
 
 		$parent_id = $audit->data[ 'parent_id' ] ? $audit->data[ 'parent_id' ] : 0;
 
-		$page = $page ? $page : 'audit-createnew';
+		if( $audit->data[ 'parent_id' ] ){
+			$query = new \WP_Query(
+				array(
+					'p' => $audit->data[ 'parent_id' ],
+					'post_type'   => 'wpshop_customers',
+				)
+			);
+			$audit->data[ 'parent_title' ] = $query->post->post_title;
+		}
 
+		$tags = Tag_Class::g()->get();
 		ob_start();
 
 		if( ! empty ( $audit ) ){
 			\eoxia\View_Util::exec(
 				'task-manager',
 				'audit',
-				$page,
+				'audit-page/metabox-audit-edit',
 				array(
 					'audit' => $audit,
-					'parent_id' => $parent_id
+					'parent_id' => $parent_id,
+					'tags' => $tags,
+					'parent_page' => $parent_page
 				)
 			);
 		}
@@ -198,10 +175,12 @@ class Audit_Action {
 	}
 
 	public function callback_edit_title_audit(){
+		check_ajax_referer( 'edit_title_audit' );
 		$title        = isset( $_POST[ 'title' ] ) ? $_POST[ 'title' ] : '';
 		$id           = isset( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : 0;
-		$deadline_str = isset( $_POST[ 'due_date' ] ) ? strtotime( $_POST[ 'due_date' ] ) : 0;
+		$date         = isset( $_POST[ 'date' ] ) ? strtotime( $_POST[ 'date' ] ) : 0;
 		$customer_id  = isset( $_POST[ 'customer_id' ] ) ? (int) $_POST[ 'customer_id' ] : 0;
+		$parent_page = isset( $_POST[ 'parentpage' ] ) ? sanitize_text_field( $_POST[ 'parentpage' ] ) : 0;
 
 		if( ! $id ){
 			wp_send_json_error();
@@ -217,24 +196,61 @@ class Audit_Action {
 			$audit->data[ 'title' ] = $title;
 		}
 
-		if( $deadline_str > 0 ){
-			$audit->data[ 'deadline' ] = date( 'Y-m-d 00:00:00', $deadline_str );
+		if( $date > 0 ){
+			$audit->data[ 'date' ] = date( 'Y-m-d 00:00:00', $date );
 		}
 
 		if( $customer_id ){
 			$audit->data[ 'parent_id' ] = $customer_id;
 		}
 
-		$audit = Audit_Class::g()->update( $audit->data );
+		$audit = Audit_Class::g()->update( $audit->data, true );
+
+		if( $audit->data[ 'parent_id' ] ){
+			$query = new \WP_Query(
+				array(
+					'p' => $audit->data[ 'parent_id' ],
+					'post_type'   => 'wpshop_customers',
+				)
+			);
+			$audit->data[ 'parent_title' ] = $query->post->post_title;
+		}
+
+		ob_start();
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'audit',
+			'audit-page/metabox-audit-editmod',
+			array(
+				'audit' => $audit,
+				'parent_page' => $parent_page
+			)
+		);
+
+		$editview = ob_get_clean();
+
+		ob_start();
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'audit',
+			'audit-page/metabox-audit-readonly',
+			array(
+				'audit' => $audit,
+				'parent_page' => $parent_page
+			)
+		);
+
+		$readonlyview = ob_get_clean();
 
 		wp_send_json_success(
 			array(
 				'namespace'        => 'taskManager',
 				'module'           => 'audit',
 				'callback_success' => 'updateTitle',
-				'title'            => $title,
-				'deadline'         => $audit->data[ 'deadline' ],
-				'customer_id'      => $customer_id
+				'editview'         => $editview,
+				'readonlyview'     => $readonlyview,
 			)
 		);
 	}
@@ -250,7 +266,7 @@ class Audit_Action {
 
 		$parent = array( 'ID' => $task_id );
 
-	 	Task_Class::g()->update( array( 'id' => $task_id, 'parent_id' => $audit_id,) );
+	 	Task_Class::g()->update( array( 'id' => $task_id, 'parent_id' => $audit_id ) );
 
 		$shortcode_view = do_shortcode( '[task post_parent="' . $audit_id .'"]' );
 
@@ -264,29 +280,20 @@ class Audit_Action {
 		);
 	}
 
-	public function callback_reset_main_page( $id = 0, $page = ''){
-		$parent_id = isset( $_POST[ 'parent_id' ] ) ? $_POST[ 'parent_id' ] : 0;
+	public function callback_reset_main_page( $id = 0, $page = 0){
+		// $parent_id = isset( $_POST[ 'parent_id' ] ) ? $_POST[ 'parent_id' ] : 0;
+		$parent_page = isset( $_POST[ 'parentpage' ] ) ? sanitize_text_field( $_POST[ 'parentpage' ] ) : 0;
 
-		if( ! $page ){
-			$page      = isset( $_POST[ 'page' ] ) ? sanitize_text_field( $_POST[ 'page' ] ) : '';
-		}
-
-		if( $id ){
-			$parent_id = $id;
-		}
-
-		if( ! $parent_id && ! $page ){
-			wp_send_json_error();
+		if( $parent_page == 0 ){
+			$parent_page = $page;
 		}
 
 		ob_start();
 
-		if( $page ){
-			Audit_Class::g()->callback_audit_list_metabox( array(), array(), true );
-		}else if( $parent_id ){
-			Audit_Class::g()->callback_render_indicator( array(), $parent_id, true );
+		if( $parent_page != 0 ){
+			Audit_Class::g()->callback_render_indicator( array(), $parent_page, true );
 		}else{
-
+			Audit_Class::g()->callback_audit_list_metabox( array(), array(), true );
 		}
 
 		$view = ob_get_clean();
@@ -363,7 +370,9 @@ class Audit_Action {
 			) );
 		}
 
-		$created_elements = Import_Class::g()->treat_content( $post_id, $content, $task_id );
+		$return_ = Import_Class::g()->treat_content( $post_id, $content );
+		$created_elements   = $return_[0];
+		$category_not_found = $return_[1];
 
 		if ( ! empty( $created_elements['created']['tasks'] ) ) {
 			$type = 'tasks';
@@ -382,37 +391,6 @@ class Audit_Action {
 				);
 				$view .= ob_get_clean();
 			}
-
-		} elseif ( ! empty( $created_elements['created']['points'] ) ) {
-			$type    = 'points';
-			$point  = '';
-			$task = Task_Class::g()->get(
-				array(
-					'id' => $task_id,
-				),
-				true
-			);
-
-			$task->data['count_uncompleted_points'] += count( $created_elements['created']['points'] );
-			Task_Class::g()->update( $task->data, true );
-
-			foreach ( $created_elements['created']['points'] as $point ) {
-				ob_start();
-				\eoxia\View_Util::exec(
-					'task-manager',
-					'point',
-					'backend/point',
-					array(
-						'point'      => $point,
-						'parent_id'  => $task_id,
-						'comment_id' => 0,
-						'point_id'   => 0,
-					)
-				);
-				$view .= ob_get_clean();
-			}
-
-			Task_Class::g()->update( array( 'id' => $task_id, 'status' => 'inherit' ) );
 		}
 
 		wp_send_json_success( array(
@@ -420,6 +398,7 @@ class Audit_Action {
 			'module'           => 'audit',
 			'callback_success' => 'importAuditTaskSuccess',
 			'view'             => $view,
+			'category_info'    => $category_not_found
 		) );
 	}
 
@@ -439,7 +418,7 @@ class Audit_Action {
 
 		$audits = Audit_Class::g()->get();
 
-		if( $customer_select ){
+		if( $customer_select > 0 ){
 			$audits_valid = Audit_Class::g()->get( array( 'post_parent' => $customer_select ) );
 
 			foreach( $audits as $key => $audit ){
@@ -448,6 +427,10 @@ class Audit_Action {
 						$audits[ $key ]->data[ 'valid' ] = true;
 					}
 				}
+			}
+		}else{
+			foreach( $audits as $key => $audit ){
+				$audits[ $key ]->data[ 'valid' ] = true;
 			}
 		}
 
@@ -460,6 +443,7 @@ class Audit_Action {
 		}
 
 		if( $date_modification ){
+
 			$return = Audit_Class::g()->sortByDateStartDateEndDate( $audits, $date_start_str, $date_end_str, $selector_modification );
 			$audits = $return[ 'audits' ];
 			$date_start_str = $return[ 'date_start' ];
@@ -541,6 +525,73 @@ class Audit_Action {
 		wp_die( wp_json_encode( $customers_founded ) );
 	}
 
+	public function ajax_delink_parent_to_audit(){
+		check_ajax_referer( 'delink_parent_to_audit' );
+		$audit_id = isset( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : 0;
+
+		if( ! $audit_id ){
+			wp_send_json_error();
+		}
+
+		$audit = Audit_Class::g()->get( array( 'id' => $audit_id ), true );
+
+		$audit->data['parent_id'] = 0;
+
+		$audit = Audit_Class::g()->update( $audit->data, true );
+
+		wp_send_json_success( array(
+			'namespace'        => 'taskManager',
+			'module'           => 'audit',
+			'callback_success' => 'delinkAuditParent'
+		) );
+	}
+
+	public function ajax_create_audit_inpage(){
+		check_ajax_referer( 'create_audit' );
+		$id = isset( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : 0;
+
+		$args = array();
+
+		if( $id != 0 ){
+			$args = array(
+				'parent_id' => $id,
+				'status'    => 'inherit',
+			);
+		}
+
+		$audit = Audit_Class::g()->create( $args );
+
+		if( $audit->data[ 'parent_id' ] ){
+			$query = new \WP_Query(
+				array(
+					'p' => $audit->data[ 'parent_id' ],
+					'post_type'   => 'wpshop_customers',
+				)
+			);
+			$audit->data[ 'parent_title' ] = $query->post->post_title;
+		}
+
+		ob_start();
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'audit',
+			'audit-page/metabox-audit',
+			array(
+				'audit' => $audit,
+				'parent_page' => $id
+			)
+		);
+
+		$view = ob_get_clean();
+
+		wp_send_json_success( array(
+			'namespace'        => 'taskManager',
+			'module'           => 'audit',
+			'callback_success' => 'audit_is_created',
+			'view'             => $view
+		) );
+	}
 }
 
 new Audit_Action();

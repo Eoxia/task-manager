@@ -495,7 +495,6 @@ class Task_Action {
 		$type       = $alldata[ 'type' ];
 		$info       = $alldata[ 'info' ];
 		$everymonth = $alldata[ 'everymonth' ];
-
 		$view = ob_start();
 
 		\eoxia\View_Util::exec(

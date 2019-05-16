@@ -17,8 +17,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<div>
-	<br>
-</div>
+<?php
+	//do_meta_boxes( 'audit-page', 'normal', '' );
 
-<?php do_meta_boxes( 'audit-page', 'normal', '' ); ?>
+	\eoxia\View_Util::exec( 'task-manager', 'audit', '/audit-page/metabox-button-create', array() );
+
+	Audit_Class::g()->callback_audit_list_metabox();
+?>

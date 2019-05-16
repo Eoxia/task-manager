@@ -13,7 +13,6 @@ window.eoxiaJS.taskManager.import.init = function() {
 window.eoxiaJS.taskManager.import.event = function() {
 	jQuery( document ).on( 'click', '.tm-import-add-keyword > .wpeo-button', window.eoxiaJS.taskManager.import.addKeywordToTextarea );
 	jQuery( document ).on( 'click', '.tm-alert-category-not-found > .wpeo-button', window.eoxiaJS.taskManager.import.updateCategoryNotFound );
-
 	jQuery( document ).on( 'click', '.wpeo-notice .notice-close', window.eoxiaJS.taskManager.import.hideThisWpeoNotice );
 };
 
@@ -68,6 +67,10 @@ window.eoxiaJS.taskManager.import.importSuccess = function( element, response ) 
  */
 window.eoxiaJS.taskManager.import.addKeywordToTextarea = function( event ) {
 	var importContent = jQuery( this ).closest( '.tm-import-tasks.modal-active' ).find( 'textarea' );
+
+	if( ! importContent.length ){
+		importContent = jQuery( this ).closest( '.tm-audit-import.modal-active' ).find( 'textarea' );
+	}
 	var keyword = "";
 
 	if( jQuery( this ).attr( 'data-type' ) == "category" ){
@@ -88,8 +91,6 @@ window.eoxiaJS.taskManager.import.updateCategoryNotFound = function( event ){
 	var action         = jQuery( this ).attr( 'data-doaction' );
 	var element_parent = jQuery( this ).closest( '.wpeo-notice' );
 
-
-	console.log( action );
 	if( action == "create" ){
 
 		var data         = {};
@@ -97,7 +98,6 @@ window.eoxiaJS.taskManager.import.updateCategoryNotFound = function( event ){
 		data.task_id        = element_parent.attr( 'data-taskid' ); //
 		data.category_name  = element_parent.attr( 'data-tagname' );;
 
-		console.log( data );
 		window.eoxiaJS.loader.display( jQuery( this ) );
 		window.eoxiaJS.request.send( jQuery( this ), data );
 	}else{

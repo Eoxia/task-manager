@@ -52,7 +52,7 @@ class Import_Class extends \eoxia\Singleton_Util {
 	 *
 	 * @return array           La liste des éléments créés et non créés.
 	 */
-	public function treat_content( $post_id, $content, $task_id ) {
+	public function treat_content( $post_id, $content = '', $task_id = 0 ) {
 		$element_list = array(
 			'not_created' => array(
 				'tasks'   => array(),

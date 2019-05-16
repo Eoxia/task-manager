@@ -612,14 +612,22 @@ class Task_Class extends \eoxia\Post_Class {
 				continue;
 			}
 
+			if( empty( $task->data['taxonomy'][ 'wpeo_tag' ] ) ){
+				$task->data[ 'taxonomy' ][ 'wpeo_tag' ][] = 0;
+			}
+
 			foreach ( $task->data['taxonomy'][ 'wpeo_tag' ] as $id_category ) { // Si la tache a plusieurs catégories
 				$category_info = array();
-				$name_categories = get_term_by( 'id', $id_category, 'wpeo_tag' );
-
+				if( $id_category == 0 ){
+					$name_categories = esc_html( 'No Category', 'task-manager' );
+				}else{
+					$categories = get_term_by( 'id', $id_category, 'wpeo_tag' );
+					$name_categories = $categories->name;
+				}
 				if( empty( $categories_indicator[ $type ][ $id_category ] ) ) { // On créait la catégorie
 					$categories_indicator[ $type ][ $id_category ] = $allmonth; // tous les mois de l'année
 					$category_info = array(
-						'name'                    => $name_categories->name, // Info
+						'name'                    => $name_categories, // Info
 						'id'                      => $id_category, // de base
 						'type'                    => $type, // De la catégorie
 						'time_elapsed'            => 0,
@@ -666,7 +674,14 @@ class Task_Class extends \eoxia\Post_Class {
 					return array();
 				}
 
+				if( ! empty( $category_info ) ){
+					$categories_indicator_info[ $type ][ $id_category ][ 'info' ] = $category_info;
+				}
 
+				$categories_indicator_info[ $type ][ $id_category ][ 'task_list' ][ $task->data[ 'id' ] ][ 'id' ] = $task->data[ 'id' ];
+				$categories_indicator_info[ $type ][ $id_category ][ 'task_list' ][ $task->data[ 'id' ] ][ 'title' ] = $task->data[ 'title' ];
+				$categories_indicator_info[ $type ][ $id_category ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_elapsed' ] = 0;
+				$categories_indicator_info[ $type ][ $id_category ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_estimated' ] = 0;
 				// On recupere les commentaires et on les ajoute dans leurs mois respectifs
 				$comments = Task_Comment_Class::g()->get_comments( 0, $args );
 				if( empty ( $comments ) ){
@@ -697,23 +712,17 @@ class Task_Class extends \eoxia\Post_Class {
 
 							if( $month[ 'str_month_start' ] < strtotime( $value_com->data[ 'date' ][ 'rendered' ][ 'mysql' ] ) && $month[ 'str_month_end' ] > strtotime( $value_com->data[ 'date' ][ 'rendered' ][ 'mysql' ] ) ) // Si le commentaire a était fait dans le mois
 							{
+								$categories_indicator[ $type ][ $id_category ][ $key_month_ ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_elapsed' ] += $value_com->data[ 'time_info' ][ 'elapsed' ];
+								$categories_indicator[ $type ][ $id_category ][ $key_month_ ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_deadline' ] += $value_com->data[ 'time_info' ][ 'elapsed' ];
 
-									$categories_indicator[ $type ][ $id_category ][ $key_month_ ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_elapsed' ] += $value_com->data[ 'time_info' ][ 'elapsed' ];
-									$categories_indicator[ $type ][ $id_category ][ $key_month_ ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_deadline' ] += $value_com->data[ 'time_info' ][ 'elapsed' ];
 
-									$categories_indicator_info[ $type ][ $id_category ][ 'task_list' ][ $task->data[ 'id' ] ][ 'title' ] = $task->data[ 'title' ];
-									$categories_indicator_info[ $type ][ $id_category ][ 'task_list' ][ $task->data[ 'id' ] ][ 'id' ] = $task->data[ 'id' ];
-									$categories_indicator_info[ $type ][ $id_category ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_elapsed' ] = 0;
-									$categories_indicator_info[ $type ][ $id_category ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_estimated' ] = 0;
-
+								$categories_indicator_info[ $type ][ $id_category ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_elapsed' ] = 0;
+								$categories_indicator_info[ $type ][ $id_category ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_estimated' ] = 0;
 							}
 						}
 					//}
 				}
 				// $categories_indicator[ $value_task ] = $this->update_property_this_array( $categories_indicator[ $value_task ] );
-				if( ! empty( $category_info ) ){
-					$categories_indicator_info[ $type ][ $id_category ][ 'info' ] = $category_info;
-				}
 			}
 		}
 
@@ -779,8 +788,6 @@ class Task_Class extends \eoxia\Post_Class {
 			);
 			return $data_return;
 		}
-
-
 
 		\eoxia\View_Util::exec(
 			'task-manager',
@@ -872,11 +879,12 @@ class Task_Class extends \eoxia\Post_Class {
 	}
 
 	public function update_indicator_array_tasklist( $categories, $info ){
-
 		foreach( $categories as $key_categ => $category ){
 			$time_elapsed_categorie = 0;
 			$time_estimated_categorie = 0;
 
+	//		echo '<pre>'; print_r( $info ); echo '</pre>';
+//exit;
 			foreach( $category as $key_month => $month ){
 				$time_elapsed_month = 0;
 				$time_estimated_month = 0;
@@ -891,14 +899,16 @@ class Task_Class extends \eoxia\Post_Class {
 						$time_deadline_month  += $task[ 'time_deadline' ];
 						$time_elapsed_month   += $task[ 'time_elapsed' ];
 
-						if( $info[ $key_categ ][ 'info' ][ 'type' ] == "deadline" ){
+						if( empty( $info[ $key_categ ][ 'task_list' ] ) ){
+							continue;
+						}
 
+						if( $info[ $key_categ ][ 'info' ][ 'type' ] == "deadline" ){
 							$time_estimated_categorie = $time_estimated_month;
 
 							$info[ $key_categ ][ 'task_list' ][ $key_task ][ 'time_elapsed' ] += $task[ 'time_elapsed' ];
 							$info[ $key_categ ][ 'task_list' ][ $key_task ][ 'time_estimated' ] = $task[ 'time_estimated' ];
 							$time_elapsed_categorie = $time_deadline_month;
-
 						}else{
 
 							$time_estimated_categorie += $time_estimated_month;
@@ -906,7 +916,6 @@ class Task_Class extends \eoxia\Post_Class {
 							$info[ $key_categ ][ 'task_list' ][ $key_task ][ 'time_elapsed' ] += $task[ 'time_elapsed' ];
 							$info[ $key_categ ][ 'task_list' ][ $key_task ][ 'time_estimated' ] += $task[ 'time_estimated' ];
 							$time_elapsed_categorie += $time_elapsed_month;
-
 						}
 					//}
 				}

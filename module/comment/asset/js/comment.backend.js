@@ -99,7 +99,7 @@ window.eoxiaJS.taskManager.comment.preventClosePoint = function( event ) {
 
 window.eoxiaJS.taskManager.comment.triggerCreate = function( event ) {
 	if ( event.ctrlKey && 13 === event.keyCode ) {
-		jQuery( this ).closest( '.comment' ).find( '.action-input' ).click();
+		jQuery( this ).closest( '.comment' ).find( '.comment-container .comment-action .tm_register_comment' ).trigger( "click" );
 	}
 };
 

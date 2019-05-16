@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="tm_client_audit_main">
+<div class="tm_client_audit_main" style="background:none">
 	<div class="wpeo-gridlayout grid-5 tm_audit_search wpeo-form form-light">
 		<div class="form-element">
 			<label class="form-field-container">
@@ -50,52 +50,41 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="form-element">
 			<label class="form-field-container">
 				<span class="form-field-label-next"><i class="fas fa-filter"></i></span>
-
-				<select id="tm_audit_selector_search" class="tm_audit_search_update" class="form-field" value="<?php esc_html_e( 'Filter', 'task-manager' ); ?>" name="tm_audit_selector_search_" style="width: 80%">
-					<option value="all"><?php esc_html_e( 'All audit', 'task-manager' ); ?></option>
-					<option value="completed"><?php esc_html_e( 'Audit completed', 'task-manager' ); ?></option>
-					<option value="progress"><?php esc_html_e( 'Audit in progress', 'task-manager' ); ?></option>
-				</select>
+				<div class="wpeo-dropdown">
+					<span class="dropdown-toggle form-field"><span class="display-text-audit"><?php esc_html_e( 'Audit type', 'task-manager' ); ?></span>
+					<i class="fas fa-caret-down"></i></span>
+					<input type="hidden" class="tm_audit_search_hidden" name="tm_audit_selector_search_" >
+					<ul class="dropdown-content" id="tm_audit_selector_search" class="tm_audit_search_update">
+						<li class="dropdown-item">
+							<?php esc_html_e( 'All audit', 'task-manager' ); ?>
+							<input type="hidden" value="all" />
+						</li>
+						<li class="dropdown-item">
+							<?php esc_html_e( 'Audit completed', 'task-manager' ); ?>
+							<input type="hidden" value="completed" />
+						</li>
+						<li class="dropdown-item">
+							<?php esc_html_e( 'Audit in progress', 'task-manager' ); ?>
+							<input type="hidden" value="progress" />
+						</li>
+					</ul>
+				</div>
 			</label>
 		</div>
 
-		<?php /*<div class="form-element"> // AFFICHE TOUS LES CUSTOMERS EN OPTION -> SELECT
-			<label class="form-field-container">
-				<span class="form-field-label-next"><i class="fas fa-clone"></i></span>
+		<?php if( ! isset( $parent_id ) || $parent_id == 0 ): ?>
 
-				<select id="tm_audit_selector_customer" class="form-field tm_audit_search_update" value="<?php esc_html_e( 'Filter', 'task-manager' ); ?>" name="tm_audit_selector_customer" style="width: 80%">
-					<option value="0"><?php esc_html_e( 'Select a customer', 'task-manager' ); ?></option>
-					<?php echo apply_filters( 'tm_audit_list_customers', '' ); ?>
-				</select>
-			</label>
-		</div>*/ ?>
-
-		<?php /*<div class="form-element"> // AFFICHE TOUS LES CUSTOMERS EN INPUT AUTOCOMPLETE -> BUG ?
-			<?php
-				global $eo_search;
-				$eo_search->register_search(
-					'tm_search_customer',
-					array(
-						'label' => 'Client',
-						'icon'  => 'fa-search',
-						'type'  => 'post',
-						'name'  => 'post_parent',
-						'args'  => array(
-							'post_type'   => 'wpshop_customers',
-							'post_status' => array( 'publish', 'inherit', 'draft' ),
-						),
-					)
-				);
-
-			$eo_search->display( 'tm_search_customer' );?>
-		</div> */ ?>
-		<div class="form-element tm-define-customer-to-audit">
-			<div class="form-fields">
-				<input type="hidden" class="audit_search-customers-id" name="tm_audit_selector_customer"/>
-				<input type="text" class="audit-search-customers ui-autocomplete-input" placeholder="Nom/ID Client" autocomplete="off" />
+			<div class="form-element tm-define-customer-to-audit">
+				<div class="form-fields">
+					<input type="hidden" class="audit_search-customers-id" name="tm_audit_selector_customer"/>
+					<input type="text" class="audit-search-customers ui-autocomplete-input" placeholder="Nom/ID Client" autocomplete="off" />
+				</div>
 			</div>
-		</div>
-
+		<?php	else: ?>
+			<div class="form-element">
+				
+			</div>
+		<?php	endif; ?>
 
 		<div class="form-element grid-1">
 				<span class="action-input alignright wpeo-button button-main button-square-40"
@@ -125,6 +114,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	</div>
 </div>
-<?php if( isset( $showedit ) && ! $showedit ): ?>
-	<div class="tm_client_audit_edit"></div>
-<?php endif; ?>
+<?php if( isset( $showedit ) && ! $showedit ):
+	 			if( isset( $parent_id ) && $parent_id > 0 ): ?>
+					<div class="tm_client_audit_edit" style="display : none"></div>
+				<?php else: ?>
+					<div class="tm_client_audit_edit" style="margin-top: 10px; display : none"></div>
+	<?php	endif;
+			endif; ?>

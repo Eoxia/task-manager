@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2019-05-09 14:48+0200\n"
-"PO-Revision-Date: 2019-05-09 14:49+0200\n"
+"POT-Creation-Date: 2019-05-10 16:51+0200\n"
+"PO-Revision-Date: 2019-05-10 16:51+0200\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -100,55 +100,55 @@ msgid "Do you really want to delink this task from her parent ?"
 msgstr "Etes vous sûr de vouloir délié cette tache de son parent ?"
 
 #: core/action/task_manager.action.php:130
+msgid "Do you really want to delink this audit from her client parent ?"
+msgstr "Etes vous sûr de vouloir délié cette tache de son parent ?"
+
+#: core/action/task_manager.action.php:131
 msgid "Horizontal summary"
 msgstr "Résumé horizontal"
 
-#: core/action/task_manager.action.php:131
+#: core/action/task_manager.action.php:132
 msgid "Doghnut summary"
 msgstr "Résumé donut"
 
-#: core/action/task_manager.action.php:132
+#: core/action/task_manager.action.php:133
 msgid "Do you want to delete your text ?"
 msgstr "Êtes-vous sur(e) de vouloir supprimer ce texte ?"
 
-#: core/action/task_manager.action.php:133
-msgid "Error Category"
-msgstr ""
-
 #: core/action/task_manager.action.php:134
+msgid "Error Category"
+msgstr "Erreur Catégorie"
+
+#: core/action/task_manager.action.php:135
 msgid "This category doesn't exist : "
 msgstr "Cette catégorie n'existe pas : "
 
-#: core/action/task_manager.action.php:135
-#, fuzzy
-#| msgid "Do you want to delete your text ?"
-msgid "What do you want to do ?"
-msgstr "Êtes-vous sur(e) de vouloir supprimer ce texte ?"
-
 #: core/action/task_manager.action.php:136
-msgid "Nothing"
-msgstr ""
+msgid "What do you want to do ?"
+msgstr "Que voulez-vous faire ?"
 
 #: core/action/task_manager.action.php:137
-#, fuzzy
-#| msgid "Create "
-msgid "Create it ?"
-msgstr "Créé "
+msgid "Nothing"
+msgstr "Rien"
 
-#: core/action/task_manager.action.php:170
+#: core/action/task_manager.action.php:138
+msgid "Create it"
+msgstr "La créer"
+
+#: core/action/task_manager.action.php:171
 #: module/comment/view/backend/comment.view.php:52
 msgid "Delete this comment ?"
 msgstr "Voulez vous supprimer ce commentaire ?"
 
-#: core/action/task_manager.action.php:215
+#: core/action/task_manager.action.php:216
 #: module/audit/view/audit-import-button.view.php:39
-#: module/audit/view/audit-page/metabox-importbutton.view.php:39
+#: module/audit/view/audit-page/metabox-importbutton.view.php:37
 #: module/import/view/backend/import-textarea.view.php:20
 #: module/task/action/task.action.php:475
 msgid "Task"
 msgstr "Tâche"
 
-#: core/action/task_manager.action.php:216
+#: core/action/task_manager.action.php:217
 msgid "Customer"
 msgstr "Client"
 
@@ -160,7 +160,7 @@ msgstr "Pas de note de mise à jour pour cette version."
 msgid "Tasks"
 msgstr "Tâches"
 
-#: core/view/main.view.php:29 module/audit/action/audit.action.php:311
+#: core/view/main.view.php:29 module/audit/action/audit.action.php:363
 #: module/task/action/task.action.php:109
 #: module/task/view/backend/metabox-create-buttons.view.php:23
 msgid "New task"
@@ -176,7 +176,7 @@ msgstr "Importer des tâches et des points"
 
 #: core/view/modal-import.view.php:21 core/view/modal-import.view.php:39
 #: module/audit/view/audit-import-button.view.php:61
-#: module/audit/view/audit-page/metabox-importbutton.view.php:61
+#: module/audit/view/audit-page/metabox-importbutton.view.php:73
 #: module/import/view/backend/ajax-modal-open-button.view.php:19
 #: module/import/view/backend/ajax-modal-save-buttons.view.php:22
 #: module/import/view/backend/inline-modal.view.php:21
@@ -186,7 +186,7 @@ msgstr "Importer"
 
 #: core/view/modal-import.view.php:34
 #: module/audit/view/audit-import-button.view.php:56
-#: module/audit/view/audit-page/metabox-importbutton.view.php:56
+#: module/audit/view/audit-page/metabox-importbutton.view.php:68
 #: module/import/view/backend/ajax-modal-save-buttons.view.php:17
 #: module/import/view/backend/inline-modal.view.php:34
 msgid "Cancel"
@@ -282,99 +282,111 @@ msgstr "Page des temps rapides"
 msgid "Quick time"
 msgstr "Temps rapide"
 
-#: module/audit/action/audit.action.php:64
-#: module/audit/action/audit.action.php:94
+#: module/audit/action/audit.action.php:68
+#: module/audit/action/audit.action.php:98
 msgid "Audit"
 msgstr "Audit"
 
-#: module/audit/action/audit.action.php:71
-msgid "Audit List"
-msgstr "Liste d'audit"
-
-#: module/audit/action/audit.action.php:535
-#: module/audit/action/audit.action.php:536
+#: module/audit/action/audit.action.php:564
+#: module/audit/action/audit.action.php:565
 msgid "No client found"
 msgstr "Aucun client trouvé"
 
 #: module/audit/view/audit-createnew.view.php:31
-#: module/audit/view/audit-page/metabox-audit-edit.view.php:34
 msgid "Write audit title ..."
 msgstr "Ecrivez le titre de l'audit ici ..."
 
 #: module/audit/view/audit-createnew.view.php:43
 #: module/audit/view/audit-item.view.php:40
-#: module/audit/view/audit-page/metabox-audit-edit.view.php:49
-#: module/audit/view/audit-page/metabox-audit.view.php:40
 #: module/history-time/view/backend/form.view.php:35
 msgid "Due date"
 msgstr "Date limite"
 
 #: module/audit/view/audit-import-button.view.php:43
-#: module/audit/view/audit-page/metabox-importbutton.view.php:43
+#: module/audit/view/audit-page/metabox-importbutton.view.php:41
 #: module/import/view/backend/import-textarea.view.php:24
 msgid "Point"
 msgstr "Point"
 
 #: module/audit/view/audit-item.view.php:32
-#: module/audit/view/audit-page/metabox-audit.view.php:32
-#, fuzzy
-#| msgid "Audit"
 msgid "New Audit"
-msgstr "Audit"
+msgstr "Nouvelle audit"
 
 #: module/audit/view/audit-item.view.php:37
-#: module/audit/view/audit-page/metabox-audit.view.php:37
+#: module/audit/view/audit-page/metabox-audit-edit.view.php:42
+#: module/audit/view/audit-page/metabox-audit-readonly.view.php:29
 msgid "Created date"
 msgstr "Créé le"
 
 #: module/audit/view/audit-item.view.php:61
-#: module/audit/view/audit-page/metabox-audit.view.php:69
 msgid "Edit this audit"
 msgstr "Modifier cet audit"
 
 #: module/audit/view/audit-item.view.php:68
-#: module/audit/view/audit-page/metabox-audit.view.php:77
+#: module/audit/view/audit-page/metabox-audit-edit.view.php:92
+#: module/audit/view/audit-page/metabox-audit.view.php:94
 msgid "Delete this audit ?"
 msgstr "Voulez vous supprimer cet audit ?"
 
 #: module/audit/view/audit-item.view.php:70
-#: module/audit/view/audit-page/metabox-audit.view.php:78
+#: module/audit/view/audit-page/metabox-audit-edit.view.php:93
+#: module/audit/view/audit-page/metabox-audit.view.php:95
 msgid "Delete this audit"
 msgstr "Supprimer cet audit"
 
-#: module/audit/view/audit-page/metabox-audit-edit.view.php:42
-msgid "Creation date"
-msgstr "Date de création"
+#: module/audit/view/audit-page/metabox-audit-edit.view.php:37
+#: module/audit/view/audit-page/metabox-audit-editmod.view.php:21
+#: module/audit/view/audit-page/metabox-audit-readonly.view.php:24
+msgid "No name Audit"
+msgstr "Audit sans nom"
 
-#: module/audit/view/audit-page/metabox-audit-edit.view.php:62
-#: module/audit/view/audit-page/metabox-audit-edit.view.php:74
-#: module/audit/view/audit-page/metabox-audit.view.php:45
+#: module/audit/view/audit-page/metabox-audit-edit.view.php:51
+#: module/audit/view/audit-page/metabox-audit-editmod.view.php:39
+#: module/audit/view/audit-page/metabox-audit-editmod.view.php:67
+#: module/audit/view/audit-page/metabox-audit-readonly.view.php:38
 msgid "Audit Parent"
 msgstr "Audit Parent"
 
-#: module/audit/view/audit-page/metabox-main.view.php:54
-#: module/audit/view/metabox-auditlist.view.php:55
-msgid "Filter"
-msgstr "Filtre"
+#: module/audit/view/audit-page/metabox-audit-editmod.view.php:31
+msgid "Creation date"
+msgstr "Date de création"
 
-#: module/audit/view/audit-page/metabox-main.view.php:55
+#: module/audit/view/audit-page/metabox-audit.view.php:86
+msgid "See audit"
+msgstr "Voir l'audit"
+
+#: module/audit/view/audit-page/metabox-button-create.view.php:23
+#: module/audit/view/metabox-head-auditlist.view.php:26
+msgid "Start audit"
+msgstr "Démarrer un audit"
+
+#: module/audit/view/audit-page/metabox-importbutton.view.php:49
+#: module/import/view/backend/import-textarea.view.php:32
+msgid "Categorie"
+msgstr "Catégorie"
+
+#: module/audit/view/audit-page/metabox-main.view.php:68
+msgid "Audit type"
+msgstr "Type d'audit"
+
+#: module/audit/view/audit-page/metabox-main.view.php:73
 #: module/audit/view/metabox-auditlist.view.php:56
 msgid "All audit"
 msgstr "Tous les audits"
 
-#: module/audit/view/audit-page/metabox-main.view.php:56
+#: module/audit/view/audit-page/metabox-main.view.php:77
 #: module/audit/view/metabox-auditlist.view.php:57
 msgid "Audit completed"
 msgstr "Audit complété"
 
-#: module/audit/view/audit-page/metabox-main.view.php:57
+#: module/audit/view/audit-page/metabox-main.view.php:81
 #: module/audit/view/metabox-auditlist.view.php:58
 msgid "Audit in progress"
 msgstr "Audit en cours"
 
-#: module/audit/view/metabox-head-auditlist.view.php:26
-msgid "Start audit"
-msgstr "Démarrer un audit"
+#: module/audit/view/metabox-auditlist.view.php:55
+msgid "Filter"
+msgstr "Filtre"
 
 #: module/comment/view/backend/comment.view.php:47
 msgid "Edit this comment"
@@ -592,12 +604,6 @@ msgstr "Aucun contenu n'a été fourni pour l'import"
 msgid "Import points from text file in : %s"
 msgstr "Import de points depuis un fichier texte dans la tâche : %s"
 
-#: module/import/view/backend/import-textarea.view.php:32
-#, fuzzy
-#| msgid "Categories"
-msgid "Categorie"
-msgstr "Catégories"
-
 #: module/indicator/action/indicator.action.php:62
 #: module/indicator/action/indicator.action.php:64
 #: module/indicator/action/indicator.action.php:65
@@ -687,7 +693,7 @@ msgstr "Deadlines taches"
 #: module/indicator/view/backend-stats/indicator-main.view.php:83
 #: module/indicator/view/backend-stats/indicator-main.view.php:106
 msgid "Time elapsed :"
-msgstr ""
+msgstr "Temps passé :"
 
 #: module/indicator/view/backend-stats/indicator-main.view.php:85
 #: module/indicator/view/backend-stats/indicator-main.view.php:108
@@ -828,34 +834,25 @@ msgid "Task link"
 msgstr "Lien vers la tâche"
 
 #: module/notify/class/notify.class.php:78
-#, fuzzy, php-format
-#| msgid "You have been notified by"
+#, php-format
 msgid "You have been notified by %3$s (%4$s)"
-msgstr "Vous avez était notifié par"
+msgstr "Vous avez était notifié par %3$s (%4$s)"
 
 #: module/notify/class/notify.class.php:83
-#, fuzzy
-#| msgid "Task"
 msgid "Task "
-msgstr "Tâche"
+msgstr "Tâche "
 
 #: module/notify/class/notify.class.php:84
-#, fuzzy
-#| msgid "Point"
 msgid "Point "
-msgstr "Point"
+msgstr "Point "
 
 #: module/notify/class/notify.class.php:85
-#, fuzzy
-#| msgid "Comment"
 msgid "Comment "
-msgstr "Commentaire"
+msgstr "Commentaire "
 
 #: module/notify/class/notify.class.php:101
-#, fuzzy
-#| msgid "Point options"
 msgid "Point link"
-msgstr "Options du point"
+msgstr "Lien vers le point"
 
 #: module/notify/view/backend/button.view.php:22
 msgid "Send notification"
