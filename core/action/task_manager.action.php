@@ -75,6 +75,9 @@ class Task_Manager_Action {
 		wp_deregister_script( 'jquery-ui-datepicker' );
 		wp_dequeue_script( 'jquery-ui-datepicker' );
 
+		wp_deregister_script( 'acf-timepicker' );
+		wp_dequeue_script( 'acf-timepicker' );
+
 		wp_enqueue_media();
 		add_thickbox();
 		if ( ! empty( \eoxia\Config_Util::$init['task-manager']->insert_scripts_pages ) ) {
