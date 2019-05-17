@@ -71,6 +71,10 @@ class Task_Manager_Action {
 		wp_enqueue_script( 'jquery-ui-accordion' );
 		wp_enqueue_script( 'jquery-ui-autocomplete' );
 		wp_enqueue_script( 'heartbeat' );
+
+		wp_deregister_script( 'jquery-ui-datepicker' );
+		wp_dequeue_script( 'jquery-ui-datepicker' );
+
 		wp_enqueue_media();
 		add_thickbox();
 		if ( ! empty( \eoxia\Config_Util::$init['task-manager']->insert_scripts_pages ) ) {

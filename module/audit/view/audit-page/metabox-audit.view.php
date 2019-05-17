@@ -1,6 +1,7 @@
 <?php
 /**
- * La vue d'une tâche dans le backend.
+ * (=> Se fait appeller par le foreach)
+ * la vue d'une tache (premiere page)
  *
  * @author Eoxia <dev@eoxia.com>
  * @since 1.9.0

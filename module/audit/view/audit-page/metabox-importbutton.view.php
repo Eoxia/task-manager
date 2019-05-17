@@ -3,8 +3,8 @@
  * Les bouttons pour importer ou créer une tache dans une audit
  *
  * @author Eoxia <dev@eoxia.com>
- * @since 1.9.0
- * @version 1.9.0
+ * @since 1.10.0
+ * @version 1.10.0
  * @copyright 2019 Eoxia
  */
 
