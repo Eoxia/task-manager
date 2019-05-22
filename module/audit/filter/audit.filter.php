@@ -33,10 +33,12 @@ class Audit_Filter {
 	}
 
 	public function hidden_dashboard_audit_task( $param ) {
-		$screen = get_current_screen();
+		if ( is_admin() ) {
+			$screen = get_current_screen();
 
-		if ( 'toplevel_page_wpeomtm-dashboard' == $screen->id ) {
-			$param['not_parent_type'] = array( 'wpeo-audit' );
+			if ( 'toplevel_page_wpeomtm-dashboard' == $screen->id ) {
+				$param['not_parent_type'] = array( 'wpeo-audit' );
+			}
 		}
 
 		return $param;

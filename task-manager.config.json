@@ -14,7 +14,8 @@
 		"wpshop_shop_order",
 		"tache_page_indicator-page",
 		"tache_page_audit-page",
-		"profile"
+		"profile",
+		"wps-third-party"
 	],
 	"externals": [],
 	"modules": [
@@ -52,7 +53,7 @@
 	"key_waiting_updates": "_tm_waited_updates",
 	"dashboard_page_url": "wpeomtm-dashboard",
 	"update_page_url": "task-manager-update",
-	"associate_post_type": ["wpshop_customers", "wpshop_shop_order"],
+	"associate_post_type": ["wpshop_customers", "wpshop_shop_order", "wps-third-party", "wps-order"],
 	"quick_task_tags": [
 		""
 	],

@@ -29,6 +29,79 @@ class Support_Action {
 		add_action( 'wp_ajax_load_last_activity_in_support', array( $this, 'callback_load_last_activity_in_support' ) );
 
 		add_action( 'wp_token_login', array( $this, 'callback_wp_token_login' ), 11, 1 );
+		
+		add_action( 'wps_account_navigation_endpoint', function() {
+			add_rewrite_endpoint( 'support', EP_ALL );
+		}, 10, 0 );
+		
+		add_action( 'wps_account_support', function() {
+			$contact     = \wpshop\Contact::g()->get( array( 'id' => get_current_user_id() ), true );
+			$third_party = \wpshop\Third_Party::g()->get( array( 'id' => $contact->data['third_party_id'] ), true );
+
+			$tasks_id = array();
+
+			$total_time_elapsed           = 0;
+			$total_time_estimated         = 0;
+			$last_modification_date       = '';
+			$last_modification_date_mysql = '';
+
+			$tasks = \task_manager\Task_Class::g()->get_tasks(
+				array(
+					'post_parent' => $third_party->data['id'],
+				)
+			);
+
+			$args = array(
+				'post_parent' => $third_party->data['id'],
+				'post_type'   => \eoxia\Config_Util::$init['task-manager']->associate_post_type,
+				'numberposts' => -1,
+				'post_status' => 'any',
+			);
+
+			$children = get_posts( $args );
+
+			if ( ! empty( $children ) ) {
+				foreach ( $children as $child ) {
+					$tasks = array_merge(
+						$tasks,
+						\task_manager\Task_Class::g()->get_tasks(
+							array(
+								'post_parent' => $child->ID,
+							)
+						)
+					);
+				}
+			}
+
+			if ( ! empty( $tasks ) ) {
+				foreach ( $tasks as $task ) {
+					$tasks_id[]            = $task->data['id'];
+					$total_time_elapsed   += $task->data['time_info']['elapsed'];
+					$total_time_estimated += $task->data['last_history_time']->data['estimated_time'];
+
+					if ( empty( $last_modification_date ) || ( $last_modification_date_mysql < $task->data['date_modified']['raw'] ) ) {
+						$last_modification_date_mysql = $task->data['date_modified']['raw'];
+						$last_modification_date       = $task->data['date_modified']['rendered']['date_time'];
+					}
+				}
+			}
+
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'support',
+				'frontend/main',
+				array(
+					'last_modification_date' => $last_modification_date,
+					'tasks'                  => $tasks,
+					'tasks_id'               => implode( ',', $tasks_id ),
+					'parent_id'              => $third_party->data['id'],
+					'customer_id'            => $third_party->data['id'],
+					'user_id'                => get_current_user_id(),
+					'total_time_elapsed'     => $total_time_elapsed,
+					'total_time_estimated'   => $total_time_estimated,
+				)
+			);
+		} );
 	}
 
 	/**
