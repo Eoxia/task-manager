@@ -84,6 +84,14 @@ window.eoxiaJS.taskManager.import.addKeywordToTextarea = function( event ) {
 window.eoxiaJS.taskManager.import.tagKeywordToTextarea = function( element, importContent ){
 	var content = importContent.val();
 	var tag_content = jQuery( element ).closest( '.tm-import-add-keyword' ).find( 'select option:selected' ).val();
+	console.log( '-----' );
+	console.log( tag_content );
+
+	if( tag_content === undefined ){
+		tag_content = "";
+	}
+	console.log( tag_content );
+	console.log( '-----' );
 	return keyword  = '%category%' + tag_content;
 }
 

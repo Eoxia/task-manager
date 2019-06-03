@@ -1,6 +1,6 @@
 <?php
 /**
- * Bouton header => Créer un nouvel audit
+ * La vue principale de la page des clients WPShop.
  *
  * @author Eoxia <dev@eoxia.com>
  * @since 1.9.0

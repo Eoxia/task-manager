@@ -113,11 +113,12 @@ window.eoxiaJS.taskManager.comment.triggerCreate = function( event ) {
  * @version 1.6.0
  */
 window.eoxiaJS.taskManager.comment.updateHiddenInput = function( event ) {
-
 	if ( 0 < jQuery( this ).text().length ) {
-		jQuery( this ).closest( '.comment' ).find( '.placeholder' ).addClass( 'hidden' );
-		jQuery( this ).closest( '.comment' ).removeClass( 'add' ).addClass( 'edit' );
-		window.eoxiaJS.taskManager.core.initSafeExit( true );
+		if( event.type == "click" || event.type == "keyup" || event.type == "keydown" ){
+			jQuery( this ).closest( '.comment' ).find( '.placeholder' ).addClass( 'hidden' );
+			jQuery( this ).closest( '.comment' ).removeClass( 'add' ).addClass( 'edit' );
+			window.eoxiaJS.taskManager.core.initSafeExit( true );
+		}
 	} else {
 		jQuery( this ).closest( '.comment' ).find( '.placeholder' ).removeClass( 'hidden' );
 		jQuery( this ).closest( '.comment' ).removeClass( 'edit' ).addClass( 'add' );
@@ -268,8 +269,6 @@ window.eoxiaJS.taskManager.comment.paginationUpdateComments = function( event ) 
 window.eoxiaJS.taskManager.comment.position_actual = 0;
 window.eoxiaJS.taskManager.comment.autoCompleteWithFollowers = function( event ){
 	if( jQuery( this ).html() != "" ){
-
-
 	 	var position =  window.eoxiaJS.taskManager.comment.caretPositionIndex( event );
 
 		var fullcontent = jQuery( this ).html().trim();
@@ -288,7 +287,12 @@ window.eoxiaJS.taskManager.comment.autoCompleteWithFollowers = function( event )
 			if( event.keyCode == 13 ){ // Si la personne appuie sur entré
 				if( list.find(".active").find( '.content-text' ) && list.find(".active" ).is(':visible') ){
 					jQuery( list.find(".active") );
-					follower = list.find(".active").find( '.content-text' ).html().trim() + "#" + list.find(".active").attr('data-id');
+					id = list.find(".active").attr('data-id');
+					if ( id !== undefined ){
+						follower = list.find(".active").find( '.content-text' ).html().trim() + "#" + id;
+					}else{
+						follower = list.find(".active").find( '.content-text' ).html().trim();
+					}
 					var content = window.eoxiaJS.taskManager.comment.updateContentEditableAutocomplete( follower, fullcontent_array, position );
 
 					window.eoxiaJS.taskManagerGlobal.quickTime.focusElementWhenPageLoad( jQuery( this ).html( content ) );
@@ -408,7 +412,13 @@ window.eoxiaJS.taskManager.comment.choseFollowerAdmin = function( event ){
 	mot_focus.substr( 0, 1 );
 
 	if( jQuery( this ).find( '.content-text' ) ){
-		var follower = jQuery( this ).find( '.content-text' ).html().trim() + "#" + jQuery( this ).attr('data-id');
+		id = jQuery( this ).attr('data-id');
+		if ( id !== undefined ){
+			follower = jQuery( this ).find( '.content-text' ).html().trim() + "#" + id;
+		}else{
+			follower = jQuery( this ).find( '.content-text' ).html().trim();
+		}
+
 		var content = window.eoxiaJS.taskManager.comment.updateContentEditableAutocomplete( follower, fullcontent_array, position );
 
 		window.eoxiaJS.taskManagerGlobal.quickTime.focusElementWhenPageLoad( jQuery( content_element ).html( content ) );
@@ -425,13 +435,18 @@ window.eoxiaJS.taskManager.comment.searchFollowerInContentEditable = function( e
 	var ul_element = jQuery( element ).closest( '.comment-content' ).find( '.auto-complete-user .wpeo-tag ul' );
 
 	var list_notif = [];
-	jQuery( ul_element.find( 'li' ) ).each( function( index ){
-		var element_content = jQuery( this ).find( '.tm-user-data input[type="hidden"]' ).val().trim();
-		var element_id = jQuery( this ).attr( 'data-id' );
-		if( fullcontent.trim().includes(element_content.trim()) ){
-			list_notif.push( element_id );
-		}
-	})
+	if( fullcontent.trim().includes('@everyone') ){ // Si everyone est tag, pas besoin de rechercher chaque personne
+		list_notif.push( '-1' );
+	}else{
+		jQuery( ul_element.find( 'li' ) ).each( function( index ){
+			var element_content = jQuery( this ).find( '.tm-user-data input[type="hidden"]' ).val().trim();
+			var element_id = jQuery( this ).attr( 'data-id' );
+			if( fullcontent.trim().includes(element_content.trim()) ){
+				list_notif.push( element_id );
+			}
+		})
+	}
+
 	return list_notif;
 }
 

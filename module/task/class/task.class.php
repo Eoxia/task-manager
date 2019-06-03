@@ -559,8 +559,6 @@ class Task_Class extends \eoxia\Post_Class {
 		return $this->callback_render_indicator( array(), $postid, $postauthor, $year );
 	}
 
-
-
 /**
  * Cette fonction permet de créer un tableau (pour chaque tache)
  * @param  [type] $task_title      [titre de la tachee].
@@ -584,8 +582,8 @@ class Task_Class extends \eoxia\Post_Class {
 
 	public function generate_data_indicator_client( $tasks, $allmonth, $post_id )
 	{
-		$str_start = $allmonth[ 0 ][ 'str_month_start' ];
-		$str_end = $allmonth[ count( $allmonth ) - 1 ][ 'str_month_end' ];
+		// $str_start = $allmonth[ 0 ][ 'str_month_start' ]; Ces deux dates permettaient de trier/ enlever
+		// $str_end = $allmonth[ count( $allmonth ) - 1 ][ 'str_month_end' ]; les taches qui n'ont pas était modifié dans l'année
 
 		$categories_indicator = array();
 		$categories_indicator_info = array();
@@ -608,9 +606,9 @@ class Task_Class extends \eoxia\Post_Class {
 				continue;
 			}
 
-			if( ! $str_start < strtotime( $task->data['date_modified'][ 'rendered' ][ 'mysql' ] ) && ! $str_end > strtotime( $task->data['date_modified'][ 'rendered' ][ 'mysql' ] ) ){ // On vérifie que la tache est était modifiée dans l'année
+			/*if( ! $str_start < strtotime( $task->data['date_modified'][ 'rendered' ][ 'mysql' ] ) && ! $str_end > strtotime( $task->data['date_modified'][ 'rendered' ][ 'mysql' ] ) ){ // On vérifie que la tache est était modifiée dans l'année
 				continue;
-			}
+			}*/
 
 			if( empty( $task->data['taxonomy'][ 'wpeo_tag' ] ) ){
 				$task->data[ 'taxonomy' ][ 'wpeo_tag' ][] = 0;
@@ -758,11 +756,10 @@ class Task_Class extends \eoxia\Post_Class {
 
 		$tasks = array();
 
-		$tasks[ $post_id ]['title'] = '';
-		$tasks[ $post_id ]['data']  = self::g()->get_tasks(
+		$tasks  = self::g()->get_tasks(
 			array(
 				'post_parent' => $post_id,
-				'status'      => 'publish,pending,draft,future,private,inherit,archive',
+				'status'      => 'publish,pending,draft,future,private,inherit,archive'
 			)
 		);
 
@@ -771,7 +768,7 @@ class Task_Class extends \eoxia\Post_Class {
 
 		$allmonth_betweendates = $this->all_month_between_two_dates( $indicator_date_start, $indicator_date_end, true );
 
-		$return = $this->generate_data_indicator_client( $tasks[ $post_id ]['data'], $allmonth_betweendates, $post_id );
+		$return = $this->generate_data_indicator_client( $tasks, $allmonth_betweendates, $post_id );
 		$categories_indicator = isset( $return[ 'data' ] ) ? $return[ 'data' ] : array(); // Data principal
 		$categories_info = isset( $return[ 'info' ] ) ? $return[ 'info' ] : array(); // Info
 
@@ -883,8 +880,7 @@ class Task_Class extends \eoxia\Post_Class {
 			$time_elapsed_categorie = 0;
 			$time_estimated_categorie = 0;
 
-	//		echo '<pre>'; print_r( $info ); echo '</pre>';
-//exit;
+
 			foreach( $category as $key_month => $month ){
 				$time_elapsed_month = 0;
 				$time_estimated_month = 0;
@@ -904,7 +900,9 @@ class Task_Class extends \eoxia\Post_Class {
 						}
 
 						if( $info[ $key_categ ][ 'info' ][ 'type' ] == "deadline" ){
-							$time_estimated_categorie = $time_estimated_month;
+							if( $time_estimated_month != 0 ){
+								$time_estimated_categorie = $time_estimated_month;
+							}
 
 							$info[ $key_categ ][ 'task_list' ][ $key_task ][ 'time_elapsed' ] += $task[ 'time_elapsed' ];
 							$info[ $key_categ ][ 'task_list' ][ $key_task ][ 'time_estimated' ] = $task[ 'time_estimated' ];
@@ -939,7 +937,6 @@ class Task_Class extends \eoxia\Post_Class {
 	}
 
 	public function update_data_indicator_humanreadable( $categories, $info ){
-
 		foreach( $categories as $key_type => $value_type ){ // Deadline / recusive
 			foreach( $value_type as $key_cat=> $value_cat ){ // All categories
 				foreach( $value_cat as $key_month => $value_month ){

@@ -263,7 +263,7 @@ class Follower_Action {
 			),
 			true
 		);
-
+		
 		$data_planning = array();
 		$datebefore    = '';
 
@@ -337,13 +337,6 @@ class Follower_Action {
 	 */
 	public function callback_user_profile_edit( $user_id ) {
 
-		$user = Follower_Class::g()->get(
-			array(
-				'id' => $user_id,
-			),
-			true
-		);
-
 		check_admin_referer( 'update-user_' . $user_id );
 		if ( ! current_user_can( 'edit_user', $user_id ) ) {
 			return false;
@@ -354,6 +347,12 @@ class Follower_Action {
 		$user['_tm_advanced_display']  = isset( $_POST['_tm_advanced_display'] ) && boolval( $_POST['_tm_advanced_display'] ) ? true : false;
 		$user['_tm_quick_point']       = isset( $_POST['_tm_quick_point'] ) && boolval( $_POST['_tm_quick_point'] ) ? true : false;
 		$user['_tm_display_indicator'] = isset( $_POST['_tm_display_indicator'] ) && boolval( $_POST['_tm_display_indicator'] ) ? true : false;
+		
+		
+		update_user_meta( $user_id, '_tm_auto_elapsed_time', $user['_tm_auto_elapsed_time'] );
+		update_user_meta( $user_id, '_tm_advanced_display', $user['_tm_advanced_display'] );
+		update_user_meta( $user_id, '_tm_quick_point', $user['_tm_quick_point'] );
+		update_user_meta( $user_id, '_tm_display_indicator', $user['_tm_display_indicator'] );
 
 		$planning        = array();
 		$planning['mon'] = ! empty( $_POST['_tm_planning_monday'] ) ? (int) $_POST['_tm_planning_monday'] : 0;
@@ -371,7 +370,6 @@ class Follower_Action {
 		}
 
 		$planning_update = Follower_Class::g()->update_planning( $user, $planning, $date );
-		$user_update     = Follower_Class::g()->update( $user );
 	}
 
 	/**

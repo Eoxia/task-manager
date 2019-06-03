@@ -57,7 +57,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<input type="hidden" name="task_id" value="<?php echo esc_attr( $point->data['post_id'] ); ?>" />
 		<input type="hidden" name="point_id" value="<?php echo esc_attr( $point->data['id'] ); ?>" />
 
-		<label for="move_task"><?php esc_html_e( 'Move the point to', 'task-manager' ); ?></label>
+		<label for="move_task">
+			<i class="far fa-arrow-alt-circle-up"></i>
+			<?php esc_html_e( 'Move the point to', 'task-manager' ); ?></label>
 		<div class="form-fields">
 			<input type="text" class="search-task" />
 			<input type="hidden" name="to_task_id" />

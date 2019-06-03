@@ -23,16 +23,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<input type="text" class="tm_task_autocomplete_parent" placeholder="<?php echo esc_html( 'Search ... ', 'task-manager') ?>" />
 			</label>
 			<ul style="background-color: #ececec; cursor: pointer; position: absolute; opacity: 1; z-index: 5; max-height: 300px; overflow-y: scroll; min-width: 300px; margin-top: 5px;">
-				<?php foreach( $data as $key => $typepost_type ): ?>
-					<li style="font-size: 18px; background-color: #A9A9A9; padding: 0.6em 2.6em;">
-						<?php $name_posttype = get_post_type_object( $key ); ?>
-						<?php echo esc_html( $name_posttype->label ); ?>
-					</li>
-					<?php foreach( $typepost_type as $key_post => $posttype ): ?>
-						<li class="tm_list_parent_li_element" data-id="<?php echo esc_html( $posttype['id'] ); ?>" style="font-size: 15px; padding: 0.6em 2.6em;">
-							<?php echo esc_html( $posttype['value'] ); ?>
+				<?php foreach( $data as $key => $typepost_type ):
+					$name_posttype = get_post_type_object( $key );
+					if( isset( $name_posttype->label ) && $name_posttype->label != "" ): ?>
+						<li style="font-size: 18px; background-color: #A9A9A9; padding: 0.6em 2.6em;">
+							<?php echo esc_html( $name_posttype->label ); ?>
 						</li>
-					<?php endforeach; ?>
+						<?php foreach( $typepost_type as $key_post => $posttype ):
+							if( trim( $posttype['value'] ) ): ?>
+								<li class="tm_list_parent_li_element" data-id="<?php echo esc_html( $posttype['id'] ); ?>" style="font-size: 15px; padding: 0.6em 2.6em;">
+									<?php echo esc_html( $posttype['value'] ); ?>
+								</li>
+							<?php endif; ?>
+						<?php endforeach; ?>
+					<?php endif; ?>
 				<?php endforeach; ?>
 			</ul>
 		</div>

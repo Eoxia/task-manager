@@ -36,7 +36,7 @@ defined( 'ABSPATH' ) || exit; ?>
 				<?php
 				if ( ! empty( $atts['icon'] ) ) :
 					?>
-					<i class="autocomplete-icon-before far <?php echo esc_attr( $atts['icon'] ); ?>"></i>
+					<i class="autocomplete-icon-before fas <?php echo esc_attr( $atts['icon'] ); ?>"></i>
 					<?php
 				endif;
 				?>

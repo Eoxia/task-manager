@@ -14,6 +14,7 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
+<?php if( ! empty( $tags ) ): ?>
 <select>
 	<?php foreach( $tags as $key => $tag ): ?>
 		<option value="<?php echo esc_attr( $tag->data[ 'name' ] ); ?>">
@@ -21,3 +22,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</option>
 	<?php endforeach; ?>
 </select>
+
+<?php endif; ?>

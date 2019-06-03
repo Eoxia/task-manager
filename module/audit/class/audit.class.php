@@ -99,13 +99,22 @@ class Audit_Class extends \eoxia\Post_Class {
 
 		$audits = Audit_Class::g()->get( $args );
 
-		$tasks = Task_Class::g()->get();
+		/*$temp_tasks = $tasks;
+		foreach( $tasks as $key => $task ){
+			if( empty( $task->data[ 'parent_id' ] ) || $task->data[ 'parent_id' ] == 0 ){
+				unset( $temp_tasks[$key] );
+			}
+		}*/
+
+		$tasks = $temp_tasks;
 
 		foreach( $audits as $key_audit => $audit ){
 
 			$task_link = array();
 			$total_count_completed_points = 0;
 			$total_count_uncompleted_points = 0;
+
+			$tasks = Task_Class::g()->get( array( 'post_parent' => $audit->data[ 'id' ] ) );
 
 			foreach( $tasks as $key => $task ){
 
@@ -209,31 +218,31 @@ class Audit_Class extends \eoxia\Post_Class {
 		return;
 	}
 
-	public function audit_client_return_task_linkbutton( $audit_id ){
-
-		$tasks = Task_Class::g()->get();
+	public function audit_client_return_task_linkbutton( $audit_id = 0 ){
 
 		$task_link = "";
 		$button_data = array();
-
-		foreach( $tasks as $key => $task ){
-			if( ! empty( $task->data[ 'parent_id' ] ) ){
-				if( $task->data[ 'parent_id' ] == $audit_id ){
-
-					$button_data[ $task->data[ 'id' ] ] = array(
-						'title' => $task->data[ 'title' ]
-					);
-
-					if( $task_link != "" ){
-						$task_link .= "," . $task->data[ 'id' ];
-					}else{ // Premier element
-						$task_link = $task->data[ 'id' ];
-					}
-
-				}
-			}
+		if( $audit_id != 0){
+			$tasks = Task_Class::g()->get( array( 'post_parent' => $audit_id ) );
+		}else{
+			$tasks = array();
 		}
 
+		foreach( $tasks as $key => $task ){
+			if( $task->data[ 'parent_id' ] == $audit_id ){
+
+				$button_data[ $task->data[ 'id' ] ] = array(
+					'title' => $task->data[ 'title' ]
+				);
+
+				if( $task_link != "" ){
+					$task_link .= "," . $task->data[ 'id' ];
+				}else{ // Premier element
+					$task_link = $task->data[ 'id' ];
+				}
+
+			}
+		}
 
 		ob_start();
 		foreach( $button_data as $key => $value ){
@@ -296,7 +305,6 @@ class Audit_Class extends \eoxia\Post_Class {
 
 		$list_valid_audit = array();
 
-		$tasks = Task_Class::g()->get();
 
 		foreach( $audits as $key_audit => $audit ){
 
@@ -309,6 +317,8 @@ class Audit_Class extends \eoxia\Post_Class {
 			}else{
 				$audits[ $key_audit ]->data[ 'valid' ] = false;
 			}*/
+
+			$tasks = Task_Class::g()->get( array( 'post_parent' => $audit->data[ 'id' ] ) );
 
 			foreach( $tasks as $key => $task ){
 

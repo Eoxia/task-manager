@@ -2260,6 +2260,9 @@
     -webkit-box-shadow: none;
     box-shadow: none; }
 
+.wpeo-form input[type="submit"] {
+  width: auto; }
+
 /** compatibilité Date */
 .wpeo-form .group-date .mysql-date {
   display: none; }

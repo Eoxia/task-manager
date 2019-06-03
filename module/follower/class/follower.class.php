@@ -236,7 +236,7 @@ class Follower_Class extends \eoxia\User_Class {
 				$i = 0;
 			foreach ( $sortable_array as $k => $v ) {
 				$new_array[ $i ] = $array[ $k ];
-						$i ++;
+				$i ++;
 			}
 		}
 

@@ -33,6 +33,31 @@ class Support_Filter {
 		add_filter( 'task_manager_notify_send_notification_subject', array( $this, 'callback_task_manager_notify_send_notification_subject' ), 10, 3 );
 		add_filter( 'task_manager_notify_send_notification_body', array( $this, 'callback_task_manager_notify_send_notification_body' ), 10, 3 );
 		add_filter( 'task_manager_notify_send_notification_body_administrator', array( $this, 'callback_task_manager_notify_send_notification_body_administrator' ), 10, 3 );
+		
+		add_filter( 'wps_account_navigation_items', function( $menu ) { 
+			$task_manager_item = array(
+				'link'  => \wpshop\Pages::g()->get_account_link() . 'support/',
+				'icon'  => 'fas fa-tasks',
+				'title' => __( 'Support', 'wpshop' ),
+			);
+			
+			$logout_position = array_search( 'logout', array_keys( $menu ) );
+			
+			$before_menu = array_slice( $menu, 0, $logout_position, true );
+			$after_menu  = array_slice( $menu, $logout_position, count( $menu ) - 1, true );
+			
+			$menu = array_merge( $before_menu, array( 'support' => $task_manager_item ), $after_menu );
+						
+			return $menu;
+		}, 10, 1 );
+		
+		add_filter( 'wps_navigation_shortcode', function( $query_vars, $tab ) {
+			if ( array_key_exists( 'support', $query_vars ) ) {
+				$tab = 'support';
+			}
+			
+			return $tab;
+		}, 10, 2  );
 
 	}
 

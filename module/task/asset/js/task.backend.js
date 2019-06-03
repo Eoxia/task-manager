@@ -15,12 +15,13 @@ window.eoxiaJS.taskManager.task.init = function() {
 		columns: '.grid-col'
 	} );
 	window.eoxiaJS.taskManager.task.initAutoComplete();
+	window.eoxiaJS.taskManager.task.clignotePetitIcone();
 };
 
 window.eoxiaJS.taskManager.task.refresh = function() {
 	window.eoxiaJS.taskManager.task.initAutoComplete();
 };
- 
+
 window.eoxiaJS.taskManager.task.event = function() {
 	// jQuery( '.tm-wrap' ).on( 'keypress', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.keyEnterEditTitle );
 	jQuery( '.tm-wrap' ).on( 'blur', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.editTitle );
@@ -43,9 +44,13 @@ window.eoxiaJS.taskManager.task.event = function() {
 	jQuery( document ).on( 'click', '.wpeo-task-parent-add .wpeo-tag label', window.eoxiaJS.taskManager.task.taskShowAutocompleteParent );
 	jQuery( document ).on( 'focusout', '.wpeo-task-parent-add .wpeo-tag ul', window.eoxiaJS.taskManager.task.taskHideAutocompleteParent );
 
-	jQuery( document ).on( 'click', '.wpeo-task-parent-add .tm_list_parent_li_element', window.eoxiaJS.taskManager.task.getValueAutocompleteParent );
 
 	jQuery( document ).on( 'keyup', '.tm_task_autocomplete_parent', window.eoxiaJS.taskManager.task.taskUpdateAutocompleteParent );
+
+	jQuery( document ).on( 'click keyup', '.wpeo-ul-parent.wpeo-tag-wrap', window.eoxiaJS.taskManager.task.allClientsFocusIn );
+
+	jQuery( document ).on( 'click', '.wpeo-task-parent-add .tm_list_parent_li_element', window.eoxiaJS.taskManager.task.getValueAutocompleteParent );
+
 
 };
 
@@ -289,13 +294,19 @@ window.eoxiaJS.taskManager.task.showArchiveClient = function( triggeredElement, 
 
 window.eoxiaJS.taskManager.audit.openTaskRow = function( event ){
 	var select = jQuery( this );
+	var icondown = jQuery( this ).find( '.tag-title .fa-caret-down' );
+	var iconup = jQuery( this ).find( '.tag-title .fa-caret-right' );
 
 	if( select.attr( 'data-show' ) == 'true' ){
+		icondown.hide();
+		iconup.show();
 		select.attr( 'data-show', 'false' );
 		jQuery( '.tm_client_indicator_' + select.attr( 'data-id' ) + '_' + select.attr( 'data-type' ) ).hide( '200' );
 	}else{
+		icondown.show();
+		iconup.hide();
 		select.attr( 'data-show', 'true' );
-		jQuery( '.tm_client_indicator_' + select.attr( 'data-id' ) + '_' + select.attr( 'data-type' ) ).show( '500' );
+		jQuery( '.tm_client_indicator_' + select.attr( 'data-id' ) + '_' + select.attr( 'data-type' ) ).show( '200' );
 	}
 }
 
@@ -361,7 +372,6 @@ window.eoxiaJS.taskManager.task.editButtonPaginationClient = function( dontKnowS
 window.eoxiaJS.taskManager.task.displayInputTextParent = function( event ){
 
 	if( ! jQuery( this ).data( 'request_send' ) ){
-		console.log( '.' );
 		jQuery( this ).addClass( 'button-disabled' );
 		jQuery( this ).css( 'background', '#0084ff' );
 		jQuery( this ).css( 'color', 'white' );
@@ -408,6 +418,10 @@ window.eoxiaJS.taskManager.task.loadedAllClientsCommands = function( element, re
 	jQuery( element ).parent().find('.wpeo-task-parent-add').show( '400' );
 	jQuery( element ).parent().find('.wpeo-task-parent-add .tm_task_autocomplete_parent').focus();
 
+}
+
+window.eoxiaJS.taskManager.task.allClientsFocusIn = function( event ){
+	jQuery( this ).find('.wpeo-task-parent-add .wpeo-tag ul').show();
 }
 
 window.eoxiaJS.taskManager.task.taskShowAutocompleteParent = function( event ){
@@ -457,4 +471,40 @@ window.eoxiaJS.taskManager.task.getValueAutocompleteParent = function( event ){
 
 window.eoxiaJS.taskManager.task.reloadTaskParentElement = function( element, response ){
 	jQuery( element ).closest( '.wpeo-ul-parent' ).replaceWith( response.data.view );
+}
+
+window.eoxiaJS.taskManager.task.clignotePetitIcone = function( event ){
+	var interval = 0;
+	var myReq;
+	var k = [67, 65, 77, 73, 76, 76, 69],
+	n = 0;
+
+	var oui = false;
+	var color = [];
+
+	jQuery(document).keydown(function (e) {
+
+		if( oui ){
+			clearInterval( interval );
+			jQuery( '.fas' ).each( function(){
+				 jQuery( this ).css( 'color', '#000000' );
+				});
+		 	return;
+		}
+
+   if (e.keyCode === k[n++]) {
+     if (n === k.length) {
+         oui = true;
+         interval = setInterval( function(){ jQuery( '.fas' ).each( function( ){
+						jQuery( this ).css( 'color', '#'+Math.floor(Math.random()*9999).toString(16) );
+	         	// jQuery( this ).rotate(Math.floor(Math.random()*25));
+         }); }, 200 );
+         n = 0;
+         return false;
+     }
+   }else {
+		 clearInterval( interval );
+      n = 0;
+   }
+	});
 }

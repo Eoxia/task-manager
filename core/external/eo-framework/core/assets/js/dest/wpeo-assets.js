@@ -200,9 +200,9 @@ if ( ! window.eoxiaJS.action ) {
 		jQuery( document ).on( 'click', '.action-input:not(.no-action)', window.eoxiaJS.action.execInput );
 		jQuery( document ).on( 'click', '.action-attribute:not(.no-action)', window.eoxiaJS.action.execAttribute );
 		jQuery( document ).on( 'click', '.action-delete:not(.no-action)', window.eoxiaJS.action.execDelete );
-		jQuery( '.postbox h2 span .action-attribute' ).click( window.eoxiaJS.action.execAttribute );
-		jQuery( '.postbox h2 span .action-input' ).click( window.eoxiaJS.action.execInput );
-		jQuery( '.postbox h2 span .action-delete' ).click( window.eoxiaJS.action.execDelete );
+		jQuery( '#wpeo-task-metabox h2 span .action-attribute' ).click( window.eoxiaJS.action.execAttribute );
+		jQuery( '#wpeo-task-metabox h2 span .action-input' ).click( window.eoxiaJS.action.execInput );
+		jQuery( '#wpeo-task-metabox h2 span .action-delete' ).click( window.eoxiaJS.action.execDelete );
 	};
 
 	/**
@@ -225,7 +225,7 @@ if ( ! window.eoxiaJS.action ) {
 	 * @returns {void}
 	 */
 	window.eoxiaJS.action.execInput = function( event ) {
-		var element = jQuery( this ), loaderElement = element, parentElement = element, loaderElement = element, listInput = undefined, data = {}, i = 0, doAction = true, key = undefined, inputAlreadyIn = [];
+		var element = jQuery( this ), loaderElement = element, parentElement = element, listInput = undefined, data = {}, i = 0, doAction = true, key = undefined, inputAlreadyIn = [];
 		event.preventDefault();
 
 		if ( element.attr( 'data-parent' ) ) {
@@ -293,6 +293,8 @@ if ( ! window.eoxiaJS.action ) {
 		if ( element.attr( 'data-module' ) && element.attr( 'data-before-method' ) ) {
 			doAction = false;
 			doAction = window.eoxiaJS[element.attr( 'data-namespace' )][element.attr( 'data-module' )][element.attr( 'data-before-method' )]( element );
+		} else {
+			doAction = window.eoxiaJS.action.checkBeforeCB(element);
 		}
 
 		if ( element.hasClass( '.grey' ) ) {
@@ -525,280 +527,286 @@ if ( ! jQuery.fn.get_data ) {
  * @since 1.0.0
  * @version 1.0.0
  */
-if ( ! window.eoxiaJS.autoComplete  ) {
+ /**
+  * Gestion du dropdown.
+  *
+  * @since 1.0.0
+  * @version 1.0.0
+  */
+ if ( ! window.eoxiaJS.autoComplete  ) {
 
-	/**
-	 * [autoComplete description]
-	 *
-	 * @memberof EO_Framework_Auto_Complete
-	 *
-	 * @type {Object}
-	 */
-	window.eoxiaJS.autoComplete = {};
+ 	/**
+ 	 * [autoComplete description]
+ 	 *
+ 	 * @memberof EO_Framework_Auto_Complete
+ 	 *
+ 	 * @type {Object}
+ 	 */
+ 	window.eoxiaJS.autoComplete = {};
 
-	/**
-	 * [description]
-	 *
-	 * @memberof EO_Framework_Auto_Complete
-	 *
-	 * @returns {void} [description]
-	 */
-	window.eoxiaJS.autoComplete.init = function() {
-		window.eoxiaJS.autoComplete.event();
-	};
+ 	/**
+ 	 * [description]
+ 	 *
+ 	 * @memberof EO_Framework_Auto_Complete
+ 	 *
+ 	 * @returns {void} [description]
+ 	 */
+ 	window.eoxiaJS.autoComplete.init = function() {
+ 		window.eoxiaJS.autoComplete.event();
+ 	};
 
-	/**
-	 * [description]
-	 *
-	 * @memberof EO_Framework_Auto_Complete
-	 *
-	 * @returns {void} [description]
-	 */
-	window.eoxiaJS.autoComplete.event = function() {
-		jQuery( document ).on( 'keyup', '.wpeo-autocomplete input', window.eoxiaJS.autoComplete.keyUp );
-		jQuery( document ).on( 'click', '.wpeo-autocomplete .autocomplete-icon-after', window.eoxiaJS.autoComplete.deleteContent );
-		jQuery( document ).on( 'click', 'body .wpeo-autocomplete input', window.eoxiaJS.autoComplete.preventClic );
-		jQuery( document ).on( 'click', 'body', window.eoxiaJS.autoComplete.close );
-	};
+ 	/**
+ 	 * [description]
+ 	 *
+ 	 * @memberof EO_Framework_Auto_Complete
+ 	 *
+ 	 * @returns {void} [description]
+ 	 */
+ 	window.eoxiaJS.autoComplete.event = function() {
+ 		jQuery( document ).on( 'keyup', '.wpeo-autocomplete input', window.eoxiaJS.autoComplete.keyUp );
+ 		jQuery( document ).on( 'click', '.wpeo-autocomplete .autocomplete-icon-after', window.eoxiaJS.autoComplete.deleteContent );
+ 		jQuery( document ).on( 'click', 'body .wpeo-autocomplete input', window.eoxiaJS.autoComplete.preventClic );
+ 		jQuery( document ).on( 'click', 'body', window.eoxiaJS.autoComplete.close );
+ 	};
 
-	/**
-	 * Make request when keyUp.
-	 *
-	 * @memberof EO_Framework_Auto_Complete
-	 *
-	 * @since 1.0.0
-	 * @version 1.0.0
-	 *
-	 * @param  {KeyboardEvent} event Status of keyboard when keyUp event.
-	 *
-	 * @returns {void}
-	 */
-	window.eoxiaJS.autoComplete.keyUp = function(event) {
-		var element = jQuery( this );
-		var parent  = element.closest( '.wpeo-autocomplete' );
-		var label   = element.closest( '.autocomplete-label' );
+ 	/**
+ 	 * Make request when keyUp.
+ 	 *
+ 	 * @memberof EO_Framework_Auto_Complete
+ 	 *
+ 	 * @since 1.0.0
+ 	 * @version 1.0.0
+ 	 *
+ 	 * @param  {KeyboardEvent} event Status of keyboard when keyUp event.
+ 	 *
+ 	 * @returns {void}
+ 	 */
+ 	window.eoxiaJS.autoComplete.keyUp = function(event) {
+ 		var element = jQuery( this );
+ 		var parent  = element.closest( '.wpeo-autocomplete' );
+ 		var label   = element.closest( '.autocomplete-label' );
 
-		// If is not a letter or a number, stop func.
-		if ( ! (event.which <= 90 && event.which >= 48 ) && event.which != 8 &&  event.which <= 96 && event.which >= 105  ) {
-			return;
-		}
+ 		// If is not a letter or a number, stop func.
+ 		if ( ! (event.which <= 90 && event.which >= 48 ) && event.which != 8 &&  event.which <= 96 && event.which >= 105  ) {
+ 			return;
+ 		}
 
-		parent.find( 'input.eo-search-value' ).val( '' );
+ 		parent.find( 'input.eo-search-value' ).val( '' );
 
-		// If empty searched value, stop func.
-		if ( element.val().length === 0 ) {
-			parent.removeClass( 'autocomplete-full' );
-			return;
-		} else {
+ 		// If empty searched value, stop func.
+ 		if ( element.val().length === 0 ) {
+ 			parent.removeClass( 'autocomplete-full' );
+ 			return;
+ 		} else {
 
-			// Add this class for display the empty button.
-			if ( ! parent.hasClass( 'autocomplete-full' ) ) {
-				parent.addClass( 'autocomplete-full' );
-			}
-		}
+ 			// Add this class for display the empty button.
+ 			if ( ! parent.hasClass( 'autocomplete-full' ) ) {
+ 				parent.addClass( 'autocomplete-full' );
+ 			}
+ 		}
 
-		// If already request in queue, abort it.
-		if ( parent[0].xhr ) {
-			parent[0].xhr.abort();
-		}
+ 		// If already request in queue, abort it.
+ 		if ( parent[0].xhr ) {
+ 			parent[0].xhr.abort();
+ 		}
 
-		var data = {
-			action: parent.attr( 'data-action' ),
-			_wpnonce: parent.attr( 'data-nonce' ),
-			term: element.val(),
-			slug: parent.find( 'input[name="slug"]' ).val(),
-			args: parent.find( 'textarea' ).val()
-		};
+ 		var data = {
+ 			action: parent.attr( 'data-action' ),
+ 			_wpnonce: parent.attr( 'data-nonce' ),
+ 			term: element.val(),
+ 			slug: parent.find( 'input[name="slug"]' ).val(),
+ 			args: parent.find( 'textarea' ).val()
+ 		};
 
-		window.eoxiaJS.autoComplete.initProgressBar( parent, label );
-		window.eoxiaJS.autoComplete.handleProgressBar( parent, label );
+ 		window.eoxiaJS.autoComplete.initProgressBar( parent, label );
+ 		window.eoxiaJS.autoComplete.handleProgressBar( parent, label );
 
-		parent.get_data( function( attribute_data ) {
-			for (var key in attribute_data) {
-					if ( ! data[key] ) {
-						data[key] = attribute_data[key];
-					}
-			}
+ 		parent.get_data( function( attribute_data ) {
+ 			for (var key in attribute_data) {
+ 					if ( ! data[key] ) {
+ 						data[key] = attribute_data[key];
+ 					}
+ 			}
 
-			parent[0].xhr = window.eoxiaJS.request.send( jQuery( this ), data, function( triggeredElement, response ) {
-				window.eoxiaJS.autoComplete.clear( parent, label );
+ 			parent[0].xhr = window.eoxiaJS.request.send( jQuery( this ), data, function( triggeredElement, response ) {
+ 				window.eoxiaJS.autoComplete.clear( parent, label );
 
-				parent.addClass( 'autocomplete-active' );
-				parent.find( '.autocomplete-search-list' ).addClass( 'autocomplete-active' );
+ 				parent.addClass( 'autocomplete-active' );
+ 				parent.find( '.autocomplete-search-list' ).addClass( 'autocomplete-active' );
 
-				if ( response.data && response.data.view && ! response.data.output ) {
-					parent.find( '.autocomplete-search-list' ).html( response.data.view );
-				} else if (response.data && response.data.view && response.data.output ) {
-					jQuery( response.data.output ).replaceWith( response.data.view );
-				}
-			} );
-		} );
-	};
+ 				if ( response.data && response.data.view && ! response.data.output ) {
+ 					parent.find( '.autocomplete-search-list' ).html( response.data.view );
+ 				} else if (response.data && response.data.view && response.data.output ) {
+ 					jQuery( response.data.output ).replaceWith( response.data.view );
+ 				}
+ 			} );
+ 		} );
+ 	};
 
-	/**
-	 * Delete the content and result list.
-	 *
-	 * @memberof EO_Framework_Auto_Complete
-	 *
-	 * @since 1.0.0
-	 * @version 1.0.0
-	 *
-	 * @param  {void} event [description]
-	 * @returns {void}       [description]
-	 */
-	window.eoxiaJS.autoComplete.deleteContent = function( event ) {
-		var element = jQuery( this );
-		var parent  = element.closest( '.wpeo-autocomplete' );
-		var label   = element.closest( '.autocomplete-label' );
+ 	/**
+ 	 * Delete the content and result list.
+ 	 *
+ 	 * @memberof EO_Framework_Auto_Complete
+ 	 *
+ 	 * @since 1.0.0
+ 	 * @version 1.0.0
+ 	 *
+ 	 * @param  {void} event [description]
+ 	 * @returns {void}       [description]
+ 	 */
+ 	window.eoxiaJS.autoComplete.deleteContent = function( event ) {
+ 		var element = jQuery( this );
+ 		var parent  = element.closest( '.wpeo-autocomplete' );
+ 		var label   = element.closest( '.autocomplete-label' );
 
-		parent.find( 'input' ).val( '' );
-		parent.find( 'input[type=hidden]' ).change();
-		parent.find( 'input' ).trigger( 'keyUp' );
+ 		parent.find( 'input' ).val( '' );
+ 		parent.find( 'input[type=hidden]' ).change();
+ 		parent.find( 'input' ).trigger( 'keyUp' );
 
-		parent.removeClass( 'autocomplete-active' );
-		parent.removeClass( 'autocomplete-full' );
-		parent.find( '.autocomplete-search-list' ).removeClass( 'autocomplete-active' );
+ 		parent.removeClass( 'autocomplete-active' );
+ 		parent.removeClass( 'autocomplete-full' );
+ 		parent.find( '.autocomplete-search-list' ).removeClass( 'autocomplete-active' );
 
-		if ( parent[0].xhr ) {
-			parent[0].xhr.abort();
-			window.eoxiaJS.autoComplete.clear(parent, label);
-		}
-	};
+ 		if ( parent[0].xhr ) {
+ 			parent[0].xhr.abort();
+ 			window.eoxiaJS.autoComplete.clear(parent, label);
+ 		}
+ 	};
 
-	/**
-	 * Permet de ne pas fermer la liste des résultats si on clic sur le champ de recherche.
-	 *
-	 * @memberof EO_Framework_Auto_Complete
-	 *
-	 * @since 1.0.0
-	 * @version 1.0.0
-	 *
-	 * @param  {MouseEvent} event [description]
-	 * @return {void}       [description]
-	 */
-	window.eoxiaJS.autoComplete.preventClic = function( event ) {
-		event.stopPropagation();
-	}
+ 	/**
+ 	 * Permet de ne pas fermer la liste des résultats si on clic sur le champ de recherche.
+ 	 *
+ 	 * @memberof EO_Framework_Auto_Complete
+ 	 *
+ 	 * @since 1.0.0
+ 	 * @version 1.0.0
+ 	 *
+ 	 * @param  {MouseEvent} event [description]
+ 	 * @return {void}       [description]
+ 	 */
+ 	window.eoxiaJS.autoComplete.preventClic = function( event ) {
+ 		event.stopPropagation();
+ 	}
 
-	/**
-	 * Close result list
-	 *
-	 * @memberof EO_Framework_Auto_Complete
-	 *
-	 * @since 1.0.0
-	 * @version 1.0.0
-	 *
-	 * @param  {void} event [description]
-	 * @returns {void}       [description]
-	 */
-	window.eoxiaJS.autoComplete.close = function( event ) {
-		jQuery( '.wpeo-autocomplete.autocomplete-active' ).each ( function() {
-			jQuery( this ).removeClass( 'autocomplete-active' );
-			jQuery( this ).find( '.autocomplete-search-list' ).removeClass( 'autocomplete-active' );
-		} );
-	};
+ 	/**
+ 	 * Close result list
+ 	 *
+ 	 * @memberof EO_Framework_Auto_Complete
+ 	 *
+ 	 * @since 1.0.0
+ 	 * @version 1.0.0
+ 	 *
+ 	 * @param  {void} event [description]
+ 	 * @returns {void}       [description]
+ 	 */
+ 	window.eoxiaJS.autoComplete.close = function( event ) {
+ 		jQuery( '.wpeo-autocomplete.autocomplete-active' ).each ( function() {
+ 			jQuery( this ).removeClass( 'autocomplete-active' );
+ 			jQuery( this ).find( '.autocomplete-search-list' ).removeClass( 'autocomplete-active' );
+ 		} );
+ 	};
 
-	/**
-	 * Handle progress bar.
-	 *
-	 * @memberof EO_Framework_Auto_Complete
-	 *
-	 * @since 1.0.0
-	 * @version 1.0.0
-	 *
-	 * @param {} parent
-	 * @param {} label
-	 *
-	 * @returns {void}
-	 */
-	window.eoxiaJS.autoComplete.initProgressBar = function( parent, label ) {
-		// Init two elements for loading bar.
-		if ( label.find( '.autocomplete-loading').length == 0 ) {
-			var el = jQuery( '<span class="autocomplete-loading"></span>' );
-			label[0].autoCompleteLoading = el;
-			label.append( label[0].autoCompleteLoading );
+ 	/**
+ 	 * Handle progress bar.
+ 	 *
+ 	 * @memberof EO_Framework_Auto_Complete
+ 	 *
+ 	 * @since 1.0.0
+ 	 * @version 1.0.0
+ 	 *
+ 	 * @param {} parent
+ 	 * @param {} label
+ 	 *
+ 	 * @returns {void}
+ 	 */
+ 	window.eoxiaJS.autoComplete.initProgressBar = function( parent, label ) {
+ 		// Init two elements for loading bar.
+ 		if ( label.find( '.autocomplete-loading').length == 0 ) {
+ 			var el = jQuery( '<span class="autocomplete-loading"></span>' );
+ 			label[0].autoCompleteLoading = el;
+ 			label.append( label[0].autoCompleteLoading );
 
-			var elBackground = jQuery( '<span class="autocomplete-loading-background"></span>' );
-			label[0].autoCompletedLoadingBackground = elBackground;
-			label.append( label[0].autoCompletedLoadingBackground );
-		}
-	};
+ 			var elBackground = jQuery( '<span class="autocomplete-loading-background"></span>' );
+ 			label[0].autoCompletedLoadingBackground = elBackground;
+ 			label.append( label[0].autoCompletedLoadingBackground );
+ 		}
+ 	};
 
-	/**
-	 * Handle with of the progress bar.
-	 *
-	 * @since 1.0.0
-	 * @version 1.0.0
-	 *
-	 * @memberof EO_Framework_Auto_Complete
-	 *
-	 * @param {} parent
-	 * @param {} label
-	 *
-	 * @returns {void}
-	 */
-	window.eoxiaJS.autoComplete.handleProgressBar = function( parent, label ) {
-		parent.find( '.autocomplete-loading' ).css({
-			width: '0%'
-		});
+ 	/**
+ 	 * Handle with of the progress bar.
+ 	 *
+ 	 * @since 1.0.0
+ 	 * @version 1.0.0
+ 	 *
+ 	 * @memberof EO_Framework_Auto_Complete
+ 	 *
+ 	 * @param {} parent
+ 	 * @param {} label
+ 	 *
+ 	 * @returns {void}
+ 	 */
+ 	window.eoxiaJS.autoComplete.handleProgressBar = function( parent, label ) {
+ 		parent.find( '.autocomplete-loading' ).css({
+ 			width: '0%'
+ 		});
 
-		setTimeout(function() {
-			parent.find( '.autocomplete-loading' ).css({
-				width: '5%'
-			});
-		}, 10 );
+ 		setTimeout(function() {
+ 			parent.find( '.autocomplete-loading' ).css({
+ 				width: '5%'
+ 			});
+ 		}, 10 );
 
-		label[0].currentTime = 5;
+ 		label[0].currentTime = 5;
 
-		if ( ! label[0].interval ) {
-			label[0].interval = setInterval( function() {
-				label[0].currentTime += 3;
+ 		if ( ! label[0].interval ) {
+ 			label[0].interval = setInterval( function() {
+ 				label[0].currentTime += 3;
 
-				if ( label[0].currentTime >= 90 ) {
-					label[0].currentTime = 90;
-				}
+ 				if ( label[0].currentTime >= 90 ) {
+ 					label[0].currentTime = 90;
+ 				}
 
-				label.find( '.autocomplete-loading' ).css({
-					width: label[0].currentTime + '%',
-				});
-			}, 1000 );
-		}
-	};
+ 				label.find( '.autocomplete-loading' ).css({
+ 					width: label[0].currentTime + '%',
+ 				});
+ 			}, 1000 );
+ 		}
+ 	};
 
-	/**
-	 * Clear data of the autocomplete.
-	 *
-	 * @since 1.0.0
-	 * @version 1.0.0
-	 *
-	 * @memberof EO_Framework_Auto_Complete
-	 *
-	 * @param {} parent
-	 * @param {} label
-	 *
-	 * @returns {void}
-	 */
-	window.eoxiaJS.autoComplete.clear = function( parent, label ) {
-		if ( label[0] ) {
-			clearInterval(label[0].interval);
-			label[0].interval = undefined;
-		}
+ 	/**
+ 	 * Clear data of the autocomplete.
+ 	 *
+ 	 * @since 1.0.0
+ 	 * @version 1.0.0
+ 	 *
+ 	 * @memberof EO_Framework_Auto_Complete
+ 	 *
+ 	 * @param {} parent
+ 	 * @param {} label
+ 	 *
+ 	 * @returns {void}
+ 	 */
+ 	window.eoxiaJS.autoComplete.clear = function( parent, label ) {
+ 		if ( label[0] ) {
+ 			clearInterval(label[0].interval);
+ 			label[0].interval = undefined;
+ 		}
 
-		if ( parent[0] ) {
-			parent[0].xhr = undefined;
-		}
+ 		if ( parent[0] ) {
+ 			parent[0].xhr = undefined;
+ 		}
 
-		parent.find( '.autocomplete-search-list' ).html( '' );
-		parent.find( '.autocomplete-loading' ).css({
-			width: '100%',
-		});
+ 		parent.find( '.autocomplete-search-list' ).html( '' );
+ 		parent.find( '.autocomplete-loading' ).css({
+ 			width: '100%',
+ 		});
 
-		setTimeout( function() {
-			jQuery( label[0].autoCompleteLoading ).remove();
-			jQuery( label[0].autoCompletedLoadingBackground ).remove();
-		}, 600 );
-	};
-}
+ 		setTimeout( function() {
+ 			jQuery( label[0].autoCompleteLoading ).remove();
+ 			jQuery( label[0].autoCompletedLoadingBackground ).remove();
+ 		}, 600 );
+ 	};
+ }
 
 /**
  * @namespace EO_Framework_Date
@@ -877,152 +885,162 @@ if ( ! window.eoxiaJS.date ) {
  * @since 1.0.0
  * @version 1.0.0
  */
-if ( ! window.eoxiaJS.dropdown  ) {
+ if ( ! window.eoxiaJS.dropdown  ) {
 
-	/**
-	 * [dropdown description]
-	 *
-	 * @memberof EO_Framework_Dropdown
-	 *
-	 * @type {Object}
-	 */
-	window.eoxiaJS.dropdown = {};
+ 	/**
+ 	 * [dropdown description]
+ 	 *
+ 	 * @memberof EO_Framework_Dropdown
+ 	 *
+ 	 * @type {Object}
+ 	 */
+ 	window.eoxiaJS.dropdown = {};
 
-	/**
-	 * [description]
-	 *
-	 * @memberof EO_Framework_Dropdown
-	 *
-	 * @returns {void} [description]
-	 */
-	window.eoxiaJS.dropdown.init = function() {
-		window.eoxiaJS.dropdown.event();
-	};
+ 	/**
+ 	 * [description]
+ 	 *
+ 	 * @memberof EO_Framework_Dropdown
+ 	 *
+ 	 * @returns {void} [description]
+ 	 */
+ 	window.eoxiaJS.dropdown.init = function() {
+ 		window.eoxiaJS.dropdown.event();
+ 	};
 
-	/**
-	 * [description]
-	 *
-	 * @memberof EO_Framework_Dropdown
-	 *
-	 * @returns {void} [description]
-	 */
-	window.eoxiaJS.dropdown.event = function() {
-		jQuery( document ).on( 'keyup', window.eoxiaJS.dropdown.keyup );
-		jQuery( document ).on( 'click', '.wpeo-dropdown:not(.dropdown-active) .dropdown-toggle:not(.disabled)', window.eoxiaJS.dropdown.open );
-		jQuery( document ).on( 'click', '.wpeo-dropdown.dropdown-active .dropdown-content', function(e) { e.stopPropagation() } );
-		jQuery( document ).on( 'click', '.wpeo-dropdown.dropdown-active:not(.dropdown-force-display) .dropdown-content .dropdown-item', window.eoxiaJS.dropdown.close  );
-		jQuery( document ).on( 'click', '.wpeo-dropdown.dropdown-active', function ( e ) { window.eoxiaJS.dropdown.close( e ); e.stopPropagation(); } );
-		jQuery( document ).on( 'click', 'body', window.eoxiaJS.dropdown.close );
-	};
+ 	/**
+ 	 * [description]
+ 	 *
+ 	 * @memberof EO_Framework_Dropdown
+ 	 *
+ 	 * @returns {void} [description]
+ 	 */
+ 	window.eoxiaJS.dropdown.event = function() {
+ 		jQuery( document ).on( 'keyup', window.eoxiaJS.dropdown.keyup );
+ 		jQuery( document ).on( 'click', '.wpeo-dropdown:not(.dropdown-active) .dropdown-toggle:not(.disabled)', window.eoxiaJS.dropdown.open );
+ 		jQuery( document ).on( 'click', '.wpeo-dropdown.dropdown-active .dropdown-content', function(e) { e.stopPropagation() } );
+ 		jQuery( document ).on( 'click', '.wpeo-dropdown.dropdown-active:not(.dropdown-force-display) .dropdown-content .dropdown-item', window.eoxiaJS.dropdown.close  );
+ 		jQuery( document ).on( 'click', '.wpeo-dropdown.dropdown-active', function ( e ) { window.eoxiaJS.dropdown.close( e ); e.stopPropagation(); } );
+ 		jQuery( document ).on( 'click', 'body', window.eoxiaJS.dropdown.close );
+ 	};
 
-	/**
-	 * [description]
-	 *
-	 * @memberof EO_Framework_Dropdown
-	 *
-	 * @param  {void} event [description]
-	 * @returns {void}       [description]
-	 */
-	window.eoxiaJS.dropdown.keyup = function( event ) {
-		if ( 27 === event.keyCode ) {
-			window.eoxiaJS.dropdown.close();
-		}
-	};
+ 	/**
+ 	 * [description]
+ 	 *
+ 	 * @memberof EO_Framework_Dropdown
+ 	 *
+ 	 * @param  {void} event [description]
+ 	 * @returns {void}       [description]
+ 	 */
+ 	window.eoxiaJS.dropdown.keyup = function( event ) {
+ 		if ( 27 === event.keyCode ) {
+ 			window.eoxiaJS.dropdown.close();
+ 		}
+ 	};
 
-	/**
-	 * [description]
-	 *
-	 * @memberof EO_Framework_Dropdown
-	 *
-	 * @param  {void} event [description]
-	 * @returns {void}       [description]
-	 */
-	window.eoxiaJS.dropdown.open = function( event ) {
-		var triggeredElement = jQuery( this );
-		var angleElement = triggeredElement.find('[data-fa-i2svg]');
-		var callbackData = {};
-		var key = undefined;
+ 	/**
+ 	 * [description]
+ 	 *
+ 	 * @memberof EO_Framework_Dropdown
+ 	 *
+ 	 * @param  {void} event [description]
+ 	 * @returns {void}       [description]
+ 	 */
+ 	window.eoxiaJS.dropdown.open = function( event ) {
+ 		var triggeredElement = jQuery( this );
+ 		var angleElement = triggeredElement.find('[data-fa-i2svg]');
+ 		var callbackData = {};
+ 		var key = undefined;
 
-		window.eoxiaJS.dropdown.close( event, jQuery( this ) );
+ 		window.eoxiaJS.dropdown.close( event, jQuery( this ) );
 
-		if ( triggeredElement.attr( 'data-action' ) ) {
-			window.eoxiaJS.loader.display( triggeredElement );
+ 		if ( triggeredElement.attr( 'data-action' ) ) {
+ 			window.eoxiaJS.loader.display( triggeredElement );
 
-			triggeredElement.get_data( function( data ) {
-				for ( key in callbackData ) {
-					if ( ! data[key] ) {
-						data[key] = callbackData[key];
-					}
-				}
+ 			triggeredElement.get_data( function( data ) {
+ 				for ( key in callbackData ) {
+ 					if ( ! data[key] ) {
+ 						data[key] = callbackData[key];
+ 					}
+ 				}
 
-				window.eoxiaJS.request.send( triggeredElement, data, function( element, response ) {
-					triggeredElement.closest( '.wpeo-dropdown' ).find( '.dropdown-content' ).html( response.data.view );
+ 				window.eoxiaJS.request.send( triggeredElement, data, function( element, response ) {
+ 					triggeredElement.closest( '.wpeo-dropdown' ).find( '.dropdown-content' ).html( response.data.view );
 
-					triggeredElement.closest( '.wpeo-dropdown' ).addClass( 'dropdown-active' );
+ 					triggeredElement.closest( '.wpeo-dropdown' ).addClass( 'dropdown-active' );
 
-					/* Toggle Button Icon */
-					if ( angleElement ) {
-						window.eoxiaJS.dropdown.toggleAngleClass( angleElement );
-					}
-				} );
-			} );
-		} else {
-			triggeredElement.closest( '.wpeo-dropdown' ).addClass( 'dropdown-active' );
+ 					/* Toggle Button Icon */
+ 					if ( angleElement ) {
+ 						window.eoxiaJS.dropdown.toggleAngleClass( angleElement );
+ 					}
+ 				} );
+ 			} );
+ 		} else {
+ 			triggeredElement.closest( '.wpeo-dropdown' ).addClass( 'dropdown-active' );
 
-			/* Toggle Button Icon */
-			if ( angleElement ) {
-				window.eoxiaJS.dropdown.toggleAngleClass( angleElement );
-			}
-		}
+ 			/* Toggle Button Icon */
+ 			if ( angleElement ) {
+ 				window.eoxiaJS.dropdown.toggleAngleClass( angleElement );
+ 			}
+ 		}
 
-		event.stopPropagation();
-	};
+ 		event.stopPropagation();
+ 	};
 
-	/**
-	 * [description]
-	 *
-	 * @memberof EO_Framework_Dropdown
-	 *
-	 * @param  {void} event [description]
-	 * @returns {void}       [description]
-	 */
-	window.eoxiaJS.dropdown.close = function( event ) {
-		jQuery( '.wpeo-dropdown.dropdown-active:not(.no-close)' ).each( function() {
-			var toggle = jQuery( this );
+ 	/**
+ 	 * [description]
+ 	 *
+ 	 * @memberof EO_Framework_Dropdown
+ 	 *
+ 	 * @param  {void} event [description]
+ 	 * @returns {void}       [description]
+ 	 */
+ 	window.eoxiaJS.dropdown.close = function( event ) {
+ 		var _element = jQuery( this );
+ 		jQuery( '.wpeo-dropdown.dropdown-active:not(.no-close)' ).each( function() {
+ 			var toggle = jQuery( this );
+ 			var triggerObj = {
+ 				close: true
+ 			};
 
-			toggle.removeClass( 'dropdown-active' );
+ 			_element.trigger( 'dropdown-before-close', [ toggle, _element, triggerObj ] );
 
-			/* Toggle Button Icon */
-			var angleElement = jQuery( this ).find('.dropdown-toggle').find('[data-fa-i2svg]');
-			if ( angleElement ) {
-				window.eoxiaJS.dropdown.toggleAngleClass( angleElement );
-			}
-		});
-	};
+ 			if ( triggerObj.close ) {
+ 				toggle.removeClass( 'dropdown-active' );
 
-	/**
-	 * [description]
-	 *
-	 * @memberof EO_Framework_Dropdown
-	 *
-	 * @param  {void} button [description]
-	 * @returns {void}        [description]
-	 */
-	window.eoxiaJS.dropdown.toggleAngleClass = function( button ) {
-		if ( button.hasClass('fa-caret-down') || button.hasClass('fa-caret-up') ) {
-			button.toggleClass('fa-caret-down').toggleClass('fa-caret-up');
-		}
-		else if ( button.hasClass('fa-caret-circle-down') || button.hasClass('fa-caret-circle-up') ) {
-			button.toggleClass('fa-caret-circle-down').toggleClass('fa-caret-circle-up');
-		}
-		else if ( button.hasClass('fa-angle-down') || button.hasClass('fa-angle-up') ) {
-			button.toggleClass('fa-angle-down').toggleClass('fa-angle-up');
-		}
-		else if ( button.hasClass('fa-chevron-circle-down') || button.hasClass('fa-chevron-circle-up') ) {
-			button.toggleClass('fa-chevron-circle-down').toggleClass('fa-chevron-circle-up');
-		}
-	}
-}
+ 				/* Toggle Button Icon */
+ 				var angleElement = jQuery( this ).find('.dropdown-toggle').find('[data-fa-i2svg]');
+ 				if ( angleElement ) {
+ 					window.eoxiaJS.dropdown.toggleAngleClass( angleElement );
+ 				}
+ 			} else {
+ 				return;
+ 			}
+ 		});
+ 	};
+
+ 	/**
+ 	 * [description]
+ 	 *
+ 	 * @memberof EO_Framework_Dropdown
+ 	 *
+ 	 * @param  {void} button [description]
+ 	 * @returns {void}        [description]
+ 	 */
+ 	window.eoxiaJS.dropdown.toggleAngleClass = function( button ) {
+ 		if ( button.hasClass('fa-caret-down') || button.hasClass('fa-caret-up') ) {
+ 			button.toggleClass('fa-caret-down').toggleClass('fa-caret-up');
+ 		}
+ 		else if ( button.hasClass('fa-caret-circle-down') || button.hasClass('fa-caret-circle-up') ) {
+ 			button.toggleClass('fa-caret-circle-down').toggleClass('fa-caret-circle-up');
+ 		}
+ 		else if ( button.hasClass('fa-angle-down') || button.hasClass('fa-angle-up') ) {
+ 			button.toggleClass('fa-angle-down').toggleClass('fa-angle-up');
+ 		}
+ 		else if ( button.hasClass('fa-chevron-circle-down') || button.hasClass('fa-chevron-circle-up') ) {
+ 			button.toggleClass('fa-chevron-circle-down').toggleClass('fa-chevron-circle-up');
+ 		}
+ 	}
+ }
 
 /**
  * @namespace EO_Framework_Form
@@ -1466,6 +1484,7 @@ if ( ! window.eoxiaJS.modal  ) {
 						jQuery( 'body' ).append( triggeredElement[0].modalElement );
 
 						el[0].innerHTML = el[0].innerHTML.replace( '{{content}}', response.data.view );
+
 						if ( typeof response.data.buttons_view !== 'undefined' ) {
 							el[0].innerHTML = el[0].innerHTML.replace( '{{buttons}}', response.data.buttons_view );
 						} else {
@@ -1543,13 +1562,14 @@ if ( ! window.eoxiaJS.modal  ) {
 		if( ! jQuery( event.target ).hasClass( "wpeo-modal" ) && event.type == "mousedown" ){ // Si le click se situe dans la modal
 			return;
 		}
-		jQuery( '.wpeo-modal.modal-active:not(.modal-force-display)' ).each( function() {
+		jQuery( '.wpeo-modal.modal-active:last:not(.modal-force-display)' ).each( function() {
 			var popup = jQuery( this );
 			popup.removeClass( 'modal-active' );
 			if ( popup[0].typeModal && 'default' !== popup[0].typeModal ) {
 				setTimeout( function() {
 					popup.remove();
 				}, 200 );
+
 			}
 
 			popup.trigger( 'modal-closed', popup );

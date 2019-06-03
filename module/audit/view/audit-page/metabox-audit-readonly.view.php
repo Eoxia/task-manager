@@ -1,6 +1,6 @@
 <?php
 /**
- * le mode (par défault) qui affiche les données (en readonly)
+ * le mode édition qui permet de modifier la tache
  *
  * @author Eoxia <dev@eoxia.com>
  * @since 1.10.0

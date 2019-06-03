@@ -238,7 +238,16 @@ class Indicator_Class extends \eoxia\Singleton_Util {
 				'date_end'   => $date_end,
 			)
 		);
+	}
 
+	public function callback_load_tag_page() {
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'indicator',
+			'backend-indicator-tag/main',
+			array()
+		);
 	}
 
 	/**
@@ -288,27 +297,6 @@ class Indicator_Class extends \eoxia\Singleton_Util {
 				'archive',
 			),
 		));
-
-		// Récup les tâches
-		// Pour chaque tâche récupére la dernière history time
-		// Je t'emmerde
-		// Pour chaque history time Récup la métadonnée _tm_custom
-
-		// $histories_times
-		//
-		// get_post_meta( $id_history, '_tm_custom', true );
-		//
-		// var_dump( Task_Class::g()->get_type());
-		//
-
-		// $tasks = Task_Class::g()->get_tasks(
-		// 	array(
-		// 		'post__in' => Task_Class::g()->get_task_with_history_time(),
-		// 	)
-		// );
-		//
-		// $parent = array();
-		//
 
 		$parent = array();
 
@@ -555,6 +543,332 @@ class Indicator_Class extends \eoxia\Singleton_Util {
 		);
 
 		return $task_data;
+	}
+
+	public function generate_data_indicator_tag( $tasks, $year = 0 ){
+
+		if( $year == 0 ){
+			$indicator_date_start = strtotime( "-1 year" );
+			$indicator_date_end = strtotime( "now" ) + 3600;
+			$year = date( 'Y' );
+		}else{
+			$indicator_date_start = strtotime( '01-01-' . $year ) - 3600;
+			$indicator_date_end  = strtotime( '31-12-' . $year );
+		}
+
+		$allmonth_betweendates = Task_Class::g()->all_month_between_two_dates( $indicator_date_start, $indicator_date_end, true );
+		$return = $this->generate_data_indicator_tag_stats( $tasks, $allmonth_betweendates );
+		$client_indicator = isset( $return[ 'data' ] ) ? $return[ 'data' ] : array(); // Data principal
+		$client_info = isset( $return[ 'info' ] ) ? $return[ 'info' ] : array(); // Info
+
+		$return = $this->update_data_indicator_tag_humanreadable( $client_indicator, $client_info );
+		$client_indicator = $return[ 'data' ]; // Data principal
+		$client_info = $return[ 'info' ]; // Info
+
+		return array( 'type' => $client_indicator, 'info' => $client_info, 'everymonth' => $allmonth_betweendates, 'year' => $year );
+	}
+
+	public function generate_data_indicator_tag_stats( $tasks, $allmonth ){
+		if( empty( $tasks ) ){
+			return array();
+		}
+
+		$client_indicator = array();
+		$client_indicator_info = array();
+		foreach ( $tasks as $key => $task ){ // Pour chaque tache
+			$type = '';
+
+			// On definie le type pour créer un tableau avec deux élements
+			if( $task->data['last_history_time']->data['custom'] == 'recursive' ){ // Si recursif => $clients_indicator_recursive
+				$type = 'recursive';
+			}else if( $task->data['last_history_time']->data['custom'] == 'due_date' ){ // Si Deadline => $clients_indicator_deadline
+				$type = 'deadline';
+			}else{ // Si aucun type => RIEN
+				continue;
+			}
+
+			// echo '<pre>'; print_r( ' -> P : ' . $task->data[ 'parent_id' ] . ' <- -> T : ' . $task->data[ 'id' ] ); echo '</pre>';
+
+			$client_info = array();
+			if( $task->data[ 'parent_id' ] == 0 ){
+				$id_client = 0;
+				$name_client = __( 'No Client', 'task-manager' );
+			}else{
+				$id_client = $task->data[ 'parent_id' ];
+				$name_client = $task->data[ 'parent' ]->post_title;
+			}
+
+			if( empty( $client_indicator[ $type ][ $id_client ] ) ) { // On créait le client
+				$client_indicator[ $type ][ $id_client ] = $allmonth; // tous les mois de l'année
+				$client_info = array(
+					'name'                    => $name_client, // Info
+					'id'                      => $id_client, // de base
+					'type'                    => $type, // De la catégorie
+					'time_elapsed'            => 0,
+					'time_estimated'          => 0,
+					'time_elapsed_readable'   => '',
+					'time_estimated_readable' => '',
+					'time_percent'            => 0,
+				);
+			}
+
+			$deadline_task = $task->data[ 'last_history_time' ]->data[ 'due_date' ][ 'rendered' ][ 'mysql' ];
+			$history_task = $task->data[ 'last_history_time' ]->data;
+			if( $type === 'recursive' ){ // Si la tache est récursive, on ajoute du temps chaque mois
+				$time_history = $this->get_task_estimated_time( $task->data[ 'id' ], $type );
+				foreach( $client_indicator[ $type ][ $id_client ] as $key_categorie => $month ){ // Pour chaque tache, Chaque mois de l'année
+					$client_indicator[ $type ][ $id_client ][ $key_categorie ][ 'task_list' ][ $task->data[ 'id' ] ] = Task_Class::g()->return_array_indicator_tasklist();
+					if( strtotime( $task->data['date'][ 'rendered' ][ 'mysql' ] ) < $month[ 'str_month_end' ] && strtotime( 'now' ) >= $month[ 'str_month_start' ] ){
+						$estimated_time = $this->get_estimated_time( $time_history, $month );
+						$client_indicator[ $type ][ $id_client ][ $key_categorie ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_estimated' ] += $estimated_time;
+						$client_indicator[ $type ][ $id_client ][ $key_categorie ][ 'task_list' ][ $task->data[ 'id' ] ][ 'month_is_valid' ] = 1;
+						$client_indicator[ $type ][ $id_client ][ $key_categorie ][ 'month_is_valid' ] = 1;
+
+						$client_indicator[ $type ][ $id_client ][ $key_categorie ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_estimated_monthly' ] += $estimated_time;
+
+						if( isset( $client_indicator[ $type ][ $id_client ][ $key_categorie - 1 ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_estimated_monthly' ] ) ){
+							$client_indicator[ $type ][ $id_client ][ $key_categorie ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_estimated_monthly' ] += $client_indicator[ $type ][ $id_client ][ $key_categorie - 1 ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_estimated_monthly' ];
+						}
+					}
+				}
+
+			}else if( $type === 'deadline' && ( isset( $deadline_task ) || strtotime( $deadline_task ) > 0 ) ){ // Task deadline
+				foreach( $client_indicator[ $type ][ $id_client ] as $key_categorie => $month ){ // Pour chaque tache, Chaque mois de l'année
+					$client_indicator[ $type ][ $id_client ][ $key_categorie ][ 'task_list' ][ $task->data[ 'id' ] ] = Task_Class::g()->return_array_indicator_tasklist();
+
+					if( strtotime( $task->data[ 'date' ][ 'rendered' ][ 'mysql' ] ) < $month[ 'str_month_end' ] && strtotime( $deadline_task ) > $month[ 'str_month_start' ] ){ // Mois creer avant la fin du mois et Deadline aprés le debut du mois => Mois valide
+						$client_indicator[ $type ][ $id_client ][ $key_categorie ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_estimated'] = $history_task['estimated_time'];
+						$client_indicator[ $type ][ $id_client ][ $key_categorie ][ 'task_list' ][ $task->data[ 'id' ] ][ 'month_is_valid' ] = 1;
+						$client_indicator[ $type ][ $id_client ][ $key_categorie ][ 'month_is_valid' ] = 1;
+					}
+				}
+
+			}else{
+				// Normalement cette condition ne doit pas etre accessible
+				echo '<pre>'; print_r( 'Bug 1dz654q1d651dq : Task.class' ); echo '</pre>';
+				return array();
+			}
+
+			if( ! empty( $client_info ) ){
+				$client_indicator_info[ $type ][ $id_client ][ 'info' ] = $client_info;
+			}
+
+			$client_indicator_info[ $type ][ $id_client ][ 'task_list' ][ $task->data[ 'id' ] ][ 'id' ] = $task->data[ 'id' ];
+			$client_indicator_info[ $type ][ $id_client ][ 'task_list' ][ $task->data[ 'id' ] ][ 'title' ] = $task->data[ 'title' ];
+			$client_indicator_info[ $type ][ $id_client ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_elapsed' ] = 0;
+			$client_indicator_info[ $type ][ $id_client ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_estimated' ] = 0;
+			// On recupere les commentaires et on les ajoute dans leurs mois respectifs
+			$comments = Task_Comment_Class::g()->get_comments( 0, array( 'post_id' => $task->data[ 'id' ]	) );
+			if( empty ( $comments ) ){
+				continue;
+			}
+
+			$first_month = true;
+			foreach( $client_indicator[ $type ][ $id_client ] as $key_month_ => $month ){ // Pour chaque mois de l'année, on va check les commentaires
+				//if( $month[ 'task_list' ][ $task->data[ 'id' ] ][ 'month_is_valid' ] ){ // On verifie que le mois soit valide
+					if( $key_month_ == 0 && $type === 'deadline' ){
+						// Si le premier mois est valide, on récupère le temps des commentaires des mois précédents
+						foreach ( $comments as $key => $value_com ) {
+							if( $month[ 'str_month_start' ] > strtotime( $value_com->data[ 'date' ][ 'rendered' ][ 'mysql' ] ) ){
+								$client_indicator[ $type ][ $id_client ][ $key_month_ ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_elapsed' ] += $value_com->data[ 'time_info' ][ 'elapsed' ];
+								$client_indicator[ $type ][ $id_client ][ $key_month_ ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_deadline' ] += $value_com->data[ 'time_info' ][ 'elapsed' ];
+							}
+						}
+					}
+
+				if( isset( $client_indicator[ $type ][ $id_client ][ $key_month_ - 1 ][ 'task_list' ][ $task->data[ 'id' ] ][ 'month_is_valid' ] ) ){
+						$client_indicator[ $type ][ $id_client ][ $key_month_ ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_deadline' ] = $client_indicator[ $type ][ $id_client ][ $key_month_ - 1 ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_deadline' ];
+					}
+
+					foreach ( $comments as $key => $value_com ) { // Pour chaque commentaire
+
+						if( $month[ 'str_month_start' ] < strtotime( $value_com->data[ 'date' ][ 'rendered' ][ 'mysql' ] ) && $month[ 'str_month_end' ] > strtotime( $value_com->data[ 'date' ][ 'rendered' ][ 'mysql' ] ) ) // Si le commentaire a était fait dans le mois
+						{
+							$client_indicator[ $type ][ $id_client ][ $key_month_ ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_elapsed' ] += $value_com->data[ 'time_info' ][ 'elapsed' ];
+							$client_indicator[ $type ][ $id_client ][ $key_month_ ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_deadline' ] += $value_com->data[ 'time_info' ][ 'elapsed' ];
+
+							$client_indicator_info[ $type ][ $id_client ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_elapsed' ] = 0;
+							$client_indicator_info[ $type ][ $id_client ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_estimated' ] = 0;
+						}
+					}
+				//}
+			}
+		}
+
+		if( ! empty( $client_indicator ) ){
+			foreach( $client_indicator as $key => $value ){
+				$return = Task_Class::g()->update_indicator_array_tasklist( $client_indicator[ $key ], $client_indicator_info[ $key ] );
+				$client_indicator[ $key ]      = $return[ 'categories' ];
+				$client_indicator_info[ $key ] = $return[ 'info' ];
+			}
+		}
+
+		return array( 'data' => $client_indicator, 'info' => $client_indicator_info, 'everymonth' => $allmonth_betweendates );
+	}
+
+	public function get_task_estimated_time( $id, $type ){
+		$times_saves = History_Time_Class::g()->get(
+			array(
+				'post_id' => $id,
+				'order' => 'ASC',
+				'type'    => History_Time_Class::g()->get_type(),
+			)
+		);
+
+		$valid_times = array();
+		foreach( $times_saves as $key => $time ){
+			if( $time->data[ 'custom' ] == $type ){
+				$month = date( 'm', strtotime( $time->data[ 'due_date' ][ 'rendered' ][ 'mysql' ] ) );
+				$year = date( 'Y', strtotime( $time->data[ 'due_date' ][ 'rendered' ][ 'mysql' ] ) );
+				$addtime = array(
+					'month'     => $month,
+					'year'      => $year,
+					'type'      => $type,
+					'timestr'   => strtotime( date( 'd-m-Y', strtotime( $time->data[ 'due_date' ][ 'rendered' ][ 'mysql' ] ) ) ),
+					'estimated' => $time->data[ 'estimated_time' ]
+				);
+				$valid_times[ $year . '-' . $month ] = $addtime;
+			}
+		}
+
+		return $valid_times;
+	}
+
+	public function get_estimated_time( $validtimes = array(), $month = array() ){
+		if( empty( $validtimes ) ){
+			return 0;
+		}
+
+		$valid_estimated = 0;
+		$lasttime = 0;
+
+		foreach( $validtimes as $key => $time ){
+			if( $time[ 'timestr' ] < $month[ 'str_month_end' ] ){
+				$valid_estimated = $time[ 'estimated' ];
+				break;
+			}
+			$lasttime = $time[ 'estimated' ];
+		}
+
+		// if( ! $valid_estimated ){
+		// 	$valid_estimated = $lasttime;
+		// }
+
+		return $valid_estimated;
+	}
+
+	public function update_data_indicator_tag_humanreadable( $clients, $info ){
+		foreach( $clients as $key_type => $value_type ){ // Deadline / recusive
+			foreach( $value_type as $key_client => $value_client ){ // All clients
+				foreach( $value_client as $key_month => $value_month ){
+					$temp_month = array(
+						'total_time_elapsed_readable'   => Task_Class::g()->change_minute_time_to_readabledate( $value_month[ 'total_time_elapsed' ] ),
+						'total_time_estimated_readable' => Task_Class::g()->change_minute_time_to_readabledate( $value_month[ 'total_time_estimated' ] ),
+						'total_time_deadline_readable'  => Task_Class::g()->change_minute_time_to_readabledate( $value_month[ 'total_time_deadline' ] ),
+						'total_time_percent'            => Task_Class::g()->percent_indicator_client( $value_month[ 'total_time_elapsed' ], $value_month[ 'total_time_estimated' ], $value_month[ 'total_time_deadline' ], $key_type )
+					);
+
+					$clients[ $key_type ][ $key_client ][ $key_month ] = array_merge( $value_month, $temp_month);
+
+					foreach( $value_month[ 'task_list' ] as $key_task => $value_task ){
+						$temp_task = array(
+							'time_elapsed_readable'   => Task_Class::g()->change_minute_time_to_readabledate( $value_task[ 'time_elapsed' ] ),
+							'time_estimated_readable' => Task_Class::g()->change_minute_time_to_readabledate( $value_task[ 'time_estimated' ] ),
+							'time_deadline_readable'  => Task_Class::g()->change_minute_time_to_readabledate( $value_task[ 'time_deadline' ] ),
+							'time_percent'            => Task_Class::g()->percent_indicator_client( $value_task[ 'time_elapsed' ], $value_task[ 'time_estimated' ], $value_task[ 'time_deadline' ], $key_type )
+						);
+
+						$clients[ $key_type ][ $key_client ][ $key_month ][ 'task_list' ][ $key_task ] = array_merge( $value_task, $temp_task);
+
+						$info_task = $info[ $key_type ][ $key_client ][ 'task_list' ][ $key_task ];
+						$temp_task_info = array(
+							'time_elapsed_readable'   => Task_Class::g()->change_minute_time_to_readabledate( $info_task[ 'time_elapsed' ] ),
+							'time_estimated_readable' => Task_Class::g()->change_minute_time_to_readabledate( $info_task[ 'time_estimated' ] ),
+							'time_percent'            => Task_Class::g()->percent_indicator_client( $info_task[ 'time_elapsed' ], $info_task[ 'time_estimated' ], 0, 'recursive' )
+						);
+
+						$info[ $key_type ][ $key_client ][ 'task_list' ][ $key_task ] = array_merge( $info_task, $temp_task_info);
+					}
+				}
+
+				$temp_info = array(
+					'time_elapsed_readable'   => Task_Class::g()->change_minute_time_to_readabledate( $info[ $key_type ][ $key_client ][ 'info' ][ 'time_elapsed' ] ),
+					'time_estimated_readable' => Task_Class::g()->change_minute_time_to_readabledate( $info[ $key_type ][ $key_client ][ 'info' ][ 'time_estimated' ] ),
+					'time_percent'            => Task_Class::g()->percent_indicator_client( $info[ $key_type ][ $key_client ][ 'info' ][ 'time_elapsed' ], $info[ $key_type ][ $key_client ][ 'info' ][ 'time_estimated' ], 0, 'recursive' )
+				);
+
+				$info[ $key_type ][ $key_client ][ 'info' ] = array_merge( $info[ $key_type ][ $key_client ][ 'info' ], $temp_info );
+
+			}
+		}
+		return array( 'data' => $clients, 'info' => $info );
+	}
+
+	public function sort_indicator_by_name( $data, $info ){
+		$data_order = array();
+		foreach( $info as $keyclient => $client ){
+			$name = trim( strtolower( $client[ 'info' ][ 'name' ] ) );
+			$data_array = array( 'id' => $client[ 'info' ][ 'id' ], 'name' => $name	);
+			if( empty( $data_order ) ){
+				$data_order[] = $data_array;
+			}else{
+				$elementisadd = false;
+				foreach( $data_order as $key => $element ){
+					if( strcmp( $element[ 'name' ], $name ) > 0 ){ // > 0 Si priemer element est aprés dans l'alphabet
+						array_splice( $data_order, $key, 0, array( $data_array ) );
+						$elementisadd = true;
+						break;
+					}
+				}
+				if( ! $elementisadd ){
+					$data_order[] = $data_array;
+				}
+			}
+		}
+
+		$return = array();
+		foreach( $data_order as $key => $value ){
+			$return[ strval( $value[ 'id' ] ) ] = $data[ $value[ 'id' ] ];
+		}
+
+		return $return;
+	}
+
+	public function sort_indicator_by_percent( $data, $info, $sortby = "ASC" ){
+		$data_order = array();
+		foreach( $info as $keyclient => $client ){
+			$data_array = array( 'id' => $client[ 'info' ][ 'id' ], 'percent' => $client[ 'info' ][ 'time_percent' ]	);
+			if( empty( $data_order ) ){
+				$data_order[] = $data_array;
+			}else{
+				$elementisadd = false;
+				foreach( $data_order as $key => $element ){
+					if( $sortby == "ASC" ){
+						if( $element[ 'percent' ] > $data_array[ 'percent' ] ){
+							array_splice( $data_order, $key, 0, array( $data_array ) );
+							$elementisadd = true;
+							break;
+						}
+					}else{
+						if( $element[ 'percent' ] < $data_array[ 'percent' ] ){
+							array_splice( $data_order, $key, 0, array( $data_array ) );
+							$elementisadd = true;
+							break;
+						}
+					}
+				}
+				if( ! $elementisadd ){
+					$data_order[] = $data_array;
+				}
+			}
+		}
+
+		$return = array();
+		foreach( $data_order as $key => $value ){
+			$return[ strval( $value[ 'id' ] ) ] = $data[ $value[ 'id' ] ];
+		}
+
+		return $return;
 	}
 }
 

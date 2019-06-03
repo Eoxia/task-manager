@@ -1,6 +1,6 @@
 <?php
 /**
- * La vue principale
+ * La vue principale de la page des clients WPShop.
  *
  * @author <dev@eoxia.com>
  * @since 1.9.0
@@ -82,7 +82,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		<?php	else: ?>
 			<div class="form-element">
-
+				
 			</div>
 		<?php	endif; ?>
 
