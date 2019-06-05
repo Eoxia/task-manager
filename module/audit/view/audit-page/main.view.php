@@ -23,4 +23,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 	\eoxia\View_Util::exec( 'task-manager', 'audit', '/audit-page/metabox-button-create', array() );
 
 	Audit_Class::g()->callback_audit_list_metabox();
-?>
+
+ ?>

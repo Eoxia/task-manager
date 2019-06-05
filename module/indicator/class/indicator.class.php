@@ -788,6 +788,7 @@ class Indicator_Class extends \eoxia\Singleton_Util {
 						);
 
 						$info[ $key_type ][ $key_client ][ 'task_list' ][ $key_task ] = array_merge( $info_task, $temp_task_info);
+
 					}
 				}
 

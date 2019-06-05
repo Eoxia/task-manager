@@ -880,7 +880,8 @@ class Task_Class extends \eoxia\Post_Class {
 			$time_elapsed_categorie = 0;
 			$time_estimated_categorie = 0;
 
-
+	//		echo '<pre>'; print_r( $info ); echo '</pre>';
+//exit;
 			foreach( $category as $key_month => $month ){
 				$time_elapsed_month = 0;
 				$time_estimated_month = 0;

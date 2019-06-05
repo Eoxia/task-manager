@@ -146,6 +146,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php	if( $key_categorie == 'deadline' ): ?>
 				<tr class="tm_client_indicator" style="cursor : pointer" data-id="<?php echo esc_html( $key_indicator ); ?>" data-show="false" data-type="<?php echo esc_html( $key_categorie ); ?>">
 					<?php
+
 					\eoxia\View_Util::exec(
 						'task-manager',
 						'indicator',

@@ -180,6 +180,14 @@ class Task_Manager_Action {
 	 * @version 1.5.0
 	 */
 	public function callback_plugins_loaded() {
+
+		if( isset( \eoxia\Config_Util::$init['task-manager'] ) ){
+			\eoxia\Config_Util::$init['task-manager']->associate_post_type[] = 'digi-workunit';
+			\eoxia\Config_Util::$init['task-manager']->associate_post_type[] = 'digi-group';
+			\eoxia\Config_Util::$init['task-manager']->associate_post_type[] = 'digi-society';
+			\eoxia\Config_Util::$init['task-manager']->associate_post_type[] = 'digi-risk';
+		}
+
 		$i18n_loaded = load_plugin_textdomain( 'task-manager', false, PLUGIN_TASK_MANAGER_DIR . '/core/assets/language/' );
 
 		/** Set capability to administrator by default */

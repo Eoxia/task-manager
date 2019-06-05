@@ -25,10 +25,20 @@ defined( 'ABSPATH' ) || exit; ?>
 		</label>
 	</div>
 
+	<?php
+
+	$value = empty( $comment->data['id'] ) && isset( $comment->data['time_info']['calculed_elapsed'] ) ? $comment->data['time_info']['calculed_elapsed'] : $comment->data['time_info']['elapsed'];
+
+		/*if( $value < 0 ){
+			$value = 15;
+		}*/
+
+	 ?>
+
 	<div class="form-element">
 		<label class="form-field-container">
 			<span class="form-field-icon-prev"><i class="fas fa-clock"></i></span>
-			<input type="text" name="time" value="<?php echo esc_attr( empty( $comment->data['id'] ) && isset( $comment->data['time_info']['calculed_elapsed'] ) ) ? $comment->data['time_info']['calculed_elapsed'] : $comment->data['time_info']['elapsed']; ?>" class="form-field" />
+			<input type="text" name="time" value="<?php echo esc_attr( $value ); ?>" class="form-field" />
 		</label>
 	</div>
 </div>

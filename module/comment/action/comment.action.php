@@ -111,8 +111,6 @@ class Task_Comment_Action {
 		$frontend   = ( isset( $_POST['frontend'] ) && 'true' == $_POST['frontend'] ) ? true : false;
 		$notif      = ( isset( $_POST['notif'] ) && ! empty( $_POST['notif'] ) ) ? $_POST['notif']  : array();
 
-
-
 		// $elemnt_replace = array( '<div>', '</div>' );
 		// $content = str_replace( $elemnt_replace, '<br>', trim( $content ) );
 
