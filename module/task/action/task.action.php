@@ -607,17 +607,22 @@ class Task_Action {
 
 		$query = new \WP_Query(
 			array(
-				'post_type'   => \eoxia\Config_Util::$init['task-manager']->associate_post_type,
-				'posts_per_page' => -1
+				'post_type'      => \eoxia\Config_Util::$init['task-manager']->associate_post_type,
+				'posts_per_page' => -1,
+				'post_status'    => 'any'
 			)
 		);
+
+
+
+		// echo '<pre>'; print_r( $query ); echo '</pre>'; exit;
 
 		if ( ! empty( $query->posts ) ) {
 			foreach( $query->query[ 'post_type' ] as $post_type_title){
 				$posttype_found[ $post_type_title ] = array();
 			}
 
-			foreach ( $query->posts as $post ) {
+			foreach ( $query->posts as &$post ) {
 				if( $post->post_type == "wpshop_shop_order" ){ // 19/04/2019 -> Exception car WP SHOP v1 oblige une nouvelle requete
 					$order_meta = get_post_meta( $post->ID, '_order_postmeta', true ); // A supprimer A la sortie de WPSHOP V2
 					$posttype_found[ $post->post_type ][] = array( //
@@ -626,13 +631,24 @@ class Task_Action {
 						'id'    => $post->ID //
 					); //
 					continue; //
-				} //
+				}else if( $post->post_type == "digi-risk" ){ // 05/06/2019 pour digirisk
+					if( class_exists( '\digi\Risk_Class' ) ){
+						$postrisk = \digi\Risk_Class::g()->get( array( 'id' => $post->ID ), true );
+						$posttype_found[ $post->post_type ][] = array( //
+							'label' => $postrisk->data[ 'title' ], //
+							'value' => $postrisk->data[ 'title' ], //
+							'id'    => $postrisk->data[ 'id' ] //
+						);
+					}
+				}else{
+					$posttype_found[ $post->post_type ][] = array(
+						'label' => $post->post_title,
+						'value' => $post->post_title,
+						'id'    => $post->ID
+					);
 
-				$posttype_found[ $post->post_type ][] = array(
-					'label' => $post->post_title,
-					'value' => $post->post_title,
-					'id'    => $post->ID
-				);
+				}
+
 			}
 		}
 
@@ -645,7 +661,6 @@ class Task_Action {
 		}
 
 			ob_start();
-
 			\eoxia\View_Util::exec(
 				'task-manager',
 				'task',

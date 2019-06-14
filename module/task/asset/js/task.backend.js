@@ -51,6 +51,7 @@ window.eoxiaJS.taskManager.task.event = function() {
 
 	jQuery( document ).on( 'click', '.wpeo-task-parent-add .tm_list_parent_li_element', window.eoxiaJS.taskManager.task.getValueAutocompleteParent );
 
+	jQuery( document ).on( 'change keyup', '.tm_indicator_updateprofile input[type="number"]', window.eoxiaJS.taskManager.task.activateButtonPlanning );
 
 };
 
@@ -438,24 +439,52 @@ window.eoxiaJS.taskManager.task.taskHideAutocompleteParent = function( event ){
 
 
 window.eoxiaJS.taskManager.task.taskUpdateAutocompleteParent = function( event ){
-	//jQuery( document ).removeEventListener( 'keyup', window.eoxiaJS.taskManager.task.taskUpdateAutocompleteParent, true );
 	event.stopPropagation();
 	var value = jQuery( this ).val().toLowerCase();
 
 	var list_parent = jQuery( this ).closest( '.wpeo-tag' ).find( 'ul' );
-	var i = 0;
+	var all = 0;
+	var valid = 0;
+	if( value == "" ){
+		jQuery( this ).closest( '.wpeo-tag' ).find( 'ul li' ).show();
+		list_parent.find( '.tm_list_infoempty' ).hide();
+		return true;
+	}
+
+	var valid_parent = [];
+
 	list_parent.find( '.tm_list_parent_li_element' ).each(function( element ) {
-		if( i > 12 ){
-			return false;
+		if( valid >= 12 ){
+			jQuery( this ).hide();
+		}else{
+			var a = jQuery( this ).html().trim().toLowerCase();
+			if( a.includes( value ) ){
+				if( ! jQuery.inArray( jQuery( this ).data( 'key' ), valid_parent ) !== -1 ){
+					valid_parent.push( jQuery( this ).data( 'key' ) );
+				}
+				valid ++;
+				jQuery( this ).show();
+			}else{
+				jQuery( this ).hide();
+			}
 		}
-		var a = jQuery( this ).html().trim().toLowerCase();
-		if( a.includes( value ) ){
-			i++;
+	});
+
+	var elementfound = false;
+	list_parent.find( '.tm_list_parent' ).each(function( element ) {
+		if( jQuery.inArray( jQuery( this ).data( 'key' ), valid_parent ) !== -1 ){
+			elementfound = true;
 			jQuery( this ).show();
 		}else{
 			jQuery( this ).hide();
 		}
 	});
+
+	if( ! elementfound ){ // Aucun element n'a était trouvé
+		list_parent.find( '.tm_list_infoempty' ).show();
+	}else{
+		list_parent.find( '.tm_list_infoempty' ).hide();
+	}
 }
 
 window.eoxiaJS.taskManager.task.getValueAutocompleteParent = function( event ){
@@ -508,3 +537,29 @@ window.eoxiaJS.taskManager.task.clignotePetitIcone = function( event ){
    }
 	});
 }
+
+window.eoxiaJS.taskManager.task.activateButtonPlanning = function( event ){
+	jQuery( this ).closest( '.tm_indicator_updateprofile' ).find( '.button-add-row-plan .disabled' ).removeClass( 'disabled' );
+}
+
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//

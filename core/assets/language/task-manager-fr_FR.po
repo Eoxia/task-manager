@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
 "POT-Creation-Date: 2019-05-16 14:45+0200\n"
-"PO-Revision-Date: 2019-05-16 14:46+0200\n"
+"PO-Revision-Date: 2019-06-14 09:20+0200\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
@@ -811,7 +811,7 @@ msgstr "Lien vers la tâche"
 #: module/notify/class/notify.class.php:78
 #, php-format
 msgid "You have been notified by %3$s (%4$s)"
-msgstr "Vous avez était notifié par %3$s (%4$s)"
+msgstr "Vous avez été notifié par %3$s (%4$s)"
 
 #: module/notify/class/notify.class.php:83
 msgid "Task "

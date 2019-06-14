@@ -1423,6 +1423,7 @@ if ( ! window.eoxiaJS.modal  ) {
 		jQuery( document ).on( 'click', '.wpeo-modal-event', window.eoxiaJS.modal.open );
 		jQuery( document ).on( 'click', '.wpeo-modal .modal-container', window.eoxiaJS.modal.stopPropagation );
 		jQuery( document ).on( 'click', '.wpeo-modal .modal-close', window.eoxiaJS.modal.close );
+		// jQuery( document ).on( 'click', 'body', window.eoxiaJS.modal.close );
 		jQuery( document ).on( 'mousedown', '.modal-active:not(.modal-container)', window.eoxiaJS.modal.close );
 		jQuery( '#wpeo-task-metabox h2 span .wpeo-modal-event' ).click( window.eoxiaJS.modal.open );
 	};
@@ -1550,6 +1551,7 @@ if ( ! window.eoxiaJS.modal  ) {
 		event.stopPropagation();
 	};
 
+console.log( '-');
 	/**
 	 * [description]
 	 *
@@ -1562,6 +1564,7 @@ if ( ! window.eoxiaJS.modal  ) {
 		if( ! jQuery( event.target ).hasClass( "wpeo-modal" ) && event.type == "mousedown" ){ // Si le click se situe dans la modal
 			return;
 		}
+
 		jQuery( '.wpeo-modal.modal-active:last:not(.modal-force-display)' ).each( function() {
 			var popup = jQuery( this );
 			popup.removeClass( 'modal-active' );

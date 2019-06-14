@@ -263,7 +263,7 @@ class Follower_Action {
 			),
 			true
 		);
-		
+
 		$data_planning = array();
 		$datebefore    = '';
 
@@ -347,8 +347,8 @@ class Follower_Action {
 		$user['_tm_advanced_display']  = isset( $_POST['_tm_advanced_display'] ) && boolval( $_POST['_tm_advanced_display'] ) ? true : false;
 		$user['_tm_quick_point']       = isset( $_POST['_tm_quick_point'] ) && boolval( $_POST['_tm_quick_point'] ) ? true : false;
 		$user['_tm_display_indicator'] = isset( $_POST['_tm_display_indicator'] ) && boolval( $_POST['_tm_display_indicator'] ) ? true : false;
-		
-		
+
+
 		update_user_meta( $user_id, '_tm_auto_elapsed_time', $user['_tm_auto_elapsed_time'] );
 		update_user_meta( $user_id, '_tm_advanced_display', $user['_tm_advanced_display'] );
 		update_user_meta( $user_id, '_tm_quick_point', $user['_tm_quick_point'] );

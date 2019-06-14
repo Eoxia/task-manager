@@ -141,8 +141,6 @@ class Import_Class extends \eoxia\Singleton_Util {
 
 						$category = get_term_by( 'slug', trim( $line ), 'wpeo_tag' );
 
-						$t = Task_Class::g()->get( array( 'id' => 448 ), true );
-
 						if( ! empty( $category ) ){
 							$created_task->data['taxonomy'][ Tag_Class::g()->get_type() ][] = $category->term_id;
 							$task = Task_Class::g()->update( $created_task->data, true );

@@ -136,7 +136,7 @@ class Task_Class extends \eoxia\Post_Class {
 		$param['users_id']        = ! empty( $param['users_id'] ) ? (array) $param['users_id'] : array();
 		$param['categories_id']   = ! empty( $param['categories_id'] ) ? (array) $param['categories_id'] : array();
 		$param['status']          = ! empty( $param['status'] ) ? sanitize_text_field( $param['status'] ) : 'any';
-		$param['post_parent']     = ! empty( $param['post_parent'] ) ? (array) $param['post_parent'] : null;
+		$param['post_parent']     = ! empty( $param['post_parent'] ) ? (array) $param['post_parent'] : 0;
 		$param['term']            = ! empty( $param['term'] ) ? sanitize_text_field( $param['term'] ) : '';
 		$param['not_parent_type'] = ! empty( $param['not_parent_type'] ) ? (array) $param['not_parent_type'] : null;
 
@@ -176,7 +176,7 @@ class Task_Class extends \eoxia\Post_Class {
 
 		$query .= 'AND TASK.post_status IN (' . $param['status'] . ')';
 
-		if ( ! is_null( $param['post_parent'] ) ) {
+		if ( ! empty( $param['post_parent'] ) && ! is_null( $param['post_parent'] ) ) {
 			$query .= 'AND TASK.post_parent IN (' . implode( $param['post_parent'], ',' ) . ')';
 		}
 

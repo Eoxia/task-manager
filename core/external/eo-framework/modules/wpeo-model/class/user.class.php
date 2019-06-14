@@ -170,6 +170,9 @@ if ( ! class_exists( '\eoxia\User_Class' ) ) {
 
 				$object->data['id'] = $inserted_user;
 			} else {
+				if ( isset( $object->data['password'] ) ) {
+					unset( $object->data['password'] );
+				}
 
 				$updated_user = wp_update_user( $object->convert_to_wordpress() );
 				if ( is_wp_error( $updated_user ) ) {

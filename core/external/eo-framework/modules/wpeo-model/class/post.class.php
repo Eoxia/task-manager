@@ -128,7 +128,7 @@ if ( ! class_exists( '\eoxia\Post_Class' ) ) {
 
 			// Définition des arguments par défaut pour la récupération des "posts".
 			$default_args = array(
-				'post_status'    => 'any',
+				'post_status'    => 'any,auto-draft',
 				'post_type'      => $this->get_type(),
 				'posts_per_page' => -1,
 			);
@@ -232,7 +232,7 @@ if ( ! class_exists( '\eoxia\Post_Class' ) ) {
 			}
 			$args_cb['data'] = $data;
 
-			$data['id'] = ! empty( $data['id'] ) ?  (int) $data['id'] : 0;
+			$data['id'] = (int) ! empty( $data['id'] ) ? $data['id'] : 0;
 
 			$object = new $model_name( $data, $req_method );
 
