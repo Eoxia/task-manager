@@ -341,7 +341,8 @@ class Task_Class extends \eoxia\Post_Class {
 
 		$args_parameter[ 'posts_per_page' ] = $posts_per_page_task;
 
-		$tasks[ $post_id ]['data'] = self::g()->get_tasks( wp_parse_args( $args_parameter, $args ) );
+		// $tasks[ $post_id ]['data'] = self::g()->get_tasks( wp_parse_args( $args_parameter, $args ) ); // 27/06/2019
+		$tasks[ $post_id ]['data'] = Task_Class::g()->get( wp_parse_args( $args_parameter, $args ) );
 
 		$number_task = count( self::g()->get_tasks( array( 'status' => $args_parameter[ 'status' ], 'post_parent' => $post_id ) ) );
 

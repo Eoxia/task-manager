@@ -97,7 +97,11 @@ class Audit_Class extends \eoxia\Post_Class {
 
 	public function audit_task_link( $args ){
 
-		$audits = Audit_Class::g()->get( $args );
+		if( ! empty( $args) ){
+			$audits = Audit_Class::g()->get( $args );
+		}else{
+			return;
+		}
 
 		/*$temp_tasks = $tasks;
 		foreach( $tasks as $key => $task ){
@@ -105,8 +109,6 @@ class Audit_Class extends \eoxia\Post_Class {
 				unset( $temp_tasks[$key] );
 			}
 		}*/
-
-		$tasks = $temp_tasks;
 
 		foreach( $audits as $key_audit => $audit ){
 
