@@ -644,8 +644,7 @@ class Indicator_Class extends \eoxia\Singleton_Util {
 
 			}else{
 				// Normalement cette condition ne doit pas etre accessible
-				echo '<pre>'; print_r( 'Bug 1dz654q1d651dq : Task.class' ); echo '</pre>';
-				return array();
+				continue;
 			}
 
 			if( ! empty( $client_info ) ){
@@ -680,7 +679,6 @@ class Indicator_Class extends \eoxia\Singleton_Util {
 					}
 
 					foreach ( $comments as $key => $value_com ) { // Pour chaque commentaire
-
 						if( $month[ 'str_month_start' ] < strtotime( $value_com->data[ 'date' ][ 'rendered' ][ 'mysql' ] ) && $month[ 'str_month_end' ] > strtotime( $value_com->data[ 'date' ][ 'rendered' ][ 'mysql' ] ) ) // Si le commentaire a était fait dans le mois
 						{
 							$client_indicator[ $type ][ $id_client ][ $key_month_ ][ 'task_list' ][ $task->data[ 'id' ] ][ 'time_elapsed' ] += $value_com->data[ 'time_info' ][ 'elapsed' ];
@@ -702,7 +700,7 @@ class Indicator_Class extends \eoxia\Singleton_Util {
 			}
 		}
 
-		return array( 'data' => $client_indicator, 'info' => $client_indicator_info, 'everymonth' => $allmonth_betweendates );
+		return array( 'data' => $client_indicator, 'info' => $client_indicator_info );
 	}
 
 	public function get_task_estimated_time( $id, $type ){
@@ -742,16 +740,12 @@ class Indicator_Class extends \eoxia\Singleton_Util {
 		$lasttime = 0;
 
 		foreach( $validtimes as $key => $time ){
-			if( $time[ 'timestr' ] < $month[ 'str_month_end' ] ){
-				$valid_estimated = $time[ 'estimated' ];
-				break;
-			}
+			//if( $time[ 'timestr' ] < $month[ 'str_month_end' ] ){ // 11/07/2019 On vérifie plus la date d'ajout de la récusivité
+			$valid_estimated = $time[ 'estimated' ];
+			break;
+			//}
 			$lasttime = $time[ 'estimated' ];
 		}
-
-		// if( ! $valid_estimated ){
-		// 	$valid_estimated = $lasttime;
-		// }
 
 		return $valid_estimated;
 	}

@@ -18,49 +18,53 @@ namespace task_manager;
 
 <ul class="wpeo-ul-parent">
   <li class="wpeo-task-parent">
-    <span class="wpeo-task-link">
-      <i class="fas fa-link"></i>
-    </span>
+    <?php if( class_exists( '\digi\Risk_Class' ) ): ?>
+      <span class="wpeo-task-link">
+        <i class="fas fa-link"></i>
+      </span>
 
 
-    <?php
-      $postrisk = \digi\Risk_Class::g()->get( array( 'id' => $task->data['parent_id'] ), true );
-   ?>
+      <?php
+        $postrisk = \digi\Risk_Class::g()->get( array( 'id' => $task->data['parent_id'] ), true );
+     ?>
 
+
+      <a class="wpeo-tooltip-event"
+      style="font-size: 18px"
+      aria-label="<?php echo esc_attr( $postrisk->data[ 'unique_key' ] ) . ' - ' . esc_attr( $postrisk->data[ 'unique_identifier' ] ); ?>"
+      target="_blank">
+        <?php echo esc_attr( $postrisk->data[ 'unique_key' ] ) . ' - ' . esc_attr( $postrisk->data[ 'unique_identifier' ] ); ?>
+      </a>
+
+      <?php
+
+      \eoxia\View_Util::exec(
+  			'task-manager',
+  			'task',
+  			'backend/parent-item-digirisk-option',
+  			array(
+  				'risk' => $postrisk,
+  			)
+  		);
+  ?>
 
     <a class="wpeo-tooltip-event"
     style="font-size: 18px"
-    aria-label="<?php echo esc_attr( $postrisk->data[ 'unique_key' ] ) . ' - ' . esc_attr( $postrisk->data[ 'unique_identifier' ] ); ?>"
+    aria-label="<?php echo esc_attr( $postrisk->data[ 'parent' ]->data[ 'title' ] ); ?>"
     target="_blank">
-      <?php echo esc_attr( $postrisk->data[ 'unique_key' ] ) . ' - ' . esc_attr( $postrisk->data[ 'unique_identifier' ] ); ?>
+      <?php echo esc_attr( $postrisk->data[ 'parent' ]->data[ 'title' ] ); ?>
     </a>
 
-    <?php
-
-    \eoxia\View_Util::exec(
-			'task-manager',
-			'task',
-			'backend/parent-item-digirisk-option',
-			array(
-				'risk' => $postrisk,
-			)
-		);
-?>
-
-<a class="wpeo-tooltip-event"
-style="font-size: 18px"
-aria-label="<?php echo esc_attr( $postrisk->data[ 'parent' ]->data[ 'title' ] ); ?>"
-target="_blank">
-  <?php echo esc_attr( $postrisk->data[ 'parent' ]->data[ 'title' ] ); ?>
-</a>
-
-  <div class="">
-    <i>
-      <?php echo esc_attr( date( 'd-m-Y', strtotime( $postrisk->data[ 'date' ][ 'rendered' ][ 'mysql' ] ) ) ); ?> -
-      <?php $name_posttype = get_post_type_object( $task->data['parent']->post_type ); ?>
-      <?php echo esc_html( $name_posttype->label ) ?>
-    </i>
-  </div>
+    <div>
+      <i>
+        <?php echo esc_attr( date( 'd-m-Y', strtotime( $postrisk->data[ 'date' ][ 'rendered' ][ 'mysql' ] ) ) ); ?> -
+        <?php $name_posttype = get_post_type_object( $task->data['parent']->post_type ); ?>
+        <?php echo esc_html( $name_posttype->label ) ?>
+      </i>
+    </div>
+  <?php else: ?>
+    <?php esc_html_e( 'Please activate Digirisk to see this parent', 'task-manager' ); ?>
+  <?php endif; ?>
   </li>
   <li style="float: right; margin-top: -28px; cursor : pointer">
     <span class="wpeo-task-link tm-task-delink-parent" data-id="<?php echo esc_html( $task->data[ 'id' ] ); ?>">

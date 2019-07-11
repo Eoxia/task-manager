@@ -36,7 +36,6 @@ namespace task_manager;
 			endif;
 			?>
 		</span>
-
 	</div>
 
 	<?php $risk_category = $risk->data[ 'risk_category' ]; ?>

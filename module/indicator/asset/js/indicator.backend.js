@@ -729,8 +729,6 @@ window.eoxiaJS.taskManager.indicator.displayDeadlineRecusiveStats = function( ev
 }
 
 window.eoxiaJS.taskManager.indicator.selectTag = function( event ){
-	console.log( ' - a - ' );
-
 	jQuery( this ).parent().find( '.wpeo-tag-search' ).each( function( element ){
 		jQuery( this ).removeClass( 'active' );
 	})
@@ -739,9 +737,7 @@ window.eoxiaJS.taskManager.indicator.selectTag = function( event ){
 }
 
 window.eoxiaJS.taskManager.indicator.sendRequestTagsStats = function( event ){
-	console.log( ' - - - ' );
 	var data = {};
-
 	data.action = 'load_tags_stats';
 	data.tag_id = jQuery( this ).data( 'tag-id' );
 	//data._wpnonce = jQuery( this ).data( 'nonce' );

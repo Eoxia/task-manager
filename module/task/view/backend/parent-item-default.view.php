@@ -12,7 +12,12 @@
     </a>
     <i>
       <?php $name_posttype = get_post_type_object( $task->data['parent']->post_type ); ?>
-      <?php echo esc_html( $name_posttype->label ) ?>
+      <?php
+      if( $name_posttype != "" ):
+        echo esc_html( $name_posttype->label );
+      else:
+        echo esc_html( $task->data['parent']->post_type );
+      endif; ?>
     </i>
   </li>
   <li style="float: right; margin-top: -28px; cursor : pointer">

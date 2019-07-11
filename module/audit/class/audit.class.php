@@ -363,7 +363,7 @@ class Audit_Class extends \eoxia\Post_Class {
 							'post_type'   => 'wpshop_customers',
 						)
 					);
-					$audit->data[ 'parent_title' ] = $query->post->post_title;
+					$audit->data[ 'parent_title' ] = $query->query_vars[ 'title' ];
 				}
 			}
 		}

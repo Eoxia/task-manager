@@ -135,7 +135,7 @@ class Audit_Action {
 					'post_type'   => 'wpshop_customers',
 				)
 			);
-			$audit->data[ 'parent_title' ] = $query->post->post_title;
+			$audit->data[ 'parent_title' ] = $query->query_vars[ 'title' ];
 		}
 
 		$tags = Tag_Class::g()->get();
@@ -204,7 +204,7 @@ class Audit_Action {
 					'post_type'   => 'wpshop_customers',
 				)
 			);
-			$audit->data[ 'parent_title' ] = $query->post->post_title;
+			$audit->data[ 'parent_title' ] = $query->query_vars[ 'title' ];
 		}
 
 		ob_start();
@@ -555,7 +555,7 @@ class Audit_Action {
 					'post_type'   => 'wpshop_customers',
 				)
 			);
-			$audit->data[ 'parent_title' ] = $query->post->post_title;
+			$audit->data[ 'parent_title' ] = $query->query_vars[ 'title' ];
 		}
 
 		ob_start();
