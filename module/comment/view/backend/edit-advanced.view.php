@@ -29,10 +29,6 @@ defined( 'ABSPATH' ) || exit; ?>
 
 	$value = empty( $comment->data['id'] ) && isset( $comment->data['time_info']['calculed_elapsed'] ) ? $comment->data['time_info']['calculed_elapsed'] : $comment->data['time_info']['elapsed'];
 
-		/*if( $value < 0 ){
-			$value = 15;
-		}*/
-
 	 ?>
 
 	<div class="form-element">

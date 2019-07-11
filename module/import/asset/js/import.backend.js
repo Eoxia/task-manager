@@ -14,6 +14,8 @@ window.eoxiaJS.taskManager.import.event = function() {
 	jQuery( document ).on( 'click', '.tm-import-add-keyword > .wpeo-button', window.eoxiaJS.taskManager.import.addKeywordToTextarea );
 	jQuery( document ).on( 'click', '.tm-alert-category-not-found > .wpeo-button', window.eoxiaJS.taskManager.import.updateCategoryNotFound );
 	jQuery( document ).on( 'click', '.wpeo-notice .notice-close', window.eoxiaJS.taskManager.import.hideThisWpeoNotice );
+	jQuery( document ).on( 'keyup', '.tm-import-add-keyword .tm-info-import-link input', window.eoxiaJS.taskManager.import.updateImportTextFromUrl );
+
 };
 
 /**
@@ -75,23 +77,23 @@ window.eoxiaJS.taskManager.import.addKeywordToTextarea = function( event ) {
 
 	if( jQuery( this ).attr( 'data-type' ) == "category" ){
 		keyword = window.eoxiaJS.taskManager.import.tagKeywordToTextarea( this, importContent );
+		importContent.focus().val( importContent.val() + '\r\n' + keyword );
+
+	}else if( jQuery( this ).attr( 'data-type' ) == "link" ){
+		window.eoxiaJS.taskManager.import.buttonLinkExternalText( jQuery( this ), importContent );
 	}else{
 		keyword = '%' + jQuery( this ).attr( 'data-type' ) + '%';
+		importContent.focus().val( importContent.val() + '\r\n' + keyword );
 	}
-	importContent.focus().val( importContent.val() + '\r\n' + keyword );
 };
 
 window.eoxiaJS.taskManager.import.tagKeywordToTextarea = function( element, importContent ){
 	var content = importContent.val();
 	var tag_content = jQuery( element ).closest( '.tm-import-add-keyword' ).find( 'select option:selected' ).val();
-	console.log( '-----' );
-	console.log( tag_content );
 
 	if( tag_content === undefined ){
 		tag_content = "";
 	}
-	console.log( tag_content );
-	console.log( '-----' );
 	return keyword  = '%category%' + tag_content;
 }
 
@@ -104,7 +106,7 @@ window.eoxiaJS.taskManager.import.updateCategoryNotFound = function( event ){
 		var data         = {};
 		data.action         = 'category_not_found_so_create_it';
 		data.task_id        = element_parent.attr( 'data-taskid' ); //
-		data.category_name  = element_parent.attr( 'data-tagname' );;
+		data.category_name  = element_parent.attr( 'data-tagname' );
 
 		window.eoxiaJS.loader.display( jQuery( this ) );
 		window.eoxiaJS.request.send( jQuery( this ), data );
@@ -129,4 +131,60 @@ window.eoxiaJS.taskManager.import.update_footer_task_category = function( elemen
 window.eoxiaJS.taskManager.import.hideThisWpeoNotice = function( event ){
 	var element_parent = jQuery( this ).closest( '.wpeo-notice' );
 	element_parent.hide( 500 );
+}
+
+window.eoxiaJS.taskManager.import.buttonLinkExternalText = function( element, importContent ){
+
+	if( element.closest( '.tm-import-add-keyword' ).find( '.tm-info-import-link input' ).attr( 'data-import' ) == "true" ){
+		//send request
+		var data         = {};
+		data.action  = 'get_text_from_url';
+		data.content = element.closest( '.tm-import-add-keyword' ).find( '.tm-info-import-link input' ).val(); // On recupere le contenu
+
+		window.eoxiaJS.loader.display( element );
+		window.eoxiaJS.request.send( element, data );
+	}else{
+		if( element.attr( 'data-link' ) == "no"){
+			element.find( '.tm_save_backup' ).val( importContent.val() ); // On recupere le contenu
+
+			var next_step = 'yes';
+			element.removeClass( 'button-grey' ).addClass( 'button-green' );
+			element.closest( '.tm-import-add-keyword' ).find( '.tm-info-import-link' ).show( '200' );
+		}else{
+			importContent.focus().val( element.find( '.tm_save_backup' ).val() );
+
+			var next_step = 'no';
+			element.removeClass( 'button-green' ).addClass( 'button-grey' );
+			element.closest( '.tm-import-add-keyword' ).find( '.tm-info-import-link' ).hide( '200' );
+		}
+
+		element.attr( 'data-link', next_step );
+		element.find( '.tm_link_external' ).val( next_step );
+	}
+}
+
+
+
+window.eoxiaJS.taskManager.import.updateImportTextFromUrl = function( event ){
+	if( jQuery( this ).val().trim() != "" ){
+		jQuery( this ).closest( '.tm-import-add-keyword' ).find( '.tm-icon-import-from-url' ).removeClass( 'fa-link' ).addClass( 'fa-file-import' );
+		jQuery( this ).attr( 'data-import', "true" );
+	}else{
+		jQuery( this ).closest( '.tm-import-add-keyword' ).find( '.tm-icon-import-from-url' ).removeClass( 'fa-file-import' ).addClass( 'fa-link' );
+		jQuery( this ).attr( 'data-import', "false" );
+	}
+}
+
+window.eoxiaJS.taskManager.import.get_content_from_url_to_import_textarea = function( element, response ){
+	if( response.data.error == "" ){
+		element.closest( '.tm-import-tasks.modal-active' ).find( 'textarea' ).val( response.data.content );
+	}
+
+	element.closest( '.tm-import-add-keyword' ).find( '.tm-info-import-link input' ).val( '' );
+
+	element.removeClass( 'button-green' ).addClass( 'button-grey' );
+	element.closest( '.tm-import-add-keyword' ).find( '.tm-info-import-link' ).hide( '200' );
+
+	element.attr( 'data-link', "no" );
+	element.find( '.tm_link_external' ).val( "no" );
 }

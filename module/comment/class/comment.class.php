@@ -105,7 +105,9 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 	public function display( $task_id, $point_id, $frontend = false, $args = array() ) {
 		$comment_id = ! empty( $_GET['comment_id'] ) ? (int) $_GET['comment_id'] : 0;
 
-		$number_comments = self::g()->get_comments( $point_id, array( 'count' => true ) );
+		// $number_comments = self::g()->get_comments( $point_id, array( 'count' => true ) ); // 28/06/2019
+		$number_comments = count( self::g()->get( array( 'parent' => $point_id ) ) );
+
 		$count_comments = 0;
 		if( $number_comments > 0 ){
 			$count_comments = intval( $number_comments / 10 );

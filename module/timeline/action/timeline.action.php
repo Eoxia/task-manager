@@ -42,7 +42,7 @@ class Timeline_Action {
 		if ( !current_user_can( 'edit_user', $user_id ) )
 			return false;
 
-		update_usermeta( $user_id, 'working_time', taskmanager\util\wpeo_util::convert_to_minut( $_POST['working_time'] ) );
+		update_user_meta( $user_id, 'working_time', taskmanager\util\wpeo_util::convert_to_minut( $_POST['working_time'] ) );
 	}
 
 	/**

@@ -47,10 +47,6 @@ class Handle_Value_Filter {
 
 			// Construction du champs date pour le retourner dans l'objet en construction. On ne le construit que si la méthode HTTP actuelle "$req_method" est définie dans le model.
 			if ( isset( $field_def['context'] ) && in_array( $req_method, $field_def['context'], true ) ) {
-				if ( is_array( $value ) ) {
-					return $value;
-				}
-
 				$value = array(
 					'raw'      => $value,
 					'rendered' => Date_Util::g()->fill_date( $value ),

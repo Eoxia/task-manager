@@ -196,6 +196,7 @@ class Point_Class extends \eoxia\Comment_Class {
 		}
 
 		$point = $this->update( $point->data );
+
 		Task_Class::g()->update( $task->data );
 
 		do_action( 'tm_complete_point', $point );
@@ -217,8 +218,7 @@ class Point_Class extends \eoxia\Comment_Class {
 	 * @return Point_Model Les données du point.
 	 */
 	public function edit_point( $point_id, $parent_id, $content, $completed ) {
-		$content = str_replace( '<div>', '<br>', trim( $content ) );
-		$content = wp_kses(
+		/*$content = wp_kses(
 			$content,
 			array(
 				'br'      => array(),
@@ -226,7 +226,8 @@ class Point_Class extends \eoxia\Comment_Class {
 					'class' => array(),
 				),
 			)
-		);
+		);*/
+
 
 		if ( empty( $parent_id ) ) {
 			wp_send_json_error();

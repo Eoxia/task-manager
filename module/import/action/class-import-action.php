@@ -28,6 +28,10 @@ class Import_Action {
 
 		add_action( 'wp_ajax_tm_import_tasks_and_points', array( $this, 'cb_tm_import_tasks_and_points' ) );
 		add_action( 'wp_ajax_category_not_found_so_create_it', array( $this, 'cb_category_not_found_so_create_it' ) );
+
+		add_action( 'wp_ajax_get_text_from_url', array( $this, 'callback_get_text_from_url' ) );
+
+
 	}
 
 	/**
@@ -179,13 +183,36 @@ class Import_Action {
 
 		$footer_task = ob_get_clean();
 
-		wp_send_json_success( 
+		wp_send_json_success(
 			array(
 				'namespace'        => 'taskManager',
 				'module'           => 'import',
 				'callback_success' => 'update_footer_task_category',
 				'footertask'       => $footer_task,
 				'taskid'           => $task_id
+			)
+		);
+	}
+
+	public function callback_get_text_from_url(){
+		$link = ! empty( $_POST ) && ! empty( $_POST['content'] ) ? trim( $_POST['content'] ) : null;
+		$data = "";
+		$error = "";
+
+		if( $link ){
+			$data = file_get_contents( $link );
+		}else{
+			$error = "true";
+		}
+
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'import',
+				'callback_success' => 'get_content_from_url_to_import_textarea',
+				'content'          => $data,
+				'error'            => $error,
+				'link'             => $link
 			)
 		);
 	}

@@ -63,17 +63,21 @@ if ( ! class_exists( '\eoxia\User_Model' ) ) {
 				'field'    => 'user_email',
 				'required' => true,
 				'default'  => '',
+				'show_in_rest' => false,
+
 			);
 
 			$this->schema['login'] = array(
-				'type'     => 'string',
-				'field'    => 'user_login',
-				'required' => true,
+				'type'         => 'string',
+				'field'        => 'user_login',
+				'required'     => true,
+				'show_in_rest' => false,
 			);
 
 			$this->schema['password'] = array(
-				'type'  => 'string',
-				'field' => 'user_pass',
+				'type'         => 'string',
+				'field'        => 'user_pass',
+				'show_in_rest' => false,
 			);
 
 			$this->schema['displayname'] = array(
@@ -108,17 +112,21 @@ if ( ! class_exists( '\eoxia\User_Model' ) ) {
 			);
 
 			$this->schema['firstname'] = array(
-				'type'      => 'string',
-				'meta_type' => 'single',
-				'field'     => 'first_name',
-				'default'   => '',
+				'type'         => 'string',
+				'meta_type'    => 'single',
+				'field'        => 'first_name',
+				'default'      => '',
+				'show_in_rest' => false,
+
 			);
 
 			$this->schema['lastname'] = array(
-				'type'      => 'string',
-				'meta_type' => 'single',
-				'field'     => 'last_name',
-				'default'   => '',
+				'type'         => 'string',
+				'meta_type'    => 'single',
+				'field'        => 'last_name',
+				'default'      => '',
+				'show_in_rest' => false,
+
 			);
 
 			parent::__construct( $data, $req_method );

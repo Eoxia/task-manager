@@ -365,7 +365,6 @@ class Indicator_Class extends \eoxia\Singleton_Util {
 		if( $reload ){
 			return $customers;
 		}
-
 		\eoxia\View_Util::exec(
 			'task-manager',
 			'indicator',

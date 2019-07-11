@@ -38,6 +38,21 @@ class Follower_Action {
 
 		add_action( 'wp_ajax_deleteplan', array( $this, 'callback_delete_plan' ) );
 
+		add_action( 'wp_ajax_add_element_to_planning_user', array( $this, 'callback_add_element_to_planning_user' ) );
+
+		add_action( 'wp_ajax_delete_element_from_planning_user', array( $this, 'callback_delete_element_from_planning_user' ) );
+
+		add_action( 'wp_ajax_applicate_same_planning_for_another_days', array( $this, 'callback_applicate_same_planning_for_another_days' ) );
+
+		add_action( 'wp_ajax_display_contract_planning', array( $this, 'callback_display_contract_planning' ) );
+
+		add_action( 'wp_ajax_create_new_contract', array( $this, 'callback_create_new_contract' ) );
+
+		add_action( 'wp_ajax_display_new_contract_view', array( $this, 'callback_display_new_contract_view' ) );
+
+		add_action( 'wp_ajax_delete_this_contract', array( $this, 'callback_delete_this_contract' ) );
+
+
 	}
 
 	/**
@@ -264,24 +279,6 @@ class Follower_Action {
 			true
 		);
 
-		$data_planning = array();
-		$datebefore    = '';
-
-		$data_planning_array = get_user_meta( $user->data['id'], '_tm_planning_users', true );
-		if ( ! empty( $data_planning_array ) ) {
-
-			$data_planning = $data_planning_array[0];
-
-			foreach ( $data_planning_array as $key => $value ) {
-				if ( '' != $datebefore ) {
-					$data_planning_array[ $key ]['lastdate'] = $datebefore;
-				}
-				$datebefore = $value['date_en'];
-			}
-
-			// $data_planning_array[0] = array_reverse( $data_planning_array[0] ); // pour afficher du plus récent au plus ancien
-		}
-
 		\eoxia\View_Util::exec(
 			'task-manager',
 			'follower',
@@ -291,37 +288,15 @@ class Follower_Action {
 			)
 		);
 
-		$archive_user_array = Follower_Class::g()->get_User_Archive( $user['data']['id'] );
-
-		$current_time    = current_time( 'd/m/Y' );
-		$current_time_en = current_time( 'Y-m-d' );
-
-		if ( empty( $data_planning ) ) {
-			$data_planning['minutary_duration'] = array(
-				'Monday'    => '0',
-				'Tuesday'   => '0',
-				'Wednesday' => '0',
-				'Thursday'  => '0',
-				'Friday'    => '0',
-				'Saturday'  => '0',
-				'Sunday'    => '0',
-			);
-
-			$data_planning['date'] = '';
-		}
+		$contracts = get_user_meta( $user->data['id'], '_tm_planning_users_contract', true );
+		$contracts = ! empty( $contracts ) ? Follower_Class::g()->array_sort( $contracts, 'start_date' ) : array();
 
 		\eoxia\View_Util::exec(
 			'task-manager',
 			'follower',
-			'backend/user-profile-planning',
+			'backend/indicator-table/user-profile-planning',
 			array(
-				'data'          => $data_planning['minutary_duration'],
-				'last_update'   => $data_planning['date'],
-				'data_planning' => $data_planning_array,
-				'time'          => $current_time,
-				'time_en'       => $current_time_en,
-				'id'            => $user['data']['id'],
-				'list_archive'  => $archive_user_array,
+				'contracts' => $contracts,
 			)
 		);
 	}
@@ -336,7 +311,6 @@ class Follower_Action {
 	 * @since 1.9.0 - BETA
 	 */
 	public function callback_user_profile_edit( $user_id ) {
-
 		check_admin_referer( 'update-user_' . $user_id );
 		if ( ! current_user_can( 'edit_user', $user_id ) ) {
 			return false;
@@ -353,106 +327,278 @@ class Follower_Action {
 		update_user_meta( $user_id, '_tm_advanced_display', $user['_tm_advanced_display'] );
 		update_user_meta( $user_id, '_tm_quick_point', $user['_tm_quick_point'] );
 		update_user_meta( $user_id, '_tm_display_indicator', $user['_tm_display_indicator'] );
-
-		$planning        = array();
-		$planning['mon'] = ! empty( $_POST['_tm_planning_monday'] ) ? (int) $_POST['_tm_planning_monday'] : 0;
-		$planning['tue'] = ! empty( $_POST['_tm_planning_tuesday'] ) ? (int) $_POST['_tm_planning_tuesday'] : 0;
-		$planning['wed'] = ! empty( $_POST['_tm_planning_wednesday'] ) ? (int) $_POST['_tm_planning_wednesday'] : 0;
-		$planning['thu'] = ! empty( $_POST['_tm_planning_thursday'] ) ? (int) $_POST['_tm_planning_thursday'] : 0;
-		$planning['fri'] = ! empty( $_POST['_tm_planning_friday'] ) ? (int) $_POST['_tm_planning_friday'] : 0;
-		$planning['sat'] = ! empty( $_POST['_tm_planning_saturday'] ) ? (int) $_POST['_tm_planning_saturday'] : 0;
-		$planning['sun'] = ! empty( $_POST['_tm_planning_sunday'] ) ? (int) $_POST['_tm_planning_sunday'] : 0;
-
-		$date = ! empty( $_POST['_tm_planning_date'] ) ? $_POST['_tm_planning_date'] : current_time( 'Y-m-d' );
-
-		if ( strtotime( $date ) > strtotime( 'now' ) ) {
-			$date = current_time( 'Y-m-d' );
-		}
-
-		$planning_update = Follower_Class::g()->update_planning( $user, $planning, $date );
 	}
 
-	/**
-	 * Cette fonction supprime une ligne du Planning
-	 * et en parallèle lance deux fonctions dans la class
-	 * => Supprime toutes les tables de planning liés à l'utilisateurs
-	 * => Les régénère une par une
-	 *
-	 * $_POST[ $posarray ] => Position de la ligne à supprimer
-	 * $_POST[ $id ] => Id de l'utilisateur actuel
-	 *
-	 * @return void
-	 *
-	 * @since 1.9.0 - BETA
-	 */
-	public function callback_delete_plan() {
-		check_ajax_referer( 'deleteplan' );
+	public function callback_add_element_to_planning_user(){
+		/*check_ajax_referer( 'add_element_to_planning_user' );
 
-		$posarray = ! empty( $_POST['posarray'] ) ? (int) $_POST['posarray'] : -1;
-		$id       = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : -1;
+		$name      = ! empty( $_POST['name'] ) ? sanitize_text_field( $_POST['name'] ) : '';
+		$day       = ! empty( $_POST['day'] ) ? sanitize_text_field( $_POST['day'] ) : '';
+		$period    = ! empty( $_POST['period'] ) ? sanitize_text_field( $_POST['period'] ) : '';
+		$work_from = ! empty( $_POST['work_from'] ) ? sanitize_text_field( $_POST['work_from'] ) : '';
+		$work_to   = ! empty( $_POST['work_to'] ) ? sanitize_text_field( $_POST['work_to'] ) : '';
+		$day_start = ! empty( $_POST['day_start'] ) ? strtotime( $_POST['day_start'] ) : strtotime( 'now' );
 
-		if ( -1 == $posarray || -1 == $id ) {
+		if( ! $name || ! $day || ! $period || ! $work_from || ! $work_to ){
 			wp_send_json_error();
-			return;
-		} else {
-			$posarray -= 1;
 		}
 
-		$data_planning_old = get_user_meta( $id, '_tm_planning_users', true );
-		$data_planning     = $data_planning_old;
+		$planning = array(
+			'name'      => $name,
+			'day_name'  => $day,
+			'period'    => $period,
+			'work_from' => $work_from,
+			'work_to'   => $work_to,
+			'day_start' => $day_start,
+			'status'    => 'publish'
+		);*/
 
-		$planning_lignedelete = $data_planning[ $posarray ];
+		$day_trad = Follower_Class::g()->tradThisDay( $day );
+		$period_trad = Follower_Class::g()->tradThisPeriod( $period );
+		$status = $name . ' : ' . $day_trad . ' ' . $period_trad . ' => ' . $work_from . '-' . $work_to;
 
-		array_splice( $data_planning, $posarray, 1 );
+		$planning_user = Follower_Class::g()->update_planning_user( $planning ); // Update les valeurs dans la db
+		$view = Follower_Class::g()->display_indicator_table( $planning_user ); // Return la vue du tableau
 
-		$planning_lignedelete['day_delete_en'] = current_time( 'Y-m-d' );
-		$planning_lignedelete['day_delete']    = current_time( 'd/m/Y' );
+		$return = Follower_Class::g()->filter_planning_to_rerun( $planning_user, $period );
+		$view_rerun = '';
 
-		update_user_meta( $id, '_tm_planning_users', $data_planning );
-
-		$planning_archive = [];
-
-		if ( get_user_meta( $id, '_tm_planning_archives' ) != null && get_user_meta( $id, '_tm_planning_archives' ) != '' ) {
-			$planning_archive = get_user_meta( $id, '_tm_planning_archives', true );
+		if( $return[ 'valid_day' ] ){
+			$planning_valid_to_rerun = $return[ 'planning' ];
+			$view_rerun = Follower_Class::g()->display_indicator_indicator_to_rerun( $planning_valid_to_rerun, $planning );
 		}
-
-		array_push( $planning_archive, $planning_lignedelete );
-
-		update_user_meta( $id, '_tm_planning_archives', $planning_archive );
-
-		Follower_Class::g()->delete_all_db_planning( $id, $data_planning_old );
-		Follower_Class::g()->create_all_db_planning( $id, $data_planning );
-
-		$archive_user_array = Follower_Class::g()->get_User_Archive( $id );
-
-		ob_start();
-
-		$current_time    = current_time( 'd/m/Y' );
-		$current_time_en = current_time( 'Y-m-d' );
-
-		\eoxia\View_Util::exec(
-			'task-manager',
-			'follower',
-			'backend/user-profile-planning',
-			array(
-				'data'          => $data_planning[0]['minutary_duration'],
-				'last_update'   => $data_planning[0]['date'],
-				'data_planning' => $data_planning,
-				'time'          => $current_time,
-				'time_en'       => $current_time_en,
-				'id'            => $id,
-				'list_archive'  => $archive_user_array,
-			)
-		);
-
-		$ob_get_clean = ob_get_clean();
 
 		wp_send_json_success(
 			array(
 				'namespace'        => 'taskManager',
 				'module'           => 'follower',
-				'callback_success' => 'reloadPlanningUser',
-				'view'             => $ob_get_clean,
+				'callback_success' => 'reloadPlanningUserIndicator',
+				'view'             => $view,
+				'view_rerun'       => $view_rerun,
+				// 'action_status'    => $status,
+				'action_type'      => 'add',
+				'action_text'      => $status
+				// 'action_text'      => __( 'Element add !', 'task-manager')
+			)
+		);
+	}
+
+
+	public function callback_delete_element_from_planning_user(){
+		/*check_ajax_referer( 'delete_element_from_planning_user' );
+		$period    = ! empty( $_POST['period'] ) ? sanitize_text_field( $_POST['period'] ) : '';
+		$day       = ! empty( $_POST['day'] ) ? sanitize_text_field( $_POST['day'] ) : '';
+
+		$planning = Follower_Class::g()->delete_row_planning_user( $day, $period );
+		$view     = Follower_Class::g()->display_indicator_table( $planning );
+
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'follower',
+				'callback_success' => 'reloadPlanningUserIndicator',
+				'view'             => $view,
+				'action_type'      => 'delete',
+				'action_text'      => __( 'Element delete !', 'task-manager'),
+			)
+		);*/
+	}
+
+	public function callback_applicate_same_planning_for_another_days(){
+		/*check_ajax_referer( 'applicate_same_planning_for_another_days' );
+		$name      = ! empty( $_POST['name'] ) ? sanitize_text_field( $_POST['name'] ) : '';
+		$period    = ! empty( $_POST['period'] ) ? sanitize_text_field( $_POST['period'] ) : '';
+		$work_from = ! empty( $_POST['work_from'] ) ? sanitize_text_field( $_POST['work_from'] ) : '';
+		$work_to   = ! empty( $_POST['work_to'] ) ? sanitize_text_field( $_POST['work_to'] ) : '';
+		$day_start = ! empty( $_POST['day_start'] ) ? (int) $_POST['day_start'] : strtotime( 'now' );
+		$days = ! empty( $_POST['day'] ) ? (array) $_POST['day'] : array();
+
+		if( ! $name || empty( $days ) || ! $period || ! $work_from || ! $work_to  ){
+			wp_send_json_error();
+		}
+
+		$list_day = "";
+		foreach( $days as $key => $day ){
+			if( isset( $days[ $key + 1 ] ) ){
+				$list_day .= Follower_Class::g()->tradThisDay( $day ) . ', ';
+			}else{
+				$list_day .= Follower_Class::g()->tradThisDay( $day );
+			}
+			$planning = array(
+				'name'      => $name,
+				'day_name'  => $day,
+				'period'    => $period,
+				'work_from' => $work_from,
+				'work_to'   => $work_to,
+				'day_start' => $day_start,
+				'status'    => 'publish'
+			);
+
+			$planning_user = Follower_Class::g()->update_planning_user( $planning ); // Update les valeurs dans la db
+		}
+
+		$user_id = get_current_user_id();
+		$planning_user = get_user_meta( $user_id, '_tm_planning_users_indicator', true );
+		$view = Follower_Class::g()->display_indicator_table( $planning_user ); // Return la vue du tableau
+
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'follower',
+				'callback_success' => 'reloadPlanningUserIndicator',
+				'view'             => $view,
+				'view_rerun'       => '',
+				'action_type'      => 'add',
+				'action_text'      => __( 'These elements were adjusted', 'task-manager') . ' : ' . $list_day
+			)
+		);*/
+	}
+
+	public function callback_display_contract_planning(){
+		check_ajax_referer( 'display_contract_planning' );
+		$user_id = get_current_user_id();
+
+		$id = ! empty( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : -1;
+		//$edit = ! empty( $_POST[ 'edit' ] ) ? true : false;
+		$edit = false;
+
+		$contracts = get_user_meta( $user_id, '_tm_planning_users_contract', true );
+		$contracts = ! empty( $contracts ) ? $contracts : array();
+
+		if( $id < 0 ){
+			$contract = Follower_Class::g()->define_schema_new_contract( count( $contracts ) );
+			$planning = Follower_Class::g()->define_schema_new_contract_planning();
+			$edit = true;
+		}else{
+			$key = $id - 1;
+			if( isset( $contracts[ $key ] ) ){
+				$planning_db = get_user_meta( $user_id, '_tm_planning_users_indicator', true );
+
+				$contract = $contracts[ $key ];
+				$planning = $planning_db[ $key ][ 'planning' ];
+			}else{
+				wp_send_json_error( 'Error db' );
+			}
+		}
+
+		$periods = array( 'morning', 'afternoon' );
+
+		ob_start();
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'follower',
+			'backend/indicator-table/user-add-contract',
+			array(
+				'contract'  => $contract,
+				'planning'  => $planning,
+				'periods'   => $periods,
+				'edit'      => $edit
+			)
+		);
+
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'follower',
+				'callback_success' => 'reloadViewProfileContract',
+				'view'             => ob_get_clean()
+			)
+		);
+
+	}
+
+	public function callback_create_new_contract(){
+		check_ajax_referer( 'create_new_contract' );
+		$title         = ! empty( $_POST[ 'title' ] ) ? sanitize_text_field( $_POST[ 'title' ] ) : '';
+		$start_date    = ! empty( $_POST[ 'start_date' ] ) ? strtotime( $_POST[ 'start_date' ] ) : strtotime( '-1 year' );
+		$end_date_type = ! empty( $_POST[ 'date_end_type' ] ) ? sanitize_text_field( $_POST[ 'date_end_type' ] ) : 'actual';
+		$end_date      = ! empty( $_POST[ 'end_date' ] ) ? strtotime( $_POST[ 'end_date' ] ) : strtotime( 'now' );
+		$planning      = ! empty( $_POST[ 'planning' ] ) ? (array) $_POST[ 'planning' ] : array();
+		$id            = ! empty( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : -1;
+
+		$user_id = get_current_user_id();
+		$contracts = get_user_meta( $user_id, '_tm_planning_users_contract', true );
+		$contracts = ! empty( $contracts ) ? $contracts : array();
+		$return_request_ajax = array(	'success' => true );
+
+		if( isset( $contracts[ $id ] ) ){
+			// Impossible
+		}else{
+			$return_data = Follower_Class::g()->checkIfDateIsValid( $end_date_type, $start_date, $end_date, $contracts );
+			if( $return_data[ 'success' ] ){
+				$contracts = get_user_meta( $user_id, '_tm_planning_users_contract', true );
+				$contract = Follower_Class::g()->create_contract_info( $title, $start_date, $end_date_type, $end_date, count( $contracts ) + 1 );
+				array_push( $contracts, $contract );
+				$planning = Follower_Class::g()->create_contract_planning( $contract, $planning, $contract[ 'id' ] );
+			}else{
+				$return_request_ajax[ 'data' ] = $return_data;
+				$return_request_ajax[ 'success' ] = false;
+			}
+		}
+
+		if( $return_request_ajax[ 'success' ] ){
+
+			update_user_meta( $user_id, '_tm_planning_users_contract', $contracts );
+			$contracts = Follower_Class::g()->array_sort( $contracts, 'start_date' );
+
+			ob_start();
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'follower',
+				'backend/indicator-table/user-profile-planning',
+				array(
+					'contracts' => $contracts
+				)
+			);
+
+			$return_request_ajax[ 'js' ] = 'reloadViewProfilePlanning';
+			$return_request_ajax[ 'view' ] = ob_get_clean();
+		}else{
+			$return_request_ajax[ 'js' ] = 'reloadViewProfilePlanningError';
+		}
+
+
+
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'follower',
+				'callback_success' => $return_request_ajax[ 'js' ],
+				'info'             => $return_request_ajax
+			)
+		);
+	}
+
+	public function callback_delete_this_contract(){
+		check_ajax_referer( 'delete_this_contract' );
+		$id = ! empty( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : -1;
+
+		if( $id < 0 ){
+			wp_send_json_error( 'ID UNDEFINED' );
+		}
+
+		$user_id = get_current_user_id();
+		$contracts = get_user_meta( $user_id, '_tm_planning_users_contract', true );
+		$contracts[ $id - 1 ][ 'status' ] = 'delete';
+		update_user_meta( $user_id, '_tm_planning_users_contract', $contracts );
+
+		ob_start();
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'follower',
+			'backend/indicator-table/user-profile-planning',
+			array(
+				'contracts' => $contracts,
+			)
+		);
+
+
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'follower',
+				'callback_success' => 'reloadViewProfilePlanning',
+				'info'             => array( 'view' => ob_get_clean() )
 			)
 		);
 	}

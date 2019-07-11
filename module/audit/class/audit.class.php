@@ -95,23 +95,10 @@ class Audit_Class extends \eoxia\Post_Class {
 		$this->audit_create_indicator_javascript( $audits );
 	}
 
-	public function audit_task_link( $args ){
-
-		if( ! empty( $args) ){
-			$audits = Audit_Class::g()->get( $args );
-		}else{
-			return;
-		}
-
-		/*$temp_tasks = $tasks;
-		foreach( $tasks as $key => $task ){
-			if( empty( $task->data[ 'parent_id' ] ) || $task->data[ 'parent_id' ] == 0 ){
-				unset( $temp_tasks[$key] );
-			}
-		}*/
+	public function audit_task_link( $args = array() ){
+		$audits = Audit_Class::g()->get( $args );
 
 		foreach( $audits as $key_audit => $audit ){
-
 			$task_link = array();
 			$total_count_completed_points = 0;
 			$total_count_uncompleted_points = 0;
@@ -158,10 +145,12 @@ class Audit_Class extends \eoxia\Post_Class {
 
 	public function audit_create_indicator_javascript( $audits ){
 		// Foreach pas beau
-		foreach( $audits as $key => $value ){
-			if( ! empty( $value->data[ 'tasklink' ] ) ){
-				foreach( $value->data[ 'tasklink' ] as $key_ => $value_ ){
-					echo '<script>window.eoxiaJS.taskManager.audit.generateAuditIndicator(' . $value_[ 'task_id' ] . ',' . $value_[ 'count_completed_points' ] . ',' . $value_[ 'count_uncompleted_points' ] . ',' . $value->data[ 'id' ] . ',"' . $value_[ 'title' ] . '")</script>';
+		if( ! empty( $audits ) ){
+			foreach( $audits as $key => $value ){
+				if( ! empty( $value->data[ 'tasklink' ] ) ){
+					foreach( $value->data[ 'tasklink' ] as $key_ => $value_ ){
+						echo '<script>window.eoxiaJS.taskManager.audit.generateAuditIndicator(' . $value_[ 'task_id' ] . ',' . $value_[ 'count_completed_points' ] . ',' . $value_[ 'count_uncompleted_points' ] . ',' . $value->data[ 'id' ] . ',"' . $value_[ 'title' ] . '")</script>';
+					}
 				}
 			}
 		}
@@ -355,7 +344,6 @@ class Audit_Class extends \eoxia\Post_Class {
 	}
 
 	public function callable_audit_page(){
-
 		\eoxia\View_Util::exec(
 			'task-manager',
 			'audit',
@@ -366,16 +354,17 @@ class Audit_Class extends \eoxia\Post_Class {
 
 	public function callback_audit_list_metabox( $args = array(), $array = array(), $showedit = false ){
 		$audits = $this->audit_task_link( $args );
-
-		foreach( $audits as $key => $audit ){
-			if( $audit->data[ 'parent_id' ] ){
-				$query = new \WP_Query(
-					array(
-						'p' => $audit->data[ 'parent_id' ],
-						'post_type'   => 'wpshop_customers',
-					)
-				);
-				$audit->data[ 'parent_title' ] = $query->post->post_title;
+		if( ! empty( $audits ) ){
+			foreach( $audits as $key => $audit ){
+				if( $audit->data[ 'parent_id' ] ){
+					$query = new \WP_Query(
+						array(
+							'p' => $audit->data[ 'parent_id' ],
+							'post_type'   => 'wpshop_customers',
+						)
+					);
+					$audit->data[ 'parent_title' ] = $query->post->post_title;
+				}
 			}
 		}
 

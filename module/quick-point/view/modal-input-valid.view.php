@@ -15,8 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<span
-	class="action-input wpeo-button button-main button-disable"
+<span class="action-input wpeo-button button-main button-disable"
 	data-parent="wpeo-modal"
 	data-action="edit_point"
-	data-nonce="<?php echo esc_attr( wp_create_nonce( 'edit_point' ) ); ?>"><?php esc_html_e( 'Confirm', 'task-manager' ); ?></span>
+	data-nonce="<?php echo esc_attr( wp_create_nonce( 'edit_point' ) ); ?>"><?php esc_html_e( 'Confirm', 'task-manager' ); ?>
+</span>

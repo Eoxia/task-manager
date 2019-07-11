@@ -31,9 +31,9 @@ window.eoxiaJS.taskManager.task.event = function() {
 	jQuery( document ).on( 'click', '#tm_include_archive_client', window.eoxiaJS.taskManager.task.showArchiveClient );
 
 	jQuery( document ).on( 'click', '.tm_client_indicator_update', window.eoxiaJS.taskManager.audit.preventDefaultHeader );
-	jQuery( document ).on( 'click', '.tm_client_indicator_update_body table tbody .tm_client_indicator', window.eoxiaJS.taskManager.audit.openTaskRow );
+	jQuery( document ).on( 'click', '.tm_client_indicator_update_body table tbody .tm_client_indicator', window.eoxiaJS.taskManager.task.OpenTaskRow );
 
-	jQuery( document ).on( 'click', '.wpeo-pagination.pagination-task .pagination-element', window.eoxiaJS.taskManager.comment.paginationUpdateTasks );
+	jQuery( document ).on( 'click', '.wpeo-pagination.pagination-task .pagination-element', window.eoxiaJS.taskManager.task.paginationUpdateTasks );
 
 	jQuery( document ).on( 'click', '.add_parent_to_task', window.eoxiaJS.taskManager.task.displayInputTextParent );
 
@@ -293,7 +293,7 @@ window.eoxiaJS.taskManager.task.showArchiveClient = function( triggeredElement, 
 	window.eoxiaJS.request.send( jQuery( this ), data );
 }
 
-window.eoxiaJS.taskManager.audit.openTaskRow = function( event ){
+window.eoxiaJS.taskManager.task.OpenTaskRow = function( event ){
 	var select = jQuery( this );
 	var icondown = jQuery( this ).find( '.tag-title .fa-caret-down' );
 	var iconup = jQuery( this ).find( '.tag-title .fa-caret-right' );
@@ -311,7 +311,7 @@ window.eoxiaJS.taskManager.audit.openTaskRow = function( event ){
 	}
 }
 
-window.eoxiaJS.taskManager.comment.paginationUpdateTasks = function( event ) {
+window.eoxiaJS.taskManager.task.paginationUpdateTasks = function( event ) {
 	var data = {};
 
 	var pagination_parent = jQuery( this ).parent();
@@ -542,6 +542,10 @@ window.eoxiaJS.taskManager.task.activateButtonPlanning = function( event ){
 	jQuery( this ).closest( '.tm_indicator_updateprofile' ).find( '.button-add-row-plan .disabled' ).removeClass( 'disabled' );
 }
 
+window.eoxiaJS.taskManager.task.returnSuccessUpdateTaskPerPage = function( element, response ){
+	jQuery( '.pmg-sotut-container' ).append( '<p style="color:green">' + response.data.text_success + '</p>' );
+	window.location.reload();
+}
 
 
 //

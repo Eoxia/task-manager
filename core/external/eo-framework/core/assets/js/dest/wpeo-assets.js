@@ -339,6 +339,7 @@ if ( ! window.eoxiaJS.action ) {
 	window.eoxiaJS.action.execDelete = function( event ) {
 		var element = jQuery( this );
 		var doAction = true;
+		var loaderElement  = jQuery( this );
 
 		event.preventDefault();
 
@@ -352,10 +353,14 @@ if ( ! window.eoxiaJS.action ) {
 			doAction = false;
 		}
 
+		if ( element.attr( 'data-loader' ) ) {
+			loaderElement = element.closest( '.' + element.attr( 'data-loader' ) );
+		}
+
 		if ( doAction ) {
 			if ( window.confirm( element.attr( 'data-message-delete' ) ) ) {
 				element.get_data( function( data ) {
-					window.eoxiaJS.loader.display( element );
+					window.eoxiaJS.loader.display( loaderElement );
 					window.eoxiaJS.request.send( element, data );
 				} );
 			}
@@ -1423,7 +1428,7 @@ if ( ! window.eoxiaJS.modal  ) {
 		jQuery( document ).on( 'click', '.wpeo-modal-event', window.eoxiaJS.modal.open );
 		jQuery( document ).on( 'click', '.wpeo-modal .modal-container', window.eoxiaJS.modal.stopPropagation );
 		jQuery( document ).on( 'click', '.wpeo-modal .modal-close', window.eoxiaJS.modal.close );
-		// jQuery( document ).on( 'click', 'body', window.eoxiaJS.modal.close );
+		//  jQuery( document ).on( 'click', 'body', window.eoxiaJS.modal.close ); //09/07/2019
 		jQuery( document ).on( 'mousedown', '.modal-active:not(.modal-container)', window.eoxiaJS.modal.close );
 		jQuery( '#wpeo-task-metabox h2 span .wpeo-modal-event' ).click( window.eoxiaJS.modal.open );
 	};
@@ -1551,7 +1556,6 @@ if ( ! window.eoxiaJS.modal  ) {
 		event.stopPropagation();
 	};
 
-console.log( '-');
 	/**
 	 * [description]
 	 *
@@ -1564,7 +1568,6 @@ console.log( '-');
 		if( ! jQuery( event.target ).hasClass( "wpeo-modal" ) && event.type == "mousedown" ){ // Si le click se situe dans la modal
 			return;
 		}
-
 		jQuery( '.wpeo-modal.modal-active:last:not(.modal-force-display)' ).each( function() {
 			var popup = jQuery( this );
 			popup.removeClass( 'modal-active' );
@@ -1572,9 +1575,7 @@ console.log( '-');
 				setTimeout( function() {
 					popup.remove();
 				}, 200 );
-
 			}
-
 			popup.trigger( 'modal-closed', popup );
 		} );
 	};
@@ -2181,6 +2182,11 @@ if ( ! window.eoxiaJS.tooltip ) {
 			'top': top,
 			'left': left,
 			'opacity': 1
+		} );
+
+		jQuery( element ).on("remove", function() {
+			jQuery( jQuery( element )[0].tooltipElement ).remove();
+
 		} );
 	};
 

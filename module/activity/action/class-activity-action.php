@@ -313,6 +313,7 @@ class Activity_Action {
 		);
 
 		$view_button = ob_get_clean();
+
 		ob_start();
 
 		$datas = Activity_Class::g()->display_user_activity_by_date( $list_follower, $date_end, $date_start );

@@ -38,10 +38,17 @@ if ( ! class_exists( '\eoxia\Rest_Class' ) ) {
 		 *
 		 * @return string The rest api base for current element
 		 */
-		public function check_cap( $cap ) {
+		public function check_cap( $cap, $request ) {
+			$can = apply_filters( 'eo_model_check_cap', true, $request );
+
+			if ( ! $can ) {
+				return false;
+			}
+
 			if ( ( ! in_array( $_SERVER['REMOTE_ADDR'], Config_Util::$init['eo-framework']->wpeo_model->allowed_ip_for_unauthentified_access_rest, true ) ) && ! current_user_can( $this->capabilities[ 'get' ] ) ) {
 				return false;
 			}
+
 			return true;
 		}
 
@@ -76,15 +83,15 @@ if ( ! class_exists( '\eoxia\Rest_Class' ) ) {
 				array(
 					'methods'             => \WP_REST_Server::READABLE,
 					'callback'            => array( $this, 'get_from_parent' ),
-					'permission_callback' => function(){
-						return Rest_Class::g()->check_cap( 'get' );
+					'permission_callback' => function( $request ){
+						return Rest_Class::g()->check_cap( 'get', $request );
 					}
 				),
 				array(
 					'methods'             => \WP_REST_Server::CREATABLE,
 					'callback'            => array( $this, 'create_from_parent' ),
-					'permission_callback' => function(){
-						return Rest_Class::g()->check_cap( 'post' );
+					'permission_callback' => function( $request ){
+						return Rest_Class::g()->check_cap( 'post', $request );
 					}
 				),
 			), true );
@@ -93,15 +100,15 @@ if ( ! class_exists( '\eoxia\Rest_Class' ) ) {
 				array(
 					'method'              => \WP_REST_Server::READABLE,
 					'callback'            => array( $this, 'get_from_parent' ),
-					'permission_callback' => function(){
-						return Rest_Class::g()->check_cap( 'get' );
+					'permission_callback' => function( $request ){
+						return Rest_Class::g()->check_cap( 'get', $request );
 					},
 				),
 				array(
 					'methods'             => \WP_REST_Server::CREATABLE,
 					'callback'            => array( $this, 'create_from_parent' ),
-					'permission_callback' => function(){
-						return Rest_Class::g()->check_cap( 'put' );
+					'permission_callback' => function( $request ){
+						return Rest_Class::g()->check_cap( 'put', $request );
 					}
 				),
 			), true );
@@ -110,8 +117,8 @@ if ( ! class_exists( '\eoxia\Rest_Class' ) ) {
 				array(
 					'method'              => \WP_REST_Server::READABLE,
 					'callback'            => array( $this, 'get_parent_from_parent' ),
-					'permission_callback' => function(){
-						return Rest_Class::g()->check_cap( 'get' );
+					'permission_callback' => function( $request ){
+						return Rest_Class::g()->check_cap( $request, 'get' );
 					}
 				),
 			), true );
@@ -141,12 +148,32 @@ if ( ! class_exists( '\eoxia\Rest_Class' ) ) {
 			$elements = $this->get( $args, $single );
 			if ( ! empty( $elements ) ) {
 				if ( $single ) {
-					$list = $elements->data;
+					$list[] = $elements;
 				} else {
 					foreach ( $elements as $element ) {
-						$list[] = $element->data;
+						$list[] = $element;
 					}
 				}
+			}
+
+			$new_list = null;
+
+			if ( ! empty( $list ) ) {
+				foreach ( $list as $element ) {
+					if ( ! empty( $element->get_model() ) ) {
+						foreach ( $element->get_model() as $key => $model ) {
+							if ( isset( $element->data[ $key ] ) && ( isset( $model['show_in_rest'] ) && ! $model['show_in_rest'] ) ) {
+								unset( $element->data[ $key ] );
+							}
+						}
+					}
+
+					$new_list[] = $element->data;
+				}
+			}
+
+			if ( $single ) {
+				$list = $list[0];
 			}
 
 			return $list;

@@ -31,6 +31,6 @@ echo sprintf( esc_html__( 'You added the %1$s point #%2$d: %3$s', 'task-manager'
 <p>
 <?php
 /* translators: */
-echo sprintf( esc_html__( 'With the comment #%1$d: %2$s with the elapsed time: %3$d', 'task_manager' ), $comment->data['id'], $comment->data['content'], $comment->data['time_info']['elapsed'] );
+echo sprintf( esc_html__( 'With the comment #%1$d: %2$s with the elapsed time: %3$d minute(s)', 'task-manager' ), $comment->data['id'], $comment->data['content'], $comment->data['time_info']['elapsed'] );
 ?>
 </p>

@@ -60,6 +60,8 @@ class Task_Action {
 		add_action( 'wp_ajax_link_parent_to_task', array( $this, 'callback_link_parent_to_task' ) ); // TASK GET A PARENT !
 		add_action( 'wp_ajax_delink_parent_to_task', array( $this, 'callback_delink_parent_to_task' ) ); // TASK LEAVE HER PARENT !
 
+		add_action( 'wp_ajax_update_task_per_page_user', array( $this, 'callback_update_task_per_page_user' ) ); // TASK LEAVE HER PARENT !
+
 	}
 
 	/**
@@ -571,17 +573,18 @@ class Task_Action {
 			wp_send_json_error();
 		}
 
-		$next = ( $next - 1 ) > 0 ? ( $next - 1 ) * 5 : 0;
+		$post_page_per_client = Task_Class::g()->get_task_per_page_for_this_user( get_current_user_id() );
+		$next = ( $next - 1 ) > 0 ? ( $next - 1 ) * $post_page_per_client : 0;
 
 		if( $show_archive ){
 			$args_parameter = array(
-				'offset' => $next,
-				'status'      => 'archive'
+				'offset'      => $next,
+				'post_status' => 'publish,pending,draft,future,private,inherit,archive'
 			);
 		}else{
 			$args_parameter = array(
-				'offset' => $next,
-				'status'      => 'publish,pending,draft,future,private,inherit'
+				'offset'      => $next,
+				'post_status' => 'publish,pending,draft,future,private,inherit'
 			);
 		}
 
@@ -744,6 +747,33 @@ class Task_Action {
 			)
 		);
 
+	}
+
+	public function callback_update_task_per_page_user(){
+		$task_per_page = isset( $_POST[ 'task_page' ] ) ? (int) $_POST[ 'task_page' ] : 0;
+		if( ! $task_per_page ){
+			wp_send_json_error( __( 'Error in number task per page', 'task-manager' ) );
+		}
+
+		$data = array(
+			'value'         => $task_per_page,
+			'option_name'   => 'Number of task per page in client',
+			'modified_date' => strtotime( 'now' ),
+			'modified_date' => date( 'd/m/y', strtotime( 'now' ) )
+		);
+
+		$user_id = get_current_user_id();
+
+		update_user_meta( $user_id, '_tm_task_per_page', $data );
+
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'task',
+				'callback_success' => 'returnSuccessUpdateTaskPerPage',
+				'text_success'      => sprintf( __( 'Successfully update to %1$s tasks per page ', 'task-manager' ), $task_per_page )
+			)
+		);
 	}
 }
 

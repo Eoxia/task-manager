@@ -69,132 +69,123 @@ class Follower_Class extends \eoxia\User_Class {
 		}
 	}
 
-	/**
-	 * [update_planning description]
-	 *
-	 * @param  [type]   $user     [contient l'id du user : $user['id']].
-	 * @param  [object] $planning [planning de jour].
-	 * @param  [type]   $date_en [date au format Anglais].
-	 *
-	 * @return void
-	 *
-	 * @since 1.9.0 - BETA
-	 */
-	public function update_planning( $user, $planning, $date_en ) {
-
-		$date = date( 'd/m/Y', strtotime( $date_en ) );
-
-		foreach ( $planning as $key => $value ) { // @info On verifie que les journées soient OK
-			if ( 0 > $planning[ $key ] || 1440 < $planning[ $key ] ) { // @info Journée => 0-1440 minutes
-				$planning[ $key ] = 0;
-			}
-		}
-
-		$minuraty_duration = array(
-			'Monday'    => $planning['mon'],
-			'Tuesday'   => $planning['tue'],
-			'Wednesday' => $planning['wed'],
-			'Thursday'  => $planning['thu'],
-			'Friday'    => $planning['fri'],
-			'Saturday'  => $planning['sat'],
-			'Sunday'    => $planning['sun'],
+	public function create_planning_user_indicator_period( $day = 'monday', $type = 'morning' ){
+		return array(
+			'work_from'          => '',
+			'work_to'            => '',
 		);
+ 	}
 
-		$data_plan = get_user_meta( $user['id'], '_tm_planning_users', true );
-
-		if ( empty( $data_plan[0] ) ) {
-			$minuteupdate = false;
-			foreach ( $minuraty_duration as $key => $value ) {
-				if ( 0 != $value ) {
-					$minuteupdate = true;
-				}
-			}
-
-			if ( false == $minuteupdate ) {
-				return;
-			}
-
-			$this->callback_update_db_planning( $user['id'], 0, strtotime( $date_en ), 0, $minuraty_duration );
-
-			$data_plan = array(
-				array(
-					'date'              => $date,
-					'date_en'           => $date_en,
-					'minutary_duration' => $minuraty_duration,
-				),
-			);
-
-			$data_withnewdate = $data_plan;
-
-		} else {
-			$temp = count( $data_plan );
-			if ( $data_plan[0]['minutary_duration'] === $minuraty_duration ) { // @info on verifie si le changement actuel est différent du dernier
-				return;
-			}
-
-			$data_plan = $this->array_sort( $data_plan, 'date_en', SORT_DESC ); // @info Objet trié par 'date'
-
-			$date_update      = 0;
-			$data_withnewdate = [];
-			$date_pluspetite  = false;
-
-			$date_debut_str = 0; // @info Date de début -> Choisis par l'utilisateur
-			$date_duree_str = 0; // @info Date durée -> Date butoir - date de début = le nombre de jour à ajouté dans la db
-
-			$lastdate = '';
-
-			foreach ( $data_plan as $key => $value ) {
-
-				if ( strtotime( $value['date_en'] ) < strtotime( $date_en ) ) {
-
-					if ( '' == $lastdate ) { // @info Creation sur 5 ans
-						$date_duree_str = 0;
-					} else { // @info date butoir trouvé
-						$date_duree_str = strtotime( $lastdate ) - strtotime( $date_en );
-					}
-
-					$date_pluspetite = true;
-					$date_update     = $key;
-
-					break;
-				}
-
-				$date_duree_str = strtotime( $value['date_en'] ) - strtotime( $date_en );
-				$lastdate       = $value['date_en'];
-			}
-
-			$date_debut_str = strtotime( $date_en );
-
-			if ( ! $date_pluspetite ) {
-
-				foreach ( $data_plan as $key => $value ) {
-					array_push( $data_withnewdate, $value );
-				}
-
-					$temp_length                                 = count( $data_withnewdate );
-					$data_withnewdate[ $temp_length ]['date']    = $date;
-					$data_withnewdate[ $temp_length ]['date_en'] = $date_en;
-					$data_withnewdate[ $temp_length ]['minutary_duration'] = $minuraty_duration;
-
-			} else {
-
-				foreach ( $data_plan as $key => $value ) {
-					if ( $key == $date_update ) {
-						$temp_length                                 = count( $data_withnewdate );
-						$data_withnewdate[ $temp_length ]['date']    = $date;
-						$data_withnewdate[ $temp_length ]['date_en'] = $date_en;
-						$data_withnewdate[ $temp_length ]['minutary_duration'] = $minuraty_duration;
-					}
-					array_push( $data_withnewdate, $value );
-				}
-			}
-
-			$this->callback_update_db_planning( $user['id'], $data_withnewdate[ $date_update ]['minutary_duration'], $date_debut_str, $date_duree_str, $minuraty_duration );
-		}
-
-		update_user_meta( $user['id'], '_tm_planning_users', $data_withnewdate );
+	public function create_planning_user_indicator_day( $day = 'monday' ){
+		return array(
+			'morning'  => $this->create_planning_user_indicator_period( $day, 'morning' ),
+			'afternoon' => $this->create_planning_user_indicator_period( $day, 'afternoon' )
+		);
 	}
 
+	public function create_planning_user_indicator(){
+		return array(
+			'monday' => $this->create_planning_user_indicator_day( 'monday' ),
+			'tuesday' => $this->create_planning_user_indicator_day( 'tuesday' ),
+			'wednesday' => $this->create_planning_user_indicator_day( 'wednesday' ),
+			'thursday' => $this->create_planning_user_indicator_day( 'thursday' ),
+			'friday' => $this->create_planning_user_indicator_day( 'friday' ),
+			'saturday' => $this->create_planning_user_indicator_day( 'saturday' ),
+			'sunday' => $this->create_planning_user_indicator_day( 'sunday' )
+		);
+	}
+
+	public function update_planning_user( $planning ){
+		/*$user_id = get_current_user_id();
+		$planning_user = get_user_meta( $user_id, '_tm_planning_users_indicator', true );
+
+		if( empty( $planning_user ) ){
+			$planning_user = $this->create_planning_user_indicator( $user_id );
+		}
+
+		if( $planning_user[ $planning[ 'day_name' ] ][ $planning[ 'period' ] ][ 'status' ] == "publish" ){ // on sauvegarde
+			$planning_user = $this->delete_row_planning_user( $planning[ 'day_name' ], $planning[ 'period' ], "archive", $planning );
+		}
+
+		$data_day = wp_parse_args( $planning, $planning_user[ $planning[ 'day_name' ] ][ $planning[ 'period' ] ] );
+		$planning_user[ $planning[ 'day_name' ] ][ $planning[ 'period' ] ] = $data_day;
+
+		update_user_meta( $user_id, '_tm_planning_users_indicator', $planning_user );
+
+		return $planning_user;*/
+	}
+
+	public function display_indicator_table( $planning ){
+		ob_start();
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'follower',
+			'backend/indicator-table/user-profile-planning-only',
+			array(
+				'planning' => $planning
+			)
+		);
+
+		return ob_get_clean();
+	}
+
+	public function delete_row_planning_user( $day, $period, $type = "delete", $new_planning = array() ){
+		/*$user_id = get_current_user_id();
+		$planning = get_user_meta( $user_id, '_tm_planning_users_indicator', true );
+		$planning[ $day ][ $period ][ 'day_delete' ] = strtotime( 'now' );
+
+		$archive_planning = get_user_meta( $user_id, '_tm_planning_users_indicator_archive', true );
+		$archive_planning = ! empty( $archive_planning ) ? $archive_planning : array();
+		if( empty( $archive_planning[ $day ][ $period ] ) ){
+			$archive_planning[ $day ][ $period ] = array();
+		}
+		$planning[ $day ][ $period ][ 'status' ] = $type;
+		array_push( $archive_planning[ $day ][ $period ], $planning[ $day ][ $period ] );
+		update_user_meta( $user_id, '_tm_planning_users_indicator_archive', $archive_planning );
+
+		if( empty( $new_planning ) ){
+			$planning[ $day ][ $period ] = $this->create_planning_user_indicator_period( $day, $period ); // on vide le tableau
+		}else{
+			$planning[ $day ][ $period ] = $new_planning;
+		}
+		update_user_meta( $user_id, '_tm_planning_users_indicator', $planning );
+
+		return $planning;*/
+	}
+
+	public function filter_planning_to_rerun( $planning, $period ){
+		/*$planning_valid_to_rerun = array();
+		$valid_day = false;
+		foreach( $planning as $day_n => $day ){
+			$data = array(
+				'day'    => $day_n,
+				'period' => $period,
+				'valid'  => false
+			);
+			if( $day[ $period ][ 'status' ] != 'publish' && $day_n != "saturday" && $day_n != "sunday" ){
+				$data[ 'valid' ] = true;
+				$valid_day = true;
+			}
+			$planning_valid_to_rerun[] = $data;
+		}
+
+		return array( 'planning' => $planning_valid_to_rerun, 'valid_day' => $valid_day );*/
+	}
+
+	public function display_indicator_indicator_to_rerun( $planning_valid, $planning ){
+	/*	ob_start();
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'follower',
+			'backend/indicator-table/information-run-for-another-days',
+			array(
+				'planning_valid' => $planning_valid,
+				'planning'       => $planning
+			)
+		);
+		return ob_get_clean();*/
+	}
 
 	/**
 	 * Order by des tableaux de deux dimensions
@@ -243,210 +234,168 @@ class Follower_Class extends \eoxia\User_Class {
 		return $new_array;
 	}
 
-	/**
-	 * Return une date au format Y-m-d
-	 *
-	 * @param  [date] $start  [date de début].
-	 * @param  [date] $end    [date de fin].
-	 * @param  date   $format [date].
-	 *
-	 * @return [date]
-	 *
-	 * @since 1.9.0 - BETA
-	 */
-	function get_dates_from_range( $start, $end, $format = 'Y-m-d' ) {
-		return array_map(
-			function( $timestamp ) use ( $format ) {
-				return date( $format, $timestamp );
-			},
-			range( strtotime( $start ) + ( $start < $end ? 4000 : 8000 ), strtotime( $end ) + ( $start < $end ? 8000 : 4000 ), 86400 )
+	public function tradThisDay( $day = "monday" ){
+		$day_translate = '';
+		switch( $day ){
+			case 'tuesday':
+				$day_translate = __( 'Tuesday', 'task-manager' );
+				break;
+			case 'wednesday':
+				$day_translate = __( 'Wednesday', 'task-manager' );
+			break;
+			case 'thursday':
+				$day_translate = __( 'Thursday', 'task-manager' );
+			break;
+			case 'friday':
+				$day_translate = __( 'Friday', 'task-manager' );
+				break;
+			case 'saturday':
+				$day_translate = __( 'Saturday', 'task-manager' );
+				break;
+			case 'sunday':
+				$day_translate = __( 'Sunday', 'task-manager' );
+				break;
+			default:
+				$day_translate = __( 'Monday', 'task-manager' );
+				break;
+		}
+		return $day_translate;
+	}
+
+	public function tradThisPeriod( $period = "monday" ){
+		$period_translate = __( 'Afternoon', 'task-manager' );
+		if( $period == "morning" ){
+			$period_translate = __( 'Morning', 'task-manager' );
+		}
+		return $period_translate;
+	}
+
+	public function define_schema_new_contract_planning(){
+		$planning = $this->create_planning_user_indicator();
+
+		foreach( $planning as $key_d => $day ){
+			foreach( $day as $key_p => $period ){
+				if( $key_d == "sunday" || $key_d == "saturday" ){
+					continue;
+				}
+				if( $key_p == "morning" ){
+					$planning[ $key_d ][ $key_p ][ 'work_from' ] = "09:00";
+					$planning[ $key_d ][ $key_p ][ 'work_to' ] = "12:00";
+				}else{
+					$planning[ $key_d ][ $key_p ][ 'work_from' ] = "14:00";
+					$planning[ $key_d ][ $key_p ][ 'work_to' ] = "18:00";
+				}
+			}
+		}
+		return $planning;
+	}
+
+	public function define_schema_new_contract( $nbr_contracts ){
+		$contract = array(
+			'id'            => -1,
+			'title'         => sprintf( __( 'New contract (%1$s)', 'task-manager' ), $nbr_contracts + 1 ),
+			'start_date'    => strtotime( "-1 year" ),
+			'end_date'      => strtotime( "now" ),
+			'end_date_type' => 'actual',
+			'status'        => 'publish'
 		);
+		return $contract;
 	}
 
-	/**
-	 * Recupere le nombre jour entre deux dates
-	 * Cette function va servir a update les plannings des utilisateurs
-	 *
-	 * @param  [date] $debut    [date de debut].
-	 * @param  [int]  $duree    [strtotime de la durée : date_de_fin - date_de_debut].
-	 * @param  string $planning [planning utilisateur].
-	 *
-	 * @return object [liste des jours avec leur durée]
-	 *
-	 * @since 1.9.0 - BETA
-	 */
-	function get_all_day_between_two_dates( $debut, $duree, $planning = '' ) {
+	public function create_contract_info( $title = "", $start_date = 0, $end_date_type = "actual", $end_date = "", $id = 0 ){
 
-		$every_day_between_les_deux_dates = $this->get_dates_from_range( date( 'Y-m-d', $debut ), date( 'Y-m-d', $debut + $duree ) );
+		$contract = array(
+			'id'            => $id,
+			'title'         => $title,
+			'start_date'    => $start_date,
+			'end_date'      => $end_date,
+			'end_date_type' => $end_date_type,
+			'status'        => 'publish'
+		);
 
-		$full_data = [];
+		return $contract;
+	}
 
-		foreach ( $every_day_between_les_deux_dates as $key => $value ) {
+	public function create_contract_planning( $contract, $planning, $id_contract ){
+		$user_id = get_current_user_id();
+		$planning_db = get_user_meta( $user_id, '_tm_planning_users_indicator', true );
+		$planning_db = ! empty( $planning_db ) ? $planning_db : array();
 
-			$length = 0;
-			if ( ! empty( $full_data[ date( 'Y', strtotime( $value ) ) ][ date( 'm', strtotime( $value ) ) ] ) ) {
-				$length = count( $full_data[ date( 'Y', strtotime( $value ) ) ][ date( 'm', strtotime( $value ) ) ] );
+		$info = array(
+			'id' => $id_contract
+	 	);
+
+		$full_planning = array(
+			'info' => $info,
+			'planning' => $planning
+		);
+
+		array_push( $planning_db, $full_planning );
+		update_user_meta( $user_id, '_tm_planning_users_indicator', $planning_db );
+	}
+
+	public function checkIfDateIsValid( $end_date_type, $start_date, $end_date, $contracts ){
+		$return_data = array(
+			'success'       => false,
+			'error'         => '',
+			'start_date'    => $start_date,
+			'end_date'      => $end_date,
+			'end_date_type' => $end_date_type
+		);
+
+		if( $end_date_type == "sql" ){
+			if( $start_date > $end_date ){
+				$return_data[ 'error' ] = esc_html( '1. Start Date > End Date', 'task-manager' );
+				return $return_data;
 			}
-
-			$full_data[ date( 'Y', strtotime( $value ) ) ][ date( 'm', strtotime( $value ) ) ][ $length + 1 ] = array(
-				'date'    => $value,
-				'jour'    => date( 'D', strtotime( $value ) ),
-				'default' => $planning[ date( 'l', strtotime( $value ) ) ], // @info Valeur définis historique -> Jour / défaut
-				'absent'  => 0, // @info 0 || définis par l'utilisateur -> Absence
-				'holiday' => 0, // @info 0 || définis par l'utilisateur -> Vacance (Congés)
-				'seek'    => 0, // @info 0 || définis par l'utilisateur -> Malade
-				'free'    => 0, // @info 0 || définis par l'admin -> Fériés
-				'ticket'  => 0, // @info 0 || définis par l'utilisateur -> Tickets
-			);
-		}
-
-		return $full_data;
-	}
-
-	/**
-	 * Recupere le nouveau planning d'un utilisateur pour l'ajouter à la base de donnée
-	 *
-	 * @param  [int]    $id       [id de l'utilisateur].
-	 * @param  [object] $data     [données].
-	 * @param  [date]   $debut    [date de début].
-	 * @param  [int]    $duree    [duree de planning].
-	 * @param  [type]   $planning [liste des jours avec leur durée respective].
-	 *
-	 * @return void
-	 *
-	 * @since 1.9.0 - BETA
-	 */
-	public function callback_update_db_planning( $id, $data, $debut, $duree, $planning ) {
-		// @info Id utilisateur | date nouveau planning
-		if ( 0 == $duree ) { // @info Si la personne créait un nouvel emploi du temps => 5 ans
-			$duree = 31556925 * 5; // @info Année tropique * 5 Y
-		}
-
-		$all_day_object = $this->get_all_day_between_two_dates( $debut, $duree, $planning );
-
-		$premier_mois = false;
-
-		foreach ( $all_day_object as $keyyear => $year ) {
-			$dernier_mois['annee'] = $keyyear;
-			foreach ( $year as $keymonth => $months ) {
-				$dernier_mois['mois'] = $keymonth;
+		}else{
+			if( $start_date > strtotime( 'now' ) ){
+				$return_data[ 'error' ] = esc_html( '2. Start Date must be before actual time', 'task-manager' );
+				return $return_data;
 			}
 		}
 
-		foreach ( $all_day_object as $keyy => $years ) {
-			foreach ( $years as $keym => $month ) {
-				$db_planning_name_column = '_tm_planning_' . $keyy . '_' . $keym;
+		foreach( $contracts as $key => $contract ){
+			if( $contract[ 'status' ] == "delete" ){
+				continue;
+			}
 
-				if ( ! $premier_mois && get_user_meta( $id, $db_planning_name_column, true ) != null ) { // @info Si le premier mois est existant, on ne l'écrase pas entièrement, on récupere le début de mois
-
-					$premier_mois            = true; // @info Seulement pour le premier mois
-					$content_month_user_meta = get_user_meta( $id, $db_planning_name_column, true );
-					$plan_month              = $content_month_user_meta;
-
-					foreach ( $month as $key => $value ) { // @info On parcours le nouveau planning
-						foreach ( $content_month_user_meta as $keydb => $valuedb ) { // @info On parcours l'ancien planning
-							if ( $value['date'] == $valuedb['date'] ) { // @info Si on retrouve une date commune -> le nouvel emploi du temps l'ecrase
-								$plan_month[ $keydb ] = $value;
-								break;
-							}
-						}
+			$return_data[ 'contract_conflict' ] = $contract;
+			if( $end_date_type == "sql" ){
+				if( $start_date > $contract[ 'end_date' ] ){
+					continue;
+				}else if( $end_date < $contract[ 'start_date' ] ){
+					continue;
+				}else{
+					$return_data[ 'error' ] = sprintf( __( '3. Conflict with date of another plugin : (%1$s)', 'task-manager' ), $contract[ 'title' ] );
+					return $return_data;
+				}
+			}else{
+				if( $contract[ 'end_date_type' ] == "actual" ){
+					if( $start_date > $contract[ 'start_date' ] ){
+						$contracts[ $key ][ 'end_date_type' ] = "sql";
+						$contracts[ $key ][ 'end_date' ] = $start_date - 86400;
+						continue;
+					}else{
+						$return_data[ 'error' ] = sprintf( __( '4. Conflict with date of another plugin : (%1$s)', 'task-manager' ), $contract[ 'title' ] );
+						return $return_data;
 					}
-					update_user_meta( $id, $db_planning_name_column, $plan_month );
-				} elseif ( $keyy == $dernier_mois['annee'] && $keym == $dernier_mois['mois'] && get_user_meta( $id, $db_planning_name_column, true ) != null ) { // @info Dernier mois
-					$content_month_user_meta = get_user_meta( $id, $db_planning_name_column, true );
-					$plan_month              = $content_month_user_meta;
-
-					foreach ( $month as $key => $value ) { // @info On parcours le nouveau planning
-						foreach ( $content_month_user_meta as $keydb => $valuedb ) { // @info On parcours l'ancien planning
-							if ( $value['date'] == $valuedb['date'] ) { // @info Si on retrouve une date commune -> le nouvel emploi du temps l'ecrase
-								$plan_month[ $keydb ] = $value;
-								break;
-							}
-						}
-					}
-
-					update_user_meta( $id, $db_planning_name_column, $plan_month );
-				} else {
-					update_user_meta( $id, $db_planning_name_column, $month );
+				}else if( $contract[ 'end_date_type' ] == "sql" && $start_date > $contract[ 'end_date' ] ){
+					continue;
+				}else if( $contract[ 'end_date_type' ] == "sql" && $end_date < $contract[ 'start_date' ] ){
+					continue;
+				}else{
+					$return_data[ 'error' ] = sprintf( __( '5. Conflict with date of another plugin : (%1$s)', 'task-manager' ), $contract[ 'title' ] );
+					return $return_data;
 				}
 			}
 		}
-	}
+		$user_id = get_current_user_id();
 
-	/**
-	 * Supprime toute la base de donnée d'un itilisateur
-	 *
-	 * @param  [int]  $id       [Id de l'utilisateur].
-	 * @param  [type] $planning [Planning de l'utilisateur].
-	 *
-	 * @return void
-	 *
-	 * @since 1.9.0 - BETA
-	 */
-	public function delete_all_db_planning( $id, $planning ) {
+		update_user_meta( $user_id, '_tm_planning_users_contract', $contracts );
+		$return_data[ 'success' ] = true;
 
-		$date_fin_str   = strtotime( $planning[0]['date_en'] );
-		$date_debut_str = strtotime( $planning[ count( $planning ) - 1 ]['date_en'] );
-		$duree_str      = $date_fin_str - $date_debut_str + 31556925 * 5;
-
-		$all_day_object = $this->get_all_day_between_two_dates( $date_debut_str, $duree_str );
-
-		foreach ( $all_day_object as $keyy => $years ) {
-			foreach ( $years as $keym => $month ) {
-				$db_planning_name_column = '_tm_planning_' . $keyy . '_' . $keym;
-				if ( get_user_meta( $id, $db_planning_name_column, true ) != null ) {
-					delete_usermeta( $id, $db_planning_name_column );
-				}
-			}
-		}
-	}
-
-	/**
-	 * Creer le planning d'un utilisateur sur une période donnée
-	 *
-	 * @param  [type] $id       [id de l'utilisateur].
-	 * @param  [type] $planning [planning de l'utilisateur].
-	 *
-	 * @return void
-	 * @since 1.9.0 - BETA
-	 */
-	public function create_all_db_planning( $id, $planning ) {
-
-		if ( empty( $planning ) ) { // @info si il reste une seule ligne sur le planning -> planning vide -> rien à créer
-			return;
-		}
-
-		foreach ( $planning as $key => $ligne ) {
-			$date_debut_str    = strtotime( $ligne['date_en'] );
-			$minutary_duration = $ligne['minutary_duration'];
-
-			if ( 0 == $key ) {
-				$duree_str = 31556925 * 5;
-
-			} else {
-				$duree_str = $last_date_str - $date_debut_str;
-			}
-
-			$last_date_str = $date_debut_str;
-
-			$this->callback_update_db_planning( $id, 0, $date_debut_str, $duree_str, $minutary_duration );
-		}
-	}
-
-	/**
-	 * Récupère l'archive de l'utilisateur
-	 *
-	 * @param  [type] $id [id de l'utilisateur].
-	 *
-	 * @return data
-	 * @since 1.9.0 - BETA
-	 */
-	public function get_User_Archive( $id ) {
-		if ( get_user_meta( $id, '_tm_planning_archives' ) != null && get_user_meta( $id, '_tm_planning_archives' ) != '' ) {
-			return get_user_meta( $id, '_tm_planning_archives', true );
-		} else {
-			return '';
-		}
+		return $return_data;
 	}
 }
 

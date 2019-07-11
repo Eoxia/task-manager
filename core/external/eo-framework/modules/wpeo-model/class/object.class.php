@@ -130,6 +130,7 @@ if ( ! class_exists( '\eoxia\Object_Class' ) ) {
 		 * @return Object     L'objet avec toutes ses données.
 		 */
 		public function create( $data ) {
+			$data['id'] = ! empty( $data['id'] ) ? (int) $data['id'] : 0;
 			$object = $this->update( $data );
 
 			$parent_class = get_parent_class( $object );

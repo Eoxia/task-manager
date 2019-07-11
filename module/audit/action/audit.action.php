@@ -106,15 +106,7 @@ class Audit_Action {
 			'status' => 'trash',
 		));
 
-		$this->callback_reset_main_page( $parent_id, $parentpage );
-		/*wp_send_json_success(
-			array(
-				'namespace'        => 'taskManager',
-				'module'           => 'audit',
-				'callback_success' => 'deleteAudit',
-				'id'               => $audit_id
-			)
-		);*/
+		$this->callback_reset_main_page( $parent_id, 0 );
 	}
 
 	public function callback_edit_audit( $id = 0 ){
@@ -168,8 +160,7 @@ class Audit_Action {
 				'namespace'        => 'taskManager',
 				'module'           => 'audit',
 				'callback_success' => 'startNewAudit',
-				'view'             => ob_get_clean(),
-				'page'             => $page
+				'view'             => ob_get_clean()
 			)
 		);
 	}
@@ -389,7 +380,7 @@ class Audit_Action {
 						'task' => $task,
 					)
 				);
-				$view .= ob_get_clean();
+				$view = ob_get_clean();
 			}
 		}
 
@@ -550,14 +541,10 @@ class Audit_Action {
 		check_ajax_referer( 'create_audit' );
 		$id = isset( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : 0;
 
-		$args = array();
-
-		if( $id != 0 ){
-			$args = array(
-				'parent_id' => $id,
-				'status'    => 'inherit',
-			);
-		}
+		$args = array(
+			'parent_id' => $id,
+			'status'    => 'inherit',
+		);
 
 		$audit = Audit_Class::g()->create( $args );
 

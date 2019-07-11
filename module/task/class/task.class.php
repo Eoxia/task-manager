@@ -322,20 +322,21 @@ class Task_Class extends \eoxia\Post_Class {
 		$total_time_elapsed   = 0;
 		$total_time_estimated = 0;
 
-		$posts_per_page_task = 5; // Définis le nombre de tache / page (client)
+
+		$posts_per_page_task = self::g()->get_task_per_page_for_this_user( get_current_user_id() ); // Définis le nombre de tache / page (client)
 
 		// Affichage des tâches de l'élément sur lequel on se trouve.
 		$tasks[ $post_id ]['title'] = '';
 
 		$args = array(
 			'post_parent' => $post_id,
-			'status'      => 'publish,pending,draft,future,private,inherit'
+			'post_status' => 'publish,pending,draft,future,private,inherit'
 		);
 
 		if( empty( $args_parameter )  ){ // Par défaut on affiche 5 élements / page
 			$args_parameter = array(
 				'offset' => 0,
-				'status' => 'publish,pending,draft,future,private,inherit'
+				'post_status' => 'publish,pending,draft,future,private,inherit'
 			);
 		}
 
@@ -344,16 +345,17 @@ class Task_Class extends \eoxia\Post_Class {
 		// $tasks[ $post_id ]['data'] = self::g()->get_tasks( wp_parse_args( $args_parameter, $args ) ); // 27/06/2019
 		$tasks[ $post_id ]['data'] = Task_Class::g()->get( wp_parse_args( $args_parameter, $args ) );
 
-		$number_task = count( self::g()->get_tasks( array( 'status' => $args_parameter[ 'status' ], 'post_parent' => $post_id ) ) );
+		$temp_array = wp_parse_args( $args_parameter, $args );
+		$temp_array[ 'offset' ] = 0;
+		$temp_array[ 'posts_per_page' ] = -1;
 
-		// $number_task = count( self::g()->get_tasks( $args_parameter ) );
+		$number_task = count( Task_Class::g()->get( $temp_array ) );
 
-
-		$count_tasks = 0;
+		$count_pages = 0;
 		if( $number_task > 0 ){
-			$count_tasks = intval( $number_task / $posts_per_page_task );
+			$count_pages = intval( $number_task / $posts_per_page_task );
 			if( intval( $number_task % $posts_per_page_task ) > 0 ){
-				$count_tasks++;
+				$count_pages++;
 			}
 		}
 
@@ -392,7 +394,7 @@ class Task_Class extends \eoxia\Post_Class {
 				$tasks[ $child->ID ]['data']  = self::g()->get_tasks(
 					array(
 						'post_parent' => $child->ID,
-						'status'      => 'publish,pending,draft,future,private,inherit,archive',
+						'status'      => 'publish,pending,future,private,inherit,archive',
 					)
 				);
 
@@ -429,7 +431,7 @@ class Task_Class extends \eoxia\Post_Class {
 				'total_time_elapsed'   => $total_time_elapsed,
 				'total_time_estimated' => $total_time_estimated,
 				'offset'               => $offset,
-				'count_tasks'          => $count_tasks
+				'count_tasks'          => $count_pages
 			)
 		);
 	}
@@ -881,8 +883,6 @@ class Task_Class extends \eoxia\Post_Class {
 			$time_elapsed_categorie = 0;
 			$time_estimated_categorie = 0;
 
-	//		echo '<pre>'; print_r( $info ); echo '</pre>';
-//exit;
 			foreach( $category as $key_month => $month ){
 				$time_elapsed_month = 0;
 				$time_estimated_month = 0;
@@ -1078,6 +1078,17 @@ class Task_Class extends \eoxia\Post_Class {
 			WHERE TASK.post_type='wpeo-task' AND TASK.post_status IN('publish', 'inherit')", $type ) );
 
 		return $results;
+	}
+
+	public function get_task_per_page_for_this_user( $id ){
+		$data_plan = get_user_meta( $id, '_tm_task_per_page', true );
+		$default_value = \eoxia\Config_Util::$init['task-manager']->task->posts_per_page_client;
+
+		if( ! empty( $data_plan ) && $data_plan[ 'value' ] >= 2 ){
+			$default_value = $data_plan[ 'value' ];
+		}
+
+		return $default_value;
 	}
 }
 

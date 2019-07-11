@@ -38,20 +38,20 @@ class Task_Filter {
 
 		add_filter( 'tm_task_footer', array( $this, 'callback_tm_task_footer' ), 10, 2 );
 		add_filter( 'tm_task_client_archive', array( $this, 'callback_tm_task_client_archive' ), 10, 2 );
-		
+
 		add_filter( 'wps_third_party_metaboxes', function( $metaboxes ) {
 			$metaboxes['wps-third-party-tasks'] = array(
 				'callback' => 'metabox_tasks',
 			);
-			
+
 			$metaboxes['wps-third-party-indicator'] = array(
 				'callback' => 'metabox_indicator',
 			);
-			
+
 			$metaboxes['wps-third-party-activity'] = array(
 				'callback' => 'metabox_activity',
 			);
-			
+
 			return $metaboxes;
 		}, 10, 1 );
 	}
@@ -254,7 +254,7 @@ class Task_Filter {
 			);
 			$output .= ob_get_clean();
 		}else{
-			echo '<pre>'; print_r( $task->data[ 'id' ] ); echo '</pre>';
+			// echo '<pre>'; print_r( $task->data[ 'parent_id' ] ); echo '</pre>';
 		}
 
 		return $output;
