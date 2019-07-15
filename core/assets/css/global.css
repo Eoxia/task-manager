@@ -201,3 +201,7 @@ z-index: 26; }
 
     .wpeo-task-parent .tm-use-class-from-digirisk .cotation[data-scale="4"]:hover, .wpeo-task-parent .tm-use-class-from-digirisk .cotation.level4:hover {
       background: #171717; }
+
+    .planninguser .focus-element{
+      border : solid blue 2px;
+    }

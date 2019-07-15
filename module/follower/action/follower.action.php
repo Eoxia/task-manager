@@ -289,7 +289,11 @@ class Follower_Action {
 		);
 
 		$contracts = get_user_meta( $user->data['id'], '_tm_planning_users_contract', true );
-		$contracts = ! empty( $contracts ) ? Follower_Class::g()->array_sort( $contracts, 'start_date' ) : array();
+
+		$contracts = ! empty( $contracts ) ? Follower_Class::g()->array_sort( $contracts, 'start_date', SORT_DESC ) : array();
+
+		$contracts = Follower_Class::g()->addNumberOfDayBetweenStartAndEnd( $contracts );
+		$one_contract_is_valid = Follower_Class::g()->oneContractIsValid( $contracts );
 
 		\eoxia\View_Util::exec(
 			'task-manager',
@@ -297,6 +301,7 @@ class Follower_Action {
 			'backend/indicator-table/user-profile-planning',
 			array(
 				'contracts' => $contracts,
+				'one_contract_is_valid' => $one_contract_is_valid
 			)
 		);
 	}
@@ -460,7 +465,7 @@ class Follower_Action {
 
 		$id = ! empty( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : -1;
 		//$edit = ! empty( $_POST[ 'edit' ] ) ? true : false;
-		$edit = false;
+		$edit = true;
 
 		$contracts = get_user_meta( $user_id, '_tm_planning_users_contract', true );
 		$contracts = ! empty( $contracts ) ? $contracts : array();
@@ -468,7 +473,8 @@ class Follower_Action {
 		if( $id < 0 ){
 			$contract = Follower_Class::g()->define_schema_new_contract( count( $contracts ) );
 			$planning = Follower_Class::g()->define_schema_new_contract_planning();
-			$edit = true;
+
+			// $edit = true;
 		}else{
 			$key = $id - 1;
 			if( isset( $contracts[ $key ] ) ){
@@ -483,16 +489,22 @@ class Follower_Action {
 
 		$periods = array( 'morning', 'afternoon' );
 
+		$return_planning = Follower_Class::g()->durationPerDayPlanning( $planning );
+		$planning = $return_planning[ 'planning' ];
+
+		$days =  Follower_Class::g()->calculHourPerDayInPlanning( $planning, $return_planning[ 'duration_week' ] );
+
 		ob_start();
 		\eoxia\View_Util::exec(
 			'task-manager',
 			'follower',
 			'backend/indicator-table/user-add-contract',
 			array(
-				'contract'  => $contract,
-				'planning'  => $planning,
-				'periods'   => $periods,
-				'edit'      => $edit
+				'contract' => $contract,
+				'planning' => $planning,
+				'periods'  => $periods,
+				'edit'     => $edit,
+				'days'     => $days
 			)
 		);
 
@@ -516,20 +528,35 @@ class Follower_Action {
 		$planning      = ! empty( $_POST[ 'planning' ] ) ? (array) $_POST[ 'planning' ] : array();
 		$id            = ! empty( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : -1;
 
+		$return_planning = Follower_Class::g()->durationPerDayPlanning( $planning );
+		$planning = $return_planning[ 'planning' ];
+		$duration_week = round( $return_planning[ 'duration_week' ] / 60, 2 ); // Minute To hour
 		$user_id = get_current_user_id();
 		$contracts = get_user_meta( $user_id, '_tm_planning_users_contract', true );
 		$contracts = ! empty( $contracts ) ? $contracts : array();
 		$return_request_ajax = array(	'success' => true );
 
-		if( isset( $contracts[ $id ] ) ){
-			// Impossible
+		$key = $id - 1;
+		if( isset( $contracts[ $key ] ) ){
+			$return_data = Follower_Class::g()->checkIfDateIsValid( $end_date_type, $start_date, $end_date, $contracts, $key );
+			if( $return_data[ 'success' ] ){
+				$contracts = get_user_meta( $user_id, '_tm_planning_users_contract', true );
+				$contract = Follower_Class::g()->update_contract_info( $title, $start_date, $end_date_type, $end_date, $duration_week, $contracts[ $key ] );
+				$contracts[ $key ] = $contract;
+				Follower_Class::g()->update_contract_planning( $planning, $contract[ 'id' ], $key );
+				// $days_duration = Follower_Class::g()->durationPerDayPlanning( $planning );
+			}else{
+				$return_request_ajax[ 'data' ] = $return_data;
+				$return_request_ajax[ 'success' ] = false;
+			}
 		}else{
 			$return_data = Follower_Class::g()->checkIfDateIsValid( $end_date_type, $start_date, $end_date, $contracts );
 			if( $return_data[ 'success' ] ){
 				$contracts = get_user_meta( $user_id, '_tm_planning_users_contract', true );
-				$contract = Follower_Class::g()->create_contract_info( $title, $start_date, $end_date_type, $end_date, count( $contracts ) + 1 );
+				$contract = Follower_Class::g()->create_contract_info( $title, $start_date, $end_date_type, $end_date, count( $contracts ) + 1, $duration_week );
 				array_push( $contracts, $contract );
-				$planning = Follower_Class::g()->create_contract_planning( $contract, $planning, $contract[ 'id' ] );
+				Follower_Class::g()->create_contract_planning( $planning, $contract[ 'id' ] );
+				// $days_duration = Follower_Class::g()->durationPerDayPlanning( $planning );
 			}else{
 				$return_request_ajax[ 'data' ] = $return_data;
 				$return_request_ajax[ 'success' ] = false;
@@ -537,9 +564,10 @@ class Follower_Action {
 		}
 
 		if( $return_request_ajax[ 'success' ] ){
-
 			update_user_meta( $user_id, '_tm_planning_users_contract', $contracts );
-			$contracts = Follower_Class::g()->array_sort( $contracts, 'start_date' );
+			$contracts = ! empty( $contracts ) ? Follower_Class::g()->array_sort( $contracts, 'start_date', SORT_DESC ) : array();
+			$contracts = Follower_Class::g()->addNumberOfDayBetweenStartAndEnd( $contracts );
+			$one_contract_is_valid = Follower_Class::g()->oneContractIsValid( $contracts );
 
 			ob_start();
 			\eoxia\View_Util::exec(
@@ -547,7 +575,8 @@ class Follower_Action {
 				'follower',
 				'backend/indicator-table/user-profile-planning',
 				array(
-					'contracts' => $contracts
+					'contracts' => $contracts,
+					'one_contract_is_valid' => $one_contract_is_valid
 				)
 			);
 
@@ -581,6 +610,8 @@ class Follower_Action {
 		$contracts = get_user_meta( $user_id, '_tm_planning_users_contract', true );
 		$contracts[ $id - 1 ][ 'status' ] = 'delete';
 		update_user_meta( $user_id, '_tm_planning_users_contract', $contracts );
+		$contracts = Follower_Class::g()->addNumberOfDayBetweenStartAndEnd( $contracts );
+		$one_contract_is_valid = Follower_Class::g()->oneContractIsValid( $contracts );
 
 		ob_start();
 		\eoxia\View_Util::exec(
@@ -589,6 +620,7 @@ class Follower_Action {
 			'backend/indicator-table/user-profile-planning',
 			array(
 				'contracts' => $contracts,
+				'one_contract_is_valid' => $one_contract_is_valid
 			)
 		);
 

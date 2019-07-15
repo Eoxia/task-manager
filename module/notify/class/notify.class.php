@@ -34,6 +34,8 @@ class Notify_Class extends \eoxia\Singleton_Util {
 			return false;
 		}
 
+		$data = array();
+
 		$task = Task_Class::g()->get(
 			array(
 				'id' => $task_id,

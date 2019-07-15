@@ -27,7 +27,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 						'follower',
 						'backend/indicator-table/user-list-contract',
 						array(
-							'contracts' => $contracts
+							'contracts' => $contracts,
+							'one_contract_is_valid' => $one_contract_is_valid
 						)
 					);
 				?>

@@ -18,32 +18,33 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="wpeo-table table-flex table-4 tm-table-planning">
   <div class="table-row table-header">
-		<div class="table-cell" data-title="Period"><?php esc_html_e( 'Period', 'task-manager' ); ?></div>
-    <div class="table-cell" data-title="Monday"><?php esc_html_e( 'Monday', 'task-manager' ); ?></div>
-    <div class="table-cell" data-title="Tuesday"><?php esc_html_e( 'Tuesday', 'task-manager' ); ?></div>
-    <div class="table-cell" data-title="Wednesday"><?php esc_html_e( 'Wednesday', 'task-manager' ); ?></div>
-    <div class="table-cell" data-title="Thursday"><?php esc_html_e( 'Thursday', 'task-manager' ); ?></div>
-    <div class="table-cell" data-title="Friday"><?php esc_html_e( 'Friday', 'task-manager' ); ?></div>
-    <div class="table-cell" data-title="Saturday"><?php esc_html_e( 'Saturday', 'task-manager' ); ?></div>
-    <div class="table-cell" data-title="Sunday"><?php esc_html_e( 'Sunday', 'task-manager' ); ?></div>
+		<?php foreach( $days as $day ): ?>
+			<div class="table-cell" data-title="<?php echo esc_attr( strtolower( $day[ 'day_name' ] ) ); ?>" style="text-align : center">
+				<?php echo esc_attr( $day[ 'day_name' ] ); ?>
+				<div class="wpeo-tooltip-event tm-minute-per-day" aria-label="<?php echo esc_attr( $day[ 'readable' ] ); ?>" style="text-align : center">
+					<span class"tm-minute-per-day"><?php echo esc_attr( $day[ 'duration'] ); ?></span>
+					<?php esc_html_e( 'min', 'task-manager' ); ?>
+				</div>
+			</div>
+		<?php endforeach; ?>
   </div>
   <?php	if( isset( $planning ) && ! empty( $planning ) ): ?>
 		<?php foreach( $periods as $period ): ?>
 			<div class="table-row">
-				<div class="table-cell">
+				<div class="table-cell" style="text-align: center;">
 					<span><?php echo Follower_Class::g()->tradThisPeriod( $period ); ?></span>
 				</div>
 	    	<?php foreach( $planning as $key_d => $day ):?>
-			      <div class="table-cell">
+			      <div class="table-cell" data-day="<?php echo esc_attr( $key_d ); ?>" style="text-align: center;">
 							<?php if( $edit ): ?>
-								<input type="time"
+								<input type="time" class="tm-contract-planning-dynamic-update tm-contract-planning-from" data-work="from"
 								name="planning[<?php echo esc_attr( $key_d ); ?>][<?php echo esc_attr( $period ); ?>][<?php echo esc_attr( 'work_from' ); ?>]"
-								value="<?php echo esc_attr( $day[ $period ]['work_from'] ); ?>">
-								<input type="time"
+								value="<?php echo esc_attr( $day[ $period ][ 'work_from' ] ); ?>">
+								<input type="time" class="tm-contract-planning-dynamic-update" data-work="to"
 								name="planning[<?php echo esc_attr( $key_d ); ?>][<?php echo esc_attr( $period ); ?>][<?php echo esc_attr( 'work_to' ); ?>]"
 								value="<?php echo esc_attr( $day[ $period ][ 'work_to' ] ); ?>">
 							<?php else: ?>
-								<span><?php echo esc_attr( $day[ $period ]['work_from'] ); ?></span> -
+								<span><?php echo esc_attr( $day[ $period ][ 'work_from' ] ); ?></span> -
 								<span><?php echo esc_attr( $day[ $period ][ 'work_to' ] ); ?></span>
 							<?php endif; ?>
 			      </div>
