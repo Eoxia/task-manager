@@ -95,26 +95,6 @@ class Follower_Class extends \eoxia\User_Class {
 		);
 	}
 
-	public function update_planning_user( $planning ){
-		/*$user_id = get_current_user_id();
-		$planning_user = get_user_meta( $user_id, '_tm_planning_users_indicator', true );
-
-		if( empty( $planning_user ) ){
-			$planning_user = $this->create_planning_user_indicator( $user_id );
-		}
-
-		if( $planning_user[ $planning[ 'day_name' ] ][ $planning[ 'period' ] ][ 'status' ] == "publish" ){ // on sauvegarde
-			$planning_user = $this->delete_row_planning_user( $planning[ 'day_name' ], $planning[ 'period' ], "archive", $planning );
-		}
-
-		$data_day = wp_parse_args( $planning, $planning_user[ $planning[ 'day_name' ] ][ $planning[ 'period' ] ] );
-		$planning_user[ $planning[ 'day_name' ] ][ $planning[ 'period' ] ] = $data_day;
-
-		update_user_meta( $user_id, '_tm_planning_users_indicator', $planning_user );
-
-		return $planning_user;*/
-	}
-
 	public function display_indicator_table( $planning ){
 		ob_start();
 		\eoxia\View_Util::exec(
@@ -127,64 +107,6 @@ class Follower_Class extends \eoxia\User_Class {
 		);
 
 		return ob_get_clean();
-	}
-
-	public function delete_row_planning_user( $day, $period, $type = "delete", $new_planning = array() ){
-		/*$user_id = get_current_user_id();
-		$planning = get_user_meta( $user_id, '_tm_planning_users_indicator', true );
-		$planning[ $day ][ $period ][ 'day_delete' ] = strtotime( 'now' );
-
-		$archive_planning = get_user_meta( $user_id, '_tm_planning_users_indicator_archive', true );
-		$archive_planning = ! empty( $archive_planning ) ? $archive_planning : array();
-		if( empty( $archive_planning[ $day ][ $period ] ) ){
-			$archive_planning[ $day ][ $period ] = array();
-		}
-		$planning[ $day ][ $period ][ 'status' ] = $type;
-		array_push( $archive_planning[ $day ][ $period ], $planning[ $day ][ $period ] );
-		update_user_meta( $user_id, '_tm_planning_users_indicator_archive', $archive_planning );
-
-		if( empty( $new_planning ) ){
-			$planning[ $day ][ $period ] = $this->create_planning_user_indicator_period( $day, $period ); // on vide le tableau
-		}else{
-			$planning[ $day ][ $period ] = $new_planning;
-		}
-		update_user_meta( $user_id, '_tm_planning_users_indicator', $planning );
-
-		return $planning;*/
-	}
-
-	public function filter_planning_to_rerun( $planning, $period ){
-		/*$planning_valid_to_rerun = array();
-		$valid_day = false;
-		foreach( $planning as $day_n => $day ){
-			$data = array(
-				'day'    => $day_n,
-				'period' => $period,
-				'valid'  => false
-			);
-			if( $day[ $period ][ 'status' ] != 'publish' && $day_n != "saturday" && $day_n != "sunday" ){
-				$data[ 'valid' ] = true;
-				$valid_day = true;
-			}
-			$planning_valid_to_rerun[] = $data;
-		}
-
-		return array( 'planning' => $planning_valid_to_rerun, 'valid_day' => $valid_day );*/
-	}
-
-	public function display_indicator_indicator_to_rerun( $planning_valid, $planning ){
-	/*	ob_start();
-
-		\eoxia\View_Util::exec(
-			'task-manager',
-			'follower',
-			'backend/indicator-table/information-run-for-another-days',
-			array(
-				'planning_valid' => $planning_valid,
-				'planning'       => $planning
-			)
-		);
-		return ob_get_clean();*/
 	}
 
 	/**
@@ -303,7 +225,7 @@ class Follower_Class extends \eoxia\User_Class {
 		return $contract;
 	}
 
-	public function create_contract_info( $title = "", $start_date = 0, $end_date_type = "actual", $end_date = "", $id = 0, $duration = 0 ){
+	public function create_contract_info( $title = "", $start_date = 0, $end_date_type = "actual", $end_date = "", $id = 0, $duration = 0, $planning ){
 
 		$contract = array(
 			'id'            => $id,
@@ -312,12 +234,14 @@ class Follower_Class extends \eoxia\User_Class {
 			'end_date'      => $end_date,
 			'end_date_type' => $end_date_type,
 			'duration_week' => $duration,
-			'status'        => 'publish'
+			'status'        => 'publish',
+			'planning'      => $planning
+
 		);
 		return $contract;
 	}
 
-	public function update_contract_info( $title = "", $start_date = 0, $end_date_type = "actual", $end_date = "", $duration = 0, $contract_old ){
+	public function update_contract_info( $title = "", $start_date = 0, $end_date_type = "actual", $end_date = "", $duration = 0, $contract_old, $planning ){
 		$contract = array(
 			'id'            => $contract_old[ 'id' ],
 			'title'         => $title,
@@ -325,46 +249,11 @@ class Follower_Class extends \eoxia\User_Class {
 			'end_date'      => $end_date,
 			'end_date_type' => $end_date_type,
 			'duration_week' => $duration,
-			'status'        => 'publish'
+			'status'        => $contract_old[ 'status' ],
+			'planning'      => $planning
 		);
 
 		return $contract;
-	}
-
-	public function create_contract_planning( $planning, $id_contract ){
-		$user_id = get_current_user_id();
-		$planning_db = get_user_meta( $user_id, '_tm_planning_users_indicator', true );
-		$planning_db = ! empty( $planning_db ) ? $planning_db : array();
-
-		$info = array(
-			'id' => $id_contract
-	 	);
-
-		$full_planning = array(
-			'info' => $info,
-			'planning' => $planning
-		);
-
-		array_push( $planning_db, $full_planning );
-		update_user_meta( $user_id, '_tm_planning_users_indicator', $planning_db );
-	}
-
-	public function update_contract_planning( $planning, $id_contract, $key_contract ){
-		$user_id = get_current_user_id();
-		$planning_db = get_user_meta( $user_id, '_tm_planning_users_indicator', true );
-		$planning_db = ! empty( $planning_db ) ? $planning_db : array();
-
-		$info = array(
-			'id' => $id_contract
-	 	);
-
-		$full_planning = array(
-			'info' => $info,
-			'planning' => $planning
-		);
-
-		$planning_db[ $key_contract ] = $full_planning;
-		update_user_meta( $user_id, '_tm_planning_users_indicator', $planning_db );
 	}
 
 	public function checkIfDateIsValid( $end_date_type, $start_date, $end_date, $contracts, $key_actual = -1 ){
@@ -490,66 +379,6 @@ class Follower_Class extends \eoxia\User_Class {
 			'readable' => Task_Class::g()->change_minute_time_to_readabledate( $duration )
 		);
 		return $data;
-	}
-
-	public function loadPlanningContract(){
-		$user_id = get_current_user_id();
-
-		$id = ! empty( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : -1;
-		$edit = true;
-		$key_ = 0;
-
-		$contracts = get_user_meta( $user_id, '_tm_planning_users_contract', true );
-		$contracts = ! empty( $contracts ) ? Follower_Class::g()->array_sort( $contracts, 'start_date', SORT_DESC ) : array();
-		if( ! empty( $contracts ) ){
-			foreach( $contracts as $key => $contract_ ){
-				if( $contract_[ 'status' ] != "delete" ){
-					$id = $contract_[ 'id' ];
-					$contract = $contract_;
-					break;
-				}
-			}
-		}
-
-		if( $id < 0 ){
-			$contract = Follower_Class::g()->define_schema_new_contract( count( $contracts ) );
-			$planning = Follower_Class::g()->define_schema_new_contract_planning();
-		}else{
-			if( isset( $contracts[ $key_ ] ) ){
-				$planning_db = get_user_meta( $user_id, '_tm_planning_users_indicator', true );
-				$key_ = $id - 1;
-				$planning = $planning_db[ $key_ ][ 'planning' ];
-			}else{
-				wp_send_json_error( 'Error db' );
-			}
-		}
-
-		$periods = array( 'morning', 'afternoon' );
-
-		$return_planning = Follower_Class::g()->durationPerDayPlanning( $planning );
-		$planning = $return_planning[ 'planning' ];
-
-		$days =  Follower_Class::g()->calculHourPerDayInPlanning( $planning, $return_planning[ 'duration_week' ] );
-
-		if( ! isset( $contract ) || empty( $contract ) ){
-			$contract = Follower_Class::g()->define_schema_new_contract( 0 );
-		}
-		if( ! isset( $planning ) || empty( $planning ) ){
-			$planning = Follower_Class::g()->define_schema_new_contract_planning();
-		}
-
-		\eoxia\View_Util::exec(
-			'task-manager',
-			'follower',
-			'backend/indicator-table/user-add-contract',
-			array(
-				'contract' => $contract,
-				'planning' => $planning,
-				'periods'  => $periods,
-				'edit'     => $edit,
-				'days'     => $days
-			)
-		);
 	}
 
 	public function oneContractIsValid( $contracts ){

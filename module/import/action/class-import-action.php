@@ -29,7 +29,7 @@ class Import_Action {
 		add_action( 'wp_ajax_tm_import_tasks_and_points', array( $this, 'cb_tm_import_tasks_and_points' ) );
 		add_action( 'wp_ajax_category_not_found_so_create_it', array( $this, 'cb_category_not_found_so_create_it' ) );
 
-		add_action( 'wp_ajax_get_text_from_url', array( $this, 'callback_get_text_from_url' ) );
+		add_action( 'wp_ajax_get_text_from_url_tm', array( $this, 'callback_get_text_from_url' ) );
 
 
 	}

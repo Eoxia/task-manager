@@ -19,11 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!--  tm-display-new-contract -->
 <div style="display : inline-flex; margin-bottom : 10px">
 	<h4><?php esc_html_e( 'List of contracts', 'task-manager' ); ?></h4>
-	<?php if( empty( $contracts) ): ?>
-		<div class="action-attribute page-title-action wpeo-tooltip-event focus-element" style="margin-left: 5px"
-	<?php else: ?>
 		<div class="action-attribute page-title-action wpeo-tooltip-event" style="margin-left: 5px"
-<?php endif; ?>
 		data-action="display_contract_planning"
 		data-nonce="<?php echo esc_attr( wp_create_nonce( 'display_contract_planning' ) ); ?>"
 		aria-label="<?php esc_html_e( 'Create new contract', 'task-manager' ); ?>">
@@ -40,7 +36,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="table-cell"><?php esc_html_e( 'Date end', 'task-manager' ); ?></div>
 				<div class="table-cell"><?php esc_html_e( 'Time slot', 'task-manager' ); ?></div>
 				<div class="table-cell"><?php esc_html_e( 'Duration', 'task-manager' ); ?></div>
-				<div class="table-cell"></div>
 				<div class="table-cell"></div>
 			</div>
 			<?php
@@ -72,7 +67,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 </div>
 
 <div class="tm-user-add-contract" style="margin-top: 20px">
-	<?php Follower_Class::g()->loadPlanningContract(); ?>
+	<?php // Follower_Class::g()->loadPlanningContract(); ?>
 </div>
 <div class="tm-user-add-contract-error" style="display : none">
 	<div class="wpeo-notice notice-error">

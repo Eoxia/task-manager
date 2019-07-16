@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="wpeo-table table-flex table-4 tm-table-planning">
+<div class="wpeo-table table-flex table-4 tm-table-planning" style="margin: 10px">
   <div class="table-row table-header">
 		<?php foreach( $days as $day ): ?>
 			<div class="table-cell" data-title="<?php echo esc_attr( strtolower( $day[ 'day_name' ] ) ); ?>" style="text-align : center">

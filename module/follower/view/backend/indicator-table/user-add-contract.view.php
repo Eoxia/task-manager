@@ -44,7 +44,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<div class="grid-2 tm-date-end-contract" style="display: inherit;">
 				<?php if( $edit ): ?>
-					<input class="tm-date-end-value" type="hidden" value="<?php echo esc_attr( $contract[ 'end_date_type' ] ); ?>" name="date_end_type" />
+					<input id="tm-date-end-value" type="hidden" value="<?php echo esc_attr( $contract[ 'end_date_type' ] ); ?>" name="date_end_type" />
 					<div class="form-element form-align-horizontal">
 						<div class="form-field-inline group-date">
 							<span class="form-label"><?php esc_html_e( 'Date End', 'task-manager' ); ?> <i class="fas fa-calendar-alt"></i></span>
@@ -97,7 +97,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	data-action="create_new_contract"
 	data-nonce="<?php echo esc_attr( wp_create_nonce( 'create_new_contract' ) ); ?>"
 	data-id="<?php echo esc_attr( $contract[ 'id' ] ); ?>"
-	aria-label="<?php esc_html_e( 'Save this contract', 'task-manager' ); ?>"
+	aria-label="<?php esc_html_e( 'Create this contract', 'task-manager' ); ?>"
 	style="margin-top: 10px; float: right;">
-	<i class="fas fa-save"></i>
+	<i class="fas fa-plus"></i>
 </div>

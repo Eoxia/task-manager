@@ -138,7 +138,7 @@ window.eoxiaJS.taskManager.import.buttonLinkExternalText = function( element, im
 	if( element.closest( '.tm-import-add-keyword' ).find( '.tm-info-import-link input' ).attr( 'data-import' ) == "true" ){
 		//send request
 		var data         = {};
-		data.action  = 'get_text_from_url';
+		data.action  = 'get_text_from_url_tm';
 		data.content = element.closest( '.tm-import-add-keyword' ).find( '.tm-info-import-link input' ).val(); // On recupere le contenu
 
 		window.eoxiaJS.loader.display( element );

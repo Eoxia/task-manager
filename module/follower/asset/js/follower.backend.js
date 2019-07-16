@@ -33,7 +33,7 @@ window.eoxiaJS.taskManager.follower.event = function() {
 
 	jQuery( document ).on( 'click', '.planninguser .tm-information-run-for-another-day .tm-information-notice-day > .wpeo-button', window.eoxiaJS.taskManager.follower.validThisDay );
 
-	jQuery( document ).on( 'click', '.planninguser .tm-user-add-contract .tm-date-end-contract input[ type="radio"]', window.eoxiaJS.taskManager.follower.selectTypeDateEnd );
+	jQuery( document ).on( 'click', '.planninguser .tm-date-end-contract input[ type="radio"]', window.eoxiaJS.taskManager.follower.selectTypeDateEnd );
 
 	jQuery( document ).on( 'click', '.planninguser .tm-display-new-contract', window.eoxiaJS.taskManager.follower.displayNewContract );
 
@@ -320,9 +320,8 @@ window.eoxiaJS.taskManager.follower.displayAchiveUser = function( element, respo
 }
 
 window.eoxiaJS.taskManager.follower.selectTypeDateEnd = function( event ){
-	var input = jQuery( this ).closest( '.tm-date-end-contract' ).find( '.tm-date-end-value' );
+	var input = jQuery( '#tm-date-end-value' );
 	input.val( jQuery( this ).attr( 'data-type' ) );
-	console.log( jQuery( this ).attr( 'data-type' ) );
 }
 
 window.eoxiaJS.taskManager.follower.reloadViewProfilePlanning = function( element, response ){
@@ -343,23 +342,26 @@ window.eoxiaJS.taskManager.follower.displayNewContract = function( event ){
 
 window.eoxiaJS.taskManager.follower.reloadViewProfileContract = function( element, response ){
 
-	element.closest( '.planninguser' ).find( '.focus-element' ).removeClass( 'focus-element' );
-
-	if( element.closest( '.table-row' ).length > 0 ){
-		element.closest( '.table-row' ).addClass( 'focus-element' );
-	}else{
-		element.addClass( 'focus-element' );
-	}
+	element.closest( '.planninguser' ).find( '.tm-list-contract-button .tm-table-edit' ).remove();
+	element.closest( '.planninguser' ).find( '.tm-list-contract-button .tm-hidden-row' ).removeClass( 'tm-hidden-row' ).show();
+	element.closest( '.planninguser' ).find( '.tm-user-add-contract' ).html( '' );
 
 	element.closest( '.planninguser' ).find( '.tm-contract-info-empty' ).hide( '200' );
-	element.closest( '.planninguser' ).find( '.tm-user-add-contract' ).html( response.data.view );
+	if( response.data.id > 0 ){
+		element.closest( '.planninguser' ).find( '.tm-list-contract-button .table-row[ data-id ="' + response.data.id + '"]' ).before( response.data.view );
+
+		element.closest( '.planninguser' ).find( '.tm-list-contract-button .table-row[ data-id ="' + response.data.id + '"]' ).after( response.data.view_edit );
+
+		element.closest( '.planninguser' ).find( '.tm-list-contract-button .table-row[ data-id ="' + response.data.id + '"]' ).addClass( 'tm-hidden-row' ).hide();
+	}else{
+		element.closest( '.planninguser' ).find( '.tm-user-add-contract' ).html( response.data.view );
+	}
 }
 
 window.eoxiaJS.taskManager.follower.focusDateChamp = function( event ){
 	jQuery( "#tm-radio-contract-date" ).prop("checked", true);
 	jQuery( "#tm-radio-contract-actual" ).prop("checked", false);
-
-	jQuery( this ).closest( '.tm-date-end-contract' ).find( '.tm-date-end-value' ).val( 'sql' );
+	jQuery( '#tm-date-end-value' ).val( 'sql' );
 }
 
 window.eoxiaJS.taskManager.follower.updateHourPerDay = function( event ){
@@ -396,6 +398,7 @@ window.eoxiaJS.taskManager.follower.fromTimeToMinute = function fromTimeToMinute
   var minutes = parseInt(timeArray[1]);
   return (hours * 60) + minutes;
 }
+
 //
 //
 //

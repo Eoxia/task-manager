@@ -174,7 +174,7 @@ class Activity_Class extends \eoxia\Singleton_Util {
 			$current = strtotime( '+1 day', $current );
 		}
 
-		$all_days = $this->data_planning_reformat( $dates, $date_start, $date_end );
+		$all_days = $this->data_planning_reformat( $dates, $date_start, $date_end, $user_id );
 
 		$data_array_return = $this->forEachDay( $date_gap, $date_start_strtotime, $all_days, $datas );
 		$date_return['datatime']   = $data_array_return[0];
@@ -185,11 +185,11 @@ class Activity_Class extends \eoxia\Singleton_Util {
 		return $date_return;
 	}
 
-	public function data_planning_reformat( $days, $start_time_user, $end_time_user ){
-		$user_id = get_current_user_id();
+	public function data_planning_reformat( $days, $start_time_user, $end_time_user, $user_id ){
 
 		$contracts = get_user_meta( $user_id, '_tm_planning_users_contract', true );
-		$plannings = get_user_meta( $user_id, '_tm_planning_users_indicator', true );
+		// $plannings = get_user_meta( $user_id, '_tm_planning_users_indicator', true );
+		$plannings = $contracts[ 'planning' ];
 		$contracts = $this->define_contract_valid( $contracts, $plannings );
 
 		$list_days = array();

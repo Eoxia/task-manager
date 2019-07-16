@@ -17,11 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 
-<?php if( $first_el ): ?>
-	<div class="table-row focus-element">
-<?php else: ?>
-	<div class="table-row">
-<?php endif; ?>
+<div class="table-row" data-id="<?php echo esc_attr( $contract[ 'id' ] ); ?>">
 	<div class="table-cell"><?php echo esc_attr( $contract[ 'title' ] ); ?></div>
 	<div class="table-cell"><?php echo esc_attr( date( 'd/m/Y', $contract[ 'start_date' ] ) ); ?></div>
 	<div class="table-cell">
@@ -34,21 +30,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="table-cell"><?php echo esc_attr( $contract[ 'duration' ] ); ?> <?php esc_html_e( 'days', 'task-manager' ); ?></div>
 	<div class="table-cell"><?php echo esc_attr( $contract[ 'duration_week' ] ); ?> <?php esc_html_e( 'hours per week', 'task-manager' ); ?></div>
 	<div class="table-cell table-end">
-			<div class="wpeo-button button-blue action-attribute wpeo-tooltip-event button-bordered"
+			<div class="wpeo-button button-blue action-attribute wpeo-tooltip-event"
 			data-id="<?php echo esc_attr( $contract[ 'id' ] ); ?>"
 			data-action="<?php echo esc_attr( 'display_contract_planning' ); ?>"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'display_contract_planning' ) ); ?>"
 			aria-label="<?php esc_html_e( 'Edit', 'task-manager' ); ?>">
 			<i class="fas fa-pen"></i>
 		</div>
-	</div>
-	<div class="table-cell table-end">
-			<div class="wpeo-button button-red action-delete wpeo-tooltip-event wpeo-tooltip-event"
+		<div class="wpeo-button button-red action-delete wpeo-tooltip-event wpeo-tooltip-event"
 			data-id="<?php echo esc_attr( $contract[ 'id' ] ); ?>"
 			data-action="<?php echo esc_attr( 'delete_this_contract' ); ?>"
+			data-message="<?php esc_html_e( 'Delete this row', 'task-manager' ); ?>"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_this_contract' ) ); ?>"
 			aria-label="<?php esc_html_e( 'Delete', 'task-manager' ); ?>">
-			<i class="fas fa-times"></i>
+				<i class="fas fa-times"></i>
 		</div>
 	</div>
 </div>
