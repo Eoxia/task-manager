@@ -5,6 +5,9 @@
  * @version 1.5.0
  */
 
+if ( undefined === window.eoxiaJS.taskManager ) {
+	window.eoxiaJS.taskManager = {};
+}
 
 /**
  * Initialise l'objet "activity" ainsi que la méthode "init" obligatoire pour la bibliothèque EoxiaJS.
@@ -17,7 +20,7 @@ window.eoxiaJS.taskManager.adminBar = {};
 /**
  * La méthode obligatoire pour la biblotèque EoxiaJS.
  *
- * @return {void} 
+ * @return {void}
  *
  * @since 1.6.0
  * @version 1.6.0

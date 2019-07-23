@@ -32,6 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="table-cell table-end">
 			<div class="wpeo-button button-blue action-attribute wpeo-tooltip-event"
 			data-id="<?php echo esc_attr( $contract[ 'id' ] ); ?>"
+			data-userid=<?php echo esc_attr( $user_id ); ?>
 			data-action="<?php echo esc_attr( 'display_contract_planning' ); ?>"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'display_contract_planning' ) ); ?>"
 			aria-label="<?php esc_html_e( 'Edit', 'task-manager' ); ?>">
@@ -39,6 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 		<div class="wpeo-button button-red action-delete wpeo-tooltip-event wpeo-tooltip-event"
 			data-id="<?php echo esc_attr( $contract[ 'id' ] ); ?>"
+			data-userid=<?php echo esc_attr( $user_id ); ?>
 			data-action="<?php echo esc_attr( 'delete_this_contract' ); ?>"
 			data-message="<?php esc_html_e( 'Delete this row', 'task-manager' ); ?>"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_this_contract' ) ); ?>"

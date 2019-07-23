@@ -14,7 +14,8 @@
 		"wpshop_shop_order",
 		"tache_page_indicator-page",
 		"tache_page_audit-page",
-		"profile"
+		"profile",
+		"user-edit"
 	],
 	"externals": [],
 	"modules": [

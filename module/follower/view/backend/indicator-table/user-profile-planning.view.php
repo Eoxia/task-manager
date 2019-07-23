@@ -27,23 +27,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 						'follower',
 						'backend/indicator-table/user-list-contract',
 						array(
-							'contracts' => $contracts,
-							'one_contract_is_valid' => $one_contract_is_valid
+							'contracts'             => $contracts,
+							'one_contract_is_valid' => $one_contract_is_valid,
+							'user_id'               => $user_id
 						)
 					);
 				?>
-
-				<?php
-				/*
-					\eoxia\View_Util::exec(
-						'task-manager',
-						'follower',
-						'backend/indicator-table/information-add-row-table',
-						array()
-					);
-					*/
-				?>
-
 			</td>
 		</tr>
 	</tbody>

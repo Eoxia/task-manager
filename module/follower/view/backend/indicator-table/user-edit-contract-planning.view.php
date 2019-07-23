@@ -26,7 +26,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				'planning' => $planning,
 				'periods'  => $periods,
 				'edit'     => $edit,
-				'days'     => $days
+				'days'     => $days,
+				'userid'  => $userid
 			)
 		);
 	?>

@@ -300,8 +300,9 @@ class Follower_Action {
 			'follower',
 			'backend/indicator-table/user-profile-planning',
 			array(
-				'contracts' => $contracts,
-				'one_contract_is_valid' => $one_contract_is_valid
+				'contracts'             => $contracts,
+				'one_contract_is_valid' => $one_contract_is_valid,
+				'user_id'               => $user->data[ 'id' ]
 			)
 		);
 	}
@@ -336,23 +337,27 @@ class Follower_Action {
 
 	public function callback_display_contract_planning(){
 		check_ajax_referer( 'display_contract_planning' );
-		$user_id = get_current_user_id();
 
 		$id = ! empty( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : -1;
-		//$edit = ! empty( $_POST[ 'edit' ] ) ? true : false;
+		$user_id = ! empty( $_POST[ 'userid' ] ) ? (int) $_POST[ 'userid' ] : -1;
 		$edit = true;
+
+		if( ! $user_id ){
+			$user_id = get_current_user_id();
+		}
+
 
 		$contracts = get_user_meta( $user_id, '_tm_planning_users_contract', true );
 		$contracts = ! empty( $contracts ) ? $contracts : array();
 
 		if( $id < 0 ){
-			$contract = Follower_Class::g()->define_schema_new_contract( count( $contracts ) );
+			$number_valid_contract = Follower_Class::g()->numberContractValid( $contracts );
+			$contract = Follower_Class::g()->define_schema_new_contract( $number_valid_contract );
 			$planning = Follower_Class::g()->define_schema_new_contract_planning();
 
 		}else{
 			$key = $id - 1;
 			if( isset( $contracts[ $key ] ) ){
-				// $planning_db = get_user_meta( $user_id, '_tm_planning_users_indicator', true );
 				$contract = $contracts[ $key ];
 				$planning = $contracts[ $key ][ 'planning' ];
 			}else{
@@ -379,7 +384,8 @@ class Follower_Action {
 					'planning' => $planning,
 					'periods'  => $periods,
 					'edit'     => $edit,
-					'days'     => $days
+					'days'     => $days,
+					'userid'   => $user_id
 				)
 			);
 			$view_edit = ob_get_clean();
@@ -395,7 +401,8 @@ class Follower_Action {
 				'planning' => $planning,
 				'periods'  => $periods,
 				'edit'     => $edit,
-				'days'     => $days
+				'days'     => $days,
+				'userid'   => $user_id
 			)
 		);
 
@@ -420,18 +427,22 @@ class Follower_Action {
 		$end_date      = ! empty( $_POST[ 'end_date' ] ) ? strtotime( $_POST[ 'end_date' ] ) : strtotime( 'now' );
 		$planning      = ! empty( $_POST[ 'planning' ] ) ? (array) $_POST[ 'planning' ] : array();
 		$id            = ! empty( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : -1;
+		$user_id        = ! empty( $_POST[ 'userid' ] ) ? (int) $_POST[ 'userid' ] : -1;
+
+		if( ! $user_id ){
+			$user_id = get_current_user_id();
+		}
 
 		$return_planning = Follower_Class::g()->durationPerDayPlanning( $planning );
 		$planning = $return_planning[ 'planning' ];
 		$duration_week = round( $return_planning[ 'duration_week' ] / 60, 2 ); // Minute To hour
-		$user_id = get_current_user_id();
 		$contracts = get_user_meta( $user_id, '_tm_planning_users_contract', true );
 		$contracts = ! empty( $contracts ) ? $contracts : array();
 		$return_request_ajax = array(	'success' => true );
 
 		$key = $id - 1;
 		if( isset( $contracts[ $key ] ) ){
-			$return_data = Follower_Class::g()->checkIfDateIsValid( $end_date_type, $start_date, $end_date, $contracts, $key );
+			$return_data = Follower_Class::g()->checkIfDateIsValid( $user_id, $end_date_type, $start_date, $end_date, $contracts, $key );
 			if( $return_data[ 'success' ] ){
 				$contracts = get_user_meta( $user_id, '_tm_planning_users_contract', true );
 				$contract = Follower_Class::g()->update_contract_info( $title, $start_date, $end_date_type, $end_date, $duration_week, $contracts[ $key ], $planning );
@@ -443,13 +454,11 @@ class Follower_Action {
 				$return_request_ajax[ 'success' ] = false;
 			}
 		}else{
-			$return_data = Follower_Class::g()->checkIfDateIsValid( $end_date_type, $start_date, $end_date, $contracts );
+			$return_data = Follower_Class::g()->checkIfDateIsValid( $user_id, $end_date_type, $start_date, $end_date, $contracts );
 			if( $return_data[ 'success' ] ){
 				$contracts = get_user_meta( $user_id, '_tm_planning_users_contract', true );
 				$contract = Follower_Class::g()->create_contract_info( $title, $start_date, $end_date_type, $end_date, count( $contracts ) + 1, $duration_week, $planning );
 				array_push( $contracts, $contract );
-				// Follower_Class::g()->create_contract_planning( $planning, $contract[ 'id' ] );
-				// $days_duration = Follower_Class::g()->durationPerDayPlanning( $planning );
 			}else{
 				$return_request_ajax[ 'data' ] = $return_data;
 				$return_request_ajax[ 'success' ] = false;
@@ -468,8 +477,9 @@ class Follower_Action {
 				'follower',
 				'backend/indicator-table/user-profile-planning',
 				array(
-					'contracts' => $contracts,
-					'one_contract_is_valid' => $one_contract_is_valid
+					'contracts'             => $contracts,
+					'one_contract_is_valid' => $one_contract_is_valid,
+					'user_id'               => $user_id
 				)
 			);
 
@@ -493,12 +503,16 @@ class Follower_Action {
 	public function callback_delete_this_contract(){
 		check_ajax_referer( 'delete_this_contract' );
 		$id = ! empty( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : -1;
+		$user_id = ! empty( $_POST[ 'userid' ] ) ? (int) $_POST[ 'userid' ] : -1;
+
+		if( ! $user_id ){
+			$user_id = get_current_user_id();
+		}
 
 		if( $id < 0 ){
 			wp_send_json_error( 'ID UNDEFINED' );
 		}
 
-		$user_id = get_current_user_id();
 		$contracts = get_user_meta( $user_id, '_tm_planning_users_contract', true );
 		$contracts[ $id - 1 ][ 'status' ] = 'delete';
 		update_user_meta( $user_id, '_tm_planning_users_contract', $contracts );
@@ -511,8 +525,9 @@ class Follower_Action {
 			'follower',
 			'backend/indicator-table/user-profile-planning',
 			array(
-				'contracts' => $contracts,
-				'one_contract_is_valid' => $one_contract_is_valid
+				'contracts'             => $contracts,
+				'one_contract_is_valid' => $one_contract_is_valid,
+				'user_id'               => $user_id
 			)
 		);
 

@@ -97,6 +97,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	data-action="create_new_contract"
 	data-nonce="<?php echo esc_attr( wp_create_nonce( 'create_new_contract' ) ); ?>"
 	data-id="<?php echo esc_attr( $contract[ 'id' ] ); ?>"
+	data-userid="<?php echo esc_attr( $userid ); ?>"
 	aria-label="<?php esc_html_e( 'Create this contract', 'task-manager' ); ?>"
 	style="margin-top: 10px; float: right;">
 	<i class="fas fa-plus"></i>

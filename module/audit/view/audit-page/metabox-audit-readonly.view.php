@@ -22,10 +22,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	data-parentpage="<?php echo isset( $parent_page ) ? esc_attr( $parent_page ) : 0 ?>"
 	data-id="<?= $audit->data[ 'id' ] ?>"
 	style="font-size: 24px;">
-	<?= ! empty( $audit->data[ 'title' ] ) ? $audit->data[ 'title' ] : esc_html_e( 'No name Audit', 'task-manager' );  ?></div>
+	<span class="wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Click to open audit', 'task-manager' ); ?>">
+		<?= ! empty( $audit->data[ 'title' ] ) ? $audit->data[ 'title' ] : esc_html_e( 'No name Audit', 'task-manager' );  ?></div>
+	</span>
 
 <ul class="audit-summary">
-	<li class="audit-summary-id"><i class="fas fa-hashtag"></i><?= $audit->data[ 'id' ] ?></li>
+	<li class="audit-summary-id wpeo-tooltip-event"
+	aria-label="<?php esc_html_e( 'ID', 'task-manager' ); ?>"><i class="fas fa-hashtag"></i><?= $audit->data[ 'id' ] ?></li>
 	<li class="audit-summary-date">
 		<span class="summary-created wpeo-tooltip-event" aria-label="<?php esc_html_e( 'Created date', 'task-manager' ); ?>">
 			<i class="fas fa-calendar-alt"></i> <?= $audit->data[ 'date' ][ 'rendered' ][ 'date' ] ?>
@@ -44,5 +47,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</a>
 			</span>
 		<?php endif; ?>
-	</li>
+	</li><?php echo esc_attr( $audit->data[ 'status_audit' ] ); ?>
 </ul>

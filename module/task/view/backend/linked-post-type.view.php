@@ -17,7 +17,7 @@ namespace task_manager;
 defined( 'ABSPATH' ) || exit; ?>
 
 <?php // echo '<pre>'; print_r( $task->data['parent'] ); echo '</pre>'; exit; ?>
-<?php if( ! empty( $task->data['parent_id'] ) ):
+<?php if( ! empty( $task->data['parent_id'] ) && ! empty( $task->data[ 'parent' ] ) ):
 	if( $task->data[ 'parent' ]->post_type == "digi-risk" ):
 			$view = 'digirisk';
 		else:

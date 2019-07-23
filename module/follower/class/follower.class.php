@@ -256,7 +256,7 @@ class Follower_Class extends \eoxia\User_Class {
 		return $contract;
 	}
 
-	public function checkIfDateIsValid( $end_date_type, $start_date, $end_date, $contracts, $key_actual = -1 ){
+	public function checkIfDateIsValid( $user_id, $end_date_type, $start_date, $end_date, $contracts, $key_actual = -1 ){
 		$return_data = array(
 			'success'       => false,
 			'error'         => '',
@@ -312,7 +312,6 @@ class Follower_Class extends \eoxia\User_Class {
 				}
 			}
 		}
-		$user_id = get_current_user_id();
 
 		update_user_meta( $user_id, '_tm_planning_users_contract', $contracts );
 		$return_data[ 'success' ] = true;
@@ -391,8 +390,18 @@ class Follower_Class extends \eoxia\User_Class {
 				return true;
 			}
 		}
-
 		return false;
+	}
+
+	public function numberContractValid( $contracts ){
+		$nbr = 0;
+		foreach( $contracts as $contract ){
+			if( $contract[ 'status' ] != "delete" ){
+				$nbr ++;
+			}
+		}
+
+		return $nbr;
 	}
 }
 

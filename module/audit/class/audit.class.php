@@ -353,6 +353,7 @@ class Audit_Class extends \eoxia\Post_Class {
 	}
 
 	public function callback_audit_list_metabox( $args = array(), $array = array(), $showedit = false ){
+
 		$audits = $this->audit_task_link( $args );
 		if( ! empty( $audits ) ){
 			foreach( $audits as $key => $audit ){
@@ -363,7 +364,11 @@ class Audit_Class extends \eoxia\Post_Class {
 							'post_type'   => 'wpshop_customers',
 						)
 					);
-					$audit->data[ 'parent_title' ] = $query->query_vars[ 'title' ];
+					if( ! empty( $query->posts ) ){
+						$audit->data[ 'parent_title' ] = $query->post->post_title;
+					}else{
+						$audit->data[ 'parent_title' ] = '';
+					}
 				}
 			}
 		}
