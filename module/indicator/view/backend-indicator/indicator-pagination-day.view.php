@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <ul class="wpeo-pagination">
 	<!-- Bouton précédent -->
 	<li class="pagination-element pagination-prev">
-		<a href="#monlien"><i class="pagination-icon far fa-long-arrow-alt-left fa-fw"></i><span>Previous</span></a>
+		<a href="#monlien"><i class="pagination-icon fas fa-long-arrow-alt-left fa-fw"></i><span><?php esc_html_e( 'Previous', 'task-manager' ); ?></span></a>
 	</li>
 	<!-- Element simple -->
 	<li class="pagination-element">
@@ -41,6 +41,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</li>
 	<!-- Bouton suivant -->
 	<li class="pagination-element pagination-next">
-		<a href="#monlien"><span>Next</span><i class="pagination-icon far fa-long-arrow-alt-right fa-fw"  ></i></a>
+		<a href="#monlien"><span><?php esc_html_e( 'Next', 'task-manager' ); ?></span><i class="pagination-icon fas fa-long-arrow-alt-right fa-fw"  ></i></a>
 	</li>
 </ul>

@@ -16,11 +16,26 @@ window.eoxiaJS.taskManager.indicator.event = function( event ) {
 	jQuery( document ).on( 'click', '.display_this_point', window.eoxiaJS.taskManager.indicator.displayThisPoint );
 	jQuery( document ).on( 'click', '.page-indicator button.handlediv', window.eoxiaJS.taskManager.indicator.toggleMetabox );
 	jQuery( document ).on( 'click', '#tm-indicator-stats-client-displaybutton div', window.eoxiaJS.taskManager.indicator.displayDeadlineRecusiveStats );
+	jQuery( document ).on( 'click', '#indicator-page-client h2', window.eoxiaJS.taskManager.indicator.preventDefaultHeader );
+	jQuery( document ).on( 'click', '#indicator-page-id h2', window.eoxiaJS.taskManager.indicator.preventDefaultHeader );
+	jQuery( document ).on( 'click', '#indicator-page-listtag h2', window.eoxiaJS.taskManager.indicator.preventDefaultHeader );
+
+	jQuery( document ).on( 'click', '.select-tags-indicator .tags .wpeo-tag-search', window.eoxiaJS.taskManager.indicator.selectTag );
+	jQuery( document ).on( 'click', '.select-tags-indicator .tags .wpeo-tag-search', window.eoxiaJS.taskManager.indicator.sendRequestTagsStats )
+
 };
+
+window.eoxiaJS.taskManager.indicator.preventDefaultHeader = function( event ){
+	if( jQuery( this ).parent().hasClass( 'closed' ) ){
+		jQuery( this ).parent().removeClass( 'closed' );
+	}else{
+		jQuery( this ).parent().addClass( 'closed' );
+	}
+}
 
 window.eoxiaJS.taskManager.indicator.toggleMetabox = function( event ) {
 	// var data = {
-	// 	"action": ":closed-postboxes", 
+	// 	"action": ":closed-postboxes",
 	// 	"closed": ":wpeo-task-metabox",
 	// 	"hidden": "slugdiv",
 	// 	"closedpostboxesnonce": "nonce",
@@ -39,7 +54,7 @@ window.eoxiaJS.taskManager.indicator.toggleMetabox = function( event ) {
    @param  {[type]} response         [ donnés reçues par la requete ajax ]
  *
  * @author Corentin Eoxia
- * @since 1.9.0 - BETA
+ * @since 1.10.0 - BETA
  */
 
 window.eoxiaJS.taskManager.indicator.loadedCustomerActivity = function( triggeredElement, response ) {
@@ -711,4 +726,53 @@ window.eoxiaJS.taskManager.indicator.displayDeadlineRecusiveStats = function( ev
 
 		window.eoxiaJS.request.send( jQuery( this ), data );
 	}
+}
+
+window.eoxiaJS.taskManager.indicator.selectTag = function( event ){
+	jQuery( this ).parent().find( '.wpeo-tag-search' ).each( function( element ){
+		jQuery( this ).removeClass( 'active' );
+	})
+
+	jQuery( this ).closest( '.select-tags-indicator' ).find( 'input[type="hidden"]' ).val( jQuery( this ).data( 'tag-id' ) );
+}
+
+window.eoxiaJS.taskManager.indicator.sendRequestTagsStats = function( event ){
+	var data = {};
+	data.action = 'load_tags_stats';
+	data.tag_id = jQuery( this ).data( 'tag-id' );
+	//data._wpnonce = jQuery( this ).data( 'nonce' );
+
+	window.eoxiaJS.loader.display( jQuery( this ).closest( '.form' ) );
+	window.eoxiaJS.request.send( jQuery( this ), data );
+}
+
+window.eoxiaJS.taskManager.indicator.updateIndicatorTag = function( element, response ){
+	jQuery( '.tm_tag_indicator_update_body' ).html( response.data.view );
+
+	jQuery( element ).closest( '.inside' ).find( '.tm-simple-task' ).each( function( element ){
+		jQuery( this ).hide();
+	})
+
+	var i = 0;
+	jQuery( element ).closest( '.inside' ).find( '.tm_client_indicator' ).each( function( element ){
+		if( i % 2 == 1 ){
+			jQuery( this ).css( 'background', '#3F403F' );
+			jQuery( this ).css( 'color', 'white' );
+		}else{
+			jQuery( this ).css( 'background', '#E6E8E6' );
+		}
+		i++;
+	})
+
+	if( response.data.content_empty == "false" ){
+		jQuery( '.tm-display-year-indicator' ).show();
+		jQuery( '.tm_client_indicator_update' ).replaceWith( response.data.header_view );
+	}else{
+		jQuery( '.tm-display-year-indicator' ).hide();
+	}
+
+	// jQuery( '.tm_client_indicator_update #tm_client_indicator_header_minus' ).attr( 'data-year', response.data.year - 1 );
+	// jQuery( '.tm_client_indicator_update #tm_client_indicator_header_actual' ).attr( 'data-year', response.data.year );
+	// jQuery( '.tm_client_indicator_update #tm_client_indicator_header_display' ).html( response.data.year );
+	// jQuery( '.tm_client_indicator_update #tm_client_indicator_header_plus' ).attr( 'data-year', response.data.year + 1 );
 }

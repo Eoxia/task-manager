@@ -152,12 +152,8 @@ class Activity_Class extends \eoxia\Singleton_Util {
 	 * @since  1.9.0 - BETA
 	 **/
 	public function getDataChart( $datas, $user_id, $date_end = '', $date_start = '', $time = '' ) {
-		if ( empty( $date_end ) ) {
-			$date_end = current_time( 'Y-m-d' );
-		}
-		if ( empty( $date_start ) ) {
-			$date_start = current_time( 'Y-m-d' );
-		}
+		$date_end = ! empty( $date_end ) ? $date_end : current_time( 'Y-m-d' );
+		$date_start = ! empty( $date_start ) ? $date_start : current_time( 'Y-m-d' );
 
 		$date_start_strtotime = strtotime( $date_start ); // @info Debut 0 à 1:00
 		$date_end_strtotime   = strtotime( $date_end ) + 86400; // @info Debut à 1:00 + 24h -> Jour suivant
@@ -167,8 +163,6 @@ class Activity_Class extends \eoxia\Singleton_Util {
 		// 86 400 = Une journée en seconde
 		$date_gap = ( $date_end_strtotime - $date_start_strtotime ) / 86400; // @info Recupere le nombre jour d'ecart
 
-		$data_full_planning = get_user_meta( $user_id, '_tm_planning_users', true );
-
 		$dates   = array();
 		$current = strtotime( $date_start );
 		$last    = strtotime( $date_end );
@@ -176,35 +170,142 @@ class Activity_Class extends \eoxia\Singleton_Util {
 		$data_monthyear_db = array();
 
 		while ( $current <= $last ) {
-			if ( date( 'm', $current ) != $temp_month ) {
-
-				$temp_month = date( 'm', $current );
-
-				$data_monthyear_db[ count( $data_monthyear_db ) ] = array(
-					'month' => date( 'm', $current ),
-					'year'  => date( 'Y', $current ),
-				);
-			}
-
-			$dates[] = date( 'd/m/Y', $current );
+			$dates[] = date( 'd-m-Y', $current );
 			$current = strtotime( '+1 day', $current );
 		}
 
-		$data_planningeachmonth_user = array();
+		$all_days = $this->data_planning_reformat( $dates, $date_start, $date_end, $user_id );
 
-		foreach ( $data_monthyear_db  as $nbr => $month ) { // @info Recupere dans la db, le planning de la période ciblée
-
-			$data_planningeachmonth_user[ count( $data_planningeachmonth_user ) ] = get_user_meta( $user_id, '_tm_planning_' . $month['year'] . '_' . $month['month'], true );
-		}
-
-		$data_array_return = $this->forEachDay( $date_gap, $date_start_strtotime, $data_planningeachmonth_user, $datas );
-
+		$data_array_return = $this->forEachDay( $date_gap, $date_start_strtotime, $all_days, $datas );
 		$date_return['datatime']   = $data_array_return[0];
 		$date_return['date_gap']   = $data_array_return[1];
 		$date_return['date_start'] = $date_start;
 		$date_return['date_end']   = $date_end;
 
 		return $date_return;
+	}
+
+	public function data_planning_reformat( $days, $start_time_user, $end_time_user, $user_id ){
+
+		$contracts = get_user_meta( $user_id, '_tm_planning_users_contract', true );
+		// $plannings = get_user_meta( $user_id, '_tm_planning_users_indicator', true );
+		$plannings = $contracts[ 'planning' ];
+		$contracts = $this->define_contract_valid( $contracts, $plannings );
+
+		$list_days = array();
+
+		foreach ( $days as $date_day ) { // @info Recupere dans la db, le planning de la période ciblée
+			$date_day_str = strtotime( $date_day );
+			$end_time = strtotime( "+1 month", $date_day_str);
+
+			$return = $this->return_day_work_minute( $date_day_str, $contracts );
+			$day = array(
+				'str' => $date_day_str,
+				'date' => $date_day,
+			  'day_type' => date( 'l', strtotime( $date_day ) ),
+				'default' => $return[ 'duration' ]
+			);
+			$list_days[] = $day;
+		}
+
+		return $list_days;
+	}
+
+	public function return_day_work_minute( $date_day_str, $contracts ){
+		$morning = $this->find_the_good_planning_for_this_date( $date_day_str, $contracts, 'morning' );
+		$afternoon = $this->find_the_good_planning_for_this_date( $date_day_str, $contracts, 'afternoon' );
+
+		$return = array(
+			'day'    => date( 'd-m-Y', $date_day_str ),
+			'period' => strtolower ( date( 'l', $date_day_str ) ),
+			'text'   => '',
+			'duration' => 0
+		);
+
+		$return[ 'duration' ] = $morning[ 'duration' ] + $afternoon[ 'duration' ];
+		return $return;
+	}
+
+	public function find_the_good_planning_for_this_date( $date_day_str, $contracts, $period ){
+		$info = array(
+			'day'      => date( 'd-m-Y', $date_day_str ),
+			'day_name' => strtolower ( date( 'l', $date_day_str ) ),
+			'period'   => $period,
+			'status'   => '',
+			'text'     => '',
+			'duration' => 0
+		);
+
+		foreach( $contracts as $contract ){
+			if( $date_day_str >= $contract[ 'start_date' ] ){ // La journée est aprés le début du contrat
+				if( $contract[ 'end_date_type' ] == "actual" || $date_day_str <= $contract[ 'end_date' ] ){ // Si contract actuel et date de fin aprés le jour
+					$start_hour = $contract[ 'planning' ][ $info[ 'day_name' ] ][ $period ][ 'work_from' ];
+					$end_hour = $contract[ 'planning' ][ $info[ 'day_name' ] ][ $period ][ 'work_to' ];
+
+					$start_hour =	$start_hour != "" ? $this->explode_format_hour_to_minute( $start_hour ) : '0';
+					$end_hour = $end_hour != "" ? $this->explode_format_hour_to_minute( $end_hour ) : '0';
+					$info[ 'duration' ] = $end_hour - $start_hour > 0 ? $end_hour - $start_hour : 0;
+					$info[ 'status' ] = 'success';
+
+					return $info;
+				}
+			}
+		}
+
+		$info[ 'text' ] = 'No data found';
+		$info[ 'status' ] = 'error';
+		return $info;
+	}
+
+	public function explode_format_hour_to_minute( $time = "" ){
+		$time = explode(':', $time);
+		return ( $time[ 0 ] * 60 ) + ( $time[ 1 ] );
+	}
+
+	public function define_planning_valid( $actual = array(), $archive = array() ){
+	/*	if( empty( $actual ) ){
+			return array();
+		}
+
+		foreach( $actual as $key_d => $day ){
+			foreach( $day as $key_p => $period ){
+				if( ! isset( $archive[ $key_d ][ $key_p ] ) || empty( $archive[ $key_d ][ $key_p ] ) ){
+					$archive[ $key_d ][ $key_p ] = array();
+				}
+				array_push( $archive[ $key_d ][ $key_p ], $period );
+				$archive[ $key_d ][ $key_p ] = Follower_Class::g()->array_sort( $archive[ $key_d ][ $key_p ], 'day_start', SORT_DESC ); // @info Objet trié par 'date'
+			}
+		}
+
+		foreach( $archive as $key_d => $day ){
+			foreach( $day as $key_p => $period ){
+				foreach( $period as $key_s => $settings ){
+					if( ! empty( $settings ) && $settings[ 'status' ] == "delete" ){
+						unset( $archive[ $key_d ][ $key_p ][ $key_s ] );
+					}
+				}
+			}
+		}
+
+		return $archive;*/
+	}
+
+	public function define_contract_valid( $contracts, $plannings ){
+		$contracts = ! empty( $contracts ) ? Follower_Class::g()->array_sort( $contracts, 'id' ) : array();
+
+		foreach( $plannings as $planning ){
+			$key = $planning[ 'info' ][ 'id' ] - 1;
+			$contracts[ $key ][ 'info' ] = $planning[ 'info' ];
+			$contracts[ $key ][ 'planning' ] = $planning[ 'planning' ];
+		}
+
+		foreach( $contracts as $key => $contract ){
+			if( $contract[ 'status' ] == "delete" ){
+				unset( $contracts[ $key ] );
+			}
+		}
+
+		return $contracts;
 	}
 
 	/**
@@ -219,38 +320,22 @@ class Activity_Class extends \eoxia\Singleton_Util {
 	 * @return [array] [0] => données utilisateurs | [1] => Jour d'écart
 	 * @since  1.9.0 - BETA
 	 */
-	public function forEachDay( $date_gap, $date_start_strtotime, $data_planningeachmonth_user, $datas ) {
-
+	public function forEachDay( $date_gap, $date_start_strtotime, $data_planningeachday, $datas ) {
 		$datatime           = [];
 		$datatime_estimated = [];
 		$datatime_reel      = [];
 
-		for ( $p = 0; $p < $date_gap; $p++ ) { // @info BOUCLE FOR | Pour chaque jours (intervalle choisi)
-			$strtotime_int = $p * 86400;
+		foreach( $data_planningeachday as $data_day ){ // @info BOUCLE FOR | Pour chaque jours (intervalle choisi)
+			$strtotime_int = $data_day[ 'str' ];
 
-			$time_timestamp = $date_start_strtotime + $strtotime_int;
-			$time           = date( 'l', $date_start_strtotime + $strtotime_int );
+			$time_timestamp = $strtotime_int;
+			$time           = date( 'l', $strtotime_int );
 
 			$worktoday     = false;
 			$default_value = 0;
-			foreach ( $data_planningeachmonth_user as $keyyear => $valueyear ) {
-				$day_found = false;
-				foreach ( $valueyear as $key => $value ) {
-
-					if ( strtotime( $value['date'] ) == $time_timestamp ) {
-						if ( $value['default'] > 0 ) { // @info On verifie que la personne travaille ce jour la
-							$worktoday     = true;
-							$default_value = $value['default'];
-						}
-
-						$day_found = true;
-						break;
-					}
-				}
-
-				if ( $day_found ) {
-					break;
-				}
+			if( $data_day[ 'default' ] > 0 ){
+				$worktoday = true;
+				$default_value = $data_day[ 'default' ];
 			}
 
 			if ( ! $worktoday ) {
@@ -259,19 +344,19 @@ class Activity_Class extends \eoxia\Singleton_Util {
 
 					$datatime_length = count( $datatime );
 
-					$temp_day = strftime( '%d-%m-%Y', $date_start_strtotime + $strtotime_int );
+					$temp_day = strftime( '%d-%m-%Y', $strtotime_int );
 
 					$locale = get_locale();
 					$date   = new \DateTime( $temp_day );
 
 				if ( class_exists( '\IntlDateFormatter' ) ) {
 					$formatter    = new \IntlDateFormatter( $locale, \IntlDateFormatter::FULL, \IntlDateFormatter::NONE );
-					$data['date'] = $formatter->format( $date );
+					$date_ = $formatter->format( $date );
 				}
 
-				$datatime[ $datatime_length ]['jour'] = $data['date'];
+				$datatime[ $datatime_length ]['jour'] = $date_;
 
-				$datatime[ $datatime_length ]['strtotime']     = $date_start_strtotime + $strtotime_int;
+				$datatime[ $datatime_length ]['strtotime']     = $strtotime_int;
 				$datatime[ $datatime_length ]['duree_journée'] = $default_value;// @info Nombre de journée de travail * la durée d'une journée de travail
 				$datatime[ $datatime_length ]['duree_travail'] = 0;
 

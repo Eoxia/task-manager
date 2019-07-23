@@ -182,6 +182,21 @@ class Task_Model extends \eoxia\Post_Model {
 			),
 		);
 
+		$this->schema['associated_document_id'] = array(
+			'since'     => '6.0.0',
+			'version'   => '6.0.0',
+			'type'      => 'array',
+			'meta_type' => 'multiple',
+		);
+
+		$this->schema['associated_document_id']['child']['image'] = array(
+			'since'      => '6.0.0',
+			'version'    => '6.0.0',
+			'type'       => 'array',
+			'array_type' => 'integer',
+			'meta_type'  => 'multiple',
+		);
+
 		parent::__construct( $object, $req_method );
 	}
 }

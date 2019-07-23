@@ -36,15 +36,17 @@ class Audit_Filter {
 		if ( is_admin() ) {
 			$screen = get_current_screen();
 
-			if ( 'toplevel_page_wpeomtm-dashboard' == $screen->id ) {
-				$param['not_parent_type'] = array( 'wpeo-audit' );
+			if( isset( $screen->id ) ){
+				if ( 'toplevel_page_wpeomtm-dashboard' == $screen->id ) {
+					$param['not_parent_type'] = array( 'wpeo-audit' );
+				}
 			}
 		}
 
 		return $param;
 	}
 
-	public function callback_tm_audit_list_customers( $a ){
+	public function callback_tm_audit_list_customers(){
 
 		$query = new \WP_Query(
 			array(

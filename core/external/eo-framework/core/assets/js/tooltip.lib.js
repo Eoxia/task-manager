@@ -105,6 +105,11 @@ if ( ! window.eoxiaJS.tooltip ) {
 			'left': left,
 			'opacity': 1
 		} );
+
+		jQuery( element ).on("remove", function() {
+			jQuery( jQuery( element )[0].tooltipElement ).remove();
+
+		} );
 	};
 
 	/**

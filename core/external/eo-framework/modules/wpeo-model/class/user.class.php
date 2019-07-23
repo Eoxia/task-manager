@@ -102,10 +102,6 @@ if ( ! class_exists( '\eoxia\User_Class' ) ) {
 				$args['schema'] = true;
 			}
 
-			if ( is_multisite() ) {
-				$args['blog_id'] = 0;
-			}
-
 			$args = apply_filters( 'eo_model_user_before_get', $args );
 
 			if ( isset( $args['schema'] ) ) {

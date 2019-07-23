@@ -34,6 +34,8 @@ class Notify_Class extends \eoxia\Singleton_Util {
 			return false;
 		}
 
+		$data = array();
+
 		$task = Task_Class::g()->get(
 			array(
 				'id' => $task_id,
@@ -60,6 +62,19 @@ class Notify_Class extends \eoxia\Singleton_Util {
 		$blog_name   = get_bloginfo( 'name' );
 
 		$recipients = array();
+		if( $users_id[ 0 ] == "-1" ){
+			$users = Follower_Class::g()->get( // Auto complete
+				array(
+					'role' => array(
+						'administrator',
+					),
+				)
+			);
+			$users_id = [];
+			foreach( $users as $user ){
+				$users_id[] = $user->data[ 'id' ];
+			}
+		}
 
 		foreach ( $users_id as $user_id ) {
 			$user_info    = get_userdata( $user_id );

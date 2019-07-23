@@ -34,8 +34,6 @@ class Setting_Action {
 
 		add_action( 'display_setting_user_task_manager', array( $this, 'callback_display_setting_user_task_manager' ), 10, 2 );
 		add_action( 'wp_ajax_paginate_setting_task_manager_page_user', array( $this, 'callback_paginate_setting_task_manager_page_user' ) );
-		add_action( 'wp_ajax_update_user_settings_indicator_client', array( $this, 'callback_update_user_settings_indicator_client' ) );
-		add_action( 'wp_ajax_delete_user_settings_indicator_client', array( $this, 'callback_delete_user_settings_indicator_client' ) );
 	}
 
 	/**
@@ -164,54 +162,9 @@ class Setting_Action {
 	 * @since 1.5.0
 	 */
 	public function callback_paginate_setting_task_manager_page_user() {
-		Setting_Class::g()->display_user_list_capacity();
+		$current_page = isset( $_POST[ 'next_page' ] ) && $_POST[ 'next_page' ] != "" ? (int) $_POST[ 'next_page' ] : 1;
+		Setting_Class::g()->display_user_list_capacity( array(), $current_page );
 		wp_die();
-	}
-
-	public function callback_update_user_settings_indicator_client(){
-		check_ajax_referer( 'update_user_settings_indicator_client' );
-
-		$color = ! empty( $_POST ['color' ] ) ? $_POST[ 'color' ] : '';
-		$valuefrom = ! empty( $_POST[ 'numberfrom' ] ) || $_POST[ 'numberfrom' ] == 0 ? (int) $_POST[ 'numberfrom' ] : -500;
-
-
-		if( $color != '' && $valuefrom != -500 ){
-			$view = Setting_Class::g()->update_settings_user_indicatorclient( $color, $valuefrom );
-
-			wp_send_json_success(
-				array(
-					'namespace'        => 'taskManager',
-					'module'           => 'setting',
-					'callback_success' => 'display_view_settings_indicator_client',
-					'view'             => $view
-				)
-			);
-		}
-	}
-
-	public function callback_delete_user_settings_indicator_client(){
-		check_ajax_referer( 'delete_user_settings_indicator_client' );
-
-		$key = ! empty( $_POST[ 'key' ] ) ? (int) $_POST[ 'key' ] : 0;
-
-		if( ! $key ){
-			status_header( 503, 'Need more data' );
-			wp_send_json_error( '-1' );
-		}
-
-		$key = $key - 1;
-
-		$view = Setting_Class::g()->delete_user_settings_indicator_client( $key );
-
-		wp_send_json_success(
-			array(
-				'namespace'        => 'taskManager',
-				'module'           => 'setting',
-				'callback_success' => 'display_view_settings_indicator_client',
-				'view'             => $view
-			)
-		);
-
 	}
 }
 

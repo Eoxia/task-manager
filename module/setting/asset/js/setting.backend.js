@@ -31,9 +31,8 @@ window.eoxiaJS.taskManager.setting.pagination = function( event ) {
 	var nextPage = href[1].replace( 'current_page=', '' );
 
 	jQuery( '.list-users' ).addClass( 'loading' );
-
 	var data = {
-		action: 'paginate_setting_epi_page_user',
+		action: 'paginate_setting_task_manager_page_user',
 		next_page: nextPage
 	};
 

@@ -75,7 +75,6 @@ if ( ! class_exists( '\eoxia\WPEO_Upload_Shortcode' ) ) {
 			}
 
 			$element = $atts['model_name']::g()->get( $args, true );
-
 			$main_picture_id = $element->data['thumbnail_id'];
 
 			if ( empty( $main_picture_id ) ) {

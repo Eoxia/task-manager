@@ -16,10 +16,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 <div class="tm-audit tm_audit_item_<?php echo esc_html( $audit->data[ 'id' ] ); ?>" data-id="<?= $audit->data[ 'id' ] ?>">
 
+<?php if( ! empty( $audit->data[ 'info' ] ) ): ?>
 	<div class="audit-progress">
 		<div class="progress-bar" style="width:<?= $audit->data[ 'info' ][ 'percent_uncompleted_points' ] . '%' ?>; background-color :<?=  $audit->data[ 'info' ][ 'color' ] ?>;"></div>
 		<span class="progress-text"><?= ( $audit->data[ 'info' ][ 'percent_uncompleted_points' ] > 5 ) ? $audit->data[ 'info' ][ 'count_completed_points' ] . ' /' . ( $audit->data[ 'info' ][ 'count_uncompleted_points' ] + $audit->data[ 'info' ][ 'count_completed_points' ] . ' (' . $audit->data[ 'info' ][ 'percent_uncompleted_points' ] . '%) ' ) : '' ?></span>
 	</div>
+<?php endif; ?>
+
 
 	<div class="audit-container">
 
@@ -96,6 +99,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 								data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_audit' ) ); ?>"
 								data-page="audit-page/metabox-audit-edit"
 								data-id="<?= $audit->data[ 'id' ] ?>"
+								data-loader="audit-container"
 								data-message-delete="<?php echo esc_attr_e( 'Delete this audit ?', 'task-manager' ); ?>"
 								style="cursor : pointer">
 							<span><i class="fas fa-trash fa-fw"></i> <?php esc_html_e( 'Delete this audit', 'task-manager' ); ?></span>

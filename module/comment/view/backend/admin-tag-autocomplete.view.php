@@ -32,5 +32,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 							</div>
 						</li>
 					<?php endforeach; ?>
+					<!-- EVERYONE -->
+					<li class="tm_list_administrator" data-select="false"
+						style="font-size: 15px; padding: 0.6em 2.6em; display: flex; flex-direction: row; justify-content: space-around;">
+						<div class="content-text">
+							<?php echo 'everyone' ?>
+						</div>
+						<div class="tm-user-data">
+							<input type="hidden" value="everyone"/>
+						</div>
+					</li>
+					<!-- EVERYONE -->
 			</ul>
 		</div>

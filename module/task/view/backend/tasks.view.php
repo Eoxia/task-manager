@@ -16,6 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; } ?>
 
 <?php
+
 if ( ! empty( $tasks ) ) :
 	foreach ( $tasks as $task ) :
 		\eoxia\View_Util::exec(

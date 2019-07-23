@@ -130,7 +130,7 @@ class Search_Class extends Singleton_Util {
 	private function search_post( $term, $data ) {
 		$results = array();
 
-		// $get_args = array( '_meta_or_title' => $term );
+		// $get_args = array( 'meta_or_title' => $term );
 
 		$get_args = array( 's' => $term );
 

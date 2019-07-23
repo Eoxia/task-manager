@@ -118,35 +118,90 @@ z-index: 26; }
       max-height: 1200px;
       height: 80%; }
 
-      .tm_indicator_updateprofile input{
-        width : 100%;
-      }
+    .tm_indicator_updateprofile input{
+      width : 100%;
+    }
 
 
-      .tm_add_quicktime_point{
-        border-bottom: 1px solid rgba(0,0,0,0.1);
-        padding-top : 10px;
-        padding-bottom : 10px
-      }
+    .tm_add_quicktime_point{
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+      padding-top : 10px;
+      padding-bottom : 10px
+    }
 
-      .tm_placeholder_c[contenteditable=true]:empty:before{
-        content: attr(placeholder);
-        display: block; /* For Firefox */
-      }
+    .tm_placeholder_c[contenteditable=true]:empty:before{
+      content: attr(placeholder);
+      display: block; /* For Firefox */
+    }
 
-      .tm_list_parent_li_element:hover{
-        background: rgba(0,0,0,0.05);
-      }
+    .tm_list_parent_li_element:hover{
+      background: rgba(0,0,0,0.05);
+    }
 
-      .tm_list_administrator.active{
-        /*background: rgba(0,0,0,0.05);*/
-        background: rgba(0,0,0,0.05);
-      }
+    .tm_list_administrator.active{
+      background: rgba(0,0,0,0.05);
+    }
 
-      .tm_list_administrator:hover + .tm_list_administrator.active{
-        background: none;
-      }
+    .tm_list_administrator:hover + .tm_list_administrator.active{
+      background: none;
+    }
 
-      .tm_list_administrator:hover{
-        background: rgba(0,0,0,0.05);
-      }
+    .tm_list_administrator:hover{
+      background: rgba(0,0,0,0.05);
+    }
+
+    .planninguser .wpeo-table .tm-planning-add-row .table-cell:hover{
+      background-color: lightgray;
+    }
+
+    .planninguser .wpeo-table .table-row .tm-action-delete-row-planning:hover{
+      background-color: lightgray;
+    }
+
+    .wpeo-task-parent .tm-use-class-from-digirisk .cotation:hover {
+      cursor: pointer; }
+
+    .wpeo-task-parent .tm-use-class-from-digirisk .cotation {
+      cursor: pointer;
+      height: 48px;
+      width: 48px;
+      text-align: center;
+ }
+
+    .wpeo-task-parent .tm-use-class-from-digirisk .cotation.default-cotation:hover {
+      background: rgba(0, 0, 0, 0.1); }
+
+    .wpeo-task-parent .tm-use-class-from-digirisk .cotation[data-scale="2"], .wpeo-task-parent .tm-use-class-from-digirisk .cotation[data-scale="3"], .wpeo-task-parent .tm-use-class-from-digirisk .cotation[data-scale="4"] {
+      color: #fff !important; }
+
+    .wpeo-task-parent .tm-use-class-from-digirisk .cotation[data-scale="1"], .wpeo-task-parent .tm-use-class-from-digirisk .cotation.level1 {
+      background: #e2e2e2;
+      color: rgba(0, 0, 0, 0.6); }
+
+    .wpeo-task-parent .tm-use-class-from-digirisk .cotation[data-scale="1"]:hover, .wpeo-task-parent .tm-use-class-from-digirisk .cotation.level1:hover {
+      background: #cecece; }
+
+    .wpeo-task-parent .tm-use-class-from-digirisk .cotation[data-scale="2"], .wpeo-task-parent .tm-use-class-from-digirisk .cotation.level2 {
+      background: #e9ad4f;
+      color: #fff; }
+
+    .wpeo-task-parent .tm-use-class-from-digirisk .cotation[data-scale="2"]:hover, .wpeo-task-parent .tm-use-class-from-digirisk .cotation.level2:hover {
+      background: #e49c2b; }
+
+    .wpeo-task-parent .tm-use-class-from-digirisk .cotation[data-scale="3"], .wpeo-task-parent .tm-use-class-from-digirisk .cotation.level3 {
+      background: #e05353;
+      color: #fff; }
+
+    .wpeo-task-parent .tm-use-class-from-digirisk .cotation[data-scale="3"]:hover, .wpeo-task-parent .tm-use-class-from-digirisk .cotation.level3:hover {
+      background: #da3030; }
+
+    .wpeo-task-parent .tm-use-class-from-digirisk .cotation[data-scale="4"], .wpeo-task-parent .tm-use-class-from-digirisk .cotation.level4 {
+      background: #2b2b2b;
+      color: #fff; }
+
+    .wpeo-task-parent .tm-use-class-from-digirisk .cotation[data-scale="4"]:hover, .wpeo-task-parent .tm-use-class-from-digirisk .cotation.level4:hover {
+      background: #171717; }
+
+    .planninguser .focus-element{
+      border : solid blue 2px;
+    }

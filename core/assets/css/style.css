@@ -1512,7 +1512,7 @@ body.toplevel_page_wpeomtm-dashboard #wpcontent {
         font-size: 14px;
         color: rgba(0, 0, 0, 0.4); }
     .tm-wrap .tm_client_audit_edit [contenteditable=true]:empty::before {
-      content: attr(placeholder);
+      /** content: attr(placeholder); */
       display: block;
       color: rgba(0, 0, 0, 0.6); }
     .tm-wrap .tm_client_audit_edit [contenteditable=true]:hover {

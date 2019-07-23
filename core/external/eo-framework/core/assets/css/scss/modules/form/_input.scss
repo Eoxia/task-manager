@@ -15,6 +15,9 @@
 			box-shadow: none;
 		}
 	}
+	input[type="submit"] {
+		width: auto;
+	}
 }
 
 /** compatibilité Date */

@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					data-checked="<?php echo ! empty( $point->data['completed'] ) ? 'true' : 'false'; ?>"
 					style="position : relative" />
 
-					<?php // Pour 1.10
+					<?php // Pour 1.11
 					/*
 					<div class="point-list-element" style="position : absolute; display : none; z-index : 2">
 						<div class="wpeo-button button-blue button-radius-3 button-square-30 button-bordered action-attribute" style="left : 6px; top : -40px"

@@ -13,5 +13,6 @@
 		"shortcode": {}
 	},
 	"posts_per_page": 10,
-	"events_per_page": 10
+	"events_per_page": 10,
+	"posts_per_page_client": 5
 }

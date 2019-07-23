@@ -47,6 +47,8 @@ class Indicator_Action {
 		add_action( 'wp_ajax_update_indicator_stats', array( $this, 'callback_update_indicator_stats' ) );
 
 		add_action( 'wp_ajax_update_indicator_stats_deadline', array( $this, 'callback_update_indicator_stats_deadline' ) );
+
+		add_action( 'wp_ajax_load_tags_stats', array( $this, 'callback_load_tags_stats' ) );
 	}
 
 
@@ -58,11 +60,11 @@ class Indicator_Action {
 	 * @since 1.5.0
 	 */
 	public function callback_admin_menu() {
-
 		add_submenu_page( 'wpeomtm-dashboard', __( 'Indicator', 'task-manager' ), __( 'Indicator', 'task-manager' ), 'manage_task_manager', 'indicator-page', array( Indicator_Class::g(), 'callable_indicator_page' ) );
 		add_meta_box( 'tm-indicator-activity', __( 'Daily activity', 'task-manager' ), array( Indicator_Class::g(), 'callback_my_daily_activity' ), 'wpeomtm-dashboard', 'normal' );
-		add_meta_box( 'indicator-page-id', __( 'Indicator', 'task-manager' ), array( Indicator_Class::g(), 'callback_load_indicator_page' ), 'indicator-page', 'normal' );
-		add_meta_box( 'indicator-page-client', __( 'Indicator', 'task-manager' ), array( Indicator_Class::g(), 'callback_load_client_page' ), 'indicator-page', 'normal' );
+		add_meta_box( 'indicator-page-id', __( 'Indicator User', 'task-manager' ), array( Indicator_Class::g(), 'callback_load_indicator_page' ), 'indicator-page', 'normal' );
+		add_meta_box( 'indicator-page-client', __( 'Indicator Client', 'task-manager' ), array( Indicator_Class::g(), 'callback_load_client_page' ), 'indicator-page', 'normal' );
+		add_meta_box( 'indicator-page-listtag', __( 'Indicator Tag', 'task-manager' ), array( Indicator_Class::g(), 'callback_load_tag_page' ), 'indicator-page', 'normal' );
 	}
 
 	/**
@@ -467,6 +469,80 @@ class Indicator_Action {
 				'module'           => 'indicator',
 				'callback_success' => 'updateStatsClient',
 				'view'             => ob_get_clean()
+			)
+		);
+	}
+
+	public function callback_load_tags_stats(){
+		$tagid = isset( $_POST[ 'tag_id' ] ) ? (int) $_POST[ 'tag_id' ] : 0;
+		$year = isset( $_POST[ 'year' ] ) ? (int) $_POST[ 'year' ] : 0;
+		$orderby = isset( $_POST[ 'order' ] ) ? sanitize_text_field( $_POST[ 'order' ] ) : '';
+
+		if( ! $tagid ){
+			wp_send_json_error( 'Error tagid undefined' );
+		}
+
+		$tasks = Task_Class::g()->get_tasks(
+			array(
+				'categories_id'  => $tagid,
+			)
+		);
+
+		$data = Indicator_Class::g()->generate_data_indicator_tag( $tasks, $year );
+
+		$everymonth = $data[ 'everymonth' ];
+		$year       = $data[ 'year' ];
+		$type_stats = __( 'Customer', 'task-manager' );
+
+		$type = $data[ 'type' ];
+		$info     = $data[ 'info' ];
+
+		if( ! $orderby ){
+			foreach( $data[ 'type' ] as $key => $type_ ){
+				$type[ $key ] = Indicator_Class::g()->sort_indicator_by_name( $type_, $data[ 'info' ][ $key ] );
+			}
+		}else{
+			foreach( $data[ 'type' ] as $key => $type_ ){
+				$type[ $key ] = Indicator_Class::g()->sort_indicator_by_percent( $type_, $data[ 'info' ][ $key ], $orderby );
+			}
+		}
+
+		ob_start();
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'indicator',
+			'backend-indicator-tag/indicator-table-page',
+			array(
+				'type' => $type,
+				'info' => $info,
+				'everymonth' => $everymonth,
+				'type_stats' => $type_stats
+			)
+		);
+
+		$view = ob_get_clean();
+		ob_start();
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'indicator',
+			'backend-indicator-tag/header',
+			array(
+				'year' => $year,
+				'tagid' => $tagid
+			)
+		);
+
+		$header_view = ob_get_clean();
+
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'indicator',
+				'callback_success' => 'updateIndicatorTag',
+				'view'             => $view,
+				'year'             => $year,
+				'header_view'      => $header_view,
+				'content_empty'    => empty( $info ) ? 'true' : 'false'
 			)
 		);
 	}

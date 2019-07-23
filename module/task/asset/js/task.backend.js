@@ -15,12 +15,13 @@ window.eoxiaJS.taskManager.task.init = function() {
 		columns: '.grid-col'
 	} );
 	window.eoxiaJS.taskManager.task.initAutoComplete();
+	window.eoxiaJS.taskManager.task.clignotePetitIcone();
 };
 
 window.eoxiaJS.taskManager.task.refresh = function() {
 	window.eoxiaJS.taskManager.task.initAutoComplete();
 };
- 
+
 window.eoxiaJS.taskManager.task.event = function() {
 	// jQuery( '.tm-wrap' ).on( 'keypress', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.keyEnterEditTitle );
 	jQuery( '.tm-wrap' ).on( 'blur', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.editTitle );
@@ -30,9 +31,9 @@ window.eoxiaJS.taskManager.task.event = function() {
 	jQuery( document ).on( 'click', '#tm_include_archive_client', window.eoxiaJS.taskManager.task.showArchiveClient );
 
 	jQuery( document ).on( 'click', '.tm_client_indicator_update', window.eoxiaJS.taskManager.audit.preventDefaultHeader );
-	jQuery( document ).on( 'click', '.tm_client_indicator_update_body table tbody .tm_client_indicator', window.eoxiaJS.taskManager.audit.openTaskRow );
+	jQuery( document ).on( 'click', '.tm_client_indicator_update_body table tbody .tm_client_indicator', window.eoxiaJS.taskManager.task.OpenTaskRow );
 
-	jQuery( document ).on( 'click', '.wpeo-pagination.pagination-task .pagination-element', window.eoxiaJS.taskManager.comment.paginationUpdateTasks );
+	jQuery( document ).on( 'click', '.wpeo-pagination.pagination-task .pagination-element', window.eoxiaJS.taskManager.task.paginationUpdateTasks );
 
 	jQuery( document ).on( 'click', '.add_parent_to_task', window.eoxiaJS.taskManager.task.displayInputTextParent );
 
@@ -43,9 +44,14 @@ window.eoxiaJS.taskManager.task.event = function() {
 	jQuery( document ).on( 'click', '.wpeo-task-parent-add .wpeo-tag label', window.eoxiaJS.taskManager.task.taskShowAutocompleteParent );
 	jQuery( document ).on( 'focusout', '.wpeo-task-parent-add .wpeo-tag ul', window.eoxiaJS.taskManager.task.taskHideAutocompleteParent );
 
-	jQuery( document ).on( 'click', '.wpeo-task-parent-add .tm_list_parent_li_element', window.eoxiaJS.taskManager.task.getValueAutocompleteParent );
 
 	jQuery( document ).on( 'keyup', '.tm_task_autocomplete_parent', window.eoxiaJS.taskManager.task.taskUpdateAutocompleteParent );
+
+	jQuery( document ).on( 'click keyup', '.wpeo-ul-parent.wpeo-tag-wrap', window.eoxiaJS.taskManager.task.allClientsFocusIn );
+
+	jQuery( document ).on( 'click', '.wpeo-task-parent-add .tm_list_parent_li_element', window.eoxiaJS.taskManager.task.getValueAutocompleteParent );
+
+	jQuery( document ).on( 'change keyup', '.tm_indicator_updateprofile input[type="number"]', window.eoxiaJS.taskManager.task.activateButtonPlanning );
 
 };
 
@@ -287,19 +293,25 @@ window.eoxiaJS.taskManager.task.showArchiveClient = function( triggeredElement, 
 	window.eoxiaJS.request.send( jQuery( this ), data );
 }
 
-window.eoxiaJS.taskManager.audit.openTaskRow = function( event ){
+window.eoxiaJS.taskManager.task.OpenTaskRow = function( event ){
 	var select = jQuery( this );
+	var icondown = jQuery( this ).find( '.tag-title .fa-caret-down' );
+	var iconup = jQuery( this ).find( '.tag-title .fa-caret-right' );
 
 	if( select.attr( 'data-show' ) == 'true' ){
+		icondown.hide();
+		iconup.show();
 		select.attr( 'data-show', 'false' );
 		jQuery( '.tm_client_indicator_' + select.attr( 'data-id' ) + '_' + select.attr( 'data-type' ) ).hide( '200' );
 	}else{
+		icondown.show();
+		iconup.hide();
 		select.attr( 'data-show', 'true' );
-		jQuery( '.tm_client_indicator_' + select.attr( 'data-id' ) + '_' + select.attr( 'data-type' ) ).show( '500' );
+		jQuery( '.tm_client_indicator_' + select.attr( 'data-id' ) + '_' + select.attr( 'data-type' ) ).show( '200' );
 	}
 }
 
-window.eoxiaJS.taskManager.comment.paginationUpdateTasks = function( event ) {
+window.eoxiaJS.taskManager.task.paginationUpdateTasks = function( event ) {
 	var data = {};
 
 	var pagination_parent = jQuery( this ).parent();
@@ -361,7 +373,6 @@ window.eoxiaJS.taskManager.task.editButtonPaginationClient = function( dontKnowS
 window.eoxiaJS.taskManager.task.displayInputTextParent = function( event ){
 
 	if( ! jQuery( this ).data( 'request_send' ) ){
-		console.log( '.' );
 		jQuery( this ).addClass( 'button-disabled' );
 		jQuery( this ).css( 'background', '#0084ff' );
 		jQuery( this ).css( 'color', 'white' );
@@ -410,6 +421,10 @@ window.eoxiaJS.taskManager.task.loadedAllClientsCommands = function( element, re
 
 }
 
+window.eoxiaJS.taskManager.task.allClientsFocusIn = function( event ){
+	jQuery( this ).find('.wpeo-task-parent-add .wpeo-tag ul').show();
+}
+
 window.eoxiaJS.taskManager.task.taskShowAutocompleteParent = function( event ){
 	jQuery( this ).find( 'ul' ).show( '200' );
 	var div = jQuery( this ).find( '.tm_task_autocomplete_parent' );
@@ -424,24 +439,52 @@ window.eoxiaJS.taskManager.task.taskHideAutocompleteParent = function( event ){
 
 
 window.eoxiaJS.taskManager.task.taskUpdateAutocompleteParent = function( event ){
-	//jQuery( document ).removeEventListener( 'keyup', window.eoxiaJS.taskManager.task.taskUpdateAutocompleteParent, true );
 	event.stopPropagation();
 	var value = jQuery( this ).val().toLowerCase();
 
 	var list_parent = jQuery( this ).closest( '.wpeo-tag' ).find( 'ul' );
-	var i = 0;
+	var all = 0;
+	var valid = 0;
+	if( value == "" ){
+		jQuery( this ).closest( '.wpeo-tag' ).find( 'ul li' ).show();
+		list_parent.find( '.tm_list_infoempty' ).hide();
+		return true;
+	}
+
+	var valid_parent = [];
+
 	list_parent.find( '.tm_list_parent_li_element' ).each(function( element ) {
-		if( i > 12 ){
-			return false;
+		if( valid >= 12 ){
+			jQuery( this ).hide();
+		}else{
+			var a = jQuery( this ).html().trim().toLowerCase();
+			if( a.includes( value ) ){
+				if( ! jQuery.inArray( jQuery( this ).data( 'key' ), valid_parent ) !== -1 ){
+					valid_parent.push( jQuery( this ).data( 'key' ) );
+				}
+				valid ++;
+				jQuery( this ).show();
+			}else{
+				jQuery( this ).hide();
+			}
 		}
-		var a = jQuery( this ).html().trim().toLowerCase();
-		if( a.includes( value ) ){
-			i++;
+	});
+
+	var elementfound = false;
+	list_parent.find( '.tm_list_parent' ).each(function( element ) {
+		if( jQuery.inArray( jQuery( this ).data( 'key' ), valid_parent ) !== -1 ){
+			elementfound = true;
 			jQuery( this ).show();
 		}else{
 			jQuery( this ).hide();
 		}
 	});
+
+	if( ! elementfound ){ // Aucun element n'a était trouvé
+		list_parent.find( '.tm_list_infoempty' ).show();
+	}else{
+		list_parent.find( '.tm_list_infoempty' ).hide();
+	}
 }
 
 window.eoxiaJS.taskManager.task.getValueAutocompleteParent = function( event ){
@@ -458,3 +501,69 @@ window.eoxiaJS.taskManager.task.getValueAutocompleteParent = function( event ){
 window.eoxiaJS.taskManager.task.reloadTaskParentElement = function( element, response ){
 	jQuery( element ).closest( '.wpeo-ul-parent' ).replaceWith( response.data.view );
 }
+
+window.eoxiaJS.taskManager.task.clignotePetitIcone = function( event ){
+	var interval = 0;
+	var myReq;
+	var k = [67, 65, 77, 73, 76, 76, 69],
+	n = 0;
+
+	var oui = false;
+	var color = [];
+
+	jQuery(document).keydown(function (e) {
+
+		if( oui ){
+			clearInterval( interval );
+			jQuery( '.fas' ).each( function(){
+				 jQuery( this ).css( 'color', '#000000' );
+				});
+		 	return;
+		}
+
+   if (e.keyCode === k[n++]) {
+     if (n === k.length) {
+         oui = true;
+         interval = setInterval( function(){ jQuery( '.fas' ).each( function( ){
+						jQuery( this ).css( 'color', '#'+Math.floor(Math.random()*9999).toString(16) );
+	         	// jQuery( this ).rotate(Math.floor(Math.random()*25));
+         }); }, 200 );
+         n = 0;
+         return false;
+     }
+   }else {
+		 clearInterval( interval );
+      n = 0;
+   }
+	});
+}
+
+window.eoxiaJS.taskManager.task.activateButtonPlanning = function( event ){
+	jQuery( this ).closest( '.tm_indicator_updateprofile' ).find( '.button-add-row-plan .disabled' ).removeClass( 'disabled' );
+}
+
+window.eoxiaJS.taskManager.task.returnSuccessUpdateTaskPerPage = function( element, response ){
+	jQuery( '.pmg-sotut-container' ).append( '<p style="color:green">' + response.data.text_success + '</p>' );
+	window.location.reload();
+}
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//

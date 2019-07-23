@@ -106,7 +106,8 @@ if ( ! window.eoxiaJS.modal  ) {
 		jQuery( document ).on( 'click', '.wpeo-modal-event', window.eoxiaJS.modal.open );
 		jQuery( document ).on( 'click', '.wpeo-modal .modal-container', window.eoxiaJS.modal.stopPropagation );
 		jQuery( document ).on( 'click', '.wpeo-modal .modal-close', window.eoxiaJS.modal.close );
-		jQuery( document ).on( 'click', 'body', window.eoxiaJS.modal.close );
+		//  jQuery( document ).on( 'click', 'body', window.eoxiaJS.modal.close ); //09/07/2019
+		jQuery( document ).on( 'mousedown', '.modal-active:not(.modal-container)', window.eoxiaJS.modal.close );
 		jQuery( '#wpeo-task-metabox h2 span .wpeo-modal-event' ).click( window.eoxiaJS.modal.open );
 	};
 
@@ -242,6 +243,9 @@ if ( ! window.eoxiaJS.modal  ) {
 	 * @returns {void}       [description]
 	 */
 	window.eoxiaJS.modal.close = function( event ) {
+		if( ! jQuery( event.target ).hasClass( "wpeo-modal" ) && event.type == "mousedown" ){ // Si le click se situe dans la modal
+			return;
+		}
 		jQuery( '.wpeo-modal.modal-active:last:not(.modal-force-display)' ).each( function() {
 			var popup = jQuery( this );
 			popup.removeClass( 'modal-active' );
@@ -249,9 +253,7 @@ if ( ! window.eoxiaJS.modal  ) {
 				setTimeout( function() {
 					popup.remove();
 				}, 200 );
-
 			}
-
 			popup.trigger( 'modal-closed', popup );
 		} );
 	};

@@ -136,7 +136,7 @@ class Task_Class extends \eoxia\Post_Class {
 		$param['users_id']        = ! empty( $param['users_id'] ) ? (array) $param['users_id'] : array();
 		$param['categories_id']   = ! empty( $param['categories_id'] ) ? (array) $param['categories_id'] : array();
 		$param['status']          = ! empty( $param['status'] ) ? sanitize_text_field( $param['status'] ) : 'any';
-		$param['post_parent']     = ! empty( $param['post_parent'] ) ? (array) $param['post_parent'] : null;
+		$param['post_parent']     = ! empty( $param['post_parent'] ) ? (array) $param['post_parent'] : 0;
 		$param['term']            = ! empty( $param['term'] ) ? sanitize_text_field( $param['term'] ) : '';
 		$param['not_parent_type'] = ! empty( $param['not_parent_type'] ) ? (array) $param['not_parent_type'] : null;
 
@@ -176,7 +176,7 @@ class Task_Class extends \eoxia\Post_Class {
 
 		$query .= 'AND TASK.post_status IN (' . $param['status'] . ')';
 
-		if ( ! is_null( $param['post_parent'] ) ) {
+		if ( ! empty( $param['post_parent'] ) && ! is_null( $param['post_parent'] ) ) {
 			$query .= 'AND TASK.post_parent IN (' . implode( $param['post_parent'], ',' ) . ')';
 		}
 
@@ -322,37 +322,40 @@ class Task_Class extends \eoxia\Post_Class {
 		$total_time_elapsed   = 0;
 		$total_time_estimated = 0;
 
-		$posts_per_page_task = 5; // Définis le nombre de tache / page (client)
+
+		$posts_per_page_task = self::g()->get_task_per_page_for_this_user( get_current_user_id() ); // Définis le nombre de tache / page (client)
 
 		// Affichage des tâches de l'élément sur lequel on se trouve.
 		$tasks[ $post_id ]['title'] = '';
 
 		$args = array(
 			'post_parent' => $post_id,
-			'status'      => 'publish,pending,draft,future,private,inherit'
+			'post_status' => 'publish,pending,draft,future,private,inherit'
 		);
 
 		if( empty( $args_parameter )  ){ // Par défaut on affiche 5 élements / page
 			$args_parameter = array(
 				'offset' => 0,
-				'status' => 'publish,pending,draft,future,private,inherit'
+				'post_status' => 'publish,pending,draft,future,private,inherit'
 			);
 		}
 
 		$args_parameter[ 'posts_per_page' ] = $posts_per_page_task;
 
-		$tasks[ $post_id ]['data'] = self::g()->get_tasks( wp_parse_args( $args_parameter, $args ) );
+		// $tasks[ $post_id ]['data'] = self::g()->get_tasks( wp_parse_args( $args_parameter, $args ) ); // 27/06/2019
+		$tasks[ $post_id ]['data'] = Task_Class::g()->get( wp_parse_args( $args_parameter, $args ) );
 
-		$number_task = count( self::g()->get_tasks( array( 'status' => $args_parameter[ 'status' ], 'post_parent' => $post_id ) ) );
+		$temp_array = wp_parse_args( $args_parameter, $args );
+		$temp_array[ 'offset' ] = 0;
+		$temp_array[ 'posts_per_page' ] = -1;
 
-		// $number_task = count( self::g()->get_tasks( $args_parameter ) );
+		$number_task = count( Task_Class::g()->get( $temp_array ) );
 
-
-		$count_tasks = 0;
+		$count_pages = 0;
 		if( $number_task > 0 ){
-			$count_tasks = intval( $number_task / $posts_per_page_task );
+			$count_pages = intval( $number_task / $posts_per_page_task );
 			if( intval( $number_task % $posts_per_page_task ) > 0 ){
-				$count_tasks++;
+				$count_pages++;
 			}
 		}
 
@@ -391,7 +394,7 @@ class Task_Class extends \eoxia\Post_Class {
 				$tasks[ $child->ID ]['data']  = self::g()->get_tasks(
 					array(
 						'post_parent' => $child->ID,
-						'status'      => 'publish,pending,draft,future,private,inherit,archive',
+						'status'      => 'publish,pending,future,private,inherit,archive',
 					)
 				);
 
@@ -428,7 +431,7 @@ class Task_Class extends \eoxia\Post_Class {
 				'total_time_elapsed'   => $total_time_elapsed,
 				'total_time_estimated' => $total_time_estimated,
 				'offset'               => $offset,
-				'count_tasks'          => $count_tasks
+				'count_tasks'          => $count_pages
 			)
 		);
 	}
@@ -559,8 +562,6 @@ class Task_Class extends \eoxia\Post_Class {
 		return $this->callback_render_indicator( array(), $postid, $postauthor, $year );
 	}
 
-
-
 /**
  * Cette fonction permet de créer un tableau (pour chaque tache)
  * @param  [type] $task_title      [titre de la tachee].
@@ -584,8 +585,8 @@ class Task_Class extends \eoxia\Post_Class {
 
 	public function generate_data_indicator_client( $tasks, $allmonth, $post_id )
 	{
-		$str_start = $allmonth[ 0 ][ 'str_month_start' ];
-		$str_end = $allmonth[ count( $allmonth ) - 1 ][ 'str_month_end' ];
+		// $str_start = $allmonth[ 0 ][ 'str_month_start' ]; Ces deux dates permettaient de trier/ enlever
+		// $str_end = $allmonth[ count( $allmonth ) - 1 ][ 'str_month_end' ]; les taches qui n'ont pas était modifié dans l'année
 
 		$categories_indicator = array();
 		$categories_indicator_info = array();
@@ -608,9 +609,9 @@ class Task_Class extends \eoxia\Post_Class {
 				continue;
 			}
 
-			if( ! $str_start < strtotime( $task->data['date_modified'][ 'rendered' ][ 'mysql' ] ) && ! $str_end > strtotime( $task->data['date_modified'][ 'rendered' ][ 'mysql' ] ) ){ // On vérifie que la tache est était modifiée dans l'année
+			/*if( ! $str_start < strtotime( $task->data['date_modified'][ 'rendered' ][ 'mysql' ] ) && ! $str_end > strtotime( $task->data['date_modified'][ 'rendered' ][ 'mysql' ] ) ){ // On vérifie que la tache est était modifiée dans l'année
 				continue;
-			}
+			}*/
 
 			if( empty( $task->data['taxonomy'][ 'wpeo_tag' ] ) ){
 				$task->data[ 'taxonomy' ][ 'wpeo_tag' ][] = 0;
@@ -758,11 +759,10 @@ class Task_Class extends \eoxia\Post_Class {
 
 		$tasks = array();
 
-		$tasks[ $post_id ]['title'] = '';
-		$tasks[ $post_id ]['data']  = self::g()->get_tasks(
+		$tasks  = self::g()->get_tasks(
 			array(
 				'post_parent' => $post_id,
-				'status'      => 'publish,pending,draft,future,private,inherit,archive',
+				'status'      => 'publish,pending,draft,future,private,inherit,archive'
 			)
 		);
 
@@ -771,7 +771,7 @@ class Task_Class extends \eoxia\Post_Class {
 
 		$allmonth_betweendates = $this->all_month_between_two_dates( $indicator_date_start, $indicator_date_end, true );
 
-		$return = $this->generate_data_indicator_client( $tasks[ $post_id ]['data'], $allmonth_betweendates, $post_id );
+		$return = $this->generate_data_indicator_client( $tasks, $allmonth_betweendates, $post_id );
 		$categories_indicator = isset( $return[ 'data' ] ) ? $return[ 'data' ] : array(); // Data principal
 		$categories_info = isset( $return[ 'info' ] ) ? $return[ 'info' ] : array(); // Info
 
@@ -883,8 +883,6 @@ class Task_Class extends \eoxia\Post_Class {
 			$time_elapsed_categorie = 0;
 			$time_estimated_categorie = 0;
 
-	//		echo '<pre>'; print_r( $info ); echo '</pre>';
-//exit;
 			foreach( $category as $key_month => $month ){
 				$time_elapsed_month = 0;
 				$time_estimated_month = 0;
@@ -904,7 +902,9 @@ class Task_Class extends \eoxia\Post_Class {
 						}
 
 						if( $info[ $key_categ ][ 'info' ][ 'type' ] == "deadline" ){
-							$time_estimated_categorie = $time_estimated_month;
+							if( $time_estimated_month != 0 ){
+								$time_estimated_categorie = $time_estimated_month;
+							}
 
 							$info[ $key_categ ][ 'task_list' ][ $key_task ][ 'time_elapsed' ] += $task[ 'time_elapsed' ];
 							$info[ $key_categ ][ 'task_list' ][ $key_task ][ 'time_estimated' ] = $task[ 'time_estimated' ];
@@ -939,7 +939,6 @@ class Task_Class extends \eoxia\Post_Class {
 	}
 
 	public function update_data_indicator_humanreadable( $categories, $info ){
-
 		foreach( $categories as $key_type => $value_type ){ // Deadline / recusive
 			foreach( $value_type as $key_cat=> $value_cat ){ // All categories
 				foreach( $value_cat as $key_month => $value_month ){
@@ -1079,6 +1078,17 @@ class Task_Class extends \eoxia\Post_Class {
 			WHERE TASK.post_type='wpeo-task' AND TASK.post_status IN('publish', 'inherit')", $type ) );
 
 		return $results;
+	}
+
+	public function get_task_per_page_for_this_user( $id ){
+		$data_plan = get_user_meta( $id, '_tm_task_per_page', true );
+		$default_value = \eoxia\Config_Util::$init['task-manager']->task->posts_per_page_client;
+
+		if( ! empty( $data_plan ) && $data_plan[ 'value' ] >= 2 ){
+			$default_value = $data_plan[ 'value' ];
+		}
+
+		return $default_value;
 	}
 }
 

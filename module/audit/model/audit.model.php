@@ -42,6 +42,15 @@ class Audit_Model extends \eoxia\Post_Model {
 			)
 		);
 
+		$this->schema['status_audit'] = array(
+		 'type'        => 'string',
+		 'meta_type'   => 'single',
+		 'field'       => 'post_status_audit',
+		 'description' => 'Is the status of the audit. Value can be "OK" or "KO".',
+		 'since'       => '1.11.0',
+		 'version'     => '1.11.0',
+ 		);
+
 		parent::__construct( $object, $req_method );
 	}
 }

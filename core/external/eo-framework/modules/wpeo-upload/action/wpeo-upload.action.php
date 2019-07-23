@@ -123,7 +123,9 @@ if ( ! class_exists( '\eoxia\WPEO_Upload_Action' ) ) {
 			if ( 'list' === $data['display_type'] ) {
 				$filelink      = get_attached_file( $data['file_id'] );
 				$filename_only = basename( $filelink );
-				$fileurl_only  = wp_get_attachment_url( $data['file_id'] );
+				$file          = get_post( $data['file_id'] );
+				$fileurl_only  = $file->guid;
+
 				ob_start();
 				require \eoxia\Config_Util::$init['eo-framework']->wpeo_upload->path . '/view/' . $data['display_type'] . '/list-item.view.php';
 				$view = ob_get_clean();

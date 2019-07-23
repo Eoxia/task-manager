@@ -35,19 +35,6 @@
   text-rendering: auto;
   line-height: 1; }
 
-.fab {
-  font-family: 'Font Awesome 5 Brands'; }
-
-.far {
-  font-family: 'Font Awesome 5 Free';
-  font-weight: 400; }
-
-.fa,
-.fas,
-.wpeo-button.button-progress::before {
-  font-family: 'Font Awesome 5 Free';
-  font-weight: 900; }
-
 /*--------------------------------------------------------------
 # Normalize
 --------------------------------------------------------------*/
@@ -2259,6 +2246,9 @@
     outline: none;
     -webkit-box-shadow: none;
     box-shadow: none; }
+
+.wpeo-form input[type="submit"] {
+  width: auto; }
 
 /** compatibilité Date */
 .wpeo-form .group-date .mysql-date {

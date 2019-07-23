@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		if ( 'image' === $atts['mime_type'] ) :
 		?>
 		<div class="default default-icon-container">
-			<i class="default-image far fa-image"></i>
+			<i class="default-image fas fa-image"></i>
 			<img src="" class="hidden"/>
 		</div>
 		<?php

@@ -58,7 +58,7 @@ class Search_Action {
 
 				$sql['where'] = sprintf(
 					'AND ( %s OR %s ) ',
-					$wpdb->prepare( "{$wpdb->posts} . post_title LIKE '%s%'", $title ),
+					$wpdb->prepare( "{$wpdb->posts} . post_title LIKE '%%%s%%'", $title ),
 					mb_substr( $sql['where'], 5, mb_strlen( $sql['where'] ) )
 				);
 

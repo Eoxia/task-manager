@@ -105,6 +105,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		data-loader="task-header-action">
 		<span><i class="fas fa-trash"></i></span>
 	</li>
+
+	<li class="wpeo-tooltip-event" data-direction="top"
+		aria-label="<?php esc_html_e( 'Media', 'task-manager' ); ?>">
+		<?php echo do_shortcode( '[wpeo_upload id="' . $task->data['id'] . '" single="false" model_name="/task_manager/Task_Class" field_name="image"]' ); ?>
+	</li>
 </ul>
 
 <div class="move-to">

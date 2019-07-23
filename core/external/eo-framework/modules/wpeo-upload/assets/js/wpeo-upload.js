@@ -171,10 +171,8 @@ window.eoxiaJS.upload.refreshButton = function( data ) {
 	jQuery( window.eoxiaJS.upload.currentButton ).removeClass( 'no-file loading wpeo-loader' );
 	if( window.eoxiaJS.upload.currentButton.is( 'a' ) ) {
 		window.eoxiaJS.loader.remove( window.eoxiaJS.upload.currentButton );
-
-		if ( ! data.id ) {
-			window.eoxiaJS.upload.currentButton.closest( 'div' ).find( 'ul' ).append( data.view );
-		}
+		window.eoxiaJS.upload.currentButton.closest( 'div' ).find( 'ul li.no-file-attached' ).remove();
+		window.eoxiaJS.upload.currentButton.closest( 'div' ).find( 'ul' ).append( data.view );
 	} else {
 		if ( data.view ) {
 			if ( window.eoxiaJS.upload.currentButton.data( 'custom-class' ) ) {

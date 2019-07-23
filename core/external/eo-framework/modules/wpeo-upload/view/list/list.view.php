@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	else :
 		if ( 0 != $atts['id'] ) :
 			?>
-			<li><?php echo esc_html_e( 'No file attached', 'wpeo-upload' ); ?></li>
+			<li class="no-file-attached"><?php echo esc_html_e( 'No file attached', 'wpeo-upload' ); ?></li>
 			<?php
 		endif;
 	endif;

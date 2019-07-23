@@ -17,12 +17,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php if( ! empty( $type ) ) : ?>
 <div class="tm-wrap wpeo-wrap tm_client_indicator_update_body">
 
-	<h3><i class="fas fa-repeat"></i> <?php esc_html_e( 'Recursive', 'task-manager' ); ?></h3>
+	<h3><i class="fas fa-redo-alt"></i> <?php esc_html_e( 'Recursive', 'task-manager' ); ?></h3>
 
 	<table class="wpeo-table"> <?php // Recursive TASK ?>
   <thead>
     <tr>
-			<th data-title="Category"><?php esc_html_e( 'Categories', 'task-manager' ); ?></th>
+			<?php if( isset( $type_stats ) && $type_stats != "" ): ?>
+				<th data-title="<?= $type_stats ?>"><?php echo esc_attr( $type_stats ); ?></th>
+			<?php else: ?>
+				<th data-title="Category"><?php esc_html_e( 'Categories', 'task-manager' ); ?></th>
+			<?php endif; ?>
 			<?php foreach( $everymonth as $key_month => $value_month ): ?>
       <th data-title="MonthName" style="cursor : pointer"><?= $value_month[ 'name_month' ] ?></th> <!-- . $value_month[ 'year' ] -->
 		<?php endforeach; ?>
@@ -70,7 +74,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php if( ! empty( $info[ $key_categorie ][ $key_indicator ][ 'task_list' ] ) ):
 					foreach( $info[ $key_categorie ][ $key_indicator ][ 'task_list' ] as $key_task => $value_task ):
 						?>
-						<tr class="tm_client_indicator_<?php echo esc_html( $key_indicator ) ?>_<?php echo esc_html( $key_categorie ) ?>">
+						<tr class="tm_client_indicator_<?php echo esc_html( $key_indicator ) ?>_<?php echo esc_html( $key_categorie ) ?> tm-simple-task">
 							<td class="wpeo-tooltip-event"
 							data-title="<?= esc_html__( 'Total : ', 'task-manager' ); ?>
 							<?php echo esc_html( $value_task[ 'time_elapsed_readable' ] ) ?>/
@@ -136,7 +140,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 <table class="wpeo-table"> <?php // Deadline TASK - - - - - - - - - - - - - - ?>
 <thead>
 	<tr>
-		<th data-title="Category"><?php esc_html_e( 'Categories', 'task-manager' ); ?></th>
+		<?php if( isset( $type_stats ) && $type_stats != "" ): ?>
+			<th data-title="<?= $type_stats ?>"><?php echo esc_attr( $type_stats ); ?></th>
+		<?php else: ?>
+			<th data-title="Category"><?php esc_html_e( 'Categories', 'task-manager' ); ?></th>
+		<?php endif; ?>
 		<?php foreach( $everymonth as $key_month => $value_month ): ?>
 			<th data-title="MonthName" style="cursor : pointer"><?= $value_month[ 'name_month' ] ?></th> <!-- . $value_month[ 'year' ] -->
 		<?php endforeach; ?>
@@ -253,4 +261,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 </tbody>
 </table>
 </div>
+<?php else: ?>
+	<div class="wpeo-notice notice-warning">
+		<div class="notice-content">
+			<div class="notice-title"><?php esc_html_e( 'No data found !', 'task-manager' ); ?></div>
+			<div class="notice-subtitle"><?php esc_html_e( 'Be sure you havn\'t made any mistakes in your search', 'task-manager' ); ?></div>
+		</div>
+		<div class="notice-close"><i class="fas fa-times"></i></div>
+	</div>
 <?php endif; ?>

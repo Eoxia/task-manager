@@ -44,7 +44,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							data-action="load_edit_view_comment"
 							data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_edit_view_comment' ) ); ?>"
 							data-id="<?php echo esc_attr( $comment->data['id'] ); ?>">
-						<span><i class="fas fa-pencil fa-fw"></i> <?php esc_html_e( 'Edit this comment', 'task-manager' ); ?></span>
+						<span><i class="fas fa-pencil-alt fa-fw"></i> <?php esc_html_e( 'Edit this comment', 'task-manager' ); ?></span>
 					</li>
 
 					<li class="dropdown-item action-delete"

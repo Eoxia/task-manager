@@ -1,7 +1,7 @@
 {
 	"name": "Task Manager",
 	"slug": "task-manager",
-	"version": "1.10.0",
+	"version": "1.11.0",
 	"description": "L'application Task Manager",
 	"insert_scripts_pages": [
 		"wpeomtm-dashboard",
@@ -15,6 +15,7 @@
 		"tache_page_indicator-page",
 		"tache_page_audit-page",
 		"profile",
+		"user-edit"
 		"wps-third-party"
 	],
 	"externals": [],

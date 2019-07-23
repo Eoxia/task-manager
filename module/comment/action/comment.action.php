@@ -42,7 +42,7 @@ class Task_Comment_Action {
 	}
 
 	/**
-	 * Utilises la méthode "display" pour récupérer la vue puis l'envoie à la réponse ajax.
+	 * Utilises la métheode "display" pour récupérer la vue puis l'envoie à la réponse ajax.
 	 *
 	 * @since 1.3.6
 	 */
@@ -50,8 +50,8 @@ class Task_Comment_Action {
 		$task_id      = ! empty( $_POST[ 'task_id' ] ) ? (int) $_POST[ 'task_id' ] : 0;
 		$point_id     = ! empty( $_POST[ 'point_id' ] ) ? (int) $_POST[ 'point_id' ] : 0;
 		$frontend     = ( isset( $_POST[ 'frontend' ] ) && 'true' == $_POST[ 'frontend' ] ) ? true : false;
-		$number = ! empty( $_POST[ 'number' ] && $_POST[ 'number' ] > 0 ) ? (int) $_POST[ 'number' ] : 10; // On affiche 10 Commentaires / point
-		$offset = ! empty( $_POST[ 'offset' ] && $_POST[ 'offset' ] >= 0 ) ? (int) $_POST[ 'offset' ] : 0; // On commence à l'élément 0 (triè par date par défault)
+		$number       = ! empty( $_POST[ 'number' ] ) && $_POST[ 'number' ] > 0 ? (int) $_POST[ 'number' ] : 10; // On affiche 10 Commentaires / point
+		$offset       = ! empty( $_POST[ 'offset' ] ) && $_POST[ 'offset' ] >= 0 ? (int) $_POST[ 'offset' ] : 0; // On commence à l'élément 0 (triè par date par défault)
 
 		$args = array(
 			'number' => $number,
@@ -67,7 +67,6 @@ class Task_Comment_Action {
 		);
 
 		ob_start();
-
 		\eoxia\View_Util::exec(
 			'task-manager',
 			'comment',
@@ -78,7 +77,6 @@ class Task_Comment_Action {
 		);
 
 		$follower_view = ob_get_clean(); // - - - - - -
-
 		ob_start();
 		Task_Comment_Class::g()->display( $task_id, $point_id, $frontend, $args );
 		wp_send_json_success(
@@ -110,8 +108,6 @@ class Task_Comment_Action {
 		$time       = ! empty( $_POST['time'] ) ? (int) $_POST['time'] : 0;
 		$frontend   = ( isset( $_POST['frontend'] ) && 'true' == $_POST['frontend'] ) ? true : false;
 		$notif      = ( isset( $_POST['notif'] ) && ! empty( $_POST['notif'] ) ) ? $_POST['notif']  : array();
-
-
 
 		// $elemnt_replace = array( '<div>', '</div>' );
 		// $content = str_replace( $elemnt_replace, '<br>', trim( $content ) );
@@ -156,7 +152,7 @@ class Task_Comment_Action {
 
 		$comment = Task_Comment_Class::g()->update( $comment->data, true );
 
-		$number_comments = Task_Comment_Class::g()->get_comments( $parent_id, array( 'count' => true ) );
+		$number_comments = get_comments( array( 'parent' => $parent_id, 'count' => true ) );
 		$count_comments = 0;
 		if( $number_comments > 0 ){
 			$count_comments = intval( $number_comments / 10 );
@@ -181,6 +177,8 @@ class Task_Comment_Action {
 		if( ! empty( $notif ) ){
 			Notify_Class::g()->send_notification_followers_are_tags( $notif, $post_id, $parent_id, $comment->data[ 'id' ] );
 		}
+
+		// $task = Task_Class::g()->recompile_task( $post_id );
 
 		ob_start();
 		\eoxia\View_Util::exec(
@@ -470,6 +468,8 @@ class Task_Comment_Action {
 			wp_send_json_error();
 		}
 
+		$frontend = false;
+
 		$next = ( $next - 1 ) > 0 ? ( $next - 1 ) *10 : 0;
 		$number = 10;
 
@@ -478,8 +478,10 @@ class Task_Comment_Action {
 			'offset' => $next
 		);
 
+		$point = Point_Class::g()->get( array( 'id' => $point_id ) , true );
+
 		ob_start();
-		Task_Comment_Class::g()->display( $task_id, $point_id, $frontend, $args );
+		Task_Comment_Class::g()->display( $point->data[ 'post_id' ], $point_id, $frontend, $args );
 		wp_send_json_success(
 			array(
 				'view'             => ob_get_clean(),
@@ -488,9 +490,7 @@ class Task_Comment_Action {
 				'callback_success' => 'loadedCommentsSuccess',
 			)
 		);
-
 	}
-
 }
 
 new Task_Comment_Action();

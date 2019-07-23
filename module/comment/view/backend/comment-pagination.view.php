@@ -23,8 +23,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<!-- Bouton précédent -->
 		<li class="pagination-element pagination-prev" data-pagination="<?php echo esc_html( $offset - 1 > 0 ? $offset - 1 : 1 ); ?>">
 			<a>
-				<i class="pagination-icon far fa-long-arrow-alt-left fa-fw"></i>
-				<span><?php echo esc_html( 'Previous' ) ?></span>
+				<i class="pagination-icon fas fa-long-arrow-alt-left fa-fw"></i>
+				<span><?php esc_html_e( 'Previous', 'task-manager' ); ?></span>
 			</a>
 		</li>
 
@@ -40,8 +40,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<li class="pagination-element pagination-next"
 		data-pagination="<?php echo esc_html( $offset + 1 < $count_comments ? $offset + 1 : $count_comments ) ?>">
 			<a>
-				<span><?php echo esc_html( 'Next' ) ?></span>
-				<i class="pagination-icon far fa-long-arrow-alt-right fa-fw"  ></i>
+				<span><?php esc_html_e( 'Next', 'task-manager' ); ?></span>
+				<i class="pagination-icon fas fa-long-arrow-alt-right fa-fw"  ></i>
 			</a>
 		</li>
 	</ul>

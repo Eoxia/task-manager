@@ -49,6 +49,7 @@ class Task_Manager_Action {
 				}
 			}
 		);
+
 	}
 
 	/**
@@ -180,6 +181,14 @@ class Task_Manager_Action {
 	 * @version 1.5.0
 	 */
 	public function callback_plugins_loaded() {
+
+		if( isset( \eoxia\Config_Util::$init['task-manager'] ) ){
+			\eoxia\Config_Util::$init['task-manager']->associate_post_type[] = 'digi-workunit';
+			\eoxia\Config_Util::$init['task-manager']->associate_post_type[] = 'digi-group';
+			\eoxia\Config_Util::$init['task-manager']->associate_post_type[] = 'digi-society';
+			\eoxia\Config_Util::$init['task-manager']->associate_post_type[] = 'digi-risk';
+		}
+
 		$i18n_loaded = load_plugin_textdomain( 'task-manager', false, PLUGIN_TASK_MANAGER_DIR . '/core/assets/language/' );
 
 		/** Set capability to administrator by default */
@@ -190,6 +199,9 @@ class Task_Manager_Action {
 
 		Task_Manager_Class::g()->init_default_data();
 		Follower_Class::g()->init_default_data();
+
+
+		add_action( 'load-post.php', array( $this, 'load_screen_option' ) );
 	}
 
 	/**
@@ -216,6 +228,32 @@ class Task_Manager_Action {
 		add_menu_page( __( 'Task', 'task-manager' ), __( 'Task', 'task-manager' ), 'manage_task_manager', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ), PLUGIN_TASK_MANAGER_URL . 'core/assets/icon-16x16.png' );
 		add_meta_box( 'tm-dashboard-indicator-customer', __( 'Customer', 'task-manager' ), array( Indicator_Class::g(), 'callback_customer' ), 'wpeomtm-dashboard', 'normal' );
 	}
+
+	public static function load_screen_option(){
+    add_filter( 'screen_settings', array( get_class(), 'add_field'), 10, 2 );
+	}
+
+		public static function add_field($rv, $screen)
+    {
+
+			$user_id = get_current_user_id();
+ 			$post_per_page = Task_Class::g()->get_task_per_page_for_this_user( $user_id );
+
+			ob_start();
+
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'task',
+				'backend/screen_option/main',
+				array(
+					'value_task'  => $post_per_page
+				)
+			);
+
+			$rv .= ob_get_clean();
+
+      return $rv;
+    }
 
 	/**
 	 * Lors de la fermeture de la notification de la popup.

@@ -145,7 +145,7 @@ if ( ! window.eoxiaJS.action ) {
 	 * @returns {void}
 	 */
 	window.eoxiaJS.action.execAttribute = function( event ) {
-	  var element       = jQuery( this );
+	  	var element       = jQuery( this );
 		var loaderElement = element;
 		var doAction      = true;
 
@@ -201,6 +201,8 @@ if ( ! window.eoxiaJS.action ) {
 	window.eoxiaJS.action.execDelete = function( event ) {
 		var element = jQuery( this );
 		var doAction = true;
+		var loaderElement = element;
+
 
 		event.preventDefault();
 
@@ -214,10 +216,14 @@ if ( ! window.eoxiaJS.action ) {
 			doAction = false;
 		}
 
+		if ( element.attr( 'data-loader' ) ) {
+			loaderElement = element.closest( '.' + element.attr( 'data-loader' ) );
+		}
+
 		if ( doAction ) {
 			if ( window.confirm( element.attr( 'data-message-delete' ) ) ) {
 				element.get_data( function( data ) {
-					window.eoxiaJS.loader.display( element );
+					window.eoxiaJS.loader.display( loaderElement );
 					window.eoxiaJS.request.send( element, data );
 				} );
 			}

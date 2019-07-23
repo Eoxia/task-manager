@@ -16,32 +16,25 @@ namespace task_manager;
 
 defined( 'ABSPATH' ) || exit; ?>
 
-<?php if( ! empty( $task->data['parent_id'] ) ): ?>
-	<ul class="wpeo-ul-parent">
-		<li class="wpeo-task-parent">
-			<span class="wpeo-task-link">
-				<i class="fas fa-link"></i>
-			</span>
-			#<?php echo esc_html( $task->data['parent_id'] ) ?> -
-			<a class="wpeo-tooltip-event"
-			style="font-size: 18px"
-			aria-label="<?php echo esc_attr( $task->data['parent']->displayed_post_title ); ?>"
-			target="_blank" href="<?php echo admin_url( 'post.php?post=' . $task->data['parent_id'] . '&action=edit' ); ?>">
-				<?php echo esc_html( $task->data['parent']->displayed_post_title ); ?>
-			</a>
-			<i>
-				<?php $name_posttype = get_post_type_object( $task->data['parent']->post_type ); ?>
-				<?php echo esc_html( $name_posttype->label ) ?>
-			</i>
-		</li>
-		<li style="float: right; margin-top: -28px; cursor : pointer">
-			<span class="wpeo-task-link tm-task-delink-parent" data-id="<?php echo esc_html( $task->data[ 'id' ] ); ?>">
-				<i class="fas fa-unlink"></i>
-			</span>
-		</li>
-	</ul>
+<?php // echo '<pre>'; print_r( $task->data['parent'] ); echo '</pre>'; exit; ?>
+<?php if( ! empty( $task->data['parent_id'] ) && ! empty( $task->data[ 'parent' ] ) ):
+	if( $task->data[ 'parent' ]->post_type == "digi-risk" ):
+			$view = 'digirisk';
+		else:
+			$view = 'default';
+		endif;
 
-<?php else: ?>
+		 \eoxia\View_Util::exec(
+			'task-manager',
+			'task',
+			'backend/parent-item-' . $view,
+			array(
+				'task' => $task,
+			)
+		);
+
+	 else: ?>
+
 	<ul class="wpeo-ul-parent wpeo-tag-wrap">
 		<li class="wpeo-task-parent-add" style="display : none">
 			<span class="wpeo-tag">

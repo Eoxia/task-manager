@@ -55,19 +55,22 @@ class Quick_Point_Action {
 
 		$point = Point_Class::g()->get(
 			array(
-				'id' => '0',
+				'schema' => 'true',
 			),
 			true
-		);
+		);// 28/06/2019
 
 		ob_start();
 		\eoxia\View_Util::exec(
 			'task-manager',
 			'quick-point',
-			'modal-content',
+			'modal-quickpoint',
 			array(
-				'task_id' => $task_id,
-				'point'   => $point,
+				'point'       => $point,
+				'parent_id'   => $task_id,
+				'comment_id'  => 0,
+				'point_id'    => $point->data['id'],
+				'quick_point' => true,
 			)
 		);
 		$modal_content_view = ob_get_clean();
@@ -85,7 +88,6 @@ class Quick_Point_Action {
 			$response['namespace']        = 'taskManager';
 			$response['module']           = 'quickPoint';
 			$response['callback_success'] = 'reloadModal';
-
 		}
 
 		wp_send_json_success( $response );
