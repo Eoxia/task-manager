@@ -70,7 +70,8 @@ class Activity_Class extends \eoxia\Singleton_Util {
  			AND CREATED_COMMENT.comment_date <= %s
  			AND CREATED_COMMENT.comment_approved != 'trash'
  			AND TASK.ID IN( " . implode( ',', $tasks_id ) . " )
- 			AND TASK.post_status IN ( 'archive', 'publish', 'inherit' )";
+ 			AND TASK.post_status IN ( 'archive', 'publish', 'inherit' )
+			AND POINT.comment_approved NOT IN ( 'trash' )";
 
 		$query_string .= ' ORDER BY CREATED_COMMENT.comment_date DESC';
 
