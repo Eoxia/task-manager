@@ -65,6 +65,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="table-cell table-end">
 			<div class="wpeo-button button-green action-input wpeo-tooltip-event tm-display-loading-table-planning"
+			data-userid="<?php echo esc_attr( $userid ); ?>"
 			data-id="<?php echo esc_attr( $contract[ 'id' ] ); ?>"
 			data-parent="wpeo-table"
 			data-loader="wpeo-table"

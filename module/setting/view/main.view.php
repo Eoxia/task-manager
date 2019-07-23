@@ -29,10 +29,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<li class="tab-element" data-target="right-management">
 					<?php esc_html_e( 'Rights management', 'task-manager' ); ?>
 				</li>
-
-				<li class="tab-element" data-target="client-indicator-settings">
-					<?php esc_html_e( 'Indicator client', 'task-manager' ); ?>
-				</li>
 			</ul>
 
 			<div class="tab-container">
@@ -49,8 +45,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 					?>
 				</div>
 				<div id="right-management" class="tab-content"><?php \eoxia\View_Util::exec( 'task-manager', 'setting', 'capability/main' ); ?></div>
-				<div id="client-indicator-settings" class="tab-content">
-					<?php  \eoxia\View_Util::exec( 'task-manager', 'setting', 'indicatorclient/main' ); ?></div>
 			</div>
 		</div>
 	</div>

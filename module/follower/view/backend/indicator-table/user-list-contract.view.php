@@ -22,6 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="action-attribute page-title-action wpeo-tooltip-event" style="margin-left: 5px"
 		data-action="display_contract_planning"
 		data-nonce="<?php echo esc_attr( wp_create_nonce( 'display_contract_planning' ) ); ?>"
+		data-userid="<?php echo esc_attr( $user_id ); ?>"
 		aria-label="<?php esc_html_e( 'Create new contract', 'task-manager' ); ?>">
 		<?php esc_html_e( 'New contract', 'task-manager' ); ?>
 	</div>
@@ -48,7 +49,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 						'backend/indicator-table/user-item-contract',
 						array(
 							'contract' => $contract,
-							'first_el' => $first_element
+							'first_el' => $first_element,
+							'user_id'  => $user_id
 						)
 					);
 					if( $first_element ){

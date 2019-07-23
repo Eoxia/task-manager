@@ -135,7 +135,11 @@ class Audit_Action {
 					'post_type'   => 'wpshop_customers',
 				)
 			);
-			$audit->data[ 'parent_title' ] = $query->query_vars[ 'title' ];
+			if( ! empty( $query->posts ) ){
+				$audit->data[ 'parent_title' ] = $query->post->post_title;
+			}else{
+				$audit->data[ 'parent_title' ] = '';
+			}
 		}
 
 		$tags = Tag_Class::g()->get();
