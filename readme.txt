@@ -3,8 +3,8 @@ Contributors: Eoxia
 Donate link:
 Tags: task, tasks, management, manager, collaboration, dashboard, organizer, project management, project manager, projects, task lists, task management, task manager, Time Tracking, to do, to do list, todo, todo list
 Requires at least: 4.4.0
-Tested up to: 5.2.0
-Stable tag: 1.10.0
+Tested up to: 5.2.2
+Stable tag: 1.11.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.fr.html
 
@@ -63,6 +63,19 @@ No questions asked yet.
 5. See the history
 
 == Changelog ==
+
+= 1.11.0 =
+
+= Improvment =
+
+* 33290 - Update Working Time UI.
+* 31582 - Add Media on task.
+* 31038 - Add functionnalty on import modal: GitHub link can be used now.
+
+= Fix =
+
+* 29835 - Bugfix: Negavive number on task is now fixed.
+* 31556 - Bugfix: Fix 100k others bugs.
 
 = 1.10.0 =
 
