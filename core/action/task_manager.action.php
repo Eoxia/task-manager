@@ -77,7 +77,6 @@ class Task_Manager_Action {
 		if ( ! empty( \eoxia\Config_Util::$init['task-manager']->insert_scripts_pages ) ) {
 			foreach ( \eoxia\Config_Util::$init['task-manager']->insert_scripts_pages as $insert_script_page ) {
 				if ( false !== strpos( $screen->id, $insert_script_page ) ) {
-
 					if ( 'toplevel_page_wpeomtm-dashboard' != $screen->id ) {
 						add_filter( 'admin_body_class', array( $this, 'callback_body_class' ) );
 					}
