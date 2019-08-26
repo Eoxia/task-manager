@@ -119,7 +119,7 @@ window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredEleme
 	triggeredElement.closest( '.wpeo-dropdown' ).removeClass( 'dropdown-active' );
 
 	window.eoxiaJS.taskManager.task.initAutoComplete();
-	window.eoxiaJS.taskManager.point.refresh(); 
+	window.eoxiaJS.taskManager.point.refresh();
 };
 
 window.eoxiaJS.taskManager.navigation.createdShortcutSuccess = function( triggeredElement, response ) {
@@ -132,4 +132,13 @@ window.eoxiaJS.taskManager.navigation.createdShortcutSuccess = function( trigger
 window.eoxiaJS.taskManager.navigation.deletedShortcutSuccess = function( triggeredElement, response ) {
 	triggeredElement.closest( 'tr' ).fadeOut();
 	jQuery( '.tm-dashboard-shortcuts li[data-key="' + response.data.key + '"]' ).fadeOut();
+};
+
+window.eoxiaJS.taskManager.navigation.displayEditShortcutSuccess = function( triggeredElement, response ) {
+	triggeredElement.closest( 'tr' ).replaceWith( response.data.view );
+};
+
+window.eoxiaJS.taskManager.navigation.editShortcutSuccess = function( triggeredElement, response ) {
+	triggeredElement.closest( 'tr' ).replaceWith( response.data.view );
+	jQuery( '.tm-dashboard-shortcuts li[data-key="' + response.data.key + '"] a' ).html( response.data.name );
 };
