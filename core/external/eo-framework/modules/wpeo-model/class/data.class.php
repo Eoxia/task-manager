@@ -131,7 +131,7 @@ if ( ! class_exists( '\eoxia\Data_Class' ) ) {
 				$this->check_value_type( $value, $field_name, $field_def );
 
 				// On assigne la valeur "construite" au champs dans l'objet en cours de construction.
-				if ( null !== $value ) {
+				if ( null !== $value || 'GET' === $this->req_method ) {
 					$object[ $field_name ] = $value;
 				}
 
@@ -237,6 +237,10 @@ if ( ! class_exists( '\eoxia\Data_Class' ) ) {
 			// Si le type du champs à vérifier est parmis les types personnalisés (non défini par PHP) alors on retourne simplement la valeur, la fonction risque de corrompre les données.
 			if ( in_array( $field_def['type'], self::$custom_types, true ) ) {
 				return $value;
+			}
+
+			if ( 'null' == $value ) {
+				return null;
 			}
 
 			/**
