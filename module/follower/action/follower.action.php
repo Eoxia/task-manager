@@ -371,8 +371,6 @@ class Follower_Action {
 			$user_id = get_current_user_id();
 		}
 
-		$planning_update = Follower_Class::g()->update_planning( $user, $planning, $date );
-
 		$contracts = get_user_meta( $user_id, '_tm_planning_users_contract', true );
 		$contracts = ! empty( $contracts ) ? $contracts : array();
 

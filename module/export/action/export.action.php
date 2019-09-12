@@ -123,7 +123,16 @@ class Export_Action {
 		}
 
 		$points              = Point_Class::g()->get( $get_args );
+
+		$cumul_time = 0;
+		if( ! empty( $points ) ){
+			foreach( $points as $point ){
+				$cumul_time += $point->data[ 'time_info' ][ 'elapsed' ];
+			}
+		}
+
 		$response['content'] = Export_Class::g()->build_data( $task, $points, $build_args );
+		$response['time'] = $cumul_time;
 
 		if ( $export_file ) {
 			$exported_file        = Export_Class::g()->export_to_file( $task, $exported_data );
