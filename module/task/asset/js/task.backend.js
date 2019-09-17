@@ -16,13 +16,13 @@ window.eoxiaJS.taskManager.task.init = function() {
 	} );
 	window.eoxiaJS.taskManager.task.initAutoComplete();
 	window.eoxiaJS.taskManager.task.clignotePetitIcone();
-};
+}; 
 
 window.eoxiaJS.taskManager.task.refresh = function() {
 	window.eoxiaJS.taskManager.task.initAutoComplete();
 };
 
-window.eoxiaJS.taskManager.task.event = function() { 
+window.eoxiaJS.taskManager.task.event = function() {
 	// jQuery( '.tm-wrap' ).on( 'keypress', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.keyEnterEditTitle );
 	jQuery( '.tm-wrap' ).on( 'blur', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.editTitle );
 	jQuery( window ).scroll( '.wpeo-wrap .tm-wrap #poststuff', window.eoxiaJS.taskManager.task.onScrollLoadMore );
