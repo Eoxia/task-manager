@@ -22,7 +22,7 @@ window.eoxiaJS.taskManager.task.refresh = function() {
 	window.eoxiaJS.taskManager.task.initAutoComplete();
 };
 
-window.eoxiaJS.taskManager.task.event = function() {
+window.eoxiaJS.taskManager.task.event = function() { 
 	// jQuery( '.tm-wrap' ).on( 'keypress', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.keyEnterEditTitle );
 	jQuery( '.tm-wrap' ).on( 'blur', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.editTitle );
 	jQuery( window ).scroll( '.wpeo-wrap .tm-wrap #poststuff', window.eoxiaJS.taskManager.task.onScrollLoadMore );
@@ -505,21 +505,13 @@ window.eoxiaJS.taskManager.task.reloadTaskParentElement = function( element, res
 window.eoxiaJS.taskManager.task.clignotePetitIcone = function( event ){
 	var interval = 0;
 	var myReq;
-	var k = [70, 79, 85, 84, 82, 69],
+	var k = [67, 65, 80, 71, 69, 77, 73, 78 ,73],
 	n = 0;
 
 	var oui = false;
 	var color = [];
 
 	jQuery(document).keydown(function (e) {
-
-		// if( oui ){
-		// 	clearInterval( interval );
-		// 	jQuery( '.fas' ).each( function(){
-		// 		 jQuery( this ).css( 'color', '#000000' );
-		// 		});
-		//  	return;
-		// }
 
    if (e.keyCode === k[n++]) {
      if (n === k.length) {
