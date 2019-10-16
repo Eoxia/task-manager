@@ -258,7 +258,7 @@ class Task_Class extends \eoxia\Post_Class {
 				)
 			);
 		} // End if().
-
+		
 		return $tasks;
 	}
 
@@ -1028,7 +1028,7 @@ class Task_Class extends \eoxia\Post_Class {
 				'status'  => 1,
 			)
 		);
-
+		
 		if ( ! empty( $points ) ) {
 			foreach ( $points as $point ) {
 				$elapsed_point = 0;
@@ -1058,12 +1058,11 @@ class Task_Class extends \eoxia\Post_Class {
 				Point_Class::g()->update( $point->data, true );
 			}
 		}
-
 		$task->data['time_info']['elapsed']     = $elapsed_task;
 		$task->data['count_completed_points']   = $count_completed;
 		$task->data['count_uncompleted_points'] = $count_uncompleted;
 
-		Task_Class::g()->update( $task->data, true );
+		$task = Task_Class::g()->update( $task->data );
 
 		return $task;
 	}

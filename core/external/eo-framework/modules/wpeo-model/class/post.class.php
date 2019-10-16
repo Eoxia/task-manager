@@ -128,7 +128,7 @@ if ( ! class_exists( '\eoxia\Post_Class' ) ) {
 
 			// Définition des arguments par défaut pour la récupération des "posts".
 			$default_args = array(
-				'post_status'    => 'any,auto-draft',
+				'post_status'    => 'any',
 				'post_type'      => $this->get_type(),
 				'posts_per_page' => -1,
 			);

@@ -50,6 +50,8 @@ class Task_Model_Filter {
 			),
 			true
 		);
+		
+		$object->data['time_info']['estimated_time'] = null;
 
 		$object->data['parent'] = null;
 
@@ -104,15 +106,19 @@ class Task_Model_Filter {
 				);
 
 				$object->data['time_info']['elapsed'] = 0;
+				$object->data['time_info']['estimated_time'] = $object->data['last_history_time']->data['estimated_time'];
+				
 
 				if ( ! empty( $comments ) ) {
 					foreach ( $comments as $comment ) {
-						$object->data['time_info']['elapsed'] += $comment->data['time_info']['elapsed'];
+						if ( wp_get_comment_status( $comment->data['parent_id'] ) == 'approved' ) {
+							$object->data['time_info']['elapsed'] += $comment->data['time_info']['elapsed'];
+						}
 					}
 				}
 			}
 		}
-
+		
 		$object->data['count_all_points'] = $object->data['count_uncompleted_points'] + $object->data['count_completed_points'];
 
 		return $object;

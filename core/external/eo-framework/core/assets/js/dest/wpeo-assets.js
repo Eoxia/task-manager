@@ -260,7 +260,12 @@ if ( ! window.eoxiaJS.action ) {
 					data[key] = attrData[key];
 				}
 
-				window.eoxiaJS.request.send( element, data );
+				if ( element[0].request ) {
+					element[0].request.abort();
+				}
+
+
+				element[0].request = window.eoxiaJS.request.send( element, data );
 			} );
 		}
 	};

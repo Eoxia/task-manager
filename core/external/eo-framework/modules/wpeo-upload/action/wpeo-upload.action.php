@@ -125,9 +125,14 @@ if ( ! class_exists( '\eoxia\WPEO_Upload_Action' ) ) {
 				$filename_only = basename( $filelink );
 				$file          = get_post( $data['file_id'] );
 				$fileurl_only  = $file->guid;
+				$field_name    = $data['field_name'];
+				$file_id       = $data['file_id'];
 
 				ob_start();
-				require \eoxia\Config_Util::$init['eo-framework']->wpeo_upload->path . '/view/' . $data['display_type'] . '/list-item.view.php';
+				$view = apply_filters( 'wpeo_upload_view_list_item', array(
+					'view' => \eoxia\Config_Util::$init['eo-framework']->wpeo_upload->path . '/view/' . $data['display_type'] . '/list-item.view.php',
+				) );
+				require( $view );
 				$view = ob_get_clean();
 			}
 

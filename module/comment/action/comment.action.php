@@ -211,12 +211,18 @@ class Task_Comment_Action {
 		if ( $frontend ) {
 			do_action( 'tm_action_after_comment_update', $comment->data['id'] );
 		}
+		
+		$time_task = $task->data['time_info']['elapsed'];
+		
+		if ( $task->data['time_info']['estimated_time'] != null ) {
+			$time_task .= ' / ' . $task->data['time_info']['estimated_time'];
+		}
 
 		wp_send_json_success(
 			array(
 				'time'             => array(
 					'point' => $comment->data['point']->data['time_info']['elapsed'],
-					'task'  => $task->data['time_info']['elapsed'],
+					'task'  => $time_task,
 				),
 				'point'            => $point,
 				'view'             => $view,
@@ -305,12 +311,25 @@ class Task_Comment_Action {
 		$comment->data['point']->data['count_comments']--;
 
 		Point_Class::g()->update( $comment->data['point']->data );
+		
+		$task = Task_Class::g()->get(
+			array(
+				'id' => $comment->data['post_id'],
+			),
+			true
+		);
+		
+		$time_task = $task->data['time_info']['elapsed'];
+		
+		if ( $task->data['time_info']['estimated_time'] != null ) {
+			$time_task .= ' / ' . $task->data['time_info']['estimated_time'];
+		}
 
 		wp_send_json_success(
 			array(
 				'time'             => array(
 					'point' => $comment->data['point']->data['time_info']['elapsed'],
-					'task'  => $comment->data['task']->data['time_info']['elapsed'],
+					'task'  => $time_task,
 				),
 				'namespace'        => 'taskManager',
 				'module'           => 'comment',
