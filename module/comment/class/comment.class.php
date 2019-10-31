@@ -180,6 +180,43 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 
 		return false;
 	}
+
+	public function edit_comment( $post_id, $point_id, $content, $date = '', $time = 0, $comment_id = 0 ) {
+		if ( empty( $date ) ) {
+			$date = current_time( 'mysql' );
+		}
+
+		$content = trim( $content );
+
+		if ( ! empty( $comment_id ) ) {
+			$comment = Task_Comment_Class::g()->get(
+				array(
+					'id' => $comment_id,
+				),
+				true
+			);
+
+			$comment->data['time_info']['old_elapsed'] = $comment->data['time_info']['elapsed'];
+		} else {
+			$comment = Task_Comment_Class::g()->get(
+				array(
+					'schema' => $comment_id,
+				),
+				true
+			);
+		}
+
+		$comment->data['post_id']              = $post_id;
+		$comment->data['parent_id']            = $point_id;
+		$comment->data['date']                 = $date;
+		$comment->data['content']              = $content;
+		$comment->data['time_info']['elapsed'] = $time;
+		$comment->data['status']               = '1';
+
+		$comment = Task_Comment_Class::g()->update( $comment->data );
+
+		return $comment;
+	}
 }
 
 Task_Comment_Class::g();
