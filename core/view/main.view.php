@@ -74,4 +74,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		<?php endif; ?>
 	</div>
+
+    <?php
+    // Gestion du prompt des points.
+    Point_Class::g()->display_prompt_complete_point();
+    ?>
 </div>

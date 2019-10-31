@@ -160,9 +160,9 @@ class Point_Action {
 		}
 
 		$task = Task_Class::g()->update( $task->data );
-		
+
 		$time_task = $task->data['time_info']['elapsed'];
-		
+
 		if ( $task->data['time_info']['estimated_time'] != null ) {
 			$time_task .= ' / ' . $task->data['time_info']['estimated_time'];
 		}
@@ -222,14 +222,42 @@ class Point_Action {
 	 * @version 1.6.0
 	 */
 	public function ajax_complete_point() {
-		check_ajax_referer( 'complete_point' );
+		// check_ajax_referer( 'complete_point' );
 
-		$point_id = ! empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
-		$complete = ( isset( $_POST['complete'] ) && 'true' === $_POST['complete'] ) ? true : false;
+		$parent_id = ! empty( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;
+		$point_id  = ! empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
+		$complete  = ( isset( $_POST['complete'] ) && 'true' === $_POST['complete'] ) ? true : false;
+		$comment   = ( isset( $_POST['comment'] ) && 'true' === $_POST['comment'] ) ? true : false;
+		$by_prompt = ( isset( $_POST['by_prompt'] ) && 'true' === $_POST['by_prompt'] ) ? true : false;
 
-		Point_Class::g()->complete_point( $point_id, $complete );
+		if ( $comment ) {
+			$content = ! empty( $_POST['content'] ) ? trim( $_POST['content'] ) : '';
+			$time    = ! empty( $_POST['time'] ) ? (int) $_POST['time'] : 0;
 
-		wp_send_json_success();
+			Task_Comment_Class::g()->edit_comment( $parent_id, $point_id, $content, '', $time );
+
+		}
+
+		if ( $by_prompt ) {
+			Point_Class::g()->complete_point( $point_id, $complete );
+
+			$task = Task_Class::g()->get( array( 'id' => $parent_id ), true );
+
+			ob_start();
+			\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/task', array(
+				'task' => $task,
+			) );
+			wp_send_json_success( array(
+				'namespace'        => 'taskManager',
+				'module'           => 'point',
+				'callback_success' => 'completedWithPrompt',
+				'id'               => $parent_id,
+				'view'             => ob_get_clean(),
+			) );
+		} else {
+			Point_Class::g()->complete_point($point_id, $complete);
+			wp_send_json_success();
+		}
 	}
 
 	/**
