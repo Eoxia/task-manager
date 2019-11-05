@@ -5,7 +5,7 @@
 	"description": "L'application Task Manager",
 	"insert_scripts_pages": [
 		"wpeomtm-dashboard",
-		"digirisk-simple-risk-evaluation",
+		"digirisk-du",
 		"task-manager-time-exceeded",
 		"task-manager-indicator",
 		"task-manager-setting",
