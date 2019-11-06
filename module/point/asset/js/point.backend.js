@@ -37,6 +37,8 @@ window.eoxiaJS.taskManager.point.event = function() {
 	jQuery( document ).on( 'click', '.wpeo-project-task .form .completed-point', window.eoxiaJS.taskManager.point.completePoint );
 
 	jQuery( document ).on( 'click', '.point-type-display-buttons div.active', window.eoxiaJS.taskManager.point.undisplayPoint );
+
+	jQuery( document ).on( 'click', '.modal-prompt-point .action-input', window.eoxiaJS.taskManager.point.pointAddLoader );
 };
 
 /**
@@ -258,46 +260,57 @@ window.eoxiaJS.taskManager.point.completePointChoices = function( e ){
  *
  * @since 1.0.0
  */
-window.eoxiaJS.taskManager.point.completePoint = function() {
+window.eoxiaJS.taskManager.point.completePoint = function( event ) {
+	var numberComment = jQuery( this ).closest( '.point' ).find( '.number-comments' ).text();
 
-	var totalCompletedPoint   = jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text();
-	var totalUncompletedPoint = jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-uncompleted' ).text();
-	var completedButton       = jQuery( '.point-type-display-buttons button[data-point-state="completed"]' );
-	var uncompletedButton     = jQuery( '.point-type-display-buttons button[data-point-state="uncompleted"]' );
-
-	var data = {
-		action: 'complete_point',
-		_wpnonce: jQuery( this ).data( 'nonce' ),
-		point_id: jQuery( this ).closest( '.form' ).find( 'input[name="id"]' ).val(),
-		complete: jQuery( this ).is( ':checked' )
-	};
-
-	if ( jQuery( this ).is( ':checked' ) ) {
-		totalCompletedPoint ++;
-		totalUncompletedPoint --;
-		jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text( totalCompletedPoint );
-		jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-uncompleted' ).text( totalUncompletedPoint );
-
-		if ( completedButton.hasClass( 'active' ) ) {
-			jQuery( this ).closest( '.point' ).attr( 'data-point-state', 'completed' );
-		} else {
-			jQuery( this ).closest( '.point' ).remove();
-		}
-
+	if ( numberComment == 0 && jQuery( this ).closest( '.point' ).attr( 'data-point-state' ) == 'uncompleted' ) {
+		jQuery( '.modal-prompt-point' ).addClass( 'modal-active' );
+		jQuery( '.modal-prompt-point input[name="post_id"]' ).val( jQuery( this ).closest( '.point' ).find( 'input[name="parent_id"]').val());
+		jQuery( '.modal-prompt-point input[name="point_id"]' ).val( jQuery( this ).closest( '.point' ).find( 'input[name="id"]').val() );
+		jQuery( '.modal-prompt-point .content' ).html( '#' + jQuery( this ).closest( '.point' ).find( 'input[name="id"]').val() + ' - ' + jQuery( this ).closest( '.point' ).find( '.point-content input[name="content"]').val() );
+		event.preventDefault();
+		return false;
 	} else {
-		totalCompletedPoint --;
-		totalUncompletedPoint ++;
-		jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text( totalCompletedPoint );
-		jQuery( this ).closest( '.wpeo-project-task' ).find( '.point-uncompleted' ).text( totalUncompletedPoint );
 
-		if ( uncompletedButton.hasClass( 'active' ) ) {
-			jQuery( this ).closest( '.point' ).attr( 'data-point-state', 'uncompleted' );
+		var totalCompletedPoint = jQuery(this).closest('.wpeo-project-task').find('.point-completed').text();
+		var totalUncompletedPoint = jQuery(this).closest('.wpeo-project-task').find('.point-uncompleted').text();
+		var completedButton = jQuery('.point-type-display-buttons button[data-point-state="completed"]');
+		var uncompletedButton = jQuery('.point-type-display-buttons button[data-point-state="uncompleted"]');
+
+		var data = {
+			action: 'complete_point',
+			_wpnonce: jQuery(this).data('nonce'),
+			point_id: jQuery(this).closest('.form').find('input[name="id"]').val(),
+			complete: jQuery(this).is(':checked')
+		};
+
+		if (jQuery(this).is(':checked')) {
+			totalCompletedPoint++;
+			totalUncompletedPoint--;
+			jQuery(this).closest('.wpeo-project-task').find('.point-completed').text(totalCompletedPoint);
+			jQuery(this).closest('.wpeo-project-task').find('.point-uncompleted').text(totalUncompletedPoint);
+
+			if (completedButton.hasClass('active')) {
+				jQuery(this).closest('.point').attr('data-point-state', 'completed');
+			} else {
+				jQuery(this).closest('.point').remove();
+			}
+
 		} else {
-			jQuery( this ).closest( '.point' ).remove();
-		}
-	}
+			totalCompletedPoint--;
+			totalUncompletedPoint++;
+			jQuery(this).closest('.wpeo-project-task').find('.point-completed').text(totalCompletedPoint);
+			jQuery(this).closest('.wpeo-project-task').find('.point-uncompleted').text(totalUncompletedPoint);
 
-	window.eoxiaJS.request.send( jQuery( this ), data );
+			if (uncompletedButton.hasClass('active')) {
+				jQuery(this).closest('.point').attr('data-point-state', 'uncompleted');
+			} else {
+				jQuery(this).closest('.point').remove();
+			}
+		}
+
+		window.eoxiaJS.request.send(jQuery(this), data);
+	}
 };
 
 /**
@@ -462,3 +475,12 @@ window.eoxiaJS.taskManager.point.undisplayPoint = function( event ) {
 	}
 	// jQuery( this ).closest( '.wpeo-project-task-container' ).find( '.points .point.edit[data-point-state="' + pointState + '"]' ).remove();
 };
+
+window.eoxiaJS.taskManager.point.completedWithPrompt = function( triggeredElement, response ) {
+	jQuery( '.wpeo-project-task[data-id=' + response.data.id + ']' ).replaceWith( response.data.view );
+};
+
+window.eoxiaJS.taskManager.point.pointAddLoader = function (event) {
+	var taskID = jQuery( this ).closest( '.wpeo-modal' ).find( 'input[name="post_id"]' ).val();
+	window.eoxiaJS.loader.display( jQuery( '.wpeo-project-task[data-id=' + taskID + ']' ) );
+}

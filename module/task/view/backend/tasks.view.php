@@ -12,10 +12,7 @@
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; } ?>
-
-<?php
+defined( 'ABSPATH' ) || exit;
 
 if ( ! empty( $tasks ) ) :
 	foreach ( $tasks as $task ) :

@@ -4,7 +4,8 @@
  *
  * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0
- * @copyright 2015-2019
+ * @version 1.0.0
+ * @copyright 2015-2018
  * @package EO_Framework\EO_Model\Class
  */
 
@@ -130,7 +131,6 @@ if ( ! class_exists( '\eoxia\Object_Class' ) ) {
 		 */
 		public function create( $data ) {
 			$data['id'] = ! empty( $data['id'] ) ? (int) $data['id'] : 0;
-
 			$object = $this->update( $data );
 
 			$parent_class = get_parent_class( $object );
@@ -162,7 +162,7 @@ if ( ! class_exists( '\eoxia\Object_Class' ) ) {
 		public function prepare_items_for_response( $object_list, $wp_type, $meta_key, $object_id_field ) {
 			$model_name = $this->model_name;
 
-			if ( ! empty( $object_list ) && is_array( $object_list ) ) {
+			if ( ! empty( $object_list ) ) {
 				foreach ( $object_list as $key => $object ) {
 					$object  = (array) $object;
 					$args_cb = array(

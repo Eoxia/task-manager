@@ -122,7 +122,12 @@ if ( ! window.eoxiaJS.action ) {
 					data[key] = attrData[key];
 				}
 
-				window.eoxiaJS.request.send( element, data );
+				if ( element[0].request ) {
+					element[0].request.abort();
+				}
+
+
+				element[0].request = window.eoxiaJS.request.send( element, data );
 			} );
 		}
 	};
@@ -200,8 +205,8 @@ if ( ! window.eoxiaJS.action ) {
 	 */
 	window.eoxiaJS.action.execDelete = function( event ) {
 		var element = jQuery( this );
-		var doAction = true;
 		var loaderElement = element;
+		var doAction = true;
 
 
 		event.preventDefault();
@@ -223,7 +228,7 @@ if ( ! window.eoxiaJS.action ) {
 		if ( doAction ) {
 			if ( window.confirm( element.attr( 'data-message-delete' ) ) ) {
 				element.get_data( function( data ) {
-					window.eoxiaJS.loader.display( loaderElement );
+					window.eoxiaJS.loader.display( element );
 					window.eoxiaJS.request.send( element, data );
 				} );
 			}

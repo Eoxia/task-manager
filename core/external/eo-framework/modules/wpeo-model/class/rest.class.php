@@ -217,9 +217,14 @@ if ( ! class_exists( '\eoxia\Rest_Class' ) ) {
 
 			if ( isset( $params['id'] ) ) {
 				$params['id'] = (int) $params['id'];
-			}
 
-			return $this->update( $params );
+				$object       = $this->get( array( 'id' => $params['id'] ), true );
+				$object->data = wp_parse_args( $params, $object->data );
+
+				return $this->update( $object->data );
+			} else {
+				return $this->update( $params );
+			}
 		}
 
 	}

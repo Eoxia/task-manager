@@ -48,14 +48,11 @@ class Task_Filter {
 				'callback' => 'metabox_activity',
 			);
 
-
-			$metaboxes['wps-third-party-indicator'] = array(
-				'callback' => 'metabox_indicator',
+			$metaboxes['wps-third-party-tasks'] = array(
+				'callback' => 'metabox_tasks',
 			);
 
-			$metaboxes['wps-third-party-activity'] = array(
-				'callback' => 'metabox_activity',
-			);
+
 
 			return $metaboxes;
 		}, 10, 1 );
