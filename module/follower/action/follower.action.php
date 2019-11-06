@@ -279,6 +279,24 @@ class Follower_Action {
 			true
 		);
 
+		$data_planning = array();
+		$datebefore    = '';
+
+		$data_planning_array = get_user_meta( $user->data['id'], '_tm_planning_users', true );
+		if ( ! empty( $data_planning_array ) ) {
+
+			$data_planning = $data_planning_array[0];
+
+			foreach ( $data_planning_array as $key => $value ) {
+				if ( '' != $datebefore ) {
+					$data_planning_array[ $key ]['lastdate'] = $datebefore;
+				}
+				$datebefore = $value['date_en'];
+			}
+
+			// $data_planning_array[0] = array_reverse( $data_planning_array[0] ); // pour afficher du plus récent au plus ancien
+		}
+
 		\eoxia\View_Util::exec(
 			'task-manager',
 			'follower',
@@ -328,7 +346,6 @@ class Follower_Action {
 		$user['_tm_quick_point']       = isset( $_POST['_tm_quick_point'] ) && boolval( $_POST['_tm_quick_point'] ) ? true : false;
 		$user['_tm_display_indicator'] = isset( $_POST['_tm_display_indicator'] ) && boolval( $_POST['_tm_display_indicator'] ) ? true : false;
 
-
 		update_user_meta( $user_id, '_tm_auto_elapsed_time', $user['_tm_auto_elapsed_time'] );
 		update_user_meta( $user_id, '_tm_advanced_display', $user['_tm_advanced_display'] );
 		update_user_meta( $user_id, '_tm_quick_point', $user['_tm_quick_point'] );
@@ -345,7 +362,6 @@ class Follower_Action {
 		if( ! $user_id ){
 			$user_id = get_current_user_id();
 		}
-
 
 		$contracts = get_user_meta( $user_id, '_tm_planning_users_contract', true );
 		$contracts = ! empty( $contracts ) ? $contracts : array();

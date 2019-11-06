@@ -46,7 +46,6 @@ class Activity_Action {
 	public function callback_load_last_activity() {
 		// @comment check_ajax_referer( 'load_last_activity' );
 		$tasks_id               = ! empty( $_POST['tasks_id'] ) ? sanitize_text_field( $_POST['tasks_id'] ) : '';
-		$task_id                = $tasks_id;
 		$offset                 = ! empty( $_POST['offset'] ) ? ( (int) $_POST['offset'] + \eoxia\Config_Util::$init['task-manager']->activity->activity_per_page ) : 0;
 		$last_date              = ! empty( $_POST['last_date'] ) ? sanitize_text_field( $_POST['last_date'] ) : '';
 		$term                   = ! empty( $_POST['term'] ) ? sanitize_text_field( $_POST['term'] ) : '';
@@ -85,7 +84,6 @@ class Activity_Action {
 			$tasks_id = explode( ',', $tasks_id );
 		}
 		$datas = Activity_Class::g()->get_activity( $tasks_id, 0, $date_start, $date_end );
-
 		$task_data_indicator = Task_Class::g()->get( array( 'id' => $tasks_id ), true );
 
 		if( ! empty ( $task_data_indicator ) ){

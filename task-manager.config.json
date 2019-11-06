@@ -16,6 +16,7 @@
 		"tache_page_audit-page",
 		"profile",
 		"user-edit",
+		"wps-third-party",
 		"audit-page"
 	],
 	"externals": [],

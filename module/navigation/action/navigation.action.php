@@ -32,6 +32,10 @@ class Navigation_Action {
 		add_action( 'wp_ajax_create_shortcut', array( $this, 'callback_create_shortcut' ) );
 		add_action( 'wp_ajax_load_handle_shortcut', array( $this, 'callback_load_handle_shortcut' ) );
 		add_action( 'wp_ajax_delete_shortcut', array( $this, 'callback_delete_shortcut' ) );
+		add_action( 'wp_ajax_display_edit_shortcut_name', array( $this, 'callback_display_edit_shortcut_name' ) );
+		add_action( 'wp_ajax_edit_shortcut_name', array( $this, 'callback_edit_shortcut_name' ) );
+
+
 	}
 
 	/**
@@ -314,6 +318,82 @@ class Navigation_Action {
 				'module'           => 'navigation',
 				'callback_success' => 'deletedShortcutSuccess',
 				'key'              => $key,
+			)
+		);
+	}
+
+	public function callback_display_edit_shortcut_name(){
+		$key = ! empty( $_POST['key'] ) ? (int) $_POST['key'] : -1;
+		if ( -1 == $key ) {
+			wp_send_json_error();
+		}
+
+		$shortcuts = get_user_meta( get_current_user_id(), '_tm_shortcuts', true );
+		$shortcut = $shortcuts[ 'wpeomtm-dashboard' ][ $key ];
+
+		$shortcut = Navigation_Class::g()->get_data_shortcut( $shortcut );
+
+		ob_start();
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'navigation',
+			'backend/modal-handle-shortcut-edit-item',
+			array(
+				'shortcut' => $shortcut,
+				'key' => $key
+			)
+		);
+
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'navigation',
+				'callback_success' => 'displayEditShortcutSuccess',
+				'view'             => ob_get_clean()
+			)
+		);
+	}
+
+	public function callback_edit_shortcut_name(){
+		$key = ! empty( $_POST['key'] ) ? (int) $_POST['key'] : -1;
+		$name = ! empty( $_POST['name'] ) ? sanitize_text_field( $_POST['name'] ) : '';
+		$old_name = ! empty( $_POST['old_name'] ) ? sanitize_text_field( $_POST['old_name'] ) : '';
+
+		if ( -1 == $key ) {
+			wp_send_json_error();
+		}
+
+		if( $name == "" ){
+			$name = $old_name;
+		}
+
+		$shortcuts = get_user_meta( get_current_user_id(), '_tm_shortcuts', true );
+
+		$shortcuts[ 'wpeomtm-dashboard' ][ $key ][ 'label' ] = $name;
+
+		update_user_meta( get_current_user_id(), '_tm_shortcuts', $shortcuts );
+
+		$shortcut = Navigation_Class::g()->get_data_shortcut( $shortcuts[ 'wpeomtm-dashboard' ][ $key ] );
+
+		ob_start();
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'navigation',
+			'backend/modal-handle-shortcut-item',
+			array(
+				'shortcut' => $shortcut,
+				'key' => $key
+			)
+		);
+
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'navigation',
+				'callback_success' => 'editShortcutSuccess',
+				'view'             => ob_get_clean(),
+				'key'              => $key,
+				'name'             => $name
 			)
 		);
 	}
