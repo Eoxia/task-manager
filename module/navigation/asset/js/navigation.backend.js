@@ -10,12 +10,64 @@ window.eoxiaJS.taskManager.navigation.init = function() {
 	window.eoxiaJS.taskManager.navigation.event();
 };
 
+window.eoxiaJS.taskManager.navigation.draggedElement;
+
 window.eoxiaJS.taskManager.navigation.event = function() {
 	jQuery( document ).on( 'keyup', '.wpeo-header-bar input[name="term"]', window.eoxiaJS.taskManager.navigation.triggerSearch );
 	// jQuery( document ).on( 'change', '.wpeo-header-bar .wpeo-autocomplete', window.eoxiaJS.taskManager.navigation.closeResults );
 
 	jQuery( document ).on( 'click', '.wpeo-header-bar .more-search-options', window.eoxiaJS.taskManager.navigation.toggleMoreOptions );
 	jQuery( document ).on( 'click', '.wpeo-tag-search', window.eoxiaJS.taskManager.navigation.selectTag );
+
+	jQuery( document ).on( 'modal-opened', '.modal-shortcut', window.eoxiaJS.taskManager.navigation.initSortable );
+
+	jQuery( document ).on( 'click', '.create-folder', function() {
+		jQuery( '.create-folder-form' ).slideToggle();
+		jQuery( this ).slideToggle();
+	});
+
+
+	jQuery( document ).on( 'dragstart', '.shortcut-sortable', function( e ) {
+		window.eoxiaJS.taskManager.navigation.draggedElement = e.currentTarget;
+		e.currentTarget.style.border = "dashed";
+		e.originalEvent.dataTransfer.setData("text/plain", e.target.id );
+	} );
+
+	jQuery( document ).on( 'dragover', '.shortcut-dropzone', function( event ) {
+		event.preventDefault();
+	} );
+
+	jQuery( document ).on( "dragenter", '.shortcut-dropzone', function( event ) {
+		if (jQuery( event.target ).hasClass( 'shortcut-dropzone' ) ) {
+			jQuery( event.target )[0].style.border = "dashed";
+		}
+	} );
+
+	jQuery( document ).on( "dragleave", '.shortcut-dropzone', function( event ) {
+		if (jQuery( event.target ).hasClass( 'shortcut-dropzone' ) ) {
+			jQuery( event.target )[0].style.border = "none";
+		}
+	} );
+
+	jQuery( document ).on( 'drop', '.shortcut-dropzone', function( ev ) {
+		ev.preventDefault();
+
+		if ( jQuery( ev.target ).hasClass( "shortcut-dropzone" ) )  {
+			var data = ev.originalEvent.dataTransfer.getData("text" );
+			jQuery( window.eoxiaJS.taskManager.navigation.draggedElement )[0].style.border = "none";
+			var clone = jQuery( window.eoxiaJS.taskManager.navigation.draggedElement ).clone();
+			jQuery( ev.target ).after( clone[0].outerHTML );
+
+			jQuery( window.eoxiaJS.taskManager.navigation.draggedElement ).remove();
+			window.eoxiaJS.taskManager.navigation.draggedElement = null;
+			jQuery( '.shortcut-dropzone' ).css( 'border', 'none' );
+			ev.originalEvent.dataTransfer.clearData();
+		}
+
+	});
+
+
+
 };
 
 window.eoxiaJS.taskManager.navigation.triggerSearch = function( event ) {
@@ -119,7 +171,7 @@ window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredEleme
 	triggeredElement.closest( '.wpeo-dropdown' ).removeClass( 'dropdown-active' );
 
 	window.eoxiaJS.taskManager.task.initAutoComplete();
-	window.eoxiaJS.taskManager.point.refresh(); 
+	window.eoxiaJS.taskManager.point.refresh();
 };
 
 window.eoxiaJS.taskManager.navigation.createdShortcutSuccess = function( triggeredElement, response ) {
@@ -130,6 +182,30 @@ window.eoxiaJS.taskManager.navigation.createdShortcutSuccess = function( trigger
 };
 
 window.eoxiaJS.taskManager.navigation.deletedShortcutSuccess = function( triggeredElement, response ) {
-	triggeredElement.closest( 'tr' ).fadeOut();
+	triggeredElement.closest( '.table-row' ).fadeOut();
 	jQuery( '.tm-dashboard-shortcuts li[data-key="' + response.data.key + '"]' ).fadeOut();
+};
+
+window.eoxiaJS.taskManager.navigation.displayEditShortcutSuccess = function( triggeredElement, response ) {
+	triggeredElement.closest( '.table-row' ).html( response.data.view );
+};
+
+window.eoxiaJS.taskManager.navigation.editShortcutSuccess = function( triggeredElement, response ) {
+	triggeredElement.closest( '.modal-content' ).html( response.data.view );
+	jQuery( '.tm-dashboard-shortcuts li[data-key="' + response.data.key + '"] a' ).html( response.data.name );
+};
+
+window.eoxiaJS.taskManager.navigation.initSortable = function( event ) {
+};
+
+window.eoxiaJS.taskManager.navigation.createdFolderShortcutSuccess = function( triggeredElement, response ) {
+	jQuery( '.modal-content' ).html( response.data.view );
+};
+
+
+
+
+window.eoxiaJS.taskManager.navigation.savedOrder = function( triggeredElement, response ) {
+	jQuery( '.tm-dashboard-shortcuts' ).html( response.data.view );
+	jQuery( '.modal-shortcut' ).removeClass( 'modal-active' );
 };

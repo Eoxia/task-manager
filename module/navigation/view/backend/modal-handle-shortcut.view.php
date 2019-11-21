@@ -16,62 +16,59 @@ namespace task_manager;
 
 defined( 'ABSPATH' ) || exit; ?>
 
-<table class="wpeo-table">
-	<thead>
-		<tr>
-			<th data-title="Nom">Nom</th>
-			<th data-title="Task">Task ID</th>
-			<th data-title="Point">Point ID</th>
-			<th data-title="Terme">Terme</th>
-			<th data-title="Utilisateur">Utilisateur</th>
-			<th data-title="Catégories">Catégories</th>
-			<th data-title="Client">Client</th>
-			<th data-title="Commande">Commande</th>
-			<th data-title="Action">Action</th>
-		</tr>
-	</thead>
-	<tbody>
-		<?php
-		if ( ! empty( $shortcuts['wpeomtm-dashboard'] ) ) :
-			foreach ( $shortcuts['wpeomtm-dashboard'] as $key => $shortcut ) :
-				?>
-				<tr>
-					<td><?php echo esc_html( $shortcut['label'] ); ?></td>
-					<td><?php echo esc_html( $shortcut['info']['task_id'] ); ?></td>
-					<td><?php echo esc_html( $shortcut['info']['point_id'] ); ?></td>
-					<td><?php echo esc_html( $shortcut['info']['term'] ); ?></td>
-					<td><?php echo esc_html( $shortcut['info']['follower_searched'] ); ?></td>
-					<td><?php echo esc_html( $shortcut['info']['categories_searched'] ); ?></td>
-					<td>
-						<?php if ( 'wpshop_shop_order' != $shortcut['info']['post_parent'] ) : ?>
-							<?php echo esc_html( $shortcut['info']['post_parent_searched'] ); ?>
-						<?php endif; ?>
-					</td>
-					<td>
-						<?php if ( 'wpshop_shop_order' == $shortcut['info']['post_parent'] ) : ?>
-							<?php echo esc_html( $shortcut['info']['post_parent_searched'] ); ?>
-						<?php endif; ?>
-					</td>
-					<td>
-						<?php if ( 'My tasks' != $shortcut['label'] && 'Mes tâches' != $shortcut['label'] ) : ?>
-							<div class="action-delete wpeo-button button-progress button-grey button-square-30 button-rounded"
-								data-action="delete_shortcut"
-								data-message-delete="<?php echo esc_attr_e( 'Are you sure to delete this shorcut ?', 'task-manager' ); ?>"
-								data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_shortcut' ) ); ?>"
-								data-key="<?php echo esc_attr( $key ); ?>">
-								<span class="button-icon fa fa-times" aria-hidden="true"></span>
-							</div>
-						<?php else : ?>
-							<div class="button-disable button-event wpeo-tooltip-event wpeo-button button-progress button-grey button-square-30 button-rounded"
-								aria-label="<?php esc_attr_e( 'Can\'t be deleted', 'task-manager' ); ?>">
-								<span class="button-icon fa fa-times" aria-hidden="true"></span>
-							</div>
-						<?php endif; ?>
-					</td>
-				</tr>
+<div class="wpeo-form hidden create-folder-form">
+	<div class="form-element">
+		<div class="form-field-container">
+			<input type="text" class="form-field" name="folder_name" placeholder="<?php esc_html_e( 'Folder name', 'task-manager' ); ?>" />
+			<span>
+				<div class="wpeo-button button-main action-input" data-parent="wpeo-form" data-action="create_folder_shortcut">
+					<span>Create</span>
+				</div>
+			</span>
+		</div>
+	</div>
+</div>
+
+<div class="wpeo-button button-main create-folder">
+	<span><?php esc_html_e( 'Create Folder', 'task-manager' ); ?></span>
+</div>
+
+<div class="wpeo-table table-flex table-10">
+	<div class="table-row table-header">
+		<div class="table-cell"></div>
+		<div class="table-cell"><?php esc_html_e( 'Nom', 'task-manager' ); ?></div>
+		<div class="table-cell"><?php esc_html_e( 'Task ID', 'task-manager' ); ?></div>
+		<div class="table-cell"><?php esc_html_e( 'Point ID', 'task-manager' ); ?></div>
+		<div class="table-cell"><?php esc_html_e( 'Terme', 'task-manager' ); ?></div>
+		<div class="table-cell"><?php esc_html_e( 'Utilisateur', 'task-manager' ); ?></div>
+		<div class="table-cell"><?php esc_html_e( 'Catégories', 'task-manager' ); ?></div>
+		<div class="table-cell"><?php esc_html_e( 'Client', 'task-manager' ); ?></div>
+		<div class="table-cell"><?php esc_html_e( 'Commande', 'task-manager' ); ?></div>
+		<div class="table-cell"><?php esc_html_e( 'Action', 'task-manager' ); ?></div>
+	</div>
+	<?php
+	$i = 0;
+	if ( ! empty( $shortcuts['wpeomtm-dashboard'] ) ) :
+		foreach ( $shortcuts['wpeomtm-dashboard'] as $key => $shortcut ) :
+			?>
+			<div class="table-row shortcut-sortable shortcut-dropzone" draggable="true">
+				<input type="hidden" name="order_shortcut[<?php echo esc_attr( $i ); ?>]" value="<?php echo esc_attr( $key ); ?>" />
 				<?php
-			endforeach;
-		endif;
-		?>
-	</tbody>
-</table>
+				\eoxia\View_Util::exec(
+					'task-manager',
+					'navigation',
+					'backend/modal-handle-shortcut-item',
+					array(
+						'shortcut' => $shortcut,
+						'key' => $key
+					)
+				);
+
+				$i++;
+				?>
+			</div>
+			<?php
+		endforeach;
+	endif;
+	?>
+</div>

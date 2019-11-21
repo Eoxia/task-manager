@@ -23,9 +23,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="bloc-activities"></div>
 
-	<!-- Corps de la tâche -->
-	<?php Point_Class::g()->display( $task->data['id'] ); ?>
-	<!-- Fin corps de la tâche -->
+	<?php
+	if ( isset( $hide_tasks[ $task->data['id'] ] ) && $hide_tasks[ $task->data['id'] ] ) :
+		?>
+		<div class="point hide-info">
+			<div><?php esc_html_e( 'You hide points on this task', 'task-manager' ); ?></div>
+			<div class="action-attribute wpeo-button button-main"
+				 data-action="hide_points"
+				 data-hide="false"
+				 data-nonce="<?php echo esc_attr( wp_create_nonce( 'hide_points' ) ); ?>"
+				 data-id="<?php echo esc_attr( $task->data['id'] ); ?>"
+				 data-loader="wpeo-project-task"><?php esc_html_e( 'Show points', 'task-manager' ); ?></div>
+		</div>
+	<?php
+	else :
+		Point_Class::g()->display( $task->data['id'] );
+	endif;
+	?>
 
 	<div class="wpeo-task-footer">
 		<!-- Les tags -->

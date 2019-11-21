@@ -258,6 +258,9 @@ class Point_Class extends \eoxia\Comment_Class {
 		);
 	}
 
+	public function display_prompt_complete_point() {
+	    \eoxia\View_Util::exec( 'task-manager', 'point', 'backend/prompt-complete' );
+    }
 }
 
 Point_Class::g();

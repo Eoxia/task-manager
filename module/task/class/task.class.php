@@ -276,6 +276,8 @@ class Task_Class extends \eoxia\Post_Class {
 	 * @todo: With_wrapper ?
 	 */
 	public function display_tasks( $tasks, $frontend = false ) {
+		$hide_tasks = get_user_meta( get_current_user_id(), '_tm_hide_task_hide', true );
+
 		if ( $frontend ) {
 			\eoxia\View_Util::exec(
 				'task-manager',
@@ -294,6 +296,7 @@ class Task_Class extends \eoxia\Post_Class {
 				array(
 					'tasks'        => $tasks,
 					'with_wrapper' => false,
+					'hide_tasks'   => $hide_tasks,
 				)
 			);
 		}
@@ -1058,12 +1061,11 @@ class Task_Class extends \eoxia\Post_Class {
 				Point_Class::g()->update( $point->data, true );
 			}
 		}
-
 		$task->data['time_info']['elapsed']     = $elapsed_task;
 		$task->data['count_completed_points']   = $count_completed;
 		$task->data['count_uncompleted_points'] = $count_uncompleted;
 
-		Task_Class::g()->update( $task->data, true );
+		$task = Task_Class::g()->update( $task->data );
 
 		return $task;
 	}

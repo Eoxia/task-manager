@@ -155,6 +155,23 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 			)
 		);
 	}
+
+	public function get_data_shortcut( $shortcut ){
+		$shortcut['link'] = parse_url( $shortcut['link'] );
+		parse_str( $shortcut['link']['query'], $query );
+
+		$data                   = array();
+		$query['term']          = ! empty( $query['term'] ) ? sanitize_text_field( $query['term'] ) : '';
+		$query['task_id']       = ! empty( $query['task_id'] ) ? (int) $query['task_id'] : '';
+		$query['point_id']      = ! empty( $query['point_id'] ) ? (int) $query['point_id'] : '';
+		$query['post_parent']   = ! empty( $query['post_parent'] ) ? (int) $query['post_parent'] : 0;
+		$query['categories_id'] = ! empty( $query['categories_id'] ) ? sanitize_text_field( $query['categories_id'] ) : '';
+		$query['user_id']       = ! empty( $query['user_id'] ) ? (int) $query['user_id'] : '';
+
+		$shortcut['info'] = Navigation_Class::g()->get_search_result( $query['term'], 'any', $query['task_id'], $query['point_id'], $query['post_parent'], $query['categories_id'], $query['user_id'] );
+
+		return $shortcut;
+	}
 }
 
 Navigation_Class::g();

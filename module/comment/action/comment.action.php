@@ -109,51 +109,11 @@ class Task_Comment_Action {
 		$frontend   = ( isset( $_POST['frontend'] ) && 'true' == $_POST['frontend'] ) ? true : false;
 		$notif      = ( isset( $_POST['notif'] ) && ! empty( $_POST['notif'] ) ) ? $_POST['notif']  : array();
 
-		// $elemnt_replace = array( '<div>', '</div>' );
-		// $content = str_replace( $elemnt_replace, '<br>', trim( $content ) );
-
-		$content = trim( $content );
-		/*$content = wp_kses(
-			$content,
-			array(
-				'br'      => array(),
-				'tooltip' => array(
-					'class' => array(),
-				),
-			)
-		);*/
-
-		$old_elapsed = 0;
-
-		if ( ! empty( $comment_id ) ) {
-			$comment = Task_Comment_Class::g()->get(
-				array(
-					'id' => $comment_id,
-				),
-				true
-			);
-
-			$comment->data['time_info']['old_elapsed'] = $comment->data['time_info']['elapsed'];
-		} else {
-			$comment = Task_Comment_Class::g()->get(
-				array(
-					'schema' => $comment_id,
-				),
-				true
-			);
-		}
-
-		$comment->data['post_id']              = $post_id;
-		$comment->data['parent_id']            = $parent_id;
-		$comment->data['date']                 = $date;
-		$comment->data['content']              = $content;
-		$comment->data['time_info']['elapsed'] = $time;
-		$comment->data['status']               = '1';
-
-		$comment = Task_Comment_Class::g()->update( $comment->data, true );
+		$comment = Task_Comment_Class::g()->edit_comment( $post_id, $parent_id, $content, $date, $time, $comment_id );
 
 		$number_comments = get_comments( array( 'parent' => $parent_id, 'count' => true ) );
-		$count_comments = 0;
+		$count_comments  = 0;
+
 		if( $number_comments > 0 ){
 			$count_comments = intval( $number_comments / 10 );
 			if( intval( $number_comments % 10 ) > 0 ){
@@ -177,8 +137,6 @@ class Task_Comment_Action {
 		if( ! empty( $notif ) ){
 			Notify_Class::g()->send_notification_followers_are_tags( $notif, $post_id, $parent_id, $comment->data[ 'id' ] );
 		}
-
-		// $task = Task_Class::g()->recompile_task( $post_id );
 
 		ob_start();
 		\eoxia\View_Util::exec(
@@ -212,11 +170,17 @@ class Task_Comment_Action {
 			do_action( 'tm_action_after_comment_update', $comment->data['id'] );
 		}
 
+		$time_task = $task->data['time_info']['elapsed'];
+
+		if ( $task->data['time_info']['estimated_time'] != null ) {
+			$time_task .= ' / ' . $task->data['time_info']['estimated_time'];
+		}
+
 		wp_send_json_success(
 			array(
 				'time'             => array(
 					'point' => $comment->data['point']->data['time_info']['elapsed'],
-					'task'  => $task->data['time_info']['elapsed'],
+					'task'  => $time_task,
 				),
 				'point'            => $point,
 				'view'             => $view,
@@ -306,11 +270,24 @@ class Task_Comment_Action {
 
 		Point_Class::g()->update( $comment->data['point']->data );
 
+		$task = Task_Class::g()->get(
+			array(
+				'id' => $comment->data['post_id'],
+			),
+			true
+		);
+
+		$time_task = $task->data['time_info']['elapsed'];
+
+		if ( $task->data['time_info']['estimated_time'] != null ) {
+			$time_task .= ' / ' . $task->data['time_info']['estimated_time'];
+		}
+
 		wp_send_json_success(
 			array(
 				'time'             => array(
 					'point' => $comment->data['point']->data['time_info']['elapsed'],
-					'task'  => $comment->data['task']->data['time_info']['elapsed'],
+					'task'  => $time_task,
 				),
 				'namespace'        => 'taskManager',
 				'module'           => 'comment',

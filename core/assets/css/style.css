@@ -1891,3 +1891,21 @@ body.toplevel_page_wpeomtm-dashboard #wpcontent {
 .grid-col {
   float: left;
   width: 50%; }
+
+/*--------------------------------------------------------------
+# TMP START Jimmy
+--------------------------------------------------------------*/
+.tm-wrap .modal-prompt-point .modal-container {
+  height: auto; }
+
+.tm-wrap .hide-info {
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.1);
+  text-align: center; }
+  .tm-wrap .hide-info div {
+    width: auto;
+    text-align: center; }
+
+/*--------------------------------------------------------------
+# TMP END Jimmy
+--------------------------------------------------------------*/

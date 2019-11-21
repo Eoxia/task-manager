@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Task Manager
  * Description: Quick and easy to use, manage all your tasks and your time with the Task Manager plugin.
- * Version: 1.11.0
+ * Version: 1.12.0
  * Author: Eoxia <dev@eoxia.com>
  * Author URI: http://www.eoxia.com/
  * License: GPL2 or later
@@ -20,7 +20,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 DEFINE( 'PLUGIN_TASK_MANAGER_PATH', realpath( plugin_dir_path( __FILE__ ) ) . '/' );
 DEFINE( 'PLUGIN_TASK_MANAGER_URL', plugins_url( basename( __DIR__ ) ) . '/' );
 DEFINE( 'PLUGIN_TASK_MANAGER_DIR', basename( __DIR__ ) );
+DEFINE( 'PLUGIN_TASK_MANAGER_DEV_MODE', true );
 
-require_once 'core/external/eo-framework/eo-framework.php';
+if ( ! PLUGIN_TASK_MANAGER_DEV_MODE ) {
+	require_once 'core/external/eo-framework/eo-framework.php';
+}
+
 
 \eoxia\Init_Util::g()->exec( PLUGIN_TASK_MANAGER_PATH, basename( __FILE__, '.php' ) );

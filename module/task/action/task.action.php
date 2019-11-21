@@ -62,6 +62,8 @@ class Task_Action {
 
 		add_action( 'wp_ajax_update_task_per_page_user', array( $this, 'callback_update_task_per_page_user' ) ); // TASK LEAVE HER PARENT !
 
+		add_action( 'wp_ajax_hide_points', array( $this, 'task_hide_points' ) );
+
 	}
 
 	/**
@@ -774,6 +776,41 @@ class Task_Action {
 				'text_success'      => sprintf( __( 'Successfully update to %1$s tasks per page ', 'task-manager' ), $task_per_page )
 			)
 		);
+	}
+
+	public function task_hide_points() {
+		$task_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+		$hide    = ( isset( $_POST['hide'] ) && 'true' == $_POST['hide'] ) ? true : false;
+
+		$hide_tasks = get_user_meta( get_current_user_id(), '_tm_hide_task_hide', true );
+
+		if ( empty( $hide_tasks ) ) {
+			$hide_tasks = array();
+		}
+
+		$hide_tasks[ $task_id ] = $hide;
+
+		update_user_meta( get_current_user_id(), '_tm_hide_task_hide', $hide_tasks );
+
+		$task = Task_Class::g()->get( array( 'id' => $task_id ), true );
+
+		ob_start();
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'task',
+			'backend/task-only-content',
+			array(
+				'task'       => $task,
+				'hide_tasks' => $hide_tasks,
+			)
+		);
+
+		wp_send_json_success( array(
+			'namespace'        =>  'taskManager',
+			'module'           =>  'task',
+			'view'             =>  ob_get_clean(),
+			'callback_success' => 'taskHidedPoints',
+		) );
 	}
 }
 

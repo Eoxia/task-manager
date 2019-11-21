@@ -12,10 +12,7 @@
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; } ?>
-
-<?php
+defined( 'ABSPATH' ) || exit;
 
 if ( ! empty( $tasks ) ) :
 	foreach ( $tasks as $task ) :
@@ -26,6 +23,7 @@ if ( ! empty( $tasks ) ) :
 			array(
 				'task'         => $task,
 				'with_wrapper' => $with_wrapper,
+				'hide_tasks'   => $hide_tasks,
 			)
 		);
 	endforeach;

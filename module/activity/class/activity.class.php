@@ -70,7 +70,8 @@ class Activity_Class extends \eoxia\Singleton_Util {
  			AND CREATED_COMMENT.comment_date <= %s
  			AND CREATED_COMMENT.comment_approved != 'trash'
  			AND TASK.ID IN( " . implode( ',', $tasks_id ) . " )
- 			AND TASK.post_status IN ( 'archive', 'publish', 'inherit' )";
+ 			AND TASK.post_status IN ( 'archive', 'publish', 'inherit' )
+			AND POINT.comment_approved NOT IN ( 'trash' )";
 
 		$query_string .= ' ORDER BY CREATED_COMMENT.comment_date DESC';
 
@@ -112,7 +113,7 @@ class Activity_Class extends \eoxia\Singleton_Util {
  		FROM {$GLOBALS['wpdb']->comments} AS COMMENT
  			INNER JOIN {$GLOBALS['wpdb']->commentmeta} AS COMMENTMETA ON COMMENTMETA.comment_id = COMMENT.comment_id
  			INNER JOIN {$GLOBALS['wpdb']->users} AS USER ON COMMENT.user_id = USER.ID
- 			INNER JOIN {$GLOBALS['wpdb']->usermeta} AS USERMETA ON USER.ID = USERMETA.user_id AND USERMETA.meta_key = 'wp_user_level'
+ 			INNER JOIN {$GLOBALS['wpdb']->usermeta} AS USERMETA ON USER.ID = USERMETA.user_id AND USERMETA.meta_key = '{$GLOBALS['wpdb']->prefix}user_level'
  			INNER JOIN {$GLOBALS['wpdb']->comments} AS POINT ON POINT.comment_id = COMMENT.comment_parent
  			INNER JOIN {$GLOBALS['wpdb']->posts} AS TASK ON TASK.ID = POINT.comment_post_id
  				LEFT JOIN {$GLOBALS['wpdb']->posts} AS TASK_PARENT ON TASK_PARENT.ID = TASK.post_parent

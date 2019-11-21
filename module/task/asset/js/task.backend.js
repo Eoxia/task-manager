@@ -505,7 +505,7 @@ window.eoxiaJS.taskManager.task.reloadTaskParentElement = function( element, res
 window.eoxiaJS.taskManager.task.clignotePetitIcone = function( event ){
 	var interval = 0;
 	var myReq;
-	var k = [67, 65, 77, 73, 76, 76, 69],
+	var k = [67, 65, 80, 71, 69, 77, 73, 78 ,73],
 	n = 0;
 
 	var oui = false;
@@ -513,17 +513,9 @@ window.eoxiaJS.taskManager.task.clignotePetitIcone = function( event ){
 
 	jQuery(document).keydown(function (e) {
 
-		if( oui ){
-			clearInterval( interval );
-			jQuery( '.fas' ).each( function(){
-				 jQuery( this ).css( 'color', '#000000' );
-				});
-		 	return;
-		}
-
    if (e.keyCode === k[n++]) {
      if (n === k.length) {
-         oui = true;
+         // oui = true;
          interval = setInterval( function(){ jQuery( '.fas' ).each( function( ){
 						jQuery( this ).css( 'color', '#'+Math.floor(Math.random()*9999).toString(16) );
 	         	// jQuery( this ).rotate(Math.floor(Math.random()*25));
@@ -545,6 +537,10 @@ window.eoxiaJS.taskManager.task.activateButtonPlanning = function( event ){
 window.eoxiaJS.taskManager.task.returnSuccessUpdateTaskPerPage = function( element, response ){
 	jQuery( '.pmg-sotut-container' ).append( '<p style="color:green">' + response.data.text_success + '</p>' );
 	window.location.reload();
+}
+
+window.eoxiaJS.taskManager.task.taskHidedPoints = function( element, response ) {
+	jQuery( element ).closest( '.wpeo-project-task' ).html( response.data.view );
 }
 
 
