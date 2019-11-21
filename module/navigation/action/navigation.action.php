@@ -34,7 +34,8 @@ class Navigation_Action {
 		add_action( 'wp_ajax_delete_shortcut', array( $this, 'callback_delete_shortcut' ) );
 		add_action( 'wp_ajax_display_edit_shortcut_name', array( $this, 'callback_display_edit_shortcut_name' ) );
 		add_action( 'wp_ajax_edit_shortcut_name', array( $this, 'callback_edit_shortcut_name' ) );
-
+		add_action( 'wp_ajax_create_folder_shortcut', array( $this, 'create_folder_shortcut' ) );
+		add_action( 'wp_ajax_tm_save_order_shortcut', array( $this, 'save_order' ) );
 
 	}
 
@@ -288,10 +289,20 @@ class Navigation_Action {
 				'shortcuts' => $shortcuts,
 			)
 		);
+		$view = ob_get_clean();
+
+		ob_start();
+		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/modal-title' );
+		$title_view = ob_get_clean();
+
+		ob_start();
+		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/modal-handle-shortcut-buttons' );
+		$buttons_view = ob_get_clean();
 		wp_send_json_success(
 			array(
-				'view'        => ob_get_clean(),
-				'modal_title' => __( 'Handle shorcuts', 'task-manager' ),
+				'view'         => $view,
+				'modal_title'  => $title_view,
+				'buttons_view' => $buttons_view,
 			)
 		);
 	}
@@ -323,7 +334,7 @@ class Navigation_Action {
 	}
 
 	public function callback_display_edit_shortcut_name(){
-		$key = ! empty( $_POST['key'] ) ? (int) $_POST['key'] : -1;
+		$key = isset( $_POST['key'] ) ? (int) $_POST['key'] : -1;
 		if ( -1 == $key ) {
 			wp_send_json_error();
 		}
@@ -355,8 +366,8 @@ class Navigation_Action {
 	}
 
 	public function callback_edit_shortcut_name(){
-		$key = ! empty( $_POST['key'] ) ? (int) $_POST['key'] : -1;
-		$name = ! empty( $_POST['name'] ) ? sanitize_text_field( $_POST['name'] ) : '';
+		$key      = isset( $_POST['key'] ) ? (int) $_POST['key'] : -1;
+		$name     = ! empty( $_POST['name'] ) ? sanitize_text_field( $_POST['name'] ) : '';
 		$old_name = ! empty( $_POST['old_name'] ) ? sanitize_text_field( $_POST['old_name'] ) : '';
 
 		if ( -1 == $key ) {
@@ -373,29 +384,123 @@ class Navigation_Action {
 
 		update_user_meta( get_current_user_id(), '_tm_shortcuts', $shortcuts );
 
-		$shortcut = Navigation_Class::g()->get_data_shortcut( $shortcuts[ 'wpeomtm-dashboard' ][ $key ] );
+
+		if ( ! empty( $shortcuts['wpeomtm-dashboard'] ) ) {
+			foreach ( $shortcuts['wpeomtm-dashboard'] as &$shortcut ) {
+				$shortcut['link'] = parse_url( $shortcut['link'] );
+				parse_str( $shortcut['link']['query'], $query );
+
+				$data                   = array();
+				$query['term']          = ! empty( $query['term'] ) ? sanitize_text_field( $query['term'] ) : '';
+				$query['task_id']       = ! empty( $query['task_id'] ) ? (int) $query['task_id'] : '';
+				$query['point_id']      = ! empty( $query['point_id'] ) ? (int) $query['point_id'] : '';
+				$query['post_parent']   = ! empty( $query['post_parent'] ) ? (int) $query['post_parent'] : 0;
+				$query['categories_id'] = ! empty( $query['categories_id'] ) ? sanitize_text_field( $query['categories_id'] ) : '';
+				$query['user_id']       = ! empty( $query['user_id'] ) ? (int) $query['user_id'] : '';
+
+				$shortcut['info'] = Navigation_Class::g()->get_search_result( $query['term'], 'any', $query['task_id'], $query['point_id'], $query['post_parent'], $query['categories_id'], $query['user_id'] );
+			}
+		}
 
 		ob_start();
 		\eoxia\View_Util::exec(
 			'task-manager',
 			'navigation',
-			'backend/modal-handle-shortcut-item',
+			'backend/modal-handle-shortcut',
 			array(
-				'shortcut' => $shortcut,
-				'key' => $key
+				'shortcuts' => $shortcuts,
 			)
 		);
+		$view = ob_get_clean();
 
 		wp_send_json_success(
 			array(
 				'namespace'        => 'taskManager',
 				'module'           => 'navigation',
 				'callback_success' => 'editShortcutSuccess',
-				'view'             => ob_get_clean(),
+				'view'             => $view,
 				'key'              => $key,
 				'name'             => $name
 			)
 		);
+	}
+
+	public function create_folder_shortcut() {
+		$name = ! empty( $_POST['folder_name'] ) ? sanitize_text_field( $_POST['folder_name'] ) : __( 'No name', 'task-manager' );
+		$shortcuts = get_user_meta( get_current_user_id(), '_tm_shortcuts', true );
+
+		$shortcut = array(
+			'type'  => 'folder',
+			'label' => $name,
+			'page'  => null,
+			'link'  => null,
+		);
+
+		$shortcuts['wpeomtm-dashboard'][] = $shortcut;
+
+		update_user_meta( get_current_user_id(), '_tm_shortcuts', $shortcuts );
+
+		if ( ! empty( $shortcuts['wpeomtm-dashboard'] ) ) {
+			foreach ( $shortcuts['wpeomtm-dashboard'] as &$shortcut ) {
+				$shortcut['link'] = parse_url( $shortcut['link'] );
+				parse_str( $shortcut['link']['query'], $query );
+
+				$data                   = array();
+				$query['term']          = ! empty( $query['term'] ) ? sanitize_text_field( $query['term'] ) : '';
+				$query['task_id']       = ! empty( $query['task_id'] ) ? (int) $query['task_id'] : '';
+				$query['point_id']      = ! empty( $query['point_id'] ) ? (int) $query['point_id'] : '';
+				$query['post_parent']   = ! empty( $query['post_parent'] ) ? (int) $query['post_parent'] : 0;
+				$query['categories_id'] = ! empty( $query['categories_id'] ) ? sanitize_text_field( $query['categories_id'] ) : '';
+				$query['user_id']       = ! empty( $query['user_id'] ) ? (int) $query['user_id'] : '';
+
+				$shortcut['info'] = Navigation_Class::g()->get_search_result( $query['term'], 'any', $query['task_id'], $query['point_id'], $query['post_parent'], $query['categories_id'], $query['user_id'] );
+			}
+		}
+
+		ob_start();
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'navigation',
+			'backend/modal-handle-shortcut',
+			array(
+				'shortcuts' => $shortcuts,
+			)
+		);
+		$view = ob_get_clean();
+
+		wp_send_json_success( array(
+			'namespace'        => 'taskManager',
+			'module'           => 'navigation',
+			'callback_success' => 'createdFolderShortcutSuccess',
+			'view'             => $view,
+		) );
+	}
+
+	public function save_order() {
+		$order_shortcut = ! empty( $_POST['order_shortcut'] ) ? (array) $_POST['order_shortcut'] : array();
+
+		$shortcuts = get_user_meta( get_current_user_id(), '_tm_shortcuts', true );
+
+		$new_order = array( 'wpeomtm-dashboard' => array() );
+
+		if ( ! empty( $order_shortcut ) ) {
+			foreach ( $order_shortcut as $order ) {
+				$new_order['wpeomtm-dashboard'][] = $shortcuts['wpeomtm-dashboard'][ $order ];
+			}
+		}
+
+		update_user_meta( get_current_user_id(), '_tm_shortcuts', $new_order );
+
+		ob_start();
+		echo apply_filters('tm_dashboard_subheader', '', ''); // WPCS: XSS ok.
+		$view = ob_get_clean();
+
+		wp_send_json_success( array(
+			'namespace'        => 'taskManager',
+			'module'           => 'navigation',
+			'callback_success' => 'savedOrder',
+			'view'             => $view,
+		) );
 	}
 }
 
