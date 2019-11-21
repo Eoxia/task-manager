@@ -23,6 +23,7 @@ if ( ! empty( $tasks ) ) :
 			array(
 				'task'         => $task,
 				'with_wrapper' => $with_wrapper,
+				'hide_tasks'   => $hide_tasks,
 			)
 		);
 	endforeach;

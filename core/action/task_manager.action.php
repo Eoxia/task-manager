@@ -74,6 +74,7 @@ class Task_Manager_Action {
 		wp_enqueue_script( 'heartbeat' );
 		wp_enqueue_media();
 		add_thickbox();
+
 		if ( ! empty( \eoxia\Config_Util::$init['task-manager']->insert_scripts_pages ) ) {
 			foreach ( \eoxia\Config_Util::$init['task-manager']->insert_scripts_pages as $insert_script_page ) {
 				if ( false !== strpos( $screen->id, $insert_script_page ) ) {

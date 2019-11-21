@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WPProject\n"
-"POT-Creation-Date: 2019-07-15 15:15+0200\n"
-"PO-Revision-Date: 2019-07-16 14:48+0200\n"
+"POT-Creation-Date: 2019-11-08 11:58+0100\n"
+"PO-Revision-Date: 2019-11-08 11:58+0100\n"
 "Last-Translator: Equipe de développement de digirisk <dev@digirisk.com>\n"
 "Language-Team: Eoxia\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2\n"
+"X-Generator: Poedit 2.2.3\n"
 "X-Poedit-Basepath: ../../..\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html__;esc_attr_e;_x\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Poedit-SearchPath-1: core\n"
 "X-Poedit-SearchPathExcluded-0: core/external\n"
 
-#: core/action/task_manager.action.php:101
+#: core/action/task_manager.action.php:96
 msgid ""
 "Your data are being updated. If you confirm that you want to leave this "
 "page, your data could be corrupted"
@@ -26,126 +26,125 @@ msgstr ""
 "Vos données sont en cours de mise à jour. Si vous confirmez que vous "
 "souhaitez quitter cette page vos données risquent d'être corrompues"
 
-#: core/action/task_manager.action.php:104
+#: core/action/task_manager.action.php:99
 #, php-format
 msgid "Update %s in progress"
 msgstr "Mise à jour %s en cours"
 
-#: core/action/task_manager.action.php:106
+#: core/action/task_manager.action.php:101
 #, php-format
 msgid "An error occured. Please take a look at %s logs"
 msgstr "Une erreur est survenue. Merci de vérifier les logs de la version %s"
 
-#: core/action/task_manager.action.php:117
+#: core/action/task_manager.action.php:112
 msgid "Time work"
 msgstr "Durée pointée"
 
-#: core/action/task_manager.action.php:118
+#: core/action/task_manager.action.php:113
 msgid "Time Day"
 msgstr "Durée journée"
 
-#: core/action/task_manager.action.php:119
+#: core/action/task_manager.action.php:114
 msgid "minute(s)"
 msgstr "minute(s)"
 
-#: core/action/task_manager.action.php:120
+#: core/action/task_manager.action.php:115
 msgid "Planning"
 msgstr "Emploi du temps"
 
-#: core/action/task_manager.action.php:121
+#: core/action/task_manager.action.php:116
 msgid "Invalid date"
 msgstr "Date invalide"
 
-#: core/action/task_manager.action.php:122
+#: core/action/task_manager.action.php:117
 msgid "Choose a user"
 msgstr "Choisissez un utilisateur"
 
-#: core/action/task_manager.action.php:123
+#: core/action/task_manager.action.php:118
 msgid "No data, please configure your planning settings !"
 msgstr ""
 "Aucune données, configurer votre emplois du temps dans vos réglages "
 "utilisateur !"
 
-#: core/action/task_manager.action.php:124
-#: module/setting/view/indicatorclient/table.view.php:25
+#: core/action/task_manager.action.php:119
 msgid "From"
 msgstr "A partir de"
 
-#: core/action/task_manager.action.php:125
+#: core/action/task_manager.action.php:120
 msgid "to"
 msgstr "au"
 
-#: core/action/task_manager.action.php:126
+#: core/action/task_manager.action.php:121
 msgid "Stats of the week"
 msgstr "Recap de la semaine"
 
-#: core/action/task_manager.action.php:127
+#: core/action/task_manager.action.php:122
 #: module/export/class/export.class.php:72
 msgid "Completed"
 msgstr "Complété(s)"
 
-#: core/action/task_manager.action.php:128
+#: core/action/task_manager.action.php:123
 #: module/export/class/export.class.php:68
 msgid "Uncompleted"
 msgstr "Incomplet"
 
-#: core/action/task_manager.action.php:129
+#: core/action/task_manager.action.php:124
 msgid "No point"
 msgstr "Aucun point"
 
-#: core/action/task_manager.action.php:130
+#: core/action/task_manager.action.php:125
 msgid "Do you really want to delink this task from her parent ?"
 msgstr "Etes vous sûr de vouloir délié cette tache de son parent ?"
 
-#: core/action/task_manager.action.php:131
+#: core/action/task_manager.action.php:126
 msgid "Do you really want to delink this audit from her client parent ?"
 msgstr "Etes vous sûr de vouloir délié cette tache de son parent ?"
 
-#: core/action/task_manager.action.php:132
+#: core/action/task_manager.action.php:127
 msgid "Horizontal summary"
 msgstr "Résumé horizontal"
 
-#: core/action/task_manager.action.php:133
+#: core/action/task_manager.action.php:128
 msgid "Doghnut summary"
 msgstr "Résumé donut"
 
-#: core/action/task_manager.action.php:134
+#: core/action/task_manager.action.php:129
 msgid "Do you want to delete your text ?"
 msgstr "Êtes-vous sur(e) de vouloir supprimer ce texte ?"
 
-#: core/action/task_manager.action.php:135
+#: core/action/task_manager.action.php:130
 msgid "Error Category"
 msgstr "Erreur Catégorie"
 
-#: core/action/task_manager.action.php:136
+#: core/action/task_manager.action.php:131
 msgid "This category doesn't exist : "
 msgstr "Cette catégorie n'existe pas : "
 
-#: core/action/task_manager.action.php:137
+#: core/action/task_manager.action.php:132
 msgid "What do you want to do ?"
 msgstr "Que voulez-vous faire ?"
 
-#: core/action/task_manager.action.php:138
+#: core/action/task_manager.action.php:133
 msgid "Nothing"
 msgstr "Rien"
 
-#: core/action/task_manager.action.php:139
+#: core/action/task_manager.action.php:134
 msgid "Create it"
 msgstr "La créer"
 
-#: core/action/task_manager.action.php:172
+#: core/action/task_manager.action.php:167
 #: module/comment/view/backend/comment.view.php:52
 msgid "Delete this comment ?"
 msgstr "Voulez vous supprimer ce commentaire ?"
 
-#: core/action/task_manager.action.php:228
+#: core/action/task_manager.action.php:223
 #: module/audit/view/audit-page/metabox-importbutton.view.php:37
 #: module/import/view/backend/import-textarea.view.php:20
-#: module/task/action/task.action.php:477
+#: module/task/action/task.action.php:479
 msgid "Task"
 msgstr "Tâche"
 
-#: core/action/task_manager.action.php:229
+#: core/action/task_manager.action.php:224
 #: module/indicator/action/indicator.action.php:495
 msgid "Customer"
 msgstr "Client"
@@ -158,8 +157,8 @@ msgstr "Pas de note de mise à jour pour cette version."
 msgid "Tasks"
 msgstr "Tâches"
 
-#: core/view/main.view.php:29 module/audit/action/audit.action.php:309
-#: module/task/action/task.action.php:111
+#: core/view/main.view.php:29 module/audit/action/audit.action.php:313
+#: module/task/action/task.action.php:113
 #: module/task/view/backend/metabox-create-buttons.view.php:23
 msgid "New task"
 msgstr "Nouvelle tâche"
@@ -183,7 +182,6 @@ msgstr "Importer"
 
 #: core/view/modal-import.view.php:34
 #: module/audit/view/audit-page/metabox-importbutton.view.php:68
-#: module/follower/view/backend/indicator-table/information-run-for-another-days.view.php:60
 #: module/import/view/backend/ajax-modal-save-buttons.view.php:17
 #: module/import/view/backend/inline-modal.view.php:34
 msgid "Cancel"
@@ -284,26 +282,26 @@ msgstr "Temps rapide"
 msgid "Audit"
 msgstr "Audit"
 
-#: module/audit/action/audit.action.php:510
-#: module/audit/action/audit.action.php:511
+#: module/audit/action/audit.action.php:514
+#: module/audit/action/audit.action.php:515
 msgid "No client found"
 msgstr "Aucun client trouvé"
 
 #: module/audit/view/audit-page/metabox-audit-edit.view.php:33
 #: module/audit/view/audit-page/metabox-audit-editmod.view.php:21
-#: module/audit/view/audit-page/metabox-audit-readonly.view.php:25
+#: module/audit/view/audit-page/metabox-audit-readonly.view.php:26
 msgid "No name Audit"
 msgstr "Audit sans nom"
 
 #: module/audit/view/audit-page/metabox-audit-edit.view.php:38
-#: module/audit/view/audit-page/metabox-audit-readonly.view.php:30
+#: module/audit/view/audit-page/metabox-audit-readonly.view.php:33
 msgid "Created date"
 msgstr "Créé le"
 
 #: module/audit/view/audit-page/metabox-audit-edit.view.php:47
 #: module/audit/view/audit-page/metabox-audit-editmod.view.php:39
 #: module/audit/view/audit-page/metabox-audit-editmod.view.php:70
-#: module/audit/view/audit-page/metabox-audit-readonly.view.php:39
+#: module/audit/view/audit-page/metabox-audit-readonly.view.php:42
 msgid "Audit Parent"
 msgstr "Audit Parent"
 
@@ -320,6 +318,18 @@ msgstr "Supprimer cet audit"
 #: module/audit/view/audit-page/metabox-audit-editmod.view.php:31
 msgid "Creation date"
 msgstr "Date de création"
+
+#: module/audit/view/audit-page/metabox-audit-readonly.view.php:25
+#, fuzzy
+#| msgid "Back to list audit"
+msgid "Click to open audit"
+msgstr "Liste des audits"
+
+#: module/audit/view/audit-page/metabox-audit-readonly.view.php:31
+#: module/setting/view/capability/list.view.php:23
+#: module/time-exceeded/view/backend/list.view.php:20
+msgid "ID"
+msgstr "ID"
 
 #: module/audit/view/audit-page/metabox-audit.view.php:94
 msgid "See audit"
@@ -425,156 +435,64 @@ msgstr "Votre export"
 msgid "My tasks"
 msgstr "Mes tâches"
 
-#: module/follower/class/follower.class.php:242
-#: module/follower/view/backend/indicator-table/add-row-table.view.php:37
+#: module/follower/class/follower.class.php:164
 msgid "Tuesday"
 msgstr "Mardi"
 
-#: module/follower/class/follower.class.php:245
-#: module/follower/view/backend/indicator-table/add-row-table.view.php:38
+#: module/follower/class/follower.class.php:167
 msgid "Wednesday"
 msgstr "Mercredi"
 
-#: module/follower/class/follower.class.php:248
-#: module/follower/view/backend/indicator-table/add-row-table.view.php:39
+#: module/follower/class/follower.class.php:170
 msgid "Thursday"
 msgstr "Jeudi"
 
-#: module/follower/class/follower.class.php:251
-#: module/follower/view/backend/indicator-table/add-row-table.view.php:40
+#: module/follower/class/follower.class.php:173
 msgid "Friday"
 msgstr "Vendredi"
 
-#: module/follower/class/follower.class.php:254
-#: module/follower/view/backend/indicator-table/add-row-table.view.php:41
+#: module/follower/class/follower.class.php:176
 msgid "Saturday"
 msgstr "Samedi"
 
-#: module/follower/class/follower.class.php:257
-#: module/follower/view/backend/indicator-table/add-row-table.view.php:42
+#: module/follower/class/follower.class.php:179
 msgid "Sunday"
 msgstr "Dimanche"
 
-#: module/follower/class/follower.class.php:260
-#: module/follower/view/backend/indicator-table/add-row-table.view.php:31
-#: module/follower/view/backend/indicator-table/add-row-table.view.php:36
+#: module/follower/class/follower.class.php:182
 msgid "Monday"
 msgstr "Lundi"
 
-#: module/follower/class/follower.class.php:267
+#: module/follower/class/follower.class.php:189
 msgid "Afternoon"
 msgstr "Après-midi"
 
-#: module/follower/class/follower.class.php:269
+#: module/follower/class/follower.class.php:191
 msgid "Morning"
 msgstr "Matin"
 
-#: module/follower/class/follower.class.php:297
+#: module/follower/class/follower.class.php:219
 #, php-format
 msgid "New contract (%1$s)"
 msgstr "Nouveau contrat (%1$s)"
 
-#: module/follower/class/follower.class.php:403
+#: module/follower/class/follower.class.php:292
 #, php-format
 msgid "3. Conflict with date of another plugin : (%1$s)"
 msgstr ""
 
-#: module/follower/class/follower.class.php:413
+#: module/follower/class/follower.class.php:302
 #, php-format
 msgid "4. Conflict with date of another plugin : (%1$s)"
 msgstr ""
 
-#: module/follower/class/follower.class.php:421
+#: module/follower/class/follower.class.php:310
 #, php-format
 msgid "5. Conflict with date of another plugin : (%1$s)"
 msgstr ""
 
-#: module/follower/view/backend/indicator-table/add-row-table.view.php:21
-msgid "Custom Name"
-msgstr "Titre"
-
-#: module/follower/view/backend/indicator-table/add-row-table.view.php:56
-#: module/follower/view/backend/indicator-table/add-row-table.view.php:61
-msgid "Morning (AM)"
-msgstr "Matin (AM)"
-
-#: module/follower/view/backend/indicator-table/add-row-table.view.php:62
-msgid "Afternoon (PM)"
-msgstr "Après-midi (PM)"
-
-#: module/follower/view/backend/indicator-table/add-row-table.view.php:69
-#: module/follower/view/backend/indicator-table/add-row-table.view.php:72
-msgid "mm:HH"
-msgstr ""
-
-#: module/follower/view/backend/indicator-table/add-row-table.view.php:76
-msgid "DD/MM/YYYY"
-msgstr ""
-
-#: module/follower/view/backend/indicator-table/information-add-row-table.view.php:21
-msgid "Move your mouse over an element for more information"
-msgstr "Passer votre souris sur un élément pour plus d'information"
-
-#: module/follower/view/backend/indicator-table/information-add-row-table.view.php:25
-msgid "Custom name to name your line (example: My Best Monday Morning)"
-msgstr ""
-"Nom personnalisé pour nommer votre ligne (exemple: Mon super Lundi Matin)"
-
-#: module/follower/view/backend/indicator-table/information-add-row-table.view.php:29
-msgid "Choose a day of the week (example: Monday)"
-msgstr "Choisissez un jour de la semaine (exemple : Lundi)"
-
-#: module/follower/view/backend/indicator-table/information-add-row-table.view.php:33
-msgid "Choose period (example: Morning)"
-msgstr "Choisissez une période (exemple: Matin)"
-
-#: module/follower/view/backend/indicator-table/information-add-row-table.view.php:37
-msgid "Start time for period (example: 9:00)"
-msgstr "Début de la période (exemple: 9:00)"
-
-#: module/follower/view/backend/indicator-table/information-add-row-table.view.php:41
-msgid "End time for period (example: 12:00)"
-msgstr "Fin de la période (exemple: 12:00)"
-
-#: module/follower/view/backend/indicator-table/information-add-row-table.view.php:45
-msgid "Start date of the contract (example: 12/10/1998)"
-msgstr "Date de début du contrat (exemple: 12/10/1998)"
-
-#: module/follower/view/backend/indicator-table/information-add-row-table.view.php:49
-msgid "Add this to your planning !"
-msgstr "Ajouter à votre planning !"
-
-#: module/follower/view/backend/indicator-table/information-add-row-table.view.php:53
-msgid "Delete this from your planning !"
-msgstr "Supprimer de votre emploi du temps !"
-
-#: module/follower/view/backend/indicator-table/information-run-for-another-days.view.php:32
-msgid "Applicate same plannings ?"
-msgstr "Appliquer le même emploi du temps ?"
-
-#: module/follower/view/backend/indicator-table/information-run-for-another-days.view.php:36
-msgid ""
-"These days don't have planning define, do you want to configure them with "
-"the same data?"
-msgstr ""
-"Ces jours n'ont pas de planning défini, voulez vous les configurez avec les "
-"memes données ?"
-
-#: module/follower/view/backend/indicator-table/information-run-for-another-days.view.php:69
-#: module/task/view/backend/screen_option/main.view.php:27
-msgid "Applicate"
-msgstr "Appliquer"
-
-#: module/follower/view/backend/indicator-table/modal-information-archive.view.php:24
-msgid "List of archive"
-msgstr "Liste des archives"
-
-#: module/follower/view/backend/indicator-table/modal-information-archive.view.php:57
-msgid "No data for this day"
-msgstr "Aucune données pour ce jour"
-
 #: module/follower/view/backend/indicator-table/user-add-contract.view.php:23
-#: module/follower/view/backend/indicator-table/user-list-contract.view.php:38
+#: module/follower/view/backend/indicator-table/user-list-contract.view.php:35
 #: module/time-exceeded/view/backend/list.view.php:20
 msgid "Title"
 msgstr "Titre"
@@ -589,6 +507,7 @@ msgid "Date End"
 msgstr "Date fin"
 
 #: module/follower/view/backend/indicator-table/user-add-contract.view.php:64
+#: module/follower/view/backend/indicator-table/user-edit-contract.view.php:60
 msgid "Planning actual"
 msgstr "Jusqu'à aujourd'hui"
 
@@ -596,32 +515,44 @@ msgstr "Jusqu'à aujourd'hui"
 msgid "now"
 msgstr "actuel"
 
-#: module/follower/view/backend/indicator-table/user-add-contract.view.php:100
-msgid "Save this contract"
-msgstr ""
+#: module/follower/view/backend/indicator-table/user-add-contract.view.php:101
+#, fuzzy
+#| msgid "Create new contract"
+msgid "Create this contract"
+msgstr "Créer un nouveau contrat"
 
-#: module/follower/view/backend/indicator-table/user-item-contract.view.php:29
+#: module/follower/view/backend/indicator-table/user-edit-contract.view.php:74
+#, fuzzy
+#| msgid "New contract"
+msgid "Save contract"
+msgstr "Nouveau contrat"
+
+#: module/follower/view/backend/indicator-table/user-item-contract.view.php:25
 msgid "NOW"
 msgstr "ACTUEL"
 
-#: module/follower/view/backend/indicator-table/user-item-contract.view.php:34
+#: module/follower/view/backend/indicator-table/user-item-contract.view.php:30
 msgid "days"
 msgstr "jours"
 
-#: module/follower/view/backend/indicator-table/user-item-contract.view.php:35
+#: module/follower/view/backend/indicator-table/user-item-contract.view.php:31
 msgid "hours per week"
 msgstr "heure(s) par semaine"
 
-#: module/follower/view/backend/indicator-table/user-item-contract.view.php:41
+#: module/follower/view/backend/indicator-table/user-item-contract.view.php:38
 msgid "Edit"
 msgstr "Editer"
 
-#: module/follower/view/backend/indicator-table/user-item-contract.view.php:50
+#: module/follower/view/backend/indicator-table/user-item-contract.view.php:45
+#, fuzzy
+#| msgid "Delete this comment"
+msgid "Delete this row"
+msgstr "Supprimer ce commentaire"
+
+#: module/follower/view/backend/indicator-table/user-item-contract.view.php:47
 #: module/point/view/backend/toggle-content.view.php:34
 #: module/quick_time/view/backend/list.view.php:35
-#: module/setting/view/indicatorclient/table.view.php:27
-#: module/setting/view/indicatorclient/table.view.php:28
-#: module/task/view/backend/toggle-content.view.php:100
+#: module/task/view/backend/toggle-content.view.php:110
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -629,31 +560,31 @@ msgstr "Supprimer"
 msgid "List of contracts"
 msgstr "Liste des contrats"
 
-#: module/follower/view/backend/indicator-table/user-list-contract.view.php:29
+#: module/follower/view/backend/indicator-table/user-list-contract.view.php:26
 msgid "Create new contract"
 msgstr "Créer un nouveau contrat"
 
-#: module/follower/view/backend/indicator-table/user-list-contract.view.php:30
+#: module/follower/view/backend/indicator-table/user-list-contract.view.php:27
 msgid "New contract"
 msgstr "Nouveau contrat"
 
-#: module/follower/view/backend/indicator-table/user-list-contract.view.php:39
+#: module/follower/view/backend/indicator-table/user-list-contract.view.php:36
 msgid "Date start"
 msgstr "Date début"
 
-#: module/follower/view/backend/indicator-table/user-list-contract.view.php:40
+#: module/follower/view/backend/indicator-table/user-list-contract.view.php:37
 msgid "Date end"
 msgstr "Date fin"
 
-#: module/follower/view/backend/indicator-table/user-list-contract.view.php:41
+#: module/follower/view/backend/indicator-table/user-list-contract.view.php:38
 msgid "Time slot"
 msgstr "Jours d'écart"
 
-#: module/follower/view/backend/indicator-table/user-list-contract.view.php:42
+#: module/follower/view/backend/indicator-table/user-list-contract.view.php:39
 msgid "Duration"
 msgstr "Durée"
 
-#: module/follower/view/backend/indicator-table/user-list-contract.view.php:69
+#: module/follower/view/backend/indicator-table/user-list-contract.view.php:66
 msgid "No contract for now"
 msgstr "Aucun contrat pour le moment"
 
@@ -767,7 +698,7 @@ msgstr ""
 
 #: module/indicator/action/indicator.action.php:63
 #: module/indicator/view/backend/main.view.php:19
-#: module/task/action/task.action.php:478
+#: module/task/action/task.action.php:480
 msgid "Indicator"
 msgstr "Indicateur"
 
@@ -895,32 +826,6 @@ msgstr "Aucune tâche trouvé !"
 msgid "Be sure you havn't made any mistakes in your search"
 msgstr ""
 
-#: module/indicator/view/backend-indicator-tag/table/task-row-deadline.view.php:6
-#: module/indicator/view/backend-indicator-tag/table/task-row-deadline.view.php:7
-#: module/task/view/backend/metabox-indicators.view.php:57
-#: module/task/view/backend/metabox-indicators.view.php:58
-#: module/task/view/backend/metabox-indicators.view.php:102
-#: module/task/view/backend/metabox-indicators.view.php:103
-#: module/task/view/backend/metabox-indicators.view.php:176
-#: module/task/view/backend/metabox-indicators.view.php:177
-#: module/task/view/backend/metabox-indicators.view.php:221
-#: module/task/view/backend/metabox-indicators.view.php:222
-msgid "TimeElapsed /TimeEstimated"
-msgstr "TempsPassé/ TempsEstimé"
-
-#: module/indicator/view/backend-indicator-tag/table/task-row-deadline.view.php:24
-#: module/indicator/view/backend-indicator-tag/table/task-row-deadline.view.php:25
-#: module/task/view/backend/metabox-indicators.view.php:239
-#: module/task/view/backend/metabox-indicators.view.php:240
-msgid "Time out of deadline"
-msgstr "Hors durée prévu"
-
-#: module/indicator/view/backend-indicator-tag/table/task-row-deadline.view.php:27
-#, fuzzy
-#| msgid "min (out)"
-msgid "m (out)"
-msgstr "min (hors)"
-
 #: module/indicator/view/backend-indicator/indicator-metabox-main.view.php:44
 msgid "Validate"
 msgstr "Valider"
@@ -994,7 +899,7 @@ msgstr "Marquer comme lu"
 msgid "No pending requests"
 msgstr "Pas de demande en attente"
 
-#: module/navigation/action/navigation.action.php:290
+#: module/navigation/action/navigation.action.php:294
 msgid "Handle shorcuts"
 msgstr "Gestion des raccourcis"
 
@@ -1043,13 +948,75 @@ msgstr "Le raccourci à été crée avec succès, bien joué !"
 msgid "Shortcut name"
 msgstr "Nom du raccourci"
 
-#: module/navigation/view/backend/modal-handle-shortcut.view.php:59
+#: module/navigation/view/backend/modal-handle-shortcut-item.view.php:47
+#, fuzzy
+#| msgid "Edit Tag"
+msgid "Edit name"
+msgstr "Éditer une Catégorie"
+
+#: module/navigation/view/backend/modal-handle-shortcut-item.view.php:55
 msgid "Are you sure to delete this shorcut ?"
 msgstr "Êtes vous sur(e) de vouloir supprimer ce raccourci ?"
 
-#: module/navigation/view/backend/modal-handle-shortcut.view.php:66
+#: module/navigation/view/backend/modal-handle-shortcut-item.view.php:59
+#, fuzzy
+#| msgid "Delete this audit"
+msgid "Delete this shortcut"
+msgstr "Supprimer cet audit"
+
+#: module/navigation/view/backend/modal-handle-shortcut-item.view.php:65
 msgid "Can't be deleted"
 msgstr "Ne peut pas être supprimer"
+
+#: module/navigation/view/backend/modal-handle-shortcut.view.php:22
+msgid "Nom"
+msgstr ""
+
+#: module/navigation/view/backend/modal-handle-shortcut.view.php:23
+#: module/quick_time/view/backend/item.view.php:20
+#: module/quick_time/view/backend/list.view.php:25
+#: module/quick_time/view/backend/list.view.php:89
+msgid "Task ID"
+msgstr "ID Tâche"
+
+#: module/navigation/view/backend/modal-handle-shortcut.view.php:24
+#: module/quick_time/view/backend/item.view.php:24
+#: module/quick_time/view/backend/list.view.php:26
+#: module/quick_time/view/backend/list.view.php:90
+msgid "Point ID"
+msgstr "ID Point"
+
+#: module/navigation/view/backend/modal-handle-shortcut.view.php:25
+msgid "Terme"
+msgstr ""
+
+#: module/navigation/view/backend/modal-handle-shortcut.view.php:26
+msgid "Utilisateur"
+msgstr ""
+
+#: module/navigation/view/backend/modal-handle-shortcut.view.php:27
+#, fuzzy
+#| msgid "Categories"
+msgid "Catégories"
+msgstr "Catégories"
+
+#: module/navigation/view/backend/modal-handle-shortcut.view.php:28
+#, fuzzy
+#| msgid "No client found"
+msgid "Client"
+msgstr "Aucun client trouvé"
+
+#: module/navigation/view/backend/modal-handle-shortcut.view.php:29
+#, fuzzy
+#| msgid "Comment"
+msgid "Commande"
+msgstr "Commentaire"
+
+#: module/navigation/view/backend/modal-handle-shortcut.view.php:30
+#, fuzzy
+#| msgid "Active"
+msgid "Action"
+msgstr "Actif"
 
 #: module/navigation/view/backend/navigation-shortcut.view.php:18
 msgid "Shortcuts"
@@ -1068,13 +1035,13 @@ msgid "Create categories"
 msgstr "Créer des catégories"
 
 #: module/notify/action/notify.action.php:148
-#: module/notify/class/notify.class.php:85
+#: module/notify/class/notify.class.php:87
 #, php-format
 msgid "The task #%1$d %2$s"
 msgstr "La tâche #%1$d %2$s"
 
 #: module/notify/action/notify.action.php:150
-#: module/notify/class/notify.class.php:87
+#: module/notify/class/notify.class.php:89
 msgid "This mail has been send automaticly"
 msgstr "Ce message à été envoyé automatiquement"
 
@@ -1084,7 +1051,7 @@ msgid "#%1$d %2$s send by %3$s (%4$s)"
 msgstr "#%1$d %2$s envoyé par %3$s (%4$s)"
 
 #: module/notify/action/notify.action.php:160
-#: module/notify/class/notify.class.php:112
+#: module/notify/class/notify.class.php:114
 msgid "Customer link"
 msgstr "Lien vers le client"
 
@@ -1092,24 +1059,24 @@ msgstr "Lien vers le client"
 msgid "Task link"
 msgstr "Lien vers la tâche"
 
-#: module/notify/class/notify.class.php:91
+#: module/notify/class/notify.class.php:93
 #, php-format
 msgid "You have been notified by %3$s (%4$s)"
 msgstr "Vous avez été notifié par %3$s (%4$s)"
 
-#: module/notify/class/notify.class.php:96
+#: module/notify/class/notify.class.php:98
 msgid "Task "
 msgstr "Tâche "
 
-#: module/notify/class/notify.class.php:97
+#: module/notify/class/notify.class.php:99
 msgid "Point "
 msgstr "Point "
 
-#: module/notify/class/notify.class.php:98
+#: module/notify/class/notify.class.php:100
 msgid "Comment "
 msgstr "Commentaire "
 
-#: module/notify/class/notify.class.php:114
+#: module/notify/class/notify.class.php:116
 msgid "Point link"
 msgstr "Lien vers le point"
 
@@ -1153,8 +1120,8 @@ msgstr "Accéder à la notification"
 msgid "No support post defined"
 msgstr "Aucun post définit"
 
-#: module/point/action/point.action.php:337
-#: module/point/action/point.action.php:338
+#: module/point/action/point.action.php:371
+#: module/point/action/point.action.php:372
 msgid "No task found"
 msgstr "Aucune tâche trouvé"
 
@@ -1205,7 +1172,7 @@ msgid "Move the point to"
 msgstr "Déplacer le point vers"
 
 #: module/point/view/backend/toggle-content.view.php:66
-#: module/task/view/backend/toggle-content.view.php:123
+#: module/task/view/backend/toggle-content.view.php:134
 msgid "OK"
 msgstr "OK"
 
@@ -1275,18 +1242,6 @@ msgstr "modifier le commentaire : "
 #: module/quick_time/view/backend/button-setting.view.php:21
 msgid "Setting of the add quick time list"
 msgstr "Réglages des temps rapides"
-
-#: module/quick_time/view/backend/item.view.php:20
-#: module/quick_time/view/backend/list.view.php:25
-#: module/quick_time/view/backend/list.view.php:89
-msgid "Task ID"
-msgstr "ID Tâche"
-
-#: module/quick_time/view/backend/item.view.php:24
-#: module/quick_time/view/backend/list.view.php:26
-#: module/quick_time/view/backend/list.view.php:90
-msgid "Point ID"
-msgstr "ID Point"
 
 #: module/quick_time/view/backend/item.view.php:28
 #: module/quick_time/view/backend/list-newline.view.php:35
@@ -1376,11 +1331,6 @@ msgstr ""
 msgid "Right for Task Manager"
 msgstr "Droit à Task Manager"
 
-#: module/setting/view/capability/list.view.php:23
-#: module/time-exceeded/view/backend/list.view.php:20
-msgid "ID"
-msgstr "ID"
-
 #: module/setting/view/capability/list.view.php:24
 msgid "Email"
 msgstr "E-mail"
@@ -1393,7 +1343,7 @@ msgstr "Rôle"
 msgid "Right on Task Manager"
 msgstr "A les droits sur Task Manager"
 
-#: module/setting/view/capability/list.view.php:57
+#: module/setting/view/capability/list.view.php:56
 msgid "Page"
 msgstr "Page"
 
@@ -1417,23 +1367,6 @@ msgstr "Afficher la barre de recherche dans la barre d'administration"
 msgid "Save changes"
 msgstr "Enregistrer les changements"
 
-#: module/setting/view/indicatorclient/main.view.php:23
-msgid "Settings Indicator Client"
-msgstr "Parametres de l'Indicator client"
-
-#: module/setting/view/indicatorclient/main.view.php:25
-msgid "Set colors and display of the indicator table in the client section"
-msgstr ""
-"Définir la couleur et l'affichage du tableau Indicator, dans la page client"
-
-#: module/setting/view/indicatorclient/table.view.php:24
-msgid "Colors"
-msgstr "Couleurs"
-
-#: module/setting/view/indicatorclient/table.view.php:26
-msgid "To"
-msgstr "Jusqu'à"
-
 #: module/setting/view/main.view.php:26
 msgid "General settings"
 msgstr "Réglages généraux"
@@ -1441,10 +1374,6 @@ msgstr "Réglages généraux"
 #: module/setting/view/main.view.php:30
 msgid "Rights management"
 msgstr "Gestion des droits"
-
-#: module/setting/view/main.view.php:34
-msgid "Indicator client"
-msgstr "Indicateur (Client )"
 
 #: module/sticky-note/action/sticky-note.action.php:65
 msgid "Add new sticky note"
@@ -1551,37 +1480,37 @@ msgstr "ici"
 msgid "and refresh this section."
 msgstr "et recharger cette section."
 
-#: module/task/action/task.action.php:313
-#: module/task/action/task.action.php:314
+#: module/task/action/task.action.php:315
+#: module/task/action/task.action.php:316
 msgid "No post found"
 msgstr "Aucun post trouvé"
 
-#: module/task/action/task.action.php:479
+#: module/task/action/task.action.php:481
 msgid "History task"
 msgstr "Historique des tâches"
 
-#: module/task/action/task.action.php:660
-#: module/task/action/task.action.php:661
+#: module/task/action/task.action.php:662
+#: module/task/action/task.action.php:663
 msgid "No post type found"
 msgstr "Aucun post type trouvé"
 
-#: module/task/action/task.action.php:755
+#: module/task/action/task.action.php:757
 #, fuzzy
 #| msgid "Number task per page"
 msgid "Error in number task per page"
 msgstr "Nombre de tâche par page"
 
-#: module/task/action/task.action.php:774
+#: module/task/action/task.action.php:776
 #, php-format
 msgid "Successfully update to %1$s tasks per page "
 msgstr ""
 
-#: module/task/class/task.class.php:393
+#: module/task/class/task.class.php:396
 #, php-format
 msgid "Task for %1$s"
 msgstr "Tâche pour %1$s"
 
-#: module/task/class/task.class.php:623
+#: module/task/class/task.class.php:626
 msgid "No Category"
 msgstr "Sans Catégorie"
 
@@ -1594,6 +1523,22 @@ msgstr "Aucun client trouvé"
 #: module/task/view/backend/main.view.php:26
 msgid "Load more task..."
 msgstr "Chargement de tâche supplémentaire..."
+
+#: module/task/view/backend/metabox-indicators.view.php:57
+#: module/task/view/backend/metabox-indicators.view.php:58
+#: module/task/view/backend/metabox-indicators.view.php:102
+#: module/task/view/backend/metabox-indicators.view.php:103
+#: module/task/view/backend/metabox-indicators.view.php:176
+#: module/task/view/backend/metabox-indicators.view.php:177
+#: module/task/view/backend/metabox-indicators.view.php:221
+#: module/task/view/backend/metabox-indicators.view.php:222
+msgid "TimeElapsed /TimeEstimated"
+msgstr "TempsPassé/ TempsEstimé"
+
+#: module/task/view/backend/metabox-indicators.view.php:239
+#: module/task/view/backend/metabox-indicators.view.php:240
+msgid "Time out of deadline"
+msgstr "Hors durée prévu"
 
 #: module/task/view/backend/metabox-indicators.view.php:242
 msgid "min (out)"
@@ -1615,6 +1560,10 @@ msgstr ""
 msgid "Number task per page"
 msgstr "Nombre de tâche par page"
 
+#: module/task/view/backend/screen_option/main.view.php:27
+msgid "Applicate"
+msgstr "Appliquer"
+
 #: module/task/view/backend/task-header-summary.view.php:25
 #: module/task/view/backend/toggle-content.view.php:72
 #, php-format
@@ -1632,6 +1581,16 @@ msgstr "Date limite"
 #: module/task/view/backend/task-header-summary.view.php:48
 msgid "Archived task"
 msgstr "Tâche archivé"
+
+#: module/task/view/backend/task-only-content.view.php:30
+#: module/task/view/backend/task.view.php:34
+msgid "You hide points on this task"
+msgstr "Vous avez masqué les points sur cette tâche."
+
+#: module/task/view/backend/task-only-content.view.php:36
+#: module/task/view/backend/task.view.php:40
+msgid "Show points"
+msgstr "Afficher les points"
 
 #: module/task/view/backend/toggle-content.view.php:49
 msgid "Recompile task"
@@ -1656,14 +1615,18 @@ msgid "#%1$s Export task data"
 msgstr "#%1$s Export des données de la tâche"
 
 #: module/task/view/backend/toggle-content.view.php:91
+msgid "Hide Point"
+msgstr "Masquer les points"
+
+#: module/task/view/backend/toggle-content.view.php:101
 msgid "Archive"
 msgstr "Archive"
 
-#: module/task/view/backend/toggle-content.view.php:91
+#: module/task/view/backend/toggle-content.view.php:101
 msgid "Unarchive"
 msgstr "Désarchiver"
 
-#: module/task/view/backend/toggle-content.view.php:102
+#: module/task/view/backend/toggle-content.view.php:112
 msgid ""
 "Delete this task ? Attention, the time will also be deleted. Remember to "
 "archive."
@@ -1671,11 +1634,11 @@ msgstr ""
 "Êtes-vous sur(e) de vouloir supprimer cette tâche ? Attention, le temps "
 "pointé dessus sera également supprimé. Vous pouvez archiver à la place."
 
-#: module/task/view/backend/toggle-content.view.php:110
+#: module/task/view/backend/toggle-content.view.php:121
 msgid "Media"
 msgstr ""
 
-#: module/task/view/backend/toggle-content.view.php:119
+#: module/task/view/backend/toggle-content.view.php:130
 msgid "Move the task to"
 msgstr "Déplacer la tâche vers"
 
@@ -1902,6 +1865,81 @@ msgstr "Une erreur est survenu lors de la modification de la tâche %d"
 msgid "%1$d tasks have been marked as archived on %2$d"
 msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
 
+#~ msgid "Custom Name"
+#~ msgstr "Titre"
+
+#~ msgid "Morning (AM)"
+#~ msgstr "Matin (AM)"
+
+#~ msgid "Afternoon (PM)"
+#~ msgstr "Après-midi (PM)"
+
+#~ msgid "Move your mouse over an element for more information"
+#~ msgstr "Passer votre souris sur un élément pour plus d'information"
+
+#~ msgid "Custom name to name your line (example: My Best Monday Morning)"
+#~ msgstr ""
+#~ "Nom personnalisé pour nommer votre ligne (exemple: Mon super Lundi Matin)"
+
+#~ msgid "Choose a day of the week (example: Monday)"
+#~ msgstr "Choisissez un jour de la semaine (exemple : Lundi)"
+
+#~ msgid "Choose period (example: Morning)"
+#~ msgstr "Choisissez une période (exemple: Matin)"
+
+#~ msgid "Start time for period (example: 9:00)"
+#~ msgstr "Début de la période (exemple: 9:00)"
+
+#~ msgid "End time for period (example: 12:00)"
+#~ msgstr "Fin de la période (exemple: 12:00)"
+
+#~ msgid "Start date of the contract (example: 12/10/1998)"
+#~ msgstr "Date de début du contrat (exemple: 12/10/1998)"
+
+#~ msgid "Add this to your planning !"
+#~ msgstr "Ajouter à votre planning !"
+
+#~ msgid "Delete this from your planning !"
+#~ msgstr "Supprimer de votre emploi du temps !"
+
+#~ msgid "Applicate same plannings ?"
+#~ msgstr "Appliquer le même emploi du temps ?"
+
+#~ msgid ""
+#~ "These days don't have planning define, do you want to configure them with "
+#~ "the same data?"
+#~ msgstr ""
+#~ "Ces jours n'ont pas de planning défini, voulez vous les configurez avec "
+#~ "les memes données ?"
+
+#~ msgid "List of archive"
+#~ msgstr "Liste des archives"
+
+#~ msgid "No data for this day"
+#~ msgstr "Aucune données pour ce jour"
+
+#, fuzzy
+#~| msgid "min (out)"
+#~ msgid "m (out)"
+#~ msgstr "min (hors)"
+
+#~ msgid "Settings Indicator Client"
+#~ msgstr "Parametres de l'Indicator client"
+
+#~ msgid "Set colors and display of the indicator table in the client section"
+#~ msgstr ""
+#~ "Définir la couleur et l'affichage du tableau Indicator, dans la page "
+#~ "client"
+
+#~ msgid "Colors"
+#~ msgstr "Couleurs"
+
+#~ msgid "To"
+#~ msgstr "Jusqu'à"
+
+#~ msgid "Indicator client"
+#~ msgstr "Indicateur (Client )"
+
 #~ msgid "Element delete !"
 #~ msgstr "Element ajouté !"
 
@@ -1921,11 +1959,6 @@ msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
 
 #~ msgid "Work from"
 #~ msgstr "Debut"
-
-#, fuzzy
-#~| msgid "Active"
-#~ msgid "Action"
-#~ msgstr "Actif"
 
 #~ msgid "Do you want to delete this row ?"
 #~ msgstr "Voulez-vous supprimer cette ligne ?"
@@ -1958,9 +1991,6 @@ msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
 #~| msgid "Tags"
 #~ msgid "Tag"
 #~ msgstr "Mots clés"
-
-#~ msgid "Back to list audit"
-#~ msgstr "Liste des audits"
 
 #~ msgid "This audit has no name"
 #~ msgstr "Cet audit n'a pas de nom"
@@ -2419,9 +2449,6 @@ msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
 #~ msgid "View the task"
 #~ msgstr "Voir la tâche"
 
-#~ msgid "Number of comments on the task"
-#~ msgstr "Nombre de commentaires sur la tâche"
-
 #~ msgid "Number users associate to the task"
 #~ msgstr "Nombre de personnes associés à la tâche"
 
@@ -2474,9 +2501,6 @@ msgstr "%1$d tâches ont été marquées comme archivées sur %2$d"
 
 #~ msgid "All Tags"
 #~ msgstr "Toutes les catégories"
-
-#~ msgid "Edit Tag"
-#~ msgstr "Éditer une Catégorie"
 
 #~ msgid "Update Tag"
 #~ msgstr "Mis à jour d'une catégorie"

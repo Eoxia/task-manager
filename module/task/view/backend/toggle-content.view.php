@@ -88,6 +88,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php apply_filters( 'task_manager_task_header_actions_after', $task->data['id'], $task ); ?>
 
 	<li class="action-attribute wpeo-tooltip-event" data-direction="top"
+		aria-label="<?php esc_html_e( 'Hide Point', 'task-manager' ); ?>"
+		data-action="hide_points"
+		data-hide="true"
+		data-nonce="<?php echo esc_attr( wp_create_nonce( 'hide_points' ) ); ?>"
+		data-id="<?php echo esc_attr( $task->data['id'] ); ?>"
+		data-loader="task-header-action">
+		<span><i class="fas fa-eye"></i></span>
+	</li>
+
+	<li class="action-attribute wpeo-tooltip-event" data-direction="top"
 			aria-label="<?php ( 'archive' !== $task->data['status'] ) ? esc_html_e( 'Archive', 'task-manager' ) : esc_html_e( 'Unarchive', 'task-manager' ); ?>"
 			data-action="<?php echo ( 'archive' !== $task->data['status'] ) ? 'to_archive' : 'to_unarchive'; ?>"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( ( 'archive' === $task->data['status'] ) ? 'to_archive' : 'to_unarchive' ) ); ?>"
@@ -105,6 +115,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		data-loader="task-header-action">
 		<span><i class="fas fa-trash"></i></span>
 	</li>
+
 
 	<li class="wpeo-tooltip-event" data-direction="top"
 		aria-label="<?php esc_html_e( 'Media', 'task-manager' ); ?>">

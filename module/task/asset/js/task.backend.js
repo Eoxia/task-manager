@@ -16,7 +16,7 @@ window.eoxiaJS.taskManager.task.init = function() {
 	} );
 	window.eoxiaJS.taskManager.task.initAutoComplete();
 	window.eoxiaJS.taskManager.task.clignotePetitIcone();
-}; 
+};
 
 window.eoxiaJS.taskManager.task.refresh = function() {
 	window.eoxiaJS.taskManager.task.initAutoComplete();
@@ -537,6 +537,10 @@ window.eoxiaJS.taskManager.task.activateButtonPlanning = function( event ){
 window.eoxiaJS.taskManager.task.returnSuccessUpdateTaskPerPage = function( element, response ){
 	jQuery( '.pmg-sotut-container' ).append( '<p style="color:green">' + response.data.text_success + '</p>' );
 	window.location.reload();
+}
+
+window.eoxiaJS.taskManager.task.taskHidedPoints = function( element, response ) {
+	jQuery( element ).closest( '.wpeo-project-task' ).html( response.data.view );
 }
 
 

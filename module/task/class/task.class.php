@@ -258,7 +258,7 @@ class Task_Class extends \eoxia\Post_Class {
 				)
 			);
 		} // End if().
-		
+
 		return $tasks;
 	}
 
@@ -276,6 +276,8 @@ class Task_Class extends \eoxia\Post_Class {
 	 * @todo: With_wrapper ?
 	 */
 	public function display_tasks( $tasks, $frontend = false ) {
+		$hide_tasks = get_user_meta( get_current_user_id(), '_tm_hide_task_hide', true );
+
 		if ( $frontend ) {
 			\eoxia\View_Util::exec(
 				'task-manager',
@@ -294,6 +296,7 @@ class Task_Class extends \eoxia\Post_Class {
 				array(
 					'tasks'        => $tasks,
 					'with_wrapper' => false,
+					'hide_tasks'   => $hide_tasks,
 				)
 			);
 		}
@@ -1028,7 +1031,7 @@ class Task_Class extends \eoxia\Post_Class {
 				'status'  => 1,
 			)
 		);
-		
+
 		if ( ! empty( $points ) ) {
 			foreach ( $points as $point ) {
 				$elapsed_point = 0;
