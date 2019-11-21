@@ -1898,6 +1898,14 @@ body.toplevel_page_wpeomtm-dashboard #wpcontent {
 .tm-wrap .modal-prompt-point .modal-container {
   height: auto; }
 
+.tm-wrap .hide-info {
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.1);
+  text-align: center; }
+  .tm-wrap .hide-info div {
+    width: auto;
+    text-align: center; }
+
 /*--------------------------------------------------------------
 # TMP END Jimmy
 --------------------------------------------------------------*/
