@@ -3,8 +3,8 @@ Contributors: Eoxia
 Donate link:
 Tags: task, tasks, management, manager, collaboration, dashboard, organizer, project management, project manager, projects, task lists, task management, task manager, Time Tracking, to do, to do list, todo, todo list
 Requires at least: 4.4.0
-Tested up to: 5.2.2
-Stable tag: 1.11.0
+Tested up to: 5.3
+Stable tag: 1.12.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.fr.html
 
@@ -63,6 +63,14 @@ No questions asked yet.
 5. See the history
 
 == Changelog ==
+
+= 1.12.0 =
+
+= Improvment =
+
+* 36521 - Dashboard: When complete point without comment, a window appears to force user write comment.
+* 36069 - Dashboard: Time displayed in repeated time on task is now correctly displayed when add/edit comment.
+* 33535 - Dashboard: Fix pagination. 
 
 = 1.11.0 =
 
