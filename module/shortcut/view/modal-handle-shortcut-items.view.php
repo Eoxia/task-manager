@@ -26,7 +26,7 @@ $id        = isset ( $id ) ? $id : 0;
 	if ( ! empty( $shortcuts ) ) :
 		foreach ( $shortcuts as $key => $shortcut ) :
 			?>
-			<div class="shortcut <?php echo $shortcut['type'] == 'folder' ? 'folder' : ''; ?>" draggable="true" data-id="<?php echo $shortcut['id']; ?>">
+
 				<?php
 
 				\eoxia\View_Util::exec(
@@ -40,7 +40,6 @@ $id        = isset ( $id ) ? $id : 0;
 					)
 				);
 				?>
-			</div>
 			<?php
 			$i++;
 		endforeach;

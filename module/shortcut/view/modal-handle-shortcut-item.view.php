@@ -16,6 +16,7 @@ namespace task_manager;
 
 defined( 'ABSPATH' ) || exit; ?>
 
+<div class="shortcut <?php echo $shortcut['type'] == 'folder' ? 'folder' : ''; ?>" draggable="true" data-id="<?php echo $shortcut['id']; ?>">
 <?php
 if ( ! empty( $parent_id ) ) :
 	?>
@@ -57,7 +58,7 @@ endif;
 	  <i class="fas fa-pen"></i>
 	</li>
 	<li class="dropdown-item" style="text-align: center;">
-	  <?php if ( $shortcut['id'] > 0 ) : // 'My tasks' != $shortcut['label'] && 'Mes tâches' != $shortcut['label'] ?>
+	  <?php if ( $shortcut['type'] != 'folder' ) : // 'My tasks' != $shortcut['label'] && 'Mes tâches' != $shortcut['label'] ?>
 		<!--  wpeo-button button-progress button-grey button-square-30 button-rounded -->
 		<div class="action-delete wpeo-tooltip-event"
 		  data-action="delete_shortcut"
@@ -80,3 +81,4 @@ endif;
   </ul>
 </div>
 
+</div>

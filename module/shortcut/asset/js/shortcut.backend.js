@@ -97,7 +97,7 @@ window.eoxiaJS.taskManager.shortcut.createdShortcutSuccess = function( triggered
 };
 
 window.eoxiaJS.taskManager.shortcut.deletedShortcutSuccess = function( triggeredElement, response ) {
-	triggeredElement.closest( '.table-row' ).fadeOut();
+	triggeredElement.closest( '.shortcut' ).remove();
 	jQuery( '.tm-dashboard-shortcuts li[data-key="' + response.data.key + '"]' ).fadeOut();
 };
 
@@ -113,7 +113,11 @@ window.eoxiaJS.taskManager.shortcut.initSortable = function( event ) {
 };
 
 window.eoxiaJS.taskManager.shortcut.createdFolderShortcutSuccess = function( triggeredElement, response ) {
-	jQuery( '.modal-content' ).html( response.data.view );
+	jQuery( '.modal-shortcut .folder-0' ).append( response.data.new_item );
+	jQuery( '.modal-shortcut .shortcuts-content' ).append( response.data.view );
+
+	jQuery( '.create-folder-form' ).slideToggle();
+	jQuery( '.create-folder' ).slideToggle();
 };
 
 window.eoxiaJS.taskManager.shortcut.savedOrder = function( triggeredElement, response ) {

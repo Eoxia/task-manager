@@ -236,7 +236,7 @@ class Shortcut_Action {
 		wp_send_json_success(
 			array(
 				'namespace'        => 'taskManager',
-				'module'           => 'navigation',
+				'module'           => 'shortcut',
 				'callback_success' => 'deletedShortcutSuccess',
 			)
 		);
@@ -338,45 +338,48 @@ class Shortcut_Action {
 			'page'  => null,
 			'link'  => null,
 			'id'    => Shortcut_Class::g()->get_last_id( $shortcuts ),
+			'child' => array(),
 		);
 
 		$shortcuts[0]['child'][] = $shortcut;
 
+		$key = Shortcut_Class::g()->get_key_by_id( $shortcut['id'], $shortcuts[0]['child'] );
+
 		update_user_meta( get_current_user_id(), '_tm_shortcuts', $shortcuts );
-
-		if ( ! empty( $shortcuts['wpeomtm-dashboard'] ) ) {
-			foreach ( $shortcuts['wpeomtm-dashboard'] as &$shortcut ) {
-				$shortcut['link'] = parse_url( $shortcut['link'] );
-				parse_str( $shortcut['link']['query'], $query );
-
-				$data                   = array();
-				$query['term']          = ! empty( $query['term'] ) ? sanitize_text_field( $query['term'] ) : '';
-				$query['task_id']       = ! empty( $query['task_id'] ) ? (int) $query['task_id'] : '';
-				$query['point_id']      = ! empty( $query['point_id'] ) ? (int) $query['point_id'] : '';
-				$query['post_parent']   = ! empty( $query['post_parent'] ) ? (int) $query['post_parent'] : 0;
-				$query['categories_id'] = ! empty( $query['categories_id'] ) ? sanitize_text_field( $query['categories_id'] ) : '';
-				$query['user_id']       = ! empty( $query['user_id'] ) ? (int) $query['user_id'] : '';
-
-				$shortcut['info'] = Navigation_Class::g()->get_search_result( $query['term'], 'any', $query['task_id'], $query['point_id'], $query['post_parent'], $query['categories_id'], $query['user_id'] );
-			}
-		}
 
 		ob_start();
 		\eoxia\View_Util::exec(
 			'task-manager',
 			'shortcut',
-			'modal-handle-shortcut',
+			'modal-handle-shortcut-items',
 			array(
-				'shortcuts' => $shortcuts,
+				'shortcuts' => $shortcut['child'],
+				'parent_id' => 0,
+				'id'        => $shortcut['id'],
+				'key'       => $key,
 			)
 		);
 		$view = ob_get_clean();
+
+		ob_start();
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'shortcut',
+			'modal-handle-shortcut-item',
+			array(
+				'shortcut' => $shortcut,
+				'parent_id' => 0,
+				'key'       => $key,
+			)
+		);
+		$new_item = ob_get_clean();
 
 		wp_send_json_success( array(
 			'namespace'        => 'taskManager',
 			'module'           => 'shortcut',
 			'callback_success' => 'createdFolderShortcutSuccess',
 			'view'             => $view,
+			'new_item'         => $new_item,
 		) );
 	}
 
