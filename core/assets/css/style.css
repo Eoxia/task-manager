@@ -1906,6 +1906,60 @@ body.toplevel_page_wpeomtm-dashboard #wpcontent {
     width: auto;
     text-align: center; }
 
+.tm-wrap .tm-dashboard-shortcuts .dropdown-content {
+  max-height: 400px;
+  overflow-y: auto; }
+
+.modal-shortcut .shortcuts-content {
+  display: flex; }
+  .modal-shortcut .shortcuts-content .tree {
+    width: 30%; }
+    .modal-shortcut .shortcuts-content .tree .item {
+      display: flex;
+      width: 90%;
+      height: 40px;
+      padding: 5px;
+      justify-content: center;
+      align-items: center;
+      transition: ease-in color 0.2s; }
+      .modal-shortcut .shortcuts-content .tree .item > * {
+        pointer-events: none; }
+      .modal-shortcut .shortcuts-content .tree .item:hover {
+        cursor: pointer;
+        color: #55b6ed; }
+      .modal-shortcut .shortcuts-content .tree .item.active {
+        color: #0084ff; }
+      .modal-shortcut .shortcuts-content .tree .item .arrow-icon {
+        font-size: 1.2em;
+        width: 20px; }
+      .modal-shortcut .shortcuts-content .tree .item .folder-icon {
+        font-size: 1.2em;
+        width: 20px; }
+      .modal-shortcut .shortcuts-content .tree .item .label {
+        width: 76%; }
+    .modal-shortcut .shortcuts-content .tree .descendants {
+      padding-left: 20px; }
+  .modal-shortcut .shortcuts-content .shortcuts {
+    width: 66%;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    border-radius: 4px; }
+    .modal-shortcut .shortcuts-content .shortcuts .shortcut {
+      display: flex;
+      width: 100%;
+      height: 40px;
+      padding: 5px;
+      align-items: center;
+      justify-content: center; }
+      .modal-shortcut .shortcuts-content .shortcuts .shortcut:not(.edit) > * {
+        pointer-events: none; }
+      .modal-shortcut .shortcuts-content .shortcuts .shortcut .wpeo-dropdown {
+        pointer-events: auto; }
+      .modal-shortcut .shortcuts-content .shortcuts .shortcut .icon {
+        width: 34px;
+        font-size: 1.2em; }
+      .modal-shortcut .shortcuts-content .shortcuts .shortcut .label {
+        width: 84%; }
+
 /*--------------------------------------------------------------
 # TMP END Jimmy
 --------------------------------------------------------------*/

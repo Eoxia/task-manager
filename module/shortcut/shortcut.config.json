@@ -1,0 +1,12 @@
+{
+  "name": "Les raccourcis",
+  "slug": "shortcut",
+  "since": "1.13.0",
+  "version": "1.13.0",
+  "description": "Le module gérant les raccourcis",
+  "path": "module/shortcut/",
+  "dependencies": {
+    "action": {},
+    "class": {}
+  }
+}

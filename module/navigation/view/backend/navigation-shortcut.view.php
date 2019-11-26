@@ -21,8 +21,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		foreach ( $shortcuts as $key => $shortcut ) :
 			\eoxia\View_Util::exec(
 				'task-manager',
-				'navigation',
-				'backend/shortcut',
+				'shortcut',
+				'shortcut',
 				array(
 					'shortcut' => $shortcut,
 					'url'      => $url,

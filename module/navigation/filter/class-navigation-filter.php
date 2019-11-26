@@ -58,7 +58,7 @@ class Navigation_Filter {
 	public function callback_display_navigation_shortcut( $content, $current_search_args ) {
 
 		$shortcuts = get_user_meta( get_current_user_id(), '_tm_shortcuts', true );
-		$shortcuts = $shortcuts['wpeomtm-dashboard'];
+		$shortcuts = $shortcuts[0]['child'];
 
 		$url = $_SERVER['REQUEST_URI'];
 		$url = explode( '?', $url );
@@ -67,25 +67,7 @@ class Navigation_Filter {
 			$url = '?' . $url[1];
 		}
 
-		$reorganised_shortcuts = array();
 		$current_folder_key = null;
-
-		if ( ! empty( $shortcuts ) ) {
-			foreach( $shortcuts as $key => $shortcut ) {
-				if ( isset( $shortcut['type'] ) && $shortcut['type'] == 'folder' ) {
-					$current_folder_key                         = $key;
-					$reorganised_shortcuts[ $key ]              = $shortcut;
-					$reorganised_shortcuts[ $key ]['shortcuts'] = array();
-					continue;
-				}
-
-				if ( null !== $current_folder_key ) {
-					$reorganised_shortcuts[ $current_folder_key ]['shortcuts'][] = $shortcut;
-				} else {
-					$reorganised_shortcuts[ $key ] = $shortcut;
-				}
-			}
-		}
 
 		ob_start();
 		\eoxia\View_Util::exec(
@@ -94,7 +76,7 @@ class Navigation_Filter {
 			'backend/navigation-shortcut',
 			array(
 				'search_args' => $current_search_args,
-				'shortcuts'   => $reorganised_shortcuts,
+				'shortcuts'   => $shortcuts,
 				'url'         => $url,
 			)
 		);
