@@ -14,10 +14,7 @@
 
 namespace task_manager;
 
-defined( 'ABSPATH' ) || exit;
-
-$level = 0;
-?>
+defined( 'ABSPATH' ) || exit; ?>
 
 <div class="tree folder">
 	<div class="item dropable shortcut folder active item-0" data-level="0" data-key="0" data-parent="true">
@@ -31,15 +28,14 @@ $level = 0;
 
 		if ( ! empty( $shortcuts ) ) :
 			foreach ( $shortcuts as $key => $shortcut ) :
-				if ($shortcut['type'] == 'folder') :
-					?>
-					<div class="dropable shortcut folder item item-<?php echo $shortcut['id']; ?>" data-id="<?php echo $shortcut['id']; ?>">
-						<i class="arrow-icon fas fa-chevron-right"></i>
-						<i class="folder-icon fa fa-folder"></i>
-						<span class="label"><?php echo esc_attr( $shortcut['label'] ); ?></span>
-					</div>
-					<?php
-				endif;
+				\eoxia\View_Util::exec(
+					'task-manager',
+					'shortcut',
+					'tree-item',
+					array(
+						'shortcut' => $shortcut,
+					)
+				);
 			endforeach;
 		endif;
 		?>

@@ -309,8 +309,8 @@ class Shortcut_Action {
 			'shortcut',
 			'modal-handle-shortcut-item',
 			array(
-				'shortcut' => $shortcut,
-				'key'      => $key,
+				'shortcut'  => $shortcut,
+				'key'       => $key,
 				'parent_id' => $parent_id,
 			)
 		);
@@ -329,7 +329,7 @@ class Shortcut_Action {
 	}
 
 	public function create_folder_shortcut() {
-		$name = ! empty( $_POST['folder_name'] ) ? sanitize_text_field( $_POST['folder_name'] ) : __( 'No name', 'task-manager' );
+		$name      = ! empty( $_POST['folder_name'] ) ? sanitize_text_field( $_POST['folder_name'] ) : __( 'No name', 'task-manager' );
 		$shortcuts = get_user_meta( get_current_user_id(), '_tm_shortcuts', true );
 
 		$shortcut = array(
@@ -374,12 +374,24 @@ class Shortcut_Action {
 		);
 		$new_item = ob_get_clean();
 
+		ob_start();
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'shortcut',
+			'tree-item',
+			array(
+				'shortcut' => $shortcut,
+			)
+		);
+		$tree_item_view = ob_get_clean();
+
 		wp_send_json_success( array(
 			'namespace'        => 'taskManager',
 			'module'           => 'shortcut',
 			'callback_success' => 'createdFolderShortcutSuccess',
 			'view'             => $view,
 			'new_item'         => $new_item,
+			'tree_item_view'   => $tree_item_view,
 		) );
 	}
 

@@ -118,6 +118,8 @@ window.eoxiaJS.taskManager.shortcut.createdFolderShortcutSuccess = function( tri
 
 	jQuery( '.create-folder-form' ).slideToggle();
 	jQuery( '.create-folder' ).slideToggle();
+
+	jQuery( '.modal-shortcut .tree .descendants' ).append( response.data.tree_item_view );
 };
 
 window.eoxiaJS.taskManager.shortcut.savedOrder = function( triggeredElement, response ) {
