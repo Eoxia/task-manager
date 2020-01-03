@@ -182,7 +182,7 @@ class Task_Comment_Action {
 				'view'             => $view,
 				'namespace'        => $frontend ? 'taskManagerFrontend' : 'taskManager',
 				'module'           => 'newComment',
-				'callback_success' => 'addedCommentSuccess',
+				'callback_success' => empty( $comment_id ) ? 'addedCommentSuccess' : '',
 				'comment'          => $comment,
 			)
 		);

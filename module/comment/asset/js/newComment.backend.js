@@ -37,7 +37,7 @@ window.eoxiaJS.taskManager.newComment.editContent = function() {
 window.eoxiaJS.taskManager.newComment.addedCommentSuccess = function( triggeredElement, response ) {
 	var tmp = jQuery( response.data.view );
 	tmp.css({display: 'none'});
-	jQuery( '.table-task .column-extend .table-comments .table-header' ).after( tmp );
+	triggeredElement.closest( '.column-extend' ).find( '.table-header' ).after( tmp );
 	tmp.slideDown(400);
 };
 
