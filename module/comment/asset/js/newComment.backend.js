@@ -10,7 +10,28 @@ window.eoxiaJS.taskManager.newComment.init = function() {
 	window.eoxiaJS.taskManager.newComment.event();
 };
 
-window.eoxiaJS.taskManager.newComment.event = function() {};
+window.eoxiaJS.taskManager.newComment.event = function() {
+	jQuery( '.tm-wrap' ).on( 'blur', '.task-column .column-extend .comment-title', window.eoxiaJS.taskManager.newComment.editContent );
+};
+
+window.eoxiaJS.taskManager.newComment.editContent = function() {
+	var data = {};
+	var element;
+
+	if ( ! element ) {
+		element = jQuery( this );
+	}
+
+	data.action     = 'edit_comment';
+	data._wpnonce   = element.closest( '.table-row' ).data( 'nonce' );
+	data.comment_id = element.closest( '.table-row' ).data( 'id' );
+	data.post_id    = element.closest( '.table-row' ).data( 'post-id' );
+	data.parent_id  = element.closest( '.table-row' ).data( 'parent-id' );
+	data.content    = element.text();
+
+	window.eoxiaJS.loader.display( element.closest( 'div' ) );
+	window.eoxiaJS.request.send( element, data );
+};
 
 /**
  * Le callback en cas de réussite à la requête Ajax "load_comments".

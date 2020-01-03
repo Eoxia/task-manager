@@ -50,7 +50,6 @@ gulp.task( 'build_scss_plugin', function() {
 gulp.task('build_js_backend', function() {
 	return gulp.src( paths.js_backend_plugin )
 		.pipe(concat('backend.min.js'))
-		.pipe( uglify() )
 		.pipe(gulp.dest('core/assets/js/'))
 });
 
@@ -58,7 +57,6 @@ gulp.task('build_js_backend', function() {
 gulp.task('build_js_frontend', function() {
 	return gulp.src( paths.js_frontend_plugin )
 		.pipe(concat('frontend.min.js'))
-		.pipe( uglify() )
 		.pipe(gulp.dest('core/assets/js/'))
 });
 
