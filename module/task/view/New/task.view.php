@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 
 		<div class="table-cell table-300 project-name" data-title="<?php echo esc_attr_e( 'Project Name', 'task-manager' ); ?>">
-			<div class="table-cell-container">
+			<div class="table-cell-container project-title" contenteditable="true">
 				<?php echo esc_html( $task->data['title'] ); ?>
 			</div>
 		</div>
@@ -164,5 +164,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="column-extend">
 		<?php Point_Class::g()->display( $task->data['id'] ); ?>
 	</div>
-<div>
+</div>
 
