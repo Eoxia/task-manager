@@ -47,11 +47,11 @@ class Task_Comment_Action {
 	 * @since 1.3.6
 	 */
 	public function callback_load_comments() {
-		$task_id      = ! empty( $_POST[ 'task_id' ] ) ? (int) $_POST[ 'task_id' ] : 0;
-		$point_id     = ! empty( $_POST[ 'point_id' ] ) ? (int) $_POST[ 'point_id' ] : 0;
-		$frontend     = ( isset( $_POST[ 'frontend' ] ) && 'true' == $_POST[ 'frontend' ] ) ? true : false;
-		$number       = ! empty( $_POST[ 'number' ] ) && $_POST[ 'number' ] > 0 ? (int) $_POST[ 'number' ] : 10; // On affiche 10 Commentaires / point
-		$offset       = ! empty( $_POST[ 'offset' ] ) && $_POST[ 'offset' ] >= 0 ? (int) $_POST[ 'offset' ] : 0; // On commence à l'élément 0 (triè par date par défault)
+		$parent_id = ! empty( $_POST[ 'parent_id' ] ) ? (int) $_POST[ 'parent_id' ] : 0;
+		$id        = ! empty( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : 0;
+		$frontend  = ( isset( $_POST[ 'frontend' ] ) && 'true' == $_POST[ 'frontend' ] ) ? true : false;
+		$number    = ! empty( $_POST[ 'number' ] ) && $_POST[ 'number' ] > 0 ? (int) $_POST[ 'number' ] : 10; // On affiche 10 Commentaires / point
+		$offset    = ! empty( $_POST[ 'offset' ] ) && $_POST[ 'offset' ] >= 0 ? (int) $_POST[ 'offset' ] : 0; // On commence à l'élément 0 (triè par date par défault)
 
 		$args = array(
 			'number' => $number,
@@ -78,12 +78,12 @@ class Task_Comment_Action {
 
 		$follower_view = ob_get_clean(); // - - - - - -
 		ob_start();
-		Task_Comment_Class::g()->display( $task_id, $point_id, $frontend, $args );
+		Task_Comment_Class::g()->display( $parent_id, $id, $frontend, $args );
 		wp_send_json_success(
 			array(
 				'view'             => ob_get_clean(),
 				'namespace'        => $frontend ? 'taskManagerFrontend' : 'taskManager',
-				'module'           => 'comment',
+				'module'           => 'newComment',
 				'callback_success' => 'loadedCommentsSuccess',
 				'follower_view'    => $follower_view
 			)

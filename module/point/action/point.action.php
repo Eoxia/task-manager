@@ -222,10 +222,10 @@ class Point_Action {
 	 * @version 1.6.0
 	 */
 	public function ajax_complete_point() {
-		// check_ajax_referer( 'complete_point' );
+		check_ajax_referer( 'edit_point' );
 
 		$parent_id = ! empty( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;
-		$point_id  = ! empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
+		$point_id  = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 		$complete  = ( isset( $_POST['complete'] ) && 'true' === $_POST['complete'] ) ? true : false;
 		$comment   = ( isset( $_POST['comment'] ) && 'true' === $_POST['comment'] ) ? true : false;
 		$by_prompt = ( isset( $_POST['by_prompt'] ) && 'true' === $_POST['by_prompt'] ) ? true : false;
@@ -255,8 +255,10 @@ class Point_Action {
 				'view'             => ob_get_clean(),
 			) );
 		} else {
-			Point_Class::g()->complete_point($point_id, $complete);
-			wp_send_json_success();
+			$point = Point_Class::g()->complete_point($point_id, $complete);
+			wp_send_json_success( array(
+				'completed' => $point->data['completed'],
+			) );
 		}
 	}
 
