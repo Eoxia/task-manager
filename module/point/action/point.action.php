@@ -69,9 +69,6 @@ class Point_Action {
 			'backend/point',
 			array(
 				'point'      => $point,
-				'parent_id'  => $parent_id,
-				'point_id'   => 0,
-				'comment_id' => 0,
 			)
 		);
 
@@ -79,7 +76,7 @@ class Point_Action {
 			array(
 				'view'             => ob_get_clean(),
 				'namespace'        => 'taskManager',
-				'module'           => 'point',
+				'module'           => 'newPoint',
 				'callback_success' => ! empty( $point_id ) ? 'editedPointSuccess' : 'addedPointSuccess',
 				'task_id'          => $parent_id,
 				'task'             => $task,

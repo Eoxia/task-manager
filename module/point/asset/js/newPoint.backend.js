@@ -17,6 +17,13 @@ window.eoxiaJS.taskManager.newPoint.event = function() {
 	jQuery( '.tm-wrap' ).on( 'click', '.task-column .task-toggle-comment', window.eoxiaJS.taskManager.newPoint.toggleComments );
 };
 
+window.eoxiaJS.taskManager.newPoint.addedPointSuccess = function ( triggeredElement, response ) {
+	var tmp = jQuery( response.data.view );
+	tmp.css({display: 'none'});
+	jQuery( '.table-task .table-header' ).after( tmp );
+	tmp.slideDown(400);
+};
+
 window.eoxiaJS.taskManager.newPoint.editTitle = function() {
 	var data = {};
 	var element;
