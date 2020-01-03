@@ -110,7 +110,7 @@ class Task_Action {
 		$tag_slug_selected = ! empty( $_POST['tag'] ) ? sanitize_text_field( $_POST['tag'] ) : 0;
 
 		$task_args = array(
-			'title'     => __( 'New task', 'task-manager' ),
+			'title'     => __( 'New Project', 'task-manager' ),
 			'parent_id' => $parent_id,
 			'status'    => 'publish',
 		);
@@ -135,7 +135,7 @@ class Task_Action {
 		\eoxia\View_Util::exec(
 			'task-manager',
 			'task',
-			'backend/task',
+			'New/task',
 			array(
 				'task' => $task,
 			)
@@ -196,7 +196,7 @@ class Task_Action {
 	 * @version 1.6.0
 	 */
 	public function callback_edit_title() {
-		check_ajax_referer( 'edit_title' );
+//		check_ajax_referer( 'edit_title' );
 
 		$task_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
 		$title   = ! empty( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : '';

@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<a 	href="#"
 					class="action-attribute add-new-h2 wpeo-button button-size-small button-radius-2"
 					data-action="create_task"
-					data-nonce="<?php echo esc_attr( wp_create_nonce( 'create_task' ) ); ?>"><?php esc_html_e( 'New task', 'task-manager' ); ?></a>
+					data-nonce="<?php echo esc_attr( wp_create_nonce( 'create_task' ) ); ?>"><?php esc_html_e( 'New Project', 'task-manager' ); ?></a>
 
 				<?php require_once PLUGIN_TASK_MANAGER_PATH . '/core/view/modal-import.view.php'; ?>
 			</div>
