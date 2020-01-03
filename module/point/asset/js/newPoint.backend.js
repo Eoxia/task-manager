@@ -81,8 +81,8 @@ window.eoxiaJS.taskManager.newPoint.completePoint = function( event ) {
 };
 
 window.eoxiaJS.taskManager.newPoint.toggleComments = function() {
-	if ( jQuery( this ).hasClass( 'fa-angle-down' ) ) {
-		jQuery( this ).removeClass( 'fa-angle-down' ).addClass( 'fa-angle-right' );
+	if ( jQuery( this ).find( '.fas' ).hasClass( 'fa-angle-down' ) ) {
+		jQuery( this ).find( '.fas' ).removeClass( 'fa-angle-down' ).addClass( 'fa-angle-right' );
 		jQuery( this ).closest( '.table-column' ).find( '.column-extend' ).slideUp( 400 );
 	} else {
 		var data = {};
@@ -100,7 +100,7 @@ window.eoxiaJS.taskManager.newPoint.toggleComments = function() {
 		window.eoxiaJS.loader.display( element.closest( '.table-column' ) );
 		window.eoxiaJS.request.send( element, data );
 
-		jQuery( this ).removeClass( 'fa-angle-right' ).addClass( 'fa-angle-down' );
+		jQuery( this ).find( '.fas' ).removeClass( 'fa-angle-right' ).addClass( 'fa-angle-down' );
 	}
 };
 

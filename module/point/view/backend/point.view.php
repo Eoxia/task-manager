@@ -77,7 +77,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="table-cell table-100 task-author">
 			<div class="table-cell-container">
-				<?php echo do_shortcode( '[task_avatar ids="' . $point->data['author_id'] . '" size="30"]' ); ?>
+				<?php echo do_shortcode( '[task_avatar ids="' . $point->data['author_id'] . '" size="20"]' ); ?>
 			</div>
 		</div>
 

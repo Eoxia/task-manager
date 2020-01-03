@@ -176,7 +176,7 @@ window.eoxiaJS.taskManager.task.keyEnterEditTitle = function( event ) {
 window.eoxiaJS.taskManager.task.createdTaskSuccess = function( element, response ) {
 	var tmp = jQuery( response.data.view );
 	tmp.css({display: "none"});
-	jQuery( '.table-projects .table-header' ).after( tmp );
+	jQuery( '.table-projects > .table-header' ).after( tmp );
 	tmp.slideDown(400);
 };
 

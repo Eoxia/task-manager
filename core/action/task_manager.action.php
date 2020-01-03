@@ -11,9 +11,8 @@
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
+use \eoxia\Custom_Menu_Handler as CMH;
 
 /**
  * Les actions principales de l'application.
@@ -220,8 +219,13 @@ class Task_Manager_Action {
 	 * @version 1.5.0
 	 */
 	public function callback_admin_menu() {
-		add_menu_page( __( 'Task', 'task-manager' ), __( 'Task', 'task-manager' ), 'manage_task_manager', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ), PLUGIN_TASK_MANAGER_URL . 'core/assets/icon-16x16.png' );
-		add_meta_box( 'tm-dashboard-indicator-customer', __( 'Customer', 'task-manager' ), array( Indicator_Class::g(), 'callback_customer' ), 'wpeomtm-dashboard', 'normal' );
+		CMH::register_container( 'Task Manager', 'Task Manager', 'read', 'wpeomtm-dashboard' );
+		CMH::add_logo( 'wpeomtm-dashboard', PLUGIN_TASK_MANAGER_URL . '/core/assets/icon-16x16.png', admin_url( 'admin.php?page=wpeomtm-dashboard' ) );
+		CMH::register_menu( 'wpeomtm-dashboard', __( 'Task Manager', 'task-manager' ), __( 'Task Manager', 'task-manager' ), 'read', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ), 'fa fa-home', 'bottom' );
+//		CMH::register_others_menu( 'others', 'digirisk-dashboard', __( 'DigiRisk', 'digirisk' ), __( 'DigiRisk', 'digirisk' ), 'read', 'digirisk', array( Digirisk::g(), 'display' ), PLUGIN_DIGIRISK_URL . '/core/assets/images/favicon_hd.png', 'bottom' );
+
+		//add_menu_page( __( 'Task', 'task-manager' ), __( 'Task', 'task-manager' ), 'manage_task_manager', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ), PLUGIN_TASK_MANAGER_URL . 'core/assets/icon-16x16.png' );
+//		add_meta_box( 'tm-dashboard-indicator-customer', __( 'Customer', 'task-manager' ), array( Indicator_Class::g(), 'callback_customer' ), 'wpeomtm-dashboard', 'normal' );
 	}
 
 	public static function load_screen_option(){

@@ -11,7 +11,25 @@ window.eoxiaJS.taskManager.newTask.init = function() {
 };
 
 window.eoxiaJS.taskManager.newTask.event = function() {
+	jQuery( '.tm-wrap' ).on( 'blur', '.table-projects .project-title', window.eoxiaJS.taskManager.newTask.editTitle );
 	jQuery( '.tm-wrap' ).on( 'click', '.project-toggle-task', window.eoxiaJS.taskManager.newTask.togglePoints );
+};
+
+window.eoxiaJS.taskManager.newTask.editTitle = function() {
+	var data = {};
+	var element;
+
+	if ( ! element ) {
+		element = jQuery( this );
+	}
+
+
+	data.action  = 'edit_title';
+	data.task_id = element.closest( '.table-row' ).data( 'id' );
+	data.title   = element.text();
+
+	window.eoxiaJS.loader.display( element.closest( 'div' ) );
+	window.eoxiaJS.request.send( element, data );
 };
 
 window.eoxiaJS.taskManager.newTask.togglePoints = function() {

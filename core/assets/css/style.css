@@ -4,10 +4,6 @@
 	Created by Eoxia
 */
 /* Autres couleurs */
-body.toplevel_page_wpeomtm-dashboard #wpcontent {
-  padding-top: 130px;
-}
-
 @media (max-width: 780px) {
   body.toplevel_page_wpeomtm-dashboard #wpcontent {
     padding-top: 0;
