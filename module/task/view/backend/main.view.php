@@ -15,5 +15,6 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; } ?>
 
-<?php Point_Class::g()->display( 732 ); ?>
+<?php Point_Class::g()->display( 174 ); ?>
+<?php Point_Class::g()->display( 175 ); ?>
 

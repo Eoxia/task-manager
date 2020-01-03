@@ -31,11 +31,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="table-cell"></div>
 	</div>
 
-	<div class="column-task">
-		<?php
-		if ( ! empty( $points ) ) :
-			foreach ( $points as $point ) :
-				?>
+	<?php
+	if ( ! empty( $points ) ) :
+		foreach ( $points as $point ) :
+			?>
+			<div class="task-column <?php echo $point->data['completed'] ? 'task-completed' : ''; ?>">
 				<div class="table-row">
 					<div class="table-cell">
 						<i class="fas fa-angle-right"></i>
@@ -88,10 +88,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="column-extend hidden">
 					Lalala
 				</div>
-				<?php
-			endforeach;
-		else:
-		endif;
-		?>
-	</div>
+			</div>
+			<?php
+		endforeach;
+	else:
+	endif;
+	?>
 </div>
