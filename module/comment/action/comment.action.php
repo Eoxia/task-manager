@@ -142,15 +142,11 @@ class Task_Comment_Action {
 		\eoxia\View_Util::exec(
 			'task-manager',
 			'comment',
-			$view . '/main',
+			$view . '/comment',
 			array(
 				'task_id'             => $post_id,
 				'point_id'            => $parent_id,
-				'comments'            => $comments,
-				'comment_schema'      => $comment_schema,
-				'comment_selected_id' => 0,
-				'count_comments'      => $count_comments,
-				'offset'              => 1
+				'comment'            => $comment,
 			)
 		);
 		$view = ob_get_clean();
@@ -185,7 +181,7 @@ class Task_Comment_Action {
 				'point'            => $point,
 				'view'             => $view,
 				'namespace'        => $frontend ? 'taskManagerFrontend' : 'taskManager',
-				'module'           => 'comment',
+				'module'           => 'newComment',
 				'callback_success' => 'addedCommentSuccess',
 				'comment'          => $comment,
 			)

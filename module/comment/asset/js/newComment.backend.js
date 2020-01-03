@@ -31,6 +31,14 @@ window.eoxiaJS.taskManager.newComment.editContent = function() {
 
 	window.eoxiaJS.loader.display( element.closest( 'div' ) );
 	window.eoxiaJS.request.send( element, data );
+
+};
+
+window.eoxiaJS.taskManager.newComment.addedCommentSuccess = function( triggeredElement, response ) {
+	var tmp = jQuery( response.data.view );
+	tmp.css({display: 'none'});
+	jQuery( '.table-task .column-extend .table-comments .table-header' ).after( tmp );
+	tmp.slideDown(400);
 };
 
 /**

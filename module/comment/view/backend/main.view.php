@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
    data-nonce="<?php echo wp_create_nonce( 'edit_comment' ); ?>">
 	<span>Le vrai bouton "Nouveau commentaire"</span></a>
 
-<div class="wpeo-table table-flex table-task">
+<div class="wpeo-table table-flex table-comments">
 	<div class="table-row table-header">
 		<div class="table-cell">Commentaire</div>
 		<div class="table-cell">Auteur</div>
@@ -36,21 +36,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php
 	if ( ! empty( $comments ) ) :
 		foreach ( $comments as $comment ) :
-			?>
-			<div class="table-row" data-id="<?php echo $comment->data['id']; ?>"
-			     data-post-id="<?php echo esc_attr( $task_id ); ?>"
-			     data-parent-id="<?php echo esc_attr( $point_id ); ?>"
-			     data-nonce="<?php echo wp_create_nonce( 'edit_comment' ); ?>">
-				<div class="table-cell">
-					<div class="table-cell-container comment-title" contenteditable="true"><?php echo $comment->data['content']; ?></div>
-				</div>
-
-				<div class="table-cell">-</div>
-				<div class="table-cell">26/11/2019 10h12</div>
-				<div class="table-cell">30</div>
-				<div class="table-cell"><span><i class="fas fa-ellipsis-v"></i></span></div>
-			</div>
-			<?php
+			\eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/comment', array(
+				'comment'  => $comment,
+				'task_id'  => $task_id,
+				'point_id' => $point_id,
+			) );
 		endforeach;
 	else :
 		?>
