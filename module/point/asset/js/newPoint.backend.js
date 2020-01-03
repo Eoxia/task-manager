@@ -20,7 +20,7 @@ window.eoxiaJS.taskManager.newPoint.event = function() {
 window.eoxiaJS.taskManager.newPoint.addedPointSuccess = function ( triggeredElement, response ) {
 	var tmp = jQuery( response.data.view );
 	tmp.css({display: 'none'});
-	jQuery( '.table-task .table-header' ).after( tmp );
+	triggeredElement.closest( '.column-extend' ).find( '.table-header' ).after( tmp );
 	tmp.slideDown(400);
 };
 
