@@ -1,10 +1,13 @@
 @import "cell";
+@import "extend";
+@import "table-comments";
 
 /** Tableau général */
 .wpeo-table.table-flex {
 	border: 0;
 	width: fit-content;
 }
+
 /** Table header */
 .wpeo-table.table-flex .table-header {
 	background: none;
@@ -19,7 +22,7 @@
 }
 
 /** Table columns */
-.wpeo-table.table-flex .task-column {
+.wpeo-table.table-flex .table-column {
 	background: #fff;
 	border-bottom: 1px solid rgba(0,0,0,0.1);
 

@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var array  $tasks    Les données des Tâches.
  */
 ?>
-<div class="wpeo-table table-flex tasks">
+<div class="wpeo-table table-flex table-projects">
 	<div class="table-row table-header">
 		<div class="table-cell"></div>
 		<div class="table-cell" data-title="<?php esc_attr_e( 'Project Name', 'task-manager' ); ?>"><span><?php esc_html_e( 'Project Name', 'task-manager' ); ?></span></div>
@@ -41,22 +41,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="table-cell table-end"></div>
 	</div>
 
-	<div class="tab-container">
-		<?php
-		if ( ! empty( $tasks ) ) :
-			foreach ( $tasks as $task ) :
-				View_Util::exec(
-					'task-manager',
-					'task',
-					'New/task',
-					array(
-						'task'         => $task,
-						'with_wrapper' => $with_wrapper,
-						'hide_tasks'   => $hide_tasks,
-					)
-				);
-			endforeach;
-		endif;
-		?>
-	</div>
+	<?php
+	if ( ! empty( $tasks ) ) :
+		foreach ( $tasks as $task ) :
+			View_Util::exec(
+				'task-manager',
+				'task',
+				'New/task',
+				array(
+					'task'         => $task,
+					'with_wrapper' => $with_wrapper,
+					'hide_tasks'   => $hide_tasks,
+				)
+			);
+		endforeach;
+	endif;
+	?>
 </div>

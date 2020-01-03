@@ -11,7 +11,7 @@ window.eoxiaJS.taskManager.newComment.init = function() {
 };
 
 window.eoxiaJS.taskManager.newComment.event = function() {
-	jQuery( '.tm-wrap' ).on( 'blur', '.task-column .column-extend .comment-title', window.eoxiaJS.taskManager.newComment.editContent );
+	jQuery( '.tm-wrap' ).on( 'blur', '.table-column .column-extend .comment-title', window.eoxiaJS.taskManager.newComment.editContent );
 };
 
 window.eoxiaJS.taskManager.newComment.editContent = function() {
@@ -53,7 +53,7 @@ window.eoxiaJS.taskManager.newComment.addedCommentSuccess = function( triggeredE
  * @version 1.0.0.0
  */
 window.eoxiaJS.taskManager.newComment.loadedCommentsSuccess = function( triggeredElement, response ) {
-	var taskColumn = triggeredElement.closest( '.task-column' );
+	var taskColumn = triggeredElement.closest( '.table-column' );
 
 	taskColumn.find( '.column-extend' ).html( response.data.view );
 
