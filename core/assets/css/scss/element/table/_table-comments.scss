@@ -1,0 +1,8 @@
+/** Table Comments */
+.wpeo-table.table-flex.table-comments {
+	width: 100%;
+
+	.table-row:not(.table-header) .table-cell {
+		background: rgba(0,0,0,0.1);
+	}
+}

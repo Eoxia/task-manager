@@ -222,7 +222,6 @@ class Point_Class extends \eoxia\Comment_Class {
 			)
 		);*/
 
-
 		if ( empty( $parent_id ) ) {
 			wp_send_json_error();
 		}
@@ -235,7 +234,7 @@ class Point_Class extends \eoxia\Comment_Class {
 
 		$task = null;
 
-		$point = $this->update( $point_args, true );
+		$point = $this->update( $point_args );
 
 		// Dans le cas ou c'est un nouveau point.
 		if ( 0 === $point_id ) {

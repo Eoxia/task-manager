@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var EPI_Model $epi Les données d'un EPI.
  */
 ?>
-<div class="column-task">
+<div class="table-column">
 	<div class="table-row task-row" data-id="<?php echo esc_attr( $task->data['id'] ); ?>">
 		<div class="table-cell task-toggle-points" data-id="<?php echo esc_attr( $task->data['id'] ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_point' ) ); ?>">
 			<i class="fas fa-angle-right"></i>

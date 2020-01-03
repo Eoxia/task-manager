@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="task-column <?php echo $point->data['completed'] ? 'task-completed' : ''; ?>"
+<div class="table-column <?php echo $point->data['completed'] ? 'task-completed' : ''; ?>"
      data-parent-id="<?php echo esc_attr( $point->data['post_id'] ); ?>"
      data-id="<?php echo esc_attr( $point->data['id'] ); ?>"
      data-nonce="<?php echo wp_create_nonce( 'edit_point' ); ?>">
