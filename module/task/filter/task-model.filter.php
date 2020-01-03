@@ -28,7 +28,7 @@ class Task_Model_Filter {
 	 */
 	public function __construct() {
 		$current_type = Task_Class::g()->get_type();
-		add_filter( "eo_model_{$current_type}_after_get", array( $this, 'get_full_task' ), 10, 2 );
+		add_filter( "eo_model_wpeo_task_after_get", array( $this, 'get_full_task' ), 10, 2 );
 	}
 
 	/**
@@ -50,7 +50,7 @@ class Task_Model_Filter {
 			),
 			true
 		);
-		
+
 		$object->data['time_info']['estimated_time'] = null;
 
 		$object->data['parent'] = null;
@@ -107,7 +107,7 @@ class Task_Model_Filter {
 
 				$object->data['time_info']['elapsed'] = 0;
 				$object->data['time_info']['estimated_time'] = $object->data['last_history_time']->data['estimated_time'];
-				
+
 
 				if ( ! empty( $comments ) ) {
 					foreach ( $comments as $comment ) {
@@ -118,7 +118,7 @@ class Task_Model_Filter {
 				}
 			}
 		}
-		
+
 		$object->data['count_all_points'] = $object->data['count_uncompleted_points'] + $object->data['count_completed_points'];
 
 		return $object;

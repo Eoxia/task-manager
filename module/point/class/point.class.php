@@ -95,13 +95,6 @@ class Point_Class extends \eoxia\Comment_Class {
 				'meta_key'   => '_tm_order',
 				'orderby'    => 'meta_value_num',
 				'order'      => 'ASC',
-				'meta_query' => array(
-					array(
-						'key'     => '_tm_completed',
-						'value'   => false,
-						'compare' => '=',
-					),
-				),
 			)
 		);
 
@@ -133,13 +126,14 @@ class Point_Class extends \eoxia\Comment_Class {
 			true
 		);
 
+		$points = array_merge( $points, $points_completed );
+
 		$args = array(
 			'task'               => $task,
 			'task_id'            => $task_id,
 			'comment_id'         => $comment_id,
 			'point_id'           => $point_id,
-			'points_uncompleted' => $points,
-			'points_completed'   => $points_completed,
+			'points'           => $points,
 			'point_schema'       => $point_schema,
 		);
 
