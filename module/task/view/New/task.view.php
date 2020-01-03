@@ -164,5 +164,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="column-extend">
 		<?php Point_Class::g()->display( $task->data['id'] ); ?>
 	</div>
-<div>
+</div>
 
