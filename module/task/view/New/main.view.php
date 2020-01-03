@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var array  $tasks    Les données des Tâches.
  */
 ?>
-<div class="wpeo-table table-flex task-projects">
+<div class="wpeo-table table-flex table-projects">
 	<div class="table-row table-header">
 		<div class="table-cell"></div>
 		<div class="table-cell" data-title="<?php esc_attr_e( 'Project Name', 'task-manager' ); ?>"><span><?php esc_html_e( 'Project Name', 'task-manager' ); ?></span></div>
