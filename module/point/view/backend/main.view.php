@@ -25,18 +25,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="wpeo-table table-flex table-task">
 	<div class="table-row table-header">
-		<div class="table-cell"></div>
-		<div class="table-cell">Etat</div>
-		<div class="table-cell">Nom de la tâche</div>
-		<div class="table-cell">Com</div>
-		<div class="table-cell"># ID</div>
-		<div class="table-cell">Temps</div>
-		<div class="table-cell">Date création</div>
-		<div class="table-cell">Date prévue</div>
-		<div class="table-cell">En attente de</div>
-		<div class="table-cell">Auteur tâche</div>
-		<div class="table-cell">Utilisateurs associée</div>
-		<div class="table-cell"></div>
+		<div class="table-cell table-25"></div>
+		<div class="table-cell table-50">Etat</div>
+		<div class="table-cell table-300">Nom de la tâche</div>
+		<div class="table-cell table-50">Com</div>
+		<div class="table-cell table-50"># ID</div>
+		<div class="table-cell table-75">Temps</div>
+		<div class="table-cell table-150">Date création</div>
+		<div class="table-cell table-100">Date prévue</div>
+		<div class="table-cell table-100">En attente de</div>
+		<div class="table-cell table-100">Auteur tâche</div>
+		<div class="table-cell table-150">Utilisateurs associée</div>
+		<div class="table-cell table-50"></div>
 	</div>
 
 	<?php

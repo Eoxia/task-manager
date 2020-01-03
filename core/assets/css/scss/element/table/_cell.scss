@@ -1,0 +1,31 @@
+/** Comment */
+.wpeo-table.table-flex .task-toggle-comment {
+	[class*="fa"] {
+		@include transition;
+	}
+	&:hover {
+		cursor: pointer;
+
+		[class*="fa"] {
+			color: rgba(0, 0, 0, 0.5);
+		}
+	}
+}
+
+/** Etat */
+.wpeo-table.table-flex .task-complete-point {
+	.task-complete-point-field {
+		@include transition;
+
+		&:hover {
+			border: 1px solid $color__primary;
+		}
+	}
+}
+
+/** Content */
+.wpeo-table.table-flex .task-content {
+	.table-cell-container {
+		margin-left: 0 !important;
+	}
+}

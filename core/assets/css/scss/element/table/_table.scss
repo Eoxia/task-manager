@@ -1,6 +1,9 @@
+@import "cell";
+
 /** Tableau général */
 .wpeo-table.table-flex {
 	border: 0;
+	width: fit-content;
 }
 /** Table header */
 .wpeo-table.table-flex .table-header {
@@ -34,7 +37,7 @@
 		display: flex;
 
 		.table-cell-container {
-			margin: auto 0;
+			margin: auto;
 		}
 	}
 }
