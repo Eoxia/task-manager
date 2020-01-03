@@ -50,12 +50,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 
 		<div class="table-cell table-100 project-time" data-title="<?php echo esc_attr_e( 'Time', 'task-manager' ); ?>">
-			<div class="table-cell-container"></div>
+			<div class="table-cell-container"><?php echo esc_html( $task->data['time_info']['elapsed'] ); ?></div>
 		</div>
 
 		<div class="table-cell table-150 project-created-date" data-title="<?php echo esc_attr_e( 'Creation Date', 'task-manager' ); ?>">
 			<div class="table-cell-container">
-				<?php echo esc_html( '-' ); ?>
+				<?php echo esc_html( $task->data['date']['rendered']['date_time'] ); ?>
 			</div>
 		</div>
 
