@@ -38,51 +38,75 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="task-column <?php echo $point->data['completed'] ? 'task-completed' : ''; ?>">
 				<div class="table-row">
 					<div class="table-cell">
-						<i class="fas fa-angle-right"></i>
+						<div class="table-cell-container">
+							<i class="fas fa-angle-right"></i>
+						</div>
 					</div>
 
 					<div class="table-cell">
-						<input type="checkbox" />
+						<div class="table-cell-container">
+							<input type="checkbox" />
+						</div>
 					</div>
 
 					<div class="table-cell">
-						<span><?php echo esc_html( $point->data['content'] ); ?></span>
+						<div class="table-cell-container">
+							<?php echo esc_html( $point->data['content'] ); ?>
+						</div>
 					</div>
 
 					<div class="table-cell">
-						<span>2</span>
+						<div class="table-cell-container">
+							2
+						</div>
 					</div>
 
 					<div class="table-cell">
-						<span><?php echo esc_html( $point->data['id'] ); ?></span>
+						<div class="table-cell-container">
+							<?php echo esc_html( $point->data['id'] ); ?>
+						</div>
 					</div>
 
 					<div class="table-cell">
-						<span>30</span>
+						<div class="table-cell-container">
+							30
+						</div>
 					</div>
 
 					<div class="table-cell">
-						<span>20/11/2019 10h15</span>
+						<div class="table-cell-container">
+							20/11/2019 10h15
+						</div>
 					</div>
 
 					<div class="table-cell">
-						<span>-</span>
+						<div class="table-cell-container">
+							-
+						</div>
 					</div>
 
 					<div class="table-cell">
-						<span>-</span>
+						<div class="table-cell-container">
+							-
+						</div>
 					</div>
 
 					<div class="table-cell">
-						<span>-</span>
+						<div class="table-cell-container">
+							-
+						</div>
 					</div>
 
 					<div class="table-cell">
-						<span>-</span>
+						<div class="table-cell-container">
+							-
+						</div>
 					</div>
 
 					<div class="table-cell">
-						<span><i class="fas fa-ellipsis-v"></i></span>
+						<div class="table-cell-container">
+							<i class="fas fa-ellipsis-v"></i>
+						</div>
 					</div>
 				</div>
 				<div class="column-extend hidden">
