@@ -278,7 +278,7 @@ class Task_Class extends \eoxia\Post_Class {
 	public function display_tasks( $tasks, $frontend = false ) {
 		$hide_tasks = get_user_meta( get_current_user_id(), '_tm_hide_task_hide', true );
 
-		if ( $frontend ) {
+		/*if ( $frontend ) {
 			\eoxia\View_Util::exec(
 				'task-manager',
 				'task',
@@ -299,7 +299,18 @@ class Task_Class extends \eoxia\Post_Class {
 					'hide_tasks'   => $hide_tasks,
 				)
 			);
-		}
+		}*/
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'task',
+			'New/main',
+			array(
+				'tasks'        => $tasks,
+				'with_wrapper' => false,
+				'hide_tasks'   => $hide_tasks,
+			)
+		);
 	}
 
 	/**
