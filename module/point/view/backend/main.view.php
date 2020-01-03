@@ -15,6 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
+<a href="#"
+   class="action-attribute wpeo-button button-primary button-radius-2"
+   data-action="edit_point"
+   data-content="Chocolat"
+   data-parent_id="<?php echo esc_attr( $task_id ); ?>"
+   data-nonce="<?php echo wp_create_nonce( 'edit_point' ); ?>">
+	<span>Le vrai bouton "Nouvelle tâche"</span></a>
+
 <div class="wpeo-table table-flex table-task">
 	<div class="table-row table-header">
 		<div class="table-cell"></div>
@@ -34,90 +42,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php
 	if ( ! empty( $points ) ) :
 		foreach ( $points as $point ) :
-			?>
-			<div class="task-column <?php echo $point->data['completed'] ? 'task-completed' : ''; ?>"
-				data-parent-id="<?php echo esc_attr( $point->data['post_id'] ); ?>"
-				data-id="<?php echo esc_attr( $point->data['id'] ); ?>"
-				data-nonce="<?php echo wp_create_nonce( 'edit_point' ); ?>">
-
-				<div class="table-row">
-					<div class="table-cell">
-						<div class="table-cell-container">
-							<i class="task-toggle-comment fas fa-angle-right"></i>
-						</div>
-					</div>
-
-					<div class="table-cell">
-						<div class="table-cell-container">
-							<input class="task-complete-point" type="checkbox" />
-						</div>
-					</div>
-
-					<div class="table-cell">
-						<div class="table-cell-container task-title" contenteditable="true">
-							<?php echo esc_html( $point->data['content'] ); ?>
-						</div>
-					</div>
-
-					<div class="table-cell">
-						<div class="table-cell-container">
-							2
-						</div>
-					</div>
-
-					<div class="table-cell">
-						<div class="table-cell-container">
-							<?php echo esc_html( $point->data['id'] ); ?>
-						</div>
-					</div>
-
-					<div class="table-cell">
-						<div class="table-cell-container">
-							30
-						</div>
-					</div>
-
-					<div class="table-cell">
-						<div class="table-cell-container">
-							20/11/2019 10h15
-						</div>
-					</div>
-
-					<div class="table-cell">
-						<div class="table-cell-container">
-							-
-						</div>
-					</div>
-
-					<div class="table-cell">
-						<div class="table-cell-container">
-							-
-						</div>
-					</div>
-
-					<div class="table-cell">
-						<div class="table-cell-container">
-							-
-						</div>
-					</div>
-
-					<div class="table-cell">
-						<div class="table-cell-container">
-							-
-						</div>
-					</div>
-
-					<div class="table-cell">
-						<div class="table-cell-container">
-							<i class="fas fa-ellipsis-v"></i>
-						</div>
-					</div>
-				</div>
-				<div class="column-extend hidden">
-					Lalala
-				</div>
-			</div>
-			<?php
+			\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
+				'point' => $point
+			) );
 		endforeach;
 	else:
 	endif;
