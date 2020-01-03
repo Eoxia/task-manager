@@ -98,7 +98,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		</div>
 	</div>
-	<div class="column-extend hidden">
-		Lalala
-	</div>
+	<div class="column-extend hidden"></div>
 </div>

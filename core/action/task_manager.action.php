@@ -220,7 +220,7 @@ class Task_Manager_Action {
 	 */
 	public function callback_admin_menu() {
 		CMH::register_container( 'Task Manager', 'Task Manager', 'read', 'wpeomtm-dashboard' );
-		CMH::add_logo( 'wpeomtm-dashboard', PLUGIN_TASK_MANAGER_URL . '/core/assets/icon-16x16.png', admin_url( 'admin.php?page=wpeomtm-dashboard' ) );
+		CMH::add_logo( 'wpeomtm-dashboard', PLUGIN_TASK_MANAGER_URL . '/core/assets/icone', admin_url( 'admin.php?page=wpeomtm-dashboard' ) );
 		CMH::register_menu( 'wpeomtm-dashboard', __( 'Task Manager', 'task-manager' ), __( 'Task Manager', 'task-manager' ), 'read', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ), 'fa fa-home', 'bottom' );
 //		CMH::register_others_menu( 'others', 'digirisk-dashboard', __( 'DigiRisk', 'digirisk' ), __( 'DigiRisk', 'digirisk' ), 'read', 'digirisk', array( Digirisk::g(), 'display' ), PLUGIN_DIGIRISK_URL . '/core/assets/images/favicon_hd.png', 'bottom' );
 
