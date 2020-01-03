@@ -41,7 +41,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="table-cell table-50 task-comment-number">
 			<div class="table-cell-container">
-				<span class="number-comments">2</span>
+				<span class="number-comments"><?php echo esc_html( $point->data['count_comments'] ); ?></span>
 			</div>
 		</div>
 
@@ -53,13 +53,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="table-cell table-75 task-time">
 			<div class="table-cell-container">
-				30
+				<?php echo esc_html( $point->data['time_info']['elapsed'] ); ?>
 			</div>
 		</div>
 
 		<div class="table-cell table-150 task-created-date">
 			<div class="table-cell-container">
-				20/11/2019 10h15
+				<?php echo esc_html( $point->data['date']['rendered']['date_time'] ); ?>
 			</div>
 		</div>
 
@@ -77,7 +77,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="table-cell table-100 task-author">
 			<div class="table-cell-container">
-				-
+				<?php echo do_shortcode( '[task_avatar ids="' . $point->data['author_id'] . '" size="30"]' ); ?>
 			</div>
 		</div>
 
@@ -87,9 +87,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		</div>
 
-		<div class="table-cell table-50 task-option">
+		<div class="table-cell table-50 table-end">
 			<div class="table-cell-container">
-				<i class="fas fa-ellipsis-v"></i>
+				<div class="wpeo-dropdown dropdown-right">
+					<div class="dropdown-toggle wpeo-button button-square-50 button-transparent"><i class="fas fa-ellipsis-v"></i></div>
+					<div class="dropdown-content point-header-action">
+						<?php \eoxia\View_Util::exec( 'task-manager', 'point', 'backend/toggle-content', array( 'point' => $point ) ); ?>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

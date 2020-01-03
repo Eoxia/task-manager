@@ -203,21 +203,11 @@ window.eoxiaJS.taskManager.point.editPoint = function() {
  * @version 1.0.0
  */
 window.eoxiaJS.taskManager.point.deletedPointSuccess = function( triggeredElement, response ) {
-	var totalPoint = jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.total-point' ).text();
-	var totalCompletedPoint = jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text();
-	totalPoint--;
-	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.total-point' ).text( totalPoint );
+	//jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-info .elapsed' ).text( response.data.time );
 
-	if ( jQuery( triggeredElement ).closest( '.point' ).find( '.completed-point' ).is( ':checked' ) ) {
-		totalCompletedPoint--;
-		jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text( totalCompletedPoint );
-	}
+	//jQuery( triggeredElement ).closest( '.wpeo-project-task.mask' ).removeClass( 'mask' );
 
-	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-info .elapsed' ).text( response.data.time );
-
-	jQuery( triggeredElement ).closest( '.wpeo-project-task.mask' ).removeClass( 'mask' );
-
-	jQuery( triggeredElement ).closest( 'div.point.edit' ).fadeOut( 400, function() {
+	jQuery( triggeredElement ).closest( '.table-column' ).fadeOut( 400, function() {
 	} );
 };
 
