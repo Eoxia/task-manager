@@ -11,12 +11,13 @@ window.eoxiaJS.taskManager.newTask.init = function() {
 };
 
 window.eoxiaJS.taskManager.newTask.event = function() {
-	jQuery( '.tm-wrap' ).on( 'click', '.task-toggle-points', window.eoxiaJS.taskManager.newTask.togglePoints );
+	jQuery( '.tm-wrap' ).on( 'click', '.project-toggle-task', window.eoxiaJS.taskManager.newTask.togglePoints );
 };
 
 window.eoxiaJS.taskManager.newTask.togglePoints = function() {
 	if ( jQuery( this ).find( '.fas' ).hasClass( 'fa-angle-down' ) ) {
 		jQuery( this ).find( '.fas' ).removeClass( 'fa-angle-down' ).addClass( 'fa-angle-right' );
+		jQuery( this ).closest( '.table-column' ).find( '.column-extend' ).slideUp( 400 );
 	} else {
 		var data = {};
 		var element;

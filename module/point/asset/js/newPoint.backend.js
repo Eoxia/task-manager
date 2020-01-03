@@ -117,7 +117,6 @@ window.eoxiaJS.taskManager.newPoint.toggleComments = function() {
  */
 window.eoxiaJS.taskManager.newPoint.loadedPointSuccess = function( triggeredElement, response ) {
 	var taskColumn = triggeredElement.closest( '.table-column' );
-	console.log( 'ok');
 	taskColumn.find( '.column-extend' ).html( response.data.view );
 
 	triggeredElement.removeClass( 'loading' );
