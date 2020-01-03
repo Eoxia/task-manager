@@ -35,22 +35,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 	if ( ! empty( $points ) ) :
 		foreach ( $points as $point ) :
 			?>
-			<div class="task-column <?php echo $point->data['completed'] ? 'task-completed' : ''; ?>">
+			<div class="task-column <?php echo $point->data['completed'] ? 'task-completed' : ''; ?>"
+				data-parent-id="<?php echo esc_attr( $point->data['post_id'] ); ?>"
+				data-id="<?php echo esc_attr( $point->data['id'] ); ?>"
+				data-nonce="<?php echo wp_create_nonce( 'edit_point' ); ?>">
+
 				<div class="table-row">
 					<div class="table-cell">
 						<div class="table-cell-container">
-							<i class="fas fa-angle-right"></i>
+							<i class="task-toggle-comment fas fa-angle-right"></i>
 						</div>
 					</div>
 
 					<div class="table-cell">
 						<div class="table-cell-container">
-							<input type="checkbox" />
+							<input class="task-complete-point" type="checkbox" />
 						</div>
 					</div>
 
 					<div class="table-cell">
-						<div class="table-cell-container">
+						<div class="table-cell-container task-title" contenteditable="true">
 							<?php echo esc_html( $point->data['content'] ); ?>
 						</div>
 					</div>
