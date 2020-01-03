@@ -24,7 +24,8 @@
 }
 
 /** Content */
-.wpeo-table.table-flex .task-content {
+.wpeo-table.table-flex .task-content,
+.wpeo-table.table-flex .project-name {
 	.table-cell-container {
 		margin-left: 0 !important;
 	}

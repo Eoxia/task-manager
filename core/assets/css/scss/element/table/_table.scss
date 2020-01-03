@@ -30,17 +30,19 @@
 		border-bottom: 0;
 	}
 
-	.table-row {
+	.table-row:not(.table-header) {
 		background: none;
 		align-content: center;
-	}
-	.table-cell {
-		margin: 0;
-		border-right: 1px solid rgba(0,0,0,0.1);
-		display: flex;
 
-		.table-cell-container {
-			margin: auto;
+		.table-cell {
+			margin: 0;
+			border-right: 1px solid rgba(0,0,0,0.1);
+			display: flex;
+
+			.table-cell-container {
+				margin: auto;
+			}
 		}
 	}
+
 }

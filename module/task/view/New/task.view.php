@@ -25,69 +25,73 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <div class="table-column">
 	<div class="table-row" data-id="<?php echo esc_attr( $task->data['id'] ); ?>">
-		<div class="table-cell project-toggle-task" data-id="<?php echo esc_attr( $task->data['id'] ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_point' ) ); ?>">
+		<div class="table-cell table-25 project-toggle-task" data-id="<?php echo esc_attr( $task->data['id'] ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_point' ) ); ?>">
 			<div class="table-cell-container">
 				<i class="fas fa-angle-right"></i>
 			</div>
 		</div>
 
-		<div class="table-cell project-name" data-title="<?php echo esc_attr_e( 'Project Name', 'task-manager' ); ?>">
+		<div class="table-cell table-300 project-name" data-title="<?php echo esc_attr_e( 'Project Name', 'task-manager' ); ?>">
 			<div class="table-cell-container">
 				<?php echo esc_html( $task->data['title'] ); ?>
 			</div>
 		</div>
 
-		<div class="table-cell id" data-title="<?php echo esc_attr_e( 'ID', 'task-manager' ); ?>">
+		<div class="table-cell table-50 project-id" data-title="<?php echo esc_attr_e( 'ID', 'task-manager' ); ?>">
 			<div class="table-cell-container">
 				<?php echo esc_html( $task->data['id'] ); ?>
 			</div>
 		</div>
 
-		<div class="table-cell last-maj" data-title="<?php echo esc_attr_e( 'Last Maj', 'task-manager' ); ?>"><?php echo esc_html( '-' ); ?>
-			<div class="table-cell-container"></div>
-		</div>
-
-		<div class="table-cell time" data-title="<?php echo esc_attr_e( 'Time', 'task-manager' ); ?>">
-			<div class="table-cell-container"></div>
-		</div>
-
-		<div class="table-cell creation-date" data-title="<?php echo esc_attr_e( 'Creation Date', 'task-manager' ); ?>"><?php echo esc_html( '-' ); ?>
-			<div class="table-cell-container"></div>
-		</div>
-
-		<div class="table-cell end-date" data-title="<?php echo esc_attr_e( 'End Date', 'task-manager' ); ?>">
+		<div class="table-cell table-100 project-last-update" data-title="<?php echo esc_attr_e( 'Last Maj', 'task-manager' ); ?>">
 			<div class="table-cell-container">
 				<?php echo esc_html( '-' ); ?>
 			</div>
 		</div>
 
-		<div class="table-cell affiliated-with" data-title="<?php echo esc_attr_e( 'Affiliated With', 'task-manager' ); ?>">
+		<div class="table-cell table-100 project-time" data-title="<?php echo esc_attr_e( 'Time', 'task-manager' ); ?>">
 			<div class="table-cell-container"></div>
 		</div>
 
-		<div class="table-cell categories" data-title="<?php echo esc_attr_e( 'Categories', 'task-manager' ); ?>">
-			<div class="table-cell-container"></div>
-		</div>
-
-		<div class="table-cell state" data-title="<?php echo esc_attr_e( 'State', 'task-manager' ); ?>">
-			<div class="table-cell-container"></div>
-		</div>
-
-		<div class="table-cell attachment" data-title="<?php echo esc_attr_e( 'Attachment', 'task-manager' ); ?>">
-			<div class="table-cell-container"></div>
-		</div>
-
-		<div class="table-cell project-author" data-title="<?php echo esc_attr_e( 'Project-author', 'task-manager' ); ?>">
+		<div class="table-cell table-150 project-created-date" data-title="<?php echo esc_attr_e( 'Creation Date', 'task-manager' ); ?>">
 			<div class="table-cell-container">
-				<?php echo do_shortcode( '[task_avatar ids="' . $task->data['author_id'] . '" size="50"]' ); ?>
+				<?php echo esc_html( '-' ); ?>
 			</div>
 		</div>
 
-		<div class="table-cell associated_users" data-title="<?php esc_attr_e( 'Associated Users', 'task-manager' ); ?>">
+		<div class="table-cell table-150 project-due-time" data-title="<?php echo esc_attr_e( 'End Date', 'task-manager' ); ?>">
+			<div class="table-cell-container">
+				<?php echo esc_html( '-' ); ?>
+			</div>
+		</div>
+
+		<div class="table-cell table-100 project-affiliated" data-title="<?php echo esc_attr_e( 'Affiliated With', 'task-manager' ); ?>">
 			<div class="table-cell-container"></div>
 		</div>
 
-		<div class="table-cell table-end">
+		<div class="table-cell table-150 project-categories" data-title="<?php echo esc_attr_e( 'Categories', 'task-manager' ); ?>">
+			<div class="table-cell-container"></div>
+		</div>
+
+		<div class="table-cell table-100 project-state" data-title="<?php echo esc_attr_e( 'State', 'task-manager' ); ?>">
+			<div class="table-cell-container"></div>
+		</div>
+
+		<div class="table-cell table-75 project-attachment" data-title="<?php echo esc_attr_e( 'Attachment', 'task-manager' ); ?>">
+			<div class="table-cell-container"></div>
+		</div>
+
+		<div class="table-cell table-100 project-author" data-title="<?php echo esc_attr_e( 'Project-author', 'task-manager' ); ?>">
+			<div class="table-cell-container">
+				<?php echo do_shortcode( '[task_avatar ids="' . $task->data['author_id'] . '" size="25"]' ); ?>
+			</div>
+		</div>
+
+		<div class="table-cell table-200 project-users" data-title="<?php esc_attr_e( 'Associated Users', 'task-manager' ); ?>">
+			<div class="table-cell-container"></div>
+		</div>
+
+		<div class="table-cell table-50 table-padding-0 project-option">
 			<div class="table-cell-container">
 				<div class="wpeo-dropdown dropdown-right">
 					<div class="dropdown-toggle wpeo-button button-square-50 button-transparent"><i class="fas fa-ellipsis-v"></i></div>
