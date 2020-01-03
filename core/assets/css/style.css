@@ -2592,6 +2592,7 @@ body.toplevel_page_wpeomtm-dashboard #wpcontent {
   padding: 2em;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .tm-wrap .wpeo-table.table-flex.table-comments {
@@ -2600,6 +2601,22 @@ body.toplevel_page_wpeomtm-dashboard #wpcontent {
 
 .tm-wrap .wpeo-table.table-flex.table-comments .table-row:not(.table-header) .table-cell {
   background: rgba(0, 0, 0, 0.1);
+}
+
+.tm-wrap .wpeo-table.table-flex.table-comments .table-column {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.tm-wrap .wpeo-table.table-flex.table-task .table-column {
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.tm-wrap .wpeo-table.table-flex.table-task .table-column:last-child {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.tm-wrap .wpeo-table.table-flex.table-task .table-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .tm-wrap .wpeo-table.table-flex {

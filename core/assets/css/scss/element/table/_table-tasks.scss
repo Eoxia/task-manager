@@ -1,0 +1,11 @@
+.wpeo-table.table-flex.table-task {
+	.table-column {
+		border-left: 1px solid rgba(0,0,0,0.1);
+		&:last-child {
+			border-bottom: 1px solid rgba(0,0,0,0.1);
+		}
+	}
+	.table-header {
+		border-bottom: 1px solid rgba(0,0,0,0.1);
+	}
+}
