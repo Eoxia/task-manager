@@ -161,8 +161,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		</div>
 	</div>
-	<div class="column-extend">
-		<?php Point_Class::g()->display( $task->data['id'] ); ?>
+	<div class="column-extend" hidden>
+
 	</div>
 <div>
 

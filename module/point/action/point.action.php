@@ -293,7 +293,7 @@ class Point_Action {
 		}
 
 		ob_start();
-		\eoxia\View_Util::exec(
+		/*\eoxia\View_Util::exec(
 			'task-manager',
 			'point',
 			$view . '/points',
@@ -303,12 +303,13 @@ class Point_Action {
 				'parent_id'  => $task_id,
 				'points'     => $points,
 			)
-		);
+		);*/
+		Point_Class::g()->display( $task_id );
 		wp_send_json_success(
 			array(
 				'namespace'        => $frontend ? 'taskManagerFrontend' : 'taskManager',
-				'module'           => 'point',
-				'callback_success' => 'loadedPoint',
+				'module'           => 'newPoint',
+				'callback_success' => 'loadedPointSuccess',
 				'view'             => ob_get_clean(),
 			)
 		);

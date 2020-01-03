@@ -103,3 +103,24 @@ window.eoxiaJS.taskManager.newPoint.toggleComments = function() {
 		jQuery( this ).removeClass( 'fa-angle-right' ).addClass( 'fa-angle-down' );
 	}
 };
+
+/**
+ * Le callback en cas de réussite à la requête Ajax "load_point".
+ * Met le contenu dans la div.point.
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 1.0.0.0
+ * @version 1.0.0.0
+ */
+window.eoxiaJS.taskManager.newPoint.loadedPointSuccess = function( triggeredElement, response ) {
+	var taskColumn = triggeredElement.closest( '.table-column' );
+	console.log( 'ok');
+	taskColumn.find( '.column-extend' ).html( response.data.view );
+
+	triggeredElement.removeClass( 'loading' );
+	taskColumn.find( '.column-extend' ).slideDown( 400, function() {
+	} );
+};
