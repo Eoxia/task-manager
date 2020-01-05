@@ -22,6 +22,8 @@
 	"externals": [],
 	"modules": [
 		"core/core.config.json",
+		
+		"module/api/api.config.json",
 
 		"module/comment/comment.config.json",
 		"module/quick-point/quick-point.config.json",
