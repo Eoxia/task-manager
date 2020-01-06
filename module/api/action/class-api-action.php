@@ -12,7 +12,7 @@
  * @since     2.0.0
  */
 
-namespace wpshop;
+namespace task_manager;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -48,8 +48,6 @@ class API_Action {
 	 * @return boolean                  True ou false.
 	 */
 	public function check_cap( $cap, $request ) {
-    return true;
-    
 		$headers = $request->get_headers();
 
 		if ( empty( $headers['wpapikey'] ) ) {
@@ -78,9 +76,9 @@ class API_Action {
 		register_rest_route( 'task_manager/v1', '/get-info', array(
 			'methods'             => array( 'GET' ),
 			'callback'            => array( $this, 'get_info' ),
-			/*'permission_callback' => function( $request ) {
+			'permission_callback' => function( $request ) {
 				return \eoxia\Rest_Class::g()->check_cap( 'get', $request );
-			},*/
+			},
 		) );
 	}
 
@@ -93,9 +91,9 @@ class API_Action {
 	 * complète de l'utilisateur.
 	 */
 	public function callback_edit_user_profile( $user ) {
-		$token = get_user_meta( $user->ID, '_wpshop_api_key', true );
+		$token = get_user_meta( $user->ID, '_tm_api_key', true );
 
-		\eoxia\View_Util::exec( 'wpshop', 'api', 'field-api', array(
+		\eoxia\View_Util::exec( 'task-manager', 'api', 'field-api', array(
 			'id'    => $user->ID,
 			'token' => $token,
 		) );
@@ -116,10 +114,10 @@ class API_Action {
 		}
 
 		$token = API::g()->generate_token();
-		update_user_meta( $id, '_wpshop_api_key', $token );
+		update_user_meta( $id, '_tm_api_key', $token );
 
 		ob_start();
-		\eoxia\View_Util::exec( 'wpshop', 'api', 'field-api', array(
+		\eoxia\View_Util::exec( 'task-manager', 'api', 'field-api', array(
 			'id'    => $id,
 			'token' => $token,
 		) );
@@ -144,9 +142,25 @@ class API_Action {
 	public function get_info( $request ) {
       $name     = get_bloginfo();
       $url_icon = get_site_icon_url( 128 );
+
+			$headers = $request->get_headers();
+
+			if ( empty( $headers['wpapikey'] ) ) {
+				return false;
+			}
+
+			$wp_api_key = $headers['wpapikey'];
+
+			$user = API::g()->get_user_by_token( $wp_api_key[0] );
+
+			if ( empty( $user ) ) {
+				return false;
+			}
+
 	   return new \WP_REST_Response( array(
        'name'     => $name,
        'url_icon' => $url_icon,
+			 'user_id'  => $user->ID
      ) );
 	}
 }
