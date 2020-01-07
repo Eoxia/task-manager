@@ -123,3 +123,4 @@ window.eoxiaJS.taskManager.newPoint.loadedPointSuccess = function( triggeredElem
 	taskColumn.find( '> .column-extend' ).slideDown( 400, function() {
 	} );
 };
+

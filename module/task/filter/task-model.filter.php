@@ -43,6 +43,7 @@ class Task_Model_Filter {
 	 * @return Task_Model        Les données de la tâche avec les données complémentaires.
 	 */
 	public function get_full_task( $object, $args ) {
+
 		$object->data['last_history_time'] = History_Time_Class::g()->get(
 			array(
 				'post_id' => $object->data['id'],
@@ -108,7 +109,6 @@ class Task_Model_Filter {
 				$object->data['time_info']['elapsed'] = 0;
 				$object->data['time_info']['estimated_time'] = $object->data['last_history_time']->data['estimated_time'];
 
-
 				if ( ! empty( $comments ) ) {
 					foreach ( $comments as $comment ) {
 						if ( wp_get_comment_status( $comment->data['parent_id'] ) == 'approved' ) {
@@ -120,6 +120,10 @@ class Task_Model_Filter {
 		}
 
 		$object->data['count_all_points'] = $object->data['count_uncompleted_points'] + $object->data['count_completed_points'];
+
+		if ( ! isset( $object->data['time_info']['elapsed'] ) ) {
+			$object->data['time_info']['elapsed'] = 0;
+		}
 
 		return $object;
 	}

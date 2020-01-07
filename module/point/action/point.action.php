@@ -160,10 +160,6 @@ class Point_Action {
 
 		$time_task = $task->data['time_info']['elapsed'];
 
-		if ( $task->data['time_info']['estimated_time'] != null ) {
-			$time_task .= ' / ' . $task->data['time_info']['estimated_time'];
-		}
-
 		do_action( 'tm_delete_point', $point );
 
 		wp_send_json_success(
@@ -172,6 +168,7 @@ class Point_Action {
 				'namespace'        => 'taskManager',
 				'module'           => 'point',
 				'callback_success' => 'deletedPointSuccess',
+				'point'            => $point,
 			)
 		);
 	}

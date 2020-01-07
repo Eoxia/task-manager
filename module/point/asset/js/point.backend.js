@@ -203,12 +203,11 @@ window.eoxiaJS.taskManager.point.editPoint = function() {
  * @version 1.0.0
  */
 window.eoxiaJS.taskManager.point.deletedPointSuccess = function( triggeredElement, response ) {
-	//jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-info .elapsed' ).text( response.data.time );
-
-	//jQuery( triggeredElement ).closest( '.wpeo-project-task.mask' ).removeClass( 'mask' );
-
+	const point = response.data.point;
 	jQuery( triggeredElement ).closest( '.table-column' ).fadeOut( 400, function() {
 	} );
+
+	jQuery( '.table-projects .table-column[data-id=' + point.data.post_id + '] .project-time .elapsed' ).text( response.data.time );
 };
 
 var longpress = 500; // Durée par défaut d'un clic => 2 sec
