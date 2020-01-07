@@ -22,7 +22,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @var EPI_Model $epi Les données d'un EPI.
  */
+
 ?>
+
 <div class="task table-column" data-id="<?php echo esc_attr( $task->data['id'] ); ?>">
 	<div class="table-row" data-id="<?php echo esc_attr( $task->data['id'] ); ?>">
 		<div class="table-cell table-25 project-toggle-task" data-id="<?php echo esc_attr( $task->data['id'] ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_point' ) ); ?>">
@@ -43,9 +45,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		</div>
 
-		<div class="table-cell table-100 project-last-update" data-title="<?php echo esc_attr_e( 'Last Maj', 'task-manager' ); ?>">
+		<div class="table-cell table-100 project-last-update" data-title="<?php echo esc_attr_e( 'Last Update', 'task-manager' ); ?>">
 			<div class="table-cell-container">
-				<?php echo esc_html( '-' ); ?>
+				<?php echo Task_Class::g()->get_task_last_update( $task->data['id'] ); ?>
 			</div>
 		</div>
 
