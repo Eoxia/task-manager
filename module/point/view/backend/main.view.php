@@ -43,7 +43,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	if ( ! empty( $points ) ) :
 		foreach ( $points as $point ) :
 			\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
-				'point' => $point
+				'point' => $point,
+				'task'  => $args['task'],
 			) );
 		endforeach;
 	else:

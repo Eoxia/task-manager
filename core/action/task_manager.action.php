@@ -86,6 +86,7 @@ class Task_Manager_Action {
 					wp_enqueue_style( 'task-manager-roboto-font', 'https://fonts.googleapis.com/css?family=Roboto+Slab' );
 
 					wp_enqueue_script( 'task-manager-chart', 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js' );
+
 					wp_enqueue_script( 'task-manager-colcade', PLUGIN_TASK_MANAGER_URL . 'core/assets/js/colcade.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
 					wp_enqueue_script( 'task-manager-script', PLUGIN_TASK_MANAGER_URL . 'core/assets/js/backend.min.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
 					wp_localize_script(
@@ -222,6 +223,7 @@ class Task_Manager_Action {
 		CMH::register_container( 'Task Manager', 'Task Manager', 'read', 'wpeomtm-dashboard' );
 		CMH::add_logo( 'wpeomtm-dashboard', PLUGIN_TASK_MANAGER_URL . '/core/assets/icone', admin_url( 'admin.php?page=wpeomtm-dashboard' ) );
 		CMH::register_menu( 'wpeomtm-dashboard', __( 'Projects', 'task-manager' ), __( 'Projects', 'task-manager' ), 'read', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ), 'fas fa-thumbtack', 'bottom' );
+		CMH::register_menu( 'wpeomtm-dashboard', __( 'My Tasks', 'task-manager' ), __( 'My Tasks', 'task-manager' ), 'read', 'tm-my-tasks', array( Task_Manager_Class::g(), 'display_my_task' ), 'fas fa-thumbtack', 'bottom' );
 //		CMH::register_others_menu( 'others', 'digirisk-dashboard', __( 'DigiRisk', 'digirisk' ), __( 'DigiRisk', 'digirisk' ), 'read', 'digirisk', array( Digirisk::g(), 'display' ), PLUGIN_DIGIRISK_URL . '/core/assets/images/favicon_hd.png', 'bottom' );
 
 		//add_menu_page( __( 'Task', 'task-manager' ), __( 'Task', 'task-manager' ), 'manage_task_manager', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ), PLUGIN_TASK_MANAGER_URL . 'core/assets/icon-16x16.png' );

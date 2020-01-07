@@ -69,6 +69,19 @@ class Task_Manager_Class extends \eoxia\Singleton_Util {
 		}
 	}
 
+	public function display_my_task() {
+		$tasks = Task_Class::g()->get_tasks( array(
+			'users_id'       => array( get_current_user_id() ),
+			'posts_per_page' => \eoxia\Config_Util::$init['task-manager']->task->posts_per_page,
+		) );
+
+		if ( ! empty( $tasks ) ) {
+			foreach ( $tasks as $task ) {
+				Point_Class::g()->display( $task->data['id'] );
+			}
+		}
+	}
+
 	/**
 	 * Récupères le patch note pour la version actuelle.
 	 *

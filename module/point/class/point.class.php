@@ -73,7 +73,7 @@ class Point_Class extends \eoxia\Comment_Class {
 	 *
 	 * @todo Ajouter "comment_id" et "point_id" en paramètre. Et renommer en selected_*
 	 */
-		public function display( $task_id, $frontend = false, $point_id_quicktime = 0 ) {
+	public function display( $task_id, $frontend = false, $point_id_quicktime = 0 ) {
 		$comment_id = ! empty( $_GET['comment_id'] ) ? (int) $_GET['comment_id'] : 0;
 		$point_id   = ! empty( $_GET['point_id'] ) ? (int) $_GET['point_id'] : 0;
 
@@ -133,7 +133,7 @@ class Point_Class extends \eoxia\Comment_Class {
 			'task_id'            => $task_id,
 			'comment_id'         => $comment_id,
 			'point_id'           => $point_id,
-			'points'           => $points,
+			'points'             => $points,
 			'point_schema'       => $point_schema,
 		);
 
