@@ -27,10 +27,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="wpeo-table table-flex table-comments">
 	<div class="table-row table-header">
-		<div class="table-cell">Commentaire</div>
-		<div class="table-cell">Auteur</div>
-		<div class="table-cell">Date création</div>
-		<div class="table-cell">Temps</div>
+		<div class="table-cell"><i class="far fa-comment-dots"></i> Commentaire</div>
+		<div class="table-cell"><i class="fas fa-user"></i> Auteur</div>
+		<div class="table-cell"><i class="far fa-calendar-alt"></i>  création</div>
+		<div class="table-cell"><i class="far fa-clock"></i> Temps</div>
 		<div class="table-cell table-50 table-end"></div>
 	</div>
 
