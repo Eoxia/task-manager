@@ -49,9 +49,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		</div>
 
-		<div class="table-cell table-100 wpeo-modal-event wpeo-button project-time" data-title="<?php echo esc_attr_e( 'Time', 'task-manager' ); ?>" data-id="<?php echo esc_attr( $task->data['id'] ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_time_history' ) ); ?>">
+		<div class="table-cell table-100 wpeo-modal-event project-time"
+			data-class="history-time wpeo-wrap tm-wrap"
+			data-action="load_time_history"
+			data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_time_history' ) ); ?>"
+			data-title="<?php /* Translators: 1. The task ID. */ echo esc_attr( sprintf( __( '#%1$s Time history', 'task-manager' ), $task->data['id'] ) ); ?>"
+			data-task-id="<?php echo esc_attr( $task->data['id'] ); ?>">
 			<div class="table-cell-container">
-
 			</div>
 		</div>
 
@@ -70,6 +74,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="table-cell table-100 project-affiliated" data-title="<?php echo esc_attr_e( 'Affiliated With', 'task-manager' ); ?>">
 			<div class="table-cell-container">
+				<?php echo apply_filters( 'tm_task_footer', '', $task ); ?>
 			</div>
 		</div>
 
