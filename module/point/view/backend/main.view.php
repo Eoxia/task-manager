@@ -26,16 +26,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="wpeo-table table-flex table-task">
 	<div class="table-row table-header">
 		<div class="table-cell table-25"></div>
-		<div class="table-cell table-50">Etat</div>
-		<div class="table-cell table-300">Nom de la tâche</div>
-		<div class="table-cell table-50">Com</div>
-		<div class="table-cell table-50"># ID</div>
-		<div class="table-cell table-75">Temps</div>
-		<div class="table-cell table-150">Date création</div>
-		<div class="table-cell table-100">Date prévue</div>
+		<div class="table-cell table-50"><i class="fas fa-check-circle"></i> Etat</div>
+		<div class="table-cell table-300"><i class="fas fa-check-square"></i> Nom de la tâche</div>
+		<div class="table-cell table-50"><i class="far fa-comment-dots"></i> Com</div>
+		<div class="table-cell table-50"><i class="fas fa-hashtag"></i> ID</div>
+		<div class="table-cell table-75"><i class="far fa-clock"></i> Temps</div>
+		<div class="table-cell table-150"><i class="far fa-calendar-alt"></i> Date création</div>
+		<div class="table-cell table-100"><i class="far fa-calendar-alt"></i> Date prévue</div>
 		<div class="table-cell table-100">En attente de</div>
-		<div class="table-cell table-100">Auteur tâche</div>
-		<div class="table-cell table-150">Utilisateurs associée</div>
+		<div class="table-cell table-100"><i class="fas fa-user"></i> Auteur tâche</div>
+		<div class="table-cell table-150"><i class="fas fa-users"></i> Utilisateurs associée</div>
 		<div class="table-cell table-50"></div>
 	</div>
 
