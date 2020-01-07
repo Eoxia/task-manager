@@ -12,6 +12,8 @@ window.eoxiaJS.taskManager.newComment.init = function() {
 
 window.eoxiaJS.taskManager.newComment.event = function() {
 	jQuery( '.tm-wrap' ).on( 'blur', '.table-column .column-extend .comment-title', window.eoxiaJS.taskManager.newComment.editContent );
+	jQuery( '.tm-wrap' ).on( 'blur', '.table-column .column-extend .comment-time', window.eoxiaJS.taskManager.newComment.editContent );
+	jQuery( '.tm-wrap' ).on( 'blur', '.table-comments .group-date .date', window.eoxiaJS.taskManager.newComment.editContent );
 };
 
 window.eoxiaJS.taskManager.newComment.editContent = function() {
@@ -27,11 +29,12 @@ window.eoxiaJS.taskManager.newComment.editContent = function() {
 	data.comment_id = element.closest( '.table-row' ).data( 'id' );
 	data.post_id    = element.closest( '.table-row' ).data( 'post-id' );
 	data.parent_id  = element.closest( '.table-row' ).data( 'parent-id' );
-	data.content    = element.text();
+	data.time       = element.closest( '.table-row' ).find( '.comment-time' ).text();
+	data.content    = element.closest( '.table-row' ).find( '.comment-title' ).text();
+	data.mysql_date = element.closest( '.table-row' ).find( '.mysql-date' ).val();
 
 	window.eoxiaJS.loader.display( element.closest( 'div' ) );
 	window.eoxiaJS.request.send( element, data );
-
 };
 
 window.eoxiaJS.taskManager.newComment.addedCommentSuccess = function( triggeredElement, response ) {
@@ -39,6 +42,18 @@ window.eoxiaJS.taskManager.newComment.addedCommentSuccess = function( triggeredE
 	tmp.css({display: 'none'});
 	triggeredElement.closest( '.column-extend' ).find( '.table-header' ).after( tmp );
 	tmp.slideDown(400);
+
+	const comment = response.data.comment;
+
+	jQuery( '.table-projects .table-column[data-id=' + comment.data.post_id + '] .project-time .elapsed' ).text( response.data.time.task );
+	jQuery( '.table-task .table-column[data-id=' + comment.data.parent_id + '] .task-time .table-cell-container .elapsed' ).text( response.data.time.point );
+};
+
+window.eoxiaJS.taskManager.newComment.editedCommentSuccess = function( triggeredElement, response ) {
+	const comment = response.data.comment;
+
+	jQuery( '.table-projects .table-column[data-id=' + comment.data.post_id + '] .project-time .elapsed' ).text( response.data.time.task );
+	jQuery( '.table-task .table-column[data-id=' + comment.data.parent_id + '] .task-time .table-cell-container .elapsed' ).text( response.data.time.point );
 };
 
 /**

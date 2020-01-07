@@ -28,7 +28,7 @@ class Task_Model_Filter {
 	 */
 	public function __construct() {
 		$current_type = Task_Class::g()->get_type();
-		add_filter( "eo_model_wpeo_task_after_get", array( $this, 'get_full_task' ), 10, 2 );
+		add_filter( "eo_model_{$current_type}_after_get", array( $this, 'get_full_task' ), 10, 2 );
 	}
 
 	/**

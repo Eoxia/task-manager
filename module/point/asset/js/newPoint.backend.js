@@ -12,7 +12,7 @@ window.eoxiaJS.taskManager.newPoint.init = function() {
 
 window.eoxiaJS.taskManager.newPoint.event = function() {
 	jQuery( '.tm-wrap' ).on( 'blur', '.table-column .task-title', window.eoxiaJS.taskManager.newPoint.editTitle );
-	jQuery( '.tm-wrap' ).on( 'click', '.table-column .task-complete-point', window.eoxiaJS.taskManager.newPoint.completePoint );
+	jQuery( '.tm-wrap' ).on( 'click', '.table-column .task-complete-point-field', window.eoxiaJS.taskManager.newPoint.completePoint );
 
 	jQuery( '.tm-wrap' ).on( 'click', '.table-column .task-toggle-comment', window.eoxiaJS.taskManager.newPoint.toggleComments );
 };
@@ -20,7 +20,7 @@ window.eoxiaJS.taskManager.newPoint.event = function() {
 window.eoxiaJS.taskManager.newPoint.addedPointSuccess = function ( triggeredElement, response ) {
 	var tmp = jQuery( response.data.view );
 	tmp.css({display: 'none'});
-	triggeredElement.closest( '.column-extend' ).find( '.table-header' ).after( tmp );
+	triggeredElement.closest( '.column-extend' ).find( '> .table-task > .table-header' ).after( tmp );
 	tmp.slideDown(400);
 };
 
@@ -83,7 +83,7 @@ window.eoxiaJS.taskManager.newPoint.completePoint = function( event ) {
 window.eoxiaJS.taskManager.newPoint.toggleComments = function() {
 	if ( jQuery( this ).find( '.fas' ).hasClass( 'fa-angle-down' ) ) {
 		jQuery( this ).find( '.fas' ).removeClass( 'fa-angle-down' ).addClass( 'fa-angle-right' );
-		jQuery( this ).closest( '.table-column' ).find( '.column-extend' ).slideUp( 400 );
+		jQuery( this ).closest( '.table-column' ).find( '> .column-extend' ).slideUp( 400 );
 	} else {
 		var data = {};
 		var element;
@@ -117,9 +117,9 @@ window.eoxiaJS.taskManager.newPoint.toggleComments = function() {
  */
 window.eoxiaJS.taskManager.newPoint.loadedPointSuccess = function( triggeredElement, response ) {
 	var taskColumn = triggeredElement.closest( '.table-column' );
-	taskColumn.find( '.column-extend' ).html( response.data.view );
+	taskColumn.find( '> .column-extend' ).html( response.data.view );
 
 	triggeredElement.removeClass( 'loading' );
-	taskColumn.find( '.column-extend' ).slideDown( 400, function() {
+	taskColumn.find( '> .column-extend' ).slideDown( 400, function() {
 	} );
 };

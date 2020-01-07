@@ -24,7 +24,6 @@ window.eoxiaJS.taskManager.newTask.editTitle = function() {
 		element = jQuery( this );
 	}
 
-
 	data.action  = 'edit_title';
 	data.task_id = element.closest( '.table-row' ).data( 'id' );
 	data.title   = element.text();
@@ -36,7 +35,7 @@ window.eoxiaJS.taskManager.newTask.editTitle = function() {
 window.eoxiaJS.taskManager.newTask.togglePoints = function() {
 	if ( jQuery( this ).find( '.fas' ).hasClass( 'fa-angle-down' ) ) {
 		jQuery( this ).find( '.fas' ).removeClass( 'fa-angle-down' ).addClass( 'fa-angle-right' );
-		jQuery( this ).closest( '.table-column' ).find( '.column-extend' ).slideUp( 400 );
+		jQuery( this ).closest( '.table-column' ).find( '> .column-extend' ).slideUp( 400 );
 	} else {
 		var data = {};
 		var element;
@@ -77,5 +76,5 @@ window.eoxiaJS.taskManager.newTask.displayState = function ( event ) {
 };
 
 window.eoxiaJS.taskManager.newTask.taskStateSuccess = function( element, response ) {
-	jQuery( element ).closest( '.table-column').replaceWith( response.data.view );
+	jQuery( element ).closest( '.table-column' ).replaceWith( response.data.view );
 };

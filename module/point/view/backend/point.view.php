@@ -53,7 +53,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="table-cell table-75 task-time">
 			<div class="table-cell-container">
-				<?php echo esc_html( $point->data['time_info']['elapsed'] ); ?>
+				<span class="elapsed"><?php echo esc_html( $point->data['time_info']['elapsed'] ); ?></span>
+				<span class="unit">min</span>
 			</div>
 		</div>
 

@@ -222,13 +222,13 @@ window.eoxiaJS.taskManager.comment.addedCommentSuccess = function( triggeredElem
  * @version 1.5.0
  */
 window.eoxiaJS.taskManager.comment.deletedCommentSuccess = function( triggeredElement, response ) {
-	triggeredElement.closest( '.comment' ).fadeOut();
+	triggeredElement.closest( '.table-row' ).fadeOut();
 
-	triggeredElement.closest( '.wpeo-project-task.mask' ).removeClass( 'mask' );
-	triggeredElement.closest( '.wpeo-project-task' ).find( '.wpeo-task-time-info .elapsed' ).text( response.data.time.task );
-	triggeredElement.closest( '.comments' ).prev( 'form' ).find( '.wpeo-time-in-point' ).text( response.data.time.point );
+	const comment = response.data.comment;
 
-	window.eoxiaJS.refresh();
+	jQuery( '.table-projects .table-column[data-id=' + comment.data.post_id + '] .project-time .elapsed' ).text( response.data.time.task );
+	jQuery( '.table-task .table-column[data-id=' + comment.data.parent_id + '] .task-time .table-cell-container .elapsed' ).text( response.data.time.point );
+
 };
 
 /**
