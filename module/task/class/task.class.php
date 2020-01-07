@@ -1103,6 +1103,38 @@ class Task_Class extends \eoxia\Post_Class {
 
 		return $default_value;
 	}
+
+	function time_elapsed_B($secs){
+		$bit = array(
+			' année'        => $secs / 31556926 % 12,
+			' semaine'        => $secs / 604800 % 52,
+			' jour'        => $secs / 86400 % 7,
+			' heure'        => $secs / 3600 % 24,
+			' minute'    => $secs / 60 % 60,
+			' seconde'    => $secs % 60
+		);
+
+		foreach($bit as $k => $v){
+			if($v > 1)$ret[] = $v . $k . 's';
+			if($v == 1)$ret[] = $v . $k;
+		}
+		array_splice($ret, count($ret)-1, 0, 'et');
+		return join(' ', $ret);
+	}
+
+	public function get_task_last_update( $task_id ) {
+
+		$now = strtotime( 'now' );
+		$task = Task_Class::g()->get( array( 'id' => $task_id ), true );
+		$last_update = $task->data['date_modified']['rendered']['mysql'];
+		$time = strtotime( 'now' ) - strtotime( $last_update );
+
+		$time = 3212132121;
+		$last_update = $this->time_elapsed_B( $time );
+		return $last_update;
+	}
+
+
 }
 
 Task_Class::g();
