@@ -58,6 +58,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 			data-title="<?php /* Translators: 1. The task ID. */ echo esc_attr( sprintf( __( '#%1$s Time history', 'task-manager' ), $task->data['id'] ) ); ?>"
 			data-task-id="<?php echo esc_attr( $task->data['id'] ); ?>">
 			<div class="table-cell-container">
+				<span class="elapsed"><?php echo esc_html( $task->data['time_info']['elapsed'] ); ?></span>
+				<?php
+				if ( isset( $task->data['last_history_time']->data['estimated_time'] ) ) :
+					?>
+					<span class="separator">/</span>
+					<span class="estimated"><?php echo esc_html( $task->data['last_history_time']->data['estimated_time'] ); ?></span>
+					<?php
+				endif;
+				?>
+				<span class="unit">min</span>
 			</div>
 		</div>
 

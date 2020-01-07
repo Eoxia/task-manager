@@ -182,7 +182,7 @@ class Task_Comment_Action {
 				'view'             => $view,
 				'namespace'        => $frontend ? 'taskManagerFrontend' : 'taskManager',
 				'module'           => 'newComment',
-				'callback_success' => empty( $comment_id ) ? 'addedCommentSuccess' : '',
+				'callback_success' => empty( $comment_id ) ? 'addedCommentSuccess' : 'editedCommentSuccess',
 				'comment'          => $comment,
 			)
 		);
@@ -288,6 +288,7 @@ class Task_Comment_Action {
 				'namespace'        => 'taskManager',
 				'module'           => 'comment',
 				'callback_success' => 'deletedCommentSuccess',
+				'comment'          => $comment
 			)
 		);
 	}

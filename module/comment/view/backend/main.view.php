@@ -20,6 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
    data-action="edit_comment"
    data-post-id="<?php echo esc_attr( $task_id ); ?>"
    data-parent-id="<?php echo esc_attr( $point_id ); ?>"
+   data-time="150"
    data-content="Nouveau commentaire"
    data-nonce="<?php echo wp_create_nonce( 'edit_comment' ); ?>">
 	<span>Le vrai bouton "Nouveau commentaire"</span></a>
@@ -30,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="table-cell">Auteur</div>
 		<div class="table-cell">Date création</div>
 		<div class="table-cell">Temps</div>
-		<div class="table-cell"></div>
+		<div class="table-cell table-50 table-end"></div>
 	</div>
 
 	<?php

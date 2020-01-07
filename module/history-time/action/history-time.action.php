@@ -55,9 +55,6 @@ class History_Time_Action {
 			array(
 				'view'             => ob_get_clean(),
 				'buttons_view'     => '',
-				'namespace'        => 'taskManager',
-				'module'           => 'historyTime',
-				'callback_success' => 'loadedTimeHistorySuccess',
 			)
 		);
 	}
