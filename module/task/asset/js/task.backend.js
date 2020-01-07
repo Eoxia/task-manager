@@ -76,7 +76,6 @@ window.eoxiaJS.taskManager.task.initAutoComplete = function() {
 };
 
 window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
-
 	var data = {};
 
 	if ( 1 !== jQuery( '#poststuff' ).length && jQuery( '.tm-dashboard-header' )[0] ) {
@@ -84,8 +83,6 @@ window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
 
 			window.eoxiaJS.taskManager.task.offset += parseInt( window.task_manager_posts_per_page );
 			window.eoxiaJS.taskManager.task.canLoadMore = false;
-
-			console.log( 'oui' );
 
 			var button_search = jQuery( '.wpeo-modal-event.load_more_result' );
 			data.action = 'load_more_task';
@@ -103,7 +100,6 @@ window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
 			data.status = jQuery( '.wpeo-header-bar input[name="status"]' ).val();
 
 			window.eoxiaJS.taskManager.navigation.checkDataBeforeSearch( undefined );
-			console.log( data );
 			//data.categories_id = jQuery( '.wpeo-header-search input[name="categories_id_selected"]' ).val();
 
 			window.eoxiaJS.loader.display( jQuery( '.load-more' ) );
@@ -113,12 +109,12 @@ window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
 	}
 };
 
-window.eoxiaJS.taskManager.task.loadedMoreTask = function( element, response ){
-
+window.eoxiaJS.taskManager.task.loadedMoreTask = function( element, response ) {
 	window.eoxiaJS.taskManager.task.canLoadMore = response.data.can_load_more;
-
 	var elements = jQuery( response.data.view );
-	jQuery( '.list-task' ).colcade( 'append', elements );
+	elements.css({display: 'none'});
+	jQuery( '.table-projects' ).append( elements );
+	elements.slideDown(400);
 
 	jQuery( '.load-more' ).hide();
 }

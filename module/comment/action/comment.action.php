@@ -168,9 +168,9 @@ class Task_Comment_Action {
 
 		$time_task = $task->data['time_info']['elapsed'];
 
-		if ( $task->data['time_info']['estimated_time'] != null ) {
+		/*if ( $task->data['time_info']['estimated_time'] != null ) {
 			$time_task .= ' / ' . $task->data['time_info']['estimated_time'];
-		}
+		}*/
 
 		wp_send_json_success(
 			array(
