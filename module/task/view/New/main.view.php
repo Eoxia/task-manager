@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="table-cell table-25"></div>
 		<div class="table-cell table-300" data-title="<?php esc_attr_e( 'Project Name', 'task-manager' ); ?>"><span><?php esc_html_e( 'Project Name', 'task-manager' ); ?></span></div>
 		<div class="table-cell table-50" data-title="<?php esc_attr_e( 'ID', 'task-manager' ); ?>"><span><?php esc_html_e( 'ID', 'task-manager' ); ?></span></div>
-		<div class="table-cell table-100" data-title="<?php esc_attr_e( 'Last MAJ', 'task-manager' ); ?>"><span><?php esc_html_e( 'Last Maj', 'task-manager' ); ?></span></div>
+		<div class="table-cell table-100" data-title="<?php esc_attr_e( 'Last Update', 'task-manager' ); ?>"><span><?php esc_html_e( 'Last Update', 'task-manager' ); ?></span></div>
 		<div class="table-cell table-100" data-title="<?php esc_attr_e( 'Time', 'task-manager' ); ?>"><span><?php esc_html_e( 'Time', 'task-manager' ); ?></span></div>
 		<div class="table-cell table-150" data-title="<?php esc_attr_e( 'Creation Date', 'task-manager' ); ?>"><?php esc_html_e( 'Creation Date', 'task-manager' ); ?></span></div>
 		<div class="table-cell table-150" data-title="<?php esc_attr_e( 'End Date', 'task-manager' ); ?>"><span><?php esc_html_e( 'End Date', 'task-manager' ); ?></span></div>

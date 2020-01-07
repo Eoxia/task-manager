@@ -67,6 +67,8 @@ class Task_Action {
 		add_action( 'wp_ajax_hide_points', array( $this, 'task_hide_points' ) );
 
 		add_action( 'wp_ajax_task_state', array( $this, 'callback_task_state' ) );
+
+		add_action( 'wp_ajax_task_update', array( $this, 'callback_task_update' ) );
 	}
 
 	/**
@@ -856,6 +858,11 @@ class Task_Action {
 			'view'             =>  ob_get_clean(),
 			'callback_success' => 'taskStateSuccess',
 		) );
+
+	}
+
+	public function callback_task_update( $task_id ) {
+		$task = Task_Class::g()->get( array( 'id' => $task_id ), true );
 
 	}
 }
