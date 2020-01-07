@@ -150,6 +150,13 @@ class Task_Model extends \eoxia\Post_Model {
 			'version'    => '1.6.0',
 		);
 
+		$this->schema['task_info']['child']['state'] = array(
+			'type'      => 'string',
+			'meta_type' => 'multiple',
+			'since'     => '1.13.0',
+			'version'   => '1.13.0',
+		);
+
 		$this->schema['count_completed_points'] = array(
 			'type'      => 'integer',
 			'meta_type' => 'single',

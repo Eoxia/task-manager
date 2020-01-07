@@ -49,8 +49,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		</div>
 
-		<div class="table-cell table-100 project-time" data-title="<?php echo esc_attr_e( 'Time', 'task-manager' ); ?>">
-			<div class="table-cell-container"><?php echo esc_html( $task->data['time_info']['elapsed'] ); ?></div>
+		<div class="table-cell table-100 wpeo-modal-event wpeo-button project-time" data-title="<?php echo esc_attr_e( 'Time', 'task-manager' ); ?>" data-id="<?php echo esc_attr( $task->data['id'] ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_time_history' ) ); ?>">
+			<div class="table-cell-container">
+
+			</div>
 		</div>
 
 		<div class="table-cell table-150 project-created-date" data-title="<?php echo esc_attr_e( 'Creation Date', 'task-manager' ); ?>">
@@ -60,35 +62,91 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 
 		<div class="table-cell table-150 project-due-time" data-title="<?php echo esc_attr_e( 'End Date', 'task-manager' ); ?>">
-			<div class="table-cell-container">
-				<?php echo esc_html( '-' ); ?>
+			<div class="table-cell-container group-date">
+				<input type="hidden" class="mysql-date" name="due_date" value="<?php echo esc_attr( $history_time_schema->data['due_date']['raw'] ); ?>" />
+				<input class="date form-field" type="text" value="<?php echo esc_attr( $history_time_schema->data['due_date']['rendered']['date'] ); ?>" />
 			</div>
 		</div>
 
 		<div class="table-cell table-100 project-affiliated" data-title="<?php echo esc_attr_e( 'Affiliated With', 'task-manager' ); ?>">
-			<div class="table-cell-container"></div>
+			<div class="table-cell-container">
+			</div>
 		</div>
 
 		<div class="table-cell table-150 project-categories" data-title="<?php echo esc_attr_e( 'Categories', 'task-manager' ); ?>">
-			<div class="table-cell-container"></div>
+			<div class="table-cell-container">
+				<?php echo do_shortcode( '[task_manager_task_tag task_id=' . $task->data['id'] . ']' ); ?>
+			</div>
 		</div>
 
-		<div class="table-cell table-100 project-state" data-title="<?php echo esc_attr_e( 'State', 'task-manager' ); ?>">
-			<div class="table-cell-container"></div>
+		<div class="table-cell table-100 project-state" data-title="<?php echo esc_attr_e( 'State', 'task-manager' ); ?>" data-id="<?php echo esc_attr( $task->data['id'] ); ?>">
+			<div class="table-cell-container">
+				<div class="wpeo-dropdown dropdown-right">
+					<div class="dropdown-toggle wpeo-button button-transparent">
+					<?php if ( $task->data['task_info']['state'] == 'deadline') : ?>
+						<i class="fas fa-circle"></i>
+						<span><?php echo esc_html( 'Without deadline' ); ?></span>
+					<?php elseif ( $task->data['task_info']['state'] == 'planned') : ?>
+						<i class="fas fa-circle"></i>
+						<span><?php echo esc_html( 'Planned' ); ?></span>
+					<?php elseif ( $task->data['task_info']['state'] == 'late') : ?>
+						<i class="fas fa-circle"></i>
+						<span><?php echo esc_html( 'Late' ); ?></span>
+					<?php elseif ( $task->data['task_info']['state'] == 'completed') : ?>
+						<i class="fas fa-circle"></i>
+						<span><?php echo esc_html( 'Completed' ); ?></span>
+					<?php endif; ?>
+					</div>
+					<input type="hidden" name="state" value="">
+					<ul class="dropdown-content">
+						<li class="dropdown-item wpeo-tooltip-event wpeo-button button-transparent"
+						    data-state="deadline"
+						    aria-label="<?php esc_html_e( 'Without deadline', 'task-manager' ); ?>">
+							<i class="fas fa-circle"></i>
+							<span><?php echo esc_html( 'Without deadline' ); ?></span>
+						</li>
+
+						<li class="dropdown-item wpeo-tooltip-event wpeo-button button-transparent"
+						    data-state="planned"
+						    aria-label="<?php esc_html_e( 'Planned', 'task-manager' ); ?>">
+							<i class="fas fa-circle"></i>
+							<span><?php echo esc_html( 'Planned' ); ?></span>
+						</li>
+
+						<li class="dropdown-item wpeo-tooltip-event wpeo-button button-transparent"
+						    data-state="late"
+						    aria-label="<?php esc_html_e( 'Late', 'task-manager' ); ?>">
+							<i class="fas fa-circle"></i>
+							<span><?php echo esc_html( 'Late' ); ?></span>
+						</li>
+
+						<li class="dropdown-item wpeo-tooltip-event wpeo-button button-transparent"
+						    data-state="completed"
+						    aria-label="<?php esc_html_e( 'Completed', 'task-manager' ); ?>">
+							<i class="fas fa-circle"></i>
+							<span><?php echo esc_html( 'Completed' ); ?></span>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 
 		<div class="table-cell table-75 project-attachment" data-title="<?php echo esc_attr_e( 'Attachment', 'task-manager' ); ?>">
-			<div class="table-cell-container"></div>
+			<div class="table-cell-container">
+				<?php echo do_shortcode( '[wpeo_upload id="' . $task->data['id'] . '" single="false" model_name="/task_manager/Task_Class" field_name="image"]' ); ?>
+			</div>
 		</div>
 
 		<div class="table-cell table-100 project-author" data-title="<?php echo esc_attr_e( 'Project-author', 'task-manager' ); ?>">
 			<div class="table-cell-container">
-				<?php echo do_shortcode( '[task_avatar ids="' . $task->data['author_id'] . '" size="25"]' ); ?>
+				<?php echo do_shortcode( '[task_avatar ids="' . $task->data['author_id'] . '" size="40"]' ); ?>
 			</div>
 		</div>
 
-		<div class="table-cell table-200 project-users" data-title="<?php esc_attr_e( 'Associated Users', 'task-manager' ); ?>">
-			<div class="table-cell-container"></div>
+		<div class="table-cell table-200 project-users" data-title="<?php esc_attr_e( 'Associated Users', 'task-manager' ); ?>" data-id="<?php echo esc_attr( $task->data['id'] ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_followers' ) ); ?>">
+			<div class="table-cell-container">
+				<?php echo do_shortcode( '[task_manager_task_follower task_id=' . $task->data['id'] . ']' ); ?>
+			</div>
 		</div>
 
 		<div class="table-cell table-50 table-padding-0 project-option">

@@ -44,6 +44,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php
 	if ( ! empty( $tasks ) ) :
 		foreach ( $tasks as $task ) :
+			$history_time_schema = History_Time_Class::g()->get(
+				array(
+					'schema' => true,
+				),
+				true
+			);
 			View_Util::exec(
 				'task-manager',
 				'task',
@@ -52,6 +58,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					'task'         => $task,
 					'with_wrapper' => $with_wrapper,
 					'hide_tasks'   => $hide_tasks,
+					'history_time_schema' => $history_time_schema,
 				)
 			);
 		endforeach;

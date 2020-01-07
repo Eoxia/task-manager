@@ -39,8 +39,8 @@ window.eoxiaJS.taskManager.historyTime.event = function() {};
  * @version 1.0.0
  */
 window.eoxiaJS.taskManager.historyTime.loadedTimeHistorySuccess = function( element, response ) {
-	jQuery( element ).closest( '.wpeo-project-task' ).find( '.popup .content' ).html( response.data.view );
-	jQuery( element ).closest( '.wpeo-project-task' ).find( '.popup .container' ).removeClass( 'loading' );
+	jQuery( element ).closest( '.table-column' ).find( '.popup .content' ).html( response.data.view );
+	jQuery( element ).closest( '.table-column' ).find( '.popup .container' ).removeClass( 'loading' );
 };
 
 /**

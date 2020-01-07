@@ -13,6 +13,8 @@ window.eoxiaJS.taskManager.newTask.init = function() {
 window.eoxiaJS.taskManager.newTask.event = function() {
 	jQuery( '.tm-wrap' ).on( 'blur', '.table-projects .project-title', window.eoxiaJS.taskManager.newTask.editTitle );
 	jQuery( '.tm-wrap' ).on( 'click', '.project-toggle-task', window.eoxiaJS.taskManager.newTask.togglePoints );
+	jQuery( '.tm-wrap' ).on( 'click', '.project-state .dropdown-item',  window.eoxiaJS.taskManager.newTask.displayState );
+	jQuery( '.tm-wrap' ).on( 'click', '.table-projects .project-time',  window.eoxiaJS.taskManager.newTask.loadTimeHistory );
 };
 
 window.eoxiaJS.taskManager.newTask.editTitle = function() {
@@ -44,12 +46,53 @@ window.eoxiaJS.taskManager.newTask.togglePoints = function() {
 			element = jQuery( this );
 		}
 
-		data.action = 'load_point';
+		data.action   = 'load_point';
 		data._wpnonce = element.data( 'nonce' );
-		data.task_id = element.data( 'id' );
+		data.task_id  = element.data( 'id' );
 		window.eoxiaJS.loader.display( element );
 		window.eoxiaJS.request.send( element, data );
 
 		jQuery( this ).find( '.fas' ).removeClass( 'fa-angle-right' ).addClass( 'fa-angle-down' );
 	}
+};
+
+window.eoxiaJS.taskManager.newTask.displayState = function ( event ) {
+	var state          = jQuery( this ).attr( 'data-state' );
+	var parent_element = jQuery( this ).closest( '.project-state' );
+	parent_element.find( 'input[name="state"]' ).val( state );
+
+	var this_html = jQuery( this ).html();
+	parent_element.find( '.dropdown-toggle' ).html( this_html );
+
+	var data = {};
+	var element;
+
+	if ( ! element ) {
+		element = jQuery( this );
+	}
+	data.action   = 'task_state';
+	data.task_id  = parent_element.data( 'id' );
+	data.state = state;
+	window.eoxiaJS.loader.display( element );
+	window.eoxiaJS.request.send( element, data );
+};
+
+window.eoxiaJS.taskManager.newTask.taskStateSuccess = function( element, response ) {
+	console.log(response.data.view);
+	jQuery( element ).closest( '.table-column').replaceWith( response.data.view );
+};
+
+window.eoxiaJS.taskManager.newTask.loadTimeHistory = function( event ) {
+	var data = {};
+	var element;
+
+	if ( ! element ) {
+		element = jQuery( this );
+	}
+
+	data.action   = 'load_time_history';
+	data._wpnonce = element.data( 'nonce' );
+	data.task_id  = element.data( 'id' );
+	window.eoxiaJS.loader.display( element );
+	window.eoxiaJS.request.send( element, data );
 };

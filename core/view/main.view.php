@@ -20,13 +20,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="tm-dashboard-header">
 		<div class="tm-dashboard-surheader">
-			<h1><?php	esc_html_e( 'Tasks', 'task-manager' ); ?></h1>
+			<h1><?php	esc_html_e( 'Projects', 'task-manager' ); ?></h1>
 
 			<div class="tm-dashboard-surheader-buttons">
 				<a 	href="#"
 					class="action-attribute add-new-h2 wpeo-button button-size-small button-radius-2"
 					data-action="create_task"
-					data-nonce="<?php echo esc_attr( wp_create_nonce( 'create_task' ) ); ?>"><?php esc_html_e( 'New Project', 'task-manager' ); ?></a>
+					data-nonce="<?php echo esc_attr( wp_create_nonce( 'create_task' ) ); ?>"><i class="fas fa-plus"></i></a>
 
 				<?php require_once PLUGIN_TASK_MANAGER_PATH . '/core/view/modal-import.view.php'; ?>
 			</div>
