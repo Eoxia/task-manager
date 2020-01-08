@@ -845,6 +845,8 @@ class Task_Action {
 
 		$task->data['task_info']['state'] = $state;
 		$task = Task_Class::g()->update( $task->data );
+
+		do_action( 'wp_ajax_task_update' , $task_id );
 		ob_start();
 		\eoxia\View_Util::exec(
 			'task-manager',
@@ -864,8 +866,13 @@ class Task_Action {
 	}
 
 	public function callback_task_update( $task_id ) {
-		$task = Task_Class::g()->get( array( 'id' => $task_id ), true );
-
+		$task        = Task_Class::g()->get( array( 'id' => $task_id ), true );
+		unset( $task->data['date_modified'] );
+		$last_update = Task_Class::g()->get_task_last_update( $task_id );
+		echo '<pre>';
+		print_r( $last_update );
+		echo '</pre>';
+		exit;
 	}
 }
 

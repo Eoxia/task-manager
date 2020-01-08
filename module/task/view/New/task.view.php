@@ -112,6 +112,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php elseif ( $task->data['task_info']['state'] == 'completed') : ?>
 						<i class="fas fa-circle"></i>
 						<span><?php echo esc_html( 'Completed' ); ?></span>
+					<?php else : ?>
+						<i class="fas fa-circle"></i>
+						<span><?php echo esc_html( 'Default' ); ?></span>
 					<?php endif; ?>
 					</div>
 					<input type="hidden" name="state" value="">
