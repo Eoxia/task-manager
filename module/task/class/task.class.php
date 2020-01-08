@@ -388,9 +388,7 @@ class Task_Class extends \eoxia\Post_Class {
 			foreach ( $elements as $element ) {
 				$data_def = array(
 					'classes' => '',
-					'attrs'   => array(
-
-					),
+					'attrs'   => array(),
 					'values'  => array()
 				);
 

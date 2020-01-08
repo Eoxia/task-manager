@@ -145,10 +145,12 @@ class Point_Filter {
 		return $output;
 	}
 
-	public function tm_projects_wpeo_point_def( $output, $task ) {
+	public function tm_projects_wpeo_point_def( $output, $point ) {
 		$output['classes'] = 'table-type-task';
 
-		$output['attrs'][] = 'data-id="' . $task->data['id'] . '"';
+		$output['attrs'][] = 'data-id="' . $point->data['id'] . '"';
+		$output['attrs'][] = 'data-post-id="' . $point->data['post_id'] . '"';
+		$output['attrs'][] = 'data-nonce="' . wp_create_nonce( 'edit_point' ) . '"';
 
 		return $output;
 	}

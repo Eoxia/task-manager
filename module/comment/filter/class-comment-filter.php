@@ -301,10 +301,14 @@ class Comment_Filter {
 		return $output;
 	}
 
-	public function tm_projects_wpeo_time_def( $output, $task ) {
+	public function tm_projects_wpeo_time_def( $output, $comment ) {
 		$output['classes'] = 'table-type-comment';
 
-		$output['attrs'][] = 'data-id="' . $task->data['id'] . '"';
+		$output['attrs'][] = 'data-id="' . $comment->data['id'] . '"';
+		$output['attrs'][] = 'data-post-id="' . $comment->data['post_id'] . '"';
+		$output['attrs'][] = 'data-parent-id="' . $comment->data['parent_id'] . '"';
+		$output['attrs'][] = 'data-nonce="' . wp_create_nonce( 'edit_comment' ) . '"';
+
 
 		return $output;
 	}

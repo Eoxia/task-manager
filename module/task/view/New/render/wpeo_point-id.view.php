@@ -1,4 +1,4 @@
 <div class="table-cell-container">
-	<?php echo $value; ?>
+	<?php echo $data['value']; ?>
 </div>
 

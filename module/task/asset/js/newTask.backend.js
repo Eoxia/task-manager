@@ -11,9 +11,9 @@ window.eoxiaJS.taskManager.newTask.init = function() {
 };
 
 window.eoxiaJS.taskManager.newTask.event = function() {
-	jQuery( '.tm-wrap' ).on( 'blur', '.table-projects .project-title', window.eoxiaJS.taskManager.newTask.editTitle );
-	jQuery( '.tm-wrap' ).on( 'click', '.project-toggle-task', window.eoxiaJS.taskManager.newTask.togglePoints );
-	jQuery( '.tm-wrap' ).on( 'click', '.project-state .dropdown-item',  window.eoxiaJS.taskManager.newTask.displayState );
+	jQuery( '.tm-wrap' ).on( 'blur', '.table-projects .table-type-project  .project-title', window.eoxiaJS.taskManager.newTask.editTitle );
+	jQuery( '.tm-wrap' ).on( 'click', '.table-type-project .project-toggle-task', window.eoxiaJS.taskManager.newTask.togglePoints );
+	jQuery( '.tm-wrap' ).on( 'click', '.table-type-project .project-state .dropdown-item',  window.eoxiaJS.taskManager.newTask.displayState );
 };
 
 window.eoxiaJS.taskManager.newTask.editTitle = function() {
@@ -34,8 +34,12 @@ window.eoxiaJS.taskManager.newTask.editTitle = function() {
 
 window.eoxiaJS.taskManager.newTask.togglePoints = function() {
 	if ( jQuery( this ).find( '.fas' ).hasClass( 'fa-angle-down' ) ) {
+		const projectID = jQuery( this ).closest( '.table-row' ).data( 'id' );
+
 		jQuery( this ).find( '.fas' ).removeClass( 'fa-angle-down' ).addClass( 'fa-angle-right' );
-		jQuery( this ).closest( '.table-column' ).find( '> .column-extend' ).slideUp( 400 );
+		jQuery( '.table-type-task[data-post-id=' + projectID + ']' ).slideUp(400, function() {
+			jQuery( this ).remove();
+		});
 	} else {
 		var data = {};
 		var element;

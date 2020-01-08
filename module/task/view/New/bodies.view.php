@@ -13,7 +13,7 @@ if ( ! empty( $contents['bodies'] ) ) :
 					<?php
 					\eoxia\View_Util::exec( 'task-manager', 'task', 'New/render/' . $data['type'] . '-' . $key, array(
 						'data_def' => $data_def,
-						'value'    => $data['value'],
+						'data'     => $data,
 						'key'      => $key,
 					) );
 					?>

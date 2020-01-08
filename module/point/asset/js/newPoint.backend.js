@@ -11,10 +11,10 @@ window.eoxiaJS.taskManager.newPoint.init = function() {
 };
 
 window.eoxiaJS.taskManager.newPoint.event = function() {
-	jQuery( '.tm-wrap' ).on( 'blur', '.table-column .task-title', window.eoxiaJS.taskManager.newPoint.editTitle );
-	jQuery( '.tm-wrap' ).on( 'click', '.table-column .task-complete-point-field', window.eoxiaJS.taskManager.newPoint.completePoint );
+	jQuery( '.tm-wrap' ).on( 'blur', '.table-row.table-type-task .task-title', window.eoxiaJS.taskManager.newPoint.editTitle );
+	jQuery( '.tm-wrap' ).on( 'click', '.table-row.table-type-task .task-complete-point-field', window.eoxiaJS.taskManager.newPoint.completePoint );
 
-	jQuery( '.tm-wrap' ).on( 'click', '.table-row .task-toggle-comment', window.eoxiaJS.taskManager.newPoint.toggleComments );
+	jQuery( '.tm-wrap' ).on( 'click', '.table-row.table-type-task .task-toggle-comment', window.eoxiaJS.taskManager.newPoint.toggleComments );
 };
 
 window.eoxiaJS.taskManager.newPoint.addedPointSuccess = function ( triggeredElement, response ) {
@@ -33,9 +33,9 @@ window.eoxiaJS.taskManager.newPoint.editTitle = function() {
 	}
 
 	data.action    = 'edit_point';
-	data._wpnonce  = element.closest( '.table-column' ).data( 'nonce' );
-	data.id        = element.closest( '.table-column' ).data( 'id' );
-	data.parent_id = element.closest( '.table-column' ).data( 'parent-id' );
+	data._wpnonce  = element.closest( '.table-row' ).data( 'nonce' );
+	data.id        = element.closest( '.table-row' ).data( 'id' );
+	data.parent_id = element.closest( '.table-row' ).data( 'post-id' );
 	data.content   = element.text();
 
 	window.eoxiaJS.loader.display( element.closest( 'div' ) );
@@ -49,8 +49,8 @@ window.eoxiaJS.taskManager.newPoint.editTitle = function() {
  * @since 1.0.0
  */
 window.eoxiaJS.taskManager.newPoint.completePoint = function( event ) {
-	const numberComment = jQuery( this ).closest( '.table-column' ).find( '.number-comments' ).text();
-	const isCompleted   = jQuery( this ).closest( '.table-column' ).hasClass( 'task-completed' );
+	const numberComment = jQuery( this ).closest( '.table-row' ).find( '.number-comments' ).text();
+	const isCompleted   = jQuery( this ).closest( '.table-row' ).hasClass( 'task-completed' );
 
 	if ( numberComment == 0 && ! isCompleted ) {
 		jQuery( '.modal-prompt-point' ).addClass( 'modal-active' );
@@ -62,18 +62,18 @@ window.eoxiaJS.taskManager.newPoint.completePoint = function( event ) {
 	} else {
 		const data = {
 			action:  'complete_point',
-			_wpnonce: jQuery( this ).closest( '.table-column' ).data('nonce' ),
-			parent_id: jQuery( this ).closest( '.table-column' ).data( 'parent_id' ),
-			id: jQuery( this ).closest( '.table-column' ).data( 'id' ),
+			_wpnonce: jQuery( this ).closest( '.table-row' ).data('nonce' ),
+			parent_id: jQuery( this ).closest( '.table-row' ).data( 'post-id' ),
+			id: jQuery( this ).closest( '.table-row' ).data( 'id' ),
 			complete: jQuery( this ).is( ':checked' )
 		};
 
 		window.eoxiaJS.request.send( jQuery( this ), data, function( triggeredElement, response ) {
 			if ( response.success ) {
 				if ( response.data.completed ) {
-					triggeredElement.closest( '.table-column' ).addClass( 'task-completed' );
+					triggeredElement.closest( '.table-row' ).addClass( 'task-completed' );
 				} else {
-					triggeredElement.closest( '.table-column' ).removeClass( 'task-completed' );
+					triggeredElement.closest( '.table-row' ).removeClass( 'task-completed' );
 				}
 			}
 		} );
@@ -83,7 +83,14 @@ window.eoxiaJS.taskManager.newPoint.completePoint = function( event ) {
 window.eoxiaJS.taskManager.newPoint.toggleComments = function() {
 	if ( jQuery( this ).find( '.fas' ).hasClass( 'fa-angle-down' ) ) {
 		jQuery( this ).find( '.fas' ).removeClass( 'fa-angle-down' ).addClass( 'fa-angle-right' );
-		jQuery( this ).closest( '.table-column' ).find( '> .column-extend' ).slideUp( 400 );
+
+		const taskID = jQuery( this ).closest( '.table-row' ).data( 'id' );
+
+		jQuery( this ).find( '.fas' ).removeClass( 'fa-angle-down' ).addClass( 'fa-angle-right' );
+		jQuery( '.table-type-comment[data-parent-id=' + taskID + ']' ).slideUp(400, function() {
+			jQuery( this ).remove();
+		});
+
 	} else {
 		var data = {};
 		var element;
@@ -93,9 +100,9 @@ window.eoxiaJS.taskManager.newPoint.toggleComments = function() {
 		}
 
 		data.action = 'load_comments';
-		data._wpnonce = element.closest( '.table-column' ).data( 'nonce' );
-		data.id = element.closest( '.table-column' ).data( 'id' );
-		data.parent_id = element.closest( '.table-column' ).data('parent-id');
+		data._wpnonce = element.closest( '.table-row' ).data( 'nonce' );
+		data.id = element.closest( '.table-row' ).data( 'id' );
+		data.parent_id = element.closest( '.table-row' ).data('post-id');
 
 		window.eoxiaJS.loader.display( element );
 		window.eoxiaJS.request.send( element, data );

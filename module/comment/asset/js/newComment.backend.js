@@ -11,9 +11,9 @@ window.eoxiaJS.taskManager.newComment.init = function() {
 };
 
 window.eoxiaJS.taskManager.newComment.event = function() {
-	jQuery( '.tm-wrap' ).on( 'blur', '.table-column .column-extend .comment-title', window.eoxiaJS.taskManager.newComment.editContent );
-	jQuery( '.tm-wrap' ).on( 'blur', '.table-column .column-extend .comment-time', window.eoxiaJS.taskManager.newComment.editContent );
-	jQuery( '.tm-wrap' ).on( 'blur', '.table-comments .group-date .date', window.eoxiaJS.taskManager.newComment.editContent );
+	jQuery( '.tm-wrap' ).on( 'blur', '.table-type-comment .comment-title', window.eoxiaJS.taskManager.newComment.editContent );
+	jQuery( '.tm-wrap' ).on( 'blur', '.table-type-comment .comment-time', window.eoxiaJS.taskManager.newComment.editContent );
+	jQuery( '.tm-wrap' ).on( 'blur', '.table-type-comment .group-date .date', window.eoxiaJS.taskManager.newComment.editContent );
 };
 
 window.eoxiaJS.taskManager.newComment.editContent = function() {
