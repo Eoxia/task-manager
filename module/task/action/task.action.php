@@ -418,9 +418,7 @@ class Task_Action {
 
 		$tasks = Task_Class::g()->get_tasks( $param );
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'task', 'New/tasks', array(
-			'tasks' => $tasks,
-		) );
+		Task_Class::g()->display_bodies( $tasks );
 
 		wp_send_json_success(
 			array(

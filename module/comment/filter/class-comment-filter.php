@@ -37,6 +37,18 @@ class Comment_Filter {
 
 		add_filter( 'tm_comment_edit_after', array( $this, 'callback_tm_comment_edit_after' ), 10, 2 );
 		add_filter( 'tm_comment_advanced_view', array( $this, 'callback_tm_comment_advanced_view' ), 10, 2 );
+
+		if ( ! empty( Task_Class::g()->contents['headers'] ) ) {
+			foreach ( Task_Class::g()->contents['headers'] as $key => $header ) {
+				if ( method_exists ( $this, 'tm_projects_wpeo_time_def') ) {
+					add_filter( 'tm_projects_wpeo_time_def', array( $this, 'tm_projects_wpeo_time_def' ), 10, 2 );
+				}
+
+				if ( method_exists ( $this, 'fill_value_' . $key . '_value') ) {
+					add_filter( 'tm_projects_content_wpeo_time_' . $key . '_def', array( $this, 'fill_value_' . $key . '_value' ), 10, 2 );
+				}
+			}
+		}
 	}
 
 	/**
@@ -285,6 +297,18 @@ class Comment_Filter {
 			);
 			$output .= ob_get_clean();
 		}
+
+		return $output;
+	}
+
+	public function fill_value_id_value( $output, $comment ) {
+		$output['value'] = $comment->data['id'];
+
+		return $output;
+	}
+
+	public function fill_value_name_value( $output, $comment ) {
+		$output['value'] = $comment->data['content'];
 
 		return $output;
 	}

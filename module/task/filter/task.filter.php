@@ -56,6 +56,18 @@ class Task_Filter {
 
 			return $metaboxes;
 		}, 10, 1 );
+
+		if ( ! empty( Task_Class::g()->contents['headers'] ) ) {
+			foreach ( Task_Class::g()->contents['headers'] as $key => $header ) {
+				if ( method_exists ( $this, 'tm_projects_wpeo-task_def') ) {
+					add_filter( 'tm_projects_wpeo-task_def', array( $this, 'tm_projects_wpeo-task_def' ), 10, 2 );
+				}
+
+				if ( method_exists ( $this, 'fill_value_' . $key . '_value') ) {
+					add_filter( 'tm_projects_content_wpeo-task_' . $key . '_def', array( $this, 'fill_value_' . $key . '_value' ), 10, 2 );
+				}
+			}
+		}
 	}
 	/**
 	 * Tableau titre et description
@@ -272,7 +284,35 @@ class Task_Filter {
 		}
 	}
 
+	public function tm_projects_task_def( $output, $task ) {
+		$output['classes'] = 'table-type-project';
 
+		$output['attrs'][] = 'data-id="' . $task->data['id'] . '"';
+
+		return $output;
+	}
+
+	public function fill_value_empty_value( $output, $task ) {
+		$output['classes'] .= ' project-toggle-task';
+		$output['attrs'] = array(
+			'data-id="' . $task->data['id'] . '"',
+			'data-nonce="' . wp_create_nonce( 'load_point' ) . '"',
+		);
+
+		return $output;
+	}
+
+	public function fill_value_id_value( $output, $task ) {
+		$output['value'] = $task->data['id'];
+
+		return $output;
+	}
+
+	public function fill_value_name_value( $output, $task ) {
+		$output['value'] = $task->data['title'];
+
+		return $output;
+	}
 }
 
 new Task_Filter();

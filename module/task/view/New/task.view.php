@@ -236,8 +236,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		</div>
 	</div>
-	<div class="column-extend" hidden>
-
-	</div>
+	<?php Point_Class::g()->display( $task->data['id'] ); ?>
 </div>
 

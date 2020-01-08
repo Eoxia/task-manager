@@ -59,13 +59,11 @@ class Task_Manager_Class extends \eoxia\Singleton_Util {
 		);
 
 		if ( isset( $_GET['quicktimemode'] ) ) {
+			$quicktimes_real_number = $quicktimes - 1;
 
-				$quicktimes_real_number = $quicktimes - 1;
-
-				Quick_Time_Class::g()->display_this_task_and_point( $quicktimes_real_number );
-
+			Quick_Time_Class::g()->display_this_task_and_point( $quicktimes_real_number );
 		} else {
-		require_once PLUGIN_TASK_MANAGER_PATH . '/core/view/main.view.php';
+			require_once PLUGIN_TASK_MANAGER_PATH . '/core/view/main.view.php';
 		}
 	}
 

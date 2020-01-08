@@ -16,10 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; } ?>
 
 <div class="list-task">
-	<div class="grid-col grid-col--1"></div>
-	<div class="grid-col grid-col--2"></div>
-
-	<?php Task_Class::g()->display_tasks( $tasks ); ?>
+	<?php Task_Class::g()->display( $tasks ); ?>
 	<div class="load_more_task_here"></div>
 </div>
 

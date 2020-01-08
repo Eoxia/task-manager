@@ -27,6 +27,18 @@ class Point_Filter {
 
 		add_filter( 'tm_task_header', array( $this, 'callback_display_points_type_buttons' ), 9, 2 );
 		add_filter( 'tm_point_summary', array( $this, 'callback_tm_point_summary' ), 10, 2 );
+
+		if ( ! empty( Task_Class::g()->contents['headers'] ) ) {
+			foreach ( Task_Class::g()->contents['headers'] as $key => $header ) {
+				if ( method_exists ( $this, 'tm_projects_wpeo_point_def') ) {
+					add_filter( 'tm_projects_wpeo_point_def', array( $this, 'tm_projects_wpeo_point_def' ), 10, 2 );
+				}
+
+				if ( method_exists ( $this, 'fill_value_' . $key . '_value') ) {
+					add_filter( 'tm_projects_content_wpeo_point_' . $key . '_def', array( $this, 'fill_value_' . $key . '_value' ), 10, 2 );
+				}
+			}
+		}
 	}
 
 	/**
@@ -129,6 +141,27 @@ class Point_Filter {
 			);
 			$output .= ob_get_clean();
 		}
+
+		return $output;
+	}
+
+	public function fill_value_empty_value( $output, $point ) {
+		$output['classes'] .= ' task-toggle-comment';
+		$output['attrs'] = array(
+			'data-id="' . $point->data['id'] . '"',
+			'data-nonce="' . wp_create_nonce( 'load_comments' ) . '"',
+		);
+
+		return $output;
+	}
+
+	public function fill_value_id_value( $output, $point ) {
+		$output['value'] = $point->data['id'];
+
+		return $output;
+	}
+	public function fill_value_name_value( $output, $point ) {
+		$output['value'] = $point->data['content'];
 
 		return $output;
 	}

@@ -68,11 +68,13 @@ window.eoxiaJS.taskManager.newComment.editedCommentSuccess = function( triggered
  * @version 1.0.0.0
  */
 window.eoxiaJS.taskManager.newComment.loadedCommentsSuccess = function( triggeredElement, response ) {
-	var taskColumn = triggeredElement.closest( '.table-column' );
+	var view = jQuery( response.data.view );
+	view.css({display: 'none'});
 
-	taskColumn.find( '.column-extend' ).html( response.data.view );
+	var row = triggeredElement.closest( '.table-row' );
+	row.after(view);
+
+	view.slideDown( 400 );
 
 	triggeredElement.removeClass( 'loading' );
-	taskColumn.find( '.column-extend' ).slideDown( 400, function() {
-	} );
 };

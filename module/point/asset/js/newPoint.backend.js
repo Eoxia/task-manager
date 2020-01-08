@@ -14,7 +14,7 @@ window.eoxiaJS.taskManager.newPoint.event = function() {
 	jQuery( '.tm-wrap' ).on( 'blur', '.table-column .task-title', window.eoxiaJS.taskManager.newPoint.editTitle );
 	jQuery( '.tm-wrap' ).on( 'click', '.table-column .task-complete-point-field', window.eoxiaJS.taskManager.newPoint.completePoint );
 
-	jQuery( '.tm-wrap' ).on( 'click', '.table-column .task-toggle-comment', window.eoxiaJS.taskManager.newPoint.toggleComments );
+	jQuery( '.tm-wrap' ).on( 'click', '.table-row .task-toggle-comment', window.eoxiaJS.taskManager.newPoint.toggleComments );
 };
 
 window.eoxiaJS.taskManager.newPoint.addedPointSuccess = function ( triggeredElement, response ) {
@@ -97,7 +97,7 @@ window.eoxiaJS.taskManager.newPoint.toggleComments = function() {
 		data.id = element.closest( '.table-column' ).data( 'id' );
 		data.parent_id = element.closest( '.table-column' ).data('parent-id');
 
-		window.eoxiaJS.loader.display( element.closest( '.table-column' ) );
+		window.eoxiaJS.loader.display( element );
 		window.eoxiaJS.request.send( element, data );
 
 		jQuery( this ).find( '.fas' ).removeClass( 'fa-angle-right' ).addClass( 'fa-angle-down' );
@@ -116,11 +116,14 @@ window.eoxiaJS.taskManager.newPoint.toggleComments = function() {
  * @version 1.0.0.0
  */
 window.eoxiaJS.taskManager.newPoint.loadedPointSuccess = function( triggeredElement, response ) {
-	var taskColumn = triggeredElement.closest( '.table-column' );
-	taskColumn.find( '> .column-extend' ).html( response.data.view );
+	var view = jQuery( response.data.view );
+	view.css({display: 'none'});
+
+	var row = triggeredElement.closest( '.table-row' );
+	row.after(view);
+
+	view.slideDown( 400 );
 
 	triggeredElement.removeClass( 'loading' );
-	taskColumn.find( '> .column-extend' ).slideDown( 400, function() {
-	} );
 };
 

@@ -35,6 +35,13 @@ class Task_Class extends \eoxia\Post_Class {
 	);
 
 	/**
+	 * @var column_def
+	 *
+	 * Définition des colonnes du tableau.
+	 */
+	public $contents;
+
+	/**
 	 * Le nom du modèle
 	 *
 	 * @var string
@@ -75,6 +82,103 @@ class Task_Class extends \eoxia\Post_Class {
 	 * @var string
 	 */
 	protected $attached_taxonomy_type = 'wpeo_tag';
+
+	protected function construct() {
+		$this->contents = array(
+			'headers' => array(
+				'empty' => array(
+					'icon'    => null,
+					'title'   => null,
+					'classes' => 'table-25',
+				),
+				'state' => array(
+					'icon'    => null,
+					'title'   => __( 'State', 'task-manager' ),
+					'classes' => 'table-50'
+				),
+				'name' => array(
+					'icon'    => null,
+					'title'   => __( 'Name', 'task-manager' ),
+					'classes' => 'table-300',
+				),
+				'id' => array(
+					'icon'    => null,
+					'title'   => __( 'ID', 'task-manager' ),
+					'classes' => '',
+				),
+				'last_update' => array(
+					'icon'    => null,
+					'title'   => __( 'Last Update', 'task-manager' ),
+					'classes' => '',
+				),
+				'time' => array(
+					'icon'    => null,
+					'title'   => __( 'Time', 'task-manager' ),
+					'classes' => '',
+				),
+				'created_date' => array(
+					'icon'    => null,
+					'title'   => __( 'Created Date', 'task-manager' ),
+					'classes' => '',
+				),
+				'ended_date' => array(
+					'icon'  => null,
+					'title' => __( 'Ended Date', 'task-manager' ),
+					'classes' => '',
+				),
+				'indicators' => array(
+					'icon'    => null,
+					'title'   => __( 'Indicators', 'task-manager' ),
+					'classes' => '',
+				),
+				'affiliated_with' => array(
+					'icon'    => null,
+					'title'   => __( 'Affiliated With', 'task-manager' ),
+					'classes' => '',
+				),
+				'categories' => array(
+					'icon'    => null,
+					'title'   => __( 'Categories', 'task-manager' ),
+					'classes' => '',
+				),
+				'attachments' => array(
+					'icon'    => null,
+					'title'   => __( 'Attachments', 'task-manager' ),
+					'classes' => '',
+				),
+				'number_comments' => array(
+					'icon'  => null,
+					'title' => __( 'Number Comments', 'task-manager' ),
+					'classes' => '',
+				),
+				'author' => array(
+					'icon'    => null,
+					'title'   => __( 'Author', 'task-manager' ),
+					'classes' => '',
+				),
+				'associated_users' => array(
+					'icon'    => null,
+					'title'   => __( 'Associated Users', 'task-manager' ),
+					'classes' => '',
+				),
+				'participants' => array(
+					'icon'    => null,
+					'title'   => __( 'Participants', 'task-manager' ),
+					'classes' => '',
+				),
+				'waiting_for' => array(
+					'icon'    => null,
+					'title'   => __( 'Waiting For', 'task-manager' ),
+					'classes' => '',
+				),
+			),
+			'bodies' => array(
+
+			),
+		);
+
+		$this->contents = apply_filters( 'tm_tasks_contents', $this->contents );
+	}
 
 	/**
 	 * Permet d'ajouter le post_status 'archive'.
@@ -262,6 +366,62 @@ class Task_Class extends \eoxia\Post_Class {
 		return $tasks;
 	}
 
+	public function display_headers( $elements ) {
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'task',
+			'New/headers',
+			array(
+				'headers'      => $this->contents['headers'],
+				'contents'     => $elements,
+				'with_wrapper' => false,
+			)
+		);
+	}
+
+	public function display( $elements ) {
+		$this->display_headers( $elements );
+	}
+
+	public function display_bodies( $elements ) {
+		if ( ! empty( $elements ) ) {
+			foreach ( $elements as $element ) {
+				$data_def = array(
+					'classes' => '',
+					'attrs'   => array(
+
+					),
+					'values'  => array()
+				);
+
+				$data_def = apply_filters( 'tm_projects_' . $element->data['type'] . '_def', $data_def, $element );
+
+				foreach ( $this->contents['headers'] as $key => $header ) {
+					$data_def['values'][ $key ] = array(
+						'value'   => '',
+						'classes' => $header['classes'],
+						'attrs'   => array(),
+						'type'    => $element->data['type'],
+					);
+
+					$data_def['values'][ $key ] = apply_filters( 'tm_projects_content_' . $element->data['type'] . '_' . $key . '_def', $data_def['values'][ $key ], $element );
+				}
+
+				$this->contents['bodies'][] = $data_def;
+			}
+		}
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'task',
+			'New/bodies',
+			array(
+				'contents'     => $this->contents,
+				'with_wrapper' => false,
+			)
+		);
+	}
+
 	/**
 	 * Charges les tâches, et fait le rendu.
 	 *
@@ -275,42 +435,8 @@ class Task_Class extends \eoxia\Post_Class {
 	 *
 	 * @todo: With_wrapper ?
 	 */
-	public function display_tasks( $tasks, $frontend = false ) {
-		$hide_tasks = get_user_meta( get_current_user_id(), '_tm_hide_task_hide', true );
+	public function display_tasks( $elements, $frontend = false ) {
 
-		/*if ( $frontend ) {
-			\eoxia\View_Util::exec(
-				'task-manager',
-				'task',
-				'frontend/tasks',
-				array(
-					'tasks'        => $tasks,
-					'with_wrapper' => false,
-				)
-			);
-		} else {
-			\eoxia\View_Util::exec(
-				'task-manager',
-				'task',
-				'backend/tasks',
-				array(
-					'tasks'        => $tasks,
-					'with_wrapper' => false,
-					'hide_tasks'   => $hide_tasks,
-				)
-			);
-		}*/
-
-		\eoxia\View_Util::exec(
-			'task-manager',
-			'task',
-			'New/main',
-			array(
-				'tasks'        => $tasks,
-				'with_wrapper' => false,
-				'hide_tasks'   => $hide_tasks,
-			)
-		);
 	}
 
 	/**
