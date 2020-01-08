@@ -294,7 +294,7 @@ class Task_Filter {
 
 	public function fill_value_empty_value( $output, $task ) {
 		$output['classes'] .= ' project-toggle-task';
-		$output['attrs'] = array(
+		$output['attrs']    = array(
 			'data-id="' . $task->data['id'] . '"',
 			'data-nonce="' . wp_create_nonce( 'load_point' ) . '"',
 		);
@@ -302,14 +302,90 @@ class Task_Filter {
 		return $output;
 	}
 
+	public function fill_value_name_value( $output, $task ) {
+		$output['classes'] .= ' project-name';
+		$output['value']    = $task->data['title'];
+
+		return $output;
+	}
+
 	public function fill_value_id_value( $output, $task ) {
+		$output['classes'] .= ' project-id';
+		$output['value']    = $task->data['id'];
+
+		return $output;
+	}
+
+
+	public function fill_value_last_update_value( $output, $task ) {
+		$output['classes'] .= ' project-last-update';
+		$output['value']    = $task->data['id'];
+
+		return $output;
+	}
+
+	public function fill_value_time_value( $output, $task ) {
+		$output['classes'] .= ' wpeo-modal-event project-time';
+		$output['attrs']    = array(
+			'data-class="history-time wpeo-wrap tm-wrap"',
+			'data-action="load_time_history"',
+			'data-nonce="' . wp_create_nonce( 'load_time_history' ) . '"',
+			'data-title="' . sprintf( __( '#%1$s Time history', 'task-manager' ), $task->data['id'] ) . '"',
+			'data-task-id="' . $task->data['id'] . '"',
+		);
+		$output['value']    = $task->data['time_info']['elapsed'];
+		$output['value2']   = $task->data['last_history_time']->data['estimated_time'];
+
+		return $output;
+	}
+
+	public function fill_value_created_date_value( $output, $task ) {
+		$output['classes'] .= ' project-created-date';
+		$output['value']    = $task->data['date']['rendered']['date_time'];
+
+		return $output;
+	}
+
+	public function fill_value_ended_date_value( $output, $task ) {
+
+		return $output;
+	}
+
+	public function fill_value_affiliated_with_value( $output, $task ) {
+		$output['classes'] .= ' project-affiliated';
+		$output['value']    = $task;
+
+		return $output;
+	}
+
+	public function fill_value_categories_value( $output, $task ) {
+		$output['classes'] .= ' project-categories';
+		$output['value']    = $task->data['id'];
+
+		return $output;
+	}
+
+	public function fill_value_attachments_value( $output, $task ) {
+		$output['classes'] .= ' project-attachment';
 		$output['value'] = $task->data['id'];
 
 		return $output;
 	}
 
-	public function fill_value_name_value( $output, $task ) {
-		$output['value'] = $task->data['title'];
+	public function fill_value_author_value( $output, $task ) {
+		$output['classes'] .= ' project-author';
+		$output['value']    = $task->data['author_id'];
+
+		return $output;
+	}
+
+	public function fill_value_associated_users_value( $output, $task ) {
+		$output['classes'] .= ' project-users';
+		$output['attrs']    = array(
+			'data-id="' . $task->data['id'] . '"',
+			'data-nonce="' . wp_create_nonce( 'load_followers' ) . '"',
+		);
+		$output['value']    = $task->data['id'];
 
 		return $output;
 	}

@@ -94,7 +94,7 @@ class Task_Class extends \eoxia\Post_Class {
 				'state' => array(
 					'icon'    => null,
 					'title'   => __( 'State', 'task-manager' ),
-					'classes' => 'table-50'
+					'classes' => 'table-50',
 				),
 				'name' => array(
 					'icon'    => null,
@@ -104,72 +104,72 @@ class Task_Class extends \eoxia\Post_Class {
 				'id' => array(
 					'icon'    => null,
 					'title'   => __( 'ID', 'task-manager' ),
-					'classes' => '',
+					'classes' => 'table-50',
 				),
 				'last_update' => array(
 					'icon'    => null,
 					'title'   => __( 'Last Update', 'task-manager' ),
-					'classes' => '',
+					'classes' => 'table-100',
 				),
 				'time' => array(
 					'icon'    => null,
 					'title'   => __( 'Time', 'task-manager' ),
-					'classes' => '',
+					'classes' => 'table-100',
 				),
 				'created_date' => array(
 					'icon'    => null,
 					'title'   => __( 'Created Date', 'task-manager' ),
-					'classes' => '',
+					'classes' => 'table-150',
 				),
 				'ended_date' => array(
-					'icon'  => null,
-					'title' => __( 'Ended Date', 'task-manager' ),
-					'classes' => '',
+					'icon'    => null,
+					'title'   => __( 'Ended Date', 'task-manager' ),
+					'classes' => 'table-150',
 				),
-				'indicators' => array(
+				'indicators'  => array(
 					'icon'    => null,
 					'title'   => __( 'Indicators', 'task-manager' ),
-					'classes' => '',
+					'classes' => 'table-100',
 				),
 				'affiliated_with' => array(
 					'icon'    => null,
 					'title'   => __( 'Affiliated With', 'task-manager' ),
-					'classes' => '',
+					'classes' => 'table-100',
 				),
 				'categories' => array(
 					'icon'    => null,
 					'title'   => __( 'Categories', 'task-manager' ),
-					'classes' => '',
+					'classes' => 'table-150',
 				),
 				'attachments' => array(
 					'icon'    => null,
 					'title'   => __( 'Attachments', 'task-manager' ),
-					'classes' => '',
+					'classes' => 'table-75',
 				),
 				'number_comments' => array(
 					'icon'  => null,
 					'title' => __( 'Number Comments', 'task-manager' ),
-					'classes' => '',
+					'classes' => 'table-50',
 				),
 				'author' => array(
 					'icon'    => null,
 					'title'   => __( 'Author', 'task-manager' ),
-					'classes' => '',
+					'classes' => 'table-100',
 				),
 				'associated_users' => array(
 					'icon'    => null,
 					'title'   => __( 'Associated Users', 'task-manager' ),
-					'classes' => '',
+					'classes' => 'table-200',
 				),
 				'participants' => array(
 					'icon'    => null,
 					'title'   => __( 'Participants', 'task-manager' ),
-					'classes' => '',
+					'classes' => 'table-200',
 				),
 				'waiting_for' => array(
 					'icon'    => null,
 					'title'   => __( 'Waiting For', 'task-manager' ),
-					'classes' => '',
+					'classes' => 'table-200',
 				),
 			),
 			'bodies' => array(
