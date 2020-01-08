@@ -145,6 +145,14 @@ class Point_Filter {
 		return $output;
 	}
 
+	public function tm_projects_wpeo_point_def( $output, $task ) {
+		$output['classes'] = 'table-type-task';
+
+		$output['attrs'][] = 'data-id="' . $task->data['id'] . '"';
+
+		return $output;
+	}
+
 	public function fill_value_empty_value( $output, $point ) {
 		$output['classes'] .= ' task-toggle-comment';
 		$output['attrs'] = array(

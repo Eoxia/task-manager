@@ -59,8 +59,8 @@ class Task_Filter {
 
 		if ( ! empty( Task_Class::g()->contents['headers'] ) ) {
 			foreach ( Task_Class::g()->contents['headers'] as $key => $header ) {
-				if ( method_exists ( $this, 'tm_projects_wpeo-task_def') ) {
-					add_filter( 'tm_projects_wpeo-task_def', array( $this, 'tm_projects_wpeo-task_def' ), 10, 2 );
+				if ( method_exists ( $this, 'tm_projects_wpeo_task_def') ) {
+					add_filter( 'tm_projects_wpeo-task_def', array( $this, 'tm_projects_wpeo_task_def' ), 10, 2 );
 				}
 
 				if ( method_exists ( $this, 'fill_value_' . $key . '_value') ) {
@@ -284,7 +284,7 @@ class Task_Filter {
 		}
 	}
 
-	public function tm_projects_task_def( $output, $task ) {
+	public function tm_projects_wpeo_task_def( $output, $task ) {
 		$output['classes'] = 'table-type-project';
 
 		$output['attrs'][] = 'data-id="' . $task->data['id'] . '"';

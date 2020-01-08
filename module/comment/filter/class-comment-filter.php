@@ -301,6 +301,14 @@ class Comment_Filter {
 		return $output;
 	}
 
+	public function tm_projects_wpeo_time_def( $output, $task ) {
+		$output['classes'] = 'table-type-comment';
+
+		$output['attrs'][] = 'data-id="' . $task->data['id'] . '"';
+
+		return $output;
+	}
+
 	public function fill_value_id_value( $output, $comment ) {
 		$output['value'] = $comment->data['id'];
 
