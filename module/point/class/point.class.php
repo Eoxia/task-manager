@@ -137,11 +137,13 @@ class Point_Class extends \eoxia\Comment_Class {
 			'point_schema'       => $point_schema,
 		);
 
-		if ( $frontend ) {
-			\eoxia\View_Util::exec( 'task-manager', 'point', 'frontend/main', $args );
-		} else {
-			\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/main', $args );
-		}
+		Task_Class::g()->display_bodies( $points );
+
+//		if ( $frontend ) {
+//			\eoxia\View_Util::exec( 'task-manager', 'point', 'frontend/main', $args );
+//		} else {
+//			\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/main', $args );
+//		}
 	}
 
 	/**
