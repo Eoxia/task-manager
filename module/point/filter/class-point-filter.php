@@ -177,9 +177,16 @@ class Point_Filter {
 		return $output;
 	}
 
+	public function fill_value_time_value( $output, $point ) {
+		$output['value'] = $point->data['time_info']['elapsed'];
+
+		return $output;
+	}
+
 	public function fill_value_empty_dropdown_value( $output, $point) {
 		$output['classes'] .= ' task-option';
 		$output['value']    = $point->data['id'];
+		$output['point']    = $point;
 		return $output;
 	}
 

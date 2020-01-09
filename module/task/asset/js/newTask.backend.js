@@ -46,6 +46,9 @@ window.eoxiaJS.taskManager.newTask.togglePoints = function() {
 		jQuery( '.table-type-task[data-post-id=' + projectID + ']' ).slideUp(400, function() {
 			jQuery( this ).remove();
 		});
+		jQuery( '.table-type-comment[data-post-id=' + projectID + ']' ).slideUp(400, function() {
+			jQuery( this ).remove();
+		});
 
 		jQuery( '.table-type-project[data-id=' + projectID + '] .project-add div[data-action="edit_point"]' ).attr( 'data-toggle', false );
 

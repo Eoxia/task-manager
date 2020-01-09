@@ -324,6 +324,19 @@ class Comment_Filter {
 		return $output;
 	}
 
+	public function fill_value_time_value( $output, $comment ) {
+		$output['value'] = $comment->data['time_info']['elapsed'];
+
+		return $output;
+	}
+
+	public function fill_value_created_date_value( $output, $comment ) {
+		$output['raw']       = $comment->data['date']['raw'];
+		$output['date_time'] = $comment->data['date']['rendered']['date_time'];
+
+		return $output;
+	}
+
 	public function fill_value_name_value( $output, $comment ) {
 		$output['classes'] = ' cell-content';
 		$output['value'] = $comment->data['content'];
@@ -334,6 +347,7 @@ class Comment_Filter {
 	public function fill_value_empty_dropdown_value( $output, $comment ) {
 		$output['classes'] .= ' comment-option';
 		$output['value']   = $comment->data['id'];
+		$output['comment'] = $comment;
 
 		return $output;
 	}

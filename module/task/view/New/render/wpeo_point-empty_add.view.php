@@ -6,6 +6,7 @@
 	     data-action="edit_comment"
 	     data-content="tmp"
 	     data-toggle="false"
+	     data-time="15"
 	     data-nonce="<?php echo esc_attr( wp_create_nonce( 'edit_comment' ) ); ?>">
 		<i class="fas fa-comment-dots"></i>
 	</div>
