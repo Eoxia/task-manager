@@ -14,8 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<ul class="tm-dashboard-shortcuts">
-	<li class="dashboard-shortcut shortcut-title"><?php esc_html_e( 'Shortcuts', 'task-manager' ); ?></li>
+<ul class="tm-dashboard-shortcuts" style="display: flex">
+	<li class="dashboard-shortcut shortcut-title"><i class="fas fa-star"></i></li>
 	<?php
 	if ( ! empty( $shortcuts ) ) :
 		foreach ( $shortcuts as $key => $shortcut ) :

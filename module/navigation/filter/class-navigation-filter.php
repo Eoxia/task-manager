@@ -24,8 +24,11 @@ class Navigation_Filter {
 	 * Déclaration des différents filtres utilisés dans la navigation du dashboard.
 	 */
 	public function __construct() {
-		add_filter( 'tm_dashboard_header', array( $this, 'callback_display_main_search_bar' ), 10, 2 );
-		add_filter( 'tm_dashboard_subheader', array( $this, 'callback_display_navigation_shortcut' ), 10, 2 );
+		//add_filter( 'tm_dashboard_header', array( $this, 'callback_display_main_search_bar' ), 10, 2 );
+		//add_filter( 'tm_dashboard_subheader', array( $this, 'callback_display_navigation_shortcut' ), 10, 2 );
+
+		//add_filter( 'eoxia_main_header_title', array( $this, 'callback_display_header_navigation_shortcut' ), 10, 2 );
+		add_filter( 'eoxia_main_header_li', array( $this, 'callback_display_header_navigation' ), 10, 2 );
 	}
 
 	/**
@@ -36,7 +39,7 @@ class Navigation_Filter {
 	 *
 	 * @return string          Le nouveau contenu modifié par notre filtre pour affichage.
 	 */
-	public function callback_display_main_search_bar( $content, $current_search_args ) {
+	/*public function callback_display_main_search_bar( $content, $current_search_args ) {
 		$shortcode_final_args = '';
 		foreach ( $current_search_args as $shortcode_params_key => $shortcode_params_value ) {
 			$shortcode_final_args .= $shortcode_params_key . '="' . $shortcode_params_value . '" ';
@@ -45,7 +48,7 @@ class Navigation_Filter {
 		$content .= do_shortcode( '[task_manager_search_bar ' . $shortcode_final_args . ']' );
 
 		return $content;
-	}
+	}*/
 
 	/**
 	 * Affichage des raccourcis de recherche.
@@ -55,7 +58,7 @@ class Navigation_Filter {
 	 *
 	 * @return string          Le nouveau contenu modifié par notre filtre pour affichage.
 	 */
-	public function callback_display_navigation_shortcut( $content, $current_search_args ) {
+	/*public function callback_display_navigation_shortcut( $content, $current_search_args  ) {
 
 		$shortcuts = get_user_meta( get_current_user_id(), '_tm_shortcuts', true );
 		$shortcuts = $shortcuts[0]['child'];
@@ -76,6 +79,41 @@ class Navigation_Filter {
 			'backend/navigation-shortcut',
 			array(
 				'search_args' => $current_search_args,
+				'shortcuts'   => $shortcuts,
+				'url'         => $url,
+			)
+		);
+		$content .= ob_get_clean();
+
+		return $content;
+	}*/
+
+	public function callback_display_header_navigation( $content ) {
+		$shortcode_final_args = '';
+		/*foreach ( $current_search_args as $shortcode_params_key => $shortcode_params_value ) {
+			$shortcode_final_args .= $shortcode_params_key . '="' . $shortcode_params_value . '" ';
+		}*/
+
+		$content .= do_shortcode( '[task_manager_search_bar ' . $shortcode_final_args . ']' );
+
+		$shortcuts = get_user_meta( get_current_user_id(), '_tm_shortcuts', true );
+		$shortcuts = $shortcuts[0]['child'];
+
+		$url = $_SERVER['REQUEST_URI'];
+		$url = explode( '?', $url );
+
+		if ( ! empty( $url[1] ) ) {
+			$url = '?' . $url[1];
+		}
+
+		$current_folder_key = null;
+
+		ob_start();
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'navigation',
+			'backend/navigation-shortcut',
+			array(
 				'shortcuts'   => $shortcuts,
 				'url'         => $url,
 			)

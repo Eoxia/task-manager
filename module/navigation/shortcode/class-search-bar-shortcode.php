@@ -132,7 +132,7 @@ class Search_Bar_Shortcode {
 		\eoxia\View_Util::exec(
 			'task-manager',
 			'navigation',
-			'backend/main',
+			'backend/navigation-advenced-search',
 			array(
 				'categories' => $categories,
 				'param'      => $param,

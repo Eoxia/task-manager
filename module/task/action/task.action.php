@@ -857,7 +857,10 @@ class Task_Action {
 	}
 
 	public function callback_task_update( $task_id ) {
+
 		$last_update = Task_Class::g()->get_task_last_update( $task_id );
+
+		update_post_meta( $task_id, 'wpeo_task', 'last_update' );
 	}
 }
 

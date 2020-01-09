@@ -1270,8 +1270,6 @@ class Task_Class extends \eoxia\Post_Class {
 		$last_update = $this->time_elapsed_B( $time );
 		return $last_update;
 	}
-
-
 }
 
 Task_Class::g();
