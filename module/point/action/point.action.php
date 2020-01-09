@@ -55,6 +55,7 @@ class Point_Action {
 		$completed = ( isset( $_POST['completed'] ) && 'true' === $_POST['completed'] ) ? true : false; // WPCS: CSRF ok.
 		$parent_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
 		$content   = ! empty( $_POST['content'] ) ? $_POST['content'] : '';
+		$toggle    = ( isset( $_POST['toggle'] ) && 'true' == $_POST['toggle'] ) ? true : false;
 
 		$data  = Point_Class::g()->edit_point( $point_id, $parent_id, $content, $completed );
 		$point = $data['point'];
@@ -63,14 +64,11 @@ class Point_Action {
 		do_action( 'tm_edit_point', $point, $task );
 
 		ob_start();
-		\eoxia\View_Util::exec(
-			'task-manager',
-			'point',
-			'backend/point',
-			array(
-				'point'      => $point,
-			)
-		);
+		if ( ! $toggle ) {
+			Point_Class::g()->display( $parent_id );
+		} else {
+			Task_Class::g()->display_bodies( array( $point ) );
+		}
 
 		wp_send_json_success(
 			array(
@@ -81,6 +79,7 @@ class Point_Action {
 				'task_id'          => $parent_id,
 				'task'             => $task,
 				'point'            => $point,
+				'toggle'           => $toggle,
 			)
 		);
 	}

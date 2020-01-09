@@ -184,7 +184,7 @@ class Point_Filter {
 	}
 
 	public function fill_value_empty_add_value( $output, $point ) {
-		$output['classes']  .= ' cell-sticky';
+		$output['classes']  .= ' cell-sticky task-add';
 		$output['task_id']   = $point->data['post_id'];
 		$output['point_id']  = $point->data['id'];
 		return $output;

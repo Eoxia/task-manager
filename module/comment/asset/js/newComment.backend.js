@@ -38,15 +38,21 @@ window.eoxiaJS.taskManager.newComment.editContent = function() {
 };
 
 window.eoxiaJS.taskManager.newComment.addedCommentSuccess = function( triggeredElement, response ) {
-	var tmp = jQuery( response.data.view );
-	tmp.css({display: 'none'});
-	triggeredElement.closest( '.column-extend' ).find( '.table-header' ).after( tmp );
-	tmp.slideDown(400);
+	if ( ! response.data.toggle ) {
+		this.loadedCommentsSuccess( triggeredElement, response );
 
-	const comment = response.data.comment;
+		jQuery( '.table-type-task[data-id=' + response.data.point.data.id + '] .fas.fa-angle-right' ).removeClass( 'fa-angle-right' ).addClass( 'fa-angle-down' );
+	} else {
+		var tmp = jQuery( response.data.view );
+		tmp.css({display: 'none'});
+		jQuery( '.table-type-task[data-id=' + response.data.point.data.id + ']' ).after( tmp );
+		tmp.slideDown(400);
+	}
 
-	jQuery( '.table-projects .table-column[data-id=' + comment.data.post_id + '] .project-time .elapsed' ).text( response.data.time.task );
-	jQuery( '.table-task .table-column[data-id=' + comment.data.parent_id + '] .task-time .table-cell-container .elapsed' ).text( response.data.time.point );
+	// const comment = response.data.comment;
+
+	// jQuery( '.table-projects .table-column[data-id=' + comment.data.post_id + '] .project-time .elapsed' ).text( response.data.time.task );
+	// jQuery( '.table-task .table-column[data-id=' + comment.data.parent_id + '] .task-time .table-cell-container .elapsed' ).text( response.data.time.point );
 };
 
 window.eoxiaJS.taskManager.newComment.editedCommentSuccess = function( triggeredElement, response ) {
@@ -77,4 +83,8 @@ window.eoxiaJS.taskManager.newComment.loadedCommentsSuccess = function( triggere
 	view.slideDown( 400 );
 
 	triggeredElement.removeClass( 'loading' );
+
+	if ( triggeredElement.hasClass( 'action-attribute' ) ) {
+		triggeredElement.attr( 'data-toggle', true );
+	}
 };

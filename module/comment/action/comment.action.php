@@ -108,6 +108,7 @@ class Task_Comment_Action {
 		$time       = ! empty( $_POST['time'] ) ? (int) $_POST['time'] : 0;
 		$frontend   = ( isset( $_POST['frontend'] ) && 'true' == $_POST['frontend'] ) ? true : false;
 		$notif      = ( isset( $_POST['notif'] ) && ! empty( $_POST['notif'] ) ) ? $_POST['notif']  : array();
+		$toggle     = ( isset( $_POST['toggle'] ) && 'true' == $_POST['toggle'] ) ? true : false;
 
 		$comment = Task_Comment_Class::g()->edit_comment( $post_id, $parent_id, $content, $date, $time, $comment_id );
 
@@ -138,19 +139,6 @@ class Task_Comment_Action {
 			Notify_Class::g()->send_notification_followers_are_tags( $notif, $post_id, $parent_id, $comment->data[ 'id' ] );
 		}
 
-		ob_start();
-		\eoxia\View_Util::exec(
-			'task-manager',
-			'comment',
-			$view . '/comment',
-			array(
-				'task_id'             => $post_id,
-				'point_id'            => $parent_id,
-				'comment'            => $comment,
-			)
-		);
-		$view = ob_get_clean();
-
 		$task = Task_Class::g()->get(
 			array(
 				'id' => $comment->data['post_id'],
@@ -167,6 +155,15 @@ class Task_Comment_Action {
 		}
 
 		$time_task = $task->data['time_info']['elapsed'];
+
+		ob_start();
+		if ( ! $toggle ) {
+			Task_Class::g()->display_bodies( $comments );
+		} else {
+			Task_Class::g()->display_bodies( array( $comment ) );
+		}
+
+		$view = ob_get_clean();
 
 		/*if ( $task->data['time_info']['estimated_time'] != null ) {
 			$time_task .= ' / ' . $task->data['time_info']['estimated_time'];
