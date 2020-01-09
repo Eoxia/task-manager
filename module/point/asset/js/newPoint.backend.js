@@ -58,14 +58,14 @@ window.eoxiaJS.taskManager.newPoint.completePoint = function( event ) {
 	const numberComment = jQuery( this ).closest( '.table-row' ).find( '.number-comments' ).text();
 	const isCompleted   = jQuery( this ).closest( '.table-row' ).hasClass( 'task-completed' );
 
-	if ( numberComment == 0 && ! isCompleted ) {
+	/*if ( numberComment == 0 && ! isCompleted ) {
 		jQuery( '.modal-prompt-point' ).addClass( 'modal-active' );
 		jQuery( '.modal-prompt-point input[name="post_id"]' ).val( jQuery( this ).closest( '.point' ).find( 'input[name="parent_id"]').val());
 		jQuery( '.modal-prompt-point input[name="point_id"]' ).val( jQuery( this ).closest( '.point' ).find( 'input[name="id"]').val() );
 		jQuery( '.modal-prompt-point .content' ).html( '#' + jQuery( this ).closest( '.point' ).find( 'input[name="id"]').val() + ' - ' + jQuery( this ).closest( '.point' ).find( '.point-content input[name="content"]').val() );
 		event.preventDefault();
 		return false;
-	} else {
+	} else {*/
 		const data = {
 			action:  'complete_point',
 			_wpnonce: jQuery( this ).closest( '.table-row' ).data('nonce' ),
@@ -83,7 +83,7 @@ window.eoxiaJS.taskManager.newPoint.completePoint = function( event ) {
 				}
 			}
 		} );
-	}
+	//}
 };
 
 window.eoxiaJS.taskManager.newPoint.toggleComments = function() {
