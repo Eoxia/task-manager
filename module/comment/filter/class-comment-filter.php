@@ -24,7 +24,7 @@ class Comment_Filter {
 	/**
 	 * Le constructeur
 	 *
-	 * @since 1.6.0
+	 * @since   1.6.0
 	 * @version 1.8.0
 	 */
 	public function __construct() {
@@ -40,12 +40,15 @@ class Comment_Filter {
 
 		if ( ! empty( Task_Class::g()->contents['headers'] ) ) {
 			foreach ( Task_Class::g()->contents['headers'] as $key => $header ) {
-				if ( method_exists ( $this, 'tm_projects_wpeo_time_def') ) {
+				if ( method_exists( $this, 'tm_projects_wpeo_time_def' ) ) {
 					add_filter( 'tm_projects_wpeo_time_def', array( $this, 'tm_projects_wpeo_time_def' ), 10, 2 );
 				}
 
-				if ( method_exists ( $this, 'fill_value_' . $key . '_value') ) {
-					add_filter( 'tm_projects_content_wpeo_time_' . $key . '_def', array( $this, 'fill_value_' . $key . '_value' ), 10, 2 );
+				if ( method_exists( $this, 'fill_value_' . $key . '_value' ) ) {
+					add_filter( 'tm_projects_content_wpeo_time_' . $key . '_def', array(
+						$this,
+						'fill_value_' . $key . '_value'
+					), 10, 2 );
 				}
 			}
 		}
@@ -54,13 +57,13 @@ class Comment_Filter {
 	/**
 	 * Compiles le temps.
 	 *
-	 * @since 1.6.0
-	 * @version 1.6.0
-	 *
-	 * @param Comment_Object $object L'objet Comment_Object.
-	 * @param array          $args   Des paramètres complémentaires pour permettre d'agir sur l'élement.
+	 * @param   Comment_Object  $object  L'objet Comment_Object.
+	 * @param   array           $args    Des paramètres complémentaires pour permettre d'agir sur l'élement.
 	 *
 	 * @return Comment_Object        Les données de la tâche avec les données complémentaires.
+	 * @version 1.6.0
+	 *
+	 * @since   1.6.0
 	 */
 	public function compile_time( $object, $args ) {
 		$point = Point_Class::g()->get(
@@ -116,13 +119,13 @@ class Comment_Filter {
 	/**
 	 * Calcul le temps écoulé depuis le dernier commentaire ajouté pour ne pas avoir a faire le calcul dans le commentaire a chaque changement de projet.
 	 *
-	 * @since 1.5.0
-	 * @version 1.5.1
-	 *
-	 * @param Comment_Object $object L'objet Comment_Object.
-	 * @param array          $args   Des paramètres complémentaires pour permettre d'agir sur l'élement.
+	 * @param   Comment_Object  $object  L'objet Comment_Object.
+	 * @param   array           $args    Des paramètres complémentaires pour permettre d'agir sur l'élement.
 	 *
 	 * @return Comment_Object        Les données de la tâche avec les données complémentaires.
+	 * @version 1.5.1
+	 *
+	 * @since   1.5.0
 	 */
 	public function calcul_elapsed_time( $object, $args = array() ) {
 		if ( 0 === $object->data['id'] ) {
@@ -179,13 +182,13 @@ class Comment_Filter {
 	 * Parsage du contenu du commentaire afin de retrouver les ID correspondant à des tâches, points ou d'autres commentaires.
 	 * Permet de rajouter une balise avec une infobulle contenant les 100 premiers caractères de l'élément trouvé dans le contenu.
 	 *
-	 * @since 1.8.0
-	 * @version 1.8.0
-	 *
-	 * @param  Task_Comment_Model $object Les données du commentaire.
-	 * @param  array              $args   Les données lors de la création de l'objet.
+	 * @param   Task_Comment_Model  $object  Les données du commentaire.
+	 * @param   array               $args    Les données lors de la création de l'objet.
 	 *
 	 * @return Task_Comment_Model         Les données du commentaire modifiée par cette méthode.
+	 * @version 1.8.0
+	 *
+	 * @since   1.8.0
 	 */
 	public function parse_content( $object, $args ) {
 		$object->data['rendered'] = $object->data['content'];
@@ -229,8 +232,8 @@ class Comment_Filter {
 	/**
 	 * Callback appelé après l'insertion d'un nouveau commentaire.
 	 *
-	 * @param  Task_Comment_Model $object La définition complète du commentaire avant passage dans le filtre.
-	 * @param  array              $args   Des données complémentaires permettant d'effectuer le traitement du filtre.
+	 * @param   Task_Comment_Model  $object  La définition complète du commentaire avant passage dans le filtre.
+	 * @param   array               $args    Des données complémentaires permettant d'effectuer le traitement du filtre.
 	 *
 	 * @return Task_Comment_Model         La définition du commentaire après passage du filtre.
 	 */
@@ -242,7 +245,7 @@ class Comment_Filter {
 			true
 		);
 
-		$point->data['count_comments']++;
+		$point->data['count_comments'] ++;
 
 		Point_Class::g()->update( $point->data );
 
@@ -254,6 +257,7 @@ class Comment_Filter {
 	 *
 	 * @param  [type] $output  [vue].
 	 * @param  [type] $comment [commentaire].
+	 *
 	 * @return [type] $output [contient la vue à afficher].
 	 */
 	public function callback_tm_comment_edit_after( $output, $comment ) {
@@ -280,6 +284,7 @@ class Comment_Filter {
 	 *
 	 * @param  [type] $output  [vue].
 	 * @param  [type] $comment [commentaire].
+	 *
 	 * @return [type] $output [contient la vue à afficher].
 	 */
 	public function callback_tm_comment_advanced_view( $output, $comment ) {
@@ -322,6 +327,22 @@ class Comment_Filter {
 	public function fill_value_name_value( $output, $comment ) {
 		$output['classes'] = ' table-type-content';
 		$output['value'] = $comment->data['content'];
+
+		return $output;
+	}
+
+	public function fill_value_empty_dropdown_value( $output, $comment ) {
+		$output['classes'] .= ' table-padding-0 comment-option';
+		$output['value']   = $comment->data['id'];
+
+		return $output;
+	}
+
+	public function fill_value_empty_add_value( $output, $comment ) {
+		$output['classes'] .= ' comment-add-comment';
+		$output['value']    = $comment->data['id'];
+		$output['value1']   = $comment->data['post_id'];
+		$output['value2']   = $comment->data['parent_id'];
 
 		return $output;
 	}

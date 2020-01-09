@@ -177,6 +177,19 @@ class Point_Filter {
 		return $output;
 	}
 
+	public function fill_value_empty_dropdown_value( $output, $point) {
+		$output['classes'] .= ' table-padding-0 task-option';
+		$output['value']    = $point->data['id'];
+		return $output;
+	}
+
+	public function fill_value_empty_add_value( $output, $point ) {
+		$output['classes'] .= ' project-add-project';
+		$output['value']    = $point->data['id'];
+		$output['value1']   = $point->data['post_id'];
+		return $output;
+	}
+
 }
 
 new Point_Filter();

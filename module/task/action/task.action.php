@@ -144,15 +144,17 @@ class Task_Action {
 
 		$task = Task_Class::g()->create( $task_args, true );
 
-		ob_start();
-		\eoxia\View_Util::exec(
+		//ob_start();
+		/*\eoxia\View_Util::exec(
 			'task-manager',
 			'task',
 			'New/task',
 			array(
 				'task' => $task,
 			)
-		);
+		);*/
+
+		Task_Class::g()->display_bodies( $task );
 
 		wp_send_json_success(
 			array(
