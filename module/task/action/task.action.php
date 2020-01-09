@@ -857,13 +857,7 @@ class Task_Action {
 	}
 
 	public function callback_task_update( $task_id ) {
-		$task        = Task_Class::g()->get( array( 'id' => $task_id ), true );
-		unset( $task->data['date_modified'] );
 		$last_update = Task_Class::g()->get_task_last_update( $task_id );
-		echo '<pre>';
-		print_r( $last_update );
-		echo '</pre>';
-		exit;
 	}
 }
 

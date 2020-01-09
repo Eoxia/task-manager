@@ -239,6 +239,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		</div>
 	</div>
-	<?php Point_Class::g()->display( $task->data['id'] ); ?>
 </div>
 

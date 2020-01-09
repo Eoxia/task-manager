@@ -157,6 +157,13 @@ class Task_Model extends \eoxia\Post_Model {
 			'version'   => '1.13.0',
 		);
 
+		$this->schema['last_update'] = array(
+			'meta_type' => 'multiple',
+			'type'      => 'wpeo_date',
+			'context'   => array( 'GET' ),
+		);
+
+
 		$this->schema['count_completed_points'] = array(
 			'type'      => 'integer',
 			'meta_type' => 'single',

@@ -1260,7 +1260,12 @@ class Task_Class extends \eoxia\Post_Class {
 
 		$now = strtotime( 'now' );
 		$task = Task_Class::g()->get( array( 'id' => $task_id ), true );
-		$last_update = $task->data['date_modified']['rendered']['mysql'];
+
+		/*if ( action ) {
+			$last_update = $task->data['last_update']['rendered']['mysql'];
+		}else {*/
+			$last_update = $task->data['date']['rendered']['mysql'];
+		//}
 		$time = strtotime( 'now + 1 hour' ) - strtotime( $last_update );
 		$last_update = $this->time_elapsed_B( $time );
 		return $last_update;

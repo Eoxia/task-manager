@@ -318,8 +318,9 @@ class Task_Filter {
 
 
 	public function fill_value_last_update_value( $output, $task ) {
-		$output['classes'] .= ' project-last-update';
-		$output['value']    = $task->data['id'];
+		$output['classes']            .= ' project-last-update';
+		$output['date_modified_mysql'] = Task_Class::g()->get_task_last_update( $task->data['id'] );
+		$output['date_modified_date']  = $task->data['date_modified']['rendered']['date'];
 
 		return $output;
 	}
