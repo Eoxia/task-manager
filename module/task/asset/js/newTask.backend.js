@@ -14,6 +14,10 @@ window.eoxiaJS.taskManager.newTask.event = function() {
 	jQuery( '.tm-wrap' ).on( 'blur', '.table-projects .table-type-project  .project-title', window.eoxiaJS.taskManager.newTask.editTitle );
 	jQuery( '.tm-wrap' ).on( 'click', '.table-type-project .project-toggle-task', window.eoxiaJS.taskManager.newTask.togglePoints );
 	jQuery( '.tm-wrap' ).on( 'click', '.table-type-project .project-state .dropdown-item',  window.eoxiaJS.taskManager.newTask.displayState );
+	jQuery( '.list-task' ).on( 'scroll', window.eoxiaJS.taskManager.newTask.stickyAction );
+	// jQuery( window ).load(  );
+	window.eoxiaJS.taskManager.newTask.stickyAction();
+
 };
 
 window.eoxiaJS.taskManager.newTask.editTitle = function() {
@@ -89,4 +93,14 @@ window.eoxiaJS.taskManager.newTask.displayState = function ( event ) {
 
 window.eoxiaJS.taskManager.newTask.taskStateSuccess = function( element, response ) {
 	jQuery( element ).closest( '.table-column' ).replaceWith( response.data.view );
+};
+
+window.eoxiaJS.taskManager.newTask.stickyAction = function( e ) {
+	if ( e == undefined ) {
+		var finalPos = jQuery( '.list-task' ).width() - 50;
+	}
+	else {
+		var finalPos = e.target.scrollLeft + jQuery( this ).width() - 50;
+	}
+	jQuery( '.cell-sticky' ).css( { left: finalPos } );
 };

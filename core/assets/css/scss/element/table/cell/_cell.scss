@@ -20,26 +20,9 @@
 }
 
 /** Cellules générales */
-	@import "affiliated";
-	@import "content";
-	@import "avatar";
-	@import "add";
-	@import "toggle-row";
-
-/** Cellules projet */
-//.wpeo-table.table-flex .table-row:not(.table-header).table-type-project {
-//	@import "project/project";
-//}
-
-
-/** Cellules taches */
-//.wpeo-table.table-flex .table-row:not(.table-header).table-type-task {
-//	@import "task/task";
-//}
-
-
-/** Cellules commentaires */
-//.wpeo-table.table-flex .table-row:not(.table-header).table-type-comment {
-//	@import "comment/comment";
-//}
-
+@import "affiliated";
+@import "content";
+@import "avatar";
+@import "add";
+@import "toggle-row";
+@import "date";
