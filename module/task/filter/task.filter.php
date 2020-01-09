@@ -293,7 +293,7 @@ class Task_Filter {
 	}
 
 	public function fill_value_empty_value( $output, $task ) {
-		$output['classes'] .= ' project-toggle-task';
+		$output['classes'] .= ' cell-toggle project-toggle-task';
 		$output['attrs']    = array(
 			'data-id="' . $task->data['id'] . '"',
 			'data-nonce="' . wp_create_nonce( 'load_point' ) . '"',

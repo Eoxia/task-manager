@@ -49,17 +49,17 @@ window.eoxiaJS.taskManager.newComment.addedCommentSuccess = function( triggeredE
 		tmp.slideDown(400);
 	}
 
-	// const comment = response.data.comment;
+	const comment = response.data.comment;
 
-	// jQuery( '.table-projects .table-column[data-id=' + comment.data.post_id + '] .project-time .elapsed' ).text( response.data.time.task );
-	// jQuery( '.table-task .table-column[data-id=' + comment.data.parent_id + '] .task-time .table-cell-container .elapsed' ).text( response.data.time.point );
+	jQuery( '.table-type-project[data-id=' + comment.data.post_id + '] .project-time .elapsed' ).text( response.data.time.task );
+	jQuery( '.table-type-task[data-id=' + comment.data.parent_id + '] .task-time .elapsed' ).text( response.data.time.point );
 };
 
 window.eoxiaJS.taskManager.newComment.editedCommentSuccess = function( triggeredElement, response ) {
 	const comment = response.data.comment;
 
-	jQuery( '.table-projects .table-column[data-id=' + comment.data.post_id + '] .project-time .elapsed' ).text( response.data.time.task );
-	jQuery( '.table-task .table-column[data-id=' + comment.data.parent_id + '] .task-time .table-cell-container .elapsed' ).text( response.data.time.point );
+	jQuery( '.table-type-project[data-id=' + comment.data.post_id + '] .project-time .elapsed' ).text( response.data.time.task );
+	jQuery( '.table-type-task[data-id=' + comment.data.parent_id + '] .task-time .elapsed' ).text( response.data.time.point );
 };
 
 /**

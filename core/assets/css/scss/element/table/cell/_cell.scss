@@ -1,13 +1,9 @@
-@import "affiliated";
-@import "content";
-@import "avatar";
-@import "add";
-
 .table-cell {
 	margin: 0;
 	padding: 0;
 	border-right: 1px solid rgba(0,0,0,0.1);
 	display: flex;
+	@include transition;
 
 	&:last-child {
 		border-right: 0;
@@ -16,4 +12,34 @@
 	.table-cell-container {
 		margin: auto;
 	}
+
+	/** Focus */
+	&.table-focus {
+		box-shadow: inset 0 0 0 3px $color__primary;
+	}
 }
+
+/** Cellules générales */
+	@import "affiliated";
+	@import "content";
+	@import "avatar";
+	@import "add";
+	@import "toggle-row";
+
+/** Cellules projet */
+//.wpeo-table.table-flex .table-row:not(.table-header).table-type-project {
+//	@import "project/project";
+//}
+
+
+/** Cellules taches */
+//.wpeo-table.table-flex .table-row:not(.table-header).table-type-task {
+//	@import "task/task";
+//}
+
+
+/** Cellules commentaires */
+//.wpeo-table.table-flex .table-row:not(.table-header).table-type-comment {
+//	@import "comment/comment";
+//}
+
