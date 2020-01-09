@@ -318,6 +318,12 @@ class Comment_Filter {
 		return $output;
 	}
 
+	public function fill_value_empty_value( $output, $point ) {
+		$output['classes'] .= ' cell-toggle task-toggle-comment';
+
+		return $output;
+	}
+
 	public function fill_value_id_value( $output, $comment ) {
 		$output['value'] = $comment->data['id'];
 

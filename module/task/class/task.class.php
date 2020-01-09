@@ -179,7 +179,7 @@ class Task_Class extends \eoxia\Post_Class {
 				'empty_add' => array(
 					'icon'    => null,
 					'title'   => null,
-					'classes' => '',
+					'classes' => 'table-50',
 				),
 			),
 			'bodies' => array(

@@ -156,7 +156,7 @@ class Point_Filter {
 	}
 
 	public function fill_value_empty_value( $output, $point ) {
-		$output['classes'] .= ' task-toggle-comment';
+		$output['classes'] .= ' cell-toggle task-toggle-comment';
 		$output['attrs'] = array(
 			'data-id="' . $point->data['id'] . '"',
 			'data-nonce="' . wp_create_nonce( 'load_comments' ) . '"',
