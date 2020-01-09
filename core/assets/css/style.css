@@ -88,13 +88,10 @@
   /** Header */
   /** Edition */
   /** Tableau */
-  /** Comment */
-  /** Etat */
-  /** Content */
-  /** Table Comments */
   /** Tableau général */
   /** Table header */
   /** Table columns */
+  /** Table cell */
   /** Import des éléments simples */
   /** Bouton d'ajout */
   /** Bouton sauvegarde */
@@ -2554,63 +2551,36 @@
   text-align: left;
 }
 
-.tm-wrap .wpeo-table.table-flex .task-toggle-comment [class*="fa"] {
-  -webkit-transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out;
+.tm-wrap .list-task .wpeo-table.table-flex {
+  /** Table Comments */
 }
 
-.tm-wrap .wpeo-table.table-flex .task-toggle-comment:hover {
-  cursor: pointer;
+.tm-wrap .list-task .wpeo-table.table-flex .cell-affiliated .tm_task_autocomplete_parent {
+  max-width: 130px;
+  border-bottom: 0;
 }
 
-.tm-wrap .wpeo-table.table-flex .task-toggle-comment:hover [class*="fa"] {
-  color: rgba(0, 0, 0, 0.5);
-}
-
-.tm-wrap .wpeo-table.table-flex .task-complete-point .task-complete-point-field {
-  -webkit-transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out;
-}
-
-.tm-wrap .wpeo-table.table-flex .task-complete-point .task-complete-point-field:hover {
-  border: 1px solid #0084ff;
-}
-
-.tm-wrap .wpeo-table.table-flex .task-content .table-cell-container,
-.tm-wrap .wpeo-table.table-flex .project-name .table-cell-container {
-  margin-left: 0 !important;
-  width: 100%;
-  height: 20px;
-}
-
-.tm-wrap .wpeo-table.table-flex .column-extend {
-  padding: 2em;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.tm-wrap .wpeo-table.table-flex.table-comments {
+.tm-wrap .list-task .wpeo-table.table-flex .wpeo-table.table-flex.table-comments {
   width: 100%;
 }
 
-.tm-wrap .wpeo-table.table-flex.table-comments .table-row:not(.table-header) .table-cell {
+.tm-wrap .list-task .wpeo-table.table-flex .wpeo-table.table-flex.table-comments .table-row:not(.table-header) .table-cell {
   background: rgba(0, 0, 0, 0.1);
 }
 
-.tm-wrap .wpeo-table.table-flex.table-comments .table-column {
+.tm-wrap .list-task .wpeo-table.table-flex .wpeo-table.table-flex.table-comments .table-column {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.tm-wrap .wpeo-table.table-flex.table-task .table-column {
+.tm-wrap .list-task .wpeo-table.table-flex .wpeo-table.table-flex.table-task .table-column {
   border-left: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.tm-wrap .wpeo-table.table-flex.table-task .table-column:last-child {
+.tm-wrap .list-task .wpeo-table.table-flex .wpeo-table.table-flex.table-task .table-column:last-child {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.tm-wrap .wpeo-table.table-flex.table-task .table-header {
+.tm-wrap .list-task .wpeo-table.table-flex .wpeo-table.table-flex.table-task .table-header {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -2633,22 +2603,18 @@
   line-height: 1.4;
 }
 
-.tm-wrap .wpeo-table.table-flex .table-column {
-  background: #fff;
+.tm-wrap .wpeo-table.table-flex .table-row:not(.table-header) {
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: #fff;
 }
 
-.tm-wrap .wpeo-table.table-flex .table-column:last-child {
-  border-bottom: 0;
+.tm-wrap .wpeo-table.table-flex .table-row:not(.table-header):nth-of-type(2) {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.tm-wrap .wpeo-table.table-flex .table-column .table-row:not(.table-header) {
-  background: none;
-  -ms-flex-line-pack: center;
-  align-content: center;
-}
-
-.tm-wrap .wpeo-table.table-flex .table-column .table-row:not(.table-header) .table-cell {
+.tm-wrap .wpeo-table.table-flex .table-row:not(.table-header) .table-cell {
   margin: 0;
   border-right: 1px solid rgba(0, 0, 0, 0.1);
   display: -webkit-box;
@@ -2656,7 +2622,11 @@
   display: flex;
 }
 
-.tm-wrap .wpeo-table.table-flex .table-column .table-row:not(.table-header) .table-cell .table-cell-container {
+.tm-wrap .wpeo-table.table-flex .table-row:not(.table-header) .table-cell:last-child {
+  border-right: 0;
+}
+
+.tm-wrap .wpeo-table.table-flex .table-row:not(.table-header) .table-cell .table-cell-container {
   margin: auto;
 }
 

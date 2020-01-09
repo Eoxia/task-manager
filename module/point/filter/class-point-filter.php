@@ -171,7 +171,8 @@ class Point_Filter {
 		return $output;
 	}
 	public function fill_value_name_value( $output, $point ) {
-		$output['value'] = $point->data['content'];
+		$output['classes'] .= ' table-type-content';
+		$output['value']    = $point->data['content'];
 
 		return $output;
 	}

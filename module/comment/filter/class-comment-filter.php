@@ -325,6 +325,7 @@ class Comment_Filter {
 	}
 
 	public function fill_value_name_value( $output, $comment ) {
+		$output['classes'] = ' table-type-content';
 		$output['value'] = $comment->data['content'];
 
 		return $output;
