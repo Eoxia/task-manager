@@ -171,6 +171,21 @@ class Task_Class extends \eoxia\Post_Class {
 					'title'   => __( 'Waiting For', 'task-manager' ),
 					'classes' => 'table-200',
 				),
+				'empty_dropdown' => array(
+					'icon'    => null,
+					'title'   => null,
+					'classes' => 'table-25',
+				),
+				'empty_add1' => array(
+					'icon'    => null,
+					'title'   => null,
+					'classes' => 'table-50',
+				),
+				'empty_add2' => array(
+					'icon'    => null,
+					'title'   => null,
+					'classes' => 'table-50',
+				),
 			),
 			'bodies' => array(
 
