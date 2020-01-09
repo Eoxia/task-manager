@@ -396,17 +396,12 @@ class Task_Filter {
 		return $output;
 	}
 
-	public function fill_value_empty_add1_value( $output, $task ) {
+	public function fill_value_empty_add_value( $output, $task ) {
 		$output['classes'] .= ' project-add';
 		$output['value']    = $task->data['id'];
 		return $output;
 	}
 
-	public function fill_value_empty_add2_value( $output, $task ) {
-		$output['classes'] .= ' table-padding-0 project-option';
-		$output['value']    = $task->data['id'];
-		return $output;
-	}
 }
 
 new Task_Filter();
