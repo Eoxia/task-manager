@@ -303,7 +303,7 @@ class Task_Filter {
 	}
 
 	public function fill_value_name_value( $output, $task ) {
-		$output['classes'] .= ' table-type-content';
+		$output['classes'] .= ' cell-content table-padding-0';
 		$output['value']    = $task->data['title'];
 
 		return $output;
@@ -352,7 +352,7 @@ class Task_Filter {
 	}
 
 	public function fill_value_affiliated_with_value( $output, $task ) {
-		$output['classes'] .= ' project-affiliated';
+		$output['classes'] .= ' cell-affiliated';
 		$output['value']    = $task;
 
 		return $output;
@@ -391,13 +391,13 @@ class Task_Filter {
 	}
 
 	public function fill_value_empty_dropdown_value( $output, $task ) {
-		$output['classes'] .= ' table-padding-0 project-option';
+		$output['classes'] .= ' project-option';
 		$output['value']    = $task->data['id'];
 		return $output;
 	}
 
 	public function fill_value_empty_add_value( $output, $task ) {
-		$output['classes'] .= ' project-add';
+		$output['classes'] .= ' cell-sticky';
 		$output['value']    = $task->data['id'];
 		return $output;
 	}

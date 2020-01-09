@@ -139,22 +139,22 @@ class Task_Class extends \eoxia\Post_Class {
 				'categories' => array(
 					'icon'    => 'fas fa-tags',
 					'title'   => __( 'Categories', 'task-manager' ),
-					'classes' => 'table-150',
+					'classes' => 'table-250',
 				),
 				'attachments' => array(
 					'icon'    => 'fas fa-paperclip',
 					'title'   => __( 'Attachments', 'task-manager' ),
-					'classes' => 'table-75',
+					'classes' => 'table-50',
 				),
 				'number_comments' => array(
 					'icon'  => 'far fa-comment-dots',
-					'title' => __( 'Number Comments', 'task-manager' ),
-					'classes' => 'table-50',
+					'title' => __( 'Com nb', 'task-manager' ),
+					'classes' => 'table-100',
 				),
 				'author' => array(
 					'icon'    => 'fas fa-user',
 					'title'   => __( 'Author', 'task-manager' ),
-					'classes' => 'table-100',
+					'classes' => 'table-50',
 				),
 				'associated_users' => array(
 					'icon'    => 'fas fa-users',
@@ -169,17 +169,17 @@ class Task_Class extends \eoxia\Post_Class {
 				'waiting_for' => array(
 					'icon'    => 'fas fa-user',
 					'title'   => __( 'Waiting For', 'task-manager' ),
-					'classes' => 'table-200',
+					'classes' => 'table-100',
 				),
 				'empty_dropdown' => array(
 					'icon'    => null,
 					'title'   => null,
-					'classes' => 'table-25',
+					'classes' => 'table-50',
 				),
 				'empty_add' => array(
 					'icon'    => null,
 					'title'   => null,
-					'classes' => 'table-125',
+					'classes' => '',
 				),
 			),
 			'bodies' => array(

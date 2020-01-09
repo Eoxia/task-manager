@@ -171,20 +171,20 @@ class Point_Filter {
 		return $output;
 	}
 	public function fill_value_name_value( $output, $point ) {
-		$output['classes'] .= ' table-type-content';
+		$output['classes'] .= ' cell-content';
 		$output['value']    = $point->data['content'];
 
 		return $output;
 	}
 
 	public function fill_value_empty_dropdown_value( $output, $point) {
-		$output['classes'] .= ' table-padding-0 task-option';
+		$output['classes'] .= ' task-option';
 		$output['value']    = $point->data['id'];
 		return $output;
 	}
 
 	public function fill_value_empty_add_value( $output, $point ) {
-		$output['classes']  .= ' project-add-project';
+		$output['classes']  .= ' cell-sticky';
 		$output['task_id']   = $point->data['post_id'];
 		$output['point_id']  = $point->data['id'];
 		return $output;

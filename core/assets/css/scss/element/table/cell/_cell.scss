@@ -1,1 +1,19 @@
 @import "affiliated";
+@import "content";
+@import "avatar";
+@import "add";
+
+.table-cell {
+	margin: 0;
+	padding: 0;
+	border-right: 1px solid rgba(0,0,0,0.1);
+	display: flex;
+
+	&:last-child {
+		border-right: 0;
+	}
+
+	.table-cell-container {
+		margin: auto;
+	}
+}

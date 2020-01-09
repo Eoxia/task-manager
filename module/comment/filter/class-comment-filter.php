@@ -325,21 +325,21 @@ class Comment_Filter {
 	}
 
 	public function fill_value_name_value( $output, $comment ) {
-		$output['classes'] = ' table-type-content';
+		$output['classes'] = ' cell-content';
 		$output['value'] = $comment->data['content'];
 
 		return $output;
 	}
 
 	public function fill_value_empty_dropdown_value( $output, $comment ) {
-		$output['classes'] .= ' table-padding-0 comment-option';
+		$output['classes'] .= ' comment-option';
 		$output['value']   = $comment->data['id'];
 
 		return $output;
 	}
 
 	public function fill_value_empty_add_value( $output, $comment ) {
-		$output['classes'] .= ' comment-add-comment';
+		$output['classes'] .= ' cell-sticky';
 		$output['value']    = $comment->data['id'];
 		$output['value1']   = $comment->data['post_id'];
 		$output['value2']   = $comment->data['parent_id'];
