@@ -18,10 +18,16 @@ window.eoxiaJS.taskManager.newPoint.event = function() {
 };
 
 window.eoxiaJS.taskManager.newPoint.addedPointSuccess = function ( triggeredElement, response ) {
-	var tmp = jQuery( response.data.view );
-	tmp.css({display: 'none'});
-	triggeredElement.closest( '.column-extend' ).find( '> .table-task > .table-header' ).after( tmp );
-	tmp.slideDown(400);
+	if ( ! response.data.toggle ) {
+		this.loadedPointSuccess( triggeredElement, response );
+
+		jQuery( '.table-type-project[data-id=' + response.data.task_id + '] .fas.fa-angle-right' ).removeClass( 'fa-angle-right' ).addClass( 'fa-angle-down' );
+	} else {
+		var tmp = jQuery( response.data.view );
+		tmp.css({display: 'none'});
+		jQuery( '.table-type-project[data-id=' + response.data.task_id + ']' ).after( tmp );
+		tmp.slideDown(400);
+	}
 };
 
 window.eoxiaJS.taskManager.newPoint.editTitle = function() {
@@ -81,16 +87,15 @@ window.eoxiaJS.taskManager.newPoint.completePoint = function( event ) {
 };
 
 window.eoxiaJS.taskManager.newPoint.toggleComments = function() {
+	const taskID = jQuery( this ).closest( '.table-row' ).data( 'id' );
 	if ( jQuery( this ).find( '.fas' ).hasClass( 'fa-angle-down' ) ) {
-		jQuery( this ).find( '.fas' ).removeClass( 'fa-angle-down' ).addClass( 'fa-angle-right' );
-
-		const taskID = jQuery( this ).closest( '.table-row' ).data( 'id' );
 
 		jQuery( this ).find( '.fas' ).removeClass( 'fa-angle-down' ).addClass( 'fa-angle-right' );
 		jQuery( '.table-type-comment[data-parent-id=' + taskID + ']' ).slideUp(400, function() {
 			jQuery( this ).remove();
 		});
 
+		jQuery( '.table-type-task[data-id=' + taskID + '] .task-add div[data-action="edit_comment"]' ).attr( 'data-toggle', false );
 	} else {
 		var data = {};
 		var element;
@@ -108,6 +113,7 @@ window.eoxiaJS.taskManager.newPoint.toggleComments = function() {
 		window.eoxiaJS.request.send( element, data );
 
 		jQuery( this ).find( '.fas' ).removeClass( 'fa-angle-right' ).addClass( 'fa-angle-down' );
+		jQuery( '.table-type-task[data-id=' + taskID + '] .task-add div[data-action="edit_comment"]' ).attr( 'data-toggle', true );
 	}
 };
 
@@ -132,5 +138,9 @@ window.eoxiaJS.taskManager.newPoint.loadedPointSuccess = function( triggeredElem
 	view.slideDown( 400 );
 
 	triggeredElement.removeClass( 'loading' );
+
+	if ( triggeredElement.hasClass( 'action-attribute' ) ) {
+		triggeredElement.attr( 'data-toggle', true );
+	}
 };
 

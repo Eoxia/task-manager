@@ -33,20 +33,24 @@ window.eoxiaJS.taskManager.newTask.editTitle = function() {
 };
 
 window.eoxiaJS.taskManager.newTask.togglePoints = function() {
+	const projectID = jQuery( this ).closest( '.table-row' ).data( 'id' );
+	var element;
+
+	if ( ! element ) {
+		element = jQuery( this );
+	}
+
 	if ( jQuery( this ).find( '.fas' ).hasClass( 'fa-angle-down' ) ) {
-		const projectID = jQuery( this ).closest( '.table-row' ).data( 'id' );
 
 		jQuery( this ).find( '.fas' ).removeClass( 'fa-angle-down' ).addClass( 'fa-angle-right' );
 		jQuery( '.table-type-task[data-post-id=' + projectID + ']' ).slideUp(400, function() {
 			jQuery( this ).remove();
 		});
+
+		jQuery( '.table-type-project[data-id=' + projectID + '] .project-add div[data-action="edit_point"]' ).attr( 'data-toggle', false );
+
 	} else {
 		var data = {};
-		var element;
-
-		if ( ! element ) {
-			element = jQuery( this );
-		}
 
 		data.action   = 'load_point';
 		data._wpnonce = element.data( 'nonce' );
@@ -55,6 +59,7 @@ window.eoxiaJS.taskManager.newTask.togglePoints = function() {
 		window.eoxiaJS.request.send( element, data );
 
 		jQuery( this ).find( '.fas' ).removeClass( 'fa-angle-right' ).addClass( 'fa-angle-down' );
+		jQuery( '.table-type-project[data-id=' + projectID + '] .project-add div[data-action="edit_point"]' ).attr( 'data-toggle', true );
 	}
 };
 
