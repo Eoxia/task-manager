@@ -303,7 +303,7 @@ class Task_Filter {
 	}
 
 	public function fill_value_name_value( $output, $task ) {
-		$output['classes'] .= ' project-name';
+		$output['classes'] .= ' table-type-content';
 		$output['value']    = $task->data['title'];
 
 		return $output;

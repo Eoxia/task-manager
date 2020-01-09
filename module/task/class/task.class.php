@@ -89,12 +89,12 @@ class Task_Class extends \eoxia\Post_Class {
 				'empty' => array(
 					'icon'    => null,
 					'title'   => null,
-					'classes' => 'table-50',
+					'classes' => 'table-50 table-padding-0',
 				),
 				'state' => array(
 					'icon'    => 'fas fa-check-square',
 					'title'   => __( 'State', 'task-manager' ),
-					'classes' => 'table-50',
+					'classes' => 'table-75',
 				),
 				'name' => array(
 					'icon'    => 'fas fa-thumbtack',
@@ -134,7 +134,7 @@ class Task_Class extends \eoxia\Post_Class {
 				'affiliated_with' => array(
 					'icon'    => 'fas fa-link',
 					'title'   => __( 'Affiliated With', 'task-manager' ),
-					'classes' => 'table-100',
+					'classes' => 'table-250',
 				),
 				'categories' => array(
 					'icon'    => 'fas fa-tags',
