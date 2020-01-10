@@ -5,7 +5,7 @@
 	     data-parent-id="<?php echo $data['value']; ?>"
 	     data-action="edit_point"
 	     data-toggle="false"
-	     data-content="tmp"
+	     data-content="<?php esc_html_e( 'New task', 'task-manager' ); ?>"
 	     data-nonce="<?php echo esc_attr( wp_create_nonce( 'edit_point' ) ); ?>">
 		<i class="fas fa-check-square"></i>
 	</div>

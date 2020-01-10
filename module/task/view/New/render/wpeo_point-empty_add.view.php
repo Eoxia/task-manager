@@ -5,7 +5,7 @@
 	     data-post-id="<?php echo $data['task_id']; ?>"
 	     data-parent-id="<?php echo $data['point_id']; ?>"
 	     data-action="edit_comment"
-	     data-content="tmp"
+	     data-content="<?php esc_html_e( 'New comment', 'task-manager' ); ?>"
 	     data-toggle="false"
 	     data-time="15"
 	     data-nonce="<?php echo esc_attr( wp_create_nonce( 'edit_comment' ) ); ?>">
