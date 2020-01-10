@@ -13,9 +13,27 @@
 		margin: auto;
 	}
 
+	/** Hover */
+	&:hover {
+		box-shadow: inset 0 0 0 1px $color__primary;
+		cursor: pointer;
+	}
+
 	/** Focus */
-	&.table-focus {
+	&.cell-focus {
 		box-shadow: inset 0 0 0 3px $color__primary;
+	}
+
+	/** Readonly */
+	&.cell-readonly {
+		box-shadow: none;
+		cursor: default;
+	}
+
+	/** Disable */
+	&.cell-disabled {
+		background: rgba(0,0,0,0.05);
+		pointer-events: none;
 	}
 }
 

@@ -21,7 +21,7 @@
 		left: 0;
 		width: 25px;
 		height: 100%;
-		background: rgba(0,0,0,0.1);
+		background: rgba(0,0,0,0.05);
 	}
 	.table-cell-container {
 		width: 25px;
@@ -31,5 +31,5 @@
 
 /** Niveau hiérarchique des commentaires */
 &.table-type-comment .cell-toggle {
-	background: rgba(0,0,0,0.1);
+	background: rgba(0,0,0,0.05);
 }

@@ -165,11 +165,25 @@ class Point_Filter {
 		return $output;
 	}
 
+	public function fill_value_state_value( $output, $point) {
+		$output['classes'] .= ' task-complete-point';
+		$output['point']    = $point;
+		return $output;
+	}
+
 	public function fill_value_id_value( $output, $point ) {
+		$output['classes'] .= ' cell-readonly';
 		$output['value'] = $point->data['id'];
 
 		return $output;
 	}
+
+	public function fill_value_last_update_value( $output, $point ) {
+		$output['classes'] .= ' cell-readonly';
+
+		return $output;
+	}
+
 	public function fill_value_name_value( $output, $point ) {
 		$output['classes'] .= ' cell-content';
 		$output['value']    = $point->data['content'];
@@ -178,7 +192,72 @@ class Point_Filter {
 	}
 
 	public function fill_value_time_value( $output, $point ) {
+		$output['classes'] .= ' cell-readonly';
 		$output['value'] = $point->data['time_info']['elapsed'];
+
+		return $output;
+	}
+
+	public function fill_value_created_date_value( $output, $point ) {
+		$output['classes'] .= ' cell-readonly';
+
+		return $output;
+	}
+
+	public function fill_value_ended_date_value( $output, $point ) {
+		$output['classes'] .= ' cell-readonly';
+
+		return $output;
+	}
+
+	public function fill_value_indicators_value( $output, $point ) {
+		$output['classes'] .= ' cell-readonly';
+
+		return $output;
+	}
+
+	public function fill_value_affiliated_with_value( $output, $point ) {
+		return $output;
+	}
+
+	public function fill_value_categories_value( $output, $point ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_attachments_value( $output, $point ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_number_comments_value( $output, $point ) {
+		$output['classes'] .= ' cell-readonly';
+
+		return $output;
+	}
+
+	public function fill_value_author_value( $output, $point ) {
+		$output['classes'] .= ' cell-readonly';
+
+		return $output;
+	}
+
+	public function fill_value_associated_users_value( $output, $point ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_participants_value( $output, $point ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_waiting_for_value( $output, $point ) {
+		$output['classes'] .= ' cell-disabled';
 
 		return $output;
 	}
@@ -186,12 +265,6 @@ class Point_Filter {
 	public function fill_value_empty_dropdown_value( $output, $point) {
 		$output['classes'] .= ' task-option';
 		$output['value']    = $point->data['id'];
-		$output['point']    = $point;
-		return $output;
-	}
-
-	public function fill_value_state_value( $output, $point) {
-		$output['classes'] .= ' task-complete-point';
 		$output['point']    = $point;
 		return $output;
 	}

@@ -319,13 +319,33 @@ class Comment_Filter {
 	}
 
 	public function fill_value_empty_value( $output, $point ) {
-		$output['classes'] .= ' cell-toggle task-toggle-comment';
+		$output['classes'] .= ' cell-toggle task-toggle-comment cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_state_value( $output, $point ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_name_value( $output, $comment ) {
+		$output['classes'] .= ' cell-content';
+		$output['value'] = $comment->data['content'];
 
 		return $output;
 	}
 
 	public function fill_value_id_value( $output, $comment ) {
+		$output['classes'] .= ' cell-readonly';
 		$output['value'] = $comment->data['id'];
+
+		return $output;
+	}
+
+	public function fill_value_last_update_value( $output, $comment ) {
+		$output['classes'] .= ' cell-readonly';
 
 		return $output;
 	}
@@ -343,9 +363,62 @@ class Comment_Filter {
 		return $output;
 	}
 
-	public function fill_value_name_value( $output, $comment ) {
-		$output['classes'] = ' cell-content';
-		$output['value'] = $comment->data['content'];
+	public function fill_value_ended_date_value( $output, $comment ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_indicators_value( $output, $comment ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_affiliated_with_value( $output, $comment ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_categories_value( $output, $comment ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_attachments_value( $output, $comment ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_number_comments_value( $output, $comment ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_author_value( $output, $comment ) {
+		$output['classes'] .= ' cell-readonly';
+
+		return $output;
+	}
+
+	public function fill_value_associated_users_value( $output, $comment ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_participants_value( $output, $comment ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_waiting_for_value( $output, $comment ) {
+		$output['classes'] .= ' cell-disabled';
 
 		return $output;
 	}

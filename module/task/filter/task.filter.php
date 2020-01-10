@@ -302,15 +302,21 @@ class Task_Filter {
 		return $output;
 	}
 
+	public function fill_value_state_value( $output, $task ) {
+		$output['classes'] .= ' cell-readonly';
+
+		return $output;
+	}
+
 	public function fill_value_name_value( $output, $task ) {
-		$output['classes'] .= ' cell-content table-padding-0';
+		$output['classes'] .= ' cell-content';
 		$output['value']    = $task->data['title'];
 
 		return $output;
 	}
 
 	public function fill_value_id_value( $output, $task ) {
-		$output['classes'] .= ' project-id';
+		$output['classes'] .= ' project-id cell-readonly';
 		$output['value']    = $task->data['id'];
 
 		return $output;
@@ -318,7 +324,7 @@ class Task_Filter {
 
 
 	public function fill_value_last_update_value( $output, $task ) {
-		$output['classes']            .= ' project-last-update';
+		$output['classes']            .= ' project-last-update cell-readonly';
 		$output['date_modified_mysql'] = Task_Class::g()->get_task_last_update( $task->data['id'] );
 		$output['date_modified_date']  = $task->data['date_modified']['rendered']['date'];
 
@@ -341,13 +347,14 @@ class Task_Filter {
 	}
 
 	public function fill_value_created_date_value( $output, $task ) {
-		$output['classes'] .= ' project-created-date';
+		$output['classes'] .= ' project-created-date cell-readonly';
 		$output['value']    = $task->data['date']['rendered']['date_time'];
 
 		return $output;
 	}
 
 	public function fill_value_ended_date_value( $output, $task ) {
+		$output['classes'] .= ' cell-end-date cell-readonly';
 
 		return $output;
 	}
@@ -373,8 +380,14 @@ class Task_Filter {
 		return $output;
 	}
 
+	public function fill_value_number_comments_value( $output, $task ) {
+		$output['classes'] .= ' cell-comment-number cell-readonly';
+
+		return $output;
+	}
+
 	public function fill_value_author_value( $output, $task ) {
-		$output['classes'] .= ' project-author';
+		$output['classes'] .= ' project-author cell-readonly';
 		$output['value']    = $task->data['author_id'];
 
 		return $output;
@@ -388,6 +401,16 @@ class Task_Filter {
 		);
 		$output['value']    = $task->data['id'];
 
+		return $output;
+	}
+
+	public function fill_value_participants_value( $output, $task ) {
+		$output['classes'] .= ' cell-readonly';
+		return $output;
+	}
+
+	public function fill_value_waiting_for_value( $output, $task ) {
+		$output['classes'] .= ' cell-readonly';
 		return $output;
 	}
 
