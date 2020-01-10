@@ -74,6 +74,7 @@ window.eoxiaJS.taskManager.follower.loadedFollowersSuccess = function( element, 
 window.eoxiaJS.taskManager.follower.closedFollowersEditMode = function( element, response ) {
 	element.closest( '.wpeo-ul-users' ).replaceWith( response.data.view );
 	window.eoxiaJS.refresh();
+	window.eoxiaJS.taskManager.newTask.clickUsers();
 };
 
 /**
