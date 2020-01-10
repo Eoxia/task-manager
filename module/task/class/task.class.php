@@ -1248,22 +1248,22 @@ class Task_Class extends \eoxia\Post_Class {
 		return $default_value;
 	}
 
-	function time_elapsed_B($secs){
-		$bit = array(
-			' année'        => $secs / 31556926 % 12,
-			' semaine'        => $secs / 604800 % 52,
-			' jour'        => $secs / 86400 % 7,
-			' heure'        => $secs / 3600 % 24,
-			' minute'    => $secs / 60 % 60,
-			' seconde'    => $secs % 60
+	function time_elapsed( $secs ){
+		$time = array(
+			' année'   => $secs / 31556926 % 12,
+			' semaine' => $secs / 604800 % 52,
+			' jour'    => $secs / 86400 % 7,
+			' heure'   => $secs / 3600 % 24,
+			' minute'  => $secs / 60 % 60,
+			' seconde' => $secs % 60,
 		);
 
-		foreach($bit as $k => $v){
-			if($v > 1)$ret[] = $v . $k . 's';
-			if($v == 1)$ret[] = $v . $k;
+		foreach( $time as $key => $value ){
+			if( $value > 1 ) $ret[] = $value . $key . 's';
+			if( $value == 1 ) $ret[] = $value . $key;
 		}
-		array_splice($ret, count($ret)-1, 0, 'et');
-		return join(' ', $ret);
+		array_splice( $ret, count( $ret )-1, 0, 'et' );
+		return join( ' ', $ret );
 	}
 
 	public function get_task_last_update( $task_id ) {
@@ -1277,7 +1277,7 @@ class Task_Class extends \eoxia\Post_Class {
 			$last_update = $task->data['date']['rendered']['mysql'];
 		//}
 		$time = strtotime( 'now + 1 hour' ) - strtotime( $last_update );
-		$last_update = $this->time_elapsed_B( $time );
+		$last_update = $this->time_elapsed( $time );
 		return $last_update;
 	}
 }

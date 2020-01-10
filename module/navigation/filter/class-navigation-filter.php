@@ -88,7 +88,7 @@ class Navigation_Filter {
 		return $content;
 	}
 
-	public function callback_display_header ( $content, $current_search_args ) {
+	/*public function callback_display_header ( $content, $current_search_args ) {
 		/*$shortcode_final_args = '';
 		foreach ( $current_search_args as $shortcode_params_key => $shortcode_params_value ) {
 			$shortcode_final_args .= $shortcode_params_key . '="' . $shortcode_params_value . '" ';
@@ -104,18 +104,20 @@ class Navigation_Filter {
 		);
 		$content .= ob_get_clean();
 
-		return $content;*/
-	}
-	public function callback_display_header_navigation( $content ) {
-		ob_start();
-		\eoxia\View_Util::exec(
-			'task-manager',
-			'navigation',
-			'backend/navigation-header-button'
-		);
-		$content .= ob_get_clean();
-
 		return $content;
+	}*/
+	public function callback_display_header_navigation( $content ) {
+		if ( $_GET['page'] == "wpeomtm-dashboard" ){
+			ob_start();
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'navigation',
+				'backend/navigation-header-button'
+			);
+			$content .= ob_get_clean();
+
+			return $content;
+		}
 	}
 
 	public function callback_display_header_navigation_bottom( $content ) {
