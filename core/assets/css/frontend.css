@@ -144,6 +144,12 @@
   z-index: 100000 !important;
 }
 
+/** Fix */
+.wpeo-button {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 .wpeo-button.button-main {
   background: #0084ff;
   border-color: #0084ff;
