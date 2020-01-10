@@ -2,68 +2,6 @@
 @import "search-result";
 @import "shortcuts";
 
-/*	Décalage de l'affichage des tâches a cause du bandeau. */
-.tm-dashboard-wrap {
-	.list-task {
-		// margin-top: 110px;
-	}
-}
-
-/*	Version 1.8.0 */
-.tm-dashboard-header {
-	left: 160px;
-	background-color: $color__primary;
-	padding: 1em 0.5em 0 0.5em;
-	z-index: 900;
-
-	@media ( max-width: 960px ) {
-		left: 36px;
-	}
-	@media ( max-width: $media__medium ) {
-		position: static;
-	}
-
-	h1 {
-		color: #FFF;
-	}
-}
-
-.tm-dashboard-surheader {
-	display: flex;
-	width: 100%;
-
-	@media ( max-width: $media__medium ) {
-		flex-wrap: wrap;
-	}
-
-	h1 {
-		color: #FFF !important;
-
-		@media ( max-width: $media__medium ) {
-			padding: 0.5em 0;
-		}
-	}
-	> * {
-		margin: auto 0.5em !important;
-	}
-	.tm-dashboard-surheader-buttons {
-		min-width: 230px;
-	}
-	.wpeo-form {
-		width: 100%;
-	}
-}
-
-/** Boutons d'ajouts */
-.tm-dashboard-surheader .tm-dashboard-surheader-buttons {
-	> .wpeo-button {
-		display: inline-block;
-		border: 0;
-		background: rgba(255,255,255,0.2);
-		color: rgba(255,255,255,0.8);
-	}
-}
-
 .wpeo-no-display {
 	display: none;
 }

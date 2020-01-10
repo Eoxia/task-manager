@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php echo apply_filters( 'tm_dashboard_header', '', $search_args ); // WPCS: XSS ok. ?>
 	</div>
 
-	<div class="tm-dashboard-wrap">
+	<div class="tm-dashboard-wrap tm-main-container">
 		<div class="tm-dashboard-primary">
 			<?php
 			Navigation_Class::g()->display_search_result(

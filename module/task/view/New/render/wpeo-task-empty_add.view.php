@@ -1,6 +1,6 @@
-<div class="table-cell-container">
+<div class="table-cell-container wpeo-gridlayout grid-2 grid-gap-0">
 	<div class="wpeo-dropdown dropdown-right">
-		<div class="dropdown-toggle wpeo-button button-square-50 button-transparent"><i class="fas fa-ellipsis-v"></i></div>
+		<div class="dropdown-toggle wpeo-button button-square-50 button-light"><i class="fas fa-ellipsis-v"></i></div>
 		<ul class="dropdown-content">
 			<li class="dropdown-item action-attribute wpeo-tooltip-event wpeo-button button-transparent"
 			    data-direction="left"

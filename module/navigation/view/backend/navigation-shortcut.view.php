@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<ul class="tm-dashboard-shortcuts" style="display: flex">
+<ul class="tm-dashboard-shortcuts">
 	<li class="dashboard-shortcut shortcut-title"><i class="fas fa-star"></i></li>
 	<?php
 	if ( ! empty( $shortcuts ) ) :

@@ -21,13 +21,12 @@ endif;
 
 if ( isset( $shortcut['type'] ) && 'folder' === $shortcut['type'] ) :
 	?>
-	<li class="wpeo-dropdown">
-		<div class="dropdown-toggle wpeo-button button-main">
-			<span>
-				<i class="fas fa-folder"></i>
-				<?php echo esc_html( $shortcut['label'] ); ?>
-			<i class="button-icon fas fa-caret-down"></i></div>
-		</span>
+	<li class="wpeo-dropdown dashboard-shortcut ">
+		<div class="dropdown-toggle wpeo-button button-size-small button-grey button-radius-2">
+			<i class="button-icon fas fa-folder"></i>
+			<span><?php echo esc_html( $shortcut['label'] ); ?></span>
+			<i class="button-icon fas fa-caret-down"></i>
+		</div>
 		<ul class="dropdown-content">
 			<?php
 			if ( ! empty( $shortcut['child'] ) ) :
@@ -43,9 +42,7 @@ if ( isset( $shortcut['type'] ) && 'folder' === $shortcut['type'] ) :
 			else :
 				?>
 				<li class="dropdown-item">
-					<a class="wpeo-button button-size-small button-transparent" href="#">
-						<?php echo esc_html_e( '(Empty)', 'task-manager' ); ?>
-					</a>
+					<?php echo esc_html_e( '(Empty)', 'task-manager' ); ?>
 				</li>
 				<?php
 			endif;
@@ -56,9 +53,8 @@ if ( isset( $shortcut['type'] ) && 'folder' === $shortcut['type'] ) :
 else :
 	?>
 	<li data-key="<?php echo esc_attr( $key ); ?>" class="dashboard-shortcut <?php echo esc_attr( $active ); ?>">
-		<a class="wpeo-button button-size-small button-transparent" href="<?php echo admin_url( $shortcut['page'] . $shortcut['link'] ); ?>">
-			<i class="fas fa-link"></i>
-			<?php echo esc_html( $shortcut['label'] ); ?>
+		<a class="wpeo-button button-size-small button-grey button-radius-2" href="<?php echo admin_url( $shortcut['page'] . $shortcut['link'] ); ?>">
+			<span><?php echo esc_html( $shortcut['label'] ); ?></span>
 		</a>
 	</li>
 	<?php

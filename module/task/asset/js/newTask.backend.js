@@ -103,10 +103,10 @@ window.eoxiaJS.taskManager.newTask.taskStateSuccess = function( element, respons
 
 window.eoxiaJS.taskManager.newTask.stickyAction = function( e ) {
 	if ( e == undefined ) {
-		var finalPos = jQuery( '.list-task' ).width() - 50;
+		var finalPos = jQuery( '.list-task' ).width() - 100;
 	}
 	else {
-		var finalPos = e.target.scrollLeft + jQuery( this ).width() - 50;
+		var finalPos = e.target.scrollLeft + jQuery( this ).width() - 100;
 	}
 	jQuery( '.cell-sticky' ).css( { left: finalPos } );
 };

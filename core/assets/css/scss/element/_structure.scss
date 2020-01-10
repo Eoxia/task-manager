@@ -4,10 +4,22 @@
 	box-sizing: inherit;
 }
 
+#top-header {
+	.nav-bottom {
+		margin: 0;
+	}
+}
+
+body.eo-custom-page .content-wrap {
+	padding: 0;
+}
+
 .list-task {
 	overflow-y: hidden;
 	overflow-x: auto;
 }
+
+
 
 .tm-dashboard-wrap {
 	width: 100%;

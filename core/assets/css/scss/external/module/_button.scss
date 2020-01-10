@@ -1,3 +1,7 @@
+/** Fix */
+.wpeo-button {
+	box-sizing: border-box;
+}
 .wpeo-button.button-main {
 	background: $color__primary;
 	border-color: $color__primary;

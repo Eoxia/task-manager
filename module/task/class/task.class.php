@@ -174,7 +174,7 @@ class Task_Class extends \eoxia\Post_Class {
 				'empty_add' => array(
 					'icon'    => null,
 					'title'   => null,
-					'classes' => 'table-125',
+					'classes' => 'table-100',
 				),
 			),
 			'bodies' => array(
