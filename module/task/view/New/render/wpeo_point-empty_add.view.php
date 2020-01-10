@@ -1,6 +1,6 @@
-<div class="table-cell-container">
+<div class="table-cell-container wpeo-gridlayout grid-2 grid-gap-0">
 	<div class="wpeo-dropdown dropdown-right">
-		<div class="dropdown-toggle wpeo-button button-square-50 button-transparent"><i class="fas fa-ellipsis-v"></i></div>
+		<div class="dropdown-toggle wpeo-button button-square-50 button-light"><i class="fas fa-ellipsis-v"></i></div>
 		<div class="dropdown-content point-header-action">
 			<?php \eoxia\View_Util::exec( 'task-manager', 'point', 'backend/toggle-content', array( 'point' => $data['point'] ) ); ?>
 		</div>
