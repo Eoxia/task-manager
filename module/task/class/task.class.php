@@ -113,7 +113,7 @@ class Task_Class extends \eoxia\Post_Class {
 				),
 				'time' => array(
 					'icon'    => 'far fa-clock',
-					'title'   => __( 'Time', 'task-manager' ),
+					'title'   => __( 'Time (min)', 'task-manager' ),
 					'classes' => 'table-100',
 				),
 				'created_date' => array(

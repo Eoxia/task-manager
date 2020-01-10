@@ -8,5 +8,5 @@
 	<?php
 	endif;
 	?>
-	<span class="unit">min</span>
+<!--	<span class="unit">min</span>-->
 </div>

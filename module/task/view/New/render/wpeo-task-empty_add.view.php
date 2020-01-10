@@ -2,7 +2,7 @@
 	<div class="wpeo-dropdown dropdown-right">
 		<div class="dropdown-toggle wpeo-button button-square-50 button-light"><i class="fas fa-ellipsis-v"></i></div>
 		<ul class="dropdown-content">
-			<li class="dropdown-item action-attribute wpeo-tooltip-event wpeo-button button-transparent"
+			<li class="dropdown-item action-attribute wpeo-tooltip-event"
 			    data-direction="left"
 			    aria-label="<?php esc_html_e( 'Recompile the task', 'task-manager' ); ?>"
 			    data-id="<?php echo $data['value']; ?>"
@@ -12,7 +12,7 @@
 				<span><?php echo esc_html( 'Recompile the task' ); ?></span>
 			</li>
 
-			<li class="dropdown-item wpeo-modal-event wpeo-tooltip-event wpeo-button button-transparent"
+			<li class="dropdown-item wpeo-modal-event wpeo-tooltip-event"
 			    data-direction="left"
 			    aria-label="<?php esc_html_e( 'Notify the team', 'task-manager' ); ?>"
 			    data-id="<?php echo $data['value']; ?>"
@@ -22,7 +22,7 @@
 				<span><?php echo esc_html( 'Notify the team' ); ?></span>
 			</li>
 
-			<li class="dropdown-item wpeo-modal-event wpeo-tooltip-event wpeo-button button-transparent"
+			<li class="dropdown-item wpeo-modal-event wpeo-tooltip-event"
 			    data-direction="left"
 			    aria-label="<?php esc_html_e( 'Upload', 'task-manager' ); ?>"
 			    data-id="<?php echo $data['value']; ?>"
@@ -32,7 +32,7 @@
 				<span><?php echo esc_html( 'Upload' ); ?></span>
 			</li>
 
-			<li class="dropdown-item wpeo-modal-event wpeo-tooltip-event wpeo-button button-transparent"
+			<li class="dropdown-item wpeo-modal-event wpeo-tooltip-event"
 			    data-direction="left"
 			    aria-label="<?php esc_html_e( 'Download', 'task-manager' ); ?>"
 			    data-id="<?php echo $data['value']; ?>"
@@ -42,7 +42,7 @@
 				<span><?php echo esc_html( 'Download' ); ?></span>
 			</li>
 
-			<li class="dropdown-item action-attribute wpeo-tooltip-event wpeo-button button-transparent"
+			<li class="dropdown-item action-attribute wpeo-tooltip-event"
 			    data-direction="left"
 			    aria-label="<?php esc_html_e( 'Archive', 'task-manager' ); ?>"
 			    data-id="<?php echo $data['value']; ?>"
@@ -52,7 +52,7 @@
 				<span><?php echo esc_html( 'Archive' ); ?></span>
 			</li>
 
-			<li class="dropdown-item action-delete wpeo-tooltip-event wpeo-button button-transparent"
+			<li class="dropdown-item action-delete wpeo-tooltip-event"
 			    data-direction="left"
 			    aria-label="<?php esc_html_e( 'Delete', 'task-manager' ); ?>"
 			    data-id="<?php echo $data['value']; ?>"
