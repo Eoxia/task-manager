@@ -401,6 +401,7 @@ class Comment_Filter {
 
 	public function fill_value_author_value( $output, $comment ) {
 		$output['classes'] .= ' cell-readonly';
+		$output['value']    = $comment->data['author_id'];
 
 		return $output;
 	}

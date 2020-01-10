@@ -242,6 +242,7 @@ class Point_Filter {
 
 	public function fill_value_author_value( $output, $point ) {
 		$output['classes'] .= ' cell-readonly';
+		$output['value']    = $point->data['author_id'];
 
 		return $output;
 	}

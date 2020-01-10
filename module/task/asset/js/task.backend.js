@@ -25,7 +25,7 @@ window.eoxiaJS.taskManager.task.refresh = function() {
 window.eoxiaJS.taskManager.task.event = function() {
 	// jQuery( '.tm-wrap' ).on( 'keypress', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.keyEnterEditTitle );
 	jQuery( '.tm-wrap' ).on( 'blur', '.wpeo-project-task-title', window.eoxiaJS.taskManager.task.editTitle );
-	jQuery( window ).scroll( '.wpeo-wrap .tm-wrap #poststuff', window.eoxiaJS.taskManager.task.onScrollLoadMore );
+	jQuery( document ).on( 'click', '.load-more-button', window.eoxiaJS.taskManager.task.onScrollLoadMore );
 	jQuery( '.tm-wrap' ).on( 'click', '.task-header-action .success span', window.eoxiaJS.taskManager.task.closeSuccess );
 	jQuery( '#poststuff' ).on( 'click', '#wpeo-task-metabox', window.eoxiaJS.taskManager.task.refresh );
 	jQuery( document ).on( 'click', '#tm_include_archive_client', window.eoxiaJS.taskManager.task.showArchiveClient );
@@ -78,9 +78,9 @@ window.eoxiaJS.taskManager.task.initAutoComplete = function() {
 window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
 	var data = {};
 
-	if ( 1 !== jQuery( '#poststuff' ).length && jQuery( '.tm-dashboard-header' )[0] ) {
+	/*if ( 1 !== jQuery( '#poststuff' ).length && jQuery( '.tm-dashboard-header' )[0] ) {
 		if ( ( jQuery( window ).scrollTop() == jQuery( document ).height() - jQuery( window ).height() ) && window.eoxiaJS.taskManager.task.canLoadMore ) {
-
+*/
 			window.eoxiaJS.taskManager.task.offset += parseInt( window.task_manager_posts_per_page );
 			window.eoxiaJS.taskManager.task.canLoadMore = false;
 
@@ -105,8 +105,8 @@ window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
 			window.eoxiaJS.loader.display( jQuery( '.load-more' ) );
 			jQuery( '.load-more' ).show();
 			window.eoxiaJS.request.send( jQuery( '.load-more' ), data );
-		}
-	}
+		/*}
+	}*/
 };
 
 window.eoxiaJS.taskManager.task.loadedMoreTask = function( element, response ) {
@@ -117,6 +117,8 @@ window.eoxiaJS.taskManager.task.loadedMoreTask = function( element, response ) {
 	elements.slideDown(400);
 
 	jQuery( '.load-more' ).hide();
+
+	window.eoxiaJS.taskManager.newTask.stickyAction();
 }
 /**
  * Envoie une requête pour enregsitrer le nouveau titre de la tâche.

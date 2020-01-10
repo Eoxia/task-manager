@@ -48,6 +48,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			?>
 		</div>
 
+
 		<?php if ( $user->data['_tm_display_indicator'] ) : ?>
 			<div class="tm-dashboard-secondary">
 				<?php
@@ -59,8 +60,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php endif; ?>
 	</div>
 
+	<div style="margin:auto; text-align: center;">
+	<div class="button-main load-more-button wpeo-button"><?php esc_html_e( 'Load more', 'task-manager' ); ?></div>
+	</div>
+
     <?php
     // Gestion du prompt des points.
     Point_Class::g()->display_prompt_complete_point();
     ?>
+
+
 </div>
