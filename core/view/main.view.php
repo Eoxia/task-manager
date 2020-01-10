@@ -17,25 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="wpeo-wrap tm-wrap">
 	<input type="hidden" class="user-id" value="<?php echo esc_attr( get_current_user_id() ); ?>" />
-
-	<div class="tm-dashboard-header">
-		<div class="tm-dashboard-surheader">
-			<h1><?php	esc_html_e( 'Projects', 'task-manager' ); ?></h1>
-
-			<div class="tm-dashboard-surheader-buttons">
-				<a 	href="#"
-					class="action-attribute add-new-h2 wpeo-button button-size-small button-radius-2"
-					data-action="create_task"
-					data-nonce="<?php echo esc_attr( wp_create_nonce( 'create_task' ) ); ?>"><i class="fas fa-plus"></i></a>
-
-				<?php require_once PLUGIN_TASK_MANAGER_PATH . '/core/view/modal-import.view.php'; ?>
-			</div>
-
-			<?php echo apply_filters( 'tm_dashboard_header', '', $search_args ); // WPCS: XSS ok. ?>
-		</div>
-		<div class="tm-dashboard-subheader">
-			<?php echo apply_filters( 'tm_dashboard_subheader', '', $search_args ); // WPCS: XSS ok. ?>
-		</div>
+	<div class="tm-dashboard">
+		<?php echo apply_filters( 'tm_dashboard_subheader', '', $search_args ); // WPCS: XSS ok. ?>
+		<?php echo apply_filters( 'tm_dashboard_header', '', $search_args ); // WPCS: XSS ok. ?>
 	</div>
 
 	<div class="tm-dashboard-wrap">

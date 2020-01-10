@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	?>
 	<li class="wpeo-button button-transparent wpeo-modal-event handle-shortcut"
 		data-class="modal-shortcut"
-		data-action="load_handle_shortcut"><i class="button-icon fas fa-ellipsis-v"></i></i>
+		data-action="load_handle_shortcut"><i class="button-icon fas fa-ellipsis-v"></i></li>
 
 	<?php echo apply_filters( 'task_manager_navigation_after', '' ); // WPCS: XSS ok. ?>
 </ul>

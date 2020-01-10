@@ -15,51 +15,54 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <div class="form wpeo-form" action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>" method="POST" >
-	<header class="wpeo-header-bar wpeo-general-search">
-		<div class="tm-advanced-search">
-			<div class="form-element">
-				<span class="form-label"><i class="fas fa-th-large fa-fw"></i> <?php esc_html_e( 'ID Task', 'task-manager' ); ?></span>
-				<label class="form-field-container">
-					<input type="text" class="form-field" name="task_id" />
-				</label>
-			</div>
-
-			<div class="form-element">
-				<span class="form-label"><i class="fas fa-list-ul fa-fw"></i> <?php esc_html_e( 'ID Point', 'task-manager' ); ?></span>
-				<label class="form-field-container">
-					<input type="text" class="form-field" name="point_id" />
-				</label>
-			</div>
-
-			<?php $eo_search->display( 'tm_search_admin' ); ?>
-
-			<?php $eo_search->display( 'tm_search_customer' ); ?>
-
-			<?php $eo_search->display( 'tm_search_order' ); ?>
-
-			<?php
-			\eoxia\View_Util::exec(
-				'task-manager',
-				'navigation',
-				'backend/tags',
-				array(
-					'categories' => $categories,
-				)
-			);
-			?>
-
-			<div class="form-element">
-				<input type="checkbox" id="include_archive" class="form-field" name="tm_dashboard_archives_include" value="include_archive">
-				<label for="include_archive"><?php esc_attr_e( 'Include archive', 'task-manager' ); ?></label>
-			</div>
-
-			<a class="action-input search-button wpeo-button button-main"
-				data-loader="form"
-				data-namespace="taskManager"
-				data-module="navigation"
-				data-before-method="checkDataBeforeSearch"
-				data-action="search"
-				data-parent="form"><?php esc_html_e( 'Search', 'task-manager' ); ?></a>
+	<div class="tm-advanced-search wpeo-gridlayout grid-6 grid-padding-1">
+		<div class="form-element header-searchbar">
+			<i class="fas fa-search"></i>
+			<label class="general-search form-field-container">
+				<input type="text" class="form-field" name="term"  value="<?php echo esc_attr( $param['term'] ); ?>" placeholder="<?php echo esc_html_e( 'Keyword', 'task-manager' ); ?>"/>
+			</label>
 		</div>
-	</header>
+
+		<div class="form-element">
+			<i class="fas fa-thumbtack"></i>
+			<label class="form-field-container">
+				<input type="text" class="form-field" name="task_id" placeholder="<?php echo esc_html_e( 'ID/Project Name', 'task-manager' ); ?>"/>
+			</label>
+		</div>
+
+		<div class="form-element">
+			<i class="fas fa-check-square"></i>
+			<label class="form-field-container">
+				<input type="text" class="form-field" name="point_id" placeholder="<?php echo esc_html_e( 'ID/Task Name', 'task-manager' ); ?>"/>
+			</label>
+		</div>
+
+		<div class="form-element">
+			<i class="fas fa-user"></i>
+			<label class="form-field-container">
+				<input type="text" class="form-field" name="point_id" placeholder="<?php echo esc_html_e( 'Users', 'task-manager' ); ?>"/>
+			</label>
+		</div>
+
+		<div class="form-element">
+			<i class="fas fa-link"></i>
+			<label class="form-field-container">
+				<input type="text" class="form-field" name="point_id" placeholder="<?php echo esc_html_e( 'Affliated', 'task-manager' ); ?>"/>
+			</label>
+		</div>
+
+		<div class="form-element">
+			<i class="fas fa-tag"></i>
+			<label class="form-field-container">
+				<input type="text" class="form-field" name="point_id" placeholder="<?php echo esc_html_e( 'Categories', 'task-manager' ); ?>"/>
+			</label>
+		</div>
+	</div>
+		<a class="action-input search-button wpeo-button button-main"
+			data-loader="form"
+			data-namespace="taskManager"
+			data-module="navigation"
+			data-before-method="checkDataBeforeSearch"
+			data-action="search"
+			data-parent="form"><i class="fas fa-filter"></i></a>
 </div>
