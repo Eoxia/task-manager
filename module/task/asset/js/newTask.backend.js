@@ -24,7 +24,27 @@ window.eoxiaJS.taskManager.newTask.event = function() {
 	jQuery( '.list-task' ).on( 'scroll', window.eoxiaJS.taskManager.newTask.stickyAction );
 	window.eoxiaJS.taskManager.newTask.stickyAction();
 
+	jQuery( '.tm-wrap' ).on( 'click', '.table-projects .cell-affiliated', function(e) {
+		e.stopPropagation();
+		window.eoxiaJS.taskManager.task.displayInputTextParent(e, jQuery( this ).find( '.add_parent_to_task'));
+	});
+
+
+	window.eoxiaJS.taskManager.newTask.clickTags();
+	window.eoxiaJS.taskManager.newTask.clickUsers();
 };
+
+window.eoxiaJS.taskManager.newTask.clickTags = function() {
+	jQuery( '.tm-wrap' ).one( 'click', '.table-projects .project-categories', function(e) {
+		jQuery(this).find('.action-attribute').trigger('click');
+	});
+}
+
+window.eoxiaJS.taskManager.newTask.clickUsers = function() {
+	jQuery( '.tm-wrap' ).one( 'click', '.table-projects .project-users', function(e) {
+		jQuery(this).find('.action-attribute').trigger('click');
+	});
+}
 
 window.eoxiaJS.taskManager.newTask.editTitle = function() {
 	var data = {};

@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				?>
 				<div class="table-cell <?php echo esc_attr( $header['classes'] ); ?>">
 					<span>
-						<i class="fas fa-thumbtack"></i>
+						<i class="<?php echo $header['icon']; ?>"></i>
 						<?php echo esc_html( $header['title'] ); ?>
 					</span>
 				</div>

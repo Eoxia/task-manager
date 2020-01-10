@@ -383,31 +383,34 @@ window.eoxiaJS.taskManager.task.editButtonPaginationClient = function( dontKnowS
 	}
 }
 
-window.eoxiaJS.taskManager.task.displayInputTextParent = function( event ){
+window.eoxiaJS.taskManager.task.displayInputTextParent = function( event, element ){
+	if ( ! element ) {
+		var element = jQuery( this );
+	}
 
-	if( ! jQuery( this ).data( 'request_send' ) ){
-		jQuery( this ).addClass( 'button-disabled' );
-		jQuery( this ).css( 'background', '#0084ff' );
-		jQuery( this ).css( 'color', 'white' );
-		jQuery( this ).data( 'request_send', "true" );
+	if( ! element.data( 'request_send' ) ){
+		element.addClass( 'button-disabled' );
+		element.css( 'background', '#0084ff' );
+		element.css( 'color', 'white' );
+		element.data( 'request_send', "true" );
 		var data = {
 			action: 'load_all_task_parent_data',
-			_wpnonce: jQuery( this ).data( 'nonce' )
+			_wpnonce: element.data( 'nonce' )
 		};
 
-		window.eoxiaJS.loader.display( jQuery( this ).closest( '.wpeo-ul-parent' ) );
-		window.eoxiaJS.request.send( jQuery( this ), data );
+		window.eoxiaJS.loader.display( element.closest( '.wpeo-ul-parent' ) );
+		window.eoxiaJS.request.send( element, data );
 	}else{
-		if( ! jQuery( this ).hasClass( 'button-disabled' ) && jQuery( this ).closest( '.wpeo-ul-parent' ).find( '.task_search-taxonomy' ).val() ){
+		if( ! element.hasClass( 'button-disabled' ) && element.closest( '.wpeo-ul-parent' ).find( '.task_search-taxonomy' ).val() ){
 
 			var data = {
 				action: 'link_parent_to_task',
-				id : jQuery( this ).data( 'id' ),
-				parent_id: jQuery( this ).closest( '.wpeo-ul-parent' ).find( '.task_search-taxonomy' ).val()
+				id : element.data( 'id' ),
+				parent_id: element.closest( '.wpeo-ul-parent' ).find( '.task_search-taxonomy' ).val()
 			};
 
-			window.eoxiaJS.loader.display( jQuery( this ).closest( '.wpeo-ul-parent' ) );
-			window.eoxiaJS.request.send( jQuery( this ), data );
+			window.eoxiaJS.loader.display( element.closest( '.wpeo-ul-parent' ) );
+			window.eoxiaJS.request.send( element, data );
 		}else{
 			// INVALID ID
 		}

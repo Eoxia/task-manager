@@ -92,6 +92,7 @@ window.eoxiaJS.taskManager.tag.loadedTagSuccess = function( element, response ) 
 window.eoxiaJS.taskManager.tag.closedTagEditMode = function( element, response ) {
 	element.closest( '.wpeo-tag-wrap' ).replaceWith( response.data.view );
 	window.eoxiaJS.refresh();
+	window.eoxiaJS.taskManager.newTask.clickTags();
 };
 
 /**
