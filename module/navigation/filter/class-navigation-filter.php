@@ -25,9 +25,10 @@ class Navigation_Filter {
 	 */
 	public function __construct() {
 		add_filter( 'tm_dashboard_header', array( $this, 'callback_display_main_search_bar' ), 10, 2 );
-		add_filter( 'tm_dashboard_subheader', array( $this, 'callback_display_navigation_shortcut' ), 10, 2 );
-
+		//add_filter( 'tm_dashboard_subheader', array( $this, 'callback_display_navigation_shortcut' ), 10, 2 );
+		//add_filter( 'eoxia_main_header_ul_after', array( $this, 'callback_display_header'), 10, 2 );
 		add_filter( 'eoxia_main_header_li', array( $this, 'callback_display_header_navigation' ), 10, 2 );
+		add_filter( 'eoxia_main_header_nav_bottom', array( $this, 'callback_display_header_navigation_bottom' ), 10, 2 );
 	}
 
 	/**
@@ -87,12 +88,60 @@ class Navigation_Filter {
 		return $content;
 	}
 
+	public function callback_display_header ( $content, $current_search_args ) {
+		/*$shortcode_final_args = '';
+		foreach ( $current_search_args as $shortcode_params_key => $shortcode_params_value ) {
+			$shortcode_final_args .= $shortcode_params_key . '="' . $shortcode_params_value . '" ';
+		}
+
+		$content .= do_shortcode( '[task_manager_search_bar ' . $shortcode_final_args . ']' );
+
+		ob_start();
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'navigation',
+			'backend/navigation-header-button'
+		);
+		$content .= ob_get_clean();
+
+		return $content;*/
+	}
 	public function callback_display_header_navigation( $content ) {
 		ob_start();
 		\eoxia\View_Util::exec(
 			'task-manager',
 			'navigation',
 			'backend/navigation-header-button'
+		);
+		$content .= ob_get_clean();
+
+		return $content;
+	}
+
+	public function callback_display_header_navigation_bottom( $content ) {
+
+		$shortcuts = get_user_meta( get_current_user_id(), '_tm_shortcuts', true );
+		$shortcuts = $shortcuts[0]['child'];
+
+		$url = $_SERVER['REQUEST_URI'];
+		$url = explode( '?', $url );
+
+		if ( ! empty( $url[1] ) ) {
+			$url = '?' . $url[1];
+		}
+
+		$current_folder_key = null;
+
+		ob_start();
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'navigation',
+			'backend/navigation-shortcut',
+			array(
+				//'search_args' => $current_search_args,
+				'shortcuts'   => $shortcuts,
+				'url'         => $url,
+			)
 		);
 		$content .= ob_get_clean();
 
