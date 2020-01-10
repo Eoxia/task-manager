@@ -102,11 +102,20 @@ window.eoxiaJS.taskManager.newTask.taskStateSuccess = function( element, respons
 };
 
 window.eoxiaJS.taskManager.newTask.stickyAction = function( e ) {
-	if ( e == undefined ) {
-		var finalPos = jQuery( '.list-task' ).width() - 100;
-	}
-	else {
-		var finalPos = e.target.scrollLeft + jQuery( this ).width() - 100;
-	}
-	jQuery( '.cell-sticky' ).css( { left: finalPos } );
-};
+	var tables = jQuery( '.list-task' );
+
+	tables.each( function( i ) {
+		var scrollPos = jQuery( this ).scrollLeft();
+		var finalPos = scrollPos + jQuery( this ).width() - 100;
+
+		jQuery( this ).find( '.cell-sticky' ).css({left: finalPos});
+	});
+
+	// console.log('Niveau de scroll : ' + e.target.scrollLeft);
+	// console.log('Niveau de scroll width : ' + e.target.scrollWidth);
+	// console.log('Niveau de scroll width supposé : ' + scrollPos);
+	// console.log('Taille du contenaire : ' + jQuery( this ).width());
+	// console.log('Calcul : ' + (e.target.scrollLeft + jQuery( this ).width() - 100));
+
+	// var finalPos = scrollPos + jQuery(this).width() - 100;
+}
