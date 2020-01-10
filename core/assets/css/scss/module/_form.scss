@@ -1,11 +1,11 @@
 input[type="text"] {
 	border: 0;
-	border-bottom: 1px solid rgba(0,0,0,0.1);
+	//border-bottom: 1px solid rgba(0,0,0,0.1);
 	box-shadow: none;
 	transition: all 0.2s ease-out;
-	&:hover {
-		border-bottom: 1px solid $second__color;
-	}
+	//&:hover {
+	//	border-bottom: 1px solid $second__color;
+	//}
 }
 input[type="button"] {
 	font-family: 'Open Sans';
