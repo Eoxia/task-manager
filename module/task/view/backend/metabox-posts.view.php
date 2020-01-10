@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php if ( ! empty( $data['title'] ) ) : ?>
 						<hr/><h2><?php echo esc_html( $data['title'] ); ?></h2>
 					<?php endif; ?>
-					<?php \task_manager\Task_Class::g()->display_tasks( $data['data'] ); ?>
+					<?php \task_manager\Task_Class::g()->display( $data['data'] ); ?>
 				<?php endforeach; ?>
 				</div>
 			</div>
