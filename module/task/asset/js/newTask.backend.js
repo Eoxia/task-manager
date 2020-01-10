@@ -14,7 +14,7 @@ window.eoxiaJS.taskManager.newTask.event = function() {
 	jQuery( '.tm-wrap' ).on( 'blur', '.table-projects .table-type-project  .project-title', window.eoxiaJS.taskManager.newTask.editTitle );
 	jQuery( '.tm-wrap' ).on( 'click', '.table-type-project .project-toggle-task', window.eoxiaJS.taskManager.newTask.togglePoints );
 	jQuery( '.tm-wrap' ).on( 'click', '.table-type-project .project-state .dropdown-item',  window.eoxiaJS.taskManager.newTask.displayState );
-	jQuery( '.tm-wrap' ).on( 'click', '.list-task .table-cell div[contenteditable="true"]', function(e) {
+	jQuery( '.tm-wrap' ).on( 'click, focus', '.list-task .table-cell div[contenteditable="true"]', function(e) {
 		jQuery( '.cell-focus .table-cell.cell-focus' ).removeClass( 'cell-focus' );
 		jQuery( this ).closest( '.table-cell' ).addClass( 'cell-focus' );
 	});

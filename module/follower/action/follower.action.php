@@ -91,7 +91,7 @@ class Follower_Action {
 
 		if ( ! empty( $task->data['user_info']['affected_id'] ) ) {
 			foreach ( $task->data['user_info']['affected_id'] as $key => $affected_id ) {
-				if ( ! in_array( $affected_id, $followers_only_id, true ) ) {
+				if ( ! in_array( $affected_id, $followers_only_id ) ) {
 					$followers_no_role_only_id[] = $affected_id;
 					break;
 				}
@@ -248,7 +248,7 @@ class Follower_Action {
 			true
 		);
 
-		$key = array_search( $user_id, $task->data['user_info']['affected_id'], true );
+		$key = array_search( $user_id, $task->data['user_info']['affected_id'] );
 
 		if ( -1 < $key ) {
 			array_splice( $task->data['user_info']['affected_id'], $key, 1 );
