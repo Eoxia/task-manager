@@ -174,6 +174,9 @@ window.eoxiaJS.taskManager.task.createdTaskSuccess = function( element, response
 	tmp.css({display: "none"});
 	jQuery( '.table-projects > .table-header' ).after( tmp );
 	tmp.slideDown(400);
+
+	window.eoxiaJS.taskManager.newTask.stickyAction();
+
 };
 
 /**
@@ -187,7 +190,16 @@ window.eoxiaJS.taskManager.task.createdTaskSuccess = function( element, response
  * @version 1.3.6.0
  */
 window.eoxiaJS.taskManager.task.deletedTaskSuccess = function( element, response ) {
-	element.closest( '.wpeo-project-task' ).hide();
+	const projectID = element.closest( '.table-row' ).data('id');
+
+	element.closest( '.table-row' ).fadeOut(400, function() { jQuery( this ).remove(); })
+
+	jQuery( '.table-type-task[data-post-id=' + projectID + ']' ).fadeOut(400, function() {
+		jQuery( this ).remove();
+	});
+	jQuery( '.table-type-comment[data-post-id=' + projectID + ']' ).fadeOut(400, function() {
+		jQuery( this ).remove();
+	});
 };
 
 /**
@@ -245,7 +257,11 @@ window.eoxiaJS.taskManager.task.notifiedByMail = function( triggeredElement, res
  * @version 1.6.0
  */
 window.eoxiaJS.taskManager.task.recompiledTask = function( triggeredElement, response ) {
-	triggeredElement.closest( '.wpeo-project-task' ).html( response.data.view );
+	jQuery( '.table-type-project[data-id=' + response.data.recompiled_elements.task.id + '] .project-time .elapsed' ).text( response.data.recompiled_elements.task.time );
+
+	for (var key in response.data.recompiled_elements.points) {
+		jQuery( '.table-type-task[data-id=' + response.data.recompiled_elements.points[key].id + '] .task-time .elapsed' ).text( response.data.recompiled_elements.points[key].time );
+	}
 };
 
 

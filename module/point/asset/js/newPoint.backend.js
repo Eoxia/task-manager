@@ -28,6 +28,9 @@ window.eoxiaJS.taskManager.newPoint.addedPointSuccess = function ( triggeredElem
 		jQuery( '.table-type-project[data-id=' + response.data.task_id + ']' ).after( tmp );
 		tmp.slideDown(400);
 	}
+
+	window.eoxiaJS.taskManager.newTask.stickyAction();
+
 };
 
 window.eoxiaJS.taskManager.newPoint.editTitle = function() {
@@ -136,6 +139,8 @@ window.eoxiaJS.taskManager.newPoint.loadedPointSuccess = function( triggeredElem
 	row.after(view);
 
 	view.slideDown( 400 );
+
+	window.eoxiaJS.taskManager.newTask.stickyAction();
 
 	triggeredElement.removeClass( 'loading' );
 

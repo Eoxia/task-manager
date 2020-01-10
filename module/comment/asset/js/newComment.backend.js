@@ -53,6 +53,9 @@ window.eoxiaJS.taskManager.newComment.addedCommentSuccess = function( triggeredE
 
 	jQuery( '.table-type-project[data-id=' + comment.data.post_id + '] .project-time .elapsed' ).text( response.data.time.task );
 	jQuery( '.table-type-task[data-id=' + comment.data.parent_id + '] .task-time .elapsed' ).text( response.data.time.point );
+	jQuery( '.table-type-task[data-id=' + comment.data.parent_id + '] .number-comments' ).text( response.data.point.data.count_comments );
+
+	window.eoxiaJS.taskManager.newTask.stickyAction();
 };
 
 window.eoxiaJS.taskManager.newComment.editedCommentSuccess = function( triggeredElement, response ) {
@@ -87,4 +90,6 @@ window.eoxiaJS.taskManager.newComment.loadedCommentsSuccess = function( triggere
 	if ( triggeredElement.hasClass( 'action-attribute' ) ) {
 		triggeredElement.attr( 'data-toggle', true );
 	}
+
+	window.eoxiaJS.taskManager.newTask.stickyAction();
 };

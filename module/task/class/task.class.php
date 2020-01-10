@@ -1150,6 +1150,11 @@ class Task_Class extends \eoxia\Post_Class {
 	}
 
 	public function recompile_task( $id ){
+		$recompiled_elements = array(
+			'task' => array(),
+			'points' => array(),
+		);
+
 		$task = Task_Class::g()->get(
 			array(
 				'id' => $id,
@@ -1199,6 +1204,11 @@ class Task_Class extends \eoxia\Post_Class {
 				$point->data['time_info']['elapsed'] = (int) $elapsed_point;
 				$elapsed_task                       += (int) $elapsed_point;
 				Point_Class::g()->update( $point->data, true );
+
+				$recompiled_elements['points'][] = array(
+					'id' => $point->data['id'],
+					'time' => $point->data['time_info']['elapsed'],
+				);
 			}
 		}
 		$task->data['time_info']['elapsed']     = $elapsed_task;
@@ -1207,7 +1217,12 @@ class Task_Class extends \eoxia\Post_Class {
 
 		$task = Task_Class::g()->update( $task->data );
 
-		return $task;
+		$recompiled_elements['task'] = array(
+			'id'   => $task->data['id'],
+			'time' => $task->data['time_info']['elapsed'],
+		);
+
+		return $recompiled_elements;
 	}
 
 	// 25/04/2019 OPTI PAS OPTI

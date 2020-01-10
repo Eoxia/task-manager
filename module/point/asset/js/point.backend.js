@@ -205,9 +205,14 @@ window.eoxiaJS.taskManager.point.editPoint = function() {
 window.eoxiaJS.taskManager.point.deletedPointSuccess = function( triggeredElement, response ) {
 	const point = response.data.point;
 	jQuery( triggeredElement ).closest( '.table-row' ).fadeOut( 400, function() {
+		jQuery( this ).remove();
 	} );
 
 	jQuery( '.table-type-project[data-id=' + point.data.post_id + '] .project-time .elapsed' ).text( response.data.time );
+	jQuery( '.table-type-comment[data-post-id=' + point.data.post_id + ']' ).fadeOut(400, function() {
+		jQuery( this ).remove();
+	});
+
 };
 
 var longpress = 500; // Durée par défaut d'un clic => 2 sec

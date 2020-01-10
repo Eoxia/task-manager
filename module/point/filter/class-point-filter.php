@@ -200,6 +200,7 @@ class Point_Filter {
 
 	public function fill_value_created_date_value( $output, $point ) {
 		$output['classes'] .= ' cell-readonly';
+		$output['value']    = $point->data['date']['rendered']['date_time'];
 
 		return $output;
 	}
@@ -234,6 +235,7 @@ class Point_Filter {
 
 	public function fill_value_number_comments_value( $output, $point ) {
 		$output['classes'] .= ' cell-readonly';
+		$output['value']    = $point->data['count_comments'];
 
 		return $output;
 	}

@@ -98,15 +98,29 @@ class History_Time_Action {
 			true
 		);
 
+		$key = 'time';
 		ob_start();
-		\eoxia\View_Util::exec(
-			'task-manager',
-			'task',
-			'backend/task-header',
-			array(
-				'task' => $task,
-			)
+		$data_def = array(
+			'value'   => '',
+			'classes' => 'table-100',
+			'attrs'   => array(),
+			'type'    => 'wpeo-task',
 		);
+
+		$data = apply_filters( 'tm_projects_content_wpeo-task_time_def', $data_def, $task );
+		?>
+		<div class="table-cell <?php echo esc_attr( $data['classes'] ); ?>"
+			<?php echo ! empty( $data['attrs'] ) ? implode( ' ', $data['attrs'] ) : ''; ?>>
+			<?php
+			\eoxia\View_Util::exec( 'task-manager', 'task', 'New/render/wpeo-task-time', array(
+				'data_def' => $data_def,
+				'data'     => $data,
+				'key'      => $key,
+			) );
+			?>
+		</div>
+		<?php
+
 		$task_header_view = ob_get_clean();
 
 		ob_start();
@@ -160,15 +174,29 @@ class History_Time_Action {
 			true
 		);
 
+		$key = 'time';
 		ob_start();
-		\eoxia\View_Util::exec(
-			'task-manager',
-			'task',
-			'backend/task-header',
-			array(
-				'task' => $task,
-			)
+		$data_def = array(
+			'value'   => '',
+			'classes' => 'table-100',
+			'attrs'   => array(),
+			'type'    => 'wpeo-task',
 		);
+
+		$data = apply_filters( 'tm_projects_content_wpeo-task_time_def', $data_def, $task );
+		?>
+		<div class="table-cell <?php echo esc_attr( $data['classes'] ); ?>"
+			<?php echo ! empty( $data['attrs'] ) ? implode( ' ', $data['attrs'] ) : ''; ?>>
+			<?php
+			\eoxia\View_Util::exec( 'task-manager', 'task', 'New/render/wpeo-task-time', array(
+				'data_def' => $data_def,
+				'data'     => $data,
+				'key'      => $key,
+			) );
+			?>
+		</div>
+		<?php
+
 		$task_header_view = ob_get_clean();
 
 		do_action( 'tm_deleted_history_time', $history_time_id );

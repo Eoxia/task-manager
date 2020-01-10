@@ -1,1 +1,1 @@
-<div class="table-cell-container">25/01/2020</div>
+<div class="table-cell-container"><?php echo esc_html( $data['value'] ); ?></div>

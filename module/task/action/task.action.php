@@ -437,24 +437,15 @@ class Task_Action {
 
 		$id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 
-		$task = Task_Class::g()->recompile_task( $id );
+		$recompiled_elements = Task_Class::g()->recompile_task( $id );
 
-		ob_start();
-		\eoxia\View_Util::exec(
-			'task-manager',
-			'task',
-			'backend/task-only-content',
-			array(
-				'task' => $task,
-			)
-		);
 
 		wp_send_json_success(
 			array(
-				'namespace'        => 'taskManager',
-				'module'           => 'task',
-				'callback_success' => 'recompiledTask',
-				'view'             => ob_get_clean(),
+				'namespace'           => 'taskManager',
+				'module'              => 'task',
+				'callback_success'    => 'recompiledTask',
+				'recompiled_elements' => $recompiled_elements,
 			)
 		);
 	}

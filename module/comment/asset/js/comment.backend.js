@@ -228,6 +228,7 @@ window.eoxiaJS.taskManager.comment.deletedCommentSuccess = function( triggeredEl
 
 	jQuery( '.table-type-project[data-id=' + comment.data.post_id + '] .project-time .elapsed' ).text( response.data.time.task );
 	jQuery( '.table-type-task[data-id=' + comment.data.parent_id + '] .task-time .elapsed' ).text( response.data.time.point );
+	jQuery( '.table-type-task[data-id=' + comment.data.parent_id + '] .number-comments' ).text( response.data.comment.data.point.data.count_comments );
 
 };
 

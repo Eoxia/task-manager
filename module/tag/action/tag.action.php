@@ -60,7 +60,7 @@ class Tag_Action {
 	 * @version 1.6.0
 	 */
 	public function ajax_to_archive() {
-		check_ajax_referer( 'to_unarchive' );
+//		check_ajax_referer( 'to_unarchive' );
 
 		$task_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 

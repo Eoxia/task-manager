@@ -60,7 +60,7 @@ window.eoxiaJS.taskManager.newTask.togglePoints = function() {
 			jQuery( this ).remove();
 		});
 
-		jQuery( '.table-type-project[data-id=' + projectID + '] .project-add div[data-action="edit_point"]' ).attr( 'data-toggle', false );
+		jQuery( '.table-type-project[data-id=' + projectID + '] .cell-sticky div[data-action="edit_point"]' ).attr( 'data-toggle', false );
 
 	} else {
 		var data = {};
@@ -72,7 +72,7 @@ window.eoxiaJS.taskManager.newTask.togglePoints = function() {
 		window.eoxiaJS.request.send( element, data );
 
 		jQuery( this ).find( '.fas' ).removeClass( 'fa-angle-right' ).addClass( 'fa-angle-down' );
-		jQuery( '.table-type-project[data-id=' + projectID + '] .project-add div[data-action="edit_point"]' ).attr( 'data-toggle', true );
+		jQuery( '.table-type-project[data-id=' + projectID + '] .cell-sticky div[data-action="edit_point"]' ).attr( 'data-toggle', true );
 	}
 };
 
