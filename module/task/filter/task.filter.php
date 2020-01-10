@@ -414,12 +414,6 @@ class Task_Filter {
 		return $output;
 	}
 
-	public function fill_value_empty_dropdown_value( $output, $task ) {
-		$output['classes'] .= ' project-option';
-		$output['value']    = $task->data['id'];
-		return $output;
-	}
-
 	public function fill_value_empty_add_value( $output, $task ) {
 		$output['classes'] .= ' cell-sticky';
 		$output['value']    = $task->data['id'];

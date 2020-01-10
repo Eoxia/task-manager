@@ -262,17 +262,11 @@ class Point_Filter {
 		return $output;
 	}
 
-	public function fill_value_empty_dropdown_value( $output, $point) {
-		$output['classes'] .= ' task-option';
-		$output['value']    = $point->data['id'];
-		$output['point']    = $point;
-		return $output;
-	}
-
 	public function fill_value_empty_add_value( $output, $point ) {
 		$output['classes']  .= ' cell-sticky task-add';
 		$output['task_id']   = $point->data['post_id'];
 		$output['point_id']  = $point->data['id'];
+		$output['point']    = $point;
 		return $output;
 	}
 

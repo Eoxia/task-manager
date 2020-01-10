@@ -423,19 +423,9 @@ class Comment_Filter {
 		return $output;
 	}
 
-	public function fill_value_empty_dropdown_value( $output, $comment ) {
-		$output['classes'] .= ' comment-option';
-		$output['value']   = $comment->data['id'];
-		$output['comment'] = $comment;
-
-		return $output;
-	}
-
 	public function fill_value_empty_add_value( $output, $comment ) {
 		$output['classes'] .= ' cell-sticky';
-		$output['value']    = $comment->data['id'];
-		$output['value1']   = $comment->data['post_id'];
-		$output['value2']   = $comment->data['parent_id'];
+		$output['comment']  = $comment;
 
 		return $output;
 	}
