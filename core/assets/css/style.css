@@ -2307,6 +2307,9 @@
   /** Cellules générales */
   /** Niveau hiérarchique des tâches */
   /** Niveau hiérarchique des commentaires */
+  /** Cellules projet */
+  /** Cellules tâche */
+  /** Cellules commentaire */
 }
 
 .tm-wrap .list-task .wpeo-table.table-flex .table-row:not(.table-header) .table-cell {
@@ -2414,13 +2417,13 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 25px;
+  width: 37.5px;
   height: 100%;
   background: rgba(0, 0, 0, 0.05);
 }
 
 .tm-wrap .list-task .wpeo-table.table-flex .table-row:not(.table-header).table-type-task .cell-toggle .table-cell-container {
-  width: 25px;
+  width: 37.5px;
   margin-right: 0;
 }
 
@@ -2431,6 +2434,16 @@
 .tm-wrap .list-task .wpeo-table.table-flex .table-row:not(.table-header) .table-cell-container.group-date .date.form-field {
   width: 100%;
   border-bottom: 0;
+}
+
+.tm-wrap .list-task .wpeo-table.table-flex .table-row:not(.table-header).table-type-project .table-cell.cell-content .table-cell-container {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.tm-wrap .list-task .wpeo-table.table-flex .table-row:not(.table-header).table-type-comment .table-cell.cell-content .table-cell-container {
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .tm-wrap .tm-post-dashboard::after {
