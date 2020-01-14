@@ -89,7 +89,7 @@ class Task_Class extends \eoxia\Post_Class {
 				'empty' => array(
 					'icon'    => null,
 					'title'   => null,
-					'classes' => 'table-50',
+					'classes' => 'table-75',
 				),
 				'state' => array(
 					'icon'    => 'fas fa-check-square',
