@@ -68,7 +68,6 @@ class Task_Manager_Class extends \eoxia\Singleton_Util {
 
 		if ( $_GET['page'] == "tm-my-tasks" ) {
 			$this->display_my_task();
-			require_once PLUGIN_TASK_MANAGER_PATH . '/core/view/main.view.php';
 		}
 	}
 

@@ -256,6 +256,81 @@ class Point_Class extends \eoxia\Comment_Class {
 	public function display_prompt_complete_point() {
 	    \eoxia\View_Util::exec( 'task-manager', 'point', 'backend/prompt-complete' );
     }
+
+	public function get_point_last_update( $task_id ) {
+
+		$now = strtotime( 'now' );
+		$point = Point_Class::g()->get( array( 'id' => $task_id ), true );
+		/*if ( action ) {
+			$last_update = $task->data['last_update']['rendered']['mysql'];
+		}else {*/
+		$last_update = $point->data['date']['rendered']['mysql'];
+		//}
+		$time = strtotime( 'now + 1 hour' ) - strtotime( $last_update );
+		$last_update = $this->time_elapsed( $time );
+		return $last_update;
+	}
+
+	/**
+	 * Calcul le temps écoulé depuis le dernier commentaire ajouté pour ne pas avoir a faire le calcul dans le commentaire a chaque changement de projet.
+	 *
+	 * @param   Comment_Object  $object  L'objet Comment_Object.
+	 * @param   array           $args    Des paramètres complémentaires pour permettre d'agir sur l'élement.
+	 *
+	 * @return Comment_Object        Les données de la tâche avec les données complémentaires.
+	 * @version 1.5.1
+	 *
+	 * @since   1.5.0
+	 */
+	public function calcul_elapsed_time() {
+		$calculed_elapsed = 15;
+		$current_user     = get_current_user_id();
+		if ( ! empty( $current_user ) ) {
+			$user = Follower_Class::g()->get(
+				array(
+					'include' => $current_user,
+				),
+				true
+			);
+			if ( true == $user->data['_tm_auto_elapsed_time'] ) {
+				// Récupération du dernier commentaire ajouté dans la base.
+				$query                   = $GLOBALS['wpdb']->prepare(
+					"SELECT TIMEDIFF( %s, COMMENT.comment_date ) AS DIFF_DATE
+					FROM {$GLOBALS['wpdb']->comments} AS COMMENT
+						INNER JOIN {$GLOBALS['wpdb']->commentmeta} AS COMMENTMETA ON COMMENTMETA.comment_id = COMMENT.comment_id
+						INNER JOIN {$GLOBALS['wpdb']->comments} AS POINT ON POINT.comment_id = COMMENT.comment_parent
+						INNER JOIN {$GLOBALS['wpdb']->posts} AS TASK ON TASK.ID = POINT.comment_post_id
+					WHERE COMMENT.user_id = %d
+						AND COMMENT.comment_date >= %s
+						AND COMMENTMETA.meta_key = %s
+						AND COMMENT.comment_approved != 'trash'
+						AND POINT.comment_approved != 'trash'
+						AND TASK.post_status IN ( 'archive', 'publish', 'inherit' )
+					ORDER BY COMMENT.comment_date DESC
+					LIMIT 1",
+					current_time( 'mysql' ),
+					$current_user,
+					current_time( 'Y-m-d 00:00:00' ),
+					'wpeo_time'
+				);
+				$time_since_last_comment = $GLOBALS['wpdb']->get_var( $query );
+				if ( ! empty( $time_since_last_comment ) ) {
+					$the_interval    = 0;
+					$time_components = explode( ':', $time_since_last_comment );
+					// Convert hours in minutes.
+					if ( ! empty( $time_components[0] ) ) {
+						$the_interval += $time_components[0] * 60;
+					}
+					if ( ! empty( $time_components[1] ) ) {
+						$the_interval += $time_components[1];
+					}
+					$calculed_elapsed = $the_interval;
+				}
+			}
+		}
+
+		return $calculed_elapsed;
+	}
 }
 
 Point_Class::g();

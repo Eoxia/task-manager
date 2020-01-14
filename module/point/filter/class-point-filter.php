@@ -179,8 +179,9 @@ class Point_Filter {
 	}
 
 	public function fill_value_last_update_value( $output, $point ) {
-		$output['classes'] .= ' cell-readonly';
-
+		$output['classes']            .= ' task-last-update cell-readonly';
+		//$output['date_modified_mysql'] = Point_Class::g()->get_point_last_update( $point->data['post_id'] );
+		//$output['date_modified_date']  = $point->data['date']['rendered']['date'];
 		return $output;
 	}
 

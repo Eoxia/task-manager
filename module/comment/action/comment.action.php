@@ -105,7 +105,7 @@ class Task_Comment_Action {
 		$parent_id  = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
 		$date       = ! empty( $_POST['mysql_date'] ) ? sanitize_text_field( $_POST['mysql_date'] ) : current_time( 'mysql' );
 		$content    = ! empty( $_POST['content'] ) ? trim( $_POST['content'] ) : '';
-		$time       = ! empty( $_POST['time'] ) ? (int) $_POST['time'] : 0;
+		$time       = ! empty( $_POST['time'] ) ? (int) $_POST['time'] : Point_Class::g()->calcul_elapsed_time();
 		$frontend   = ( isset( $_POST['frontend'] ) && 'true' == $_POST['frontend'] ) ? true : false;
 		$notif      = ( isset( $_POST['notif'] ) && ! empty( $_POST['notif'] ) ) ? $_POST['notif']  : array();
 		$toggle     = ( isset( $_POST['toggle'] ) && 'true' == $_POST['toggle'] ) ? true : false;

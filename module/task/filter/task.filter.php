@@ -340,8 +340,16 @@ class Task_Filter {
 			'data-title="' . sprintf( __( '#%1$s Time history', 'task-manager' ), $task->data['id'] ) . '"',
 			'data-task-id="' . $task->data['id'] . '"',
 		);
-		$output['value']    = $task->data['time_info']['elapsed'];
-		$output['value2']   = $task->data['last_history_time']->data['estimated_time'];
+
+		$output['value']                         = $task->data['time_info']['elapsed'];
+		$output['value2']                        = $task->data['last_history_time']->data['estimated_time'];
+		$time = $task->data['time_info']['elapsed'] * 60;
+		if ( $time > 0 ) {
+			$output['human_readable_elapsed'] = Task_Class::g()->time_elapsed( $time  );
+		} else {
+			$output['human_readable_elapsed'] = 0;
+		}
+		//$output['human_readable_estimated_time'] = Task_Class::g()->time_elapsed( $task->data['last_history_time']->data['estimated_time'] );
 
 		return $output;
 	}

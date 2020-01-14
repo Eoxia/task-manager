@@ -48,16 +48,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 			?>
 		</div>
 
-
-		<?php if ( $user->data['_tm_display_indicator'] ) : ?>
+		<?php /*if ( $user->data['_tm_display_indicator'] ) : */?><!--
 			<div class="tm-dashboard-secondary">
 				<?php
-				wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false );
+/*				wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false );
 				wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false );
 				do_meta_boxes( 'wpeomtm-dashboard', 'normal', '' );
-				?>
+				*/?>
 			</div>
-		<?php endif; ?>
+		--><?php /*endif; */?>
 	</div>
 
 	<div style="margin:auto; text-align: center;">

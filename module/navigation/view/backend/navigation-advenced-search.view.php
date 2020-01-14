@@ -29,6 +29,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</label>
 	</div>
 
+	<?php $eo_search->display( 'tm_search_customer' ); ?>
+
 	<div class="form-element">
 		<label class="form-field-container">
 			<span class="form-field-icon-prev"><i class="fas fa-check-square"></i></span>
@@ -56,15 +58,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<input type="text" class="form-field" name="point_id" placeholder="<?php echo esc_html_e( 'Categories', 'task-manager' ); ?>"/>
 		</label>
 	</div>
+
 	<div class="search-action">
 		<a class="action-input search-button wpeo-button button-main button-square-40"
-		   data-loader="form"
-		   data-namespace="taskManager"
-		   data-module="navigation"
-		   data-before-method="checkDataBeforeSearch"
-		   data-action="search"
-		   data-parent="form">
-
-			<i class="fas fa-filter"></i></a>
+			data-loader="form"
+			data-namespace="taskManager"
+			data-module="navigation"
+			data-before-method="checkDataBeforeSearch"
+			data-action="search"
+			data-parent="form">
+			<i class="fas fa-filter"></i>
+		</a>
 	</div>
 </div>
