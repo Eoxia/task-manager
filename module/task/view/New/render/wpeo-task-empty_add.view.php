@@ -73,6 +73,7 @@
 	     data-toggle="false"
 	     data-content="<?php esc_html_e( 'New task', 'task-manager' ); ?>"
 	     data-nonce="<?php echo esc_attr( wp_create_nonce( 'edit_point' ) ); ?>">
-		<i class="fas fa-check-square"></i>
+		<i class="button-icon fas fa-check-square first-icon"></i>
+		<i class="fas fa-plus-circle second-icon"></i>
 	</div>
 </div>

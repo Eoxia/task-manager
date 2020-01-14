@@ -2396,6 +2396,22 @@
   margin-right: 1px;
 }
 
+.tm-wrap .list-task .wpeo-table.table-flex .table-row:not(.table-header) .cell-sticky .wpeo-button {
+  position: relative;
+}
+
+.tm-wrap .list-task .wpeo-table.table-flex .table-row:not(.table-header) .cell-sticky .wpeo-button .first-icon {
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.tm-wrap .list-task .wpeo-table.table-flex .table-row:not(.table-header) .cell-sticky .wpeo-button .second-icon {
+  font-size: 16px;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+}
+
 .tm-wrap .list-task .wpeo-table.table-flex .table-row:not(.table-header) .cell-toggle .table-cell-container {
   height: 100%;
   display: -webkit-box;
@@ -2439,6 +2455,14 @@
 .tm-wrap .list-task .wpeo-table.table-flex .table-row:not(.table-header).table-type-project .table-cell.cell-content .table-cell-container {
   font-size: 15px;
   font-weight: 700;
+}
+
+.tm-wrap .list-task .wpeo-table.table-flex .table-row:not(.table-header).table-type-task {
+  /** Tâche complétée */
+}
+
+.tm-wrap .list-task .wpeo-table.table-flex .table-row:not(.table-header).table-type-task.table-completed .cell-content {
+  text-decoration: line-through;
 }
 
 .tm-wrap .list-task .wpeo-table.table-flex .table-row:not(.table-header).table-type-comment .table-cell.cell-content .table-cell-container {

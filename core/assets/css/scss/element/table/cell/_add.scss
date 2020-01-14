@@ -11,6 +11,21 @@
 	.wpeo-button:first-child {
 		margin-right: 1px;
 	}
+
+	.wpeo-button {
+		position: relative;
+
+		.first-icon {
+			font-size: 20px;
+			color: rgba(255,255,255,0.6);
+		}
+		.second-icon {
+			font-size: 16px;
+			position: absolute;
+			top: 2px;
+			right: 2px;
+		}
+	}
 }
 
 

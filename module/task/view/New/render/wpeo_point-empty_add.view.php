@@ -16,7 +16,8 @@
 		data-toggle="false"
 		data-time="15"
 		data-nonce="<?php echo esc_attr( wp_create_nonce( 'edit_comment' ) ); ?>">
-		<i class="fas fa-comment-dots"></i>
+		<i class="button-icon fas fa-comment-dots first-icon"></i>
+		<i class="fas fa-plus-circle second-icon"></i>
 	</div>
 </div>
 
