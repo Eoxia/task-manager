@@ -95,10 +95,11 @@ class Search_Bar_Shortcode {
 		$eo_search->register_search(
 			'tm_search_customer',
 			array(
-				'label' => 'Client',
+				'label' => '',
 				'icon'  => 'fa-search',
 				'type'  => 'post',
 				'name'  => 'post_parent',
+				'placeholder' => 'client',
 				'args'  => array(
 					'post_type'   => 'wpshop_customers',
 					'post_status' => array( 'publish', 'inherit', 'draft' ),
