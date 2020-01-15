@@ -95,16 +95,17 @@ class Navigation_Filter {
 		}*/
 
 		//$content .= do_shortcode( '[task_manager_search_bar ' . $shortcode_final_args . ']' );
+		if ( $_GET['page'] == "wpeomtm-dashboard" || $_GET['page'] == "tm-my-tasks" ) {
+			ob_start();
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'navigation',
+				'backend/navigation-header-search-bar'
+			);
+			$content .= ob_get_clean();
 
-		ob_start();
-		\eoxia\View_Util::exec(
-			'task-manager',
-			'navigation',
-			'backend/navigation-header-search-bar'
-		);
-		$content .= ob_get_clean();
-
-		return $content;
+			return $content;
+		}
 	}
 
 	public function callback_display_header_navigation( $content ) {
@@ -122,33 +123,34 @@ class Navigation_Filter {
 	}
 
 	public function callback_display_header_navigation_bottom( $content ) {
+		if ( $_GET['page'] == "wpeomtm-dashboard" || $_GET['page'] == "tm-my-tasks" ) {
+			$shortcuts = get_user_meta( get_current_user_id(), '_tm_shortcuts', true );
+			$shortcuts = $shortcuts[0]['child'];
 
-		$shortcuts = get_user_meta( get_current_user_id(), '_tm_shortcuts', true );
-		$shortcuts = $shortcuts[0]['child'];
+			$url = $_SERVER['REQUEST_URI'];
+			$url = explode( '?', $url );
 
-		$url = $_SERVER['REQUEST_URI'];
-		$url = explode( '?', $url );
+			if ( ! empty( $url[1] ) ) {
+				$url = '?' . $url[1];
+			}
 
-		if ( ! empty( $url[1] ) ) {
-			$url = '?' . $url[1];
+			$current_folder_key = null;
+
+			ob_start();
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'navigation',
+				'backend/navigation-shortcut',
+				array(
+					//'search_args' => $current_search_args,
+					'shortcuts' => $shortcuts,
+					'url'       => $url,
+				)
+			);
+			$content .= ob_get_clean();
+
+			return $content;
 		}
-
-		$current_folder_key = null;
-
-		ob_start();
-		\eoxia\View_Util::exec(
-			'task-manager',
-			'navigation',
-			'backend/navigation-shortcut',
-			array(
-				//'search_args' => $current_search_args,
-				'shortcuts'   => $shortcuts,
-				'url'         => $url,
-			)
-		);
-		$content .= ob_get_clean();
-
-		return $content;
 	}
 }
 

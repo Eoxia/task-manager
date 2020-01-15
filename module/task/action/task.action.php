@@ -205,7 +205,7 @@ class Task_Action {
 //		check_ajax_referer( 'edit_title' );
 
 		$task_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
-		$title   = ! empty( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : '';
+		$title   = ! empty( $_POST['title'] ) ?  $_POST['title'] : '';
 
 		if ( empty( $task_id ) ) {
 			wp_send_json_error();
@@ -217,7 +217,6 @@ class Task_Action {
 			),
 			true
 		);
-
 		$task->data['title'] = $title;
 		$task->data['slug']  = sanitize_title( $title );
 

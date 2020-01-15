@@ -13,20 +13,24 @@
 			</li>
 
 			<li class="dropdown-item wpeo-modal-event wpeo-tooltip-event"
+			    data-class="popup-notification"
 			    data-direction="left"
 			    aria-label="<?php esc_html_e( 'Notify the team', 'task-manager' ); ?>"
 			    data-id="<?php echo $data['value']; ?>"
 			    data-action="load_notify_popup"
+			    data-title="<?php /* Translators: 1. The task ID. */ echo esc_attr( sprintf( __( '#%1$s Notify popup', 'task-manager' ), esc_attr( $data['value'] ) ) ); ?>"
 			    data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_notify_popup' ) ); ?>">
 				<i class="fas fa-bell"></i>
 				<span><?php echo esc_html( 'Notify the team' ); ?></span>
 			</li>
 
 			<li class="dropdown-item wpeo-modal-event wpeo-tooltip-event"
+			    data-class="popup-export"
 			    data-direction="left"
 			    aria-label="<?php esc_html_e( 'Upload', 'task-manager' ); ?>"
 			    data-id="<?php echo $data['value']; ?>"
 			    data-action="load_export_popup"
+			    data-title="<?php /* Translators: 1. The task ID. */ echo esc_attr( sprintf( __( '#%1$s Export task data', 'task-manager' ), esc_attr( $data['value'] ) ) ); ?>"
 			    data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_export_popup' ) ); ?>">
 				<i class="fas fa-upload"></i>
 				<span><?php echo esc_html( 'Upload' ); ?></span>

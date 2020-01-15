@@ -89,6 +89,12 @@ window.eoxiaJS.taskManager.shortcut.event = function() {
 	});
 };
 
+window.eoxiaJS.taskManager.shortcut.LoadedShortcutSuccess = function( triggeredElement, response ) {
+	triggeredElement.after( response.data.template );
+	triggeredElement.closest( '.tm-advanced-search' ).find( '.modal-content' ).html( response.data.view );
+	triggeredElement.closest( '.tm-advanced-search' ).find( '.modal-footer' ).html( response.data.buttons_view );
+};
+
 window.eoxiaJS.taskManager.shortcut.createdShortcutSuccess = function( triggeredElement, response ) {
 	jQuery( '.tm-dashboard-shortcuts .active' ).removeClass( 'active' );
 	jQuery( '.tm-dashboard-shortcuts .handle-shortcut' ).before( response.data.view_shortcut );

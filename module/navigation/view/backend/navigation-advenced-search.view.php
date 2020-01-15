@@ -41,21 +41,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="form-element">
 		<label class="form-field-container">
 			<span class="form-field-icon-prev"><i class="fas fa-user"></i></span>
-			<input type="text" class="form-field" name="point_id" placeholder="<?php echo esc_html_e( 'Users', 'task-manager' ); ?>"/>
+			<input type="text" class="form-field" name="user_id" placeholder="<?php echo esc_html_e( 'Users', 'task-manager' ); ?>"/>
 		</label>
 	</div>
 
 	<div class="form-element">
 		<label class="form-field-container">
 			<span class="form-field-icon-prev"><i class="fas fa-link"></i></span>
-			<input type="text" class="form-field" name="point_id" placeholder="<?php echo esc_html_e( 'Affliated', 'task-manager' ); ?>"/>
+			<input type="text" class="form-field" name="affliated" placeholder="<?php echo esc_html_e( 'Affliated', 'task-manager' ); ?>"/>
 		</label>
 	</div>
 
 	<div class="form-element">
 		<label class="form-field-container">
 			<span class="form-field-icon-prev"><i class="fas fa-tag"></i></span>
-			<input type="text" class="form-field" name="point_id" placeholder="<?php echo esc_html_e( 'Categories', 'task-manager' ); ?>"/>
+			<input type="text" class="form-field" name="categories_id" placeholder="<?php echo esc_html_e( 'Categories', 'task-manager' ); ?>"/>
 		</label>
 	</div>
 
@@ -68,6 +68,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 			data-action="search"
 			data-parent="form">
 			<i class="fas fa-filter"></i>
+		</a>
+	</div>
+
+	<div>
+		<a class="action-input wpeo-button button-main button-radius-2 button-size-small"
+			data-parent="form"
+			data-action="load_modal_create_shortcut"
+			data-target="wpeo-modal"
+			data-title="<?php esc_html_e( 'Create shortcut', 'task-manager' ); ?>"><i class="button-icon fas fa-plus"></i>
 		</a>
 	</div>
 </div>

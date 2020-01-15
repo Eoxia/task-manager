@@ -99,7 +99,7 @@ class Search_Bar_Shortcode {
 				'icon'  => 'fa-search',
 				'type'  => 'post',
 				'name'  => 'post_parent',
-				'placeholder' => 'client',
+				'placeholder' => 'Client',
 				'args'  => array(
 					'post_type'   => 'wpshop_customers',
 					'post_status' => array( 'publish', 'inherit', 'draft' ),

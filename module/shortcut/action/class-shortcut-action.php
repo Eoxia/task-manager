@@ -79,6 +79,15 @@ class Shortcut_Action {
 		\eoxia\View_Util::exec(
 			'task-manager',
 			'shortcut',
+			'modal-create-shortcut'
+		);
+		$template = ob_get_clean();
+
+
+		ob_start();
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'shortcut',
 			'modal-create-shortcut-content',
 			array(
 				'term'          => $term,
@@ -97,6 +106,10 @@ class Shortcut_Action {
 
 		wp_send_json_success(
 			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'shortcut',
+				'callback_success' => 'LoadedShortcutSuccess',
+				'template'     => $template,
 				'view'         => $content,
 				'buttons_view' => $buttons,
 			)
@@ -426,7 +439,8 @@ class Shortcut_Action {
 		update_user_meta( get_current_user_id(), '_tm_shortcuts', $new_order );
 
 		ob_start();
-		echo apply_filters('tm_dashboard_subheader', '', ''); // WPCS: XSS ok.
+		//echo apply_filters('tm_dashboard_subheader', '', ''); // WPCS: XSS ok.
+		echo apply_filters( 'eoxia_main_header_nav_bottom' );
 		$view = ob_get_clean();
 
 		wp_send_json_success( array(
