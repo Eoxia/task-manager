@@ -30,7 +30,7 @@ window.eoxiaJS.taskManager.newComment.editContent = function() {
 	data.post_id    = element.closest( '.table-row' ).data( 'post-id' );
 	data.parent_id  = element.closest( '.table-row' ).data( 'parent-id' );
 	data.time       = element.closest( '.table-row' ).find( '.comment-time' ).text();
-	data.content    = element.closest( '.table-row' ).find( '.comment-title' ).text();
+	data.content    = element.closest( '.table-row' ).find( '.comment-title' ).html();
 	data.mysql_date = element.closest( '.table-row' ).find( '.mysql-date' ).val();
 
 	window.eoxiaJS.loader.display( element.closest( 'div' ) );

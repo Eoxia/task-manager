@@ -56,8 +56,8 @@ window.eoxiaJS.taskManager.newTask.editTitle = function() {
 
 	data.action  = 'edit_title';
 	data.task_id = element.closest( '.table-row' ).data( 'id' );
-	data.title   = element.text();
-
+	data.title   = element.html();
+	console.log(data.title);
 	window.eoxiaJS.loader.display( element.closest( 'div' ) );
 	window.eoxiaJS.request.send( element, data );
 };
@@ -126,16 +126,8 @@ window.eoxiaJS.taskManager.newTask.stickyAction = function( e ) {
 
 	tables.each( function( i ) {
 		var scrollPos = jQuery( this ).scrollLeft();
-		var finalPos = scrollPos + jQuery( this ).width() - 100;
+		var finalPos = scrollPos + jQuery( this ).width() - 102;
 
 		jQuery( this ).find( '.cell-sticky' ).css({left: finalPos});
 	});
-
-	// console.log('Niveau de scroll : ' + e.target.scrollLeft);
-	// console.log('Niveau de scroll width : ' + e.target.scrollWidth);
-	// console.log('Niveau de scroll width supposé : ' + scrollPos);
-	// console.log('Taille du contenaire : ' + jQuery( this ).width());
-	// console.log('Calcul : ' + (e.target.scrollLeft + jQuery( this ).width() - 100));
-
-	// var finalPos = scrollPos + jQuery(this).width() - 100;
 }

@@ -1,0 +1,6 @@
+/** Tâche complétée */
+&.table-completed {
+	.cell-content {
+		text-decoration: line-through;
+	}
+}

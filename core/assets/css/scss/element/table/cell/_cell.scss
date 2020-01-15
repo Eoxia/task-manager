@@ -44,3 +44,18 @@
 @import "add";
 @import "toggle-row";
 @import "date";
+
+/** Cellules projet */
+&.table-type-project {
+	@import "project/project";
+}
+
+/** Cellules tâche */
+&.table-type-task {
+	@import "task/task";
+}
+
+/** Cellules commentaire */
+&.table-type-comment {
+	@import "comment/comment";
+}

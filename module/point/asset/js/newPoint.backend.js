@@ -45,7 +45,7 @@ window.eoxiaJS.taskManager.newPoint.editTitle = function() {
 	data._wpnonce  = element.closest( '.table-row' ).data( 'nonce' );
 	data.id        = element.closest( '.table-row' ).data( 'id' );
 	data.parent_id = element.closest( '.table-row' ).data( 'post-id' );
-	data.content   = element.text();
+	data.content   = element.html();
 
 	window.eoxiaJS.loader.display( element.closest( 'div' ) );
 	window.eoxiaJS.request.send( element, data );

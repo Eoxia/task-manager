@@ -140,7 +140,8 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 		\eoxia\View_Util::exec(
 			'task-manager',
 			'navigation',
-			'backend/search-results',
+			//'backend/search-results',
+			'backend/navigation-button-shortcut',
 			array(
 				'term'                 => $data['term'],
 				'task_id'              => $data['task_id'],

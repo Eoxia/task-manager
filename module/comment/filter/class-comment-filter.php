@@ -29,7 +29,6 @@ class Comment_Filter {
 	 */
 	public function __construct() {
 		$current_type = Task_Comment_Class::g()->get_type();
-		add_filter( "eo_model_{$current_type}_after_get", array( $this, 'calcul_elapsed_time' ), 10, 2 );
 		add_filter( "eo_model_{$current_type}_after_get", array( $this, 'parse_content' ), 10, 2 );
 		add_filter( "eo_model_{$current_type}_after_put", array( $this, 'compile_time' ), 10, 2 );
 		add_filter( "eo_model_{$current_type}_after_post", array( $this, 'compile_time' ), 10, 2 );
@@ -112,68 +111,6 @@ class Comment_Filter {
 		$point->data['content']              = addslashes( $point->data['content'] );
 		$object->data['point']               = Point_Class::g()->update( $point->data );
 		$object->data['task']                = Task_Class::g()->update( $task->data );
-
-		return $object;
-	}
-
-	/**
-	 * Calcul le temps écoulé depuis le dernier commentaire ajouté pour ne pas avoir a faire le calcul dans le commentaire a chaque changement de projet.
-	 *
-	 * @param   Comment_Object  $object  L'objet Comment_Object.
-	 * @param   array           $args    Des paramètres complémentaires pour permettre d'agir sur l'élement.
-	 *
-	 * @return Comment_Object        Les données de la tâche avec les données complémentaires.
-	 * @version 1.5.1
-	 *
-	 * @since   1.5.0
-	 */
-	public function calcul_elapsed_time( $object, $args = array() ) {
-		if ( 0 === $object->data['id'] ) {
-			$current_user = get_current_user_id();
-			if ( ! empty( $current_user ) ) {
-				$user = Follower_Class::g()->get(
-					array(
-						'include' => $current_user,
-					),
-					true
-				);
-				if ( true === $user->data['_tm_auto_elapsed_time'] ) {
-					// Récupération du dernier commentaire ajouté dans la base.
-					$query                   = $GLOBALS['wpdb']->prepare(
-						"SELECT TIMEDIFF( %s, COMMENT.comment_date ) AS DIFF_DATE
-						FROM {$GLOBALS['wpdb']->comments} AS COMMENT
-							INNER JOIN {$GLOBALS['wpdb']->commentmeta} AS COMMENTMETA ON COMMENTMETA.comment_id = COMMENT.comment_id
-							INNER JOIN {$GLOBALS['wpdb']->comments} AS POINT ON POINT.comment_id = COMMENT.comment_parent
-							INNER JOIN {$GLOBALS['wpdb']->posts} AS TASK ON TASK.ID = POINT.comment_post_id
-						WHERE COMMENT.user_id = %d
-							AND COMMENT.comment_date >= %s
-							AND COMMENTMETA.meta_key = %s
-							AND COMMENT.comment_approved != 'trash'
-							AND POINT.comment_approved != 'trash'
-							AND TASK.post_status IN ( 'archive', 'publish', 'inherit' )
-						ORDER BY COMMENT.comment_date DESC
-						LIMIT 1",
-						current_time( 'mysql' ),
-						$current_user,
-						current_time( 'Y-m-d 00:00:00' ),
-						'wpeo_time'
-					);
-					$time_since_last_comment = $GLOBALS['wpdb']->get_var( $query );
-					if ( ! empty( $time_since_last_comment ) ) {
-						$the_interval    = 0;
-						$time_components = explode( ':', $time_since_last_comment );
-						// Convert hours in minutes.
-						if ( ! empty( $time_components[0] ) ) {
-							$the_interval += $time_components[0] * 60;
-						}
-						if ( ! empty( $time_components[1] ) ) {
-							$the_interval += $time_components[1];
-						}
-						$object->data['time_info']['calculed_elapsed'] = $the_interval;
-					}
-				}
-			}
-		}
 
 		return $object;
 	}
@@ -351,6 +288,7 @@ class Comment_Filter {
 	}
 
 	public function fill_value_time_value( $output, $comment ) {
+
 		$output['value'] = $comment->data['time_info']['elapsed'];
 
 		return $output;

@@ -1,6 +1,14 @@
-<div class="form-element header-searchbar">
-	<i class="fas fa-search"></i>
-	<label class="general-search form-field-container">
-		<input type="text" class="form-field" name="term"  value="<?php echo esc_attr( $param['term'] ); ?>" placeholder="<?php echo esc_html_e( 'Keyword', 'task-manager' ); ?>"/>
-	</label>
-</div>
+<li>
+	<div class="form-element header-searchbar">
+		<label class="general-search form-field-container">
+			<span class="form-field-icon-prev"><i class="fas fa-search"></i></span>
+			<input type="text" class="form-field" name="term"  value="" />
+		</label>
+	</div>
+</li>
+
+<li>
+	<div class="">
+		<i class="fas fa-bell"></i>
+	</div>
+</li>
