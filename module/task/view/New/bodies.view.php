@@ -8,7 +8,7 @@ if ( ! empty( $contents['bodies'] ) ) :
 			<?php
 			foreach ( $data_def['values'] as $key => $data ) :
 				?>
-				<div class="table-cell <?php echo esc_attr( $data['classes'] ); ?>"
+				<div data-key="<?php echo esc_attr( $key ); ?>"  class="table-cell <?php echo esc_attr( $data['classes'] ); ?>"
 					<?php echo ! empty( $data['attrs'] ) ? implode( ' ', $data['attrs'] ) : ''; ?>>
 					<?php
 					\eoxia\View_Util::exec( 'task-manager', 'task', 'New/render/' . $data['type'] . '-' . $key, array(
@@ -23,5 +23,6 @@ if ( ! empty( $contents['bodies'] ) ) :
 			?>
 		</div>
 	<?php
+
 	endforeach;
 endif;

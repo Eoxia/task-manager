@@ -41,6 +41,7 @@ window.eoxiaJS.taskManager.newComment.addedCommentSuccess = function( triggeredE
 	if ( ! response.data.toggle ) {
 		this.loadedCommentsSuccess( triggeredElement, response );
 
+		jQuery( '.table-type-task[data-id=' + response.data.point.data.id + '] .wpeo-util-hidden' ).removeClass( 'wpeo-util-hidden' );
 		jQuery( '.table-type-task[data-id=' + response.data.point.data.id + '] .fas.fa-angle-right' ).removeClass( 'fa-angle-right' ).addClass( 'fa-angle-down' );
 	} else {
 		var tmp = jQuery( response.data.view );

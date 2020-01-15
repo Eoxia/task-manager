@@ -73,7 +73,7 @@ class Point_Class extends \eoxia\Comment_Class {
 	 *
 	 * @todo Ajouter "comment_id" et "point_id" en paramètre. Et renommer en selected_*
 	 */
-	public function display( $task_id, $frontend = false, $point_id_quicktime = 0 ) {
+	public function display( $task_id, $frontend = false, $point_id_quicktime = 0, $completed = false ) {
 		$comment_id = ! empty( $_GET['comment_id'] ) ? (int) $_GET['comment_id'] : 0;
 		$point_id   = ! empty( $_GET['point_id'] ) ? (int) $_GET['point_id'] : 0;
 
@@ -88,20 +88,28 @@ class Point_Class extends \eoxia\Comment_Class {
 			true
 		);
 
-		$points = self::g()->get(
-			array(
-				'post_id'    => $task->data['id'],
-				'type'       => self::g()->get_type(),
-				'meta_key'   => '_tm_order',
-				'orderby'    => 'meta_value_num',
-				'order'      => 'ASC',
-			)
-		);
+		if ( ! $completed ) {
+			$points = self::g()->get(
+				array(
+					'post_id'    => $task->data['id'],
+					'type'       => self::g()->get_type(),
+					'meta_key'   => '_tm_order',
+					'orderby'    => 'meta_value_num',
+					'order'      => 'ASC',
+					'meta_query' => array(
+						array(
+							'key'     => '_tm_completed',
+							'value'   => false,
+							'compare' => '=',
+						),
+					),
+				)
+			);
+		}
 
-		$points_completed = array();
 		// Dans le frontend, les points complétés sont affichées directement.
-		if ( $frontend ) {
-			$points_completed = self::g()->get(
+		if ( $frontend || $completed ) {
+			$points = self::g()->get(
 				array(
 					'post_id'    => $task->data['id'],
 					'type'       => self::g()->get_type(),
@@ -125,8 +133,6 @@ class Point_Class extends \eoxia\Comment_Class {
 			),
 			true
 		);
-
-		$points = array_merge( $points, $points_completed );
 
 		$args = array(
 			'task'               => $task,

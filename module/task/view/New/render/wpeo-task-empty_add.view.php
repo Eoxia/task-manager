@@ -66,6 +66,11 @@
 				<i class="fas fa-trash"></i>
 				<span><?php echo esc_html( 'Delete' ); ?></span>
 			</li>
+
+			<li class="dropdown-item action-input" data-point-state="completed" data-action="load_point" data-nonce="<?php echo wp_create_nonce( 'load_point' ); ?>" data-task-id="<?php echo $data['value']; ?>">
+				<i class="button-icon fas fa-check-square"></i>
+				<span>Complété (<span class="point-completed"><?php echo esc_attr( $data['number_completed_task'] ); ?></span>)</span>
+			</li>
 		</ul>
 	</div>
 

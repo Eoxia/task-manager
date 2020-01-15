@@ -57,7 +57,6 @@ window.eoxiaJS.taskManager.newTask.editTitle = function() {
 	data.action  = 'edit_title';
 	data.task_id = element.closest( '.table-row' ).data( 'id' );
 	data.title   = element.html();
-	console.log(data.title);
 	window.eoxiaJS.loader.display( element.closest( 'div' ) );
 	window.eoxiaJS.request.send( element, data );
 };

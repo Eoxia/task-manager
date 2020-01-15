@@ -162,6 +162,12 @@ class Point_Filter {
 			'data-nonce="' . wp_create_nonce( 'load_comments' ) . '"',
 		);
 
+		if ( $point->data['count_comments'] == 0) {
+			$output['classes'] .= ' cell-readonly ';
+		}
+
+		$output['count_comments'] = $task->data['count_comments'];
+
 		return $output;
 	}
 
