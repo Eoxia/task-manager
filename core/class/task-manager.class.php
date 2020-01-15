@@ -82,6 +82,10 @@ class Task_Manager_Class extends \eoxia\Singleton_Util {
 		}
 	}
 
+	public function display_dashboard() {
+		require_once PLUGIN_TASK_MANAGER_PATH . '/core/view/dashboard.view.php';
+	}
+
 	/**
 	 * Récupères le patch note pour la version actuelle.
 	 *
