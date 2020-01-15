@@ -293,11 +293,18 @@ class Task_Filter {
 	}
 
 	public function fill_value_empty_value( $output, $task ) {
-		$output['classes'] .= ' cell-toggle project-toggle-task';
-		$output['attrs']    = array(
+		$output['classes'] .= ' cell-toggle project-toggle-task ';
+		$output['attrs']   = array(
 			'data-id="' . $task->data['id'] . '"',
 			'data-nonce="' . wp_create_nonce( 'load_point' ) . '"',
 		);
+
+		if ( $task->data['count_all_points'] == 0) {
+			$output['classes'] .= ' cell-readonly ';
+		}
+
+		$output['count_all_points']      = $task->data['count_all_points'];
+
 
 		return $output;
 	}
@@ -423,8 +430,9 @@ class Task_Filter {
 	}
 
 	public function fill_value_empty_add_value( $output, $task ) {
-		$output['classes'] .= ' cell-sticky';
-		$output['value']    = $task->data['id'];
+		$output['classes']              .= ' cell-sticky';
+		$output['value']                 = $task->data['id'];
+		$output['number_completed_task'] = $task->data['count_completed_points'];
 		return $output;
 	}
 

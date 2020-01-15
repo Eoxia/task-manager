@@ -29,8 +29,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		if ( isset( $headers ) ) :
 			foreach ( $headers as $key => $header ) :
 				?>
-				<div class="table-cell <?php echo esc_attr( $header['classes'] ); ?>">
+				<div data-key="<?php echo esc_attr( $key ); ?>" class="table-cell <?php echo esc_attr( $header['classes'] ); ?>">
 					<span>
+						<input type="checkbox" checked />
 						<i class="<?php echo $header['icon']; ?>"></i>
 						<?php echo esc_html( $header['title'] ); ?>
 					</span>

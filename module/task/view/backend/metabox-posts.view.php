@@ -14,6 +14,7 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
+
 <div id="tm_client_load_task_page">
 	<div class="tm-wrap wpeo-wrap">
 		<div class="tm-post-dashboard">

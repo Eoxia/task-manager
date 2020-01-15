@@ -300,7 +300,7 @@ class Point_Action {
 				'points'     => $points,
 			)
 		);*/
-		Point_Class::g()->display( $task_id );
+		Point_Class::g()->display( $task_id, false, 0, $completed );
 		wp_send_json_success(
 			array(
 				'namespace'        => $frontend ? 'taskManagerFrontend' : 'taskManager',

@@ -69,6 +69,8 @@ class Task_Action {
 		add_action( 'wp_ajax_task_state', array( $this, 'callback_task_state' ) );
 
 		add_action( 'wp_ajax_task_update', array( $this, 'callback_task_update' ) );
+
+		add_action( 'wp_ajax_edit_columns', array( $this, 'callback_edit_columns' ) );
 	}
 
 	/**
@@ -851,6 +853,10 @@ class Task_Action {
 		$last_update = Task_Class::g()->get_task_last_update( $task_id );
 
 		update_post_meta( $task_id, 'wpeo_task', 'last_update' );
+	}
+
+	public function callback_edit_columns ( ) {
+
 	}
 }
 

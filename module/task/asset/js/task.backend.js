@@ -53,6 +53,7 @@ window.eoxiaJS.taskManager.task.event = function() {
 
 	jQuery( document ).on( 'change keyup', '.tm_indicator_updateprofile input[type="number"]', window.eoxiaJS.taskManager.task.activateButtonPlanning );
 
+	jQuery( document ).on( 'click', '.table-header .table-cell input[type="checkbox"]', window.eoxiaJS.taskManager.task.showHideColumn );
 };
 
 /**
@@ -178,7 +179,6 @@ window.eoxiaJS.taskManager.task.createdTaskSuccess = function( element, response
 	tmp.slideDown(400);
 
 	window.eoxiaJS.taskManager.newTask.stickyAction();
-
 };
 
 /**
@@ -548,34 +548,24 @@ window.eoxiaJS.taskManager.task.clignotePetitIcone = function( event ){
 
 window.eoxiaJS.taskManager.task.activateButtonPlanning = function( event ){
 	jQuery( this ).closest( '.tm_indicator_updateprofile' ).find( '.button-add-row-plan .disabled' ).removeClass( 'disabled' );
-}
+};
 
-window.eoxiaJS.taskManager.task.returnSuccessUpdateTaskPerPage = function( element, response ){
+window.eoxiaJS.taskManager.task.returnSuccessUpdateTaskPerPage = function( element, response ) {
 	jQuery( '.pmg-sotut-container' ).append( '<p style="color:green">' + response.data.text_success + '</p>' );
 	window.location.reload();
-}
+};
 
 window.eoxiaJS.taskManager.task.taskHidedPoints = function( element, response ) {
 	jQuery( element ).closest( '.wpeo-project-task' ).html( response.data.view );
-}
+};
 
+window.eoxiaJS.taskManager.task.showHideColumn = function( event ) {
+	const key = jQuery( this ).closest( '.table-cell' ).data( 'key' );
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+	if (jQuery( this ).is( ':checked' ) ) {
+		jQuery( '.table-cell[data-key=' + key + ']' ).css({opacity: 1});
+	} else {
+		jQuery( '.table-cell[data-key=' + key + ']' ).css({opacity: 0.3});
+
+	}
+};

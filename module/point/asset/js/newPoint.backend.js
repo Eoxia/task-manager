@@ -21,7 +21,9 @@ window.eoxiaJS.taskManager.newPoint.addedPointSuccess = function ( triggeredElem
 	if ( ! response.data.toggle ) {
 		this.loadedPointSuccess( triggeredElement, response );
 
+		jQuery( '.table-type-project[data-id=' + response.data.task_id + '] .wpeo-util-hidden' ).removeClass( 'wpeo-util-hidden' );
 		jQuery( '.table-type-project[data-id=' + response.data.task_id + '] .fas.fa-angle-right' ).removeClass( 'fa-angle-right' ).addClass( 'fa-angle-down' );
+
 	} else {
 		var tmp = jQuery( response.data.view );
 		tmp.css({display: 'none'});
