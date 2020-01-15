@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="tm-dashboard-wrap tm-main-container">
 		<div class="tm-dashboard-primary">
 			<?php
-			Navigation_Class::g()->display_search_result(
+/*			Navigation_Class::g()->display_search_result(
 				$search_args['term'],
 				$search_args['status'],
 				$search_args['task_id'],
@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				$search_args['post_parent'],
 				$search_args['categories_id'],
 				$search_args['users_id']
-			);
+			);*/
 
 			$waiting_updates = get_option( '_tm_waited_updates', array() );
 			if ( ! empty( $waiting_updates ) && strpos( $_SERVER['REQUEST_URI'], 'admin.php' ) && ! strpos( $_SERVER['REQUEST_URI'], 'admin.php?page=' . \eoxia\Config_Util::$init['task-manager']->update_page_url ) ) :
