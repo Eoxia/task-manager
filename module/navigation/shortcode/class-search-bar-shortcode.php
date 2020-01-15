@@ -70,10 +70,11 @@ class Search_Bar_Shortcode {
 		$eo_search->register_search(
 			'tm_search_admin',
 			array(
-				'label' => 'Administrateur',
-				'icon'  => 'fa-search',
+				'label' => '',
+				'icon'  => 'fa-user',
 				'type'  => 'user',
 				'name'  => 'user_id',
+				'placeholder' => 'Users',
 				'args'  => array(
 					'role' => 'administrator',
 				),

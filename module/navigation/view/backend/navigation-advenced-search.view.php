@@ -38,12 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</label>
 	</div>
 
-	<div class="form-element">
-		<label class="form-field-container">
-			<span class="form-field-icon-prev"><i class="fas fa-user"></i></span>
-			<input type="text" class="form-field" name="user_id" placeholder="<?php echo esc_html_e( 'Users', 'task-manager' ); ?>"/>
-		</label>
-	</div>
+	<?php $eo_search->display( 'tm_search_admin' ); ?>
 
 	<div class="form-element">
 		<label class="form-field-container">

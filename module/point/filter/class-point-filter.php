@@ -201,6 +201,12 @@ class Point_Filter {
 	public function fill_value_time_value( $output, $point ) {
 		$output['classes'] .= ' cell-readonly';
 		$output['value'] = $point->data['time_info']['elapsed'];
+		$time = $point->data['time_info']['elapsed'] * 60;
+		if ( $time > 0 ) {
+			$output['human_readable_elapsed'] = Task_Class::g()->time_elapsed( $time  );
+		} else {
+			$output['human_readable_elapsed'] = 0;
+		}
 
 		return $output;
 	}

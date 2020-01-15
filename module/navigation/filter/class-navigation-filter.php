@@ -123,7 +123,7 @@ class Navigation_Filter {
 	}
 
 	public function callback_display_header_navigation_bottom( $content ) {
-		if ( $_GET['page'] == "wpeomtm-dashboard" || $_GET['page'] == "tm-my-tasks" ) {
+		if ( $_GET['page'] == "wpeomtm-dashboard" || $_GET['page'] == "tm-my-tasks" || wp_doing_ajax() ) {
 			$shortcuts = get_user_meta( get_current_user_id(), '_tm_shortcuts', true );
 			$shortcuts = $shortcuts[0]['child'];
 
