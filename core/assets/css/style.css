@@ -2276,6 +2276,7 @@
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
+  min-width: 100%;
 }
 
 .tm-wrap .list-task .wpeo-table.table-flex .table-header {
