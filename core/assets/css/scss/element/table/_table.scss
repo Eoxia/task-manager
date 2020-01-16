@@ -8,6 +8,7 @@
 
 	/** Table header */
 	.wpeo-table.table-flex .table-header {
+		position: relative;
 		background: none;
 
 		.table-cell {
@@ -17,6 +18,12 @@
 			font-weight: 700;
 			line-height: 1.4;
 			margin-bottom: 0;
+		}
+		.table-header-edit {
+			position: absolute;
+			right: 0;
+			top: 0;
+			transition: none;
 		}
 	}
 

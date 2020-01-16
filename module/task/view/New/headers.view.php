@@ -43,11 +43,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			endforeach;
 		endif;
 		?>
-		<div data-parent="table-header" class="action-input wpeo-button button-blue button-square-40 button-rounded"
+		<div data-parent="table-header" class="table-header-edit action-input wpeo-button button-blue button-square-30 button-rounded"
 			data-action="tm_edit_columns">
-			<span>
-				<i class="fas fa-pencil-alt"></i>
-			</span>
+			<i class="button-icon fas fa-pencil-alt"></i>
 		</div>
 	</div>
 

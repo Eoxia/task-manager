@@ -195,8 +195,10 @@ window.eoxiaJS.taskManager.newTask.stickyAction = function( e ) {
 	tables.each( function( i ) {
 		var scrollPos = jQuery( this ).scrollLeft();
 		var finalPos = scrollPos + jQuery( this ).width() - 102;
+		var finalPosHeader = scrollPos + jQuery( this ).width() - 30;
 
 		jQuery( this ).find( '.cell-sticky' ).css({left: finalPos});
+		jQuery( this ).find( '.table-header-edit' ).css({left: finalPosHeader });
 	});
 }
 

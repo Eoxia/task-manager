@@ -144,7 +144,7 @@ class Task_Class extends \eoxia\Post_Class {
 				'attachments' => array(
 					'icon'    => 'fas fa-paperclip',
 					'title'   => __( 'Attachments', 'task-manager' ),
-					'classes' => 'table-50',
+					'classes' => 'table-125',
 				),
 				'number_comments' => array(
 					'icon'  => 'far fa-comment-dots',
@@ -154,7 +154,7 @@ class Task_Class extends \eoxia\Post_Class {
 				'author' => array(
 					'icon'    => 'fas fa-user',
 					'title'   => __( 'Author', 'task-manager' ),
-					'classes' => 'table-50',
+					'classes' => 'table-75',
 				),
 				'associated_users' => array(
 					'icon'    => 'fas fa-users',
