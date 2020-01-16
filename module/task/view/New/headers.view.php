@@ -27,11 +27,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="table-row table-header">
 		<?php
 		if ( isset( $headers ) ) :
-			foreach ( $headers as $key => $header ) :
+			foreach ( $headers as $order => $header ) :
 				?>
-				<div data-key="<?php echo esc_attr( $key ); ?>" class="table-cell <?php echo esc_attr( $header['classes'] ); ?>">
+				<div data-order="<?php echo esc_attr( $order ); ?>" data-key="<?php echo $header['key']; ?>" class="table-cell
+					<?php echo esc_attr( $header['classes'] ); ?>
+					<?php echo Follower_Class::g()->user_columns_def[ $header['key'] ]['displayed'] ? '' : 'wpeo-util-hidden'; ?>">
 					<span>
-						<input type="checkbox" checked />
+						<div class="wpeo-util-hidden">
+							<input type="checkbox" checked name="columns[<?php echo $header['key']; ?>][displayed]" />
+							<input type="text" value="<?php echo $order; ?>" name="columns[<?php echo $header['key']; ?>][order]" />
+						</div>
 						<i class="<?php echo $header['icon']; ?>"></i>
 						<?php echo esc_html( $header['title'] ); ?>
 					</span>
@@ -40,6 +45,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 			endforeach;
 		endif;
 		?>
+		<div data-parent="table-header" class="action-input wpeo-button button-blue button-square-40 button-rounded"
+			data-action="tm_edit_columns">
+			<span>
+				<i class="fas fa-pencil-alt"></i>
+			</span>
+		</div>
 	</div>
 
 	<?php Task_Class::g()->display_bodies( $contents ); ?>

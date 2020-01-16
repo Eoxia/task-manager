@@ -183,6 +183,8 @@ class Task_Class extends \eoxia\Post_Class {
 		);
 
 		$this->contents = apply_filters( 'tm_tasks_contents', $this->contents );
+
+
 	}
 
 	/**
@@ -372,6 +374,25 @@ class Task_Class extends \eoxia\Post_Class {
 	}
 
 	public function display_headers( $elements ) {
+		$user_def = Follower_Class::g()->user_columns_def;
+
+		$new_orders_headers = array();
+
+		if ( ! empty( $user_def ) ) {
+			foreach( $user_def as $key => $def ) {
+				// On donne la clé dans l'index clé de clé.
+				$this->contents['headers'][ $key ]['key'] = $key;
+				$new_orders_headers[ $def['order'] ]      = $this->contents['headers'][ $key ];
+			}
+		}
+
+		uksort( $new_orders_headers, function( $a, $b ) {
+			return ( $a > $b ) ? 1 : -1;
+		} );
+
+
+		$this->contents['headers'] = $new_orders_headers;
+
 		\eoxia\View_Util::exec(
 			'task-manager',
 			'task',
@@ -389,6 +410,9 @@ class Task_Class extends \eoxia\Post_Class {
 	}
 
 	public function display_bodies( $elements ) {
+		$user_def = Follower_Class::g()->user_columns_def;
+
+
 		if ( ! empty( $elements ) ) {
 			foreach ( $elements as $element ) {
 				$data_def = array(
@@ -399,16 +423,22 @@ class Task_Class extends \eoxia\Post_Class {
 
 				$data_def = apply_filters( 'tm_projects_' . $element->data['type'] . '_def', $data_def, $element );
 
-				foreach ( $this->contents['headers'] as $key => $header ) {
-					$data_def['values'][ $key ] = array(
+				foreach ( $user_def as $key => $def ) {
+					$header                              = $this->contents['headers'][ $key ];
+					$data_def['values'][ $def['order'] ] = array(
 						'value'   => '',
 						'classes' => $header['classes'],
 						'attrs'   => array(),
 						'type'    => $element->data['type'],
+						'key'     => $key,
 					);
 
-					$data_def['values'][ $key ] = apply_filters( 'tm_projects_content_' . $element->data['type'] . '_' . $key . '_def', $data_def['values'][ $key ], $element );
+					$data_def['values'][ $def['order'] ] = apply_filters( 'tm_projects_content_' . $element->data['type'] . '_' . $key . '_def', $data_def['values'][ $def['order'] ], $element );
 				}
+
+				uksort( $data_def['values'], function( $a, $b ) {
+					return ( $a > $b ) ? 1 : -1;
+				} );
 
 				$this->contents['bodies'][] = $data_def;
 			}

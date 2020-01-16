@@ -130,3 +130,18 @@ window.eoxiaJS.taskManager.newTask.stickyAction = function( e ) {
 		jQuery( this ).find( '.cell-sticky' ).css({left: finalPos});
 	});
 }
+
+window.eoxiaJS.taskManager.newTask.editedColumnSuccess = function (triggeredElement, response) {
+	jQuery( '.table-header .wpeo-util-hidden' ).removeClass( 'wpeo-util-hidden' );
+
+	triggeredElement.removeClass( 'button-blue' ).addClass( 'button-green' );
+	triggeredElement.find( 'i' ).removeClass( 'fa-pencil-alt' ).addClass( 'fa-save' );
+	triggeredElement.attr( 'data-action', 'tm_save_columns' );
+
+	for (var key in response.data.user_columns_def) {
+		if (! response.data.user_columns_def[key].displayed) {
+			jQuery( '.table-cell[data-key=' + key + ']' ).css({opacity: 0.3});
+			jQuery( '.table-cell[data-key=' + key + '] input[type=checkbox]' ).attr( 'checked', false );
+		}
+	}
+};

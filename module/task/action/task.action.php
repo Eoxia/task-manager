@@ -70,7 +70,8 @@ class Task_Action {
 
 		add_action( 'wp_ajax_task_update', array( $this, 'callback_task_update' ) );
 
-		add_action( 'wp_ajax_edit_columns', array( $this, 'callback_edit_columns' ) );
+		add_action( 'wp_ajax_tm_edit_columns', array( $this, 'callback_tm_edit_columns' ) );
+		add_action( 'wp_ajax_tm_save_columns', array( $this, 'callback_tm_save_columns' ) );
 	}
 
 	/**
@@ -855,8 +856,40 @@ class Task_Action {
 		update_post_meta( $task_id, 'wpeo_task', 'last_update' );
 	}
 
-	public function callback_edit_columns ( ) {
+	public function callback_tm_edit_columns() {
+		$user_columns_def = Follower_Class::g()->user_columns_def;
 
+		wp_send_json_success( array(
+			'namespace'        => 'taskManager',
+			'module'           => 'newTask',
+			'callback_success' => 'editedColumnSuccess',
+			'user_columns_def' => $user_columns_def,
+		) );
+	}
+
+	public function callback_tm_save_columns() {
+		$columns = ! empty( $_POST['columns'] ) ? array( $_POST['columns'] ) : array();
+
+		if ( empty( $columns ) ) {
+			wp_send_json_error();
+		}
+
+		if ( ! empty( $columns[0] ) ) {
+			foreach ( $columns[0] as $key => &$column ) {
+				$column['displayed'] = ( isset( $column['displayed'] ) && 'true' == $column['displayed'] ) ? true : false;
+				$column['order']     = ! empty( $column['order'] ) ? (int) $column['order'] : 0;
+			}
+		}
+
+		unset ( $column );
+
+		update_user_meta( get_current_user_id(), \eoxia\Config_Util::$init['task-manager']->follower->user_columns_key, $columns[0] );
+
+		wp_send_json_success( array(
+			'namespace'        => 'taskManager',
+			'module'           => 'newTask',
+			'callback_success' => 'savedColumnSuccess',
+		) );
 	}
 }
 
