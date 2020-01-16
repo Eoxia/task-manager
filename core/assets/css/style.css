@@ -3154,6 +3154,18 @@ body.eo-custom-page .content-wrap .tm-main-container {
 /*--------------------------------------------------------------
 # TMP START Jimmy
 --------------------------------------------------------------*/
+.tm-wrap .border-active {
+  border-right: solid red 5px !important;
+}
+
+.tm-wrap .table-header .table-cell > * {
+  pointer-events: none;
+}
+
+.tm-wrap .table-header .table-cell input {
+  pointer-events: auto;
+}
+
 .tm-wrap .modal-prompt-point .modal-container {
   height: auto;
 }
