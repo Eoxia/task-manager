@@ -76,12 +76,23 @@ body.toplevel_page_wpeomtm-dashboard {
 # TMP START Jimmy
 --------------------------------------------------------------*/
 .tm-wrap {
+	// Début nouvelle interface: TMP JIMMY BIS
+	.table-header .table-cell {
+	}
+
+	.table-header .table-cell > * {
+		pointer-events: none;
+	}
+
+	.table-header .table-cell input {
+		pointer-events: auto;
+	}
+	// Fin nouvelle interface: TMP JIMMY BIS
+
 	.modal-prompt-point {
 		.modal-container {
 			height: auto;
 		}
-
-
 	}
 
 	.hide-info {

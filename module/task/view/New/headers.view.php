@@ -30,16 +30,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 			foreach ( $headers as $order => $header ) :
 				?>
 				<div data-order="<?php echo esc_attr( $order ); ?>" data-key="<?php echo $header['key']; ?>" class="table-cell
-					<?php echo esc_attr( $header['classes'] ); ?>
-					<?php echo Follower_Class::g()->user_columns_def[ $header['key'] ]['displayed'] ? '' : 'wpeo-util-hidden'; ?>">
-					<span>
-						<div class="wpeo-util-hidden">
-							<input type="checkbox" checked name="columns[<?php echo $header['key']; ?>][displayed]" />
-							<input type="text" value="<?php echo $order; ?>" name="columns[<?php echo $header['key']; ?>][order]" />
-						</div>
-						<i class="<?php echo $header['icon']; ?>"></i>
-						<?php echo esc_html( $header['title'] ); ?>
-					</span>
+					<?php echo esc_attr( $header['classes'] ); ?>"
+						style="<?php echo Follower_Class::g()->user_columns_def[ $header['key'] ]['displayed'] ? '' : 'display: none;'; ?>">
+					<div class="wpeo-util-hidden">
+						<input type="checkbox" checked name="columns[<?php echo $header['key']; ?>][displayed]" />
+						<input type="hidden" value="<?php echo $order; ?>" name="columns[<?php echo $header['key']; ?>][order]" />
+					</div>
+					<i class="<?php echo $header['icon']; ?>"></i>
+					<span class="title"><?php echo esc_html( $header['title'] ); ?></span>
 				</div>
 				<?php
 			endforeach;

@@ -6,6 +6,8 @@
  */
 window.eoxiaJS.taskManager.newTask = {};
 
+window.eoxiaJS.taskManager.newTask.draggedElement;
+
 window.eoxiaJS.taskManager.newTask.init = function() {
 	window.eoxiaJS.taskManager.newTask.event();
 };
@@ -32,6 +34,73 @@ window.eoxiaJS.taskManager.newTask.event = function() {
 
 	window.eoxiaJS.taskManager.newTask.clickTags();
 	window.eoxiaJS.taskManager.newTask.clickUsers();
+
+	jQuery( document ).on( 'dragstart', '.table-header .table-cell', function( e ) {
+		window.eoxiaJS.taskManager.newTask.draggedElement = e.currentTarget;
+		e.currentTarget.style.border = 'dashed';
+		e.originalEvent.dataTransfer.setData("text/plain", e.target.id );
+	} );
+
+	jQuery( document ).on( 'drag', '.table-header .table-cell', function( event ) {
+	} );
+
+	jQuery( document ).on( 'dragend', '.table-header .table-cell', function( event ) {
+		event.preventDefault();
+	} );
+
+	jQuery( document ).on( 'dragover', '.table-header .table-cell', function( event ) {
+		event.preventDefault();
+		return false;
+	} );
+
+	jQuery( document ).on( "dragenter", '.table-header .table-cell', function( event ) {
+		if (jQuery( event.target ).hasClass( 'table-cell' ) ) {
+			jQuery( event.target )[0].style.border = "dashed";
+		}
+	} );
+
+	jQuery( document ).on( "dragleave", '.table-header .table-cell', function( event ) {
+		if (jQuery( event.target ).hasClass( 'table-cell' ) ) {
+			jQuery( event.target )[0].style.border = "none";
+		}
+	} );
+
+	jQuery( document ).on( 'drop', '.table-header .table-cell', function( ev ) {
+		ev.preventDefault();
+
+		if ( ev.stopPropagation() ) {
+			ev.stopPropagation();
+		}
+
+		var currentElement = jQuery( window.eoxiaJS.taskManager.newTask.draggedElement );
+		var newElement     = currentElement.clone();
+		var target         = jQuery( ev.target );
+
+		if ( ! jQuery( ev.target ).hasClass( 'table-cell' ) ) {
+			return;
+		}
+
+		var draggedKey = currentElement.data( 'key' );
+		var targetKey  = target.data('key');
+
+		var cells = jQuery( '.table-row:not(.table-header) .table-cell[data-key=' + draggedKey + ']' );
+
+		cells.each(function() {
+			var tmp = jQuery( this ).clone();
+
+			jQuery(this).closest('.table-row').find('.table-cell[data-key=' + targetKey + ']').after(tmp[0].outerHTML);
+			jQuery(this).remove();
+		});
+
+		jQuery( ev.target ).after( newElement[0].outerHTML );
+		jQuery( ev.target )[0].style.border = "none";
+
+		window.eoxiaJS.taskManager.newTask.draggedElement.remove();
+
+		window.eoxiaJS.taskManager.newTask.refreshKey();
+
+		return false;
+	});
 };
 
 window.eoxiaJS.taskManager.newTask.clickTags = function() {
@@ -138,10 +207,19 @@ window.eoxiaJS.taskManager.newTask.editedColumnSuccess = function (triggeredElem
 	triggeredElement.find( 'i' ).removeClass( 'fa-pencil-alt' ).addClass( 'fa-save' );
 	triggeredElement.attr( 'data-action', 'tm_save_columns' );
 
+	jQuery( '.table-header .table-cell' ).attr( 'draggable', true );
+
 	for (var key in response.data.user_columns_def) {
 		if (! response.data.user_columns_def[key].displayed) {
-			jQuery( '.table-cell[data-key=' + key + ']' ).css({opacity: 0.3});
+			jQuery( '.table-cell[data-key=' + key + ']' ).css({display: 'flex' ,opacity: 0.3});
 			jQuery( '.table-cell[data-key=' + key + '] input[type=checkbox]' ).attr( 'checked', false );
 		}
 	}
+};
+
+
+window.eoxiaJS.taskManager.newTask.refreshKey = function( event ) {
+	jQuery( '.table-header .table-cell' ).each( function( key ) {
+		jQuery( this ).find( 'input[type="hidden"]' ).val(key);
+	} );
 };

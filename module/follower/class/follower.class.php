@@ -59,7 +59,7 @@ class Follower_Class extends \eoxia\User_Class {
 				'order'     => 4,
 			),
 			'time' => array(
-				'displayed' => false,
+				'displayed' => true,
 				'order'     => 5,
 			),
 			'created_date' => array(

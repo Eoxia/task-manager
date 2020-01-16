@@ -13,8 +13,6 @@ window.eoxiaJS.taskManager.shortcut.init = function() {
 window.eoxiaJS.taskManager.shortcut.draggedElement;
 
 window.eoxiaJS.taskManager.shortcut.event = function() {
-	jQuery( document ).on( 'modal-opened', '.modal-shortcut', window.eoxiaJS.taskManager.shortcut.initSortable );
-
 	jQuery( document ).on( 'click', '.shortcuts .shortcut.folder:not(.edit)', window.eoxiaJS.taskManager.shortcut.openFolder );
 	jQuery( document ).on( 'click', '.tree .item', window.eoxiaJS.taskManager.shortcut.openFolder );
 
@@ -113,9 +111,6 @@ window.eoxiaJS.taskManager.shortcut.displayEditShortcutSuccess = function( trigg
 
 window.eoxiaJS.taskManager.shortcut.editShortcutSuccess = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.shortcut' ).html(response.data.view);
-};
-
-window.eoxiaJS.taskManager.shortcut.initSortable = function( event ) {
 };
 
 window.eoxiaJS.taskManager.shortcut.createdFolderShortcutSuccess = function( triggeredElement, response ) {
