@@ -41,9 +41,6 @@ window.eoxiaJS.taskManager.newTask.event = function() {
 		e.originalEvent.dataTransfer.setData("text/plain", e.target.id );
 	} );
 
-	jQuery( document ).on( 'drag', '.table-header .table-cell', function( event ) {
-	} );
-
 	jQuery( document ).on( 'dragend', '.table-header .table-cell', function( event ) {
 		event.preventDefault();
 	} );
@@ -56,12 +53,24 @@ window.eoxiaJS.taskManager.newTask.event = function() {
 	jQuery( document ).on( "dragenter", '.table-header .table-cell', function( event ) {
 		if (jQuery( event.target ).hasClass( 'table-cell' ) ) {
 			jQuery( event.target )[0].style.border = "dashed";
+
+			var target      = jQuery( event.target );
+			var targetKey  = target.data('key');
+			if (target.hasClass( 'table-cell' ) ) {
+				var cells = jQuery( '.table-row:not(.table-header) .table-cell[data-key=' + targetKey + ']' ).addClass( 'border-active' );
+			}
 		}
 	} );
 
 	jQuery( document ).on( "dragleave", '.table-header .table-cell', function( event ) {
 		if (jQuery( event.target ).hasClass( 'table-cell' ) ) {
 			jQuery( event.target )[0].style.border = "none";
+
+			var target      = jQuery( event.target );
+			var targetKey  = target.data('key');
+			jQuery( '.table-row:not(.table-header) .table-cell[data-key=' + targetKey + ']' ).removeClass( 'border-active' );
+
+
 		}
 	} );
 
@@ -98,6 +107,9 @@ window.eoxiaJS.taskManager.newTask.event = function() {
 		window.eoxiaJS.taskManager.newTask.draggedElement.remove();
 
 		window.eoxiaJS.taskManager.newTask.refreshKey();
+
+		jQuery( '.table-row:not(.table-header) .table-cell[data-key=' + targetKey + ']' ).removeClass( 'border-active' );
+
 
 		return false;
 	});

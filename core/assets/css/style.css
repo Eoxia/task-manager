@@ -2280,7 +2280,6 @@
 }
 
 .tm-wrap .list-task .wpeo-table.table-flex .table-header {
-  position: relative;
   background: none;
 }
 
@@ -2291,14 +2290,6 @@
   font-weight: 700;
   line-height: 1.4;
   margin-bottom: 0;
-}
-
-.tm-wrap .list-task .wpeo-table.table-flex .table-header .table-header-edit {
-  position: absolute;
-  right: 0;
-  top: 0;
-  -webkit-transition: none;
-  transition: none;
 }
 
 .tm-wrap .list-task .wpeo-table.table-flex .table-row:not(.table-header) {
@@ -3163,6 +3154,10 @@ body.eo-custom-page .content-wrap .tm-main-container {
 /*--------------------------------------------------------------
 # TMP START Jimmy
 --------------------------------------------------------------*/
+.tm-wrap .border-active {
+  border-right: solid red 5px !important;
+}
+
 .tm-wrap .table-header .table-cell > * {
   pointer-events: none;
 }
