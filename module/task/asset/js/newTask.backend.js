@@ -225,10 +225,12 @@ window.eoxiaJS.taskManager.newTask.editedColumnSuccess = function (triggeredElem
 
 	for (var key in response.data.user_columns_def) {
 		if (! response.data.user_columns_def[key].displayed) {
-			jQuery( '.table-cell[data-key=' + key + ']' ).css({display: 'flex' ,opacity: 0.3});
+			jQuery( '.table-cell[data-key=' + key + ']' ).css({display: 'flex' ,opacity: 0.3}).addClass( 'next-time-hidden');
 			jQuery( '.table-cell[data-key=' + key + '] input[type=checkbox]' ).attr( 'checked', false );
 		}
 	}
+
+	jQuery( '.load-more-button' ).hide();
 };
 
 
@@ -236,4 +238,18 @@ window.eoxiaJS.taskManager.newTask.refreshKey = function( event ) {
 	jQuery( '.table-header .table-cell' ).each( function( key ) {
 		jQuery( this ).find( 'input[type="hidden"]' ).val(key);
 	} );
+};
+
+
+
+window.eoxiaJS.taskManager.newTask.savedColumnSuccess = function( triggeredElement, response ) {
+	jQuery( '.table-header.table-row .input-header' ).addClass( 'wpeo-util-hidden' );
+	triggeredElement.removeClass( 'button-green' ).addClass( 'button-blue' );
+	triggeredElement.find( 'i' ).removeClass( 'fa-save' ).addClass( 'fa-pencil-alt' );
+	triggeredElement.attr( 'data-action', 'tm_edit_columns' );
+
+	jQuery( '.table-header .table-cell' ).attr( 'draggable', false );
+
+	jQuery( '.table-cell.next-time-hidden' ).removeClass( '.next-time-hidden' ).css({display: 'none'});
+	jQuery( '.load-more-button' ).show();
 };

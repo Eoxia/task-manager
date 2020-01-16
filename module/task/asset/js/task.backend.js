@@ -563,9 +563,11 @@ window.eoxiaJS.taskManager.task.showHideColumn = function( event ) {
 	const key = jQuery( this ).closest( '.table-cell' ).data( 'key' );
 
 	if (jQuery( this ).is( ':checked' ) ) {
+		jQuery( '.table-cell[data-key=' + key + ']' ).removeClass( 'next-time-hidden' );
 		jQuery( '.table-cell[data-key=' + key + ']' ).css({opacity: 1});
 	} else {
 		jQuery( '.table-cell[data-key=' + key + ']' ).css({opacity: 0.3});
+		jQuery( '.table-cell[data-key=' + key + ']' ).addClass( 'next-time-hidden' );
 
 	}
 };

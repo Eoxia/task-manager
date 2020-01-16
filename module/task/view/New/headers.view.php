@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div data-order="<?php echo esc_attr( $order ); ?>" data-key="<?php echo $header['key']; ?>" class="table-cell
 					<?php echo esc_attr( $header['classes'] ); ?>"
 						style="<?php echo Follower_Class::g()->user_columns_def[ $header['key'] ]['displayed'] ? '' : 'display: none;'; ?>">
-					<div class="wpeo-util-hidden">
+					<div class="wpeo-util-hidden input-header">
 						<input type="checkbox" checked name="columns[<?php echo $header['key']; ?>][displayed]" />
 						<input type="hidden" value="<?php echo $order; ?>" name="columns[<?php echo $header['key']; ?>][order]" />
 					</div>
