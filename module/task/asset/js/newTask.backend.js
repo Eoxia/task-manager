@@ -114,7 +114,7 @@ window.eoxiaJS.taskManager.newTask.event = function() {
 		return false;
 	});
 
-	jQuery( document ).on( 'click', '.dropdown-item.load-complete-point', function( ev ) {
+	jQuery( document ).on( 'click', '.table-projects .dropdown-item.load-complete-point', function( ev ) {
 		var data         = {};
 		data.action      = 'load_point';
 		data._wpnonce    = jQuery( this ).data('nonce');
