@@ -3163,6 +3163,11 @@ body.eo-custom-page .content-wrap .tm-main-container {
 /*--------------------------------------------------------------
 # TMP START Jimmy
 --------------------------------------------------------------*/
+.tm-wrap .active {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(red), color-stop(orange), color-stop(yellow), color-stop(green), color-stop(blue), color-stop(indigo), to(violet)) !important;
+  background-image: linear-gradient(red, orange, yellow, green, blue, indigo, violet) !important;
+}
+
 .tm-wrap .border-active {
   border-right: solid red 5px !important;
 }

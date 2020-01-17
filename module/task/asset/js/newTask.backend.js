@@ -13,20 +13,20 @@ window.eoxiaJS.taskManager.newTask.init = function() {
 };
 
 window.eoxiaJS.taskManager.newTask.event = function() {
-	jQuery( '.tm-wrap' ).on( 'blur', '.table-projects .table-type-project  .project-title', window.eoxiaJS.taskManager.newTask.editTitle );
-	jQuery( '.tm-wrap' ).on( 'click', '.table-type-project .project-toggle-task', window.eoxiaJS.taskManager.newTask.togglePoints );
-	jQuery( '.tm-wrap' ).on( 'click', '.table-type-project .project-state .dropdown-item',  window.eoxiaJS.taskManager.newTask.displayState );
-	jQuery( '.tm-wrap' ).on( 'click, focus', '.list-task .table-cell div[contenteditable="true"]', function(e) {
+	jQuery( document ).on( 'blur', '.table-projects .table-type-project  .project-title', window.eoxiaJS.taskManager.newTask.editTitle );
+	jQuery( document ).on( 'click', '.table-type-project .project-toggle-task', window.eoxiaJS.taskManager.newTask.togglePoints );
+	jQuery( document ).on( 'click', '.table-type-project .project-state .dropdown-item',  window.eoxiaJS.taskManager.newTask.displayState );
+	jQuery( document ).on( 'click, focus', '.list-task .table-cell div[contenteditable="true"]', function(e) {
 		jQuery( '.cell-focus .table-cell.cell-focus' ).removeClass( 'cell-focus' );
 		jQuery( this ).closest( '.table-cell' ).addClass( 'cell-focus' );
 	});
-	jQuery( '.tm-wrap' ).on( 'blur', '.list-task .table-cell.cell-focus', function(e) {
+	jQuery( document ).on( 'blur', '.list-task .table-cell.cell-focus', function(e) {
 		jQuery( this ).removeClass( 'cell-focus' );
 	});
 	jQuery( '.list-task' ).on( 'scroll', window.eoxiaJS.taskManager.newTask.stickyAction );
 	window.eoxiaJS.taskManager.newTask.stickyAction();
 
-	jQuery( '.tm-wrap' ).on( 'click', '.table-projects .cell-affiliated', function(e) {
+	jQuery( document ).on( 'click', '.table-projects .cell-affiliated', function(e) {
 		e.stopPropagation();
 		window.eoxiaJS.taskManager.task.displayInputTextParent(e, jQuery( this ).find( '.add_parent_to_task'));
 	});
@@ -113,16 +113,44 @@ window.eoxiaJS.taskManager.newTask.event = function() {
 
 		return false;
 	});
+
+	jQuery( document ).on( 'click', '.dropdown-item.load-complete-point', function( ev ) {
+		var data         = {};
+		data.action      = 'load_point';
+		data._wpnonce    = jQuery( this ).data('nonce');
+		data.task_id     = jQuery( this ).data('task-id');
+		data.point_state = jQuery( this ).data('point-state' );
+
+		if ( ! jQuery( this ).hasClass( 'active' ) ) {
+			var _this = jQuery( this );
+			jQuery( this ).addClass( 'active' );
+			jQuery.post(ajaxurl, data, function(response) {
+				window.eoxiaJS.taskManager.newPoint.loadedPointSuccess( _this, response );
+			});
+		} else {
+			jQuery(this).removeClass('active');
+
+			if (data.point_state == 'completed') {
+				jQuery('.table-projects .table-type-task.task-completed[data-post-id=' + data.task_id + ']').slideUp(400, function() {
+					jQuery( this ).remove();
+				});
+			} else {
+				jQuery('.table-projects .table-type-task:not(.task-completed)[data-post-id=' + data.task_id + ']').slideUp(400, function() {
+					jQuery( this ).remove();
+				});
+			}
+		}
+	} );
 };
 
 window.eoxiaJS.taskManager.newTask.clickTags = function() {
-	jQuery( '.tm-wrap' ).one( 'click', '.table-projects .project-categories', function(e) {
+	jQuery( document ).one( 'click', '.table-projects .project-categories', function(e) {
 		jQuery(this).find('.action-attribute').trigger('click');
 	});
 }
 
 window.eoxiaJS.taskManager.newTask.clickUsers = function() {
-	jQuery( '.tm-wrap' ).one( 'click', '.table-projects .project-users', function(e) {
+	jQuery( document ).one( 'click', '.table-projects .project-users', function(e) {
 		jQuery(this).find('.action-attribute').trigger('click');
 	});
 }
@@ -233,14 +261,11 @@ window.eoxiaJS.taskManager.newTask.editedColumnSuccess = function (triggeredElem
 	jQuery( '.load-more-button' ).hide();
 };
 
-
 window.eoxiaJS.taskManager.newTask.refreshKey = function( event ) {
 	jQuery( '.table-header .table-cell' ).each( function( key ) {
 		jQuery( this ).find( 'input[type="hidden"]' ).val(key);
 	} );
 };
-
-
 
 window.eoxiaJS.taskManager.newTask.savedColumnSuccess = function( triggeredElement, response ) {
 	jQuery( '.table-header.table-row .input-header' ).addClass( 'wpeo-util-hidden' );
