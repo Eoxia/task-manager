@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div id="tm_client_load_task_page">
+<div id="tm_client_load_task_page" style="height: 650px;">
 	<div class="tm-wrap wpeo-wrap">
 		<div class="tm-post-dashboard">
 

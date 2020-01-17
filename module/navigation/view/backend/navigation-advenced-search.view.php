@@ -47,10 +47,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</label>
 	</div>
 
-	<div class="form-element">
+	<div class="form-element search-categories">
 		<label class="form-field-container">
 			<span class="form-field-icon-prev"><i class="fas fa-tag"></i></span>
 			<input type="text" class="form-field" name="categories_id" placeholder="<?php echo esc_html_e( 'Categories', 'task-manager' ); ?>"/>
+			<?php
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'navigation',
+				'backend/navigation-tag',
+				array(
+					'categories' => $categories,
+				)
+			);
+			?>
 		</label>
 	</div>
 

@@ -166,7 +166,7 @@ class Point_Filter {
 			$output['classes'] .= ' cell-readonly ';
 		}
 
-		$output['count_comments'] = $task->data['count_comments'];
+		$output['count_comments'] = $point->data['count_comments'];
 
 		return $output;
 	}

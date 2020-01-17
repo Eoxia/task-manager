@@ -18,6 +18,7 @@ window.eoxiaJS.taskManager.navigation.event = function() {
 
 	jQuery( document ).on( 'click', '.wpeo-header-bar .more-search-options', window.eoxiaJS.taskManager.navigation.toggleMoreOptions );
 	jQuery( document ).on( 'click', '.wpeo-tag-search', window.eoxiaJS.taskManager.navigation.selectTag );
+	jQuery( document ).on( 'click', '.search-categories', window.eoxiaJS.taskManager.navigation.searchCategories );
 };
 
 window.eoxiaJS.taskManager.navigation.triggerSearch = function( event ) {
@@ -122,4 +123,8 @@ window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredEleme
 
 	window.eoxiaJS.taskManager.task.initAutoComplete();
 	window.eoxiaJS.taskManager.point.refresh();
+};
+
+window.eoxiaJS.taskManager.navigation.searchCategories = function ( event ) {
+	jQuery( this ).addClass( 'dropdown-active' );
 };
