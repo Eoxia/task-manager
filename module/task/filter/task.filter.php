@@ -299,10 +299,6 @@ class Task_Filter {
 			'data-nonce="' . wp_create_nonce( 'load_point' ) . '"',
 		);
 
-		if ( $task->data['count_all_points'] == 0) {
-			$output['classes'] .= ' cell-readonly ';
-		}
-
 		$output['count_all_points']      = $task->data['count_all_points'];
 
 
@@ -437,7 +433,6 @@ class Task_Filter {
 
 		return $output;
 	}
-
 }
 
 new Task_Filter();

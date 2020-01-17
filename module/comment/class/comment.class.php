@@ -135,7 +135,9 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 			$offset = intval( $args[ 'offset' ] / 10 ) +1;
 		}
 
-		Task_Class::g()->display_bodies( $comments );
+		$point = Point_Class::g()->get( array( 'id' => $point_id ), true );
+
+		Task_Class::g()->display_bodies( $comments, $point );
 	}
 
 	/**

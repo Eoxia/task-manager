@@ -13,7 +13,7 @@ if ( ! empty( $contents['bodies'] ) ) :
 				?>
 				<div data-key="<?php echo esc_attr( $data['key'] ); ?>"  class="table-cell <?php echo esc_attr( $data['classes'] ); ?>"
 				     style="<?php echo Follower_Class::g()->user_columns_def[ $data['key'] ]['displayed'] ? '' : 'display: none;'; ?>"
-	<?php echo ! empty( $data['attrs'] ) ? implode( ' ', $data['attrs'] ) : ''; ?>>
+					<?php echo ! empty( $data['attrs'] ) ? implode( ' ', $data['attrs'] ) : ''; ?>>
 					<?php
 					\eoxia\View_Util::exec( 'task-manager', 'task', 'New/render/' . $data['type'] . '-' . $data['key'], array(
 						'data_def' => $data_def,
@@ -29,4 +29,27 @@ if ( ! empty( $contents['bodies'] ) ) :
 	<?php
 
 	endforeach;
+else :
+	if ( $parent != null ) :
+		$action = 'edit_point';
+		$text = __( 'Genre pas de tâche, cliquer pour en ajouter une.', 'task-manager' );
+
+		if ( $parent->data['type'] != 'wpeo-task' ) {
+			$action = 'edit_comment';
+			$text = __( 'Genre pas de commentaire, cliquer pour en ajouter un.', 'task-manager' );
+		}
+
+		?>
+		<div class="table-row">
+			<p><?php echo $text; ?></p>
+			<div class="wpeo-button action-attribute"
+			     data-parent-id="<?php echo $parent->data['id']; ?>"
+			     data-action="<?php echo esc_attr( $action ); ?>"
+			     data-content="<?php esc_html_e( '', 'task-manager' ); ?>"
+			     data-nonce="<?php echo esc_attr( wp_create_nonce( $action ) ); ?>">
+				<i class="fas fa-plus-circle second-icon"></i>
+			</div>
+		</div>
+		<?php
+	endif;
 endif;

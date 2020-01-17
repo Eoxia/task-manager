@@ -390,7 +390,6 @@ class Task_Class extends \eoxia\Post_Class {
 			return ( $a > $b ) ? 1 : -1;
 		} );
 
-
 		$this->contents['headers'] = $new_orders_headers;
 
 		\eoxia\View_Util::exec(
@@ -409,7 +408,7 @@ class Task_Class extends \eoxia\Post_Class {
 		$this->display_headers( $elements );
 	}
 
-	public function display_bodies( $elements ) {
+	public function display_bodies( $elements, $parent = null ) {
 		$user_def = Follower_Class::g()->user_columns_def;
 
 
@@ -450,6 +449,7 @@ class Task_Class extends \eoxia\Post_Class {
 			'New/bodies',
 			array(
 				'contents'     => $this->contents,
+				'parent'       => $parent,
 				'with_wrapper' => false,
 			)
 		);
