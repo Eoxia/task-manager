@@ -15,14 +15,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<ul class="actions">
-	<li class="action-delete wpeo-tooltip-event" data-position="top"
-			aria-label="<?php esc_html_e( 'Delete', 'task-manager' ); ?>"
-			data-action="delete_point"
-			data-message-delete="<?php echo esc_attr_e( 'Delete this point ?', 'task-manager' ); ?>"
-			data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_point' ) ); ?>"
-			data-id="<?php echo esc_attr( $point->data['id'] ); ?>"
-			data-loader="actions">
-		<span><i class="fas fa-trash"></i></span>
-	</li>
-</ul>
+<li class="dropdown-item action-delete wpeo-tooltip-event" data-position="top"
+	aria-label="<?php esc_html_e( 'Delete', 'task-manager' ); ?>"
+	data-action="delete_point"
+	data-message-delete="<?php echo esc_attr_e( 'Delete this point ?', 'task-manager' ); ?>"
+	data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_point' ) ); ?>"
+	data-id="<?php echo esc_attr( $point->data['id'] ); ?>"
+	data-loader="actions">
+	<i class="fas fa-trash"></i>
+</li>
