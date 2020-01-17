@@ -2268,6 +2268,7 @@
   /** Tableau général */
   /** Table header */
   /** Table columns */
+  /** Ligne vide */
   /** Table cell */
 }
 
@@ -2311,6 +2312,18 @@
 
 .tm-wrap .list-task .wpeo-table.table-flex .table-row:not(.table-header):nth-of-type(2) {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.tm-wrap .list-task .wpeo-table.table-flex .table-row:not(.table-header).row-empty {
+  padding: 1em;
+}
+
+.tm-wrap .list-task .wpeo-table.table-flex .table-row:not(.table-header).row-empty p {
+  line-height: 2;
+}
+
+.tm-wrap .list-task .wpeo-table.table-flex .table-row:not(.table-header).row-empty .wpeo-button {
+  margin: 0 0.4em;
 }
 
 .tm-wrap .list-task .wpeo-table.table-flex .table-row:not(.table-header) {

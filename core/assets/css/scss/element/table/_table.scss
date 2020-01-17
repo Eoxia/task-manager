@@ -40,6 +40,18 @@
 		}
 	}
 
+	/** Ligne vide */
+	.wpeo-table.table-flex .table-row:not(.table-header).row-empty {
+		padding: 1em;
+
+		p {
+			line-height: 2;
+		}
+		.wpeo-button {
+			margin: 0 0.4em;
+		}
+	}
+
 	/** Table cell */
 	.wpeo-table.table-flex .table-row:not(.table-header) {
 		@import "cell/cell";
