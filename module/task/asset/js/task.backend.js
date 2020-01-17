@@ -174,10 +174,14 @@ window.eoxiaJS.taskManager.task.keyEnterEditTitle = function( event ) {
  */
 window.eoxiaJS.taskManager.task.createdTaskSuccess = function( element, response ) {
 	var tmp = jQuery( response.data.view );
-	tmp.css({display: "none"});
+	tmp.css( {display: "none"} );
 	jQuery( '.table-projects > .table-header' ).after( tmp );
-	tmp.slideDown(400);
-
+	tmp.slideDown( 400 );
+	tmp.find( '.cell-content' ).addClass( 'cell-focus' );
+	tmp.find( '.project-title' ).focus();
+	if ( tmp.find( '.project-title' ).text().trim() == 'New Project' ) {
+		tmp.find( '.project-title' ).text().remove( '' );
+	}
 	window.eoxiaJS.taskManager.newTask.stickyAction();
 };
 

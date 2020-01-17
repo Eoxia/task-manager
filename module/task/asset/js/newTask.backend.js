@@ -231,7 +231,6 @@ window.eoxiaJS.taskManager.newTask.taskStateSuccess = function( element, respons
 
 window.eoxiaJS.taskManager.newTask.stickyAction = function( e ) {
 	var tables = jQuery( '.list-task' );
-	console.log('saslasdlalseal')
 
 	tables.each( function( i ) {
 		var scrollPos = jQuery( this ).scrollLeft();
