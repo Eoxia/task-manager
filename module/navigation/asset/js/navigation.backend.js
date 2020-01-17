@@ -13,18 +13,24 @@ window.eoxiaJS.taskManager.navigation.init = function() {
 window.eoxiaJS.taskManager.navigation.draggedElement;
 
 window.eoxiaJS.taskManager.navigation.event = function() {
-	jQuery( document ).on( 'keyup', '.wpeo-header-bar input[name="term"]', window.eoxiaJS.taskManager.navigation.triggerSearch );
+	jQuery( document ).on( 'keyup', '.header-searchbar input', window.eoxiaJS.taskManager.navigation.triggerSearch );
 	// jQuery( document ).on( 'change', '.wpeo-header-bar .wpeo-autocomplete', window.eoxiaJS.taskManager.navigation.closeResults );
 
+	jQuery( document ).on( 'click', '.autocomplete-search-list .autocomplete-result', window.eoxiaJS.taskManager.navigation.triggerSearchAutoComplete );
 	jQuery( document ).on( 'click', '.wpeo-header-bar .more-search-options', window.eoxiaJS.taskManager.navigation.toggleMoreOptions );
 	jQuery( document ).on( 'click', '.wpeo-tag-search', window.eoxiaJS.taskManager.navigation.selectTag );
 	jQuery( document ).on( 'click', '.search-categories', window.eoxiaJS.taskManager.navigation.searchCategories );
+
 };
 
 window.eoxiaJS.taskManager.navigation.triggerSearch = function( event ) {
 	if ( 13 === event.keyCode ) {
-		jQuery( '.tm-advanced-search .action-input' ).click();
+		jQuery( '.search-action .action-input' ).click();
 	}
+};
+
+window.eoxiaJS.taskManager.navigation.triggerSearchAutoComplete = function( event ) {
+	jQuery( '.search-action .action-input' ).click();
 };
 
 window.eoxiaJS.taskManager.navigation.closeResults = function( event ) {
@@ -105,10 +111,10 @@ window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredEleme
 
 	jQuery( '.tm-dashboard-shortcuts .active' ).removeClass( 'active' );
 	jQuery( '.list-task' ).replaceWith( response.data.view.tasks );
-	jQuery( '.list-task' ).colcade( {
+	/*jQuery( '.list-task' ).colcade( {
 		items: '.wpeo-project-task',
 		columns: '.grid-col'
-	} );
+	} );*/
 	jQuery( '.search-results' ).replaceWith( response.data.view.search_result );
 	window.eoxiaJS.taskManager.task.offset = 0;
 	window.eoxiaJS.taskManager.task.canLoadMore = true;
@@ -119,12 +125,15 @@ window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredEleme
 		jQuery( triggeredElement ).addClass( 'active' );
 	}
 
-	triggeredElement.closest( '.wpeo-dropdown' ).removeClass( 'dropdown-active' );
+	//triggeredElement.closest( '.wpeo-dropdown' ).removeClass( 'dropdown-active' );
 
-	window.eoxiaJS.taskManager.task.initAutoComplete();
-	window.eoxiaJS.taskManager.point.refresh();
+	//window.eoxiaJS.taskManager.task.initAutoComplete();
+	//window.eoxiaJS.taskManager.point.refresh();
+	window.eoxiaJS.taskManager.newTask.stickyAction();
+	jQuery( '.list-task' ).on( 'scroll', window.eoxiaJS.taskManager.newTask.stickyAction );
 };
 
 window.eoxiaJS.taskManager.navigation.searchCategories = function ( event ) {
-	jQuery( this ).addClass( 'dropdown-active' );
+	jQuery( this).closest( '.search-categories' ).find( '.wpeo-dropdown' ).addClass( 'dropdown-active' );
+	event.stopPropagation();
 };

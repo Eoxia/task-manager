@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</label>
 	</div>
 
-	<div class="form-element">
+	<div class="form-element header-searchbar">
 		<label class="form-field-container">
 			<span class="form-field-icon-prev"><i class="fas fa-thumbtack"></i></span>
 			<input type="text" class="form-field" name="task_id" placeholder="<?php echo esc_html_e( 'ID/Project Name', 'task-manager' ); ?>"/>
@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php $eo_search->display( 'tm_search_customer' ); ?>
 
-	<div class="form-element">
+	<div class="form-element header-searchbar">
 		<label class="form-field-container">
 			<span class="form-field-icon-prev"><i class="fas fa-check-square"></i></span>
 			<input type="text" class="form-field" name="point_id" placeholder="<?php echo esc_html_e( 'ID/Task Name', 'task-manager' ); ?>"/>
@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php $eo_search->display( 'tm_search_admin' ); ?>
 
-	<div class="form-element">
+	<div class="form-element header-searchbar">
 		<label class="form-field-container">
 			<span class="form-field-icon-prev"><i class="fas fa-link"></i></span>
 			<input type="text" class="form-field" name="affliated" placeholder="<?php echo esc_html_e( 'Affliated', 'task-manager' ); ?>"/>
@@ -50,7 +50,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="form-element search-categories">
 		<label class="form-field-container">
 			<span class="form-field-icon-prev"><i class="fas fa-tag"></i></span>
-			<input type="text" class="form-field" name="categories_id" placeholder="<?php echo esc_html_e( 'Categories', 'task-manager' ); ?>"/>
 			<?php
 			\eoxia\View_Util::exec(
 				'task-manager',

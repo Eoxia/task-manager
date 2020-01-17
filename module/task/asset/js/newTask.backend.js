@@ -231,6 +231,7 @@ window.eoxiaJS.taskManager.newTask.taskStateSuccess = function( element, respons
 
 window.eoxiaJS.taskManager.newTask.stickyAction = function( e ) {
 	var tables = jQuery( '.list-task' );
+	console.log('saslasdlalseal')
 
 	tables.each( function( i ) {
 		var scrollPos = jQuery( this ).scrollLeft();
@@ -240,7 +241,7 @@ window.eoxiaJS.taskManager.newTask.stickyAction = function( e ) {
 		jQuery( this ).find( '.cell-sticky' ).css({left: finalPos});
 		jQuery( this ).find( '.table-header-edit' ).css({left: finalPosHeader });
 	});
-}
+};
 
 window.eoxiaJS.taskManager.newTask.editedColumnSuccess = function (triggeredElement, response) {
 	jQuery( '.table-header .wpeo-util-hidden' ).removeClass( 'wpeo-util-hidden' );

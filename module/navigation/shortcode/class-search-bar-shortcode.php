@@ -70,12 +70,12 @@ class Search_Bar_Shortcode {
 		$eo_search->register_search(
 			'tm_search_admin',
 			array(
-				'label' => '',
-				'icon'  => 'fa-user',
-				'type'  => 'user',
-				'name'  => 'user_id',
+				'label'       => '',
+				'icon'        => 'fa-user',
+				'type'        => 'user',
+				'name'        => 'user_id',
 				'placeholder' => 'Users',
-				'args'  => array(
+				'args'        => array(
 					'role' => 'administrator',
 				),
 			)
@@ -96,12 +96,12 @@ class Search_Bar_Shortcode {
 		$eo_search->register_search(
 			'tm_search_customer',
 			array(
-				'label' => '',
-				'icon'  => 'fa-search',
-				'type'  => 'post',
-				'name'  => 'post_parent',
+				'label'       => '',
+				'icon'        => 'fa-search',
+				'type'        => 'post',
+				'name'        => 'post_parent',
 				'placeholder' => 'Client',
-				'args'  => array(
+				'args'        => array(
 					'post_type'   => 'wpshop_customers',
 					'post_status' => array( 'publish', 'inherit', 'draft' ),
 				),
