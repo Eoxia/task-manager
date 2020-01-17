@@ -430,9 +430,11 @@ class Task_Filter {
 	}
 
 	public function fill_value_empty_add_value( $output, $task ) {
-		$output['classes']              .= ' cell-sticky';
-		$output['value']                 = $task->data['id'];
-		$output['number_completed_task'] = $task->data['count_completed_points'];
+		$output['classes']                .= ' cell-sticky';
+		$output['value']                   = $task->data['id'];
+		$output['number_completed_task']   = $task->data['count_completed_points'];
+		$output['number_uncompleted_task'] = $task->data['count_uncompleted_points'];
+
 		return $output;
 	}
 

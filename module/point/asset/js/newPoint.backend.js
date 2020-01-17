@@ -11,10 +11,10 @@ window.eoxiaJS.taskManager.newPoint.init = function() {
 };
 
 window.eoxiaJS.taskManager.newPoint.event = function() {
-	jQuery( '.tm-wrap' ).on( 'blur', '.table-row.table-type-task .task-title', window.eoxiaJS.taskManager.newPoint.editTitle );
-	jQuery( '.tm-wrap' ).on( 'click', '.table-row.table-type-task .task-complete-point-field', window.eoxiaJS.taskManager.newPoint.completePoint );
+	jQuery( document ).on( 'blur', '.table-row.table-type-task .task-title', window.eoxiaJS.taskManager.newPoint.editTitle );
+	jQuery( document ).on( 'click', '.table-row.table-type-task .task-complete-point-field', window.eoxiaJS.taskManager.newPoint.completePoint );
 
-	jQuery( '.tm-wrap' ).on( 'click', '.table-row.table-type-task .task-toggle-comment', window.eoxiaJS.taskManager.newPoint.toggleComments );
+	jQuery( document ).on( 'click', '.table-row.table-type-task .task-toggle-comment', window.eoxiaJS.taskManager.newPoint.toggleComments );
 };
 
 window.eoxiaJS.taskManager.newPoint.addedPointSuccess = function ( triggeredElement, response ) {
@@ -140,14 +140,18 @@ window.eoxiaJS.taskManager.newPoint.loadedPointSuccess = function( triggeredElem
 	var row = triggeredElement.closest( '.table-row' );
 	row.after(view);
 
-	view.slideDown( 400 );
+	view.slideDown(400);
 
 	window.eoxiaJS.taskManager.newTask.stickyAction();
 
 	triggeredElement.removeClass( 'loading' );
-
 	if ( triggeredElement.hasClass( 'action-attribute' ) ) {
 		triggeredElement.attr( 'data-toggle', true );
 	}
+
+	if (triggeredElement.hasClass( 'cell-toggle' ) ) {
+		triggeredElement.closest( '.table-row' ).find( '.load-complete-point:not(.active)[data-point-state="uncompleted"]' ).addClass( 'active' );
+	}
+
 };
 

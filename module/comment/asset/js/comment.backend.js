@@ -40,7 +40,7 @@ window.eoxiaJS.taskManager.comment.event = function() {
 
 	jQuery( document ).on( 'click', '.comment-container .comment-action .tm_register_comment', window.eoxiaJS.taskManager.comment.editComment );
 
-	jQuery( document ).on( 'click', function( e ){
+	/*jQuery( document ).on( 'click', function( e ){
 		if ( ! jQuery( event.target).closest( ".wpeo-project-task" ).length) {
 			jQuery( '.point.edit' ).each( function (){
 				if ( jQuery( this ).closest( 'div.point' ).find( '.comments' ).is( ':visible' ) ) {
@@ -65,7 +65,7 @@ window.eoxiaJS.taskManager.comment.event = function() {
 				}
 			})
     }
-	} );
+	} );*/
 };
 
 /**

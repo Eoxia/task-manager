@@ -80,6 +80,10 @@ body.toplevel_page_wpeomtm-dashboard {
 	.table-header .table-cell {
 	}
 
+	.active {
+		background-image: linear-gradient(red, orange, yellow, green, blue, indigo, violet) !important;
+	}
+
 	.border-active {
 		border-right: solid red 5px !important;
 	}
