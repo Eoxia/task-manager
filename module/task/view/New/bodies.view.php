@@ -38,7 +38,7 @@ else :
 				$text = __( 'No tasks yet. Add a new one', 'task-manager' );
 
 				?>
-				<div class="table-row table-type-task tmp-row-add" data-post-id="<?php echo $parent->data['id']; ?>">
+				<div class="table-row row-empty table-type-task" data-post-id="<?php echo $parent->data['id']; ?>">
 				<p><?php echo $text; ?></p>
 				<div class="wpeo-button button-main button-square-30 button-rounded action-attribute"
 				     data-parent-id="<?php echo $parent->data['id']; ?>"
@@ -52,7 +52,7 @@ else :
 				$action = 'edit_comment';
 				$text = __( 'No tasks yet. Add a new one', 'task-manager' );
 				?>
-				<div class="table-row table-type-comment tmp-row-add" data-parent-id="<?php echo $parent->data['id']; ?>" data-post-id="<?php echo $parent->data['post_id']; ?>">
+				<div class="table-row row-empty table-type-comment" data-parent-id="<?php echo $parent->data['id']; ?>" data-post-id="<?php echo $parent->data['post_id']; ?>">
 				<p><?php echo $text; ?></p>
 				<div class="wpeo-button button-main button-square-30 button-rounded action-attribute"
 				     data-post-id="<?php echo $parent->data['post_id']; ?>"

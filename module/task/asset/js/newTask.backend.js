@@ -279,3 +279,4 @@ window.eoxiaJS.taskManager.newTask.savedColumnSuccess = function( triggeredEleme
 	jQuery( '.table-cell.next-time-hidden' ).removeClass( '.next-time-hidden' ).css({display: 'none'});
 	jQuery( '.load-more-button' ).show();
 };
+
