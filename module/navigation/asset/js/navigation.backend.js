@@ -18,9 +18,10 @@ window.eoxiaJS.taskManager.navigation.event = function() {
 
 	jQuery( document ).on( 'click', '.autocomplete-search-list .autocomplete-result', window.eoxiaJS.taskManager.navigation.triggerSearchAutoComplete );
 	jQuery( document ).on( 'click', '.wpeo-header-bar .more-search-options', window.eoxiaJS.taskManager.navigation.toggleMoreOptions );
-	jQuery( document ).on( 'click', '.wpeo-tag-search', window.eoxiaJS.taskManager.navigation.selectTag );
+	// jQuery( document ).on( 'click', '.wpeo-tag-search', window.eoxiaJS.taskManager.navigation.selectTag );
 	jQuery( document ).on( 'click', '.search-categories', window.eoxiaJS.taskManager.navigation.searchCategories );
 
+	jQuery( document ).on( 'click', '.dropdown-categories .dropdown-item', window.eoxiaJS.taskManager.navigation.selectTags );
 };
 
 window.eoxiaJS.taskManager.navigation.triggerSearch = function( event ) {
@@ -58,40 +59,17 @@ window.eoxiaJS.taskManager.navigation.toggleMoreOptions = function() {
  * @since 1.0.0
  * @version 1.3.6
  */
-window.eoxiaJS.taskManager.navigation.selectTag = function() {
-	jQuery( this ).toggleClass( 'active' );
+window.eoxiaJS.taskManager.navigation.selectTags = function( event ) {
+	jQuery( this ).closest( '.wpeo-dropdown' ).find( 'input[type="hidden"]' ).val( jQuery( this ).attr( 'data-tag-id' ) );
+
+	jQuery( this ).closest( '.wpeo-dropdown' ).find( 'input[type="text"]' ).val( jQuery( this ).text() );
+
+	jQuery( this ).closest( '.wpeo-dropdown' ).removeClass( 'dropdown-active' );
+
+	event.stopPropagation();
+	event.preventDefault();
 };
 
-/**
- * Vérifies les données pour la recherche avant d'exécuter la requête.
- *
- * @param  {HTMLSpanElement} triggeredElement L'élement déclenchant l'action.
- * @return {void}
- *
- * @since 1.0.0
- * @version 1.6.0
- */
-window.eoxiaJS.taskManager.navigation.checkDataBeforeSearch = function( triggeredElement ) {
-	var categoriesIdSelected = [];
-
-	jQuery( '.dropdown-content .tags li.active' ).each( function( key, item ) {
-		categoriesIdSelected.push( parseInt( jQuery( item ).attr( 'data-tag-id' ) ) );
-	} );
-
-	jQuery( 'input[name="categories_id"]' ).val( categoriesIdSelected.join( ',' ) );
-
-	if ( triggeredElement && ! triggeredElement.hasClass( 'change-status' ) ) {
-		// window.eoxiaJS.loader.display( jQuery( '.wpeo-general-search' ) );
-	} else if ( triggeredElement && triggeredElement.hasClass( 'change-status' ) ) {
-		jQuery( '.wpeo-header-bar input[name="status"]' ).val( triggeredElement.data( 'status' ) );
-	}
-
-	if ( jQuery( '.wpeo-header-bar input[name="post_parent_order"]' ).val() != 0 ) {
-		jQuery( '.wpeo-header-bar input[name="post_parent"]' ).val( jQuery( '.wpeo-header-bar input[name="post_parent_order"]' ).val() );
-	}
-
-	return true;
-};
 
 /**
  * Le callback en cas de réussite à la requête Ajax "search".

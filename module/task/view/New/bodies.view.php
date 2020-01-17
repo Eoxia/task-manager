@@ -31,24 +31,41 @@ if ( ! empty( $contents['bodies'] ) ) :
 	endforeach;
 else :
 	if ( $parent != null ) :
-		$action = 'edit_point';
-		$text = __( 'No tasks yet. Add a new one', 'task-manager' );
+		?>
+		<?php
+			if ( $parent->data['type'] == 'wpeo-task' ) {
+				$action = 'edit_point';
+				$text = __( 'No tasks yet. Add a new one', 'task-manager' );
 
-		if ( $parent->data['type'] != 'wpeo-task' ) {
-			$action = 'edit_comment';
-			$text = __( 'No comment yet. Add a new one', 'task-manager' );
-		}
+				?>
+				<div class="table-row table-type-task tmp-row-add" data-post-id="<?php echo $parent->data['id']; ?>">
+				<p><?php echo $text; ?></p>
+				<div class="wpeo-button button-main button-square-30 button-rounded action-attribute"
+				     data-parent-id="<?php echo $parent->data['id']; ?>"
+				     data-action="<?php echo esc_attr( $action ); ?>"
+				data-content="<?php esc_html_e( '', 'task-manager' ); ?>"
+				data-nonce="<?php echo esc_attr( wp_create_nonce( $action ) ); ?>">
+				<i class="button-icon fas fa-plus-circle second-icon"></i>
+				</div>
+				<?php
+			} else {
+				$action = 'edit_comment';
+				$text = __( 'No tasks yet. Add a new one', 'task-manager' );
+				?>
+				<div class="table-row table-type-comment tmp-row-add" data-parent-id="<?php echo $parent->data['id']; ?>" data-post-id="<?php echo $parent->data['post_id']; ?>">
+				<p><?php echo $text; ?></p>
+				<div class="wpeo-button button-main button-square-30 button-rounded action-attribute"
+				     data-post-id="<?php echo $parent->data['post_id']; ?>"
+				     data-parent-id="<?php echo $parent->data['id']; ?>"
+				     data-action="<?php echo esc_attr( $action ); ?>"
+				     data-content="<?php esc_html_e( '', 'task-manager' ); ?>"
+				     data-nonce="<?php echo esc_attr( wp_create_nonce( $action ) ); ?>">
+					<i class="button-icon fas fa-plus-circle second-icon"></i>
+				</div>
+				<?php
+			}
 
 		?>
-		<div class="table-row row-empty">
-			<p><?php echo $text; ?></p>
-			<div class="wpeo-button action-attribute button-main button-square-30 button-rounded"
-			     data-parent-id="<?php echo $parent->data['id']; ?>"
-			     data-action="<?php echo esc_attr( $action ); ?>"
-			     data-content="<?php esc_html_e( '', 'task-manager' ); ?>"
-			     data-nonce="<?php echo esc_attr( wp_create_nonce( $action ) ); ?>">
-				<i class="button-icon fas fa-plus-circle second-icon"></i>
-			</div>
 		</div>
 		<?php
 	endif;

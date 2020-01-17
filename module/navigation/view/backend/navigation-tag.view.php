@@ -13,8 +13,10 @@ namespace task_manager;
 defined( 'ABSPATH' ) || exit; ?>
 
 <div class="wpeo-dropdown dropdown-right">
+
 	<input type="hidden" name="categories_id" />
-	<input type="text" class="form-field" name="categories_id" placeholder="<?php echo esc_html_e( 'Categories', 'task-manager' ); ?>"/>
+
+	<input type="text" autocomplete="nope" class="form-field" placeholder="<?php echo esc_html_e( 'Categories', 'task-manager' ); ?>"/>
 	<ul class="dropdown-content dropdown-categories">
 		<?php
 		if ( ! empty( $categories ) ) :

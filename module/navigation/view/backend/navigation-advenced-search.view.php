@@ -66,9 +66,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="search-action">
 		<a class="action-input search-button wpeo-button button-main button-square-40"
 			data-loader="form"
-			data-namespace="taskManager"
-			data-module="navigation"
-			data-before-method="checkDataBeforeSearch"
 			data-action="search"
 			data-parent="form">
 			<i class="fas fa-filter"></i>

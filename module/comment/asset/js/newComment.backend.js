@@ -50,6 +50,9 @@ window.eoxiaJS.taskManager.newComment.addedCommentSuccess = function( triggeredE
 		tmp.slideDown(400);
 	}
 
+	triggeredElement.closest( '.table-row' ).remove();
+
+
 	const comment = response.data.comment;
 
 	jQuery( '.table-type-project[data-id=' + comment.data.post_id + '] .project-time .elapsed' ).text( response.data.time.task );

@@ -14,4 +14,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<li class="wpeo-tag-search" data-tag-id="<?php echo esc_attr( $category->data['term_taxonomy_id'] ); ?>"><?php echo esc_html( $category->data['name'] ); ?></li>
+<li class="dropdown-item wpeo-tag-search" data-tag-id="<?php echo esc_attr( $category->data['term_taxonomy_id'] ); ?>"><?php echo esc_html( $category->data['name'] ); ?></li>

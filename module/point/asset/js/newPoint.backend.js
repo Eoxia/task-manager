@@ -31,6 +31,8 @@ window.eoxiaJS.taskManager.newPoint.addedPointSuccess = function ( triggeredElem
 		tmp.slideDown(400);
 	}
 
+	triggeredElement.closest( '.table-row' ).remove();
+
 	window.eoxiaJS.taskManager.newTask.stickyAction();
 
 };
