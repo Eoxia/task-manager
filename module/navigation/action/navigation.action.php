@@ -42,13 +42,14 @@ class Navigation_Action {
 	 */
 	public function callback_search() {
 		$term                          = ! empty( $_POST['term'] ) ? sanitize_text_field( $_POST['term'] ) : '';
-		$task_id                       = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
-		$point_id                      = ! empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
+		$task_id                       = ! empty( $_POST['task_id'] ) ? sanitize_text_field( $_POST['task_id'] ) : '';
+		$point_id                      = ! empty( $_POST['point_id'] ) ? sanitize_text_field( $_POST['point_id'] ) : '';
 		$post_parent                   = ! empty( $_POST['post_parent'] ) ? (int) $_POST['post_parent'] : 0;
 		$categories_id                 = ! empty( $_POST['categories_id'] ) ? sanitize_text_field( $_POST['categories_id'] ) : '';
 		$user_id                       = ! empty( $_POST['user_id'] ) ? (int) $_POST['user_id'] : '';
 		$tm_dashboard_archives_include = ( isset( $_POST['tm_dashboard_archives_include'] ) && 'true' == $_POST['tm_dashboard_archives_include'] ) ? true : false;
 		$status                        = 'any';
+
 		if ( $tm_dashboard_archives_include ) {
 			add_filter(
 				'task_manager_get_tasks_args',
@@ -77,6 +78,7 @@ class Navigation_Action {
 					'tasks'         => $tasks_view,
 					'search_result' => $search_result_view,
 				),
+				'url' => admin_url( 'admin.php?page=wpeomtm-dashboard&term=' . $term . '&status=' . $status . '&task_id=' . $task_id . '&point_id=' . $point_id . '&post_parent=' . $post_parent . '&categories_id=' . $categories_id . '&user_id= ' . $user_id ),
 			)
 		);
 	}

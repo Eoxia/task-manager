@@ -30,25 +30,10 @@ class Task_Manager_Action {
 		add_action( 'wp_enqueue_scripts', array( $this, 'callback_enqueue_scripts' ), 11 );
 		add_action( 'wp_print_scripts', array( $this, 'callback_wp_print_scripts' ) );
 
-		// add_action( 'admin_enqueue_scripts', function() {
-		// 	wp_enqueue_script( 'task-manager-script', PLUGIN_TASK_MANAGER_URL . 'core/assets/js/metabox.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
-		// }, 9 );
-
 		add_action( 'init', array( $this, 'callback_plugins_loaded' ) );
 		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 12 );
 
 		add_action( 'wp_ajax_close_tm_change_log', array( $this, 'callback_close_change_log' ) );
-
-		add_action(
-			'load-toplevel_page_wpeomtm-dashboard',
-			function() {
-				if ( strpos( $_SERVER['REQUEST_URI'], 'page=wpeomtm-dashboard' ) != false && strpos( $_SERVER['REQUEST_URI'], 'page=wpeomtm-dashboard&' ) == false ) {
-					wp_redirect( admin_url( 'admin.php?page=wpeomtm-dashboard&user_id=' . get_current_user_id() ) );
-					exit;
-				}
-			}
-		);
-
 	}
 
 	/**

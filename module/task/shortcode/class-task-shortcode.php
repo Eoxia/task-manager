@@ -41,12 +41,12 @@ class Task_Shortcode {
 	 * @return HTML Le code HTML permettant d'afficher une tâche.
 	 */
 	public function callback_task( $param ) {
-
+		$element_per_page = get_user_meta( get_current_user_id(), '_tm_task_per_page', true );
 		$param = shortcode_atts(
 			array(
 				'id'              => 0,
 				'point_id'        => 0,
-				'task_id'				  => 0,
+				'task_id'		  => 0,
 				'categories_id'   => array(),
 				'users_id'        => array(),
 				'term'            => '',
@@ -55,7 +55,7 @@ class Task_Shortcode {
 				'post_parent'     => 0,
 				'not_parent_type' => array(),
 				// 'post_parent'    => 0,
-				'posts_per_page'  => \eoxia\Config_Util::$init['task-manager']->task->posts_per_page,
+				'posts_per_page'  => $element_per_page,
 				'with_wrapper'    => 1,
 			),
 			$param,

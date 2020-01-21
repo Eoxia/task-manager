@@ -30,6 +30,13 @@ class Follower_Model extends \eoxia\User_Model {
 	 * @param string         $req_method La méthode HTTP actuellement utilisée.
 	 */
 	public function __construct( $object, $req_method = null ) {
+		$this->schema['_tm_task_per_page'] = array(
+			'type'      => 'integer',
+			'meta_type' => 'single',
+			'field'     => '_tm_task_per_page',
+			'default'   => 10,
+		);
+
 		$this->schema['_tm_auto_elapsed_time'] = array(
 			'type'      => 'boolean',
 			'meta_type' => 'single',

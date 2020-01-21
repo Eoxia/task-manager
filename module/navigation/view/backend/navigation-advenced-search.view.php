@@ -25,18 +25,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="form-element header-searchbar">
 		<label class="form-field-container">
 			<span class="form-field-icon-prev"><i class="fas fa-thumbtack"></i></span>
-			<input type="text" class="form-field" name="task_id" placeholder="<?php echo esc_html_e( 'ID/Project Name', 'task-manager' ); ?>"/>
+			<input type="text" class="form-field" name="task_id" value="<?php echo esc_attr( $param['task_id'] ); ?>" placeholder="<?php echo esc_html_e( 'ID/Project Name', 'task-manager' ); ?>"/>
 		</label>
 	</div>
-
-	<?php $eo_search->display( 'tm_search_customer' ); ?>
 
 	<div class="form-element header-searchbar">
 		<label class="form-field-container">
 			<span class="form-field-icon-prev"><i class="fas fa-check-square"></i></span>
-			<input type="text" class="form-field" name="point_id" placeholder="<?php echo esc_html_e( 'ID/Task Name', 'task-manager' ); ?>"/>
+			<input type="text" class="form-field" name="point_id" value="<?php echo esc_attr( $param['point_id'] ); ?>" placeholder="<?php echo esc_html_e( 'ID/Task Name', 'task-manager' ); ?>"/>
 		</label>
 	</div>
+
+	<?php $eo_search->display( 'tm_search_customer' ); ?>
 
 	<?php $eo_search->display( 'tm_search_admin' ); ?>
 
@@ -57,6 +57,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				'backend/navigation-tag',
 				array(
 					'categories' => $categories,
+					'data'       => $data,
 				)
 			);
 			?>

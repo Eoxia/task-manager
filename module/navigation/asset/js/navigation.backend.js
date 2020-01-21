@@ -102,19 +102,22 @@ window.eoxiaJS.taskManager.navigation.selectTags = function( event ) {
  * @version 1.6.0
  */
 window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredElement, response ) {
-	jQuery( '.tm-wrap .load-more' ).remove();
-
 	window.eoxiaJS.loader.remove( jQuery( '.wpeo-general-search' ) );
 
 	jQuery( '.tm-dashboard-shortcuts .active' ).removeClass( 'active' );
 
 	jQuery( '.list-task' ).replaceWith( response.data.view.tasks );
 	jQuery( '.search-results' ).replaceWith( response.data.view.search_result );
+
 	window.eoxiaJS.taskManager.task.offset = 0;
 	window.eoxiaJS.taskManager.task.canLoadMore = true;
 
 	window.eoxiaJS.taskManager.newTask.stickyAction();
 	jQuery( '.list-task' ).on( 'scroll', window.eoxiaJS.taskManager.newTask.stickyAction );
+
+	// Mise à jour URL.
+	history.pushState('data', '', response.data.url );
+
 };
 
 window.eoxiaJS.taskManager.navigation.searchCategories = function ( event ) {
