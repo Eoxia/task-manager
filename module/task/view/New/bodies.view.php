@@ -44,7 +44,8 @@ else :
 					data-parent-id="<?php echo $parent->data['id']; ?>"
 					data-action="<?php echo esc_attr( $action ); ?>"
 					data-content="<?php esc_html_e( 'New Task', 'task-manager' ); ?>"
-					data-nonce="<?php echo esc_attr( wp_create_nonce( $action ) ); ?>">
+					data-nonce="<?php echo esc_attr( wp_create_nonce( $action ) ); ?>"
+					data-toggle="true">
 					<i class="button-icon fas fa-plus-circle second-icon"></i>
 				</div>
 				<?php
@@ -59,7 +60,8 @@ else :
 				     data-parent-id="<?php echo $parent->data['id']; ?>"
 				     data-action="<?php echo esc_attr( $action ); ?>"
 				     data-content="<?php esc_html_e( 'New Comment', 'task-manager' ); ?>"
-				     data-nonce="<?php echo esc_attr( wp_create_nonce( $action ) ); ?>">
+				     data-nonce="<?php echo esc_attr( wp_create_nonce( $action ) ); ?>"
+					data-toggle="true">
 					<i class="button-icon fas fa-plus-circle second-icon"></i>
 				</div>
 				<?php

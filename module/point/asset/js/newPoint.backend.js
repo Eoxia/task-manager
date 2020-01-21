@@ -21,6 +21,7 @@ window.eoxiaJS.taskManager.newPoint.addedPointSuccess = function ( triggeredElem
 	triggeredElement.closest( '.row-empty' ).remove();
 
 	if ( ! response.data.toggle ) {
+		response.newTask = true;
 		this.loadedPointSuccess( triggeredElement, response );
 
 		jQuery( '.table-type-project[data-id=' + response.data.task_id + '] .wpeo-util-hidden' ).removeClass( 'wpeo-util-hidden' );
@@ -30,7 +31,9 @@ window.eoxiaJS.taskManager.newPoint.addedPointSuccess = function ( triggeredElem
 		tmp.css({display: 'none'});
 		jQuery( '.table-type-project[data-id=' + response.data.task_id + ']' ).after( tmp );
 		tmp.slideDown(400);
+		window.eoxiaJS.taskManager.core.selectContentEditable( tmp.find( '.task-title' ) );
 	}
+
 
 	window.eoxiaJS.taskManager.newTask.stickyAction();
 
@@ -152,6 +155,10 @@ window.eoxiaJS.taskManager.newPoint.loadedPointSuccess = function( triggeredElem
 
 	if (triggeredElement.hasClass( 'cell-toggle' ) ) {
 		triggeredElement.closest( '.table-row' ).find( '.load-complete-point:not(.active)[data-point-state="uncompleted"]' ).addClass( 'active' );
+	}
+
+	if ( 'addedPointSuccess' == response.data.callback_success ) {
+		window.eoxiaJS.taskManager.core.selectContentEditable( jQuery( '.table-type-task[data-id=' + response.data.point.data.id + '] .task-title' ) );
 	}
 
 };
