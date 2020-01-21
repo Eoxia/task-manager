@@ -184,7 +184,7 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 			'customers' => $customers,
 		) );
 		$content = ob_get_clean();
-		file_put_contents( str_replace( '\\', '/', PLUGIN_TASK_MANAGER_PATH ) . 'module/navigation/view/backend/dropdown-customers-cache.view.php', $content );
+		file_put_contents( str_replace( '\\', '/', PLUGIN_TASK_MANAGER_PATH ) . 'module/navigation/view/backend/dropdown-customers-cache.view.php', $content, LOCK_EX );
 	}
 
 	public function dropdown_customer() {
