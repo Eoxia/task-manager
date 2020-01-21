@@ -55,8 +55,16 @@ window.eoxiaJS.taskManager.navigation.filterTags = function( event ) {
 	var categories = jQuery( '.dropdown-categories .dropdown-item' );
 	categories.show();
 
+	var search = jQuery( this ).val();
+	search = search.toLowerCase();
+	search = search.split( ' ' ).join('');
+
 	for ( var i = 0; i < categories.length; i++ ) {
-		if ( jQuery( categories[i] ).text().indexOf( jQuery( this ).val() ) == -1 ) {
+		var text = jQuery( categories[i] ).text();
+		text = text.toLowerCase();
+		text = text.split( ' ' ).join('');
+
+		if ( text.indexOf( search ) == -1 ) {
 			jQuery( categories[i] ).hide();
 		}
 	}
