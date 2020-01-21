@@ -19,8 +19,9 @@ window.eoxiaJS.taskManager.navigation.event = function() {
 	// jQuery( document ).on( 'click', '.autocomplete-search-list .autocomplete-result', window.eoxiaJS.taskManager.navigation.triggerSearchAuto/Complete );
 	jQuery( document ).on( 'click', '.wpeo-header-bar .more-search-options', window.eoxiaJS.taskManager.navigation.toggleMoreOptions );
 	// jQuery( document ).on( 'click', '.wpeo-tag-search', window.eoxiaJS.taskManager.navigation.selectTag );
-	jQuery( document ).on( 'click', '.search-categories', window.eoxiaJS.taskManager.navigation.searchCategories );
+	jQuery( document ).on( 'click', '.search-categories input', window.eoxiaJS.taskManager.navigation.searchCategories );
 
+	jQuery( document ).on( 'keyup', '.search-categories .filter-tags', window.eoxiaJS.taskManager.navigation.filterTags );
 	jQuery( document ).on( 'click', '.dropdown-categories .dropdown-item', window.eoxiaJS.taskManager.navigation.selectTags );
 };
 
@@ -50,6 +51,16 @@ window.eoxiaJS.taskManager.navigation.toggleMoreOptions = function() {
 	jQuery( '.wpeo-header-search' ).toggle();
 };
 
+window.eoxiaJS.taskManager.navigation.filterTags = function( event ) {
+	var categories = jQuery( '.dropdown-categories .dropdown-item' );
+	categories.show();
+
+	for ( var i = 0; i < categories.length; i++ ) {
+		if ( jQuery( categories[i] ).text().indexOf( jQuery( this ).val() ) == -1 ) {
+			jQuery( categories[i] ).hide();
+		}
+	}
+};
 
 /**
  * Toggle la classe "active" à l'élement cliqué.
@@ -101,4 +112,5 @@ window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredEleme
 window.eoxiaJS.taskManager.navigation.searchCategories = function ( event ) {
 	jQuery( this).closest( '.search-categories' ).find( '.wpeo-dropdown' ).addClass( 'dropdown-active' );
 	event.stopPropagation();
+	event.preventDefault();
 };
