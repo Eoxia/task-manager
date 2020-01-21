@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit; ?>
 
 	<input type="hidden" name="categories_id" value="<?php echo esc_attr( $data['categories_id'] ); ?>" />
 
-	<input type="text" autocomplete="nope" class="form-field filter-tags" value="<?php echo $data['categories_searched']; ?>" style="height: 100%;" placeholder="<?php echo esc_html_e( 'Categories', 'task-manager' ); ?>"/>
+	<input type="text" autocomplete="nope" class="form-field tm-filter" value="<?php echo $data['categories_searched']; ?>" style="height: 100%;" placeholder="<?php echo esc_html_e( 'Categories', 'task-manager' ); ?>"/>
 	<ul class="dropdown-content dropdown-categories">
 		<?php
 		if ( ! empty( $categories ) ) :

@@ -157,6 +157,40 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 		);
 	}
 
+	public function cache_dropdown_customer() {
+		ob_start();
+		$customers = get_posts( array(
+			'posts_per_page' => -1,
+			'post_type'      => 'wpshop_customers',
+			'post_status'    => 'draft',
+		) );
+
+		if ( ! empty( $customers ) ) {
+			foreach ( $customers as &$customer ) {
+
+				$author_id = $customer->post_author;
+				$user_ids = get_user_meta( $customer->ID, '_wpscrm_associated_user', true );
+				$user_ids = array_merge( array( $author_id ), is_array( $user_ids ) ? $user_ids : array() );
+
+				$customer->users = array();
+
+				if ( ! empty( $user_ids ) ) {
+					$customer->users = get_users( array( 'include' => $user_ids ) );
+				}
+			}
+		}
+
+		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/dropdown-customers', array(
+			'customers' => $customers,
+		) );
+		$content = ob_get_clean();
+		file_put_contents( str_replace( '\\', '/', PLUGIN_TASK_MANAGER_PATH ) . 'module/navigation/view/backend/dropdown-customers-cache.view.php', $content );
+	}
+
+	public function dropdown_customer() {
+		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/dropdown-customers-cache' );
+	}
+
 	public function get_data_shortcut( $shortcut ){
 		$shortcut['link'] = parse_url( $shortcut['link'] );
 		parse_str( $shortcut['link']['query'], $query );

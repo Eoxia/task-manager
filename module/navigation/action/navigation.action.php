@@ -29,6 +29,7 @@ class Navigation_Action {
 		add_action( 'wp_ajax_search', array( $this, 'callback_search' ) );
 		add_action( 'search_order', array( $this, 'callback_search_order' ) );
 
+		add_action( 'admin_init', array( $this, 'cache_dropdown_customer' ) );
 	}
 
 	/**
@@ -131,6 +132,16 @@ class Navigation_Action {
 				'view' => ob_get_clean(),
 			)
 		);
+	}
+
+	public function cache_dropdown_customer() {
+		$tm_cache = get_option( '_tm_update_cache', false );
+
+		if ( ! $tm_cache ) {
+			Navigation_Class::g()->cache_dropdown_customer();
+
+			update_option( '_tm_update_cache', true );
+		}
 	}
 }
 

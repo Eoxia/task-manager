@@ -20,6 +20,7 @@ body.toplevel_page_wpeomtm-dashboard {
 	padding-right: 20px;
 	font-family: 'Open sans', sans-serif;
 
+
   @media ( max-width: $media__medium ) {
     padding-right: 0;
   }
@@ -202,6 +203,14 @@ body.toplevel_page_wpeomtm-dashboard {
 					width: 84%;
 				}
 			}
+		}
+	}
+}
+
+.wpeo-wrap {
+	.wpeo-dropdown {
+		.dropdown-active {
+			background-color: $color__primary-light !important;
 		}
 	}
 }

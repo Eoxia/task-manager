@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</label>
 	</div>
 
-	<?php $eo_search->display( 'tm_search_customer' ); ?>
+	<?php Navigation_Class::g()->dropdown_customer(); ?>
 
 	<?php $eo_search->display( 'tm_search_admin' ); ?>
 
@@ -47,7 +47,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</label>
 	</div>
 
-	<div class="form-element search-categories">
+	<div class="form-element search-categories tm-search">
 		<label class="form-field-container">
 			<span class="form-field-icon-prev"><i class="fas fa-tag"></i></span>
 			<?php

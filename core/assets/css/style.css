@@ -3308,6 +3308,10 @@ body.eo-custom-page .content-wrap .tm-main-container {
   width: 84%;
 }
 
+.wpeo-wrap .wpeo-dropdown .dropdown-active {
+  background-color: #55b6ed !important;
+}
+
 /*--------------------------------------------------------------
 # TMP END Jimmy
 --------------------------------------------------------------*/
