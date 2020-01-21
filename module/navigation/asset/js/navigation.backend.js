@@ -89,7 +89,7 @@ window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredEleme
 
 	jQuery( '.tm-dashboard-shortcuts .active' ).removeClass( 'active' );
 	jQuery( '.list-task' ).replaceWith( response.data.view.tasks );
-	/*jQuery( '.list-task' ).colcade( {
+	/*// jQuery( '.list-task' ).colcade( {
 		items: '.wpeo-project-task',
 		columns: '.grid-col'
 	} );*/

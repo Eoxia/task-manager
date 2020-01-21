@@ -7,10 +7,10 @@
 window.eoxiaJS.taskManagerFrontend.task = {};
 
 window.eoxiaJS.taskManagerFrontend.task.init = function() {
-	jQuery( '.list-task' ).colcade( {
-		items: '.wpeo-project-task',
-		columns: '.grid-col'
-	} );
+	// jQuery( '.list-task' ).colcade( {
+	//items: '.wpeo-project-task',
+	//	columns: '.grid-col'
+	// } );
 };
 
 window.eoxiaJS.taskManagerFrontend.task.refresh = function() {

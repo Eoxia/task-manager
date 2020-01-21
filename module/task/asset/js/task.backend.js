@@ -10,7 +10,7 @@ window.eoxiaJS.taskManager.task.canLoadMore = true;
 
 window.eoxiaJS.taskManager.task.init = function() {
 	window.eoxiaJS.taskManager.task.event();
-	// jQuery( '.list-task' ).colcade( {
+	// // jQuery( '.list-task' ).colcade( {
 	// 	items: '.wpeo-project-task',
 	// 	columns: '.grid-col'
 	// } );
@@ -347,10 +347,10 @@ window.eoxiaJS.taskManager.task.paginationUpdateTasks = function( event ) {
 window.eoxiaJS.taskManager.task.loadedTasksSuccess = function( element, response ) {
 	jQuery( '#tm_client_load_task_page' ).replaceWith( response.data.view );
 
-	jQuery( '.list-task' ).colcade( {
-		items: '.wpeo-project-task',
-		columns: '.grid-col'
-	} );
+	// jQuery( '.list-task' ).colcade( {
+	//	items: '.wpeo-project-task',
+	//	columns: '.grid-col'
+	//} );
 
 	if( response.data.show_archive ){
 		window.eoxiaJS.taskManager.task.editButtonPaginationClient( true, response.data.show_archive );

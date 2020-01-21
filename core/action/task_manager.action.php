@@ -154,12 +154,11 @@ class Task_Manager_Action {
 			// wp_enqueue_style( 'task-manager-datepicker', PLUGIN_TASK_MANAGER_URL . 'core/assets/css/datepicker.min.css', array(), \eoxia\Config_Util::$init['task-manager']->version );
 		}
 
-		wp_enqueue_script( 'task-manager-colcade', PLUGIN_TASK_MANAGER_URL . 'core/assets/js/colcade.js', array(), \eoxia\Config_Util::$init['task-manager']->version );
-
 		wp_register_style( 'task-manager-frontend-style', PLUGIN_TASK_MANAGER_URL . 'core/assets/css/frontend.css', array(), \eoxia\Config_Util::$init['task-manager']->version );
 		wp_enqueue_style( 'task-manager-frontend-style' );
 
 		wp_enqueue_script( 'task-manager-frontend-script', PLUGIN_TASK_MANAGER_URL . 'core/assets/js/frontend.min.js', array(), \eoxia\Config_Util::$init['task-manager']->version, false );
+
 		wp_localize_script(
 			'task-manager-frontend-script',
 			'taskManagerFrontend',
@@ -221,7 +220,7 @@ class Task_Manager_Action {
 	 */
 	public function callback_admin_menu() {
 		CMH::register_container( 'Task Manager', 'Task Manager', 'read', 'wpeomtm-dashboard' );
-		CMH::add_logo( 'wpeomtm-dashboard', PLUGIN_TASK_MANAGER_URL . '/core/assets/icone', admin_url( 'admin.php?page=wpeomtm-dashboard' ) );
+		CMH::add_logo( 'wpeomtm-dashboard', PLUGIN_TASK_MANAGER_URL . '/core/assets/icone.png', admin_url( 'admin.php?page=wpeomtm-dashboard' ) );
 		CMH::register_menu( 'wpeomtm-dashboard', __( 'Dashboard', 'task-manager' ), __( 'Dashboard', 'task-manager' ), 'read', 'tm-dashboard', array( Task_Manager_Class::g(), 'display_dashboard' ), 'fas fa-tachometer-alt', '' );
 		CMH::register_menu( 'wpeomtm-dashboard', __( 'Projects', 'task-manager' ), __( 'Projects', 'task-manager' ), 'read', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ), 'fas fa-thumbtack', '' );
 		CMH::register_menu( 'wpeomtm-dashboard', __( 'My Tasks', 'task-manager' ), __( 'My Tasks', 'task-manager' ), 'read', 'tm-my-tasks', array( Task_Manager_Class::g(), 'display' ), 'fas fa-check-square', '' );
@@ -232,12 +231,10 @@ class Task_Manager_Action {
 	}
 
 	public static function load_screen_option(){
-    add_filter( 'screen_settings', array( get_class(), 'add_field'), 10, 2 );
+        add_filter( 'screen_settings', array( get_class(), 'add_field'), 10, 2 );
 	}
 
-		public static function add_field($rv, $screen)
-    {
-
+	public static function add_field( $rv, $screen ) {
 			$user_id = get_current_user_id();
  			$post_per_page = Task_Class::g()->get_task_per_page_for_this_user( $user_id );
 
