@@ -16,7 +16,7 @@ window.eoxiaJS.taskManager.navigation.event = function() {
 	jQuery( document ).on( 'keyup', '.header-searchbar input', window.eoxiaJS.taskManager.navigation.triggerSearch );
 	// jQuery( document ).on( 'change', '.wpeo-header-bar .wpeo-autocomplete', window.eoxiaJS.taskManager.navigation.closeResults );
 
-	jQuery( document ).on( 'click', '.autocomplete-search-list .autocomplete-result', window.eoxiaJS.taskManager.navigation.triggerSearchAutoComplete );
+	// jQuery( document ).on( 'click', '.autocomplete-search-list .autocomplete-result', window.eoxiaJS.taskManager.navigation.triggerSearchAuto/Complete );
 	jQuery( document ).on( 'click', '.wpeo-header-bar .more-search-options', window.eoxiaJS.taskManager.navigation.toggleMoreOptions );
 	// jQuery( document ).on( 'click', '.wpeo-tag-search', window.eoxiaJS.taskManager.navigation.selectTag );
 	jQuery( document ).on( 'click', '.search-categories', window.eoxiaJS.taskManager.navigation.searchCategories );
@@ -84,29 +84,16 @@ window.eoxiaJS.taskManager.navigation.selectTags = function( event ) {
  */
 window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredElement, response ) {
 	jQuery( '.tm-wrap .load-more' ).remove();
+
 	window.eoxiaJS.loader.remove( jQuery( '.wpeo-general-search' ) );
-	jQuery( '.eo-search-value' ).val( '' );
 
 	jQuery( '.tm-dashboard-shortcuts .active' ).removeClass( 'active' );
+
 	jQuery( '.list-task' ).replaceWith( response.data.view.tasks );
-	/*// jQuery( '.list-task' ).colcade( {
-		items: '.wpeo-project-task',
-		columns: '.grid-col'
-	} );*/
 	jQuery( '.search-results' ).replaceWith( response.data.view.search_result );
 	window.eoxiaJS.taskManager.task.offset = 0;
 	window.eoxiaJS.taskManager.task.canLoadMore = true;
 
-	// Changes l'onglet "active" dans la barre de navigation.
-	if ( triggeredElement.hasClass( 'change-status' ) ) {
-		jQuery( '.wpeo-header-bar .change-status.active' ).removeClass( 'active' );
-		jQuery( triggeredElement ).addClass( 'active' );
-	}
-
-	//triggeredElement.closest( '.wpeo-dropdown' ).removeClass( 'dropdown-active' );
-
-	//window.eoxiaJS.taskManager.task.initAutoComplete();
-	//window.eoxiaJS.taskManager.point.refresh();
 	window.eoxiaJS.taskManager.newTask.stickyAction();
 	jQuery( '.list-task' ).on( 'scroll', window.eoxiaJS.taskManager.newTask.stickyAction );
 };

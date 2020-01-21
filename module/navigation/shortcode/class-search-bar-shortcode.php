@@ -101,6 +101,7 @@ class Search_Bar_Shortcode {
 				'type'        => 'post',
 				'name'        => 'post_parent',
 				'placeholder' => 'Client',
+				'hidden_value' => $parent_id,
 				'args'        => array(
 					'post_type'   => 'wpshop_customers',
 					'post_status' => array( 'publish', 'inherit', 'draft' ),

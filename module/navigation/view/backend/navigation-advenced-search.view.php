@@ -63,6 +63,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</label>
 	</div>
 
+	<div class="form-element">
+		<input type="checkbox" id="include_archive" class="form-field" name="tm_dashboard_archives_include" value="include_archive">
+		<label for="include_archive"><?php esc_attr_e( 'Include archive', 'task-manager' ); ?></label>
+	</div>
+
 	<div class="search-action">
 		<a class="action-input search-button wpeo-button button-main button-square-40"
 			data-loader="form"
