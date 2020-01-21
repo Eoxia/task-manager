@@ -50,8 +50,7 @@ window.eoxiaJS.taskManager.newComment.addedCommentSuccess = function( triggeredE
 		tmp.slideDown(400);
 	}
 
-	triggeredElement.closest( '.table-row' ).remove();
-
+	triggeredElement.closest( '.row-empty' ).remove();
 
 	const comment = response.data.comment;
 

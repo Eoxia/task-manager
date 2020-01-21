@@ -41,11 +41,11 @@ else :
 				<div class="table-row row-empty table-type-task" data-post-id="<?php echo $parent->data['id']; ?>">
 				<p><?php echo $text; ?></p>
 				<div class="wpeo-button button-main button-square-30 button-rounded action-attribute"
-				     data-parent-id="<?php echo $parent->data['id']; ?>"
-				     data-action="<?php echo esc_attr( $action ); ?>"
-				data-content="<?php esc_html_e( '', 'task-manager' ); ?>"
-				data-nonce="<?php echo esc_attr( wp_create_nonce( $action ) ); ?>">
-				<i class="button-icon fas fa-plus-circle second-icon"></i>
+					data-parent-id="<?php echo $parent->data['id']; ?>"
+					data-action="<?php echo esc_attr( $action ); ?>"
+					data-content="<?php esc_html_e( 'New Task', 'task-manager' ); ?>"
+					data-nonce="<?php echo esc_attr( wp_create_nonce( $action ) ); ?>">
+					<i class="button-icon fas fa-plus-circle second-icon"></i>
 				</div>
 				<?php
 			} else {
@@ -58,7 +58,7 @@ else :
 				     data-post-id="<?php echo $parent->data['post_id']; ?>"
 				     data-parent-id="<?php echo $parent->data['id']; ?>"
 				     data-action="<?php echo esc_attr( $action ); ?>"
-				     data-content="<?php esc_html_e( '', 'task-manager' ); ?>"
+				     data-content="<?php esc_html_e( 'New Comment', 'task-manager' ); ?>"
 				     data-nonce="<?php echo esc_attr( wp_create_nonce( $action ) ); ?>">
 					<i class="button-icon fas fa-plus-circle second-icon"></i>
 				</div>

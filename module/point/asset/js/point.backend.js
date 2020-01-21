@@ -154,10 +154,6 @@ window.eoxiaJS.taskManager.point.addedPointSuccess = function( triggeredElement,
 		triggeredElement.closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'pointerEvents', 'auto' )
 	}
 
-	if ( response.data.point && true != response.data.point.data.completed ) {
-		task.find( '.points.sortable .point:not(.edit)' ).after( response.data.view );
-	}
-
 	window.eoxiaJS.taskManager.point.initAutoComplete();
 	triggeredElement.trigger( 'addedPointSuccess' );
 	window.eoxiaJS.taskManager.core.initSafeExit( false );

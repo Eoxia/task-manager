@@ -91,3 +91,21 @@ window.eoxiaJS.taskManager.core.safeExit = function() {
 	event.returnValue = confirmationMessage;
 	return confirmationMessage;
 }
+
+window.eoxiaJS.taskManager.core.selectContentEditable = function( cell ) {
+	cell = cell[0] ? cell[0] : cell;
+	// select all text in contenteditable
+	// see http://stackoverflow.com/a/6150060/145346
+	var range, selection;
+	if (document.body.createTextRange) {
+		range = document.body.createTextRange();
+		range.moveToElementText(cell);
+		range.select();
+	} else if (window.getSelection) {
+		selection = window.getSelection();
+		range = document.createRange();
+		range.selectNodeContents(cell);
+		selection.removeAllRanges();
+		selection.addRange(range);
+	}
+};
