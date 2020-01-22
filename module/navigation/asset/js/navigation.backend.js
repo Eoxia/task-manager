@@ -21,8 +21,9 @@ window.eoxiaJS.taskManager.navigation.event = function() {
 	// jQuery( document ).on( 'click', '.wpeo-tag-search', window.eoxiaJS.taskManager.navigation.selectTag );
 	jQuery( document ).on( 'click', '.tm-search input', window.eoxiaJS.taskManager.navigation.searchCategories );
 
-//	jQuery( document ).on( 'keyup', '.tm-search .tm-filter-customer', window.eoxiaJS.taskManager.navigation.filterTags );
-	//document.querySelector( '.tm-search .tm-filter-customer' ).addEventListener( 'keyup', window.eoxiaJS.taskManager.navigation.filterTags );
+	// jQuery( document ).on( 'keyup', '.tm-search .tm-filter-customer', window.eoxiaJS.taskManager.navigation.filterTags );
+	document.querySelector( '.search-customers .tm-filter-customer' ).addEventListener( 'keyup', window.eoxiaJS.taskManager.navigation.filterCustomers );
+	document.querySelector( '.search-categories .tm-filter' ).addEventListener( 'keyup', window.eoxiaJS.taskManager.navigation.filterTags );
 	jQuery( document ).on( 'click', '.tm-search .dropdown-item', window.eoxiaJS.taskManager.navigation.selectTags );
 };
 
@@ -52,42 +53,78 @@ window.eoxiaJS.taskManager.navigation.toggleMoreOptions = function() {
 	jQuery( '.wpeo-header-search' ).toggle();
 };
 
-window.eoxiaJS.taskManager.navigation.filterTags = function( event ) {
-	/*if (event.keyCode == 13 && jQuery( this ).closest( '.tm-search' ).find( '.wpeo-dropdown .dropdown-item.dropdown-active' ).length == 1) {
+window.eoxiaJS.taskManager.navigation.filterCustomers = function( event ) {
+	if (event.keyCode == 13 && jQuery( this ).closest( '.tm-search' ).find( '.wpeo-dropdown .dropdown-item.dropdown-active' ).length == 1) {
 		jQuery( this ).closest( '.tm-search' ).find( '.wpeo-dropdown .dropdown-item.dropdown-active' ).click();
 		jQuery( '.search-action .action-input' ).click();
-	} else {*/
+	} else {
 		var search = jQuery(this).val();
+		search = search.split(' ').join( '' );
+		search = search.toLowerCase();
 
-		var items = document.querySelectorAll('.dropdown-customers .wpeo-dropdown .dropdown-item');
+		if (search.length > 2) {
+			jQuery( '.item-info' ).addClass( 'wpeo-util-hidden' );
+			var items = jQuery('.dropdown-customers .dropdown-item:not(.me)');
 
-		items.forEach(function(item) {
-			item.style.display = "none";
+			jQuery( this ).closest( '.wpeo-dropdown' ).addClass( 'dropdown-active' );
 
-			if (item.innerHTML.indexOf(search) != -1) {
-				item.style.display = "block";
+			items.each(function (key) {
+				jQuery( this ).addClass( 'wpeo-util-hidden' );
+				if ( jQuery( this ).data( 'content' ).indexOf(search) != -1) {
+					jQuery( this ).removeClass( 'wpeo-util-hidden' );
+				}
+			});
+
+			if ( items.length == 0 ) {
+				jQuery( '.item-nothing' ).removeClass( 'wpeo-util-hidden' );
+			} else {
+				jQuery( '.item-nothing' ).addClass( 'wpeo-util-hidden' );
+
+			}
+
+			if (jQuery(this).closest('.tm-search').find('.wpeo-dropdown .dropdown-item:not(.me):visible').length == 1) {
+				jQuery(this).closest('.tm-search').find('.wpeo-dropdown .dropdown-item:visible').addClass('dropdown-active');
+			} else {
+				jQuery(this).closest('.tm-search').find('.wpeo-dropdown .dropdown-item').removeClass('dropdown-active');
+			}
+		} else {
+			var items = jQuery('.dropdown-customers .dropdown-item:not(.me)');
+
+			items.each(function (key) {
+				jQuery(this).addClass('wpeo-util-hidden');
+			});
+
+			jQuery( '.item-info' ).removeClass( 'wpeo-util-hidden' );
+		}
+	}
+};
+
+window.eoxiaJS.taskManager.navigation.filterTags = function( event ) {
+	if (event.keyCode == 13 && jQuery( this ).closest( '.tm-search' ).find( '.wpeo-dropdown .dropdown-item.dropdown-active' ).length == 1) {
+		jQuery( this ).closest( '.tm-search' ).find( '.wpeo-dropdown .dropdown-item.dropdown-active' ).click();
+		jQuery( '.search-action .action-input' ).click();
+	} else {
+		var search = jQuery(this).val();
+		search = search.split(' ').join( '' );
+		search = search.toLowerCase();
+
+		jQuery( this ).closest( '.wpeo-dropdown' ).addClass( 'dropdown-active' );
+
+		var items = jQuery('.dropdown-categories .dropdown-item:not(.me)');
+
+		items.each(function (key) {
+			jQuery( this ).addClass( 'wpeo-util-hidden' );
+			if ( jQuery( this ).data( 'content' ).indexOf(search) != -1) {
+				jQuery( this ).removeClass( 'wpeo-util-hidden' );
 			}
 		});
 
-		// jQuery('.dropdown-customers .wpeo-dropdown .dropdown-item').show();
-
-		/*if (search.length > 3) {
-			jQuery('.dropdown-customers .wpeo-dropdown .dropdown-item:not(:contains(' + search + '))').hide();
-		}*/
-
-		/*for (var i = 0; i < categories.length; i++) {
-			var text = jQuery(categories[i]).text();
-
-			if (text.indexOf(search) == -1) {
-				jQuery(categories[i]).hide();
-			}
-		}*/
-
-		/*if (jQuery(this ).closest( '.tm-search' ).find( '.wpeo-dropdown .dropdown-item:visible').length == 1) {
-			jQuery(this ).closest( '.tm-search' ).find( '.wpeo-dropdown .dropdown-item:visible').addClass('dropdown-active');
+		if (jQuery(this).closest('.tm-search').find('.wpeo-dropdown .dropdown-item:not(.me):visible').length == 1) {
+			jQuery(this).closest('.tm-search').find('.wpeo-dropdown .dropdown-item:visible').addClass('dropdown-active');
 		} else {
-			jQuery(this ).closest( '.tm-search' ).find( '.wpeo-dropdown .dropdown-item').removeClass('dropdown-active');
-		}*/
+			jQuery(this).closest('.tm-search').find('.wpeo-dropdown .dropdown-item').removeClass('dropdown-active');
+		}
+	}
 };
 
 /**
@@ -101,7 +138,7 @@ window.eoxiaJS.taskManager.navigation.filterTags = function( event ) {
 window.eoxiaJS.taskManager.navigation.selectTags = function( event ) {
 	jQuery( this ).closest( '.wpeo-dropdown' ).find( 'input[type="hidden"]' ).val( jQuery( this ).attr( 'data-id' ) );
 
-	jQuery( this ).closest( '.wpeo-dropdown' ).find( 'input[type="text"]' ).val( jQuery( this ).text().trim() );
+	jQuery( this ).closest( '.wpeo-dropdown' ).find( 'input[type="text"]' ).val( jQuery( this ).find( '.dropdown-result-title' ).text().trim() );
 
 	jQuery( this ).closest( '.wpeo-dropdown' ).removeClass( 'dropdown-active' );
 
@@ -141,7 +178,7 @@ window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredEleme
 };
 
 window.eoxiaJS.taskManager.navigation.searchCategories = function ( event ) {
-	jQuery( this ).closest( '.search-categories' ).find( '.wpeo-dropdown' ).addClass( 'dropdown-active' );
+	jQuery( this ).closest( '.tm-search' ).find( '.wpeo-dropdown' ).addClass( 'dropdown-active' );
 	event.stopPropagation();
 	event.preventDefault();
 };
