@@ -3,7 +3,7 @@
 		<span class="form-field-icon-prev"><i class="fas fa-tag"></i></span>
 			<div class="wpeo-dropdown dropdown-right">
 				<input type="hidden" name="post_parent" value="" />
-				<input type="text" autocomplete="nope" class="form-field tm-filter" value="" style="height: 100%;" placeholder="<?php echo esc_html_e( 'Customer', 'task-manager' ); ?>"/>
+				<input type="text" autocomplete="nope" class="form-field tm-filter-customer" value="" style="height: 100%;" placeholder="<?php echo esc_html_e( 'Customer', 'task-manager' ); ?>"/>
 				<ul class="dropdown-content dropdown-customers">
 					<?php
 					if ( ! empty( $customers ) ) :

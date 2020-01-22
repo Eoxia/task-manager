@@ -42,6 +42,8 @@ class Task_Shortcode {
 	 */
 	public function callback_task( $param ) {
 		$element_per_page = get_user_meta( get_current_user_id(), '_tm_task_per_page', true );
+		$element_per_page = empty( $element_per_page ) ? 10 : $element_per_page;
+
 		$param = shortcode_atts(
 			array(
 				'id'              => 0,

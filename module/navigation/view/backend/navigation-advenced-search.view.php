@@ -36,8 +36,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</label>
 	</div>
 
-	<?php Navigation_Class::g()->dropdown_customer(); ?>
-
 	<?php $eo_search->display( 'tm_search_admin' ); ?>
 
 	<div class="form-element header-searchbar">
