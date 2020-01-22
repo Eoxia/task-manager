@@ -16,7 +16,23 @@ defined( 'ABSPATH' ) || exit; ?>
 
 	<input type="hidden" name="categories_id" value="<?php echo esc_attr( $data['categories_id'] ); ?>" />
 
-	<input type="text" autocomplete="nope" class="form-field tm-filter" value="<?php echo $data['categories_searched']; ?>" style="height: 100%;" placeholder="<?php echo esc_html_e( 'Categories', 'task-manager' ); ?>"/>
+	<div class="form-field" style="height: 100%; display: flex;">
+		<?php
+		if ( ! empty( $data['categories_searched'] ) ):
+			foreach ( $data['categories_searched'] as $category ):
+				?>
+				<div data-id="<?php echo esc_attr( $category['id'] ); ?>" class="wpeo-button button-grey button-radius-2" style="display: flex;">
+					<span><?php echo $category['name']; ?></span>
+					<i class="fas fa-times"></i>
+				</div>
+			<?php
+			endforeach;
+		endif;
+		?>
+		<div class="content tm-filter field-elements" contenteditable="true" style="width: 100%">
+
+		</div>
+	</div>
 	<ul class="dropdown-content dropdown-categories">
 		<?php
 		if ( ! empty( $categories ) ) :

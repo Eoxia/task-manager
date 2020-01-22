@@ -68,16 +68,19 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 			$have_search         = true;
 		}
 
-		$categories_searched = '';
+		$categories_searched = array();
 		$follower_searched   = '';
 
 		if ( ! empty( $categories_selected ) ) {
 			foreach ( $categories_selected as $categorie ) {
-				$categories_searched .= $categorie->data['name'] . ', ';
+				$categories_searched[] = array(
+					'id' => $categorie->data['id'],
+					'name' => $categorie->data['name'],
+				);
 			}
 		}
 
-		$categories_searched = substr( $categories_searched, 0, -2 );
+		//$categories_searched = substr( $categories_searched, 0, -2 );
 
 		if ( ! empty( $user_id ) ) {
 			$follower = Follower_Class::g()->get(

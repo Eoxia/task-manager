@@ -33,8 +33,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php echo esc_attr( $header['classes'] ); ?>"
 						style="<?php echo Follower_Class::g()->user_columns_def[ $header['key'] ]['displayed'] ? '' : 'display: none;'; ?>">
 					<div class="wpeo-util-hidden input-header">
-						<input type="checkbox" checked name="columns[<?php echo $header['key']; ?>][displayed]" />
-						<input type="hidden" value="<?php echo $order; ?>" name="columns[<?php echo $header['key']; ?>][order]" />
+
+						<?php
+						if ( $header['can_be_hidden'] ) :
+							?>
+							<input type="checkbox" checked name="columns[<?php echo $header['key']; ?>][displayed]" />
+							<input type="hidden" value="<?php echo $order; ?>" name="columns[<?php echo $header['key']; ?>][order]" />
+							<?php
+						endif;
+						?>
 					</div>
 					<i class="<?php echo $header['icon']; ?>"></i>
 					<span class="title"><?php echo esc_html( $header['title'] ); ?></span>

@@ -51,7 +51,7 @@ window.eoxiaJS.taskManager.newTask.event = function() {
 	} );
 
 	jQuery( document ).on( "dragenter", '.table-header .table-cell', function( event ) {
-		if (jQuery( event.target ).hasClass( 'table-cell' ) ) {
+		if (jQuery( event.target ).hasClass( 'table-cell' ) && ! jQuery( event.target ).hasClass( 'no-order' ) ) {
 			jQuery( event.target )[0].style.border = "dashed";
 
 			var target      = jQuery( event.target );
@@ -63,7 +63,7 @@ window.eoxiaJS.taskManager.newTask.event = function() {
 	} );
 
 	jQuery( document ).on( "dragleave", '.table-header .table-cell', function( event ) {
-		if (jQuery( event.target ).hasClass( 'table-cell' ) ) {
+		if (jQuery( event.target ).hasClass( 'table-cell' ) && ! jQuery( event.target ).hasClass( 'no-order' ) ) {
 			jQuery( event.target )[0].style.border = "none";
 
 			var target      = jQuery( event.target );
@@ -85,7 +85,7 @@ window.eoxiaJS.taskManager.newTask.event = function() {
 		var newElement     = currentElement.clone();
 		var target         = jQuery( ev.target );
 
-		if ( ! jQuery( ev.target ).hasClass( 'table-cell' ) ) {
+		if ( ! jQuery( ev.target ).hasClass( 'table-cell' ) || jQuery( ev.target ).hasClass( 'no-order' ) ) {
 			return;
 		}
 

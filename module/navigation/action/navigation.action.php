@@ -136,6 +136,7 @@ class Navigation_Action {
 
 	public function cache_dropdown_customer() {
 		$tm_cache = get_option( '_tm_update_cache', false );
+		$tm_cache = false;
 		if ( ! $tm_cache ) {
 			Navigation_Class::g()->cache_dropdown_customer();
 

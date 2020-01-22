@@ -12,7 +12,8 @@ namespace task_manager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} ?>
+}
+?>
 
 <div class="tm-advanced-search form wpeo-form form-light" action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>" method="POST" >
 	<div class="form-element header-searchbar">
@@ -22,30 +23,35 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</label>
 	</div>
 
-	<div class="form-element header-searchbar">
+	<div class="form-element search-customers tm-search">
 		<label class="form-field-container">
-			<span class="form-field-icon-prev"><i class="fas fa-thumbtack"></i></span>
-			<input type="text" class="form-field" name="task_id" value="<?php echo esc_attr( $param['task_id'] ); ?>" placeholder="<?php echo esc_html_e( 'ID/Project Name', 'task-manager' ); ?>"/>
+			<span class="form-field-icon-prev"><i class="far fa-user"></i></span>
+			<div class="wpeo-dropdown dropdown-right">
+				<input type="hidden" name="post_parent" value="<?php echo ! empty( $data['post_parent_id'] ) ? esc_attr( $data['post_parent_id'] ) : ''; ?>" />
+
+				<div class="form-field" style="height: 100%; display: flex;">
+					<?php
+					if ( ! empty( $data['post_parent'] ) ) :
+						?>
+						<div data-id="<?php echo esc_attr( $data['post_parent_id'] ); ?>" class="wpeo-button button-grey button-radius-2" style="display: flex;">
+							<span><?php echo $data['post_parent']->post_title; ?></span>
+							<i class="fas fa-times"></i>
+						</div>
+						<?php
+					endif;
+                    ?>
+
+					<div class="content tm-filter tm-filter-customer field-elements" contenteditable="true" style="width: 100%"></div>
+				</div>
+
+				<ul class="dropdown-content dropdown-customers">
+					<?php Navigation_Class::g()->dropdown_customer(); ?>
+				</ul>
+			</div>
 		</label>
 	</div>
-
-	<div class="form-element header-searchbar">
-		<label class="form-field-container">
-			<span class="form-field-icon-prev"><i class="fas fa-check-square"></i></span>
-			<input type="text" class="form-field" name="point_id" value="<?php echo esc_attr( $param['point_id'] ); ?>" placeholder="<?php echo esc_html_e( 'ID/Task Name', 'task-manager' ); ?>"/>
-		</label>
-	</div>
-
-	<?php Navigation_Class::g()->dropdown_customer(); ?>
 
 	<?php $eo_search->display( 'tm_search_admin' ); ?>
-
-	<div class="form-element header-searchbar">
-		<label class="form-field-container">
-			<span class="form-field-icon-prev"><i class="fas fa-link"></i></span>
-			<input type="text" class="form-field" name="affliated" placeholder="<?php echo esc_html_e( 'Affliated', 'task-manager' ); ?>"/>
-		</label>
-	</div>
 
 	<div class="form-element search-categories tm-search">
 		<label class="form-field-container">

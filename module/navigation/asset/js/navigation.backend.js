@@ -19,12 +19,14 @@ window.eoxiaJS.taskManager.navigation.event = function() {
 	// jQuery( document ).on( 'click', '.autocomplete-search-list .autocomplete-result', window.eoxiaJS.taskManager.navigation.triggerSearchAuto/Complete );
 	jQuery( document ).on( 'click', '.wpeo-header-bar .more-search-options', window.eoxiaJS.taskManager.navigation.toggleMoreOptions );
 	// jQuery( document ).on( 'click', '.wpeo-tag-search', window.eoxiaJS.taskManager.navigation.selectTag );
-	jQuery( document ).on( 'click', '.tm-search input', window.eoxiaJS.taskManager.navigation.searchCategories );
+	jQuery( document ).on( 'click', '.tm-search .field-elements', window.eoxiaJS.taskManager.navigation.searchCategories );
 
 	// jQuery( document ).on( 'keyup', '.tm-search .tm-filter-customer', window.eoxiaJS.taskManager.navigation.filterTags );
 	document.querySelector( '.search-customers .tm-filter-customer' ).addEventListener( 'keyup', window.eoxiaJS.taskManager.navigation.filterCustomers );
 	document.querySelector( '.search-categories .tm-filter' ).addEventListener( 'keyup', window.eoxiaJS.taskManager.navigation.filterTags );
-	jQuery( document ).on( 'click', '.tm-search .dropdown-item', window.eoxiaJS.taskManager.navigation.selectTags );
+	jQuery( document ).on( 'click', '.tm-search .dropdown-item:not(.me)', window.eoxiaJS.taskManager.navigation.selectTags );
+
+	jQuery( document ).on( 'click', '.wpeo-dropdown .wpeo-button .fa-times', window.eoxiaJS.taskManager.navigation.deleteEntry );
 };
 
 window.eoxiaJS.taskManager.navigation.triggerSearch = function( event ) {
@@ -58,7 +60,7 @@ window.eoxiaJS.taskManager.navigation.filterCustomers = function( event ) {
 		jQuery( this ).closest( '.tm-search' ).find( '.wpeo-dropdown .dropdown-item.dropdown-active' ).click();
 		jQuery( '.search-action .action-input' ).click();
 	} else {
-		var search = jQuery(this).val();
+		var search = jQuery(this).text();
 		search = search.split(' ').join( '' );
 		search = search.toLowerCase();
 
@@ -104,7 +106,7 @@ window.eoxiaJS.taskManager.navigation.filterTags = function( event ) {
 		jQuery( this ).closest( '.tm-search' ).find( '.wpeo-dropdown .dropdown-item.dropdown-active' ).click();
 		jQuery( '.search-action .action-input' ).click();
 	} else {
-		var search = jQuery(this).val();
+		var search = jQuery(this).text();
 		search = search.split(' ').join( '' );
 		search = search.toLowerCase();
 
@@ -136,9 +138,24 @@ window.eoxiaJS.taskManager.navigation.filterTags = function( event ) {
  * @version 1.3.6
  */
 window.eoxiaJS.taskManager.navigation.selectTags = function( event ) {
-	jQuery( this ).closest( '.wpeo-dropdown' ).find( 'input[type="hidden"]' ).val( jQuery( this ).attr( 'data-id' ) );
+	var newElement = jQuery( '<div data-id="' + jQuery( this ).attr( 'data-id' ) + '" class="wpeo-button button-grey button-radius-2" style="display: flex;"></div>' );
+	newElement.append( '<span>' + jQuery( this ).find( '.dropdown-result-title' ).text().trim() + '</span>' );
+	newElement.append( '<i class="fas fa-times"></i>' );
 
-	jQuery( this ).closest( '.wpeo-dropdown' ).find( 'input[type="text"]' ).val( jQuery( this ).find( '.dropdown-result-title' ).text().trim() );
+	var currentVal = jQuery( this ).closest( '.wpeo-dropdown' ).find( 'input[type="hidden"]' ).val();
+
+	currentVal = currentVal ? currentVal.split(',') : [];
+
+	if (!currentVal.includes(jQuery( this ).attr( 'data-id' ))) {
+		currentVal.push(jQuery( this ).attr( 'data-id' ) );
+	}
+
+	currentVal = currentVal.join( ',' );
+
+	jQuery( this ).closest( '.wpeo-dropdown' ).find( 'input[type="hidden"]' ).val( currentVal );
+
+	jQuery( this ).closest( '.wpeo-dropdown' ).find( '.form-field .tm-filter' ).before( newElement );
+	jQuery( this ).closest( '.wpeo-dropdown' ).find( '.form-field .tm-filter' ).text( '' );
 
 	jQuery( this ).closest( '.wpeo-dropdown' ).removeClass( 'dropdown-active' );
 
@@ -181,4 +198,24 @@ window.eoxiaJS.taskManager.navigation.searchCategories = function ( event ) {
 	jQuery( this ).closest( '.tm-search' ).find( '.wpeo-dropdown' ).addClass( 'dropdown-active' );
 	event.stopPropagation();
 	event.preventDefault();
+};
+
+window.eoxiaJS.taskManager.navigation.deleteEntry = function ( evt ) {
+	var id = jQuery( this ).closest( '.wpeo-button' ).data( 'id' );
+
+	var currentVal = jQuery( this ).closest( '.wpeo-dropdown' ).find( 'input[type="hidden"]' ).val();
+
+	currentVal = currentVal.split(',');
+
+	for (var key in currentVal) {
+		if (currentVal[key] == id) {
+			currentVal.splice(key, 1);
+		}
+	}
+
+	currentVal = currentVal.join( ',' );
+
+	jQuery( this ).closest( '.wpeo-dropdown' ).find( 'input[type="hidden"]' ).val( currentVal );
+	jQuery( this ).closest( '.wpeo-button' ).remove();
+
 };

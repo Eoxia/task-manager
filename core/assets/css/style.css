@@ -3312,6 +3312,42 @@ body.eo-custom-page .content-wrap .tm-main-container {
   background-color: #55b6ed !important;
 }
 
+.wpeo-wrap .tm-search {
+  height: 80%;
+}
+
+.wpeo-wrap .tm-search .form-field {
+  padding: 10px;
+}
+
+.wpeo-wrap .tm-search .field-elements {
+  width: 100%;
+  line-height: 32px;
+  padding-left: 10px;
+}
+
+.wpeo-wrap .tm-search .form-field-container {
+  height: 50px;
+}
+
+.wpeo-wrap .tm-search .wpeo-button {
+  margin-right: 10px;
+}
+
+.wpeo-wrap .tm-search .wpeo-button span {
+  padding: 0;
+  line-height: 12px;
+}
+
+.wpeo-wrap .tm-search .wpeo-button i {
+  margin-left: 10px;
+  line-height: 12px;
+}
+
+.wpeo-wrap .tm-search .wpeo-button i:hover {
+  cursor: pointer;
+}
+
 /*--------------------------------------------------------------
 # TMP END Jimmy
 --------------------------------------------------------------*/

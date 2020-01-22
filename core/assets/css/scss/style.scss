@@ -212,6 +212,43 @@ body.toplevel_page_wpeomtm-dashboard {
 		.dropdown-active {
 			background-color: $color__primary-light !important;
 		}
+
+
+	}
+
+	.tm-search {
+		height: 80%;
+
+		.form-field {
+			padding: 10px;
+		}
+
+		.field-elements {
+			width: 100%;
+			line-height: 32px;
+			padding-left: 10px;
+		}
+
+		.form-field-container {
+			height: 50px;
+		}
+
+		.wpeo-button {
+			margin-right: 10px;
+			span {
+				padding: 0;
+				line-height: 12px;
+			}
+
+			i {
+				margin-left: 10px;
+				line-height: 12px;
+			}
+
+			i:hover {
+				cursor: pointer;
+			}
+		}
 	}
 }
 

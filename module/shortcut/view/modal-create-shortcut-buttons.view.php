@@ -19,9 +19,6 @@ defined( 'ABSPATH' ) || exit; ?>
 <a class="wpeo-button button-grey button-uppercase modal-close"><span>Annuler</span></a>
 <a class="wpeo-button button-main button-uppercase action-input"
 	data-loader="wpeo-modal"
-	data-namespace="taskManager"
-	data-module="navigation"
-	data-before-method="checkDataBeforeSearch"
 	data-parent="wpeo-modal"
 	data-action="create_shortcut">
 	<span><?php esc_html_e( 'Create shortcut', 'task-manager' ); ?></span>
