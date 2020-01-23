@@ -38,7 +38,8 @@ class Task_Manager_Action {
 		add_filter(
 			'task_manager_get_tasks_args',
 			function( $args ) {
-				if ( $_REQUEST['tm_dashboard_archives_include'] ) {
+				$archive = ( isset( $_REQUEST['tm_dashboard_archives_include'] ) && 1 == $_REQUEST['tm_dashboard_archives_include'] ) ? true : false;
+				if ( $archive ) {
 					$args['status'] .= ',"archive"';
 				}
 
