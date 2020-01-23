@@ -64,35 +64,30 @@ window.eoxiaJS.taskManager.newPoint.editTitle = function() {
  * @since 1.0.0
  */
 window.eoxiaJS.taskManager.newPoint.completePoint = function( event ) {
-	const numberComment = jQuery( this ).closest( '.table-row' ).find( '.number-comments' ).text();
-	const isCompleted   = jQuery( this ).closest( '.table-row' ).hasClass( 'task-completed' );
+	const data = {
+		action:  'complete_point',
+		_wpnonce: jQuery( this ).closest( '.table-row' ).data('nonce' ),
+		parent_id: jQuery( this ).closest( '.table-row' ).data( 'post-id' ),
+		id: jQuery( this ).closest( '.table-row' ).data( 'id' ),
+		complete: jQuery( this ).is( ':checked' )
+	};
 
-	/*if ( numberComment == 0 && ! isCompleted ) {
-		jQuery( '.modal-prompt-point' ).addClass( 'modal-active' );
-		jQuery( '.modal-prompt-point input[name="post_id"]' ).val( jQuery( this ).closest( '.point' ).find( 'input[name="parent_id"]').val());
-		jQuery( '.modal-prompt-point input[name="point_id"]' ).val( jQuery( this ).closest( '.point' ).find( 'input[name="id"]').val() );
-		jQuery( '.modal-prompt-point .content' ).html( '#' + jQuery( this ).closest( '.point' ).find( 'input[name="id"]').val() + ' - ' + jQuery( this ).closest( '.point' ).find( '.point-content input[name="content"]').val() );
-		event.preventDefault();
-		return false;
-	} else {*/
-		const data = {
-			action:  'complete_point',
-			_wpnonce: jQuery( this ).closest( '.table-row' ).data('nonce' ),
-			parent_id: jQuery( this ).closest( '.table-row' ).data( 'post-id' ),
-			id: jQuery( this ).closest( '.table-row' ).data( 'id' ),
-			complete: jQuery( this ).is( ':checked' )
-		};
-
-		window.eoxiaJS.request.send( jQuery( this ), data, function( triggeredElement, response ) {
-			if ( response.success ) {
-				if ( response.data.completed ) {
-					triggeredElement.closest( '.table-row' ).addClass( 'task-completed' );
+	window.eoxiaJS.request.send( jQuery( this ), data, function( triggeredElement, response ) {
+		var tableRow = triggeredElement.closest( '.table-row' );
+		var projectID = tableRow.attr( 'data-post-id' );
+		if ( response.success ) {
+			if ( response.data.completed ) {
+				tableRow.addClass( 'task-completed' );
+				if (jQuery( '.table-projects .table-row[data-id=' + projectID + '] .load-complete-point.active[data-point-state=completed]' ).length > 0) {
+					jQuery( '.table-projects .table-row[data-post-id=' + projectID + ']:last' ).after( tableRow );
 				} else {
-					triggeredElement.closest( '.table-row' ).removeClass( 'task-completed' );
+					tableRow.fadeOut();
 				}
+			} else {
+				tableRow.removeClass( 'task-completed' );
 			}
-		} );
-	//}
+		}
+	} );
 };
 
 window.eoxiaJS.taskManager.newPoint.toggleComments = function() {
