@@ -3341,11 +3341,13 @@ body.eo-custom-page .content-wrap .tm-main-container {
 
 .wpeo-wrap .tm-search .wpeo-button {
   margin-right: 10px;
+  white-space: nowrap;
 }
 
 .wpeo-wrap .tm-search .wpeo-button span {
   padding: 0;
   line-height: 12px;
+  font-size: 1em;
 }
 
 .wpeo-wrap .tm-search .wpeo-button i {

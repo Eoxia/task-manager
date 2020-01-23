@@ -242,9 +242,12 @@ body.toplevel_page_wpeomtm-dashboard {
 
 		.wpeo-button {
 			margin-right: 10px;
+			white-space: nowrap;
+
 			span {
 				padding: 0;
 				line-height: 12px;
+				font-size: 1em;
 			}
 
 			i {
