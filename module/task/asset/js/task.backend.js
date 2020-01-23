@@ -79,45 +79,24 @@ window.eoxiaJS.taskManager.task.initAutoComplete = function() {
 window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
 	var data = {};
 
-	/*if ( 1 !== jQuery( '#poststuff' ).length && jQuery( '.tm-dashboard-header' )[0] ) {
-		if ( ( jQuery( window ).scrollTop() == jQuery( document ).height() - jQuery( window ).height() ) && window.eoxiaJS.taskManager.task.canLoadMore ) {
-*/
-			window.eoxiaJS.taskManager.task.offset += parseInt( window.task_manager_posts_per_page );
-			window.eoxiaJS.taskManager.task.canLoadMore = false;
+	window.eoxiaJS.taskManager.task.offset += parseInt( window.task_manager_posts_per_page );
+	window.eoxiaJS.taskManager.task.canLoadMore = false;
 
-			var button_search = jQuery( '.wpeo-modal-event.load_more_result' );
-			data.action = 'load_more_task';
-			data.offset = window.eoxiaJS.taskManager.task.offset;
-			data.posts_per_page = window.task_manager_posts_per_page;
-			data.post_parent = button_search.data( 'post-parent' );
-			data.term = button_search.data( 'term' );
-			data.user_id = button_search.data( 'user-id' );
+	data.action = 'load_more_task';
+	data.offset = window.eoxiaJS.taskManager.task.offset;
+	data.posts_per_page = window.task_manager_posts_per_page;
 
-			data.task_id = button_search.data( 'task-id' );
-			data.point_id = button_search.data( 'point-id' );
-			data.categories_id = button_search.data( 'categories-id' );
-			// data.term = jQuery( '.wpeo-header-bar input[name="term"]' ).val();
-			// data.users_id = jQuery( '.wpeo-header-search select[name="follower_id_selected"]' ).val();
-			data.status = jQuery( '.wpeo-header-bar input[name="status"]' ).val();
-
-			window.eoxiaJS.taskManager.navigation.checkDataBeforeSearch( undefined );
-			//data.categories_id = jQuery( '.wpeo-header-search input[name="categories_id_selected"]' ).val();
-
-			window.eoxiaJS.loader.display( jQuery( '.load-more' ) );
-			jQuery( '.load-more' ).show();
-			window.eoxiaJS.request.send( jQuery( '.load-more' ), data );
-		/*}
-	}*/
+	window.eoxiaJS.loader.display( jQuery( '.load-more-button' ) );
+	window.eoxiaJS.request.send( jQuery( '.load-more-button' ), data );
 };
 
 window.eoxiaJS.taskManager.task.loadedMoreTask = function( element, response ) {
 	window.eoxiaJS.taskManager.task.canLoadMore = response.data.can_load_more;
+
 	var elements = jQuery( response.data.view );
 	elements.css({display: 'none'});
 	jQuery( '.table-projects' ).append( elements );
 	elements.slideDown(400);
-
-	jQuery( '.load-more' ).hide();
 
 	window.eoxiaJS.taskManager.newTask.stickyAction();
 }

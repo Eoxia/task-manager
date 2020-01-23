@@ -95,9 +95,12 @@ class Task_Action {
 	 * @version 1.3.6.0
 	 */
 	public function callback_wp_print_script() {
+		$element_per_page = get_user_meta( get_current_user_id(), '_tm_task_per_page', true );
+		$element_per_page = empty( $element_per_page ) ? 10 : $element_per_page;
+
 		?>
 		<script>
-			window.task_manager_posts_per_page = "<?php echo esc_attr( Config_Util::$init['task-manager']->task->posts_per_page ); ?>";
+			window.task_manager_posts_per_page = "<?php echo esc_attr( $element_per_page ); ?>";
 		</script>
 		<?php
 	}

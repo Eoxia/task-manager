@@ -3312,6 +3312,15 @@ body.eo-custom-page .content-wrap .tm-main-container {
   background-color: #55b6ed !important;
 }
 
+.wpeo-wrap .cell-project-status {
+  margin: auto;
+}
+
+.wpeo-wrap .cell-project-status i {
+  font-size: 1.4em;
+  margin: auto;
+}
+
 .wpeo-wrap .tm-search {
   height: 80%;
 }

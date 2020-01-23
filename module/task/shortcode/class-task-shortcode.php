@@ -97,7 +97,8 @@ class Task_Shortcode {
 			$with_wrapper = true;
 		}
 
-		$tasks = Task_Class::g()->get_tasks( $param );
+		$tasks        = Task_Class::g()->get_tasks( $param );
+		$number_tasks = Task_Class::g()->get_tasks( $param, true );
 
 		ob_start();
 		if ( ! is_admin() ) {
@@ -107,6 +108,7 @@ class Task_Shortcode {
 				'frontend/main',
 				array(
 					'tasks'        => $tasks,
+					'number_tasks' => $number_tasks,
 					'with_wrapper' => $with_wrapper,
 				)
 			);
@@ -117,6 +119,7 @@ class Task_Shortcode {
 				'backend/main',
 				array(
 					'tasks'        => $tasks,
+					'number_tasks' => $number_tasks,
 					'with_wrapper' => $with_wrapper,
 				)
 			);

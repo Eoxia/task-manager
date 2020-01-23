@@ -254,7 +254,7 @@ class Task_Class extends \eoxia\Post_Class {
 	 * }.
 	 * @return array        La liste des tâches trouvées.
 	 */
-	public function get_tasks( $param ) {
+	public function get_tasks( $param, $count = false ) {
 		global $wpdb;
 
 		$param['id']              = isset( $param['id'] ) ? (int) $param['id'] : 0;
@@ -373,13 +373,13 @@ class Task_Class extends \eoxia\Post_Class {
 
 		$query .= ' ORDER BY TASK.post_date DESC ';
 
-		if ( -1 !== $param['posts_per_page'] ) {
+		if ( -1 !== $param['posts_per_page'] && ! $count ) {
 			$query .= 'LIMIT ' . $param['offset'] . ',' . $param['posts_per_page'];
 		}
 
 		$tasks_id = $wpdb->get_col( $query ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
-		if ( ! empty( $tasks_id ) ) {
+		if ( ! empty( $tasks_id ) && ! $count ) {
 			$tasks = self::g()->get(
 				array(
 					'post__in'    => $tasks_id,
@@ -388,7 +388,7 @@ class Task_Class extends \eoxia\Post_Class {
 			);
 		} // End if().
 
-		return $tasks;
+		return $count ? count ( $tasks_id ) : $tasks;
 	}
 
 	public function display_headers( $elements ) {

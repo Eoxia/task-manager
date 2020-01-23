@@ -22,8 +22,8 @@ window.eoxiaJS.taskManager.navigation.event = function() {
 	jQuery( document ).on( 'click', '.tm-search .field-elements', window.eoxiaJS.taskManager.navigation.searchCategories );
 
 	// jQuery( document ).on( 'keyup', '.tm-search .tm-filter-customer', window.eoxiaJS.taskManager.navigation.filterTags );
-	document.querySelector( '.search-customers .tm-filter-customer' ).addEventListener( 'keyup', window.eoxiaJS.taskManager.navigation.filterCustomers );
-	document.querySelector( '.search-categories .tm-filter' ).addEventListener( 'keyup', window.eoxiaJS.taskManager.navigation.filterTags );
+	jQuery( document ).on( 'keyup', '.search-customers .tm-filter-customer', window.eoxiaJS.taskManager.navigation.filterCustomers );
+	jQuery( document ).on( 'keyup', '.search-categories .tm-filter', window.eoxiaJS.taskManager.navigation.filterTags );
 	jQuery( document ).on( 'click', '.tm-search .dropdown-item:not(.me)', window.eoxiaJS.taskManager.navigation.selectTags );
 
 	jQuery( document ).on( 'click', '.wpeo-dropdown .wpeo-button .fa-times', window.eoxiaJS.taskManager.navigation.deleteEntry );

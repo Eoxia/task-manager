@@ -66,8 +66,11 @@ class Navigation_Action {
 		Navigation_Class::g()->display_search_result( $term, $status, $task_id, $point_id, $post_parent, $categories_id, $user_id );
 		$search_result_view = ob_get_clean();
 
+		$element_per_page = get_user_meta( get_current_user_id(), '_tm_task_per_page', true );
+		$element_per_page = empty( $element_per_page ) ? 10 : $element_per_page;
+
 		ob_start();
-		echo do_shortcode( '[task id="' . $task_id . '" post_parent="' . $post_parent . '" point_id="' . $point_id . '" users_id="' . $user_id . '" categories_id="' . $categories_id . '" term="' . $term . '" posts_per_page="' . \eoxia\Config_Util::$init['task-manager']->task->posts_per_page . '" with_wrapper="0"]' );
+		echo do_shortcode( '[task id="' . $task_id . '" post_parent="' . $post_parent . '" point_id="' . $point_id . '" users_id="' . $user_id . '" categories_id="' . $categories_id . '" term="' . $term . '" posts_per_page="' . $element_per_page . '" with_wrapper="0"]' );
 		$tasks_view = ob_get_clean();
 
 		wp_send_json_success(
@@ -91,6 +94,7 @@ class Navigation_Action {
 	 * @return void
 	 */
 	public function callback_search_order( $data ) {
+
 		$posts = get_posts(
 			array(
 				'post_status' => array( 'publish', 'inherit', 'draft' ),

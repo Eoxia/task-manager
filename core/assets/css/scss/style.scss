@@ -212,8 +212,15 @@ body.toplevel_page_wpeomtm-dashboard {
 		.dropdown-active {
 			background-color: $color__primary-light !important;
 		}
+	}
 
+	.cell-project-status {
+		margin: auto;
 
+		i {
+			font-size: 1.4em;
+			margin: auto;
+		}
 	}
 
 	.tm-search {

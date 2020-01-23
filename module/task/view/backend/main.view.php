@@ -17,7 +17,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="list-task">
 	<?php Task_Class::g()->display( $tasks ); ?>
-	<div class="load_more_task_here"></div>
 </div>
 
-<div class="load-more"><?php esc_html_e( 'Load more task...', 'task-manager' ); ?></div>
+<div style="margin:auto; text-align: center;">
+	<div class="button-main load-more-button wpeo-button">
+		<span><?php esc_html_e( 'Load more entries', 'task-manager' ); ?></span>
+		<span class="current"><?php echo count( $tasks ); ?></span><span>/</span><span class="total"><?php echo esc_attr( $number_tasks ); ?></span>
+	</div>
+</div>

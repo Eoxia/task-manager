@@ -48,15 +48,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		--><?php /*endif; */?>
 	</div>
-
-	<div style="margin:auto; text-align: center;">
-	<div class="button-main load-more-button wpeo-button"><?php esc_html_e( 'Load more', 'task-manager' ); ?></div>
-	</div>
-
-    <?php
-    // Gestion du prompt des points.
-    Point_Class::g()->display_prompt_complete_point();
-    ?>
-
-
 </div>
