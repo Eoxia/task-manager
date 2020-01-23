@@ -74,7 +74,7 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 		if ( ! empty( $categories_selected ) ) {
 			foreach ( $categories_selected as $categorie ) {
 				$categories_searched[] = array(
-					'id' => $categorie->data['id'],
+					'id' => $categorie->data['term_taxonomy_id'],
 					'name' => $categorie->data['name'],
 				);
 			}

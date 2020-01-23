@@ -204,11 +204,10 @@ window.eoxiaJS.taskManager.navigation.searchCategories = function ( event ) {
 
 window.eoxiaJS.taskManager.navigation.deleteEntry = function ( evt ) {
 	var id = jQuery( this ).closest( '.wpeo-button' ).data( 'id' );
-	console.log(id);
 	var currentVal = jQuery( this ).closest( '.wpeo-dropdown' ).find( 'input[type="hidden"]' ).val();
 
 	currentVal = currentVal.split(',');
-	console.log(currentVal);
+
 	for (var key in currentVal) {
 		if (currentVal[key] == id) {
 			currentVal.splice(key, 1);
@@ -216,8 +215,6 @@ window.eoxiaJS.taskManager.navigation.deleteEntry = function ( evt ) {
 	}
 
 	currentVal = currentVal.join( ',' );
-	console.log(currentVal);
-
 
 	jQuery( this ).closest( '.wpeo-dropdown' ).find( 'input[type="hidden"]' ).val( currentVal );
 	jQuery( this ).closest( '.wpeo-button' ).remove();

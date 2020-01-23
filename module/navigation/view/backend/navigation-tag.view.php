@@ -18,6 +18,7 @@ defined( 'ABSPATH' ) || exit; ?>
 
 	<div class="form-field" style="height: 100%; display: flex;">
 		<?php
+
 		if ( ! empty( $data['categories_searched'] ) ):
 			foreach ( $data['categories_searched'] as $category ):
 				?>
