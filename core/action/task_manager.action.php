@@ -34,6 +34,17 @@ class Task_Manager_Action {
 		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 12 );
 
 		add_action( 'wp_ajax_close_tm_change_log', array( $this, 'callback_close_change_log' ) );
+
+		add_filter(
+			'task_manager_get_tasks_args',
+			function( $args ) {
+				if ( $_GET['tm_dashboard_archives_include'] ) {
+					$args['status'] .= ',"archive"';
+				}
+
+				return $args;
+			}
+		);
 	}
 
 	/**
