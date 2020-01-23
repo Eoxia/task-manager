@@ -51,7 +51,7 @@ else :
 				<?php
 			} else {
 				$action = 'edit_comment';
-				$text = __( 'No tasks yet. Add a new one', 'task-manager' );
+				$text = __( 'No comments yet. Add a new one', 'task-manager' );
 				?>
 				<div class="table-row row-empty table-type-comment" data-parent-id="<?php echo $parent->data['id']; ?>" data-post-id="<?php echo $parent->data['post_id']; ?>">
 				<p><?php echo $text; ?></p>
