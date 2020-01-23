@@ -53,7 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php $eo_search->display( 'tm_search_admin' ); ?>
 
-	<div class="form-element search-categories tm-search wpeo-tooltip-event" aria-label="<?php echo esc_attr( 'Search category', 'task-manager' ); ?>>
+	<div class="form-element search-categories tm-search wpeo-tooltip-event" aria-label="<?php echo esc_attr( 'Search category', 'task-manager' ); ?>">
 		<label class="form-field-container">
 			<span class="form-field-icon-prev"><i class="fas fa-tag"></i></span>
 			<?php
