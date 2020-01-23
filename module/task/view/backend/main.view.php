@@ -20,8 +20,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 </div>
 
 <div style="margin:auto; text-align: center;">
-	<div class="button-main load-more-button wpeo-button">
-		<span><?php esc_html_e( 'Load more entries', 'task-manager' ); ?></span>
+	<?php
+	if ( count( $tasks ) == $number_tasks ) :
+		?>
+		<div class="button-grey  more-button button-disable wpeo-button">
+		<span class="text"><?php esc_html_e( 'No more entries', 'task-manager' ); ?></span>
 		<span class="current"><?php echo count( $tasks ); ?></span><span>/</span><span class="total"><?php echo esc_attr( $number_tasks ); ?></span>
-	</div>
+		</div>
+	<?php
+	else:
+		?>
+		<div class="button-main more-button load-more-button wpeo-button">
+			<span class="text"><?php esc_html_e( 'Load more entries', 'task-manager' ); ?></span>
+			<span class="current"><?php echo count( $tasks ); ?></span><span>/</span><span class="total"><?php echo esc_attr( $number_tasks ); ?></span>
+		</div>
+		<?php
+	endif;
+	?>
 </div>

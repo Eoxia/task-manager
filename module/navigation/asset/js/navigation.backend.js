@@ -178,6 +178,7 @@ window.eoxiaJS.taskManager.navigation.selectTags = function( event ) {
 window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredElement, response ) {
 	window.eoxiaJS.loader.remove( jQuery( '.wpeo-general-search' ) );
 
+	jQuery( '.more-button' ).remove();
 	jQuery( '.tm-dashboard-shortcuts .active' ).removeClass( 'active' );
 
 	jQuery( '.list-task' ).replaceWith( response.data.view.tasks );
@@ -187,6 +188,7 @@ window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredEleme
 	window.eoxiaJS.taskManager.task.canLoadMore = true;
 
 	window.eoxiaJS.taskManager.newTask.stickyAction();
+
 	jQuery( '.list-task' ).on( 'scroll', window.eoxiaJS.taskManager.newTask.stickyAction );
 
 	// Mise à jour URL.

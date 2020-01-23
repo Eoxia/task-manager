@@ -79,12 +79,20 @@ window.eoxiaJS.taskManager.task.initAutoComplete = function() {
 window.eoxiaJS.taskManager.task.onScrollLoadMore = function() {
 	var data = {};
 
+	var get = window.location.search.substr(1).split('&');
+
 	window.eoxiaJS.taskManager.task.offset += parseInt( window.task_manager_posts_per_page );
 	window.eoxiaJS.taskManager.task.canLoadMore = false;
 
 	data.action = 'load_more_task';
 	data.offset = window.eoxiaJS.taskManager.task.offset;
 	data.posts_per_page = window.task_manager_posts_per_page;
+
+	for (var key in get) {
+		var keyvalue = get[key].split('=');
+
+		data[keyvalue[0]] = keyvalue[1];
+	}
 
 	window.eoxiaJS.loader.display( jQuery( '.load-more-button' ) );
 	window.eoxiaJS.request.send( jQuery( '.load-more-button' ), data );
@@ -97,6 +105,16 @@ window.eoxiaJS.taskManager.task.loadedMoreTask = function( element, response ) {
 	elements.css({display: 'none'});
 	jQuery( '.table-projects' ).append( elements );
 	elements.slideDown(400);
+
+	var current = parseInt(jQuery( '.table-projects .table-row:not(.table-header)' ).length);
+	var total = parseInt(jQuery( '.load-more-button .total' ).text());
+
+	if (current >= total) {
+		jQuery( '.load-more-button' ).addClass( 'button-disable' );
+		jQuery( '.load-more-button .title' ).text( 'No more entries' );
+	}
+
+	jQuery( '.load-more-button .current' ).text( current );
 
 	window.eoxiaJS.taskManager.newTask.stickyAction();
 }
