@@ -10,7 +10,7 @@
 if ( ! empty( $customers ) ) :
 	foreach ( $customers as $customer ) :
 		?>
-		<div class="dropdown-item wpeo-util-hidden" data-content="<?php echo $customer->content; ?>" data-id="<?php echo esc_attr( $customer->ID ); ?>">
+		<div class="dropdown-item wpeo-util-hidden" data-title="<?php echo $customer->content_title; ?>" data-content="<?php echo $customer->content; ?>" data-id="<?php echo esc_attr( $customer->ID ); ?>">
 			<span class="dropdown-result-title"><?php echo esc_html( $customer->post_title ); ?></span>
 			<?php
 			if ( ! empty( $customer->users ) ) :

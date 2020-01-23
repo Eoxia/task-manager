@@ -70,18 +70,30 @@ window.eoxiaJS.taskManager.navigation.filterCustomers = function( event ) {
 
 			jQuery( this ).closest( '.wpeo-dropdown' ).addClass( 'dropdown-active' );
 
+			var founded = false;
+
 			items.each(function (key) {
 				jQuery( this ).addClass( 'wpeo-util-hidden' );
-				if ( jQuery( this ).data( 'content' ).indexOf(search) != -1) {
+				if ( jQuery( this ).data( 'title' ).indexOf(search) != -1) {
 					jQuery( this ).removeClass( 'wpeo-util-hidden' );
+
+					founded = true;
 				}
 			});
+
+			if ( ! founded ) {
+				items.each(function (key) {
+					jQuery( this ).addClass( 'wpeo-util-hidden' );
+					if ( jQuery( this ).data( 'content' ).indexOf(search) != -1) {
+						jQuery( this ).removeClass( 'wpeo-util-hidden' );
+					}
+				});
+			}
 
 			if ( items.length == 0 ) {
 				jQuery( '.item-nothing' ).removeClass( 'wpeo-util-hidden' );
 			} else {
 				jQuery( '.item-nothing' ).addClass( 'wpeo-util-hidden' );
-
 			}
 
 			if (jQuery(this).closest('.tm-search').find('.wpeo-dropdown .dropdown-item:not(.me):visible').length == 1) {
@@ -163,7 +175,6 @@ window.eoxiaJS.taskManager.navigation.selectTags = function( event ) {
 	event.preventDefault();
 };
 
-
 /**
  * Le callback en cas de réussite à la requête Ajax "search".
  * Remplaces le contenu des tâches du dashboard et affiches la div contenant le résultat de la recherche.
@@ -193,7 +204,6 @@ window.eoxiaJS.taskManager.navigation.searchedSuccess = function( triggeredEleme
 
 	// Mise à jour URL.
 	history.pushState('data', '', response.data.url );
-
 };
 
 window.eoxiaJS.taskManager.navigation.searchCategories = function ( event ) {
@@ -218,5 +228,4 @@ window.eoxiaJS.taskManager.navigation.deleteEntry = function ( evt ) {
 
 	jQuery( this ).closest( '.wpeo-dropdown' ).find( 'input[type="hidden"]' ).val( currentVal );
 	jQuery( this ).closest( '.wpeo-button' ).remove();
-
 };

@@ -178,6 +178,7 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 				$customer->users = array();
 
 				$customer->content = strtolower(trim( str_replace( ' ', '', $customer->post_title ) ));
+				$customer->content_title = strtolower(trim( str_replace( ' ', '', $customer->post_title ) ));
 
 				if ( ! empty( $user_ids ) ) {
 					$customer->users = get_users( array( 'include' => $user_ids ) );

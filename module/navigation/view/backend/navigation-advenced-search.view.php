@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</label>
 	</div>
 
-	<div class="form-element search-customers tm-search wpeo-tooltip-event" aria-label="<?php echo esc_attr( 'Search customer', 'task-manager' ); ?>">
+	<div class="form-element search-customers tm-search " aria-label="<?php echo esc_attr( 'Search customer', 'task-manager' ); ?>">
 		<label class="form-field-container">
 			<span class="form-field-icon-prev"><i class="far fa-user"></i></span>
 			<div class="wpeo-dropdown dropdown-right">
@@ -53,7 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php $eo_search->display( 'tm_search_admin' ); ?>
 
-	<div class="form-element search-categories tm-search wpeo-tooltip-event" aria-label="<?php echo esc_attr( 'Search category', 'task-manager' ); ?>">
+	<div class="form-element search-categories tm-search " aria-label="<?php echo esc_attr( 'Search category', 'task-manager' ); ?>">
 		<label class="form-field-container">
 			<span class="form-field-icon-prev"><i class="fas fa-tag"></i></span>
 			<?php
@@ -71,7 +71,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 
 	<div class="form-element">
-		<input type="checkbox" id="include_archive" class="form-field" <?php checked( $_GET['tm_dashboard_archives_include'] ); ?> name="tm_dashboard_archives_include" value="include_archive">
+		<input type="checkbox" id="include_archive" class="form-field" <?php checked( ! empty( $_GET['tm_dashboard_archives_include'] ) ? $_GET['tm_dashboard_archives_include'] : false ); ?> name="tm_dashboard_archives_include" value="include_archive">
 		<label for="include_archive"><?php esc_attr_e( 'Include archive', 'task-manager' ); ?></label>
 	</div>
 
