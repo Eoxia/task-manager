@@ -82,7 +82,7 @@ class Navigation_Action {
 					'tasks'         => $tasks_view,
 					'search_result' => $search_result_view,
 				),
-				'url' => admin_url( 'admin.php?page=wpeomtm-dashboard&term=' . $term . '&status=' . $status . '&task_id=' . $task_id . '&point_id=' . $point_id . '&post_parent=' . $post_parent . '&categories_id=' . $categories_id . '&user_id= ' . $user_id ),
+				'url' => admin_url( 'admin.php?page=wpeomtm-dashboard&term=' . $term . '&status=' . $status . '&task_id=' . $task_id . '&point_id=' . $point_id . '&post_parent=' . $post_parent . '&categories_id=' . $categories_id . '&user_id=' . $user_id . '&tm_dashboard_archives_include=' . $tm_dashboard_archives_include  ),
 			)
 		);
 	}
