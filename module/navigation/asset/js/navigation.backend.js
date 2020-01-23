@@ -217,6 +217,8 @@ window.eoxiaJS.taskManager.navigation.deleteEntry = function ( evt ) {
 
 	currentVal = currentVal.join( ',' );
 
+	console.log( jQuery( this ).closest( '.wpeo-dropdown' ) );
+
 	jQuery( this ).closest( '.wpeo-dropdown' ).find( 'input[type="hidden"]' ).val( currentVal );
 	jQuery( this ).closest( '.wpeo-button' ).remove();
 
