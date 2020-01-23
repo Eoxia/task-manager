@@ -166,6 +166,7 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 			'posts_per_page' => -1,
 			'post_type'      => 'wpshop_customers',
 			'post_status'    => 'draft',
+			'orderby'        => 'title',
 		) );
 
 		if ( ! empty( $customers ) ) {
