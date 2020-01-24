@@ -40,6 +40,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<input type="checkbox" checked name="columns[<?php echo $header['key']; ?>][displayed]" />
 							<input type="hidden" value="<?php echo $order; ?>" name="columns[<?php echo $header['key']; ?>][order]" />
 							<?php
+						else:
+							?>
+							<input type="hidden" name="columns[<?php echo $header['key']; ?>][displayed]" value="1" />
+							<input type="hidden" value="<?php echo $order; ?>" name="columns[<?php echo $header['key']; ?>][order]" />
+						<?php
 						endif;
 						?>
 					</div>
