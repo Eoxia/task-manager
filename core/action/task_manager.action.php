@@ -33,7 +33,8 @@ class Task_Manager_Action {
 		add_action( 'init', array( $this, 'callback_plugins_loaded' ) );
 		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 12 );
 
-		add_action( 'wp_ajax_close_tm_change_log', array( $this, 'callback_close_change_log' ) );
+		add_action( 'wp_ajax_tm_have_patch_note', array( $this, 'have_patch_note' ) );
+		add_action( 'wp_ajax_tm_close_change_log', array( $this, 'callback_close_change_log' ) );
 
 		add_filter(
 			'task_manager_get_tasks_args',
@@ -260,25 +261,49 @@ class Task_Manager_Action {
 	 *
 	 * @return void
 	 */
+	public function have_patch_note() {
+		$meta = get_user_meta( get_current_user_id(), '_wptm_user_change_loga', true );
+
+		$result = Task_Manager_Class::g()->get_patch_note();
+
+		if ( $result['status'] ) {
+			$result['status'] = ( isset( $meta[ \eoxia\Config_Util::$init['task-manager']->version ] ) && $meta[ \eoxia\Config_Util::$init['task-manager']->version ] ) ? false : true;
+		}
+
+		ob_start();
+		require PLUGIN_TASK_MANAGER_PATH . '/core/view/patch-note.view.php';
+		wp_send_json_success( array(
+			'status'  => $result['status'],
+			'result'  => $result,
+			'view'    => ob_get_clean(),
+		) );
+	}
+
+	/**
+	 * Lors de la fermeture de la notification de la popup.
+	 * Met la metadonnée '_wpdigi_user_change_log' avec le numéro de version actuel à true.
+	 *
+	 * @since 6.0.0
+	 */
 	public function callback_close_change_log() {
 		check_ajax_referer( 'close_change_log' );
 
-		$version = ! empty( $_POST['version'] ) ? sanitize_text_field( $_POST['version'] ) : '';
+		$version = ! empty( $_POST['version'] ) ? sanitize_text_field( wp_unslash( $_POST['version'] ) ) : ''; // WPCS: input var ok.
 
 		if ( empty( $version ) ) {
 			wp_send_json_error();
 		}
 
-		$meta = get_user_meta( get_current_user_id(), '_wptm_user_change_log', true );
+		$meta = get_user_meta( get_current_user_id(), '_wptm_user_change_loga', true );
 
 		if ( empty( $meta ) ) {
 			$meta = array();
 		}
 
 		$meta[ $version ] = true;
-		update_user_meta( get_current_user_id(), '_wptm_user_change_log', $meta );
+		update_user_meta( get_current_user_id(), '_wptm_user_change_loga', $meta );
 
-		wp_send_json_success( array() );
+		wp_send_json_success();
 	}
 }
 

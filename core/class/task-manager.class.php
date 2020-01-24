@@ -97,23 +97,26 @@ class Task_Manager_Class extends \eoxia\Singleton_Util {
 	 * @return string|object
 	 */
 	public function get_patch_note() {
-		$patch_note_url = 'https://www.task-manager.fr/wp-json/wp/v2/posts/1';
-		$json           = wp_remote_get(
-			$patch_note_url,
-			array(
-				'headers' => array(
-					'Content-Type' => 'application/json',
-				),
-			)
-		);
+		$patch_note_url = 'https://www.eoxia.com/wp-json/eoxia/v1/change_log/' . \eoxia\Config_Util::$init['task-manager']->version;
 
-		$result = __( 'No change log for this version.', 'task-manager' );
+		$json = wp_remote_get( $patch_note_url, array(
+			'headers' => array(
+				'Content-Type' => 'application/json',
+			),
+			'verify_ssl' => false,
+		) );
 
-		if ( ! empty( $json ) && ! empty( $json['body'] ) ) {
+
+		$result = __( 'No update notes for this version.', 'digirisk' );
+
+		if ( ! is_wp_error( $json ) && ! empty( $json ) && ! empty( $json['body'] ) ) {
 			$result = json_decode( $json['body'] );
 		}
 
-		return $result;
+		return array(
+			'status'  => is_wp_error( $json ) ? false : true,
+			'content' => $result,
+		);
 	}
 
 	/**

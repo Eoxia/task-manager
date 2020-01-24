@@ -28,8 +28,18 @@ window.eoxiaJS.taskManager.core.init = function() {
  * @return {void}
  */
 window.eoxiaJS.taskManager.core.event = function() {
-	jQuery( document ).on( 'click', '.tm-wrap .notification.patch-note.active', window.eoxiaJS.taskManager.core.openPopup );
-	jQuery( document ).on( 'click', '.tm-wrap .notification.patch-note .close', window.eoxiaJS.taskManager.core.closeNotification );
+	var action = {
+		action: 'tm_have_patch_note',
+	};
+
+	jQuery.post( ajaxurl, action, function ( response ) {
+		if ( response.data.status ) {
+			jQuery( '.tm-wrap' ).append( response.data.view );
+		}
+	} );
+
+	jQuery( document ).on( 'click', '.tm-wrap .wpeo-notification.patch-note.notification-active', window.eoxiaJS.taskManager.core.openPopup );
+	jQuery( document ).on( 'click', '.tm-wrap .wpeo-notification.patch-note .notification-close', window.eoxiaJS.taskManager.core.closeNotification );
 };
 
 /**
@@ -43,7 +53,7 @@ window.eoxiaJS.taskManager.core.event = function() {
  */
 window.eoxiaJS.taskManager.core.openPopup = function( event ) {
 	event.stopPropagation();
-	jQuery( '.tm-wrap .popup.patch-note' ).addClass( 'active' );
+	jQuery( '.tm-wrap .wpeo-modal.patch-note' ).addClass( 'modal-active' );
 };
 
 /**
@@ -57,7 +67,7 @@ window.eoxiaJS.taskManager.core.openPopup = function( event ) {
  */
 window.eoxiaJS.taskManager.core.closeNotification = function( event ) {
 	event.stopPropagation();
-	jQuery( this ).closest( '.notification' ).removeClass( 'active' );
+	jQuery( this ).closest( '.wpeo-notification' ).removeClass( 'notification-active' );
 };
 
 /**

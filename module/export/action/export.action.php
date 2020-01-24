@@ -132,6 +132,7 @@ class Export_Action {
 		}
 
 		$response['content'] = Export_Class::g()->build_data( $task, $points, $build_args );
+
 		$response['time'] = $cumul_time;
 
 		if ( $export_file ) {

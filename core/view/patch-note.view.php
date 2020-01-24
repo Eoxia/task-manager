@@ -1,39 +1,42 @@
 <?php
 /**
- * Gestion de la popup et de la notification pour les notes de versions.
+ * Gestion de la modal et de la notification pour les notes de mise à jour.
  *
- * @author Jimmy Latour <jimmy@eoxia.com>
- * @since 1.5.0
- * @version 1.6.0
- * @copyright 2015-2018 Eoxia
- * @package Eoxia
+ * @author    Evarisk <dev@evarisk.com>
+ * @copyright (c) 2006 2018 Evarisk <dev@evarisk.com>.
+ *
+ * @license   AGPLv3 <https://spdx.org/licenses/AGPL-3.0-or-later.html>
+ *
+ * @package   DigiRisk\Templates
+ *
+ * @since     6.3.0
  */
 
 namespace task_manager;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 
-$result = Task_Manager_Class::g()->get_patch_note(); ?>
+if ( true === $result['status'] && ! empty( $result['content'] ) ) : ?>
+	<div class="wpeo-notification patch-note notification-active">
+		<img class="notification-thumbnail" src="<?php echo esc_attr( PLUGIN_TASK_MANAGER_URL . 'core/assets/icone.png' ); ?>" />
 
-<?php if ( true === $result['status'] && ! empty( $result['content'] ) ) : ?>
-	<div class="notification patch-note active">
-		<span class="thumbnail"><img src="<?php echo esc_attr( PLUGIN_TASK_MANAGER_URL . 'core/assets/images/favicon_hd.png' ); ?>" /></span>
-		<span class="title">Note de mise à jour de la <a href="#">version <?php echo esc_attr( \eoxia\Config_Util::$init['task-manager']->version ); ?></a></span>
-		<span class="close action-attribute"
-					data-action="close_change_log"
-					data-nonce="<?php echo esc_attr( wp_create_nonce( 'close_change_log' ) ); ?>"
-					data-version="<?php echo esc_attr( \eoxia\Config_Util::$init['task-manager']->version ); ?>"><i class="icon fa fa-times-circle"></i></span>
+		<div class="notification-title">
+			<span>Note de mise à jour de la <a href="#">version <?php echo esc_attr( \eoxia\Config_Util::$init['task-manager']->version ); ?></a></span>
+		</div>
+
+		<div class="notification-close action-attribute"
+		     data-action="tm_close_change_log"
+		     data-nonce="<?php echo esc_attr( wp_create_nonce( 'close_change_log' ) ); ?>"
+		     data-version="<?php echo esc_attr( \eoxia\Config_Util::$init['task-manager']->version ); ?>"><i class="fas fa-times"></i></div>
 	</div>
 
-	<div class="popup patch-note">
-		<div class="container">
-			<div class="header">
+	<div class="wpeo-modal patch-note">
+		<div class="modal-container">
+			<div class="modal-header">
 				<h2 class="title"><?php echo esc_html( 'Note de version: ' . $result['content']->numero_de_version ); ?></h2>
-				<i class="close fa fa-times"></i>
+				<div class="modal-close"><i class="fas fa-times"></i></div>
 			</div>
-			<div class="content">
+			<div class="modal-content">
 				<?php
 				if ( ! empty( $result['content']->note_de_version ) ) :
 					foreach ( $result['content']->note_de_version as $element ) :
@@ -41,20 +44,20 @@ $result = Task_Manager_Class::g()->get_patch_note(); ?>
 						<div class="note">
 							<div class="entry-title"><?php echo esc_html( $element->numero_de_suivi ); ?></div>
 							<div class="entry-content"><?php echo $element->description; ?></div>
-								<?php
-								if ( ! empty( $element->illustration ) && ! empty( $element->illustration->url ) ) :
-									?>
-									<img src="<?php echo esc_attr( $element->illustration->url ); ?>" alt="<?php echo esc_attr( $element->numero_de_suivi ); ?>" />
-									<?php
-								endif;
+							<?php
+							if ( ! empty( $element->illustration ) && ! empty( $element->illustration->url ) ) :
 								?>
+								<img src="<?php echo esc_attr( $element->illustration->url ); ?>" alt="<?php echo esc_attr( $element->numero_de_suivi ); ?>" />
+							<?php
+							endif;
+							?>
 						</div>
-						<?php
+					<?php
 					endforeach;
 				endif;
 				?>
 			</div>
 		</div>
 	</div>
-	<?php
+<?php
 endif;

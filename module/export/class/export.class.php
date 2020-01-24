@@ -77,14 +77,14 @@ class Export_Class extends \eoxia\Singleton_Util {
 		$points_to_export['completed']['items'] = array_filter(
 			$datas,
 			function( $point ) {
-				return true === $point->data['completed'];
+				return true == $point->data['completed'];
 			}
 		);
 
 		$points_to_export['uncompleted']['items'] = array_filter(
 			$datas,
 			function( $point ) {
-				return false === $point->data['completed'];
+				return false == $point->data['completed'];
 			}
 		);
 
