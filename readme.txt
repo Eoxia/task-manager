@@ -68,7 +68,9 @@ No questions asked yet.
 
 = Improvment =
 
-
+* 39180 - Additional Translation.
+* 39069 - Improvment general search.
+* 20609 - New User Interface.
 
 = 1.12.0 =
 
