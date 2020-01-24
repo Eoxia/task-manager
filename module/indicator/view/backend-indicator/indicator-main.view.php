@@ -17,8 +17,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<div>
-	<br>
+<div class="tm-main-container">
+	<?php do_meta_boxes( 'indicator-page', 'normal', '' ); ?>
 </div>
-
-<?php do_meta_boxes( 'indicator-page', 'normal', '' ); ?>

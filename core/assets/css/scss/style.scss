@@ -263,8 +263,14 @@ body.toplevel_page_wpeomtm-dashboard {
 
 	.wpeo-notification.patch-note {
 		background: #1c1d1b;
+
+		i {
+			color: white;
+		}
+
 		span {
 			color: white;
+
 
 			a {
 				color: $color__primary-light;

@@ -3363,6 +3363,10 @@ body.eo-custom-page .content-wrap .tm-main-container {
   background: #1c1d1b;
 }
 
+.wpeo-wrap .wpeo-notification.patch-note i {
+  color: white;
+}
+
 .wpeo-wrap .wpeo-notification.patch-note span {
   color: white;
 }
