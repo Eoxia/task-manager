@@ -42,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<?php
 						else:
 							?>
-							<input type="hidden" name="columns[<?php echo $header['key']; ?>][displayed]" value="1" />
+							<input type="hidden" name="columns[<?php echo $header['key']; ?>][displayed]" value="true" />
 							<input type="hidden" value="<?php echo $order; ?>" name="columns[<?php echo $header['key']; ?>][order]" />
 						<?php
 						endif;
