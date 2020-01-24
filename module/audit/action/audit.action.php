@@ -15,6 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use \eoxia\Custom_Menu_Handler as CMH;
+
+
 /**
  * Les actions relatives aux tâches.
  */
@@ -62,9 +65,7 @@ class Audit_Action {
 	public function callback_init() {}
 
 	public function callback_admin_menu() {
-
-		add_submenu_page( 'wpeomtm-dashboard', __( 'Audit', 'task-manager' ), __( 'Audit', 'task-manager' ), 'manage_task_manager', 'audit-page', array( Audit_Class::g(), 'callable_audit_page' ) );
-
+		//CMH::register_menu( 'wpeomtm-dashboard', __( 'Audit', 'task-manager' ), __( 'Audit', 'task-manager' ), 'manage_task_manager', 'audit-page', array( Audit_Class::g(), 'callable_audit_page' ) );
 	}
 
 	/**
