@@ -14,7 +14,8 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
-<div id="tm_client_load_task_page">
+
+<div id="tm_client_load_task_page" style="height: 650px;">
 	<div class="tm-wrap wpeo-wrap">
 		<div class="tm-post-dashboard">
 
@@ -30,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php if ( ! empty( $data['title'] ) ) : ?>
 						<hr/><h2><?php echo esc_html( $data['title'] ); ?></h2>
 					<?php endif; ?>
-					<?php \task_manager\Task_Class::g()->display_tasks( $data['data'] ); ?>
+					<?php \task_manager\Task_Class::g()->display( $data['data'] ); ?>
 				<?php endforeach; ?>
 				</div>
 			</div>

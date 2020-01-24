@@ -11,6 +11,8 @@
 
 namespace task_manager;
 
+use eoxia\Config_Util;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -64,6 +66,12 @@ class Task_Action {
 
 		add_action( 'wp_ajax_hide_points', array( $this, 'task_hide_points' ) );
 
+		add_action( 'wp_ajax_task_state', array( $this, 'callback_task_state' ) );
+
+		add_action( 'wp_ajax_task_update', array( $this, 'callback_task_update' ) );
+
+		add_action( 'wp_ajax_tm_edit_columns', array( $this, 'callback_tm_edit_columns' ) );
+		add_action( 'wp_ajax_tm_save_columns', array( $this, 'callback_tm_save_columns' ) );
 	}
 
 	/**
@@ -87,13 +95,24 @@ class Task_Action {
 	 * @version 1.3.6.0
 	 */
 	public function callback_wp_print_script() {
+		$element_per_page = get_user_meta( get_current_user_id(), '_tm_task_per_page', true );
+		$element_per_page = empty( $element_per_page ) ? 10 : $element_per_page;
+
 		?>
 		<script>
-			window.task_manager_posts_per_page = "<?php echo esc_attr( \eoxia\Config_Util::$init['task-manager']->task->posts_per_page ); ?>";
+			window.task_manager_posts_per_page = "<?php echo esc_attr( $element_per_page ); ?>";
 		</script>
 		<?php
 	}
 
+	/**
+	 * La fonction de callback de l'action admin_menu de WordPress
+	 *
+	 * @since 6.0.0
+	 */
+	public function admin_menu() {
+		//CMH::register_menu( __( 'My Tasks', 'task-manager' ), __( 'My Tasks', 'task-manager' ), 'read', array( ), 'fas fa-check-square', 'bottom' );
+	}
 	/**
 	 * Créer une tâche en utilisant le modèle Task_Model.
 	 * Renvoie la vue dans la réponse de la requête XHR.
@@ -110,7 +129,7 @@ class Task_Action {
 		$tag_slug_selected = ! empty( $_POST['tag'] ) ? sanitize_text_field( $_POST['tag'] ) : 0;
 
 		$task_args = array(
-			'title'     => __( 'New task', 'task-manager' ),
+			'title'     => __( 'New Project', 'task-manager' ),
 			'parent_id' => $parent_id,
 			'status'    => 'publish',
 		);
@@ -132,14 +151,7 @@ class Task_Action {
 		$task = Task_Class::g()->create( $task_args, true );
 
 		ob_start();
-		\eoxia\View_Util::exec(
-			'task-manager',
-			'task',
-			'backend/task',
-			array(
-				'task' => $task,
-			)
-		);
+		Task_Class::g()->display_bodies( array( $task ) );
 
 		wp_send_json_success(
 			array(
@@ -196,10 +208,10 @@ class Task_Action {
 	 * @version 1.6.0
 	 */
 	public function callback_edit_title() {
-		check_ajax_referer( 'edit_title' );
+//		check_ajax_referer( 'edit_title' );
 
 		$task_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
-		$title   = ! empty( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : '';
+		$title   = ! empty( $_POST['title'] ) ?  $_POST['title'] : '';
 
 		if ( empty( $task_id ) ) {
 			wp_send_json_error();
@@ -211,7 +223,6 @@ class Task_Action {
 			),
 			true
 		);
-
 		$task->data['title'] = $title;
 		$task->data['slug']  = sanitize_title( $title );
 
@@ -375,7 +386,7 @@ class Task_Action {
 		$posts_per_page = ! empty( $_POST['posts_per_page'] ) ? (int) $_POST['posts_per_page'] : 0;
 		$post_parent    = ! empty( $_POST['post_parent'] ) ? (int) $_POST['post_parent'] : 0;
 		$term           = ! empty( $_POST['term'] ) ? sanitize_text_field( $_POST['term'] ) : '';
-		$user_id       = ! empty( $_POST['user_id'] ) ? sanitize_text_field( $_POST['user_id'] ) : '';
+		$user_id        = ! empty( $_POST['user_id'] ) ? sanitize_text_field( $_POST['user_id'] ) : '';
 		$status         = ! empty( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : array();
 		$tab            = ! empty( $_POST['tab'] ) ? sanitize_text_field( $_POST['tab'] ) : array();
 
@@ -405,7 +416,7 @@ class Task_Action {
 
 		$tasks = Task_Class::g()->get_tasks( $param );
 		ob_start();
-		Task_Class::g()->display_tasks( $tasks );
+		Task_Class::g()->display_bodies( $tasks );
 
 		wp_send_json_success(
 			array(
@@ -431,24 +442,15 @@ class Task_Action {
 
 		$id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 
-		$task = Task_Class::g()->recompile_task( $id );
+		$recompiled_elements = Task_Class::g()->recompile_task( $id );
 
-		ob_start();
-		\eoxia\View_Util::exec(
-			'task-manager',
-			'task',
-			'backend/task-only-content',
-			array(
-				'task' => $task,
-			)
-		);
 
 		wp_send_json_success(
 			array(
-				'namespace'        => 'taskManager',
-				'module'           => 'task',
-				'callback_success' => 'recompiledTask',
-				'view'             => ob_get_clean(),
+				'namespace'           => 'taskManager',
+				'module'              => 'task',
+				'callback_success'    => 'recompiledTask',
+				'recompiled_elements' => $recompiled_elements,
 			)
 		);
 	}
@@ -463,7 +465,7 @@ class Task_Action {
 	 * @version 1.6.2
 	 */
 	public function callback_add_meta_boxes( $post_type, $post ) {
-		if ( in_array( $post_type, \eoxia\Config_Util::$init['task-manager']->associate_post_type, true ) ) {
+		if ( in_array( $post_type, Config_Util::$init['task-manager']->associate_post_type, true ) ) {
 
 			ob_start();
 			\eoxia\View_Util::exec( 'task-manager', 'task', 'backend/metabox-create-buttons', array( 'parent_id' => $post->ID ) );
@@ -612,7 +614,7 @@ class Task_Action {
 
 		$query = new \WP_Query(
 			array(
-				'post_type'      => \eoxia\Config_Util::$init['task-manager']->associate_post_type,
+				'post_type'      => Config_Util::$init['task-manager']->associate_post_type,
 				'posts_per_page' => -1,
 				'post_status'    => 'any'
 			)
@@ -810,6 +812,86 @@ class Task_Action {
 			'module'           =>  'task',
 			'view'             =>  ob_get_clean(),
 			'callback_success' => 'taskHidedPoints',
+		) );
+	}
+
+	public function callback_task_state() {
+		$task_id = isset( $_POST[ 'task_id' ] ) ? (int) $_POST[ 'task_id' ] : 0;
+		$state = ! empty( $_POST['state'] ) ? sanitize_text_field( $_POST['state'] ) : '';
+
+		if ( ! $task_id ) {
+			wp_send_json_error();
+		}
+
+		$task = Task_Class::g()->get(
+			array(
+				'id' => $task_id,
+			),
+			true
+		);
+
+		$task->data['task_info']['state'] = $state;
+		$task = Task_Class::g()->update( $task->data );
+
+		do_action( 'wp_ajax_task_update' , $task_id );
+		ob_start();
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'task',
+			'New/task',
+			array(
+				'task'       => $task,
+			)
+		);
+		wp_send_json_success( array(
+			'namespace'        =>  'taskManager',
+			'module'           =>  'newTask',
+			'view'             =>  ob_get_clean(),
+			'callback_success' => 'taskStateSuccess',
+		) );
+
+	}
+
+	public function callback_task_update( $task_id ) {
+
+		$last_update = Task_Class::g()->get_task_last_update( $task_id );
+
+		update_post_meta( $task_id, 'wpeo_task', 'last_update' );
+	}
+
+	public function callback_tm_edit_columns() {
+		$user_columns_def = Follower_Class::g()->user_columns_def;
+
+		wp_send_json_success( array(
+			'namespace'        => 'taskManager',
+			'module'           => 'newTask',
+			'callback_success' => 'editedColumnSuccess',
+			'user_columns_def' => $user_columns_def,
+		) );
+	}
+
+	public function callback_tm_save_columns() {
+		$columns = ! empty( $_POST['columns'] ) ? array( $_POST['columns'] ) : array();
+
+		if ( empty( $columns ) ) {
+			wp_send_json_error();
+		}
+
+		if ( ! empty( $columns[0] ) ) {
+			foreach ( $columns[0] as $key => &$column ) {
+				$column['displayed'] = ( isset( $column['displayed'] ) && 'true' == $column['displayed'] ) ? true : false;
+				$column['order']     = ! empty( $column['order'] ) ? (int) $column['order'] : 0;
+			}
+		}
+
+		unset ( $column );
+
+		update_user_meta( get_current_user_id(), \eoxia\Config_Util::$init['task-manager']->follower->user_columns_key, $columns[0] );
+
+		wp_send_json_success( array(
+			'namespace'        => 'taskManager',
+			'module'           => 'newTask',
+			'callback_success' => 'savedColumnSuccess',
 		) );
 	}
 }

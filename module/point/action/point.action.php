@@ -55,6 +55,7 @@ class Point_Action {
 		$completed = ( isset( $_POST['completed'] ) && 'true' === $_POST['completed'] ) ? true : false; // WPCS: CSRF ok.
 		$parent_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
 		$content   = ! empty( $_POST['content'] ) ? $_POST['content'] : '';
+		$toggle    = ( isset( $_POST['toggle'] ) && 'true' == $_POST['toggle'] ) ? true : false;
 
 		$data  = Point_Class::g()->edit_point( $point_id, $parent_id, $content, $completed );
 		$point = $data['point'];
@@ -63,27 +64,22 @@ class Point_Action {
 		do_action( 'tm_edit_point', $point, $task );
 
 		ob_start();
-		\eoxia\View_Util::exec(
-			'task-manager',
-			'point',
-			'backend/point',
-			array(
-				'point'      => $point,
-				'parent_id'  => $parent_id,
-				'point_id'   => 0,
-				'comment_id' => 0,
-			)
-		);
+		if ( ! $toggle ) {
+			Point_Class::g()->display( $parent_id );
+		} else {
+			Task_Class::g()->display_bodies( array( $point ) );
+		}
 
 		wp_send_json_success(
 			array(
 				'view'             => ob_get_clean(),
 				'namespace'        => 'taskManager',
-				'module'           => 'point',
+				'module'           => 'newPoint',
 				'callback_success' => ! empty( $point_id ) ? 'editedPointSuccess' : 'addedPointSuccess',
 				'task_id'          => $parent_id,
 				'task'             => $task,
 				'point'            => $point,
+				'toggle'           => $toggle,
 			)
 		);
 	}
@@ -163,10 +159,6 @@ class Point_Action {
 
 		$time_task = $task->data['time_info']['elapsed'];
 
-		if ( $task->data['time_info']['estimated_time'] != null ) {
-			$time_task .= ' / ' . $task->data['time_info']['estimated_time'];
-		}
-
 		do_action( 'tm_delete_point', $point );
 
 		wp_send_json_success(
@@ -175,6 +167,7 @@ class Point_Action {
 				'namespace'        => 'taskManager',
 				'module'           => 'point',
 				'callback_success' => 'deletedPointSuccess',
+				'point'            => $point,
 			)
 		);
 	}
@@ -222,10 +215,10 @@ class Point_Action {
 	 * @version 1.6.0
 	 */
 	public function ajax_complete_point() {
-		// check_ajax_referer( 'complete_point' );
+		check_ajax_referer( 'edit_point' );
 
 		$parent_id = ! empty( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;
-		$point_id  = ! empty( $_POST['point_id'] ) ? (int) $_POST['point_id'] : 0;
+		$point_id  = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 		$complete  = ( isset( $_POST['complete'] ) && 'true' === $_POST['complete'] ) ? true : false;
 		$comment   = ( isset( $_POST['comment'] ) && 'true' === $_POST['comment'] ) ? true : false;
 		$by_prompt = ( isset( $_POST['by_prompt'] ) && 'true' === $_POST['by_prompt'] ) ? true : false;
@@ -255,8 +248,10 @@ class Point_Action {
 				'view'             => ob_get_clean(),
 			) );
 		} else {
-			Point_Class::g()->complete_point($point_id, $complete);
-			wp_send_json_success();
+			$point = Point_Class::g()->complete_point($point_id, $complete);
+			wp_send_json_success( array(
+				'completed' => $point->data['completed'],
+			) );
 		}
 	}
 
@@ -294,7 +289,7 @@ class Point_Action {
 		}
 
 		ob_start();
-		\eoxia\View_Util::exec(
+		/*\eoxia\View_Util::exec(
 			'task-manager',
 			'point',
 			$view . '/points',
@@ -304,12 +299,13 @@ class Point_Action {
 				'parent_id'  => $task_id,
 				'points'     => $points,
 			)
-		);
+		);*/
+		Point_Class::g()->display( $task_id, false, 0, $completed );
 		wp_send_json_success(
 			array(
 				'namespace'        => $frontend ? 'taskManagerFrontend' : 'taskManager',
-				'module'           => 'point',
-				'callback_success' => 'loadedPoint',
+				'module'           => 'newPoint',
+				'callback_success' => 'loadedPointSuccess',
 				'view'             => ob_get_clean(),
 			)
 		);

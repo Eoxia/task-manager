@@ -19,6 +19,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 <table class="form-table">
 	<tbody>
 		<tr>
+			<th><label for="_tm_task_per_page"><?php esc_html_e( 'Task Per Page', 'task-manager' ); ?></label></th>
+			<td>
+				<input type="text" name="_tm_task_per_page" id="_tm_task_per_page" value="<?php echo isset( $user->data['_tm_task_per_page'] ) ? $user->data['_tm_task_per_page'] : 10; ?>">
+				<p class="description" ><?php esc_html_e( 'Set the number of task loaded by time', 'task-manager' ); ?></p>
+			</td>
+		</tr>
+		<tr>
 			<th><label for="_tm_auto_elapsed_time"><?php esc_html_e( 'Compil time automatically', 'task-manager' ); ?></label></th>
 			<td>
 				<input type="checkbox" name="_tm_auto_elapsed_time" id="_tm_auto_elapsed_time" value="1" <?php checked( $user->data['_tm_auto_elapsed_time'], true, true ); ?>>

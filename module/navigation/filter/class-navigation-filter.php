@@ -25,7 +25,10 @@ class Navigation_Filter {
 	 */
 	public function __construct() {
 		add_filter( 'tm_dashboard_header', array( $this, 'callback_display_main_search_bar' ), 10, 2 );
-		add_filter( 'tm_dashboard_subheader', array( $this, 'callback_display_navigation_shortcut' ), 10, 2 );
+		//add_filter( 'tm_dashboard_subheader', array( $this, 'callback_display_navigation_shortcut' ), 10, 2 );
+//		add_filter( 'eoxia_main_header_ul_after', array( $this, 'callback_display_header_navigation_search_bar' ), 10, 2 );
+		add_filter( 'eoxia_main_header_li', array( $this, 'callback_display_header_navigation' ), 10, 2 );
+		add_filter( 'eoxia_main_header_nav_bottom', array( $this, 'callback_display_header_navigation_bottom' ), 10, 2 );
 	}
 
 	/**
@@ -55,10 +58,10 @@ class Navigation_Filter {
 	 *
 	 * @return string          Le nouveau contenu modifié par notre filtre pour affichage.
 	 */
-	public function callback_display_navigation_shortcut( $content, $current_search_args ) {
+	public function callback_display_navigation_shortcut( $content, $current_search_args  ) {
 
 		$shortcuts = get_user_meta( get_current_user_id(), '_tm_shortcuts', true );
-		$shortcuts = $shortcuts['wpeomtm-dashboard'];
+		$shortcuts = $shortcuts[0]['child'];
 
 		$url = $_SERVER['REQUEST_URI'];
 		$url = explode( '?', $url );
@@ -67,25 +70,7 @@ class Navigation_Filter {
 			$url = '?' . $url[1];
 		}
 
-		$reorganised_shortcuts = array();
 		$current_folder_key = null;
-
-		if ( ! empty( $shortcuts ) ) {
-			foreach( $shortcuts as $key => $shortcut ) {
-				if ( isset( $shortcut['type'] ) && $shortcut['type'] == 'folder' ) {
-					$current_folder_key                         = $key;
-					$reorganised_shortcuts[ $key ]              = $shortcut;
-					$reorganised_shortcuts[ $key ]['shortcuts'] = array();
-					continue;
-				}
-
-				if ( null !== $current_folder_key ) {
-					$reorganised_shortcuts[ $current_folder_key ]['shortcuts'][] = $shortcut;
-				} else {
-					$reorganised_shortcuts[ $key ] = $shortcut;
-				}
-			}
-		}
 
 		ob_start();
 		\eoxia\View_Util::exec(
@@ -94,7 +79,7 @@ class Navigation_Filter {
 			'backend/navigation-shortcut',
 			array(
 				'search_args' => $current_search_args,
-				'shortcuts'   => $reorganised_shortcuts,
+				'shortcuts'   => $shortcuts,
 				'url'         => $url,
 			)
 		);
@@ -103,6 +88,70 @@ class Navigation_Filter {
 		return $content;
 	}
 
+	public function callback_display_header_navigation_search_bar ( $content ) {
+		/*$shortcode_final_args = '';
+		foreach ( $current_search_args as $shortcode_params_key => $shortcode_params_value ) {
+			$shortcode_final_args .= $shortcode_params_key . '="' . $shortcode_params_value . '" ';
+		}*/
+
+		//$content .= do_shortcode( '[task_manager_search_bar ' . $shortcode_final_args . ']' );
+		if ( $_GET['page'] == "wpeomtm-dashboard" || $_GET['page'] == "tm-my-tasks" ) {
+			ob_start();
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'navigation',
+				'backend/navigation-header-search-bar'
+			);
+			$content .= ob_get_clean();
+
+			return $content;
+		}
+	}
+
+	public function callback_display_header_navigation( $content ) {
+		if ( $_GET['page'] == "wpeomtm-dashboard" ){
+			ob_start();
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'navigation',
+				'backend/navigation-header-button'
+			);
+			$content .= ob_get_clean();
+
+			return $content;
+		}
+	}
+
+	public function callback_display_header_navigation_bottom( $content ) {
+		if ( $_GET['page'] == "wpeomtm-dashboard" || $_GET['page'] == "tm-my-tasks" || wp_doing_ajax() ) {
+			$shortcuts = get_user_meta( get_current_user_id(), '_tm_shortcuts', true );
+			$shortcuts = $shortcuts[0]['child'];
+
+			$url = $_SERVER['REQUEST_URI'];
+			$url = explode( '?', $url );
+
+			if ( ! empty( $url[1] ) ) {
+				$url = '?' . $url[1];
+			}
+
+			$current_folder_key = null;
+
+			ob_start();
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'navigation',
+				'backend/navigation-shortcut',
+				array(
+					//'search_args' => $current_search_args,
+					'shortcuts' => $shortcuts,
+					'url'       => $url,
+				)
+			);
+			$content .= ob_get_clean();
+
+			return $content;
+		}
+	}
 }
 
 new Navigation_Filter();

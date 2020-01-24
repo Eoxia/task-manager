@@ -66,4 +66,4 @@ window.eoxiaJS.taskManager.taskExport.displayDateForExport = function( triggered
 window.eoxiaJS.taskManager.taskExport.exportedTask = function( triggeredElement, response ) {
 	jQuery( '.tm_export_result_container' ).find( 'textarea' ).html( response.data.content );
 	jQuery( triggeredElement ).closest( '.wpeo-modal' ).find( '.modal-footer' ).html( response.data.time );
-}; 
+};

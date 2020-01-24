@@ -31,22 +31,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	endif;
 	?>
 
-	<?php
-	if ( ! empty( $followers_no_role ) ) :
-		foreach ( $followers_no_role as $follower ) :
-			\eoxia\View_Util::exec(
-				'task-manager',
-				'follower',
-				'backend/follower-edit',
-				array(
-					'user' => $follower,
-					'task' => $task,
-				)
-			);
-		endforeach;
-	endif;
-	?>
-
 	<li class="follower edit action-attribute wpeo-button button-grey button-square-40 button-rounded"
 				data-action="close_followers_edit_mode"
 				data-nonce="<?php echo esc_attr( wp_create_nonce( 'close_followers_edit_mode' ) ); ?>"

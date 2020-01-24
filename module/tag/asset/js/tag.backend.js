@@ -35,9 +35,16 @@ window.eoxiaJS.taskManager.tag.before_load_tags = function( element ) {
  * @version 1.0.0
  */
 window.eoxiaJS.taskManager.tag.archivedTaskSuccess = function( triggeredElement, response ) {
-	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).remove();
+	const projectID = triggeredElement.closest( '.table-row' ).data('id');
 
-	window.eoxiaJS.refresh();
+	triggeredElement.closest( '.table-row' ).fadeOut(400, function() { jQuery( this ).remove(); })
+
+	jQuery( '.table-type-task[data-post-id=' + projectID + ']' ).fadeOut(400, function() {
+		jQuery( this ).remove();
+	});
+	jQuery( '.table-type-comment[data-post-id=' + projectID + ']' ).fadeOut(400, function() {
+		jQuery( this ).remove();
+	});
 };
 
 /**
@@ -53,8 +60,6 @@ window.eoxiaJS.taskManager.tag.archivedTaskSuccess = function( triggeredElement,
  */
 window.eoxiaJS.taskManager.tag.unarchivedTaskSuccess = function( triggeredElement, response ) {
 	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).remove();
-
-	window.eoxiaJS.refresh();
 };
 
 /**
@@ -87,6 +92,7 @@ window.eoxiaJS.taskManager.tag.loadedTagSuccess = function( element, response ) 
 window.eoxiaJS.taskManager.tag.closedTagEditMode = function( element, response ) {
 	element.closest( '.wpeo-tag-wrap' ).replaceWith( response.data.view );
 	window.eoxiaJS.refresh();
+	window.eoxiaJS.taskManager.newTask.clickTags();
 };
 
 /**

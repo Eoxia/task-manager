@@ -9,5 +9,6 @@
 		"class": {},
 		"action": {},
 		"shortcode": {}
-	}
+	},
+    "user_columns_key": "_tm_columns_key"
 }

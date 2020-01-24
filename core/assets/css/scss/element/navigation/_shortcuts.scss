@@ -1,39 +1,49 @@
-.tm-dashboard-subheader .tm-dashboard-shortcuts {
+.tm-dashboard-shortcuts {
 	display: flex;
 	flex-direction: row;
-	padding: 0.6em 0 0.6em 1em;
+	padding: 0;
+
+	li {
+		margin: 0;
+	}
 
 	.dashboard-shortcut {
 		margin: auto 0;
-		padding: 0 1em 0 0;
+		padding: 0 0.4em 0 0;
 
-		.wpeo-button {
-			color: rgba(255,255,255,0.6);
-			border-radius: 6px;
-			padding: 0.2em 0.4em;
-
-			&:hover {
-				color: #fff;
-			}
+		> .wpeo-button {
+			background: #dedede;
+			border-color: #dedede;
 		}
 		&.active .wpeo-button {
-			background: #fff;
-			color: $color__primary;
-			font-weight: 600;
+			background: $color__primary;
+			border-color: $color__primary;
+			color: #fff;
 		}
 	}
+
 	.dashboard-shortcut.shortcut-title {
 		text-transform: uppercase;
-		color: #fff;
-		font-size: 11px;
 		font-weight: 700;
+		color: rgba(0,0,0,0.6);
+		font-size: 16px
 	}
 
 	.handle-shortcut {
-		color: rgba(255,255,255,0.6);
+		color: rgba(0,0,0,0.4);
 
 		&:hover {
-			color: #fff;
+			color: rgba(0,0,0,1);
+		}
+	}
+
+	/** Dropdown */
+	.wpeo-dropdown {
+		.dropdown-item {
+			padding: 0;
+		}
+		.wpeo-button {
+			width: 100%;
 		}
 	}
 }

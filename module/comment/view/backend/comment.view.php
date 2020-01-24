@@ -15,49 +15,44 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<li class="comment view <?php echo ( $comment_selected_id === $comment->data['id'] ) ? 'blink' : ''; ?>">
+<div class="table-column">
+	<div class="table-row" data-id="<?php echo $comment->data['id']; ?>"
+	     data-post-id="<?php echo esc_attr( $task_id ); ?>"
+	     data-parent-id="<?php echo esc_attr( $point_id ); ?>"
+	     data-nonce="<?php echo wp_create_nonce( 'edit_comment' ); ?>">
+		<div class="table-cell">
+			<div class="table-cell-container comment-title" contenteditable="true"><?php echo $comment->data['content']; ?></div>
+		</div>
 
-	<?php echo do_shortcode( '[task_avatar ids="' . $comment->data['author_id'] . '" size="40"]' ); ?>
-
-	<div class="comment-container">
-
-		<div class="comment-content">
-			<div class="comment-content-text">
-				<?php echo nl2br( $comment->data['rendered'] ); ?>
-			</div>
-
-			<?php echo apply_filters( 'tm_comment_advanced_view', '', $comment ); ?>
-		</div><!-- .comment-content -->
-
-		<div class="comment-action">
-			<div class="wpeo-dropdown wpeo-comment-setting"
-					data-parent="toggle"
-					data-target="content"
-					data-mask="wpeo-project-task">
-
-				<span class="wpeo-button button-transparent dropdown-toggle"><i class="fa fa-ellipsis-v"></i></span>
-
-				<ul class="dropdown-content left content point-header-action">
-
-					<?php echo apply_filters( 'tm_comment_toggle_before', '', $comment ); ?>
-					<li class="dropdown-item action-attribute"
-							data-action="load_edit_view_comment"
-							data-nonce="<?php echo esc_attr( wp_create_nonce( 'load_edit_view_comment' ) ); ?>"
-							data-id="<?php echo esc_attr( $comment->data['id'] ); ?>">
-						<span><i class="fas fa-pencil-alt fa-fw"></i> <?php esc_html_e( 'Edit this comment', 'task-manager' ); ?></span>
-					</li>
-
-					<li class="dropdown-item action-delete"
-							data-action="delete_task_comment"
-							data-message-delete="<?php echo esc_attr_e( 'Delete this comment ?', 'task-manager' ); ?>"
-							data-nonce="<?php echo esc_attr( wp_create_nonce( 'delete_task_comment' ) ); ?>"
-							data-id="<?php echo esc_attr( $comment->data['id'] ); ?>">
-						<span><i class="fas fa-trash fa-fw"></i> <?php esc_html_e( 'Delete this comment', 'task-manager' ); ?></span>
-					</li>
-					<?php echo apply_filters( 'tm_comment_toggle_after', '', $comment ); ?>
-				</ul>
+		<div class="table-cell">
+			<div class="table-cell-container">
+				<?php echo do_shortcode( '[task_avatar ids="' . $comment->data['author_id'] . '" size="40"]' ); ?>
 			</div>
 		</div>
 
+		<div class="table-cell">
+			<div class="table-cell-container group-date" data-time="true">
+				<input type="hidden" class="mysql-date" name="due_date" value="<?php echo esc_attr( $comment->data['date']['rendered']['raw'] ); ?>" />
+				<input class="date form-field" type="text" value="<?php echo esc_attr( $comment->data['date']['rendered']['date_time'] ); ?>" />
+			</div>
+		</div>
+
+		<div class="table-cell">
+			<div class="table-cell-container comment-time" contenteditable="true">
+				<?php echo esc_html( $comment->data['time_info']['elapsed'] ); ?>
+			</div>
+		</div>
+
+		<div class="table-cell table-50 table-end">
+			<div class="table-cell-container">
+				<div class="wpeo-dropdown dropdown-right">
+					<div class="dropdown-toggle wpeo-button button-square-50 button-transparent"><i class="fas fa-ellipsis-v"></i></div>
+					<div class="dropdown-content point-header-action">
+						<?php \eoxia\View_Util::exec( 'task-manager', 'comment', 'backend/toggle-content', array( 'comment' => $comment ) ); ?>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-</li>
+</div>
+

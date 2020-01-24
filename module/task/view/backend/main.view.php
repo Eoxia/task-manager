@@ -16,11 +16,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; } ?>
 
 <div class="list-task">
-	<div class="grid-col grid-col--1"></div>
-	<div class="grid-col grid-col--2"></div>
-
-	<?php Task_Class::g()->display_tasks( $tasks ); ?>
-	<div class="load_more_task_here"></div>
+	<?php Task_Class::g()->display( $tasks ); ?>
 </div>
 
-<div class="load-more"><?php esc_html_e( 'Load more task...', 'task-manager' ); ?></div>
+<div style="margin:auto; text-align: center;">
+	<?php
+	if ( count( $tasks ) == $number_tasks ) :
+		?>
+		<div class="button-grey  more-button button-disable wpeo-button">
+		<span class="text"><?php esc_html_e( 'No more entries', 'task-manager' ); ?></span>
+		<span class="current"><?php echo count( $tasks ); ?></span><span>/</span><span class="total"><?php echo esc_attr( $number_tasks ); ?></span>
+		</div>
+	<?php
+	else:
+		?>
+		<div class="button-main more-button load-more-button wpeo-button">
+			<span class="text"><?php esc_html_e( 'Load more entries', 'task-manager' ); ?></span>
+			<span class="current"><?php echo count( $tasks ); ?></span><span>/</span><span class="total"><?php echo esc_attr( $number_tasks ); ?></span>
+		</div>
+		<?php
+	endif;
+	?>
+</div>

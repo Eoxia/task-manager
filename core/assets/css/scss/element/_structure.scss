@@ -4,8 +4,33 @@
 	box-sizing: inherit;
 }
 
+#top-header {
+	.nav-bottom {
+		margin: 0;
+	}
+}
+
+body.eo-custom-page .content-wrap {
+	padding: 0;
+
+	#top-header {
+		padding: 0 1em 1em 1em;
+		border-bottom: 1px solid rgba(0,0,0,0.2);
+	}
+	.tm-wrap {
+		padding: 0;
+	}
+	.tm-main-container {
+		padding: 1em;
+	}
+}
+
+.list-task {
+	overflow-y: hidden;
+	overflow-x: auto;
+}
+
 .tm-dashboard-wrap {
-	max-width: 1280px;
 	width: 100%;
 	margin: auto;
 	display: flex;
@@ -22,7 +47,6 @@
 	.tm-dashboard-primary {
 		width: 75%;
 		flex-grow: 1;
-		padding-right: 10px;
 
 		@media ( max-width: $media__large ) {
 			width: 100%;
@@ -33,6 +57,7 @@
 		padding-top: 10px;
 		min-width: 25%;
 		width: 25%;
+		padding-left: 10px;
 
 		@media ( max-width: $media__large ) {
 			width: 100%;

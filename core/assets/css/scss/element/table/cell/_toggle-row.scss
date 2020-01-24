@@ -1,0 +1,35 @@
+.cell-toggle {
+
+	.table-cell-container {
+		height: 100%;
+		display: flex;
+
+		.wpeo-button {
+			margin: auto;
+		}
+	}
+}
+
+/** Niveau hiérarchique des tâches */
+&.table-type-task .cell-toggle {
+	position: relative;
+	&::before {
+		display: block;
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 37.5px;
+		height: 100%;
+		background: rgba(0,0,0,0.05);
+	}
+	.table-cell-container {
+		width: 37.5px;
+		margin-right: 0;
+	}
+}
+
+/** Niveau hiérarchique des commentaires */
+&.table-type-comment .cell-toggle {
+	background: rgba(0,0,0,0.05);
+}

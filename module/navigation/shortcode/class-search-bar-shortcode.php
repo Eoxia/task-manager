@@ -45,17 +45,18 @@ class Search_Bar_Shortcode {
 	public function callback_task_manager_search_bar( $param ) {
 		global $eo_search;
 
+		$data = Navigation_Class::g()->get_search_result( $param['term'], $param['status'], $param['task_id'], $param['point_id'], $param['post_parent'], $param['categories_id'], $param['users_id'] );
 		$categories = Tag_Class::g()->get( array() );
 
 		$param = shortcode_atts(
 			array(
-				'term'          => '',
-				'status'        => 'any',
-				'task_id'       => 0,
-				'point_id'      => 0,
-				'post_parent'   => 0,
-				'categories_id' => array(),
-				'users_id'      => array(),
+				'term'          => $data['term'],
+				'status'        => $param['status'],
+				'task_id'       => $data['task_id'],
+				'point_id'      => $data['point_id'],
+				'post_parent'   => $data['post_parent'],
+				'categories_id' => $data['categories_id'],
+				'users_id'      => $data['user_id'],
 			),
 			$param,
 			'task_manager_search_bar'
@@ -70,11 +71,14 @@ class Search_Bar_Shortcode {
 		$eo_search->register_search(
 			'tm_search_admin',
 			array(
-				'label' => 'Administrateur',
-				'icon'  => 'fa-search',
-				'type'  => 'user',
-				'name'  => 'user_id',
-				'args'  => array(
+				'label'        => '',
+				'icon'         => 'fa-user',
+				'type'         => 'user',
+				'name'         => 'user_id',
+				'hidden_value' => $data['user_id'],
+				'value'        => $user_display,
+				'placeholder'  => 'Users',
+				'args'         => array(
 					'role' => 'administrator',
 				),
 			)
@@ -95,11 +99,14 @@ class Search_Bar_Shortcode {
 		$eo_search->register_search(
 			'tm_search_customer',
 			array(
-				'label' => 'Client',
-				'icon'  => 'fa-search',
-				'type'  => 'post',
-				'name'  => 'post_parent',
-				'args'  => array(
+				'label'       => '',
+				'icon'        => 'fa-search',
+				'type'        => 'post',
+				'name'        => 'post_parent',
+				'placeholder' => 'Client',
+				'hidden_value' => $parent_id,
+				'value'        => $parent_display,
+				'args'        => array(
 					'post_type'   => 'wpshop_customers',
 					'post_status' => array( 'publish', 'inherit', 'draft' ),
 				),
@@ -121,6 +128,7 @@ class Search_Bar_Shortcode {
 				'type'        => 'post',
 				'name'        => 'post_parent_order',
 				'next_action' => 'search_order',
+				'value'       => $parent_display,
 				'args'        => array(
 					'post_type'   => 'wpshop_shop_order',
 					'post_status' => array( 'publish', 'inherit', 'draft' ),
@@ -132,11 +140,12 @@ class Search_Bar_Shortcode {
 		\eoxia\View_Util::exec(
 			'task-manager',
 			'navigation',
-			'backend/main',
+			'backend/navigation-advenced-search',
 			array(
 				'categories' => $categories,
 				'param'      => $param,
 				'eo_search'  => $eo_search,
+				'data'       => $data,
 			)
 		);
 

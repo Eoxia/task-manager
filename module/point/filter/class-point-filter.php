@@ -27,6 +27,18 @@ class Point_Filter {
 
 		add_filter( 'tm_task_header', array( $this, 'callback_display_points_type_buttons' ), 9, 2 );
 		add_filter( 'tm_point_summary', array( $this, 'callback_tm_point_summary' ), 10, 2 );
+
+		if ( ! empty( Task_Class::g()->contents['headers'] ) ) {
+			foreach ( Task_Class::g()->contents['headers'] as $key => $header ) {
+				if ( method_exists ( $this, 'tm_projects_wpeo_point_def') ) {
+					add_filter( 'tm_projects_wpeo_point_def', array( $this, 'tm_projects_wpeo_point_def' ), 10, 2 );
+				}
+
+				if ( method_exists ( $this, 'fill_value_' . $key . '_value') ) {
+					add_filter( 'tm_projects_content_wpeo_point_' . $key . '_def', array( $this, 'fill_value_' . $key . '_value' ), 10, 2 );
+				}
+			}
+		}
 	}
 
 	/**
@@ -130,6 +142,147 @@ class Point_Filter {
 			$output .= ob_get_clean();
 		}
 
+		return $output;
+	}
+
+	public function tm_projects_wpeo_point_def( $output, $point ) {
+		$output['classes'] = 'table-type-task';
+
+		if ( $point->data['completed'] ) {
+			$output['classes'] .= ' task-completed';
+		}
+
+		$output['attrs'][] = 'data-id="' . $point->data['id'] . '"';
+		$output['attrs'][] = 'data-post-id="' . $point->data['post_id'] . '"';
+		$output['attrs'][] = 'data-nonce="' . wp_create_nonce( 'edit_point' ) . '"';
+
+		return $output;
+	}
+
+	public function fill_value_empty_value( $output, $point ) {
+		$output['classes'] .= ' cell-toggle task-toggle-comment';
+		$output['attrs'] = array(
+			'data-id="' . $point->data['id'] . '"',
+			'data-nonce="' . wp_create_nonce( 'load_comments' ) . '"',
+		);
+
+		$output['count_comments'] = $point->data['count_comments'];
+
+		return $output;
+	}
+
+	public function fill_value_state_value( $output, $point) {
+		$output['classes'] .= ' task-complete-point';
+		$output['point']    = $point;
+		return $output;
+	}
+
+	public function fill_value_id_value( $output, $point ) {
+		$output['classes'] .= ' cell-readonly';
+		$output['value'] = $point->data['id'];
+
+		return $output;
+	}
+
+	public function fill_value_last_update_value( $output, $point ) {
+		$output['classes']            .= ' task-last-update cell-readonly';
+		//$output['date_modified_mysql'] = Point_Class::g()->get_point_last_update( $point->data['post_id'] );
+		//$output['date_modified_date']  = $point->data['date']['rendered']['date'];
+		return $output;
+	}
+
+	public function fill_value_name_value( $output, $point ) {
+		$output['classes'] .= ' cell-content';
+		$output['value']    = $point->data['content'];
+
+		return $output;
+	}
+
+	public function fill_value_time_value( $output, $point ) {
+		$output['classes'] .= ' cell-readonly';
+		$output['value'] = $point->data['time_info']['elapsed'];
+		$time = $point->data['time_info']['elapsed'] * 60;
+		if ( $time > 0 ) {
+			$output['human_readable_elapsed'] = Task_Class::g()->time_elapsed( $time  );
+		} else {
+			$output['human_readable_elapsed'] = 0;
+		}
+
+		return $output;
+	}
+
+	public function fill_value_created_date_value( $output, $point ) {
+		$output['classes'] .= ' cell-readonly';
+		$output['value']    = $point->data['date']['rendered']['date_time'];
+
+		return $output;
+	}
+
+	public function fill_value_ended_date_value( $output, $point ) {
+		$output['classes'] .= ' cell-readonly';
+
+		return $output;
+	}
+
+	public function fill_value_indicators_value( $output, $point ) {
+		$output['classes'] .= ' cell-readonly';
+
+		return $output;
+	}
+
+	public function fill_value_affiliated_with_value( $output, $point ) {
+		return $output;
+	}
+
+	public function fill_value_categories_value( $output, $point ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_attachments_value( $output, $point ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_number_comments_value( $output, $point ) {
+		$output['classes'] .= ' cell-readonly';
+		$output['value']    = $point->data['count_comments'];
+
+		return $output;
+	}
+
+	public function fill_value_author_value( $output, $point ) {
+		$output['classes'] .= ' cell-readonly';
+		$output['value']    = $point->data['author_id'];
+
+		return $output;
+	}
+
+	public function fill_value_associated_users_value( $output, $point ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_participants_value( $output, $point ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_waiting_for_value( $output, $point ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_empty_add_value( $output, $point ) {
+		$output['classes']  .= ' cell-sticky task-add';
+		$output['task_id']   = $point->data['post_id'];
+		$output['point_id']  = $point->data['id'];
+		$output['point']    = $point;
 		return $output;
 	}
 

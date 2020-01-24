@@ -47,11 +47,11 @@ class Task_Comment_Action {
 	 * @since 1.3.6
 	 */
 	public function callback_load_comments() {
-		$task_id      = ! empty( $_POST[ 'task_id' ] ) ? (int) $_POST[ 'task_id' ] : 0;
-		$point_id     = ! empty( $_POST[ 'point_id' ] ) ? (int) $_POST[ 'point_id' ] : 0;
-		$frontend     = ( isset( $_POST[ 'frontend' ] ) && 'true' == $_POST[ 'frontend' ] ) ? true : false;
-		$number       = ! empty( $_POST[ 'number' ] ) && $_POST[ 'number' ] > 0 ? (int) $_POST[ 'number' ] : 10; // On affiche 10 Commentaires / point
-		$offset       = ! empty( $_POST[ 'offset' ] ) && $_POST[ 'offset' ] >= 0 ? (int) $_POST[ 'offset' ] : 0; // On commence à l'élément 0 (triè par date par défault)
+		$parent_id = ! empty( $_POST[ 'parent_id' ] ) ? (int) $_POST[ 'parent_id' ] : 0;
+		$id        = ! empty( $_POST[ 'id' ] ) ? (int) $_POST[ 'id' ] : 0;
+		$frontend  = ( isset( $_POST[ 'frontend' ] ) && 'true' == $_POST[ 'frontend' ] ) ? true : false;
+		$number    = ! empty( $_POST[ 'number' ] ) && $_POST[ 'number' ] > 0 ? (int) $_POST[ 'number' ] : 10; // On affiche 10 Commentaires / point
+		$offset    = ! empty( $_POST[ 'offset' ] ) && $_POST[ 'offset' ] >= 0 ? (int) $_POST[ 'offset' ] : 0; // On commence à l'élément 0 (triè par date par défault)
 
 		$args = array(
 			'number' => $number,
@@ -78,12 +78,12 @@ class Task_Comment_Action {
 
 		$follower_view = ob_get_clean(); // - - - - - -
 		ob_start();
-		Task_Comment_Class::g()->display( $task_id, $point_id, $frontend, $args );
+		Task_Comment_Class::g()->display( $parent_id, $id, $frontend, $args );
 		wp_send_json_success(
 			array(
 				'view'             => ob_get_clean(),
 				'namespace'        => $frontend ? 'taskManagerFrontend' : 'taskManager',
-				'module'           => 'comment',
+				'module'           => 'newComment',
 				'callback_success' => 'loadedCommentsSuccess',
 				'follower_view'    => $follower_view
 			)
@@ -105,9 +105,10 @@ class Task_Comment_Action {
 		$parent_id  = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
 		$date       = ! empty( $_POST['mysql_date'] ) ? sanitize_text_field( $_POST['mysql_date'] ) : current_time( 'mysql' );
 		$content    = ! empty( $_POST['content'] ) ? trim( $_POST['content'] ) : '';
-		$time       = ! empty( $_POST['time'] ) ? (int) $_POST['time'] : 0;
+		$time       = ! empty( $_POST['time'] ) ? (int) $_POST['time'] : Point_Class::g()->calcul_elapsed_time();
 		$frontend   = ( isset( $_POST['frontend'] ) && 'true' == $_POST['frontend'] ) ? true : false;
 		$notif      = ( isset( $_POST['notif'] ) && ! empty( $_POST['notif'] ) ) ? $_POST['notif']  : array();
+		$toggle     = ( isset( $_POST['toggle'] ) && 'true' == $_POST['toggle'] ) ? true : false;
 
 		$comment = Task_Comment_Class::g()->edit_comment( $post_id, $parent_id, $content, $date, $time, $comment_id );
 
@@ -138,23 +139,6 @@ class Task_Comment_Action {
 			Notify_Class::g()->send_notification_followers_are_tags( $notif, $post_id, $parent_id, $comment->data[ 'id' ] );
 		}
 
-		ob_start();
-		\eoxia\View_Util::exec(
-			'task-manager',
-			'comment',
-			$view . '/main',
-			array(
-				'task_id'             => $post_id,
-				'point_id'            => $parent_id,
-				'comments'            => $comments,
-				'comment_schema'      => $comment_schema,
-				'comment_selected_id' => 0,
-				'count_comments'      => $count_comments,
-				'offset'              => 1
-			)
-		);
-		$view = ob_get_clean();
-
 		$task = Task_Class::g()->get(
 			array(
 				'id' => $comment->data['post_id'],
@@ -172,9 +156,18 @@ class Task_Comment_Action {
 
 		$time_task = $task->data['time_info']['elapsed'];
 
-		if ( $task->data['time_info']['estimated_time'] != null ) {
-			$time_task .= ' / ' . $task->data['time_info']['estimated_time'];
+		ob_start();
+		if ( ! $toggle ) {
+			Task_Class::g()->display_bodies( $comments );
+		} else {
+			Task_Class::g()->display_bodies( array( $comment ) );
 		}
+
+		$view = ob_get_clean();
+
+		/*if ( $task->data['time_info']['estimated_time'] != null ) {
+			$time_task .= ' / ' . $task->data['time_info']['estimated_time'];
+		}*/
 
 		wp_send_json_success(
 			array(
@@ -185,8 +178,8 @@ class Task_Comment_Action {
 				'point'            => $point,
 				'view'             => $view,
 				'namespace'        => $frontend ? 'taskManagerFrontend' : 'taskManager',
-				'module'           => 'comment',
-				'callback_success' => 'addedCommentSuccess',
+				'module'           => 'newComment',
+				'callback_success' => empty( $comment_id ) ? 'addedCommentSuccess' : 'editedCommentSuccess',
 				'comment'          => $comment,
 			)
 		);
@@ -292,6 +285,7 @@ class Task_Comment_Action {
 				'namespace'        => 'taskManager',
 				'module'           => 'comment',
 				'callback_success' => 'deletedCommentSuccess',
+				'comment'          => $comment
 			)
 		);
 	}

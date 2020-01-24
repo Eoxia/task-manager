@@ -68,16 +68,19 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 			$have_search         = true;
 		}
 
-		$categories_searched = '';
+		$categories_searched = array();
 		$follower_searched   = '';
 
 		if ( ! empty( $categories_selected ) ) {
 			foreach ( $categories_selected as $categorie ) {
-				$categories_searched .= $categorie->data['name'] . ', ';
+				$categories_searched[] = array(
+					'id' => $categorie->data['term_taxonomy_id'],
+					'name' => $categorie->data['name'],
+				);
 			}
 		}
 
-		$categories_searched = substr( $categories_searched, 0, -2 );
+		//$categories_searched = substr( $categories_searched, 0, -2 );
 
 		if ( ! empty( $user_id ) ) {
 			$follower = Follower_Class::g()->get(
@@ -141,6 +144,7 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 			'task-manager',
 			'navigation',
 			'backend/search-results',
+//			'backend/navigation-button-shortcut',
 			array(
 				'term'                 => $data['term'],
 				'task_id'              => $data['task_id'],
@@ -154,6 +158,50 @@ class Navigation_Class extends \eoxia\Singleton_Util {
 				'data'                 => $data,
 			)
 		);
+	}
+
+	public function cache_dropdown_customer() {
+		ob_start();
+		$customers = get_posts( array(
+			'posts_per_page' => -1,
+			'post_type'      => 'wpshop_customers',
+			'post_status'    => 'draft',
+			'orderby'        => 'title',
+		) );
+
+		if ( ! empty( $customers ) ) {
+			foreach ( $customers as &$customer ) {
+
+				$author_id = $customer->post_author;
+				$user_ids = get_user_meta( $customer->ID, '_wpscrm_associated_user', true );
+				$user_ids = array_merge( array( $author_id ), is_array( $user_ids ) ? $user_ids : array() );
+
+				$customer->users = array();
+
+				$customer->content = strtolower(trim( str_replace( ' ', '', $customer->post_title ) ));
+				$customer->content_title = strtolower(trim( str_replace( ' ', '', $customer->post_title ) ));
+
+				if ( ! empty( $user_ids ) ) {
+					$customer->users = get_users( array( 'include' => $user_ids ) );
+				}
+
+				if ( ! empty( $customer->users ) ) {
+					foreach ( $customer->users as $user ) {
+						$customer->content .= strtolower( trim( str_replace( ' ', '', $user->data->display_name . $user->data->user_email ) ) );
+					}
+				}
+			}
+		}
+
+		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/dropdown-customers', array(
+			'customers' => $customers,
+		) );
+		$content = ob_get_clean();
+		file_put_contents( str_replace( '\\', '/', PLUGIN_TASK_MANAGER_PATH ) . 'module/navigation/view/backend/dropdown-customers-cache.view.php', $content, LOCK_EX );
+	}
+
+	public function dropdown_customer() {
+		\eoxia\View_Util::exec( 'task-manager', 'navigation', 'backend/dropdown-customers-cache' );
 	}
 
 	public function get_data_shortcut( $shortcut ){

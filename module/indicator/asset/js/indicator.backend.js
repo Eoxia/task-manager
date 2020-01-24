@@ -247,8 +247,8 @@ window.eoxiaJS.taskManager.indicator.generateCanvasDynamic = function( elementby
 }
 
 window.eoxiaJS.taskManager.indicator.updateTimeChoose = function( time = '', day_start = '', day_end = '' ){
-	$( '#tm_indicator_date_start_id' ).val( day_start );
-	$( '#tm_indicator_date_end_id' ).val( day_end );
+	jQuery( '#tm_indicator_date_start_id' ).val( day_start );
+	jQuery( '#tm_indicator_date_end_id' ).val( day_end );
 }
 
 

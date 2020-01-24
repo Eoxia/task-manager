@@ -40,7 +40,7 @@ window.eoxiaJS.taskManager.comment.event = function() {
 
 	jQuery( document ).on( 'click', '.comment-container .comment-action .tm_register_comment', window.eoxiaJS.taskManager.comment.editComment );
 
-	jQuery( document ).on( 'click', function( e ){
+	/*jQuery( document ).on( 'click', function( e ){
 		if ( ! jQuery( event.target).closest( ".wpeo-project-task" ).length) {
 			jQuery( '.point.edit' ).each( function (){
 				if ( jQuery( this ).closest( 'div.point' ).find( '.comments' ).is( ':visible' ) ) {
@@ -65,7 +65,7 @@ window.eoxiaJS.taskManager.comment.event = function() {
 				}
 			})
     }
-	} );
+	} );*/
 };
 
 /**
@@ -222,13 +222,14 @@ window.eoxiaJS.taskManager.comment.addedCommentSuccess = function( triggeredElem
  * @version 1.5.0
  */
 window.eoxiaJS.taskManager.comment.deletedCommentSuccess = function( triggeredElement, response ) {
-	triggeredElement.closest( '.comment' ).fadeOut();
+	triggeredElement.closest( '.table-row' ).fadeOut();
 
-	triggeredElement.closest( '.wpeo-project-task.mask' ).removeClass( 'mask' );
-	triggeredElement.closest( '.wpeo-project-task' ).find( '.wpeo-task-time-info .elapsed' ).text( response.data.time.task );
-	triggeredElement.closest( '.comments' ).prev( 'form' ).find( '.wpeo-time-in-point' ).text( response.data.time.point );
+	const comment = response.data.comment;
 
-	window.eoxiaJS.refresh();
+	jQuery( '.table-type-project[data-id=' + comment.data.post_id + '] .project-time .elapsed' ).text( response.data.time.task );
+	jQuery( '.table-type-task[data-id=' + comment.data.parent_id + '] .task-time .elapsed' ).text( response.data.time.point );
+	jQuery( '.table-type-task[data-id=' + comment.data.parent_id + '] .number-comments' ).text( response.data.comment.data.point.data.count_comments );
+
 };
 
 /**

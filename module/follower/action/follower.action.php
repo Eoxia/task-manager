@@ -91,7 +91,7 @@ class Follower_Action {
 
 		if ( ! empty( $task->data['user_info']['affected_id'] ) ) {
 			foreach ( $task->data['user_info']['affected_id'] as $key => $affected_id ) {
-				if ( ! in_array( $affected_id, $followers_only_id, true ) ) {
+				if ( ! in_array( $affected_id, $followers_only_id ) ) {
 					$followers_no_role_only_id[] = $affected_id;
 					break;
 				}
@@ -248,7 +248,7 @@ class Follower_Action {
 			true
 		);
 
-		$key = array_search( $user_id, $task->data['user_info']['affected_id'], true );
+		$key = array_search( $user_id, $task->data['user_info']['affected_id'] );
 
 		if ( -1 < $key ) {
 			array_splice( $task->data['user_info']['affected_id'], $key, 1 );
@@ -341,11 +341,13 @@ class Follower_Action {
 		}
 
 		$user                          = array( 'id' => $user_id );
+		$user['_tm_task_per_page']     = isset( $_POST['_tm_task_per_page'] ) ? (int) $_POST['_tm_task_per_page'] : 0;
 		$user['_tm_auto_elapsed_time'] = isset( $_POST['_tm_auto_elapsed_time'] ) && boolval( $_POST['_tm_auto_elapsed_time'] ) ? true : false;
 		$user['_tm_advanced_display']  = isset( $_POST['_tm_advanced_display'] ) && boolval( $_POST['_tm_advanced_display'] ) ? true : false;
 		$user['_tm_quick_point']       = isset( $_POST['_tm_quick_point'] ) && boolval( $_POST['_tm_quick_point'] ) ? true : false;
 		$user['_tm_display_indicator'] = isset( $_POST['_tm_display_indicator'] ) && boolval( $_POST['_tm_display_indicator'] ) ? true : false;
 
+		update_user_meta( $user_id, '_tm_task_per_page', $user['_tm_task_per_page'] );
 		update_user_meta( $user_id, '_tm_auto_elapsed_time', $user['_tm_auto_elapsed_time'] );
 		update_user_meta( $user_id, '_tm_advanced_display', $user['_tm_advanced_display'] );
 		update_user_meta( $user_id, '_tm_quick_point', $user['_tm_quick_point'] );

@@ -1,0 +1,61 @@
+.table-cell {
+	margin: 0;
+	padding: 0;
+	border-right: 1px solid rgba(0,0,0,0.1);
+	display: flex;
+	@include transition;
+
+	&:last-child {
+		border-right: 0;
+	}
+
+	.table-cell-container {
+		margin: auto;
+	}
+
+	/** Hover */
+	&:hover {
+		box-shadow: inset 0 0 0 1px $color__primary;
+		cursor: pointer;
+	}
+
+	/** Focus */
+	&.cell-focus {
+		box-shadow: inset 0 0 0 3px $color__primary;
+	}
+
+	/** Readonly */
+	&.cell-readonly {
+		box-shadow: none;
+		cursor: default;
+	}
+
+	/** Disable */
+	&.cell-disabled {
+		background: rgba(0,0,0,0.05);
+		pointer-events: none;
+	}
+}
+
+/** Cellules générales */
+@import "affiliated";
+@import "content";
+@import "avatar";
+@import "add";
+@import "toggle-row";
+@import "date";
+
+/** Cellules projet */
+&.table-type-project {
+	@import "project/project";
+}
+
+/** Cellules tâche */
+&.table-type-task {
+	@import "task/task";
+}
+
+/** Cellules commentaire */
+&.table-type-comment {
+	@import "comment/comment";
+}

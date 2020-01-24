@@ -239,6 +239,8 @@ class Quick_Time_Action {
 			'displayed'     => array()
 		);
 
+		$meta = empty( $meta ) ? array() : $meta;
+
 		$meta[] = $data;
 
 		update_user_meta( get_current_user_id(), \eoxia\Config_Util::$init['task-manager']->quick_time->meta_quick_time, $meta );

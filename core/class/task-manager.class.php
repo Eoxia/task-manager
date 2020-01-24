@@ -41,8 +41,8 @@ class Task_Manager_Class extends \eoxia\Singleton_Util {
 		$categories_id = ! empty( $_GET[ 'categories_id' ] ) ? sanitize_text_field( $_GET[ 'categories_id' ] ) : ''; // WPCS: CSRF ok.
 		$user_id       = ! empty( $_GET[ 'user_id' ] ) ? sanitize_text_field( $_GET[ 'user_id' ] ) : 0; // WPCS: CSRF ok.
 		$post_parent   = ! empty( $_GET[ 'post_parent' ] ) ? (int) $_GET[ 'post_parent' ] : 0; // WPCS: CSRF ok.
-		$task_id       = ! empty( $_GET[ 'task_id' ] ) ? (int) $_GET[ 'task_id' ] : 0; // WPCS: CSRF ok.
-		$point_id      = ! empty( $_GET[ 'point_id' ] ) ? (int) $_GET[ 'point_id' ] : 0; // WPCS: CSRF ok.
+		$task_id       = ! empty( $_GET[ 'task_id' ] ) ? sanitize_text_field( $_GET[ 'task_id' ] ) : ''; // WPCS: CSRF ok.
+		$point_id      = ! empty( $_GET[ 'point_id' ] ) ? sanitize_text_field( $_GET[ 'point_id' ] ) : ''; // WPCS: CSRF ok.
 		$quicktimes    = ! empty( $_GET[ 'quicktimemode' ] ) ? (int) $_GET[ 'quicktimemode' ] : 0; // WPCS: CSRF ok.
 
 		$user = Follower_Class::g()->get( array( 'id' => get_current_user_id() ), true );
@@ -59,14 +59,33 @@ class Task_Manager_Class extends \eoxia\Singleton_Util {
 		);
 
 		if ( isset( $_GET['quicktimemode'] ) ) {
+			$quicktimes_real_number = $quicktimes - 1;
 
-				$quicktimes_real_number = $quicktimes - 1;
-
-				Quick_Time_Class::g()->display_this_task_and_point( $quicktimes_real_number );
-
+			Quick_Time_Class::g()->display_this_task_and_point( $quicktimes_real_number );
 		} else {
-		require_once PLUGIN_TASK_MANAGER_PATH . '/core/view/main.view.php';
+			require_once PLUGIN_TASK_MANAGER_PATH . '/core/view/main.view.php';
 		}
+
+		if ( $_GET['page'] == "tm-my-tasks" ) {
+			$this->display_my_task();
+		} else {
+			//require_once PLUGIN_TASK_MANAGER_PATH . '/core/view/main.view.php';
+		}
+	}
+
+	public function display_my_task() {
+		$tasks = Point_Class::g()->get( array(
+			'users_id'       => array( get_current_user_id() ),
+			'number' => \eoxia\Config_Util::$init['task-manager']->task->posts_per_page,
+		) );
+
+		if ( ! empty( $tasks ) ) {
+			Task_Class::g()->display( $tasks );
+		}
+	}
+
+	public function display_dashboard() {
+		require_once PLUGIN_TASK_MANAGER_PATH . '/core/view/dashboard.view.php';
 	}
 
 	/**
@@ -78,23 +97,26 @@ class Task_Manager_Class extends \eoxia\Singleton_Util {
 	 * @return string|object
 	 */
 	public function get_patch_note() {
-		$patch_note_url = 'https://www.task-manager.fr/wp-json/wp/v2/posts/1';
-		$json           = wp_remote_get(
-			$patch_note_url,
-			array(
-				'headers' => array(
-					'Content-Type' => 'application/json',
-				),
-			)
-		);
+		$patch_note_url = 'https://www.eoxia.com/wp-json/eoxia/v1/change_log/' . \eoxia\Config_Util::$init['task-manager']->version;
 
-		$result = __( 'No change log for this version.', 'task-manager' );
+		$json = wp_remote_get( $patch_note_url, array(
+			'headers' => array(
+				'Content-Type' => 'application/json',
+			),
+			'verify_ssl' => false,
+		) );
 
-		if ( ! empty( $json ) && ! empty( $json['body'] ) ) {
+
+		$result = __( 'No update notes for this version.', 'digirisk' );
+
+		if ( ! is_wp_error( $json ) && ! empty( $json ) && ! empty( $json['body'] ) ) {
 			$result = json_decode( $json['body'] );
 		}
 
-		return $result;
+		return array(
+			'status'  => is_wp_error( $json ) ? false : true,
+			'content' => $result,
+		);
 	}
 
 	/**

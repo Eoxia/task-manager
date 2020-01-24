@@ -33,6 +33,87 @@ class Follower_Class extends \eoxia\User_Class {
 	 */
 	protected $base = 'follower';
 
+	public $user_columns_def;
+	public $default_user_columns_def;
+
+	protected function construct() {
+		$this->default_user_columns_def = array(
+			'empty' => array(
+				'displayed' => true,
+				'order'     => 0,
+			),
+			'state' => array(
+				'displayed' => true,
+				'order'     => 1,
+			),
+			'name' => array(
+				'displayed' => true,
+				'order'     => 2,
+			),
+			'id' => array(
+				'displayed' => true,
+				'order'     => 3,
+			),
+			'last_update' => array(
+				'displayed' => true,
+				'order'     => 4,
+			),
+			'time' => array(
+				'displayed' => true,
+				'order'     => 5,
+			),
+			'created_date' => array(
+				'displayed' => true,
+				'order'     => 6,
+			),
+			'ended_date' => array(
+				'displayed' => true,
+				'order'     => 7,
+			),
+			'affiliated_with' => array(
+				'displayed' => true,
+				'order'     => 8,
+			),
+			'categories' => array(
+				'displayed' => true,
+				'order'     => 9,
+			),
+			'attachments' => array(
+				'displayed' => true,
+				'order'     => 10,
+			),
+			'number_comments' => array(
+				'displayed' => true,
+				'order'     => 11,
+			),
+			'author' => array(
+				'displayed' => true,
+				'order'     => 12,
+			),
+			'associated_users' => array(
+				'displayed' => true,
+				'order'     => 13,
+			),
+			'participants' => array(
+				'displayed' => true,
+				'order'     => 14,
+			),
+			'waiting_for' => array(
+				'displayed' => true,
+				'order'     => 15,
+			),
+			'empty_add' => array(
+				'displayed' => true,
+				'order'     => 16,
+			),
+		);
+
+		$this->user_columns_def = get_user_meta( get_current_user_id(), \eoxia\Config_Util::$init['task-manager']->follower->user_columns_key, true );
+
+		if ( empty( $this->user_columns_def ) ) {
+			$this->user_columns_def = $this->default_user_columns_def;
+		}
+	}
 	/**
 	 *
 	 * Modifie les shortscuts de chaque utilisateur

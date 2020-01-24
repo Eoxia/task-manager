@@ -1,0 +1,59 @@
+.list-task {
+	/** Tableau général */
+	.wpeo-table.table-flex {
+		border: 0;
+		width: fit-content;
+		min-width: 100%;
+	}
+
+	/** Table header */
+	.wpeo-table.table-flex .table-header {
+		position: relative;
+		background: none;
+
+		.table-cell {
+			text-transform: uppercase;
+			color: rgba(0,0,0,0.8);
+			font-size: 11px;
+			font-weight: 700;
+			line-height: 1.4;
+			margin-bottom: 0;
+		}
+		.table-header-edit {
+			position: absolute;
+			right: 0;
+			top: 0;
+			transition: none;
+		}
+	}
+
+	/** Table columns */
+	.wpeo-table.table-flex .table-row:not(.table-header) {
+		position: relative;
+		border-left: 1px solid rgba(0,0,0,0.1);
+		border-right: 1px solid rgba(0,0,0,0.1);
+		border-bottom: 1px solid rgba(0,0,0,0.1);
+		background: #fff;
+
+		&:nth-of-type(2) {
+			border-top: 1px solid rgba(0,0,0,0.1);
+		}
+	}
+
+	/** Ligne vide */
+	.wpeo-table.table-flex .table-row:not(.table-header).row-empty {
+		padding: 1em;
+
+		p {
+			line-height: 2;
+		}
+		.wpeo-button {
+			margin: 0 0.4em;
+		}
+	}
+
+	/** Table cell */
+	.wpeo-table.table-flex .table-row:not(.table-header) {
+		@import "cell/cell";
+	}
+}

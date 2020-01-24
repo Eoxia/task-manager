@@ -3,8 +3,8 @@ Contributors: Eoxia
 Donate link:
 Tags: task, tasks, management, manager, collaboration, dashboard, organizer, project management, project manager, projects, task lists, task management, task manager, Time Tracking, to do, to do list, todo, todo list
 Requires at least: 4.4.0
-Tested up to: 5.3
-Stable tag: 1.12.0
+Tested up to: 5.3.2
+Stable tag: 3.0.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.fr.html
 
@@ -63,6 +63,14 @@ No questions asked yet.
 5. See the history
 
 == Changelog ==
+
+= 3.0.0 =
+
+= Improvment =
+
+* 39180 - Additional Translation.
+* 39069 - Improvment general search.
+* 20609 - New User Interface.
 
 = 1.12.0 =
 

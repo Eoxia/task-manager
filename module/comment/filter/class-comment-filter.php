@@ -24,12 +24,11 @@ class Comment_Filter {
 	/**
 	 * Le constructeur
 	 *
-	 * @since 1.6.0
+	 * @since   1.6.0
 	 * @version 1.8.0
 	 */
 	public function __construct() {
 		$current_type = Task_Comment_Class::g()->get_type();
-		add_filter( "eo_model_{$current_type}_after_get", array( $this, 'calcul_elapsed_time' ), 10, 2 );
 		add_filter( "eo_model_{$current_type}_after_get", array( $this, 'parse_content' ), 10, 2 );
 		add_filter( "eo_model_{$current_type}_after_put", array( $this, 'compile_time' ), 10, 2 );
 		add_filter( "eo_model_{$current_type}_after_post", array( $this, 'compile_time' ), 10, 2 );
@@ -37,18 +36,33 @@ class Comment_Filter {
 
 		add_filter( 'tm_comment_edit_after', array( $this, 'callback_tm_comment_edit_after' ), 10, 2 );
 		add_filter( 'tm_comment_advanced_view', array( $this, 'callback_tm_comment_advanced_view' ), 10, 2 );
+
+		if ( ! empty( Task_Class::g()->contents['headers'] ) ) {
+			foreach ( Task_Class::g()->contents['headers'] as $key => $header ) {
+				if ( method_exists( $this, 'tm_projects_wpeo_time_def' ) ) {
+					add_filter( 'tm_projects_wpeo_time_def', array( $this, 'tm_projects_wpeo_time_def' ), 10, 2 );
+				}
+
+				if ( method_exists( $this, 'fill_value_' . $key . '_value' ) ) {
+					add_filter( 'tm_projects_content_wpeo_time_' . $key . '_def', array(
+						$this,
+						'fill_value_' . $key . '_value'
+					), 10, 2 );
+				}
+			}
+		}
 	}
 
 	/**
 	 * Compiles le temps.
 	 *
-	 * @since 1.6.0
-	 * @version 1.6.0
-	 *
-	 * @param Comment_Object $object L'objet Comment_Object.
-	 * @param array          $args   Des paramètres complémentaires pour permettre d'agir sur l'élement.
+	 * @param   Comment_Object  $object  L'objet Comment_Object.
+	 * @param   array           $args    Des paramètres complémentaires pour permettre d'agir sur l'élement.
 	 *
 	 * @return Comment_Object        Les données de la tâche avec les données complémentaires.
+	 * @version 1.6.0
+	 *
+	 * @since   1.6.0
 	 */
 	public function compile_time( $object, $args ) {
 		$point = Point_Class::g()->get(
@@ -102,78 +116,16 @@ class Comment_Filter {
 	}
 
 	/**
-	 * Calcul le temps écoulé depuis le dernier commentaire ajouté pour ne pas avoir a faire le calcul dans le commentaire a chaque changement de projet.
-	 *
-	 * @since 1.5.0
-	 * @version 1.5.1
-	 *
-	 * @param Comment_Object $object L'objet Comment_Object.
-	 * @param array          $args   Des paramètres complémentaires pour permettre d'agir sur l'élement.
-	 *
-	 * @return Comment_Object        Les données de la tâche avec les données complémentaires.
-	 */
-	public function calcul_elapsed_time( $object, $args = array() ) {
-		if ( 0 === $object->data['id'] ) {
-			$current_user = get_current_user_id();
-			if ( ! empty( $current_user ) ) {
-				$user = Follower_Class::g()->get(
-					array(
-						'include' => $current_user,
-					),
-					true
-				);
-				if ( true === $user->data['_tm_auto_elapsed_time'] ) {
-					// Récupération du dernier commentaire ajouté dans la base.
-					$query                   = $GLOBALS['wpdb']->prepare(
-						"SELECT TIMEDIFF( %s, COMMENT.comment_date ) AS DIFF_DATE
-						FROM {$GLOBALS['wpdb']->comments} AS COMMENT
-							INNER JOIN {$GLOBALS['wpdb']->commentmeta} AS COMMENTMETA ON COMMENTMETA.comment_id = COMMENT.comment_id
-							INNER JOIN {$GLOBALS['wpdb']->comments} AS POINT ON POINT.comment_id = COMMENT.comment_parent
-							INNER JOIN {$GLOBALS['wpdb']->posts} AS TASK ON TASK.ID = POINT.comment_post_id
-						WHERE COMMENT.user_id = %d
-							AND COMMENT.comment_date >= %s
-							AND COMMENTMETA.meta_key = %s
-							AND COMMENT.comment_approved != 'trash'
-							AND POINT.comment_approved != 'trash'
-							AND TASK.post_status IN ( 'archive', 'publish', 'inherit' )
-						ORDER BY COMMENT.comment_date DESC
-						LIMIT 1",
-						current_time( 'mysql' ),
-						$current_user,
-						current_time( 'Y-m-d 00:00:00' ),
-						'wpeo_time'
-					);
-					$time_since_last_comment = $GLOBALS['wpdb']->get_var( $query );
-					if ( ! empty( $time_since_last_comment ) ) {
-						$the_interval    = 0;
-						$time_components = explode( ':', $time_since_last_comment );
-						// Convert hours in minutes.
-						if ( ! empty( $time_components[0] ) ) {
-							$the_interval += $time_components[0] * 60;
-						}
-						if ( ! empty( $time_components[1] ) ) {
-							$the_interval += $time_components[1];
-						}
-						$object->data['time_info']['calculed_elapsed'] = $the_interval;
-					}
-				}
-			}
-		}
-
-		return $object;
-	}
-
-	/**
 	 * Parsage du contenu du commentaire afin de retrouver les ID correspondant à des tâches, points ou d'autres commentaires.
 	 * Permet de rajouter une balise avec une infobulle contenant les 100 premiers caractères de l'élément trouvé dans le contenu.
 	 *
-	 * @since 1.8.0
-	 * @version 1.8.0
-	 *
-	 * @param  Task_Comment_Model $object Les données du commentaire.
-	 * @param  array              $args   Les données lors de la création de l'objet.
+	 * @param   Task_Comment_Model  $object  Les données du commentaire.
+	 * @param   array               $args    Les données lors de la création de l'objet.
 	 *
 	 * @return Task_Comment_Model         Les données du commentaire modifiée par cette méthode.
+	 * @version 1.8.0
+	 *
+	 * @since   1.8.0
 	 */
 	public function parse_content( $object, $args ) {
 		$object->data['rendered'] = $object->data['content'];
@@ -217,8 +169,8 @@ class Comment_Filter {
 	/**
 	 * Callback appelé après l'insertion d'un nouveau commentaire.
 	 *
-	 * @param  Task_Comment_Model $object La définition complète du commentaire avant passage dans le filtre.
-	 * @param  array              $args   Des données complémentaires permettant d'effectuer le traitement du filtre.
+	 * @param   Task_Comment_Model  $object  La définition complète du commentaire avant passage dans le filtre.
+	 * @param   array               $args    Des données complémentaires permettant d'effectuer le traitement du filtre.
 	 *
 	 * @return Task_Comment_Model         La définition du commentaire après passage du filtre.
 	 */
@@ -230,7 +182,7 @@ class Comment_Filter {
 			true
 		);
 
-		$point->data['count_comments']++;
+		$point->data['count_comments'] ++;
 
 		Point_Class::g()->update( $point->data );
 
@@ -242,6 +194,7 @@ class Comment_Filter {
 	 *
 	 * @param  [type] $output  [vue].
 	 * @param  [type] $comment [commentaire].
+	 *
 	 * @return [type] $output [contient la vue à afficher].
 	 */
 	public function callback_tm_comment_edit_after( $output, $comment ) {
@@ -268,6 +221,7 @@ class Comment_Filter {
 	 *
 	 * @param  [type] $output  [vue].
 	 * @param  [type] $comment [commentaire].
+	 *
 	 * @return [type] $output [contient la vue à afficher].
 	 */
 	public function callback_tm_comment_advanced_view( $output, $comment ) {
@@ -285,6 +239,132 @@ class Comment_Filter {
 			);
 			$output .= ob_get_clean();
 		}
+
+		return $output;
+	}
+
+	public function tm_projects_wpeo_time_def( $output, $comment ) {
+		$output['classes'] = 'table-type-comment';
+
+		$output['attrs'][] = 'data-id="' . $comment->data['id'] . '"';
+		$output['attrs'][] = 'data-post-id="' . $comment->data['post_id'] . '"';
+		$output['attrs'][] = 'data-parent-id="' . $comment->data['parent_id'] . '"';
+		$output['attrs'][] = 'data-nonce="' . wp_create_nonce( 'edit_comment' ) . '"';
+
+
+		return $output;
+	}
+
+	public function fill_value_empty_value( $output, $point ) {
+		$output['classes'] .= ' cell-toggle task-toggle-comment cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_state_value( $output, $point ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_name_value( $output, $comment ) {
+		$output['classes'] .= ' cell-content';
+		$output['value'] = $comment->data['content'];
+
+		return $output;
+	}
+
+	public function fill_value_id_value( $output, $comment ) {
+		$output['classes'] .= ' cell-readonly';
+		$output['value'] = $comment->data['id'];
+
+		return $output;
+	}
+
+	public function fill_value_last_update_value( $output, $comment ) {
+		$output['classes'] .= ' cell-readonly';
+
+		return $output;
+	}
+
+	public function fill_value_time_value( $output, $comment ) {
+
+		$output['value'] = $comment->data['time_info']['elapsed'];
+
+		return $output;
+	}
+
+	public function fill_value_created_date_value( $output, $comment ) {
+		$output['raw']       = $comment->data['date']['raw'];
+		$output['date_time'] = $comment->data['date']['rendered']['date_time'];
+
+		return $output;
+	}
+
+	public function fill_value_ended_date_value( $output, $comment ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_indicators_value( $output, $comment ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_affiliated_with_value( $output, $comment ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_categories_value( $output, $comment ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_attachments_value( $output, $comment ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_number_comments_value( $output, $comment ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_author_value( $output, $comment ) {
+		$output['classes'] .= ' cell-readonly';
+		$output['value']    = $comment->data['author_id'];
+
+		return $output;
+	}
+
+	public function fill_value_associated_users_value( $output, $comment ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_participants_value( $output, $comment ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_waiting_for_value( $output, $comment ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_empty_add_value( $output, $comment ) {
+		$output['classes'] .= ' cell-sticky';
+		$output['comment']  = $comment;
 
 		return $output;
 	}

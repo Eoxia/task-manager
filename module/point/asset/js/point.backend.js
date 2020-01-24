@@ -34,7 +34,7 @@ window.eoxiaJS.taskManager.point.event = function() {
 	jQuery( document ).on( 'click', '.wpeo-project-task .point.edit .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.activePoint );
 	jQuery( document ).on( 'blur keyup paste keydown click', '.point .point-content .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.updateHiddenInput );
 	jQuery( document ).on( 'blur paste', '.wpeo-project-task .point.edit .wpeo-point-new-contenteditable', window.eoxiaJS.taskManager.point.editPoint );
-	jQuery( document ).on( 'click', '.wpeo-project-task .form .completed-point', window.eoxiaJS.taskManager.point.completePoint );
+	// jQuery( document ).on( 'click', '.wpeo-project-task .form .completed-point', window.eoxiaJS.taskManager.point.completePoint );
 
 	jQuery( document ).on( 'click', '.point-type-display-buttons div.active', window.eoxiaJS.taskManager.point.undisplayPoint );
 
@@ -154,10 +154,6 @@ window.eoxiaJS.taskManager.point.addedPointSuccess = function( triggeredElement,
 		triggeredElement.closest( '.point' ).find( '.wpeo-point-new-btn' ).css( 'pointerEvents', 'auto' )
 	}
 
-	if ( response.data.point && true != response.data.point.data.completed ) {
-		task.find( '.points.sortable .point:not(.edit)' ).after( response.data.view );
-	}
-
 	window.eoxiaJS.taskManager.point.initAutoComplete();
 	triggeredElement.trigger( 'addedPointSuccess' );
 	window.eoxiaJS.taskManager.core.initSafeExit( false );
@@ -203,22 +199,16 @@ window.eoxiaJS.taskManager.point.editPoint = function() {
  * @version 1.0.0
  */
 window.eoxiaJS.taskManager.point.deletedPointSuccess = function( triggeredElement, response ) {
-	var totalPoint = jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.total-point' ).text();
-	var totalCompletedPoint = jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text();
-	totalPoint--;
-	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.total-point' ).text( totalPoint );
-
-	if ( jQuery( triggeredElement ).closest( '.point' ).find( '.completed-point' ).is( ':checked' ) ) {
-		totalCompletedPoint--;
-		jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.point-completed' ).text( totalCompletedPoint );
-	}
-
-	jQuery( triggeredElement ).closest( '.wpeo-project-task' ).find( '.wpeo-task-time-info .elapsed' ).text( response.data.time );
-
-	jQuery( triggeredElement ).closest( '.wpeo-project-task.mask' ).removeClass( 'mask' );
-
-	jQuery( triggeredElement ).closest( 'div.point.edit' ).fadeOut( 400, function() {
+	const point = response.data.point;
+	jQuery( triggeredElement ).closest( '.table-row' ).fadeOut( 400, function() {
+		jQuery( this ).remove();
 	} );
+
+	jQuery( '.table-type-project[data-id=' + point.data.post_id + '] .project-time .elapsed' ).text( response.data.time );
+	jQuery( '.table-type-comment[data-post-id=' + point.data.post_id + ']' ).fadeOut(400, function() {
+		jQuery( this ).remove();
+	});
+
 };
 
 var longpress = 500; // Durée par défaut d'un clic => 2 sec
@@ -261,16 +251,16 @@ window.eoxiaJS.taskManager.point.completePointChoices = function( e ){
  * @since 1.0.0
  */
 window.eoxiaJS.taskManager.point.completePoint = function( event ) {
-	var numberComment = jQuery( this ).closest( '.point' ).find( '.number-comments' ).text();
+	/*var numberComment = jQuery( this ).closest( '.point' ).find( '.number-comments' ).text();
 
-	if ( numberComment == 0 && jQuery( this ).closest( '.point' ).attr( 'data-point-state' ) == 'uncompleted' ) {
-		jQuery( '.modal-prompt-point' ).addClass( 'modal-active' );
-		jQuery( '.modal-prompt-point input[name="post_id"]' ).val( jQuery( this ).closest( '.point' ).find( 'input[name="parent_id"]').val());
-		jQuery( '.modal-prompt-point input[name="point_id"]' ).val( jQuery( this ).closest( '.point' ).find( 'input[name="id"]').val() );
-		jQuery( '.modal-prompt-point .content' ).html( '#' + jQuery( this ).closest( '.point' ).find( 'input[name="id"]').val() + ' - ' + jQuery( this ).closest( '.point' ).find( '.point-content input[name="content"]').val() );
-		event.preventDefault();
-		return false;
-	} else {
+	// if ( numberComment == 0 && jQuery( this ).closest( '.point' ).attr( 'data-point-state' ) == 'uncompleted' ) {
+	// 	jQuery( '.modal-prompt-point' ).addClass( 'modal-active' );
+	// 	jQuery( '.modal-prompt-point input[name="post_id"]' ).val( jQuery( this ).closest( '.point' ).find( 'input[name="parent_id"]').val());
+	// 	jQuery( '.modal-prompt-point input[name="point_id"]' ).val( jQuery( this ).closest( '.point' ).find( 'input[name="id"]').val() );
+	// 	jQuery( '.modal-prompt-point .content' ).html( '#' + jQuery( this ).closest( '.point' ).find( 'input[name="id"]').val() + ' - ' + jQuery( this ).closest( '.point' ).find( '.point-content input[name="content"]').val() );
+	// 	event.preventDefault();
+	// 	return false;
+	// } else {
 
 		var totalCompletedPoint = jQuery(this).closest('.wpeo-project-task').find('.point-completed').text();
 		var totalUncompletedPoint = jQuery(this).closest('.wpeo-project-task').find('.point-uncompleted').text();
@@ -310,7 +300,7 @@ window.eoxiaJS.taskManager.point.completePoint = function( event ) {
 		}
 
 		window.eoxiaJS.request.send(jQuery(this), data);
-	}
+	// }*/
 };
 
 /**

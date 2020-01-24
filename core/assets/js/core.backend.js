@@ -28,8 +28,18 @@ window.eoxiaJS.taskManager.core.init = function() {
  * @return {void}
  */
 window.eoxiaJS.taskManager.core.event = function() {
-	jQuery( document ).on( 'click', '.tm-wrap .notification.patch-note.active', window.eoxiaJS.taskManager.core.openPopup );
-	jQuery( document ).on( 'click', '.tm-wrap .notification.patch-note .close', window.eoxiaJS.taskManager.core.closeNotification );
+	var action = {
+		action: 'tm_have_patch_note',
+	};
+
+	jQuery.post( ajaxurl, action, function ( response ) {
+		if ( response.data.status ) {
+			jQuery( '.tm-wrap' ).append( response.data.view );
+		}
+	} );
+
+	jQuery( document ).on( 'click', '.tm-wrap .wpeo-notification.patch-note.notification-active', window.eoxiaJS.taskManager.core.openPopup );
+	jQuery( document ).on( 'click', '.tm-wrap .wpeo-notification.patch-note .notification-close', window.eoxiaJS.taskManager.core.closeNotification );
 };
 
 /**
@@ -43,7 +53,7 @@ window.eoxiaJS.taskManager.core.event = function() {
  */
 window.eoxiaJS.taskManager.core.openPopup = function( event ) {
 	event.stopPropagation();
-	jQuery( '.tm-wrap .popup.patch-note' ).addClass( 'active' );
+	jQuery( '.tm-wrap .wpeo-modal.patch-note' ).addClass( 'modal-active' );
 };
 
 /**
@@ -57,7 +67,7 @@ window.eoxiaJS.taskManager.core.openPopup = function( event ) {
  */
 window.eoxiaJS.taskManager.core.closeNotification = function( event ) {
 	event.stopPropagation();
-	jQuery( this ).closest( '.notification' ).removeClass( 'active' );
+	jQuery( this ).closest( '.wpeo-notification' ).removeClass( 'notification-active' );
 };
 
 /**
@@ -91,3 +101,21 @@ window.eoxiaJS.taskManager.core.safeExit = function() {
 	event.returnValue = confirmationMessage;
 	return confirmationMessage;
 }
+
+window.eoxiaJS.taskManager.core.selectContentEditable = function( cell ) {
+	cell = cell[0] ? cell[0] : cell;
+	// select all text in contenteditable
+	// see http://stackoverflow.com/a/6150060/145346
+	var range, selection;
+	if (document.body.createTextRange) {
+		range = document.body.createTextRange();
+		range.moveToElementText(cell);
+		range.select();
+	} else if (window.getSelection) {
+		selection = window.getSelection();
+		range = document.createRange();
+		range.selectNodeContents(cell);
+		selection.removeAllRanges();
+		selection.addRange(range);
+	}
+};

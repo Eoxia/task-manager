@@ -135,20 +135,9 @@ class Task_Comment_Class extends \eoxia\Comment_Class {
 			$offset = intval( $args[ 'offset' ] / 10 ) +1;
 		}
 
-		\eoxia\View_Util::exec(
-			'task-manager',
-			'comment',
-			$view . '/main',
-			array(
-				'task_id'             => $task_id,
-				'point_id'            => $point_id,
-				'comments'            => $comments,
-				'comment_selected_id' => $comment_id,
-				'comment_schema'      => $comment_schema,
-				'count_comments'      => $count_comments,
-				'offset'              => $offset
-	 		)
-		);
+		$point = Point_Class::g()->get( array( 'id' => $point_id ), true );
+
+		Task_Class::g()->display_bodies( $comments, $point );
 	}
 
 	/**

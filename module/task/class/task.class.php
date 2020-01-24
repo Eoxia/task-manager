@@ -35,6 +35,13 @@ class Task_Class extends \eoxia\Post_Class {
 	);
 
 	/**
+	 * @var column_def
+	 *
+	 * Définition des colonnes du tableau.
+	 */
+	public $contents;
+
+	/**
 	 * Le nom du modèle
 	 *
 	 * @var string
@@ -75,6 +82,128 @@ class Task_Class extends \eoxia\Post_Class {
 	 * @var string
 	 */
 	protected $attached_taxonomy_type = 'wpeo_tag';
+
+	protected function construct() {
+		$this->contents = array(
+			'headers' => array(
+				'empty' => array(
+					'icon'          => null,
+					'title'         => null,
+					'classes'       => 'table-75 no-hidden no-order',
+					'can_be_hidden' => false,
+				),
+				'state' => array(
+					'icon'          => 'fas fa-check-square',
+					'title'         => __( 'State', 'task-manager' ),
+					'classes'       => 'table-75',
+					'can_be_hidden' => true,
+				),
+				'name' => array(
+					'icon'          => 'fas fa-thumbtack',
+					'title'         => __( 'Content', 'task-manager' ),
+					'classes'       => 'table-500',
+					'can_be_hidden' => true,
+				),
+				'id' => array(
+					'icon'          => 'fas fa-hashtag',
+					'title'         => __( 'ID', 'task-manager' ),
+					'classes'       => 'table-50',
+					'can_be_hidden' => true,
+				),
+				'last_update' => array(
+					'icon'          => null,
+					'title'         => __( 'Last Update', 'task-manager' ),
+					'classes'       => 'table-100',
+					'can_be_hidden' => true,
+				),
+				'time' => array(
+					'icon'          => 'far fa-clock',
+					'title'         => __( 'Time (min)', 'task-manager' ),
+					'classes'       => 'table-100',
+					'can_be_hidden' => true,
+				),
+				'created_date' => array(
+					'icon'          => 'far fa-calendar-alt',
+					'title'         => __( 'Created Date', 'task-manager' ),
+					'classes'       => 'table-150',
+					'can_be_hidden' => true,
+				),
+				'ended_date' => array(
+					'icon'          => 'far fa-calendar-alt',
+					'title'         => __( 'Ended Date', 'task-manager' ),
+					'classes'       => 'table-150',
+					'can_be_hidden' => true,
+				),
+				'indicators'  => array(
+					'icon'          => 'fas fa-check',
+					'title'         => __( 'Indicators', 'task-manager' ),
+					'classes'       => 'table-100',
+					'can_be_hidden' => true,
+				),
+				'affiliated_with' => array(
+					'icon'          => 'fas fa-link',
+					'title'         => __( 'Affiliated With', 'task-manager' ),
+					'classes'       => 'table-250',
+					'can_be_hidden' => true,
+				),
+				'categories' => array(
+					'icon'          => 'fas fa-tags',
+					'title'         => __( 'Categories', 'task-manager' ),
+					'classes'       => 'table-250',
+					'can_be_hidden' => true,
+				),
+				'attachments' => array(
+					'icon'          => 'fas fa-paperclip',
+					'title'         => __( 'Attachments', 'task-manager' ),
+					'classes'       => 'table-125',
+					'can_be_hidden' => true,
+				),
+				'number_comments' => array(
+					'icon'  => 'far fa-comment-dots',
+					'title' => __( 'Com nb', 'task-manager' ),
+					'classes' => 'table-100',
+					'can_be_hidden' => true,
+				),
+				'author' => array(
+					'icon'          => 'fas fa-user',
+					'title'         => __( 'Author', 'task-manager' ),
+					'classes'       => 'table-75',
+					'can_be_hidden' => true,
+				),
+				'associated_users' => array(
+					'icon'          => 'fas fa-users',
+					'title'         => __( 'Associated Users', 'task-manager' ),
+					'classes'       => 'table-200',
+					'can_be_hidden' => true,
+				),
+				'participants' => array(
+					'icon'          => 'fas fa-users',
+					'title'         => __( 'Participants', 'task-manager' ),
+					'classes'       => 'table-200',
+					'can_be_hidden' => true,
+				),
+				'waiting_for' => array(
+					'icon'          => 'fas fa-user',
+					'title'         => __( 'Waiting For', 'task-manager' ),
+					'classes'       => 'table-100',
+					'can_be_hidden' => true,
+				),
+				'empty_add' => array(
+					'icon'          => null,
+					'title'         => null,
+					'classes'       => 'table-100 no-hidden no-order',
+					'can_be_hidden' => false,
+				),
+			),
+			'bodies' => array(
+
+			),
+		);
+
+		$this->contents = apply_filters( 'tm_tasks_contents', $this->contents );
+
+
+	}
 
 	/**
 	 * Permet d'ajouter le post_status 'archive'.
@@ -125,7 +254,7 @@ class Task_Class extends \eoxia\Post_Class {
 	 * }.
 	 * @return array        La liste des tâches trouvées.
 	 */
-	public function get_tasks( $param ) {
+	public function get_tasks( $param, $count = false ) {
 		global $wpdb;
 
 		$param['id']              = isset( $param['id'] ) ? (int) $param['id'] : 0;
@@ -244,13 +373,13 @@ class Task_Class extends \eoxia\Post_Class {
 
 		$query .= ' ORDER BY TASK.post_date DESC ';
 
-		if ( -1 !== $param['posts_per_page'] ) {
+		if ( -1 !== $param['posts_per_page'] && ! $count ) {
 			$query .= 'LIMIT ' . $param['offset'] . ',' . $param['posts_per_page'];
 		}
 
 		$tasks_id = $wpdb->get_col( $query ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
-		if ( ! empty( $tasks_id ) ) {
+		if ( ! empty( $tasks_id ) && ! $count ) {
 			$tasks = self::g()->get(
 				array(
 					'post__in'    => $tasks_id,
@@ -259,7 +388,89 @@ class Task_Class extends \eoxia\Post_Class {
 			);
 		} // End if().
 
-		return $tasks;
+		return $count ? count ( $tasks_id ) : $tasks;
+	}
+
+	public function display_headers( $elements ) {
+		$user_def = Follower_Class::g()->user_columns_def;
+
+		$new_orders_headers = array();
+
+		if ( ! empty( $user_def ) ) {
+			foreach( $user_def as $key => $def ) {
+				// On donne la clé dans l'index clé de clé.
+				$this->contents['headers'][ $key ]['key'] = $key;
+				$new_orders_headers[ $def['order'] ]      = $this->contents['headers'][ $key ];
+			}
+		}
+
+		uksort( $new_orders_headers, function( $a, $b ) {
+			return ( $a > $b ) ? 1 : -1;
+		} );
+
+		$this->contents['headers'] = $new_orders_headers;
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'task',
+			'New/headers',
+			array(
+				'headers'      => $this->contents['headers'],
+				'contents'     => $elements,
+				'with_wrapper' => false,
+			)
+		);
+	}
+
+	public function display( $elements ) {
+		$this->display_headers( $elements );
+	}
+
+	public function display_bodies( $elements, $parent = null ) {
+		$user_def = Follower_Class::g()->user_columns_def;
+
+
+		if ( ! empty( $elements ) ) {
+			foreach ( $elements as $element ) {
+				$data_def = array(
+					'classes' => '',
+					'attrs'   => array(),
+					'values'  => array()
+				);
+
+				$data_def = apply_filters( 'tm_projects_' . $element->data['type'] . '_def', $data_def, $element );
+
+				foreach ( $user_def as $key => $def ) {
+					$header                              = $this->contents['headers'][ $key ];
+					$data_def['values'][ $def['order'] ] = array(
+						'value'   => '',
+						'classes' => $header['classes'],
+						'attrs'   => array(),
+						'type'    => $element->data['type'],
+						'key'     => $key,
+					);
+
+					$data_def['values'][ $def['order'] ] = apply_filters( 'tm_projects_content_' . $element->data['type'] . '_' . $key . '_def', $data_def['values'][ $def['order'] ], $element );
+				}
+
+				uksort( $data_def['values'], function( $a, $b ) {
+					return ( $a > $b ) ? 1 : -1;
+				} );
+
+				$this->contents['bodies'][] = $data_def;
+			}
+		}
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'task',
+			'New/bodies',
+			array(
+				'contents'     => $this->contents,
+				'parent'       => $parent,
+				'with_wrapper' => false,
+			)
+		);
 	}
 
 	/**
@@ -275,31 +486,8 @@ class Task_Class extends \eoxia\Post_Class {
 	 *
 	 * @todo: With_wrapper ?
 	 */
-	public function display_tasks( $tasks, $frontend = false ) {
-		$hide_tasks = get_user_meta( get_current_user_id(), '_tm_hide_task_hide', true );
+	public function display_tasks( $elements, $frontend = false ) {
 
-		if ( $frontend ) {
-			\eoxia\View_Util::exec(
-				'task-manager',
-				'task',
-				'frontend/tasks',
-				array(
-					'tasks'        => $tasks,
-					'with_wrapper' => false,
-				)
-			);
-		} else {
-			\eoxia\View_Util::exec(
-				'task-manager',
-				'task',
-				'backend/tasks',
-				array(
-					'tasks'        => $tasks,
-					'with_wrapper' => false,
-					'hide_tasks'   => $hide_tasks,
-				)
-			);
-		}
 	}
 
 	/**
@@ -1010,6 +1198,11 @@ class Task_Class extends \eoxia\Post_Class {
 	}
 
 	public function recompile_task( $id ){
+		$recompiled_elements = array(
+			'task' => array(),
+			'points' => array(),
+		);
+
 		$task = Task_Class::g()->get(
 			array(
 				'id' => $id,
@@ -1059,6 +1252,11 @@ class Task_Class extends \eoxia\Post_Class {
 				$point->data['time_info']['elapsed'] = (int) $elapsed_point;
 				$elapsed_task                       += (int) $elapsed_point;
 				Point_Class::g()->update( $point->data, true );
+
+				$recompiled_elements['points'][] = array(
+					'id' => $point->data['id'],
+					'time' => $point->data['time_info']['elapsed'],
+				);
 			}
 		}
 		$task->data['time_info']['elapsed']     = $elapsed_task;
@@ -1067,7 +1265,12 @@ class Task_Class extends \eoxia\Post_Class {
 
 		$task = Task_Class::g()->update( $task->data );
 
-		return $task;
+		$recompiled_elements['task'] = array(
+			'id'   => $task->data['id'],
+			'time' => $task->data['time_info']['elapsed'],
+		);
+
+		return $recompiled_elements;
 	}
 
 	// 25/04/2019 OPTI PAS OPTI
@@ -1091,6 +1294,39 @@ class Task_Class extends \eoxia\Post_Class {
 		}
 
 		return $default_value;
+	}
+
+	function time_elapsed( $secs ){
+		$time = array(
+			' année'   => $secs / 31556926 % 12,
+			' semaine' => $secs / 604800 % 52,
+			' jour'    => $secs / 86400 % 7,
+			' heure'   => $secs / 3600 % 24,
+			' minute'  => $secs / 60 % 60,
+			' seconde' => $secs % 60,
+		);
+
+		foreach( $time as $key => $value ){
+			if( $value > 1 ) $ret[] = $value . $key . 's';
+			if( $value == 1 ) $ret[] = $value . $key;
+		}
+		array_splice( $ret, count( $ret )-1, 0, 'et' );
+		return join( ' ', $ret );
+	}
+
+	public function get_task_last_update( $task_id ) {
+
+		$now = strtotime( 'now' );
+		$task = Task_Class::g()->get( array( 'id' => $task_id ), true );
+
+		/*if ( action ) {
+			$last_update = $task->data['last_update']['rendered']['mysql'];
+		}else {*/
+			$last_update = $task->data['date']['rendered']['mysql'];
+		//}
+		$time = strtotime( 'now + 1 hour' ) - strtotime( $last_update );
+		$last_update = $this->time_elapsed( $time );
+		return $last_update;
 	}
 }
 

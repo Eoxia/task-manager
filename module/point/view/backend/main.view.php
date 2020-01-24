@@ -15,30 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="points sortable">
-	<?php
-	\eoxia\View_Util::exec( // Ecrivez votre point ici ...
-		'task-manager',
-		'point',
-		'backend/point',
-		array(
-			'point'      => $point_schema,
-			'comment_id' => $comment_id,
-			'point_id'   => $point_id,
-			'parent_id'  => $task_id,
-		)
-	);
-
-	\eoxia\View_Util::exec( // Chaque point
-		'task-manager',
-		'point',
-		'backend/points',
-		array(
-			'comment_id' => $comment_id,
-			'point_id'   => $point_id,
-			'parent_id'  => $task_id,
-			'points'     => $points_uncompleted,
-		)
-	);
-	?>
-</div>
+<?php
+if ( ! empty( $points ) ) :
+	foreach ( $points as $point ) :
+		\eoxia\View_Util::exec( 'task-manager', 'point', 'backend/point', array(
+			'point' => $point,
+			'task'  => $args['task'],
+		) );
+	endforeach;
+else:
+endif;
+?>

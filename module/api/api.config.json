@@ -1,0 +1,11 @@
+{
+  "name": "API",
+  "slug": "api",
+  "since": "1.13.0",
+  "description": "Le module gérant l'API",
+  "path": "module/api/",
+  "dependencies": {
+    "action": { },
+    "class": {}
+  }
+}
