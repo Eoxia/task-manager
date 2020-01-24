@@ -3359,6 +3359,18 @@ body.eo-custom-page .content-wrap .tm-main-container {
   cursor: pointer;
 }
 
+.wpeo-wrap .wpeo-notification.patch-note {
+  background: #1c1d1b;
+}
+
+.wpeo-wrap .wpeo-notification.patch-note span {
+  color: white;
+}
+
+.wpeo-wrap .wpeo-notification.patch-note span a {
+  color: #55b6ed;
+}
+
 /*--------------------------------------------------------------
 # TMP END Jimmy
 --------------------------------------------------------------*/
