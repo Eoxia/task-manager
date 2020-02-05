@@ -1,0 +1,106 @@
+.tm-notification-page {
+	display: flex;
+	width: 80%;
+	margin: auto;
+
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+
+	.bloc-filters {
+		width: 20%;
+		margin-right: 50px;
+
+		.filters {
+			width: 100%;
+			padding: 10px;
+
+			li {
+				padding: 10px;
+				color: #000;
+				transition: background-color 0.2s;
+
+				&.active {
+					background-color: $color__primary-light;
+				}
+
+				&:hover {
+					cursor: pointer;
+					background-color: rgb(245, 248, 250);
+				}
+
+				a {
+					text-decoration: none;
+					color: #000;
+
+					.count {
+						float: right;
+						font-weight: bold;
+					}
+				}
+			}
+		}
+	}
+
+	.notification-container {
+		width: 76%;
+
+		.notification-content:first-child {
+			border: solid rgb(230, 236, 240) 1px;
+		}
+
+		.notification-content {
+			width: 100%;
+			border: solid rgb(230, 236, 240) 1px;
+			background-color: rgb(255, 255, 255);
+			border-top: none;
+			padding: 20px;
+			transition: background-color 0.2s;
+
+			&:hover {
+				cursor: pointer;
+				background-color: rgb(245,248,250 );
+			}
+
+			.header {
+				display: flex;
+
+				.icon {
+					display: table;
+					height: 40px;
+					i {
+						display: table-cell;
+						font-size: 2em;
+						vertical-align: middle;
+					}
+				}
+
+				.avatars {
+					margin-left: 30px;
+					display: flex;
+
+					.avatar:first-child {
+						margin-right: 30px;
+					}
+				}
+			}
+
+			.content {
+				margin-top: 30px;
+				margin-left: 52px;
+				font-size: 1.2em;
+
+				.main-content {
+					margin-bottom: 20px;
+
+					strong {
+						font-weight: 700;
+					}
+				}
+
+				.subject {
+					color: rgb(101, 119, 134);
+					line-height: 20px;
+				}
+			}
+		}
+	}
+}

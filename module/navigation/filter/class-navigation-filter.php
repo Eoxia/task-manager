@@ -26,7 +26,7 @@ class Navigation_Filter {
 	public function __construct() {
 		add_filter( 'tm_dashboard_header', array( $this, 'callback_display_main_search_bar' ), 10, 2 );
 		//add_filter( 'tm_dashboard_subheader', array( $this, 'callback_display_navigation_shortcut' ), 10, 2 );
-//		add_filter( 'eoxia_main_header_ul_after', array( $this, 'callback_display_header_navigation_search_bar' ), 10, 2 );
+		add_filter( 'eoxia_main_header_ul_after', array( $this, 'callback_display_header_navigation_search_bar' ), 10, 2 );
 		add_filter( 'eoxia_main_header_li', array( $this, 'callback_display_header_navigation' ), 10, 2 );
 		add_filter( 'eoxia_main_header_nav_bottom', array( $this, 'callback_display_header_navigation_bottom' ), 10, 2 );
 	}

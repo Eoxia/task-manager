@@ -10,9 +10,9 @@
  */
 
 namespace task_manager;
+use \eoxia\Custom_Menu_Handler as CMH;
 
 defined( 'ABSPATH' ) || exit;
-use \eoxia\Custom_Menu_Handler as CMH;
 
 /**
  * Les actions principales de l'application.

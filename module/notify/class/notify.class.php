@@ -15,6 +15,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+define( 'TM_NOTIFY_ACTION_ANSWER', 0 );
+define( 'TM_NOTIFY_ACTION_COMPLETE', 1 );
+define( 'TM_NOTIFY_ACTION_WAITING_FOR', 2 );
+
 /**
  * Gestion des notifications.
  */
@@ -28,6 +32,86 @@ class Notify_Class extends \eoxia\Singleton_Util {
 	 * @return void
 	 */
 	protected function construct() {}
+
+	/**
+	 * Load all notification data for the current user.
+	 * Call the notification view.
+	 *
+	 * @since 3.1.0
+	 */
+	public function display() {
+		$data = array(
+			array(
+				'action_user_id'    => 2,
+				'notified_users_id' => array( 1, 3 ),
+				'element_id'        => 289,
+				'type_of_element'   => 'task',
+				'action_type'       => TM_NOTIFY_ACTION_ANSWER,
+			),
+			array(
+				'action_user_id'    => 1,
+				'notified_users_id' => array( 2 ),
+				'element_id'        => 212,
+				'type_of_element'   => 'point',
+				'action_type'       => TM_NOTIFY_ACTION_COMPLETE,
+			),
+		);
+
+		if ( ! empty( $data ) ) {
+			foreach ( $data as &$entry ) {
+				$entry['action_user']       = get_the_author_meta( 'display_name', $entry['action_user_id'] );
+				$entry['notified_users'] = array();
+
+				if ( ! empty( $entry['notified_users_id'] ) ) {
+					foreach ( $entry['notified_users_id'] as $notified_user_id ) {
+						$entry['notified_users'][ $notified_user_id ] = get_the_author_meta( 'display_name', $notified_user_id );
+					}
+				}
+
+				switch ( $entry['type_of_element'] ) {
+					case 'task':
+						$entry = $this->load_additional_data_notification_for_task( $entry );
+						break;
+					case 'point':
+						$entry = $this->load_additional_data_notification_for_point( $entry );
+						break;
+				}
+			}
+		}
+
+		unset( $entry );
+
+		\eoxia\View_Util::exec( 'task-manager', 'notify', 'backend/page/main', array(
+			'data' => $data,
+		) );
+	}
+
+	public function load_additional_data_notification_for_task( $entry ) {
+		$entry['subject'] = Task_Class::g()->get( array( 'id' => $entry['element_id'] ), true );
+
+		switch ( $entry['action_type'] ) {
+			case TM_NOTIFY_ACTION_ANSWER:
+				$entry['content'] = sprintf( '<strong>%s</strong> answer to %s in the project #%s', $entry['action_user'], implode( ', ', $entry['notified_users'] ), $entry['element_id'] );
+				break;
+		}
+
+
+		return $entry;
+	}
+
+	public function load_additional_data_notification_for_point( $entry ) {
+		$entry['subject'] = Point_Class::g()->get( array( 'id' => $entry['element_id'] ), true );
+
+
+		switch ( $entry['action_type'] ) {
+			case TM_NOTIFY_ACTION_COMPLETE:
+				$entry['content'] = sprintf( '<strong>%s</strong> completed the task #%s', $entry['action_user'], $entry['element_id'] );
+				break;
+		}
+
+
+		return $entry;
+	}
 
 	public function send_notification_followers_are_tags( $users_id = array(), $task_id = 0, $point_id = 0, $comment_id = 0 ){
 		if( empty( $users_id ) || $task_id == null || $point_id == null ){

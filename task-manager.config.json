@@ -19,7 +19,8 @@
 		"wps-third-party",
 		"audit-page",
         "tm-my-tasks",
-        "tm-dashboard"
+        "tm-dashboard",
+		"tm-notification"
         
 	],
 	"externals": [],

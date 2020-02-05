@@ -102,6 +102,9 @@ class Support_Action {
 				)
 			);
 		} );
+
+		add_action( 'wps_account_quotations', array( $this, 'display_support' ) );
+
 	}
 
 	/**
@@ -235,6 +238,9 @@ class Support_Action {
 		setcookie( 'wps_current_connected_customer', $customer_id, strtotime( '+30 days' ), SITECOOKIEPATH, COOKIE_DOMAIN, is_ssl() );
 	}
 
+	public function display_support() {
+		echo 'yo';
+	}
 }
 
 new Support_Action();

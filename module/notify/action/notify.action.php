@@ -10,10 +10,9 @@
  */
 
 namespace task_manager;
+use \eoxia\Custom_Menu_Handler as CMH;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Les actions relatives aux notifications.
@@ -27,8 +26,20 @@ class Notify_Action {
 	 * @version 1.5.0
 	 */
 	public function __construct() {
+		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 13 );
+
 		add_action( 'wp_ajax_load_notify_popup', array( $this, 'callback_load_notify_popup' ) );
 		add_action( 'wp_ajax_send_notification', array( $this, 'callback_send_notification' ) );
+	}
+
+	/**
+	 * Définition du menu "Notification" dans l'administration de WordPress.
+	 *
+	 * @since 1.0.0
+	 * @version 1.5.0
+	 */
+	public function callback_admin_menu() {
+		CMH::register_menu( 'wpeomtm-dashboard', __( 'Notification', 'task-manager' ), __( 'Notification', 'task-manager' ), 'read', 'tm-notification', array( Notify_Class::g(), 'display' ), 'fas fa-bell', '' );
 	}
 
 	/**

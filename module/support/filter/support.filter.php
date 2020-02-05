@@ -33,8 +33,8 @@ class Support_Filter {
 		add_filter( 'task_manager_notify_send_notification_subject', array( $this, 'callback_task_manager_notify_send_notification_subject' ), 10, 3 );
 		add_filter( 'task_manager_notify_send_notification_body', array( $this, 'callback_task_manager_notify_send_notification_body' ), 10, 3 );
 		add_filter( 'task_manager_notify_send_notification_body_administrator', array( $this, 'callback_task_manager_notify_send_notification_body_administrator' ), 10, 3 );
-		
-		add_filter( 'wps_account_navigation_items', function( $menu ) { 
+
+		add_filter( 'wps_account_navigation_items', function( $menu ) {
 			$task_manager_item = array(
 				'link'  => \wpshop\Pages::g()->get_account_link() . 'support/',
 				'icon'  => 'fas fa-tasks',
@@ -50,8 +50,7 @@ class Support_Filter {
 						
 			return $menu;
 		}, 10, 1 );
-		
-		add_filter( 'wps_navigation_shortcode', function( $query_vars, $tab ) {
+		add_filter( 'wps_navigation_shortcode', function( $tab, $query_vars ) {
 			if ( array_key_exists( 'support', $query_vars ) ) {
 				$tab = 'support';
 			}
