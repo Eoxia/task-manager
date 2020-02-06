@@ -106,7 +106,6 @@ class Navigation_Filter {
 				}
 			}
 
-
 			ob_start();
 			\eoxia\View_Util::exec(
 				'task-manager',
