@@ -23,6 +23,7 @@ define( 'TM_NOTIFY_ACTION_WAITING_FOR', 2 );
  * Gestion des notifications.
  */
 class Notify_Class extends \eoxia\Singleton_Util {
+
 	/**
 	 * Constructeur obligatoire pour Singleton_Util.
 	 *
@@ -135,8 +136,6 @@ class Notify_Class extends \eoxia\Singleton_Util {
 		$time               = strtotime( 'now + 1 hour' ) - strtotime( $notification->time );
 		$notification->time = Task_Class::g()->time_elapsed( $time );
 
-//		$notification
-
 		return $notification;
 	}
 
@@ -150,12 +149,13 @@ class Notify_Class extends \eoxia\Singleton_Util {
 				break;
 		}
 
+		$entry->link = admin_url( 'admin.php?page=wpeomtm-dashboard&task_id=' . $entry->element_id . '&notification=' . $entry->ID );
 
 		return $entry;
 	}
 
 	public function load_additional_data_notification_for_point( $entry ) {
-		$entry->subject = Point_Class::g()->get( array( 'id' => $entry->element_id ), true );
+		$entry->subject                            = Point_Class::g()->get( array( 'id' => $entry->element_id ), true );
 		$entry->subject->data['formatted_content'] = $entry->subject->data['content'];
 
 		switch ( $entry->action_type ) {
@@ -167,6 +167,7 @@ class Notify_Class extends \eoxia\Singleton_Util {
 				break;
 		}
 
+		$entry->link = admin_url( 'admin.php?page=wpeomtm-dashboard&task_id=' . $entry->subject->data['post_id'] . '&point_id=' . $entry->subject->data['id'] . '&notification=' . $entry->ID );
 
 		return $entry;
 	}

@@ -288,6 +288,8 @@ class Task_Filter {
 		$output['classes'] = 'table-type-project';
 
 		$output['attrs'][] = 'data-id="' . $task->data['id'] . '"';
+		$output['element_id'] = $task->data['id'];
+		$output['type'] = 'task';
 
 		return $output;
 	}

@@ -95,9 +95,9 @@ class Navigation_Filter {
 				'numberposts'  => 6,
 				'post_status'  => 'publish',
 				'author'       => get_current_user_id(),
-				'meta_query'   => 'read',
-				'meta_compare' => '=',
-				'meta_value'   => '',
+				'meta_key'     => 'read',
+				'meta_compare' => '!=',
+				'meta_value'   => 1,
 			) );
 
 			if ( ! empty( $notifications ) ) {

@@ -58,6 +58,10 @@ class Task_Manager_Class extends \eoxia\Singleton_Util {
 			'users_id'      => $user_id,
 		);
 
+		if ( isset( $_GET['notification'] ) ) {
+			update_post_meta( (int) $_GET['notification'], 'read', 1 );
+		}
+
 		if ( isset( $_GET['quicktimemode'] ) ) {
 			$quicktimes_real_number = $quicktimes - 1;
 

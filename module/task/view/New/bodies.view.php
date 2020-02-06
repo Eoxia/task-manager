@@ -4,8 +4,19 @@ namespace task_manager;
 
 if ( ! empty( $contents['bodies'] ) ) :
 	foreach ( $contents['bodies'] as $key => $data_def ) :
+		$class = '';
+
+		if ( isset( $_GET['notification'] ) ) {
+			if ( isset( $_GET['point_id'] ) && $data_def['type'] == 'point' && $data_def['element_id'] == $_GET['point_id'] ) {
+				$class = 'row-focus';
+			}
+
+			if ( isset( $_GET['task_id'] ) && ! isset( $_GET['point_id'] ) && $data_def['type'] == 'task' && $data_def['element_id'] == $_GET['task_id'] ) {
+				$class = 'row-focus';
+			}
+		}
 		?>
-		<div class="table-row <?php echo esc_attr( $data_def['classes'] ); ?>"
+		<div class="table-row <?php echo esc_attr( $data_def['classes'] ) . ' ' . $class; ?>"
 			<?php echo ! empty( $data_def['attrs'] ) ? implode( ' ', $data_def['attrs'] ) : ''; ?>>
 
 			<?php

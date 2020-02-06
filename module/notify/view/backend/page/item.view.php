@@ -1,4 +1,4 @@
-<a class="notification-content">
+<a class="notification-content" href="<?php echo esc_attr( $entry->link ); ?>">
 	<div class="time" style="float: right;">
 		<?php echo sprintf( __( 'Il y a %s', 'task-manager' ), esc_html( $entry->time ) ); ?>
 	</div>

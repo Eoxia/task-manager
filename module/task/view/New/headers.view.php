@@ -62,4 +62,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 
 	<?php Task_Class::g()->display_bodies( $contents ); ?>
+
+	<?php
+	if ( isset( $_GET['notification'] ) && isset( $_GET['point_id'] ) ) :
+		Point_Class::g()->display( $_GET['task_id'], false, 0, false );
+	endif;
+	?>
 </div>
