@@ -1,8 +1,8 @@
 <li class="tm-notification tm-wrap">
 	<div class="wpeo-dropdown dropdown-right">
-		<div class="dropdown-toggle wpeo-button button-transparent button-square-40">
+		<div class="dropdown-toggle wpeo-button button-transparent button-square-40 <?php echo $number_notifications != 0 ? 'notification-active' : ''; ?>">
 			<i class="button-icon fas fa-bell"></i>
-			<span class="notification-number"><?php echo $number_notifications; ?></span>
+			<span class="notification-number <?php echo $number_notifications != 0 ? 'notification-number-active' : ''; ?>"><?php echo $number_notifications; ?></span>
 		</div>
 		<div class="dropdown-content notification-container" style="width: 700px;">
 			<?php
