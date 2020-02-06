@@ -1370,6 +1370,16 @@
       border-bottom: 2px solid rgba(0, 0, 0, 0.1); }
     .tm-wrap .tm_client_indicator_update_body .wpeo-table td:first-child {
       text-align: left; }
+  .tm-wrap .tm-notification .wpeo-button .notification-number {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+    color: #fff;
+    background: #ff4246;
+    border-radius: 50%; }
   .tm-wrap .tm-notification-page {
     display: flex;
     width: 80%;
@@ -1443,6 +1453,7 @@
     /** Table header */
     /** Table columns */
     /** Ligne vide */
+    /** Ligne active */
     /** Table cell */ }
     .tm-wrap .list-task .wpeo-table.table-flex {
       border: 0;
@@ -1477,6 +1488,8 @@
         line-height: 2; }
       .tm-wrap .list-task .wpeo-table.table-flex .table-row:not(.table-header).row-empty .wpeo-button {
         margin: 0 0.4em; }
+    .tm-wrap .list-task .wpeo-table.table-flex .table-row:not(.table-header).row-focus {
+      box-shadow: inset 0 0 0 3px #0084ff; }
     .tm-wrap .list-task .wpeo-table.table-flex .table-row:not(.table-header) {
       /** Cellules générales */
       /** Niveau hiérarchique des tâches */
