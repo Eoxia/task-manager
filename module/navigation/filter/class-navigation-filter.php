@@ -89,6 +89,10 @@ class Navigation_Filter {
 	}
 
 	public function callback_display_header_navigation_search_bar ( $content ) {
+		if ( isset( $_GET['notification'] ) ) {
+			update_post_meta( (int) $_GET['notification'], 'read', 1 );
+		}
+
 		if ( $_GET['page'] == "wpeomtm-dashboard" || $_GET['page'] == "tm-my-tasks" || $_GET['page'] == "tm-notification" || $_GET['page'] == "tm-dashboard" || $_GET['page'] == "indicator-page"   ) {
 			$notifications = get_posts( array(
 				'post_type'    => 'wpeo-notification',
