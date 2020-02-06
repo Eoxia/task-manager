@@ -1310,7 +1310,7 @@ class Task_Class extends \eoxia\Post_Class {
 			if( $value > 1 ) $ret[] = $value . $key . 's';
 			if( $value == 1 ) $ret[] = $value . $key;
 		}
-		array_splice( $ret, count( $ret )-1, 0, 'et' );
+		array_splice( $ret, count( $ret )-1, 0, '' );
 		return join( ' ', $ret );
 	}
 

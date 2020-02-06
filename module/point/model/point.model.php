@@ -109,6 +109,13 @@ class Point_Model extends \eoxia\Comment_Model {
 			'default'   => 0,
 		);
 
+		$this->schema['waiting_for'] = array(
+			'type'      => 'array',
+			'meta_type' => 'single',
+			'field'     => '_tm_point_waiting_for_id',
+			'default'   => array(),
+		);
+
 		parent::__construct( $object, $req_method );
 	}
 

@@ -16,74 +16,47 @@ defined( 'ABSPATH' ) || exit; ?>
 <div class="tm-wrap tm-main-container">
 	<div class="tm-notification-page">
 		<div class="bloc-filters">
-			<ul class="filters">
-				<li class="active"><a href="#"><span class="count">15</span>Unread</a></li>
-				<li><a href="#"><span class="count">169</span>Read</a></li>
-				<li><a href="#"><span class="count">15</span>All notifications</a></li>
-			</ul>
+			<div class="filters">
+				<a href="<?php echo admin_url( 'admin.php?page=tm-notification&mode=unread' ); ?>" class="<?php echo $mode == 'unread' ? 'active' : ''; ?>"><span class="count"><?php echo $count_unread; ?></span>Unread</a>
+				<a href="<?php echo admin_url( 'admin.php?page=tm-notification&mode=read' ); ?>" class="<?php echo $mode == 'read' ? 'active' : ''; ?>"><span class="count"><?php echo $count_read; ?></span>Read</a>
+				<a href="<?php echo admin_url( 'admin.php?page=tm-notification&mode=both' ); ?>" class="<?php echo $mode == 'both' ? 'active' : ''; ?>"><span class="count"><?php echo $count_read + $count_unread; ?></span>All notifications</a>
+			</div>
 
 			<hr />
 
-			<ul class="filters">
-				<li><a href="#"><span class="count">15</span>sav.digirisk.com</a></li>
-				<li><a href="#"><span class="count">169</span>Task Manager 1.8.0</a></li>
-				<li><a href="#"><span class="count">15</span>Super projet kdzaodkop....</a></li>
-				<li><a href="#"><span class="count">15</span>sav.digirisk.com</a></li>
-				<li><a href="#"><span class="count">169</span>Task Manager 1.8.0</a></li>
-				<li><a href="#"><span class="count">15</span>Super projet kdzaodkop....</a></li>
-				<li><a href="#"><span class="count">15</span>sav.digirisk.com</a></li>
-				<li><a href="#"><span class="count">169</span>Task Manager 1.8.0</a></li>
-				<li><a href="#"><span class="count">15</span>Super projet kdzaodkop....</a></li>
-			</ul>
+			<div class="filters">
+				<?php
+				if ( ! empty( $notifications_by_elements ) ) :
+					foreach ( $notifications_by_elements as $key => $element ) :
+						?><a href="<?php echo admin_url( 'admin.php?page=tm-notification&parent=' . $key ); ?>" class="<?php echo $parent == $key ? 'active' : ''; ?>"><span class="count"><?php echo esc_attr( $element['count'] ); ?></span><?php echo esc_attr( $element['title'] ); ?></a><?php
+					endforeach;
+				endif;
+				?>
+			</div>
 		</div>
 
 		<div class="notification-container">
 			<?php
 			if ( ! empty( $data ) ) :
 				foreach ( $data as $entry ) :
-					?>
-					<div class="notification-content">
-						<div class="header">
-							<div class="icon">
-								<i class="fas fa-bell"></i>
-							</div>
-
-							<div class="avatars">
-								<div class="avatar action">
-									<?php echo do_shortcode( '[task_avatar ids="' . $entry['action_user_id']. '" size="40"]' ) ?>
-								</div>
-
-								<?php
-								if ( ! empty( $entry['notified_users_id'] ) ) :
-									foreach ( $entry['notified_users_id'] as $notified_user_id ) :
-										?>
-										<div class="avatar notified">
-											<?php echo do_shortcode( '[task_avatar ids="' . $notified_user_id. '" size="40"]' ) ?>
-										</div>
-										<?php
-									endforeach;
-								endif;
-								?>
-							</div>
-						</div>
-
-						<div class="content">
-							<div class="main-content">
-								<p>
-								<?php echo $entry['content']; ?>
-								</p>
-							</div>
-
-							<div class="subject">
-								<p>
-									<?php echo $entry['subject']->data['content']; ?>
-								</p>
-							</div>
-						</div>
-					</div>
-					<?php
+					\eoxia\View_Util::exec( 'task-manager', 'notify', 'backend/page/item', array(
+						'entry' => $entry,
+					) );
 				endforeach;
 			else:
+				?>
+				<div class="notification-content">
+
+					<div class="content">
+						<div class="main-content">
+							<p>
+								<?php esc_html_e( 'No notification in this section', 'task-manager' ); ?>
+							</p>
+						</div>
+
+					</div>
+				</div>
+				<?php
 			endif;
 			?>
 		</div>

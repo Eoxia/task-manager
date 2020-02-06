@@ -273,7 +273,7 @@ class Point_Filter {
 	}
 
 	public function fill_value_waiting_for_value( $output, $point ) {
-		$output['classes'] .= ' cell-disabled';
+		$output['id'] = $point->data['id'];
 
 		return $output;
 	}

@@ -177,7 +177,6 @@ class Activity_Action {
 		);
 	}
 
-
 	/**
 	 * Export au format CSV les activités d'une personne.
 	 *

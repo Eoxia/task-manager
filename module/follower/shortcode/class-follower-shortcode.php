@@ -30,6 +30,7 @@ class Follower_Shortcode {
 	 */
 	public function __construct() {
 		add_shortcode( 'task_manager_task_follower', array( $this, 'callback_task_manager_task_follower' ) );
+		add_shortcode( 'task_manager_task_waiting_for', array( $this, 'callback_task_manager_waiting_for' ) );
 	}
 
 	/**
@@ -65,6 +66,48 @@ class Follower_Shortcode {
 			'task-manager',
 			'follower',
 			'backend/main',
+			array(
+				'task'      => $task,
+				'followers' => $followers,
+			)
+		);
+
+		return ob_get_clean();
+	}
+
+	/**
+	 * Permet d'afficher les utilisateurs en attente.
+	 *
+	 * @param array $param Les paramètres du shortcode.
+	 *
+	 * @since 3.1.0
+	 * @version 3.1.0
+	 */
+	public function callback_task_manager_waiting_for( $param ) {
+		$task_id = ! empty( $param['task_id'] ) ? (int) $param['task_id'] : 0;
+
+		$task = Point_Class::g()->get(
+			array(
+				'id' => $task_id,
+			),
+			true
+		);
+
+		$followers = array();
+
+		if ( ! empty( $task->data['waiting_for'] ) ) {
+			$followers = Follower_Class::g()->get(
+				array(
+					'include' => $task->data['waiting_for'],
+				)
+			);
+		}
+
+		ob_start();
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'follower',
+			'backend/waiting/main',
 			array(
 				'task'      => $task,
 				'followers' => $followers,

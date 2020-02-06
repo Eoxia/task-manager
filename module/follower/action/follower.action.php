@@ -53,6 +53,11 @@ class Follower_Action {
 		add_action( 'wp_ajax_delete_this_contract', array( $this, 'callback_delete_this_contract' ) );
 
 
+		add_action( 'wp_ajax_load_waiting_for', array( $this, 'ajax_load_waiting_for' ) );
+		add_action( 'wp_ajax_close_waiting_for_edit_mode', array( $this, 'ajax_close_waiting_for_edit_mode' ) );
+
+		add_action( 'wp_ajax_waiting_for_affectation', array( $this, 'ajax_waiting_for_affectation' ) );
+		add_action( 'wp_ajax_waiting_for_unaffectation', array( $this, 'ajax_waiting_for_unaffectation' ) );
 	}
 
 	/**
@@ -556,6 +561,221 @@ class Follower_Action {
 				'module'           => 'follower',
 				'callback_success' => 'reloadViewProfilePlanning',
 				'info'             => array( 'view' => ob_get_clean() )
+			)
+		);
+	}
+
+
+	/**
+	 * Récupère les followers existants dans la base et les retournent pour affichage
+	 *
+	 * @since   1.0.0
+	 * @version 1.5.0
+	 */
+	public function ajax_load_waiting_for() {
+		check_ajax_referer( 'waiting_for' );
+
+		$followers = Follower_Class::g()->get(
+			array(
+				'role' => array(
+					'administrator',
+				),
+			)
+		);
+		$task_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+
+		$task = Point_Class::g()->get(
+			array(
+				'id' => $task_id,
+			),
+			true
+		);
+
+		// Récupères les followers supplémentaires qui ne sont plus "administrateur". Afin de pouvoir les afficher dans l'interface.
+		$followers_only_id         = array();
+		$followers_no_role_only_id = array();
+		if ( ! empty( $followers ) ) {
+			foreach ( $followers as $follower ) {
+				$followers_only_id[] = $follower->data['id'];
+			}
+		}
+
+		if ( ! empty( $task->data['waiting_for'] ) ) {
+			foreach ( $task->data['waiting_for'] as $key => $affected_id ) {
+				if ( ! in_array( $affected_id, $followers_only_id ) ) {
+					$followers_no_role_only_id[] = $affected_id;
+					break;
+				}
+			}
+		}
+
+		$followers_no_role = array();
+
+		if ( ! empty( $followers_no_role_only_id ) ) {
+			$followers_no_role = Follower_Class::g()->get(
+				array(
+					'include' => $followers_no_role_only_id,
+				)
+			);
+		}
+
+		ob_start();
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'follower',
+			'backend/waiting/main-edit',
+			array(
+				'followers'         => $followers,
+				'followers_no_role' => $followers_no_role,
+				'task'              => $task,
+			)
+		);
+
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'follower',
+				'callback_success' => 'loadedFollowersSuccess',
+				'view'             => ob_get_clean(),
+			)
+		);
+	}
+
+	/**
+	 * Repasses en mode "vue" des followers
+	 *
+	 * @return void
+	 *
+	 * @since   1.0.0.0
+	 * @version 1.3.6.0
+	 */
+	public function ajax_close_waiting_for_edit_mode() {
+		check_ajax_referer( 'close_waiting_for_edit_mode' );
+
+		$task_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+
+		if ( empty( $task_id ) ) {
+			wp_send_json_error();
+		}
+
+		$task = Point_Class::g()->get(
+			array(
+				'id' => $task_id,
+			),
+			true
+		);
+
+		$followers = array();
+
+		if ( ! empty( $task->data['waiting_for'] ) ) {
+			$followers = Follower_Class::g()->get(
+				array(
+					'include' => $task->data['waiting_for'],
+				)
+			);
+		}
+
+		ob_start();
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'follower',
+			'backend/waiting/main',
+			array(
+				'followers' => $followers,
+				'task'      => $task,
+			)
+		);
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'follower',
+				'callback_success' => 'closedFollowersEditMode',
+				'view'             => ob_get_clean(),
+			)
+		);
+	}
+
+	/**
+	 * Affectes un utilisateur à la tâche.
+	 *
+	 * @return void
+	 *
+	 * @since   1.0.0.0
+	 * @version 1.3.6.0
+	 */
+	public function ajax_waiting_for_affectation() {
+		check_ajax_referer( 'waiting_for_affectation' );
+
+		$user_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+		$task_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
+
+		if ( empty( $user_id ) || empty( $task_id ) ) {
+			wp_send_json_error();
+		}
+
+		$task = Point_Class::g()->get(
+			array(
+				'id' => $task_id,
+			),
+			true
+		);
+
+		$task->data['waiting_for'][] = $user_id;
+
+		Point_Class::g()->update( $task->data );
+
+		// Add notification hihi.
+		Notify_Class::g()->add_notification( $user_id, get_current_user_id(), array( $user_id ), $task_id, 'point', TM_NOTIFY_ACTION_WAITING_FOR );
+
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'follower',
+				'callback_success' => 'affectedFollowerSuccess',
+				'nonce'            => wp_create_nonce( 'waiting_for_unaffectation' ),
+			)
+		);
+	}
+
+	/**
+	 * Désaffecte un utilisateur d'une tâche.
+	 *
+	 * @return void
+	 *
+	 * @since   1.0.0.0
+	 * @version 1.3.6.0
+	 */
+	public function ajax_waiting_for_unaffectation() {
+		check_ajax_referer( 'waiting_for_unaffectation' );
+
+		$user_id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+		$task_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
+
+		if ( empty( $user_id ) || empty( $task_id ) ) {
+			wp_send_json_error();
+		}
+
+		$task = Point_Class::g()->get(
+			array(
+				'id' => $task_id,
+			),
+			true
+		);
+
+		$key = array_search( $user_id, $task->data['waiting_for'] );
+
+		if ( -1 < $key ) {
+			array_splice( $task->data['waiting_for'], $key, 1 );
+		}
+
+		Point_Class::g()->update( $task->data );
+
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'follower',
+				'callback_success' => 'unaffectedFollowerSuccess',
+				'nonce'            => wp_create_nonce( 'waiting_for_affectation' ),
 			)
 		);
 	}

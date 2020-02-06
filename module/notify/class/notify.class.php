@@ -40,58 +40,111 @@ class Notify_Class extends \eoxia\Singleton_Util {
 	 * @since 3.1.0
 	 */
 	public function display() {
-		$data = array(
-			array(
-				'action_user_id'    => 2,
-				'notified_users_id' => array( 1, 3 ),
-				'element_id'        => 289,
-				'type_of_element'   => 'task',
-				'action_type'       => TM_NOTIFY_ACTION_ANSWER,
-			),
-			array(
-				'action_user_id'    => 1,
-				'notified_users_id' => array( 2 ),
-				'element_id'        => 212,
-				'type_of_element'   => 'point',
-				'action_type'       => TM_NOTIFY_ACTION_COMPLETE,
-			),
-		);
+		$notifications = get_posts( array(
+			'post_type'   => 'wpeo-notification',
+			'numberposts' => -1,
+			'post_status' => 'publish',
+			'author'      => get_current_user_id(),
+		) );
 
-		if ( ! empty( $data ) ) {
-			foreach ( $data as &$entry ) {
-				$entry['action_user']       = get_the_author_meta( 'display_name', $entry['action_user_id'] );
-				$entry['notified_users'] = array();
+		$mode   = isset( $_GET['mode'] ) ? $_GET['mode'] : 'unread';
+		$parent = isset( $_GET['parent'] ) ? (int) $_GET['parent'] : 0;
 
-				if ( ! empty( $entry['notified_users_id'] ) ) {
-					foreach ( $entry['notified_users_id'] as $notified_user_id ) {
-						$entry['notified_users'][ $notified_user_id ] = get_the_author_meta( 'display_name', $notified_user_id );
-					}
+		if ( ! empty( $parent ) ) {
+			$mode = '';
+		}
+
+		$notifications_by_elements = array();
+		$filtered_notifications    = array();
+
+		$count_unread = 0;
+		$count_read   = 0;
+
+		if ( ! empty( $notifications ) ) {
+			foreach ( $notifications as &$notification ) {
+				$notification = Notify_Class::g()->get_notification_data( $notification );
+
+				if ( $notification->read ) {
+					$count_read++;
+				} else {
+					$count_unread++;
 				}
 
-				switch ( $entry['type_of_element'] ) {
-					case 'task':
-						$entry = $this->load_additional_data_notification_for_task( $entry );
-						break;
-					case 'point':
-						$entry = $this->load_additional_data_notification_for_point( $entry );
-						break;
+				if ( ! isset( $notifications_by_elements[ $notification->element_id ] ) ) {
+					$notifications_by_elements[ $notification->element_id ] = array(
+						'title' => $notification->subject->data['formatted_content'],
+						'count' => 1,
+					);
+				} else {
+					$notifications_by_elements[ $notification->element_id ]['count']++;
+				}
+
+				if ( $mode == 'read' && $notification->read ) {
+					$filtered_notifications[] = $notification;
+				} else if ( $mode == 'unread' && ! $notification->read ) {
+					$filtered_notifications[] = $notification;
+				} else if ( $mode == 'both' ) {
+					$filtered_notifications[] = $notification;
+				}
+
+				if ( ! empty( $parent ) && $notification->element_id == $parent ) {
+					$filtered_notifications[] = $notification;
 				}
 			}
 		}
 
-		unset( $entry );
-
 		\eoxia\View_Util::exec( 'task-manager', 'notify', 'backend/page/main', array(
-			'data' => $data,
+			'data'                      => $filtered_notifications,
+			'notifications_by_elements' => $notifications_by_elements,
+			'count_read'                => $count_read,
+			'count_unread'              => $count_unread,
+			'mode'                      => $mode,
+			'parent'                    => $parent,
 		) );
 	}
 
-	public function load_additional_data_notification_for_task( $entry ) {
-		$entry['subject'] = Task_Class::g()->get( array( 'id' => $entry['element_id'] ), true );
+	public function get_notification_data( $notification ) {
+		$notification->action_user_id    = get_post_meta( $notification->ID, '_tm_action_user_id', true );
+		$notification->notified_users_id = get_post_meta( $notification->ID, '_tm_notified_users_id', true );
+		$notification->element_id        = get_post_meta( $notification->ID, '_element_id', true );
+		$notification->type_of_element   = get_post_meta( $notification->ID, '_type_of_element', true );
+		$notification->action_type       = get_post_meta( $notification->ID, '_action_type', true );
+		$notification->read              = get_post_meta( $notification->ID, 'read', true );
+		$notification->action_user       = get_the_author_meta( 'display_name', $notification->action_user_id );
+		$notification->notified_users    = array();
 
-		switch ( $entry['action_type'] ) {
+		if ( ! empty( $notification->notified_users_id ) ) {
+			foreach ( $notification->notified_users_id as $notified_user_id ) {
+				$notification->notified_users[ $notified_user_id ] = get_the_author_meta( 'display_name', $notified_user_id );
+			}
+		}
+
+		$notification->content = __( 'Error occured', 'task-manager' );
+
+		switch ( $notification->type_of_element ) {
+			case 'task':
+				$notification = $this->load_additional_data_notification_for_task( $notification );
+				break;
+			case 'point':
+				$notification = $this->load_additional_data_notification_for_point( $notification );
+				break;
+		}
+
+		$now                = strtotime( 'now' );
+		$notification->time = $notification->post_date;
+		$time               = strtotime( 'now + 1 hour' ) - strtotime( $notification->time );
+		$notification->time = Task_Class::g()->time_elapsed( $time );
+
+		return $notification;
+	}
+
+	public function load_additional_data_notification_for_task( $entry ) {
+		$entry->subject = Task_Class::g()->get( array( 'id' => $entry->element_id ), true );
+		$entry->subject->data['formatted_content'] = $entry->subject->data['title'];
+
+		switch ( $entry->action_type ) {
 			case TM_NOTIFY_ACTION_ANSWER:
-				$entry['content'] = sprintf( '<strong>%s</strong> answer to %s in the project #%s', $entry['action_user'], implode( ', ', $entry['notified_users'] ), $entry['element_id'] );
+				$entry->content = sprintf( '<strong>%s</strong> answer to %s in the project #%s', $entry->action_user, implode( ', ', $entry->notified_users ), $entry->element_id );
 				break;
 		}
 
@@ -100,12 +153,15 @@ class Notify_Class extends \eoxia\Singleton_Util {
 	}
 
 	public function load_additional_data_notification_for_point( $entry ) {
-		$entry['subject'] = Point_Class::g()->get( array( 'id' => $entry['element_id'] ), true );
+		$entry->subject = Point_Class::g()->get( array( 'id' => $entry->element_id ), true );
+		$entry->subject->data['formatted_content'] = $entry->subject->data['content'];
 
-
-		switch ( $entry['action_type'] ) {
+		switch ( $entry->action_type ) {
 			case TM_NOTIFY_ACTION_COMPLETE:
-				$entry['content'] = sprintf( '<strong>%s</strong> completed the task #%s', $entry['action_user'], $entry['element_id'] );
+				$entry->content = sprintf( '<strong>%s</strong> completed the task #%s', $entry->action_user, $entry->element_id );
+				break;
+			case TM_NOTIFY_ACTION_WAITING_FOR:
+				$entry->content = sprintf( 'An action is required for you on the task #<strong>%s</strong>', $entry->element_id );
 				break;
 		}
 
@@ -225,6 +281,24 @@ class Notify_Class extends \eoxia\Singleton_Util {
 		} else {
 			\eoxia\LOG_Util::log( sprintf( 'Send the task %1$d failed', $task->data['id'] ), 'task-manager', 'EO_ERROR' );
 		}
+	}
+
+	public function add_notification( $to_user_id, $action_user_id, $notified_users_id, $element_id, $type_of_element, $action_type ) {
+		$data = array(
+			'post_status' => 'publish',
+			'post_author' => $to_user_id,
+			'post_title' => 'Notification',
+			'post_type'  => 'wpeo-notification',
+		);
+
+		$post_id = wp_insert_post( $data );
+
+		add_post_meta( $post_id, '_tm_action_user_id', $action_user_id );
+		add_post_meta( $post_id, '_tm_notified_users_id', $notified_users_id );
+		add_post_meta( $post_id, '_element_id', $element_id );
+		add_post_meta( $post_id, '_type_of_element', $type_of_element );
+		add_post_meta( $post_id, '_action_type', $action_type );
+		add_post_meta( $post_id, 'read', false );
 	}
 }
 

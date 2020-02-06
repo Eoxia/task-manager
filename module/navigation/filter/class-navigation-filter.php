@@ -89,18 +89,33 @@ class Navigation_Filter {
 	}
 
 	public function callback_display_header_navigation_search_bar ( $content ) {
-		/*$shortcode_final_args = '';
-		foreach ( $current_search_args as $shortcode_params_key => $shortcode_params_value ) {
-			$shortcode_final_args .= $shortcode_params_key . '="' . $shortcode_params_value . '" ';
-		}*/
-
-		//$content .= do_shortcode( '[task_manager_search_bar ' . $shortcode_final_args . ']' );
 		if ( $_GET['page'] == "wpeomtm-dashboard" || $_GET['page'] == "tm-my-tasks" ) {
+			$notifications = get_posts( array(
+				'post_type'    => 'wpeo-notification',
+				'numberposts'  => 6,
+				'post_status'  => 'publish',
+				'author'       => get_current_user_id(),
+				'meta_query'   => 'read',
+				'meta_compare' => '=',
+				'meta_value'   => '',
+			) );
+
+			if ( ! empty( $notifications ) ) {
+				foreach ( $notifications as &$notification ) {
+					$notification = Notify_Class::g()->get_notification_data( $notification );
+				}
+			}
+
+
 			ob_start();
 			\eoxia\View_Util::exec(
 				'task-manager',
 				'navigation',
-				'backend/navigation-header-search-bar'
+				'backend/navigation-header-search-bar',
+				array(
+					'notifications' => $notifications,
+					'number_notifications' => count( $notifications ) > 5 ? '5+' : count( $notifications ),
+				)
 			);
 			$content .= ob_get_clean();
 

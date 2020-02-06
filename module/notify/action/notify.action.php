@@ -28,6 +28,8 @@ class Notify_Action {
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 13 );
 
+		add_action( 'init', array( $this, 'register_notification_type' ) );
+
 		add_action( 'wp_ajax_load_notify_popup', array( $this, 'callback_load_notify_popup' ) );
 		add_action( 'wp_ajax_send_notification', array( $this, 'callback_send_notification' ) );
 	}
@@ -40,6 +42,12 @@ class Notify_Action {
 	 */
 	public function callback_admin_menu() {
 		CMH::register_menu( 'wpeomtm-dashboard', __( 'Notification', 'task-manager' ), __( 'Notification', 'task-manager' ), 'read', 'tm-notification', array( Notify_Class::g(), 'display' ), 'fas fa-bell', '' );
+	}
+
+	public function register_notification_type() {
+		register_post_type( 'wpeo-notification' );
+
+//		Notify_Class::g()->add_notification( get_current_user_id(), get_current_user_id(), array( get_current_user_id() ), 212, 'point', TM_NOTIFY_ACTION_ANSWER );
 	}
 
 	/**

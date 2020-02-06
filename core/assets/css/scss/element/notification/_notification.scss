@@ -13,7 +13,12 @@
 			width: 100%;
 			padding: 10px;
 
-			li {
+
+			a {
+				display: list-item;
+				list-style: none;
+				text-decoration: none;
+				color: #000;
 				padding: 10px;
 				color: #000;
 				transition: background-color 0.2s;
@@ -27,19 +32,16 @@
 					background-color: rgb(245, 248, 250);
 				}
 
-				a {
-					text-decoration: none;
-					color: #000;
-
-					.count {
-						float: right;
-						font-weight: bold;
-					}
+				.count {
+					float: right;
+					font-weight: bold;
 				}
 			}
 		}
 	}
+}
 
+.tm-notification-page {
 	.notification-container {
 		width: 76%;
 
@@ -48,6 +50,7 @@
 		}
 
 		.notification-content {
+			display: block;
 			width: 100%;
 			border: solid rgb(230, 236, 240) 1px;
 			background-color: rgb(255, 255, 255);
@@ -84,6 +87,7 @@
 			}
 
 			.content {
+				color: black;
 				margin-top: 30px;
 				margin-left: 52px;
 				font-size: 1.2em;
