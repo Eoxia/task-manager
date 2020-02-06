@@ -68,4 +68,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 		Point_Class::g()->display( $_GET['task_id'], false, 0, false );
 	endif;
 	?>
+
+	<?php
+	if ( isset( $_GET['notification'] ) && isset( $_GET['point_id'] ) && isset( $_GET['comment_id'] ) ) :
+		Task_Comment_Class::g()->display( $_GET['task_id'], $_GET['point_id'], false );
+	endif;
+	?>
 </div>

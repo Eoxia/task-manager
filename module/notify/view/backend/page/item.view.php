@@ -22,7 +22,7 @@
 					<div class="avatar notified">
 						<?php echo do_shortcode( '[task_avatar ids="' . $notified_user_id. '" size="40"]' ) ?>
 					</div>
-				<?php
+					<?php
 				endforeach;
 			endif;
 			?>

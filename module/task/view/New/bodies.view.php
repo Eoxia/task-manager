@@ -7,13 +7,18 @@ if ( ! empty( $contents['bodies'] ) ) :
 		$class = '';
 
 		if ( isset( $_GET['notification'] ) ) {
-			if ( isset( $_GET['point_id'] ) && $data_def['type'] == 'point' && $data_def['element_id'] == $_GET['point_id'] ) {
+			if ( isset( $_GET['comment_id'] ) && $data_def['type'] == 'comment' && $data_def['element_id'] == $_GET['comment_id'] ) {
+				$class = 'row-focus';
+			}
+
+			if ( isset( $_GET['point_id'] ) && ! isset( $_GET['comment_id'] ) && $data_def['type'] == 'point' && $data_def['element_id'] == $_GET['point_id'] ) {
 				$class = 'row-focus';
 			}
 
 			if ( isset( $_GET['task_id'] ) && ! isset( $_GET['point_id'] ) && $data_def['type'] == 'task' && $data_def['element_id'] == $_GET['task_id'] ) {
 				$class = 'row-focus';
 			}
+
 		}
 		?>
 		<div class="table-row <?php echo esc_attr( $data_def['classes'] ) . ' ' . $class; ?>"

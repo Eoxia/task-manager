@@ -1794,7 +1794,8 @@ body.eo-custom-page .content-wrap {
     background-color: white;
     border-top: none;
     padding: 20px;
-    transition: background-color 0.2s; }
+    transition: background-color 0.2s;
+    text-decoration: none; }
     .tm-notification-page .notification-container .notification-content:hover {
       cursor: pointer;
       background-color: #f5f8fa; }

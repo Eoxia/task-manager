@@ -53,8 +53,8 @@ class Task_Manager_Filter {
 			'post_status'  => 'publish',
 			'author'       => get_current_user_id(),
 			'meta_key'   => 'read',
-			'meta_compare' => '=',
-			'meta_value'   => '',
+			'meta_compare' => '!=',
+			'meta_value'   => 1,
 		) );
 
 		ob_start();

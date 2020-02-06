@@ -35,8 +35,10 @@ window.eoxiaJS.taskManager.notify.event = function() {
 
 	jQuery( document ).on( 'heartbeat-tick', function (event, data) {
 		if ( data.number_notifications > 0 ) {
+			jQuery( '.tm-notification .wpeo-button' ).removeClass( 'notification-active' ).addClass( 'notification-active' );
+			jQuery( '.tm-notification .wpeo-button .notification-number' ).addClass( 'notification-number-active' );
 
-			jQuery( '.tm-notification .dropdown-toggle > span' ).text( data.number_notifications );
+			jQuery( '.tm-notification .dropdown-toggle .notification-number' ).text( data.number_notifications );
 			jQuery( '.tm-notification .wpeo-dropdown .dropdown-content' ).html( data.notification_view );
 
 			window.eoxiaJS.taskManager.notify.newTitle = window.eoxiaJS.taskManager.notify.oldTitle.replace('‹', '(' + data.number_notifications + ') ‹');

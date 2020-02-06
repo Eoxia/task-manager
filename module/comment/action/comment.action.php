@@ -169,6 +169,14 @@ class Task_Comment_Action {
 			$time_task .= ' / ' . $task->data['time_info']['estimated_time'];
 		}*/
 
+		if ( ! empty( $task->data['user_info']['affected_id'] ) && empty( $comment_id ) ) {
+			foreach ( $task->data['user_info']['affected_id'] as $affected_id ) {
+				if ( $affected_id != get_current_user_id() ) {
+					Notify_Class::g()->add_notification( $affected_id, get_current_user_id(), $task->data['user_info']['affected_id'], $comment->data['id'], 'comment', TM_NOTIFY_NEW_COMMENT );
+				}
+			}
+		}
+
 		wp_send_json_success(
 			array(
 				'time'             => array(

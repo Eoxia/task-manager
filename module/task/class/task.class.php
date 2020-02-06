@@ -429,7 +429,6 @@ class Task_Class extends \eoxia\Post_Class {
 	public function display_bodies( $elements, $parent = null ) {
 		$user_def = Follower_Class::g()->user_columns_def;
 
-
 		if ( ! empty( $elements ) ) {
 			foreach ( $elements as $element ) {
 				$data_def = array(

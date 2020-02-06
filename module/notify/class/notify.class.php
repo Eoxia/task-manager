@@ -18,6 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'TM_NOTIFY_ACTION_ANSWER', 0 );
 define( 'TM_NOTIFY_ACTION_COMPLETE', 1 );
 define( 'TM_NOTIFY_ACTION_WAITING_FOR', 2 );
+define( 'TM_NOTIFY_NEW_COMMENT', 3 );
 
 /**
  * Gestion des notifications.
@@ -129,6 +130,9 @@ class Notify_Class extends \eoxia\Singleton_Util {
 			case 'point':
 				$notification = $this->load_additional_data_notification_for_point( $notification );
 				break;
+			case 'comment':
+				$notification = $this->load_additional_data_notification_for_comment( $notification );
+				break;
 		}
 
 		$now                = strtotime( 'now' );
@@ -160,14 +164,34 @@ class Notify_Class extends \eoxia\Singleton_Util {
 
 		switch ( $entry->action_type ) {
 			case TM_NOTIFY_ACTION_COMPLETE:
-				$entry->content = sprintf( '<strong>%s</strong> completed the task #%s', $entry->action_user, $entry->element_id );
+				$entry->content = sprintf( '<strong>%s</strong> completed the task #%s. You are following this task. That why you get notified.', $entry->action_user, $entry->element_id );
 				break;
 			case TM_NOTIFY_ACTION_WAITING_FOR:
 				$entry->content = sprintf( 'An action is required for you on the task #<strong>%s</strong>', $entry->element_id );
 				break;
+			case TM_NOTIFY_NEW_COMMENT:
+				$entry->content = sprintf( '%s add new comment on the task #<strong>%s</strong>. You are following this task. That why you get notified.', $entry->action_user, $entry->element_id );
+
+				break;
 		}
 
 		$entry->link = admin_url( 'admin.php?page=wpeomtm-dashboard&task_id=' . $entry->subject->data['post_id'] . '&point_id=' . $entry->subject->data['id'] . '&notification=' . $entry->ID );
+
+		return $entry;
+	}
+
+	public function load_additional_data_notification_for_comment( $entry ) {
+		$entry->subject                            = Task_Comment_Class::g()->get( array( 'id' => $entry->element_id ), true );
+		$entry->subject->data['formatted_content'] = $entry->subject->data['content'];
+
+		switch ( $entry->action_type ) {
+			case TM_NOTIFY_NEW_COMMENT:
+				$entry->content = sprintf( '%s add new comment on the task #<strong>%s</strong>. You are following this task. That why you get notified.', $entry->action_user, $entry->element_id );
+
+				break;
+		}
+
+		$entry->link = admin_url( 'admin.php?page=wpeomtm-dashboard&task_id=' . $entry->subject->data['post_id'] . '&point_id=' . $entry->subject->data['parent_id'] . '&comment_id=' . $entry->subject->data['id'] . '&notification=' . $entry->ID );
 
 		return $entry;
 	}
