@@ -80,8 +80,6 @@ class Task_Manager_Filter {
 		<?php
 		$notification_view = ob_get_clean();
 
-
-
 		$response['task_manager_data']    = \eoxia\JSON_Util::g()->open_and_decode( PLUGIN_TASK_MANAGER_PATH . 'core/assets/json/data.json' );
 		$response['number_notifications'] = count( $notifications ) > 5 ? '5+' : count( $notifications );
 		$response['notification_view']    = $notification_view;

@@ -57,11 +57,33 @@ class Point_Action {
 		$content   = ! empty( $_POST['content'] ) ? $_POST['content'] : '';
 		$toggle    = ( isset( $_POST['toggle'] ) && 'true' == $_POST['toggle'] ) ? true : false;
 
+
 		$data  = Point_Class::g()->edit_point( $point_id, $parent_id, $content, $completed );
 		$point = $data['point'];
 		$task  = $data['task'];
 
+		$first_edit_meta = '';
+
+		if ( ! empty( $point_id ) ) {
+			$first_edit_meta = get_comment_meta( $point_id, '_tm_first_edit_point', true );
+		}
+
+		if ( ! empty( $point_id ) && $first_edit_meta != -1 ) {
+			$first_edit_meta = 1;
+			update_comment_meta( $point_id, '_tm_first_edit_point', -1 );
+		}
+
 		do_action( 'tm_edit_point', $point, $task );
+
+		$task = Task_Class::g()->get( array( 'id' => $parent_id ), true );
+
+		if ( ! empty( $task->data['user_info']['affected_id'] ) && $first_edit_meta == 1 ) {
+			foreach ( $task->data['user_info']['affected_id'] as $affected_id ) {
+				if ( $affected_id != get_current_user_id() ) {
+					Notify_Class::g()->add_notification( $affected_id, get_current_user_id(), $task->data['user_info']['affected_id'], $point->data['id'], 'point', TM_NOTIFY_CREATE_TASK );
+				}
+			}
+		}
 
 		ob_start();
 		if ( ! $toggle ) {
