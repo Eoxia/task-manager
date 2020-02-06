@@ -1,7 +1,10 @@
 <li class="tm-notification tm-wrap">
 	<div class="wpeo-dropdown dropdown-right">
-		<div class="dropdown-toggle wpeo-button button-main"><span><?php echo $number_notifications; ?></span><i class="fas fa-bell"></i></div>
-		<ul class="dropdown-content notification-container" style="width: 700px;">
+		<div class="dropdown-toggle wpeo-button button-transparent button-square-40">
+			<i class="button-icon fas fa-bell"></i>
+			<span class="notification-number"><?php echo $number_notifications; ?></span>
+		</div>
+		<div class="dropdown-content notification-container" style="width: 700px;">
 			<?php
 			$i = 0;
 			if ( ! empty( $notifications ) ) :
@@ -28,6 +31,6 @@
 					</div>
 				</div>
 			</a>
-		</ul>
+		</div>
 	</div>
 </li>
