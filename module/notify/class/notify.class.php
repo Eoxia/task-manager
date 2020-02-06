@@ -135,7 +135,7 @@ class Notify_Class extends \eoxia\Singleton_Util {
 		$time               = strtotime( 'now + 1 hour' ) - strtotime( $notification->time );
 		$notification->time = Task_Class::g()->time_elapsed( $time );
 
-		$notification
+//		$notification
 
 		return $notification;
 	}
