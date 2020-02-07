@@ -1780,48 +1780,60 @@ body.eo-custom-page .content-wrap {
           float: right;
           font-weight: bold; }
 
-.tm-notification-page .notification-container {
+.tm-wrap .notification-container {
   width: 76%; }
-  .tm-notification-page .notification-container .notification-content:first-child {
+  .tm-wrap .notification-container .notification-content:first-child {
     border: solid #e6ecf0 1px; }
-  .tm-notification-page .notification-container .notification-content {
-    display: block;
-    width: 100%;
+  .tm-wrap .notification-container .notification-close {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    padding: 0.4em;
+    color: rgba(0, 0, 0, 0.4);
+    display: inline-block;
+    font-size: 16px;
+    transition: all 0.2s ease-out; }
+    .tm-wrap .notification-container .notification-close:hover {
+      color: rgba(0, 0, 0, 0.9); }
+  .tm-wrap .notification-container .notification-content {
+    position: relative;
+    display: flex;
     border: solid #e6ecf0 1px;
     background-color: white;
     border-top: none;
-    padding: 20px;
+    padding: 1.4em;
     transition: background-color 0.2s;
     text-decoration: none; }
-    .tm-notification-page .notification-container .notification-content:hover {
+    .tm-wrap .notification-container .notification-content:hover {
       cursor: pointer;
       background-color: #f5f8fa; }
-    .tm-notification-page .notification-container .notification-content .header {
-      display: flex; }
-      .tm-notification-page .notification-container .notification-content .header .icon {
-        display: table;
-        height: 40px; }
-        .tm-notification-page .notification-container .notification-content .header .icon i {
-          display: table-cell;
-          font-size: 2em;
-          vertical-align: middle; }
-      .tm-notification-page .notification-container .notification-content .header .avatars {
-        margin-left: 30px;
-        display: flex; }
-        .tm-notification-page .notification-container .notification-content .header .avatars .avatar:first-child {
-          margin-right: 30px; }
-    .tm-notification-page .notification-container .notification-content .content {
-      color: black;
-      margin-top: 30px;
-      margin-left: 52px;
-      font-size: 1.2em; }
-      .tm-notification-page .notification-container .notification-content .content .main-content {
+    .tm-wrap .notification-container .notification-content .avatars .avatar {
+      margin-bottom: 0.4em; }
+    .tm-wrap .notification-container .notification-content .avatars .avatar.action {
+      margin-bottom: 1.4em; }
+    .tm-wrap .notification-container .notification-content .avatars .tm-avatar, .tm-wrap .notification-container .notification-content .avatars img {
+      border-radius: 50%; }
+    .tm-wrap .notification-container .notification-content .content {
+      margin-left: 2em;
+      color: rgba(0, 0, 0, 0.8);
+      font-size: 15px; }
+      .tm-wrap .notification-container .notification-content .content .project {
+        font-weight: 700; }
+      .tm-wrap .notification-container .notification-content .content .main-content {
         margin-bottom: 20px; }
-        .tm-notification-page .notification-container .notification-content .content .main-content strong {
+        .tm-wrap .notification-container .notification-content .content .main-content strong {
           font-weight: 700; }
-      .tm-notification-page .notification-container .notification-content .content .subject {
-        color: #657786;
-        line-height: 20px; }
+      .tm-wrap .notification-container .notification-content .content .subject {
+        color: rgba(0, 0, 0, 0.5); }
+      .tm-wrap .notification-container .notification-content .content .time {
+        font-size: 13px;
+        color: #0084ff; }
+
+.tm-wrap .dropdown-content.notification-container {
+  width: 700px; }
+  .tm-wrap .dropdown-content.notification-container .notification-content {
+    border: 0;
+    border-bottom: solid #e6ecf0 1px; }
 
 .popup-export .tm_export_form_container {
   float: left;
