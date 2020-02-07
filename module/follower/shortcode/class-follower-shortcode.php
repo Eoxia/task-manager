@@ -31,6 +31,7 @@ class Follower_Shortcode {
 	public function __construct() {
 		add_shortcode( 'task_manager_task_follower', array( $this, 'callback_task_manager_task_follower' ) );
 		add_shortcode( 'task_manager_task_waiting_for', array( $this, 'callback_task_manager_waiting_for' ) );
+		add_shortcode( 'task_manager_dropdown_users', array( $this, 'callback_task_manager_dropdown_users' ) );
 	}
 
 	/**
@@ -115,6 +116,18 @@ class Follower_Shortcode {
 		);
 
 		return ob_get_clean();
+	}
+
+	public function callback_task_manager_dropdown_users() {
+		$users = get_users(
+			array(
+				'roles' => 'administrator',
+			)
+		);
+
+		\eoxia\View_Util::exec( 'task-manager', 'follower', 'backend/dropdown/main', array(
+			'users' => $users,
+		) );
 	}
 }
 

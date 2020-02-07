@@ -56,6 +56,8 @@ class Point_Action {
 		$parent_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
 		$content   = ! empty( $_POST['content'] ) ? $_POST['content'] : '';
 		$toggle    = ( isset( $_POST['toggle'] ) && 'true' == $_POST['toggle'] ) ? true : false;
+		$notif      = ( isset( $_POST['notif'] ) && ! empty( $_POST['notif'] ) ) ? $_POST['notif']  : array();
+
 
 
 		$data  = Point_Class::g()->edit_point( $point_id, $parent_id, $content, $completed );
@@ -76,6 +78,10 @@ class Point_Action {
 		do_action( 'tm_edit_point', $point, $task );
 
 		$task = Task_Class::g()->get( array( 'id' => $parent_id ), true );
+
+		if( ! empty( $notif ) ){
+			Notify_Class::g()->send_notification_followers_are_tags( $notif, $post_id, $parent_id, $comment->data[ 'id' ] );
+		}
 
 		if ( ! empty( $task->data['user_info']['affected_id'] ) && $first_edit_meta == 1 ) {
 			foreach ( $task->data['user_info']['affected_id'] as $affected_id ) {

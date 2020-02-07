@@ -53,6 +53,8 @@ window.eoxiaJS.taskManager.newPoint.editTitle = function() {
 	data.parent_id = element.closest( '.table-row' ).data( 'post-id' );
 	data.content   = element.html();
 
+	data.notif = window.eoxiaJS.taskManager.comment.searchFollowerInContentEditable( element );
+
 	window.eoxiaJS.loader.display( element.closest( 'div' ) );
 	window.eoxiaJS.request.send( element, data );
 };

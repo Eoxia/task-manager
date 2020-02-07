@@ -15,6 +15,10 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; } ?>
 
+<div class="tm-auto-complete-user">
+	<?php echo do_shortcode( '[task_manager_dropdown_users]' ); ?>
+</div>
+
 <div class="list-task">
 	<?php Task_Class::g()->display( $tasks ); ?>
 </div>

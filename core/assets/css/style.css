@@ -2166,6 +2166,13 @@ body.eo-custom-page .content-wrap {
     .wpeo-wrap .wpeo-notification.patch-note span a {
       color: #55b6ed; }
 
+.tm-auto-complete-user .dropdown-content .dropdown-item {
+  display: flex; }
+  .tm-auto-complete-user .dropdown-content .dropdown-item > div {
+    margin-right: 20px; }
+  .tm-auto-complete-user .dropdown-content .dropdown-item div:last-child {
+    line-height: 2; }
+
 /*--------------------------------------------------------------
 # TMP END Jimmy
 --------------------------------------------------------------*/

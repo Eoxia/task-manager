@@ -33,39 +33,12 @@ window.eoxiaJS.taskManager.comment.event = function() {
 
 	jQuery( document ).on( 'click', '.wpeo-pagination.pagination-comment .pagination-element', window.eoxiaJS.taskManager.comment.paginationUpdateComments );
 
-	jQuery( document ).on( 'change keyup input', '.comment .comment-container .comment-content-text div[contenteditable="true"]', window.eoxiaJS.taskManager.comment.autoCompleteWithFollowers );
+	jQuery( document ).on( 'change keyup input', '.table-type-task div[contenteditable="true"]', window.eoxiaJS.taskManager.comment.autoCompleteWithFollowers );
 
-	jQuery( document ).on( 'keydown', '.comment .comment-container .comment-content-text div[contenteditable="true"]', window.eoxiaJS.taskManager.comment.autoCompleteBlockEnter );
-	jQuery( document ).on( 'click keyup', '.wpeo-tag ul .tm_list_administrator', window.eoxiaJS.taskManager.comment.choseFollowerAdmin );
+	jQuery( document ).on( 'keydown', '.cell-content div[contenteditable="true"]', window.eoxiaJS.taskManager.comment.autoCompleteBlockEnter );
+	jQuery( document ).on( 'click keyup', '.tm-auto-complete-user .dropdown-item', window.eoxiaJS.taskManager.comment.choseFollowerAdmin );
 
 	jQuery( document ).on( 'click', '.comment-container .comment-action .tm_register_comment', window.eoxiaJS.taskManager.comment.editComment );
-
-	/*jQuery( document ).on( 'click', function( e ){
-		if ( ! jQuery( event.target).closest( ".wpeo-project-task" ).length) {
-			jQuery( '.point.edit' ).each( function (){
-				if ( jQuery( this ).closest( 'div.point' ).find( '.comments' ).is( ':visible' ) ) {
-					var element = jQuery( this ).closest( 'div.point' ).find( '.comments .comment-content-text input[type="hidden"]' ).val().trim();
-					element = element.replace(/\s/g,"-");
-					if( jQuery( this ).closest( 'div.point' ).find( '.comments .comment-content-text input[type="hidden"]' ).val().trim() != "" ){ // L'utilisateur est entrain d'écrire
-						if( confirm( window.indicatorString.delete_text ) ){
-							jQuery( 'div.point .comments:visible' ).slideUp( 400, function() {
-								window.eoxiaJS.refresh();
-							});
-						}else{
-							var div = jQuery( this ).closest( 'div.point' ).find( '.comments .comment-content-text div' );
-							setTimeout(function() {
-							    div.focus();
-							}, 0);
-						}
-					}else{
-						jQuery( 'div.point .comments:visible' ).slideUp( 400, function() {
-							window.eoxiaJS.refresh();
-						});
-					}
-				}
-			})
-    }
-	} );*/
 };
 
 /**
@@ -269,91 +242,111 @@ window.eoxiaJS.taskManager.comment.paginationUpdateComments = function( event ) 
 
 window.eoxiaJS.taskManager.comment.position_actual = 0;
 window.eoxiaJS.taskManager.comment.autoCompleteWithFollowers = function( event ){
+	var div = jQuery( this );
 	if( jQuery( this ).html() != "" ){
 	 	var position =  window.eoxiaJS.taskManager.comment.caretPositionIndex( event );
 
-		var fullcontent = jQuery( this ).html().trim();
+		var fullcontent         = jQuery( this ).html().trim();
 		var fullcontent_replace = fullcontent.replace(/<\/div>/g, "");
-		fullcontent_replace = fullcontent_replace.replace(/&nbsp;/g, ' ');
-		fullcontent_replace = fullcontent_replace.replace(/<br>/g, '');
+		fullcontent_replace     = fullcontent_replace.replace(/&nbsp;/g, ' ');
+		fullcontent_replace     = fullcontent_replace.replace(/<br>/g, '');
 
 		var fullcontent_array = fullcontent_replace.split('<div>');
 
 	 	var mot_focus = window.eoxiaJS.taskManager.comment.getFocusWordContentEditableAutocomplete(fullcontent_array, position);
-		var ashtag = "#";
-		if( mot_focus.substr( 0, 1 ) == "@" && ! ashtag.includes(mot_focus) ){
+		var ashtag    = "#";
 
+		if( mot_focus.substr( 0, 1 ) == "@" && ! ashtag.includes(mot_focus) ){
 			window.eoxiaJS.taskManager.comment.position_actual = position;
-			var list = jQuery( this ).closest( '.comment-content' ).find( '.auto-complete-user .wpeo-tag ul' );
-			if( event.keyCode == 13 ){ // Si la personne appuie sur entré
-				if( list.find(".active").find( '.content-text' ) && list.find(".active" ).is(':visible') ){
-					jQuery( list.find(".active") );
-					id = list.find(".active").attr('data-id');
-					if ( id !== undefined ){
-						follower = list.find(".active").find( '.content-text' ).html().trim() + "#" + id;
-					}else{
-						follower = list.find(".active").find( '.content-text' ).html().trim();
+
+			var list = jQuery( '.tm-auto-complete-user .wpeo-dropdown' );
+
+			if ( event.keyCode == 13 ) {
+				if ( list.find(".dropdown-active").find( '.content-text' ) && list.find(".dropdown-active" ).is(':visible') ) {
+					jQuery( list.find(".dropdown-active") );
+
+					id = list.find(".dropdown-active").attr('data-id');
+					if ( id !== undefined ) {
+						follower = list.find(".dropdown-active").find( '.content-text' ).html().trim() + "#" + id;
+					} else {
+						follower = list.find(".dropdown-active").find( '.content-text' ).html().trim();
 					}
+
 					var content = window.eoxiaJS.taskManager.comment.updateContentEditableAutocomplete( follower, fullcontent_array, position );
 
-					window.eoxiaJS.taskManagerGlobal.quickTime.focusElementWhenPageLoad( jQuery( this ).html( content ) );
-					jQuery( this ).closest( '.comment-content' ).find( '.auto-complete-user .wpeo-tag' ).hide();
+					window.eoxiaJS.taskManagerGlobal.quickTime.focusElementWhenPageLoad( jQuery( div ).html( content ) );
+
+					jQuery( '.tm-auto-complete-user .wpeo-dropdown' ).removeClass( 'dropdown-active' );
 					// window.eoxiaJS.taskManager.comment.searchFollowerInContentEditable( jQuery( this ) );
 				}
 				return;
 			}
 
-			jQuery( this ).closest( '.comment-content' ).find( '.auto-complete-user .wpeo-tag' ).show(); // Affiche l'auto complete
+			var pos = jQuery( this ).offset();
+
+			jQuery( '.tm-auto-complete-user .wpeo-dropdown' ).addClass( 'dropdown-active' ); // Affiche l'auto complete
+			jQuery( '.tm-auto-complete-user .wpeo-dropdown' ).css( {
+				left: pos.left + 'px',
+				top: (pos.top + 50) + 'px',
+				position: 'absolute'
+			} );
+
+
 			var mot_focus = mot_focus.substr( 1 ); // Recupere le mot (sans le @)
 			list.find("li:first").focus().addClass("active"); // Premier élement -> update de la couleur
 			mot_focus = mot_focus.toLowerCase();
 
 			var first_element = false;
+
 			list.find( 'li' ).each( function(e){ // Pour chaque follower
 				var element = jQuery( this ).find( '.content-text' ).html().trim();
 				element = element.toLowerCase();
+
 				if( element.includes(mot_focus) ){
 					if( ! first_element ){
 						first_element = true;
-						jQuery( this ).addClass( 'active' );
+						jQuery( this ).addClass( 'dropdown-active' );
 					}else{
-						jQuery( this ).removeClass( 'active' );
+						jQuery( this ).removeClass( 'dropdown-active' );
 					}
 					jQuery( this ).show();
 				}else{
-					jQuery( this ).removeClass( 'active' );
+					jQuery( this ).removeClass( 'dropdown-active' );
 					jQuery( this ).hide();
 				}
-			});
-		}else{
-			jQuery( this ).closest( '.comment-content' ).find( '.auto-complete-user .wpeo-tag' ).hide();
+			} );
+		} else {
+			jQuery( '.tm-auto-complete-user .wpeo-dropdown' ).removeClass( 'dropdown-active' );
 		}
-	}else{
-		jQuery( this ).closest( '.comment-content' ).find( '.auto-complete-user .wpeo-tag' ).hide();
+	} else{
+		jQuery( '.tm-auto-complete-user .wpeo-dropdown' ).removeClass( 'dropdown-active' );
 	}
 }
-window.eoxiaJS.taskManager.comment.getFocusWordContentEditableAutocomplete = function( fullcontent_array, position){
-	var taille = 0;
+window.eoxiaJS.taskManager.comment.getFocusWordContentEditableAutocomplete = function( fullcontent_array, position ) {
+	var taille    = 0;
 	var mot_focus = "";
-	for( var i = 0; i < fullcontent_array.length; i++){
-	  if( fullcontent_array[i].length + taille >= position){
-			position-= taille;
-	    var mot = fullcontent_array[i].substring(0, position);
-	    var mymot = mot.lastIndexOf(" ");
-	    var mot_focus = mot.substring(mymot + 1);
-	    break;
-	  }else{
-	    taille += fullcontent_array[i].length;
+
+	for (var i = 0; i < fullcontent_array.length; i++) {
+		// 20 + 0 >= 20
+	  if (fullcontent_array[i].length + taille >= position) {
+			position -= taille;
+			var mot   = fullcontent_array[i].substring(0, position);
+			var mymot = mot.lastIndexOf(" ");
+			mot_focus = mot.substring(mymot + 1);
+			break;
+	  } else {
+	  	taille += fullcontent_array[i].length;
 	  }
 	}
 
-	if( fullcontent_array[0] == ""){
-		fullcontent_array.splice(0,1);
+	if( fullcontent_array[0] == "" ) {
+		fullcontent_array.splice( 0, 1 );
 	}
-	return mot_focus;
-}
-window.eoxiaJS.taskManager.comment.updateContentEditableAutocomplete = function( follower = "", content_array = [], position = 0 ){
 
+	return mot_focus;
+};
+
+window.eoxiaJS.taskManager.comment.updateContentEditableAutocomplete = function( follower = "", content_array = [], position = 0 ){
 	var taille = 0;
 	for( var i = 0; i < content_array.length; i++){
 	  if( content_array[i].length + taille >= position){
@@ -371,7 +364,7 @@ window.eoxiaJS.taskManager.comment.updateContentEditableAutocomplete = function(
 	  }
 	}
 
- var content = "";
+ 	var content = "";
 	for( var i = 0; i < content_array.length; i++){
 	  content += "<div>";
 	  if ( content_array[i].length == "" ){
@@ -388,9 +381,8 @@ window.eoxiaJS.taskManager.comment.updateContentEditableAutocomplete = function(
 
 window.eoxiaJS.taskManager.comment.autoCompleteBlockEnter = function( event ){
 	if( event.keyCode == 13 ){
-		var list = jQuery( this ).closest( '.comment-content' ).find( '.auto-complete-user .wpeo-tag' );
-		if( list.is(':visible') && list.find(".active" ).is(':visible')){
-			console.log( 'visible' );
+		var list = jQuery( '.tm-auto-complete-user .wpeo-dropdown' );
+		if( list.is(':visible') && list.find(".dropdown-active" ).is(':visible')){
 			return false;
 		}
 	}
@@ -398,7 +390,8 @@ window.eoxiaJS.taskManager.comment.autoCompleteBlockEnter = function( event ){
 
 window.eoxiaJS.taskManager.comment.choseFollowerAdmin = function( event ){
 
-	var content_element = jQuery( this ).closest( '.comment-content' ).find( '.comment-content-text div[contenteditable="true"]' );
+	// @todo: a optimiser
+	var content_element = jQuery( '.table-row[data-id=232] .table-cell div[contenteditable="true"]' );
 
 	position = window.eoxiaJS.taskManager.comment.position_actual;
 
@@ -412,20 +405,22 @@ window.eoxiaJS.taskManager.comment.choseFollowerAdmin = function( event ){
 	var mot_focus = window.eoxiaJS.taskManager.comment.getFocusWordContentEditableAutocomplete(fullcontent_array, position);
 	mot_focus.substr( 0, 1 );
 
+	// content text dans l'élement
 	if( jQuery( this ).find( '.content-text' ) ){
 		id = jQuery( this ).attr('data-id');
+
 		if ( id !== undefined ){
 			follower = jQuery( this ).find( '.content-text' ).html().trim() + "#" + id;
-		}else{
+		} else {
 			follower = jQuery( this ).find( '.content-text' ).html().trim();
 		}
 
 		var content = window.eoxiaJS.taskManager.comment.updateContentEditableAutocomplete( follower, fullcontent_array, position );
 
 		window.eoxiaJS.taskManagerGlobal.quickTime.focusElementWhenPageLoad( jQuery( content_element ).html( content ) );
-		jQuery( this ).closest( '.wpeo-tag' ).hide(); // Cache l'auto complete
+		jQuery( '.tm-auto-complete-user .wpeo-dropdown' ).removeClass( 'dropdown-active' ); // Cache l'auto complete
 	}
-}
+};
 
 window.eoxiaJS.taskManager.comment.searchFollowerInContentEditable = function( element ){
 	var content = jQuery( element ).html();
@@ -433,13 +428,13 @@ window.eoxiaJS.taskManager.comment.searchFollowerInContentEditable = function( e
 	fullcontent_replace = fullcontent_replace.replace(/&nbsp;/g, ' ');
 	var fullcontent = fullcontent_replace.replace(/<br>/g, '');
 
-	var ul_element = jQuery( element ).closest( '.comment-content' ).find( '.auto-complete-user .wpeo-tag ul' );
+	var ul_element = jQuery( '.tm-auto-complete-user .dropdown-content' );
 
 	var list_notif = [];
 	if( fullcontent.trim().includes('@everyone') ){ // Si everyone est tag, pas besoin de rechercher chaque personne
 		list_notif.push( '-1' );
-	}else{
-		jQuery( ul_element.find( 'li' ) ).each( function( index ){
+	} else {
+		jQuery( ul_element.find( '.dropdown-item' ) ).each( function( index ) {
 			var element_content = jQuery( this ).find( '.tm-user-data input[type="hidden"]' ).val().trim();
 			var element_id = jQuery( this ).attr( 'data-id' );
 			if( fullcontent.trim().includes(element_content.trim()) ){

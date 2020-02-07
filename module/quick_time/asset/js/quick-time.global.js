@@ -16,7 +16,7 @@ window.eoxiaJS.taskManagerGlobal.quickTime = {};
 window.eoxiaJS.taskManagerGlobal.quickTime.init = function() {
 	window.eoxiaJS.taskManagerGlobal.quickTime.initAutoComplete();
 	window.eoxiaJS.taskManagerGlobal.quickTime.event();
-	window.eoxiaJS.taskManagerGlobal.quickTime.focusElementWhenPageLoad();
+	//window.eoxiaJS.taskManagerGlobal.quickTime.focusElementWhenPageLoad();
 };
 
 window.eoxiaJS.taskManagerGlobal.quickTime.refresh = function() {
@@ -304,15 +304,15 @@ window.eoxiaJS.taskManagerGlobal.quickTime.copyToClipboard = function( element )
 }
 
 window.eoxiaJS.taskManagerGlobal.quickTime.focusElementWhenPageLoad = function( element ){
-	if( jQuery( '.wpeo-project-task-container .points  .comment-content-text .content' ).html() == '' ){
-		jQuery( '.wpeo-project-task-container .points  .comment-content-text .content' ).html( '...' )
+	var el = element[0] ? element[0] : element;
+
+	if( jQuery( element ) .html() == '' ){
+		jQuery( element ) .html( '...' )
 	}
 
-	if( document.querySelector( '.wpeo-project-task-container .points  .comment-content-text .content' ) == null ){
+	if( element[0]  == null ){
 		return;
 	}
-
-	var el = document.querySelector( '.wpeo-project-task-container .points  .comment-content-text .content' );
 
 	el.focus();
 
