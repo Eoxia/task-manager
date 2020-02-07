@@ -20,7 +20,6 @@ define( 'TM_NOTIFY_ACTION_COMPLETE', 1 );
 define( 'TM_NOTIFY_ACTION_WAITING_FOR', 2 );
 define( 'TM_NOTIFY_NEW_COMMENT', 3 );
 define( 'TM_NOTIFY_CREATE_TASK', 4 );
-define( 'TM_NOTIFY_MENTION', 5 );
 
 /**
  * Gestion des notifications.
@@ -166,16 +165,18 @@ class Notify_Class extends \eoxia\Singleton_Util {
 
 		switch ( $entry->action_type ) {
 			case TM_NOTIFY_ACTION_COMPLETE:
-				$entry->content = sprintf( '<strong>%s</strong> completed the task #%s. You are following this project. That why you get notified.', $entry->action_user, $entry->element_id );
+				$entry->content = sprintf( '<strong>%s</strong> completed the task #%s.', $entry->action_user, $entry->element_id );
 				break;
 			case TM_NOTIFY_ACTION_WAITING_FOR:
 				$entry->content = sprintf( 'An action is required for you on the task #<strong>%s</strong>', $entry->element_id );
 				break;
 			case TM_NOTIFY_NEW_COMMENT:
-				$entry->content = sprintf( '%s add new comment on the task #<strong>%s</strong>. You are following this project. That why you get notified.', $entry->action_user, $entry->element_id );
+				$entry->content = sprintf( '%s add new comment on the task #<strong>%s</strong>', $entry->action_user, $entry->element_id );
+
 				break;
 			case TM_NOTIFY_CREATE_TASK:
-				$entry->content = sprintf( '%s Add new task on the project #<strong>%s</strong>. You are following this project. That why you get notified.', $entry->action_user, $entry->subject->data['post_id'] );
+				$entry->content = sprintf( '%s Add new task on the project #<strong>%s</strong>', $entry->action_user, $entry->subject->data['post_id'] );
+
 				break;
 		}
 
@@ -190,7 +191,7 @@ class Notify_Class extends \eoxia\Singleton_Util {
 
 		switch ( $entry->action_type ) {
 			case TM_NOTIFY_NEW_COMMENT:
-				$entry->content = sprintf( '%s add new comment on the task #<strong>%s</strong>. You are following this task. That why you get notified.', $entry->action_user, $entry->element_id );
+				$entry->content = sprintf( '%s add new comment on the task #<strong>%s</strong>', $entry->action_user, $entry->element_id );
 
 				break;
 		}
@@ -250,8 +251,6 @@ class Notify_Class extends \eoxia\Singleton_Util {
 		foreach ( $users_id as $user_id ) {
 			$user_info    = get_userdata( $user_id );
 			$recipients[] = $user_info;
-
-			Notify_Class::g()->add_notification( $user_id, get_current_user_id(), $task->data['user_info']['affected_id'], $point_id, 'point', TM_NOTIFY_MENTION );
 		}
 
 		$subject = 'Task Manager: ';

@@ -43,7 +43,7 @@
 	}
 }
 
-.tm-notification-page {
+.tm-wrap {
 	.notification-container {
 		width: 76%;
 
@@ -51,13 +51,28 @@
 			border: solid rgb(230, 236, 240) 1px;
 		}
 
+		.notification-close {
+			position: absolute;
+			top: 0.5em;
+			right: 0.5em;
+			padding: 0.4em;
+			color: rgba(0,0,0,0.4);
+			display: inline-block;
+			font-size: 16px;
+			@include transition;
+
+			&:hover {
+				color: rgba(0,0,0,0.9);
+			}
+		}
+
 		.notification-content {
-			display: block;
-			width: 100%;
+			position: relative;
+			display: flex;
 			border: solid rgb(230, 236, 240) 1px;
 			background-color: rgb(255, 255, 255);
 			border-top: none;
-			padding: 20px;
+			padding: 1.4em;
 			transition: background-color 0.2s;
 			text-decoration: none;
 
@@ -66,34 +81,26 @@
 				background-color: rgb(245,248,250 );
 			}
 
-			.header {
-				display: flex;
-
-				.icon {
-					display: table;
-					height: 40px;
-					i {
-						display: table-cell;
-						font-size: 2em;
-						vertical-align: middle;
-					}
+			.avatars {
+				.avatar {
+					margin-bottom: 0.4em;
 				}
-
-				.avatars {
-					margin-left: 30px;
-					display: flex;
-
-					.avatar:first-child {
-						margin-right: 30px;
-					}
+				.avatar.action {
+					margin-bottom: 1.4em;
+				}
+				.tm-avatar, img {
+					border-radius: 50%;
 				}
 			}
 
 			.content {
-				color: black;
-				margin-top: 30px;
-				margin-left: 52px;
-				font-size: 1.2em;
+				margin-left: 2em;
+				color: rgba(0,0,0,0.8);
+				font-size: 15px;
+
+				.project {
+					font-weight: 700;
+				}
 
 				.main-content {
 					margin-bottom: 20px;
@@ -104,10 +111,23 @@
 				}
 
 				.subject {
-					color: rgb(101, 119, 134);
-					line-height: 20px;
+					color: rgba(0,0,0,0.5);
+				}
+
+				.time {
+					font-size: 13px;
+					color: $color__primary;
 				}
 			}
 		}
+	}
+}
+
+.tm-wrap .dropdown-content.notification-container {
+	width: 700px;
+
+	.notification-content {
+		border: 0;
+		border-bottom: solid rgb(230, 236, 240) 1px;
 	}
 }
