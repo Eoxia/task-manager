@@ -131,3 +131,15 @@ window.eoxiaJS.taskManager.notify.sendedNotification = function( triggeredElemen
 
 
 };
+
+window.eoxiaJS.taskManager.notify.closedNotification = function( triggeredElement, response ) {
+	triggeredElement.closest( '.notification-content' ).fadeOut();
+};
+
+window.eoxiaJS.taskManager.notify.markedAllAsRead = function( triggeredElement, response ) {
+	jQuery( '.dropdown-content.notification-container .notification-content' ).each( function() {
+		jQuery( this ).slideUp();
+	} );
+
+	jQuery( '.tm-notification .notification-number-active' ).removeClass( 'notification-number-active' );
+};

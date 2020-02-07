@@ -32,6 +32,10 @@ class Notify_Action {
 
 		add_action( 'wp_ajax_load_notify_popup', array( $this, 'callback_load_notify_popup' ) );
 		add_action( 'wp_ajax_send_notification', array( $this, 'callback_send_notification' ) );
+
+		add_action( 'wp_ajax_tm_close_notification', array( $this, 'close_notification' ) );
+
+		add_action( 'wp_ajax_tm_notification_all_read', array( $this, 'mark_all_as_read' ) );
 	}
 
 	/**
@@ -46,8 +50,6 @@ class Notify_Action {
 
 	public function register_notification_type() {
 		register_post_type( 'wpeo-notification' );
-
-//		Notify_Class::g()->add_notification( get_current_user_id(), get_current_user_id(), array( get_current_user_id() ), 212, 'point', TM_NOTIFY_ACTION_ANSWER );
 	}
 
 	/**
@@ -214,6 +216,42 @@ class Notify_Action {
 				'callback_success' => 'sendedNotification',
 			)
 		);
+	}
+
+	public function close_notification() {
+		$id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+
+		update_post_meta( $id, 'read', true );
+
+		wp_send_json_success( array(
+			'namespace' => 'taskManager',
+			'module'    => 'notify',
+			'callback_success' => 'closedNotification'
+		) );
+	}
+
+	public function mark_all_as_read() {
+		$notifications = get_posts( array(
+			'post_type'    => 'wpeo-notification',
+			'numberposts'  => -1,
+			'post_status'  => 'publish',
+			'author'       => get_current_user_id(),
+			'meta_key'     => 'read',
+			'meta_compare' => '!=',
+			'meta_value'   => 1,
+		) );
+
+		if ( ! empty( $notifications ) ) {
+			foreach ( $notifications as $notification ) {
+				update_post_meta( $notification->ID, 'read', true );
+			}
+		}
+
+		wp_send_json_success( array(
+			'namespace' => 'taskManager',
+			'module'    => 'notify',
+			'callback_success' => 'markedAllAsRead'
+		) );
 	}
 
 }

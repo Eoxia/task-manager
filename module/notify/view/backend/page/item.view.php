@@ -1,6 +1,7 @@
 <a class="notification-content" href="<?php echo esc_attr( $entry->link ); ?>">
-
-	<span class="notification-close"><i class="fas fa-times"></i></span>
+	<span class="notification-close action-attribute"
+		data-action="tm_close_notification"
+		data-id="<?php echo esc_attr( $entry->ID ); ?>"><i class="fas fa-times"></i></span>
 
 	<div class="avatars">
 		<div class="avatar action">
