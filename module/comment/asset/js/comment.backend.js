@@ -33,7 +33,7 @@ window.eoxiaJS.taskManager.comment.event = function() {
 
 	jQuery( document ).on( 'click', '.wpeo-pagination.pagination-comment .pagination-element', window.eoxiaJS.taskManager.comment.paginationUpdateComments );
 
-	jQuery( document ).on( 'change keyup input', '.table-type-task div[contenteditable="true"]', window.eoxiaJS.taskManager.comment.autoCompleteWithFollowers );
+	jQuery( document ).on( 'change keyup input', '.table-type-comment div[contenteditable="true"]', window.eoxiaJS.taskManager.comment.autoCompleteWithFollowers );
 
 	jQuery( document ).on( 'keydown', '.cell-content div[contenteditable="true"]', window.eoxiaJS.taskManager.comment.autoCompleteBlockEnter );
 	jQuery( document ).on( 'click keyup', '.tm-auto-complete-user .dropdown-item', window.eoxiaJS.taskManager.comment.choseFollowerAdmin );
@@ -242,7 +242,11 @@ window.eoxiaJS.taskManager.comment.paginationUpdateComments = function( event ) 
 
 window.eoxiaJS.taskManager.comment.position_actual = 0;
 window.eoxiaJS.taskManager.comment.autoCompleteWithFollowers = function( event ){
+
 	var div = jQuery( this );
+
+	jQuery( '.tm-auto-complete-user .wpeo-dropdown ').attr( 'data-id', div.closest( '.table-row' ).data( 'id' ) );
+
 	if( jQuery( this ).html() != "" ){
 	 	var position =  window.eoxiaJS.taskManager.comment.caretPositionIndex( event );
 
@@ -391,7 +395,7 @@ window.eoxiaJS.taskManager.comment.autoCompleteBlockEnter = function( event ){
 window.eoxiaJS.taskManager.comment.choseFollowerAdmin = function( event ){
 
 	// @todo: a optimiser
-	var content_element = jQuery( '.table-row[data-id=232] .table-cell div[contenteditable="true"]' );
+	var content_element = jQuery( '.table-row[data-id=' + jQuery( this ).closest( '.wpeo-dropdown' ).data('id') + '] .table-cell div[contenteditable="true"]' );
 
 	position = window.eoxiaJS.taskManager.comment.position_actual;
 

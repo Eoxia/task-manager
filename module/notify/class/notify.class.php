@@ -20,6 +20,7 @@ define( 'TM_NOTIFY_ACTION_COMPLETE', 1 );
 define( 'TM_NOTIFY_ACTION_WAITING_FOR', 2 );
 define( 'TM_NOTIFY_NEW_COMMENT', 3 );
 define( 'TM_NOTIFY_CREATE_TASK', 4 );
+define( 'TM_NOTIFY_MENTION', 5 );
 
 /**
  * Gestion des notifications.
@@ -147,6 +148,7 @@ class Notify_Class extends \eoxia\Singleton_Util {
 	public function load_additional_data_notification_for_task( $entry ) {
 		$entry->subject = Task_Class::g()->get( array( 'id' => $entry->element_id ), true );
 		$entry->subject->data['formatted_content'] = $entry->subject->data['title'];
+		$entry->project_name                       = $entry->subject->data['title'];
 
 		switch ( $entry->action_type ) {
 			case TM_NOTIFY_ACTION_ANSWER:
@@ -163,6 +165,9 @@ class Notify_Class extends \eoxia\Singleton_Util {
 		$entry->subject                            = Point_Class::g()->get( array( 'id' => $entry->element_id ), true );
 		$entry->subject->data['formatted_content'] = $entry->subject->data['content'];
 
+		$task = Task_Class::g()->get( array( 'id' => $entry->subject->data['post_id'] ), true );
+		$entry->project_name                       = $task->data['title'];
+
 		switch ( $entry->action_type ) {
 			case TM_NOTIFY_ACTION_COMPLETE:
 				$entry->content = sprintf( '<strong>%s</strong> completed the task #%s.', $entry->action_user, $entry->element_id );
@@ -172,11 +177,12 @@ class Notify_Class extends \eoxia\Singleton_Util {
 				break;
 			case TM_NOTIFY_NEW_COMMENT:
 				$entry->content = sprintf( '%s add new comment on the task #<strong>%s</strong>', $entry->action_user, $entry->element_id );
-
 				break;
 			case TM_NOTIFY_CREATE_TASK:
 				$entry->content = sprintf( '%s Add new task on the project #<strong>%s</strong>', $entry->action_user, $entry->subject->data['post_id'] );
-
+				break;
+			case TM_NOTIFY_MENTION:
+				$entry->content = sprintf( '%s mentionned you for the task #<strong>%s</strong>', $entry->action_user, $entry->subject->data['post_id'] );
 				break;
 		}
 
@@ -188,11 +194,15 @@ class Notify_Class extends \eoxia\Singleton_Util {
 	public function load_additional_data_notification_for_comment( $entry ) {
 		$entry->subject                            = Task_Comment_Class::g()->get( array( 'id' => $entry->element_id ), true );
 		$entry->subject->data['formatted_content'] = $entry->subject->data['content'];
+		$task = Task_Class::g()->get( array( 'id' => $entry->subject->data['post_id'] ), true );
+		$entry->project_name                       = '#' . $task->data['id'] . ' ' . $task->data['title'];
 
 		switch ( $entry->action_type ) {
 			case TM_NOTIFY_NEW_COMMENT:
 				$entry->content = sprintf( '%s add new comment on the task #<strong>%s</strong>', $entry->action_user, $entry->element_id );
-
+				break;
+			case TM_NOTIFY_MENTION:
+				$entry->content = sprintf( '%s mentionned you for the task #<strong>%s</strong>', $entry->action_user, $entry->subject->data['parent_id'] );
 				break;
 		}
 
@@ -251,6 +261,8 @@ class Notify_Class extends \eoxia\Singleton_Util {
 		foreach ( $users_id as $user_id ) {
 			$user_info    = get_userdata( $user_id );
 			$recipients[] = $user_info;
+
+			Notify_Class::g()->add_notification( $user_id, get_current_user_id(), $task->data['user_info']['affected_id'], $comment_id, 'comment', TM_NOTIFY_MENTION );
 		}
 
 		$subject = 'Task Manager: ';

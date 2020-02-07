@@ -80,7 +80,7 @@ class Point_Action {
 		$task = Task_Class::g()->get( array( 'id' => $parent_id ), true );
 
 		if( ! empty( $notif ) ){
-			Notify_Class::g()->send_notification_followers_are_tags( $notif, $post_id, $parent_id, $comment->data[ 'id' ] );
+			Notify_Class::g()->send_notification_followers_are_tags( $notif, $task->data['id'], $point->data['id'], 0 );
 		}
 
 		if ( ! empty( $task->data['user_info']['affected_id'] ) && $first_edit_meta == 1 ) {

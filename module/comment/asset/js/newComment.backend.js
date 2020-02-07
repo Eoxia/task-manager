@@ -33,6 +33,9 @@ window.eoxiaJS.taskManager.newComment.editContent = function() {
 	data.content    = element.closest( '.table-row' ).find( '.comment-title' ).html();
 	data.mysql_date = element.closest( '.table-row' ).find( '.mysql-date' ).val();
 
+	data.notif = window.eoxiaJS.taskManager.comment.searchFollowerInContentEditable( element );
+
+
 	window.eoxiaJS.loader.display( element.closest( 'div' ) );
 	window.eoxiaJS.request.send( element, data );
 };

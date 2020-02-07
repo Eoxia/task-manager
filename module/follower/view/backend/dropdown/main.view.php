@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
-<div class="wpeo-dropdown dropdown-active" data-to-element="232">
+<div class="wpeo-dropdown" data-to-element="232">
 	<ul class="dropdown-content">
 		<?php
 		if ( ! empty( $users ) ) :

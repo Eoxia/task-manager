@@ -23,7 +23,7 @@
 	<div class="content">
 		<div class="project">
 			<p>
-				Nom du projet
+				<?php echo esc_attr( $entry->project_name ); ?>
 			</p>
 		</div>
 		<div class="main-content">
