@@ -1380,6 +1380,7 @@
     .tm-wrap .list-task .wpeo-table.table-flex {
       border: 0;
       width: fit-content;
+      width: -moz-fit-content;
       min-width: 100%; }
     .tm-wrap .list-task .wpeo-table.table-flex .table-header {
       position: relative;
@@ -1801,7 +1802,7 @@ body.eo-custom-page .content-wrap {
     border: solid #e6ecf0 1px;
     background-color: white;
     border-top: none;
-    padding: 1.4em;
+    padding: 0.8em;
     transition: background-color 0.2s;
     text-decoration: none; }
     .tm-wrap .notification-container .notification-content:hover {
@@ -1820,10 +1821,11 @@ body.eo-custom-page .content-wrap {
       .tm-wrap .notification-container .notification-content .content .project {
         font-weight: 700; }
       .tm-wrap .notification-container .notification-content .content .main-content {
-        margin-bottom: 20px; }
+        margin-bottom: 10px; }
         .tm-wrap .notification-container .notification-content .content .main-content strong {
           font-weight: 700; }
       .tm-wrap .notification-container .notification-content .content .subject {
+        color: rgba(0, 0, 0, 0.5);
         color: rgba(0, 0, 0, 0.5); }
       .tm-wrap .notification-container .notification-content .content .time {
         font-size: 13px;

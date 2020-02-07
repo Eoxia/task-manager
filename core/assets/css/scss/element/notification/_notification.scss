@@ -72,7 +72,7 @@
 			border: solid rgb(230, 236, 240) 1px;
 			background-color: rgb(255, 255, 255);
 			border-top: none;
-			padding: 1.4em;
+			padding: 0.8em;
 			transition: background-color 0.2s;
 			text-decoration: none;
 
@@ -103,7 +103,7 @@
 				}
 
 				.main-content {
-					margin-bottom: 20px;
+					margin-bottom: 10px;
 
 					strong {
 						font-weight: 700;
@@ -111,6 +111,7 @@
 				}
 
 				.subject {
+					color: rgba(0,0,0,0.5);
 					color: rgba(0,0,0,0.5);
 				}
 
