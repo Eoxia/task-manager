@@ -7,18 +7,6 @@
 		<div class="avatar action">
 			<?php echo do_shortcode( '[task_avatar ids="' . $entry->action_user_id. '" size="30"]' ) ?>
 		</div>
-
-		<?php
-		if ( ! empty( $entry->notified_users_id ) ) :
-			foreach ( $entry->notified_users_id as $notified_user_id ) :
-				?>
-				<div class="avatar notified">
-					<?php echo do_shortcode( '[task_avatar ids="' . $notified_user_id. '" size="30"]' ) ?>
-				</div>
-			<?php
-			endforeach;
-		endif;
-		?>
 	</div>
 
 	<div class="content">
