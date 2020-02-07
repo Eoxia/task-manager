@@ -116,6 +116,11 @@ class Notify_Class extends \eoxia\Singleton_Util {
 		$notification->read              = get_post_meta( $notification->ID, 'read', true );
 		$notification->action_user       = get_the_author_meta( 'display_name', $notification->action_user_id );
 		$notification->notified_users    = array();
+		$notification->project_name      = __( 'Error occured', 'task-manager');
+		$notification->subject           = new \stdClass();
+		$notification->subject->data     = array(
+			'formatted_content' => __( 'Error occured', 'task-manager' ),
+		);
 
 		if ( ! empty( $notification->notified_users_id ) ) {
 			foreach ( $notification->notified_users_id as $notified_user_id ) {
@@ -163,6 +168,11 @@ class Notify_Class extends \eoxia\Singleton_Util {
 
 	public function load_additional_data_notification_for_point( $entry ) {
 		$entry->subject                            = Point_Class::g()->get( array( 'id' => $entry->element_id ), true );
+
+		if ( ! $entry->subject ) {
+			return $entry;
+		}
+
 		$entry->subject->data['formatted_content'] = $entry->subject->data['content'];
 
 		$task = Task_Class::g()->get( array( 'id' => $entry->subject->data['post_id'] ), true );
@@ -192,8 +202,15 @@ class Notify_Class extends \eoxia\Singleton_Util {
 	}
 
 	public function load_additional_data_notification_for_comment( $entry ) {
+
 		$entry->subject                            = Task_Comment_Class::g()->get( array( 'id' => $entry->element_id ), true );
+
+		if ( ! $entry->subject ) {
+			return $entry;
+		}
+
 		$entry->subject->data['formatted_content'] = $entry->subject->data['content'];
+
 		$task = Task_Class::g()->get( array( 'id' => $entry->subject->data['post_id'] ), true );
 		$entry->project_name                       = '#' . $task->data['id'] . ' ' . $task->data['title'];
 

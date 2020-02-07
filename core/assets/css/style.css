@@ -1805,7 +1805,7 @@ body.eo-custom-page .content-wrap {
     padding: 0.8em;
     transition: background-color 0.2s;
     text-decoration: none; }
-    .tm-wrap .notification-container .notification-content:hover {
+    .tm-wrap .notification-container .notification-content:hover:not(.wpeo-grid) {
       cursor: pointer;
       background-color: #f5f8fa; }
     .tm-wrap .notification-container .notification-content .avatars .avatar {
@@ -1836,6 +1836,14 @@ body.eo-custom-page .content-wrap {
   .tm-wrap .dropdown-content.notification-container .notification-content {
     border: 0;
     border-bottom: solid #e6ecf0 1px; }
+    .tm-wrap .dropdown-content.notification-container .notification-content.wpeo-grid a {
+      color: black;
+      text-decoration: none;
+      text-align: center;
+      transition: background-color 0.2s; }
+      .tm-wrap .dropdown-content.notification-container .notification-content.wpeo-grid a:hover {
+        cursor: pointer;
+        background-color: #f5f8fa; }
 
 .popup-export .tm_export_form_container {
   float: left;

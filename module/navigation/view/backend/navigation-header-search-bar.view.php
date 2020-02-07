@@ -24,18 +24,13 @@
 
 			<div class="notification-content wpeo-grid grid-2">
 				<a href="<?php echo esc_attr( admin_url( 'admin.php?page=tm-notification' ) ); ?>">
-
-					<div class="content">
-						<div class="main-content">
-							<p>
-								<?php esc_html_e( 'See all notifications', 'task-manager' ); ?>
-							</p>
-						</div>
-					</div>
+					<i class="button-icon fas fa-bell"></i>
+					<span><?php esc_html_e( 'See all notifications', 'task-manager' ); ?></span>
 				</a>
 
-				<a href="#" class="action-attribute" data-action="tm_notification_all_read">
-					Mark all as read
+				<a href="#" data-action="tm_notification_all_read">
+					<i class="fas fa-eye"></i>
+					<span>Mark all as read</span>
 				</a>
 			</div>
 
