@@ -1380,6 +1380,7 @@
     .tm-wrap .list-task .wpeo-table.table-flex {
       border: 0;
       width: fit-content;
+      width: -moz-fit-content;
       min-width: 100%; }
     .tm-wrap .list-task .wpeo-table.table-flex .table-header {
       position: relative;
