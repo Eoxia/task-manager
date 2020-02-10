@@ -122,12 +122,12 @@ class Navigation_Filter {
 			);
 			$content .= ob_get_clean();
 
-			return $content;
 		}
+			return $content;
 	}
 
 	public function callback_display_header_navigation( $content ) {
-		if ( $_GET['page'] == "wpeomtm-dashboard" ){
+		if ( 'wpeomtm-dashboard' === $_REQUEST['page'] && ! isset( $_GET['id'] ) ) {
 			ob_start();
 			\eoxia\View_Util::exec(
 				'task-manager',
@@ -135,9 +135,8 @@ class Navigation_Filter {
 				'backend/navigation-header-button'
 			);
 			$content .= ob_get_clean();
-
-			return $content;
 		}
+			return $content;
 	}
 
 	public function callback_display_header_navigation_bottom( $content ) {
@@ -167,8 +166,8 @@ class Navigation_Filter {
 			);
 			$content .= ob_get_clean();
 
-			return $content;
 		}
+			return $content;
 	}
 }
 
