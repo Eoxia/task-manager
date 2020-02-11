@@ -51,7 +51,8 @@
   padding: 0.4em;
   border-left: 6px solid #0084ff;
   margin-top: -1px;
-  transition: all 0.2s ease-out; }
+  transition: all 0.2s ease-out;
+  text-decoration: none; }
   .tm-project .tm-task:hover {
     background: rgba(0, 0, 0, 0.05); }
   .tm-project .tm-task .task-header {
