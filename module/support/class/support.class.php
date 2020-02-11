@@ -143,6 +143,9 @@ class Support_Class extends \eoxia\Singleton_Util {
 
 		$project->readable_tag = substr( $project->readable_tag, 0, strlen( $project->readable_tag ) - 2 );
 
+//		$pages_ids = get_option( 'wps_page_ids', \wpshop\Pages::g()->default_options );
+//		$project->account_page = $pages_ids['my_account_id'];
+
 		return $project;
 	}
 }

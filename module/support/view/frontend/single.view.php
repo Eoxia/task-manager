@@ -14,40 +14,57 @@ namespace task_manager;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
-<div class="wpeo-project-wrap tm-wrap">
+<div class="wpeo-project-wrap tm-wrap tm-task-single">
 
 	<h2><?php esc_html_e( 'Customer support', 'task-manager' ); ?></h2>
 
-	<a href="<?php echo esc_attr( home_url( '/mon-compte/?account_dashboard_part=support' ) ); ?>">Retour à la liste BG</a>
+	<a href="<?php echo esc_attr( home_url( '/mon-compte/?account_dashboard_part=support' ) ); ?>"><?php esc_html_e( 'Back to the list', 'task-manager' ); ?></a>
 
-	<p>#<?php echo $project->data['id'] . ' ' . $project->data['title']; ?></p>
-	<p>#<?php echo $task->data['id'] . ' ' . $task->data['content']; ?></p>
-	<p><?php echo $project->data['time_info']['elapsed'] . '/' . $project->data['time_info']['estimated_time']; ?></p>
-	<p><?php echo $project->readable_tag; ?></p>
-	<hr />
-
-	<div class="wpeo-form">
-		<div class="form-element">
-			<span class="form-label"><?php esc_html_e( 'A description', 'task-manager' ); ?></span>
-			<label class="form-field-container">
-				<textarea id="description" name="description" rows="6" class="form-field"></textarea>
-			</label>
+	<div class="task-header">
+		<div class="header-nav-1">
+			<span class="project-title"><i class="fas fa-hashtag"></i> <?php echo $project->data['id'] . ' ' . $project->data['title']; ?></span>
+			<span class="project-time"><i class="far fa-clock"></i> <?php echo $project->data['time_info']['elapsed'] . '/' . $project->data['last_history_time']->data['estimated_time']; ?></span>
+			<span class="project-tag"><i class="fas fa-tags"></i> <?php echo $project->readable_tag; ?></span>
 		</div>
-
-		<div class="wpeo-button button-main alignright">
-			<span>Envoyer</span>
+		<div class="header-nav-2">
+			<span class="project-task"><i class="fas fa-hashtag"></i> <?php echo $task->data['id'] . ' ' . $task->data['content']; ?></span>
 		</div>
 	</div>
 
-	<hr />
+	<div class="tm-comment comment-new wpeo-form">
+		<div class="comment-content">
+			<div class="form-element">
+				<label class="form-field-container">
+					<textarea id="description" name="description" rows="2" placeholder="<?php esc_html_e( 'Your answer...', 'task-manager' ); ?>" class="form-field"></textarea>
+				</label>
+			</div>
+		</div>
+		<div class="comment-footer">
+			<?php $current_user = get_userdata( get_current_user_id() ); ?>
+			<div class="comment-author"><?php echo get_avatar( $current_user->data->ID, 30 ); ?> <span class="author-name"><?php echo esc_html( $current_user->data->display_name ); ?></span></div>
+			<div class="wpeo-button button-main">
+				<span>Envoyer</span>
+			</div>
+		</div>
+	</div>
 
-	<p>Ca c'est les commentaires</p>
 	<?php
 	if ( ! empty( $comments ) ) :
 		foreach ( $comments as $comment ) :
 			?>
-			<p><?php echo esc_attr( $comment->data['content'] ); ?></p>
-		<?php
+			<div class="tm-comment">
+				<div class="comment-content">
+					<?php echo $comment->data['content']; ?>
+				</div>
+				<div class="comment-footer">
+					<div class="comment-author">
+						<?php echo get_avatar( $comment->data['author_id'], 30 ); ?>
+						<span class="author-name"><?php echo esc_html(  $comment->data['author_nicename'] ); ?>, le <?php echo esc_html( $comment->data['date']['rendered']['date_human_readable'] ); ?></span>
+					</div>
+					<div class="comment-time"><i class="far fa-clock"></i> <?php echo $comment->data['time_info']['elapsed']; ?></div>
+				</div>
+			</div>
+			<?php
 		endforeach;
 	else:
 	endif;

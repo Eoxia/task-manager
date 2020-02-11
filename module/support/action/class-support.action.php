@@ -29,11 +29,11 @@ class Support_Action {
 		add_action( 'wp_ajax_load_last_activity_in_support', array( $this, 'callback_load_last_activity_in_support' ) );
 
 		add_action( 'wp_token_login', array( $this, 'callback_wp_token_login' ), 11, 1 );
-		
+
 		add_action( 'wps_account_navigation_endpoint', function() {
 			add_rewrite_endpoint( 'support', EP_ALL );
 		}, 10, 0 );
-		
+
 		add_action( 'wps_account_support', function() {
 			$contact     = \wpshop\Contact::g()->get( array( 'id' => get_current_user_id() ), true );
 			$third_party = \wpshop\Third_Party::g()->get( array( 'id' => $contact->data['third_party_id'] ), true );
@@ -197,7 +197,7 @@ class Support_Action {
 
 		// Ajoutes une demande dans la donnée compilé.
 		do_action( 'tm_action_after_comment_update', $comment->data['id'] );
-		
+
 		ob_start();
 		require PLUGIN_TASK_MANAGER_PATH . '/module/task/view/frontend/task.view.php';
 		$task_view = ob_get_clean();

@@ -1,0 +1,35 @@
+.tm-open-ticket .wpeo-form {
+	display: flex;
+	background: #fff;
+	padding: 1em;
+	border: 1px solid rgba(0,0,0,0.1);
+
+	.form-element {
+		padding: 0.2em;
+	}
+	input[type="text"],
+	input[type="email"],
+	input[type="url"],
+	input[type="password"],
+	input[type="search"],
+	input[type="number"],
+	input[type="tel"],
+	input[type="range"],
+	input[type="date"],
+	input[type="month"],
+	input[type="week"],
+	input[type="time"],
+	input[type="datetime"],
+	input[type="datetime-local"],
+	input[type="color"],
+	select,
+	textarea  {
+		border: 1px solid #ccc;
+		height: 55px;
+	}
+
+	.wpeo-button {
+		margin: auto;
+		white-space: nowrap;
+	}
+}

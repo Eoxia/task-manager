@@ -18,19 +18,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<h2><?php esc_html_e( 'Customer support', 'task-manager' ); ?></h2>
 
-	<div class="wpeo-gridlayout grid-2">
-		<div>
-			<p>Mes tickets</p>
-			<?php Support_Class::g()->display_projects( false ); ?>
+	<div class="tm-open-ticket"><?php \eoxia\View_Util::exec( 'task-manager', 'support', 'frontend/form-create-ticket' ); ?></div>
+	<div class="tm-list-ticket">
+		<h3>Mes tickets</h3>
+		<?php Support_Class::g()->display_projects( false ); ?>
 
-			<p>Mes contrats</p>
-			<?php Support_Class::g()->display_projects( true ); ?>
-		</div>
-
-		<div>
-			<?php \eoxia\View_Util::exec( 'task-manager', 'support', 'frontend/form-create-ticket' ); ?>
-		</div>
+		<h3>Mes contrats</h3>
+		<?php Support_Class::g()->display_projects( true ); ?>
 	</div>
-
 
 </div>

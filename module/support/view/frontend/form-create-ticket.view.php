@@ -15,30 +15,30 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
 
+<h3>Ouvrir un ticket</h3>
+
 <div id="wpeo-window-ask-task" >
 	<form class="form wpeo-form" action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>" method="POST" >
 		<input type="hidden" name="action" value="create_ticket">
 
 		<div class="form-element">
-			<span class="form-label"><?php esc_html_e( 'Subject for your request', 'task-manager' ); ?></span>
 			<label class="form-field-container">
-				<input id="subject" type="text" name="subject" maxlength="150" class="form-field" />
+				<input id="subject" placeholder="<?php esc_html_e( 'Subject for your request', 'task-manager' ); ?>" type="text" name="subject" maxlength="150" class="form-field" />
 			</label>
 		</div>
 
 		<div class="form-element">
-			<span class="form-label"><?php esc_html_e( 'A description', 'task-manager' ); ?></span>
 			<label class="form-field-container">
-				<textarea id="description" name="description" rows="6" class="form-field"></textarea>
+				<textarea id="description" name="description" rows="1" class="form-field"><?php esc_html_e( 'A description', 'task-manager' ); ?></textarea>
 			</label>
 		</div>
 
-		<div class="wpeo-button button-main action-input"
+		<div class="wpeo-button button-blue action-input"
 			data-loader="form"
 			data-parent="form"
 			data-nonce="<?php echo esc_attr( wp_create_nonce( 'create_ticket' ) ); ?>">
 
-			<?php esc_html_e( 'Create ticket', 'task-manager' ); ?>
+			<i class="fas fa-ticket-alt"></i> <?php esc_html_e( 'Open', 'task-manager' ); ?>
 		</div>
 	</form>
 </div>

@@ -18,7 +18,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! empty( $project->uncompleted_tasks ) ) :
 	foreach ( $project->uncompleted_tasks as $task ) :
 		?>
-		<a href="<?php echo esc_attr( home_url( '/mon-compte/?account_dashboard_part=support&project_id=' . $project->data['id'] . '&task_id=' . $task->data['id'] ) ); ?>"><?php echo esc_attr( $task->data['content'] ); ?></a>
+		<a class="tm-task" href="<?php echo esc_attr( home_url( '/mon-compte/?account_dashboard_part=support&project_id=' . $project->data['id'] . '&task_id=' . $task->data['id'] ) ); ?>">
+			<span class="task-header">
+				<span class="header-id"><i class="fas fa-hashtag"></i> <?php echo esc_attr( $task->data['id'] ); ?></span>
+				<span class="header-time"><i class="far fa-clock"> <?php echo esc_attr( $task->data['time_info']['elapsed'] ); ?></i></span>
+<!--				<span class="header-update"></span>-->
+			</span>
+			<span class="task-content">
+				<?php echo esc_attr( $task->data['content'] ); ?>
+			</span>
+		</a>
 	<?php
 	endforeach;
 else:
@@ -26,10 +35,25 @@ endif;
 
 
 if ( ! empty( $project->completed_tasks ) ) :
-	foreach ( $project->completed_tasks as $task ) :
+	?>
+	<div class="tm-task-archived">
+		<?php
+		foreach ( $project->completed_tasks as $task ) :
+			?>
+			<a class="tm-task task-archived" href="<?php echo esc_attr( home_url( '/mon-compte/?account_dashboard_part=support&project_id=' . $project->data['id'] . '&task_id=' . $task->data['id'] ) ); ?>">
+				<span class="task-header">
+					<span class="header-id"><i class="fas fa-hashtag"></i> <?php echo esc_attr( $task->data['id'] ); ?></span>
+					<span class="header-time"><i class="far fa-clock"> <?php echo esc_attr( $task->data['time_info']['elapsed'] ); ?></i></span>
+					<!--				<span class="header-update"></span>-->
+				</span>
+				<span class="task-content">
+					<?php echo esc_attr( $task->data['content'] ); ?>
+				</span>
+			</a>
+		<?php
+		endforeach;
 		?>
-		<p><?php echo esc_attr( $task->data['content'] ); ?></p>
+	</div>
 	<?php
-	endforeach;
 else:
 endif;

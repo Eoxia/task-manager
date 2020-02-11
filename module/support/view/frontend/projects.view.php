@@ -19,13 +19,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! empty( $projects ) ) :
 	foreach ( $projects as $project ) :
 		?>
-		<div>
-			<p><?php echo esc_attr( $project->data['title'] ); ?></p>
-			<p><?php echo $project->data['time_info']['elapsed'] . '/' . $project->data['time_info']['estimated_time']; ?></p>
-			<p><?php echo $project->readable_tag; ?></p>
+		<div class="tm-project">
+			<div class="project-header">
+				<span class="header-title"><i class="fas fa-hashtag"></i><?php echo esc_attr( $project->data['id'] ); ?> <?php echo esc_attr( $project->data['title'] ); ?></span>
+				<span class="header-time"><i class="far fa-clock"></i><?php echo $project->data['time_info']['elapsed'] . '/' . $project->data['last_history_time']->data['estimated_time']; ?></span>
+				<span class="header-tag"><i class="fas fa-tags"></i> <?php echo $project->readable_tag; ?></span>
+			</div>
 
 			<?php
-
 			\eoxia\View_Util::exec( 'task-manager', 'support', 'frontend/tasks', array(
 				'project' => $project,
 			) );
