@@ -309,8 +309,8 @@ class Task_Filter {
 
 	public function fill_value_state_value( $output, $task ) {
 		$output['classes'] .= ' cell-readonly cell-project-status';
-
-		$output['value'] = $task->data['status'];
+		$output['task_id']  = $task->data['id'];
+		$output['value']    = $task->data['status'];
 
 		return $output;
 	}

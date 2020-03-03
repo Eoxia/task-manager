@@ -114,7 +114,7 @@ window.eoxiaJS.taskManager.newTask.event = function() {
 		return false;
 	});
 
-	jQuery( document ).on( 'click', '.table-projects .dropdown-item.load-complete-point', function( ev ) {
+	jQuery( document ).on( 'click', '.table-projects .cell-project-status .load-complete-point', function( ev ) {
 		var data         = {};
 		data.action      = 'load_point';
 		data._wpnonce    = jQuery( this ).data('nonce');
@@ -124,11 +124,14 @@ window.eoxiaJS.taskManager.newTask.event = function() {
 		if ( ! jQuery( this ).hasClass( 'active' ) ) {
 			var _this = jQuery( this );
 			jQuery( this ).addClass( 'active' );
+			jQuery( this ).removeClass( 'button-transparent' ).addClass( 'button-main' );
+
 			jQuery.post(ajaxurl, data, function(response) {
 				window.eoxiaJS.taskManager.newPoint.loadedPointSuccess( _this, response );
 			});
 		} else {
 			jQuery(this).removeClass('active');
+			jQuery( this ).removeClass( 'button-main' ).addClass( 'button-transparent' );
 
 			if (data.point_state == 'completed') {
 				jQuery('.table-projects .table-type-task.task-completed[data-post-id=' + data.task_id + ']').slideUp(400, function() {

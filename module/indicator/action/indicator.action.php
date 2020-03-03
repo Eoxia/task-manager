@@ -38,6 +38,7 @@ class Indicator_Action {
 		add_action( 'wp_ajax_mark_as_read', array( $this, 'callback_mark_as_reak' ) );
 		add_action( 'tm_delete_task', array( $this, 'callback_tm_delete_task' ) );
 		add_action( 'tm_archive_task', array( $this, 'callback_tm_archive_task' ) );
+		add_action( 'wp_ajax_tm_unpack_task', array( $this, 'callback_tm_unpack_task' ) );
 		add_action( 'tm_complete_point', array( $this, 'callback_tm_complete_point' ) );
 		add_action( 'tm_delete_point', array( $this, 'callback_tm_delete_point' ) );
 		add_action( 'tm_edit_comment', array( $this, 'callback_tm_edit_comment' ), 10, 3 );
@@ -140,6 +141,24 @@ class Indicator_Action {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Lorsqu'on archive une tâche, enlève les ID des commentaires se trouvant dans le tableau "key_customer_ask" et dans cette tâche.
+	 *
+	 * @since   3.0.1
+	 * @version 3.0.1
+	 *
+	 * @param  Task_Model $task La tâche.
+	 * @return void
+	 */
+	public function callback_tm_unpack_task() {
+		check_ajax_referer( 'tm_unpack_task' );
+
+		$id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+		$task = Task_Class::g()->get( array( 'id' => $id ), true );
+		$task->data['status'] = 'publish';
+		Task_Class::g()->update( $task->data );
 	}
 
 	/**

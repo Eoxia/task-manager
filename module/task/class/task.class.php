@@ -1324,7 +1324,9 @@ class Task_Class extends \eoxia\Post_Class {
 			$last_update = $task->data['date']['rendered']['mysql'];
 		//}
 		$time = strtotime( 'now + 1 hour' ) - strtotime( $last_update );
-		$last_update = $this->time_elapsed( $time );
+		if ( $time > 0 ) {
+			$last_update = $this->time_elapsed( $time );
+		}
 		return $last_update;
 	}
 }

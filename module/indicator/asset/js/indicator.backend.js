@@ -21,8 +21,9 @@ window.eoxiaJS.taskManager.indicator.event = function( event ) {
 	jQuery( document ).on( 'click', '#indicator-page-listtag h2', window.eoxiaJS.taskManager.indicator.preventDefaultHeader );
 
 	jQuery( document ).on( 'click', '.select-tags-indicator .tags .wpeo-tag-search', window.eoxiaJS.taskManager.indicator.selectTag );
-	jQuery( document ).on( 'click', '.select-tags-indicator .tags .wpeo-tag-search', window.eoxiaJS.taskManager.indicator.sendRequestTagsStats )
+	jQuery( document ).on( 'click', '.select-tags-indicator .tags .wpeo-tag-search', window.eoxiaJS.taskManager.indicator.sendRequestTagsStats );
 
+	jQuery( document ).on( 'click', '.wpeo-wrap .tm-dashboard-wrap .project-archive', window.eoxiaJS.taskManager.indicator.unpackTask );
 };
 
 window.eoxiaJS.taskManager.indicator.preventDefaultHeader = function( event ){
@@ -776,3 +777,15 @@ window.eoxiaJS.taskManager.indicator.updateIndicatorTag = function( element, res
 	// jQuery( '.tm_client_indicator_update #tm_client_indicator_header_display' ).html( response.data.year );
 	// jQuery( '.tm_client_indicator_update #tm_client_indicator_header_plus' ).attr( 'data-year', response.data.year + 1 );
 }
+
+window.eoxiaJS.taskManager.indicator.unpackTask = function( event ){
+	var data = {};
+	data.action = 'tm_unpack_task';
+	data.id = jQuery( this ).data( 'id' );
+	data._wpnonce = jQuery( this ).data( 'nonce' );
+
+	window.eoxiaJS.loader.display( jQuery( this ) );
+	window.eoxiaJS.request.send( jQuery( this ), data );
+
+	jQuery( this ).closest( '.table-row' ).fadeOut(400, function() { jQuery( this ).remove(); })
+};

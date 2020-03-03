@@ -72,7 +72,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="form-element">
 		<input type="checkbox" id="include_archive" class="form-field" <?php checked( ! empty( $_GET['tm_dashboard_archives_include'] ) ? $_GET['tm_dashboard_archives_include'] : false ); ?> name="tm_dashboard_archives_include" value="include_archive">
-		<label for="include_archive"><?php esc_attr_e( 'Include archive', 'task-manager' ); ?></label>
+		<label for="include_archive"><i class="fas fa-archive"></i> <?php esc_attr_e( 'Include archive', 'task-manager' ); ?></label>
+
+		<input type="checkbox" id="include_completed_point" class="form-field">
+		<label for="include_completed_point"><i class="far fa-check-square"></i> <?php esc_attr_e( 'Include completed point', 'task-manager' ); ?></label>
+
+		<input type="checkbox" id="include_uncompleted_point" class="form-field">
+		<label for="include_uncompleted_point"><i class="far fa-square"></i> <?php esc_attr_e( 'Include uncompleted point', 'task-manager' ); ?></label>
 	</div>
 
 	<div class="search-action">
@@ -85,11 +91,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 
 	<div>
-		<a class="action-input wpeo-button button-main button-radius-2 button-size-small"
+		<a class="action-input wpeo-tooltip-event wpeo-button button-green button-radius-2 button-size-small"
 			data-parent="form"
 			data-action="load_modal_create_shortcut"
 			data-target="wpeo-modal"
-			data-title="<?php esc_html_e( 'Create shortcut', 'task-manager' ); ?>"><i class="button-icon fas fa-plus"></i>
+			aria-label="Save Shortcut"
+			data-direction="left"
+			data-title="<?php esc_html_e( 'Create shortcut', 'task-manager' ); ?>"><i class="button-icon fas fa-save"></i>
 		</a>
 	</div>
 </div>

@@ -60,26 +60,6 @@
 				<i class="fas fa-trash"></i>
 <!--				<span>--><?php //echo esc_html( 'Delete' ); ?><!--</span>-->
 			</li>
-
-			<li class="dropdown-item load-complete-point wpeo-tooltip-event"
-			    aria-label="<?php esc_html_e( 'Show uncompleted points', 'task-manager' ); ?>"
-			    data-point-state="uncompleted"
-			    data-action="load_point"
-			    data-nonce="<?php echo wp_create_nonce( 'load_point' ); ?>"
-			    data-task-id="<?php echo $data['value']; ?>">
-				<i class="button-icon far fa-square"></i>
-<!--				<span>Décomplété (<span class="point-completed">--><?php //echo esc_attr( $data['number_uncompleted_task'] ); ?><!--</span>)</span>-->
-			</li>
-
-			<li class="dropdown-item load-complete-point wpeo-tooltip-event"
-			    aria-label="<?php esc_html_e( 'Show completed points', 'task-manager' ); ?>"
-			    data-point-state="completed"
-			    data-action="load_point"
-			    data-nonce="<?php echo wp_create_nonce( 'load_point' ); ?>"
-			    data-task-id="<?php echo $data['value']; ?>">
-				<i class="button-icon far fa-check-square"></i>
-<!--				<span>Complété (<span class="point-completed">--><?php //echo esc_attr( $data['number_completed_task'] ); ?><!--</span>)</span>-->
-			</li>
 		</ul>
 	</div>
 
