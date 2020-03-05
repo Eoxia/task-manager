@@ -74,11 +74,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<input type="checkbox" id="include_archive" class="form-field" <?php checked( ! empty( $_GET['tm_dashboard_archives_include'] ) ? $_GET['tm_dashboard_archives_include'] : false ); ?> name="tm_dashboard_archives_include" value="include_archive">
 		<label for="include_archive"><i class="fas fa-archive"></i> <?php esc_attr_e( 'Include archive', 'task-manager' ); ?></label>
 
-		<input type="checkbox" id="include_completed_point" class="form-field">
-		<label for="include_completed_point"><i class="far fa-check-square"></i> <?php esc_attr_e( 'Include completed point', 'task-manager' ); ?></label>
+		<input type="checkbox" id="include_completed_task" class="form-field" <?php checked( ! empty( $_GET['tm_completed_task'] ) ? $_GET['tm_completed_task'] : false ); ?> name="tm_completed_task" value="include_completed_task">
+		<label for="include_completed_task"><i class="far fa-check-square"></i> <?php esc_attr_e( 'Include completed task', 'task-manager' ); ?></label>
 
-		<input type="checkbox" id="include_uncompleted_point" class="form-field">
-		<label for="include_uncompleted_point"><i class="far fa-square"></i> <?php esc_attr_e( 'Include uncompleted point', 'task-manager' ); ?></label>
+		<input type="checkbox" id="include_uncompleted_task" class="form-field" <?php checked( ! empty( $_GET['tm_uncompleted_task'] ) ? $_GET['tm_uncompleted_task'] : false ); ?> name="tm_uncompleted_task" value="include_completed_task">
+		<label for="include_uncompleted_task"><i class="far fa-square"></i> <?php esc_attr_e( 'Include uncompleted task', 'task-manager' ); ?></label>
 	</div>
 
 	<div class="search-action">

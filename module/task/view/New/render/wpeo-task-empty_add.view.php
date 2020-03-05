@@ -42,15 +42,6 @@
 <!--				<span>--><?php //echo esc_html( 'Download' ); ?><!--</span>-->
 			</li>
 
-			<li class="dropdown-item action-attribute wpeo-tooltip-event"
-			    aria-label="<?php esc_html_e( 'Archive', 'task-manager' ); ?>"
-			    data-id="<?php echo $data['value']; ?>"
-			    data-action="to_archive"
-			    data-nonce="<?php echo esc_attr( wp_create_nonce( 'to_archive' ) ); ?>">
-				<i class="fas fa-archive"></i>
-<!--				<span>--><?php //echo esc_html( 'Archive' ); ?><!--</span>-->
-			</li>
-
 			<li class="dropdown-item action-delete wpeo-tooltip-event"
 			    aria-label="<?php esc_html_e( 'Delete', 'task-manager' ); ?>"
 			    data-id="<?php echo $data['value']; ?>"

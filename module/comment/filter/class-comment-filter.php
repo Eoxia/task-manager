@@ -270,6 +270,12 @@ class Comment_Filter {
 		return $output;
 	}
 
+	public function fill_value_archive_value( $output, $comment ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
 	public function fill_value_name_value( $output, $comment ) {
 		$output['classes'] .= ' cell-content';
 		$output['value'] = $comment->data['content'];

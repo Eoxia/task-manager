@@ -296,12 +296,13 @@ class Task_Filter {
 
 	public function fill_value_empty_value( $output, $task ) {
 		$output['classes'] .= ' cell-toggle project-toggle-task ';
-		$output['attrs']   = array(
+
+		$output['attrs'] = array(
 			'data-id="' . $task->data['id'] . '"',
 			'data-nonce="' . wp_create_nonce( 'load_point' ) . '"',
 		);
 
-		$output['count_all_points']      = $task->data['count_all_points'];
+		$output['count_all_points'] = $task->data['count_all_points'];
 
 
 		return $output;
@@ -309,6 +310,16 @@ class Task_Filter {
 
 	public function fill_value_state_value( $output, $task ) {
 		$output['classes'] .= ' cell-readonly cell-project-status';
+
+		$output['task_id']                  = $task->data['id'];
+		$output['count_completed_points']   = $task->data['count_completed_points'];
+		$output['count_uncompleted_points'] = $task->data['count_uncompleted_points'];
+
+		return $output;
+	}
+
+	public function fill_value_archive_value( $output, $task ) {
+		$output['classes'] .= ' cell-readonly cell-project-archive';
 		$output['task_id']  = $task->data['id'];
 		$output['value']    = $task->data['status'];
 

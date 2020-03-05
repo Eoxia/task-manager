@@ -180,6 +180,12 @@ class Point_Filter {
 		return $output;
 	}
 
+	public function fill_value_archive_value( $output, $point ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
 	public function fill_value_id_value( $output, $point ) {
 		$output['classes'] .= ' cell-readonly';
 		$output['value'] = $point->data['id'];

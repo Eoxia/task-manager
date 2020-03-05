@@ -38,6 +38,7 @@ class Point_Action {
 		add_action( 'wp_ajax_move_point_to', array( $this, 'ajax_move_point_to' ) );
 		add_action( 'wp_ajax_update_statut_task', array( $this, 'update_statut_task' ) );
 
+		add_action( 'wp_ajax_update_statut_task', array( $this, 'ajax_load_task_if_user_option' ) );
 	}
 
 	/**
@@ -520,6 +521,10 @@ class Point_Action {
 				'status' => $statut
 			)
 		);
+
+	}
+
+	public function ajax_load_task_if_user_option() {
 
 	}
 }

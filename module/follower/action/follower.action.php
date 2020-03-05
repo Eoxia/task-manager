@@ -14,6 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use \eoxia\Custom_Menu_Handler as CMH;
+
 /**
  * Classe de gestion des "actions" pour les followers
  */
@@ -24,6 +26,8 @@ class Follower_Action {
 	 * Instanciation des crochets pour les "actions" utilisées par les tags
 	 */
 	public function __construct() {
+		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 40 );
+
 		add_action( 'wp_ajax_load_followers', array( $this, 'ajax_load_followers' ) );
 		add_action( 'wp_ajax_close_followers_edit_mode', array( $this, 'ajax_close_followers_edit_mode' ) );
 
@@ -58,6 +62,36 @@ class Follower_Action {
 
 		add_action( 'wp_ajax_waiting_for_affectation', array( $this, 'ajax_waiting_for_affectation' ) );
 		add_action( 'wp_ajax_waiting_for_unaffectation', array( $this, 'ajax_waiting_for_unaffectation' ) );
+
+		add_action( 'admin_init', array( $this, 'callback_reset_user_preset_columms' ) );
+
+	}
+
+	/**
+	 * Ajoutes la page 'Utilisateurs' dans le sous menu de Task Manager.
+	 *
+	 * @since 3.0.1
+	 */
+	public function callback_reset_user_preset_columms() {
+		$user_preference = get_option( 'tm_users_columns_version', true );
+
+		if ( $user_preference != \eoxia\Config_Util::$init['task-manager']->version ) {
+			$users = get_users( array( 'fields' => array( 'ID' ) ) );
+			foreach ( $users as $user_id ) {
+				update_user_meta( $user_id->ID, \eoxia\Config_Util::$init['task-manager']->follower->user_columns_key, Follower_Class::g()->default_user_columns_def );
+			}
+		}
+
+		update_option( 'tm_users_columns_version', \eoxia\Config_Util::$init['task-manager']->version );
+	}
+
+	/**
+	 * Ajoutes la page 'Utilisateurs' dans le sous menu de Task Manager.
+	 *
+	 * @since 3.0.1
+	 */
+	public function callback_admin_menu() {
+		CMH::register_menu( 'wpeomtm-dashboard', __( 'Users', 'task-manager' ), __( 'Users', 'task-manager' ), 'manage_task_manager', 'users-page', array( Follower_Class::g(), 'display' ), 'fa fa-user' );
 	}
 
 	/**
@@ -347,12 +381,14 @@ class Follower_Action {
 
 		$user                          = array( 'id' => $user_id );
 		$user['_tm_task_per_page']     = isset( $_POST['_tm_task_per_page'] ) ? (int) $_POST['_tm_task_per_page'] : 0;
+		$user['_tm_project_state']     = isset( $_POST['_tm_project_state'] ) && boolval( $_POST['_tm_project_state'] ) ? true : false;
 		$user['_tm_auto_elapsed_time'] = isset( $_POST['_tm_auto_elapsed_time'] ) && boolval( $_POST['_tm_auto_elapsed_time'] ) ? true : false;
 		$user['_tm_advanced_display']  = isset( $_POST['_tm_advanced_display'] ) && boolval( $_POST['_tm_advanced_display'] ) ? true : false;
 		$user['_tm_quick_point']       = isset( $_POST['_tm_quick_point'] ) && boolval( $_POST['_tm_quick_point'] ) ? true : false;
 		$user['_tm_display_indicator'] = isset( $_POST['_tm_display_indicator'] ) && boolval( $_POST['_tm_display_indicator'] ) ? true : false;
 
 		update_user_meta( $user_id, '_tm_task_per_page', $user['_tm_task_per_page'] );
+		update_user_meta( $user_id, '_tm_project_state', $user['_tm_project_state'] );
 		update_user_meta( $user_id, '_tm_auto_elapsed_time', $user['_tm_auto_elapsed_time'] );
 		update_user_meta( $user_id, '_tm_advanced_display', $user['_tm_advanced_display'] );
 		update_user_meta( $user_id, '_tm_quick_point', $user['_tm_quick_point'] );

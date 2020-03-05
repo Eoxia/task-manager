@@ -95,6 +95,12 @@ class Task_Class extends \eoxia\Post_Class {
 				'state' => array(
 					'icon'          => 'fas fa-check-square',
 					'title'         => __( 'State', 'task-manager' ),
+					'classes'       => 'table-125',
+					'can_be_hidden' => true,
+				),
+				'archive' => array(
+					'icon'          => 'fas fa-archive',
+					'title'         => __( 'Status', 'task-manager' ),
 					'classes'       => 'table-75',
 					'can_be_hidden' => true,
 				),
@@ -159,9 +165,9 @@ class Task_Class extends \eoxia\Post_Class {
 					'can_be_hidden' => true,
 				),
 				'number_comments' => array(
-					'icon'  => 'far fa-comment-dots',
-					'title' => __( 'Com nb', 'task-manager' ),
-					'classes' => 'table-100',
+					'icon'          => 'far fa-comment-dots',
+					'title'         => __( 'Com nb', 'task-manager' ),
+					'classes'       => 'table-100',
 					'can_be_hidden' => true,
 				),
 				'author' => array(

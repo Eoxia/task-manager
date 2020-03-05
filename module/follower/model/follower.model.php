@@ -37,6 +37,13 @@ class Follower_Model extends \eoxia\User_Model {
 			'default'   => 10,
 		);
 
+		$this->schema['_tm_project_state'] = array(
+			'type'      => 'boolean',
+			'meta_type' => 'single',
+			'field'     => '_tm_project_state',
+			'default'   => false,
+		);
+
 		$this->schema['_tm_auto_elapsed_time'] = array(
 			'type'      => 'boolean',
 			'meta_type' => 'single',

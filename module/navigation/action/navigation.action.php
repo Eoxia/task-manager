@@ -49,6 +49,8 @@ class Navigation_Action {
 		$categories_id                 = ! empty( $_POST['categories_id'] ) ? sanitize_text_field( $_POST['categories_id'] ) : '';
 		$user_id                       = ! empty( $_POST['user_id'] ) ? (int) $_POST['user_id'] : '';
 		$tm_dashboard_archives_include = ( isset( $_POST['tm_dashboard_archives_include'] ) && 'true' == $_POST['tm_dashboard_archives_include'] ) ? true : false;
+		$tm_completed_task             = ( isset( $_POST['tm_completed_task'] ) && 'true' == $_POST['tm_completed_task'] ) ? true : false;
+		$tm_uncompleted_task           = ( isset( $_POST['tm_uncompleted_task'] ) && 'true' == $_POST['tm_uncompleted_task'] ) ? true : false;
 		$status                        = 'any';
 
 		if ( $tm_dashboard_archives_include ) {
@@ -82,7 +84,18 @@ class Navigation_Action {
 					'tasks'         => $tasks_view,
 					'search_result' => $search_result_view,
 				),
-				'url' => admin_url( 'admin.php?page=wpeomtm-dashboard&term=' . $term . '&status=' . $status . '&task_id=' . $task_id . '&point_id=' . $point_id . '&post_parent=' . $post_parent . '&categories_id=' . $categories_id . '&user_id=' . $user_id . '&tm_dashboard_archives_include=' . $tm_dashboard_archives_include  ),
+				'url'              => admin_url(
+					'admin.php?page=wpeomtm-dashboard&term=' . $term
+					. '&status=' . $status
+					. '&task_id=' . $task_id
+					. '&point_id=' . $point_id
+					. '&post_parent=' . $post_parent
+					. '&categories_id=' . $categories_id
+					. '&user_id=' . $user_id
+					. '&tm_dashboard_archives_include=' . $tm_dashboard_archives_include
+					. '$tm_completed_task=' . $tm_completed_task
+					. '$tm_uncompleted_task=' . $tm_uncompleted_task
+				),
 			)
 		);
 	}

@@ -26,6 +26,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</td>
 		</tr>
 		<tr>
+			<th><label for="_tm_project_state"><?php esc_html_e( 'Display Project and Task', 'task-manager' ); ?></label></th>
+			<td>
+				<input type="checkbox" name="_tm_project_state" id="_tm_project_state" value="1" <?php checked( $user->data['_tm_project_state'], true, true ); ?>">
+				<p class="description" ><?php esc_html_e( 'Display project and task for quickly access at task in project', 'task-manager' ); ?></p>
+			</td>
+		</tr>
+		<tr>
 			<th><label for="_tm_auto_elapsed_time"><?php esc_html_e( 'Compil time automatically', 'task-manager' ); ?></label></th>
 			<td>
 				<input type="checkbox" name="_tm_auto_elapsed_time" id="_tm_auto_elapsed_time" value="1" <?php checked( $user->data['_tm_auto_elapsed_time'], true, true ); ?>>
