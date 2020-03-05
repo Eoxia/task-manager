@@ -20,7 +20,9 @@
 		"audit-page",
         "tm-my-tasks",
         "tm-dashboard",
-		"tm-notification"
+		"tm-notification",
+        "users-page"
+        
         
 	],
 	"externals": [],

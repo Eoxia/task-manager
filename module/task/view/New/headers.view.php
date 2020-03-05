@@ -64,7 +64,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php Task_Class::g()->display_bodies( $contents ); ?>
 
 	<?php
-	if ( isset( $_GET['notification'] ) && isset( $_GET['point_id'] ) && isset( $_GET['task_id'] ) ) :
+	if ( isset( $_GET['notification'] ) && isset( $_GET['point_id'] ) && isset( $_GET['task_id'] )  ) :
 		Point_Class::g()->display( $_GET['task_id'], false, 0, false );
 	endif;
 	?>
@@ -74,4 +74,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 		Task_Comment_Class::g()->display( $_GET['task_id'], $_GET['point_id'], false );
 	endif;
 	?>
+	<?php if ( get_user_meta( get_current_user_id(), '_tm_project_state', true ) == true ) :
+		if ( isset( $contents ) ) :
+			foreach ( $contents as $key => $project ) :
+				if ( $project->data['count_uncompleted_points'] > 0 ) :
+					Point_Class::g()->display( $project->data['id'], false, 0, false );
+				endif;
+			endforeach;
+		endif;
+	endif; ?>
 </div>

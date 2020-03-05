@@ -65,6 +65,8 @@ class Follower_Action {
 
 		add_action( 'admin_init', array( $this, 'callback_reset_user_preset_columms' ) );
 
+		add_action( 'wp_ajax_save_profil_task_manager', array( $this, 'callback_save_profil_task_manager' ) );
+
 	}
 
 	/**
@@ -812,6 +814,39 @@ class Follower_Action {
 				'module'           => 'follower',
 				'callback_success' => 'unaffectedFollowerSuccess',
 				'nonce'            => wp_create_nonce( 'waiting_for_affectation' ),
+			)
+		);
+	}
+
+	/**
+	 * Sauvegardes les données du menu Users onglet Profil et Update également les données dans Utilisateur de WordPress.
+	 *
+	 * @since   3.0.1
+	 * @version 3.0.1
+	 */
+	public function callback_save_profil_task_manager() {
+		check_ajax_referer( 'save_profil_task_manager' );
+
+		$task_per_page     = ! empty( $_POST['_tm_task_per_page'] ) ? sanitize_text_field( $_POST['_tm_task_per_page'] ) : '';
+		$project_state     = ( isset( $_POST['_tm_project_state'] ) && 'true' == $_POST['_tm_project_state'] ) ? true : false;
+		$auto_elapsed_time = ( isset( $_POST['_tm_auto_elapsed_time'] ) && 'true' == $_POST['_tm_auto_elapsed_time'] ) ? true : false;
+		$advanced_display  = ( isset( $_POST['_tm_advanced_display'] ) && 'true' == $_POST['_tm_advanced_display'] ) ? true : false;
+		$quick_point       = ( isset( $_POST['_tm_quick_point'] ) && 'true' == $_POST['_tm_quick_point'] ) ? true : false;
+		$display_indicator = ( isset( $_POST['_tm_display_indicator'] ) && 'true' == $_POST['_tm_display_indicator'] ) ? true : false;
+
+		update_user_meta( get_current_user_id(), '_tm_task_per_page', $task_per_page );
+		update_user_meta( get_current_user_id(), '_tm_project_state', $project_state );
+		update_user_meta( get_current_user_id(), '_tm_auto_elapsed_time', $auto_elapsed_time );
+		update_user_meta( get_current_user_id(), '_tm_advanced_display', $advanced_display );
+		update_user_meta( get_current_user_id(), '_tm_quick_point', $quick_point );
+		update_user_meta( get_current_user_id(), '_tm_display_indicator', $display_indicator );
+
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManager',
+				'module'           => 'follower',
+				'callback_success' => 'savedUsersProfile',
+				'url'              => admin_url( 'admin.php?page=users-page' ),
 			)
 		);
 	}

@@ -398,18 +398,23 @@ window.eoxiaJS.taskManager.follower.fromTimeToMinute = function fromTimeToMinute
   var hours = parseInt(timeArray[0]);
   var minutes = parseInt(timeArray[1]);
   return (hours * 60) + minutes;
-}
+};
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/**
+ * Le callback en cas de réussite à la requête Ajax "general_settings".
+ * Affiches le message de "success".
+ *
+ * @param  {HTMLDivElement} triggeredElement  L'élement HTML déclenchant la requête Ajax.
+ * @param  {Object}         response          Les données renvoyées par la requête Ajax.
+ * @return {void}
+ *
+ * @since 6.4.0
+ */
+window.eoxiaJS.taskManager.follower.savedUsersProfile = function( element, response ) {
+	element.addClass( 'button-success' );
+	setTimeout( function() {
+		element.removeClass( 'button-success' );
+	}, 1000 );
+	element.addClass( 'button-disable' );
+	element.removeClass( 'button-valid' );
+};

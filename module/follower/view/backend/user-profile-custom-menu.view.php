@@ -77,7 +77,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<span class="form-sublabel"><?php esc_html_e( 'Display indicator box', 'task-manager' ); ?></span>
 	</div>
 
-	<div class="wpeo-button button-main action-input" data-parent="wpeo-form">
-		<span><?php esc_html_e( 'Enregistrer les modifications', 'task-manager' ); ?></span>
+	<div class="wpeo-button button-green button-progress action-input button-valid" data-parent="wpeo-form">
+		<span class="button-icon fas fa-save"></span>
 	</div>
 </div>
