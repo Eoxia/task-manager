@@ -1,30 +1,44 @@
 <?php
+/**
+ * Gère l'affichage d'une ligne dans le tableau.
+ * Gères les trois types de ligne:
+ * -Projet
+ * -Task
+ * -Comment
+ *
+ * @package   Task_Manager
+ * @author    Jimmy Latour <jimmy@evarisk.com> && Nicolas Domenech <nicolas@eoxia.com>
+ * @copyright 2020 Eoxia
+ * @since     3.0.1
+ */
 
 namespace task_manager;
 
 if ( ! empty( $contents['bodies'] ) ) :
+	// Pour chaque ligne
 	foreach ( $contents['bodies'] as $key => $data_def ) :
 		$class = '';
 
-		if ( isset( $_GET['notification'] ) ) {
-			if ( isset( $_GET['comment_id'] ) && $data_def['type'] == 'comment' && $data_def['element_id'] == $_GET['comment_id'] ) {
+		if ( isset( $_GET['notification'] ) ) :
+			if ( isset( $_GET['comment_id'] ) && $data_def['type'] == 'comment' && $data_def['element_id'] == $_GET['comment_id'] ) :
 				$class = 'row-focus';
-			}
+			endif;
 
-			if ( isset( $_GET['point_id'] ) && ! isset( $_GET['comment_id'] ) && $data_def['type'] == 'point' && $data_def['element_id'] == $_GET['point_id'] ) {
+			if ( isset( $_GET['point_id'] ) && ! isset( $_GET['comment_id'] ) && $data_def['type'] == 'point' && $data_def['element_id'] == $_GET['point_id'] ) :
 				$class = 'row-focus';
-			}
+			endif;
 
-			if ( isset( $_GET['task_id'] ) && ! isset( $_GET['point_id'] ) && $data_def['type'] == 'task' && $data_def['element_id'] == $_GET['task_id'] ) {
+			if ( isset( $_GET['task_id'] ) && ! isset( $_GET['point_id'] ) && $data_def['type'] == 'task' && $data_def['element_id'] == $_GET['task_id'] ) :
 				$class = 'row-focus';
-			}
+			endif;
+		endif;
 
-		}
 		?>
 		<div class="table-row <?php echo esc_attr( $data_def['classes'] ) . ' ' . $class; ?>"
 			<?php echo ! empty( $data_def['attrs'] ) ? implode( ' ', $data_def['attrs'] ) : ''; ?>>
 
 			<?php
+			// Pour chaque colonne.
 			foreach ( $data_def['values'] as $order => $data ) :
 				?>
 				<div data-key="<?php echo esc_attr( $data['key'] ); ?>"  class="table-cell <?php echo esc_attr( $data['classes'] ); ?>"
@@ -44,47 +58,56 @@ if ( ! empty( $contents['bodies'] ) ) :
 		</div>
 	<?php
 
+	if ( $data_def['type'] == 'task' ) {
+		Point_Class::g()->display( $data_def['element_id'], false, 0, false );
+		Point_Class::g()->display( $data_def['element_id'], false, 0, true );
+	}
+
+	if ( $data_def['type'] == 'point' ) {
+		Task_Comment_Class::g()->display( $data_def['project_id'], $data_def['element_id'], false );
+	}
+
 	endforeach;
 else :
-	if ( $parent != null ) :
-		?>
-		<?php
-			if ( $parent->data['type'] == 'wpeo-task' ) {
-				$action = 'edit_point';
-				$text = __( 'No tasks yet. Add a new one', 'task-manager' );
-
-				?>
-				<div class="table-row row-empty table-type-task" data-post-id="<?php echo $parent->data['id']; ?>">
-				<p><?php echo $text; ?></p>
-				<div class="wpeo-button button-main button-square-30 button-rounded action-attribute"
-					data-parent-id="<?php echo $parent->data['id']; ?>"
-					data-action="<?php echo esc_attr( $action ); ?>"
-					data-content="<?php esc_html_e( 'New Task', 'task-manager' ); ?>"
-					data-nonce="<?php echo esc_attr( wp_create_nonce( $action ) ); ?>"
-					data-toggle="true">
-					<i class="button-icon fas fa-plus-circle second-icon"></i>
-				</div>
-				<?php
-			} else {
-				$action = 'edit_comment';
-				$text = __( 'No comments yet. Add a new one', 'task-manager' );
-				?>
-				<div class="table-row row-empty table-type-comment" data-parent-id="<?php echo $parent->data['id']; ?>" data-post-id="<?php echo $parent->data['post_id']; ?>">
-				<p><?php echo $text; ?></p>
-				<div class="wpeo-button button-main button-square-30 button-rounded action-attribute"
-				     data-post-id="<?php echo $parent->data['post_id']; ?>"
-				     data-parent-id="<?php echo $parent->data['id']; ?>"
-				     data-action="<?php echo esc_attr( $action ); ?>"
-				     data-content="<?php esc_html_e( 'New Comment', 'task-manager' ); ?>"
-				     data-nonce="<?php echo esc_attr( wp_create_nonce( $action ) ); ?>"
-					data-toggle="true">
-					<i class="button-icon fas fa-plus-circle second-icon"></i>
-				</div>
-				<?php
-			}
-
-		?>
-		</div>
-		<?php
-	endif;
+//	if ( $parent != null ) :
+//		?>
+<!--		--><?php
+//			if ( $parent->data['type'] == 'wpeo-task' ) {
+//				$action = 'edit_point';
+//				$text = __( 'No tasks yet. Add a new one', 'task-manager' );
+//
+//				?>
+<!--				<div class="table-row row-empty table-type-task" data-post-id="--><?php //echo $parent->data['id']; ?><!--">-->
+<!--				<p>--><?php //echo $text; ?><!--</p>-->
+<!--				<div class="wpeo-button button-main button-square-30 button-rounded action-attribute"-->
+<!--					data-parent-id="--><?php //echo $parent->data['id']; ?><!--"-->
+<!--					data-action="--><?php //echo esc_attr( $action ); ?><!--"-->
+<!--					data-content="--><?php //esc_html_e( 'New Task', 'task-manager' ); ?><!--"-->
+<!--					data-nonce="--><?php //echo esc_attr( wp_create_nonce( $action ) ); ?><!--"-->
+<!--					data-toggle="true">-->
+<!--					<i class="button-icon fas fa-plus-circle second-icon"></i>-->
+<!--				</div>-->
+<!--				--><?php
+//			} else {
+//				$action = 'edit_comment';
+//				$text = __( 'No comments yet. Add a new one', 'task-manager' );
+//				?>
+<!--				<div class="table-row row-empty table-type-comment" data-parent-id="--><?php //echo $parent->data['id']; ?><!--" data-post-id="--><?php //echo $parent->data['post_id']; ?><!--">-->
+<!--				<p>--><?php //echo $text; ?><!--</p>-->
+<!--				<div class="wpeo-button button-main button-square-30 button-rounded action-attribute"-->
+<!--				     data-post-id="--><?php //echo $parent->data['post_id']; ?><!--"-->
+<!--				     data-parent-id="--><?php //echo $parent->data['id']; ?><!--"-->
+<!--				     data-action="--><?php //echo esc_attr( $action ); ?><!--"-->
+<!--				     data-content="--><?php //esc_html_e( 'New Comment', 'task-manager' ); ?><!--"-->
+<!--				     data-nonce="--><?php //echo esc_attr( wp_create_nonce( $action ) ); ?><!--"-->
+<!--					data-toggle="true">-->
+<!--					<i class="button-icon fas fa-plus-circle second-icon"></i>-->
+<!--				</div>-->
+<!--				--><?php
+//			}
+//
+//		?>
+<!--		</div>-->
+<!--		--><?php
+//	endif;
 endif;

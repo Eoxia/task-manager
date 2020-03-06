@@ -157,6 +157,8 @@ class Point_Filter {
 		$output['attrs'][] = 'data-nonce="' . wp_create_nonce( 'edit_point' ) . '"';
 
 		$output['element_id'] = $point->data['id'];
+		$output['project_id'] = $point->data['post_id'];
+
 		$output['type'] = 'point';
 
 		return $output;

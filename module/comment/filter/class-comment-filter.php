@@ -252,6 +252,9 @@ class Comment_Filter {
 		$output['attrs'][] = 'data-nonce="' . wp_create_nonce( 'edit_comment' ) . '"';
 
 		$output['element_id'] = $comment->data['id'];
+		$output['project_id'] = $comment->data['post_id'];
+		$output['parent_id']  = $comment->data['parent_id'];
+
 		$output['type'] = 'comment';
 
 
