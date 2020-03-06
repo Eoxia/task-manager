@@ -303,6 +303,7 @@ class Task_Filter {
 		);
 
 		$output['count_all_points'] = $task->data['count_all_points'];
+		$output['count_uncompleted_task'] = $task->data['count_uncompleted_points'];
 
 
 		return $output;

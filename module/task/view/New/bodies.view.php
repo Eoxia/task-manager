@@ -36,13 +36,11 @@ if ( ! empty( $contents['bodies'] ) ) :
 		?>
 		<div class="table-row <?php echo esc_attr( $data_def['classes'] ) . ' ' . $class; ?>"
 			<?php echo ! empty( $data_def['attrs'] ) ? implode( ' ', $data_def['attrs'] ) : ''; ?>>
-
 			<?php
 			// Pour chaque colonne.
-			foreach ( $data_def['values'] as $order => $data ) :
-				?>
+			foreach ( $data_def['values'] as $order => $data ) : ?>
 				<div data-key="<?php echo esc_attr( $data['key'] ); ?>"  class="table-cell <?php echo esc_attr( $data['classes'] ); ?>"
-				     style="<?php echo Follower_Class::g()->user_columns_def[ $data['key'] ]['displayed'] ? '' : 'display: none;'; ?>"
+					style="<?php echo Follower_Class::g()->user_columns_def[ $data['key'] ]['displayed'] ? '' : 'display: none;'; ?>"
 					<?php echo ! empty( $data['attrs'] ) ? implode( ' ', $data['attrs'] ) : ''; ?>>
 					<?php
 					\eoxia\View_Util::exec( 'task-manager', 'task', 'New/render/' . $data['type'] . '-' . $data['key'], array(
@@ -52,21 +50,19 @@ if ( ! empty( $contents['bodies'] ) ) :
 					) );
 					?>
 				</div>
-			<?php
-			endforeach;
-			?>
+			<?php endforeach; ?>
 		</div>
-	<?php
+		<?php
+		if ( get_user_meta( get_current_user_id(), '_tm_project_state', true ) == true ) :
+			if ( $data_def['type'] == 'task' ) :
+				Point_Class::g()->display( $data_def['element_id'], false, 0, false );
+				//Point_Class::g()->display( $data_def['element_id'], false, 0, true );
+			endif;
+		endif;
 
-	if ( $data_def['type'] == 'task' ) {
-		Point_Class::g()->display( $data_def['element_id'], false, 0, false );
-		Point_Class::g()->display( $data_def['element_id'], false, 0, true );
-	}
-
-	if ( $data_def['type'] == 'point' ) {
-		Task_Comment_Class::g()->display( $data_def['project_id'], $data_def['element_id'], false );
-	}
-
+//		if ( $data_def['type'] == 'point' ) :
+//////			Task_Comment_Class::g()->display( $data_def['project_id'], $data_def['element_id'], false );
+//////		endif;
 	endforeach;
 else :
 //	if ( $parent != null ) :

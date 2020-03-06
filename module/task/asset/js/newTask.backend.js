@@ -125,14 +125,14 @@ window.eoxiaJS.taskManager.newTask.event = function() {
 			var _this = jQuery( this );
 			jQuery( this ).addClass( 'active' );
 			jQuery( this ).removeClass( 'button-transparent' ).addClass( 'button-main' );
-
+			jQuery( '.table-type-project .project-toggle-task[data-id=' + data.task_id + ']' ).find( '.fas' ).removeClass( 'fa-angle-right' ).addClass( 'fa-angle-down' );
 			jQuery.post(ajaxurl, data, function(response) {
 				window.eoxiaJS.taskManager.newPoint.loadedPointSuccess( _this, response );
 			});
 		} else {
 			jQuery(this).removeClass('active');
 			jQuery( this ).removeClass( 'button-main' ).addClass( 'button-transparent' );
-
+			jQuery( '.table-type-project .project-toggle-task[data-id=' + data.task_id + ']' ).find( '.fas' ).removeClass( 'fa-angle-down' ).addClass( 'fa-angle-right' );
 			if (data.point_state == 'completed') {
 				jQuery('.table-projects .table-type-task.task-completed[data-post-id=' + data.task_id + ']').slideUp(400, function() {
 					jQuery( this ).remove();
@@ -185,6 +185,8 @@ window.eoxiaJS.taskManager.newTask.togglePoints = function() {
 	if ( jQuery( this ).find( '.fas' ).hasClass( 'fa-angle-down' ) ) {
 
 		jQuery( this ).find( '.fas' ).removeClass( 'fa-angle-down' ).addClass( 'fa-angle-right' );
+		jQuery( '.table-type-project[data-id=' + projectID + '] .cell-project-status' ).find( '.load-complete-point[data-point-state=uncompleted]' ).removeClass( 'button-main' ).addClass( 'button-transparent' );
+		jQuery( '.table-type-project[data-id=' + projectID + '] .cell-project-status' ).find( '.load-complete-point[data-point-state=uncompleted]' ).removeClass( 'active' );
 		jQuery( '.table-type-task[data-post-id=' + projectID + ']' ).slideUp(400, function() {
 			jQuery( this ).remove();
 		});
@@ -204,6 +206,8 @@ window.eoxiaJS.taskManager.newTask.togglePoints = function() {
 		window.eoxiaJS.request.send( element, data );
 
 		jQuery( this ).find( '.fas' ).removeClass( 'fa-angle-right' ).addClass( 'fa-angle-down' );
+		jQuery( '.table-type-project[data-id=' + projectID + '] .cell-project-status' ).find( '.load-complete-point[data-point-state=uncompleted]' ).removeClass( 'button-transparent' ).addClass( 'button-main' );
+		jQuery( '.table-type-project[data-id=' + projectID + '] .cell-project-status' ).find( '.load-complete-point[data-point-state=uncompleted]' ).addClass( 'active' );
 		jQuery( '.table-type-project[data-id=' + projectID + '] .cell-sticky div[data-action="edit_point"]' ).attr( 'data-toggle', true );
 	}
 };
