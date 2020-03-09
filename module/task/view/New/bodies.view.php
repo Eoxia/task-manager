@@ -65,45 +65,45 @@ if ( ! empty( $contents['bodies'] ) ) :
 //////		endif;
 	endforeach;
 else :
-//	if ( $parent != null ) :
-//		?>
-<!--		--><?php
-//			if ( $parent->data['type'] == 'wpeo-task' ) {
-//				$action = 'edit_point';
-//				$text = __( 'No tasks yet. Add a new one', 'task-manager' );
-//
-//				?>
-<!--				<div class="table-row row-empty table-type-task" data-post-id="--><?php //echo $parent->data['id']; ?><!--">-->
-<!--				<p>--><?php //echo $text; ?><!--</p>-->
-<!--				<div class="wpeo-button button-main button-square-30 button-rounded action-attribute"-->
-<!--					data-parent-id="--><?php //echo $parent->data['id']; ?><!--"-->
-<!--					data-action="--><?php //echo esc_attr( $action ); ?><!--"-->
-<!--					data-content="--><?php //esc_html_e( 'New Task', 'task-manager' ); ?><!--"-->
-<!--					data-nonce="--><?php //echo esc_attr( wp_create_nonce( $action ) ); ?><!--"-->
-<!--					data-toggle="true">-->
-<!--					<i class="button-icon fas fa-plus-circle second-icon"></i>-->
-<!--				</div>-->
-<!--				--><?php
-//			} else {
-//				$action = 'edit_comment';
-//				$text = __( 'No comments yet. Add a new one', 'task-manager' );
-//				?>
-<!--				<div class="table-row row-empty table-type-comment" data-parent-id="--><?php //echo $parent->data['id']; ?><!--" data-post-id="--><?php //echo $parent->data['post_id']; ?><!--">-->
-<!--				<p>--><?php //echo $text; ?><!--</p>-->
-<!--				<div class="wpeo-button button-main button-square-30 button-rounded action-attribute"-->
-<!--				     data-post-id="--><?php //echo $parent->data['post_id']; ?><!--"-->
-<!--				     data-parent-id="--><?php //echo $parent->data['id']; ?><!--"-->
-<!--				     data-action="--><?php //echo esc_attr( $action ); ?><!--"-->
-<!--				     data-content="--><?php //esc_html_e( 'New Comment', 'task-manager' ); ?><!--"-->
-<!--				     data-nonce="--><?php //echo esc_attr( wp_create_nonce( $action ) ); ?><!--"-->
-<!--					data-toggle="true">-->
-<!--					<i class="button-icon fas fa-plus-circle second-icon"></i>-->
-<!--				</div>-->
-<!--				--><?php
-//			}
-//
-//		?>
-<!--		</div>-->
-<!--		--><?php
-//	endif;
+	if ( $parent != null ) :
+		?>
+		<?php
+			if ( $parent->data['type'] == 'wpeo-task' ) {
+				$action = 'edit_point';
+				$text = __( 'No tasks yet. Add a new one', 'task-manager' );
+
+				?>
+				<div class="table-row row-empty table-type-task" data-post-id="<?php echo $parent->data['id']; ?>">
+				<p><?php echo $text; ?></p>
+				<div class="wpeo-button button-main button-square-30 button-rounded action-attribute"
+					data-parent-id="<?php echo $parent->data['id']; ?>"
+					data-action="<?php echo esc_attr( $action ); ?>"
+					data-content="<?php esc_html_e( 'New Task', 'task-manager' ); ?>"
+					data-nonce="<?php echo esc_attr( wp_create_nonce( $action ) ); ?>"
+					data-toggle="true">
+					<i class="button-icon fas fa-plus-circle second-icon"></i>
+				</div>
+				<?php
+			} else {
+				$action = 'edit_comment';
+				$text = __( 'No comments yet. Add a new one', 'task-manager' );
+				?>
+				<div class="table-row row-empty table-type-comment" data-parent-id="<?php echo $parent->data['id']; ?>" data-post-id="<?php echo $parent->data['post_id']; ?>">
+				<p><?php echo $text; ?></p>
+				<div class="wpeo-button button-main button-square-30 button-rounded action-attribute"
+				     data-post-id="<?php echo $parent->data['post_id']; ?>"
+				     data-parent-id="<?php echo $parent->data['id']; ?>"
+				     data-action="<?php echo esc_attr( $action ); ?>"
+				     data-content="<?php esc_html_e( 'New Comment', 'task-manager' ); ?>"
+				     data-nonce="<?php echo esc_attr( wp_create_nonce( $action ) ); ?>"
+					data-toggle="true">
+					<i class="button-icon fas fa-plus-circle second-icon"></i>
+				</div>
+				<?php
+			}
+
+		?>
+		</div>
+		<?php
+	endif;
 endif;

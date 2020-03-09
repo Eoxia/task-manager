@@ -95,7 +95,7 @@ class Task_Class extends \eoxia\Post_Class {
 				'state' => array(
 					'icon'          => 'fas fa-check-square',
 					'title'         => __( 'State', 'task-manager' ),
-					'classes'       => 'table-125',
+					'classes'       => 'table-150',
 					'can_be_hidden' => true,
 				),
 				'archive' => array(

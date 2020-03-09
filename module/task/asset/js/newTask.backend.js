@@ -125,9 +125,12 @@ window.eoxiaJS.taskManager.newTask.event = function() {
 			var _this = jQuery( this );
 			jQuery( this ).addClass( 'active' );
 			jQuery( this ).removeClass( 'button-transparent' ).addClass( 'button-main' );
-			jQuery( '.table-type-project .project-toggle-task[data-id=' + data.task_id + ']' ).find( '.fas' ).removeClass( 'fa-angle-right' ).addClass( 'fa-angle-down' );
+			element = jQuery( '.table-type-project .project-toggle-task[data-id=' + data.task_id + ']' ).find( '.fas' ).removeClass( 'fa-angle-right' ).addClass( 'fa-angle-down' );
+			jQuery( '.table-type-project[data-id=' + data.task_id + '] .cell-sticky div[data-action="edit_point"]' ).attr( 'data-toggle', true );
+			window.eoxiaJS.loader.display( element );
 			jQuery.post(ajaxurl, data, function(response) {
 				window.eoxiaJS.taskManager.newPoint.loadedPointSuccess( _this, response );
+				element.removeClass( 'wpeo-loader' );
 			});
 		} else {
 			jQuery(this).removeClass('active');

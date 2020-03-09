@@ -12,7 +12,7 @@
 		data-point-state="uncompleted">
 		<i class="button-icon far fa-square"></i>
 	</div>
-	<span><?php echo esc_attr( $data['count_uncompleted_points'] ); ?></span>
+	<span class="count-uncompleted-tasks"><?php echo esc_attr( $data['count_uncompleted_points'] ); ?></span>
 	<div class="wpeo-button button-transparent button-square-40 load-complete-point wpeo-tooltip-event"
 		aria-label="<?php esc_html_e( 'Show completed tasks', 'task-manager' ); ?>"
 		data-action="load_point"
@@ -21,5 +21,5 @@
 		data-point-state="completed">
 		<i class="button-icon far fa-check-square"></i>
 	</div>
-	<span><?php echo esc_attr( $data['count_completed_points'] ); ?></span>
+	<span class="count-completed-tasks"><?php echo esc_attr( $data['count_completed_points'] ); ?></span>
 </div>
