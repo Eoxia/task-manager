@@ -1,6 +1,6 @@
 <?php
 /**
- * Le contenu la page "mon-compte" de WPShop.
+ * Le contenu la page "Support" de WPShop.
  *
  * @author Eoxia <dev@eoxia.com>
  * @since 1.0.0

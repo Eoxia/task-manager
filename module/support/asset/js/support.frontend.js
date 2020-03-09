@@ -45,12 +45,12 @@ window.eoxiaJS.taskManagerFrontend.frontendSupport.searchIn = function( event ) 
 
 window.eoxiaJS.taskManagerFrontend.frontendSupport.createdTicket = function( triggeredElement, response ) {
 	if ( response.data.edit ) {
-		jQuery( '.wpeo-project-task[data-id="' + response.data.task_id + '"]' ).replaceWith( response.data.task_view );
+		triggeredElement.closest( '.wpeo-project-wrap' ).find( '.tm-list-ticket .tm-project[data-id="' + response.data.project_id + '"]  .project-header' ).after( response.data.task_view );
 	} else {
-		jQuery( '.list-task' ).prepend( response.data.task_view );
+		triggeredElement.closest( '.wpeo-project-wrap' ).find( '.tm-list-ticket h3').after( response.data.project_view );
+		triggeredElement.closest( '.wpeo-project-wrap' ).find( '.tm-list-ticket .tm-project[data-id="' + response.data.project_id + '"]  .project-header' ).after( response.data.task_view );
 	}
-
-	jQuery( '.wpeo-modal .modal-container .modal-content' ).html( response.data.success_view );
+	//jQuery( '.wpeo-modal .modal-container .modal-content' ).html( response.data.success_view );
 };
 
 /**

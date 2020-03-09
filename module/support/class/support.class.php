@@ -55,6 +55,10 @@ class Support_Class extends \eoxia\Singleton_Util {
 	}
 
 	public function display_projects( $recursive ) {
+
+		global $wp;
+		$current_url = home_url( $wp->request ) . '/?account_dashboard_part=support';
+
 		$current_customer_account_to_show = $_COOKIE['wps_current_connected_customer'];
 
 		$projects = Task_Class::g()->get( array(
@@ -86,7 +90,8 @@ class Support_Class extends \eoxia\Singleton_Util {
 		}
 
 		\eoxia\View_Util::exec( 'task-manager', 'support', 'frontend/projects', array(
-			'projects' => $final_array,
+			'projects'    => $final_array,
+			'current_url' => $current_url,
 		) );
 	}
 

@@ -11,6 +11,8 @@
 
 namespace task_manager;
 
+use eoxia\View_Util;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -19,20 +21,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! empty( $projects ) ) :
 	foreach ( $projects as $project ) :
 		?>
-		<div class="tm-project">
-			<div class="project-header">
-				<span class="header-title"><i class="fas fa-hashtag"></i><?php echo esc_attr( $project->data['id'] ); ?> <?php echo esc_attr( $project->data['title'] ); ?></span>
-				<span class="header-time"><i class="far fa-clock"></i><?php echo $project->data['time_info']['elapsed'] . '/' . $project->data['last_history_time']->data['estimated_time']; ?></span>
-				<span class="header-tag"><i class="fas fa-tags"></i> <?php echo $project->readable_tag; ?></span>
-			</div>
-
+		<div class="tm-project" data-id="<?php echo esc_attr( $project->data['id'] ); ?>">
 			<?php
-			\eoxia\View_Util::exec( 'task-manager', 'support', 'frontend/tasks', array(
-				'project' => $project,
-			) );
+			View_Util::exec(
+				'task-manager',
+				'support',
+				'frontend/project-header-list',
+				array(
+					'project' => $project,
+				)
+			);
+
+			View_Util::exec(
+				'task-manager',
+				'support',
+				'frontend/tasks',
+				array(
+					'project'     => $project,
+					'current_url' => $current_url,
+				)
+			);
 			?>
 		</div>
-		<?php
-	endforeach;
-else:
-endif;
+	<?php endforeach;
+endif; ?>
