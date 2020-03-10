@@ -45,7 +45,7 @@ class Notify_Action {
 	 * @version 1.5.0
 	 */
 	public function callback_admin_menu() {
-		CMH::register_menu( 'wpeomtm-dashboard', __( 'Notification', 'task-manager' ), __( 'Notification', 'task-manager' ), 'read', 'tm-notification', array( Notify_Class::g(), 'display' ), 'fas fa-bell', '' );
+		CMH::register_menu( 'wpeomtm-dashboard', __( 'Notification', 'task-manager' ), __( 'Notification', 'task-manager' ), 'manage_task_manager', 'tm-notification', array( Notify_Class::g(), 'display' ), 'fas fa-bell', '' );
 	}
 
 	public function register_notification_type() {
