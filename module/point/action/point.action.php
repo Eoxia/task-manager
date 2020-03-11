@@ -523,10 +523,6 @@ class Point_Action {
 		);
 
 	}
-
-	public function ajax_load_task_if_user_option() {
-
-	}
 }
 
 new Point_Action();
