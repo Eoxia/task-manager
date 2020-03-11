@@ -64,11 +64,18 @@ No questions asked yet.
 
 == Changelog ==
 
-* 40777 - Fix Support Client.
-* 40717 - Fix refresh data for imporve User experience?
+= 3.0.1 =
+
+= Improvment =
+
 * 40498 - New functionnalty for State Cell
 * 40495 - New functionnality for search process.
 * 40465 - New Column Statut for manage archive Project.
+
+= Fix =
+
+* 40777 - Fix Support Client.
+* 40717 - Fix refresh data for imporve User experience.
 
 = 3.0.0 =
 
