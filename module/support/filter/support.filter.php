@@ -33,29 +33,28 @@ class Support_Filter {
 		add_filter( 'task_manager_notify_send_notification_subject', array( $this, 'callback_task_manager_notify_send_notification_subject' ), 10, 3 );
 		add_filter( 'task_manager_notify_send_notification_body', array( $this, 'callback_task_manager_notify_send_notification_body' ), 10, 3 );
 		add_filter( 'task_manager_notify_send_notification_body_administrator', array( $this, 'callback_task_manager_notify_send_notification_body_administrator' ), 10, 3 );
-		
-		add_filter( 'wps_account_navigation_items', function( $menu ) { 
+
+		add_filter( 'wps_account_navigation_items', function( $menu ) {
 			$task_manager_item = array(
 				'link'  => \wpshop\Pages::g()->get_account_link() . 'support/',
 				'icon'  => 'fas fa-tasks',
 				'title' => __( 'Support', 'wpshop' ),
 			);
-			
+
 			$logout_position = array_search( 'logout', array_keys( $menu ) );
-			
+
 			$before_menu = array_slice( $menu, 0, $logout_position, true );
 			$after_menu  = array_slice( $menu, $logout_position, count( $menu ) - 1, true );
-			
+
 			$menu = array_merge( $before_menu, array( 'support' => $task_manager_item ), $after_menu );
-						
+
 			return $menu;
 		}, 10, 1 );
-		
-		add_filter( 'wps_navigation_shortcode', function( $query_vars, $tab ) {
+		add_filter( 'wps_navigation_shortcode', function( $tab, $query_vars ) {
 			if ( array_key_exists( 'support', $query_vars ) ) {
 				$tab = 'support';
 			}
-			
+
 			return $tab;
 		}, 10, 2  );
 
@@ -86,73 +85,34 @@ class Support_Filter {
 	 */
 	public function callback_my_account_content( $output, $dashboard_part ) {
 		if ( 'support' === $dashboard_part && isset( $_COOKIE['wps_current_connected_customer'] ) ) {
-			$current_customer_account_to_show = $_COOKIE['wps_current_connected_customer'];
 
-			$tasks_id = array();
+			if ( ! empty( $_REQUEST['project_id'] ) && ! empty( $_REQUEST['task_id'] ) ) {
+				$project = Task_Class::g()->get( array( 'id' => (int) $_REQUEST['project_id'] ), true );
+				$project = Support_Class::g()->get_data( $project );
+				$task    = Point_Class::g()->get( array( 'id' => (int) $_REQUEST['task_id'] ), true );
+				$comments = Task_Comment_Class::g()->get_comments( $task->data['id'] );
 
-			$total_time_elapsed           = 0;
-			$total_time_estimated         = 0;
-			$last_modification_date       = '';
-			$last_modification_date_mysql = '';
+				ob_start();
+				\eoxia\View_Util::exec(
+					'task-manager',
+					'support',
+					'frontend/single', array(
+						'project'  => $project,
+						'task'     => $task,
+						'comments' => $comments,
+					)
+				);
 
-			$tasks = \task_manager\Task_Class::g()->get_tasks(
-				array(
-					'post_parent' => $current_customer_account_to_show,
-				)
-			);
-
-			$args = array(
-				'post_parent' => $current_customer_account_to_show,
-				'post_type'   => \eoxia\Config_Util::$init['task-manager']->associate_post_type,
-				'numberposts' => -1,
-				'post_status' => 'any',
-			);
-
-			$children = get_posts( $args );
-
-			if ( ! empty( $children ) ) {
-				foreach ( $children as $child ) {
-					$tasks = array_merge(
-						$tasks,
-						\task_manager\Task_Class::g()->get_tasks(
-							array(
-								'post_parent' => $child->ID,
-							)
-						)
-					);
-				}
+				$output = ob_get_clean();
+			} else {
+				ob_start();
+				\eoxia\View_Util::exec(
+					'task-manager',
+					'support',
+					'frontend/main'
+				);
+				$output = ob_get_clean();
 			}
-
-			if ( ! empty( $tasks ) ) {
-				foreach ( $tasks as $task ) {
-					$tasks_id[]            = $task->data['id'];
-					$total_time_elapsed   += $task->data['time_info']['elapsed'];
-					$total_time_estimated += $task->data['last_history_time']->data['estimated_time'];
-
-					if ( empty( $last_modification_date ) || ( $last_modification_date_mysql < $task->data['date_modified']['raw'] ) ) {
-						$last_modification_date_mysql = $task->data['date_modified']['raw'];
-						$last_modification_date       = $task->data['date_modified']['rendered']['date_time'];
-					}
-				}
-			}
-
-			ob_start();
-			\eoxia\View_Util::exec(
-				'task-manager',
-				'support',
-				'frontend/main',
-				array(
-					'last_modification_date' => $last_modification_date,
-					'tasks'                  => $tasks,
-					'tasks_id'               => implode( ',', $tasks_id ),
-					'parent_id'              => $current_customer_account_to_show,
-					'customer_id'            => $current_customer_account_to_show,
-					'user_id'                => get_current_user_id(),
-					'total_time_elapsed'     => $total_time_elapsed,
-					'total_time_estimated'   => $total_time_estimated,
-				)
-			);
-			$output = ob_get_clean();
 		}
 
 		return $output;

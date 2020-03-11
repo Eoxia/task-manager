@@ -47,7 +47,49 @@ class Task_Manager_Filter {
 	 * @return Array              Les données du Heartbeat ainsi que les données en cache de Task Manager.
 	 */
 	public function callback_heartbeat_send( $response, $screen_id ) {
-		$response['task_manager_data'] = \eoxia\JSON_Util::g()->open_and_decode( PLUGIN_TASK_MANAGER_PATH . 'core/assets/json/data.json' );
+		$notifications = get_posts( array(
+			'post_type'    => 'wpeo-notification',
+			'numberposts'  => 6,
+			'post_status'  => 'publish',
+			'author'       => get_current_user_id(),
+			'meta_key'   => 'read',
+			'meta_compare' => '!=',
+			'meta_value'   => 1,
+		) );
+
+		ob_start();
+		if ( ! empty( $notifications ) ) {
+			foreach ( $notifications as &$notification ) {
+				$notification = Notify_Class::g()->get_notification_data( $notification );
+				\eoxia\View_Util::exec( 'task-manager', 'notify', 'backend/page/item', array(
+					'entry' => $notification,
+				) );
+			}
+		}
+		?>
+		<div class="notification-content wpeo-grid grid-2">
+			<a href="<?php echo esc_attr( admin_url( 'admin.php?page=tm-notification' ) ); ?>">
+
+				<div class="content">
+					<div class="main-content">
+						<p>
+							<?php esc_html_e( 'See all notifications', 'task-manager' ); ?>
+						</p>
+					</div>
+				</div>
+			</a>
+
+			<a href="#" class="action-attribute" data-action="tm_notification_all_read">
+				Mark all as read
+			</a>
+		</div>
+		<?php
+		$notification_view = ob_get_clean();
+
+		$response['task_manager_data']    = \eoxia\JSON_Util::g()->open_and_decode( PLUGIN_TASK_MANAGER_PATH . 'core/assets/json/data.json' );
+		$response['number_notifications'] = count( $notifications ) > 5 ? '5+' : count( $notifications );
+		$response['notification_view']    = $notification_view;
+
 		return $response;
 	}
 

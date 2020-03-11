@@ -3,6 +3,7 @@
 	.wpeo-table.table-flex {
 		border: 0;
 		width: fit-content;
+		width: -moz-fit-content;
 		min-width: 100%;
 	}
 
@@ -50,6 +51,11 @@
 		.wpeo-button {
 			margin: 0 0.4em;
 		}
+	}
+
+	/** Ligne active */
+	.wpeo-table.table-flex .table-row:not(.table-header).row-focus {
+		box-shadow: inset 0 0 0 3px $color__primary;
 	}
 
 	/** Table cell */

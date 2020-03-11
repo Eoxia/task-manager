@@ -95,6 +95,12 @@ class Task_Class extends \eoxia\Post_Class {
 				'state' => array(
 					'icon'          => 'fas fa-check-square',
 					'title'         => __( 'State', 'task-manager' ),
+					'classes'       => 'table-150',
+					'can_be_hidden' => true,
+				),
+				'archive' => array(
+					'icon'          => 'fas fa-archive',
+					'title'         => __( 'Status', 'task-manager' ),
 					'classes'       => 'table-75',
 					'can_be_hidden' => true,
 				),
@@ -159,9 +165,9 @@ class Task_Class extends \eoxia\Post_Class {
 					'can_be_hidden' => true,
 				),
 				'number_comments' => array(
-					'icon'  => 'far fa-comment-dots',
-					'title' => __( 'Com nb', 'task-manager' ),
-					'classes' => 'table-100',
+					'icon'          => 'far fa-comment-dots',
+					'title'         => __( 'Com nb', 'task-manager' ),
+					'classes'       => 'table-100',
 					'can_be_hidden' => true,
 				),
 				'author' => array(
@@ -428,7 +434,6 @@ class Task_Class extends \eoxia\Post_Class {
 
 	public function display_bodies( $elements, $parent = null ) {
 		$user_def = Follower_Class::g()->user_columns_def;
-
 
 		if ( ! empty( $elements ) ) {
 			foreach ( $elements as $element ) {
@@ -1310,7 +1315,7 @@ class Task_Class extends \eoxia\Post_Class {
 			if( $value > 1 ) $ret[] = $value . $key . 's';
 			if( $value == 1 ) $ret[] = $value . $key;
 		}
-		array_splice( $ret, count( $ret )-1, 0, 'et' );
+		array_splice( $ret, count( $ret )-1, 0, '' );
 		return join( ' ', $ret );
 	}
 
@@ -1325,7 +1330,9 @@ class Task_Class extends \eoxia\Post_Class {
 			$last_update = $task->data['date']['rendered']['mysql'];
 		//}
 		$time = strtotime( 'now + 1 hour' ) - strtotime( $last_update );
-		$last_update = $this->time_elapsed( $time );
+		if ( $time > 0 ) {
+			$last_update = $this->time_elapsed( $time );
+		}
 		return $last_update;
 	}
 }

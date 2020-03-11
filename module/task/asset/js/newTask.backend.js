@@ -114,7 +114,7 @@ window.eoxiaJS.taskManager.newTask.event = function() {
 		return false;
 	});
 
-	jQuery( document ).on( 'click', '.table-projects .dropdown-item.load-complete-point', function( ev ) {
+	jQuery( document ).on( 'click', '.table-projects .cell-project-status .load-complete-point', function( ev ) {
 		var data         = {};
 		data.action      = 'load_point';
 		data._wpnonce    = jQuery( this ).data('nonce');
@@ -124,12 +124,18 @@ window.eoxiaJS.taskManager.newTask.event = function() {
 		if ( ! jQuery( this ).hasClass( 'active' ) ) {
 			var _this = jQuery( this );
 			jQuery( this ).addClass( 'active' );
+			jQuery( this ).removeClass( 'button-transparent' ).addClass( 'button-main' );
+			element = jQuery( '.table-type-project .project-toggle-task[data-id=' + data.task_id + ']' ).find( '.fas' ).removeClass( 'fa-angle-right' ).addClass( 'fa-angle-down' );
+			jQuery( '.table-type-project[data-id=' + data.task_id + '] .cell-sticky div[data-action="edit_point"]' ).attr( 'data-toggle', true );
+			window.eoxiaJS.loader.display( element );
 			jQuery.post(ajaxurl, data, function(response) {
 				window.eoxiaJS.taskManager.newPoint.loadedPointSuccess( _this, response );
+				element.removeClass( 'wpeo-loader' );
 			});
 		} else {
 			jQuery(this).removeClass('active');
-
+			jQuery( this ).removeClass( 'button-main' ).addClass( 'button-transparent' );
+			jQuery( '.table-type-project .project-toggle-task[data-id=' + data.task_id + ']' ).find( '.fas' ).removeClass( 'fa-angle-down' ).addClass( 'fa-angle-right' );
 			if (data.point_state == 'completed') {
 				jQuery('.table-projects .table-type-task.task-completed[data-post-id=' + data.task_id + ']').slideUp(400, function() {
 					jQuery( this ).remove();
@@ -166,6 +172,7 @@ window.eoxiaJS.taskManager.newTask.editTitle = function() {
 	data.action  = 'edit_title';
 	data.task_id = element.closest( '.table-row' ).data( 'id' );
 	data.title   = element.html();
+
 	window.eoxiaJS.loader.display( element.closest( 'div' ) );
 	window.eoxiaJS.request.send( element, data );
 };
@@ -181,6 +188,8 @@ window.eoxiaJS.taskManager.newTask.togglePoints = function() {
 	if ( jQuery( this ).find( '.fas' ).hasClass( 'fa-angle-down' ) ) {
 
 		jQuery( this ).find( '.fas' ).removeClass( 'fa-angle-down' ).addClass( 'fa-angle-right' );
+		jQuery( '.table-type-project[data-id=' + projectID + '] .cell-project-status' ).find( '.load-complete-point[data-point-state=uncompleted]' ).removeClass( 'button-main' ).addClass( 'button-transparent' );
+		jQuery( '.table-type-project[data-id=' + projectID + '] .cell-project-status' ).find( '.load-complete-point[data-point-state=uncompleted]' ).removeClass( 'active' );
 		jQuery( '.table-type-task[data-post-id=' + projectID + ']' ).slideUp(400, function() {
 			jQuery( this ).remove();
 		});
@@ -200,6 +209,8 @@ window.eoxiaJS.taskManager.newTask.togglePoints = function() {
 		window.eoxiaJS.request.send( element, data );
 
 		jQuery( this ).find( '.fas' ).removeClass( 'fa-angle-right' ).addClass( 'fa-angle-down' );
+		jQuery( '.table-type-project[data-id=' + projectID + '] .cell-project-status' ).find( '.load-complete-point[data-point-state=uncompleted]' ).removeClass( 'button-transparent' ).addClass( 'button-main' );
+		jQuery( '.table-type-project[data-id=' + projectID + '] .cell-project-status' ).find( '.load-complete-point[data-point-state=uncompleted]' ).addClass( 'active' );
 		jQuery( '.table-type-project[data-id=' + projectID + '] .cell-sticky div[data-action="edit_point"]' ).attr( 'data-toggle', true );
 	}
 };

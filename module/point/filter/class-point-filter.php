@@ -156,6 +156,11 @@ class Point_Filter {
 		$output['attrs'][] = 'data-post-id="' . $point->data['post_id'] . '"';
 		$output['attrs'][] = 'data-nonce="' . wp_create_nonce( 'edit_point' ) . '"';
 
+		$output['element_id'] = $point->data['id'];
+		$output['project_id'] = $point->data['post_id'];
+
+		$output['type'] = 'point';
+
 		return $output;
 	}
 
@@ -177,6 +182,12 @@ class Point_Filter {
 		return $output;
 	}
 
+	public function fill_value_archive_value( $output, $point ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
 	public function fill_value_id_value( $output, $point ) {
 		$output['classes'] .= ' cell-readonly';
 		$output['value'] = $point->data['id'];
@@ -186,8 +197,8 @@ class Point_Filter {
 
 	public function fill_value_last_update_value( $output, $point ) {
 		$output['classes']            .= ' task-last-update cell-readonly';
-		//$output['date_modified_mysql'] = Point_Class::g()->get_point_last_update( $point->data['post_id'] );
-		//$output['date_modified_date']  = $point->data['date']['rendered']['date'];
+//		$output['date_modified_mysql'] = Point_Class::g()->get_point_last_update( $point->data['post_id'] );
+//		$output['date_modified_date']  = $point->data['date']['rendered']['date'];
 		return $output;
 	}
 
@@ -273,7 +284,7 @@ class Point_Filter {
 	}
 
 	public function fill_value_waiting_for_value( $output, $point ) {
-		$output['classes'] .= ' cell-disabled';
+		$output['id'] = $point->data['id'];
 
 		return $output;
 	}

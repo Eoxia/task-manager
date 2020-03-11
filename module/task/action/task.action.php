@@ -113,6 +113,7 @@ class Task_Action {
 	public function admin_menu() {
 		//CMH::register_menu( __( 'My Tasks', 'task-manager' ), __( 'My Tasks', 'task-manager' ), 'read', array( ), 'fas fa-check-square', 'bottom' );
 	}
+
 	/**
 	 * Créer une tâche en utilisant le modèle Task_Model.
 	 * Renvoie la vue dans la réponse de la requête XHR.

@@ -4,7 +4,7 @@ Donate link:
 Tags: task, tasks, management, manager, collaboration, dashboard, organizer, project management, project manager, projects, task lists, task management, task manager, Time Tracking, to do, to do list, todo, todo list
 Requires at least: 4.4.0
 Tested up to: 5.3.2
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.fr.html
 
@@ -63,6 +63,12 @@ No questions asked yet.
 5. See the history
 
 == Changelog ==
+
+* 40777 - Fix Support Client.
+* 40717 - Fix refresh data for imporve User experience?
+* 40498 - New functionnalty for State Cell
+* 40495 - New functionnality for search process.
+* 40465 - New Column Statut for manage archive Project.
 
 = 3.0.0 =
 

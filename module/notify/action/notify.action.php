@@ -10,10 +10,9 @@
  */
 
 namespace task_manager;
+use \eoxia\Custom_Menu_Handler as CMH;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Les actions relatives aux notifications.
@@ -27,8 +26,30 @@ class Notify_Action {
 	 * @version 1.5.0
 	 */
 	public function __construct() {
+		add_action( 'admin_menu', array( $this, 'callback_admin_menu' ), 13 );
+
+		add_action( 'init', array( $this, 'register_notification_type' ) );
+
 		add_action( 'wp_ajax_load_notify_popup', array( $this, 'callback_load_notify_popup' ) );
 		add_action( 'wp_ajax_send_notification', array( $this, 'callback_send_notification' ) );
+
+		add_action( 'wp_ajax_tm_close_notification', array( $this, 'close_notification' ) );
+
+		add_action( 'wp_ajax_tm_notification_all_read', array( $this, 'mark_all_as_read' ) );
+	}
+
+	/**
+	 * Définition du menu "Notification" dans l'administration de WordPress.
+	 *
+	 * @since 1.0.0
+	 * @version 1.5.0
+	 */
+	public function callback_admin_menu() {
+		CMH::register_menu( 'wpeomtm-dashboard', __( 'Notification', 'task-manager' ), __( 'Notification', 'task-manager' ), 'manage_task_manager', 'tm-notification', array( Notify_Class::g(), 'display' ), 'fas fa-bell', '' );
+	}
+
+	public function register_notification_type() {
+		register_post_type( 'wpeo-notification' );
 	}
 
 	/**
@@ -195,6 +216,42 @@ class Notify_Action {
 				'callback_success' => 'sendedNotification',
 			)
 		);
+	}
+
+	public function close_notification() {
+		$id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+
+		update_post_meta( $id, 'read', true );
+
+		wp_send_json_success( array(
+			'namespace' => 'taskManager',
+			'module'    => 'notify',
+			'callback_success' => 'closedNotification'
+		) );
+	}
+
+	public function mark_all_as_read() {
+		$notifications = get_posts( array(
+			'post_type'    => 'wpeo-notification',
+			'numberposts'  => -1,
+			'post_status'  => 'publish',
+			'author'       => get_current_user_id(),
+			'meta_key'     => 'read',
+			'meta_compare' => '!=',
+			'meta_value'   => 1,
+		) );
+
+		if ( ! empty( $notifications ) ) {
+			foreach ( $notifications as $notification ) {
+				update_post_meta( $notification->ID, 'read', true );
+			}
+		}
+
+		wp_send_json_success( array(
+			'namespace' => 'taskManager',
+			'module'    => 'notify',
+			'callback_success' => 'markedAllAsRead'
+		) );
 	}
 
 }

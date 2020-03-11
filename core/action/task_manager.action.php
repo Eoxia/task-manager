@@ -10,9 +10,9 @@
  */
 
 namespace task_manager;
+use \eoxia\Custom_Menu_Handler as CMH;
 
 defined( 'ABSPATH' ) || exit;
-use \eoxia\Custom_Menu_Handler as CMH;
 
 /**
  * Les actions principales de l'application.
@@ -217,10 +217,10 @@ class Task_Manager_Action {
 	 * @version 1.5.0
 	 */
 	public function callback_admin_menu() {
-		CMH::register_container( 'Task Manager', 'Task Manager', 'read', 'wpeomtm-dashboard' );
+		CMH::register_container( 'Task Manager', 'Task Manager', 'manage_task_manager', 'wpeomtm-dashboard' );
 		CMH::add_logo( 'wpeomtm-dashboard', PLUGIN_TASK_MANAGER_URL . '/core/assets/icone.png', admin_url( 'admin.php?page=wpeomtm-dashboard' ) );
-		CMH::register_menu( 'wpeomtm-dashboard', __( 'Dashboard', 'task-manager' ), __( 'Dashboard', 'task-manager' ), 'read', 'tm-dashboard', array( Task_Manager_Class::g(), 'display_dashboard' ), 'fas fa-tachometer-alt', '' );
-		CMH::register_menu( 'wpeomtm-dashboard', __( 'Projects', 'task-manager' ), __( 'Projects', 'task-manager' ), 'read', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ), 'fas fa-thumbtack', '' );
+		CMH::register_menu( 'wpeomtm-dashboard', __( 'Dashboard', 'task-manager' ), __( 'Dashboard', 'task-manager' ), 'manage_task_manager', 'tm-dashboard', array( Task_Manager_Class::g(), 'display_dashboard' ), 'fas fa-tachometer-alt', '' );
+		CMH::register_menu( 'wpeomtm-dashboard', __( 'Projects', 'task-manager' ), __( 'Projects', 'task-manager' ), 'manage_task_manager', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ), 'fas fa-thumbtack', '' );
 		// CMH::register_menu( 'wpeomtm-dashboard', __( 'My Tasks', 'task-manager' ), __( 'My Tasks', 'task-manager' ), 'read', 'tm-my-tasks', array( Task_Manager_Class::g(), 'display' ), 'fas fa-check-square', '' );
 //		CMH::register_others_menu( 'others', 'digirisk-dashboard', __( 'DigiRisk', 'digirisk' ), __( 'DigiRisk', 'digirisk' ), 'read', 'digirisk', array( Digirisk::g(), 'display' ), PLUGIN_DIGIRISK_URL . '/core/assets/images/favicon_hd.png', 'bottom' );
 

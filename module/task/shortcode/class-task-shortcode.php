@@ -112,7 +112,7 @@ class Task_Shortcode {
 					'with_wrapper' => $with_wrapper,
 				)
 			);
-		} else {
+		} elseif ( ! empty( $tasks ) ) {
 			\eoxia\View_Util::exec(
 				'task-manager',
 				'task',
@@ -122,6 +122,12 @@ class Task_Shortcode {
 					'number_tasks' => $number_tasks,
 					'with_wrapper' => $with_wrapper,
 				)
+			);
+		} else {
+			\eoxia\View_Util::exec(
+				'task-manager',
+				'navigation',
+				'backend/search-results-empty'
 			);
 		}
 

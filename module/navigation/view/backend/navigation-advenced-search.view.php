@@ -72,24 +72,30 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="form-element">
 		<input type="checkbox" id="include_archive" class="form-field" <?php checked( ! empty( $_GET['tm_dashboard_archives_include'] ) ? $_GET['tm_dashboard_archives_include'] : false ); ?> name="tm_dashboard_archives_include" value="include_archive">
-		<label for="include_archive"><?php esc_attr_e( 'Include archive', 'task-manager' ); ?></label>
+		<label for="include_archive"><i class="fas fa-archive"></i> <?php esc_attr_e( 'Include archive', 'task-manager' ); ?></label>
+
+		<input type="checkbox" id="include_completed_task" class="form-field" <?php checked( ! empty( $_GET['tm_completed_task'] ) ? $_GET['tm_completed_task'] : false ); ?> name="tm_completed_task" value="include_completed_task">
+		<label for="include_completed_task"><i class="far fa-check-square"></i> <?php esc_attr_e( 'Include completed task', 'task-manager' ); ?></label>
+
+		<input type="checkbox" id="include_uncompleted_task" class="form-field" <?php checked( ! empty( $_GET['tm_uncompleted_task'] ) ? $_GET['tm_uncompleted_task'] : false ); ?> name="tm_uncompleted_task" value="include_completed_task">
+		<label for="include_uncompleted_task"><i class="far fa-square"></i> <?php esc_attr_e( 'Include uncompleted task', 'task-manager' ); ?></label>
 	</div>
 
-	<div class="search-action">
-		<a class="action-input search-button wpeo-button button-main button-square-40"
+	<div class="search-action" style="display: flex">
+		<a class="action-input search-button wpeo-button button-main button-square-40" style="margin-right: 10px;"
 			data-loader="form"
 			data-action="search"
 			data-parent="form">
 			<i class="fas fa-filter"></i>
 		</a>
-	</div>
 
-	<div>
-		<a class="action-input wpeo-button button-main button-radius-2 button-size-small"
+		<a class="action-input wpeo-tooltip-event wpeo-button button-main button-square-40"
 			data-parent="form"
 			data-action="load_modal_create_shortcut"
 			data-target="wpeo-modal"
-			data-title="<?php esc_html_e( 'Create shortcut', 'task-manager' ); ?>"><i class="button-icon fas fa-plus"></i>
+			aria-label="Save Shortcut"
+			data-direction="left"
+			data-title="<?php esc_html_e( 'Create shortcut', 'task-manager' ); ?>"><i class="button-icon fas fa-star"></i>
 		</a>
 	</div>
 </div>

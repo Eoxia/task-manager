@@ -11,6 +11,8 @@
 
 namespace task_manager;
 
+use eoxia\View_Util;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -29,11 +31,11 @@ class Support_Action {
 		add_action( 'wp_ajax_load_last_activity_in_support', array( $this, 'callback_load_last_activity_in_support' ) );
 
 		add_action( 'wp_token_login', array( $this, 'callback_wp_token_login' ), 11, 1 );
-		
+
 		add_action( 'wps_account_navigation_endpoint', function() {
 			add_rewrite_endpoint( 'support', EP_ALL );
 		}, 10, 0 );
-		
+
 		add_action( 'wps_account_support', function() {
 			$contact     = \wpshop\Contact::g()->get( array( 'id' => get_current_user_id() ), true );
 			$third_party = \wpshop\Third_Party::g()->get( array( 'id' => $contact->data['third_party_id'] ), true );
@@ -86,7 +88,7 @@ class Support_Action {
 				}
 			}
 
-			\eoxia\View_Util::exec(
+			View_Util::exec(
 				'task-manager',
 				'support',
 				'frontend/main',
@@ -102,6 +104,11 @@ class Support_Action {
 				)
 			);
 		} );
+
+		add_action( 'wps_account_quotations', array( $this, 'display_support' ) );
+
+		add_action( 'wp_ajax_send_response_to_customer', array( $this, 'callback_send_response_to_customer' ) );
+
 	}
 
 	/**
@@ -116,7 +123,7 @@ class Support_Action {
 		check_ajax_referer( 'open_popup_create_ticket' );
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'support', 'frontend/form-create-ticket' );
+		View_Util::exec( 'task-manager', 'support', 'frontend/form-create-ticket' );
 		wp_send_json_success(
 			array(
 				'namespace'        => 'taskManagerFrontend',
@@ -137,8 +144,10 @@ class Support_Action {
 	public function callback_create_ticket() {
 		check_ajax_referer( 'create_ticket' );
 
-		$subject     = ! empty( $_POST['subject'] ) ? sanitize_text_field( $_POST['subject'] ) : '';
-		$description = ! empty( $_POST['description'] ) ? sanitize_text_field( $_POST['description'] ) : '';
+		$current_url                      = ! empty( $_SERVER['HTTP_REFERER'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_REFERER'] ) ) : '';
+		$subject                          = ! empty( $_POST['subject'] ) ? sanitize_text_field( wp_unslash( $_POST['subject'] ) ) : '';
+		$description                      = ! empty( $_POST['description'] ) ? sanitize_text_field( wp_unslash( $_POST['description'] ) ) : '';
+		$current_customer_account_to_show = ! empty( $_COOKIE['wps_current_connected_customer'] ) ? wp_unslash( $_COOKIE['wps_current_connected_customer'] ) : '';
 
 		if ( empty( $subject ) || empty( $description ) || strlen( $subject ) > 150 ) {
 			wp_send_json_error();
@@ -146,45 +155,56 @@ class Support_Action {
 
 		global $wpdb;
 
-		$current_customer_account_to_show = $_COOKIE['wps_current_connected_customer'];
-
-		$edit      = false;
-		$list_task = $wpdb->get_results( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_name LIKE %s AND post_parent = %d", array( 'ask-task-%', $current_customer_account_to_show ) ) );
+		$edit     = false;
+		$projects = $wpdb->get_results( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_name LIKE %s AND post_parent = %d AND post_status = 'publish'", array( 'ask-task-%', $current_customer_account_to_show ) ) );
 		/** On crée la tâche */
-		if ( 0 === count( $list_task ) ) {
-			$task    = \task_manager\Task_Class::g()->update(
+		if ( 0 === count( $projects ) ) {
+			$project    = \task_manager\Task_Class::g()->update(
 				array(
 					'title'     => __( 'Ask', 'task-manager' ),
 					'slug'      => 'ask-task-' . get_current_user_id(),
 					'parent_id' => (int) $current_customer_account_to_show,
 				)
 			);
-			$task_id = $task->data['id'];
+			$project_id = $project->data['id'];
 		} else {
-			$edit    = true;
-			$task_id = $list_task[0]->ID;
+			$edit       = true;
+			$project_id = $projects[0]->ID;
 		}
-		$task = \task_manager\Task_Class::g()->get(
-			array(
-				'id' => $task_id,
-			),
-			true
-		);
 
-		$point_data = array(
+		$project   = \task_manager\Task_Class::g()->get( array( 'id' => $project_id ), true );
+
+		$project->tags = array();
+		if ( ! empty( $project->data['taxonomy'][ Tag_Class::g()->get_type() ] ) ) {
+			$project->tags = Tag_Class::g()->get(
+				array(
+					'include' => $project->data['taxonomy'][ Tag_Class::g()->get_type() ],
+				)
+			);
+		}
+
+		$project->readable_tag = '';
+
+		if ( ! empty( $project->tags ) ) {
+			foreach ( $project->tags as $tags ) {
+				$project->readable_tag .= $tags->data['name'] . ', ';
+			}
+		}
+
+		$project->readable_tag = substr( $project->readable_tag, 0, strlen( $project->readable_tag ) - 2 );
+
+		$task_data = array(
 			'content' => $subject,
-			'post_id' => (int) $task_id,
-			'order'   => (int) ( $task->data['count_uncompleted_points'] - 1 ),
+			'post_id' => (int) $project_id,
+			'order'   => (int) ( $project->data['count_uncompleted_points'] - 1 ),
 		);
 
-		$point = \task_manager\Point_Class::g()->update( $point_data );
-
-
+		$task = \task_manager\Point_Class::g()->update( $task_data );
 
 		$comment_data = array(
 			'content'        => $description,
-			'post_id'        => (int) $task_id,
-			'comment_parent' => $point->data['id'],
+			'post_id'        => (int) $project_id,
+			'comment_parent' => $task->data['id'],
 			'time_info'      => array(
 				'elapsed' => 0,
 			),
@@ -194,22 +214,43 @@ class Support_Action {
 
 		// Ajoutes une demande dans la donnée compilé.
 		do_action( 'tm_action_after_comment_update', $comment->data['id'] );
-		
+
 		ob_start();
-		require PLUGIN_TASK_MANAGER_PATH . '/module/task/view/frontend/task.view.php';
+		View_Util::exec(
+			'task-manager',
+			'support',
+			'frontend/project-header',
+			array(
+				'project' => $project,
+			)
+		);
+		$project_view = ob_get_clean();
+
+		ob_start();
+		View_Util::exec(
+			'task-manager',
+			'support',
+			'frontend/task',
+			array(
+				'project'     => $project,
+				'task'        => $task,
+				'current_url' => $current_url,
+			)
+		);
 		$task_view = ob_get_clean();
 
 		ob_start();
-		\eoxia\View_Util::exec( 'task-manager', 'support', 'frontend/created-ticket-success' );
+		View_Util::exec( 'task-manager', 'support', 'frontend/created-ticket-success' );
 		$success_view = ob_get_clean();
 
 		wp_send_json_success(
 			array(
-				'task_id'          => $task_id,
+				'project_id'       => $project_id,
 				'edit'             => $edit,
 				'namespace'        => 'taskManagerFrontend',
 				'module'           => 'frontendSupport',
 				'callback_success' => 'createdTicket',
+				'project_view'     => $project_view,
 				'task_view'        => $task_view,
 				'success_view'     => $success_view,
 			)
@@ -235,6 +276,44 @@ class Support_Action {
 		setcookie( 'wps_current_connected_customer', $customer_id, strtotime( '+30 days' ), SITECOOKIEPATH, COOKIE_DOMAIN, is_ssl() );
 	}
 
+	public function callback_send_response_to_customer() {
+		check_ajax_referer( 'send_response_to_customer' );
+
+		$project_id  = ! empty( $_POST['project_id'] ) ? (int) $_POST['project_id'] : 0;
+		$task_id     = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+		$description = ! empty( $_POST['description'] ) ? sanitize_text_field( wp_unslash( $_POST['description'] ) ) : '';
+
+		$comment_data = array(
+			'content'        => $description,
+			'post_id'        => $project_id,
+			'comment_parent' => $task_id,
+			'time_info'      => array(
+				'elapsed' => 0,
+			),
+		);
+
+		$comment = Task_Comment_Class::g()->update( $comment_data );
+
+		ob_start();
+		View_Util::exec(
+			'task-manager',
+			'support',
+			'frontend/comment',
+			array(
+				'comment' => $comment,
+			)
+		);
+		$view = ob_get_clean();
+
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManagerFrontend',
+				'module'           => 'frontendSupport',
+				'callback_success' => 'sendedResponseToSupport',
+				'view'             => $view,
+			)
+		);
+	}
 }
 
 new Support_Action();

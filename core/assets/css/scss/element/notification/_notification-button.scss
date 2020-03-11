@@ -1,0 +1,64 @@
+.tm-notification .wpeo-button {
+	.button-icon {
+		color: rgba(0,0,0,0.8);
+		@include transition;
+	}
+	&:hover .button-icon {
+		color: rgba(0,0,0,1);
+	}
+	.notification-number {
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 15px;
+		height: 15px;
+		font-size: 10px;
+		color: #fff;
+		background: $red;
+		border-radius: 50%;
+		line-height: 1.4;
+		font-weight: 600;
+		@include transition;
+		transform: scale(0.6);
+		opacity: 0;
+
+		&.notification-number-active {
+			transform: scale(1);
+			opacity: 1;
+		}
+	}
+
+	&.notification-active .button-icon {
+		animation-name: tada;
+		animation-duration: 1s;
+		z-index: 10;
+	} 
+}
+
+@keyframes tada {
+	from {
+		transform: scale3d(1, 1, 1);
+	}
+
+	10%,
+	20% {
+		transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -6deg);
+	}
+
+	30%,
+	50%,
+	70%,
+	90% {
+		transform: scale3d(1.5, 1.5, 1.5) rotate3d(0, 0, 1, 6deg);
+	}
+
+	40%,
+	60%,
+	80% {
+		transform: scale3d(1.5, 1.5, 1.5) rotate3d(0, 0, 1, -6deg);
+	}
+
+	to {
+		transform: scale3d(1, 1, 1);
+	}
+}

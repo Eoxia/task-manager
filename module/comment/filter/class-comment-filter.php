@@ -251,6 +251,12 @@ class Comment_Filter {
 		$output['attrs'][] = 'data-parent-id="' . $comment->data['parent_id'] . '"';
 		$output['attrs'][] = 'data-nonce="' . wp_create_nonce( 'edit_comment' ) . '"';
 
+		$output['element_id'] = $comment->data['id'];
+		$output['project_id'] = $comment->data['post_id'];
+		$output['parent_id']  = $comment->data['parent_id'];
+
+		$output['type'] = 'comment';
+
 
 		return $output;
 	}
@@ -262,6 +268,12 @@ class Comment_Filter {
 	}
 
 	public function fill_value_state_value( $output, $point ) {
+		$output['classes'] .= ' cell-disabled';
+
+		return $output;
+	}
+
+	public function fill_value_archive_value( $output, $comment ) {
 		$output['classes'] .= ' cell-disabled';
 
 		return $output;

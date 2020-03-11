@@ -26,7 +26,7 @@ class Navigation_Filter {
 	public function __construct() {
 		add_filter( 'tm_dashboard_header', array( $this, 'callback_display_main_search_bar' ), 10, 2 );
 		//add_filter( 'tm_dashboard_subheader', array( $this, 'callback_display_navigation_shortcut' ), 10, 2 );
-//		add_filter( 'eoxia_main_header_ul_after', array( $this, 'callback_display_header_navigation_search_bar' ), 10, 2 );
+		add_filter( 'eoxia_main_header_ul_before', array( $this, 'callback_display_header_navigation_search_bar' ), 10, 2 );
 		add_filter( 'eoxia_main_header_li', array( $this, 'callback_display_header_navigation' ), 10, 2 );
 		add_filter( 'eoxia_main_header_nav_bottom', array( $this, 'callback_display_header_navigation_bottom' ), 10, 2 );
 	}
@@ -89,27 +89,45 @@ class Navigation_Filter {
 	}
 
 	public function callback_display_header_navigation_search_bar ( $content ) {
-		/*$shortcode_final_args = '';
-		foreach ( $current_search_args as $shortcode_params_key => $shortcode_params_value ) {
-			$shortcode_final_args .= $shortcode_params_key . '="' . $shortcode_params_value . '" ';
-		}*/
+		if ( isset( $_GET['notification'] ) ) {
+			update_post_meta( (int) $_GET['notification'], 'read', 1 );
+		}
 
-		//$content .= do_shortcode( '[task_manager_search_bar ' . $shortcode_final_args . ']' );
-		if ( $_GET['page'] == "wpeomtm-dashboard" || $_GET['page'] == "tm-my-tasks" ) {
+		if ( $_GET['page'] == "wpeomtm-dashboard" || $_GET['page'] == "tm-my-tasks" || $_GET['page'] == "tm-notification" || $_GET['page'] == "tm-dashboard" || $_GET['page'] == "indicator-page"   ) {
+			$notifications = get_posts( array(
+				'post_type'    => 'wpeo-notification',
+				'numberposts'  => 6,
+				'post_status'  => 'publish',
+				'author'       => get_current_user_id(),
+				'meta_key'     => 'read',
+				'meta_compare' => '!=',
+				'meta_value'   => 1,
+			) );
+
+			if ( ! empty( $notifications ) ) {
+				foreach ( $notifications as &$notification ) {
+					$notification = Notify_Class::g()->get_notification_data( $notification );
+				}
+			}
+
 			ob_start();
 			\eoxia\View_Util::exec(
 				'task-manager',
 				'navigation',
-				'backend/navigation-header-search-bar'
+				'backend/navigation-header-search-bar',
+				array(
+					'notifications' => $notifications,
+					'number_notifications' => count( $notifications ) > 5 ? '5+' : count( $notifications ),
+				)
 			);
 			$content .= ob_get_clean();
 
-			return $content;
 		}
+			return $content;
 	}
 
 	public function callback_display_header_navigation( $content ) {
-		if ( $_GET['page'] == "wpeomtm-dashboard" ){
+		if ( 'wpeomtm-dashboard' === $_REQUEST['page'] && ! isset( $_GET['id'] ) ) {
 			ob_start();
 			\eoxia\View_Util::exec(
 				'task-manager',
@@ -117,9 +135,8 @@ class Navigation_Filter {
 				'backend/navigation-header-button'
 			);
 			$content .= ob_get_clean();
-
-			return $content;
 		}
+			return $content;
 	}
 
 	public function callback_display_header_navigation_bottom( $content ) {
@@ -149,8 +166,8 @@ class Navigation_Filter {
 			);
 			$content .= ob_get_clean();
 
-			return $content;
 		}
+			return $content;
 	}
 }
 

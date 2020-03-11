@@ -5,6 +5,8 @@
  * @version 1.6.1
  */
 window.eoxiaJS.taskManager.notify = {};
+window.eoxiaJS.taskManager.notify.oldTitle = undefined;
+window.eoxiaJS.taskManager.notify.newTitle = undefined;
 
 /**
  * Méthode 'init' obligatoire.
@@ -27,7 +29,35 @@ window.eoxiaJS.taskManager.notify.init = function() {
  * @return {void}
  */
 window.eoxiaJS.taskManager.notify.event = function() {
+	window.eoxiaJS.taskManager.notify.oldTitle = document.title;
+
 	jQuery( document ).on( 'click', '.popup-notification ul li', window.eoxiaJS.taskManager.notify.selectUser );
+
+	jQuery( document ).on( 'heartbeat-tick', function (event, data) {
+		if ( data.number_notifications > 0 ) {
+			jQuery( '.tm-notification .wpeo-button' ).removeClass( 'notification-active' ).addClass( 'notification-active' );
+			jQuery( '.tm-notification .wpeo-button .notification-number' ).addClass( 'notification-number-active' );
+
+			jQuery( '.tm-notification .dropdown-toggle .notification-number' ).text( data.number_notifications );
+			jQuery( '.tm-notification .wpeo-dropdown .dropdown-content' ).html( data.notification_view );
+
+			window.eoxiaJS.taskManager.notify.newTitle = window.eoxiaJS.taskManager.notify.oldTitle.replace('‹', '(' + data.number_notifications + ') ‹');
+			document.title = window.eoxiaJS.taskManager.notify.newTitle;
+
+			setTimeout(function () {
+				document.title = window.eoxiaJS.taskManager.notify.oldTitle;
+				setTimeout(function () {
+					document.title = window.eoxiaJS.taskManager.notify.newTitle;
+					setTimeout(function () {
+						document.title = window.eoxiaJS.taskManager.notify.oldTitle;
+						setTimeout(function () {
+							document.title = window.eoxiaJS.taskManager.notify.newTitle;
+						}, 2000);
+					}, 2000);
+				}, 2000);
+			}, 2000);
+		}
+	});
 };
 
 /**
@@ -100,4 +130,16 @@ window.eoxiaJS.taskManager.notify.sendedNotification = function( triggeredElemen
 	triggeredElement.closest( '.wpeo-modal' ).find( '.modal-close' ).click();
 
 
+};
+
+window.eoxiaJS.taskManager.notify.closedNotification = function( triggeredElement, response ) {
+	triggeredElement.closest( '.notification-content' ).fadeOut();
+};
+
+window.eoxiaJS.taskManager.notify.markedAllAsRead = function( triggeredElement, response ) {
+	jQuery( '.dropdown-content.notification-container .notification-content' ).each( function() {
+		jQuery( this ).slideUp();
+	} );
+
+	jQuery( '.tm-notification .notification-number-active' ).removeClass( 'notification-number-active' );
 };

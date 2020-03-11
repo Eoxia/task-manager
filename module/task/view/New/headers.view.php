@@ -1,12 +1,15 @@
 <?php
 /**
- * La vue principale qui s'occupe de la Navigation des EPI + Affichage du tableau et son contene.
+ * Définis le tableau principale.
  *
- * @package   TheEPI
+ * Créer la ligne du header et gère l'affichage de toutes les cellules.
+ *
+ * Appel les élements du body.
+ *
+ * @package   Task_Manager
  * @author    Jimmy Latour <jimmy@evarisk.com> && Nicolas Domenech <nicolas@eoxia.com>
- * @copyright 2019 Evarisk
- * @since     0.2.0
- * @version   0.7.0
+ * @copyright 2020 Eoxia
+ * @since     3.0.1
  */
 
 namespace task_manager;
@@ -20,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Documentation des variables utilisées dans la vue.
  *
- * @var array  $tasks    Les données des Tâches.
+ * @var array  $headers Les données du Header.
  */
 ?>
 <div class="wpeo-table table-flex table-projects">
@@ -62,4 +65,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 
 	<?php Task_Class::g()->display_bodies( $contents ); ?>
+
+<!--	--><?php
+//	if ( isset( $_GET['notification'] ) && isset( $_GET['point_id'] ) && isset( $_GET['task_id'] )  ) :
+//		Point_Class::g()->display( $_GET['task_id'], false, 0, false );
+//	endif;
+//	?>
+<!---->
+<!--	--><?php
+//	if ( isset( $_GET['notification'] ) && isset( $_GET['point_id'] ) && isset( $_GET['comment_id'] ) ) :
+//		Task_Comment_Class::g()->display( $_GET['task_id'], $_GET['point_id'], false );
+//	endif;
+//	?>
+
 </div>

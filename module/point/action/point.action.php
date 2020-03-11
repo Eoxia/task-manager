@@ -38,6 +38,7 @@ class Point_Action {
 		add_action( 'wp_ajax_move_point_to', array( $this, 'ajax_move_point_to' ) );
 		add_action( 'wp_ajax_update_statut_task', array( $this, 'update_statut_task' ) );
 
+		add_action( 'wp_ajax_update_statut_task', array( $this, 'ajax_load_task_if_user_option' ) );
 	}
 
 	/**
@@ -56,12 +57,40 @@ class Point_Action {
 		$parent_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
 		$content   = ! empty( $_POST['content'] ) ? $_POST['content'] : '';
 		$toggle    = ( isset( $_POST['toggle'] ) && 'true' == $_POST['toggle'] ) ? true : false;
+		$notif      = ( isset( $_POST['notif'] ) && ! empty( $_POST['notif'] ) ) ? $_POST['notif']  : array();
+
+
 
 		$data  = Point_Class::g()->edit_point( $point_id, $parent_id, $content, $completed );
 		$point = $data['point'];
 		$task  = $data['task'];
 
+		$first_edit_meta = '';
+
+		if ( ! empty( $point_id ) ) {
+			$first_edit_meta = get_comment_meta( $point_id, '_tm_first_edit_point', true );
+		}
+
+		if ( ! empty( $point_id ) && $first_edit_meta != -1 ) {
+			$first_edit_meta = 1;
+			update_comment_meta( $point_id, '_tm_first_edit_point', -1 );
+		}
+
 		do_action( 'tm_edit_point', $point, $task );
+
+		$task = Task_Class::g()->get( array( 'id' => $parent_id ), true );
+
+		if( ! empty( $notif ) ){
+			Notify_Class::g()->send_notification_followers_are_tags( $notif, $task->data['id'], $point->data['id'], 0 );
+		}
+
+		if ( ! empty( $task->data['user_info']['affected_id'] ) && $first_edit_meta == 1 ) {
+			foreach ( $task->data['user_info']['affected_id'] as $affected_id ) {
+				if ( $affected_id != get_current_user_id() ) {
+					Notify_Class::g()->add_notification( $affected_id, get_current_user_id(), $task->data['user_info']['affected_id'], $point->data['id'], 'point', TM_NOTIFY_CREATE_TASK );
+				}
+			}
+		}
 
 		ob_start();
 		if ( ! $toggle ) {
@@ -217,7 +246,7 @@ class Point_Action {
 	public function ajax_complete_point() {
 		check_ajax_referer( 'edit_point' );
 
-		$parent_id = ! empty( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;
+		$parent_id = ! empty( $_POST['parent_id'] ) ? (int) $_POST['parent_id'] : 0;
 		$point_id  = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
 		$complete  = ( isset( $_POST['complete'] ) && 'true' === $_POST['complete'] ) ? true : false;
 		$comment   = ( isset( $_POST['comment'] ) && 'true' === $_POST['comment'] ) ? true : false;
@@ -248,7 +277,18 @@ class Point_Action {
 				'view'             => ob_get_clean(),
 			) );
 		} else {
-			$point = Point_Class::g()->complete_point($point_id, $complete);
+			$point = Point_Class::g()->complete_point( $point_id, $complete);
+
+			$task = Task_Class::g()->get( array( 'id' => $parent_id ), true );
+
+			if ( ! empty( $task->data['user_info']['affected_id'] ) && $complete ) {
+				foreach ( $task->data['user_info']['affected_id'] as $affected_id ) {
+					if ( $affected_id != get_current_user_id() ) {
+						Notify_Class::g()->add_notification( $affected_id, get_current_user_id(), $task->data['user_info']['affected_id'], $point_id, 'point', TM_NOTIFY_ACTION_COMPLETE );
+					}
+				}
+			}
+
 			wp_send_json_success( array(
 				'completed' => $point->data['completed'],
 			) );

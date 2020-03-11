@@ -58,7 +58,7 @@ body.toplevel_page_wpeomtm-dashboard {
 @import "element/structure";
 @import "element/import/import";
 @import "element/navigation/navigation";
-@import "element/notification";
+@import "element/notification/notification";
 @import "element/export";
 @import "element/user/avatar";
 @import "element/shortcut/shortcut";
@@ -278,6 +278,20 @@ body.toplevel_page_wpeomtm-dashboard {
 		}
 	}
 }
+
+.tm-auto-complete-user .dropdown-content .dropdown-item {
+	display: flex;
+
+	> div {
+		margin-right: 20px;
+	}
+
+	div:last-child {
+		line-height: 2;
+	}
+}
+
+
 
 /*--------------------------------------------------------------
 # TMP END Jimmy

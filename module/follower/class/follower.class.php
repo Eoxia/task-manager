@@ -37,6 +37,7 @@ class Follower_Class extends \eoxia\User_Class {
 	public $default_user_columns_def;
 
 	protected function construct() {
+		// Création du preset des colonnes par défaut pour tous les utilisateurs.
 		$this->default_user_columns_def = array(
 			'empty' => array(
 				'displayed' => true,
@@ -46,74 +47,80 @@ class Follower_Class extends \eoxia\User_Class {
 				'displayed' => true,
 				'order'     => 1,
 			),
-			'name' => array(
+			'archive' => array(
 				'displayed' => true,
 				'order'     => 2,
 			),
-			'id' => array(
+			'name' => array(
 				'displayed' => true,
 				'order'     => 3,
 			),
-			'last_update' => array(
+			'id' => array(
 				'displayed' => true,
 				'order'     => 4,
 			),
-			'time' => array(
+			'last_update' => array(
 				'displayed' => true,
 				'order'     => 5,
 			),
-			'created_date' => array(
+			'time' => array(
 				'displayed' => true,
 				'order'     => 6,
 			),
-			'ended_date' => array(
+			'created_date' => array(
 				'displayed' => true,
 				'order'     => 7,
 			),
-			'affiliated_with' => array(
+			'ended_date' => array(
 				'displayed' => true,
 				'order'     => 8,
 			),
-			'categories' => array(
+			'affiliated_with' => array(
 				'displayed' => true,
 				'order'     => 9,
 			),
-			'attachments' => array(
+			'categories' => array(
 				'displayed' => true,
 				'order'     => 10,
 			),
-			'number_comments' => array(
+			'attachments' => array(
 				'displayed' => true,
 				'order'     => 11,
 			),
-			'author' => array(
+			'number_comments' => array(
 				'displayed' => true,
 				'order'     => 12,
 			),
-			'associated_users' => array(
+			'author' => array(
 				'displayed' => true,
 				'order'     => 13,
 			),
-			'participants' => array(
+			'associated_users' => array(
 				'displayed' => true,
 				'order'     => 14,
 			),
-			'waiting_for' => array(
+			'participants' => array(
 				'displayed' => true,
 				'order'     => 15,
 			),
-			'empty_add' => array(
+			'waiting_for' => array(
 				'displayed' => true,
 				'order'     => 16,
 			),
+			'empty_add' => array(
+				'displayed' => true,
+				'order'     => 17,
+			),
 		);
 
+		// Récupère le préset des colonnes pour l'Utilisateur courrant.
 		$this->user_columns_def = get_user_meta( get_current_user_id(), \eoxia\Config_Util::$init['task-manager']->follower->user_columns_key, true );
 
-		if ( empty( $this->user_columns_def ) ) {
-			$this->user_columns_def = $this->default_user_columns_def;
-		}
+		// Création des colonnes pour un Nouveau Utilisateur.
+		//Si Nouvelle colonne ajouté ( Merge le préset default dans le préset user ).
+		$this->user_columns_def = wp_parse_args( $this->user_columns_def, $this->default_user_columns_def );
 	}
+
 	/**
 	 *
 	 * Modifie les shortscuts de chaque utilisateur
@@ -148,6 +155,53 @@ class Follower_Class extends \eoxia\User_Class {
 				}
 			}
 		}
+	}
+	public function display() {
+		$default_tab = ! empty( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : 'tm-profile';
+
+		$user = $this->get( array( 'id' => get_current_user_id() ), true );
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'follower',
+			'backend/main-custom-menu',
+			array(
+				'default_tab' => $default_tab,
+				'user'        => $user,
+
+			)
+		);
+	}
+
+	public function display_user() {
+		$user = $this->get( array( 'id' => get_current_user_id(), ),true );
+
+		$data_planning = array();
+		$datebefore    = '';
+
+		$data_planning_array = get_user_meta( $user->data['id'], '_tm_planning_users', true );
+		if ( ! empty( $data_planning_array ) ) {
+
+			$data_planning = $data_planning_array[0];
+
+			foreach ( $data_planning_array as $key => $value ) {
+				if ( '' != $datebefore ) {
+					$data_planning_array[ $key ]['lastdate'] = $datebefore;
+				}
+				$datebefore = $value['date_en'];
+			}
+
+			// $data_planning_array[0] = array_reverse( $data_planning_array[0] ); // pour afficher du plus récent au plus ancien
+		}
+
+		\eoxia\View_Util::exec(
+			'task-manager',
+			'follower',
+			'backend/user-profile-custom-menu',
+			array(
+				'user' => $user,
+			)
+		);
 	}
 
 	public function create_planning_user_indicator_period( $day = 'monday', $type = 'morning' ){

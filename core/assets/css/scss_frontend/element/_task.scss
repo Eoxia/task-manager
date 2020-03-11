@@ -1,0 +1,54 @@
+.tm-task-single .task-header {
+	padding-bottom: 0.2em;
+	margin-bottom: 1.5em;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+
+	.header-nav-1 {
+		display: flex;
+
+		.project-title {
+			font-weight: 700;
+		}
+		.project-time {
+			margin-left: auto;
+		}
+		.project-tag {
+			margin-left: 0.4em;
+		}
+	}
+}
+
+.tm-task-single .tm-comment {
+	background: #fff;
+	padding: 1em;
+	border-radius: 6px;
+	margin-bottom: 0.8em;
+	border: 1px solid rgba(0,0,0,0.1);
+
+	.comment-footer {
+		display: flex;
+		margin-top: 0.5em;
+		font-size: 14px;
+
+		.comment-author {
+			margin: auto 0;
+
+			img {
+				float: left;
+				border-radius: 50%;
+				margin-right: 0.4em;
+			}
+			.author-name {
+				line-height: 30px;
+			}
+		}
+		.wpeo-button {
+			margin-left: auto;
+		}
+		.comment-time {
+			line-height: 30px;
+			margin-left: 1em;
+		}
+	}
+}
+
