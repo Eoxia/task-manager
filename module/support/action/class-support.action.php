@@ -292,17 +292,27 @@ class Support_Action {
 			),
 		);
 
-		Task_Comment_Class::g()->update( $comment_data );
+		$comment = Task_Comment_Class::g()->update( $comment_data );
 
-		wp_send_json_success();
-//		wp_send_json_success(
-//			array(
-//				'namespace'        => 'taskManagerFrontend',
-//				'module'           => 'frontendSupport',
-//				'callback_success' => 'sendedResponseToSupport',
-//			)
-//		);
+		ob_start();
+		View_Util::exec(
+			'task-manager',
+			'support',
+			'frontend/comment',
+			array(
+				'comment' => $comment,
+			)
+		);
+		$view = ob_get_clean();
 
+		wp_send_json_success(
+			array(
+				'namespace'        => 'taskManagerFrontend',
+				'module'           => 'frontendSupport',
+				'callback_success' => 'sendedResponseToSupport',
+				'view'             => $view,
+			)
+		);
 	}
 }
 

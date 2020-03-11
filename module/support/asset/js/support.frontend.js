@@ -117,3 +117,8 @@ window.eoxiaJS.taskManagerFrontend.frontendSupport.loadedLastActivity = function
 	jQuery( '.wps-section-content .popup .offset-event' ).val( response.data.offset );
 	jQuery( '.wps-section-content .popup .last-date' ).val( response.data.last_date );
 };
+
+window.eoxiaJS.taskManagerFrontend.frontendSupport.sendedResponseToSupport = function( triggeredElement, response ) {
+	triggeredElement.closest( '.wpeo-project-wrap' ).find( '.comment-new' ).after( response.data.view );
+	triggeredElement.closest( '.wpeo-project-wrap' ).find( '.comment-new textarea' ).val( '' );
+};

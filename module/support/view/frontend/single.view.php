@@ -11,9 +11,12 @@
 
 namespace task_manager;
 
+use eoxia\View_Util;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } ?>
+
 <div class="wpeo-project-wrap tm-wrap tm-task-single">
 	<input type="hidden" name="action" value="send_response_to_customer">
 	<h2><?php esc_html_e( 'Customer support', 'task-manager' ); ?></h2>
@@ -56,22 +59,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php
 	if ( ! empty( $comments ) ) :
 		foreach ( $comments as $comment ) :
-			?>
-			<div class="tm-comment">
-				<div class="comment-content">
-					<?php echo $comment->data['content']; ?>
-				</div>
-				<div class="comment-footer">
-					<div class="comment-author">
-						<?php echo get_avatar( $comment->data['author_id'], 30 ); ?>
-						<span class="author-name"><?php echo esc_html(  $comment->data['author_nicename'] ); ?>, le <?php echo esc_html( $comment->data['date']['rendered']['date_human_readable'] ); ?></span>
-					</div>
-					<div class="comment-time"><i class="far fa-clock"></i> <?php echo $comment->data['time_info']['elapsed']; ?></div>
-				</div>
-			</div>
-			<?php
+			View_Util::exec(
+				'task-manager',
+				'support',
+				'frontend/comment',
+				array(
+					'comment' => $comment,
+				)
+			);
 		endforeach;
-	else:
 	endif;
 	?>
 </div>

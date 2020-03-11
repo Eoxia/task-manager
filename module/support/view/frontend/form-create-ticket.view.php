@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="form-element">
 			<label class="form-field-container">
-				<textarea id="description" name="description" rows="1" class="form-field"><?php esc_html_e( 'A description', 'task-manager' ); ?></textarea>
+				<textarea id="description" name="description" rows="1" class="form-field" placeholder="<?php esc_html_e( 'A description', 'task-manager' ); ?>"></textarea>
 			</label>
 		</div>
 
