@@ -142,10 +142,10 @@ class Search_Bar_Shortcode {
 			'navigation',
 			'backend/navigation-advenced-search',
 			array(
-				'categories' => $categories,
-				'param'      => $param,
-				'eo_search'  => $eo_search,
-				'data'       => $data,
+				'categories'  => $categories,
+				'param'       => $param,
+				'eo_search'   => $eo_search,
+				'data'        => $data,
 			)
 		);
 

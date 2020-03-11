@@ -28,7 +28,7 @@
 					<span><?php esc_html_e( 'See all notifications', 'task-manager' ); ?></span>
 				</a>
 
-				<a href="#" data-action="tm_notification_all_read">
+				<a href="#" class="action-attribute" data-action="tm_notification_all_read">
 					<i class="fas fa-eye"></i>
 					<span>Mark all as read</span>
 				</a>

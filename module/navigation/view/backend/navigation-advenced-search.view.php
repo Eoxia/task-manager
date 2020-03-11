@@ -81,23 +81,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<label for="include_uncompleted_task"><i class="far fa-square"></i> <?php esc_attr_e( 'Include uncompleted task', 'task-manager' ); ?></label>
 	</div>
 
-	<div class="search-action">
-		<a class="action-input search-button wpeo-button button-main button-square-40"
+	<div class="search-action" style="display: flex">
+		<a class="action-input search-button wpeo-button button-main button-square-40" style="margin-right: 10px;"
 			data-loader="form"
 			data-action="search"
 			data-parent="form">
 			<i class="fas fa-filter"></i>
 		</a>
-	</div>
 
-	<div>
-		<a class="action-input wpeo-tooltip-event wpeo-button button-green button-radius-2 button-size-small"
+		<a class="action-input wpeo-tooltip-event wpeo-button button-main button-square-40"
 			data-parent="form"
 			data-action="load_modal_create_shortcut"
 			data-target="wpeo-modal"
 			aria-label="Save Shortcut"
 			data-direction="left"
-			data-title="<?php esc_html_e( 'Create shortcut', 'task-manager' ); ?>"><i class="button-icon fas fa-save"></i>
+			data-title="<?php esc_html_e( 'Create shortcut', 'task-manager' ); ?>"><i class="button-icon fas fa-star"></i>
 		</a>
 	</div>
 </div>
