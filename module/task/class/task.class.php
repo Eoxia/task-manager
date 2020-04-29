@@ -119,7 +119,7 @@ class Task_Class extends \eoxia\Post_Class {
 				'last_update' => array(
 					'icon'          => null,
 					'title'         => __( 'Last Update', 'task-manager' ),
-					'classes'       => 'table-100',
+					'classes'       => 'table-150',
 					'can_be_hidden' => true,
 				),
 				'time' => array(
@@ -191,7 +191,7 @@ class Task_Class extends \eoxia\Post_Class {
 				'waiting_for' => array(
 					'icon'          => 'fas fa-user',
 					'title'         => __( 'Waiting For', 'task-manager' ),
-					'classes'       => 'table-100',
+					'classes'       => 'table-125',
 					'can_be_hidden' => true,
 				),
 				'empty_add' => array(

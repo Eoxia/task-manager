@@ -256,8 +256,8 @@ window.eoxiaJS.taskManager.newTask.stickyAction = function( e ) {
 window.eoxiaJS.taskManager.newTask.editedColumnSuccess = function (triggeredElement, response) {
 	jQuery( '.table-header .wpeo-util-hidden' ).removeClass( 'wpeo-util-hidden' );
 
-	triggeredElement.removeClass( 'button-blue' ).addClass( 'button-green' );
-	triggeredElement.find( 'i' ).removeClass( 'fa-pencil-alt' ).addClass( 'fa-save' );
+	triggeredElement.removeClass( 'button-grey' ).addClass( 'button-green' );
+	triggeredElement.find( 'i' ).removeClass( 'fa-list' ).addClass( 'fa-save' );
 	triggeredElement.attr( 'data-action', 'tm_save_columns' );
 
 	jQuery( '.table-header .table-cell' ).attr( 'draggable', true );
@@ -280,8 +280,8 @@ window.eoxiaJS.taskManager.newTask.refreshKey = function( event ) {
 
 window.eoxiaJS.taskManager.newTask.savedColumnSuccess = function( triggeredElement, response ) {
 	jQuery( '.table-header.table-row .input-header' ).addClass( 'wpeo-util-hidden' );
-	triggeredElement.removeClass( 'button-green' ).addClass( 'button-blue' );
-	triggeredElement.find( 'i' ).removeClass( 'fa-save' ).addClass( 'fa-pencil-alt' );
+	triggeredElement.removeClass( 'button-green' ).addClass( 'button-grey' );
+	triggeredElement.find( 'i' ).removeClass( 'fa-save' ).addClass( 'fa-list' );
 	triggeredElement.attr( 'data-action', 'tm_edit_columns' );
 
 	jQuery( '.table-header .table-cell' ).attr( 'draggable', false );

@@ -58,9 +58,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			endforeach;
 		endif;
 		?>
-		<div data-parent="table-header" class="table-header-edit action-input wpeo-button button-blue button-square-30 button-rounded"
+		<div data-parent="table-header" class="table-header-edit action-input wpeo-button button-grey button-square-30 button-rounded"
 			data-action="tm_edit_columns">
-			<i class="button-icon fas fa-pencil-alt"></i>
+			<i class="button-icon fas fa-list"></i>
 		</div>
 	</div>
 
