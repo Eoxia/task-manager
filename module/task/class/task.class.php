@@ -148,7 +148,7 @@ class Task_Class extends \eoxia\Post_Class {
 				),
 				'affiliated_with' => array(
 					'icon'          => 'fas fa-link',
-					'title'         => __( 'Affiliated With', 'task-manager' ),
+					'title'         => __( 'Parent', 'task-manager' ),
 					'classes'       => 'table-250',
 					'can_be_hidden' => true,
 				),

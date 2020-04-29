@@ -381,7 +381,23 @@ class Task_Filter {
 	}
 
 	public function fill_value_ended_date_value( $output, $task ) {
-		$output['classes'] .= ' cell-end-date cell-readonly';
+		$output['classes'] .= ' wpeo-modal-event project-time';
+		$output['attrs']    = array(
+			'data-class="history-time wpeo-wrap tm-wrap"',
+			'data-action="load_time_history"',
+			'data-nonce="' . wp_create_nonce( 'load_time_history' ) . '"',
+			'data-title="' . sprintf( __( '#%1$s Time history', 'task-manager' ), $task->data['id'] ) . '"',
+			'data-task-id="' . $task->data['id'] . '"',
+		);
+
+		$state = $task->data['last_history_time']->data['custom'];
+		if ( $state == "due_date" ) {
+			$output['value'] = $task->data['last_history_time']->data['due_date']['rendered']['date'];
+		} else {
+			$output['value'] = 'mensual';
+		}
+
+
 
 		return $output;
 	}

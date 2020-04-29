@@ -70,7 +70,7 @@ else :
 		<?php
 			if ( $parent->data['type'] == 'wpeo-task' ) {
 				$action = 'edit_point';
-				$text = __( 'No tasks yet. Add a new one', 'task-manager' );
+				$text = __( 'Aucune tâche pour le moment. Ajoutez-en une', 'task-manager' );
 
 				?>
 				<div class="table-row row-empty table-type-task" data-post-id="<?php echo $parent->data['id']; ?>">
@@ -86,7 +86,7 @@ else :
 				<?php
 			} else {
 				$action = 'edit_comment';
-				$text = __( 'No comments yet. Add a new one', 'task-manager' );
+				$text = __( 'Aucun commentaire pour le moment. Ajoutez-en un', 'task-manager' );
 				?>
 				<div class="table-row row-empty table-type-comment" data-parent-id="<?php echo $parent->data['id']; ?>" data-post-id="<?php echo $parent->data['post_id']; ?>">
 				<p><?php echo $text; ?></p>

@@ -71,6 +71,7 @@ class Search_Bar_Shortcode {
 		$eo_search->register_search(
 			'tm_search_admin',
 			array(
+				'class'       => 'user-searchbar',
 				'label'        => '',
 				'icon'         => 'fa-user',
 				'type'         => 'user',
