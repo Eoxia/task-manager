@@ -374,8 +374,9 @@ class Task_Filter {
 	}
 
 	public function fill_value_created_date_value( $output, $task ) {
-		$output['classes'] .= ' project-created-date cell-readonly';
-		$output['value']    = $task->data['date']['rendered']['date_time'];
+		$output['classes'] .= ' project-created-date';
+		$output['raw']          = $task->data['date']['raw'];
+		$output['date_time']    = $task->data['date']['rendered']['date_time'];
 
 		return $output;
 	}
@@ -394,7 +395,7 @@ class Task_Filter {
 		if ( $state == "due_date" ) {
 			$output['value'] = $task->data['last_history_time']->data['due_date']['rendered']['date'];
 		} else {
-			$output['value'] = 'mensual';
+			$output['value'] = 'mensuel';
 		}
 
 

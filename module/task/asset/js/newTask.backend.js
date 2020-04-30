@@ -14,6 +14,7 @@ window.eoxiaJS.taskManager.newTask.init = function() {
 
 window.eoxiaJS.taskManager.newTask.event = function() {
 	jQuery( document ).on( 'blur', '.table-projects .table-type-project  .project-title', window.eoxiaJS.taskManager.newTask.editTitle );
+	jQuery( document ).on( 'blur', '.table-projects .table-type-project  .project-created-date', window.eoxiaJS.taskManager.newTask.editCreatedDate );
 	jQuery( document ).on( 'click', '.table-type-project .project-toggle-task', window.eoxiaJS.taskManager.newTask.togglePoints );
 	jQuery( document ).on( 'click', '.table-type-project .project-state .dropdown-item',  window.eoxiaJS.taskManager.newTask.displayState );
 	jQuery( document ).on( 'click, focus', '.list-task .table-cell div[contenteditable="true"]', function(e) {
@@ -161,6 +162,22 @@ window.eoxiaJS.taskManager.newTask.clickUsers = function() {
 	});
 }
 
+window.eoxiaJS.taskManager.newTask.editCreatedDate = function() {
+	var data = {};
+	var element;
+
+	if ( ! element ) {
+		element = jQuery( this );
+	}
+
+	data.action  = 'edit_created_date';
+	data.task_id = element.closest( '.table-row' ).data( 'id' );
+	data.created_date   = element.closest( '.table-row' ).find( '.mysql-date' ).val();
+
+	window.eoxiaJS.loader.display( element.closest( 'div' ) );
+	window.eoxiaJS.request.send( element, data );
+};
+
 window.eoxiaJS.taskManager.newTask.editTitle = function() {
 	var data = {};
 	var element;
@@ -176,6 +193,7 @@ window.eoxiaJS.taskManager.newTask.editTitle = function() {
 	window.eoxiaJS.loader.display( element.closest( 'div' ) );
 	window.eoxiaJS.request.send( element, data );
 };
+
 
 window.eoxiaJS.taskManager.newTask.togglePoints = function() {
 	const projectID = jQuery( this ).closest( '.table-row' ).data( 'id' );

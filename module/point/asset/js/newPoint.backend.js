@@ -12,6 +12,7 @@ window.eoxiaJS.taskManager.newPoint.init = function() {
 
 window.eoxiaJS.taskManager.newPoint.event = function() {
 	jQuery( document ).on( 'blur', '.table-row.table-type-task .task-title', window.eoxiaJS.taskManager.newPoint.editTitle );
+	jQuery( document ).on( 'blur', '.table-row.table-type-task  .task-created-date', window.eoxiaJS.taskManager.newPoint.editCreatedDate );
 	jQuery( document ).on( 'click', '.table-row.table-type-task .task-complete-point-field', window.eoxiaJS.taskManager.newPoint.completePoint );
 
 	jQuery( document ).on( 'click', '.table-row.table-type-task .task-toggle-comment', window.eoxiaJS.taskManager.newPoint.toggleComments );
@@ -63,6 +64,22 @@ window.eoxiaJS.taskManager.newPoint.editTitle = function() {
 	data.content   = element.html();
 
 	data.notif = window.eoxiaJS.taskManager.comment.searchFollowerInContentEditable( element );
+
+	window.eoxiaJS.loader.display( element.closest( 'div' ) );
+	window.eoxiaJS.request.send( element, data );
+};
+
+window.eoxiaJS.taskManager.newPoint.editCreatedDate = function() {
+	var data = {};
+	var element;
+
+	if ( ! element ) {
+		element = jQuery( this );
+	}
+
+	data.action  = 'edit_created_date';
+	data.id        = element.closest( '.table-row' ).data( 'id' );
+	data.created_date   = element.closest( '.table-row' ).find( '.mysql-date' ).val();
 
 	window.eoxiaJS.loader.display( element.closest( 'div' ) );
 	window.eoxiaJS.request.send( element, data );
