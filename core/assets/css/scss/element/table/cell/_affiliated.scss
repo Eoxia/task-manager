@@ -6,4 +6,22 @@
 	.wpeo-tag-wrap {
 		padding-bottom: 0;
 	}
+
+	.wpeo-task-parent {
+		display: flex;
+
+		> * {
+			margin-top: auto;
+			margin-bottom: auto;
+		}
+		.categorie-container {
+			min-width: 50px;
+		}
+		.affiliated-label {
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			max-width: 150px;
+		}
+	}
 }

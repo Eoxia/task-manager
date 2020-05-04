@@ -38,14 +38,14 @@ namespace task_manager;
   			)
   		);
 	  ?>
-	    <span><?php echo esc_attr( $postrisk->data[ 'parent' ]->data[ 'title' ] ); ?></span>
+	    <span class="affiliated-label wpeo-tooltip-event" aria-label="<?php echo esc_attr( $postrisk->data[ 'parent' ]->data[ 'title' ] ); ?>"><?php echo esc_attr( $postrisk->data[ 'parent' ]->data[ 'title' ] ); ?></span>
 
 	  <?php else: ?>
 	    <?php esc_html_e( 'Please activate Digirisk to see this parent', 'task-manager' ); ?>
 	  <?php endif; ?>
   </li>
   <li style="margin: auto auto auto 10px;">
-    <span class="wpeo-task-link tm-task-delink-parent" data-id="<?php echo esc_html( $task->data[ 'id' ] ); ?>">
+    <span class="wpeo-button button-square-30 button-rounded button-grey wpeo-task-link tm-task-delink-parent" data-id="<?php echo esc_html( $task->data[ 'id' ] ); ?>">
       <i class="fas fa-unlink"></i>
     </span>
   </li>
