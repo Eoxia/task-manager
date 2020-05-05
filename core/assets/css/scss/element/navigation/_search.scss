@@ -24,7 +24,12 @@
 	}
 
 	/** Placeholders */
-	.search-customers .field-elements {
-		content:attr(data-text);
+	.search-customers .field-elements:empty:not(:focus),
+	.search-categories .field-elements:empty:not(:focus) {
+		&::before {
+			display: block;
+			content:attr(data-text);
+			color: rgba(0,0,0,0.7);
+		}
 	}
 }

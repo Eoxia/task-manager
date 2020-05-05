@@ -1663,8 +1663,11 @@ body.eo-custom-page .content-wrap {
     max-width: 70px; }
   .tm-advanced-search .search-customers, .tm-advanced-search .user-searchbar, .tm-advanced-search .search-categories {
     max-width: 200px; }
-  .tm-advanced-search .search-customers .field-elements {
-    content: attr(data-text); }
+  .tm-advanced-search .search-customers .field-elements:empty:not(:focus)::before,
+  .tm-advanced-search .search-categories .field-elements:empty:not(:focus)::before {
+    display: block;
+    content: attr(data-text);
+    color: rgba(0, 0, 0, 0.7); }
 
 .search-results {
   display: flex;
@@ -2218,16 +2221,4 @@ body.eo-custom-page .content-wrap {
 
 /*--------------------------------------------------------------
 # TMP END Jimmy
---------------------------------------------------------------*/
-/*--------------------------------------------------------------
-# TMP START Nicolas
---------------------------------------------------------------*/
-.wpeo-wrap .search-categories .tm-filter [contenteditable=true]:empty:not(:focus):before {
-  content: attr(data-text); }
-
-.wpeo-wrap .search-customers .tm-filter-customer [contenteditable=true]:empty:not(:focus):before {
-  content: attr(data-text); }
-
-/*--------------------------------------------------------------
-# TMP END Nicolas
 --------------------------------------------------------------*/
