@@ -93,7 +93,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			data-parent="form"
 			data-action="load_modal_create_shortcut"
 			data-target="wpeo-modal"
-			aria-label="Save Shortcut"
+			aria-label="Sauvez le raccourci"
 			data-direction="left"
 			data-title="<?php esc_html_e( 'Create shortcut', 'task-manager' ); ?>"><i class="button-icon fas fa-star"></i>
 		</a>
