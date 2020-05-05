@@ -68,7 +68,8 @@ No questions asked yet.
 
 = Fix =
 
-Fix Serchbar.
+Fix Nav Menu - Add redirect to digirisk - New images.
+Fix Serchbar - New placeholder clearer.
 Fix Date.
 
 = 3.0.1 =
