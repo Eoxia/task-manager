@@ -2216,6 +2216,12 @@ body.eo-custom-page .content-wrap {
 .wpeo-wrap .user-searchbar {
   width: 15%; }
 
+.wpeo-wrap .search-categories .tm-filter [contenteditable=true]:empty:not(:focus):before {
+  content: attr(data-text); }
+
+.wpeo-wrap .search-customers .tm-filter-customer [contenteditable=true]:empty:not(:focus):before {
+  content: attr(data-text); }
+
 /*--------------------------------------------------------------
 # TMP END Nicolas
 --------------------------------------------------------------*/

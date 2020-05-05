@@ -45,11 +45,11 @@ class Follower_Class extends \eoxia\User_Class {
 			),
 			'state' => array(
 				'displayed' => true,
-				'order'     => 1,
+				'order'     => 2,
 			),
 			'archive' => array(
 				'displayed' => true,
-				'order'     => 2,
+				'order'     => 7,
 			),
 			'name' => array(
 				'displayed' => true,
@@ -57,43 +57,43 @@ class Follower_Class extends \eoxia\User_Class {
 			),
 			'id' => array(
 				'displayed' => true,
-				'order'     => 4,
+				'order'     => 1,
 			),
 			'last_update' => array(
 				'displayed' => true,
-				'order'     => 5,
+				'order'     => 8,
 			),
 			'time' => array(
 				'displayed' => true,
-				'order'     => 6,
+				'order'     => 9,
 			),
 			'created_date' => array(
 				'displayed' => true,
-				'order'     => 7,
+				'order'     => 10,
 			),
 			'ended_date' => array(
 				'displayed' => true,
-				'order'     => 8,
+				'order'     => 11,
 			),
 			'affiliated_with' => array(
 				'displayed' => true,
-				'order'     => 9,
+				'order'     => 4,
 			),
 			'categories' => array(
 				'displayed' => true,
-				'order'     => 10,
+				'order'     => 6,
 			),
 			'attachments' => array(
 				'displayed' => true,
-				'order'     => 11,
+				'order'     => 12,
 			),
 			'number_comments' => array(
 				'displayed' => true,
-				'order'     => 12,
+				'order'     => 13,
 			),
 			'author' => array(
 				'displayed' => true,
-				'order'     => 13,
+				'order'     => 5,
 			),
 			'associated_users' => array(
 				'displayed' => true,

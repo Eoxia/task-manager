@@ -308,7 +308,24 @@ body.toplevel_page_wpeomtm-dashboard {
 	.user-searchbar {
 		width: 15%;
 	}
+
+	.search-categories {
+		.tm-filter {
+			[contenteditable=true]:empty:not(:focus):before{
+				content:attr(data-text)
+			}
+		}
+	}
+	.search-customers {
+		.tm-filter-customer {
+			[contenteditable=true]:empty:not(:focus):before{
+				content:attr(data-text)
+			}
+		}
+	}
 }
+
+
 
 /*--------------------------------------------------------------
 # TMP END Nicolas

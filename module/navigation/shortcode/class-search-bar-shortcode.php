@@ -78,7 +78,7 @@ class Search_Bar_Shortcode {
 				'name'         => 'user_id',
 				'hidden_value' => $data['user_id'],
 				'value'        => $user_display,
-				'placeholder'  => 'Users',
+				'placeholder'  => 'Auteur',
 				'args'         => array(
 					'role' => 'administrator',
 				),

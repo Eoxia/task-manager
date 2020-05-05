@@ -41,7 +41,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					endif;
                     ?>
 
-					<div class="content tm-filter tm-filter-customer field-elements" contenteditable="true" style="width: 100%"></div>
+					<div class="content tm-filter tm-filter-customer field-elements" contenteditable="true" data-text="Parent" style="width: 100%"></div>
 				</div>
 
 				<ul class="dropdown-content dropdown-customers">
