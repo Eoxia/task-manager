@@ -1650,12 +1650,21 @@ body.eo-custom-page .content-wrap {
   background: rgba(0, 0, 0, 0.05);
   padding: 0.5em;
   display: flex;
-  flex-wrap: nowrap; }
+  flex-wrap: nowrap;
+  /** Placeholders */ }
   .tm-advanced-search .form-element {
     padding: 0.5em; }
   .tm-advanced-search .search-action {
     margin: auto;
     padding: 0.5em; }
+  .tm-advanced-search .header-searchbar {
+    min-width: 200px; }
+  .tm-advanced-search .search-archives {
+    max-width: 70px; }
+  .tm-advanced-search .search-customers, .tm-advanced-search .user-searchbar, .tm-advanced-search .search-categories {
+    max-width: 200px; }
+  .tm-advanced-search .search-customers .field-elements {
+    content: attr(data-text); }
 
 .search-results {
   display: flex;
@@ -2213,9 +2222,6 @@ body.eo-custom-page .content-wrap {
 /*--------------------------------------------------------------
 # TMP START Nicolas
 --------------------------------------------------------------*/
-.wpeo-wrap .user-searchbar {
-  width: 15%; }
-
 .wpeo-wrap .search-categories .tm-filter [contenteditable=true]:empty:not(:focus):before {
   content: attr(data-text); }
 

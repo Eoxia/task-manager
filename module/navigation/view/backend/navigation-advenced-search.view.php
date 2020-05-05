@@ -16,14 +16,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <div class="tm-advanced-search form wpeo-form form-light" action="<?php echo esc_attr( admin_url( 'admin-ajax.php' ) ); ?>" method="POST">
-	<div class="form-element header-searchbar" style="width: 40%">
+	<div class="form-element header-searchbar">
 		<label class="general-search form-field-container">
 			<span class="form-field-icon-prev"><i class="fas fa-search"></i></span>
 			<input type="text" class="form-field" name="term"  value="<?php echo esc_attr( $param['term'] ); ?>" placeholder="<?php echo esc_html_e( 'Search', 'task-manager' ); ?>"/>
 		</label>
 	</div>
 
-	<div class="form-element search-customers tm-search " style="width: 15%">
+	<div class="form-element search-customers tm-search ">
 		<label class="form-field-container">
 			<span class="form-field-icon-prev"><i class="fas fa-link"></i></span>
 			<div class="wpeo-dropdown dropdown-right">
@@ -53,7 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php $eo_search->display( 'tm_search_admin' ); ?>
 
-	<div class="form-element search-categories tm-search " style="width: 15%">
+	<div class="form-element search-categories tm-search ">
 		<label class="form-field-container">
 			<span class="form-field-icon-prev"><i class="fas fa-tag"></i></span>
 			<?php
@@ -70,7 +70,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</label>
 	</div>
 
-	<div class="form-element" style="display: grid">
+	<div class="form-element search-archives" style="display: grid">
 		<input type="checkbox" id="include_archive" class="form-field" <?php checked( ! empty( $_GET['tm_dashboard_archives_include'] ) ? $_GET['tm_dashboard_archives_include'] : false ); ?> name="tm_dashboard_archives_include" value="include_archive">
 		<label for="include_archive"><i class="fas fa-archive wpeo-tooltip-event" aria-label="<?php esc_attr_e( 'Include archive', 'task-manager' ); ?>"></i> </label>
 
