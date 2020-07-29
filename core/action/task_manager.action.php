@@ -217,11 +217,11 @@ class Task_Manager_Action {
 	 * @version 1.5.0
 	 */
 	public function callback_admin_menu() {
-		CMH::register_container( 'Task Manager', 'Task Manager', 'manage_task_manager', 'wpeomtm-dashboard' );
+		CMH::register_container( 'Task Manager', 'Task Manager', 'manage_task_manager', 'wpeomtm-dashboard', '', PLUGIN_TASK_MANAGER_URL . '/core/assets/images/icone-16-16-couleur.png', null );
 		CMH::add_logo( 'wpeomtm-dashboard', PLUGIN_TASK_MANAGER_URL . '/core/assets/images/icone.png', admin_url( 'admin.php?page=wpeomtm-dashboard' ) );
-		CMH::register_menu( 'wpeomtm-dashboard', __( 'Task Manager', 'task-manager' ), __( 'Task Manager', 'task-manager' ), 'manage_task_manager', 'tm-dashboard', array( Task_Manager_Class::g(), 'display_dashboard' ), PLUGIN_TASK_MANAGER_URL . 'core/assets/images/icone-16-16-couleur.png', '' );
+		CMH::register_menu( 'wpeomtm-dashboard', __( 'Task Manager', 'task-manager' ), __( 'Task Manager', 'task-manager' ), 'manage_task_manager', 'tm-dashboard', array( Task_Manager_Class::g(), 'display_dashboard' ), PLUGIN_TASK_MANAGER_URL . 'core/assets/images/icone-16-16-couleur.png');
 		CMH::register_menu( 'wpeomtm-dashboard', __( 'Projects', 'task-manager' ), __( 'Projects', 'task-manager' ), 'manage_task_manager', 'wpeomtm-dashboard', array( Task_Manager_Class::g(), 'display' ), 'fas fa-thumbtack', '' );
-		if ( is_plugin_active( 'Digirisk/digirisk.php' || 'digirisk/digirisk.php' ) ) {
+		if ( isset( \eoxia\Config_Util::$init['digirisk'] ) ) {
 			CMH::register_others_menu( 'others', 'wpeomtm-dashboard', __( 'DigiRisk', 'digirisk' ), __( 'DigiRisk', 'digirisk' ), 'read', 'digirisk', array( \digi\Digirisk::g(), 'display' ),  PLUGIN_DIGIRISK_URL . '/core/assets/images/favicon2.png', 'bottom' );
 		}
 		// CMH::register_menu( 'wpeomtm-dashboard', __( 'My Tasks', 'task-manager' ), __( 'My Tasks', 'task-manager' ), 'read', 'tm-my-tasks', array( Task_Manager_Class::g(), 'display' ), 'fas fa-check-square', '' );
