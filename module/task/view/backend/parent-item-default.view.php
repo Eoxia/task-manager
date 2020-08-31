@@ -20,7 +20,7 @@
     </i>
   </li>
   <li style="margin-left: 10px;">
-    <span class="wpeo-task-link tm-task-delink-parent" data-id="<?php echo esc_html( $task->data[ 'id' ] ); ?>">
+    <span class="wpeo-button button-square-30 button-rounded button-grey wpeo-task-link tm-task-delink-parent" data-id="<?php echo esc_html( $task->data[ 'id' ] ); ?>">
       <i class="fas fa-unlink"></i>
     </span>
   </li>

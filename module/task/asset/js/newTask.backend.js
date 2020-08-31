@@ -14,6 +14,7 @@ window.eoxiaJS.taskManager.newTask.init = function() {
 
 window.eoxiaJS.taskManager.newTask.event = function() {
 	jQuery( document ).on( 'blur', '.table-projects .table-type-project  .project-title', window.eoxiaJS.taskManager.newTask.editTitle );
+	jQuery( document ).on( 'blur', '.table-projects .table-type-project  .project-created-date', window.eoxiaJS.taskManager.newTask.editCreatedDate );
 	jQuery( document ).on( 'click', '.table-type-project .project-toggle-task', window.eoxiaJS.taskManager.newTask.togglePoints );
 	jQuery( document ).on( 'click', '.table-type-project .project-state .dropdown-item',  window.eoxiaJS.taskManager.newTask.displayState );
 	jQuery( document ).on( 'click, focus', '.list-task .table-cell div[contenteditable="true"]', function(e) {
@@ -161,6 +162,22 @@ window.eoxiaJS.taskManager.newTask.clickUsers = function() {
 	});
 }
 
+window.eoxiaJS.taskManager.newTask.editCreatedDate = function() {
+	var data = {};
+	var element;
+
+	if ( ! element ) {
+		element = jQuery( this );
+	}
+
+	data.action  = 'edit_created_date';
+	data.task_id = element.closest( '.table-row' ).data( 'id' );
+	data.created_date   = element.closest( '.table-row' ).find( '.mysql-date' ).val();
+
+	window.eoxiaJS.loader.display( element.closest( 'div' ) );
+	window.eoxiaJS.request.send( element, data );
+};
+
 window.eoxiaJS.taskManager.newTask.editTitle = function() {
 	var data = {};
 	var element;
@@ -176,6 +193,7 @@ window.eoxiaJS.taskManager.newTask.editTitle = function() {
 	window.eoxiaJS.loader.display( element.closest( 'div' ) );
 	window.eoxiaJS.request.send( element, data );
 };
+
 
 window.eoxiaJS.taskManager.newTask.togglePoints = function() {
 	const projectID = jQuery( this ).closest( '.table-row' ).data( 'id' );
@@ -256,8 +274,8 @@ window.eoxiaJS.taskManager.newTask.stickyAction = function( e ) {
 window.eoxiaJS.taskManager.newTask.editedColumnSuccess = function (triggeredElement, response) {
 	jQuery( '.table-header .wpeo-util-hidden' ).removeClass( 'wpeo-util-hidden' );
 
-	triggeredElement.removeClass( 'button-blue' ).addClass( 'button-green' );
-	triggeredElement.find( 'i' ).removeClass( 'fa-pencil-alt' ).addClass( 'fa-save' );
+	triggeredElement.removeClass( 'button-grey' ).addClass( 'button-green' );
+	triggeredElement.find( 'i' ).removeClass( 'fa-list' ).addClass( 'fa-save' );
 	triggeredElement.attr( 'data-action', 'tm_save_columns' );
 
 	jQuery( '.table-header .table-cell' ).attr( 'draggable', true );
@@ -280,8 +298,8 @@ window.eoxiaJS.taskManager.newTask.refreshKey = function( event ) {
 
 window.eoxiaJS.taskManager.newTask.savedColumnSuccess = function( triggeredElement, response ) {
 	jQuery( '.table-header.table-row .input-header' ).addClass( 'wpeo-util-hidden' );
-	triggeredElement.removeClass( 'button-green' ).addClass( 'button-blue' );
-	triggeredElement.find( 'i' ).removeClass( 'fa-save' ).addClass( 'fa-pencil-alt' );
+	triggeredElement.removeClass( 'button-green' ).addClass( 'button-grey' );
+	triggeredElement.find( 'i' ).removeClass( 'fa-save' ).addClass( 'fa-list' );
 	triggeredElement.attr( 'data-action', 'tm_edit_columns' );
 
 	jQuery( '.table-header .table-cell' ).attr( 'draggable', false );

@@ -37,6 +37,7 @@ class Task_Action {
 		add_action( 'wp_ajax_delete_task', array( $this, 'callback_delete_task' ) );
 
 		add_action( 'wp_ajax_edit_title', array( $this, 'callback_edit_title' ) );
+		add_action( 'wp_ajax_edit_created_date', array( $this, 'callback_edit_created_date' ) );
 
 		add_action( 'wp_ajax_change_color', array( $this, 'callback_change_color' ) );
 
@@ -226,6 +227,37 @@ class Task_Action {
 		);
 		$task->data['title'] = $title;
 		$task->data['slug']  = sanitize_title( $title );
+
+		Task_Class::g()->update( $task->data );
+		wp_send_json_success();
+	}
+
+	/**
+	 * Change la date de création d'un projet.
+	 *
+	 * @return void
+	 *
+	 * @since 3.0.2
+	 * @version 3.0.2
+	 */
+	public function callback_edit_created_date() {
+//		check_ajax_referer( 'edit_created_date' );
+
+		$task_id = ! empty( $_POST['task_id'] ) ? (int) $_POST['task_id'] : 0;
+		$created_date   = ! empty( $_POST['created_date'] ) ?  sanitize_text_field( $_POST['created_date'] ) : current_time( 'mysql' );
+
+		if ( empty( $task_id ) ) {
+			wp_send_json_error();
+		}
+
+		$task = Task_Class::g()->get(
+			array(
+				'id' => $task_id,
+			),
+			true
+		);
+
+		$task->data['date'] = $created_date;
 
 		Task_Class::g()->update( $task->data );
 		wp_send_json_success();

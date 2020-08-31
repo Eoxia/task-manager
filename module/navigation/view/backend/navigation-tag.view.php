@@ -30,9 +30,7 @@ defined( 'ABSPATH' ) || exit; ?>
 			endforeach;
 		endif;
 		?>
-		<div class="content tm-filter field-elements" contenteditable="true" style="width: 100%">
-
-		</div>
+		<div class="content tm-filter field-elements" contenteditable=true data-text="Categories" style="width: 100%"></div>
 	</div>
 	<ul class="dropdown-content dropdown-categories">
 		<?php

@@ -71,13 +71,14 @@ class Search_Bar_Shortcode {
 		$eo_search->register_search(
 			'tm_search_admin',
 			array(
+				'class'       => 'user-searchbar',
 				'label'        => '',
 				'icon'         => 'fa-user',
 				'type'         => 'user',
 				'name'         => 'user_id',
 				'hidden_value' => $data['user_id'],
 				'value'        => $user_display,
-				'placeholder'  => 'Users',
+				'placeholder'  => 'Auteur',
 				'args'         => array(
 					'role' => 'administrator',
 				),

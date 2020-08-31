@@ -223,14 +223,15 @@ class Point_Filter {
 	}
 
 	public function fill_value_created_date_value( $output, $point ) {
-		$output['classes'] .= ' cell-readonly';
+		$output['classes'] .= ' task-created-date';
+		$output['raw']      = $point->data['date']['raw'];
 		$output['value']    = $point->data['date']['rendered']['date_time'];
 
 		return $output;
 	}
 
 	public function fill_value_ended_date_value( $output, $point ) {
-		$output['classes'] .= ' cell-readonly';
+		$output['classes'] .= ' cell-disabled';
 
 		return $output;
 	}

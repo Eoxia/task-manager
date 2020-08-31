@@ -28,6 +28,7 @@ class Point_Action {
 	 */
 	public function __construct() {
 		add_action( 'wp_ajax_edit_point', array( $this, 'ajax_edit_point' ) );
+		add_action( 'wp_ajax_edit_created_date', array( $this, 'callback_edit_created_date' ) );
 		add_action( 'wp_ajax_change_date_point', array( $this, 'ajax_change_date_point' ) );
 		add_action( 'wp_ajax_delete_point', array( $this, 'ajax_delete_point' ) );
 		add_action( 'wp_ajax_edit_order_point', array( $this, 'ajax_edit_order_point' ) );
@@ -142,6 +143,33 @@ class Point_Action {
 
 		Point_Class::g()->update( $point );
 
+		wp_send_json_success();
+	}
+
+	/**
+	 * Change la date de création d'un projet.
+	 *
+	 * @return void
+	 *
+	 * @since 3.0.2
+	 * @version 3.0.2
+	 */
+	public function callback_edit_created_date() {
+//		check_ajax_referer( 'edit_created_date' );
+
+		$id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+		$created_date   = ! empty( $_POST['created_date'] ) ?  sanitize_text_field( $_POST['created_date'] ) : current_time( 'mysql' );
+
+		$point = point_Class::g()->get(
+			array(
+				'id' => $id,
+			),
+			true
+		);
+
+		$point->data['date'] = $created_date;
+
+		Point_Class::g()->update( $point );
 		wp_send_json_success();
 	}
 

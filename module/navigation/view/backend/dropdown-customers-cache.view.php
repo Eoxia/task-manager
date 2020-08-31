@@ -1,5 +1,5 @@
 <div class="dropdown-item me item-info">
-	<span class="dropdown-result-title">Please enter three letters</span>
+	<span class="dropdown-result-title">Veuillez saisir trois lettres</span>
 </div>
 
 <div class="dropdown-item item-nothing me wpeo-util-hidden">
@@ -14,4 +14,3 @@
 			<span class="dropdown-result-title">a</span>
 								<span class="dropdown-result-subtitle">a (a@a.com)</span>
 							</div>
-		
