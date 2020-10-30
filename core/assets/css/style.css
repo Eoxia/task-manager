@@ -1602,7 +1602,7 @@ body.eo-custom-page .content-wrap {
 
 .list-task {
   overflow-y: hidden;
-  overflow-x: auto; }
+  overflow-x: scroll; }
 
 .tm-dashboard-wrap {
   width: 100%;

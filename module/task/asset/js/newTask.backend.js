@@ -25,7 +25,8 @@ window.eoxiaJS.taskManager.newTask.event = function() {
 		jQuery( this ).removeClass( 'cell-focus' );
 	});
 	jQuery( '.list-task' ).on( 'scroll', window.eoxiaJS.taskManager.newTask.stickyAction );
-	window.eoxiaJS.taskManager.newTask.stickyAction();
+	jQuery( document ).on( 'click', '.list-task', window.eoxiaJS.taskManager.newTask.stickyAction );
+	//window.eoxiaJS.taskManager.newTask.stickyAction();
 
 	jQuery( document ).on( 'click', '.table-projects .cell-affiliated', function(e) {
 		e.stopPropagation();
@@ -262,12 +263,11 @@ window.eoxiaJS.taskManager.newTask.stickyAction = function( e ) {
 	var tables = jQuery( '.list-task' );
 
 	tables.each( function( i ) {
-		var scrollPos = jQuery( this ).scrollLeft();
-		var finalPos = scrollPos + jQuery( this ).width() - 102;
-		var finalPosHeader = scrollPos + jQuery( this ).width() - 30;
-
-		jQuery( this ).find( '.cell-sticky' ).css({left: finalPos});
-		jQuery( this ).find( '.table-header-edit' ).css({left: finalPosHeader });
+		var scrollPos = tables.scrollLeft();
+		var finalPos = scrollPos + tables.width() - 102;
+		var finalPosHeader = scrollPos + tables.width() - 30;
+		tables.find( '.cell-sticky' ).css({left: finalPos});
+		tables.find( '.table-header-edit' ).css({left: finalPosHeader });
 	});
 };
 
